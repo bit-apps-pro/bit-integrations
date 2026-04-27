@@ -55,6 +55,7 @@ final class AllTriggersName
             'FluentCart'                     => ['name' => 'FluentCart',  'isPro' => true, 'is_active' => false],
             'FluentCrm'                      => ['name' => 'Fluent CRM',  'isPro' => true, 'is_active' => false],
             'FluentCommunity'                => ['name' => 'Fluent Community',  'isPro' => true, 'is_active' => false],
+            'FluentPdfGenerator'              => ['name' => 'Fluent PDF Generator',  'isPro' => true, 'is_active' => false],
             'FluentSupport'                  => ['name' => 'Fluent Support',  'isPro' => true, 'is_active' => false],
             'FluentSMTP'                     => ['name' => 'FluentSMTP',  'isPro' => true, 'is_active' => false],
             'FunnelKitAutomations'           => ['name' => 'FunnelKit Automations',  'isPro' => true, 'is_active' => false],
