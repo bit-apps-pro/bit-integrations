@@ -1,14 +1,42 @@
-import { __ } from '../../../Utils/i18nwrap'
-import Loader from '../../Loaders/Loader'
-import { addFieldMap } from './IntegrationHelpers'
-import MailerLiteFieldMap from './MailerLiteFieldMap'
-import MailerLiteActions from './MailerLiteActions'
-import { mailerliteRefreshFields } from './MailerLiteCommonFunc'
-import { useState } from 'react'
-import Note from '../../Utilities/Note'
+import { create } from 'mutative'
+import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
-import { getProLabel } from '../../Utilities/ProUtilHelpers'
+import { __ } from '../../../Utils/i18nwrap'
+import Loader from '../../Loaders/Loader'
+import Note from '../../Utilities/Note'
+import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
+import { addFieldMap } from './IntegrationHelpers'
+import MailerLiteActions from './MailerLiteActions'
+import { getAllGroups, mailerliteRefreshFields } from './MailerLiteCommonFunc'
+import MailerLiteFieldMap from './MailerLiteFieldMap'
+
+const actionOptions = [
+  {
+    value: 'add_subscriber',
+    label: __('Add Subscriber', 'bit-integrations'),
+    isPro: false,
+    isV2Only: false
+  },
+  {
+    value: 'delete_subscriber',
+    label: __('Delete subscriber', 'bit-integrations'),
+    isPro: true,
+    isV2Only: true
+  },
+  {
+    value: 'forget_subscriber',
+    label: __('Forget subscriber', 'bit-integrations'),
+    isPro: true,
+    isV2Only: true
+  },
+  {
+    value: 'unassign_subscriber_from_group',
+    label: __('Unassign subscriber from a group', 'bit-integrations'),
+    isPro: true,
+    isV2Only: true
+  }
+]
 
 export default function MailerLiteIntegLayout({
   formFields,
@@ -22,38 +50,70 @@ export default function MailerLiteIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  const handleMainAction = value => {
+    const updatedConf = create(mailerLiteConf, draftConf => {
+      draftConf.action = value
+    })
+
+    setMailerLiteConf(updatedConf)
+
+    if (value !== '') {
+      mailerliteRefreshFields(updatedConf, setMailerLiteConf, loading, setLoading)
+    }
+
+    if (value === 'unassign_subscriber_from_group') {
+      getAllGroups(updatedConf, setMailerLiteConf, loading, setLoading)
+    }
+  }
+
   return (
     <>
       <br />
-      <b className="wdt-200 d-in-b">{__('Select Action:', 'bit-integrations')}</b>
-      <select
-        onChange={handleInput}
-        name="action"
-        value={mailerLiteConf?.action}
-        className="btcd-paper-inp w-5">
-        <option value="">{__('Select an action', 'bit-integrations')}</option>
-        <option value="add_subscriber" data-action_name="add_subscriber">
-          {__('Add Subscriber', 'bit-integrations')}
-        </option>
-        <option
-          value="delete_subscriber"
-          data-action_name="delete_subscriber"
-          disabled={mailerLiteConf.mailer_lite_type === 'v1' || !isPro}>
-          {isPro
-            ? __('Delete subscriber', 'bit-integrations')
-            : getProLabel(__('Delete subscriber', 'bit-integrations'))}
-        </option>
-        <option
-          value="forget_subscriber"
-          data-action_name="forget_subscriber"
-          disabled={mailerLiteConf.mailer_lite_type === 'v1' || !isPro}>
-          {isPro
-            ? __('Forget subscriber', 'bit-integrations')
-            : getProLabel(__('Forget subscriber', 'bit-integrations'))}
-        </option>
-      </select>
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
+        <MultiSelect
+          title="action"
+          defaultValue={mailerLiteConf?.action || ''}
+          className="mt-2 w-5"
+          onChange={value => handleMainAction(value)}
+          options={actionOptions.map(action => ({
+            label: checkIsPro(isPro, action.isPro) ? action.label : getProLabel(action.label),
+            value: action.value,
+            disabled:
+              !checkIsPro(isPro, action.isPro) || (action.isV2Only && mailerLiteConf.version === 'v1')
+          }))}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
 
-      {loading.field && (
+      {mailerLiteConf?.action === 'unassign_subscriber_from_group' && (
+        <div className="mt-4">
+          <b className="wdt-200 d-in-b">{__('Select Group:', 'bit-integrations')}</b>
+          <select
+            className="btcd-paper-inp w-5"
+            name="selected_group_id"
+            value={mailerLiteConf?.selected_group_id || ''}
+            onChange={handleInput}>
+            <option value="">{__('Select a group', 'bit-integrations')}</option>
+            {mailerLiteConf?.groups?.map(group => (
+              <option key={group.group_id} value={group.group_id}>
+                {group.name}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={() => getAllGroups(mailerLiteConf, setMailerLiteConf, loading, setLoading)}
+            className="icn-btn sh-sm ml-2 mr-2 tooltip"
+            style={{ '--tooltip-txt': `'${__('Refresh Groups', 'bit-integrations')}'` }}
+            type="button"
+            disabled={loading.group}>
+            &#x21BB;
+          </button>
+        </div>
+      )}
+
+      {(loading.field || loading.group) && (
         <Loader
           style={{
             display: 'flex',
@@ -142,7 +202,7 @@ export default function MailerLiteIntegLayout({
 
 const note = `
     <p>${__(
-      'This action requires a MailerLite New account. It isn’t supported with Classic accounts.',
-      'bit-integrations'
-    )}</p>
+  'This action requires a MailerLite New account. It isn’t supported with Classic accounts.',
+  'bit-integrations'
+)}</p>
   `

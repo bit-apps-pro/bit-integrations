@@ -749,7 +749,19 @@ class RecordApiHelper
 
             $order = wc_create_order(['customer_id' => $customer_id]);
             $product = wc_get_product($product_id);
-            $order->add_product($product, (int) $lineItem->quantity);
+
+            $lineArgs = [];
+            if (isset($lineItem->subtotal) && $lineItem->subtotal !== '') {
+                $lineArgs['subtotal'] = (float) $lineItem->subtotal;
+            }
+            if (isset($lineItem->total) && $lineItem->total !== '') {
+                $lineArgs['total'] = (float) $lineItem->total;
+            }
+            if (isset($lineItem->line_subtotal_tax) && $lineItem->line_subtotal_tax !== '') {
+                $lineArgs['subtotal_tax'] = (float) $lineItem->line_subtotal_tax;
+            }
+
+            $order->add_product($product, (int) $lineItem->quantity, $lineArgs);
 
             return $order;
         }

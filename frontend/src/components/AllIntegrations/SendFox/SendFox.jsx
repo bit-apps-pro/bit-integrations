@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
-import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
@@ -10,9 +9,6 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SendFoxAuthorization from './SendFoxAuthorization'
 import {
   handleInput,
-  checkMappedFields,
-  checkMappedListFields,
-  checkMappedSubscribeFields,
   isDisabled
 } from './SendFoxCommonFunc'
 import SendFoxIntegLayout from './SendFoxIntegLayout'

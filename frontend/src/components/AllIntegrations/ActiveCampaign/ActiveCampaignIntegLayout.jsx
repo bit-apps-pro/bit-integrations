@@ -33,7 +33,6 @@ export default function ActiveCampaignIntegLayout({
     setActiveCampaingConf({ ...newConf })
   }
   const setAccount = val => {
-    console.log(val)
     setActiveCampaingConf(prevConf =>
       create(prevConf, draftConf => {
         if (val) {

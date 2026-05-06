@@ -27,65 +27,45 @@ const changeLog = [
     items: []
   },
   {
-    label: __('New Actions', 'bit-integrations'),
-    headClass: 'new-integration',
-    itemClass: 'integration-list',
-    items: [
-      {
-        label: 'weDocs',
-        desc: '3 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Creator LMS',
-        desc: '5 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Ninja Tables',
-        desc: '2 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WC Affiliate',
-        desc: '6 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Asgaros Forum',
-        desc: '4 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Ultimate Affiliate Pro',
-        desc: '4 new events added.',
-        isPro: true
-      }
-    ]
-  },
-  {
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
     items: [
       {
-        label: 'weDocs',
-        desc: '8 new events added.',
+        label: 'WP ERP',
+        desc: '28 new events added.',
         isPro: true
       },
       {
-        label: 'Creator LMS',
-        desc: '5 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WC Affiliate',
+        label: 'PeepSo',
         desc: '3 new events added.',
         isPro: true
       },
       {
-        label: 'Ultimate Affiliate Pro',
-        desc: '8 new events added.',
+        label: 'Fluent PDF Generator',
+        desc: '2 new event added.',
+        isPro: true
+      }
+    ]
+  },
+  {
+    label: __('New Actions', 'bit-integrations'),
+    headClass: 'new-integration',
+    itemClass: 'integration-list',
+    items: [
+      {
+        label: 'Monday.com',
+        desc: '12 new events added.',
+        isPro: true
+      },
+      {
+        label: 'WP ERP',
+        desc: '14 new events added.',
+        isPro: true
+      },
+      {
+        label: 'PeepSo',
+        desc: '7 new events added.',
         isPro: true
       }
     ]
@@ -94,13 +74,7 @@ const changeLog = [
     label: __('New Features', 'bit-integrations'),
     headClass: 'new-feature',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'Tags',
-        desc: 'Added tag creation and management support in integrations.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Improvements', 'bit-integrations'),
@@ -108,14 +82,20 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Dashboard',
-        desc: 'Improved all integrations table UI and component structure.',
+        label: 'MailerLite',
+        desc: 'Added unassign subscriber from group support and improved subscriber existence checks.',
         isPro: false
-      }, {
-        label: 'WPForms',
-        desc: 'Hidden fields support enabled.',
-        isPro: true
       },
+      {
+        label: 'WooCommerce',
+        desc: 'Added line item subtotal and tax support for order creation.',
+        isPro: false
+      },
+      {
+        label: 'Email Notification',
+        desc: 'Enhanced integration failure notification template and message clarity.',
+        isPro: false
+      }
     ]
   },
   {
@@ -124,8 +104,28 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'ActiveCampaign',
-        desc: 'Fixed field map reset issue.',
+        label: 'MailerLite',
+        desc: 'Fixed blank page issue.',
+        isPro: false
+      },
+      {
+        label: 'FluentCRM',
+        desc: 'Fixed logo handling and added missing assets.',
+        isPro: false
+      },
+      {
+        label: 'Custom Trigger',
+        desc: 'Fixed save configuration handling in trigger/action config endpoints.',
+        isPro: false
+      },
+      {
+        label: 'WP User Registration',
+        desc: 'Improved error handling and password generation reliability.',
+        isPro: false
+      },
+      {
+        label: 'SendFox',
+        desc: 'Removed unused frontend imports and fixed field mapping behavior.',
         isPro: false
       }
     ]
@@ -266,7 +266,7 @@ export default function ChangelogToggle() {
                 <div>
                   <span className="footer">{__('For more details,')}</span>
                   <a
-                    href="https://bitapps.pro/docs/bit-integrations/free-changelogs/"
+                    href="https://bit-integrations.com/wp-docs/free-changelogs/"
                     target="_blank"
                     rel="noreferrer">
                     {__('Click here')}&nbsp;

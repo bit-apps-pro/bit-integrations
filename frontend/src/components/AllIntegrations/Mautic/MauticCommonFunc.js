@@ -2,31 +2,9 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
 import { sprintf, __ } from '../../../Utils/i18nwrap'
 
-export const handleInput = (
-  e,
-  sheetConf,
-  setSheetConf,
-  formID,
-  setIsLoading,
-  setSnackbar,
-  isNew,
-  error,
-  setError
-) => {
-  let newConf = { ...sheetConf }
-  if (isNew) {
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    setError({ ...rmError })
-  }
+export const handleInput = (e, sheetConf, setSheetConf) => {
+  const newConf = { ...sheetConf }
   newConf[e.target.name] = e.target.value
-  switch (e.target.name) {
-    case 'listId':
-      newConf = listChange(newConf, formID, setSheetConf, setIsLoading, setSnackbar)
-      break
-    default:
-      break
-  }
   setSheetConf({ ...newConf })
 }
 

@@ -8,8 +8,8 @@ namespace BitApps\Integrations\Actions\MailerLite;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
+use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
 /**
@@ -65,7 +65,10 @@ class RecordApiHelper
 
         $response = HttpHelper::get($apiEndpoints, null, $this->_defaultHeader);
 
-        return $response->data->id ?? false;
+        return [
+            'id'   => $response->data->id ?? null,
+            'data' => $response->data ?? null
+        ];
     }
 
     public function enableDoubleOptIn($auth_token)
@@ -104,10 +107,8 @@ class RecordApiHelper
 
         $requestParams = self::prepareRequestParams($finalData, $type, $this->_isMailerLiteV2);
 
-        $isExist = $this->existSubscriber($auth_token, $email);
-        $response = null;
-
-        if ($isExist && empty($this->_actions->update)) {
+        $existSubscriber = $this->existSubscriber($auth_token, $email);
+        if ($existSubscriber['id'] && empty($this->_actions->update)) {
             return [
                 'success' => false,
                 'message' => __('Subscriber already exist', 'bit-integrations'),
@@ -121,7 +122,11 @@ class RecordApiHelper
             return self::sendToGroups($this, $splitGroupIds, $requestParams, $this->_isMailerLiteV2);
         }
 
-        if ($isExist) {
+        if ($existSubscriber['id']) {
+            if (isset($existSubscriber['data']->status) && 'unsubscribed' === $existSubscriber['data']->status) {
+                $requestParams['resubscribe'] = true;
+            }
+
             $response = HttpHelper::post($apiEndpoint, $requestParams, $this->_defaultHeader);
             $response->update = true;
 
@@ -149,15 +154,17 @@ class RecordApiHelper
             ];
         }
 
-        $subscriberId = $this->existSubscriber($auth_token, $finalData['email']);
+        $existSubscriber = $this->existSubscriber($auth_token, $finalData['email']);
 
-        if (empty($subscriberId)) {
+        if (empty($existSubscriber['id'])) {
             return [
                 'success' => false,
                 'message' => __('Subscriber not exist', 'bit-integrations'),
                 'code'    => 400
             ];
         }
+
+        $subscriberId = $existSubscriber['id'];
 
         $response = Hooks::apply(Config::withPrefix('mailerlite_delete_subscriber'), false, $subscriberId, $finalData, $this->_baseUrl, $this->_defaultHeader, $forget);
 
@@ -166,6 +173,45 @@ class RecordApiHelper
          * @since 2.7.8
          */
         $response = Hooks::apply('btcbi_mailerlite_delete_subscriber', $response, $subscriberId, $finalData, $this->_baseUrl, $this->_defaultHeader, $forget);
+
+        return $response ? $response : (object) ['success' => false, 'message' => __('Bit Integrations Pro is required.', 'bit-integrations'), 'code' => 400];
+    }
+
+    public function unassignSubscriberFromGroup($auth_token, $groupId, $finalData)
+    {
+        if (!$this->_isMailerLiteV2) {
+            return [
+                'success' => false,
+                'message' => __('This action is not supported for Classic accounts.', 'bit-integrations'),
+                'code'    => 400
+            ];
+        }
+
+        if (empty($finalData['email'])) {
+            return [
+                'success' => false,
+                'message' => __('Required field Email is empty', 'bit-integrations'),
+                'code'    => 400
+            ];
+        }
+        if (empty($groupId)) {
+            return [
+                'success' => false,
+                'message' => __('Required field Group is empty', 'bit-integrations'),
+                'code'    => 400
+            ];
+        }
+
+        $existSubscriber = $this->existSubscriber($auth_token, $finalData['email']);
+        if (empty($existSubscriber['id'])) {
+            return [
+                'success' => false,
+                'message' => __('Subscriber not exist', 'bit-integrations'),
+                'code'    => 400
+            ];
+        }
+
+        $response = Hooks::apply(Config::withPrefix('mailerlite_unassign_subscriber_from_group'), false, $existSubscriber['id'], $groupId, $this->_baseUrl, $this->_defaultHeader);
 
         return $response ? $response : (object) ['success' => false, 'message' => __('Bit Integrations Pro is required.', 'bit-integrations'), 'code' => 400];
     }
@@ -188,7 +234,7 @@ class RecordApiHelper
     }
 
     public function execute(
-        $groupId,
+        $integrationDetails,
         $type,
         $fieldValues,
         $fieldMap,
@@ -212,7 +258,16 @@ class RecordApiHelper
 
                 break;
 
+            case 'unassign_subscriber_from_group':
+                $groupId = $integrationDetails->selected_group_id ?? '';
+                $apiResponse = $this->unassignSubscriberFromGroup($auth_token, $groupId, $finalData);
+                $typeName = 'unassign-subscriber-from-group';
+                $res = ['success' => true, 'message' => __('Subscriber unassigned from group successfully', 'bit-integrations'), 'code' => 200];
+
+                break;
+
             default:
+                $groupId = $integrationDetails->group_ids ?? '';
                 $apiResponse = $this->addSubscriber($auth_token, $groupId, $type, $finalData);
                 $typeName = 'add-subscriber';
                 $res = ['success' => true, 'message' => isset($apiResponse->update) ? __('Subscriber updated successfully', 'bit-integrations') : __('Subscriber created successfully', 'bit-integrations'), 'code' => 200];
@@ -220,7 +275,7 @@ class RecordApiHelper
                 break;
         }
 
-        if (isset($apiResponse->data->id) || isset($apiResponse->id) || str_starts_with((string) HttpHelper::$responseCode, '20')) {
+        if (isset($apiResponse->data->id) || isset($apiResponse->id) || strpos((string) HttpHelper::$responseCode, '20') === 0) {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'subscriber', 'type_name' => $typeName]), 'success', wp_json_encode($res));
         } else {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'subscriber', 'type_name' => $typeName]), 'error', wp_json_encode($apiResponse));

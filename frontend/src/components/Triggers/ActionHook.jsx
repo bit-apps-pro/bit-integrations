@@ -342,7 +342,7 @@ const ActionHook = () => {
         <TutorialLink
           style={{ margin: 0 }}
           links={{
-            docLink: "https://bitapps.pro/docs/bit-integrations/trigger/action-hook-integrations",
+            docLink: "https://bit-integrations.com/wp-docs/trigger/action-hook-integrations/",
             youTubeLink: "https://youtu.be/pZ-8JuZfIco?si=Xxv857hJjv6p5Tcu"
           }}
         />
@@ -382,7 +382,7 @@ const info = `<h4>${sprintf(
   'bit-integrations'
 )}</p>
             <h5>
-              <a className="btcd-link" href="https://bitapps.pro/docs/bit-integrations/trigger-hooks" target="_blank" rel="noreferrer">${__(
+              <a className="btcd-link" href="https://bit-integrations.com/wp-docs/trigger-hooks/" target="_blank" rel="noreferrer">${__(
   'Bit Integrations Trigger Hooks',
   'bit-integrations'
 )}</a>

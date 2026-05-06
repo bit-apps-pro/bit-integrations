@@ -26,7 +26,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
       }
     }
     if (type === 'source') {
-      console.log(e.target?.checked)
       if (e.target?.checked) {
         newConf.actions.source = true
         setActionMdl({ show: 'source' })
@@ -37,7 +36,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
       }
     }
     if (type === 'group') {
-      console.log(e.target?.checked)
       if (e.target?.checked) {
         newConf.actions.group = true
         setActionMdl({ show: 'group' })
@@ -48,7 +46,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
       }
     }
     if (type === 'product') {
-      console.log(e.target?.checked)
       if (e.target?.checked) {
         newConf.actions.product = true
         setActionMdl({ show: 'product' })
@@ -59,7 +56,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
       }
     }
     if (type === 'agent') {
-      console.log(e.target?.checked)
       if (e.target?.checked) {
         newConf.actions.agent = true
         setActionMdl({ show: 'agent' })

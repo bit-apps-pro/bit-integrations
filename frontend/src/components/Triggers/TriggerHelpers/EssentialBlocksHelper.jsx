@@ -117,9 +117,9 @@ const EssentialBlocksHelper = () => {
       !val
         ? undefined
         : {
-            key: val,
-            value: extractValueFromPath(newFlow.triggerDetail?.data, val)
-          }
+          key: val,
+          value: extractValueFromPath(newFlow.triggerDetail?.data, val)
+        }
     )
   }
   useEffect(() => {
@@ -132,15 +132,15 @@ const EssentialBlocksHelper = () => {
     }
   }, [])
   const info = `<h4>${__('Setup Essential Blocks', 'bit-integrations')}</h4>
-            <a className="btcd-link" href="https://bitapps.pro/docs/bit-integrations/trigger/action-hook-integrations" target="_blank" rel="noreferrer">${__(
-              'More Details on Documentation',
-              'bit-integrations'
-            )}</a>
+            <a className="btcd-link" href="https://bit-integrations.com/wp-docs/trigger/essential-blocks-integrations/" target="_blank" rel="noreferrer">${__(
+    'More Details on Documentation',
+    'bit-integrations'
+  )}</a>
             <ul>
                 <li>${__(
-                  'Click on the <b>Fetch</b> button then Submit your <b>Form</b> to get the form data',
-                  'bit-integrations'
-                )}</li>
+    'Click on the <b>Fetch</b> button then Submit your <b>Form</b> to get the form data',
+    'bit-integrations'
+  )}</li>
             </ul>`
 
   return (

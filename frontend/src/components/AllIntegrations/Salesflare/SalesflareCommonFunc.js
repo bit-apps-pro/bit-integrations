@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-else-return */
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
@@ -84,7 +83,7 @@ export const salesflareFields = (salesflareConf, setSalesflareConf, setIsLoading
       if (result && result.success) {
         setSalesflareConf(prevConf => {
           const draftConf = prevConf
-          draftConf.field_map = [{ formField: '', salesmateFormField: '' }]
+          draftConf.field_map = [{ formField: '', salesflareFormField: '' }]
           if (result.data) {
             draftConf.salesflareAllFields = []
             draftConf.salesflareAllFields = [...draftConf.salesflareFields, ...result.data]

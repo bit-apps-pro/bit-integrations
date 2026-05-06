@@ -1,27 +1,43 @@
-import React, { useEffect, useState } from 'react'
-import Loader from '../components/Loaders/Loader'
+import React, { memo, useEffect, useState } from 'react'
 import PlaceholderIcon from '../Icons/PlaceholderIcon'
 
+const logoModules = import.meta.glob('../resource/img/integ/*.{png,jpg,jpeg,webp,svg}')
+
 function GetLogo({ name, style, extension }) {
-  /**TODO: Fix the fluentCRM name in trigger or action */
-  const logo = name === 'FluentCrm' ? 'fluentCRM' : camelize(name) // Temporary solution
-  const dynamicModule = import(`../resource/img/integ/${logo}.${extension}`)
-  const [Component, setComponent] = useState(null)
+  const [logo, setLogo] = useState(null)
+
   useEffect(() => {
-    dynamicModule.then(module => {
-      setComponent(() => module.default)
-    })
-  }, [name])
+    let isMounted = true
+    const modulePath = `../resource/img/integ/${camelize(name)}.${extension}`
+    const importer = logoModules[modulePath]
 
-  const loaderStyle = {
-    display: 'flex',
-    height: '85%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+    if (!importer) {
+      console.error(`Logo not found for ${name} with extension ${extension}`)
+      setLogo(null)
+      return () => {
+        isMounted = false
+      }
+    }
 
-  return Component ? (
-    <img loading="lazy" src={Component} alt={`${logo}-logo`} style={style} />
+    importer()
+      .then(module => {
+        if (isMounted) {
+          setLogo(() => module.default)
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setLogo(null)
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [name, extension])
+
+  return logo ? (
+    <img loading="lazy" src={logo} alt={`${name}-logo`} style={style} />
   ) : (
     <PlaceholderIcon size={100} text={name} />
   )
@@ -35,4 +51,4 @@ function camelize(name) {
     .replace(/\s+/g, '')
 }
 
-export default GetLogo
+export default memo(GetLogo)

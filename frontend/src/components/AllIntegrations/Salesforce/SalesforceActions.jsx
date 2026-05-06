@@ -121,7 +121,7 @@ export default function SalesforceActions({
               subTitle={
                 <ProFeatureSubtitle
                   title={__('Update', 'bit-integrations')}
-                  subtitle={__('Update existing Record.', 'bit-integrations')}
+                  subTitle={__('Update existing Record.', 'bit-integrations')}
                   proVersion="2.7.2 or 2.7.3"
                 />
               }
@@ -330,7 +330,7 @@ export default function SalesforceActions({
                 subTitle={
                   <ProFeatureSubtitle
                     title={__('Lead Source', 'bit-integrations')}
-                    subtitle={__('Add Lead Source', 'bit-integrations')}
+                    subTitle={__('Add Lead Source', 'bit-integrations')}
                     proVersion="2.5.3"
                   />
                 }
@@ -347,7 +347,7 @@ export default function SalesforceActions({
                 subTitle={
                   <ProFeatureSubtitle
                     title={__('Lead Status', 'bit-integrations')}
-                    subtitle={__('Add Lead Status', 'bit-integrations')}
+                    subTitle={__('Add Lead Status', 'bit-integrations')}
                     proVersion="2.5.3"
                   />
                 }
@@ -364,7 +364,7 @@ export default function SalesforceActions({
                 subTitle={
                   <ProFeatureSubtitle
                     title={__('Rating', 'bit-integrations')}
-                    subtitle={__('Add Lead Rating', 'bit-integrations')}
+                    subTitle={__('Add Lead Rating', 'bit-integrations')}
                     proVersion="2.5.3"
                   />
                 }
@@ -381,7 +381,7 @@ export default function SalesforceActions({
                 subTitle={
                   <ProFeatureSubtitle
                     title={__('Industry', 'bit-integrations')}
-                    subtitle={__('Add Lead Industry', 'bit-integrations')}
+                    subTitle={__('Add Lead Industry', 'bit-integrations')}
                     proVersion="2.5.3"
                   />
                 }

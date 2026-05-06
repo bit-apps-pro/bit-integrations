@@ -137,7 +137,6 @@ export const getAllBusinessInboxes = (
 }
 
 export const generateMappedField = fluentSupportFields => {
-  console.log(fluentSupportFields)
   const requiredFlds = fluentSupportFields.filter(fld => fld.required === true)
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({

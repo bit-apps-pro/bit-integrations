@@ -36,7 +36,7 @@ export default function SelectAction() {
     { type: 'ActiveCampaign' },
     { type: 'Encharge' },
     { type: 'WP Post Creation' },
-    { type: 'Fluent CRM' },
+    { type: 'Fluent CRM', logo: 'fluentCrm' },
     { type: 'Autonami' },
     { type: 'Dropbox' },
     { type: 'OneDrive' },

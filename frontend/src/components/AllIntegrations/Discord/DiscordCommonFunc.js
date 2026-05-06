@@ -50,7 +50,6 @@ export const getAllServers = (confTmp, setConf, setIsLoading) => {
 }
 
 export const getAllChannels = (confTmp, setConf, setIsLoading) => {
-  console.log('confTmp', confTmp.selectedServer)
   if (!confTmp.accessToken) {
     setError({
       accessToken: !confTmp.accessToken ? __("Access Token can't be empty", 'bit-integrations') : ''

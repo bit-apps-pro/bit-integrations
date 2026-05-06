@@ -87,7 +87,7 @@ final class RegistrationController
         }
 
         if (empty($fieldData['user_pass']) && $flowDetails->action_type !== 'updated_user') {
-            $fieldData['user_pass'] = random_int(100000, 999999);
+            $fieldData['user_pass'] = wp_generate_password(24);
         }
 
         return $fieldData;

@@ -16,7 +16,7 @@ final class ElementorController
             'title'             => __('Elementor is the platform web creators choose to build professional WordPress websites, grow their skills, and build their business. Start for free today!', 'bit-integrations'),
             'type'              => 'custom_form_submission',
             'is_active'         => self::pluginActive(),
-            'documentation_url' => 'https://bitapps.pro/docs/bit-integrations/trigger/elementor-form-integrations',
+            'documentation_url' => 'https://bit-integrations.com/wp-docs/trigger/elementor-form-integrations/',
             'tutorial_url'      => 'https://youtube.com/playlist?list=PL7c6CDwwm-ALGg0fZNLDIHjh1QJPcDSXp&si=HIKa9m0-yjPSXP2p',
             'tasks'             => [
                 'action' => 'elementor/get',
