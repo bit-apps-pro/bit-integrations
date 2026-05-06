@@ -177,6 +177,7 @@ export default function SelectAction() {
     { type: 'MailerPress' },
     { type: 'CreatorLms' },
     { type: 'FluentCart' },
+    { type: 'WP ERP', logo: 'wpErp' },
     { type: 'PeepSo' },
     { type: 'Ninja Tables' },
     { type: 'WC Affiliate' },

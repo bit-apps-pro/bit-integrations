@@ -156,6 +156,7 @@ final class AllTriggersName
             'WSForm'                         => ['name' => 'WSForm',  'isPro' => true, 'is_active' => false],
             'WishlistMember'                 => ['name' => 'Wishlist Member',  'isPro' => true, 'is_active' => false],
             'WpAllImport'                    => ['name' => 'WP All Import',  'isPro' => true, 'is_active' => false],
+            'WpErp'                          => ['name' => 'WP ERP',  'isPro' => true, 'is_active' => false],
             'WPLMS'                          => ['name' => 'WPLMS',  'isPro' => true, 'is_active' => false],
             'WPLoyalty'                      => ['name' => 'WPLoyalty',  'isPro' => true, 'is_active' => false],
             'WPSubscription'                 => ['name' => 'WPSubscription',  'isPro' => true, 'is_active' => false],
