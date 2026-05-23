@@ -3,6 +3,7 @@ import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
+import Note from '../../Utilities/Note'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import { generateMappedField } from './BookingPressCommonFunc'
@@ -113,6 +114,18 @@ export default function BookingPressIntegLayout({
           </div>
           <br />
         </div>
+      )}
+
+      {bookingPressConf?.mainAction === 'update_appointment_status' && (
+        <>
+          <br />
+          <Note
+            note={__(
+              'When mapping the Status field, use these values: Approved = 1, Pending = 2, Cancelled = 3, Rejected = 4.',
+              'bit-integrations'
+            )}
+          />
+        </>
       )}
     </>
   )
