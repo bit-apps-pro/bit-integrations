@@ -30,13 +30,70 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'B2BKing',
+        desc: '3 new events added',
+        isPro: true
+      },
+      {
+        label: 'BookingPress',
+        desc: '7 new events added',
+        isPro: true
+      },
+      {
+        label: 'FormyChat',
+        desc: '2 new events added',
+        isPro: true
+      },
+      {
+        label: 'SureDash',
+        desc: '18 new events added',
+        isPro: true
+      },
+      {
+        label: 'wpDataTables',
+        desc: '4 new events added',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'B2BKing',
+        desc: '3 new events added',
+        isPro: true
+      },
+      {
+        label: 'BookingPress',
+        desc: '6 new events added',
+        isPro: true
+      },
+      {
+        label: 'Bookly',
+        desc: '6 new events added',
+        isPro: true
+      },
+      {
+        label: 'FormyChat',
+        desc: '1 new events added',
+        isPro: true
+      },
+      {
+        label: 'SureDash',
+        desc: '7 new events added',
+        isPro: true
+      },
+      {
+        label: 'wpDataTables',
+        desc: '1 new events added',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -54,28 +111,7 @@ const changeLog = [
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'Keap',
-        desc: 'Added missing `last_name` contact field and corrected `middle_name` label.',
-        isPro: false
-      },
-      {
-        label: 'Copper CRM',
-        desc: 'Fixed field mapping for custom values and mapped trigger fields.',
-        isPro: false
-      },
-      {
-        label: 'Copper CRM',
-        desc: 'Fixed custom input handlers to avoid undefined event target errors.',
-        isPro: false
-      },
-      {
-        label: 'Tagify Input',
-        desc: 'Fixed dropdown item limit handling during field mapping.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Security', 'bit-integrations'),
