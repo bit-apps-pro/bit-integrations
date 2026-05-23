@@ -20,6 +20,7 @@ final class AllTriggersName
             'ARMember'                       => ['name' => 'ARMember',  'isPro' => true, 'is_active' => false],
             'Asgaros'                        => ['name' => 'Asgaros Forum',  'isPro' => true, 'is_active' => false],
             'AvadaForms'                     => ['name' => 'Avada Forms',  'isPro' => true, 'is_active' => false],
+            'B2BKing'                        => ['name' => 'B2BKing',  'isPro' => true, 'is_active' => false],
             'Beaver'                         => ['name' => 'Beaver',  'isPro' => true, 'is_active' => false],
             'BetterMessages'                 => ['name' => 'Better Messages',  'isPro' => true, 'is_active' => false],
             'Breakdance'                     => ['name' => 'Breakdance',  'isPro' => true, 'is_active' => false],

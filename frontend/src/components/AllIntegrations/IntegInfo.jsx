@@ -191,6 +191,7 @@ const SeoPressAuthorization = lazy(() => import('./SeoPress/SeoPressAuthorizatio
 const NotificationXAuthorization = lazy(() => import('./NotificationX/NotificationXAuthorization'))
 const WeDocsAuthorization = lazy(() => import('./WeDocs/WeDocsAuthorization'))
 const AsgarosForumAuthorization = lazy(() => import('./AsgarosForum/AsgarosForumAuthorization'))
+const B2BKingAuthorization = lazy(() => import('./B2BKing/B2BKingAuthorization'))
 const UserRegistrationMembershipAuthorization = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembershipAuthorization')
 )
@@ -678,6 +679,8 @@ export default function IntegInfo() {
       case 'Asgaros Forum':
       case 'AsgarosForum':
         return <AsgarosForumAuthorization asgarosForumConf={integrationConf} step={1} isInfo />
+      case 'B2BKing':
+        return <B2BKingAuthorization b2bKingConf={integrationConf} step={1} isInfo />
       default:
         return <></>
     }

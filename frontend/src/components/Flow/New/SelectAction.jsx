@@ -190,6 +190,7 @@ export default function SelectAction() {
     { type: 'NotificationX' },
     { type: 'weDocs' },
     { type: 'Asgaros Forum', logo: 'asgaros' },
+    { type: 'B2BKing' },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership' }
   ]
 

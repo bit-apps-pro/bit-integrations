@@ -186,6 +186,7 @@ const TeamsForWooCommerceMemberships = lazy(
   () => import('./TeamsForWooCommerceMemberships/TeamsForWooCommerceMemberships')
 )
 const AsgarosForum = lazy(() => import('./AsgarosForum/AsgarosForum'))
+const B2BKing = lazy(() => import('./B2BKing/B2BKing'))
 const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
@@ -1778,6 +1779,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'AsgarosForum':
         return (
           <AsgarosForum
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'B2BKing':
+        return (
+          <B2BKing
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
