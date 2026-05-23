@@ -154,6 +154,7 @@ const SystemeIO = lazy(() => import('./SystemeIO/SystemeIO'))
 const Discord = lazy(() => import('./Discord/Discord'))
 const ZagoMail = lazy(() => import('./ZagoMail/ZagoMail'))
 const Newsletter = lazy(() => import('./Newsletter/Newsletter'))
+const SureDash = lazy(() => import('./SureDash/SureDash'))
 const SureMembers = lazy(() => import('./SureMembers/SureMembers'))
 const Mailster = lazy(() => import('./Mailster/Mailster'))
 const WPForo = lazy(() => import('./WPForo/WPForo'))
@@ -172,6 +173,7 @@ const WishlistMember = lazy(() => import('./WishlistMember/WishlistMember'))
 const CreatorLms = lazy(() => import('./CreatorLms/CreatorLms'))
 const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateAffiliatePro'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
 const PeepSo = lazy(() => import('./PeepSo/PeepSo'))
 const NinjaTables = lazy(() => import('./NinjaTables/NinjaTables'))
@@ -1518,6 +1520,15 @@ export default function NewInteg({ allIntegURL }) {
             setFlow={setFlow}
           />
         )
+      case 'SureDash':
+        return (
+          <SureDash
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
       case 'SureMembers':
         return (
           <SureMembers
@@ -1674,6 +1685,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'FluentCart':
         return (
           <FluentCart
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'FormyChat':
+        return (
+          <FormyChat
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
