@@ -2,9 +2,9 @@
 Contributors: bitpressadmin, akaioum, rishadbitcode, niloy121, fahimsakib, shuvomohajan, tanvirchy, shakhawathosen, khoaiz, mazharul78
 Tags: automation, automator, google sheets integration, form integration, WooCommerce Integration
 Requires at least: 5.1
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.5
+Stable tag: 2.8.6
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
@@ -467,6 +467,24 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.8.6 =
+_Release Date - 23rd May 2026_
+
+- **New Triggers**
+ - B2BKing: 3 new events added (Pro).
+ - BookingPress: 7 new events added (Pro).
+ - FormyChat: 2 new events added (Pro).
+ - SureDash: 18 new events added (Pro).
+ - wpDataTables: 4 new events added (Pro).
+
+- **New Actions**
+ - B2BKing: 3 new events added (Pro).
+ - BookingPress: 6 new events added (Pro).
+ - Bookly: 6 new events added (Pro).
+ - FormyChat: 1 new event added (Pro).
+ - SureDash: 7 new events added (Pro).
+ - wpDataTables: 1 new event added (Pro).
 
 = 2.8.5 =
 _Release Date - 13th May 2026_
