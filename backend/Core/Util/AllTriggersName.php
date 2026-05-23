@@ -31,6 +31,7 @@ final class AllTriggersName
             'Buddypress'                     => ['name' => 'Buddypress',  'isPro' => true, 'is_active' => false],
             'BbPress'                        => ['name' => 'bbPress',  'isPro' => true, 'is_active' => false],
             'BookingCalendarContactForm'     => ['name' => 'Booking Calendar Contact Form',  'isPro' => true, 'is_active' => false],
+            'BookingPress'                   => ['name' => 'BookingPress',  'isPro' => true, 'is_active' => false],
             'CalculatedFieldsForm'           => ['name' => 'Calculated Fields Form Pro',  'isPro' => true, 'is_active' => false],
             'CartFlow'                       => ['name' => 'CartFlow',  'isPro' => true, 'is_active' => false],
             'CustomTrigger'                  => ['name' => 'Custom Trigger',  'isPro' => true, 'is_active' => false],

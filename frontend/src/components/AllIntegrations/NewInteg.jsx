@@ -75,6 +75,7 @@ const WhatsApp = lazy(() => import('./WhatsApp/WhatsApp'))
 const LearnDesh = lazy(() => import('./LearnDash/LearnDash'))
 const Affiliate = lazy(() => import('./Affiliate/Affiliate'))
 const BuddyBoss = lazy(() => import('./BuddyBoss/BuddyBoss'))
+const BookingPress = lazy(() => import('./BookingPress/BookingPress'))
 const GoogleContacts = lazy(() => import('./GoogleContacts/GoogleContacts'))
 const KirimEmail = lazy(() => import('./KirimEmail/KirimEmail'))
 const Salesforce = lazy(() => import('./Salesforce/Salesforce'))
@@ -768,6 +769,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'BuddyBoss':
         return (
           <BuddyBoss
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'BookingPress':
+        return (
+          <BookingPress
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
