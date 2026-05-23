@@ -179,6 +179,7 @@ const UltimateAffiliateProAuthorization = lazy(
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
+const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
 const PeepSoAuthorization = lazy(() => import('./PeepSo/PeepSoAuthorization'))
@@ -652,6 +653,8 @@ export default function IntegInfo() {
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
       case 'BookingPress':
         return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
+      case 'WpDataTables':
+        return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
       case 'FormyChat':
         return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
       case 'WP ERP':
