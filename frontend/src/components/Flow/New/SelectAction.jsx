@@ -179,6 +179,7 @@ export default function SelectAction() {
     { type: 'CreatorLms' },
     { type: 'Bookly' },
     { type: 'FluentCart' },
+    { type: 'WpDataTables' },
     { type: 'FormyChat' },
     { type: 'WP ERP', logo: 'wpErp' },
     { type: 'PeepSo' },
