@@ -166,6 +166,7 @@ const TheEventsCalendarAuthorization = lazy(
 const LMFWCAuthorization = lazy(() => import('./LMFWC/LMFWCAuthorization'))
 const VoxelAuthorization = lazy(() => import('./Voxel/VoxelAuthorization'))
 const SmartSuiteAuthorization = lazy(() => import('./SmartSuite/SmartSuiteAuthorization'))
+const MondayComAuthorization = lazy(() => import('./MondayCom/MondayComAuthorization'))
 const BentoAuthorization = lazy(() => import('./Bento/BentoAuthorization'))
 const LineAuthorization = lazy(() => import('./Line/LineAuthorization'))
 const ACPTAuthorization = lazy(() => import('./ACPT/ACPTAuthorization'))
@@ -176,6 +177,7 @@ const UltimateAffiliateProAuthorization = lazy(
 )
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
+const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
 const PeepSoAuthorization = lazy(() => import('./PeepSo/PeepSoAuthorization'))
 const NinjaTablesAuthorization = lazy(() => import('./NinjaTables/NinjaTablesAuthorization'))
 const WCAffiliateAuthorization = lazy(() => import('./WCAffiliate/WCAffiliateAuthorization'))
@@ -618,6 +620,8 @@ export default function IntegInfo() {
         return <VoxelAuthorization voxelConf={integrationConf} step={1} isInfo />
       case 'SmartSuite':
         return <SmartSuiteAuthorization smartSuiteConf={integrationConf} step={1} isInfo />
+      case 'Monday.Com':
+        return <MondayComAuthorization mondayComConf={integrationConf} step={1} isInfo />
       case 'Bento':
         return <BentoAuthorization bentoConf={integrationConf} step={1} isInfo />
       case 'Line':
@@ -640,6 +644,8 @@ export default function IntegInfo() {
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
       case 'BookingPress':
         return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
+      case 'WP ERP':
+        return <WpErpAuthorization wpErpConf={integrationConf} step={1} isInfo />
       case 'PeepSo':
         return <PeepSoAuthorization peepSoConf={integrationConf} step={1} isInfo />
       case 'Ninja Tables':

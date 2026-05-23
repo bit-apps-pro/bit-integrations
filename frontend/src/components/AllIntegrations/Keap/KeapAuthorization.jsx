@@ -38,7 +38,7 @@ export default function KeapAuthorization({
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
 
-    refreshCustomFields(keapConf, setKeapConf, setIsLoading, setSnackbar)
+    refreshCustomFields(formID, keapConf, setKeapConf, setIsLoading, setSnackbar)
     setstep(2)
   }
   return (

@@ -36,6 +36,12 @@ function EditMailerLite({ allIntegURL }) {
       setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       return
     }
+
+    if (mailerLiteConf?.action === 'unassign_subscriber_from_group' && !mailerLiteConf?.selected_group_id) {
+      setSnackbar({ show: true, msg: __('Please select a group', 'bit-integrations') })
+      return
+    }
+
     saveActionConf({
       flow,
       allIntegURL,

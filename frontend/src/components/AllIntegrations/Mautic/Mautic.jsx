@@ -38,9 +38,7 @@ function Mautic({ formFields, setFlow, flow, allIntegURL }) {
       setSnackbar({ show: true, msg: __('Please map fields to continue.', 'bit-integrations') })
       return
     }
-    if (mauticConf.listId !== '') {
-      setstep(3)
-    }
+    setstep(3)
   }
 
   return (
@@ -65,7 +63,7 @@ function Mautic({ formFields, setFlow, flow, allIntegURL }) {
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <MauticIntegLayout
           formFields={formFields}
-          handleInput={e => handleInput(e, mauticConf, setMauticConf, setIsLoading, setSnackbar)}
+          handleInput={e => handleInput(e, mauticConf, setMauticConf)}
           mauticConf={mauticConf}
           setMauticConf={setMauticConf}
           isLoading={isLoading}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
@@ -12,7 +12,6 @@ import {
 import SendFoxFieldMap from './SendFoxFieldMap'
 import SendFoxListFieldMap from './SendFoxListFieldMap'
 import SendFoxUnsubscribeFieldMap from './SendFoxUnsubscribeFieldMap'
-import { create } from 'mutative'
 
 export default function SendFoxIntegLayout({
   formFields,
@@ -41,14 +40,22 @@ export default function SendFoxIntegLayout({
   const setMainAction = value => {
     setSendFoxConf(prev =>
       create(prev, draft => {
-        draft[field] = value
+        draft.mainAction = value
 
-        if (value === '2') {
-          draft.field_map = generateMappedField(newConf)
-        } else if (value === '1') {
-          draft.field_map_list = generateListMappedField(newConf)
-        } else if (value === '3') {
-          draft.field_map_unsubscribe = generateunsubscribeMappedField(newConf)
+        switch (value) {
+          case '1':
+            draft.field_map_list = generateListMappedField(sendFoxConf)
+            break
+          case '2':
+            draft.field_map = generateMappedField(sendFoxConf)
+            break
+          case '3':
+            draft.field_map_unsubscribe = generateunsubscribeMappedField(sendFoxConf)
+            break
+          default:
+            draft.field_map = [{ formField: '', sendFoxFormField: '' }]
+            draft.field_map_list = [{ formField: '', sendFoxListFormField: '' }]
+            draft.field_map_unsubscribe = [{ formField: '', sendFoxUnsubscribeFormField: '' }]
         }
       })
     )
@@ -60,7 +67,7 @@ export default function SendFoxIntegLayout({
       <br />
       <b className="wdt-200 d-in-b">{__('Actions:', 'bit-integrations')}</b>
       <select
-        onChange={handleInput}
+        onChange={e => setMainAction(e.target.value)}
         name="mainAction"
         value={sendFoxConf.mainAction}
         className="btcd-paper-inp w-5">

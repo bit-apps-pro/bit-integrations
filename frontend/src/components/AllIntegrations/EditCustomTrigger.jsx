@@ -160,7 +160,7 @@ function EditCustomTrigger() {
         stopFetching()
       })
     } catch (err) {
-      console.log(
+      console.error(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err
       )
     }

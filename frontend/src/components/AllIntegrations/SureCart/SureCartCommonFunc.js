@@ -53,8 +53,8 @@ export const checkMappedFields = fieldsMapped => {
   return true
 }
 
-export const generateMappedField = kirimEmailConf => {
-  const requiredFlds = kirimEmailConf?.customerFields.filter(fld => fld.required === true)
+export const generateMappedField = sureCartConf => {
+  const requiredFlds = sureCartConf?.customerFields.filter(fld => fld.required === true)
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({ formField: '', SureCartFormField: field.key }))
     : [{ formField: '', SureCartFormField: '' }]

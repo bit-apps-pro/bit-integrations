@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
@@ -10,7 +9,6 @@ import {
   handleListCustomValue,
   handleListFieldMapping
 } from './IntegrationHelpers'
-import { generateListMappedField } from './SendFoxCommonFunc'
 
 export default function SendFoxListFieldMap({ i, formFields, field, sendFoxConf, setSendFoxConf }) {
   const requiredFlds = listFields.filter(fld => fld.required === true) || []

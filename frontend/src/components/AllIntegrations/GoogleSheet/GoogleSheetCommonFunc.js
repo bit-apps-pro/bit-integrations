@@ -238,7 +238,6 @@ export const handleAuthorize = (confTmp, selectedAuthType, setError, setIsLoadin
   const apiEndpoint = `https://accounts.google.com/o/oauth2/v2/auth?scope=${scopes}&access_type=offline&prompt=consent&response_type=code&state=${encodeURIComponent(
     stateUrl
   )}&redirect_uri=${encodeURIComponent(finalRedirectUri)}&client_id=${clientId}`
-  console.log(btcbi)
   const authWindow = window.open(apiEndpoint, 'googleSheet', 'width=400,height=609,toolbar=off')
   if (selectedAuthType === 'Custom Authorization') {
     const popupURLCheckTimer = setInterval(() => {

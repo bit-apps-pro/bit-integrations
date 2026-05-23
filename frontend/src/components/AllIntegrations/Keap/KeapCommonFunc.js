@@ -1,5 +1,6 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { contactFields } from './staticData'
 
 export const handleInput = (
   e,
@@ -196,6 +197,7 @@ export const refreshCustomFields = (id, confTmp, setConf, setIsLoading, setSnack
     if (result && result.success) {
       const newConf = { ...confTmp }
       if (result.data) {
+        newConf.contactFields = contactFields
         newConf.customFields = result.data
       }
       newConf.field_map = generateMappedField(newConf)

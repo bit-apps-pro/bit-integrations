@@ -1,13 +1,10 @@
 import { useRecoilValue } from 'recoil'
-import { useEffect } from 'react'
-import { __, sprintf } from '../../../Utils/i18nwrap'
-import MtInput from '../../Utilities/MtInput'
-import { addFieldMap, delFieldMap, handleFieldMapping } from './IntegrationHelpers'
-import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import { $appConfigState } from '../../../GlobalStates'
-import { generateMappedField } from './SendFoxCommonFunc'
+import { __, sprintf } from '../../../Utils/i18nwrap'
+import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
 import { handleCustomValue } from '../IntegrationHelpers/IntegrationHelpers'
+import { addFieldMap, delFieldMap, handleFieldMapping } from './IntegrationHelpers'
 
 export default function SendFoxFieldMap({ i, formFields, field, sendFoxConf, setSendFoxConf }) {
   const requiredFlds = contactFields.filter(fld => fld.required === true) || []

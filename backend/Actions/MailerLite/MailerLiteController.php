@@ -193,7 +193,6 @@ class MailerLiteController
         $integId = $integrationData->id;
         $auth_token = $integrationDetails->auth_token;
         $version = $integrationDetails->version;
-        $groupIds = $integrationDetails->group_ids ?? '';
         $fieldMap = $integrationDetails->field_map ?? '';
         $type = $integrationDetails->mailer_lite_type ?? '';
         $actions = $integrationDetails->actions ?? '';
@@ -208,7 +207,7 @@ class MailerLiteController
         }
         $recordApiHelper = new RecordApiHelper($auth_token, $integrationDetails, $integId, $actions, $version);
         $mailerliteApiResponse = $recordApiHelper->execute(
-            $groupIds,
+            $integrationDetails,
             $type,
             $fieldValues,
             $fieldMap,

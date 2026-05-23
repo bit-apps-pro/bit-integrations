@@ -181,7 +181,7 @@ export const saveUpdateConfig = (flow, allIntegURL, conf, navigate, edit, setIsL
     return
   }
   if (checkMappedFields(conf) === 'required') {
-    toast.error('You must select email or phone in klaviyo fields')
+    toast.error(__('You must select email or phone in Selzy fields', 'bit-integrations'))
     return
   }
   saveActionConf({ flow, allIntegURL, conf, navigate, edit, setIsLoading })
