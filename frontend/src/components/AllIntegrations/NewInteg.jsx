@@ -172,6 +172,7 @@ const ACPT = lazy(() => import('./ACPT/ACPT'))
 const WishlistMember = lazy(() => import('./WishlistMember/WishlistMember'))
 const CreatorLms = lazy(() => import('./CreatorLms/CreatorLms'))
 const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateAffiliatePro'))
+const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
@@ -1676,6 +1677,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Ultimate Affiliate Pro':
         return (
           <UltimateAffiliatePro
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Bookly':
+        return (
+          <Bookly
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

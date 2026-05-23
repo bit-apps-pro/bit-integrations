@@ -176,6 +176,7 @@ const CreatorLmsAuthorization = lazy(() => import('./CreatorLms/CreatorLmsAuthor
 const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
+const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
@@ -643,6 +644,8 @@ export default function IntegInfo() {
             isInfo
           />
         )
+      case 'Bookly':
+        return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
       case 'FluentCart':
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
       case 'FormyChat':
