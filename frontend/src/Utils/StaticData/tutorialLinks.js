@@ -670,6 +670,10 @@ const tutorialLinks = {
   userRegistrationMembership: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/user-registration-and-membership-as-action/'
+  },
+  bookingPress: {
+    youTubeLink: '',
+    docLink: ''
   }
 }
 export default tutorialLinks

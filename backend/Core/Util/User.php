@@ -21,6 +21,25 @@ class User
         return static::formattedData($user);
     }
 
+    public static function getUserByField($field, $value)
+    {
+        if (empty($field) || empty($value)) {
+            return static::formattedUserTemp();
+        }
+
+        $user = get_user_by($field, $value);
+
+        if (!$user instanceof WP_User) {
+            return static::formattedUserTemp();
+        }
+
+        if (empty($user->user_email)) {
+            return static::formattedUserTemp();
+        }
+
+        return static::formattedData($user);
+    }
+
     public static function currentUser()
     {
         if (!is_user_logged_in()) {

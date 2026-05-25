@@ -154,6 +154,7 @@ const DiscordAuthorization = lazy(() => import('./Discord/DiscordAuthorization')
 const ZagoMailAuthorization = lazy(() => import('./ZagoMail/ZagoMailAuthorization'))
 const WhatsAppAuthorization = lazy(() => import('./WhatsApp/WhatsAppAuthorization'))
 const NewsletterAuthorization = lazy(() => import('./Newsletter/NewsletterAuthorization'))
+const SureDashAuthorization = lazy(() => import('./SureDash/SureDashAuthorization'))
 const SureMembersAuthorization = lazy(() => import('./SureMembers/SureMembersAuthorization'))
 const MailsterAuthentication = lazy(() => import('./Mailster/MailsterAuthorization'))
 const WPForoAuthorization = lazy(() => import('./WPForo/WPForoAuthorization'))
@@ -175,7 +176,11 @@ const CreatorLmsAuthorization = lazy(() => import('./CreatorLms/CreatorLmsAuthor
 const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
+const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
+const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
+const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
 const PeepSoAuthorization = lazy(() => import('./PeepSo/PeepSoAuthorization'))
 const NinjaTablesAuthorization = lazy(() => import('./NinjaTables/NinjaTablesAuthorization'))
@@ -188,6 +193,7 @@ const SeoPressAuthorization = lazy(() => import('./SeoPress/SeoPressAuthorizatio
 const NotificationXAuthorization = lazy(() => import('./NotificationX/NotificationXAuthorization'))
 const WeDocsAuthorization = lazy(() => import('./WeDocs/WeDocsAuthorization'))
 const AsgarosForumAuthorization = lazy(() => import('./AsgarosForum/AsgarosForumAuthorization'))
+const B2BKingAuthorization = lazy(() => import('./B2BKing/B2BKingAuthorization'))
 const UserRegistrationMembershipAuthorization = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembershipAuthorization')
 )
@@ -599,6 +605,8 @@ export default function IntegInfo() {
         return <WhatsAppAuthorization whatsAppConf={integrationConf} step={1} isInfo />
       case 'Newsletter':
         return <NewsletterAuthorization newsletterConf={integrationConf} step={1} isInfo />
+      case 'SureDash':
+        return <SureDashAuthorization sureDashConf={integrationConf} step={1} isInfo />
       case 'SureMembers':
         return <SureMembersAuthorization sureMembersConf={integrationConf} step={1} isInfo />
       case 'Mailster':
@@ -639,8 +647,16 @@ export default function IntegInfo() {
             isInfo
           />
         )
+      case 'Bookly':
+        return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
       case 'FluentCart':
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+      case 'BookingPress':
+        return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
+      case 'WpDataTables':
+        return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
+      case 'FormyChat':
+        return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
       case 'WP ERP':
         return <WpErpAuthorization wpErpConf={integrationConf} step={1} isInfo />
       case 'PeepSo':
@@ -669,6 +685,8 @@ export default function IntegInfo() {
       case 'Asgaros Forum':
       case 'AsgarosForum':
         return <AsgarosForumAuthorization asgarosForumConf={integrationConf} step={1} isInfo />
+      case 'B2BKing':
+        return <B2BKingAuthorization b2bKingConf={integrationConf} step={1} isInfo />
       default:
         return <></>
     }

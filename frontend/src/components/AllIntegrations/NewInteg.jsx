@@ -75,6 +75,7 @@ const WhatsApp = lazy(() => import('./WhatsApp/WhatsApp'))
 const LearnDesh = lazy(() => import('./LearnDash/LearnDash'))
 const Affiliate = lazy(() => import('./Affiliate/Affiliate'))
 const BuddyBoss = lazy(() => import('./BuddyBoss/BuddyBoss'))
+const BookingPress = lazy(() => import('./BookingPress/BookingPress'))
 const GoogleContacts = lazy(() => import('./GoogleContacts/GoogleContacts'))
 const KirimEmail = lazy(() => import('./KirimEmail/KirimEmail'))
 const Salesforce = lazy(() => import('./Salesforce/Salesforce'))
@@ -154,6 +155,7 @@ const SystemeIO = lazy(() => import('./SystemeIO/SystemeIO'))
 const Discord = lazy(() => import('./Discord/Discord'))
 const ZagoMail = lazy(() => import('./ZagoMail/ZagoMail'))
 const Newsletter = lazy(() => import('./Newsletter/Newsletter'))
+const SureDash = lazy(() => import('./SureDash/SureDash'))
 const SureMembers = lazy(() => import('./SureMembers/SureMembers'))
 const Mailster = lazy(() => import('./Mailster/Mailster'))
 const WPForo = lazy(() => import('./WPForo/WPForo'))
@@ -171,7 +173,10 @@ const ACPT = lazy(() => import('./ACPT/ACPT'))
 const WishlistMember = lazy(() => import('./WishlistMember/WishlistMember'))
 const CreatorLms = lazy(() => import('./CreatorLms/CreatorLms'))
 const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateAffiliatePro'))
+const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
+const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
 const PeepSo = lazy(() => import('./PeepSo/PeepSo'))
 const NinjaTables = lazy(() => import('./NinjaTables/NinjaTables'))
@@ -183,6 +188,7 @@ const TeamsForWooCommerceMemberships = lazy(
   () => import('./TeamsForWooCommerceMemberships/TeamsForWooCommerceMemberships')
 )
 const AsgarosForum = lazy(() => import('./AsgarosForum/AsgarosForum'))
+const B2BKing = lazy(() => import('./B2BKing/B2BKing'))
 const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
@@ -763,6 +769,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'BuddyBoss':
         return (
           <BuddyBoss
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'BookingPress':
+        return (
+          <BookingPress
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
@@ -1518,6 +1533,15 @@ export default function NewInteg({ allIntegURL }) {
             setFlow={setFlow}
           />
         )
+      case 'SureDash':
+        return (
+          <SureDash
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
       case 'SureMembers':
         return (
           <SureMembers
@@ -1671,9 +1695,36 @@ export default function NewInteg({ allIntegURL }) {
             setFlow={setFlow}
           />
         )
+      case 'Bookly':
+        return (
+          <Bookly
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
       case 'FluentCart':
         return (
           <FluentCart
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'WpDataTables':
+        return (
+          <WpDataTables
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'FormyChat':
+        return (
+          <FormyChat
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
@@ -1748,6 +1799,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'AsgarosForum':
         return (
           <AsgarosForum
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'B2BKing':
+        return (
+          <B2BKing
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
