@@ -9,6 +9,7 @@ import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import {
   generateMappedField,
   refreshClients,
+  refreshLeads,
   refreshLeadSources,
   refreshLeadStages,
   refreshPipelines,
@@ -46,6 +47,16 @@ export default function HefflCRMIntegLayout({
       create(prevConf, draftConf => {
         draftConf.mainAction = value
 
+        delete draftConf.leadSources
+        delete draftConf.leadStages
+        delete draftConf.pipelines
+        delete draftConf.pipelineStages
+        delete draftConf.clients
+        delete draftConf.leads
+        delete draftConf.dealSourceId
+        delete draftConf.priority
+        delete draftConf.clientType
+
         switch (value) {
           case 'create_lead':
             draftConf.hefflCRMFields = LeadFields
@@ -63,6 +74,16 @@ export default function HefflCRMIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.hefflCRMFields)
       })
     )
+
+    if (value === 'create_lead') {
+      refreshLeadSources(hefflCRMConf, setHefflCRMConf, setIsLoading)
+      refreshLeadStages(hefflCRMConf, setHefflCRMConf, setIsLoading)
+    } else if (value === 'create_deal') {
+      refreshLeadSources(hefflCRMConf, setHefflCRMConf, setIsLoading)
+      refreshPipelines(hefflCRMConf, setHefflCRMConf, setIsLoading)
+      refreshClients(hefflCRMConf, setHefflCRMConf, setIsLoading)
+      refreshLeads(hefflCRMConf, setHefflCRMConf, setIsLoading)
+    }
   }
 
   const renderRefresh = (onClick, tooltip) => (
@@ -251,6 +272,23 @@ export default function HefflCRMIntegLayout({
             {renderRefresh(
               () => refreshClients(hefflCRMConf, setHefflCRMConf, setIsLoading),
               __('Refresh Clients', 'bit-integrations')
+            )}
+          </div>
+          <br />
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Lead (optional):', 'bit-integrations')}</b>
+            <MultiSelect
+              title="leadId"
+              defaultValue={hefflCRMConf?.leadId ?? null}
+              className="btcd-paper-drpdwn w-5"
+              options={hefflCRMConf?.leads || []}
+              onChange={val => setField(setHefflCRMConf, 'leadId', val)}
+              singleSelect
+              closeOnSelect
+            />
+            {renderRefresh(
+              () => refreshLeads(hefflCRMConf, setHefflCRMConf, setIsLoading),
+              __('Refresh Leads', 'bit-integrations')
             )}
           </div>
         </>

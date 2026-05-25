@@ -125,6 +125,17 @@ export const refreshClients = (conf, setConf, setIsLoading) =>
     __('Failed to fetch clients', 'bit-integrations')
   )
 
+export const refreshLeads = (conf, setConf, setIsLoading) =>
+  refreshList(
+    conf,
+    setConf,
+    setIsLoading,
+    'refresh_heffl_crm_leads',
+    'leads',
+    __('Leads fetched', 'bit-integrations'),
+    __('Failed to fetch leads', 'bit-integrations')
+  )
+
 export const checkMappedFields = hefflCRMConf => {
   if (!hefflCRMConf?.mainAction) return false
   const requiredKeys = (hefflCRMConf?.hefflCRMFields || []).filter(f => f.required).map(f => f.key)

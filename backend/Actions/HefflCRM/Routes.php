@@ -13,3 +13,4 @@ Route::post('refresh_heffl_crm_lead_stages', [HefflCRMController::class, 'refres
 Route::post('refresh_heffl_crm_pipelines', [HefflCRMController::class, 'refreshPipelines']);
 Route::post('refresh_heffl_crm_pipeline_stages', [HefflCRMController::class, 'refreshPipelineStages']);
 Route::post('refresh_heffl_crm_clients', [HefflCRMController::class, 'refreshClients']);
+Route::post('refresh_heffl_crm_leads', [HefflCRMController::class, 'refreshLeads']);
