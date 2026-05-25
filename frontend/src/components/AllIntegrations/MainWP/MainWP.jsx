@@ -41,7 +41,7 @@ export default function MainWP({ formFields, setFlow, flow, allIntegURL }) {
         return
       }
 
-      if (mainWPConf.name !== '' && mainWPConf.field_map.length > 0) {
+      if (mainWPConf.name !== '') {
         setStep(val)
       }
     } else {
@@ -88,7 +88,7 @@ export default function MainWP({ formFields, setFlow, flow, allIntegURL }) {
         <br />
         <button
           onClick={() => nextPage(3)}
-          disabled={mainWPConf.field_map.length < 1}
+          disabled={!checkMappedFields(mainWPConf)}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}

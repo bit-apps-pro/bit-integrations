@@ -111,7 +111,11 @@ class RecordApiHelper
         $data = [];
         foreach ($fieldMap as $item) {
             $triggerValue = $item->formField;
-            $actionValue = $item->mainWPField;
+            $actionValue  = $item->mainWPField;
+
+            if (empty($actionValue) || (empty($triggerValue) && $triggerValue !== 'custom')) {
+                continue;
+            }
 
             $data[$actionValue] = $triggerValue === 'custom' && isset($item->customValue)
                 ? Common::replaceFieldWithValue($item->customValue, $fieldValues)

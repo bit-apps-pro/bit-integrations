@@ -28,8 +28,14 @@ export const checkMappedFields = conf => {
   })
 }
 
-export const generateMappedField = fields =>
-  fields?.length ? fields.map(f => ({ formField: '', mainWPField: f.key })) : []
+export const generateMappedField = fields => {
+  if (!fields?.length) return []
+  const required = fields.filter(f => f.required)
+  const hasOptional = fields.some(f => !f.required)
+  const map = required.map(f => ({ formField: '', mainWPField: f.key }))
+  if (hasOptional) map.push({ formField: '', mainWPField: '' })
+  return map
+}
 
 export const refreshMainWPSites = (setMainWPConf, setIsLoading) => {
   setIsLoading('sites')

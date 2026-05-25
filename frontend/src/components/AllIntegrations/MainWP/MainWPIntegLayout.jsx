@@ -128,12 +128,17 @@ export default function MainWPIntegLayout({
       )}
 
       {mainWPConf?.mainAction && mainWPConf?.mainWPFields?.length > 0 && (
-        <>
-          <br />
-          <div className="mt-3">
-            <b className="wdt-200 d-in-b">{__('Field Map', 'bit-integrations')}</b>
+        <div className="mt-4">
+          <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
+            <div className="txt-dp">
+              <b>{__('Form Fields', 'bit-integrations')}</b>
+            </div>
+            <div className="txt-dp">
+              <b>{__('MainWP Fields', 'bit-integrations')}</b>
+            </div>
           </div>
-          <div className="btcd-hr mt-2 mb-3" />
 
           {mainWPConf?.field_map?.map((field, i) => (
             <MainWPFieldMap
@@ -146,17 +151,17 @@ export default function MainWPIntegLayout({
             />
           ))}
 
-          {mainWPConf?.mainWPFields?.some(f => !f.required) && (
-            <div className="mt-2">
-              <button
-                onClick={() => addFieldMap(mainWPConf?.field_map?.length, mainWPConf, setMainWPConf)}
-                className="icn-btn sh-sm"
-                type="button">
-                +
-              </button>
-            </div>
-          )}
-        </>
+          <div className="txt-center btcbi-field-map-button mt-2">
+            <button
+              onClick={() => addFieldMap(mainWPConf?.field_map?.length, mainWPConf, setMainWPConf)}
+              className="icn-btn sh-sm"
+              type="button">
+              +
+            </button>
+          </div>
+          <br />
+          <br />
+        </div>
       )}
     </>
   )

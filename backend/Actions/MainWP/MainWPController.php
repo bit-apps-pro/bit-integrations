@@ -3,7 +3,6 @@
 namespace BitApps\Integrations\Actions\MainWP;
 
 use WP_Error;
-use BitApps\Integrations\Actions\MainWP\RecordApiHelper;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -32,16 +31,16 @@ class MainWPController
         self::isExists();
 
         $websites = \MainWP\Dashboard\MainWP_DB::instance()->get_sites();
-
         $sites = [];
+
         if (!empty($websites)) {
             foreach ($websites as $website) {
-                if (empty($website->id)) {
+                if (empty($website['id'])) {
                     continue;
                 }
                 $sites[] = [
-                    'value' => (string) $website->id,
-                    'label' => ($website->name ?? 'Site') . ' (' . ($website->url ?? '') . ')',
+                    'value' => (string) $website['id'],
+                    'label' => ($website['name'] ?? 'Site') . ' (' . ($website['url'] ?? '') . ')',
                 ];
             }
         }
@@ -52,9 +51,9 @@ class MainWPController
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
-        $integId            = $integrationData->id;
-        $fieldMap           = $integrationDetails->field_map;
-        $utilities          = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
+        $integId = $integrationData->id;
+        $fieldMap = $integrationDetails->field_map;
+        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
         if (empty($fieldMap)) {
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
