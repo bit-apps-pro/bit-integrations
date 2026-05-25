@@ -53,7 +53,13 @@ export default function HefflCRMIntegLayout({
         delete draftConf.pipelineStages
         delete draftConf.clients
         delete draftConf.leads
+        delete draftConf.leadSourceId
+        delete draftConf.leadStageId
+        delete draftConf.pipelineId
+        delete draftConf.dealStageId
         delete draftConf.dealSourceId
+        delete draftConf.clientId
+        delete draftConf.leadId
         delete draftConf.priority
         delete draftConf.clientType
 

@@ -78,6 +78,9 @@ class RecordApiHelper
     {
         $dataFinal = [];
         foreach ($fieldMap as $item) {
+            if (!\is_object($item)) {
+                continue;
+            }
             $triggerValue = $item->formField;
             $actionValue = $item->hefflCRMField;
 

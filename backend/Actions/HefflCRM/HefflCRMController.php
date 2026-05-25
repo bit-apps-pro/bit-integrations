@@ -26,7 +26,11 @@ class HefflCRMController
             wp_send_json_error(__('API key is required', 'bit-integrations'), 400);
         }
 
-        HttpHelper::get(self::BASE_URL . '/leads?limit=1', null, self::buildHeaders($requestParams->api_key));
+        $response = HttpHelper::get(self::BASE_URL . '/leads?limit=1', null, self::buildHeaders($requestParams->api_key));
+
+        if (is_wp_error($response)) {
+            wp_send_json_error(__('Failed to connect to Heffl CRM: ', 'bit-integrations') . $response->get_error_message(), 400);
+        }
 
         if (HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300) {
             wp_send_json_success(__('Authorization successful', 'bit-integrations'), 200);
@@ -66,11 +70,15 @@ class HefflCRMController
             self::buildHeaders($requestParams->api_key)
         );
 
+        if (is_wp_error($response)) {
+            wp_send_json_error(__('Failed to connect to Heffl CRM: ', 'bit-integrations') . $response->get_error_message(), 400);
+        }
+
         if (HttpHelper::$responseCode < 200 || HttpHelper::$responseCode >= 300) {
             wp_send_json_error(__('Failed to fetch pipeline stages', 'bit-integrations'), HttpHelper::$responseCode ?: 400);
         }
 
-        $stages = \is_object($response) && isset($response->stages) ? $response->stages : [];
+        $stages = \is_object($response) && !is_wp_error($response) && isset($response->stages) ? $response->stages : [];
         $items = [];
 
         foreach ($stages as $stage) {
@@ -141,6 +149,10 @@ class HefflCRMController
             $query = $separator . 'limit=' . self::PAGE_LIMIT . ($cursor ? '&cursor=' . rawurlencode($cursor) : '');
             $response = HttpHelper::get(self::BASE_URL . $path . $query, null, $headers);
 
+            if (is_wp_error($response)) {
+                wp_send_json_error(__('Failed to connect to Heffl CRM: ', 'bit-integrations') . $response->get_error_message(), 400);
+            }
+
             if (HttpHelper::$responseCode < 200 || HttpHelper::$responseCode >= 300) {
                 wp_send_json_error(__('Failed to fetch from Heffl CRM', 'bit-integrations'), HttpHelper::$responseCode ?: 400);
             }
@@ -166,7 +178,7 @@ class HefflCRMController
 
     private static function extractList($response)
     {
-        if (\is_object($response) && isset($response->items) && \is_array($response->items)) {
+        if (\is_object($response) && !is_wp_error($response) && isset($response->items) && \is_array($response->items)) {
             return $response->items;
         }
         if (\is_array($response)) {
@@ -178,7 +190,7 @@ class HefflCRMController
 
     private static function nextCursor($response)
     {
-        if (\is_object($response) && !empty($response->hasMore) && !empty($response->nextCursor)) {
+        if (\is_object($response) && !is_wp_error($response) && !empty($response->hasMore) && !empty($response->nextCursor)) {
             return $response->nextCursor;
         }
 
