@@ -11,6 +11,8 @@ import {
   DeletePostFields,
   modules,
   PluginActionFields,
+  postStatusOptions,
+  postTypeOptions,
   SyncAllSitesFields,
   SyncSiteFields,
   UpdatePostFields
@@ -30,11 +32,19 @@ export default function MainWPIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  const setUtility = (key, val) =>
+    setMainWPConf(prev =>
+      create(prev, draft => {
+        draft.utilities = { ...(draft.utilities || {}), [key]: val }
+      })
+    )
+
   const handleMainAction = value => {
     setMainWPConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
         draftConf.selectedSite = ''
+        draftConf.utilities = {}
 
         switch (value) {
           case 'sync_site':
@@ -123,6 +133,46 @@ export default function MainWPIntegLayout({
               disabled={isLoading === 'sites'}>
               &#x21BB;
             </button>
+          </div>
+        </>
+      )}
+
+      {mainWPConf?.mainAction === 'create_post' && (
+        <>
+          <br />
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Post Type:', 'bit-integrations')}</b>
+            <select
+              className="btcd-paper-inp w-5"
+              value={mainWPConf?.utilities?.post_type || ''}
+              onChange={e => setUtility('post_type', e.target.value)}>
+              <option value="">{__('Select Post Type', 'bit-integrations')}</option>
+              {postTypeOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </>
+      )}
+
+      {['create_post', 'update_post'].includes(mainWPConf?.mainAction) && (
+        <>
+          <br />
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Post Status:', 'bit-integrations')}</b>
+            <select
+              className="btcd-paper-inp w-5"
+              value={mainWPConf?.utilities?.post_status || ''}
+              onChange={e => setUtility('post_status', e.target.value)}>
+              <option value="">{__('Select Post Status', 'bit-integrations')}</option>
+              {postStatusOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
           </div>
         </>
       )}

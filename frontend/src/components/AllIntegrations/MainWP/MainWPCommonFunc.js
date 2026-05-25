@@ -18,6 +18,8 @@ export const checkMappedFields = conf => {
 
   if (conf.mainAction !== 'sync_all_sites' && !conf?.selectedSite) return false
 
+  if (conf.mainAction === 'create_post' && !conf?.utilities?.post_type) return false
+
   const requiredFields = conf?.mainWPFields?.filter(f => f.required) || []
 
   if (!requiredFields.length) return true

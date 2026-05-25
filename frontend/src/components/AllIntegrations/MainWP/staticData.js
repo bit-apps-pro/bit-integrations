@@ -15,11 +15,21 @@ export const SyncSiteFields = []
 
 export const SyncAllSitesFields = []
 
+export const postTypeOptions = [
+  { label: __('Post', 'bit-integrations'), value: 'post' },
+  { label: __('Page', 'bit-integrations'), value: 'page' }
+]
+
+export const postStatusOptions = [
+  { label: __('Publish', 'bit-integrations'), value: 'publish' },
+  { label: __('Draft', 'bit-integrations'), value: 'draft' },
+  { label: __('Pending', 'bit-integrations'), value: 'pending' },
+  { label: __('Private', 'bit-integrations'), value: 'private' }
+]
+
 export const CreatePostFields = [
-  { key: 'post_type', label: __('Post Type', 'bit-integrations'), required: true },
   { key: 'post_title', label: __('Post Title', 'bit-integrations'), required: true },
   { key: 'post_content', label: __('Post Content', 'bit-integrations'), required: false },
-  { key: 'post_status', label: __('Post Status', 'bit-integrations'), required: false },
   { key: 'post_excerpt', label: __('Post Excerpt', 'bit-integrations'), required: false },
   { key: 'post_author', label: __('Post Author ID', 'bit-integrations'), required: false },
   { key: 'post_date', label: __('Post Date', 'bit-integrations'), required: false },
@@ -30,7 +40,6 @@ export const UpdatePostFields = [
   { key: 'post_id', label: __('Post ID', 'bit-integrations'), required: true },
   { key: 'post_title', label: __('Post Title', 'bit-integrations'), required: false },
   { key: 'post_content', label: __('Post Content', 'bit-integrations'), required: false },
-  { key: 'post_status', label: __('Post Status', 'bit-integrations'), required: false },
   { key: 'post_excerpt', label: __('Post Excerpt', 'bit-integrations'), required: false }
 ]
 

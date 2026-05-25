@@ -23,7 +23,7 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    public function execute($fieldValues, $fieldMap, $utilities)
+    public function execute($fieldValues, $fieldMap)
     {
         if (!class_exists('\MainWP\Dashboard\MainWP_DB')) {
             return [
@@ -39,6 +39,16 @@ class RecordApiHelper
             $fieldData['site_id'] = (int) $this->_integrationDetails->selectedSite;
         }
 
+        if (in_array($mainAction, ['create_post', 'update_post'], true)) {
+            $utils = (array) ($this->_integrationDetails->utilities ?? []);
+            if (!empty($utils['post_type'])) {
+                $fieldData['post_type'] = sanitize_text_field($utils['post_type']);
+            }
+            if (!empty($utils['post_status'])) {
+                $fieldData['post_status'] = sanitize_text_field($utils['post_status']);
+            }
+        }
+
         $defaultResponse = [
             'success' => false,
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro'),
@@ -46,49 +56,49 @@ class RecordApiHelper
 
         switch ($mainAction) {
             case 'sync_site':
-                $response = Hooks::apply(Config::withPrefix('main_wp_sync_site'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_sync_site'), $defaultResponse, $fieldData);
                 $actionType = 'sync_site';
 
                 break;
 
             case 'sync_all_sites':
-                $response = Hooks::apply(Config::withPrefix('main_wp_sync_all_sites'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_sync_all_sites'), $defaultResponse);
                 $actionType = 'sync_all_sites';
 
                 break;
 
             case 'create_post':
-                $response = Hooks::apply(Config::withPrefix('main_wp_create_post'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_create_post'), $defaultResponse, $fieldData);
                 $actionType = 'create_post';
 
                 break;
 
             case 'update_post':
-                $response = Hooks::apply(Config::withPrefix('main_wp_update_post'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_update_post'), $defaultResponse, $fieldData);
                 $actionType = 'update_post';
 
                 break;
 
             case 'delete_post':
-                $response = Hooks::apply(Config::withPrefix('main_wp_delete_post'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_delete_post'), $defaultResponse, $fieldData);
                 $actionType = 'delete_post';
 
                 break;
 
             case 'activate_plugin':
-                $response = Hooks::apply(Config::withPrefix('main_wp_activate_plugin'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_activate_plugin'), $defaultResponse, $fieldData);
                 $actionType = 'activate_plugin';
 
                 break;
 
             case 'deactivate_plugin':
-                $response = Hooks::apply(Config::withPrefix('main_wp_deactivate_plugin'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_deactivate_plugin'), $defaultResponse, $fieldData);
                 $actionType = 'deactivate_plugin';
 
                 break;
 
             case 'create_user':
-                $response = Hooks::apply(Config::withPrefix('main_wp_create_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('main_wp_create_user'), $defaultResponse, $fieldData);
                 $actionType = 'create_user';
 
                 break;
@@ -111,7 +121,7 @@ class RecordApiHelper
         $data = [];
         foreach ($fieldMap as $item) {
             $triggerValue = $item->formField;
-            $actionValue  = $item->mainWPField;
+            $actionValue = $item->mainWPField;
 
             if (empty($actionValue) || (empty($triggerValue) && $triggerValue !== 'custom')) {
                 continue;

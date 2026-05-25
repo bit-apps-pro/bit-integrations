@@ -24,7 +24,8 @@ export default function MainWP({ formFields, setFlow, flow, allIntegURL }) {
     mainAction: '',
     mainWPFields: [],
     selectedSite: '',
-    allSites: []
+    allSites: [],
+    utilities: {}
   })
 
   const nextPage = val => {
