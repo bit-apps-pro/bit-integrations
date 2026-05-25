@@ -179,6 +179,7 @@ export default function SelectAction() {
     { type: 'CreatorLms' },
     { type: 'Bookly' },
     { type: 'FluentCart' },
+    { type: 'Heffl CRM' },
     { type: 'BookingPress' },
     { type: 'WpDataTables' },
     { type: 'FormyChat' },
