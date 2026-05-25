@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SendinBlue;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -16,39 +17,13 @@ class SendinBlueController
 {
     public const APIENDPOINT = 'https://api.sendinblue.com/v3';
 
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams Params to Authorize
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function sendinBlueAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::APIENDPOINT . '/account';
-        $authorizationHeader['Accept'] = 'application/json';
-        $authorizationHeader['api-key'] = $requestsParams->api_key;
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || $apiResponse->code === 'unauthorized') {
-            wp_send_json_error(
-                empty($apiResponse->code) ? 'Unknown' : $apiResponse->message,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'sendinblue',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
 
     /**
      * Process ajax request for refresh crm modules

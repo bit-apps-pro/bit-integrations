@@ -7,9 +7,13 @@ export const handleInput = (e, sendinBlueConf, setSendinBlueConf) => {
   newConf.name = e.target.value
   setSendinBlueConf({ ...newConf })
 }
+
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
+
 export const refreshLists = (sendinBlueConf, setSendinBlueConf, setIsLoading, setSnackbar) => {
-  setIsLoading(true)
-  const refreshListsRequestParams = { api_key: sendinBlueConf.api_key }
+  if (typeof setIsLoading === 'function') setIsLoading(true)
+  const refreshListsRequestParams = buildAuthRequestParams(sendinBlueConf)
   bitsFetch(refreshListsRequestParams, 'sblue_refresh_lists')
     .then(result => {
       if (result && result.success) {
@@ -20,13 +24,13 @@ export const refreshLists = (sendinBlueConf, setSendinBlueConf, setIsLoading, se
         if (result.data.sblueList) {
           newConf.default.sblueList = result.data.sblueList
         }
-        setSnackbar({ show: true, msg: __('List refreshed', 'bit-integrations') })
+        setSnackbar?.({ show: true, msg: __('List refreshed', 'bit-integrations') })
         setSendinBlueConf({ ...newConf })
       } else if (
         (result && result.data && result.data.data) ||
         (!result.success && typeof result.data === 'string')
       ) {
-        setSnackbar({
+        setSnackbar?.({
           show: true,
           msg: sprintf(
             __('List refresh failed Cause: %s. please try again', 'bit-integrations'),
@@ -34,16 +38,18 @@ export const refreshLists = (sendinBlueConf, setSendinBlueConf, setIsLoading, se
           )
         })
       } else {
-        setSnackbar({ show: true, msg: __('List failed. please try again', 'bit-integrations') })
+        setSnackbar?.({ show: true, msg: __('List failed. please try again', 'bit-integrations') })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 
 export const refreshTemplate = (sendinBlueConf, setSendinBlueConf, setSnackbar) => {
   // setIsLoading(true)
-  const refreshListsRequestParams = { api_key: sendinBlueConf.api_key }
+  const refreshListsRequestParams = buildAuthRequestParams(sendinBlueConf)
   bitsFetch(refreshListsRequestParams, 'sblue_refresh_template').then(result => {
     if (result && result.success) {
       const newConf = { ...sendinBlueConf }
@@ -53,13 +59,13 @@ export const refreshTemplate = (sendinBlueConf, setSendinBlueConf, setSnackbar) 
       if (result.data.sblueTemplates) {
         newConf.default.sblueTemplates = result.data.sblueTemplates
       }
-      setSnackbar({ show: true, msg: __('Templates refreshed', 'bit-integrations') })
+      setSnackbar?.({ show: true, msg: __('Templates refreshed', 'bit-integrations') })
       setSendinBlueConf({ ...newConf })
     } else if (
       (result && result.data && result.data.data) ||
       (!result.success && typeof result.data === 'string')
     ) {
-      setSnackbar({
+      setSnackbar?.({
         show: true,
         msg: sprintf(
           __('Templates refresh failed Cause: %s. please try again', 'bit-integrations'),
@@ -67,7 +73,7 @@ export const refreshTemplate = (sendinBlueConf, setSendinBlueConf, setSnackbar) 
         )
       })
     } else {
-      setSnackbar({ show: true, msg: __('Templates failed. please try again', 'bit-integrations') })
+      setSnackbar?.({ show: true, msg: __('Templates failed. please try again', 'bit-integrations') })
     }
     // setIsLoading(false)
   })
@@ -80,7 +86,7 @@ export const refreshSendinBlueHeader = (
   setIsLoading,
   setSnackbar
 ) => {
-  const refreshListsRequestParams = { api_key: sendinBlueConf.api_key }
+  const refreshListsRequestParams = buildAuthRequestParams(sendinBlueConf)
   bitsFetch(refreshListsRequestParams, 'sblue_headers')
     .then(result => {
       if (result && result.success) {
@@ -91,9 +97,9 @@ export const refreshSendinBlueHeader = (
           newConf.field_map = Object.values(fields)
             .filter(f => f.required)
             .map(f => ({ formField: '', sendinBlueField: f.fieldId, required: true }))
-          setSnackbar({ show: true, msg: __('Sendinblue fields refreshed', 'bit-integrations') })
+          setSnackbar?.({ show: true, msg: __('Sendinblue fields refreshed', 'bit-integrations') })
         } else {
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __(
               'No Sendinblue fields found. Try changing the header row number or try again',
@@ -104,14 +110,16 @@ export const refreshSendinBlueHeader = (
 
         setSendinBlueConf({ ...newConf })
       } else {
-        setSnackbar({
+        setSnackbar?.({
           show: true,
           msg: __('Sendinblue fields refresh failed. please try again', 'bit-integrations')
         })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 
 export const checkMappedFields = sendinBlueConf => {

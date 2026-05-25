@@ -7,5 +7,4 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\PCloud\PCloudController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::no_sanitize()->post('pCloud_authorization', [PCloudController::class, 'authorization']);
 Route::post('pCloud_get_all_folders', [PCloudController::class, 'getAllFolders']);

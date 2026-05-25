@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Mailercloud;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,40 +15,20 @@ use WP_Error;
  */
 class MailercloudController
 {
-    private $baseUrl = 'https://cloudapi.mailercloud.com/v1/';
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'mailercloud',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
 
-    public function handleAuthorize($requestParams)
-    {
-        if (empty($requestParams->authKey)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $apiEndpoints = $this->baseUrl . 'client/plan';
-        $headers = [
-            'Content-Type'  => 'application/json',
-            'Authorization' => $requestParams->authKey
-        ];
-        $response = HttpHelper::get($apiEndpoints, null, $headers);
-        if ($response->code === 'invalid_api_key') {
-            wp_send_json_error(
-                __(
-                    'Invalid token',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        wp_send_json_success($response, 200);
-    }
+    private $baseUrl = 'https://cloudapi.mailercloud.com/v1/';
 
     public function getAllLists($requestParams)
     {
-        if (empty($requestParams->authKey)) {
+        $apiKey = $this->extractApiKey($requestParams);
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -59,7 +40,7 @@ class MailercloudController
         $apiEndpoints = $this->baseUrl . 'lists/search';
         $headers = [
             'Content-Type'  => 'application/json',
-            'Authorization' => $requestParams->authKey
+            'Authorization' => $apiKey
         ];
         $body = [
             'limit' => 100,
@@ -82,7 +63,8 @@ class MailercloudController
 
     public function getAllFields($requestParams)
     {
-        if (empty($requestParams->authKey)) {
+        $apiKey = $this->extractApiKey($requestParams);
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -94,7 +76,7 @@ class MailercloudController
         $apiEndpoints = $this->baseUrl . 'contact/property/search';
         $headers = [
             'Content-Type'  => 'application/json',
-            'Authorization' => $requestParams->authKey
+            'Authorization' => $apiKey
         ];
         $body = [
             'limit' => 100,
@@ -136,7 +118,7 @@ class MailercloudController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $authKey = $integrationDetails->authKey;
+        $authKey = !empty($integrationDetails->api_key) ? $integrationDetails->api_key : (isset($integrationDetails->authKey) ? $integrationDetails->authKey : '');
         $listId = $integrationDetails->listId;
         $contactType = $integrationDetails->contactType;
         $field_map = $integrationDetails->field_map;
@@ -162,5 +144,10 @@ class MailercloudController
         }
 
         return $mailercloudApiResponse;
+    }
+
+    private function extractApiKey($requestParams)
+    {
+        return !empty($requestParams->api_key) ? $requestParams->api_key : (isset($requestParams->authKey) ? $requestParams->authKey : '');
     }
 }

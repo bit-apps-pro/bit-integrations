@@ -5,7 +5,7 @@ import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveIntegConfig, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoCreatorAuthorization from './ZohoCreatorAuthorization'
 import { checkMappedFields, handleInput } from './ZohoCreatorCommonFunc'
@@ -26,10 +26,6 @@ function ZohoCreator({ formFields, setFlow, flow, allIntegURL }) {
     field_map: [{ formField: '', zohoFormField: '' }],
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoCreator')
-  }, [])
 
   const nextPage = () => {
     setTimeout(() => {

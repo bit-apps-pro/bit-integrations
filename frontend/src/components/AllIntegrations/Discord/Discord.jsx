@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
@@ -14,7 +14,6 @@ import BackIcn from '../../../Icons/BackIcn'
 
 function Discord({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -51,14 +50,11 @@ function Discord({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <DiscordAuthorization
-        formID={formID}
         discordConf={discordConf}
         setDiscordConf={setDiscordConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
         setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

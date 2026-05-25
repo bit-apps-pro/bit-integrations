@@ -1,188 +1,98 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
-import bitsFetch from '../../../Utils/bitsFetch'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { highLevelAuthentication } from './HighLevelCommonFunc'
+import Authorization from '../../Connections/Authorization'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
-import toast from 'react-hot-toast'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { getProLabel } from '../../Utilities/ProUtilHelpers'
+import { getConnection } from '../../../Utils/connectionApi'
 
 export default function HighLevelAuthorization({
-  formID,
   highLevelConf,
   setHighLevelConf,
   step,
   setstep,
-  isInfo,
-  loading,
-  setLoading
+  isInfo
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
-const [isAuthorized, setisAuthorized] = useState(false)
-  const [error, setError] = useState({ name: '', api_key: '' })
 
-  const handleInput = e => {
-    const newConf = { ...highLevelConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setHighLevelConf(newConf)
-  }
+  const hydrateConnectionExtras = useCallback(
+    async connectionId => {
+      if (!connectionId) return
 
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+      const res = await getConnection(connectionId)
+      const authDetails = res?.success ? res?.data?.data?.auth_details : null
+      if (!authDetails) return
 
-    setstep(2)
-  }
+      setHighLevelConf(prev => ({
+        ...prev,
+        version: authDetails.version || prev.version || 'v1',
+        location_id: authDetails.location_id || prev.location_id || ''
+      }))
+    },
+    [setHighLevelConf]
+  )
+
+  const handleSetStep = useCallback(
+    value => {
+      setstep(value)
+    },
+    [setstep]
+  )
+
+  const versionOptions = isPro
+    ? [
+        { value: 'v1', label: 'HighLevel API V1' },
+        { value: 'v2', label: 'HighLevel API V2' }
+      ]
+    : [{ value: 'v1', label: getProLabel('HighLevel API V1') }]
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="HighLevel" links={tutorialLinks?.highLevel || {}} />
-
-      <div className="mt-3 wdt-200">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={highLevelConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.name}</div>
-
-      <div className="mt-3">
-        <b>{__('Select Version:')}</b>
-      </div>
-      <div className="flex items-center w-6 mt-3">
-        <input
-          id="MailerLiteClassic"
-          type="radio"
-          name="version"
-          value="v1"
-          className="hidden"
-          checked={!highLevelConf?.version || highLevelConf?.version === 'v1'}
-          onChange={handleInput}
-        />
-        <label for="MailerLiteClassic">
-          <span className="w-4 h-4 inline-block mr-1 border border-grey" />
-          HighLevel API V1
-        </label>
-      </div>
-
-      <div className="flex items-center mr-4 mt-2 mb-4">
-        <input
-          id="MailerLiteNew"
-          type="radio"
-          name="version"
-          value="v2"
-          className="hidden"
-          checked={highLevelConf?.version === 'v2'}
-          onChange={handleInput}
-          disabled={!isPro}
-        />
-        <label for="MailerLiteNew">
-          <span className="w-4 h-4 inline-block mr-1 border border-grey" />
-          {isPro ? 'HighLevel API V2' : getProLabel('HighLevel API V2')}
-        </label>
-      </div>
-
-      {highLevelConf?.version === 'v2' && (
-        <>
-          <div className="mt-3 wdt-250">
-            <b>{__('Location ID:', 'bit-integrations')}</b>
-          </div>
-          <input
-            className="btcd-paper-inp w-6 mt-1"
-            onChange={handleInput}
-            name="location_id"
-            value={highLevelConf.location_id}
-            type="text"
-            placeholder={__('Location ID...', 'bit-integrations')}
-            disabled={isInfo}
-          />
-          <div style={{ color: 'red', fontSize: '15px' }}>{error.location_id}</div>
-          <small className="d-blk mt-1">
-            {__(
-              'To get location id, go to Settings > Business Profile and copy the location id from General Information.',
-              'bit-integrations'
-            )}
-          </small>
-        </>
-      )}
-
-      <div className="mt-3 wdt-250">
-        <b>{__('GoHighLevel Api Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={highLevelConf.api_key}
-        type="text"
-        placeholder={__('GoHighLevel Api Key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <small className="d-blk mt-3">
-        {!highLevelConf?.version || highLevelConf?.version === 'v1'
-          ? __(
-              'To get API key, go to Settings > Business Profile and copy the API Key from there.',
-              'bit-integrations'
-            )
-          : __(
-              'To get API key, go to Settings > Private Integration and create new integration and copy the API token.',
-              'bit-integrations'
-            )}
-      </small>
-      <br />
-
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              highLevelAuthentication(
-                highLevelConf,
-                setHighLevelConf,
-                setError,
-                setisAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={() => nextPage(2)}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <BackIcn className="ml-1 rev-icn" />
-          </button>
-        </>
-      )}
-      <Note note={ActiveInstructions(highLevelConf?.version)} />
-    </div>
+    <Authorization
+      config={highLevelConf}
+      setConfig={setHighLevelConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="HighLevel"
+      tutorialLinks={tutorialLinks?.highLevel || {}}
+      authDetails={{
+        authType: AUTH_TYPES.BEARER_TOKEN,
+        apiEndpoint: data =>
+          data?.version === 'v2'
+            ? `https://services.leadconnectorhq.com/locations/${data?.location_id || ''}`
+            : 'https://rest.gohighlevel.com/v1/contacts/?limit=1',
+        method: 'GET',
+        headers: data => ({
+          Accept: 'application/json',
+          ...(data?.version === 'v2' ? { Version: '2021-07-28' } : {})
+        }),
+        extraFields: [
+          {
+            name: 'version',
+            label: __('Select Version', 'bit-integrations'),
+            required: true,
+            type: 'select',
+            placeholder: __('Select Version', 'bit-integrations'),
+            options: versionOptions
+          },
+          ...(isPro
+            ? [
+                {
+                  name: 'location_id',
+                  label: __('Location ID', 'bit-integrations'),
+                  required: false,
+                  placeholder: __('Location ID...', 'bit-integrations')
+                }
+              ]
+            : [])
+        ]
+      }}
+      noteDetails={{ note: ActiveInstructions(highLevelConf?.version) }}
+      onConnectionSelected={hydrateConnectionExtras}
+    />
   )
 }
 

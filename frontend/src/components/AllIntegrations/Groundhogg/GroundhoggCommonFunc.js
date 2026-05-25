@@ -52,63 +52,24 @@ export const checkMetaMappedFields = groundhoggConf => {
   return true
 }
 
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.public_key) {
-    setError({
-      public_key: !confTmp.public_key ? __("Public Key can't be empty", 'bit-integrations') : ''
-    })
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        public_key: confTmp.public_key,
+        token: confTmp.token,
+        domainName: confTmp.domainName
+      }
+
+export const fetchAllTags = (groundhoggConf, setGroundhoggConf, setIsLoading, setSnackbar) => {
+  if (!groundhoggConf.connection_id && (!groundhoggConf.public_key || !groundhoggConf.token || !groundhoggConf.domainName)) {
+    toast.error(__('Authorization data is missing', 'bit-integrations'))
     return
   }
-  if (!confTmp.token) {
-    setError({ token: !confTmp.token ? __("token can't be empty", 'bit-integrations') : '' })
-    return
-  }
-  if (!confTmp.domainName) {
-    setError({
-      domainName: !confTmp.domainName ? __("Domain Name can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
+
   setIsLoading(true)
 
-  const requestParams = {
-    public_key: confTmp.public_key,
-    token: confTmp.token,
-    domainName: confTmp.domainName
-  }
-
-  bitsFetch(requestParams, 'groundhogg_authorization_and_fetch_contacts').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setisAuthorized(true)
-      setIsLoading(false)
-      toast.success(__('Authorization Successful', 'bit-integrations'))
-      return
-    }
-    setIsLoading(false)
-    toast.error(__('Authorization Failed', 'bit-integrations'))
-  })
-}
-
-export const fetchAllTags = (formID, groundhoggConf, setGroundhoggConf, setIsLoading, setSnackbar) => {
-  setIsLoading(true)
-
-  const requestParams = {
-    public_key: groundhoggConf.public_key,
-    token: groundhoggConf.token,
-    domainName: groundhoggConf.domainName
-  }
-
-  bitsFetch(requestParams, 'groundhogg_fetch_all_tags')
+  bitsFetch(buildAuthRequestParams(groundhoggConf), 'groundhogg_fetch_all_tags')
     .then(result => {
       if (result && result.success) {
         const newConf = { ...groundhoggConf }

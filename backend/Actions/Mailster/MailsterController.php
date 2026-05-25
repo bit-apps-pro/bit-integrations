@@ -16,21 +16,6 @@ use WP_Error;
  */
 class MailsterController
 {
-    public function authentication()
-    {
-        if (self::checkedMailsterExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install Mailster',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public static function checkedMailsterExists()
     {
         if (!is_plugin_active('mailster/mailster.php')) {

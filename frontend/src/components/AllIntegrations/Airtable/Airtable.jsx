@@ -86,7 +86,6 @@ function Airtable({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
         loading={loading}
         setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

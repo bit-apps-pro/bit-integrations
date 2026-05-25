@@ -34,24 +34,6 @@ export const checkMappedFields = voxelConf => {
   return true
 }
 
-export const voxelAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.name) {
-    setError({ name: !confTmp.name ? __("Name can't be empty", 'bit-integrations') : '' })
-    return
-  }
-
-  setLoading({ ...loading, auth: true })
-  bitsFetch({}, 'voxel_authentication').then(result => {
-    if (result.success) {
-      setIsAuthorized(true)
-      toast.success(__('Connected Successfully', 'bit-integrations'))
-      setLoading({ ...loading, auth: false })
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__(result?.data ? result.data : 'Something went wrong!', 'bit-integrations'))
-  })
-}
 
 export const getPostTypes = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, postTypes: true })

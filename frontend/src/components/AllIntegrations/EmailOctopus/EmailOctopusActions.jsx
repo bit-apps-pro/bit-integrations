@@ -20,7 +20,7 @@ export default function EmailOctopusActions({
     const newConf = { ...emailOctopusConf }
     if (type === 'tag') {
       if (e.target?.checked) {
-        getAllTags(emailOctopusConf, setEmailOctopusConf, setLoading)
+        getAllTags(emailOctopusConf, setEmailOctopusConf, loading, setLoading)
         newConf.actions.tags = true
       } else {
         setActionMdl({ show: false })
@@ -111,7 +111,7 @@ export default function EmailOctopusActions({
               onChange={val => setChanges(val)}
             />
             <button
-              onClick={() => getAllTags(emailOctopusConf, setEmailOctopusConf, setLoading)}
+              onClick={() => getAllTags(emailOctopusConf, setEmailOctopusConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh Groups', 'bit-integrations')}'` }}
               type="button">

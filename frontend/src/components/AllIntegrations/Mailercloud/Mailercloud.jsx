@@ -19,7 +19,7 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
   const [mailercloudConf, setMailercloudConf] = useState({
     name: 'Mailercloud',
     type: 'Mailercloud',
-    authKey: '',
+    api_key: '',
     field_map: [{ formFields: '', mailercloudFormField: '' }],
     listId: '',
     contactType: '',

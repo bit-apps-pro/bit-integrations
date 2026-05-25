@@ -1,75 +1,36 @@
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import TutorialLink from '../../Utilities/TutorialLink'
-import { userRegistrationAuthorize } from './UserRegistrationMembershipCommonFunc'
+import Authorization from '../../Connections/Authorization'
 
 export default function UserRegistrationMembershipAuthorization({
   userRegistrationConf,
   setUserRegistrationConf,
   step,
   nextPage,
-  isLoading,
-  setIsLoading,
-  setSnackbar
+  isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [showAuthMsg, setShowAuthMsg] = useState(false)
-
-  const handleAuthorize = () => {
-    userRegistrationAuthorize(setIsAuthorized, setShowAuthMsg, setIsLoading, setSnackbar, nextPage)
-  }
-
+  const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-      <TutorialLink
-        title={tutorialLinks?.userRegistrationMembership?.title}
-        links={tutorialLinks?.userRegistrationMembership || {}}
-      />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={e => setUserRegistrationConf({ ...userRegistrationConf, name: e.target.value })}
-        name="name"
-        value={userRegistrationConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isAuthorized}
-      />
-
-      <button
-        onClick={handleAuthorize}
-        className="btn btcd-btn-lg purple sh-sm flx"
-        type="button"
-        disabled={isAuthorized || isLoading}>
-        {isAuthorized ? __('Connected ✔', 'bit-integrations') : __('Connect', 'bit-integrations')}
-        {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-      </button>
-      <br />
-      {showAuthMsg && isAuthorized && (
-        <div className="flx mt-4">
-          <button
-            onClick={() => nextPage(2)}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button">
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note
-        note={__(
-          'Note: User Registration & Membership plugin must be installed and activated.',
+    <Authorization
+      config={userRegistrationConf}
+      setConfig={setUserRegistrationConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="User Registration Membership"
+      tutorialLinks={tutorialLinks?.userRegistrationMembership || {}}
+      authDetails={{
+        authType: AUTH_TYPES.WP_PLUGIN_CHECK,
+        pluginCheck: { checks: [{ type: 'class', value: 'UserRegistration' }], logic: 'AND' }
+      }}
+      noteDetails={{
+        note: __(
+          'To use User Registration Membership integration, make sure the User Registration plugin is installed and active on your site.',
           'bit-integrations'
-        )}
-      />
-    </div>
+        )
+      }}
+    />
   )
 }

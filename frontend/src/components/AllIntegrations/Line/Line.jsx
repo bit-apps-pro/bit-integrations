@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
@@ -9,7 +9,6 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import LineAuthorization from './LineAuthorization'
 import {
   generateMappedField,
-  handleInput,
   validateLineConfiguration,
   getLineValidationMessages
 } from './LineCommonFunc'
@@ -79,7 +78,6 @@ const messageField = [{ label: __('Message', 'bit-integrations'), value: 'messag
 
 function Line({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -152,14 +150,10 @@ function Line({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <LineAuthorization
-        formID={formID}
         lineConf={lineConf}
         setLineConf={setLineConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}
@@ -174,7 +168,6 @@ function Line({ formFields, setFlow, flow, allIntegURL }) {
         }}>
         <LineIntegLayout
           formFields={formFields}
-          handleInput={e => handleInput(e, lineConf, setLineConf, setIsLoading, setSnackbar)}
           lineConf={lineConf}
           setLineConf={setLineConf}
           isLoading={isLoading}

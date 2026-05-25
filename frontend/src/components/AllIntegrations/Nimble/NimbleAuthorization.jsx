@@ -1,42 +1,36 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { getAllFields, nimbleAuthentication } from './NimbleCommonFunc'
+import Authorization from '../../Connections/Authorization'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import { getAllFields } from './NimbleCommonFunc'
 
 export default function NimbleAuthorization({
   nimbleConf,
   setNimbleConf,
   step,
   setStep,
-  loading,
   setLoading,
-  isInfo
+  isInfo,
+  setSnackbar
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ api_key: '' })
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadFields = useCallback(
+    connectionId => {
+      const nextConf = connectionId ? { ...nimbleConf, connection_id: connectionId } : nimbleConf
+      getAllFields(nextConf, setNimbleConf, setLoading, setSnackbar)
+    },
+    [nimbleConf, setLoading, setNimbleConf, setSnackbar]
+  )
 
-    !nimbleConf?.default
-    setStep(2)
-    getAllFields(nimbleConf, setNimbleConf, setLoading)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...nimbleConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setNimbleConf(newConf)
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !nimbleConf?.peopleFields?.length && !nimbleConf?.companyFields?.length) {
+        loadFields()
+      }
+      setStep(value)
+    },
+    [loadFields, nimbleConf?.companyFields?.length, nimbleConf?.peopleFields?.length, setStep]
+  )
 
   const ActiveInstructions = `
             <h4>${__('To Get API Token', 'bit-integrations')}</h4>
@@ -48,79 +42,28 @@ const nextPage = () => {
             </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="NimbleCRM" links={tutorialLinks?.nimble || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={nimbleConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={nimbleConf.api_key}
-        type="text"
-        placeholder={__('API Key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <small className="d-blk mt-3">
-        {__('To get API key, please visit', 'bit-integrations')}
-        &nbsp;
-        <a className="btcd-link" href="https://app.nimble.com/#app/settings/tokens" target="_blank">
-          {__('Nimble API Token', 'bit-integrations')}
-        </a>
-      </small>
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              nimbleAuthentication(
-                nimbleConf,
-                setNimbleConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={ActiveInstructions} />
-    </div>
+    <Authorization
+      config={nimbleConf}
+      setConfig={setNimbleConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="NimbleCRM"
+      tutorialLinks={tutorialLinks?.nimble || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://app.nimble.com/api/v1/myself',
+        method: 'GET',
+        key: 'X-BI-Auth',
+        addTo: 'header',
+        headers: {
+          Authorization: 'Bearer {api_key}',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }}
+      noteDetails={{ note: ActiveInstructions }}
+      onConnectionSelected={loadFields}
+    />
   )
 }

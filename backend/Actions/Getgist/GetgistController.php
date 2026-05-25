@@ -2,45 +2,27 @@
 
 namespace BitApps\Integrations\Actions\Getgist;
 
-use BitApps\Integrations\Core\Util\HttpHelper;
+use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
 class GetgistController
 {
     public const APIENDPOINT = 'https://api.getgist.com';
 
-    public static function getgistAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::APIENDPOINT . '/contacts';
-        $authorizationHeader['Authorization'] = "Bearer {$requestsParams->api_key}";
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || $apiResponse->code === 'authentication_failed') {
-            wp_send_json_error(
-                empty($apiResponse->code) ? 'Unknown' : $apiResponse->message,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'getgist',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
 
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
 
-        $api_key = $integrationDetails->api_key;
+        $api_key = $integrationDetails->api_key ?: ($integrationDetails->value ?? '');
         $fieldMap = $integrationDetails->field_map;
         $actions = $integrationDetails->actions;
         if (empty($api_key)

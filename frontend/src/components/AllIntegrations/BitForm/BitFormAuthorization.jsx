@@ -1,121 +1,72 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import CopyText from '../../Utilities/CopyText'
-import { fetchAllForm, handleAuthorize } from './BitFormCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
+import { fetchAllForm } from './BitFormCommonFunc'
 
 export default function BitFormAuthorization({
-  formID,
   bitFormConf,
   setBitFormConf,
   step,
   setstep,
-  isLoading,
   setIsLoading,
   setSnackbar,
-  redirectLocation,
   isInfo
 }) {
-  const [isAuthorized, setisAuthorized] = useState(false)
-const [error, setError] = useState({ dataCenter: '', api_key: '' })
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadForms = useCallback(
+    connectionId => {
+      const nextConf = connectionId ? { ...bitFormConf, connection_id: connectionId } : bitFormConf
 
-    setstep(2)
-    fetchAllForm(bitFormConf, setBitFormConf, setIsLoading, setSnackbar)
-  }
+      fetchAllForm(nextConf, setBitFormConf, setIsLoading, setSnackbar)
+    },
+    [bitFormConf, setBitFormConf, setIsLoading, setSnackbar]
+  )
 
-  const handleInput = e => {
-    const newConf = { ...bitFormConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setBitFormConf(newConf)
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !bitFormConf?.default?.forms) {
+        loadForms()
+      }
+      setstep(value)
+    },
+    [bitFormConf, loadForms, setstep]
+  )
+
+  const note = `
+      <h4>${__('To get your Bit Form API key', 'bit-integrations')}</h4>
+      <ul>
+        <li>${__('Open your Bit Form WordPress dashboard.', 'bit-integrations')}</li>
+        <li>${__('Go to Integrations and copy your Client ID (API key).', 'bit-integrations')}</li>
+      </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Bit Form" links={tutorialLinks?.bitForm || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={bitFormConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Your Domain Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="domainName"
-        value={bitFormConf.domainName}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Client id:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={bitFormConf.api_key}
-        type="text"
-        placeholder={__('client ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientSecret}</div>
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              handleAuthorize(
-                bitFormConf,
-                setBitFormConf,
-                setError,
-                setisAuthorized,
-                setIsLoading,
-                setSnackbar
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <BackIcn className="ml-1 rev-icn" />
-          </button>
-        </>
-      )}
-    </div>
+    <Authorization
+      config={bitFormConf}
+      setConfig={setBitFormConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Bit Form"
+      tutorialLinks={tutorialLinks?.bitForm || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: '{domainName}/wp-json/bitform/v1/forms',
+        method: 'GET',
+        key: 'Bitform-Api-Key',
+        addTo: 'header',
+        ssl_verify: false,
+        extraFields: [
+          {
+            name: 'domainName',
+            label: __('Domain Name', 'bit-integrations'),
+            required: true,
+            placeholder: __('https://example.com', 'bit-integrations')
+          }
+        ]
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadForms}
+    />
   )
 }

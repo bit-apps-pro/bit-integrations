@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Asana;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,34 +15,19 @@ use WP_Error;
  */
 class AsanaController
 {
-    protected $_defaultHeader;
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'asana',
+        'fields'   => [
+            'api_key' => 'token',
+        ],
+    ];
 
     protected $apiEndpoint;
 
     public function __construct()
     {
         $this->apiEndpoint = 'https://app.asana.com/api/1.0/';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        if (empty($fieldsRequestParams->api_key)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEndpoint = $this->apiEndpoint . 'users/me';
-        $headers = [
-            'Authorization' => 'Bearer ' . $apiKey,
-        ];
-
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (isset($response->data)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);
-        }
     }
 
     public function getCustomFields($fieldsRequestParams)

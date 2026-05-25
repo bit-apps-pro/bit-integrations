@@ -1,7 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-else-return */
-import toast from 'react-hot-toast'
-import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
 
@@ -40,24 +36,6 @@ export const checkMappedFields = newsletterConf => {
   return true
 }
 
-export const newsletterAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.name) {
-    setError({ name: !confTmp.name ? __("Name can't be empty", 'bit-integrations') : '' })
-    return
-  }
-
-  setLoading({ ...loading, auth: true })
-  bitsFetch({}, 'newsletter_authentication').then(result => {
-    if (result.success) {
-      setIsAuthorized(true)
-      toast.success(__('Connected Successfully', 'bit-integrations'))
-      setLoading({ ...loading, auth: false })
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Connection failed: install and active Newsletter plugin first!', 'bit-integrations'))
-  })
-}
 
 export const staticFields = [
   { key: 'email', label: __('Email', 'bit-integrations'), required: true },

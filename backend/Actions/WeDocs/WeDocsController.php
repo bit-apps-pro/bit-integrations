@@ -13,12 +13,6 @@ class WeDocsController
 
     private const ALLOWED_POST_STATUSES = ['publish', 'draft', 'pending', 'private'];
 
-    public static function weDocsAuthorize()
-    {
-        self::checkPluginExists();
-        wp_send_json_success(true);
-    }
-
     public static function getDocumentations()
     {
         self::checkPluginExists();

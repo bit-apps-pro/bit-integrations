@@ -14,31 +14,22 @@ export const handleInput = (e, conf, setConf, error, setError) => {
 }
 
 export const handleAuthorize = (conf, setError, setAuthorized, loading, setLoading) => {
-  if (!conf.authKey) {
-    setError({ authKey: !conf.authKey ? __("API Key can't be empty") : '' })
-    return
-  }
+  // Legacy local authorization has been replaced by shared Connection Authorization.
+  // Kept as a no-op for backward import safety in older component trees.
   setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { authKey: conf.authKey }
-
-  bitsFetch(requestParams, 'moosend_handle_authorize').then(result => {
-    if (result.data.Code === 0) {
-      setAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed'))
-  })
+  setAuthorized(true)
+  setLoading({ ...loading, auth: false })
 }
+
+const buildAuthRequestParams = conf =>
+  conf.connection_id
+    ? { connection_id: conf.connection_id }
+    : { authKey: conf.authKey || conf.api_key }
 
 export const getAllLists = async (conf, setConf, loading, setLoading) => {
   setLoading && setLoading({ ...loading, list: true })
-  const requestParams = { authKey: conf.authKey }
-  const result = await bitsFetch(requestParams, 'moosend_handle_authorize')
+  const requestParams = buildAuthRequestParams(conf)
+  const result = await bitsFetch(requestParams, 'moosend_lists')
   if (result.success && result.data.Code === 0) {
     const { MailingLists } = result.data.Context
     const newConf = { ...conf }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
@@ -11,7 +11,6 @@ import ConstantContactAuthorization from './ConstantContactAuthorization'
 import {
   checkAddressFieldMapRequired,
   handleInput,
-  setGrantTokenResponse,
   checkMappedFields,
   generateMappedField
 } from './ConstantContactCommonFunc'
@@ -95,10 +94,6 @@ function ConstantContact({ formFields, setFlow, flow, allIntegURL }) {
     actions: {}
   })
 
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    window.opener && setGrantTokenResponse('constantContact')
-  }, [])
   const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
@@ -130,9 +125,6 @@ function ConstantContact({ formFields, setFlow, flow, allIntegURL }) {
         setConstantContactConf={setConstantContactConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

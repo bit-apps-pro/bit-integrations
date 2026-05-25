@@ -44,40 +44,14 @@ export const checkAddressFieldMapRequired = sheetConf => {
   return true
 }
 
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.api_key) {
-    setError({ api_key: !confTmp.api_key ? __("Api Key can't be empty", 'bit-integrations') : '' })
-    return
-  }
-  setError({})
-  setIsLoading(true)
-
-  const requestParams = { app_domain: confTmp.domainName, api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'bitForm_authorization_and_fetch_form_list').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setisAuthorized(true)
-      setIsLoading(false)
-      toast.success(__('Authorization Successful', 'bit-integrations'))
-      return
-    }
-    setIsLoading(false)
-    toast.error(__('Authorization Failed', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = conf =>
+  conf.connection_id
+    ? { connection_id: conf.connection_id }
+    : { app_domain: conf.domainName, api_key: conf.api_key }
 
 export const fetchAllForm = (bitFormConf, setBitFormConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { app_domain: bitFormConf.domainName, api_key: bitFormConf.api_key }
+  const requestParams = buildAuthRequestParams(bitFormConf)
 
   bitsFetch(requestParams, 'bitForm_all_form_list')
     .then(result => {
@@ -103,8 +77,7 @@ export const fetchAllForm = (bitFormConf, setBitFormConf, setIsLoading, setSnack
 const fetchSingleFormFeilds = (formID, bitFormConf, setBitFormConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    app_domain: bitFormConf.domainName,
-    api_key: bitFormConf.api_key,
+    ...buildAuthRequestParams(bitFormConf),
     id: bitFormConf.id
   }
 

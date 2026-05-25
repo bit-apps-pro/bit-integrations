@@ -30,6 +30,7 @@ const Integrations = lazy(() => import('./components/Integrations'))
 const Settings = lazy(() => import('./pages/Settings'))
 const DocSupport = lazy(() => import('./pages/DocSupport'))
 const FlowBuilder = lazy(() => import('./pages/FlowBuilder'))
+const Connections = lazy(() => import('./pages/Connections'))
 const Error404 = lazy(() => import('./pages/Error404'))
 
 const integrationsElement = getIntegrationsElement(Integrations)
@@ -115,6 +116,15 @@ function App() {
                 </Suspense>
               }
             />
+            <Route
+              path="/connections"
+              element={
+                <Suspense fallback={defaultLoaderFallback}>
+                  <Connections />
+                </Suspense>
+              }
+            />
+
             <Route
               path="/app-settings"
               element={

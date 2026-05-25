@@ -1,110 +1,36 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-import { useEffect, useState } from 'react'
-import { __, sprintf } from '../../../Utils/i18nwrap'
-import bitsFetch from '../../../Utils/bitsFetch'
-import LoaderSm from '../../Loaders/LoaderSm'
-import BackIcn from '../../../Icons/BackIcn'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
+import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
 
 export default function WPCoursewareAuthorization({
-  formID,
   wpCoursewareConf,
   setWPCoursewareConf,
   step,
   nextPage,
-  setSnackbar,
   isInfo
 }) {
-  const [isAuthorized, setisAuthorized] = useState(false)
-  const [error, setError] = useState({ integrationName: '' })
-  const [showAuthMsg, setShowAuthMsg] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isMounted, setIsMounted] = useState(true)
-useEffect(
-    () => () => {
-      setIsMounted(false)
-    },
-    []
-  )
-
-  const handleAuthorize = () => {
-    setIsLoading('auth')
-    bitsFetch({}, 'wpCourseware_authorize').then(result => {
-      if (isMounted) {
-        if (result?.success) {
-          setisAuthorized(true)
-          setSnackbar({ show: true, msg: __('Connect Successfully', 'bit-integrations') })
-        }
-        setShowAuthMsg(true)
-        setIsLoading(false)
-      }
-    })
-  }
-  const handleInput = e => {
-    const newConf = { ...wpCoursewareConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setWPCoursewareConf(newConf)
-  }
-
+  const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
-    <>
-      <div
-        className="btcd-stp-page"
-        style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="WP Courseware" links={tutorialLinks?.wpCourseware || {}} />
-
-        <div className="mt-3">
-          <b>{__('Integration Name:', 'bit-integrations')}</b>
-        </div>
-        <input
-          className="btcd-paper-inp w-5 mt-1"
-          onChange={handleInput}
-          name="name"
-          value={wpCoursewareConf.name}
-          type="text"
-          placeholder={__('Integration Name...', 'bit-integrations')}
-          disabled={isInfo}
-        />
-
-        {showAuthMsg && !isAuthorized && !isLoading && (
-          <div className="flx mt-4" style={{ color: 'red' }}>
-            <span className="btcd-icn mr-2" style={{ fontSize: 30, marginTop: -5 }}>
-              &times;
-            </span>
-            {sprintf(
-              __('Please! First Install or Active %s Plugin', 'bit-integrations'),
-              'WP Courseware'
-            )}
-          </div>
-        )}
-        {!isInfo && (
-          <>
-            <button
-              onClick={handleAuthorize}
-              className="btn btcd-btn-lg purple sh-sm flx"
-              type="button"
-              disabled={isAuthorized || isLoading}>
-              {isAuthorized
-                ? __('Connected ✔', 'bit-integrations')
-                : __('Connect to WP Courseware', 'bit-integrations')}
-              {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-            </button>
-            <br />
-            <button
-              onClick={() => nextPage(2)}
-              className="btn f-right btcd-btn-lg purple sh-sm flx"
-              type="button"
-              disabled={!isAuthorized}>
-              {__('Next', 'bit-integrations')}
-              <BackIcn className="ml-1 rev-icn" />
-            </button>
-          </>
-        )}
-      </div>
-    </>
+    <Authorization
+      config={wpCoursewareConf}
+      setConfig={setWPCoursewareConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="WP Courseware"
+      tutorialLinks={tutorialLinks?.wpCourseware || {}}
+      authDetails={{
+        authType: AUTH_TYPES.WP_PLUGIN_CHECK,
+        pluginCheck: { checks: [{ type: 'plugin_file', value: 'wp-courseware/wp-courseware.php' }], logic: 'AND' }
+      }}
+      noteDetails={{
+        note: __(
+          'To use WP Courseware integration, make sure the WP Courseware plugin is installed and active on your site.',
+          'bit-integrations'
+        )
+      }}
+    />
   )
 }

@@ -45,49 +45,18 @@ export const checkMappedFields = nutshellCRMConf => {
   return true
 }
 
-export const nutshellCRMAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.user_name || !confTmp.api_token) {
-    setError({
-      user_name: !confTmp.user_name ? __("User Name can't be empty", 'bit-integrations') : '',
-      api_token: !confTmp.api_token ? __("API Token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
-
-  bitsFetch(requestParams, 'nutshellcrm_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid User Name & Api Token', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        user_name: confTmp.user_name,
+        api_token: confTmp.api_token
+      }
 
 export const getAllCompanies = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, companies: true })
+  setLoading(prev => ({ ...prev, companies: true }))
 
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nutshellcrm_fetch_all_companies').then(result => {
     if (result && result.success) {
@@ -96,23 +65,20 @@ export const getAllCompanies = (confTmp, setConf, setLoading) => {
         newConf.companies = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, companies: false })
+      setLoading(prev => ({ ...prev, companies: false }))
 
       toast.success(__('Companies fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, companies: false })
+    setLoading(prev => ({ ...prev, companies: false }))
     toast.error(__('Companies fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllContacts = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, contacts: true })
+  setLoading(prev => ({ ...prev, contacts: true }))
 
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nutshellcrm_fetch_all_contacts').then(result => {
     if (result && result.success) {
@@ -121,23 +87,20 @@ export const getAllContacts = (confTmp, setConf, setLoading) => {
         newConf.contacts = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, contacts: false })
+      setLoading(prev => ({ ...prev, contacts: false }))
 
       toast.success(__('Contacts fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, contacts: false })
+    setLoading(prev => ({ ...prev, contacts: false }))
     toast.error(__('Contacts fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllSources = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, sources: true })
+  setLoading(prev => ({ ...prev, sources: true }))
 
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nutshellcrm_fetch_all_sources').then(result => {
     if (result && result.success) {
@@ -146,22 +109,19 @@ export const getAllSources = (confTmp, setConf, setLoading) => {
         newConf.sources = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, sources: false })
+      setLoading(prev => ({ ...prev, sources: false }))
 
       toast.success(__('Sources fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, sources: false })
+    setLoading(prev => ({ ...prev, sources: false }))
     toast.error(__('Sources fetching failed', 'bit-integrations'))
   })
 }
 export const getAllTags = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, tags: true })
+  setLoading(prev => ({ ...prev, tags: true }))
 
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nutshellcrm_fetch_all_tags').then(result => {
     if (result && result.success) {
@@ -170,23 +130,20 @@ export const getAllTags = (confTmp, setConf, setLoading) => {
         newConf.tags = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, tags: false })
+      setLoading(prev => ({ ...prev, tags: false }))
 
       toast.success(__('Tags fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, tags: false })
+    setLoading(prev => ({ ...prev, tags: false }))
     toast.error(__('Tags fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllProducts = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, products: true })
+  setLoading(prev => ({ ...prev, products: true }))
 
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nutshellcrm_fetch_all_products').then(result => {
     if (result && result.success) {
@@ -195,23 +152,20 @@ export const getAllProducts = (confTmp, setConf, setLoading) => {
         newConf.products = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, products: false })
+      setLoading(prev => ({ ...prev, products: false }))
 
       toast.success(__('Products fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, products: false })
+    setLoading(prev => ({ ...prev, products: false }))
     toast.error(__('Products fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllCompanyTypes = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, companyTypes: true })
+  setLoading(prev => ({ ...prev, companyTypes: true }))
 
-  const requestParams = {
-    user_name: confTmp.user_name,
-    api_token: confTmp.api_token
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nutshellcrm_fetch_all_companytypes').then(result => {
     if (result && result.success) {
@@ -220,12 +174,12 @@ export const getAllCompanyTypes = (confTmp, setConf, setLoading) => {
         newConf.companyTypes = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, companyTypes: false })
+      setLoading(prev => ({ ...prev, companyTypes: false }))
 
       toast.success(__('CompanyTypes fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, companyTypes: false })
+    setLoading(prev => ({ ...prev, companyTypes: false }))
     toast.error(__('CompanyTypes fetching failed', 'bit-integrations'))
   })
 }

@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { setGrantTokenResponse } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import PCloudAuthorization from './PCloudAuthorization'
@@ -15,7 +14,6 @@ import PCloudIntegLayout from './PCloudIntegLayout'
 
 function PCloud({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { flowID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -29,10 +27,6 @@ function PCloud({ formFields, setFlow, flow, allIntegURL }) {
     foldersList: [],
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('pCloud')
-  }, [])
 
   const saveConfig = () => {
     saveActionConf({
@@ -55,14 +49,10 @@ function PCloud({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <PCloudAuthorization
-        flowID={flowID}
         pCloudConf={pCloudConf}
         setPCloudConf={setPCloudConf}
         step={step}
         setStep={setStep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}
@@ -76,7 +66,6 @@ function PCloud({ formFields, setFlow, flow, allIntegURL }) {
           })
         }}>
         <PCloudIntegLayout
-          flowID={flowID}
           formFields={formFields}
           pCloudConf={pCloudConf}
           setPCloudConf={setPCloudConf}

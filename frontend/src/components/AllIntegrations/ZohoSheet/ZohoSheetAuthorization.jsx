@@ -1,14 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import CopyText from '../../Utilities/CopyText'
-import { $appConfigState } from '../../../GlobalStates'
-import { handleAuthorization } from './ZohoSheetCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
+import { getAllWorkbooks } from './ZohoSheetCommonFunc'
 
 export default function ZohoSheetAuthorization({
   zohoSheetConf,
@@ -17,160 +12,85 @@ export default function ZohoSheetAuthorization({
   setStep,
   loading,
   setLoading,
-  isInfo,
-  setSnackbar,
-  redirectLocation
+  isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ dataCenter: '', clientId: '', clientSecret: '' })
-  const btcbi = useRecoilValue($appConfigState)
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const dataCenterOptions = [
+    { value: 'com', label: 'zoho.com' },
+    { value: 'eu', label: 'zoho.eu' },
+    { value: 'com.cn', label: 'zoho.com.cn' },
+    { value: 'in', label: 'zoho.in' },
+    { value: 'com.au', label: 'zoho.com.au' }
+  ]
 
-    !zohoSheetConf?.default
-    setStep(2)
-  }
+  const scope = 'ZohoSheet.dataAPI.READ,ZohoSheet.dataAPI.UPDATE'
 
-  const handleInput = e => {
-    const newConf = { ...zohoSheetConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setZohoSheetConf(newConf)
-  }
+  const loadWorkbooks = useCallback(
+    async connectionId => {
+      const nextConf = connectionId
+        ? { ...zohoSheetConf, connection_id: connectionId }
+        : zohoSheetConf
+      if (!nextConf?.workbooks?.length) {
+        getAllWorkbooks(nextConf, setZohoSheetConf, loading, setLoading)
+      }
+    },
+    [loading, setLoading, setZohoSheetConf, zohoSheetConf]
+  )
+
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !zohoSheetConf?.workbooks?.length) {
+        loadWorkbooks()
+      }
+      setStep(value)
+    },
+    [loadWorkbooks, setStep, zohoSheetConf?.workbooks?.length]
+  )
+
+  const note = `<h4>${__('Zoho Sheet OAuth setup', 'bit-integrations')}</h4>
+  <ul>
+    <li>${__('Create app in Zoho API Console.', 'bit-integrations')}</li>
+    <li>${__('Select account data center.', 'bit-integrations')}</li>
+    <li>${__('Use callback URL shown in connection form.', 'bit-integrations')}</li>
+  </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho Sheet" links={tutorialLinks?.zohoSheet || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={zohoSheetConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Data Center:', 'bit-integrations')}</b>
-      </div>
-      <select
-        onChange={handleInput}
-        name="dataCenter"
-        value={zohoSheetConf.dataCenter}
-        className="btcd-paper-inp w-6 mt-1"
-        disabled={isInfo}>
-        <option value="">{__('Select a data center')}</option>
-        <option value="com">zoho.com</option>
-        <option value="eu">zoho.eu</option>
-        <option value="com.cn">zoho.com.cn</option>
-        <option value="in">zoho.in</option>
-        <option value="com.au">zoho.com.au</option>
-      </select>
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.dataCenter}</div>
-
-      <div className="mt-3">
-        <b>{__('Homepage URL:', 'bit-integrations')}</b>
-      </div>
-      <CopyText
-        value={`${window.location.origin}`}
-        className="field-key-cpy w-6 ml-0"
-        readOnly={isInfo}
-        setSnackbar={setSnackbar}
-      />
-
-      <div className="mt-3">
-        <b>{__('Authorized Redirect URIs:', 'bit-integrations')}</b>
-      </div>
-      <CopyText
-        value={redirectLocation || `${btcbi.api}/redirect`}
-        className="field-key-cpy w-6 ml-0"
-        readOnly={isInfo}
-        setSnackbar={setSnackbar}
-      />
-
-      <small className="d-blk mt-5">
-        {__('To get Client ID and SECRET , Please Visit', 'bit-integrations')}{' '}
-        <a
-          className="btcd-link"
-          href={`https://api-console.zoho.${zohoSheetConf?.dataCenter || 'com'}/`}
-          target="_blank"
-          rel="noreferrer">
-          {__('Zoho API Console', 'bit-integrations')}
-        </a>
-      </small>
-
-      <div className="mt-3">
-        <b>{__('Client id:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="clientId"
-        value={zohoSheetConf.clientId}
-        type="text"
-        placeholder={__('client ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientId}</div>
-
-      <div className="mt-3">
-        <b>{__('Client secret:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="clientSecret"
-        value={zohoSheetConf.clientSecret}
-        type="text"
-        placeholder={__('client Secret...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientSecret}</div>
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              handleAuthorization(
-                zohoSheetConf,
-                setZohoSheetConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading,
-                btcbi
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-    </div>
+    <Authorization
+      config={zohoSheetConf}
+      setConfig={setZohoSheetConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Zoho Sheet"
+      tutorialLinks={tutorialLinks?.zohoSheet || {}}
+      authDetails={{
+        authType: AUTH_TYPES.OAUTH2,
+        grantType: 'authorization_code',
+        clientAuthentication: 'body',
+        scope,
+        authCodeEndpoint: {
+          url: 'https://accounts.zoho.{dataCenter}/oauth/v2/auth',
+          queryParams: {
+            prompt: 'Consent',
+            access_type: 'offline'
+          }
+        },
+        tokenEndpoint: {
+          url: 'https://accounts.zoho.{dataCenter}/oauth/v2/token',
+          method: 'POST'
+        },
+        refreshTokenUrl: 'https://accounts.zoho.{dataCenter}/oauth/v2/token',
+        extraFields: [
+          {
+            name: 'dataCenter',
+            type: 'select',
+            required: true,
+            label: __('Data Center', 'bit-integrations'),
+            options: dataCenterOptions
+          }
+        ]
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadWorkbooks}
+    />
   )
 }

@@ -34,24 +34,6 @@ export const checkMappedFields = dokanConf => {
   return true
 }
 
-export const dokanAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.name) {
-    setError({ name: !confTmp.name ? __("Name can't be empty", 'bit-integrations') : '' })
-    return
-  }
-
-  setLoading({ ...loading, auth: true })
-  bitsFetch({}, 'dokan_authentication').then(result => {
-    if (result.success) {
-      setIsAuthorized(true)
-      toast.success(__('Connected Successfully', 'bit-integrations'))
-      setLoading({ ...loading, auth: false })
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Connection failed: install and active Dokan plugin first!', 'bit-integrations'))
-  })
-}
 
 export const getAllVendors = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, vendors: true })

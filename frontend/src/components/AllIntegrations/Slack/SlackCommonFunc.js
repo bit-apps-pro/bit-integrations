@@ -1,6 +1,6 @@
-/* eslint-disable no-else-return */
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import toast from 'react-hot-toast'
 
 export const handleInput = (e, slackConf, setSlackConf) => {
   const newConf = { ...slackConf }
@@ -13,51 +13,38 @@ export const handleInput = (e, slackConf, setSlackConf) => {
   setSlackConf({ ...newConf })
 }
 
-export const handleAuthorize = (
+export const fetchChannels = async (
   confTmp,
   setConf,
-  setError,
-  setisAuthorized,
   setIsLoading,
-  setSnackbar
+  type = 'fetch'
 ) => {
-  if (!confTmp.accessToken) {
-    setError({
-      accessToken: !confTmp.accessToken ? __("Access Token can't be empty", 'bit-integrations') : ''
-    })
+  if (!confTmp.connection_id && !confTmp.accessToken) {
+    toast.error(__("Access Token can't be empty", 'bit-integrations'))
     return
   }
 
-  setError({})
   setIsLoading(true)
 
-  const tokenRequestParams = { accessToken: confTmp.accessToken }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { accessToken: confTmp.accessToken }
 
-  bitsFetch(tokenRequestParams, 'slack_authorization_and_fetch_channels')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
+  const result = await bitsFetch(requestParams, 'slack_fetch_channels')
+
+  if (result && result.success) {
+    const newConf = { ...confTmp }
+    newConf.channels = result.data?.channels || []
+    setConf(newConf)
+    setIsLoading(false)
+    toast.success(
+      type === 'refresh'
+        ? __('Channels fetched successfully', 'bit-integrations')
+        : __('Channels loaded successfully', 'bit-integrations')
+    )
+    return
+  }
+
+  setIsLoading(false)
+  toast.error(__('Channels fetching failed', 'bit-integrations'))
 }

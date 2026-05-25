@@ -1,58 +1,42 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import LoaderSm from '../../Loaders/LoaderSm'
-import TutorialLink from '../../Utilities/TutorialLink'
-import { handleAuthorize, setIntegrationName } from './WishlistMemberCommonFunc'
+import Authorization from '../../Connections/Authorization'
 
 export default function WishlistMemberAuthorization({
   wishlistMemberConf,
   setWishlistMemberConf,
   step,
   nextPage,
-  setSnackbar,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="WishlistMember" links={tutorialLinks?.wishlistMember || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-7 mt-1"
-        onChange={e => setIntegrationName(e, setWishlistMemberConf)}
-        name="name"
-        value={wishlistMemberConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <button
-        onClick={() => handleAuthorize(setIsAuthorized, setIsLoading, setSnackbar)}
-        className="btn btcd-btn-lg purple sh-sm flx"
-        type="button"
-        disabled={isAuthorized || isLoading}>
-        {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-        {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-      </button>
-
-      <br />
-      <button
-        onClick={() => nextPage(2)}
-        className="btn f-right btcd-btn-lg purple sh-sm flx"
-        type="button"
-        disabled={!isAuthorized}>
-        {__('Next', 'bit-integrations')}
-        <BackIcn className="ml-1 rev-icn" />
-      </button>
-    </div>
+  const setStep = useCallback(value => nextPage(value), [nextPage])
+  return (
+    <Authorization
+      config={wishlistMemberConf}
+      setConfig={setWishlistMemberConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="WishlistMember"
+      tutorialLinks={tutorialLinks?.wishlistMember || {}}
+      authDetails={{
+        authType: AUTH_TYPES.WP_PLUGIN_CHECK,
+        pluginCheck: {
+          groups: [
+            { logic: 'AND', checks: [{ type: 'class', value: 'WLMAPI' }] },
+            { logic: 'AND', checks: [{ type: 'class', value: 'WishListMember' }] }
+          ],
+          logic: 'OR'
+        }
+      }}
+      noteDetails={{
+        note: __(
+          'To use Wishlist Member integration, make sure the Wishlist Member plugin is installed and active on your site.',
+          'bit-integrations'
+        )
+      }}
+    />
   )
 }

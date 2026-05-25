@@ -1,44 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import TutorialLink from '../../Utilities/TutorialLink'
-import { lmfwcAuthentication } from './LMFWCCommonFunc'
+import Authorization from '../../Connections/Authorization'
 
 export default function LMFWCAuthorization({
   licenseManagerConf,
   setLicenseManagerConf,
   step,
   setStep,
-  loading,
-  setLoading,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-const [error, setError] = useState({ api_key: '', api_secret: '' })
-
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-
-    if (isAuthorized) {
-      setStep(2)
-    }
-  }
-
-  const handleInput = e => {
-    const newConf = { ...licenseManagerConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setLicenseManagerConf(newConf)
-  }
-
   const ActiveInstructions = `
             <b>${__('Requirements', 'bit-integrations')}</b>
             <p>${__('WordPress permalinks must be enabled at', 'bit-integrations')}: <b>${__(
@@ -59,98 +32,41 @@ const [error, setError] = useState({ api_key: '', api_secret: '' })
             </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="License Manager For WooCommerce" links={tutorialLinks?.lmfwc || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={licenseManagerConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Homepage URL:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="baseUrl"
-        value={licenseManagerConf.base_url}
-        type="text"
-        placeholder={__('Homepage URL...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.base_url}</div>
-
-      <div className="mt-3">
-        <b>{__('Consumer key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={licenseManagerConf.api_key}
-        type="text"
-        placeholder={__('Consumer key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <div className="mt-3">
-        <b>{__('Consumer secret:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_secret"
-        value={licenseManagerConf.api_secret}
-        type="text"
-        placeholder={__('Consumer secret...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_secret}</div>
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              lmfwcAuthentication(
-                licenseManagerConf,
-                setLicenseManagerConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={ActiveInstructions} />
-    </div>
+    <Authorization
+      config={licenseManagerConf}
+      setConfig={setLicenseManagerConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="License Manager For WooCommerce"
+      tutorialLinks={tutorialLinks?.lmfwc || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: '{base_url}/wp-json/lmfwc/v2/licenses',
+        method: 'GET',
+        key: 'X-BI-Auth',
+        addTo: 'header',
+        headers: authData => ({
+          Authorization: `Basic ${btoa(`${authData?.api_key || ''}:${authData?.api_secret || ''}`)}`,
+          'Content-Type': 'application/json'
+        }),
+        extraFields: [
+          {
+            name: 'base_url',
+            label: __('Homepage URL', 'bit-integrations'),
+            required: true,
+            placeholder: __('Homepage URL...', 'bit-integrations')
+          },
+          {
+            name: 'api_secret',
+            label: __('Consumer Secret', 'bit-integrations'),
+            required: true,
+            placeholder: __('Consumer secret...', 'bit-integrations')
+          }
+        ],
+        encryptKeys: ['value', 'api_secret']
+      }}
+      noteDetails={{ note: ActiveInstructions }}
+    />
   )
 }

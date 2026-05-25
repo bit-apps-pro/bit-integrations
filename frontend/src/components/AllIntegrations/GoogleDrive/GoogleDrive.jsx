@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { setGrantTokenResponse } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import GoogleDriveAuthorization from './GoogleDriveAuthorization'
@@ -27,10 +26,6 @@ function GoogleDrive({ formFields, setFlow, flow, allIntegURL }) {
     foldersList: [],
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('googleDrive')
-  }, [])
 
   const saveConfig = () => {
     saveActionConf({

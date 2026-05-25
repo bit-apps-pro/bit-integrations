@@ -1,133 +1,51 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import { insightlyAuthentication } from './InsightlyCommonFunc'
-import TutorialLink from '../../Utilities/TutorialLink'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
+import Authorization from '../../Connections/Authorization'
 
 export default function InsightlyAuthorization({
   insightlyConf,
   setInsightlyConf,
   step,
   setStep,
-  loading,
-  setLoading,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ api_key: '', api_url: '' })
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-
-    !insightlyConf?.default
-    setStep(2)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...insightlyConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setInsightlyConf(newConf)
-  }
+  const note = `
+    <h4>${__('Get Insightly API credentials', 'bit-integrations')}</h4>
+    <ul>
+      <li>${__('Open your Insightly account settings.', 'bit-integrations')}</li>
+      <li>${__('Copy your API key and account host (without https://api.).', 'bit-integrations')}</li>
+      <li>${__('Use API key in Username field, leave password empty, then authorize.', 'bit-integrations')}</li>
+    </ul>
+    <small class="d-blk mt-3">
+      ${__('Example host:', 'bit-integrations')} <b>name.insightly.com</b>
+    </small>
+  `
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Insightly" links={tutorialLinks?.insightly || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={insightlyConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Your API URL:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_url"
-        value={insightlyConf.api_url}
-        type="text"
-        placeholder={__('Your Organisation...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_url}</div>
-      <small className="d-blk mt-3">{__('Example: {name}.insightly.com', 'bit-integrations')}</small>
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={insightlyConf.api_key}
-        type="text"
-        placeholder={__('API Token...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-      {insightlyConf.api_url && (
-        <small className="d-blk mt-3">
-          {__('To Get API Token, Please Visit', 'bit-integrations')}
-          &nbsp;
-          <a
-            className="btcd-link"
-            href={`https://crm.${insightlyConf.api_url}/Users/UserSettings#`}
-            target="_blank"
-            rel="noreferrer">
-            {__('Insightly API Token', 'bit-integrations')}
-          </a>
-        </small>
-      )}
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              insightlyAuthentication(
-                insightlyConf,
-                setInsightlyConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-    </div>
+    <Authorization
+      config={insightlyConf}
+      setConfig={setInsightlyConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="Insightly"
+      tutorialLinks={tutorialLinks?.insightly || {}}
+      authDetails={{
+        authType: AUTH_TYPES.BASIC_AUTH,
+        apiEndpoint: 'https://api.{api_url}/v3.1/Users',
+        method: 'GET',
+        allowEmptyPassword: true,
+        extraFields: [
+          {
+            name: 'api_url',
+            label: __('API URL', 'bit-integrations'),
+            required: true,
+            placeholder: __('name.insightly.com', 'bit-integrations')
+          }
+        ]
+      }}
+      noteDetails={{ note }}
+    />
   )
 }

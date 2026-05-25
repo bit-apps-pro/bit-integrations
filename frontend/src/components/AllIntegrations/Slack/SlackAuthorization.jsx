@@ -1,43 +1,49 @@
-import { useState } from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import { handleAuthorize } from './SlackCommonFunc'
-import Note from '../../Utilities/Note'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
+import { fetchChannels } from './SlackCommonFunc'
 
 export default function SlackAuthorization({
-  formID,
   slackConf,
   setSlackConf,
   step,
   setstep,
-  isLoading,
   setIsLoading,
-  setSnackbar,
-  redirectLocation,
   isInfo
 }) {
-  const [isAuthorized, setisAuthorized] = useState(false)
-  const [error, setError] = useState({ accessToken: '' })
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadChannels = useCallback(
+    async connectionId => {
+      const nextConf = connectionId
+        ? { ...slackConf, connection_id: connectionId }
+        : slackConf
 
-    setstep(2)
-  }
-  const handleInput = e => {
-    const newConf = { ...slackConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setSlackConf(newConf)
-  }
+      await fetchChannels(nextConf, setSlackConf, setIsLoading)
+    },
+    [slackConf, setSlackConf, setIsLoading]
+  )
 
-  const slackInstructions = `
-            <h4>${__('Get Access Token few step', 'bit-integrations')}</h4>
+  const handleConnectionSelected = useCallback(
+    async connectionId => {
+      await loadChannels(connectionId)
+    },
+    [loadChannels]
+  )
+
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !slackConf?.default) {
+        loadChannels()
+      }
+
+      setstep(value)
+    },
+    [slackConf, loadChannels, setstep]
+  )
+
+  const slackInstructions = `<h4>${__('Get Access Token few step', 'bit-integrations')}</h4>
             <ul>
                 <li>${__('First create app.', 'bit-integrations')}</li>
                 <li>${__(
@@ -51,84 +57,22 @@ const nextPage = () => {
             </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{
-        ...{ width: step === 1 && 900 },
-        ...{ height: step === 1 && 'auto' }
-      }}>
-            <TutorialLink title="Slack" links={tutorialLinks?.slack || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={slackConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <small className="d-blk mt-5">
-        {__('To get access Token , Please Visit', 'bit-integrations')}{' '}
-        <a
-          className="btcd-link"
-          href="https://api.slack.com/apps?new_app=1/"
-          target="_blank"
-          rel="noreferrer">
-          {__('Slack Console', 'bit-integrations')}
-        </a>
-      </small>
-
-      <div className="mt-3">
-        <b>{__('Access Token:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="accessToken"
-        value={slackConf.accessToken}
-        type="text"
-        placeholder={__('Access Token...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red' }}>{error.accessToken}</div>
-
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              handleAuthorize(
-                slackConf,
-                setSlackConf,
-                setError,
-                setisAuthorized,
-                setIsLoading,
-                setSnackbar
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </>
-      )}
-
-      <Note note={slackInstructions} />
-    </div>
+    <Authorization
+      config={slackConf}
+      setConfig={setSlackConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Slack"
+      tutorialLinks={tutorialLinks?.slack || {}}
+      authDetails={{
+        authType: AUTH_TYPES.BEARER_TOKEN,
+        apiEndpoint: 'https://slack.com/api/conversations.list',
+        method: 'POST',
+        ssl_verify: false
+      }}
+      noteDetails={{ note: slackInstructions }}
+      onConnectionSelected={handleConnectionSelected}
+    />
   )
 }

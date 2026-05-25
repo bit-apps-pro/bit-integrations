@@ -13,21 +13,6 @@ use WP_Error;
  */
 class WPForoController
 {
-    public function authentication()
-    {
-        if (self::checkedWPForoExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install WPForo',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public static function checkedWPForoExists()
     {
         if (!is_plugin_active('wpforo/wpforo.php')) {

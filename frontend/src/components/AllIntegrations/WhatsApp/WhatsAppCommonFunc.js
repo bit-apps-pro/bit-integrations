@@ -13,64 +13,22 @@ export const handleInput = (e, whatsAppConf, setWhatsAppConf) => {
   setWhatsAppConf({ ...newConf })
 }
 
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.numberID || !confTmp.businessAccountID || !confTmp.token) {
-    setError({
-      numberID: !confTmp.numberID
-        ? __("Phone number ID can't be empty or invalid", 'bit-integrations')
-        : '',
-      businessAccountID: !confTmp.businessAccountID
-        ? __("WhatsApp Business Account ID can't be empty or invalid", 'bit-integrations')
-        : '',
-      token: !confTmp.token ? __("Access Token can't be empty or invalid", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  const requestParams = {
-    numberID: confTmp.numberID,
-    businessAccountID: confTmp.businessAccountID,
-    token: confTmp.token
-  }
-
-  setIsLoading(true)
-  bitsFetch(requestParams, 'whats_app_authorization').then(result => {
-    setIsLoading(false)
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      return
-    }
-    setSnackbar({ show: true, msg: result?.data || __('Authorized failed', 'bit-integrations') })
-  })
-}
-
 export const getallTemplates = (confTmp, setConf, setIsLoading, setSnackbar) => {
-  if (!confTmp.numberID || !confTmp.businessAccountID || !confTmp.token) {
-    setError({
-      numberID: !confTmp.numberID
-        ? __("Phone number ID can't be empty or invalid", 'bit-integrations')
-        : '',
-      businessAccountID: !confTmp.businessAccountID
-        ? __("WhatsApp Business Account ID can't be empty or invalid", 'bit-integrations')
-        : '',
-      token: !confTmp.token ? __("Access Token can't be empty or invalid", 'bit-integrations') : ''
+  if (!confTmp.connection_id && (!confTmp.numberID || !confTmp.businessAccountID || !confTmp.token)) {
+    setSnackbar({
+      show: true,
+      msg: __("Phone number ID, Business Account ID and Access Token are required.", 'bit-integrations')
     })
     return
   }
 
-  const requestParams = {
-    numberID: confTmp.numberID,
-    businessAccountID: confTmp.businessAccountID,
-    token: confTmp.token
-  }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        numberID: confTmp.numberID,
+        businessAccountID: confTmp.businessAccountID,
+        token: confTmp.token
+      }
 
   setIsLoading(true)
   bitsFetch(requestParams, 'whats_app_all_template').then(result => {

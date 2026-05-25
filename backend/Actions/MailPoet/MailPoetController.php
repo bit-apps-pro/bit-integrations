@@ -35,17 +35,6 @@ class MailPoetController
     }
 
     /**
-     * Process ajax request for generate_token
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function mailPoetAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
-    /**
      * Process ajax request for refresh crm modules
      *
      * @return JSON crm module data

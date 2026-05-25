@@ -8,12 +8,15 @@ export const handleInput = (e, mailifyConf, setMailifyConf) => {
   setMailifyConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : { account_id: conf.account_id, api_key: conf.api_key }
+
 // refreshMappedLists
 export const refreshMailifyList = (mailifyConf, setMailifyConf, setIsLoading, setSnackbar) => {
-  const refreshListsRequestParams = {
-    account_id: mailifyConf.account_id,
-    api_key: mailifyConf.api_key
-  }
+  if (typeof setIsLoading === 'function') setIsLoading(true)
+  const refreshListsRequestParams = buildAuthRequestParams(mailifyConf)
   bitsFetch(refreshListsRequestParams, 'mailify_lists')
     .then(result => {
       if (result && result.success) {
@@ -51,9 +54,9 @@ export const refreshMailifyList = (mailifyConf, setMailifyConf, setIsLoading, se
 
 // refreshMappedFields
 export const refreshMailifyHeader = (mailifyConf, setMailifyConf, setIsLoading, setSnackbar) => {
+  if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = {
-    account_id: mailifyConf.account_id,
-    api_key: mailifyConf.api_key,
+    ...buildAuthRequestParams(mailifyConf),
     list_id: mailifyConf.listId
   }
 

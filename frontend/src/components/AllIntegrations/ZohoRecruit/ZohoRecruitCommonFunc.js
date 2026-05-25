@@ -1,6 +1,16 @@
 import { sprintf, __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
+
+
 export const handleInput = (
   e,
   recordTab,
@@ -95,10 +105,8 @@ export const refreshModules = (formID, recruitConf, setRecruitConf, setIsLoading
   const refreshModulesRequestParams = {
     formID,
     id: recruitConf.id,
+    ...buildAuthRequestParams(recruitConf),
     dataCenter: recruitConf.dataCenter,
-    clientId: recruitConf.clientId,
-    clientSecret: recruitConf.clientSecret,
-    tokenDetails: recruitConf.tokenDetails
   }
   bitsFetch(refreshModulesRequestParams, 'zrecruit_refresh_modules')
     .then(result => {
@@ -142,10 +150,8 @@ export const refreshNoteTypes = (formID, recruitConf, setRecruitConf, setIsLoadi
   const refreshModulesRequestParams = {
     formID,
     id: recruitConf.id,
+    ...buildAuthRequestParams(recruitConf),
     dataCenter: recruitConf.dataCenter,
-    clientId: recruitConf.clientId,
-    clientSecret: recruitConf.clientSecret,
-    tokenDetails: recruitConf.tokenDetails
   }
   bitsFetch(refreshModulesRequestParams, 'zrecruit_refresh_notetypes')
     .then(result => {
@@ -192,10 +198,8 @@ export const refreshRelatedList = (formID, recruitConf, setRecruitConf, setIsLoa
   const relatedListRequestParams = {
     formID,
     module: recruitConf.module,
+    ...buildAuthRequestParams(recruitConf),
     dataCenter: recruitConf.dataCenter,
-    clientId: recruitConf.clientId,
-    clientSecret: recruitConf.clientSecret,
-    tokenDetails: recruitConf.tokenDetails
   }
   bitsFetch(relatedListRequestParams, 'zrecruit_refresh_related_lists')
     .then(result => {
@@ -241,10 +245,8 @@ const getFields = (recordTab, formID, recruitConf, setRecruitConf, setIsLoading,
   const getFieldsRequestParams = {
     formID,
     module,
+    ...buildAuthRequestParams(recruitConf),
     dataCenter: recruitConf.dataCenter,
-    clientId: recruitConf.clientId,
-    clientSecret: recruitConf.clientSecret,
-    tokenDetails: recruitConf.tokenDetails
   }
   bitsFetch(getFieldsRequestParams, 'zrecruit_get_fields')
     .then(result => {

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Mautic;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,56 +15,22 @@ use WP_Error;
  */
 class MauticController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'mautic',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            'baseUrl'      => 'baseUrl',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams Params for generate token
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function generateTokens($requestsParams)
-    {
-        if (
-            empty($requestsParams->clientId)
-            || empty($requestsParams->clientSecret)
-            || empty($requestsParams->redirectURI)
-            || empty($requestsParams->baseUrl)
-            || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $baseUrl = $requestsParams->baseUrl;
-        $apiEndpoint = "{$baseUrl}/oauth/v2/token";
-        $authorizationHeader['Content-Type'] = 'application/x-www-form-urlencoded';
-        $requestParams = [
-            'code'          => $requestsParams->code,
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'redirect_uri'  => $requestsParams->redirectURI,
-            'grant_type'    => 'authorization_code'
-        ];
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams, $authorizationHeader);
-        if (is_wp_error($apiResponse) || !empty($apiResponse->errors)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
     }
 
     /**
@@ -86,7 +53,7 @@ class MauticController
         }
         $mauticUrl = $queryParams->baseUrl;
         $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (static::isTokenExpired($queryParams->tokenDetails)) {
             $response['tokenDetails'] = static::_refreshAccessToken($queryParams);
         }
         $tokenDetails = empty($response['tokenDetails']) ? $queryParams->tokenDetails : $response['tokenDetails'];
@@ -121,7 +88,7 @@ class MauticController
         }
         $mauticUrl = $queryParams->baseUrl;
         $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (static::isTokenExpired($queryParams->tokenDetails)) {
             $response['tokenDetails'] = static::_refreshAccessToken($queryParams);
         }
         $tokenDetails = empty($response['tokenDetails']) ? $queryParams->tokenDetails : $response['tokenDetails'];
@@ -155,7 +122,7 @@ class MauticController
 
         $response = [];
 
-        if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (static::isTokenExpired($queryParams->tokenDetails)) {
             $response['tokenDetails'] = static::_refreshAccessToken($queryParams);
         }
 
@@ -202,7 +169,7 @@ class MauticController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'mautic'));
         }
-        if ((\intval($tokenDetails->generates_on) + (60 * 55)) < time()) {
+        if (static::isTokenExpired($tokenDetails)) {
             $requiredParams['clientId'] = $integrationDetails->clientId;
             $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
             $requiredParams['baseUrl'] = $integrationDetails->baseUrl;
@@ -248,9 +215,33 @@ class MauticController
         if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
             return false;
         }
-        $tokenDetails->generates_on = time();
+        $generatedAt = time();
+        $tokenDetails->generates_on = $generatedAt;
+        $tokenDetails->generated_at = $generatedAt;
         $tokenDetails->access_token = $apiResponse->access_token;
+        if (!empty($apiResponse->refresh_token)) {
+            $tokenDetails->refresh_token = $apiResponse->refresh_token;
+        }
+        if (isset($apiResponse->expires_in)) {
+            $tokenDetails->expires_in = $apiResponse->expires_in;
+        }
 
         return $tokenDetails;
+    }
+
+    private static function isTokenExpired($tokenDetails)
+    {
+        if (empty($tokenDetails) || !\is_object($tokenDetails)) {
+            return false;
+        }
+
+        $generatedAt = empty($tokenDetails->generates_on) ? ($tokenDetails->generated_at ?? 0) : $tokenDetails->generates_on;
+        $expiresIn = $tokenDetails->expires_in ?? 0;
+
+        if (!empty($generatedAt) && !empty($expiresIn) && (int) $expiresIn > 0) {
+            return ((int) $generatedAt + (int) $expiresIn - 30) < time();
+        }
+
+        return ((int) $generatedAt + (55 * 60)) < time();
     }
 }

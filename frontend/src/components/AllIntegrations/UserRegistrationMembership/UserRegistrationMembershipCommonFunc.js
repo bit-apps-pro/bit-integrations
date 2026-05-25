@@ -8,44 +8,6 @@ export const handleInput = (e, userRegistrationConf, setUserRegistrationConf) =>
   setUserRegistrationConf(newConf)
 }
 
-export const userRegistrationAuthorize = (
-  setIsAuthorized,
-  setShowAuthMsg,
-  setIsLoading,
-  setSnackbar,
-  nextPage
-) => {
-  setIsLoading(true)
-  bitsFetch({}, 'user_registration_authorize')
-    .then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
-        setShowAuthMsg(true)
-        setSnackbar({
-          show: true,
-          msg: __('Connected Successfully', 'bit-integrations')
-        })
-        nextPage(2)
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __(
-            result?.data ||
-              'Connection failed. Please make sure User Registration and Membership plugin is installed and activated.',
-            'bit-integrations'
-          )
-        })
-      }
-      setIsLoading(false)
-    })
-    .catch(error => {
-      setSnackbar({
-        show: true,
-        msg: __('Connection failed', 'bit-integrations')
-      })
-      setIsLoading(false)
-    })
-}
 
 export const refreshForms = (
   userRegistrationConf,

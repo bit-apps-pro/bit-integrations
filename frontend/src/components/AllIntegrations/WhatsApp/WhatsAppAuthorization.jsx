@@ -1,132 +1,46 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import { handleAuthorize } from './WhatsAppCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
 
-export default function WhatsAppAuthorization({
-  formID,
-  whatsAppConf,
-  setWhatsAppConf,
-  step,
-  setstep,
-  isLoading,
-  setIsLoading,
-  setSnackbar,
-  redirectLocation,
-  isInfo
-}) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ dataCenter: '', clientId: '' })
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-
-    setstep(2)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...whatsAppConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setWhatsAppConf(newConf)
-  }
-
+export default function WhatsAppAuthorization({ whatsAppConf, setWhatsAppConf, step, setstep, isInfo }) {
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="WhatsApp" links={tutorialLinks?.whatsApp || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={whatsAppConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Phone number ID:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="numberID"
-        value={whatsAppConf.numberID}
-        type="text"
-        placeholder={__('Number ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('WhatsApp Business Account ID:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="businessAccountID"
-        value={whatsAppConf.businessAccountID}
-        type="text"
-        placeholder={__('Business Account ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Access Token:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="token"
-        value={whatsAppConf.token}
-        type="text"
-        placeholder={__('Access Token...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientId}</div>
-
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientSecret}</div>
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              handleAuthorize(
-                whatsAppConf,
-                setWhatsAppConf,
-                setError,
-                setIsAuthorized,
-                setIsLoading,
-                setSnackbar
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <BackIcn className="ml-1 rev-icn" />
-          </button>
-        </>
-      )}
-    </div>
+    <Authorization
+      config={whatsAppConf}
+      setConfig={setWhatsAppConf}
+      step={step}
+      setStep={setstep}
+      isInfo={isInfo}
+      tutorialTitle="WhatsApp"
+      tutorialLinks={tutorialLinks?.whatsApp || {}}
+      authDetails={{
+        authType: AUTH_TYPES.BEARER_TOKEN,
+        apiEndpoint: 'https://graph.facebook.com/v20.0/{businessAccountID}',
+        method: 'GET',
+        extraFields: [
+          {
+            name: 'numberID',
+            label: __('Phone number ID', 'bit-integrations'),
+            required: true,
+            placeholder: __('Number ID...', 'bit-integrations')
+          },
+          {
+            name: 'businessAccountID',
+            label: __('WhatsApp Business Account ID', 'bit-integrations'),
+            required: true,
+            placeholder: __('Business Account ID...', 'bit-integrations')
+          }
+        ]
+      }}
+      noteDetails={{ note }}
+    />
   )
 }
+
+const note = `<h4>${__('WhatsApp Cloud API setup', 'bit-integrations')}</h4>
+  <ul>
+    <li>${__('Provide your WhatsApp Business Account ID.', 'bit-integrations')}</li>
+    <li>${__('Provide your Phone Number ID.', 'bit-integrations')}</li>
+    <li>${__('Paste a valid long-lived access token.', 'bit-integrations')}</li>
+  </ul>`

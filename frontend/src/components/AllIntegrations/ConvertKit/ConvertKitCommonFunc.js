@@ -9,9 +9,12 @@ export const handleInput = (e, convertKitConf, setConvertKitConf) => {
   setConvertKitConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { api_secret: conf.api_secret }
+
 export const refreshConvertKitForm = (convertKitConf, setConvertKitConf, setIsLoading, setSnackbar) => {
   const refreshFormsRequestParams = {
-    api_secret: convertKitConf.api_secret
+    ...buildAuthRequestParams(convertKitConf)
   }
   bitsFetch(refreshFormsRequestParams, 'convertKit_forms')
     .then(result => {
@@ -57,7 +60,7 @@ export const refreshConvertKitForm = (convertKitConf, setConvertKitConf, setIsLo
 // refreshConvertKitTags
 export const refreshConvertKitTags = (convertKitConf, setConvertKitConf, setIsLoading, setSnackbar) => {
   const refreshFormsRequestParams = {
-    api_secret: convertKitConf.api_secret
+    ...buildAuthRequestParams(convertKitConf)
   }
   bitsFetch(refreshFormsRequestParams, 'convertKit_tags')
     .then(result => {
@@ -136,7 +139,7 @@ export const refreshConvertKitHeader = (
     })
   } else {
     const refreshFormsRequestParams = {
-      api_secret: convertKitConf.api_secret
+      ...buildAuthRequestParams(convertKitConf)
     }
 
     bitsFetch(refreshFormsRequestParams, 'convertKit_headers')

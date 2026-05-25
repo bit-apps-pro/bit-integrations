@@ -100,7 +100,6 @@ function Rapidmail({ formFields, setFlow, flow, allIntegURL }) {
         setRapidmailConf={setRapidmailConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />

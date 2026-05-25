@@ -1,6 +1,4 @@
 import { create } from 'mutative'
-import bitsFetch from '../../../Utils/bitsFetch'
-import { __ } from '../../../Utils/i18nwrap'
 
 export const handleInput = (e, wpcafeConf, setWpcafeConf) => {
   const newConf = create(wpcafeConf, draftConf => {
@@ -31,22 +29,3 @@ export const checkMappedFields = wpcafeConf => {
   return true
 }
 
-export const wpcafeAuthentication = (confTmp, setConf, setError, setIsAuthorized, setIsLoading) => {
-  if (!confTmp.name) {
-    setError({ name: !confTmp.name ? __("Integration name cann't be empty", 'bit-integrations') : '' })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  const requestParams = { name: confTmp.name }
-
-  bitsFetch(requestParams, 'wpcafe_authorize').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-    }
-
-    setIsLoading(false)
-  })
-}

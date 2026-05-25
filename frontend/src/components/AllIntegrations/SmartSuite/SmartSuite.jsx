@@ -94,9 +94,7 @@ function SmartSuite({ formFields, setFlow, flow, allIntegURL }) {
         setSmartSuiteConf={setSmartSuiteConf}
         step={step}
         setStep={setStep}
-        loading={loading}
         setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

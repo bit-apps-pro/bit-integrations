@@ -16,15 +16,6 @@ class PaidMembershipProController
         return false;
     }
 
-    public static function authorizeMemberpress()
-    {
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'Paid Membership'));
-    }
-
     public static function getAllPaidMembershipProLevel()
     {
         global $wpdb;

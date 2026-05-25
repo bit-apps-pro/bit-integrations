@@ -1,38 +1,34 @@
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { handleAuthorize } from './KlaviyoCommonFunc'
+import Authorization from '../../Connections/Authorization'
+import { getAllLists } from './KlaviyoCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
 
 function KlaviyoAuthorization({
   klaviyoConf,
   setKlaviyoConf,
   step,
   setStep,
-  isInfo,
-  loading,
-  setLoading
+  isInfo
 }) {
-  const [isAuthorized, setisAuthorized] = useState(false)
-  const [error, setError] = useState({ name: '', authKey: '' })
-const handleInput = e => {
-    const newConf = { ...klaviyoConf }
-    const koError = { ...error }
-    koError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(koError)
-    setKlaviyoConf(newConf)
-  }
+  const loadLists = useCallback(
+    connectionId => {
+      const nextConf = connectionId ? { ...klaviyoConf, connection_id: connectionId } : klaviyoConf
+      getAllLists(nextConf, setKlaviyoConf, {}, () => {})
+    },
+    [klaviyoConf, setKlaviyoConf]
+  )
 
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-
-    setStep(2)
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !klaviyoConf?.default?.lists) {
+        loadLists()
+      }
+      setStep(value)
+    },
+    [klaviyoConf, loadLists, setStep]
+  )
 
   const note = `
   <h4>${__('Step of get API Key:', 'bit-integrations')}</h4>
@@ -54,87 +50,29 @@ const handleInput = e => {
 `
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Klaviyo" links={tutorialLinks?.klaviyo || {}} />
-
-      <div className="mt-2">
-        <div className="my-1">
-          <b>{__('Integration Name:', 'bit-integrations')}</b>
-        </div>
-
-        <input
-          className="btcd-paper-inp w-6 my-1 mx-0"
-          onChange={handleInput}
-          name="name"
-          value={klaviyoConf.name}
-          type="text"
-          placeholder={__('Integration Name...', 'bit-integrations')}
-          disabled={isInfo}
-        />
-
-        <div className="my-1">
-          <b>{__('API Key:', 'bit-integrations')}</b>
-        </div>
-        <input
-          className="btcd-paper-inp w-6 my-1 mx-0"
-          onChange={handleInput}
-          name="authKey"
-          value={klaviyoConf.authKey}
-          type="text"
-          placeholder={__('API Key...', 'bit-integrations')}
-          disabled={isInfo}
-        />
-
-        {error.authKey && <div className="mt-1 mb-2 error-msg">{error.authKey}</div>}
-
-        <small className="d-blk mt-1">
-          {__('To get API key, please visit', 'bit-integrations')}
-          &nbsp;
-          <a
-            className="btcd-link"
-            href="https://www.klaviyo.com/account#api-keys-tab"
-            target="_blank"
-            rel="noreferrer">
-            {__('here.', 'bit-integrations')}
-          </a>
-        </small>
-        {!isInfo && (
-          <div className="w-6 d-flx flx-between ">
-            <button
-              onClick={() =>
-                handleAuthorize(
-                  klaviyoConf,
-                  setKlaviyoConf,
-                  setError,
-                  setisAuthorized,
-                  loading,
-                  setLoading
-                )
-              }
-              className="btn btcd-btn-lg purple sh-sm"
-              type="button"
-              disabled={isAuthorized || loading.auth}>
-              {isAuthorized
-                ? __('Authorized ✔', 'bit-integrations')
-                : __('Authorize', 'bit-integrations')}
-              {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-            </button>
-            <br />
-            <button
-              onClick={nextPage}
-              className="btn btcd-btn-lg purple sh-sm"
-              type="button"
-              disabled={!isAuthorized}>
-              {__('Next', 'bit-integrations')}
-              <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-            </button>
-          </div>
-        )}
-        <Note note={note} />
-      </div>
-    </div>
+    <Authorization
+      config={klaviyoConf}
+      setConfig={setKlaviyoConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Klaviyo"
+      tutorialLinks={tutorialLinks?.klaviyo || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://a.klaviyo.com/api/lists',
+        method: 'GET',
+        key: 'X-BI-Auth',
+        addTo: 'header',
+        headers: {
+          Authorization: 'Klaviyo-API-Key {api_key}',
+          accept: 'application/json',
+          revision: '2024-02-15'
+        }
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadLists}
+    />
   )
 }
 

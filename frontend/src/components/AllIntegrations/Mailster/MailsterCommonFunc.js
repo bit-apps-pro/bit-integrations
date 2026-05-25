@@ -40,32 +40,6 @@ export const checkMappedFields = mailsterConf => {
   return true
 }
 
-export const mailsterAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.name) {
-    setError({ name: !confTmp.name ? __("Name can't be empty", 'bit-integrations') : '' })
-    return
-  }
-
-  setLoading({ ...loading, auth: true })
-  bitsFetch({}, 'mailster_authentication').then(result => {
-    if (result.success) {
-      setIsAuthorized(true)
-      toast.success(__('Connected Successfully', 'bit-integrations'))
-      setLoading({ ...loading, auth: false })
-      mailsterFields(confTmp, setConf, loading, setLoading)
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Connection failed: install and active Mailster plugin first!', 'bit-integrations'))
-  })
-}
 
 export const mailsterFields = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, fields: true })

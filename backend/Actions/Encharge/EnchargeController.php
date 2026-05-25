@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Encharge;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class EnchargeController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'encharge',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     public const APIENDPOINT = 'https://api.encharge.io/v1/';
 
     private $_integrationID;
@@ -21,40 +30,6 @@ class EnchargeController
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param $requestsParams Params for Auth
-     *
-     * @return JSON enchagre user Authorization
-     */
-    public static function enChargeAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::APIENDPOINT . 'accounts/info';
-        $authorizationHeader['Accept'] = 'application/json';
-        $authorizationHeader['X-Encharge-Token'] = $requestsParams->api_key;
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || isset($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->code) ? 'Unknown' : $apiResponse->error->message,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
     }
 
     /**

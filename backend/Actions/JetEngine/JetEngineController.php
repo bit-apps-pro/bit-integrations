@@ -16,21 +16,6 @@ use WP_Error;
  */
 class JetEngineController
 {
-    public function authentication()
-    {
-        if (self::checkedJetEngineExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install JetEngine',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public static function checkedJetEngineExists()
     {
         if (!is_plugin_active('jet-engine/jet-engine.php')) {

@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Flow;
 
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\CredentialInjector;
 use BitApps\Integrations\Core\Util\CustomFuncValidator;
 use BitApps\Integrations\Core\Util\IpTool;
 use BitApps\Integrations\Core\Util\SmartTags;
@@ -515,6 +516,8 @@ final class Flow
                 }
 
                 if (!\is_null($integrationName) && $integration = static::isActionExists($integrationName)) {
+                    CredentialInjector::inject($flowData->flow_details, $integration);
+
                     $handler = new $integration($flowData->id);
                     if (isset($flowData->flow_details->field_map)) {
                         $sptagData = self::specialTagMappingValue($flowData->flow_details->field_map);

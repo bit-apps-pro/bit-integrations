@@ -2,7 +2,6 @@
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import toast from 'react-hot-toast'
-import { selector } from 'recoil'
 import { TASK_LIST_VALUES } from './highlevelConstants'
 
 export const handleInput = (e, highLevelConf, setHighLevelConf) => {
@@ -11,49 +10,14 @@ export const handleInput = (e, highLevelConf, setHighLevelConf) => {
   setHighLevelConf({ ...newConf })
 }
 
-export const highLevelAuthentication = (
-  highLevelConf,
-  setHighLevelConf,
-  setError,
-  setisAuthorized,
-  loading,
-  setLoading
-) => {
-  const newConf = { ...highLevelConf }
-
-  if (!newConf.name || !newConf.api_key) {
-    setError({
-      name: !newConf.name ? __("Integration name can't be empty", 'bit-integrations') : '',
-      api_key: !newConf.api_key ? __("Access Api Token Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  if (newConf?.version === 'v2' && !newConf?.location_id) {
-    setError({
-      location_id: __("Location ID can't be empty for v2", 'bit-integrations')
-    })
-    setLoading({ ...loading, auth: false })
-    return
-  }
-
-  const requestParams = {
-    api_key: newConf.api_key,
-    version: newConf?.version,
-    location_id: newConf?.location_id
-  }
-
-  setLoading({ ...loading, auth: true })
-  bitsFetch(requestParams, 'highLevel_authorization').then(result => {
-    if (result?.success) {
-      setisAuthorized(true)
-      toast.success('Authorized Successfully')
-    } else {
-      toast.error(result?.data?.message || __('Authorization Failed', 'bit-integrations'))
-    }
-
-    setLoading({ ...loading, auth: false, accounts: false })
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        version: confTmp?.version,
+        location_id: confTmp?.location_id
+      }
 
 export const checkMappedFields = highLevelConf => {
   const mappedFields = highLevelConf?.field_map
@@ -71,11 +35,7 @@ export const checkMappedFields = highLevelConf => {
 }
 
 export const getCustomFields = (confTmp, setConf, loading, setLoading) => {
-  const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   setLoading({ ...loading, customFields: true })
   bitsFetch(requestParams, 'get_highLevel_contact_custom_fields').then(result => {
@@ -94,11 +54,7 @@ export const getCustomFields = (confTmp, setConf, loading, setLoading) => {
 }
 
 export const getContacts = (confTmp, setConf, loading, setLoading) => {
-  const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   setLoading({ ...loading, contacts: true })
   bitsFetch(requestParams, 'get_highLevel_contacts').then(result => {
@@ -126,11 +82,7 @@ export const getContacts = (confTmp, setConf, loading, setLoading) => {
 }
 
 export const getUsers = (confTmp, setConf, loading, setLoading) => {
-  const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   setLoading({ ...loading, users: true })
   bitsFetch(requestParams, 'get_highLevel_users').then(result => {
@@ -149,9 +101,7 @@ export const getUsers = (confTmp, setConf, loading, setLoading) => {
 
 export const getHLTasks = (confTmp, setConf, loading, setLoading) => {
   const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id,
+    ...buildAuthRequestParams(confTmp),
     contact_id: confTmp.selectedContact
   }
 
@@ -171,11 +121,7 @@ export const getHLTasks = (confTmp, setConf, loading, setLoading) => {
 }
 
 export const getPipelines = (confTmp, setConf, loading, setLoading) => {
-  const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   setLoading({ ...loading, pipelines: true })
   bitsFetch(requestParams, 'get_highLevel_pipelines').then(result => {
@@ -201,9 +147,7 @@ export const getPipelines = (confTmp, setConf, loading, setLoading) => {
 
 export const getOpportunities = (confTmp, setConf, loading, setLoading) => {
   const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id,
+    ...buildAuthRequestParams(confTmp),
     pipeline_id: confTmp.selectedPipeline
   }
 
@@ -237,9 +181,7 @@ export const getHighLevelOptions = (
   }
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    version: confTmp?.version,
-    location_id: confTmp?.location_id
+    ...buildAuthRequestParams(confTmp)
   }
 
   setLoading({ ...loading, options: true })

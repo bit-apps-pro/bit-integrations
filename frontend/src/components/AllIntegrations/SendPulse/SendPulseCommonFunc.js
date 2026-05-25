@@ -8,13 +8,18 @@ export const handleInput = (e, sendPulseConf, setSendPulseConf) => {
   setSendPulseConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        client_id: confTmp.client_id,
+        client_secret: confTmp.client_secret,
+        tokenDetails: confTmp.tokenDetails
+      }
+
 // refreshMappedLists
 export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoading, setSnackbar) => {
-  const refreshListsRequestParams = {
-    client_id: sendPulseConf.client_id,
-    client_secret: sendPulseConf.client_secret,
-    tokenDetails: sendPulseConf.tokenDetails
-  }
+  const refreshListsRequestParams = buildAuthRequestParams(sendPulseConf)
   bitsFetch(refreshListsRequestParams, 'sendPulse_lists')
     .then(result => {
       if (result && result.success) {
@@ -53,10 +58,8 @@ export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoadi
 // refreshMappedFields
 export const refreshSendPulseHeader = (sendPulseConf, setSendPulseConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
-    client_id: sendPulseConf.client_id,
-    client_secret: sendPulseConf.client_secret,
+    ...buildAuthRequestParams(sendPulseConf),
     list_id: sendPulseConf.listId,
-    tokenDetails: sendPulseConf.tokenDetails
   }
 
   bitsFetch(refreshListsRequestParams, 'sendPulse_headers')

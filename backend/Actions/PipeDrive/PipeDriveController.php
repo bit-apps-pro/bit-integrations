@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\PipeDrive;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -16,11 +17,20 @@ use WP_Error;
  */
 class PipeDriveController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'pipedrive',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     private $baseUrl = 'https://api.pipedrive.com/v1/';
 
     public function getMetaData($requestParams)
     {
-        if (empty($requestParams->api_key)) {
+        $apiKey = !empty($requestParams->api_key) ? $requestParams->api_key : (!empty($requestParams->value) ? $requestParams->value : '');
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -30,7 +40,7 @@ class PipeDriveController
             );
         }
 
-        $apiEndpoints = $this->baseUrl . $requestParams->type . '?api_token=' . $requestParams->api_key;
+        $apiEndpoints = $this->baseUrl . $requestParams->type . '?api_token=' . $apiKey;
 
         $response = HttpHelper::get($apiEndpoints, null);
         $formattedResponse = [];
@@ -63,7 +73,8 @@ class PipeDriveController
 
     public function getFields($requestParams)
     {
-        if (empty($requestParams->api_key)) {
+        $apiKey = !empty($requestParams->api_key) ? $requestParams->api_key : (!empty($requestParams->value) ? $requestParams->value : '');
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -106,7 +117,7 @@ class PipeDriveController
 
         ];
 
-        $apiEndpoints = $this->baseUrl . $requestModule . '?limit=500&api_token=' . $requestParams->api_key;
+        $apiEndpoints = $this->baseUrl . $requestModule . '?limit=500&api_token=' . $apiKey;
 
         $response = HttpHelper::get($apiEndpoints, null);
         $formattedResponse = [];
@@ -160,7 +171,7 @@ class PipeDriveController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $api_key = $integrationDetails->api_key;
+        $api_key = !empty($integrationDetails->api_key) ? $integrationDetails->api_key : (isset($integrationDetails->value) ? $integrationDetails->value : '');
         $fieldMap = $integrationDetails->field_map;
         $module = strtolower($integrationDetails->moduleData->module);
 
@@ -183,13 +194,13 @@ class PipeDriveController
         }
 
         if (isset($pipeDriveApiResponse->success, $pipeDriveApiResponse->data) && $pipeDriveApiResponse->success && \count($integrationDetails->relatedlists)) {
-            Hooks::run(Config::withPrefix('pipedrive_store_related_list'), $pipeDriveApiResponse, $integrationDetails, $fieldValues, $module, $integrationDetails->api_key, $integId);
+            Hooks::run(Config::withPrefix('pipedrive_store_related_list'), $pipeDriveApiResponse, $integrationDetails, $fieldValues, $module, $api_key, $integId);
 
             /**
              * @deprecated 2.7.8 Use `bit_integrations_pipedrive_store_related_list` action instead.
              * @since 2.7.8
              */
-            Hooks::run('btcbi_pipedrive_store_related_list', $pipeDriveApiResponse, $integrationDetails, $fieldValues, $module, $integrationDetails->api_key, $integId);
+            Hooks::run('btcbi_pipedrive_store_related_list', $pipeDriveApiResponse, $integrationDetails, $fieldValues, $module, $api_key, $integId);
         }
 
         return $pipeDriveApiResponse;

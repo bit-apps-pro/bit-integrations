@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZohoBigin;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -18,6 +19,17 @@ use WP_Error;
  */
 class ZohoBiginController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'zohobigin',
+        'fields'   => [
+            'dataCenter'   => 'dataCenter',
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'api_domain']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -25,59 +37,6 @@ class ZohoBiginController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams Params to generate token
-     *
-     * @return JSON zoho bigin api response and status
-     */
-    public static function generateTokens($requestsParams)
-    {
-        if (
-            empty($requestsParams->{'accounts-server'})
-            || empty($requestsParams->dataCenter)
-            || empty($requestsParams->clientId)
-            || empty($requestsParams->clientSecret)
-            || empty($requestsParams->redirectURI)
-            || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = urldecode($requestsParams->{'accounts-server'}) . '/oauth/v2/token';
-        $requestParams = [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'redirect_uri'  => urldecode($requestsParams->redirectURI),
-            'code'          => $requestsParams->code
-        ];
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
-
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh  modules
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshModules($queryParams)
     {
         if (
@@ -372,7 +331,7 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    public function getUsers($queryParams)
+    public static function getUsers($queryParams)
     {
         if (
             empty($queryParams->tokenDetails)

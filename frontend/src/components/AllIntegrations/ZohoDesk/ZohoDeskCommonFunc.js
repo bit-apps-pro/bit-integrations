@@ -1,6 +1,16 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
+
+
 export const handleInput = (
   e,
   deskConf,
@@ -64,10 +74,8 @@ export const refreshOrganizations = (formID, deskConf, setDeskConf, setIsLoading
   const refreshOrganizationsRequestParams = {
     formID,
     id: deskConf.id,
+    ...buildAuthRequestParams(deskConf),
     dataCenter: deskConf.dataCenter,
-    clientId: deskConf.clientId,
-    clientSecret: deskConf.clientSecret,
-    tokenDetails: deskConf.tokenDetails
   }
   bitsFetch(refreshOrganizationsRequestParams, 'zdesk_refresh_organizations')
     .then(result => {
@@ -107,10 +115,8 @@ export const refreshDepartments = (formID, deskConf, setDeskConf, setIsLoading, 
   const refreshDepartmentsRequestParams = {
     formID,
     id: deskConf.id,
+    ...buildAuthRequestParams(deskConf),
     dataCenter: deskConf.dataCenter,
-    clientId: deskConf.clientId,
-    clientSecret: deskConf.clientSecret,
-    tokenDetails: deskConf.tokenDetails,
     orgId: deskConf.orgId
   }
   bitsFetch(refreshDepartmentsRequestParams, 'zdesk_refresh_departments')
@@ -159,10 +165,8 @@ export const refreshFields = (formID, deskConf, setDeskConf, setIsLoading, setSn
   setIsLoading(true)
   const refreshFieldsRequestParams = {
     formID,
+    ...buildAuthRequestParams(deskConf),
     dataCenter: deskConf.dataCenter,
-    clientId: deskConf.clientId,
-    clientSecret: deskConf.clientSecret,
-    tokenDetails: deskConf.tokenDetails,
     orgId: deskConf.orgId
   }
   bitsFetch(refreshFieldsRequestParams, 'zdesk_refresh_fields')
@@ -208,10 +212,8 @@ export const refreshOwners = (formID, deskConf, setDeskConf, setIsLoading, setSn
   const refreshOwnersRequestParams = {
     formID,
     id: deskConf.id,
+    ...buildAuthRequestParams(deskConf),
     dataCenter: deskConf.dataCenter,
-    clientId: deskConf.clientId,
-    clientSecret: deskConf.clientSecret,
-    tokenDetails: deskConf.tokenDetails,
     orgId: deskConf.orgId
   }
   bitsFetch(refreshOwnersRequestParams, 'zdesk_refresh_owners')
@@ -255,10 +257,8 @@ export const refreshProducts = (formID, deskConf, setDeskConf, setIsLoading, set
   const refreshProductsRequestParams = {
     formID,
     id: deskConf.id,
+    ...buildAuthRequestParams(deskConf),
     dataCenter: deskConf.dataCenter,
-    clientId: deskConf.clientId,
-    clientSecret: deskConf.clientSecret,
-    tokenDetails: deskConf.tokenDetails,
     orgId: deskConf.orgId,
     departmentId: deskConf.department
   }

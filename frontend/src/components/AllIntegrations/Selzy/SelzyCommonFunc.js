@@ -6,6 +6,11 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import { saveActionConf, saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 
+const getApiKeyFromConf = conf => conf?.api_key || conf?.authKey || ''
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id ? { connection_id: conf.connection_id } : { api_key: getApiKeyFromConf(conf) }
+
 export const handleInput = (e, conf, setConf, error, setError) => {
   const newConf = { ...conf }
   const inputError = { ...error }
@@ -15,45 +20,14 @@ export const handleInput = (e, conf, setConf, error, setError) => {
   setConf(newConf)
 }
 
-export const handleAuthorize = (conf, setConf, setError, setAuthorized, loading, setLoading) => {
-  if (!conf.authKey) {
-    setError({ authKey: !conf.authKey ? __("API Key can't be empty") : '' })
-    return
-  }
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { authKey: conf.authKey }
-
-  bitsFetch(requestParams, 'selzy_handle_authorize').then(result => {
-    if (result.success && result.data) {
-      const newConf = { ...conf }
-      if (result.data) {
-        if (!newConf.default) {
-          newConf.default = {}
-        }
-        const data = result.data.result?.map(v => ({
-          ...v,
-          id: String(v.id)
-        }))
-        newConf.default.lists = data
-      }
-      getAllCustomFields(newConf, setConf, loading, setLoading)
-      setConf(newConf)
-      setAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed'))
-  })
-}
-
 export const getAllLists = async (conf, setConf, loading, setLoading) => {
-  setLoading({ ...loading, list: true })
-  const requestParams = { authKey: conf.authKey }
-  const result = await bitsFetch(requestParams, 'selzy_handle_authorize')
+  if (setLoading) {
+    setLoading({ ...loading, list: true })
+  }
+
+  const requestParams = buildAuthRequestParams(conf)
+  const result = await bitsFetch(requestParams, 'selzy_get_all_lists')
+
   if (result.success) {
     const data = result.data.result?.map(v => ({ ...v, id: String(v.id) }))
     const newConf = { ...conf }
@@ -63,18 +37,25 @@ export const getAllLists = async (conf, setConf, loading, setLoading) => {
       }
       newConf.default.lists = data
       setConf(newConf)
-      setLoading({ ...loading, list: false })
-      toast.success(__('List refresh successfully'))
-      return
+      if (setLoading) {
+        setLoading({ ...loading, list: false })
+        toast.success(__('List refresh successfully'))
+      }
+      return true
     }
   }
-  setLoading({ ...loading, list: false })
-  toast.success(__('List refresh failed'))
+
+  if (setLoading) {
+    setLoading({ ...loading, list: false })
+    toast.success(__('List refresh failed'))
+  }
+
+  return false
 }
 
 export const getAllTags = async (conf, setConf, loading, setLoading) => {
   setLoading && setLoading({ ...loading, tag: true })
-  const requestParams = { authKey: conf.authKey }
+  const requestParams = buildAuthRequestParams(conf)
   const result = await bitsFetch(requestParams, 'selzy_get_all_tags')
   if (result.success) {
     const data = result.data.result
@@ -101,7 +82,7 @@ export const getAllTags = async (conf, setConf, loading, setLoading) => {
 
 export const getAllCustomFields = async (conf, setConf, loading, setLoading) => {
   setLoading && setLoading({ ...loading, customFields: true })
-  const requestParams = { authKey: conf.authKey }
+  const requestParams = buildAuthRequestParams(conf)
   const result = await bitsFetch(requestParams, 'selzy_get_all_custom_fields')
   if (result.success) {
     const newConf = { ...conf }

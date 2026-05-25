@@ -1,7 +1,16 @@
 import toast from 'react-hot-toast'
-import { __, sprintf } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { create } from 'mutative'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
 
 export const handleInput = (
   e,
@@ -68,12 +77,7 @@ export const getAllCampaignList = (
   setSnackbar
 ) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_campaign_list').then(result => {
     if (result && result.success) {
       setSalesforceConf(oldConf => {
@@ -105,12 +109,7 @@ export const getAllCampaignList = (
 
 export const getAllOrigin = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_case_origin').then(result => {
     if (result && result.success) {
       setSalesforceConf(prevConf =>
@@ -133,12 +132,7 @@ export const getAllOrigin = (formID, salesforceConf, setSalesforceConf, setIsLoa
 
 export const getAllType = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_case_type').then(result => {
     if (result && result.success) {
       setSalesforceConf(prevConf =>
@@ -161,12 +155,7 @@ export const getAllType = (formID, salesforceConf, setSalesforceConf, setIsLoadi
 
 export const getAllReason = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_case_reason').then(result => {
     if (result && result.success) {
       setSalesforceConf(prevConf =>
@@ -189,12 +178,7 @@ export const getAllReason = (formID, salesforceConf, setSalesforceConf, setIsLoa
 
 export const getAllStatus = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_case_status').then(result => {
     if (result && result.success) {
       setSalesforceConf(prevConf =>
@@ -217,12 +201,7 @@ export const getAllStatus = (formID, salesforceConf, setSalesforceConf, setIsLoa
 
 export const getAllPriority = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_case_priority').then(result => {
     if (result && result.success) {
       setSalesforceConf(prevConf =>
@@ -251,12 +230,7 @@ export const getAllPotentialLiability = (
   setSnackbar
 ) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_case_potential_liability').then(
     result => {
       if (result && result.success) {
@@ -287,12 +261,7 @@ export const getAllSLAViolation = (
   setSnackbar
 ) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_case_sla_violation').then(
     result => {
       if (result && result.success) {
@@ -326,9 +295,7 @@ export const getAllLeadSource = (
   const campaignRequestParams = {
     formID,
     actionName: salesforceConf.actionName,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
+    ...buildAuthRequestParams(salesforceConf)
   }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_get_lead_sources').then(
     result => {
@@ -365,9 +332,7 @@ export const getAllLeadStatus = (
   const campaignRequestParams = {
     formID,
     actionName: salesforceConf.actionName,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
+    ...buildAuthRequestParams(salesforceConf)
   }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_get_lead_status').then(result => {
     if (result && result.success) {
@@ -402,9 +367,7 @@ export const getAllLeadRatings = (
   const campaignRequestParams = {
     formID,
     actionName: salesforceConf.actionName,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
+    ...buildAuthRequestParams(salesforceConf)
   }
   const loadPostReasons = bitsFetch(campaignRequestParams, 'selesforce_get_lead_ratings').then(
     result => {
@@ -471,12 +434,7 @@ export const getAllLeadIndustries = (
 
 export const getAllLeadList = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   bitsFetch(campaignRequestParams, 'selesforce_lead_list')
     .then(result => {
       if (result && result.success) {
@@ -511,12 +469,7 @@ export const getAllContactList = (
   setSnackbar
 ) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_contact_list').then(result => {
     if (result && result.success) {
       setSalesforceConf(oldConf => {
@@ -558,9 +511,7 @@ export const getAllCustomFields = (
   const customFieldRequestParams = {
     formID,
     actionName,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
+    ...buildAuthRequestParams(salesforceConf)
   }
 
   const loadPostTypes = bitsFetch(customFieldRequestParams, 'selesforce_custom_field').then(result => {
@@ -597,9 +548,7 @@ export const getAllCustomActionModules = (
   setSnackbar
 ) => {
   const customFieldRequestParams = {
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
+    ...buildAuthRequestParams(salesforceConf)
   }
   setIsLoading(true)
   bitsFetch(customFieldRequestParams, 'selesforce_custom_action').then(result => {
@@ -666,12 +615,7 @@ export const getAllAccountList = (
   setSnackbar
 ) => {
   setIsLoading(true)
-  const campaignRequestParams = {
-    formID,
-    clientId: salesforceConf.clientId,
-    clientSecret: salesforceConf.clientSecret,
-    tokenDetails: salesforceConf.tokenDetails
-  }
+  const campaignRequestParams = { formID, ...buildAuthRequestParams(salesforceConf) }
   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_account_list').then(result => {
     if (result && result.success) {
       setSalesforceConf(oldConf => {
@@ -741,117 +685,4 @@ export const generateMappedField = (salesforceConf, actionName) => {
   }
 
   return fieldMap
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setIsLoading(true)
-  const apiEndpoint = `https://login.salesforce.com/services/oauth2/authorize?response_type=code&client_id=${
-    confTmp.clientId
-  }&prompt=login%20consent&state=${encodeURIComponent(
-    window.location.href
-  )}/redirect&redirect_uri=${encodeURIComponent(btcbi.api)}/redirect`
-
-  const authWindow = window.open(apiEndpoint, 'salesforce', 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitformsZoho = localStorage.getItem('__salesforce')
-      if (bitformsZoho) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitformsZoho)
-        localStorage.removeItem('__salesforce')
-      }
-
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization Failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(
-          grantTokenResponse,
-          newConf,
-          setConf,
-          setisAuthorized,
-          setIsLoading,
-          setSnackbar,
-          btcbi
-        )
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (
-  grantToken,
-  confTmp,
-  setConf,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-
-  bitsFetch(tokenRequestParams, 'selesforce_generate_token').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      newConf.tokenDetails = result.data
-      setConf(newConf)
-      setisAuthorized(true)
-      setSnackbar({
-        show: true,
-        msg: __('Authorized Successfully', 'bit-integrations')
-      })
-    } else if (
-      (result && result.data && result.data.data) ||
-      (!result.success && typeof result.data === 'string')
-    ) {
-      setSnackbar({
-        show: true,
-        msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-          result.data.data || result.data
-        }. ${__('please try again', 'bit-integrations')}`
-      })
-    } else {
-      setSnackbar({
-        show: true,
-        msg: __('Authorization failed. please try again', 'bit-integrations')
-      })
-    }
-    setIsLoading(false)
-  })
 }

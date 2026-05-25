@@ -25,8 +25,13 @@ export const checkMappedFields = pCloudConf => {
   return true
 }
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : { tokenDetails: conf.tokenDetails }
+
 export const getAllPCloudFolders = (pCloudConf, setPCloudConf, type) => {
-  const queryParams = { tokenDetails: pCloudConf.tokenDetails }
+  const queryParams = buildAuthRequestParams(pCloudConf)
   const loadPostTypes = bitsFetch(queryParams, 'pCloud_get_all_folders').then(result => {
     if (result && result.success) {
       const newConf = { ...pCloudConf }
@@ -46,90 +51,5 @@ export const getAllPCloudFolders = (pCloudConf, setPCloudConf, type) => {
     success: data => data,
     error: __('Error Occurred', 'bit-integrations'),
     loading: __('Loading PCloud Folders List...', 'bit-integrations')
-  })
-}
-
-export const handleAuthorization = (
-  confTmp,
-  setConf,
-  setIsAuthorized,
-  setIsLoading,
-  setError,
-  btcbi
-) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Client Secret can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-  // eslint-disable-next-line no-undef
-  const apiEndpoint = `https://my.pcloud.com/oauth2/authorize?client_id=${
-    confTmp.clientId
-  }&response_type=code&redirect_uri=${btcbi.api}/redirect&state=${encodeURIComponent(
-    window.location.href
-  )}/redirect`
-  const authWindow = window.open(apiEndpoint, 'pCloud', 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isAuthRedirectLocation = false
-      const bitsPCloud = localStorage.getItem('__pCloud')
-      if (bitsPCloud) {
-        isAuthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitsPCloud)
-        localStorage.removeItem('__pCloud')
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isAuthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        toast.error(
-          `${__('Authorization Failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        )
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(grantTokenResponse, newConf, setConf, setIsAuthorized, setIsLoading, btcbi)
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (grantToken, confTmp, setConf, setIsAuthorized, setIsLoading, btcbi) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  // eslint-disable-next-line no-undef
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-
-  bitsFetch(tokenRequestParams, 'pCloud_authorization').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      newConf.tokenDetails = result.data
-      setConf(newConf)
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-    } else if ((result && result.data) || (!result.success && typeof result.data === 'string')) {
-      toast.error(
-        `${__('Authorization failed Cause:', 'bit-integrations')}${result.data}. ${__(
-          'please try again',
-          'bit-integrations'
-        )}`
-      )
-    } else {
-      toast.error(__('Authorization failed. please try again', 'bit-integrations'))
-    }
-    setIsLoading(false)
   })
 }

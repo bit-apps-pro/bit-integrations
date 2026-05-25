@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZohoDesk;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
@@ -15,56 +16,22 @@ use WP_Error;
  */
 class ZohoDeskController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'zohodesk',
+        'fields'   => [
+            'dataCenter'   => 'dataCenter',
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param mixed $requestsParams
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function generateTokens($requestsParams)
-    {
-        if (empty($requestsParams->{'accounts-server'})
-                || empty($requestsParams->dataCenter)
-                || empty($requestsParams->clientId)
-                || empty($requestsParams->clientSecret)
-                || empty($requestsParams->redirectURI)
-                || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = urldecode($requestsParams->{'accounts-server'}) . '/oauth/v2/token';
-        $requestParams = [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'redirect_uri'  => urldecode($requestsParams->redirectURI),
-            'code'          => $requestsParams->code
-        ];
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
     }
 
     public static function refreshOrganizations($queryParams)

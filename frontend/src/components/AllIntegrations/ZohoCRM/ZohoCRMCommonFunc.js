@@ -1,6 +1,16 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
+
+
 export const handleInput = (
   e,
   recordTab,
@@ -137,10 +147,8 @@ export const refreshModules = (formID, crmConf, setCrmConf, setIsLoading, setSna
   const refreshModulesRequestParams = {
     formID,
     id: crmConf.id,
+    ...buildAuthRequestParams(crmConf),
     dataCenter: crmConf.dataCenter,
-    clientId: crmConf.clientId,
-    clientSecret: crmConf.clientSecret,
-    tokenDetails: crmConf.tokenDetails
   }
   bitsFetch(refreshModulesRequestParams, 'zcrm_refresh_modules')
     .then(result => {
@@ -187,10 +195,8 @@ export const refreshLayouts = (recordTab, formID, crmConf, setCrmConf, setIsLoad
   const refreshLayoutsRequestParams = {
     formID,
     module,
+    ...buildAuthRequestParams(newConf),
     dataCenter: newConf.dataCenter,
-    clientId: newConf.clientId,
-    clientSecret: newConf.clientSecret,
-    tokenDetails: newConf.tokenDetails
   }
   bitsFetch(refreshLayoutsRequestParams, 'zcrm_refresh_layouts')
     .then(result => {
@@ -255,10 +261,8 @@ export const refreshRelatedList = (formID, crmConf, setCrmConf, setIsLoading, se
   const relatedListRequestParams = {
     formID,
     module: crmConf.module,
+    ...buildAuthRequestParams(crmConf),
     dataCenter: crmConf.dataCenter,
-    clientId: crmConf.clientId,
-    clientSecret: crmConf.clientSecret,
-    tokenDetails: crmConf.tokenDetails
   }
   bitsFetch(relatedListRequestParams, 'zcrm_get_related_lists')
     .then(result => {
@@ -301,10 +305,8 @@ export const refreshTags = (recordTab, formID, crmConf, setCrmConf, setIsLoading
   const refreshTagsParams = {
     formID,
     module,
+    ...buildAuthRequestParams(crmConf),
     dataCenter: crmConf.dataCenter,
-    clientId: crmConf.clientId,
-    clientSecret: crmConf.clientSecret,
-    tokenDetails: crmConf.tokenDetails
   }
   bitsFetch(refreshTagsParams, 'zcrm_get_tags')
     .then(result => {
@@ -343,10 +345,8 @@ export const refreshOwners = (formID, crmConf, setCrmConf, setIsLoading, setSnac
   setIsLoading(true)
   const getOwnersParams = {
     formID,
+    ...buildAuthRequestParams(crmConf),
     dataCenter: crmConf.dataCenter,
-    clientId: crmConf.clientId,
-    clientSecret: crmConf.clientSecret,
-    tokenDetails: crmConf.tokenDetails
   }
   bitsFetch(getOwnersParams, 'zcrm_get_users')
     .then(result => {
@@ -375,10 +375,8 @@ export const refreshAssigmentRules = (recordTab, crmConf, setCrmConf, setIsLoadi
   setIsLoading(true)
   const getAssigmentRulesParams = {
     module,
+    ...buildAuthRequestParams(crmConf),
     dataCenter: crmConf.dataCenter,
-    clientId: crmConf.clientId,
-    clientSecret: crmConf.clientSecret,
-    tokenDetails: crmConf.tokenDetails
   }
   bitsFetch(getAssigmentRulesParams, 'zcrm_get_assignment_rules')
     .then(result => {

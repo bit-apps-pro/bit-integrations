@@ -1,44 +1,49 @@
-import { useState } from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import { getAllServers, handleAuthorize } from './DiscordCommonFunc'
-import Note from '../../Utilities/Note'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
+import { getAllServers } from './DiscordCommonFunc'
 
 export default function DiscordAuthorization({
-  formID,
   discordConf,
   setDiscordConf,
   step,
   setstep,
-  isLoading,
   setIsLoading,
-  setSnackbar,
-  redirectLocation,
   isInfo
 }) {
-  const [isAuthorized, setisAuthorized] = useState(false)
-  const [error, setError] = useState({ accessToken: '' })
-  const nextPage = () => {
-    getAllServers(discordConf, setDiscordConf, setIsLoading)
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadServers = useCallback(
+    async connectionId => {
+      const nextConf = connectionId
+        ? { ...discordConf, connection_id: connectionId }
+        : discordConf
 
-    setstep(2)
-  }
-  const handleInput = e => {
-    const newConf = { ...discordConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setDiscordConf(newConf)
-  }
+      await getAllServers(nextConf, setDiscordConf, setIsLoading)
+    },
+    [discordConf, setDiscordConf, setIsLoading]
+  )
 
-  const discordInstructions = `
-            <h4>${__('Get Access Token few step', 'bit-integrations')}</h4>
+  const handleConnectionSelected = useCallback(
+    async connectionId => {
+      await loadServers(connectionId)
+    },
+    [loadServers]
+  )
+
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !discordConf?.default) {
+        loadServers()
+      }
+
+      setstep(value)
+    },
+    [discordConf, loadServers, setstep]
+  )
+
+  const discordInstructions = `<h4>${__('Get Access Token few step', 'bit-integrations')}</h4>
             <ul>
                 <li>${__('First create app.', 'bit-integrations')}</li>
                 <li>${__('Click on OAuth2.', 'bit-integrations')}</li>
@@ -49,90 +54,32 @@ export default function DiscordAuthorization({
                   'bit-integrations'
                 )}</li>
                 <li>${__(
-                  'Then click on <b>Bot</b>  from left navbar and copy the <b>Access token</b>.',
+                  'Then click on <b>Bot</b> from left navbar and copy the <b>Access token</b>.',
                   'bit-integrations'
                 )}</li>
             </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{
-        ...{ width: step === 1 && 900 },
-        ...{ height: step === 1 && 'auto' }
-      }}>
-            <TutorialLink title="Discord" links={tutorialLinks?.discord || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={discordConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <small className="d-blk mt-5">
-        {__('To get access Token , Please Visit', 'bit-integrations')}{' '}
-        <a
-          className="btcd-link"
-          href="https://discord.com/developers/applications"
-          target="_blank"
-          rel="noreferrer">
-          {__('Discord Console', 'bit-integrations')}
-        </a>
-      </small>
-
-      <div className="mt-3">
-        <b>{__('Access Token:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="accessToken"
-        value={discordConf.accessToken}
-        type="text"
-        placeholder={__('Access Token...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red' }}>{error.accessToken}</div>
-
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              handleAuthorize(
-                discordConf,
-                setDiscordConf,
-                setError,
-                setisAuthorized,
-                setIsLoading,
-                setSnackbar
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </>
-      )}
-
-      <Note note={discordInstructions} />
-    </div>
+    <Authorization
+      config={discordConf}
+      setConfig={setDiscordConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Discord"
+      tutorialLinks={tutorialLinks?.discord || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://discord.com/api/v10/users/@me',
+        key: 'X-BI-Token',
+        addTo: 'header',
+        headers: {
+          Authorization: 'Bot {api_key}'
+        },
+        method: 'GET'
+      }}
+      noteDetails={{ note: discordInstructions }}
+      onConnectionSelected={handleConnectionSelected}
+    />
   )
 }

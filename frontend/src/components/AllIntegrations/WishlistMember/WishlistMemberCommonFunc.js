@@ -2,24 +2,6 @@ import { create } from 'mutative'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
-export const handleAuthorize = (setIsAuthorized, setIsLoading, setSnackbar) => {
-  setIsLoading(true)
-
-  bitsFetch(null, 'wishlist_authorization').then(result => {
-    if (result?.success) {
-      setIsAuthorized(true)
-      setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-    } else {
-      setIsAuthorized(false)
-      setSnackbar({
-        show: true,
-        msg: result?.data || __('Authorization Failed, Please try again', 'bit-integrations')
-      })
-    }
-
-    setIsLoading(false)
-  })
-}
 
 export const generateMappedField = wishlistFields => {
   const requiredFields = wishlistFields.filter(fld => fld?.required === true)

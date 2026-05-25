@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useRecoilValue } from 'recoil'
 import BackIcn from '../../../Icons/BackIcn'
 import { $appConfigState } from '../../../GlobalStates'
@@ -15,7 +15,6 @@ import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 
 function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const btcbi = useRecoilValue($appConfigState)
   const { siteURL } = btcbi
   const [isLoading, setIsLoading] = useState(false)
@@ -105,14 +104,11 @@ function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <GroundhoggAuthorization
-        formID={formID}
         groundhoggConf={groundhoggConf}
         setGroundhoggConf={setGroundhoggConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
         setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}
@@ -122,7 +118,7 @@ function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
         <GroundhoggIntegLayout
           formFields={formFields}
           handleInput={e =>
-            handleInput(e, groundhoggConf, setGroundhoggConf, formID, setIsLoading, setSnackbar)
+            handleInput(e, groundhoggConf, setGroundhoggConf, setIsLoading, setSnackbar)
           }
           groundhoggConf={groundhoggConf}
           setGroundhoggConf={setGroundhoggConf}

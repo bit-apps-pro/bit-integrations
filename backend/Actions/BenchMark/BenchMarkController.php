@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\BenchMark;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class BenchMarkController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'benchmark',
+        'fields'   => [
+            'api_secret' => 'value',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -24,41 +33,6 @@ class BenchMarkController
     public static function _apiEndpoint($method)
     {
         return "https://clientapi.benchmarkemail.com/{$method}";
-    }
-
-    /**
-     * Process ajax request
-     *
-     * @param $requestsParams Params to authorize
-     *
-     * @return JSON Benchmark api response and status
-     */
-    public static function benchMarkAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_secret)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::_apiEndpoint('Client/');
-
-        $authorizationHeader['AuthToken'] = $requestsParams->api_secret;
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || empty($apiResponse)) {
-            wp_send_json_error(
-                empty($apiResponse) ? 'Unknown' : $apiResponse,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
     }
 
     /**

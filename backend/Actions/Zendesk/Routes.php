@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Zendesk\ZendeskController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('zendesk_authentication', [ZendeskController::class, 'authentication']);
 Route::post('zendesk_fetch_custom_fields', [ZendeskController::class, 'getCustomFields']);
 Route::post('zendesk_fetch_all_leads', [ZendeskController::class, 'getAllLeads']);
 Route::post('zendesk_fetch_all_parentOrganizations', [ZendeskController::class, 'getAllParentOrganizations']);

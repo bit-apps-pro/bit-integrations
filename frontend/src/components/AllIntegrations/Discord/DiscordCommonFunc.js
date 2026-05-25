@@ -14,19 +14,18 @@ export const handleInput = (e, discordConf, setDiscordConf) => {
   setDiscordConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { accessToken: confTmp.accessToken }
+
 export const getAllServers = (confTmp, setConf, setIsLoading) => {
-  if (!confTmp.accessToken) {
-    setError({
-      accessToken: !confTmp.accessToken ? __("Access Token can't be empty", 'bit-integrations') : ''
-    })
+  if (!confTmp.connection_id && !confTmp.accessToken) {
+    toast.error(__("Access Token can't be empty", 'bit-integrations'))
     return
   }
 
   setIsLoading(true)
 
-  const tokenRequestParams = { accessToken: confTmp.accessToken }
-
-  bitsFetch(tokenRequestParams, 'discord_fetch_servers').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'discord_fetch_servers').then(result => {
     if (result && result.success) {
       setConf(oldConf => {
         const newConf = { ...oldConf }
@@ -40,27 +39,34 @@ export const getAllServers = (confTmp, setConf, setIsLoading) => {
       })
 
       setIsLoading(false)
-
       toast.success(__('Servers fetched successfully', 'bit-integrations'))
       return
     }
+
     setIsLoading(false)
     toast.error(__('Servers fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllChannels = (confTmp, setConf, setIsLoading) => {
-  if (!confTmp.accessToken) {
-    setError({
-      accessToken: !confTmp.accessToken ? __("Access Token can't be empty", 'bit-integrations') : ''
-    })
+  if (!confTmp.connection_id && !confTmp.accessToken) {
+    toast.error(__("Access Token can't be empty", 'bit-integrations'))
     return
   }
+
+  if (!confTmp.selectedServer) {
+    toast.error(__('Server is required', 'bit-integrations'))
+    return
+  }
+
   setIsLoading(true)
 
-  const tokenRequestParams = { accessToken: confTmp.accessToken, serverId: confTmp.selectedServer }
+  const requestParams = {
+    ...buildAuthRequestParams(confTmp),
+    serverId: confTmp.selectedServer
+  }
 
-  bitsFetch(tokenRequestParams, 'discord_fetch_channels').then(result => {
+  bitsFetch(requestParams, 'discord_fetch_channels').then(result => {
     if (result && result.success) {
       setConf(oldConf => {
         const newConf = { ...oldConf }
@@ -74,88 +80,11 @@ export const getAllChannels = (confTmp, setConf, setIsLoading) => {
       })
 
       setIsLoading(false)
-
       toast.success(__('Channels fetched successfully', 'bit-integrations'))
       return
     }
+
     setIsLoading(false)
     toast.error(__('Channels fetching failed', 'bit-integrations'))
   })
 }
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.accessToken) {
-    setError({
-      accessToken: !confTmp.accessToken ? __("Access Token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  const tokenRequestParams = { accessToken: confTmp.accessToken }
-
-  bitsFetch(tokenRequestParams, 'handle_authorize')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
-}
-// export const handleAuthorize = (confTmp, setConf, setError, setisAuthorized, setIsLoading, setSnackbar) => {
-//   if (!confTmp.accessToken) {
-//     setError({ accessToken: !confTmp.accessToken ? __('Access Token can\'t be empty', 'bit-integrations') : '' })
-//     return
-//   }
-
-//   setError({})
-//   setIsLoading(true)
-
-//   const tokenRequestParams = { accessToken: confTmp.accessToken }
-
-//   bitsFetch(tokenRequestParams, 'discord_authorization_and_fetch_servers')
-//     .then(result => result)
-//     .then(result => {
-//       if (result && result.success) {
-//         const newConf = { ...confTmp }
-//         newConf.tokenDetails = result.data
-//         setConf(newConf)
-//         setisAuthorized(true)
-//         setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-//       } else if ((result && result.data && result.data.data) || (!result.success && typeof result.data === 'string')) {
-//         setSnackbar({ show: true, msg: `${__('Authorization failed Cause:', 'bit-integrations')}${result.data.data || result.data}. ${__('please try again', 'bit-integrations')}` })
-//       } else {
-//         setSnackbar({ show: true, msg: __('Authorization failed. please try again', 'bit-integrations') })
-//       }
-//       setIsLoading(false)
-//     })
-// }

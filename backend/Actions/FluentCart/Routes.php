@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\FluentCart\FluentCartController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('fluent_cart_authorize', [FluentCartController::class, 'fluentCartAuthorize']);
 Route::post('refresh_fluent_cart_products', [FluentCartController::class, 'refreshProducts']);
 Route::post('refresh_fluent_cart_products_categories', [FluentCartController::class, 'refreshProductCategories']);
 Route::post('refresh_fluent_cart_customers', [FluentCartController::class, 'refreshCustomers']);

@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
-import BackIcn from '../../../Icons/BackIcn'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
@@ -10,7 +9,6 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import TrelloAuthorization from './TrelloAuthorization'
 import {
   handleInput,
-  setGrantTokenResponse,
   checkMappedFields,
   generateMappedField
 } from './TrelloCommonFunc'
@@ -18,7 +16,6 @@ import TrelloIntegLayout from './TrelloIntegLayout'
 
 function Trello({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -42,10 +39,6 @@ function Trello({ formFields, setFlow, flow, allIntegURL }) {
     actions: {}
   })
 
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    window.opener && setGrantTokenResponse('trello')
-  }, [])
   const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
@@ -69,12 +62,10 @@ function Trello({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <TrelloAuthorization
-        formID={formID}
         trelloConf={trelloConf}
         setTrelloConf={setTrelloConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />

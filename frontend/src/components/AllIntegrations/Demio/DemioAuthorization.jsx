@@ -1,142 +1,73 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { demioAuthentication, getAllEvents } from './DemioCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
+import { getAllEvents } from './DemioCommonFunc'
 
 export default function DemioAuthorization({
   demioConf,
   setDemioConf,
   step,
   setStep,
-  loading,
   setLoading,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-const [error, setError] = useState({ api_key: '', api_secret: '' })
+  const loadEvents = useCallback(
+    async connectionId => {
+      const nextConf = connectionId ? { ...demioConf, connection_id: connectionId } : demioConf
+      getAllEvents(nextConf, setDemioConf, setLoading)
+    },
+    [demioConf, setDemioConf, setLoading]
+  )
 
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !(demioConf?.events || []).length) {
+        loadEvents()
+      }
+      setStep(value)
+    },
+    [demioConf, loadEvents, setStep]
+  )
 
-    !demioConf?.default
-    setStep(2)
-    getAllEvents(demioConf, setDemioConf, setLoading)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...demioConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setDemioConf(newConf)
-  }
-
-  const ActiveInstructions = `
-            <h4>${__('To Get API Key & API Secret', 'bit-integrations')}</h4>
-            <ul>
-                <li>${__('First go to your Demio dashboard.', 'bit-integrations')}</li>
-                <li>${__('Click go to "Settings" from Right Top corner', 'bit-integrations')}</li>
-                <li>${__('Then Click "API" from the "Settings Menu"', 'bit-integrations')}</li>
-                <li>${__('Then Click "Generate Api Secret"', 'bit-integrations')}</li>
-                <li>${__('Then copy "API Authorization Credentials"', 'bit-integrations')}</li>
-            </ul>`
+  const note = `
+    <h4>${__('To get API Key and API Secret', 'bit-integrations')}</h4>
+    <ul>
+      <li>${__('Open your Demio dashboard.', 'bit-integrations')}</li>
+      <li>${__('Go to Settings, then API.', 'bit-integrations')}</li>
+      <li>${__('Generate API secret and copy credentials.', 'bit-integrations')}</li>
+    </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Demio" links={tutorialLinks?.demio || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={demioConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={demioConf.api_key}
-        type="text"
-        placeholder={__('API Key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <div className="mt-3">
-        <b>{__('API Secret:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_secret"
-        value={demioConf.api_secret}
-        type="text"
-        placeholder={__('API Secret...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_secret}</div>
-
-      <small className="d-blk mt-3">
-        {__('To Get API Key & API Secret, Please Visit', 'bit-integrations')}
-        &nbsp;
-        <a className="btcd-link" href="https://my.demio.com/manage/settings/api-details" target="_blank">
-          {__('Demio API Key & Secret', 'bit-integrations')}
-        </a>
-      </small>
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              demioAuthentication(
-                demioConf,
-                setDemioConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={ActiveInstructions} />
-    </div>
+    <Authorization
+      config={demioConf}
+      setConfig={setDemioConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Demio"
+      tutorialLinks={tutorialLinks?.demio || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://my.demio.com/api/v1/ping',
+        method: 'GET',
+        key: 'Api-Key',
+        addTo: 'header',
+        headers: {
+          'Api-Secret': '{api_secret}'
+        },
+        extraFields: [
+          {
+            name: 'api_secret',
+            label: __('API Secret', 'bit-integrations'),
+            required: true,
+            placeholder: __('API Secret...', 'bit-integrations')
+          }
+        ]
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadEvents}
+    />
   )
 }

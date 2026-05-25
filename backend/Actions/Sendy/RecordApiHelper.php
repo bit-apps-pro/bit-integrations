@@ -60,7 +60,7 @@ class RecordApiHelper
 
         $listId = $integrationDetails->list_id;
         $sendyUrl = $integrationDetails->sendy_url;
-        $apiKey = $integrationDetails->api_key;
+        $apiKey = $integrationDetails->api_key ?: ($integrationDetails->value ?? '');
         $finalData['list'] = $listId;
         $finalData['boolean'] = true;
         $finalData['api_key'] = $apiKey;

@@ -19,7 +19,7 @@ export default function LivestormIntegLayout({
 }) {
   const setChanges = (val, name) => {
     if (name === 'selectedEvent' && val !== '') {
-      getAllSessions(livestormConf, setLivestormConf, val, setLoading)
+      getAllSessions(livestormConf, setLivestormConf, val, loading, setLoading, setSnackbar)
     }
 
     setLivestormConf(prevConf => {
@@ -55,7 +55,9 @@ export default function LivestormIntegLayout({
               closeOnSelect
             />
             <button
-              onClick={() => getAllEvents(livestormConf, setLivestormConf, setLoading)}
+              onClick={() =>
+                getAllEvents(livestormConf, setLivestormConf, loading, setLoading, setSnackbar)
+              }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh Events', 'bit-integrations')}'` }}
               type="button"
@@ -88,7 +90,14 @@ export default function LivestormIntegLayout({
             />
             <button
               onClick={() =>
-                getAllSessions(livestormConf, setLivestormConf, livestormConf.selectedEvent, setLoading)
+                getAllSessions(
+                  livestormConf,
+                  setLivestormConf,
+                  livestormConf.selectedEvent,
+                  loading,
+                  setLoading,
+                  setSnackbar
+                )
               }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh Sessions', 'bit-integrations')}'` }}

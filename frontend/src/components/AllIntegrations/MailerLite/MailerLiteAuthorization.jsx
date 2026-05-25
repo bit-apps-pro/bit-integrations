@@ -1,163 +1,96 @@
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
+import { getConnection } from '../../../Utils/connectionApi'
 import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import TutorialLink from '../../Utilities/TutorialLink'
-import { authorization } from './MailerLiteCommonFunc'
+import Authorization from '../../Connections/Authorization'
 
 export default function MailerLiteAuthorization({
   mailerLiteConf,
   setMailerLiteConf,
   step,
   setstep,
-  loading,
-  setLoading,
-  setSnackbar,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ name: '', auth_token: '' })
-const url =
-    mailerLiteConf.version === 'v2'
-      ? 'https://dashboard.mailerlite.com/integrations/api'
-      : 'https://app.mailerlite.com/integrations/api/'
+  const syncVersionFromConnection = useCallback(
+    async connectionId => {
+      const connectionRes = await getConnection(connectionId)
+      const version = connectionRes?.success ? connectionRes?.data?.auth_details?.version : ''
 
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+      if (version) {
+        setMailerLiteConf(prev => ({ ...prev, version }))
+      }
+    },
+    [setMailerLiteConf]
+  )
 
-    !mailerLiteConf?.default
-    setstep(2)
-  }
-  const handleInput = e => {
-    const newConf = { ...mailerLiteConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setMailerLiteConf(newConf)
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && mailerLiteConf?.connection_id && !mailerLiteConf?.version) {
+        syncVersionFromConnection(mailerLiteConf.connection_id)
+      }
+      setstep(value)
+    },
+    [mailerLiteConf?.connection_id, mailerLiteConf?.version, setstep, syncVersionFromConnection]
+  )
 
   const note = `
     <h4>${__('Step of generate API token:', 'bit-integrations')}</h4>
     <ul>
-      <li>${__('Goto', 'bit-integrations')} <a href=${url}>Generate API Token</a></li>
+      <li>${__('Goto', 'bit-integrations')} <a href="https://dashboard.mailerlite.com/integrations/api" target="_blank">${__(
+        'MailerLite Token Page',
+        'bit-integrations'
+      )}</a>.</li>
+      <li>${__('Choose your API version (Classic or New).', 'bit-integrations')}</li>
       <li>${__(
-        'Copy the <b>Token</b> and paste into <b>API Token</b> field of your authorization form.',
+        'Copy the token and paste it into the API Key field, then click Authorize.',
         'bit-integrations'
       )}</li>
-      <li>${__('Finally, click <b>Authorize</b> button.', 'bit-integrations')}</li>
-  </ul>
+    </ul>
   `
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="MailerLite" links={tutorialLinks?.mailerLite || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={mailerLiteConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Select Version:')}</b>
-      </div>
-      <div className="flex items-center w-6 mt-3">
-        <input
-          id="MailerLiteClassic"
-          type="radio"
-          name="version"
-          value="v1"
-          className="hidden"
-          checked={mailerLiteConf.version === 'v1'}
-          onChange={handleInput}
-        />
-        <label for="MailerLiteClassic">
-          <span className="w-4 h-4 inline-block mr-1 border border-grey" />
-          MailerLite Classic
-        </label>
-      </div>
-
-      <div className="flex items-center mr-4 mt-2 mb-4">
-        <input
-          id="MailerLiteNew"
-          type="radio"
-          name="version"
-          value="v2"
-          className="hidden"
-          checked={mailerLiteConf.version === 'v2'}
-          onChange={handleInput}
-        />
-        <label for="MailerLiteNew">
-          <span className="w-4 h-4 inline-block mr-1 border border-grey" />
-          MailerLite New
-        </label>
-      </div>
-
-      <div className="mt-3">
-        <b>{__('API Token:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="auth_token"
-        value={mailerLiteConf.auth_token}
-        type="text"
-        placeholder={__('API Token...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.auth_token}</div>
-
-      <small className="d-blk mt-3">
-        {__('To Get API Token, Please Visit', 'bit-integrations')}
-        &nbsp;
-        <a className="btcd-link" href={url} target="_blank" rel="noreferrer">
-          {__('MailerLite API Token', 'bit-integrations')}
-        </a>
-      </small>
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() => authorization(mailerLiteConf, setIsAuthorized, loading, setLoading)}
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={
-              isAuthorized ||
-              loading.auth ||
-              mailerLiteConf.version === undefined ||
-              mailerLiteConf.version === ''
-            }>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={note} />
-    </div>
+    <Authorization
+      config={mailerLiteConf}
+      setConfig={setMailerLiteConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="MailerLite"
+      tutorialLinks={tutorialLinks?.mailerLite || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: data =>
+          data?.version === 'v2'
+            ? 'https://connect.mailerlite.com/api/subscribers'
+            : 'https://api.mailerlite.com/api/v2/me',
+        method: 'GET',
+        key: 'X-Mailerlite-Apikey',
+        addTo: 'header',
+        headers: data =>
+          data?.version === 'v2'
+            ? {
+                Authorization: 'Bearer {api_key}',
+                Accept: 'application/json'
+              }
+            : {},
+        extraFields: [
+          {
+            name: 'version',
+            label: __('MailerLite Version', 'bit-integrations'),
+            required: true,
+            type: 'select',
+            placeholder: __('Select version', 'bit-integrations'),
+            options: [
+              { label: __('MailerLite Classic (v1)', 'bit-integrations'), value: 'v1' },
+              { label: __('MailerLite New (v2)', 'bit-integrations'), value: 'v2' }
+            ]
+          }
+        ]
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={syncVersionFromConnection}
+    />
   )
 }

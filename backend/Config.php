@@ -24,7 +24,7 @@ class Config
 
     public const VERSION = '2.8.6';
 
-    public const DB_VERSION = '1.1';
+    public const DB_VERSION = '1.2';
 
     public const REQUIRED_PHP_VERSION = '7.4';
 
@@ -42,6 +42,8 @@ class Config
      */
     public static function get($type, $default = null)
     {
+        global $wp_rewrite;
+
         switch ($type) {
             case 'MAIN_FILE':
                 return BIT_INTEGRATIONS_PLUGIN_FILE;
@@ -67,6 +69,12 @@ class Config
 
             case 'API_URL':
                 return get_rest_url(null, '/' . self::SLUG . '/v1');
+
+            case 'WP_API_URL':
+                return [
+                    'base'      => get_rest_url(),
+                    'separator' => $wp_rewrite->permalink_structure ? '?' : '&',
+                ];
 
             case 'ROOT_URI':
                 return set_url_scheme(plugins_url('', self::get('MAIN_FILE')), wp_parse_url(home_url())['scheme']);
@@ -183,14 +191,15 @@ class Config
     {
         $frontendConfig = apply_filters(
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is prefixed via Config::VAR_PREFIX.
-            Config::withPrefix('localized_script'),
+            self::withPrefix('localized_script'),
             [
-                'nonce'       => wp_create_nonce(Config::withPrefix('nonce')),
-                'assetsURL'   => Config::get('ASSET_URI'),
+                'nonce'       => wp_create_nonce(self::withPrefix('nonce')),
+                'assetsURL'   => self::get('ASSET_URI'),
                 'baseURL'     => get_admin_url(null, 'admin.php?page=bit-integrations#'),
                 'siteURL'     => site_url(),
                 'ajaxURL'     => admin_url('admin-ajax.php'),
-                'api'         => Config::get('API_URL'),
+                'api'         => self::get('API_URL'),
+                'wp_api_url'  => self::get('WP_API_URL'),
                 'dateFormat'  => get_option('date_format'),
                 'timeFormat'  => get_option('time_format'),
                 'timeZone'    => DateTimeHelper::wp_timezone_string(),

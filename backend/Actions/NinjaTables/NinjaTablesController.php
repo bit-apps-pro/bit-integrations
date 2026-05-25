@@ -43,17 +43,6 @@ class NinjaTablesController
     }
 
     /**
-     * Authorize Ninja Tables integration
-     *
-     * @return void
-     */
-    public static function ninjaTablesAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
-    /**
      * Get all published Ninja Tables
      *
      * @return void

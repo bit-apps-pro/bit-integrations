@@ -41,40 +41,14 @@ export const checkMappedFields = nimbleConf => {
   return true
 }
 
-export const nimbleAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
+const buildAuthRequestParams = confTmp =>
+  confTmp?.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { api_key: confTmp.api_key }
 
-  setError({})
-  setLoading({ ...loading, auth: true })
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'nimble_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API Key', 'bit-integrations'))
-  })
-}
-
-export const getAllFields = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, allFields: true })
-  const requestParams = { api_key: confTmp.api_key }
+export const getAllFields = (confTmp, setConf, setLoading, setSnackbar = null) => {
+  setLoading(prev => ({ ...prev, allFields: true }))
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'nimble_fetch_all_fields').then(result => {
     if (result && result.success) {
@@ -90,15 +64,24 @@ export const getAllFields = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, event: false })
+        setLoading(prev => ({ ...prev, allFields: false }))
         toast.success(__('Fields fetched successfully', 'bit-integrations'))
+        if (typeof setSnackbar === 'function') {
+          setSnackbar({ show: true, msg: __('Fields fetched successfully', 'bit-integrations') })
+        }
         return
       }
-      setLoading({ ...setLoading, event: false })
+      setLoading(prev => ({ ...prev, allFields: false }))
       toast.error(__('Fields Not Found!', 'bit-integrations'))
+      if (typeof setSnackbar === 'function') {
+        setSnackbar({ show: true, msg: __('Fields Not Found!', 'bit-integrations') })
+      }
       return
     }
-    setLoading({ ...setLoading, event: false })
+    setLoading(prev => ({ ...prev, allFields: false }))
     toast.error(__('Fields fetching failed', 'bit-integrations'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Fields fetching failed', 'bit-integrations') })
+    }
   })
 }

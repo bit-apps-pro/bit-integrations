@@ -1,156 +1,49 @@
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { $appConfigState } from '../../../GlobalStates'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import CopyText from '../../Utilities/CopyText'
-import { getAllOneDriveFolders, handleAuthorize } from './OneDriveCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
 
 export default function OneDriveAuthorization({
-  flowID,
   oneDriveConf,
   setOneDriveConf,
   step,
   setStep,
-  isLoading,
-  setIsLoading,
-  setSnackbar,
-  redirectLocation,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ clientId: '', clientSecret: '' })
-  const btcbi = useRecoilValue($appConfigState)
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-
-    getAllOneDriveFolders(flowID, oneDriveConf, setOneDriveConf, setIsLoading)
-    setStep(2)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...oneDriveConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setOneDriveConf(newConf)
-  }
+  const note = `
+    <h4>${__('OneDrive OAuth setup', 'bit-integrations')}</h4>
+    <ul>
+      <li>${__('Create app in Azure Portal and add redirect URI from integration settings.', 'bit-integrations')}</li>
+      <li>${__('Use delegated permissions for OneDrive read/write with offline access.', 'bit-integrations')}</li>
+    </ul>
+  `
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="OneDrive" links={tutorialLinks?.oneDrive || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={oneDriveConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Homepage URL:', 'bit-integrations')}</b>
-      </div>
-      <CopyText
-        value={`${window.location.origin}`}
-        className="field-key-cpy w-6 ml-0"
-        readOnly={isInfo}
-        setSnackbar={setSnackbar}
-      />
-
-      <div className="mt-3">
-        <b>{__('Authorized Redirect URIs:', 'bit-integrations')}</b>
-      </div>
-      <CopyText
-        value={redirectLocation || `${btcbi.api}/redirect`}
-        className="field-key-cpy w-6 ml-0"
-        readOnly={isInfo}
-        setSnackbar={setSnackbar}
-      />
-
-      <small className="d-blk mt-3">
-        {__('To Get Client Id & Secret, Please Visit', 'bit-integrations')}
-        &nbsp;
-        <a
-          className="btcd-link"
-          href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade"
-          target="_blank"
-          rel="noreferrer">
-          {__('Azure Portal', 'bit-integrations')}
-        </a>
-      </small>
-
-      <div className="mt-3">
-        <b>{__('OneDrive Client id:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="clientId"
-        value={oneDriveConf.clientId}
-        type="text"
-        placeholder={__('client ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red' }}>{error.clientId}</div>
-
-      <div className="mt-3">
-        <b>{__('OneDrive Client Secret:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="clientSecret"
-        value={oneDriveConf.clientSecret}
-        type="text"
-        placeholder={__('client Secret...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red' }}>{error.clientSecret}</div>
-
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              handleAuthorize(
-                oneDriveConf,
-                setOneDriveConf,
-                setIsAuthorized,
-                setIsLoading,
-                setError,
-                btcbi
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </>
-      )}
-    </div>
+    <Authorization
+      config={oneDriveConf}
+      setConfig={setOneDriveConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="OneDrive"
+      tutorialLinks={tutorialLinks?.oneDrive || {}}
+      authDetails={{
+        authType: AUTH_TYPES.OAUTH2,
+        grantType: 'authorization_code',
+        clientAuthentication: 'body',
+        authCodeEndpoint: {
+          url: 'https://login.live.com/oauth20_authorize.srf',
+          queryParams: {
+            scope: 'onedrive.readwrite offline_access Files.ReadWrite.All'
+          }
+        },
+        tokenEndpoint: {
+          url: 'https://login.live.com/oauth20_token.srf',
+          method: 'POST'
+        },
+        refreshTokenUrl: 'https://login.live.com/oauth20_token.srf'
+      }}
+      noteDetails={{ note }}
+    />
   )
 }

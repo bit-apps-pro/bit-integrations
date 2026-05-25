@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Keap;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
@@ -15,6 +16,16 @@ use WP_Error;
  */
 class KeapController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'keap',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -24,8 +35,6 @@ class KeapController
 
     public static function refreshTagListAjaxHelper($queryParams)
     {
-        // var_dump($queryParams->tokenDetails);
-        // die;
         if (
             empty($queryParams->clientId)
             || empty($queryParams->clientSecret)
@@ -63,12 +72,11 @@ class KeapController
                     'name' => $tag->name
                 ];
             }
+            if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
+                static::saveRefreshedToken($queryParams->id, $response['tokenDetails']);
+            }
             wp_send_json_success($tags, 200);
         }
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->id)) {
-            static::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
-        }
-        wp_send_json_success($response, 200);
     }
 
     public static function refreshCustomFieldAjaxHelper($queryParams)
@@ -112,51 +120,6 @@ class KeapController
             static::saveRefreshedToken($queryParams->id, $response['tokenDetails']);
         }
         wp_send_json_success($customFields, 200);
-    }
-
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams Params for generate token
-     *
-     * @return JSON Keap api response and status
-     */
-    public static function generateTokens($requestsParams)
-    {
-        if (
-            empty($requestsParams->clientId)
-            || empty($requestsParams->clientSecret)
-            || empty($requestsParams->redirectURI)
-            || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = 'https://api.infusionsoft.com/token';
-        $authorizationHeader['Content-Type'] = 'application/x-www-form-urlencoded';
-        $requestParams = [
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'code'          => $requestsParams->code,
-            'grant_type'    => 'authorization_code',
-            'redirect_uri'  => $requestsParams->redirectURI
-        ];
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
     }
 
     public static function refreshAccessToken($requestsParams)

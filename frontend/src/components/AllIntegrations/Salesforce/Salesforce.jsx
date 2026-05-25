@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
@@ -7,7 +7,7 @@ import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveActionConf, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import { checkMappedFields, handleInput } from './SalesforceCommonFunc'
 import SelesforceIntegLayout from './SalesforceIntegLayout'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
@@ -42,9 +42,6 @@ function Salesforce({ formFields, setFlow, flow, allIntegURL }) {
     action_modules,
     actions: {}
   })
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('salesforce')
-  }, [])
 
   const checkedActionFieldsMapType = [
     'contact-create',

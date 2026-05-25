@@ -6,6 +6,13 @@ import { __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
 import { staticFieldsMap, needsColumnMap } from './staticData'
 
+const buildAuthRequestParams = confTmp =>
+  confTmp?.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        apiToken: confTmp?.apiToken
+      }
+
 export const handleInput = (e, mondayComConf, setMondayComConf) => {
   setMondayComConf(mondayComConf =>
     create(mondayComConf, draftConf => {
@@ -48,45 +55,10 @@ export const checkMappedFields = mondayComConf => {
   return true
 }
 
-export const mondayComAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.apiToken) {
-    setError({
-      apiToken: !confTmp.apiToken ? __("API Token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    apiToken: confTmp.apiToken
-  }
-
-  bitsFetch(requestParams, 'mondayCom_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    const message = typeof result?.data === 'string' ? result.data : result?.data?.message
-    const authErrorMessage = result?.message || result?.error || message
-    toast.error(
-      authErrorMessage
-        ? `${__('Authorization failed', 'bit-integrations')}: ${authErrorMessage}`
-        : __('Authorization failed', 'bit-integrations')
-    )
-  })
-}
-
 export const getAllBoards = (confTmp, setConf, setLoading) => {
   setLoading(prev => ({ ...prev, board: true }))
 
-  const requestParams = {
-    apiToken: confTmp.apiToken
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'mondayCom_fetch_boards').then(result => {
     if (result && result.success) {
@@ -114,7 +86,7 @@ export const getAllGroups = (confTmp, setConf, boardId, setLoading) => {
   setLoading(prev => ({ ...prev, group: true }))
 
   const requestParams = {
-    apiToken: confTmp.apiToken,
+    ...buildAuthRequestParams(confTmp),
     boardId
   }
 
@@ -143,7 +115,7 @@ export const getAllColumns = (confTmp, setConf, boardId, setLoading) => {
   setLoading(prev => ({ ...prev, column: true }))
 
   const requestParams = {
-    apiToken: confTmp.apiToken,
+    ...buildAuthRequestParams(confTmp),
     boardId
   }
 
@@ -177,7 +149,7 @@ export const getAllItems = (confTmp, setConf, boardId, setLoading) => {
   setLoading(prev => ({ ...prev, item: true }))
 
   const requestParams = {
-    apiToken: confTmp.apiToken,
+    ...buildAuthRequestParams(confTmp),
     boardId
   }
 

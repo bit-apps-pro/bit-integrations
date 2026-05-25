@@ -1,14 +1,9 @@
-import { useState } from 'react'
-import AuthorizeButton from '../../Utilities/AuthorizeButton'
-import ErrorField from '../../Utilities/ErrorField'
-import GetInfo from '../../Utilities/GetInfo'
-import Input from '../../Utilities/Input'
-import Note from '../../Utilities/Note'
-import StepPage from '../../Utilities/StepPage'
-import { getAllLists, handleAuthorize, handleInput } from './MailercloudCommonFunc'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
 import { __ } from '../../../Utils/i18nwrap'
+import Authorization from '../../Connections/Authorization'
+import { getAllLists } from './MailercloudCommonFunc'
 
 function MailercloudAuthorization({
   mailercloudConf,
@@ -17,22 +12,29 @@ function MailercloudAuthorization({
   setStep,
   isInfo,
   loading,
-  setLoading
+  setLoading,
+  setSnackbar
 }) {
-  const [authorized, setAuthorized] = useState(false)
-  const [error, setError] = useState({ name: '', authKey: '' })
-const nextPage = async () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadLists = useCallback(
+    connectionId => {
+      const nextConf = connectionId
+        ? { ...mailercloudConf, connection_id: connectionId }
+        : mailercloudConf
 
-    setStep(2)
-    setLoading({ ...loading, page: true })
-    const data = await getAllLists(mailercloudConf, setMailercloudConf)
-    if (data) {
-      setLoading({ ...loading, page: false })
-    }
-  }
+      getAllLists(nextConf, setMailercloudConf, loading, setLoading, setSnackbar)
+    },
+    [mailercloudConf, loading, setLoading, setMailercloudConf, setSnackbar]
+  )
+
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !mailercloudConf?.default?.lists) {
+        loadLists()
+      }
+      setStep(value)
+    },
+    [loadLists, mailercloudConf?.default?.lists, setStep]
+  )
 
   const note = `
   <h4>${__('Step of get API Key:', 'bit-integrations')}</h4>
@@ -54,45 +56,28 @@ const nextPage = async () => {
 `
 
   return (
-    <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Mailercloud" links={tutorialLinks?.mailercloud || {}} />
-
-      <div className="mt-2">
-        {/* Mailercloud Authorization */}
-
-        <Input
-          label={__('Integration Name', 'bit-integrations')}
-          name="name"
-          placeholder={__('Integration Name...', 'bit-integrations')}
-          value={mailercloudConf.name}
-          onchange={e => handleInput(e, mailercloudConf, setMailercloudConf, error, setError)}
-        />
-        <Input
-          label={__('API key', 'bit-integrations')}
-          name="authKey"
-          placeholder={__('API key...', 'bit-integrations')}
-          value={mailercloudConf.authKey}
-          onchange={e => handleInput(e, mailercloudConf, setMailercloudConf, error, setError)}
-        />
-        <ErrorField error={error.authKey} />
-        <GetInfo
-          url="https://app.mailercloud.com/account/api-integrations"
-          info={__('To get API key, please visit', 'bit-integrations')}
-        />
-        {!isInfo && (
-          <AuthorizeButton
-            onclick={() =>
-              handleAuthorize(mailercloudConf, setError, setAuthorized, loading, setLoading)
-            }
-            nextPage={nextPage}
-            auth={authorized}
-            loading={loading.auth}
-          />
-        )}
-      </div>
-
-      <Note note={note} />
-    </StepPage>
+    <Authorization
+      config={mailercloudConf}
+      setConfig={setMailercloudConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Mailercloud"
+      tutorialLinks={tutorialLinks?.mailercloud || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://cloudapi.mailercloud.com/v1/client/plan',
+        method: 'GET',
+        key: 'X-BI-Auth',
+        addTo: 'header',
+        headers: {
+          Authorization: '{api_key}',
+          'Content-Type': 'application/json'
+        }
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadLists}
+    />
   )
 }
 

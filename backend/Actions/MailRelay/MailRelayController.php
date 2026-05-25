@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\MailRelay;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,11 +15,23 @@ use WP_Error;
  */
 class MailRelayController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'mailrelay',
+        'fields'   => [
+            'auth_token' => 'value',
+            'domain'     => 'domain',
+        ],
+    ];
+
     protected $_defaultHeader;
 
-    public function authentication($fieldsRequestParams)
+    public function getCustomFields($fieldsRequestParams)
     {
-        if (empty($fieldsRequestParams->auth_token) && empty($fieldsRequestParams->domain)) {
+        $authToken = $this->extractAuthToken($fieldsRequestParams);
+        $domain = $this->extractDomain($fieldsRequestParams);
+
+        if (empty($authToken) || empty($domain)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -28,12 +41,10 @@ class MailRelayController
             );
         }
 
-        $domain = $fieldsRequestParams->domain;
         $baseUrl = "https://{$domain}.ipzmarketing.com/api/v1/";
         $apiEndpoints = $baseUrl . 'custom_fields';
-        $apiKey = $fieldsRequestParams->auth_token;
         $header = [
-            'X-AUTH-TOKEN' => $apiKey
+            'X-AUTH-TOKEN' => $authToken
         ];
 
         $response = HttpHelper::get($apiEndpoints, null, $header);
@@ -56,7 +67,10 @@ class MailRelayController
 
     public function getAllGroups($fieldsRequestParams)
     {
-        if (empty($fieldsRequestParams->auth_token) && empty($fieldsRequestParams->domain)) {
+        $authToken = $this->extractAuthToken($fieldsRequestParams);
+        $domain = $this->extractDomain($fieldsRequestParams);
+
+        if (empty($authToken) || empty($domain)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -66,12 +80,10 @@ class MailRelayController
             );
         }
 
-        $domain = $fieldsRequestParams->domain;
         $baseUrl = "https://{$domain}.ipzmarketing.com/api/v1/";
         $apiEndpoints = $baseUrl . 'groups?page=1&&per_page=1000';
-        $apiKey = $fieldsRequestParams->auth_token;
         $header = [
-            'X-AUTH-TOKEN' => $apiKey
+            'X-AUTH-TOKEN' => $authToken
         ];
 
         $response = HttpHelper::get($apiEndpoints, null, $header);
@@ -95,7 +107,7 @@ class MailRelayController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $auth_token = $integrationDetails->auth_token;
+        $auth_token = !empty($integrationDetails->auth_token) ? $integrationDetails->auth_token : (isset($integrationDetails->api_key) ? $integrationDetails->api_key : '');
         $selectedGroups = $integrationDetails->selectedGroups;
         $fieldMap = $integrationDetails->field_map;
         $status = $integrationDetails->status;
@@ -121,5 +133,23 @@ class MailRelayController
         }
 
         return $mailRelayApiResponse;
+    }
+
+    private function extractAuthToken($fieldsRequestParams)
+    {
+        if (!empty($fieldsRequestParams->auth_token)) {
+            return $fieldsRequestParams->auth_token;
+        }
+
+        if (!empty($fieldsRequestParams->api_key)) {
+            return $fieldsRequestParams->api_key;
+        }
+
+        return '';
+    }
+
+    private function extractDomain($fieldsRequestParams)
+    {
+        return !empty($fieldsRequestParams->domain) ? $fieldsRequestParams->domain : '';
     }
 }

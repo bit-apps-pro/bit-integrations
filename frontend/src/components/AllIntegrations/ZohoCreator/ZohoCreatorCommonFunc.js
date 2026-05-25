@@ -1,120 +1,15 @@
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
-export const setGrantTokenResponse = () => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation
-    .replace(`${window.opener.location.href}/redirect`, '')
-    .split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
       }
-    })
-  }
-  localStorage.setItem('__zohoCreator', JSON.stringify(grantTokenResponse))
-  window.close()
-}
 
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.dataCenter || !confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      dataCenter: !confTmp.dataCenter ? __("Data center can't be empty", 'bit-integrations') : '',
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-  const scopes =
-    'ZohoCreator.dashboard.READ,ZohoCreator.meta.application.READ,ZohoCreator.meta.form.READ,ZohoCreator.form.CREATE,ZohoCreator.report.CREATE,ZohoCreator.report.UPDATE'
-  const apiEndpoint = `https://accounts.zoho.${
-    confTmp.dataCenter
-  }/oauth/v2/auth?scope=${scopes}&response_type=code&client_id=${
-    confTmp.clientId
-  }&prompt=Consent&access_type=offline&redirect_uri=${encodeURIComponent(window.location.href)}/redirect`
-  const authWindow = window.open(apiEndpoint, 'zohoCreator', 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitformsZoho = localStorage.getItem('__zohoCreator')
-      if (bitformsZoho) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitformsZoho)
-        localStorage.removeItem('__zohoCreator')
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization Failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        grantTokenResponse['accounts-server'] = decodeURIComponent(grantTokenResponse['accounts-server'])
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(grantTokenResponse, newConf, setConf, setisAuthorized, setIsLoading, setSnackbar)
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (grantToken, confTmp, setConf, setisAuthorized, setIsLoading, setSnackbar) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.dataCenter = confTmp.dataCenter
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  tokenRequestParams.redirectURI = `${encodeURIComponent(window.location.href)}/redirect`
-  bitsFetch(tokenRequestParams, 'zcreator_generate_token')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
-}
 
 export const handleInput = (
   e,
@@ -185,10 +80,8 @@ export const refreshApplications = (formID, creatorConf, setCreatorConf, setIsLo
   const refreshApplicationsRequestParams = {
     formID,
     id: creatorConf.id,
+    ...buildAuthRequestParams(creatorConf),
     dataCenter: creatorConf.dataCenter,
-    clientId: creatorConf.clientId,
-    clientSecret: creatorConf.clientSecret,
-    tokenDetails: creatorConf.tokenDetails
   }
   bitsFetch(refreshApplicationsRequestParams, 'zcreator_refresh_applications')
     .then(result => {
@@ -226,10 +119,8 @@ export const refreshForms = (formID, creatorConf, setCreatorConf, setIsLoading, 
   const refreshFormsRequestParams = {
     formID,
     id: creatorConf.id,
+    ...buildAuthRequestParams(creatorConf),
     dataCenter: creatorConf.dataCenter,
-    clientId: creatorConf.clientId,
-    clientSecret: creatorConf.clientSecret,
-    tokenDetails: creatorConf.tokenDetails,
     accountOwner,
     applicationId
   }
@@ -274,10 +165,8 @@ export const refreshFields = (formID, creatorConf, setCreatorConf, setIsLoading,
   setIsLoading(true)
   const refreshFieldsRequestParams = {
     formID,
+    ...buildAuthRequestParams(creatorConf),
     dataCenter: creatorConf.dataCenter,
-    clientId: creatorConf.clientId,
-    clientSecret: creatorConf.clientSecret,
-    tokenDetails: creatorConf.tokenDetails,
     accountOwner,
     applicationId,
     formId

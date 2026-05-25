@@ -26,12 +26,6 @@ class FluentCartController
         }
     }
 
-    public static function fluentCartAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshProducts()
     {
         self::isExists();

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
@@ -10,14 +10,13 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 // import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 // import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WhatsAppAuthorization from './WhatsAppAuthorization'
-import { handleInput, generateMappedField, checkDisabledButton } from './WhatsAppCommonFunc'
+import { generateMappedField, checkDisabledButton } from './WhatsAppCommonFunc'
 import WhatsAppIntegLayout from './WhatsAppIntegLayout'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 
 function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -90,14 +89,10 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
       </div>
 
       <WhatsAppAuthorization
-        formID={formID}
         whatsAppConf={whatsAppConf}
         setWhatsAppConf={setWhatsAppConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}
@@ -106,7 +101,6 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
         <WhatsAppIntegLayout
           formFields={formFields}
-          handleInput={e => handleInput(e, whatsAppConf, setWhatsAppConf, setIsLoading, setSnackbar)}
           whatsAppConf={whatsAppConf}
           setWhatsAppConf={setWhatsAppConf}
           isLoading={isLoading}

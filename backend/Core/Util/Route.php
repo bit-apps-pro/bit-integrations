@@ -144,6 +144,10 @@ final class Route
                         : (object) map_deep(wp_unslash($_GET), [__CLASS__, 'sanitizeValue']); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 }
 
+                if (\is_object($data)) {
+                    CredentialInjector::inject($data, $invokeable[0]);
+                }
+
                 $reflectionMethod = new ReflectionMethod($invokeable[0], $invokeable[1]);
                 $response = $reflectionMethod->invoke($reflectionMethod->isStatic() ? null : new $invokeable[0](), $data);
 

@@ -8,8 +8,11 @@ export const handleInput = (e, enchargeConf, setEnchargeConf) => {
   setEnchargeConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
+
 export const refreshEnchargeHeader = (enchargeConf, setEnchargeConf, setIsLoading, setSnackbar) => {
-  const refreshEnchargeHeaderData = { api_key: enchargeConf.api_key }
+  const refreshEnchargeHeaderData = buildAuthRequestParams(enchargeConf)
   const newConf = { ...enchargeConf }
   bitsFetch(refreshEnchargeHeaderData, 'encharge_headers')
     .then(result => {

@@ -4,6 +4,11 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { api_key: confTmp.api_key }
+
 export const handleInput = (e, salesmateConf, setSalesmateConf) => {
   const newConf = { ...salesmateConf }
   const { name } = e.target
@@ -41,46 +46,10 @@ export const checkMappedFields = systemeIOConf => {
   return true
 }
 
-export const systemeIOAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key
-  }
-
-  bitsFetch(requestParams, 'systemeIO_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid Sub Domain & API Key', 'bit-integrations'))
-  })
-}
-
 export const getAllTags = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, tag: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'systemeIO_fetch_all_tags').then(result => {
     if (result && result.success) {
@@ -106,9 +75,7 @@ export const getAllTags = (confTmp, setConf, setLoading) => {
 export const getAllFields = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, fields: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'systemeIO_fetch_all_fields').then(result => {
     if (result && result.success) {

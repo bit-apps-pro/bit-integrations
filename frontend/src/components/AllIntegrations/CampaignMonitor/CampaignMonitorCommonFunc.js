@@ -8,6 +8,11 @@ export const handleInput = (e, campaignMonitorConf, setCampaignMonitorConf) => {
   setCampaignMonitorConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf.connection_id
+    ? { connection_id: conf.connection_id }
+    : { client_id: conf.client_id, api_key: conf.api_key }
+
 // refreshMappedLists
 export const refreshCampaignMonitorLists = (
   campaignMonitorConf,
@@ -15,11 +20,8 @@ export const refreshCampaignMonitorLists = (
   setIsLoading,
   setSnackbar
 ) => {
-  setIsLoading(true)
-  const refreshListsRequestParams = {
-    client_id: campaignMonitorConf.client_id,
-    api_key: campaignMonitorConf.api_key
-  }
+  if (typeof setIsLoading === 'function') setIsLoading(true)
+  const refreshListsRequestParams = buildAuthRequestParams(campaignMonitorConf)
 
   bitsFetch(refreshListsRequestParams, 'campaign_monitor_lists')
     .then(result => {
@@ -46,14 +48,16 @@ export const refreshCampaignMonitorLists = (
 
         setCampaignMonitorConf({ ...newConf })
       } else {
-        setSnackbar({
-          show: true,
-          msg: __('CampaignMonitor Lists refresh failed. please try again', 'bit-integrations')
-        })
+          setSnackbar({
+            show: true,
+            msg: __('CampaignMonitor Lists refresh failed. please try again', 'bit-integrations')
+          })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 
 // refreshMappedFields
@@ -63,10 +67,9 @@ export const refreshCampaignMonitorFields = (
   setIsLoading,
   setSnackbar
 ) => {
-  setIsLoading(true)
+  if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = {
-    client_id: campaignMonitorConf.client_id,
-    api_key: campaignMonitorConf.api_key,
+    ...buildAuthRequestParams(campaignMonitorConf),
     listId: campaignMonitorConf.listId
   }
 
@@ -87,9 +90,11 @@ export const refreshCampaignMonitorFields = (
           msg: __('CampaignMonitor Custom fields refresh failed. please try again', 'bit-integrations')
         })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 
 export const generateMappedField = campaignMonitorConf => {

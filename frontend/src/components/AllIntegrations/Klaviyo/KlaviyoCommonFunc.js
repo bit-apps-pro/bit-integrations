@@ -16,44 +16,17 @@ export const editHandleInput = (e, conf, setConf) => {
   setConf({ ...newConf })
 }
 
-export const handleAuthorize = (conf, setConf, setError, setisAuthorized, loading, setLoading) => {
-  if (!conf.authKey) {
-    setError({
-      authKey: !conf.authKey ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { authKey: conf.authKey }
-
-  bitsFetch(requestParams, 'klaviyo_handle_authorize').then(result => {
-    if (result && result.success) {
-      const newConf = { ...conf }
-      if (result.data) {
-        if (!newConf.default) {
-          newConf.default = {}
-        }
-        newConf.default.lists = result.data
-      }
-      setConf(newConf)
-      setisAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { authKey: conf.authKey }
 
 export const getAllLists = (conf, setConf, loading, setLoading) => {
-  setLoading({ ...loading, list: true })
+  if (typeof setLoading === 'function') {
+    setLoading({ ...(loading || {}), list: true })
+  }
 
-  const requestParams = { authKey: conf.authKey }
+  const requestParams = buildAuthRequestParams(conf)
 
-  bitsFetch(requestParams, 'klaviyo_handle_authorize').then(result => {
+  bitsFetch(requestParams, 'klaviyo_lists').then(result => {
     if (result && result.success) {
       const newConf = { ...conf }
       if (result.data) {
@@ -63,12 +36,16 @@ export const getAllLists = (conf, setConf, loading, setLoading) => {
         newConf.default.lists = result.data
       }
       setConf(newConf)
-      setLoading({ ...loading, list: false })
+      if (typeof setLoading === 'function') {
+        setLoading({ ...(loading || {}), list: false })
+      }
 
       toast.success(__('List refresh successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...loading, list: false })
+    if (typeof setLoading === 'function') {
+      setLoading({ ...(loading || {}), list: false })
+    }
     toast.error(__('List refresh failed', 'bit-integrations'))
   })
 }

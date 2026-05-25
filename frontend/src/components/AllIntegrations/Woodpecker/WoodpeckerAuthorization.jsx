@@ -1,12 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { woodpeckerAuthentication } from './WoodpeckerCommonFunc'
+import Authorization from '../../Connections/Authorization'
+import { getAllCampaign } from './WoodpeckerCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function WoodpeckerAuthorization({
   woodpeckerConf,
@@ -15,27 +12,16 @@ export default function WoodpeckerAuthorization({
   setStep,
   loading,
   setLoading,
-  isInfo
+  setSnackbar,
+  isInfo = false
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ api_token: '' })
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-
-    !woodpeckerConf?.default
-    setStep(2)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...woodpeckerConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setWoodpeckerConf(newConf)
-  }
+  const loadCampaigns = useCallback(
+    connectionId => {
+      const nextConf = connectionId ? { ...woodpeckerConf, connection_id: connectionId } : woodpeckerConf
+      getAllCampaign(nextConf, setWoodpeckerConf, loading, setLoading, setSnackbar)
+    },
+    [loading, setLoading, setSnackbar, setWoodpeckerConf, woodpeckerConf]
+  )
 
   const ActiveInstructions = `
             <h4>${__('Get API Key', 'bit-integrations')}</h4>
@@ -55,75 +41,27 @@ const nextPage = () => {
             </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Woodpecker" links={tutorialLinks?.woodpecker || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={woodpeckerConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={woodpeckerConf.api_key}
-        type="text"
-        placeholder={__('API Key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <small className="d-blk mt-3">
-        {__('To get API key, please visit', 'bit-integrations')}
-        &nbsp;
-        <a
-          className="btcd-link"
-          href="https://app.woodpecker.co/panel?u=411340#marketplace/integrations/api-keys"
-          target="_blank">
-          {__('Woodpecker API Key', 'bit-integrations')}
-        </a>
-      </small>
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              woodpeckerAuthentication(woodpeckerConf, setError, setIsAuthorized, loading, setLoading)
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={ActiveInstructions} />
-    </div>
+    <Authorization
+      config={woodpeckerConf}
+      setConfig={setWoodpeckerConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="Woodpecker"
+      tutorialLinks={tutorialLinks?.woodpecker || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://api.woodpecker.co/rest/v1/campaign_list',
+        method: 'GET',
+        key: 'X-BI-Auth',
+        addTo: 'header',
+        headers: data => ({
+          Authorization: `Basic ${btoa(data?.api_key || '')}`,
+          'Content-type': 'application/json'
+        })
+      }}
+      noteDetails={{ note: ActiveInstructions }}
+      onConnectionSelected={loadCampaigns}
+    />
   )
 }

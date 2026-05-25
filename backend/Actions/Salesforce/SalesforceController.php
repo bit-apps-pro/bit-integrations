@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Salesforce;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
@@ -14,6 +15,16 @@ use WP_Error;
 
 class SalesforceController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'salesforce',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'instance_url']],
+        ],
+    ];
+
     public static $actions = [
         'contact-create'      => 'Contact',
         'lead-create'         => 'Lead',
@@ -26,47 +37,6 @@ class SalesforceController
     ];
 
     private $_integrationID;
-
-    public static function generateTokens($requestsParams)
-    {
-        if (
-            empty($requestsParams->clientId)
-            || empty($requestsParams->clientSecret)
-            || empty($requestsParams->redirectURI)
-            || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = 'https://login.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=' . $requestsParams->clientId . '&client_secret=' . $requestsParams->clientSecret . '&redirect_uri=' . $requestsParams->redirectURI . '&code=' . $requestsParams->code;
-        $requestParams = [
-            'grant_type'    => 'authorization_code',
-            'code'          => explode('#', $requestsParams->code)[0],
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'redirect_uri'  => urldecode($requestsParams->redirectURI),
-            'format'        => 'json',
-        ];
-
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-
-        $apiResponse->generates_on = time();
-
-        wp_send_json_success($apiResponse, 200);
-    }
 
     public function customActions($params)
     {
@@ -423,7 +393,7 @@ class SalesforceController
             return new WP_Error('REQ_FIELD_EMPTY', __('list are required for zoho desk api', 'bit-integrations'));
         }
 
-        if ((\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (self::isTokenExpired($tokenDetails)) {
             $newTokenDetails = self::refreshAccessToken((object) [
                 'clientId'     => $integrationDetails->clientId,
                 'clientSecret' => $integrationDetails->clientSecret,
@@ -456,7 +426,7 @@ class SalesforceController
     {
         $response = ['tokenDetails' => $params->tokenDetails];
 
-        if ((\intval($params->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (self::isTokenExpired($params->tokenDetails)) {
             $response['tokenDetails'] = self::refreshAccessToken($params);
         }
 
@@ -518,8 +488,16 @@ class SalesforceController
             return false;
         }
 
-        $tokenDetails->generates_on = time();
+        $generatedAt = time();
+        $tokenDetails->generates_on = $generatedAt;
+        $tokenDetails->generated_at = $generatedAt;
         $tokenDetails->access_token = $apiResponse->access_token;
+        if (!empty($apiResponse->refresh_token)) {
+            $tokenDetails->refresh_token = $apiResponse->refresh_token;
+        }
+        if (isset($apiResponse->expires_in)) {
+            $tokenDetails->expires_in = $apiResponse->expires_in;
+        }
 
         return $tokenDetails;
     }
@@ -534,6 +512,22 @@ class SalesforceController
         ];
 
         return \in_array($key, $requiredFields[$action] ?? ['Name']);
+    }
+
+    private static function isTokenExpired($tokenDetails)
+    {
+        if (empty($tokenDetails) || !\is_object($tokenDetails)) {
+            return false;
+        }
+
+        $generatedAt = empty($tokenDetails->generates_on) ? ($tokenDetails->generated_at ?? 0) : $tokenDetails->generates_on;
+        $expiresIn = $tokenDetails->expires_in ?? 0;
+
+        if (!empty($generatedAt) && !empty($expiresIn) && (int) $expiresIn > 0) {
+            return ((int) $generatedAt + (int) $expiresIn - 30) < time();
+        }
+
+        return ((int) $generatedAt + (55 * 60)) < time();
     }
 
     private static function getCaseMetaData($params, $module)

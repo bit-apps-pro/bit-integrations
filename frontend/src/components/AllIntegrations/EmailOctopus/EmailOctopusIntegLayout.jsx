@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import { useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import EmailOctopusActions from './EmailOctopusActions'
-import { emailOctopusAuthentication, getAllFields } from './EmailOctopusCommonFunc'
+import { fetchAllLists, getAllFields } from './EmailOctopusCommonFunc'
 import EmailOctopusFieldMap from './EmailOctopusFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 
@@ -19,14 +17,11 @@ export default function EmailOctopusIntegLayout({
   setLoading,
   setSnackbar
 }) {
-  const [error, setError] = useState({ name: '', auth_token: '' })
-  const [isAuthorized, setIsAuthorized] = useState(false)
-
   const setChanges = val => {
     const newConf = { ...emailOctopusConf }
     newConf.selectedList = val
     setEmailOctopusConf({ ...newConf })
-    getAllFields(newConf, setEmailOctopusConf, setLoading)
+    getAllFields(newConf, setEmailOctopusConf, loading, setLoading)
   }
 
   return (
@@ -43,15 +38,7 @@ export default function EmailOctopusIntegLayout({
         />
         <button
           onClick={() =>
-            emailOctopusAuthentication(
-              emailOctopusConf,
-              setEmailOctopusConf,
-              setError,
-              setIsAuthorized,
-              loading,
-              setLoading,
-              'refreshLists'
-            )
+            fetchAllLists(emailOctopusConf, setEmailOctopusConf, loading, setLoading, 'refresh')
           }
           className="icn-btn sh-sm ml-2 mr-2 tooltip"
           style={{ '--tooltip-txt': `'${__('Refresh  Lists', 'bit-integrations')}'` }}
@@ -78,7 +65,9 @@ export default function EmailOctopusIntegLayout({
           <b className="wdt-100">
             {__('Field Map', 'bit-integrations')}
             <button
-              onClick={() => getAllFields(emailOctopusConf, setEmailOctopusConf, setLoading)}
+              onClick={() =>
+                getAllFields(emailOctopusConf, setEmailOctopusConf, loading, setLoading)
+              }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh custom fields', 'bit-integrations')}'` }}
               type="button"

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Livestorm;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class LivestormController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'livestorm',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -21,22 +30,6 @@ class LivestormController
     public function __construct()
     {
         $this->_apiEndpoint = 'https://api.livestorm.co/v1';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->api_key);
-        $apiEndpoint = $this->_apiEndpoint . '/ping';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (!\count((array) $response)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } elseif (isset($response->errors) && $response->errors[0]->title === 'Workspace blocked') {
-            wp_send_json_error($response->errors[0]->detail, 400);
-        } else {
-            wp_send_json_error(__('Authorized failed, Please enter valid API Key', 'bit-integrations'), 400);
-        }
     }
 
     public function getAllEvents($fieldsRequestParams)

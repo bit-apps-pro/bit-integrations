@@ -24,7 +24,7 @@ export default function AgiledIntegLayout({
     if (e.target.value !== '') {
       newConf[name] = e.target.value
       if (e.target.value === 'deal') {
-        getAllCRMPipelines(newConf, setAgiledConf, setLoading)
+        getAllCRMPipelines(newConf, setAgiledConf, loading, setLoading)
       }
     } else {
       delete newConf[name]
@@ -37,7 +37,7 @@ export default function AgiledIntegLayout({
     newConf[name] = val
     if (name === 'selectedCRMPipeline' && val !== '') {
       newConf.selectedCRMPipelineStages = ''
-      getAllCRMPipelineStages(newConf, setAgiledConf, setLoading)
+      getAllCRMPipelineStages(newConf, setAgiledConf, loading, setLoading)
     }
     setAgiledConf({ ...newConf })
   }
@@ -103,7 +103,7 @@ export default function AgiledIntegLayout({
               singleSelect
             />
             <button
-              onClick={() => getAllCRMPipelines(agiledConf, setAgiledConf, setLoading)}
+              onClick={() => getAllCRMPipelines(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh pipelines', 'bit-integrations')}'` }}
               type="button"
@@ -131,7 +131,9 @@ export default function AgiledIntegLayout({
               singleSelect
             />
             <button
-              onClick={() => getAllCRMPipelineStages(agiledConf, setAgiledConf, setLoading)}
+              onClick={() =>
+                getAllCRMPipelineStages(agiledConf, setAgiledConf, loading, setLoading)
+              }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh pipeline stages', 'bit-integrations')}'` }}
               type="button"

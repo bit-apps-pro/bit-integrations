@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import { useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import AirtableActions from './AirtableActions'
-import { airtableAuthentication, getAllFields, getAllTables } from './AirtableCommonFunc'
+import { fetchAllBases, getAllFields, getAllTables } from './AirtableCommonFunc'
 import AirtableFieldMap from './AirtableFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 
@@ -19,9 +17,6 @@ export default function AirtableIntegLayout({
   setLoading,
   setSnackbar
 }) {
-  const [error, setError] = useState({ name: '', auth_token: '' })
-  const [isAuthorized, setIsAuthorized] = useState(false)
-
   const setChanges = (val, name) => {
     const newConf = { ...airtableConf }
     newConf[name] = val
@@ -50,15 +45,7 @@ export default function AirtableIntegLayout({
         />
         <button
           onClick={() =>
-            airtableAuthentication(
-              airtableConf,
-              setAirtableConf,
-              setError,
-              setIsAuthorized,
-              loading,
-              setLoading,
-              'refreshBases'
-            )
+            fetchAllBases(airtableConf, setAirtableConf, loading, setLoading, 'refresh')
           }
           className="icn-btn sh-sm ml-2 mr-2 tooltip"
           style={{ '--tooltip-txt': `'${__('Refresh  Bases', 'bit-integrations')}'` }}

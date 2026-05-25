@@ -1,127 +1,78 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import CopyText from '../../Utilities/CopyText'
-import { handleTrelloAuthorize, fetchAllBoard } from './TrelloCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import Authorization from '../../Connections/Authorization'
+import { fetchAllBoard } from './TrelloCommonFunc'
 
 export default function TrelloAuthorization({
-  formID,
   trelloConf,
   setTrelloConf,
   step,
   setstep,
-  isLoading,
   setIsLoading,
   setSnackbar,
-  redirectLocation,
   isInfo
 }) {
-  const [isAuthorized, setisAuthorized] = useState(false)
-  const [error, setError] = useState({ dataCenter: '', clientId: '' })
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadBoards = useCallback(
+    async connectionId => {
+      const nextConf = connectionId ? { ...trelloConf, connection_id: connectionId } : trelloConf
+      fetchAllBoard(nextConf, setTrelloConf, setIsLoading, setSnackbar)
+    },
+    [setIsLoading, setSnackbar, setTrelloConf, trelloConf]
+  )
 
-    setstep(2)
-    fetchAllBoard(formID, trelloConf, setTrelloConf, setIsLoading, setSnackbar)
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !trelloConf?.default?.allBoardlist?.length) {
+        loadBoards()
+      }
 
-  const handleInput = e => {
-    const newConf = { ...trelloConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setTrelloConf(newConf)
-  }
+      setstep(value)
+    },
+    [loadBoards, setstep, trelloConf?.default?.allBoardlist?.length]
+  )
+
+  const note = `<h4>${__('Get Trello OAuth details', 'bit-integrations')}</h4>
+  <ul>
+    <li>${__('Open Trello API key page and copy your API key.', 'bit-integrations')}</li>
+    <li>${__('Use the callback/return URL from this form when generating your user token.', 'bit-integrations')}</li>
+    <li>${__('Authorize and save the connection, then continue to map fields.', 'bit-integrations')}</li>
+  </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Trello" links={tutorialLinks?.trello || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={trelloConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('Authorized Redirect URIs:', 'bit-integrations')}</b>
-      </div>
-      <CopyText
-        value={redirectLocation || `${window.location.href}`}
-        className="field-key-cpy w-6 ml-0"
-        readOnly={isInfo}
-        setSnackbar={setSnackbar}
-      />
-
-      <small className="d-blk mt-5">
-        {__('To get Client ID , Please Visit', 'bit-integrations')}{' '}
-        <a className="btcd-link" href="https://trello.com/app-key/" target="_blank" rel="noreferrer">
-          {__('Trello API Console', 'bit-integrations')}
-        </a>
-      </small>
-
-      <div className="mt-3">
-        <b>{__('Client id:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="clientId"
-        value={trelloConf.clientId}
-        type="text"
-        placeholder={__('client ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientId}</div>
-
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.clientSecret}</div>
-      {!isInfo && (
-        <>
-          <button
-            onClick={() =>
-              handleTrelloAuthorize(
-                'trello',
-                'trello',
-                trelloConf,
-                setTrelloConf,
-                setError,
-                setisAuthorized,
-                setIsLoading,
-                setSnackbar
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <BackIcn className="ml-1 rev-icn" />
-          </button>
-        </>
-      )}
-    </div>
+    <Authorization
+      config={trelloConf}
+      setConfig={setTrelloConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Trello"
+      tutorialLinks={tutorialLinks?.trello || {}}
+      authDetails={{
+        authType: AUTH_TYPES.OAUTH1,
+        apiEndpoint: 'https://api.trello.com/1/members/me',
+        method: 'GET',
+        addTo: 'query',
+        consumerKeyParam: 'key',
+        tokenParam: 'token',
+        responseTokenField: 'token',
+        callbackUrlParam: 'return_url',
+        requireClientSecret: false,
+        clientIdLabel: __('Client ID (API Key):', 'bit-integrations'),
+        callbackLabel: __('Return URL:', 'bit-integrations'),
+        authCodeEndpoint: {
+          url: 'https://trello.com/1/authorize',
+          queryParams: {
+            expiration: 'never',
+            name: 'Bit Integrations',
+            scope: 'read,write',
+            response_type: 'token'
+          }
+        }
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadBoards}
+    />
   )
 }

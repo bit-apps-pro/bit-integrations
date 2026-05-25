@@ -40,6 +40,14 @@ export const checkMappedFields = mailjetConf => {
   return true
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        apiKey: confTmp.apiKey || confTmp.username,
+        secretKey: confTmp.secretKey || confTmp.password
+      }
+
 export const mailjetAuthentication = (
   confTmp,
   setConf,
@@ -49,11 +57,11 @@ export const mailjetAuthentication = (
   setLoading,
   type
 ) => {
-  if (!confTmp.apiKey) {
+  if (!confTmp.connection_id && !confTmp.apiKey) {
     setError({ apiKey: !confTmp.apiKey ? __("API key can't be empty", 'bit-integrations') : '' })
     return
   }
-  if (!confTmp.secretKey) {
+  if (!confTmp.connection_id && !confTmp.secretKey) {
     setError({
       secretKey: !confTmp.secretKey ? __("Secret key can't be empty", 'bit-integrations') : ''
     })
@@ -68,9 +76,9 @@ export const mailjetAuthentication = (
   if (type === 'refreshLists') {
     setLoading({ ...loading, lists: true })
   }
-  const requestParams = { apiKey: confTmp.apiKey, secretKey: confTmp.secretKey }
+  const requestParams = buildAuthRequestParams(confTmp)
 
-  bitsFetch(requestParams, 'mailjet_authentication').then(result => {
+  bitsFetch(requestParams, 'mailjet_fetch_all_lists').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
       setIsAuthorized(true)
@@ -96,10 +104,13 @@ export const mailjetAuthentication = (
   })
 }
 
-export const getCustomFields = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, customFields: true })
+export const getAllLists = (confTmp, setConf, loading, setLoading, type = 'refresh') =>
+  mailjetAuthentication(confTmp, setConf, () => {}, () => {}, loading, setLoading, type === 'fetch' ? 'authentication' : 'refreshLists')
 
-  const requestParams = { apiKey: confTmp.apiKey, secretKey: confTmp.secretKey }
+export const getCustomFields = (confTmp, setConf, setLoading) => {
+  setLoading(prev => ({ ...prev, customFields: true }))
+
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'mailjet_fetch_all_custom_fields').then(result => {
     if (result && result.success) {
@@ -108,12 +119,12 @@ export const getCustomFields = (confTmp, setConf, setLoading) => {
         newConf.customFields = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, customFields: false })
+      setLoading(prev => ({ ...prev, customFields: false }))
 
       toast.success(__('Custom fields fetch successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, customFields: false })
+    setLoading(prev => ({ ...prev, customFields: false }))
     toast.error(__('Custom fields fetch failed', 'bit-integrations'))
   })
 }

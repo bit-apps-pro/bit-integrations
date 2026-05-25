@@ -45,38 +45,18 @@ export const checkMappedFields = woodpeckerConf => {
   return true
 }
 
-export const woodpeckerAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
+const buildAuthRequestParams = conf =>
+  conf?.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
 
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key
-  }
-
-  bitsFetch(requestParams, 'woodpecker_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API Key', 'bit-integrations'))
-  })
-}
-
-export const getAllCampaign = (woodpeckerConf, setWoodpeckerConf, loading, setLoading) => {
+export const getAllCampaign = (
+  woodpeckerConf,
+  setWoodpeckerConf,
+  loading,
+  setLoading,
+  setSnackbar = null
+) => {
   setLoading({ ...loading, campaign: true })
-  const requestParams = {
-    api_key: woodpeckerConf.api_key
-  }
+  const requestParams = buildAuthRequestParams(woodpeckerConf)
 
   bitsFetch(requestParams, 'woodpecker_fetch_all_campaigns').then(result => {
     if (result && result.success) {
@@ -87,10 +67,16 @@ export const getAllCampaign = (woodpeckerConf, setWoodpeckerConf, loading, setLo
       })
 
       toast.success(__('Campaigns fetched successfully', 'bit-integrations'))
+      if (typeof setSnackbar === 'function') {
+        setSnackbar({ show: true, msg: __('Campaigns fetched successfully', 'bit-integrations') })
+      }
       setLoading({ ...loading, campaign: false })
       return
     }
     setLoading({ ...loading, campaign: false })
     toast.error(__('Campaigns fetching failed', 'bit-integrations'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Campaigns fetching failed', 'bit-integrations') })
+    }
   })
 }

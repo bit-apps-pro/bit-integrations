@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\AgiledCRM;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,29 +15,16 @@ use WP_Error;
  */
 class AgiledCRMController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'agiledcrm',
+        'fields'   => [
+            'auth_token' => 'value',
+            'brand'      => 'brand',
+        ],
+    ];
+
     protected $_defaultHeader;
-
-    public function authentication($fieldsRequestParams)
-    {
-        if (empty($fieldsRequestParams->auth_token) || empty($fieldsRequestParams->brand)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $brand = $fieldsRequestParams->brand;
-        $apiKey = $fieldsRequestParams->auth_token;
-        $apiEndpoint = "https://my.agiled.app/api/v1/users?api_token={$apiKey}";
-        $header = [
-            'Brand' => $brand
-        ];
-
-        $response = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (isset($response->data[0]->id)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid Brand name & API key', 'bit-integrations'), 400);
-        }
-    }
 
     public function getAllOwners($fieldsRequestParams)
     {

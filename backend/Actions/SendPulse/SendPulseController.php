@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\SendPulse;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
@@ -10,35 +11,21 @@ use WP_Error;
 
 class SendPulseController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'sendpulse',
+        'fields'   => [
+            'client_id'     => 'client_id',
+            'client_secret' => 'client_secret',
+            '__object'      => ['tokenDetails', ['access_token', 'refresh_token', 'expires_in', 'generated_at', 'generates_on']],
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
     {
         $this->integrationID = $integrationID;
-    }
-
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->client_id) || empty($requestParams->client_secret)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $body = [
-            'grant_type'    => 'client_credentials',
-            'client_id'     => $requestParams->client_id,
-            'client_secret' => $requestParams->client_secret,
-        ];
-
-        $apiEndpoint = 'https://api.sendpulse.com/oauth/access_token';
-
-        $apiResponse = HttpHelper::post($apiEndpoint, $body);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(empty($apiResponse->error_description) ? 'Unknown' : $apiResponse->error_description, 400);
-        }
-        $apiResponse->generates_on = time();
-
-        wp_send_json_success($apiResponse, 200);
     }
 
     public static function sendPulseHeaders($requestParams)
@@ -110,7 +97,15 @@ class SendPulseController
         $selectedList = $integrationDetails->listId;
         $fieldMap = $integrationDetails->field_map;
         $tokenDetails = self::tokenExpiryCheck($integrationDetails->tokenDetails, $integrationData->flow_details->client_id, $integrationData->flow_details->client_secret);
-        if ($tokenDetails->access_token !== $integrationDetails->tokenDetails->access_token) {
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+            return new WP_Error('TOKEN_REFRESH_FAILED', __('Token refresh failed for SendPulse', 'bit-integrations'));
+        }
+
+        if (
+            empty($integrationDetails->connection_id)
+            && $tokenDetails->access_token !== $integrationDetails->tokenDetails->access_token
+        ) {
             $this->saveRefreshedToken($this->integrationID, $tokenDetails);
         }
 
@@ -140,7 +135,11 @@ class SendPulseController
             return false;
         }
 
-        if ((\intval($token->generates_on) + (55 * 60)) < time()) {
+        $generatedOn = isset($token->generates_on) && $token->generates_on !== ''
+            ? \intval($token->generates_on)
+            : \intval($token->generated_at ?? 0);
+
+        if (($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($clientId, $clientSecret);
             if (is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
@@ -148,6 +147,7 @@ class SendPulseController
 
             $token->access_token = $refreshToken->access_token;
             $token->expires_in = $refreshToken->expires_in;
+            $token->generated_at = $refreshToken->generated_at;
             $token->generates_on = $refreshToken->generates_on;
         }
 
@@ -169,6 +169,7 @@ class SendPulseController
             return false;
         }
         $token = $apiResponse;
+        $token->generated_at = time();
         $token->generates_on = time();
 
         return $token;

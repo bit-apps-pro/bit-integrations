@@ -1,6 +1,16 @@
-import { __, sprintf } from '../../../Utils/i18nwrap'
+import toast from 'react-hot-toast'
+import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { contactFields } from './staticData'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
 
 export const handleInput = (
   e,
@@ -23,116 +33,6 @@ export const handleInput = (
   setKeapConf({ ...newConf })
 }
 
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-  const apiEndpoint = `https://accounts.infusionsoft.com/app/oauth/authorize?scope=full&access_type=offline&prompt=consent&response_type=code&state=${encodeURIComponent(
-    window.location.href
-  )}/redirect&redirect_uri=${encodeURIComponent(`${btcbi.api}/redirect`)}&client_id=${confTmp.clientId}`
-  const authWindow = window.open(apiEndpoint, 'keap', 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitsGoogleSheet = localStorage.getItem('__keap')
-      if (bitsGoogleSheet) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitsGoogleSheet)
-        localStorage.removeItem('__keap')
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(
-          grantTokenResponse,
-          newConf,
-          setConf,
-          setisAuthorized,
-          setIsLoading,
-          setSnackbar,
-          btcbi
-        )
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (
-  grantToken,
-  confTmp,
-  setConf,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  // eslint-disable-next-line no-undef
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-  bitsFetch(tokenRequestParams, 'keap_generate_token')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Authorized Successfully', 'bit-integrations')
-        })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
-}
-
 export const checkMappedFields = keapConf => {
   const mappedFleld = keapConf.field_map
     ? keapConf.field_map.filter(mapped => !mapped.formField && !mapped.keapField)
@@ -152,12 +52,10 @@ export const generateMappedField = keapConf => {
 }
 
 export const getAllTags = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, tags: true })
+  setLoading(true)
 
   const requestParams = {
-    clientId: confTmp.clientId,
-    clientSecret: confTmp.clientSecret,
-    tokenDetails: confTmp.tokenDetails
+    ...buildAuthRequestParams(confTmp),
   }
 
   bitsFetch(requestParams, 'keap_fetch_all_tags').then(result => {
@@ -168,19 +66,16 @@ export const getAllTags = (confTmp, setConf, setLoading) => {
       }
       setConf(newConf)
       setLoading(false)
-
-      setSnackbar({
-        show: true,
-        msg: __('Tag Fetched Successfully', 'bit-integrations')
-      })
+      toast.success(__('Tag Fetched Successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, tags: false })
-    setSnackbar({
-      show: true,
-      msg: __("Tag Couldn't Fetched Successfully", 'bit-integrations')
-    })
+    setLoading(false)
+    toast.error(__("Tag Couldn't Fetched Successfully", 'bit-integrations'))
   })
+    .catch(() => {
+      setLoading(false)
+      toast.error(__("Tag Couldn't Fetched Successfully", 'bit-integrations'))
+    })
 }
 
 export const refreshCustomFields = (id, confTmp, setConf, setIsLoading, setSnackbar) => {
@@ -188,9 +83,7 @@ export const refreshCustomFields = (id, confTmp, setConf, setIsLoading, setSnack
 
   const requestParams = {
     id: id,
-    clientId: confTmp.clientId,
-    clientSecret: confTmp.clientSecret,
-    tokenDetails: confTmp.tokenDetails
+    ...buildAuthRequestParams(confTmp),
   }
 
   bitsFetch(requestParams, 'keap_fetch_all_custom_fields').then(result => {

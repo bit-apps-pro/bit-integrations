@@ -8,12 +8,13 @@ export const handleInput = (e, lemlistConf, setLemlistConf) => {
   setLemlistConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
+
 // refreshMappedLists
 export const refreshLemlistCampaign = (lemlistConf, setLemlistConf, setIsLoading, setSnackbar) => {
-  const refreshListsRequestParams = {
-    account_id: lemlistConf.account_id,
-    api_key: lemlistConf.api_key
-  }
+  if (typeof setIsLoading === 'function') setIsLoading(true)
+  const refreshListsRequestParams = buildAuthRequestParams(lemlistConf)
   bitsFetch(refreshListsRequestParams, 'lemlist_campaigns')
     .then(result => {
       if (result && result.success) {
@@ -44,9 +45,11 @@ export const refreshLemlistCampaign = (lemlistConf, setLemlistConf, setIsLoading
           msg: __('Lemlist campaigns refresh failed. please try again', 'bit-integrations')
         })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 
 // refreshMappedFields
@@ -83,7 +86,7 @@ export const refreshLemlistHeader = (lemlistConf, setLemlistConf, setIsLoading, 
     msg: __('Lemlist fields refreshed', 'bit-integrations')
   })
   setLemlistConf({ ...newConf })
-  setIsLoading(false)
+  if (typeof setIsLoading === 'function') setIsLoading(false)
 }
 
 export const checkMappedFields = lemlistConf => {

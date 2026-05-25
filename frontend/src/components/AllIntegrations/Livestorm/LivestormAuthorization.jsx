@@ -1,12 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { getAllEvents, livestormAuthentication } from './LivestormCommonFunc'
+import Authorization from '../../Connections/Authorization'
+import { getAllEvents } from './LivestormCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function LivestormAuthorization({
   livestormConf,
@@ -15,28 +12,26 @@ export default function LivestormAuthorization({
   setStep,
   loading,
   setLoading,
+  setSnackbar,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ api_key: '' })
-const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+  const loadEvents = useCallback(
+    connectionId => {
+      const nextConf = connectionId ? { ...livestormConf, connection_id: connectionId } : livestormConf
+      getAllEvents(nextConf, setLivestormConf, loading, setLoading, setSnackbar)
+    },
+    [livestormConf, loading, setLivestormConf, setLoading, setSnackbar]
+  )
 
-    !livestormConf?.default
-    setStep(2)
-    getAllEvents(livestormConf, setLivestormConf, setLoading)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...livestormConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setLivestormConf(newConf)
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !livestormConf?.events?.length) {
+        loadEvents()
+      }
+      setStep(value)
+    },
+    [livestormConf?.events?.length, loadEvents, setStep]
+  )
 
   const ActiveInstructions = `
             <h4>${__('To Get API Token', 'bit-integrations')}</h4>
@@ -49,82 +44,24 @@ const nextPage = () => {
             </ul>`
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Livestorm" links={tutorialLinks?.livestorm || {}} />
-
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={livestormConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={livestormConf.api_key}
-        type="text"
-        placeholder={__('API Key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <small className="d-blk mt-3">
-        {__('To get API key, please visit', 'bit-integrations')}
-        &nbsp;
-        <a
-          className="btcd-link"
-          href="https://app.livestorm.co/#/settings?page=settings&tab=integrations&id=public-api"
-          target="_blank">
-          {__('Livestorm API Token', 'bit-integrations')}
-        </a>
-      </small>
-      <br />
-      <br />
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              livestormAuthentication(
-                livestormConf,
-                setLivestormConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={ActiveInstructions} />
-    </div>
+    <Authorization
+      config={livestormConf}
+      setConfig={setLivestormConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Livestorm"
+      tutorialLinks={tutorialLinks?.livestorm || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://api.livestorm.co/v1/ping',
+        method: 'GET',
+        key: 'X-BI-Auth',
+        addTo: 'header',
+        headers: { Authorization: '{api_key}', Accept: 'application/json', 'Content-Type': 'application/json' }
+      }}
+      noteDetails={{ note: ActiveInstructions }}
+      onConnectionSelected={loadEvents}
+    />
   )
 }

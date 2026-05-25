@@ -44,48 +44,19 @@ export const checkMappedFields = bentoConf => {
 }
 
 const setRequestParams = (config, customs = {}) => {
+  if (config.connection_id) {
+    return {
+      ...customs,
+      connection_id: config.connection_id
+    }
+  }
+
   return {
     ...customs,
     publishable_key: config.publishable_key,
     secret_key: config.secret_key,
     site_uuid: config.site_uuid
   }
-}
-
-export const bentoAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.publishable_key || !confTmp.secret_key || !confTmp.site_uuid) {
-    setError({
-      publishable_key: !confTmp.publishable_key
-        ? __("Publishable Key can't be empty", 'bit-integrations')
-        : '',
-      secret_key: !confTmp.secret_key ? __("Secret Key can't be empty", 'bit-integrations') : '',
-      site_uuid: !confTmp.site_uuid ? __("Site UUID can't be empty", 'bit-integrations') : ''
-    })
-
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  bitsFetch(setRequestParams(confTmp), 'bento_authentication').then(result => {
-    setLoading({ ...loading, auth: false })
-
-    if (result && result.success) {
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-
-    toast.error(
-      result?.data
-        ? result?.data
-        : __(
-            'Authorized failed, Please enter valid Publishable Key, Secret Key & Site UUID',
-            'bit-integrations'
-          )
-    )
-  })
 }
 
 export const getFields = (confTmp, setConf, action, setIsLoading) => {

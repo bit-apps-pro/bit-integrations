@@ -1,31 +1,23 @@
 import { useRef } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
-import { useParams } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { setFieldInputOnMsgBody } from '../IntegrationHelpers/IntegrationHelpers'
 import SlackActions from './SlackActions'
+import { fetchChannels } from './SlackCommonFunc'
 
-export default function SlackIntegLayout({ formFields, slackConf, setSlackConf, isLoading }) {
+export default function SlackIntegLayout({
+  formFields,
+  slackConf,
+  setSlackConf,
+  isLoading,
+  setIsLoading
+}) {
   const textAreaRef = useRef(null)
 
   const handleInput = e => {
     const newConf = { ...slackConf }
     newConf[e.target.name] = e.target.value
-    setSlackConf(newConf)
-  }
-
-  const setMessageBody = val => {
-    const newConf = { ...slackConf }
-    newConf.body = val
-    setSlackConf(newConf)
-  }
-  const changeActionRun = e => {
-    const newConf = { ...slackConf }
-    if (newConf?.body) {
-      newConf.body = ''
-    }
-    newConf.parse_mode = e.target.value
     setSlackConf(newConf)
   }
 
@@ -40,13 +32,20 @@ export default function SlackIntegLayout({ formFields, slackConf, setSlackConf, 
           value={slackConf.channel_id}
           className="btcd-paper-inp w-5">
           <option value="">{__('Select Channel List', 'bit-integrations')}</option>
-          {slackConf?.tokenDetails?.channels &&
-            slackConf?.tokenDetails?.channels.map(({ id, name }) => (
+          {(slackConf?.channels || slackConf?.tokenDetails?.channels || []).map(({ id, name }) => (
               <option key={id} value={id}>
                 {name}
               </option>
             ))}
         </select>
+        <button
+          onClick={() => fetchChannels(slackConf, setSlackConf, setIsLoading, 'refresh')}
+          className="icn-btn sh-sm ml-2 mr-2 tooltip"
+          style={{ '--tooltip-txt': `'${__('Refresh channels', 'bit-integrations')}'` }}
+          type="button"
+          disabled={isLoading}>
+          &#x21BB;
+        </button>
       </div>
       {isLoading && (
         <Loader

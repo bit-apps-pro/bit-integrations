@@ -51,37 +51,4 @@ export const refreshNotificationsBySource = (action, setNotificationXConf, setIs
   })
 }
 
-export const notificationXAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  setIsLoading
-) => {
-  if (!confTmp.name) {
-    setError({
-      name: !confTmp.name ? __("Integration name can't be empty", 'bit-integrations') : '',
-    })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  const requestParams = { name: confTmp.name }
-
-  bitsFetch(requestParams, 'notificationx_authorize').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-    } else {
-      const errorMsg = typeof result?.data === 'string' ? result.data : result?.message
-      setError({ name: errorMsg || __('Authorization failed', 'bit-integrations') })
-    }
-
-    setIsLoading(false)
-  }).catch(() => {
-    setError({ name: __('Authorization failed', 'bit-integrations') })
-    setIsLoading(false)
-  })
-}
 

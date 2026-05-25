@@ -23,17 +23,6 @@ class MemberpressController
         return false;
     }
 
-    public static function authorizeMemberpress()
-    {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        // translators: %s: Placeholder value
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'Memberpress'));
-    }
-
     public function getAllMembership($label = null, $option_code = 'MPPRODUCT', $args = [])
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';

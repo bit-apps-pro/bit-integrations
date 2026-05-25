@@ -11,8 +11,7 @@ import ZohoMarketingHubAuthorization from './ZohoMarketingHubAuthorization'
 import {
   checkMappedFields,
   handleInput,
-  refreshLists,
-  setGrantTokenResponse
+  refreshLists
 } from './ZohoMarketingHubCommonFunc'
 import ZohoMarketingHubIntegLayout from './ZohoMarketingHubIntegLayout'
 
@@ -30,10 +29,6 @@ function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
     list: '',
     field_map: [{ formField: '', zohoFormField: '' }]
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoMarketingHub')
-  }, [])
 
   const nextPage = val => {
     if (val === 3) {

@@ -70,6 +70,24 @@ final class DB
                 `created_at` datetime DEFAULT NULL,
                 `updated_at` datetime DEFAULT NULL,
                 PRIMARY KEY (`id`)
+            ) {$collate};",
+
+            "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}btcbi_connections` (
+                `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                `app_slug` varchar(191) NOT NULL,
+                `auth_type` varchar(50) NOT NULL DEFAULT 'oauth2',
+                `connection_name` varchar(255) DEFAULT NULL,
+                `account_name` varchar(255) DEFAULT NULL,
+                `encrypt_keys` text DEFAULT NULL,
+                `auth_details` longtext DEFAULT NULL,
+                `status` tinyint(1) DEFAULT 1,
+                `user_id` bigint(20) unsigned DEFAULT NULL,
+                `created_at` datetime DEFAULT NULL,
+                `updated_at` datetime DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `app_slug` (`app_slug`),
+                KEY `account_name` (`account_name`),
+                KEY `status` (`status`)
             ) {$collate};"
         ];
 

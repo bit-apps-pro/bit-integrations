@@ -1,6 +1,16 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
+
+
 export const handleInput = (
   e,
   recordTab,
@@ -95,10 +105,8 @@ export const refreshModules = (formID, biginConf, setBiginConf, setIsLoading, se
   const refreshModulesRequestParams = {
     formID,
     id: biginConf.id,
+    ...buildAuthRequestParams(biginConf),
     dataCenter: biginConf.dataCenter,
-    clientId: biginConf.clientId,
-    clientSecret: biginConf.clientSecret,
-    tokenDetails: biginConf.tokenDetails
   }
   bitsFetch(refreshModulesRequestParams, 'zbigin_refresh_modules')
     .then(result => {
@@ -142,10 +150,8 @@ export const refreshPipelinesLayout = (formID, biginConf, setBiginConf, setIsLoa
   const refreshLayoutRequestParams = {
     formID,
     id: biginConf.id,
+    ...buildAuthRequestParams(biginConf),
     dataCenter: biginConf.dataCenter,
-    clientId: biginConf.clientId,
-    clientSecret: biginConf.clientSecret,
-    tokenDetails: biginConf.tokenDetails
   }
   bitsFetch(refreshLayoutRequestParams, 'zbigin_refresh_playouts')
     .then(result => {
@@ -192,10 +198,8 @@ export const refreshRelatedList = (formID, biginConf, setBiginConf, setIsLoading
   const relatedListRequestParams = {
     formID,
     module: biginConf.module,
+    ...buildAuthRequestParams(biginConf),
     dataCenter: biginConf.dataCenter,
-    clientId: biginConf.clientId,
-    clientSecret: biginConf.clientSecret,
-    tokenDetails: biginConf.tokenDetails
   }
   bitsFetch(relatedListRequestParams, 'zbigin_refresh_related_lists')
     .then(result => {
@@ -240,10 +244,8 @@ export const getFields = (recordTab, formID, biginConf, setBiginConf, setIsLoadi
   const getFieldsRequestParams = {
     formID,
     module,
+    ...buildAuthRequestParams(biginConf),
     dataCenter: biginConf.dataCenter,
-    clientId: biginConf.clientId,
-    clientSecret: biginConf.clientSecret,
-    tokenDetails: biginConf.tokenDetails
   }
   bitsFetch(getFieldsRequestParams, 'zbigin_refresh_fields')
     .then(result => {
@@ -296,10 +298,8 @@ export const refreshTags = (recordTab, formID, biginConf, setBiginConf, setIsLoa
   const getTagsRequestParams = {
     formID,
     module,
+    ...buildAuthRequestParams(biginConf),
     dataCenter: biginConf.dataCenter,
-    clientId: biginConf.clientId,
-    clientSecret: biginConf.clientSecret,
-    tokenDetails: biginConf.tokenDetails
   }
   bitsFetch(getTagsRequestParams, 'zbigin_refresh_tags')
     .then(result => {
@@ -332,10 +332,8 @@ export const refreshUsers = (formID, biginConf, setBiginConf, setIsLoading, setS
   setIsLoading(true)
   const getUsersRequestParams = {
     formID,
+    ...buildAuthRequestParams(biginConf),
     dataCenter: biginConf.dataCenter,
-    clientId: biginConf.clientId,
-    clientSecret: biginConf.clientSecret,
-    tokenDetails: biginConf.tokenDetails
   }
   bitsFetch(getUsersRequestParams, 'zbigin_refresh_users')
     .then(result => {

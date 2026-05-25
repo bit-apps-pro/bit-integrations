@@ -3,12 +3,23 @@
 namespace BitApps\Integrations\Actions\OneDrive;
 
 use BitApps\Integrations\Actions\OneDrive\RecordApiHelper as OneDriveRecordApiHelper;
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
 
 class OneDriveController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'onedrive',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
@@ -16,42 +27,31 @@ class OneDriveController
         $this->integrationID = $integrationID;
     }
 
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->clientId) || empty($requestParams->clientSecret) || empty($requestParams->code) || empty($requestParams->redirectURI)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $body = [
-            'client_id'     => $requestParams->clientId,
-            'redirect_uri'  => urldecode($requestParams->redirectURI),
-            'client_secret' => $requestParams->clientSecret,
-            'grant_type'    => 'authorization_code',
-            'code'          => urldecode($requestParams->code)
-        ];
-
-        $apiEndpoint = 'https://login.live.com/oauth20_token.srf';
-        $header['Content-Type'] = 'application/x-www-form-urlencoded';
-        $apiResponse = HttpHelper::post($apiEndpoint, $body, $header);
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error) || HttpHelper::$responseCode !== 200) {
-            wp_send_json_error(empty($apiResponse->error_description) ? 'Unknown' : $apiResponse->error_description, 400);
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
-
     public static function getAllFolders($queryParams)
     {
-        if (empty($queryParams->tokenDetails) || empty($queryParams->clientId) || empty($queryParams->clientSecret)) {
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+        $clientId = $queryParams->clientId ?? '';
+        $clientSecret = $queryParams->clientSecret ?? '';
+
+        if (empty($tokenDetails->access_token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $token = self::tokenExpiryCheck($queryParams->tokenDetails, $queryParams->clientId, $queryParams->clientSecret);
-        if ($token->access_token !== $queryParams->tokenDetails->access_token) {
-            self::saveRefreshedToken($queryParams->flowID, $token);
+        $oldToken = $tokenDetails->access_token;
+        if (!$isConnectionAuth) {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
         }
 
-        $folders = self::getOneDriveFoldersList($token->access_token);
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
+        }
+
+        if (!$isConnectionAuth && !empty($queryParams->flowID) && $tokenDetails->access_token !== $oldToken) {
+            self::saveRefreshedToken($queryParams->flowID, $tokenDetails);
+        }
+
+        $folders = self::getOneDriveFoldersList($tokenDetails->access_token);
         $foldersOnly = $folders->value;
 
         $data = [];
@@ -63,7 +63,7 @@ class OneDriveController
             }
         }
         $response['oneDriveFoldersList'] = $data;
-        $response['tokenDetails'] = $token;
+        $response['tokenDetails'] = $tokenDetails;
         wp_send_json_success($response, 200);
     }
 
@@ -85,20 +85,33 @@ class OneDriveController
 
     public static function singleOneDriveFolderList($queryParams)
     {
-        if (empty($queryParams->tokenDetails) || empty($queryParams->clientId) || empty($queryParams->clientSecret)) {
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+        $clientId = $queryParams->clientId ?? '';
+        $clientSecret = $queryParams->clientSecret ?? '';
+
+        if (empty($tokenDetails->access_token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
         $ids = explode('!', $queryParams->folder);
-        $token = self::tokenExpiryCheck($queryParams->tokenDetails, $queryParams->clientId, $queryParams->clientSecret);
-        if ($token->access_token !== $queryParams->tokenDetails->access_token) {
-            self::saveRefreshedToken($queryParams->flowID, $token);
+        $oldToken = $tokenDetails->access_token;
+        if (!$isConnectionAuth) {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
+        }
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
+        }
+
+        if (!$isConnectionAuth && !empty($queryParams->flowID) && $tokenDetails->access_token !== $oldToken) {
+            self::saveRefreshedToken($queryParams->flowID, $tokenDetails);
         }
 
         $headers = [
             'Accept'        => 'application/json',
             'Content-Type'  => 'application/json;',
-            'Authorization' => 'bearer ' . $queryParams->tokenDetails->access_token,
+            'Authorization' => 'bearer ' . $tokenDetails->access_token,
         ];
         $apiEndpoint = 'https://api.onedrive.com/v1.0/drives/' . $ids[0] . '/items/' . $queryParams->folder . '/children';
         $apiResponse = HttpHelper::get($apiEndpoint, [], $headers);
@@ -112,7 +125,7 @@ class OneDriveController
             }
         }
         $response['folders'] = $data;
-        $response['tokenDetails'] = $token;
+        $response['tokenDetails'] = $tokenDetails;
         wp_send_json_success($response, 200);
     }
 
@@ -129,11 +142,25 @@ class OneDriveController
         $actions = $integrationDetails->actions;
         $folderId = $integrationDetails->folder;
         // $fieldMap = $integrationDetails->field_map;
-        $tokenDetails = self::tokenExpiryCheck($integrationDetails->tokenDetails, $integrationDetails->clientId, $integrationDetails->clientSecret);
+        $isConnectionAuth = !empty($integrationDetails->connection_id);
+        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
+        $oldToken = $tokenDetails->access_token ?? '';
+
+        if (!$isConnectionAuth) {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $integrationDetails->clientId ?? '', $integrationDetails->clientSecret ?? '');
+        }
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+            // translators: %s: Service name
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'oneDrive', 'type_name' => 'file_upload']), 'error', wp_sprintf(__('Not Authorization By %s', 'bit-integrations'), 'OneDrive'));
+
+            return false;
+        }
         // folderMap need check
         $parentId = $integrationData->flow_details->folderMap[1];
         $fieldMap = null;
-        if ($tokenDetails->access_token !== $integrationDetails->tokenDetails->access_token) {
+
+        if (!$isConnectionAuth && $tokenDetails->access_token !== $oldToken) {
             self::saveRefreshedToken($this->integrationID, $tokenDetails);
         }
 
@@ -148,7 +175,9 @@ class OneDriveController
             return false;
         }
 
-        if ((\intval($token->generates_on) + (55 * 60)) < time()) {
+        $generatedOn = !empty($token->generates_on) ? (int) $token->generates_on : (int) ($token->generated_at ?? 0);
+
+        if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
             if (is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
@@ -156,6 +185,8 @@ class OneDriveController
             $token->access_token = $refreshToken->access_token;
             $token->expires_in = $refreshToken->expires_in;
             $token->generates_on = $refreshToken->generates_on;
+            $token->generated_at = $refreshToken->generated_at;
+            $token->refresh_token = $refreshToken->refresh_token;
         }
 
         return $token;
@@ -177,6 +208,20 @@ class OneDriveController
         }
         $token = $apiResponse;
         $token->generates_on = time();
+        $token->generated_at = $token->generates_on;
+
+        return $token;
+    }
+
+    private static function normalizeConnectionToken($token)
+    {
+        if (!\is_object($token)) {
+            $token = (object) [];
+        }
+
+        if (empty($token->generates_on) && !empty($token->generated_at)) {
+            $token->generates_on = (int) $token->generated_at;
+        }
 
         return $token;
     }

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\OneHashCRM;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,28 +15,21 @@ use WP_Error;
  */
 class OneHashCRMController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'onehashcrm',
+        'fields'   => [
+            'api_key'    => 'value',
+            'api_secret' => 'api_secret',
+            'domain'     => 'domain',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
 
     protected $domain;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->domain = $fieldsRequestParams->domain;
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiSecret = $fieldsRequestParams->api_secret;
-        $apiEndpoint = $this->setApiEndpoint() . '/Lead';
-        $headers = $this->setHeaders($apiKey, $apiSecret);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (isset($response->data)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API Key & Secret or Access Api URL', 'bit-integrations'), 400);
-        }
-    }
 
     public function execute($integrationData, $fieldValues)
     {

@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\NinjaTables\NinjaTablesController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('ninja_tables_authorize', [NinjaTablesController::class, 'ninjaTablesAuthorize']);
 Route::post('refresh_ninja_tables', [NinjaTablesController::class, 'refreshTables']);
 Route::post('refresh_ninja_tables_rows', [NinjaTablesController::class, 'refreshRows']);
 Route::post('refresh_ninja_tables_users', [NinjaTablesController::class, 'refreshUsers']);

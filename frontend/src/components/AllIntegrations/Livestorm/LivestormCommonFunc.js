@@ -41,40 +41,12 @@ export const checkMappedFields = livestormConf => {
   return true
 }
 
-export const livestormAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
+const buildAuthRequestParams = conf =>
+  conf?.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
 
-  setError({})
-  setLoading({ ...loading, auth: true })
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'livestorm_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__(result?.data || 'Authorized failed, Please enter valid API Key', 'bit-integrations'))
-  })
-}
-
-export const getAllEvents = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, event: true })
-  const requestParams = { api_key: confTmp.api_key }
+export const getAllEvents = (confTmp, setConf, loading, setLoading, setSnackbar = null) => {
+  setLoading({ ...loading, event: true })
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'livestorm_fetch_all_events').then(result => {
     if (result && result.success) {
@@ -85,24 +57,40 @@ export const getAllEvents = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, event: false })
+        setLoading({ ...loading, event: false })
         toast.success(__('Events fetched successfully', 'bit-integrations'))
+        if (typeof setSnackbar === 'function') {
+          setSnackbar({ show: true, msg: __('Events fetched successfully', 'bit-integrations') })
+        }
         return
       }
-      setLoading({ ...setLoading, event: false })
+      setLoading({ ...loading, event: false })
       toast.error(__('Events Not Found!', 'bit-integrations'))
+      if (typeof setSnackbar === 'function') {
+        setSnackbar({ show: true, msg: __('Events Not Found!', 'bit-integrations') })
+      }
       return
     }
-    setLoading({ ...setLoading, event: false })
+    setLoading({ ...loading, event: false })
     toast.error(__('Events fetching failed', 'bit-integrations'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Events fetching failed', 'bit-integrations') })
+    }
   })
 }
 
-export const getAllSessions = (confTmp, setConf, event_id, setLoading) => {
-  setLoading({ ...setLoading, session: true })
+export const getAllSessions = (
+  confTmp,
+  setConf,
+  event_id,
+  loading,
+  setLoading,
+  setSnackbar = null
+) => {
+  setLoading({ ...loading, session: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     event_id: event_id
   }
 
@@ -114,15 +102,24 @@ export const getAllSessions = (confTmp, setConf, event_id, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, session: false })
+        setLoading({ ...loading, session: false })
         toast.success(__('Sessions fetched successfully', 'bit-integrations'))
+        if (typeof setSnackbar === 'function') {
+          setSnackbar({ show: true, msg: __('Sessions fetched successfully', 'bit-integrations') })
+        }
         return
       }
-      setLoading({ ...setLoading, session: false })
+      setLoading({ ...loading, session: false })
       toast.error(__('Sessions Not Found!', 'bit-integrations'))
+      if (typeof setSnackbar === 'function') {
+        setSnackbar({ show: true, msg: __('Sessions Not Found!', 'bit-integrations') })
+      }
       return
     }
-    setLoading({ ...setLoading, session: false })
+    setLoading({ ...loading, session: false })
     toast.error(__('Sessions fetching failed', 'bit-integrations'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Sessions fetching failed', 'bit-integrations') })
+    }
   })
 }

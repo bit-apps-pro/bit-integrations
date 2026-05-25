@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate } from 'react-router'
@@ -10,7 +10,7 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import LionDeskAuthorization from './LionDeskAuthorization'
-import { checkMappedFields, handleInput, setGrantTokenResponse } from './LionDeskCommonFunc'
+import { checkMappedFields, handleInput } from './LionDeskCommonFunc'
 import LionDeskIntegLayout from './LionDeskIntegLayout'
 
 function LionDesk({ formFields, setFlow, flow, allIntegURL }) {
@@ -57,10 +57,6 @@ function LionDesk({ formFields, setFlow, flow, allIntegURL }) {
     contactFields,
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('lionDesk')
-  }, [])
 
   const saveConfig = () => {
     setIsLoading(true)
@@ -110,9 +106,6 @@ function LionDesk({ formFields, setFlow, flow, allIntegURL }) {
         setLionDeskConf={setLionDeskConf}
         step={step}
         setStep={setStep}
-        setSnackbar={setSnackbar}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
       />
 
       {/* STEP 2 */}

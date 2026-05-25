@@ -1,14 +1,9 @@
-import { useState } from 'react'
-import AuthorizeButton from '../../Utilities/AuthorizeButton'
-import ErrorField from '../../Utilities/ErrorField'
-import GetInfo from '../../Utilities/GetInfo'
-import Input from '../../Utilities/Input'
-import Note from '../../Utilities/Note'
-import StepPage from '../../Utilities/StepPage'
-import { getAllLists, handleAuthorize, handleInput } from './MoosendCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-import TutorialLink from '../../Utilities/TutorialLink'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
+import Authorization from '../../Connections/Authorization'
+import { getAllLists } from './MoosendCommonFunc'
 
 function MoosendAuthorization({
   moosendConf,
@@ -19,21 +14,28 @@ function MoosendAuthorization({
   setLoading,
   isInfo
 }) {
-  const [authorized, setAuthorized] = useState(false)
-  const [error, setError] = useState({ name: '', authKey: '' })
+  const loadLists = useCallback(
+    async connectionId => {
+      const nextConf = connectionId ? { ...moosendConf, connection_id: connectionId } : moosendConf
 
-  const nextPage = async () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
+      setLoading({ ...loading, page: true })
+      const loaded = await getAllLists(nextConf, setMoosendConf, loading, setLoading)
+      if (loaded) {
+        setLoading({ ...loading, page: false })
+      }
+    },
+    [moosendConf, setMoosendConf, loading, setLoading]
+  )
 
-    setStep(2)
-    setLoading({ ...loading, page: true })
-    const data = await getAllLists(moosendConf, setMoosendConf)
-    if (data) {
-      setLoading({ ...loading, page: false })
-    }
-  }
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2 && !moosendConf?.default?.lists) {
+        loadLists()
+      }
+      setStep(value)
+    },
+    [moosendConf, loadLists, setStep]
+  )
 
   const note = `
   <h4>${__('Step of get API Key:', 'bit-integrations')}</h4>
@@ -49,43 +51,24 @@ function MoosendAuthorization({
 `
 
   return (
-    <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Moosend" links={tutorialLinks?.moosend || {}} />
-
-      <div className="mt-2">
-        {/* Moosend Authorization */}
-
-        <Input
-          label={__('Integration Name', 'bit-integrations')}
-          name="name"
-          placeholder={__('Integration Name...', 'bit-integrations')}
-          value={moosendConf.name}
-          onchange={e => handleInput(e, moosendConf, setMoosendConf, error, setError)}
-        />
-        <Input
-          label={__('API key', 'bit-integrations')}
-          name="authKey"
-          placeholder={__('API key...', 'bit-integrations')}
-          value={moosendConf.authKey}
-          onchange={e => handleInput(e, moosendConf, setMoosendConf, error, setError)}
-        />
-        <GetInfo
-          url="https://moosend.com/"
-          info={__('To get API key, please visit', 'bit-integrations')}
-        />
-        <ErrorField error={error.authKey} />
-        {!isInfo && (
-          <AuthorizeButton
-            onclick={() => handleAuthorize(moosendConf, setError, setAuthorized, loading, setLoading)}
-            nextPage={nextPage}
-            auth={authorized}
-            loading={loading.auth}
-          />
-        )}
-      </div>
-
-      <Note note={note} />
-    </StepPage>
+    <Authorization
+      config={moosendConf}
+      setConfig={setMoosendConf}
+      step={step}
+      setStep={handleSetStep}
+      isInfo={isInfo}
+      tutorialTitle="Moosend"
+      tutorialLinks={tutorialLinks?.moosend || {}}
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://api.moosend.com/v3/lists/1/1000.json',
+        method: 'GET',
+        key: 'apikey',
+        addTo: 'query'
+      }}
+      noteDetails={{ note }}
+      onConnectionSelected={loadLists}
+    />
   )
 }
 
