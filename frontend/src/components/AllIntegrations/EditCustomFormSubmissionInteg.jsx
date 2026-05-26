@@ -8,7 +8,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import Loader from '../Loaders/Loader'
@@ -38,7 +38,8 @@ function EditCustomFormSubmissionInteg({ setSnackbar }) {
   const fetchMethod = flow?.flow_details?.fetch?.method || ''
   const removeAction = flow?.flow_details?.fetch_remove?.action || ''
   const removeMethod = flow?.flow_details?.fetch_remove?.method || ''
-  const { stopFetching } = CustomFetcherHelper(
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
     isFetchingRef,
     flow.triggered_entity_id,
     controller,
@@ -46,6 +47,10 @@ function EditCustomFormSubmissionInteg({ setSnackbar }) {
     removeAction,
     removeMethod
   )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
 
   const handleFetch = async () => {
     if (isFetchingRef.current) {
@@ -55,6 +60,7 @@ function EditCustomFormSubmissionInteg({ setSnackbar }) {
 
     isFetchingRef.current = true
     setIsLoading(true)
+    startCountdown(stopFetching)
     fetchSequentially()
   }
 
@@ -230,7 +236,7 @@ function EditCustomFormSubmissionInteg({ setSnackbar }) {
               className={`btn btcd-btn-lg sh-sm flx ml-1 ${isLoading ? 'red' : 'purple'}`}
               type="button">
               {isLoading
-                ? __('Stop', 'bit-integrations')
+                ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
                 : flow.flow_details.fields
                   ? __('Fetched ✔', 'bit-integrations')
                   : __('Fetch', 'bit-integrations')}
