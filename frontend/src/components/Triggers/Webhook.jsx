@@ -5,7 +5,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { $appConfigState, $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
@@ -29,7 +29,8 @@ const Webhook = () => {
   const isFetchingRef = useRef(false)
   let controller = new AbortController()
   const signal = controller.signal
-  const { stopFetching } = CustomFetcherHelper(
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
     isFetchingRef,
     hookID,
     controller,
@@ -38,6 +39,10 @@ const Webhook = () => {
     'post',
     'hook_id'
   )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
   const setTriggerData = () => {
     const tmpNewFlow = { ...newFlow }
     tmpNewFlow.triggerData = {
@@ -76,6 +81,7 @@ const Webhook = () => {
     isFetchingRef.current = true
     setIsLoading(true)
     setShowResponse(false)
+    startCountdown(stopFetching)
     fetchSequentially()
   }
 
@@ -157,7 +163,7 @@ const Webhook = () => {
           type="button"
           disabled={!hookID}>
           {isLoading
-            ? __('Stop', 'bit-integrations')
+            ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
             : newFlow.triggerDetail?.data
               ? __('Fetched ✔', 'bit-integrations')
               : __('Fetch', 'bit-integrations')}

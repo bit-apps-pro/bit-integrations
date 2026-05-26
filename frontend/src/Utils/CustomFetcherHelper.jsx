@@ -1,5 +1,45 @@
 import { create } from 'mutative'
+import { useRef, useState } from 'react'
 import bitsFetch from './bitsFetch'
+
+export const FETCH_TIMEOUT = 180
+
+export function useFetchCountdown(timeoutSeconds = FETCH_TIMEOUT) {
+  const [countdown, setCountdown] = useState(0)
+  const intervalRef = useRef(null)
+
+  const clearCountdown = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+    setCountdown(0)
+  }
+
+  const startCountdown = onTimeout => {
+    clearCountdown()
+    setCountdown(timeoutSeconds)
+    intervalRef.current = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current)
+          intervalRef.current = null
+          onTimeout && onTimeout()
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+  }
+
+  const formatTime = sec => {
+    const m = Math.floor(sec / 60)
+    const s = sec % 60
+    return `${m}:${s.toString().padStart(2, '0')}`
+  }
+
+  return { countdown, startCountdown, clearCountdown, formatTime }
+}
 
 export default function CustomFetcherHelper(
   isLoadingRef,
