@@ -90,7 +90,6 @@ class RecordApiHelper
             $fieldData,
             $utilities,
             $this->_integrationDetails,
-            $this->_integrationID
         );
 
         if (\is_array($response) && empty($response['success'])) {

@@ -5,7 +5,6 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import { handleCustomValue } from '../IntegrationHelpers/IntegrationHelpers'
 import TagifyInput from '../../Utilities/TagifyInput'
-import { generateMappedField } from './ZendeskSupportCommonFunc'
 import { ZendeskSupportStaticData } from './staticData'
 import { addFieldMap, delFieldMap, handleFieldMapping } from '../GlobalIntegrationHelper'
 
