@@ -115,6 +115,7 @@ const Insightly = lazy(() => import('./Insightly/Insightly'))
 const CapsuleCRM = lazy(() => import('./CapsuleCRM/CapsuleCRM'))
 const MasterStudyLms = lazy(() => import('./MasterStudyLms/MasterStudyLms'))
 const Zendesk = lazy(() => import('./Zendesk/Zendesk'))
+const ZendeskSupport = lazy(() => import('./ZendeskSupport/ZendeskSupport'))
 const Asana = lazy(() => import('./Asana/Asana'))
 const PropovoiceCrm = lazy(() => import('./PropovoiceCRM/PropovoiceCrm'))
 const Clickup = lazy(() => import('./Clickup/Clickup'))
@@ -1166,6 +1167,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Zendesk':
         return (
           <Zendesk
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'ZendeskSupport':
+        return (
+          <ZendeskSupport
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
