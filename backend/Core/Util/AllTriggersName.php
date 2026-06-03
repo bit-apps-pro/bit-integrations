@@ -95,6 +95,7 @@ final class AllTriggersName
             'Met'                            => ['name' => 'Met Form',  'isPro' => true, 'is_active' => false],
             'MetaBox'                        => ['name' => 'MB Frontend Submission',  'isPro' => true, 'is_active' => false],
             'ModernEventsCalendar'           => ['name' => 'Modern Events Calendar',  'isPro' => true, 'is_active' => false],
+            'MoreConvertWishlist'            => ['name' => 'MoreConvert Wishlist',  'isPro' => true, 'is_active' => false],
             'Newsletter'                     => ['name' => 'Newsletter',  'isPro' => true, 'is_active' => false],
             'NewUserApprove'                 => ['name' => 'New User Approve',  'isPro' => true, 'is_active' => false],
             'NexForms'                       => ['name' => 'NEX-Forms',  'isPro' => true, 'is_active' => false],
