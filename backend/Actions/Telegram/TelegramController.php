@@ -94,15 +94,19 @@ class TelegramController
 
         $allList = [];
         foreach ($telegramResponse->result as $list) {
-            if (empty($list->my_chat_member)) {
-                continue;
+            if (isset($list->my_chat_member)) {
+                $allList[$list->my_chat_member->chat->title] = (object) [
+                    'id'   => $list->my_chat_member->chat->id,
+                    'name' => $list->my_chat_member->chat->title,
+                ];
+            } elseif (isset($list->channel_post)) {
+                $allList[$list->channel_post->chat->title] = (object) [
+                    'id'   => $list->channel_post->chat->id,
+                    'name' => $list->channel_post->chat->title,
+                ];
             }
-
-            $allList[$list->my_chat_member->chat->title] = (object) [
-                'id'   => $list->my_chat_member->chat->id,
-                'name' => $list->my_chat_member->chat->title,
-            ];
         }
+
         uksort($allList, 'strnatcasecmp');
 
         wp_send_json_success(['telegramChatLists' => $allList], 200);
