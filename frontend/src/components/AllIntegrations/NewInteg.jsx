@@ -178,6 +178,7 @@ const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
+const IvyForms = lazy(() => import('./IvyForms/IvyForms'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
 const PeepSo = lazy(() => import('./PeepSo/PeepSo'))
 const NinjaTables = lazy(() => import('./NinjaTables/NinjaTables'))
@@ -1735,6 +1736,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'FormyChat':
         return (
           <FormyChat
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'IvyForms':
+        return (
+          <IvyForms
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

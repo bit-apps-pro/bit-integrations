@@ -179,6 +179,7 @@ const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
 const EditWpDataTables = lazy(() => import('./WpDataTables/EditWpDataTables'))
 const EditFormyChat = lazy(() => import('./FormyChat/EditFormyChat'))
+const EditIvyForms = lazy(() => import('./IvyForms/EditIvyForms'))
 const EditWpErp = lazy(() => import('./WpErp/EditWpErp'))
 const EditPeepSo = lazy(() => import('./PeepSo/EditPeepSo'))
 const EditNinjaTables = lazy(() => import('./NinjaTables/EditNinjaTables'))
@@ -617,6 +618,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditWpDataTables allIntegURL={allIntegURL} />
     case 'FormyChat':
       return <EditFormyChat allIntegURL={allIntegURL} />
+    case 'IvyForms':
+      return <EditIvyForms allIntegURL={allIntegURL} />
     case 'WP ERP':
       return <EditWpErp allIntegURL={allIntegURL} />
     case 'PeepSo':

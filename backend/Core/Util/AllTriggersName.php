@@ -49,6 +49,7 @@ final class AllTriggersName
             'EVF'                            => ['name' => 'Everest Forms',  'isPro' => true, 'is_active' => false],
             'FormGent'                       => ['name' => 'FormGent',  'isPro' => true, 'is_active' => false],
             'FormyChat'                      => ['name' => 'FormyChat',  'isPro' => true, 'is_active' => false],
+            'IvyForms'                       => ['name' => 'IvyForms',  'isPro' => true, 'is_active' => false],
             'FluentAffiliate'                => ['name' => 'FluentAffiliate',  'isPro' => true, 'is_active' => false],
             'WCAffiliate'                    => ['name' => 'WC Affiliate',  'isPro' => true, 'is_active' => false],
             'FF'                             => ['name' => 'Fluent Forms',  'isPro' => true, 'is_active' => false],

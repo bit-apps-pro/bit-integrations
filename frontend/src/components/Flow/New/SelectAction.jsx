@@ -183,6 +183,7 @@ export default function SelectAction() {
     { type: 'BookingPress' },
     { type: 'WpDataTables' },
     { type: 'FormyChat' },
+    { type: 'IvyForms', logo: 'ivyForms' },
     { type: 'WP ERP', logo: 'wpErp' },
     { type: 'PeepSo' },
     { type: 'Ninja Tables' },
