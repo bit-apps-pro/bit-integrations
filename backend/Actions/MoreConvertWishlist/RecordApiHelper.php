@@ -129,7 +129,7 @@ class RecordApiHelper
         return $response;
     }
 
-    private function generateReqDataFromFieldMap($fieldMap, $fieldValues)
+    private static function generateReqDataFromFieldMap($fieldMap, $fieldValues)
     {
         $dataFinal = [];
         foreach ($fieldMap as $item) {

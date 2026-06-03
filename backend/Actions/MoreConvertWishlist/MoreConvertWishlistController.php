@@ -32,7 +32,7 @@ class MoreConvertWishlistController
         wp_send_json_success(true);
     }
 
-    public function refreshCustomers()
+    public static function refreshCustomers()
     {
         self::isExists();
 
@@ -69,7 +69,7 @@ class MoreConvertWishlistController
         wp_send_json_success(['customers' => $customers], 200);
     }
 
-    public function refreshUsers()
+    public static function refreshUsers()
     {
         self::isExists();
 
@@ -88,7 +88,7 @@ class MoreConvertWishlistController
         wp_send_json_success(['users' => $users], 200);
     }
 
-    public function refreshWishlists()
+    public static function refreshWishlists()
     {
         self::isExists();
 
