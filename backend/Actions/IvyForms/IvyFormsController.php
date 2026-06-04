@@ -63,38 +63,31 @@ class IvyFormsController
             wp_send_json_error(__('Unable to access IvyForms fields', 'bit-integrations'), 400);
         }
 
-        $fields = $fieldService->getAllFields($formId) ?? [];
-        $options = [];
+        $fields            = $fieldService->getAllFields($formId) ?? [];
+        $options           = [];
         $skippableFieldIds = [];
 
         foreach ($fields as $field) {
-            $field = self::prepareData($field);
+            $field   = self::prepareData($field);
+            $fieldId = $field['id'] ?? '';
 
-            if (isset($field['parentId']) && $field['parentId'] && !\in_array($field['parentId'], $skippableFieldIds)) {
-                $skippableFieldIds[] = $field['parentId'];
+            if (!empty($field['parentId'])) {
+                $skippableFieldIds[$field['parentId']] = true;
+                unset($options[$field['parentId']]);
             }
 
-            if (self::isSkippableField($field['type'] ?? '')) {
+            if (self::isSkippableField($field['type'] ?? '') || isset($skippableFieldIds[$fieldId])) {
                 continue;
             }
 
-            $options[] = (object) [
-                'value'    => $field['id'] ?? '',
+            $options[$fieldId] = (object) [
+                'value'    => $fieldId,
                 'label'    => $field['label'] ?? '',
                 'required' => $field['required'] ?? false,
             ];
         }
 
-        $options = array_values(
-            array_filter(
-                $options,
-                function ($option) use ($skippableFieldIds) {
-                    return !\in_array($option->value, $skippableFieldIds);
-                }
-            )
-        );
-
-        wp_send_json_success(['fields' => $options], 200);
+        wp_send_json_success(['fields' => array_values($options)], 200);
     }
 
     public function execute($integrationData, $fieldValues)
