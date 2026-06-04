@@ -63,12 +63,12 @@ class IvyFormsController
             wp_send_json_error(__('Unable to access IvyForms fields', 'bit-integrations'), 400);
         }
 
-        $fields            = $fieldService->getAllFields($formId) ?? [];
-        $options           = [];
+        $fields = $fieldService->getAllFields($formId) ?? [];
+        $options = [];
         $skippableFieldIds = [];
 
         foreach ($fields as $field) {
-            $field   = self::prepareData($field);
+            $field = self::prepareData($field);
             $fieldId = $field['id'] ?? '';
 
             if (!empty($field['parentId'])) {
