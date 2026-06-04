@@ -62,31 +62,33 @@ export default function IvyFormsIntegLayout({
       </div>
 
       <br />
-      <div className="flx">
-        <b className="wdt-200 d-in-b">{__('Select Form:', 'bit-integrations')}</b>
-        <MultiSelect
-          title="formId"
-          defaultValue={ivyFormsConf?.formId ?? null}
-          className="mt-2 w-5"
-          onChange={value => handleChange(value, 'formId')}
-          options={
-            ivyFormsConf?.allForms?.map(f => ({
-              label: f.label,
-              value: f.value?.toString()
-            })) || []
-          }
-          singleSelect
-          closeOnSelect
-        />
-        <button
-          onClick={() => refreshIvyFormsForms(setIvyFormsConf, setIsLoading)}
-          className="icn-btn sh-sm ml-2 mr-2 tooltip"
-          style={{ '--tooltip-txt': `'${__('Refresh Forms', 'bit-integrations')}'` }}
-          type="button"
-          disabled={isLoading}>
-          &#x21BB;
-        </button>
-      </div>
+      {ivyFormsConf?.mainAction && (
+        <div className="flx">
+          <b className="wdt-200 d-in-b">{__('Select Form:', 'bit-integrations')}</b>
+          <MultiSelect
+            title="formId"
+            defaultValue={ivyFormsConf?.formId ?? null}
+            className="mt-2 w-5"
+            onChange={value => handleChange(value, 'formId')}
+            options={
+              ivyFormsConf?.allForms?.map(f => ({
+                label: f.label,
+                value: f.value?.toString()
+              })) || []
+            }
+            singleSelect
+            closeOnSelect
+          />
+          <button
+            onClick={() => refreshIvyFormsForms(setIvyFormsConf, setIsLoading)}
+            className="icn-btn sh-sm ml-2 mr-2 tooltip"
+            style={{ '--tooltip-txt': `'${__('Refresh Forms', 'bit-integrations')}'` }}
+            type="button"
+            disabled={isLoading}>
+            &#x21BB;
+          </button>
+        </div>
+      )}
 
       {isLoading && (
         <Loader

@@ -36,9 +36,11 @@ export const refreshIvyFormsFields = (formId, setIvyFormsConf, setIsLoading) => 
   bitsFetch({ formId }, 'refresh_ivy_forms_fields')
     .then(result => {
       if (result?.success && result?.data?.fields) {
+        const fields = formatFields(result.data.fields)
         setIvyFormsConf(prevConf =>
           create(prevConf, draftConf => {
-            draftConf.allFields = result.data.fields
+            draftConf.allFields = fields
+            draftConf.field_map = generateMappedField(fields)
           })
         )
       } else {
@@ -64,4 +66,13 @@ export const checkMappedFields = ivyFormsConf => {
   return true
 }
 
-export const generateMappedField = () => [{ formField: '', ivyFormsField: '' }]
+export const formatFields = fields => (Array.isArray(fields) ? fields : Object.values(fields || {}))
+
+export const isRequiredField = field => field?.required === true || field?.required === 1 || field?.required === '1'
+
+export const generateMappedField = (fields = []) => {
+  const requiredFlds = formatFields(fields).filter(isRequiredField)
+  return requiredFlds.length > 0
+    ? requiredFlds.map(field => ({ formField: '', ivyFormsField: field.value }))
+    : [{ formField: '', ivyFormsField: '' }]
+}

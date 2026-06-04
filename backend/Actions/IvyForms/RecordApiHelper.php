@@ -16,7 +16,7 @@ class RecordApiHelper
     public function __construct($integrationDetails, $integId)
     {
         $this->_integrationDetails = $integrationDetails;
-        $this->_integrationID      = $integId;
+        $this->_integrationID = $integId;
     }
 
     public function execute($fieldValues, $fieldMap, $utilities)
@@ -29,7 +29,7 @@ class RecordApiHelper
         }
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-        $formId    = (int) ($this->_integrationDetails->formId ?? 0);
+        $formId = (int) ($this->_integrationDetails->formId ?? 0);
 
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_entry';
 
@@ -45,16 +45,14 @@ class RecordApiHelper
                     Config::withPrefix('ivy_forms_create_entry'),
                     $defaultResponse,
                     $fieldData,
-                    $formId,
-                    $utilities,
-                    $this->_integrationDetails
+                    $formId
                 );
                 $actionType = 'create_entry';
 
                 break;
 
             default:
-                $response   = ['success' => false, 'message' => __('Invalid action', 'bit-integrations')];
+                $response = ['success' => false, 'message' => __('Invalid action', 'bit-integrations')];
                 $actionType = 'unknown';
 
                 break;
@@ -71,7 +69,7 @@ class RecordApiHelper
         $data = [];
         foreach ($fieldMap as $item) {
             $triggerValue = $item->formField ?? '';
-            $actionValue  = $item->ivyFormsField ?? '';
+            $actionValue = $item->ivyFormsField ?? '';
 
             if (empty($actionValue)) {
                 continue;

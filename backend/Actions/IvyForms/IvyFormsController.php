@@ -2,6 +2,8 @@
 
 namespace BitApps\Integrations\Actions\IvyForms;
 
+use BitApps\Integrations\Core\Util\Helper;
+use Throwable;
 use WP_Error;
 
 class IvyFormsController
@@ -32,7 +34,7 @@ class IvyFormsController
             wp_send_json_error(__('Unable to access IvyForms forms', 'bit-integrations'), 400);
         }
 
-        $forms   = $formService->getAllForms() ?? [];
+        $forms = $formService->getAllForms() ?? [];
         $options = [];
 
         foreach ($forms as $form) {
@@ -61,11 +63,16 @@ class IvyFormsController
             wp_send_json_error(__('Unable to access IvyForms fields', 'bit-integrations'), 400);
         }
 
-        $fields  = $fieldService->getAllFields($formId) ?? [];
+        $fields = $fieldService->getAllFields($formId) ?? [];
         $options = [];
+        $skippableFieldIds = [];
 
         foreach ($fields as $field) {
             $field = self::prepareData($field);
+
+            if (isset($field['parentId']) && $field['parentId'] && !\in_array($field['parentId'], $skippableFieldIds)) {
+                $skippableFieldIds[] = $field['parentId'];
+            }
 
             if (self::isSkippableField($field['type'] ?? '')) {
                 continue;
@@ -78,15 +85,24 @@ class IvyFormsController
             ];
         }
 
+        $options = array_values(
+            array_filter(
+                $options,
+                function ($option) use ($skippableFieldIds) {
+                    return !\in_array($option->value, $skippableFieldIds);
+                }
+            )
+        );
+
         wp_send_json_success(['fields' => $options], 200);
     }
 
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
-        $integId            = $integrationData->id;
-        $fieldMap           = $integrationDetails->field_map;
-        $utilities          = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
+        $integId = $integrationData->id;
+        $fieldMap = $integrationDetails->field_map;
+        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
         if (empty($fieldMap)) {
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
@@ -109,7 +125,7 @@ class IvyFormsController
 
         try {
             return $plugin->container->get($serviceClass);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return;
         }
     }
@@ -128,7 +144,7 @@ class IvyFormsController
             return $data->toArray();
         }
 
-        return (array) $data;
+        return (array) Helper::jsonEncodeDecode($data);
     }
 
     public static function isSkippableField($type)

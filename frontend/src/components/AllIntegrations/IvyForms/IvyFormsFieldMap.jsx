@@ -9,10 +9,15 @@ import {
   handleCustomValue,
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
+import { isRequiredField } from './IvyFormsCommonFunc'
 
 export default function IvyFormsFieldMap({ i, formFields, field, ivyFormsConf, setIvyFormsConf, allFields }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
+
+  const requiredFields = allFields?.filter(isRequiredField) || []
+  const nonRequiredFields = allFields?.filter(fld => !isRequiredField(fld)) || []
+  const requiredField = requiredFields[i]
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -55,31 +60,38 @@ export default function IvyFormsFieldMap({ i, formFields, field, ivyFormsConf, s
 
           <select
             className="btcd-paper-inp"
+            disabled={Boolean(requiredField)}
             name="ivyFormsField"
-            value={field.ivyFormsField || ''}
+            value={requiredField ? requiredField.value ?? '' : field.ivyFormsField || ''}
             onChange={ev => handleFieldMapping(ev, i, ivyFormsConf, setIvyFormsConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
-            {allFields.map(({ value, label }) => (
-              <option key={value} value={value}>{label}</option>
-            ))}
+            {requiredField ? (
+              <option key={requiredField.value} value={requiredField.value}>{requiredField.label}</option>
+            ) : (
+              nonRequiredFields.map(({ value, label }) => (
+                <option key={value} value={value}>{label}</option>
+              ))
+            )}
           </select>
         </div>
 
-        <>
-          <button
-            onClick={() => addFieldMap(i, ivyFormsConf, setIvyFormsConf)}
-            className="icn-btn sh-sm ml-2 mr-1"
-            type="button">
-            +
-          </button>
-          <button
-            onClick={() => delFieldMap(i, ivyFormsConf, setIvyFormsConf)}
-            className="icn-btn sh-sm ml-1"
-            type="button"
-            aria-label="btn">
-            <span className="btcd-icn icn-trash-2" />
-          </button>
-        </>
+        {!requiredField && (
+          <>
+            <button
+              onClick={() => addFieldMap(i, ivyFormsConf, setIvyFormsConf)}
+              className="icn-btn sh-sm ml-2 mr-1"
+              type="button">
+              +
+            </button>
+            <button
+              onClick={() => delFieldMap(i, ivyFormsConf, setIvyFormsConf)}
+              className="icn-btn sh-sm ml-1"
+              type="button"
+              aria-label="btn">
+              <span className="btcd-icn icn-trash-2" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   )
