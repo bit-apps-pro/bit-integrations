@@ -1,5 +1,5 @@
 import { create } from 'mutative'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import bitsFetch from './bitsFetch'
 
 export const FETCH_TIMEOUT = 180
@@ -37,6 +37,14 @@ export function useFetchCountdown(timeoutSeconds = FETCH_TIMEOUT) {
     const s = sec % 60
     return `${m}:${s.toString().padStart(2, '0')}`
   }
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [])
 
   return { countdown, startCountdown, clearCountdown, formatTime }
 }

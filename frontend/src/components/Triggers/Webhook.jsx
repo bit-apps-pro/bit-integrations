@@ -85,54 +85,53 @@ const Webhook = () => {
     fetchSequentially()
   }
 
-  const fetchSequentially = () => {
+  const fetchSequentially = async () => {
     try {
       if (!isFetchingRef.current || !hookID) {
         stopFetching()
         return
       }
 
-      bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal).then(resp => {
-        if (!resp.success && isFetchingRef.current) {
-          fetchSequentially()
-          return
-        }
+      const resp = await bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal)
+      if (!resp.success && isFetchingRef.current) {
+        fetchSequentially()
+        return
+      }
 
-        if (resp.success) {
-          const tmpNewFlow = { ...newFlow }
-          const data = resp.data.webhook
+      if (resp.success) {
+        const tmpNewFlow = { ...newFlow }
+        const data = resp.data.webhook
 
-          let convertedData = Object.entries(data).reduce((outObj, item) => {
-            const [name, obj] = item
-            if (typeof obj === 'object' && obj !== null && obj !== undefined) {
-              const objArr = Object.entries(obj)
-              const inObj = objArr.reduce((out, [n, v]) => {
-                const propName = `${name}_${n}`
+        let convertedData = Object.entries(data).reduce((outObj, item) => {
+          const [name, obj] = item
+          if (typeof obj === 'object' && obj !== null && obj !== undefined) {
+            const objArr = Object.entries(obj)
+            const inObj = objArr.reduce((out, [n, v]) => {
+              const propName = `${name}_${n}`
 
-                return { ...out, [propName]: v }
-              }, {})
-              return { ...outObj, ...inObj }
-            }
-            return data
-          }, {})
-
-          if (typeof resp.data.webhook === 'object') {
-            convertedData = Object.keys(convertedData).map(fld => ({
-              name: fld,
-              label: `${convertedData[fld]}-${fld}`,
-              type: 'text'
-            }))
+              return { ...out, [propName]: v }
+            }, {})
+            return { ...outObj, ...inObj }
           }
+          return data
+        }, {})
 
-          tmpNewFlow.triggerDetail.tmp = resp.data.webhook
-          tmpNewFlow.triggerDetail.data = convertedData
-          tmpNewFlow.triggerDetail.hook_id = hookID
-          setNewFlow(tmpNewFlow)
-          setShowResponse(true)
+        if (typeof resp.data.webhook === 'object') {
+          convertedData = Object.keys(convertedData).map(fld => ({
+            name: fld,
+            label: `${convertedData[fld]}-${fld}`,
+            type: 'text'
+          }))
         }
 
-        stopFetching()
-      })
+        tmpNewFlow.triggerDetail.tmp = resp.data.webhook
+        tmpNewFlow.triggerDetail.data = convertedData
+        tmpNewFlow.triggerDetail.hook_id = hookID
+        setNewFlow(tmpNewFlow)
+        setShowResponse(true)
+      }
+
+      stopFetching()
     } catch (err) {
       console.log(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err

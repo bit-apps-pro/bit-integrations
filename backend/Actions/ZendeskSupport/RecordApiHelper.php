@@ -92,7 +92,9 @@ class RecordApiHelper
             $this->_integrationDetails,
         );
 
-        if (\is_array($response) && empty($response['success'])) {
+        if (is_wp_error($response)) {
+            LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'ZendeskSupport', 'type_name' => $actionName]), 'error', $response->get_error_message());
+        } elseif (\is_array($response) && empty($response['success'])) {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'ZendeskSupport', 'type_name' => $actionName]), 'error', wp_json_encode($response));
         } else {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'ZendeskSupport', 'type_name' => $actionName]), 'success', wp_json_encode($response));

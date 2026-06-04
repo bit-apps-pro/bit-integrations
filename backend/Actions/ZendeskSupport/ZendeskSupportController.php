@@ -29,7 +29,7 @@ class ZendeskSupportController
 
         $response = HttpHelper::get($baseUrl . '/users/me.json', null, $headers);
 
-        if (isset($response->user) && !empty($response->user->id)) {
+        if (!is_wp_error($response) && isset($response->user) && !empty($response->user->id)) {
             wp_send_json_success(__('Authorization successful', 'bit-integrations'), 200);
         }
 
