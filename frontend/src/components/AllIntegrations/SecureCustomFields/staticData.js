@@ -45,17 +45,10 @@ export const OptionFields = [
   { key: 'field_value', label: __('Field Value', 'bit-integrations'), required: true }
 ]
 
-export const GroupFields = [
-  { key: 'post_id', label: __('Post ID', 'bit-integrations'), required: true },
-  { key: 'group_name', label: __('Group Field Name', 'bit-integrations'), required: true },
-  { key: 'sub_field_name', label: __('Sub Field Name', 'bit-integrations'), required: true },
-  { key: 'field_value', label: __('Field Value', 'bit-integrations'), required: true }
-]
+// Actions that use dynamic sub-field mapping (config inputs + repeatable sub-field rows)
+// instead of a fixed field list.
+export const dynamicActions = ['update_group_field_value', 'update_repeater_field_value']
 
-export const RepeaterFields = [
-  { key: 'post_id', label: __('Post ID', 'bit-integrations'), required: true },
-  { key: 'repeater_name', label: __('Repeater Field Name', 'bit-integrations'), required: true },
-  { key: 'row_index', label: __('Row Index (0 based)', 'bit-integrations'), required: true },
-  { key: 'sub_field_name', label: __('Sub Field Name', 'bit-integrations'), required: true },
-  { key: 'field_value', label: __('Field Value', 'bit-integrations'), required: true }
+export const emptySubFieldMap = () => [
+  { formField: '', subFieldName: '', customValue: '', rowIndex: '' }
 ]

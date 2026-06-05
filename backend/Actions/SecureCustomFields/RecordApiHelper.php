@@ -74,12 +74,12 @@ class RecordApiHelper
                 break;
 
             case 'update_group_field_value':
-                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_group_field_value'), $defaultResponse, $fieldData);
+                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_group_field_value'), $defaultResponse, $this->buildGroupPayload($fieldValues));
 
                 break;
 
             case 'update_repeater_field_value':
-                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_repeater_field_value'), $defaultResponse, $fieldData);
+                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_repeater_field_value'), $defaultResponse, $this->buildRepeaterPayload($fieldValues));
 
                 break;
 
@@ -115,5 +115,94 @@ class RecordApiHelper
         }
 
         return $dataFinal;
+    }
+
+    /**
+     * Build the group payload: every mapped sub-field name => resolved value, plus the
+     * group's post id and field name. Lets one action set many sub-fields of a group.
+     *
+     * @param array $fieldValues
+     *
+     * @return array{post_id: string, group_name: string, fields: array}
+     */
+    private function buildGroupPayload($fieldValues)
+    {
+        $details = $this->_integrationDetails;
+        $fields  = [];
+
+        foreach ($details->field_map ?? [] as $item) {
+            $subField = isset($item->subFieldName) ? trim($item->subFieldName) : '';
+
+            if ($subField === '') {
+                continue;
+            }
+
+            $fields[$subField] = static::resolveMappedValue($item, $fieldValues);
+        }
+
+        return [
+            'post_id'    => Common::replaceFieldWithValue($details->postId ?? '', $fieldValues),
+            'group_name' => Common::replaceFieldWithValue($details->groupName ?? '', $fieldValues),
+            'fields'     => $fields,
+        ];
+    }
+
+    /**
+     * Build the repeater payload: mapped sub-fields grouped by row index, plus the
+     * repeater's post id and field name. Lets one action set many rows / sub-fields.
+     *
+     * @param array $fieldValues
+     *
+     * @return array{post_id: string, repeater_name: string, rows: array}
+     */
+    private function buildRepeaterPayload($fieldValues)
+    {
+        $details = $this->_integrationDetails;
+        $rows    = [];
+
+        foreach ($details->field_map ?? [] as $item) {
+            $subField = isset($item->subFieldName) ? trim($item->subFieldName) : '';
+
+            if ($subField === '') {
+                continue;
+            }
+
+            $rawRowIndex = isset($item->rowIndex) ? trim((string) $item->rowIndex) : '';
+
+            // Skip a sub-field with no row index rather than silently writing it to row 0,
+            // which would collapse distinct rows onto each other.
+            if ($rawRowIndex === '') {
+                continue;
+            }
+
+            $rowIndex = (int) Common::replaceFieldWithValue($rawRowIndex, $fieldValues);
+
+            $rows[$rowIndex][$subField] = static::resolveMappedValue($item, $fieldValues);
+        }
+
+        return [
+            'post_id'       => Common::replaceFieldWithValue($details->postId ?? '', $fieldValues),
+            'repeater_name' => Common::replaceFieldWithValue($details->repeaterName ?? '', $fieldValues),
+            'rows'          => $rows,
+        ];
+    }
+
+    /**
+     * Resolve a single field-map row to its value (custom smart-tag value or form field value).
+     *
+     * @param object $item
+     * @param array  $fieldValues
+     *
+     * @return mixed
+     */
+    private static function resolveMappedValue($item, $fieldValues)
+    {
+        $triggerValue = $item->formField ?? '';
+
+        if ($triggerValue === 'custom' && isset($item->customValue)) {
+            return Common::replaceFieldWithValue($item->customValue, $fieldValues);
+        }
+
+        return $fieldValues[$triggerValue] ?? '';
     }
 }
