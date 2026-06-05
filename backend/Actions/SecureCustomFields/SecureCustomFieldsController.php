@@ -58,9 +58,13 @@ class SecureCustomFieldsController
 
     public function execute($integrationData, $fieldValues)
     {
+        if (empty($integrationData) || empty($integrationData->flow_details)) {
+            return new WP_Error('invalid_integration_data', __('Invalid integration data', 'bit-integrations'));
+        }
+
         $integrationDetails = $integrationData->flow_details;
         $integId            = $integrationData->id;
-        $fieldMap           = $integrationDetails->field_map;
+        $fieldMap           = $integrationDetails->field_map ?? [];
 
         if (empty($fieldMap)) {
             $message = __('Field map is empty', 'bit-integrations');

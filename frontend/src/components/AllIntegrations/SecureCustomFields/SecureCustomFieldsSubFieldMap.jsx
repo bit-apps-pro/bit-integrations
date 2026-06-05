@@ -79,8 +79,7 @@ export default function SecureCustomFieldsSubFieldMap({
             <input
               className="btcd-paper-inp mr-2"
               style={{ width: 90 }}
-              type="number"
-              min="0"
+              type="text"
               name="rowIndex"
               value={field.rowIndex || ''}
               placeholder={__('Row #', 'bit-integrations')}
