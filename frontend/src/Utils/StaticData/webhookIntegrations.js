@@ -42,6 +42,7 @@ export const customFormIntegrations = [
   'WishlistMember',
   'GravityKit',
   'AdvancedCustomFields',
+  'SecureCustomFields',
   'PrestoPlayer',
   'SimplyScheduleAppointments',
   'LearnPress',
@@ -95,7 +96,7 @@ export const customFormIntegrations = [
   'UserRegistrationMembership',
   'UltimateAffiliatePro',
   'BookingPress',
-  "FluentPdfGenerator"
+  'FluentPdfGenerator'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
