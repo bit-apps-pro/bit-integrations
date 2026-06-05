@@ -64,6 +64,10 @@ export default function SecureCustomFieldsIntegLayout({
         }
 
         draftConf.field_map = generateMappedField(draftConf.secureCustomFieldsFields)
+        // Clear dynamic-only config so it doesn't persist into a non-dynamic save.
+        draftConf.postId = ''
+        draftConf.groupName = ''
+        draftConf.repeaterName = ''
       })
     )
   }
@@ -119,20 +123,6 @@ export default function SecureCustomFieldsIntegLayout({
               setSecureCustomFieldsConf={setSecureCustomFieldsConf}
             />
           ))}
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() =>
-                addFieldMap(
-                  secureCustomFieldsConf.field_map.length,
-                  secureCustomFieldsConf,
-                  setSecureCustomFieldsConf
-                )
-              }
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
           <br />
         </div>
       )}

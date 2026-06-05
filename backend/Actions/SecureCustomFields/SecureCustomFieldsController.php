@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SecureCustomFields;
 
+use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
 /**
@@ -23,7 +24,17 @@ class SecureCustomFieldsController
      */
     public static function isPluginActive()
     {
-        return \defined('ACF_BASENAME') && ACF_BASENAME === 'secure-custom-fields/secure-custom-fields.php';
+        if (\defined('ACF_BASENAME') && ACF_BASENAME === 'secure-custom-fields/secure-custom-fields.php') {
+            return true;
+        }
+
+        // Fallback: ACF_BASENAME can be claimed by ACF/ACF Pro when loaded first, and a
+        // non-standard install dir would miss the constant check, so verify by plugin file.
+        if (!\function_exists('is_plugin_active')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        return \function_exists('is_plugin_active') && is_plugin_active('secure-custom-fields/secure-custom-fields.php');
     }
 
     public static function isExists()
@@ -50,14 +61,16 @@ class SecureCustomFieldsController
         $integrationDetails = $integrationData->flow_details;
         $integId            = $integrationData->id;
         $fieldMap           = $integrationDetails->field_map;
-        $utilities          = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
         if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
+            $message = __('Field map is empty', 'bit-integrations');
+            LogHandler::save($integId, ['type' => 'SecureCustomFields', 'type_name' => $integrationDetails->mainAction ?? ''], 'error', ['success' => false, 'message' => $message]);
+
+            return new WP_Error('field_map_empty', $message);
         }
 
         $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
 
-        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
+        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 }

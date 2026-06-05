@@ -52,7 +52,7 @@ export default function SecureCustomFieldsFieldMap({
               )}>
               {isPro &&
                 SmartTagField?.map(f => (
-                  <option key={`ff-rm-${f.name}`} value={f.name}>
+                  <option key={`sc-rm-${f.name}`} value={f.name}>
                     {f.label}
                   </option>
                 ))}

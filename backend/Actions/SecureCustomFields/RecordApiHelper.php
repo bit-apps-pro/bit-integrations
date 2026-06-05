@@ -34,22 +34,22 @@ class RecordApiHelper
      *
      * @param array $fieldValues Field values from form
      * @param array $fieldMap    Field mapping
-     * @param array $utilities   Actions to perform
      *
      * @return array
      */
-    public function execute($fieldValues, $fieldMap, $utilities)
+    public function execute($fieldValues, $fieldMap)
     {
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
+
         if (!SecureCustomFieldsController::isPluginActive()) {
-            return [
+            $response = [
                 'success' => false,
                 'message' => __('Secure Custom Fields is not installed or activated', 'bit-integrations'),
             ];
+            LogHandler::save($this->_integrationID, ['type' => 'SecureCustomFields', 'type_name' => $mainAction], 'error', $response);
+
+            return $response;
         }
-
-        $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-
-        $mainAction = $this->_integrationDetails->mainAction ?? 'update_post_acf_value';
 
         $defaultResponse = [
             'success' => false,
@@ -59,17 +59,17 @@ class RecordApiHelper
 
         switch ($mainAction) {
             case 'update_post_acf_value':
-                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_post_acf_value'), $defaultResponse, $fieldData);
+                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_post_acf_value'), $defaultResponse, static::generateReqDataFromFieldMap($fieldMap, $fieldValues));
 
                 break;
 
             case 'update_user_acf_value':
-                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_user_acf_value'), $defaultResponse, $fieldData);
+                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_user_acf_value'), $defaultResponse, static::generateReqDataFromFieldMap($fieldMap, $fieldValues));
 
                 break;
 
             case 'update_option_acf_value':
-                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_option_acf_value'), $defaultResponse, $fieldData);
+                $response = Hooks::apply(Config::withPrefix('secure_custom_fields_update_option_acf_value'), $defaultResponse, static::generateReqDataFromFieldMap($fieldMap, $fieldValues));
 
                 break;
 
@@ -106,12 +106,7 @@ class RecordApiHelper
                 continue;
             }
 
-            $triggerValue = $item->formField;
-            $actionValue = $item->secureCustomFieldsField;
-
-            $dataFinal[$actionValue] = ($triggerValue === 'custom' && isset($item->customValue))
-                ? Common::replaceFieldWithValue($item->customValue, $fieldValues)
-                : $fieldValues[$triggerValue] ?? '';
+            $dataFinal[$item->secureCustomFieldsField] = static::resolveMappedValue($item, $fieldValues);
         }
 
         return $dataFinal;
@@ -175,7 +170,15 @@ class RecordApiHelper
                 continue;
             }
 
-            $rowIndex = (int) Common::replaceFieldWithValue($rawRowIndex, $fieldValues);
+            $resolvedRowIndex = Common::replaceFieldWithValue($rawRowIndex, $fieldValues);
+
+            // A smart tag that resolves to a non-numeric/empty value would cast to row 0
+            // and silently collide with a real row 0; skip it instead of merging rows.
+            if (!is_numeric($resolvedRowIndex)) {
+                continue;
+            }
+
+            $rowIndex = (int) $resolvedRowIndex;
 
             $rows[$rowIndex][$subField] = static::resolveMappedValue($item, $fieldValues);
         }
