@@ -20,17 +20,22 @@ export default function MainWPAuthorization({
 
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'main_wp_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Connected with MainWP Dashboard Successfully', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+    bitsFetch({}, 'main_wp_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar({
+            show: true,
+            msg: __('Connected with MainWP Dashboard Successfully', 'bit-integrations')
+          })
+        }
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
   }
 
   return (

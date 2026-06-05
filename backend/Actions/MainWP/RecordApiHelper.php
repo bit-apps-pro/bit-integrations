@@ -32,6 +32,13 @@ class RecordApiHelper
             ];
         }
 
+        if (empty($this->_integrationDetails)) {
+            return [
+                'success' => false,
+                'message' => __('Integration details are missing', 'bit-integrations'),
+            ];
+        }
+
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $mainAction = $this->_integrationDetails->mainAction ?? 'sync_site';
 
@@ -108,6 +115,13 @@ class RecordApiHelper
                 $actionType = 'unknown';
 
                 break;
+        }
+
+        if (is_wp_error($response)) {
+            $response = [
+                'success' => false,
+                'message' => $response->get_error_message(),
+            ];
         }
 
         $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';

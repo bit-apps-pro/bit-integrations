@@ -24,7 +24,7 @@ class MainWPController
         wp_send_json_success(true);
     }
 
-    public function refreshSites(): void
+    public static function refreshSites(): void
     {
         self::isExists();
 
@@ -33,6 +33,7 @@ class MainWPController
 
         if (!empty($websites)) {
             foreach ($websites as $website) {
+                $website = (array) $website;
                 if (empty($website['id'])) {
                     continue;
                 }
