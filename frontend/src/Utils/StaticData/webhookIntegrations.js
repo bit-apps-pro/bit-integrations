@@ -97,7 +97,9 @@ export const customFormIntegrations = [
   'Registration',
   'Post',
   'WordPress',
-  'FluentPdfGenerator'
+  'FluentPdfGenerator',
+  'BookingPress',
+  "FluentPdfGenerator"
 ]
 
 export const actionHookIntegrations = ['ActionHook']

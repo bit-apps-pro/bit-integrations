@@ -12,13 +12,12 @@ export default function MailPoetActions({ mailPoetConf, setMailPoetConf }) {
 
   const actionHandler = (e, type) => {
     const newConf = { ...mailPoetConf }
-    if (type === 'update') {
-      if (e.target.checked) {
-        newConf.actions.update = true
-      } else {
-        delete newConf.actions.update
-      }
+    if (e.target.checked) {
+      newConf.actions[type] = true
+    } else {
+      delete newConf.actions[type]
     }
+
     setMailPoetConf({ ...newConf })
   }
 
@@ -41,6 +40,18 @@ export default function MailPoetActions({ mailPoetConf, setMailPoetConf }) {
             proVersion="2.4.1"
           />
         }
+      />
+      <TableCheckBox
+        checked={mailPoetConf.actions?.send_confirmation_email || false}
+        onChange={e => actionHandler(e, 'send_confirmation_email')}
+        className="wdt-200 mt-4 mr-2"
+        value="user_share"
+        isInfo={!isPro}
+        title={__('Send Confirmation Email', 'bit-integrations')}
+        subTitle={__(
+          'Can be used to disable a confirmation email. Otherwise, a confirmation email is sent as described above. It is strongly recommended to keep this option set to checked so that MailPoet settings for sign-up confirmation are respected. Turning it to unchecked might lead that subscriber to be added as unconfirmed.',
+          'bit-integrations'
+        )}
       />
     </div>
   )

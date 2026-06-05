@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
@@ -10,7 +9,6 @@ import {
   handleUnsubscribeCustomValue,
   handleUnsubscribeFieldMapping
 } from './IntegrationHelpers'
-import { generateunsubscribeMappedField } from './SendFoxCommonFunc'
 
 export default function SendFoxUnsubscribeFieldMap({
   i,

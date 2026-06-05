@@ -344,8 +344,12 @@ const ActionHook = () => {
           </button>
         </div>
       )}
-      <Note note={info} isInstruction={true} maxWidth="100%">
-        <TutorialLink linkKey="actionHook" linksMap={actionHookTutorialLinks} style={{ margin: 0 }} />
+      <Note note={info} isInstruction={true} maxWidth="100%" >
+        <TutorialLink
+          style={{ margin: 0 }}
+          linkKey="actionHook"
+          linksMap={actionHookTutorialLinks}
+        />
       </Note>
     </div>
   )
@@ -382,7 +386,7 @@ const info = `<h4>${sprintf(
   'bit-integrations'
 )}</p>
             <h5>
-              <a className="btcd-link" href="https://bitapps.pro/docs/bit-integrations/trigger-hooks" target="_blank" rel="noreferrer">${__(
+              <a className="btcd-link" href="https://bit-integrations.com/wp-docs/trigger-hooks/" target="_blank" rel="noreferrer">${__(
   'Bit Integrations Trigger Hooks',
   'bit-integrations'
 )}</a>

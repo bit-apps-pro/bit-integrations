@@ -74,6 +74,7 @@ const EditLearnDash = lazy(() => import('./LearnDash/EditLearnDash'))
 const EditRestrictContent = lazy(() => import('./RestrictContent/EditRestrictContent'))
 const EditAffiliate = lazy(() => import('./Affiliate/EditAffiliate'))
 const EditBuddyBoss = lazy(() => import('./BuddyBoss/EditBuddyBoss'))
+const EditBookingPress = lazy(() => import('./BookingPress/EditBookingPress'))
 const EditGoogleContacts = lazy(() => import('./GoogleContacts/EditGoogleContacts'))
 const EditKirimEmail = lazy(() => import('./KirimEmail/EditKirimEmail'))
 const EditGamiPress = lazy(() => import('./GamiPress/EditGamiPress'))
@@ -155,6 +156,7 @@ const EditSystemeIO = lazy(() => import('./SystemeIO/EditSystemeIO'))
 const EditDiscord = lazy(() => import('./Discord/EditDiscord'))
 const EditZagoMail = lazy(() => import('./ZagoMail/EditZagoMail'))
 const EditNewsletter = lazy(() => import('./Newsletter/EditNewsletter'))
+const EditSureDash = lazy(() => import('./SureDash/EditSureDash'))
 const EditSureMembers = lazy(() => import('./SureMembers/EditSureMembers'))
 const EditMailster = lazy(() => import('./Mailster/EditMailster'))
 const EditWPForo = lazy(() => import('./WPForo/EditWPForo'))
@@ -172,8 +174,12 @@ const EditACPT = lazy(() => import('./ACPT/EditACPT'))
 const EditWishlistMember = lazy(() => import('./WishlistMember/EditWishlistMember'))
 const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
+const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditWordPress = lazy(() => import('./WordPress/EditWordPress'))
+const EditWpDataTables = lazy(() => import('./WpDataTables/EditWpDataTables'))
+const EditFormyChat = lazy(() => import('./FormyChat/EditFormyChat'))
+const EditWpErp = lazy(() => import('./WpErp/EditWpErp'))
 const EditPeepSo = lazy(() => import('./PeepSo/EditPeepSo'))
 const EditNinjaTables = lazy(() => import('./NinjaTables/EditNinjaTables'))
 const EditWCAffiliate = lazy(() => import('./WCAffiliate/EditWCAffiliate'))
@@ -184,6 +190,7 @@ const EditTeamsForWooCommerceMemberships = lazy(
   () => import('./TeamsForWooCommerceMemberships/EditTeamsForWooCommerceMemberships')
 )
 const EditAsgarosForum = lazy(() => import('./AsgarosForum/EditAsgarosForum'))
+const EditB2BKing = lazy(() => import('./B2BKing/EditB2BKing'))
 const EditSeoPress = lazy(() => import('./SeoPress/EditSeoPress'))
 const EditUserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/EditUserRegistrationMembership')
@@ -397,6 +404,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditAffiliate allIntegURL={allIntegURL} />
     case 'BuddyBoss':
       return <EditBuddyBoss allIntegURL={allIntegURL} />
+    case 'BookingPress':
+      return <EditBookingPress allIntegURL={allIntegURL} />
     case 'GamiPress':
       return <EditGamiPress allIntegURL={allIntegURL} />
     case 'Google Contacts':
@@ -562,6 +571,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditZagoMail allIntegURL={allIntegURL} />
     case 'Newsletter':
       return <EditNewsletter allIntegURL={allIntegURL} />
+    case 'SureDash':
+      return <EditSureDash allIntegURL={allIntegURL} />
     case 'SureMembers':
       return <EditSureMembers allIntegURL={allIntegURL} />
     case 'Mailster':
@@ -596,10 +607,18 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditCreatorLms allIntegURL={allIntegURL} />
     case 'Ultimate Affiliate Pro':
       return <EditUltimateAffiliatePro allIntegURL={allIntegURL} />
+    case 'Bookly':
+      return <EditBookly allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'WordPress':
       return <EditWordPress allIntegURL={allIntegURL} />
+    case 'WpDataTables':
+      return <EditWpDataTables allIntegURL={allIntegURL} />
+    case 'FormyChat':
+      return <EditFormyChat allIntegURL={allIntegURL} />
+    case 'WP ERP':
+      return <EditWpErp allIntegURL={allIntegURL} />
     case 'PeepSo':
       return <EditPeepSo allIntegURL={allIntegURL} />
     case 'Ninja Tables':
@@ -616,6 +635,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
     case 'Asgaros Forum':
     case 'AsgarosForum':
       return <EditAsgarosForum allIntegURL={allIntegURL} />
+    case 'B2BKing':
+      return <EditB2BKing allIntegURL={allIntegURL} />
     case 'Teams For WooCommerce Memberships':
       return <EditTeamsForWooCommerceMemberships allIntegURL={allIntegURL} />
     case 'SeoPress':

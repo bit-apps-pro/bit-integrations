@@ -34,7 +34,7 @@ export default function KlaviyoActions({ klaviyoConf, setKlaviyoConf, loading, s
         subTitle={
           <ProFeatureSubtitle
             title={__('Update Profile', 'bit-integrations')}
-            subtitle={__(
+            subTitle={__(
               'A record gets updated based on the email, else a new profile will be created',
               'bit-integrations'
             )}

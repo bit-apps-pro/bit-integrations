@@ -132,39 +132,28 @@ class RecordApiHelper
         $access_token,
         $integrationDetails
     ) {
-        $fieldData = [];
         if ($integrationDetails->mainAction === '1') {
-            $type_name = 'Create List';
             $finalData = $this->generateListReqDataFromFieldMap($fieldValues, $integrationDetails->field_map_list);
-            $apiResponseList = $this->createContactList($access_token, $finalData);
-
-            if (property_exists($apiResponseList, 'id')) {
-                LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'record', 'type_name' => $type_name]), 'success', wp_json_encode($apiResponseList));
-            } else {
-                LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'record', 'type_name' => $type_name]), 'error', wp_json_encode($apiResponseList));
-            }
+            $apiResponse = $this->createContactList($access_token, $finalData);
+            $type = 'List';
+            $event_name = 'Create List';
         }
         if ($integrationDetails->mainAction === '2') {
-            $type_name = 'Create Contact';
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
             $apiResponse = $this->addContact($access_token, $listId, $finalData);
-            if (property_exists($apiResponse, 'errors')) {
-                LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'contact', 'type_name' => $type_name]), 'error', wp_json_encode($apiResponse));
-            } else {
-                LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'record', 'type_name' => $type_name]), 'success', wp_json_encode($apiResponse));
-            }
+            $type = 'Contact';
+            $event_name = 'Create Contact';
         }
 
         if ($integrationDetails->mainAction === '3') {
-            $type_name = 'Unsubscribe';
             $finalData = $this->generateReqUnsubscribeDataFromFieldMap($fieldValues, $integrationDetails->field_map_unsubscribe);
             $apiResponse = $this->unsubscribeContact($access_token, $finalData);
-            if (property_exists($apiResponse, 'id')) {
-                LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'contact', 'type_name' => $type_name]), 'success', wp_json_encode($apiResponse));
-            } else {
-                LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'record', 'type_name' => $type_name]), 'error', wp_json_encode($apiResponse));
-            }
+            $type = 'Contact';
+            $event_name = 'Unsubscribe Contact';
         }
+
+        $response_type = HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300 ? 'success' : 'error';
+        LogHandler::save($this->_integrationID, wp_json_encode(['type' => $type, 'type_name' => $event_name]), $response_type, wp_json_encode($apiResponse));
 
         return $apiResponse;
     }

@@ -35,7 +35,6 @@ const nextPage = () => {
     setError(rmError)
     setCopperCRMConf(newConf)
   }
-  console.log(copperCRMConf)
   const ActiveInstructions = `
   <h4>${__('Get api secret key', 'bit-integrations')}</h4>
   <ul>

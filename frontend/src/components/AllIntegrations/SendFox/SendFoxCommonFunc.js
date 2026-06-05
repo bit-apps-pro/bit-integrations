@@ -1,7 +1,6 @@
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
-import { deepCopy } from '../../../Utils/Helpers'
-import { sprintf, __ } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
 import { contactFields } from './SendFoxFieldMap'
 import { listFields } from './SendFoxListFieldMap'
 import { unsubscribeFields } from './SendFoxUnsubscribeFieldMap'

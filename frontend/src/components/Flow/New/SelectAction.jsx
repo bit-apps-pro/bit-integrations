@@ -36,7 +36,7 @@ export default function SelectAction() {
     { type: 'ActiveCampaign' },
     { type: 'Encharge' },
     { type: 'WP Post Creation' },
-    { type: 'Fluent CRM' },
+    { type: 'Fluent CRM', logo: 'fluentCrm' },
     { type: 'Autonami' },
     { type: 'Dropbox' },
     { type: 'OneDrive' },
@@ -158,6 +158,7 @@ export default function SelectAction() {
     { type: 'ZagoMail' },
     { type: 'Drip' },
     { type: 'Newsletter' },
+    { type: 'SureDash' },
     { type: 'SureMembers' },
     { type: 'Mailster' },
     { type: 'WPForo' },
@@ -176,8 +177,13 @@ export default function SelectAction() {
     { type: 'Ultimate Affiliate Pro' },
     { type: 'MailerPress' },
     { type: 'CreatorLms' },
+    { type: 'Bookly' },
     { type: 'FluentCart' },
     { type: 'WordPress' },
+    { type: 'BookingPress' },
+    { type: 'WpDataTables' },
+    { type: 'FormyChat' },
+    { type: 'WP ERP', logo: 'wpErp' },
     { type: 'PeepSo' },
     { type: 'Ninja Tables' },
     { type: 'WC Affiliate' },
@@ -187,6 +193,7 @@ export default function SelectAction() {
     { type: 'NotificationX' },
     { type: 'weDocs' },
     { type: 'Asgaros Forum', logo: 'asgaros' },
+    { type: 'B2BKing' },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership' }
   ]
 

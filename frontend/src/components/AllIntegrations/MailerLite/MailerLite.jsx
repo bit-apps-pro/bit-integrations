@@ -40,6 +40,11 @@ function MailerLite({ formFields, setFlow, flow, allIntegURL }) {
   })
 
   const saveConfig = () => {
+    if (mailerLiteConf?.action === 'unassign_subscriber_from_group' && !mailerLiteConf?.selected_group_id) {
+      toast.error(__('Please select a group', 'bit-integrations'))
+      return
+    }
+
     setIsLoading(true)
     const resp = saveIntegConfig(
       flow,
@@ -67,6 +72,10 @@ function MailerLite({ formFields, setFlow, flow, allIntegURL }) {
 
     if (!checkMappedFields(mailerLiteConf)) {
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
+      return
+    }
+    if (mailerLiteConf?.action === 'unassign_subscriber_from_group' && !mailerLiteConf?.selected_group_id) {
+      toast.error(__('Please select a group', 'bit-integrations'))
       return
     }
     mailerLiteConf.field_map.length > 0 && setstep(pageNo)
@@ -108,7 +117,10 @@ function MailerLite({ formFields, setFlow, flow, allIntegURL }) {
         {mailerLiteConf?.action && (
           <button
             onClick={() => nextPage(3)}
-            disabled={!checkMappedFields(mailerLiteConf)}
+            disabled={
+              !checkMappedFields(mailerLiteConf) ||
+              (mailerLiteConf?.action === 'unassign_subscriber_from_group' && !mailerLiteConf?.selected_group_id)
+            }
             className="btn f-right btcd-btn-lg purple sh-sm flx"
             type="button">
             {__('Next', 'bit-integrations')} &nbsp;

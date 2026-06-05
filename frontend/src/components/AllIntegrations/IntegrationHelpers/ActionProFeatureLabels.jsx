@@ -14,22 +14,22 @@ const ProFeatureTitle = ({ title }) => {
   )
 }
 
-const ProFeatureSubtitle = ({ title, subtitle, proVersion }) => {
+const ProFeatureSubtitle = ({ title, subTitle, proVersion }) => {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   return (
     <span>
       {isPro
-        ? subtitle
+        ? subTitle
         : sprintf(
-            __(
-              'The Bit Integrations Pro v(%s) plugin needs to be installed and activated to enable the %s feature',
-              'bit-integrations'
-            ),
-            proVersion,
-            title
-          )}
+          __(
+            'The Bit Integrations Pro v(%s) plugin needs to be installed and activated to enable the %s feature',
+            'bit-integrations'
+          ),
+          proVersion,
+          title
+        )}
     </span>
   )
 }

@@ -89,7 +89,6 @@ const [authData, setAuthData] = useState([])
     setstep(2)
     refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
   }
-  console.log(btcbi)
   return (
     <div
       className="btcd-stp-page"

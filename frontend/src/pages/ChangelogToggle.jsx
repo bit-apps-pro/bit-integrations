@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '15th April 2026'
+const releaseDate = '13th May 2026'
 
 // Example for items:
 // items: [
@@ -27,65 +27,70 @@ const changeLog = [
     items: []
   },
   {
-    label: __('New Actions', 'bit-integrations'),
-    headClass: 'new-integration',
-    itemClass: 'integration-list',
-    items: [
-      {
-        label: 'weDocs',
-        desc: '3 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Creator LMS',
-        desc: '5 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Ninja Tables',
-        desc: '2 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WC Affiliate',
-        desc: '6 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Asgaros Forum',
-        desc: '4 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Ultimate Affiliate Pro',
-        desc: '4 new events added.',
-        isPro: true
-      }
-    ]
-  },
-  {
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
     items: [
       {
-        label: 'weDocs',
-        desc: '8 new events added.',
+        label: 'B2BKing',
+        desc: '3 new events added',
         isPro: true
       },
       {
-        label: 'Creator LMS',
-        desc: '5 new events added.',
+        label: 'BookingPress',
+        desc: '7 new events added',
         isPro: true
       },
       {
-        label: 'WC Affiliate',
-        desc: '3 new events added.',
+        label: 'FormyChat',
+        desc: '2 new events added',
         isPro: true
       },
       {
-        label: 'Ultimate Affiliate Pro',
-        desc: '8 new events added.',
+        label: 'SureDash',
+        desc: '18 new events added',
+        isPro: true
+      },
+      {
+        label: 'wpDataTables',
+        desc: '4 new events added',
+        isPro: true
+      }
+    ]
+  },
+  {
+    label: __('New Actions', 'bit-integrations'),
+    headClass: 'new-integration',
+    itemClass: 'integration-list',
+    items: [
+      {
+        label: 'B2BKing',
+        desc: '3 new events added',
+        isPro: true
+      },
+      {
+        label: 'BookingPress',
+        desc: '6 new events added',
+        isPro: true
+      },
+      {
+        label: 'Bookly',
+        desc: '6 new events added',
+        isPro: true
+      },
+      {
+        label: 'FormyChat',
+        desc: '1 new events added',
+        isPro: true
+      },
+      {
+        label: 'SureDash',
+        desc: '7 new events added',
+        isPro: true
+      },
+      {
+        label: 'wpDataTables',
+        desc: '1 new events added',
         isPro: true
       }
     ]
@@ -94,41 +99,19 @@ const changeLog = [
     label: __('New Features', 'bit-integrations'),
     headClass: 'new-feature',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'Tags',
-        desc: 'Added tag creation and management support in integrations.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'Dashboard',
-        desc: 'Improved all integrations table UI and component structure.',
-        isPro: false
-      }, {
-        label: 'WPForms',
-        desc: 'Hidden fields support enabled.',
-        isPro: true
-      },
-    ]
+    items: []
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'ActiveCampaign',
-        desc: 'Fixed field map reset issue.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Security', 'bit-integrations'),
@@ -266,7 +249,7 @@ export default function ChangelogToggle() {
                 <div>
                   <span className="footer">{__('For more details,')}</span>
                   <a
-                    href="https://bitapps.pro/docs/bit-integrations/free-changelogs/"
+                    href="https://bit-integrations.com/wp-docs/free-changelogs/"
                     target="_blank"
                     rel="noreferrer">
                     {__('Click here')}&nbsp;

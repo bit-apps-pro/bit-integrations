@@ -226,13 +226,13 @@ class RecordApiHelper
         foreach ($fieldMap as $value) {
             $triggerValue = $value->formField === 'custom' && isset($value->customValue)
                 ? Common::replaceFieldWithValue($value->customValue, $data)
-                : $value->formField;
+                : $data[$value->formField] ?? null;
 
             $actionValue = $value->coppercrmFormField === 'customFieldKey' && isset($value->customFieldKey)
                 ? Common::replaceFieldWithValue($value->customFieldKey, $data)
                 : $value->coppercrmFormField;
 
-            $dataFinal[$actionValue] = $data[$triggerValue];
+            $dataFinal[$actionValue] = $triggerValue;
         }
 
         return $dataFinal;

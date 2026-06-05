@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Tagify from '@yaireo/tagify'
 import '@yaireo/tagify/dist/tagify.css'
+import { max } from 'lodash'
 import { useEffect, useRef } from 'react'
 
 function TagifyInput({ label, onChange, value, disabled, type, textarea, className, formFields }) {
   const fields = formFields
     ? formFields
-        .filter(itm => itm.label !== undefined)
-        .map(item => ({ name: item.label, value: item.name }))
+      .filter(itm => itm.label !== undefined)
+      .map(item => ({ name: item.label, value: item.name }))
     : []
 
   const targetRef = useRef(null)
@@ -93,7 +94,8 @@ function TagifyInput({ label, onChange, value, disabled, type, textarea, classNa
       highlightFirst: true,
       searchKeys: ['label', 'value'],
       closeOnSelect: true,
-      placeAbove: false
+      placeAbove: false,
+      maxItems: fields.length
     },
     callbacks: {
       add: () => {
