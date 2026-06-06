@@ -114,7 +114,7 @@ export default function WebbaBookingIntegLayout({
           className="btcd-paper-drpdwn w-5"
           options={(webbaBookingConf?.[optionSource] ?? []).map(opt => ({
             label: opt.label,
-            value: opt.value.toString()
+            value: String(opt.value ?? '')
           }))}
           onChange={val => setConfValue(confKey, val)}
           singleSelect={single}

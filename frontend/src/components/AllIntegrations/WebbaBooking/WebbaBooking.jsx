@@ -61,7 +61,10 @@ export default function WebbaBooking({ formFields, setFlow, flow, allIntegURL })
 
   const nextPage = val => {
     setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
+      const settingsWrp = document.getElementById('btcd-settings-wrp')
+      if (settingsWrp) {
+        settingsWrp.scrollTop = 0
+      }
     }, 300)
 
     if (val === 3) {

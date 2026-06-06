@@ -20,17 +20,22 @@ export default function WebbaBookingAuthorization({
 
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'webba_booking_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Connected with Webba Booking Successfully', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+    bitsFetch({}, 'webba_booking_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar({
+            show: true,
+            msg: __('Connected with Webba Booking Successfully', 'bit-integrations')
+          })
+        }
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
   }
 
   const handleInput = e => {

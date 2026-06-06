@@ -83,6 +83,13 @@ class RecordApiHelper
             );
         }
 
+        if (is_wp_error($response)) {
+            $response = [
+                'success' => false,
+                'message' => $response->get_error_message()
+            ];
+        }
+
         $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
         LogHandler::save($this->_integrationID, ['type' => 'WebbaBooking', 'type_name' => $mainAction], $responseType, $response);
 

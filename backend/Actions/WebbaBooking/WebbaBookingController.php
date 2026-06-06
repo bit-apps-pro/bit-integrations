@@ -36,7 +36,7 @@ class WebbaBookingController
         wp_send_json_success(true);
     }
 
-    public function refreshServices()
+    public static function refreshServices()
     {
         self::isExists();
 
@@ -60,7 +60,7 @@ class WebbaBookingController
         wp_send_json_success(['services' => $services], 200);
     }
 
-    public function refreshStaff()
+    public static function refreshStaff()
     {
         self::isExists();
 
@@ -84,7 +84,7 @@ class WebbaBookingController
         wp_send_json_success(['staff' => $staff], 200);
     }
 
-    public function refreshCategories()
+    public static function refreshCategories()
     {
         self::isExists();
 
@@ -102,7 +102,7 @@ class WebbaBookingController
         wp_send_json_success(['categories' => $categories], 200);
     }
 
-    public function refreshLocations()
+    public static function refreshLocations()
     {
         self::isExists();
 
@@ -126,7 +126,7 @@ class WebbaBookingController
         wp_send_json_success(['locations' => $locations], 200);
     }
 
-    public function refreshStatuses()
+    public static function refreshStatuses()
     {
         self::isExists();
 
@@ -144,7 +144,7 @@ class WebbaBookingController
         wp_send_json_success(['statuses' => $statuses], 200);
     }
 
-    public function refreshBookings()
+    public static function refreshBookings()
     {
         self::isExists();
 
@@ -169,7 +169,7 @@ class WebbaBookingController
         wp_send_json_success(['bookings' => $bookings], 200);
     }
 
-    public function refreshCoupons()
+    public static function refreshCoupons()
     {
         self::isExists();
 
