@@ -95,7 +95,8 @@ export const customFormIntegrations = [
   'UserRegistrationMembership',
   'UltimateAffiliatePro',
   'BookingPress',
-  "FluentPdfGenerator"
+  "FluentPdfGenerator",
+  "WebbaBooking"
 ]
 
 export const actionHookIntegrations = ['ActionHook']
