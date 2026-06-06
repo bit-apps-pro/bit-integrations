@@ -157,8 +157,8 @@ class WebbaBookingController
             // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- dropdown listing, table name validated by resolveTable()
             $rows = $wpdb->get_results("SELECT id, name FROM `{$table}` ORDER BY id DESC");
 
-            foreach ($rows as $row) {
-                $name = $row->name !== '' ? $row->name : __('Guest', 'bit-integrations');
+            foreach ((array) $rows as $row) {
+                $name = isset($row->name) && $row->name !== '' ? $row->name : __('Guest', 'bit-integrations');
                 $bookings[] = (object) [
                     'value' => (int) $row->id,
                     'label' => '#' . $row->id . ' - ' . $name,
@@ -182,10 +182,10 @@ class WebbaBookingController
             // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- dropdown listing, table name validated by resolveTable()
             $rows = $wpdb->get_results("SELECT id, name FROM `{$table}` ORDER BY id DESC");
 
-            foreach ($rows as $row) {
+            foreach ((array) $rows as $row) {
                 $coupons[] = (object) [
                     'value' => (int) $row->id,
-                    'label' => $row->name !== '' ? $row->name : '#' . $row->id,
+                    'label' => isset($row->name) && $row->name !== '' ? $row->name : '#' . $row->id,
                 ];
             }
         }
@@ -198,7 +198,6 @@ class WebbaBookingController
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
         $fieldMap = $integrationDetails->field_map;
-        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
         if (empty($fieldMap)) {
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
@@ -206,7 +205,7 @@ class WebbaBookingController
 
         $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
 
-        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
+        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     /**

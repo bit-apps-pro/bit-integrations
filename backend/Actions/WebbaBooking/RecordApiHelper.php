@@ -31,11 +31,10 @@ class RecordApiHelper
      *
      * @param array $fieldValues Field values from trigger
      * @param array $fieldMap    Field mapping
-     * @param array $utilities   Extra utilities
      *
      * @return array
      */
-    public function execute($fieldValues, $fieldMap, $utilities)
+    public function execute($fieldValues, $fieldMap)
     {
         if (!class_exists('\WBK_Booking_Factory')) {
             return [
@@ -80,7 +79,6 @@ class RecordApiHelper
                 Config::withPrefix($hookMap[$mainAction]),
                 $defaultResponse,
                 $fieldData,
-                $utilities,
                 $this->_integrationDetails
             );
         }
@@ -99,7 +97,7 @@ class RecordApiHelper
                 continue;
             }
 
-            $triggerValue = $item->formField;
+            $triggerValue = $item->formField ?? '';
 
             $dataFinal[$item->webbaBookingField] = $triggerValue === 'custom' && isset($item->customValue)
                 ? Common::replaceFieldWithValue($item->customValue, $fieldValues)

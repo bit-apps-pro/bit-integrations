@@ -120,24 +120,30 @@ export const refreshWebbaCoupons = (setWebbaBookingConf, setIsLoading) =>
   )
 
 export const checkMappedFields = webbaBookingConf => {
-  const mappedFields = webbaBookingConf?.field_map
-    ? webbaBookingConf.field_map.filter(
-        mappedField =>
-          !mappedField.formField ||
-          !mappedField.webbaBookingField ||
-          (mappedField.formField === 'custom' && !mappedField.customValue)
-      )
-    : []
+  const fieldMap = webbaBookingConf?.field_map || []
 
-  // Dropdown-only actions carry no mappable fields — only validate when fields exist.
-  if (!webbaBookingConf?.webbaBookingFields?.length) {
-    return true
-  }
-
-  if (mappedFields.length > 0) {
+  // A partially-filled row is always invalid: one side set without the other,
+  // or a custom value left blank.
+  const hasIncompleteRow = fieldMap.some(
+    mappedField =>
+      (mappedField.formField && !mappedField.webbaBookingField) ||
+      (!mappedField.formField && mappedField.webbaBookingField) ||
+      (mappedField.formField === 'custom' && !mappedField.customValue)
+  )
+  if (hasIncompleteRow) {
     return false
   }
-  return true
+
+  // Every required Webba field must be mapped. Fully-empty rows are allowed so
+  // that actions whose fields are all optional (e.g. cancel_booking) can be saved.
+  const requiredKeys = (webbaBookingConf?.webbaBookingFields || [])
+    .filter(fld => fld.required === true)
+    .map(fld => fld.key)
+  const mappedKeys = fieldMap
+    .filter(mappedField => mappedField.formField && mappedField.webbaBookingField)
+    .map(mappedField => mappedField.webbaBookingField)
+
+  return requiredKeys.every(key => mappedKeys.includes(key))
 }
 
 export const generateMappedField = fields => {
