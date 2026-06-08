@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.6
+Stable tag: 2.8.7
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
@@ -467,6 +467,34 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.8.7 =
+_Release Date - 8th June 2026_
+
+- **New Triggers**
+ - WordPress: 33 new events added (Pro).
+ - WP Post: 11 new events added (Pro).
+ - WP User Registration: 12 new events added (Pro).
+ - MoreConvert Wishlist for WooCommerce: 9 new events added (Pro).
+ - Secure Custom Fields (SCF): 6 new events added (Pro).
+ - IvyForms: 1 new event added (Pro).
+
+- **New Actions**
+ - WordPress: 33 new events added (Pro).
+ - Zendesk Support: 17 new events added (Pro).
+ - WP User Registration: 11 new events added (Pro).
+ - MoreConvert Wishlist for WooCommerce: 8 new events added (Pro).
+ - WP Post: 6 new events added (Pro).
+ - Secure Custom Fields (SCF): 5 new events added (Pro).
+ - Heffl CRM: 3 new events added (Pro).
+ - IvyForms: 1 new event added (Pro).
+
+- **Improvements**
+ - Custom Trigger, Webhook & Form Submission: Added a countdown timer and improved loading state for data-fetching operations.
+ - Response review modal: Improved UI.
+
+- **Bug Fixes**
+ - Telegram: Fixed chat list fetching issue.
 
 = 2.8.6 =
 _Release Date - 23rd May 2026_
