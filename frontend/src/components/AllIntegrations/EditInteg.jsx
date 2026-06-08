@@ -114,6 +114,7 @@ const EditInsightly = lazy(() => import('./Insightly/EditInsightly'))
 const EditCapsuleCRM = lazy(() => import('./CapsuleCRM/EditCapsuleCRM'))
 const EditMasterStudyLms = lazy(() => import('./MasterStudyLms/EditMasterStudyLms'))
 const EditZendesk = lazy(() => import('./Zendesk/EditZendesk'))
+const EditZendeskSupport = lazy(() => import('./ZendeskSupport/EditZendeskSupport'))
 const EditAsana = lazy(() => import('./Asana/EditAsana'))
 const EditPropovoiceCrm = lazy(() => import('./PropovoiceCRM/EditPropovoiceCrm'))
 const EditMailMint = lazy(() => import('./MailMint/EditMailMint'))
@@ -488,6 +489,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditMasterStudyLms allIntegURL={allIntegURL} />
     case 'Zendesk':
       return <EditZendesk allIntegURL={allIntegURL} />
+    case 'ZendeskSupport':
+      return <EditZendeskSupport allIntegURL={allIntegURL} />
     case 'Asana':
       return <EditAsana allIntegURL={allIntegURL} />
     case 'Propovoice CRM':

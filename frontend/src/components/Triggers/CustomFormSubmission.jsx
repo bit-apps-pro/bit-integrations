@@ -8,7 +8,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { startFetching } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, { startFetching, useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { __, sprintf } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import ConfirmModal from '../Utilities/ConfirmModal'
@@ -55,7 +55,8 @@ const CustomFormSubmission = () => {
     method: newFlow?.triggerDetail?.tasks?.method || ''
   })
 
-  const { stopFetching } = CustomFetcherHelper(
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
     isFetchingRef,
     newFlow?.triggerDetail?.triggered_entity_id,
     controller,
@@ -63,6 +64,10 @@ const CustomFormSubmission = () => {
     removeAction,
     removeMethod
   )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
 
   const setTriggerData = () => {
     if (!primaryKey && !skipPrimaryKey) {
@@ -97,6 +102,7 @@ const CustomFormSubmission = () => {
     }
 
     startFetching(isFetchingRef, setShowResponse, setPrimaryKey, setNewFlow, setIsLoading)
+    startCountdown(stopFetching)
     fetchSequentially()
   }
 
@@ -249,7 +255,7 @@ const CustomFormSubmission = () => {
                 }`}
               type="button">
               {isLoading
-                ? __('Waiting for form submission...', 'bit-integrations')
+                ? `${__('Waiting for form submission...', 'bit-integrations')} (${formatTime(countdown)})`
                 : newFlow.triggerDetail?.data
                   ? __('Fetched ✔', 'bit-integrations')
                   : __('Fetch', 'bit-integrations')}
