@@ -6,7 +6,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import { refreshModules } from './ZohoCRMCommonFunc'
 import { handleAuthorize } from '../IntegrationHelpers/IntegrationHelpers'
 import { $appConfigState } from '../../../GlobalStates'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZohoCRMAuthorization({
@@ -46,7 +45,7 @@ const scopes = 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.Read,zoho
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho CRM" links={tutorialLinks?.zohoCRM || {}} />
+            <TutorialLink linkKey="zohoCRM" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

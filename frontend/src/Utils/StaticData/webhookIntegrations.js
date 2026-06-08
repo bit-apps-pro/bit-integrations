@@ -96,6 +96,10 @@ export const customFormIntegrations = [
   'WeDocs',
   'UserRegistrationMembership',
   'UltimateAffiliatePro',
+  'Registration',
+  'Post',
+  'WordPress',
+  'FluentPdfGenerator',
   'BookingPress',
   "FluentPdfGenerator"
 ]

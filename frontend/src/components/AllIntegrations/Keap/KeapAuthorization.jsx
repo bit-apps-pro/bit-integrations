@@ -6,7 +6,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleAuthorize, refreshCustomFields } from './KeapCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function KeapAuthorization({
@@ -45,7 +44,7 @@ export default function KeapAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-      <TutorialLink title="Keap" links={tutorialLinks?.keap || {}} />
+      <TutorialLink linkKey="keap" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -7,7 +7,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleAuthorize } from '../IntegrationHelpers/IntegrationHelpers'
 import { refreshOrganizations } from './ZohoDeskCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZohoDeskAuthorization({
@@ -48,7 +47,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho Desk" links={tutorialLinks?.zohoDesk || {}} />
+            <TutorialLink linkKey="zohoDesk" />
 
       <div className="wdt-200 d-in-b mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

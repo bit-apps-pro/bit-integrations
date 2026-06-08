@@ -3,7 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { handleAuthorize } from './SlackCommonFunc'
 import Note from '../../Utilities/Note'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function SlackAuthorization({
@@ -57,7 +56,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Slack" links={tutorialLinks?.slack || {}} />
+            <TutorialLink linkKey="slack" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

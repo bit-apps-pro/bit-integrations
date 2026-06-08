@@ -2,7 +2,9 @@
 
 namespace BitApps\Integrations\Actions\Registration;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -46,6 +48,14 @@ final class RegistrationController
     public function execute($integrationData, $fieldValues)
     {
         $flowDetails = $integrationData->flow_details;
+        $actionType = isset($flowDetails->action_type) ? $flowDetails->action_type : 'new_user';
+
+        if (!\in_array($actionType, ['new_user', 'updated_user'], true)) {
+            $this->executeWordPressUserAction($flowDetails, $fieldValues, $actionType);
+
+            return;
+        }
+
         $userFieldMap = $flowDetails->user_map;
 
         $specialTagValue = Flow::specialTagMappingValue($userFieldMap);
@@ -57,11 +67,52 @@ final class RegistrationController
             $userData['role'] = $flowDetails->user_role;
         }
 
-        if (isset($flowDetails->action_type) && $flowDetails->action_type == 'updated_user') {
+        if ($actionType === 'updated_user') {
             $this->updateUser($userData, $flowDetails, $updatedvalues);
-        } elseif (isset($flowDetails->action_type) && $flowDetails->action_type == 'new_user') {
+        } else {
             $this->createUser($userData, $flowDetails, $updatedvalues);
         }
+    }
+
+    private function executeWordPressUserAction($flowDetails, $fieldValues, $actionType)
+    {
+        $defaultResponse = [
+            'success' => false,
+            'message' => wp_sprintf(
+                // translators: %s: Plugin name
+                __('%s plugin is not installed or activated', 'bit-integrations'),
+                'Bit Integrations Pro'
+            ),
+        ];
+
+        $response = Hooks::apply(
+            Config::withPrefix($actionType),
+            $defaultResponse,
+            $this->buildRequestDataFromUserMap(isset($flowDetails->user_map) ? $flowDetails->user_map : [], $fieldValues),
+        );
+
+        $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
+        LogHandler::save($this->_integrationID, ['type' => 'WP User Registration', 'type_name' => $actionType], $responseType, $response);
+    }
+
+    private function buildRequestDataFromUserMap($userMap, $fieldValues)
+    {
+        $dataFinal = [];
+
+        foreach ($userMap as $mapItem) {
+            if (empty($mapItem->formField) || empty($mapItem->userField)) {
+                continue;
+            }
+
+            $triggerValue = $mapItem->formField;
+            $actionValue = $mapItem->userField;
+
+            $dataFinal[$actionValue] = $triggerValue === 'custom' && isset($mapItem->customValue)
+                ? Common::replaceFieldWithValue($mapItem->customValue, $fieldValues)
+                : ($fieldValues[$triggerValue] ?? '');
+        }
+
+        return $dataFinal;
     }
 
     private function userFieldMapping($user_map, $fieldValues, $flowDetails)

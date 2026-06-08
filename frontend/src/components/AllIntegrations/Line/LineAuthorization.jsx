@@ -3,7 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { handleAuthorize } from './LineCommonFunc'
 import Note from '../../Utilities/Note'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function LineAuthorization({
@@ -44,7 +43,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Line" links={tutorialLinks?.line || {}} />
+            <TutorialLink linkKey="line" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

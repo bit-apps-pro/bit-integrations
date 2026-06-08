@@ -46,7 +46,7 @@ export default function BookingPressAuthorization({
         width: step === 1 && 900,
         height: step === 1 && 'auto',
       }}>
-      <TutorialLink title="BookingPress" links={tutorialLinks?.bookingPress || {}} />
+      <TutorialLink linkKey="bookingPress" />
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>

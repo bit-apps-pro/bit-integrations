@@ -6,8 +6,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { refreshActiveCampaingHeader, refreshActiveCampaingList } from './ActiveCampaignCommonFunc'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function ActiveCampaignAuthorization({
   formID,
   activeCampaingConf,
@@ -77,7 +75,7 @@ export default function ActiveCampaignAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="ActiveCampaign" links={tutorialLinks?.activeCampaign || {}} />
+            <TutorialLink linkKey="activeCampaign" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

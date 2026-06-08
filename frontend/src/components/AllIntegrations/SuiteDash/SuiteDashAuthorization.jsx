@@ -6,7 +6,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import { suiteDashAuthentication } from './SuiteDashCommonFunc'
 import Note from '../../Utilities/Note'
 import { toast } from 'react-hot-toast'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function SuiteDashAuthorization({
@@ -52,7 +51,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="SuiteDash" links={tutorialLinks?.suiteDash || {}} />
+            <TutorialLink linkKey="suiteDash" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

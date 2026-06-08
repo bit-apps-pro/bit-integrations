@@ -4,8 +4,6 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function UltimateAffiliateProAuthorization({
   ultimateAffiliateProConf,
   setUltimateAffiliateProConf,
@@ -56,7 +54,7 @@ export default function UltimateAffiliateProAuthorization({
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-      <TutorialLink title="Ultimate Affiliate Pro" links={tutorialLinks?.ultimateAffiliatePro || {}} />
+      <TutorialLink linkKey="ultimateAffiliatePro" />
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>

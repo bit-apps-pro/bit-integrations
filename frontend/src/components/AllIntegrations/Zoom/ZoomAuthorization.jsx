@@ -7,7 +7,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import Note from '../../Utilities/Note'
 import { handleAuthorize, zoomAllMeeting } from './ZoomCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZoomAuthorization({
@@ -60,7 +59,7 @@ const handleInput = e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && `${100}%` } }}>
-            <TutorialLink title="Zoom Meeting" links={tutorialLinks?.zoomMeeting || {}} />
+            <TutorialLink linkKey="zoomMeeting" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

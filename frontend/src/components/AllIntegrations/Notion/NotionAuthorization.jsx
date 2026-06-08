@@ -8,7 +8,6 @@ import Input from '../../Utilities/Input'
 import Note from '../../Utilities/Note'
 import StepPage from '../../Utilities/StepPage'
 import { getAllDatabaseLists, handleAuthorize, handleInput } from './NotionCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { __ } from '../../../Utils/i18nwrap'
 
@@ -51,7 +50,7 @@ const nextPage = async () => {
 `
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Notion" links={tutorialLinks?.notion || {}} />
+            <TutorialLink linkKey="notion" />
 
       <div className="mt-2">
         {/* Notion Authorization */}

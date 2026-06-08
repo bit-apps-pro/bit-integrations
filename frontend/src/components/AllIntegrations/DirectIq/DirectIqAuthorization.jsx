@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { refreshDirectIqList } from './DirectIqCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function DirectIqAuthorization({
@@ -78,7 +77,7 @@ const [isAuthorized, setisAuthorized] = useState(false)
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="DirectIQ" links={tutorialLinks?.directIq || {}} />
+            <TutorialLink linkKey="directIq" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

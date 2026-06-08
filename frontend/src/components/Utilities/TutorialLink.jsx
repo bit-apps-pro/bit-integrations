@@ -8,6 +8,7 @@ import GrokIcn from '../../Icons/GrokIcn'
 import PerplexityIcn from '../../Icons/PerplexityIcn'
 import YoutubeIcn from '../../Icons/YoutubeIcn'
 import { __, sprintf } from '../../Utils/i18nwrap'
+import tutorialLinks from '../../Utils/StaticData/tutorialLinks'
 
 const aiTools = [
   {
@@ -42,7 +43,8 @@ const aiTools = [
   }
 ]
 
-function TutorialLink({ title, subtitle, links, style }) {
+function TutorialLink({ subtitle, linkKey, style, linksMap }) {
+  const links = linkKey ? linksMap?.[linkKey] || tutorialLinks?.[linkKey] || {} : {}
   const youTubeLink = links?.youTubeLink && links.youTubeLink !== '#' ? links.youTubeLink : undefined
   const docLink = links?.docLink && links.docLink !== '#' ? links.docLink : undefined
   const [showAiTools, setShowAiTools] = useState(false)
@@ -90,7 +92,7 @@ function TutorialLink({ title, subtitle, links, style }) {
   const encodedPrompt = encodeURIComponent(aiSummaryPrompt)
 
   return (
-    <div className='mb-1' style={style}>
+    <div className="mb-1" style={style}>
       {youTubeLink && (
         <span className="tutoriallink p-1 youtube">
           <YoutubeIcn size="19" className="mr-1" />

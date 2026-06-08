@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { handleOmniSendAuthorize } from './OmniSendCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function OmniSendAuthorization({
@@ -59,7 +58,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Omnisend" links={tutorialLinks?.omniSend || {}} />
+            <TutorialLink linkKey="omniSend" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

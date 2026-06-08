@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { dokanAuthentication } from './dokanCommonFunctions'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function DokanAuthorization({
@@ -40,7 +39,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Dokan" links={tutorialLinks?.dokan || {}} />
+            <TutorialLink linkKey="dokan" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { mailBlusterAuthentication } from './MailBlusterCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function MailBlusterAuthorization({
@@ -58,7 +57,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="MailBluster" links={tutorialLinks?.mailBluster || {}} />
+            <TutorialLink linkKey="mailBluster" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

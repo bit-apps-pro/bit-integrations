@@ -7,7 +7,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleAuthorize } from '../IntegrationHelpers/IntegrationHelpers'
 import { refreshLists } from './ZohoMarketingHubCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZohoMarketingAuthorization({
@@ -47,7 +46,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho Marketing Automation (Zoho Marketing Hub)" links={tutorialLinks?.zohoMarketingHub || {}} />
+            <TutorialLink linkKey="zohoMarketingHub" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

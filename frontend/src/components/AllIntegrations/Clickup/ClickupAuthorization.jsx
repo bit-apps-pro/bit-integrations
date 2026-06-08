@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { clickupAuthentication } from './ClickupCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import Note from '../../Utilities/Note'
 
@@ -51,7 +50,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="ClickUp" links={tutorialLinks?.clickup || {}} />
+            <TutorialLink linkKey="clickup" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

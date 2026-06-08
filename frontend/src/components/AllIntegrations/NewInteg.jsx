@@ -176,6 +176,7 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
+const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const IvyForms = lazy(() => import('./IvyForms/IvyForms'))
@@ -1718,6 +1719,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'MoreConvert Wishlist':
         return (
           <MoreConvertWishlist
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'WordPress':
+        return (
+          <WordPress
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

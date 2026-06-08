@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { coppercrmAuthentication } from './CopperCRMCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function CopperCRMAuthorization({
@@ -48,7 +47,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Copper CRM" links={tutorialLinks?.coppercrm || {}} />
+            <TutorialLink linkKey="coppercrm" />
 
       <div className="mt-3">
         <bapi_email>{__('Integration Name:', 'bit-integrations')}</bapi_email>

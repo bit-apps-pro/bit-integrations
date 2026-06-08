@@ -181,6 +181,7 @@ const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthor
 const MoreConvertWishlistAuthorization = lazy(() =>
   import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
 )
+const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
@@ -663,6 +664,8 @@ export default function IntegInfo() {
             isInfo
           />
         )
+      case 'WordPress':
+        return <WordPressAuthorization wordPressConf={integrationConf} step={1} isInfo />
       case 'BookingPress':
         return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
       case 'WpDataTables':

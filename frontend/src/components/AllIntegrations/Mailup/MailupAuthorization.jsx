@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleMailupAuthorize, fetchAllList } from './MailupCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function MailupAuthorization({
@@ -42,7 +41,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="MailUp" links={tutorialLinks?.mailup || {}} />
+            <TutorialLink linkKey="mailup" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
