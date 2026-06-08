@@ -14,8 +14,6 @@ import CustomFuncEditor from './CustomFuncEditor'
 import { checkFunctionValidity } from './CustomFunctionHelper'
 import LoaderSm from '../../Loaders/LoaderSm'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 function EditCustomAction({ allIntegURL }) {
   const navigate = useNavigate()
   const { formID } = useParams()
@@ -51,7 +49,7 @@ function EditCustomAction({ allIntegURL }) {
         <div
           className="btcd-stp-page"
           style={{ ...(step === 1 && { width: '91%', height: 'auto', overflow: 'visible' }) }}>
-          <TutorialLink title="Custom Action" links={tutorialLinks?.customAction || {}} />
+          <TutorialLink linkKey="customAction" />
           <h1>custom action</h1>
           <CustomFuncEditor
             customActionConf={customActionConf}

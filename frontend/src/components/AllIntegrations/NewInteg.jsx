@@ -176,6 +176,7 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
+const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
@@ -1717,6 +1718,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Secure Custom Fields':
         return (
           <SecureCustomFields
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'WordPress':
+        return (
+          <WordPress
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

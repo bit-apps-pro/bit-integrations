@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import TutorialLink from '../../Utilities/TutorialLink'
@@ -17,7 +16,6 @@ export default function WeDocsAuthorization({
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState({ name: '' })
-  const { weDocs } = tutorialLinks
 
   const handleInput = e => {
     const newConf = { ...weDocsConf }
@@ -29,8 +27,7 @@ export default function WeDocsAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-      {weDocs?.youTubeLink && <TutorialLink title="weDocs" youTubeLink={weDocs?.youTubeLink} />}
-      {weDocs?.docLink && <TutorialLink title="weDocs" docLink={weDocs?.docLink} />}
+      <TutorialLink linkKey="weDocs" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

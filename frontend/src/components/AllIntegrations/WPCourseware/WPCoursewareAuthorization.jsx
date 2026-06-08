@@ -4,7 +4,6 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import LoaderSm from '../../Loaders/LoaderSm'
 import BackIcn from '../../../Icons/BackIcn'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function WPCoursewareAuthorization({
@@ -55,7 +54,7 @@ useEffect(
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="WP Courseware" links={tutorialLinks?.wpCourseware || {}} />
+                <TutorialLink linkKey="wpCourseware" />
 
         <div className="mt-3">
           <b>{__('Integration Name:', 'bit-integrations')}</b>

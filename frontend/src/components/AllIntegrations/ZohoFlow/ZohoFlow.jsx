@@ -7,7 +7,6 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksLayouts from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function ZohoFlow({ formFields, setFlow, flow, allIntegURL }) {
@@ -35,7 +34,7 @@ const [zohoFlow, setZohoFlow] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="Zoho Flow" links={tutorialLinks?.zohoFlowLinks || {}} />
+                <TutorialLink linkKey="zohoFlowLinks" />
 
         <WebHooksLayouts
           formID={formID}

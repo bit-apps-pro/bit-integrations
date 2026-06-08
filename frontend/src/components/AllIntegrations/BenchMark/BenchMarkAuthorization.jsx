@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { refreshBenchMarkList, refreshBenchMarkHeader } from './BenchMarkCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function BenchMarkAuthorization({
@@ -76,7 +75,7 @@ const [isAuthorized, setisAuthorized] = useState(false)
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Benchmark Email" links={tutorialLinks?.benchMark || {}} />
+            <TutorialLink linkKey="benchMark" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

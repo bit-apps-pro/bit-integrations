@@ -23,6 +23,15 @@ const FormPlugin = () => {
   const [isLoad, setIsLoad] = useState(false)
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
+  const triggerLinkKey = newFlow?.triggered_entity
+  const triggerTutorialLinks = triggerLinkKey
+    ? {
+        [triggerLinkKey]: {
+          docLink: newFlow?.triggerDetail?.documentation_url || '',
+          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        }
+      }
+    : undefined
 
   const { data, isLoading } = useFetch({
     payload: {},
@@ -148,19 +157,16 @@ const FormPlugin = () => {
 
               <Note note={info(newFlow)} isInstruction={true}>
                 <TutorialLink
+                  linkKey={triggerLinkKey}
+                  linksMap={triggerTutorialLinks}
                   style={{ marginTop: 0 }}
-                  links={{
-                    docLink: newFlow?.triggerDetail?.documentation_url || '',
-                    youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
-                  }}
                 />
               </Note>
             </>
           )}
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   )
 }
 export default FormPlugin
@@ -175,7 +181,8 @@ const info = newFlow => `<h4>${sprintf(
               <li>${__('Choose the form or task you want to use.', 'bit-integrations')}</li>
               <li>${__('Click <b>Next</b> to <b>Go</b>.', 'bit-integrations')}</li>
             </ul>
-            ${newFlow?.triggerDetail?.note
-    ? `<h4>${__('Note', 'bit-integrations')}</h4>${newFlow?.triggerDetail?.note}`
-    : ''
-  }`
+            ${
+              newFlow?.triggerDetail?.note
+                ? `<h4>${__('Note', 'bit-integrations')}</h4>${newFlow?.triggerDetail?.note}`
+                : ''
+            }`

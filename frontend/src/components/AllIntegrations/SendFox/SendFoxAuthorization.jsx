@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import TutorialLink from '../../Utilities/TutorialLink'
@@ -43,7 +42,7 @@ export default function SendFoxAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-      <TutorialLink title="SendFox" links={tutorialLinks?.sendFox || {}} />
+      <TutorialLink linkKey="sendFox" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

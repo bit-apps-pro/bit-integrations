@@ -4,7 +4,6 @@ import { deepCopy } from '../../../Utils/Helpers'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function AcademyLmsAuthorization({
@@ -46,7 +45,7 @@ const [isAuthorized, setisAuthorized] = useState(false)
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink title="Academy LMS" links={tutorialLinks?.academyLms || {}} />
+            <TutorialLink linkKey="academyLms" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

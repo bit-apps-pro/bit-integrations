@@ -5,8 +5,6 @@ import { deepCopy } from '../../../Utils/Helpers'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function MasterStudyLmsAuthorization({
   formID,
   msLmsConf,
@@ -47,7 +45,7 @@ const authorizeHandler = () => {
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink title="MasterStudy LMS" links={tutorialLinks?.masterStudyLMS || {}} />
+            <TutorialLink linkKey="masterStudyLMS" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

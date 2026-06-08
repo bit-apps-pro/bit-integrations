@@ -30,6 +30,15 @@ const CustomTrigger = () => {
   const [snack, setSnackbar] = useState({ show: false })
   const [showResponse, setShowResponse] = useState(false)
   const isFetchingRef = useRef(false)
+  const triggerLinkKey = newFlow?.triggered_entity
+  const triggerTutorialLinks = triggerLinkKey
+    ? {
+        [triggerLinkKey]: {
+          docLink: newFlow?.triggerDetail?.documentation_url || '',
+          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        }
+      }
+    : undefined
 
   let controller = new AbortController()
   const signal = controller.signal
@@ -212,8 +221,9 @@ const CustomTrigger = () => {
       <div className="flx flx-between">
         <button
           onClick={handleFetch}
-          className={`btn btcd-btn-lg sh-sm flx ${isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
-            }`}
+          className={`btn btcd-btn-lg sh-sm flx ${
+            isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
+          }`}
           type="button"
           disabled={!hookID}>
           {isLoading
@@ -259,13 +269,11 @@ const CustomTrigger = () => {
           </button>
         </div>
       )}
-      <Note note={info} isInstruction={true} >
+      <Note note={info} isInstruction={true}>
         <TutorialLink
+          linkKey={triggerLinkKey}
+          linksMap={triggerTutorialLinks}
           style={{ marginTop: 0 }}
-          links={{
-            docLink: newFlow?.triggerDetail?.documentation_url || '',
-            youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
-          }}
         />
       </Note>
     </div>
@@ -279,9 +287,9 @@ const info = `<h4>${sprintf(
 )}</h4>
             <ul>
             <li>${__(
-  'Copy the <b>do action hook</b> snippet and paste it into your form submission function.',
-  'bit-integrations'
-)}</li>
+              'Copy the <b>do action hook</b> snippet and paste it into your form submission function.',
+              'bit-integrations'
+            )}</li>
               <li>${__('Click <b>Fetch</b>.', 'bit-integrations')}</li>
               <li>${__('Submit the form to send test data.', 'bit-integrations')}</li>
               <li>${__('Select the fields you need, then click <b>Set Action</b>.', 'bit-integrations')}</li>

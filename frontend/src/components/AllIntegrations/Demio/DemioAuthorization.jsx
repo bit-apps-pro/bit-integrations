@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { demioAuthentication, getAllEvents } from './DemioCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function DemioAuthorization({
@@ -53,7 +52,7 @@ const [error, setError] = useState({ api_key: '', api_secret: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Demio" links={tutorialLinks?.demio || {}} />
+            <TutorialLink linkKey="demio" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

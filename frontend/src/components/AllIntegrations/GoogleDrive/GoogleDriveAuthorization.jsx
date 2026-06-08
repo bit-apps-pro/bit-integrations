@@ -7,8 +7,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { getAllGoogleDriveFolders, handleAuthorize } from './GoogleDriveCommonFunc'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function GoogleDriveAuthorization({
   flowID,
   googleDriveConf,
@@ -46,7 +44,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Google Drive" links={tutorialLinks?.googleDrive || {}} />
+            <TutorialLink linkKey="googleDrive" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

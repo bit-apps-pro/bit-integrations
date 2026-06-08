@@ -2,7 +2,6 @@ import { useState } from 'react'
 import BackIcn from '../../../Icons/BackIcn'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import TutorialLink from '../../Utilities/TutorialLink'
 
@@ -19,7 +18,6 @@ export default function CreatorLmsAuthorization({
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [showAuthMsg, setShowAuthMsg] = useState(false)
-  const { creatorLms } = tutorialLinks
 
   const authorizeHandler = () => {
     setIsLoading('auth')
@@ -49,10 +47,8 @@ export default function CreatorLmsAuthorization({
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-      {creatorLms?.youTubeLink && (
-        <TutorialLink title="Creator LMS" youTubeLink={creatorLms?.youTubeLink} />
-      )}
-      {creatorLms?.docLink && <TutorialLink title="Creator LMS" docLink={creatorLms?.docLink} />}
+
+      <TutorialLink linkKey="creatorLms" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

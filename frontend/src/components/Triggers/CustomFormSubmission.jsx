@@ -33,6 +33,15 @@ const CustomFormSubmission = () => {
   const [snack, setSnackbar] = useState({ show: false })
   const [showResponse, setShowResponse] = useState(false)
   const isFetchingRef = useRef(false)
+  const triggerLinkKey = newFlow?.triggered_entity
+  const triggerTutorialLinks = triggerLinkKey
+    ? {
+      [triggerLinkKey]: {
+        docLink: newFlow?.triggerDetail?.documentation_url || '',
+        youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+      }
+    }
+    : undefined
 
   let controller = new AbortController()
   const signal = controller.signal
@@ -318,13 +327,11 @@ const CustomFormSubmission = () => {
       )}
       <div className="flx flx-center">
         <div style={{ width: '100%', maxWidth: 450 }}>
-          <Note note={info(newFlow)} isInstruction={true} maxWidth="100%" >
+          <Note note={info(newFlow)} isInstruction={true} maxWidth="100%">
             <TutorialLink
+              linkKey={triggerLinkKey}
+              linksMap={triggerTutorialLinks}
               style={{ marginTop: 0 }}
-              links={{
-                docLink: newFlow?.triggerDetail?.documentation_url,
-                youTubeLink: newFlow?.triggerDetail?.tutorial_url
-              }}
             />
           </Note>
         </div>
@@ -362,4 +369,3 @@ const info = newFlow => `<h4>${sprintf(
     ? `<h4 className="mt-0">Note</h4>${newFlow?.triggerDetail?.note}`
     : ''
   }`
-

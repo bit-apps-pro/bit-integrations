@@ -26,6 +26,15 @@ const Webhook = () => {
   const { api } = useRecoilValue($appConfigState)
   const [showResponse, setShowResponse] = useState(false)
   const intervalRef = useRef(null)
+  const triggerLinkKey = newFlow?.triggered_entity
+  const triggerTutorialLinks = triggerLinkKey
+    ? {
+        [triggerLinkKey]: {
+          docLink: newFlow?.triggerDetail?.documentation_url || '',
+          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        }
+      }
+    : undefined
   let controller = new AbortController()
   const signal = controller.signal
   const setTriggerData = () => {
@@ -164,13 +173,11 @@ const Webhook = () => {
       </button>
       <div className="flx flx-center">
         <div style={{ width: '100%', maxWidth: 500 }}>
-          <Note note={info} isInstruction={true} maxWidth="100%" >
+          <Note note={info} isInstruction={true} maxWidth="100%">
             <TutorialLink
+              linkKey={triggerLinkKey}
+              linksMap={triggerTutorialLinks}
               style={{ marginTop: 0 }}
-              links={{
-                docLink: newFlow?.triggerDetail?.documentation_url || '',
-                youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
-              }}
             />
           </Note>
         </div>
@@ -190,20 +197,20 @@ const info = `${__(
             <h4>${__('Quick Setup', 'bit-integrations')}</h4>
             <ul>
                 <li>${__(
-  'Copy the Webhook URL and add it to your form or app.',
-  'bit-integrations'
-)}</li>
+                  'Copy the Webhook URL and add it to your form or app.',
+                  'bit-integrations'
+                )}</li>
                 <li>${__(
-  'Click <b>Fetch</b>, then submit your form (or send a test request).',
-  'bit-integrations'
-)}</li>
+                  'Click <b>Fetch</b>, then submit your form (or send a test request).',
+                  'bit-integrations'
+                )}</li>
                 <li>${__(
-  'When response data appears, click <b>Set Action</b> to continue.',
-  'bit-integrations'
-)}</li>
+                  'When response data appears, click <b>Set Action</b> to continue.',
+                  'bit-integrations'
+                )}</li>
             </ul>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-  'The Fetch button will keep spinning until you submit the form/task.',
-  'bit-integrations'
-)}</p>
+              'The Fetch button will keep spinning until you submit the form/task.',
+              'bit-integrations'
+            )}</p>
   `
