@@ -34,6 +34,7 @@ class RecordApiHelper
 
         $defaultResponse = [
             'success' => false,
+            // translators: %s is the plugin name
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro'),
         ];
 

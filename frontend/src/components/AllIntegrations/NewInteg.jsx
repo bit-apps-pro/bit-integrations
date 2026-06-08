@@ -177,6 +177,7 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
+const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
 const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
@@ -1730,6 +1731,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'MoreConvert Wishlist':
         return (
           <MoreConvertWishlist
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Heffl CRM':
+        return (
+          <HefflCRM
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

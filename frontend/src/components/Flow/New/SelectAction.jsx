@@ -181,6 +181,7 @@ export default function SelectAction() {
     { type: 'Bookly' },
     { type: 'FluentCart' },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist' },
+    { type: 'Heffl CRM' },
     { type: 'Secure Custom Fields' },
     { type: 'WordPress' },
     { type: 'BookingPress' },

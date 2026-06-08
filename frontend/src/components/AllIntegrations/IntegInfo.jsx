@@ -183,6 +183,7 @@ const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(() =>
   import('./MoreConvertWishlist/MoreConvertWishlistAuthorization'))
+const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
 )
@@ -673,6 +674,8 @@ export default function IntegInfo() {
             isInfo
           />
         )
+      case 'Heffl CRM':
+        return <HefflCRMAuthorization hefflCRMConf={integrationConf} step={1} isInfo />
       case 'Secure Custom Fields':
         return (
           <SecureCustomFieldsAuthorization secureCustomFieldsConf={integrationConf} step={1} isInfo />
