@@ -6,7 +6,6 @@ import Input from '../../Utilities/Input'
 import Note from '../../Utilities/Note'
 import StepPage from '../../Utilities/StepPage'
 import { getAllTags, handleAuthorize, handleInput } from './SelzyCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { __ } from '../../../Utils/i18nwrap'
 
@@ -47,7 +46,7 @@ const nextPage = async () => {
 
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Selzy" links={tutorialLinks?.selzy || {}} />
+            <TutorialLink linkKey="selzy" />
 
       <div className="mt-2">
         {/* SelzyAuthorization */}

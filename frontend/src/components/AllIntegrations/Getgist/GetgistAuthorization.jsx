@@ -3,7 +3,6 @@ import BackIcn from '../../../Icons/BackIcn'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function GetgistAuthorization({ getgistConf, setGetgistConf, step, setstep, isInfo }) {
@@ -52,7 +51,7 @@ const handleAuthorize = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="GetGist" links={tutorialLinks?.getgist || {}} />
+            <TutorialLink linkKey="getgist" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

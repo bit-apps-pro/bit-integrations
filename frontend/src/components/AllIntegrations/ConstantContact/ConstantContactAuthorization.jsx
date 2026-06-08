@@ -5,7 +5,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import CopyText from '../../Utilities/CopyText'
 import { handleConstantContactAuthorize } from './ConstantContactCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { $appConfigState } from '../../../GlobalStates'
 import { useRecoilValue } from 'recoil'
@@ -83,7 +82,7 @@ const [error, setError] = useState({
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Constant Contact" links={tutorialLinks?.constantContact || {}} />
+            <TutorialLink linkKey="constantContact" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

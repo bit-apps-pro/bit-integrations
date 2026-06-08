@@ -11,7 +11,6 @@ import { postFields } from '../../../Utils/StaticData/postField'
 import LoaderSm from '../../Loaders/LoaderSm'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import ConditionalLogic from '../../ConditionalLogic'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function Pods({ formFields, setFlow, flow, allIntegURL }) {
@@ -119,7 +118,7 @@ const [podsConf, setPodsConf] = useState({
   return (
     <div style={{ width: 900 }}>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-            <TutorialLink title="PODS" links={tutorialLinks?.podLinks || {}} />
+            <TutorialLink linkKey="podLinks" />
 
       <div className="mt-3">
         <b>{__('Integration Name', 'bit-integrations')}</b>

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
@@ -58,7 +57,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Freshsales" links={tutorialLinks?.freshSales || {}} />
+            <TutorialLink linkKey="freshSales" />
 
       <div className="mt-3">
         <b>{__('Bundle Alias(Your Account URL):', 'bit-integrations')}</b>

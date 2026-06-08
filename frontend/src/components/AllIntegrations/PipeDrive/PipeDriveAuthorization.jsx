@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { handleAuthorize } from './PipeDriveCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function PipeDriveAuthorization({
@@ -55,7 +54,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Pipedrive" links={tutorialLinks?.pipeDrive || {}} />
+            <TutorialLink linkKey="pipeDrive" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

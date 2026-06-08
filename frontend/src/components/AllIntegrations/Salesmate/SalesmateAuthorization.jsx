@@ -6,7 +6,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import { salesmateAuthentication } from './SalesmateCommonFunc'
 import Note from '../../Utilities/Note'
 import { toast } from 'react-hot-toast'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function SalesmateAuthorization({
@@ -64,7 +63,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Salesmate CRM" links={tutorialLinks?.salesmate || {}} />
+            <TutorialLink linkKey="salesmate" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

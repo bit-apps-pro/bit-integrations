@@ -5,8 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { insightlyAuthentication } from './InsightlyCommonFunc'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function InsightlyAuthorization({
   insightlyConf,
   setInsightlyConf,
@@ -40,7 +38,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Insightly" links={tutorialLinks?.insightly || {}} />
+            <TutorialLink linkKey="insightly" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

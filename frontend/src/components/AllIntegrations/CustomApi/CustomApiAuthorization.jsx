@@ -6,8 +6,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function CustomApiAuthorization({
   formID,
   customApiConf,
@@ -71,7 +69,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && '1000px' } }}>
-            <TutorialLink title="Custom Api" links={tutorialLinks?.customApi || {}} />
+            <TutorialLink linkKey="customApi" />
 
       <div className="d-flx">
         <div className="wdt-200 d-in-b mt-3">

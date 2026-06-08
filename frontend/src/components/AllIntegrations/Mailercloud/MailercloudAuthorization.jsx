@@ -6,7 +6,6 @@ import Input from '../../Utilities/Input'
 import Note from '../../Utilities/Note'
 import StepPage from '../../Utilities/StepPage'
 import { getAllLists, handleAuthorize, handleInput } from './MailercloudCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { __ } from '../../../Utils/i18nwrap'
 
@@ -55,7 +54,7 @@ const nextPage = async () => {
 
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Mailercloud" links={tutorialLinks?.mailercloud || {}} />
+            <TutorialLink linkKey="mailercloud" />
 
       <div className="mt-2">
         {/* Mailercloud Authorization */}

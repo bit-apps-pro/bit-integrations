@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { sureMembersAuthentication } from './SureMembersCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function SureMembersAuthorization({
@@ -40,7 +39,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="SureMembers" links={tutorialLinks?.sureMembers || {}} />
+            <TutorialLink linkKey="sureMembers" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -5,7 +5,6 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { fabmanAuthentication, fetchFabmanWorkspaces } from './FabmanCommonFunc'
 import Note from '../../Utilities/Note'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 const STEP_ONE_STYLE = { width: 900, height: 'auto' }
@@ -41,7 +40,7 @@ export default function FabmanAuthorization({
 
   return (
     <div className="btcd-stp-page" style={step === 1 ? STEP_ONE_STYLE : undefined}>
-            <TutorialLink title="Fabman" links={tutorialLinks?.fabman || {}} />
+            <TutorialLink linkKey="fabman" />
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>
