@@ -180,6 +180,7 @@ export default function SelectAction() {
     { type: 'CreatorLms' },
     { type: 'Bookly' },
     { type: 'FluentCart' },
+    { type: 'Heffl CRM' },
     { type: 'Secure Custom Fields' },
     { type: 'WordPress' },
     { type: 'BookingPress' },
