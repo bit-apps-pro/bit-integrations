@@ -47,7 +47,7 @@ export default function PeepSoAuthorization({
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-      <TutorialLink title="PeepSo" links={tutorialLinks?.peepSo || {}} />
+      <TutorialLink linkKey="peepSo" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

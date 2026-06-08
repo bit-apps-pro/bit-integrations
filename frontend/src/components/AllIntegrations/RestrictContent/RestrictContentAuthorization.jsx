@@ -6,8 +6,6 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { getAllLevels } from './RestrictContentCommonFunc'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 export default function RestrictContentAuthorization({
   formID,
   restrictConf,
@@ -55,7 +53,7 @@ const authorizeHandler = () => {
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink title="Restrict Content" links={tutorialLinks?.restrictContent || {}} />
+            <TutorialLink linkKey="restrictContent" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

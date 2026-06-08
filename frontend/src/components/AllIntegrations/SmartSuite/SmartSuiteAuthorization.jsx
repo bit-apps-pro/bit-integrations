@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { smartSuiteAuthentication, getAllSolutions } from './SmartSuiteCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { create } from 'mutative'
 
@@ -62,7 +61,7 @@ const [error, setError] = useState({ workspaceId: '', apiToken: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="SmartSuite" links={tutorialLinks?.smartSuite || {}} />
+            <TutorialLink linkKey="smartSuite" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

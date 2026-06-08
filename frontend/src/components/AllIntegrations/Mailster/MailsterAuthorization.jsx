@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { mailsterAuthentication } from './MailsterCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function MailsterAuthorization({
@@ -43,7 +42,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Mailster" links={tutorialLinks?.mailster || {}} />
+            <TutorialLink linkKey="mailster" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

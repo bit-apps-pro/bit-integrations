@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import FieldMap from './FieldMap'
 import { addFieldMap } from './UserHelperFunction'
 
 export default function CustomFieldMap({ formFields, userConf, setUserConf }) {
-  const [metaFields, setMetaFields] = useState([])
+  const metaFields = []
 
   return (
     <div>

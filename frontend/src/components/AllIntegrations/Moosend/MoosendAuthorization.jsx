@@ -6,7 +6,6 @@ import Input from '../../Utilities/Input'
 import Note from '../../Utilities/Note'
 import StepPage from '../../Utilities/StepPage'
 import { getAllLists, handleAuthorize, handleInput } from './MoosendCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { __ } from '../../../Utils/i18nwrap'
 
@@ -50,7 +49,7 @@ function MoosendAuthorization({
 
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Moosend" links={tutorialLinks?.moosend || {}} />
+            <TutorialLink linkKey="moosend" />
 
       <div className="mt-2">
         {/* Moosend Authorization */}

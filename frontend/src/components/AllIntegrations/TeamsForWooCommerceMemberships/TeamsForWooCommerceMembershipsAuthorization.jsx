@@ -2,7 +2,6 @@ import { useState } from 'react'
 import BackIcn from '../../../Icons/BackIcn'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import TutorialLink from '../../Utilities/TutorialLink'
 
@@ -46,7 +45,7 @@ const authorizeHandler = () => {
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink title="Teams for WooCommerce Memberships" links={tutorialLinks?.teamsForWooCommerceMemberships || {}} />
+            <TutorialLink linkKey="teamsForWooCommerceMemberships" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

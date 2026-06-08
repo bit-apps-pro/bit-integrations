@@ -11,7 +11,6 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import { handleInput, checkMappedFields } from './MasterStudyLmsCommonFunc'
 import MasterStudyLmsAuthorization from './MasterStudyLmsAuthorization'
 import MasterStudyLmsIntegLayout from './MasterStudyLmsIntegLayout'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function MasterStudyLms({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {

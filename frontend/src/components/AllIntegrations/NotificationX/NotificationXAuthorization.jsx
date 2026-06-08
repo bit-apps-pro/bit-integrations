@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import TutorialLink from '../../Utilities/TutorialLink'
@@ -28,7 +27,7 @@ const handleInput = e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="NotificationX" links={tutorialLinks?.notificationX || {}} />
+            <TutorialLink linkKey="notificationX" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

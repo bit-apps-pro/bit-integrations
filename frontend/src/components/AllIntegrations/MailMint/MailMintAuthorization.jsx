@@ -5,7 +5,6 @@ import { deepCopy } from '../../../Utils/Helpers'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { getAllList, getAllTags, mailMintRefreshFields } from './MailMintCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function MailMintAuthorization({
@@ -51,7 +50,7 @@ const authorizeHandler = () => {
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink title="Mail Mint" links={tutorialLinks?.mailMint || {}} />
+            <TutorialLink linkKey="mailMint" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

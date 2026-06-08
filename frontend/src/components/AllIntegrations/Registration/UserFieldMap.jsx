@@ -6,7 +6,7 @@ import TableCheckBox from '../../Utilities/TableCheckBox'
 import FieldMap from './FieldMap'
 import { addFieldMap } from './UserHelperFunction'
 
-export default function UserFieldMap({ formFields, userConf, setUserConf, roles, userFields }) {
+export default function UserFieldMap({ formFields, userConf, setUserConf, userFields }) {
   const [snack, setSnackbar] = useState({ show: false })
   const handleInput = e => {
     const tmpConf = { ...userConf }

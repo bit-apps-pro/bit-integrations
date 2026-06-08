@@ -6,7 +6,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { flowluAuthentication } from './FlowluCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function FlowluAuthorization({
@@ -62,7 +61,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Flowlu" links={tutorialLinks?.flowlu || {}} />
+            <TutorialLink linkKey="flowlu" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

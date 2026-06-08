@@ -7,7 +7,6 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksIntegration from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function Zapier({ formFields, setFlow, flow, allIntegURL }) {
@@ -34,7 +33,7 @@ const [zapier, setZapier] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="Zapier" links={tutorialLinks?.zapierLinks || {}} />
+                <TutorialLink linkKey="zapierLinks" />
 
         <WebHooksIntegration
           formID={formID}
