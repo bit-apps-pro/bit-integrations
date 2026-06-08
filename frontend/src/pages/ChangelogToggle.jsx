@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '13th May 2026'
+const releaseDate = '08th June 2026'
 
 // Example for items:
 // items: [
@@ -32,28 +32,33 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'B2BKing',
-        desc: '3 new events added',
+        label: 'WordPress',
+        desc: '33 new events added',
         isPro: true
       },
       {
-        label: 'BookingPress',
-        desc: '7 new events added',
+        label: 'WP Post',
+        desc: '11 new events added',
         isPro: true
       },
       {
-        label: 'FormyChat',
-        desc: '2 new events added',
+        label: 'IvyForms',
+        desc: '1 new events added',
         isPro: true
       },
       {
-        label: 'SureDash',
-        desc: '18 new events added',
+        label: 'WP User Registration',
+        desc: '12 new events added',
         isPro: true
       },
       {
-        label: 'wpDataTables',
-        desc: '4 new events added',
+        label: 'MoreConvert Wishlist for WooCommerce',
+        desc: '9 new events added',
+        isPro: true
+      },
+      {
+        label: 'Secure Custom Fields (SCF)',
+        desc: '6 new events added',
         isPro: true
       }
     ]
@@ -64,33 +69,43 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'B2BKing',
+        label: 'WordPress',
+        desc: '33 new events added',
+        isPro: true
+      },
+      {
+        label: 'WP Post',
+        desc: '6 new events added',
+        isPro: true
+      },
+      {
+        label: 'Heffl CRM',
         desc: '3 new events added',
         isPro: true
       },
       {
-        label: 'BookingPress',
-        desc: '6 new events added',
-        isPro: true
-      },
-      {
-        label: 'Bookly',
-        desc: '6 new events added',
-        isPro: true
-      },
-      {
-        label: 'FormyChat',
+        label: 'IvyForms',
         desc: '1 new events added',
         isPro: true
       },
       {
-        label: 'SureDash',
-        desc: '7 new events added',
+        label: 'WP User Registration',
+        desc: '11 new events added',
         isPro: true
       },
       {
-        label: 'wpDataTables',
-        desc: '1 new events added',
+        label: 'Zendesk Support',
+        desc: '17 new events added',
+        isPro: true
+      },
+      {
+        label: 'MoreConvert Wishlist for WooCommerce',
+        desc: '8 new events added',
+        isPro: true
+      },
+      {
+        label: 'Secure Custom Fields (SCF)',
+        desc: '5 new events added',
         isPro: true
       }
     ]
@@ -105,13 +120,30 @@ const changeLog = [
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'Response review modal',
+        desc: 'Improved UI.',
+        isPro: false
+      },
+      {
+        label: 'Custom Trigger, Webhook & Form Submission',
+        desc: 'Added a countdown timer and improved loading state for data-fetching operations.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'Telegram',
+        desc: 'Fixed chat list fetching issue.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Security', 'bit-integrations'),
