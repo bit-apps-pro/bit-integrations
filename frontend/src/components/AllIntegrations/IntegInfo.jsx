@@ -157,6 +157,7 @@ const NewsletterAuthorization = lazy(() => import('./Newsletter/NewsletterAuthor
 const SureDashAuthorization = lazy(() => import('./SureDash/SureDashAuthorization'))
 const SureMembersAuthorization = lazy(() => import('./SureMembers/SureMembersAuthorization'))
 const MailsterAuthentication = lazy(() => import('./Mailster/MailsterAuthorization'))
+const MainWPAuthorization = lazy(() => import('./MainWP/MainWPAuthorization'))
 const WPForoAuthorization = lazy(() => import('./WPForo/WPForoAuthorization'))
 const DokanAuthorization = lazy(() => import('./Dokan/DokanAuthorization'))
 const JetEngineAuthorization = lazy(() => import('./JetEngine/JetEngineAuthorization'))
@@ -612,6 +613,8 @@ export default function IntegInfo() {
         return <SureMembersAuthorization sureMembersConf={integrationConf} step={1} isInfo />
       case 'Mailster':
         return <MailsterAuthentication mailsterConf={integrationConf} step={1} isInfo />
+      case 'MainWP':
+        return <MainWPAuthorization mainWPConf={integrationConf} step={1} isInfo />
       case 'WPForo':
         return <WPForoAuthorization wpforoConf={integrationConf} step={1} isInfo />
       case 'Dokan':

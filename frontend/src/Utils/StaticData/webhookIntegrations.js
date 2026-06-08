@@ -19,7 +19,6 @@ export const customFormIntegrations = [
   'PopupMaker',
   'DiviFormBuilder',
   'Bricks',
-  'Bricksforge',
   'Brizy',
   'GutenaForms',
   'PieForms',
@@ -99,7 +98,15 @@ export const customFormIntegrations = [
   'WordPress',
   'FluentPdfGenerator',
   'BookingPress',
-  "FluentPdfGenerator"
+  "FluentPdfGenerator",
+  "B2BKing",
+  "FormyChat",
+  "MainWP",
+  "SureDash",
+  "WpErp",
+  "WpDataTables",
+  "GiveWp",
+  "SenseiLMS"
 ]
 
 export const actionHookIntegrations = ['ActionHook']

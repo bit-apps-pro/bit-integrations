@@ -159,6 +159,7 @@ const EditNewsletter = lazy(() => import('./Newsletter/EditNewsletter'))
 const EditSureDash = lazy(() => import('./SureDash/EditSureDash'))
 const EditSureMembers = lazy(() => import('./SureMembers/EditSureMembers'))
 const EditMailster = lazy(() => import('./Mailster/EditMailster'))
+const EditMainWP = lazy(() => import('./MainWP/EditMainWP'))
 const EditWPForo = lazy(() => import('./WPForo/EditWPForo'))
 const EditDokan = lazy(() => import('./Dokan/EditDokan'))
 const EditJetEngine = lazy(() => import('./JetEngine/EditJetEngine'))
@@ -577,6 +578,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSureMembers allIntegURL={allIntegURL} />
     case 'Mailster':
       return <EditMailster allIntegURL={allIntegURL} />
+    case 'MainWP':
+      return <EditMainWP allIntegURL={allIntegURL} />
     case 'WPForo':
       return <EditWPForo allIntegURL={allIntegURL} />
     case 'Dokan':

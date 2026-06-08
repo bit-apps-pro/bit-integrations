@@ -161,6 +161,7 @@ export default function SelectAction() {
     { type: 'SureDash' },
     { type: 'SureMembers' },
     { type: 'Mailster' },
+    { type: 'MainWP' },
     { type: 'WPForo' },
     { type: 'Dokan' },
     { type: 'JetEngine' },
