@@ -118,6 +118,7 @@ export default function SelectAction() {
     { type: 'CapsuleCRM' },
     { type: 'MasterStudyLms' },
     { type: 'Zendesk' },
+    { type: 'ZendeskSupport' },
     { type: 'Asana' },
     { type: 'Clickup' },
     { type: 'ClinchPad' },
@@ -180,6 +181,7 @@ export default function SelectAction() {
     { type: 'Bookly' },
     { type: 'FluentCart' },
     { type: 'Heffl CRM' },
+    { type: 'Secure Custom Fields' },
     { type: 'WordPress' },
     { type: 'BookingPress' },
     { type: 'WpDataTables' },
@@ -273,7 +275,7 @@ export default function SelectAction() {
               )}
 
               <GetLogo name={inte?.logo || inte.type} extension="webp" />
-              <div className="txt-center">{inte.type}</div>
+              <div className="txt-center">{inte.name || inte.type}</div>
             </div>
           ))}
         </div>

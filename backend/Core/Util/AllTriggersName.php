@@ -12,6 +12,7 @@ final class AllTriggersName
             'AdvancedAds'                    => ['name' => 'Advanced Ads',  'isPro' => true, 'is_active' => false],
             'AdvancedCoupons'                => ['name' => 'Advanced coupons for WooCommerce',  'isPro' => true, 'is_active' => false],
             'AdvancedCustomFields'           => ['name' => 'Advanced Custom Fields (ACF)',  'isPro' => true, 'is_active' => false],
+            'SecureCustomFields'             => ['name' => 'Secure Custom Fields',  'isPro' => true, 'is_active' => false],
             'Affiliate'                      => ['name' => 'Affiliate',  'isPro' => true, 'is_active' => false],
             'AppointmentHourBooking'         => ['name' => 'Appointment Hour Booking',  'isPro' => true, 'is_active' => false],
             'Amelia'                         => ['name' => 'Amelia Webhook',  'isPro' => true, 'is_active' => false],

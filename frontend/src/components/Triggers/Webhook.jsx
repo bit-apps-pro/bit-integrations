@@ -5,6 +5,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { $appConfigState, $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
+import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
@@ -25,18 +26,34 @@ const Webhook = () => {
   const [snack, setSnackbar] = useState({ show: false })
   const { api } = useRecoilValue($appConfigState)
   const [showResponse, setShowResponse] = useState(false)
+  const isFetchingRef = useRef(false)
   const intervalRef = useRef(null)
   const triggerLinkKey = newFlow?.triggered_entity
   const triggerTutorialLinks = triggerLinkKey
     ? {
-        [triggerLinkKey]: {
-          docLink: newFlow?.triggerDetail?.documentation_url || '',
-          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
-        }
+      [triggerLinkKey]: {
+        docLink: newFlow?.triggerDetail?.documentation_url || '',
+        youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
       }
+    }
     : undefined
+
   let controller = new AbortController()
   const signal = controller.signal
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
+    isFetchingRef,
+    hookID,
+    controller,
+    setIsLoading,
+    'webhook/test/remove',
+    'post',
+    'hook_id'
+  )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
   const setTriggerData = () => {
     const tmpNewFlow = { ...newFlow }
     tmpNewFlow.triggerData = {
@@ -61,62 +78,76 @@ const Webhook = () => {
       })
     }
     return () => {
-      intervalRef?.current && clearInterval(intervalRef.current)
-      controller.abort()
-      bitsFetch({ hook_id: window.hook_id }, 'webhook/test/remove').then(resp => {
-        delete window.hook_id
-      })
+      stopFetching()
+      delete window.hook_id
     }
   }, [])
 
   const handleFetch = () => {
+    if (isFetchingRef.current) {
+      stopFetching()
+      return
+    }
+
+    isFetchingRef.current = true
     setIsLoading(true)
-    intervalRef.current = setInterval(() => {
-      bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal)
-        .then(resp => {
-          if (resp.success) {
-            controller.abort()
-            clearInterval(intervalRef.current)
-            const tmpNewFlow = { ...newFlow }
-            const data = resp.data.webhook
+    setShowResponse(false)
+    startCountdown(stopFetching)
+    fetchSequentially()
+  }
 
-            let convertedData = Object.entries(data).reduce((outObj, item) => {
-              const [name, obj] = item
-              if (typeof obj === 'object' && obj !== null && obj !== undefined) {
-                const objArr = Object.entries(obj)
-                const inObj = objArr.reduce((out, [n, v]) => {
-                  const propName = `${name}_${n}`
+  const fetchSequentially = async () => {
+    try {
+      if (!isFetchingRef.current || !hookID) {
+        stopFetching()
+        return
+      }
 
-                  return { ...out, [propName]: v }
-                }, {})
-                return { ...outObj, ...inObj }
-              }
-              return data
+      const resp = await bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal)
+      if (!resp.success && isFetchingRef.current) {
+        fetchSequentially()
+        return
+      }
+
+      if (resp.success) {
+        const tmpNewFlow = { ...newFlow }
+        const data = resp.data.webhook
+
+        let convertedData = Object.entries(data).reduce((outObj, item) => {
+          const [name, obj] = item
+          if (typeof obj === 'object' && obj !== null && obj !== undefined) {
+            const objArr = Object.entries(obj)
+            const inObj = objArr.reduce((out, [n, v]) => {
+              const propName = `${name}_${n}`
+
+              return { ...out, [propName]: v }
             }, {})
-
-            if (typeof resp.data.webhook === 'object') {
-              convertedData = Object.keys(convertedData).map(fld => ({
-                name: fld,
-                label: `${convertedData[fld]}-${fld}`,
-                type: 'text'
-              }))
-            }
-
-            tmpNewFlow.triggerDetail.tmp = resp.data.webhook
-            tmpNewFlow.triggerDetail.data = convertedData
-            tmpNewFlow.triggerDetail.hook_id = hookID
-            setNewFlow(tmpNewFlow)
-            setIsLoading(false)
-            setShowResponse(true)
-            bitsFetch({ hook_id: window.hook_id, reset: true }, 'webhook/test/remove', null, 'post')
+            return { ...outObj, ...inObj }
           }
-        })
-        .catch(err => {
-          if (err.name === 'AbortError') {
-            console.log(__('AbortError: Fetch request aborted', 'bit-integrations'))
-          }
-        })
-    }, 1500)
+          return data
+        }, {})
+
+        if (typeof resp.data.webhook === 'object') {
+          convertedData = Object.keys(convertedData).map(fld => ({
+            name: fld,
+            label: `${convertedData[fld]}-${fld}`,
+            type: 'text'
+          }))
+        }
+
+        tmpNewFlow.triggerDetail.tmp = resp.data.webhook
+        tmpNewFlow.triggerDetail.data = convertedData
+        tmpNewFlow.triggerDetail.hook_id = hookID
+        setNewFlow(tmpNewFlow)
+        setShowResponse(true)
+      }
+
+      stopFetching()
+    } catch (err) {
+      console.log(
+        err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err
+      )
+    }
   }
 
   const showResponseTable = () => {
@@ -141,9 +172,11 @@ const Webhook = () => {
           className="btn btcd-btn-lg purple sh-sm flx"
           type="button"
           disabled={!hookID}>
-          {newFlow.triggerDetail?.data
-            ? __('Fetched ✔', 'bit-integrations')
-            : __('Fetch', 'bit-integrations')}
+          {isLoading
+            ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
+            : newFlow.triggerDetail?.data
+              ? __('Fetched ✔', 'bit-integrations')
+              : __('Fetch', 'bit-integrations')}
           {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
         </button>
         {newFlow.triggerDetail?.data && (
@@ -197,20 +230,20 @@ const info = `${__(
             <h4>${__('Quick Setup', 'bit-integrations')}</h4>
             <ul>
                 <li>${__(
-                  'Copy the Webhook URL and add it to your form or app.',
-                  'bit-integrations'
-                )}</li>
+  'Copy the Webhook URL and add it to your form or app.',
+  'bit-integrations'
+)}</li>
                 <li>${__(
-                  'Click <b>Fetch</b>, then submit your form (or send a test request).',
-                  'bit-integrations'
-                )}</li>
+  'Click <b>Fetch</b>, then submit your form (or send a test request).',
+  'bit-integrations'
+)}</li>
                 <li>${__(
-                  'When response data appears, click <b>Set Action</b> to continue.',
-                  'bit-integrations'
-                )}</li>
+  'When response data appears, click <b>Set Action</b> to continue.',
+  'bit-integrations'
+)}</li>
             </ul>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-              'The Fetch button will keep spinning until you submit the form/task.',
-              'bit-integrations'
-            )}</p>
+  'The Fetch button will keep spinning until you submit the form/task.',
+  'bit-integrations'
+)}</p>
   `

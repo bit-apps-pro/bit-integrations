@@ -2722,6 +2722,157 @@ nav.top-nav {
   color: #737f94;
 }
 
+/* ---- Response preview modal ---- */
+.resp-modal-shell {
+  display: block !important;
+}
+
+.resp-mdl {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.resp-mdl__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.resp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+.resp-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.resp-badge--success {
+  color: #0f7b4e;
+  background: #e6f6ee;
+}
+
+.resp-badge--error {
+  color: #c0392b;
+  background: #fdecea;
+}
+
+.resp-mdl__chip {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  background: #f1f5f9;
+}
+
+.resp-mdl__date {
+  margin-left: auto;
+  font-size: 12px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.resp-mdl__code-wrp {
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.resp-mdl__code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #1e293b;
+}
+
+.resp-mdl__lang {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.resp-mdl__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #cbd5e1;
+  background: rgba(148, 163, 184, 0.12);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  svg {
+    stroke: currentColor;
+  }
+
+  &:hover {
+    color: #fff;
+    background: rgba(148, 163, 184, 0.25);
+  }
+}
+
+.resp-mdl__pre {
+  margin: 0;
+  padding: 16px;
+  max-height: 420px;
+  overflow: auto;
+  font-family: 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  tab-size: 2;
+
+  .tok-key {
+    color: #7dd3fc;
+  }
+  .tok-str {
+    color: #86efac;
+  }
+  .tok-num {
+    color: #fca5a5;
+  }
+  .tok-bool {
+    color: #c4b5fd;
+  }
+  .tok-null {
+    color: #94a3b8;
+    font-style: italic;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
 .submit-btn {
   background: #1296ef;
   // position: absolute;
