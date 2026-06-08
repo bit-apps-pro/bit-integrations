@@ -179,6 +179,7 @@ export default function SelectAction() {
     { type: 'CreatorLms' },
     { type: 'Bookly' },
     { type: 'FluentCart' },
+    { type: 'Secure Custom Fields' },
     { type: 'WordPress' },
     { type: 'BookingPress' },
     { type: 'WpDataTables' },
