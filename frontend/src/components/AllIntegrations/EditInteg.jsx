@@ -177,11 +177,13 @@ const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
 const EditHefflCRM = lazy(() => import('./HefflCRM/EditHefflCRM'))
 const EditSecureCustomFields = lazy(() => import('./SecureCustomFields/EditSecureCustomFields'))
 const EditWordPress = lazy(() => import('./WordPress/EditWordPress'))
 const EditWpDataTables = lazy(() => import('./WpDataTables/EditWpDataTables'))
 const EditFormyChat = lazy(() => import('./FormyChat/EditFormyChat'))
+const EditIvyForms = lazy(() => import('./IvyForms/EditIvyForms'))
 const EditWpErp = lazy(() => import('./WpErp/EditWpErp'))
 const EditPeepSo = lazy(() => import('./PeepSo/EditPeepSo'))
 const EditNinjaTables = lazy(() => import('./NinjaTables/EditNinjaTables'))
@@ -616,6 +618,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBookly allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'MoreConvert Wishlist':
+      return <EditMoreConvertWishlist allIntegURL={allIntegURL} />
     case 'Heffl CRM':
       return <EditHefflCRM allIntegURL={allIntegURL} />
     case 'Secure Custom Fields':
@@ -626,6 +630,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditWpDataTables allIntegURL={allIntegURL} />
     case 'FormyChat':
       return <EditFormyChat allIntegURL={allIntegURL} />
+    case 'IvyForms':
+      return <EditIvyForms allIntegURL={allIntegURL} />
     case 'WP ERP':
       return <EditWpErp allIntegURL={allIntegURL} />
     case 'PeepSo':

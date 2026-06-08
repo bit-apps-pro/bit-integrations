@@ -79,6 +79,8 @@ export const customFormIntegrations = [
   'StoreEngine',
   'CreatorLms',
   'FluentCart',
+  'MoreConvertWishlist',
+  'IvyForms',
   'MailMint',
   'BookingCalendarContactForm',
   'ContactFormEmail',

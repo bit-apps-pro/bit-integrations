@@ -176,11 +176,13 @@ const CreatorLms = lazy(() => import('./CreatorLms/CreatorLms'))
 const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateAffiliatePro'))
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
 const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
+const IvyForms = lazy(() => import('./IvyForms/IvyForms'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
 const PeepSo = lazy(() => import('./PeepSo/PeepSo'))
 const NinjaTables = lazy(() => import('./NinjaTables/NinjaTables'))
@@ -1726,6 +1728,15 @@ export default function NewInteg({ allIntegURL }) {
             setFlow={setFlow}
           />
         )
+      case 'MoreConvert Wishlist':
+        return (
+          <MoreConvertWishlist
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
       case 'Heffl CRM':
         return (
           <HefflCRM
@@ -1765,6 +1776,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'FormyChat':
         return (
           <FormyChat
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'IvyForms':
+        return (
+          <IvyForms
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

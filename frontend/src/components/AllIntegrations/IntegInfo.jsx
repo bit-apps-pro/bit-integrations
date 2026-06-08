@@ -181,6 +181,8 @@ const UltimateAffiliateProAuthorization = lazy(
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const MoreConvertWishlistAuthorization = lazy(() =>
+  import('./MoreConvertWishlist/MoreConvertWishlistAuthorization'))
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -189,6 +191,7 @@ const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthoriza
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
+const IvyFormsAuthorization = lazy(() => import('./IvyForms/IvyFormsAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
 const PeepSoAuthorization = lazy(() => import('./PeepSo/PeepSoAuthorization'))
 const NinjaTablesAuthorization = lazy(() => import('./NinjaTables/NinjaTablesAuthorization'))
@@ -663,6 +666,14 @@ export default function IntegInfo() {
         return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
       case 'FluentCart':
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+      case 'MoreConvert Wishlist':
+        return (
+          <MoreConvertWishlistAuthorization
+            moreConvertWishlistConf={integrationConf}
+            step={1}
+            isInfo
+          />
+        )
       case 'Heffl CRM':
         return <HefflCRMAuthorization hefflCRMConf={integrationConf} step={1} isInfo />
       case 'Secure Custom Fields':
@@ -677,6 +688,8 @@ export default function IntegInfo() {
         return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
       case 'FormyChat':
         return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
+      case 'IvyForms':
+        return <IvyFormsAuthorization ivyFormsConf={integrationConf} step={1} isInfo />
       case 'WP ERP':
         return <WpErpAuthorization wpErpConf={integrationConf} step={1} isInfo />
       case 'PeepSo':
