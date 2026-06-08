@@ -177,6 +177,7 @@ const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditWordPress = lazy(() => import('./WordPress/EditWordPress'))
 const EditWpDataTables = lazy(() => import('./WpDataTables/EditWpDataTables'))
 const EditFormyChat = lazy(() => import('./FormyChat/EditFormyChat'))
 const EditWpErp = lazy(() => import('./WpErp/EditWpErp'))
@@ -613,6 +614,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBookly allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'WordPress':
+      return <EditWordPress allIntegURL={allIntegURL} />
     case 'WpDataTables':
       return <EditWpDataTables allIntegURL={allIntegURL} />
     case 'FormyChat':

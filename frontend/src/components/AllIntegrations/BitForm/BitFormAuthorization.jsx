@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { fetchAllForm, handleAuthorize } from './BitFormCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function BitFormAuthorization({
@@ -43,7 +42,7 @@ const [error, setError] = useState({ dataCenter: '', api_key: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Bit Form" links={tutorialLinks?.bitForm || {}} />
+            <TutorialLink linkKey="bitForm" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

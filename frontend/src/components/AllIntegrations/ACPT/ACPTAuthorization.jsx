@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-expressions */
 import { useCallback, useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import TutorialLink from '../../Utilities/TutorialLink'
@@ -47,7 +46,7 @@ const handleInput = useCallback(e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="ACPT" links={tutorialLinks?.acpt || {}} />
+            <TutorialLink linkKey="acpt" />
 
       <div>
         <div className="mt-3">

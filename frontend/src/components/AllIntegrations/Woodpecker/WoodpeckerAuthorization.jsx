@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { woodpeckerAuthentication } from './WoodpeckerCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function WoodpeckerAuthorization({
@@ -58,7 +57,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Woodpecker" links={tutorialLinks?.woodpecker || {}} />
+            <TutorialLink linkKey="woodpecker" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

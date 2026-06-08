@@ -1,56 +1,70 @@
 /* eslint-disable no-param-reassign */
 import { useEffect, useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import bitsFetch from '../../../Utils/bitsFetch'
+import { $actionConf, $appConfigState, $formFields, $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
-import SnackMsg from '../../Utilities/SnackMsg'
-import { saveActionConf, saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
-import UserFieldMap from './UserFieldMap'
-import UserMetaField from './UserMetaField'
-import { userFields } from '../../../Utils/StaticData/userField'
-import { checkMappedUserFields } from './UserHelperFunction'
-import EditFormInteg from '../EditFormInteg'
-import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import LoaderSm from '../../Loaders/LoaderSm'
-import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
-import EditWebhookInteg from '../EditWebhookInteg'
-import TableCheckBox from '../../Utilities/TableCheckBox'
 import ConditionalLogic from '../../ConditionalLogic'
-import CheckBox from '../../Utilities/CheckBox'
+import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
-import RegistrationActions from './RegistrationActions'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
+import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
+import SnackMsg from '../../Utilities/SnackMsg'
+import TableCheckBox from '../../Utilities/TableCheckBox'
 import TutorialLink from '../../Utilities/TutorialLink'
+import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
+import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
+import RegistrationActions from './RegistrationActions'
+import UserFieldMap from './UserFieldMap'
+import {
+  checkMappedUserFields,
+  generateRegistrationFieldMap,
+  getRegistrationFieldsByAction,
+  isLegacyRegistrationAction,
+  registrationMainActions
+} from './UserHelperFunction'
+import UserMetaField from './UserMetaField'
 
 export default function EditRegistration({ allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [snack, setSnackbar] = useState({ show: false })
-  const [roles, setRoles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [flow, setFlow] = useRecoilState($newFlow)
+  const { isPro } = useRecoilValue($appConfigState)
   const formFields = useRecoilValue($formFields)
   const [userConf, setUserConf] = useRecoilState($actionConf)
-useEffect(() => {
+  useEffect(() => {
     const tmpConf = { ...userConf }
 
+    if (!tmpConf.action_type) {
+      tmpConf.action_type = 'new_user'
+    }
+
     if (!tmpConf?.user_map?.[0]?.userField) {
-      tmpConf.user_map = userFields
-        .filter(fld => fld.required)
-        .map(fl => ({ formField: '', userField: fl.key, required: fl.required }))
+      tmpConf.user_map = generateRegistrationFieldMap(tmpConf.action_type)
     }
 
     setUserConf(tmpConf)
   }, [])
+
+  const setActionType = actionType => {
+    const nextAction = actionType || 'new_user'
+    setUserConf(prevConf => ({
+      ...prevConf,
+      action_type: nextAction,
+      user_map: generateRegistrationFieldMap(nextAction)
+    }))
+  }
+
+  const isLegacyAction = isLegacyRegistrationAction(userConf?.action_type)
+  const selectedUserFields = getRegistrationFieldsByAction(userConf?.action_type || 'new_user')
 
   const saveConfig = () => {
     if (!userConf.action_type) {
       setSnackbar({ show: true, msg: __('Please select action type', 'bit-integrations') })
       return
     }
-    if (!userConf.user_role && userConf.action_type !== 'updated_user') {
+    if (userConf.action_type === 'new_user' && !userConf.user_role) {
       setSnackbar({ show: true, msg: __("User Role can't be empty", 'bit-integrations') })
       return
     }
@@ -80,58 +94,36 @@ useEffect(() => {
     setUserConf(tmpConf)
   }
 
-  const actionHandler = e => {
-    const newConf = { ...userConf }
-    const { name, value } = e.target
-    if (e.target.checked) {
-      newConf[name] = value
+  const actionTypeHandler = e => {
+    if (!e.target.value) {
+      return
     }
-    setUserConf({ ...newConf })
+    setActionType(e.target.value)
   }
-
-  const userUpdateInstruction = `
-  <ul>
-  <li>${__('The user must be logged in when updating profile', 'bit-integrations')}</li>
-  <li>${__(
-    'The user cannot change the value of the username field when updating the user profile.',
-    'bit-integrations'
-  )}</li>
-     
-  </ul>`
-  const userCreateInstruction = `
-  <ul>
-  <li>${__(
-    'If the Username and Password fields are blank then the user will take the value of the email field as the field and the password will be auto-generated.',
-    'bit-integrations'
-  )}</li>  
-  </ul>`
 
   return (
     <div style={{ width: 900 }}>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-            <TutorialLink title="WP User Registration" links={tutorialLinks?.registration || {}} />
+      <TutorialLink linkKey="registration" />
       <br />
       <br />
 
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
       <div className="flx mt-3">
-        <div className="wdt-200 d-in-b">{__('Action type', 'bit-integrations')}</div>
-        <CheckBox
-          radio
-          name="action_type"
-          onChange={actionHandler}
-          checked={userConf?.action_type === 'new_user'}
-          value="new_user"
-          title={__('New User Create', 'bit-integrations')}
-        />
-        <CheckBox
-          radio
-          name="action_type"
-          onChange={actionHandler}
-          checked={userConf?.action_type === 'updated_user'}
-          value="updated_user"
-          title={__('Updated User', 'bit-integrations')}
-        />
+        <div className="wdt-200 d-in-b">
+          <b>{__('Action type', 'bit-integrations')}</b>
+        </div>
+        <select
+          className="btcd-paper-inp w-5"
+          value={userConf?.action_type || 'new_user'}
+          onChange={actionTypeHandler}>
+          <option value="">{__('Select Action', 'bit-integrations')}</option>
+          {registrationMainActions.map(action => (
+            <option key={action.value} value={action.value} disabled={!checkIsPro(isPro, action.is_pro)}>
+              {checkIsPro(isPro, action.is_pro) ? action.label : getProLabel(action.label)}
+            </option>
+          ))}
+        </select>
       </div>
       <br />
       <br />
@@ -139,34 +131,33 @@ useEffect(() => {
       <div>
         <UserFieldMap
           formFields={formFields}
-          formID={formID}
           userConf={userConf}
           setUserConf={setUserConf}
-          roles={roles}
-          userFields={userFields}
+          userFields={selectedUserFields}
         />
         <br />
       </div>
-      <div>
-        <UserMetaField
-          formFields={formFields}
-          formID={formID}
-          userConf={userConf}
-          setUserConf={setUserConf}
-        />
-        <br />
-      </div>
+      {isLegacyAction && (
+        <>
+          <div>
+            <UserMetaField formFields={formFields} userConf={userConf} setUserConf={setUserConf} />
+            <br />
+          </div>
 
-      <div className="mt-4">
-        <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
-      </div>
-      <div className="btcd-hr mt-1" />
-      <RegistrationActions userConf={userConf} setUserConf={setUserConf} />
+          <div className="mt-4">
+            <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          </div>
+          <div className="btcd-hr mt-1" />
+          <RegistrationActions userConf={userConf} setUserConf={setUserConf} />
 
-      <br />
-      <Note
-        note={userConf?.action_type === 'updated_user' ? userUpdateInstruction : userCreateInstruction}
-      />
+          <br />
+          <Note
+            note={
+              userConf?.action_type === 'updated_user' ? userUpdateInstruction : userCreateInstruction
+            }
+          />
+        </>
+      )}
 
       {userConf?.condition && (
         <>
@@ -198,3 +189,22 @@ useEffect(() => {
     </div>
   )
 }
+
+
+
+const userUpdateInstruction = `
+  <ul>
+  <li>${__('The user must be logged in when updating profile', 'bit-integrations')}</li>
+  <li>${__(
+  'The user cannot change the value of the username field when updating the user profile.',
+  'bit-integrations'
+)}</li>
+     
+  </ul>`
+const userCreateInstruction = `
+  <ul>
+  <li>${__(
+  'If the Username and Password fields are blank then the user will take the value of the email field as the field and the password will be auto-generated.',
+  'bit-integrations'
+)}</li>  
+  </ul>`

@@ -54,7 +54,7 @@ export default function MondayComAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-      <TutorialLink title="Monday.com" links={tutorialLinks?.mondayCom || {}} />
+      <TutorialLink linkKey="mondayCom" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

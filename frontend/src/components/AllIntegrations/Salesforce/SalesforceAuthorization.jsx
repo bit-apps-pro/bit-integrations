@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleAuthorize } from './SalesforceCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { $appConfigState } from '../../../GlobalStates'
 import { useRecoilValue } from 'recoil'
@@ -51,7 +50,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Salesforce" links={tutorialLinks?.salesforce || {}} />
+            <TutorialLink linkKey="salesforce" />
 
       <div className="wdt-200 d-in-b mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

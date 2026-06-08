@@ -5,7 +5,6 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { refreshConvertKitForm } from './ConvertKitCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ConvertKitAuthorization({
@@ -79,7 +78,7 @@ const [isAuthorized, setisAuthorized] = useState(false)
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="ConvertKit" links={tutorialLinks?.convertKit || {}} />
+            <TutorialLink linkKey="convertKit" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -27,6 +27,17 @@ const Webhook = () => {
   const { api } = useRecoilValue($appConfigState)
   const [showResponse, setShowResponse] = useState(false)
   const isFetchingRef = useRef(false)
+  const intervalRef = useRef(null)
+  const triggerLinkKey = newFlow?.triggered_entity
+  const triggerTutorialLinks = triggerLinkKey
+    ? {
+      [triggerLinkKey]: {
+        docLink: newFlow?.triggerDetail?.documentation_url || '',
+        youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+      }
+    }
+    : undefined
+
   let controller = new AbortController()
   const signal = controller.signal
   const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
@@ -195,13 +206,11 @@ const Webhook = () => {
       </button>
       <div className="flx flx-center">
         <div style={{ width: '100%', maxWidth: 500 }}>
-          <Note note={info} isInstruction={true} maxWidth="100%" >
+          <Note note={info} isInstruction={true} maxWidth="100%">
             <TutorialLink
+              linkKey={triggerLinkKey}
+              linksMap={triggerTutorialLinks}
               style={{ marginTop: 0 }}
-              links={{
-                docLink: newFlow?.triggerDetail?.documentation_url || '',
-                youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
-              }}
             />
           </Note>
         </div>

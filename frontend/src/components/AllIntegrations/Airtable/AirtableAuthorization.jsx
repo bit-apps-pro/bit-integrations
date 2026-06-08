@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { airtableAuthentication } from './AirtableCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function AirtableAuthorization({
@@ -41,7 +40,7 @@ export default function AirtableAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Airtable" links={tutorialLinks?.airtable || {}} />
+            <TutorialLink linkKey="airtable" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

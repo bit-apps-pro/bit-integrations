@@ -4,7 +4,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import LoaderSm from '../../Loaders/LoaderSm'
 import BackIcn from '../../../Icons/BackIcn'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function FluentCrmAuthorization({
@@ -55,7 +54,7 @@ const [isMounted, setIsMounted] = useState(true)
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="FluentCRM" links={tutorialLinks?.fluentCrm || {}} />
+                <TutorialLink linkKey="fluentCrm" />
 
         <div className="mt-3">
           <b>{__('Integration Name:', 'bit-integrations')}</b>

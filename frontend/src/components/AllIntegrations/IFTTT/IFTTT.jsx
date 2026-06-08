@@ -7,7 +7,6 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksIntegration from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function IFTTT({ formFields, setFlow, flow, allIntegURL }) {
@@ -34,7 +33,7 @@ const [ifttt, setIfttt] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="IFTTT" links={tutorialLinks?.iFTTT || {}} />
+                <TutorialLink linkKey="iFTTT" />
 
         <WebHooksIntegration
           formID={formID}

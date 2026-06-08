@@ -47,7 +47,7 @@ export default function BooklyAuthorization({
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-      <TutorialLink title="Bookly" links={tutorialLinks?.bookly || {}} />
+      <TutorialLink linkKey="bookly" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
