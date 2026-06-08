@@ -115,6 +115,7 @@ const Insightly = lazy(() => import('./Insightly/Insightly'))
 const CapsuleCRM = lazy(() => import('./CapsuleCRM/CapsuleCRM'))
 const MasterStudyLms = lazy(() => import('./MasterStudyLms/MasterStudyLms'))
 const Zendesk = lazy(() => import('./Zendesk/Zendesk'))
+const ZendeskSupport = lazy(() => import('./ZendeskSupport/ZendeskSupport'))
 const Asana = lazy(() => import('./Asana/Asana'))
 const PropovoiceCrm = lazy(() => import('./PropovoiceCRM/PropovoiceCrm'))
 const Clickup = lazy(() => import('./Clickup/Clickup'))
@@ -176,6 +177,7 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
+const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
 const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
@@ -1175,6 +1177,15 @@ export default function NewInteg({ allIntegURL }) {
             setFlow={setFlow}
           />
         )
+      case 'ZendeskSupport':
+        return (
+          <ZendeskSupport
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
       case 'Asana':
         return (
           <Asana
@@ -1719,6 +1730,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'MoreConvert Wishlist':
         return (
           <MoreConvertWishlist
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Secure Custom Fields':
+        return (
+          <SecureCustomFields
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

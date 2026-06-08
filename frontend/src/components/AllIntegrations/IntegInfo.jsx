@@ -107,6 +107,9 @@ const InsightlyAuthorization = lazy(() => import('./Insightly/InsightlyAuthoriza
 const CapsuleCRMAuthorization = lazy(() => import('./CapsuleCRM/CapsuleCRMAuthorization'))
 const MasterStudyLmsAuthorization = lazy(() => import('./MasterStudyLms/MasterStudyLmsAuthorization'))
 const ZendeskAuthorization = lazy(() => import('./Zendesk/ZendeskAuthorization'))
+const ZendeskSupportAuthorization = lazy(() =>
+  import('./ZendeskSupport/ZendeskSupportAuthorization')
+)
 const AsanaAuthorization = lazy(() => import('./Asana/AsanaAuthorization'))
 const PropovoiceCrmAuthorization = lazy(() => import('./PropovoiceCRM/PropovoiceCrmAuthorization'))
 const MailMintAuthorization = lazy(() => import('./MailMint/MailMintAuthorization'))
@@ -179,7 +182,9 @@ const UltimateAffiliateProAuthorization = lazy(
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(() =>
-  import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
+  import('./MoreConvertWishlist/MoreConvertWishlistAuthorization'))
+const SecureCustomFieldsAuthorization = lazy(
+  () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
 )
 const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
@@ -526,6 +531,10 @@ export default function IntegInfo() {
         return <MasterStudyLmsAuthorization msLmsConf={integrationConf} step={1} isInfo />
       case 'Zendesk':
         return <ZendeskAuthorization zendeskConf={integrationConf} step={1} isInfo />
+      case 'ZendeskSupport':
+        return (
+          <ZendeskSupportAuthorization zendeskSupportConf={integrationConf} step={1} isInfo />
+        )
       case 'Asana':
         return <AsanaAuthorization asanaConf={integrationConf} step={1} isInfo />
       case 'Propovoice CRM':
@@ -663,6 +672,10 @@ export default function IntegInfo() {
             step={1}
             isInfo
           />
+        )
+      case 'Secure Custom Fields':
+        return (
+          <SecureCustomFieldsAuthorization secureCustomFieldsConf={integrationConf} step={1} isInfo />
         )
       case 'WordPress':
         return <WordPressAuthorization wordPressConf={integrationConf} step={1} isInfo />

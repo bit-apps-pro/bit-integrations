@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { $appConfigState, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
+import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { deepCopy } from '../../Utils/Helpers'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
@@ -15,13 +17,57 @@ function EditWebhookInteg({ setSnackbar }) {
   const [isLoading, setIsLoading] = useState(false)
   const { api } = useRecoilValue($appConfigState)
   const hookID = flow.triggered_entity_id
+  const isFetchingRef = useRef(false)
+
+  let controller = new AbortController()
+  const signal = controller.signal
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
+    isFetchingRef,
+    hookID,
+    controller,
+    setIsLoading,
+    'webhook/test/remove',
+    'post',
+    'hook_id'
+  )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
+
+  useEffect(() => {
+    return () => {
+      stopFetching()
+    }
+  }, [])
 
   const handleFetch = () => {
+    if (isFetchingRef.current) {
+      stopFetching()
+      return
+    }
+
+    isFetchingRef.current = true
     setIsLoading(true)
-    const fetchCheckTimer = setInterval(() => {
-      bitsFetch({ hook_id: hookID }, 'webhook/test').then(resp => {
+    startCountdown(stopFetching)
+    fetchSequentially()
+  }
+
+  const fetchSequentially = () => {
+    try {
+      if (!isFetchingRef.current || !hookID) {
+        stopFetching()
+        return
+      }
+
+      bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal).then(resp => {
+        if (!resp.success && isFetchingRef.current) {
+          fetchSequentially()
+          return
+        }
+
         if (resp.success) {
-          clearInterval(fetchCheckTimer)
           let data = resp.data.webhook
           if (typeof resp.data.webhook === 'object') {
             data = Object.keys(resp.data.webhook).map(fld => ({
@@ -33,14 +79,18 @@ function EditWebhookInteg({ setSnackbar }) {
           setFormFields(data)
           const newConf = deepCopy(flow)
           newConf.flow_details.fields = data
-
           setFlow(newConf)
-          bitsFetch({ hook_id: hookID }, 'webhook/test/remove')
-          setIsLoading(false)
         }
+
+        stopFetching()
       })
-    }, 1500)
+    } catch (err) {
+      console.log(
+        err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err
+      )
+    }
   }
+
   return (
     <div className="flx mt-3">
       <b className="wdt-200 d-in-b">{__('Webhook URL:', 'bit-integrations')}</b>
@@ -55,9 +105,11 @@ function EditWebhookInteg({ setSnackbar }) {
           onClick={handleFetch}
           className="btn btcd-btn-lg purple sh-sm flx mt-1 ml-1"
           type="button">
-          {flow.triggerDetail?.data
-            ? __('Fetched ✔', 'bit-integrations')
-            : __('Fetch', 'bit-integrations')}
+          {isLoading
+            ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
+            : flow.flow_details?.fields
+              ? __('Fetched ✔', 'bit-integrations')
+              : __('Fetch', 'bit-integrations')}
           {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
         </button>
       </div>

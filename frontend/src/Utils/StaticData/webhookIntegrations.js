@@ -42,6 +42,7 @@ export const customFormIntegrations = [
   'WishlistMember',
   'GravityKit',
   'AdvancedCustomFields',
+  'SecureCustomFields',
   'PrestoPlayer',
   'SimplyScheduleAppointments',
   'LearnPress',
@@ -101,7 +102,7 @@ export const customFormIntegrations = [
   'WordPress',
   'FluentPdfGenerator',
   'BookingPress',
-  "FluentPdfGenerator"
+  'FluentPdfGenerator'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
