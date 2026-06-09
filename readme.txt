@@ -102,9 +102,9 @@ You can easily integrate WooCommerce with Google Sheet, CRM, Email Marketing & m
 
 **WordPress Integration**
 
-Automating WordPress tasks is now smarter with Bit Flows.
+Automating WordPress tasks is now smarter with Bit Integrations.
 Connect plugins like Elementor, Fluent Forms, Tutor LMS, or Contact Form 7 to your workflows.
-For example, when a form is submitted, Bit Flows can create a post, send emails, and update CRM records (e.g. FluentCRM) automatically.
+For example, when a form is submitted, Bit Integrations can create a post, send emails, and update CRM records (e.g. FluentCRM) automatically.
 
 **MailChimp Integration**
 
