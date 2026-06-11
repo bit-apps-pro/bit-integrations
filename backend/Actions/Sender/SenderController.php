@@ -57,7 +57,7 @@ class SenderController
         foreach (self::dataRows($response) as $group) {
             $groups[] = [
                 'id'    => $group->id ?? '',
-                'title' => $group->title ?? ($group->name ?? ''),
+                'title' => $group->title ?? '',
             ];
         }
 
@@ -81,16 +81,26 @@ class SenderController
             wp_send_json_error(__('Failed to fetch fields', 'bit-integrations'), 400);
         }
 
-        $fields = [];
+        $defaultFields = ['email', 'firstname', 'lastname', 'phone'];
+        $fields        = [];
         foreach (self::dataRows($response) as $field) {
-            $key = $field->id ?? '';
-            if ($key === '') {
+            // Sender returns the field token as `name` in {{slug}} form; the subscriber `fields`
+            // payload must be keyed by the {$slug} personalization token, not the numeric/string id.
+            $token = isset($field->name) ? str_replace(['{{', '}}'], ['{$', '}'], $field->name) : '';
+            if ($token === '') {
+                continue;
+            }
+
+            // Default subscriber fields are mapped top-level (email/firstname/lastname/phone),
+            // so keep them out of the custom-field options to avoid duplicate mapping.
+            $slug = strtolower(preg_replace('/[{}$\s]/', '', $token));
+            if (\in_array($slug, $defaultFields, true)) {
                 continue;
             }
 
             $fields[] = [
-                'key'   => (string) $key,
-                'label' => $field->name ?? ($field->title ?? (string) $key),
+                'key'   => $token,
+                'label' => $field->title ?? $token,
             ];
         }
 

@@ -6,6 +6,19 @@ import Note from '../../Utilities/Note'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { authorization } from './SenderCommonFunc'
 
+const tokenUrl = 'https://app.sender.net/settings/tokens'
+const note = `
+    <h4>${__('Steps to generate an API access token:', 'bit-integrations')}</h4>
+    <ul>
+      <li>${__('Go to', 'bit-integrations')} <a href=${tokenUrl} target="_blank" rel="noreferrer">${__(
+  'Sender API Access Tokens',
+  'bit-integrations'
+)}</a></li>
+      <li>${__('Create a token and copy it.', 'bit-integrations')}</li>
+      <li>${__('Paste it into the <b>API Token</b> field and click <b>Authorize</b>.', 'bit-integrations')}</li>
+    </ul>
+  `
+
 export default function SenderAuthorization({
   senderConf,
   setSenderConf,
@@ -16,7 +29,6 @@ export default function SenderAuthorization({
   isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
-  const tokenUrl = 'https://app.sender.net/settings/tokens'
 
   const nextPage = () => {
     setTimeout(() => {
@@ -30,18 +42,6 @@ export default function SenderAuthorization({
     newConf[e.target.name] = e.target.value
     setSenderConf(newConf)
   }
-
-  const note = `
-    <h4>${__('Steps to generate an API access token:', 'bit-integrations')}</h4>
-    <ul>
-      <li>${__('Go to', 'bit-integrations')} <a href=${tokenUrl} target="_blank" rel="noreferrer">${__(
-    'Sender API Access Tokens',
-    'bit-integrations'
-  )}</a></li>
-      <li>${__('Create a token and copy it.', 'bit-integrations')}</li>
-      <li>${__('Paste it into the <b>API Token</b> field and click <b>Authorize</b>.', 'bit-integrations')}</li>
-    </ul>
-  `
 
   return (
     <div

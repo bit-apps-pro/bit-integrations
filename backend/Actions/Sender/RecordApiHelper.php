@@ -23,49 +23,74 @@ class RecordApiHelper
     public function __construct($integrationDetails, $integId)
     {
         $this->_integrationDetails = $integrationDetails;
-        $this->_integrationID      = $integId;
+        $this->_integrationID = $integId;
     }
 
     public function execute($fieldValues, $fieldMap)
     {
-        $fieldData  = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
+        $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro'),
+            'message' => wp_sprintf(__('%s plugin is not installed or activates', 'bit-integrations'), 'Bit Integrations Pro'),
         ];
 
-        $actionHookMap = [
-            'create_or_update_subscriber'  => 'sender_create_or_update_subscriber',
-            'update_subscriber'            => 'sender_update_subscriber',
-            'delete_subscriber'            => 'sender_delete_subscriber',
-            'remove_phone_from_subscriber' => 'sender_remove_phone_from_subscriber',
-            'add_subscriber_to_group'      => 'sender_add_subscriber_to_group',
-            'remove_subscriber_from_group' => 'sender_remove_subscriber_from_group',
-            'create_group'                 => 'sender_create_group',
-            'update_group'                 => 'sender_update_group',
-            'delete_group'                 => 'sender_delete_group',
-        ];
+        switch ($mainAction) {
+            case 'create_or_update_subscriber':
+                $response = Hooks::apply(Config::withPrefix('sender_create_or_update_subscriber'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
-        if (!isset($actionHookMap[$mainAction])) {
-            $response = [
-                'success' => false,
-                'message' => __('Invalid action', 'bit-integrations'),
-            ];
+                break;
 
-            LogHandler::save($this->_integrationID, ['type' => 'Sender', 'type_name' => 'unknown'], 'error', $response);
+            case 'update_subscriber':
+                $response = Hooks::apply(Config::withPrefix('sender_update_subscriber'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
-            return $response;
+                break;
+
+            case 'delete_subscriber':
+                $response = Hooks::apply(Config::withPrefix('sender_delete_subscriber'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'remove_phone_from_subscriber':
+                $response = Hooks::apply(Config::withPrefix('sender_remove_phone_from_subscriber'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'add_subscriber_to_group':
+                $response = Hooks::apply(Config::withPrefix('sender_add_subscriber_to_group'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'remove_subscriber_from_group':
+                $response = Hooks::apply(Config::withPrefix('sender_remove_subscriber_from_group'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'create_group':
+                $response = Hooks::apply(Config::withPrefix('sender_create_group'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'update_group':
+                $response = Hooks::apply(Config::withPrefix('sender_update_group'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'delete_group':
+                $response = Hooks::apply(Config::withPrefix('sender_delete_group'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            default:
+                $response = [
+                    'success' => false,
+                    'message' => __('Invalid action', 'bit-integrations'),
+                ];
+
+                break;
         }
-
-        $response = Hooks::apply(
-            Config::withPrefix($actionHookMap[$mainAction]),
-            $defaultResponse,
-            $fieldData,
-            $this->_integrationDetails
-        );
 
         $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
         LogHandler::save($this->_integrationID, ['type' => 'Sender', 'type_name' => $mainAction], $responseType, $response);
@@ -82,7 +107,7 @@ class RecordApiHelper
             }
 
             $triggerValue = $item->formField;
-            $actionValue  = $item->senderField;
+            $actionValue = $item->senderField;
 
             $dataFinal[$actionValue] = $triggerValue === 'custom' && isset($item->customValue)
                 ? Common::replaceFieldWithValue($item->customValue, $fieldValues)
