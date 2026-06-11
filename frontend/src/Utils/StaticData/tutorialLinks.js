@@ -674,6 +674,10 @@ const tutorialLinks = {
   bookingPress: {
     youTubeLink: '',
     docLink: ''
+  },
+  sender: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/sender-integrations/'
   }
 }
 export default tutorialLinks

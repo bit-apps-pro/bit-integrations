@@ -64,6 +64,7 @@ export default function SelectAction() {
     { type: 'Freshdesk' },
     { type: 'Zoho Desk' },
     { type: 'Sendy' },
+    { type: 'Sender' },
     { type: 'Zoom' },
     { type: 'Zoom Webinar' },
     { type: 'Fluent Support' },
