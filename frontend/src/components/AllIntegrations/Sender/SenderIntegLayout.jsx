@@ -42,6 +42,10 @@ export default function SenderIntegLayout({
         draftConf.mainAction = value
         draftConf.senderFields = fields
         draftConf.field_map = fields.length ? generateMappedField(fields) : []
+        // Clear per-action utilities/group selections so they never leak across an action switch.
+        draftConf.actions = {}
+        draftConf.groupId = ''
+        draftConf.groups = []
       })
     )
 
@@ -149,14 +153,16 @@ export default function SenderIntegLayout({
               setSenderConf={setSenderConf}
             />
           ))}
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() => addFieldMap(senderConf.field_map.length, senderConf, setSenderConf)}
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+          {subscriberActions.includes(senderConf?.mainAction) && (
+            <div className="txt-center btcbi-field-map-button mt-2">
+              <button
+                onClick={() => addFieldMap(senderConf.field_map.length, senderConf, setSenderConf)}
+                className="icn-btn sh-sm"
+                type="button">
+                +
+              </button>
+            </div>
+          )}
           <br />
         </div>
       )}

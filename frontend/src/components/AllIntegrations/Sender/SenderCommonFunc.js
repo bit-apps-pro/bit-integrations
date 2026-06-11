@@ -3,6 +3,7 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
+import { singleGroupActions } from './staticData'
 
 export const handleInput = (e, senderConf, setSenderConf) => {
   const { name, value } = e.target
@@ -22,6 +23,11 @@ export const generateMappedField = fields => {
 }
 
 export const checkMappedFields = senderConf => {
+  // Group-target actions require a selected group id, which lives outside the field map.
+  if (singleGroupActions.includes(senderConf?.mainAction) && !senderConf?.groupId) {
+    return false
+  }
+
   const mappedFields = senderConf?.field_map
     ? senderConf.field_map.filter(
         mappedField =>

@@ -10,6 +10,7 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SenderAuthorization from './SenderAuthorization'
 import { checkMappedFields } from './SenderCommonFunc'
 import SenderIntegLayout from './SenderIntegLayout'
+import { singleGroupActions } from './staticData'
 
 function Sender({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
@@ -33,6 +34,10 @@ function Sender({ formFields, setFlow, flow, allIntegURL }) {
   })
 
   const saveConfig = () => {
+    if (singleGroupActions.includes(senderConf?.mainAction) && !senderConf?.groupId) {
+      toast.error(__('Please select a group', 'bit-integrations'))
+      return
+    }
     if (!checkMappedFields(senderConf)) {
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
@@ -57,6 +62,10 @@ function Sender({ formFields, setFlow, flow, allIntegURL }) {
 
     if (!senderConf.mainAction) {
       toast.error(__('Please select an action', 'bit-integrations'))
+      return
+    }
+    if (singleGroupActions.includes(senderConf?.mainAction) && !senderConf?.groupId) {
+      toast.error(__('Please select a group', 'bit-integrations'))
       return
     }
     if (!checkMappedFields(senderConf)) {

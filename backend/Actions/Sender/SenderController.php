@@ -27,7 +27,11 @@ class SenderController
             wp_send_json_error(__('API token is required', 'bit-integrations'), 400);
         }
 
-        HttpHelper::get(self::$baseUrl . '/groups', null, self::authHeader($requestParams->api_token));
+        $response = HttpHelper::get(self::$baseUrl . '/groups', null, self::authHeader($requestParams->api_token));
+
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
 
         if (HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300) {
             wp_send_json_success(__('Authorized Successfully', 'bit-integrations'), 200);
@@ -48,6 +52,10 @@ class SenderController
         }
 
         $response = HttpHelper::get(self::$baseUrl . '/groups', null, self::authHeader($requestParams->api_token));
+
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
 
         if (HttpHelper::$responseCode < 200 || HttpHelper::$responseCode >= 300) {
             wp_send_json_error(__('Failed to fetch groups', 'bit-integrations'), 400);
@@ -76,6 +84,10 @@ class SenderController
         }
 
         $response = HttpHelper::get(self::$baseUrl . '/fields', null, self::authHeader($requestParams->api_token));
+
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
 
         if (HttpHelper::$responseCode < 200 || HttpHelper::$responseCode >= 300) {
             wp_send_json_error(__('Failed to fetch fields', 'bit-integrations'), 400);
