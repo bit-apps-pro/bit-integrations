@@ -91,7 +91,8 @@ class RecordApiHelper
         $body .= '{"name": "' . basename($filePath) . '", "parents": ["' . $folder . '"]}' . "\r\n";
         $body .= '--' . $boundary . "\r\n";
         $body .= "Content-Type: application/octet-stream\r\n\r\n";
-        $body .= file_get_contents($filePath) . "\r\n";
+        $safeFilePath = Common::safeUploadFilePath($filePath);
+        $body .= ($safeFilePath === '' ? '' : file_get_contents($safeFilePath)) . "\r\n";
         $body .= '--' . $boundary . "--\r\n";
 
         return $body;

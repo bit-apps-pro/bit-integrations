@@ -28,7 +28,12 @@ class RecordApiHelper
             return false;
         }
 
-        $body = file_get_contents(Common::filePath(trim($filePath)));
+        $safeFilePath = Common::safeUploadFilePath(trim($filePath));
+        if ($safeFilePath === '') {
+            return new WP_Error(423, 'Can\'t open file!');
+        }
+
+        $body = file_get_contents($safeFilePath);
 
         if (!$body) {
             return new WP_Error(423, 'Can\'t open file!');

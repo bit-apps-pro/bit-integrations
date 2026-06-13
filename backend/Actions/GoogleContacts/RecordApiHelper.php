@@ -136,7 +136,7 @@ class RecordApiHelper
         //     "personFields" => 'addresses,biographies,emailAddresses,names,phoneNumbers'
         // ];
 
-        $response = wp_remote_get($imageLocation);
+        $response = Common::safeRemoteGet($imageLocation);
         if (is_wp_error($response)) {
             return $response;
         }
