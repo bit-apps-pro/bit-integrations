@@ -2780,9 +2780,28 @@ final class TriggerFallback
         return $base64_img;
     }
 
+    /**
+     * Decode a HappyForms field value without instantiating PHP objects.
+     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
+     * by passing allowed_classes => false to unserialize(). Legitimate
+     * signature/attachment payloads are plain arrays and decode unchanged.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private static function safeMaybeUnserialize($value)
+    {
+        if (\is_string($value) && is_serialized($value)) {
+            return unserialize($value, ['allowed_classes' => false]);
+        }
+
+        return $value;
+    }
+
     public static function happyGetPath($val)
     {
-        $img = maybe_unserialize($val);
+        $img = self::safeMaybeUnserialize($val);
         $hash_ids = array_filter(array_values($img));
         $attachments = happyforms_get_attachment_controller()->get([
             'hash_id' => $hash_ids,
@@ -2808,7 +2827,8 @@ final class TriggerFallback
 
             foreach ($form_data as $key => $val) {
                 if (str_contains($key, 'signature')) {
-                    $baseUrl = maybe_unserialize($val)['signature_raster_data'];
+                    $decodedSignature = self::safeMaybeUnserialize($val);
+                    $baseUrl = \is_array($decodedSignature) ? ($decodedSignature['signature_raster_data'] ?? '') : '';
                     $path = self::happySaveImage($baseUrl, 'sign');
                     $form_data[$key] = $path;
                 } elseif (str_contains($key, 'date')) {
