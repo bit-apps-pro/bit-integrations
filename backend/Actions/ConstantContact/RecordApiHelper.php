@@ -178,7 +178,8 @@ class RecordApiHelper
         $customFields = [];
         foreach ($data as $key => $value) {
             if ($key !== 'email_address') {
-                if (str_contains($key, 'custom-')) {
+                // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
+                if (strpos($key, 'custom-') !== false) {
                     $customFields[] = [
                         'custom_field_id' => str_replace('custom-', '', $key),
                         'value'           => $value,

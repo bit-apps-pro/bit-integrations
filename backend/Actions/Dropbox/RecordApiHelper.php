@@ -30,13 +30,13 @@ class RecordApiHelper
 
         $safeFilePath = Common::safeUploadFilePath(trim($filePath));
         if ($safeFilePath === '') {
-            return new WP_Error(423, 'Can\'t open file!');
+            return new WP_Error(423, __('Can\'t open file!', 'bit-integrations'));
         }
 
         $body = file_get_contents($safeFilePath);
 
         if (!$body) {
-            return new WP_Error(423, 'Can\'t open file!');
+            return new WP_Error(423, __('Can\'t open file!', 'bit-integrations'));
         }
 
         $apiEndPoint = $this->contentBaseUri . '/2/files/upload';
