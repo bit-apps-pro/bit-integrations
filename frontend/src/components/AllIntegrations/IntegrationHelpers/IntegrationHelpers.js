@@ -229,8 +229,9 @@ export const saveIntegConfig = async (
   if (confTmp?.type === 'CustomAction') {
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
-  if (confTmp?.type === 'Mail') {
-    action = edit ? 'flow/mail/update' : 'flow/mail/save'
+
+  if (['Mail', 'Telegram', 'WhatsApp'].includes(confTmp?.type)) {
+    action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 
   try {
@@ -421,8 +422,9 @@ export const saveActionConf = async ({
   if (conf?.type === 'CustomAction') {
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
-  if (conf?.type === 'Mail') {
-    action = edit ? 'flow/mail/update' : 'flow/mail/save'
+
+  if (['Mail', 'Telegram', 'WhatsApp'].includes(conf?.type)) {
+    action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 
   try {
