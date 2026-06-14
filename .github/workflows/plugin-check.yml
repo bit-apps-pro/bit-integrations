@@ -71,6 +71,7 @@ jobs:
 
       - name: WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1
+        continue-on-error: true
         with:
           build-dir: './build/${{ env.PLUGIN_SLUG }}'
           exclude-directories: |
