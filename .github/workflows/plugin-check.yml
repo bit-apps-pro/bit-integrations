@@ -14,7 +14,7 @@ env:
 jobs:
   plugin-check:
     name: Plugin Check
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -69,9 +69,13 @@ jobs:
         run: |
           bash .github/build
 
+      - name: Start WordPress Environment
+        run: |
+          npm install -g @wordpress/env
+          wp-env start
+
       - name: WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1
-        continue-on-error: true
         with:
           build-dir: './build/${{ env.PLUGIN_SLUG }}'
           exclude-directories: |
