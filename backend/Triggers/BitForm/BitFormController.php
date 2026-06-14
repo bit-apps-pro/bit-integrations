@@ -121,7 +121,8 @@ final class BitFormController
         ];
 
         foreach ($formData as $key => $value) {
-            $data[$key] = (\is_string($value) && str_contains($value, '__bf__'))
+            // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
+            $data[$key] = (\is_string($value) && strpos($value, '__bf__') !== false)
                 ? explode('__bf__', $value)
                 : $value;
         }

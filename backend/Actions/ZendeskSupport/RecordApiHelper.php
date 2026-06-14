@@ -82,6 +82,7 @@ class RecordApiHelper
 
         $fieldData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $utilities = (array) ($this->_integrationDetails->utilities ?? []);
+        // translators: %s is the name of the integration.
         $default = ['success' => false, 'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')];
 
         $response = Hooks::apply(

@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Triggers\FallbackTrigger;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Flow\Flow;
 use DateTime;
@@ -737,7 +738,8 @@ final class TriggerFallback
         if (\array_key_exists('form_random_key', $posted_data) === false) {
             return;
         }
-        $form_id = str_starts_with($posted_data['form_random_key'], '101');
+        // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
+        $form_id = strpos($posted_data['form_random_key'], '101') === 0;
         if (!$form_id) {
             return;
         }
@@ -2089,7 +2091,7 @@ final class TriggerFallback
                     if (property_exists($fieldInfo, 'element') && $fieldInfo->element === 'input_date') {
                         $dateTimeHelper = new DateTimeHelper();
                         $currentDateFormat = $fieldInfo->settings->date_format;
-                        $formData[$attributes->name] = $dateTimeHelper->getFormated($formData[$attributes->name], $currentDateFormat, wp_timezone(), 'Y-m-d\TH:i:sP', null);
+                        $formData[$attributes->name] = $dateTimeHelper->getFormated($formData[$attributes->name], $currentDateFormat, DateTimeHelper::wp_timezone(), 'Y-m-d\TH:i:sP', null);
                     }
                 }
             }
@@ -2780,9 +2782,28 @@ final class TriggerFallback
         return $base64_img;
     }
 
+    /**
+     * Decode a HappyForms field value without instantiating PHP objects.
+     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
+     * by passing allowed_classes => false to unserialize(). Legitimate
+     * signature/attachment payloads are plain arrays and decode unchanged.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private static function safeMaybeUnserialize($value)
+    {
+        if (\is_string($value) && is_serialized($value)) {
+            return unserialize($value, ['allowed_classes' => false]);
+        }
+
+        return $value;
+    }
+
     public static function happyGetPath($val)
     {
-        $img = maybe_unserialize($val);
+        $img = self::safeMaybeUnserialize($val);
         $hash_ids = array_filter(array_values($img));
         $attachments = happyforms_get_attachment_controller()->get([
             'hash_id' => $hash_ids,
@@ -2807,17 +2828,18 @@ final class TriggerFallback
             $form_data = $submission;
 
             foreach ($form_data as $key => $val) {
-                if (str_contains($key, 'signature')) {
-                    $baseUrl = maybe_unserialize($val)['signature_raster_data'];
-                    $path = self::happySaveImage($baseUrl, 'sign');
-                    $form_data[$key] = $path;
-                } elseif (str_contains($key, 'date')) {
+                // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
+                if (strpos($key, 'signature') !== false) {
+                    $decodedSignature = self::safeMaybeUnserialize($val);
+                    $baseUrl = \is_array($decodedSignature) ? ($decodedSignature['signature_raster_data'] ?? '') : '';
+                    $form_data[$key] = $baseUrl !== '' ? self::happySaveImage($baseUrl, 'sign') : '';
+                } elseif (strpos($key, 'date') !== false) {
                     if (strtotime($val)) {
                         $dateTmp = new DateTime($val);
                         $dateFinal = date_format($dateTmp, 'Y-m-d');
                         $form_data[$key] = $dateFinal;
                     }
-                } elseif (str_contains($key, 'attachment')) {
+                } elseif (strpos($key, 'attachment') !== false) {
                     $image = self::happyGetPath($val);
                     $form_data[$key] = Common::filePath($image);
                 }
@@ -5604,7 +5626,7 @@ final class TriggerFallback
 
         $date_time_format = "{$date_format} {$time_format}";
 
-        return $dateTimeHelper->getFormated($field['value'], $date_time_format, wp_timezone(), 'Y-m-d\TH:i', null);
+        return $dateTimeHelper->getFormated($field['value'], $date_time_format, DateTimeHelper::wp_timezone(), 'Y-m-d\TH:i', null);
     }
 
     public static function wpefProcessUploadFieldValue($index, $field, $data)

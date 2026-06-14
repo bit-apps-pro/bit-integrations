@@ -30,85 +30,13 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'WordPress',
-        desc: '33 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP Post',
-        desc: '11 new events added',
-        isPro: true
-      },
-      {
-        label: 'IvyForms',
-        desc: '1 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP User Registration',
-        desc: '12 new events added',
-        isPro: true
-      },
-      {
-        label: 'MoreConvert Wishlist for WooCommerce',
-        desc: '9 new events added',
-        isPro: true
-      },
-      {
-        label: 'Secure Custom Fields (SCF)',
-        desc: '6 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'WordPress',
-        desc: '33 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP Post',
-        desc: '6 new events added',
-        isPro: true
-      },
-      {
-        label: 'Heffl CRM',
-        desc: '3 new events added',
-        isPro: true
-      },
-      {
-        label: 'IvyForms',
-        desc: '1 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP User Registration',
-        desc: '11 new events added',
-        isPro: true
-      },
-      {
-        label: 'Zendesk Support',
-        desc: '17 new events added',
-        isPro: true
-      },
-      {
-        label: 'MoreConvert Wishlist for WooCommerce',
-        desc: '8 new events added',
-        isPro: true
-      },
-      {
-        label: 'Secure Custom Fields (SCF)',
-        desc: '5 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -122,14 +50,9 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Response review modal',
-        desc: 'Improved UI.',
+        label: 'Post content sanitization',
+        desc: 'Sanitization route generalized to cover all rich-content integrations (Mail, Telegram, WhatsApp, and more).',
         isPro: false
-      },
-      {
-        label: 'Custom Trigger, Webhook & Form Submission',
-        desc: 'Added a countdown timer and improved loading state for data-fetching operations.',
-        isPro: true
       }
     ]
   },
@@ -139,9 +62,9 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Telegram',
-        desc: 'Fixed chat list fetching issue.',
-        isPro: false
+        label: 'SureCart',
+        desc: 'Fixed checkbox fields missing from trigger payload.',
+        isPro: true
       }
     ]
   },
@@ -149,13 +72,35 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'Trigger Test Data',
+        desc: 'Gated test-data read/delete endpoints with capability checks.',
+        isPro: false
+      },
+      {
+        label: 'SSRF & LFI',
+        desc: 'Blocked server-side request forgery and local file inclusion in file/upload fetching.',
+        isPro: false
+      },
+      {
+        label: 'Custom Function',
+        desc: 'Sanitized the custom-action file name on write to block path traversal.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'WordPress 5.1 compatibility',
+        desc: 'Replace WP 5.3/5.9 functions for WP 5.1 minimum support.',
+        isPro: false
+      }
+    ]
   }
 ]
 

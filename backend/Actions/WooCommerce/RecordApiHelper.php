@@ -628,7 +628,7 @@ class RecordApiHelper
         $url_array = explode('/', $url);
         $image_name = $url_array[\count($url_array) - 1];
 
-        $response = wp_remote_get($image_url);
+        $response = Common::safeRemoteGet($image_url);
         if (is_wp_error($response)) {
             return false;
         }

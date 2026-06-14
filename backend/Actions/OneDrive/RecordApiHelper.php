@@ -30,7 +30,10 @@ class RecordApiHelper
             return false;
         }
 
-        $filePath = Common::filePath($file);
+        $filePath = Common::safeUploadFilePath($file);
+        if ($filePath === '') {
+            return new \WP_Error(423, __("Can't open file!", 'bit-integrations'));
+        }
         $apiEndpoint = 'https://api.onedrive.com/v1.0/drives/' . $ids[0] . '/items/' . $parentId . ':/' . basename($filePath) . ':/content';
 
         $headers = [

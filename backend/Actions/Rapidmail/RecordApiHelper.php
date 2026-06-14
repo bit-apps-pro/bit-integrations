@@ -136,7 +136,7 @@ class RecordApiHelper
                     $date_format = 'Y-m-d\TH:i';
                 }
                 $dateTimeHelper = new DateTimeHelper();
-                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, wp_timezone(), 'Y-m-d\TH:i:sP', null);
+                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, DateTimeHelper::wp_timezone(), 'Y-m-d\TH:i:sP', null);
                 $formatedValue = !$formatedValue ? null : $formatedValue;
             } elseif ($formatSpecs->data_type === 'date') {
                 if (\is_array($value)) {
@@ -157,7 +157,7 @@ class RecordApiHelper
                     $date_format = 'Y-m-d\TH:i';
                 }
                 $dateTimeHelper = new DateTimeHelper();
-                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, wp_timezone(), 'Y-m-d', null);
+                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, DateTimeHelper::wp_timezone(), 'Y-m-d', null);
                 $formatedValue = !$formatedValue ? null : $formatedValue;
             } else {
                 $stringyfieldValue = !\is_string($value) ? wp_json_encode($value) : $value;

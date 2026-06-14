@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.7
+Stable tag: 2.8.8
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
@@ -102,9 +102,9 @@ You can easily integrate WooCommerce with Google Sheet, CRM, Email Marketing & m
 
 **WordPress Integration**
 
-Automating WordPress tasks is now smarter with Bit Flows.
+Automating WordPress tasks is now smarter with Bit Integrations.
 Connect plugins like Elementor, Fluent Forms, Tutor LMS, or Contact Form 7 to your workflows.
-For example, when a form is submitted, Bit Flows can create a post, send emails, and update CRM records (e.g. FluentCRM) automatically.
+For example, when a form is submitted, Bit Integrations can create a post, send emails, and update CRM records (e.g. FluentCRM) automatically.
 
 **MailChimp Integration**
 
@@ -467,6 +467,24 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.8.8 =
+_Release Date - 14th June 2026_
+
+- **Security Fixes**
+ - Trigger Test Data: Gated test-data read/delete endpoints with capability checks.
+ - SSRF & LFI: Blocked server-side request forgery and local file inclusion in file/upload fetching.
+ - HappyForms: Hardened PHP object injection in the FallbackTrigger by restricting unserialize to non-object types.
+ - Custom Function: Sanitized the custom-action file name on write to block path traversal.
+ - GamiPress & FormCraft: Parameterized raw SQL queries to prevent SQL injection (Pro).
+ - BuddyBoss, AppointmentHourBooking, FluentSMTP & HappyForms: Blocked PHP object injection by restricting unserialize to non-object types (Pro).
+
+- **Improvements**
+ - Post content sanitization route generalized to cover all rich-content integrations (Mail, Telegram, WhatsApp, and more).
+
+- **Bug Fixes**
+ - WordPress 5.1 compatibility: Replace WP 5.3/5.9 functions for WP 5.1 minimum support.
+ - SureCart: Fixed checkbox fields missing from trigger payload (Pro).
 
 = 2.8.7 =
 _Release Date - 8th June 2026_
