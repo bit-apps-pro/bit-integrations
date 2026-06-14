@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.8
+Stable tag: 2.8.9
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
@@ -467,6 +467,15 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.8.9 =
+_Release Date - 14th June 2026_
+
+- **Security Fixes**
+ - Dropbox & OneDrive: Hardened file deletion paths to prevent path traversal outside the uploads directory.
+ - WooCommerce: Improved attachment uploads by validating sideloaded files before moving them into uploads.
+ - ClickUp, Discord, Freshdesk, PCloud, Slack & Telegram: Restricted file-upload paths to safe WordPress uploads locations before sending files to third-party APIs.
+ - HappyForms: Validated saved image payloads as PNG files and sanitized generated filenames before writing to disk.
 
 = 2.8.8 =
 _Release Date - 14th June 2026_

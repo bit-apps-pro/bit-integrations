@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Slack;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
@@ -47,7 +48,12 @@ final class FilesApiHelper
             return false;
         }
 
-        $data['file'] = new CURLFile($file);
+        $safePath = Common::safeUploadFilePath($file);
+        if ($safePath === '') {
+            return false;
+        }
+
+        $data['file'] = new CURLFile($safePath);
 
         return HttpHelper::post(
             $uploadFileEndpoint,

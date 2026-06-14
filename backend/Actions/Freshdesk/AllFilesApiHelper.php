@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Freshdesk;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
@@ -56,7 +57,11 @@ final class AllFilesApiHelper
             if (\is_array($file)) {
                 return static::setAttachment($file);
             }
-            $attachments[] = new CURLFile($file);
+            $safePath = Common::safeUploadFilePath($file);
+            if ($safePath === '') {
+                continue;
+            }
+            $attachments[] = new CURLFile($safePath);
         }
 
         return $attachments;

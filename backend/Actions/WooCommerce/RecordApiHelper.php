@@ -624,39 +624,37 @@ class RecordApiHelper
     public function upload_attachment($product_id, $url)
     {
         include_once ABSPATH . 'wp-admin/includes/image.php';
-        $image_url = $url;
-        $url_array = explode('/', $url);
-        $image_name = $url_array[\count($url_array) - 1];
+        include_once ABSPATH . 'wp-admin/includes/file.php';
+        include_once ABSPATH . 'wp-admin/includes/media.php';
 
-        $response = Common::safeRemoteGet($image_url);
+        $response = Common::safeRemoteGet($url);
         if (is_wp_error($response)) {
             return false;
         }
+
         $image_data = wp_remote_retrieve_body($response);
-        $upload_dir = wp_upload_dir();
-        $unique_file_name = wp_unique_filename($upload_dir['path'], $image_name);
-        $filename = basename($unique_file_name);
-
-        if (wp_mkdir_p($upload_dir['path'])) {
-            $file = $upload_dir['path'] . '/' . $filename;
-        } else {
-            $file = $upload_dir['basedir'] . '/' . $filename;
+        if (empty($image_data)) {
+            return false;
         }
-        file_put_contents($file, $image_data);
 
-        $wp_filetype = wp_check_filetype($filename, null);
+        $filename = basename(parse_url($url, PHP_URL_PATH));
+        $tmp = wp_tempnam($filename);
+        if (!$tmp || file_put_contents($tmp, $image_data) === false) {
+            return false;
+        }
 
-        $attachment = [
-            'post_mime_type' => $wp_filetype['type'],
-            'post_title'     => sanitize_file_name($filename),
-            'post_content'   => '',
-            'post_status'    => 'inherit',
+        $file_array = [
+            'name'     => $filename,
+            'tmp_name' => $tmp,
         ];
 
-        $attach_id = wp_insert_attachment($attachment, $file, $product_id);
-        $attach_data = wp_generate_attachment_metadata($attach_id, $file);
+        $attach_id = media_handle_sideload($file_array, $product_id);
 
-        wp_update_attachment_metadata($attach_id, $attach_data);
+        if (is_wp_error($attach_id)) {
+            @unlink($tmp);
+
+            return false;
+        }
 
         return $attach_id;
     }

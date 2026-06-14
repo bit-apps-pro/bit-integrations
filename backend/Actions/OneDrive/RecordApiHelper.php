@@ -77,8 +77,10 @@ class RecordApiHelper
     public function deleteFile($filePath, $actions)
     {
         if (isset($actions->delete_from_wp) && $actions->delete_from_wp) {
-            if (file_exists($filePath)) {
-                wp_delete_file($filePath);
+            $safePath = Common::safeUploadFilePath($filePath);
+
+            if ($safePath !== '' && file_exists($safePath)) {
+                wp_delete_file($safePath);
             }
         }
     }

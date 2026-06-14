@@ -2769,8 +2769,13 @@ final class TriggerFallback
         $img = str_replace('data:image/png;base64,', '', $base64_img);
         $img = str_replace(' ', '+', $img);
         $decoded = base64_decode($img);
-        $filename = $title . '.png';
-        $file_type = 'image/png';
+
+        // Reject content that isn't a valid PNG (magic bytes \x89PNG).
+        if (substr($decoded, 0, 4) !== "\x89PNG") {
+            return $base64_img;
+        }
+
+        $filename = sanitize_file_name($title) . '.png';
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
         // Save the image in the uploads directory.
