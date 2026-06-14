@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Freshdesk;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
@@ -35,7 +36,11 @@ final class FilesApiHelper
      */
     public function uploadFiles($apiEndPoint, $data, $api_key)
     {
-        $data['avatar'] = new CURLFile("{$data['avatar']}");
+        $safePath = Common::safeUploadFilePath($data['avatar']);
+        if ($safePath === '') {
+            return false;
+        }
+        $data['avatar'] = new CURLFile($safePath);
 
         return HttpHelper::post(
             $apiEndPoint,
