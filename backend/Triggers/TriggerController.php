@@ -41,6 +41,10 @@ final class TriggerController
 
     public static function getTriggerField($triggerName, $data)
     {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+            wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
+        }
+
         $trigger = basename($triggerName);
 
         if (file_exists(__DIR__ . '/' . $trigger . '/' . $trigger . 'Controller.php')) {

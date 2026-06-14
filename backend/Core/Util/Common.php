@@ -136,6 +136,14 @@ final class Common
             }
         }
 
+        // Deny unresolvable hostnames — allowing them through would let a DNS failure
+        // bypass all IP range checks (the foreach below would iterate zero times).
+        // Note: DNS-rebinding (TOCTOU) between this check and wp_safe_remote_get's
+        // own resolution is an inherent limitation of server-side DNS validation.
+        if (empty($ips)) {
+            return false;
+        }
+
         foreach ($ips as $ip) {
             // Reject private (10/8, 172.16/12, 192.168/16, fc00::/7, fe80::/10) and
             // reserved (0/8, 127/8, 169.254/16, ::1, ...) ranges -> blocks loopback

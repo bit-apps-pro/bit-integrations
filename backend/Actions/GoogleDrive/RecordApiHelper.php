@@ -25,7 +25,11 @@ class RecordApiHelper
             return false;
         }
 
-        $filePath = Common::filePath($file);
+        $filePath = Common::safeUploadFilePath($file);
+        if ($filePath === '') {
+            return new \WP_Error(423, __("Can't open file!", 'bit-integrations'));
+        }
+
         $apiEndpoint = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
         $boundary = $this->getBoundary();
         $headers = [
@@ -57,9 +61,9 @@ class RecordApiHelper
     public function deleteFile($file, $actions)
     {
         if (isset($actions->delete_from_wp) && $actions->delete_from_wp) {
-            $filePath = Common::filePath($file);
+            $filePath = Common::safeUploadFilePath($file);
 
-            if (file_exists($filePath)) {
+            if ($filePath !== '' && file_exists($filePath)) {
                 wp_delete_file($filePath);
             }
         }
@@ -91,8 +95,7 @@ class RecordApiHelper
         $body .= '{"name": "' . basename($filePath) . '", "parents": ["' . $folder . '"]}' . "\r\n";
         $body .= '--' . $boundary . "\r\n";
         $body .= "Content-Type: application/octet-stream\r\n\r\n";
-        $safeFilePath = Common::safeUploadFilePath($filePath);
-        $body .= ($safeFilePath === '' ? '' : file_get_contents($safeFilePath)) . "\r\n";
+        $body .= file_get_contents($filePath) . "\r\n";
         $body .= '--' . $boundary . "--\r\n";
 
         return $body;

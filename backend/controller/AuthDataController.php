@@ -49,7 +49,7 @@ final class AuthDataController
     {
         self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
 
-        $actionName = sanitize_text_field($request->actionName ? $request->actionName : $request);
+        $actionName = sanitize_text_field(\is_object($request) ? ($request->actionName ?? '') : (string) $request);
         if (empty($actionName)) {
             wp_send_json_error('Action name is not available');
             exit;
@@ -125,8 +125,13 @@ final class AuthDataController
         }
 
         $authModel = new AuthModel();
+        $result = $authModel->delete(['id' => $id]);
 
-        return $authModel->delete(['id' => $id]);
+        if (is_wp_error($result)) {
+            wp_send_json_error(__('Failed to delete credential', 'bit-integrations'));
+        }
+
+        wp_send_json_success(__('Credential deleted successfully', 'bit-integrations'));
     }
 
     private static function ensurePermission(array $capabilities)
