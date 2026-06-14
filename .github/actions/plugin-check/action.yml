@@ -77,49 +77,20 @@ runs:
 
         wp-env run cli wp plugin activate "$PLUGIN_SLUG"
 
-        # WP-CLI `plugin check` exits 0 even with findings, so we gate ourselves.
-        # 2>/dev/null drops the cli container's bootstrap notices; the sed strips
-        # a stray wpdb error banner the plugin prints on a fresh (table-less) install.
-        run_check() {
-          wp-env run cli wp plugin check "$PLUGIN_SLUG" \
-            --format="$1" \
-            "${args[@]}" \
-            --require=./wp-content/plugins/plugin-check/cli.php \
-            2>/dev/null | sed 's#<div id="error">.*</div>##'
-        }
+        # WP-CLI `plugin check` exits 0 even with findings, so we render + gate
+        # ourselves. 2>/dev/null drops the cli container's bootstrap notices; the
+        # sed strips a stray wpdb error banner the plugin prints on a fresh
+        # (table-less) install, keeping the JSON clean for the artifact.
+        wp-env run cli wp plugin check "$PLUGIN_SLUG" \
+          --format=json \
+          "${args[@]}" \
+          --require=./wp-content/plugins/plugin-check/cli.php \
+          2>/dev/null | sed 's#<div id="error">.*</div>##' \
+          > plugin-check-results.json || true
 
-        # Machine-readable results for the artifact and the gate.
-        run_check json > plugin-check-results.json || true
-        # Human-readable table for the log and the job summary.
-        run_check table > plugin-check-results.txt || true
-
-        echo "::group::Plugin Check results"
-        cat plugin-check-results.txt
-        echo "::endgroup::"
-
-        {
-          echo "## WordPress Plugin Check"
-          if grep -qE '^\|' plugin-check-results.txt; then
-            echo '```'
-            cat plugin-check-results.txt
-            echo '```'
-          else
-            echo "✅ No issues found."
-          fi
-        } >> "$GITHUB_STEP_SUMMARY"
-
-        # With --ignore-warnings the tool omits the `type` field and only reports
-        # errors, so any finding is blocking; otherwise gate on ERROR rows only.
-        if [ "$IGNORE_WARNINGS" = "true" ]; then
-          gate_pattern='"message":'
-        else
-          gate_pattern='"type":"ERROR"'
-        fi
-
-        if grep -q "$gate_pattern" plugin-check-results.json; then
-          echo "::error::Plugin Check reported errors. See the job summary or the uploaded artifact."
-          exit 1
-        fi
+        # Render the results (aligned log table + Markdown job summary) and exit
+        # non-zero on blocking errors.
+        php "${GITHUB_ACTION_PATH}/format-results.php" plugin-check-results.json "$IGNORE_WARNINGS"
 
     - name: Upload Plugin Check results
       if: ${{ always() }}
