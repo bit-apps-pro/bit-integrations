@@ -91,20 +91,38 @@ jobs:
         run: |
           wp-env run cli wp plugin activate "${PLUGIN_SLUG}"
 
-          # WP-CLI's `plugin check` exits 0 even when it reports findings, so the
-          # JSON is captured for the artifact and the job is gated on ERROR rows.
+          # WP-CLI's `plugin check` exits 0 even when it reports findings, so we
+          # capture the JSON, surface it in the log + job summary, then gate the
+          # job on ERROR rows ourselves. 2>/dev/null drops the cli container's
+          # bootstrap notices and the sed strips a stray wpdb error banner the
+          # plugin prints on a fresh (table-less) install, keeping the JSON clean.
           wp-env run cli wp plugin check "${PLUGIN_SLUG}" \
             --format=json \
             --categories=general,security,performance,accessibility,plugin_repo \
             --checks=i18n_usage,late_escaping,plugin_readme,file_type,performant_wp_query_params,plugin_updater,enqueued_scripts_size,plugin_review_phpcs,trademarks \
             --exclude-directories=vendor,node_modules \
             --require=./wp-content/plugins/plugin-check/cli.php \
+            2>/dev/null \
+            | sed 's#<div id="error">.*</div>##' \
             > plugin-check-results.json || true
 
+          echo "::group::Plugin Check results"
           cat plugin-check-results.json
+          echo "::endgroup::"
+
+          {
+            echo "## WordPress Plugin Check"
+            if grep -q '"type":' plugin-check-results.json; then
+              echo '```'
+              cat plugin-check-results.json
+              echo '```'
+            else
+              echo "✅ No issues found."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
           if grep -q '"type":"ERROR"' plugin-check-results.json; then
-            echo "::error::Plugin Check reported errors. See the log above or the uploaded artifact."
+            echo "::error::Plugin Check reported errors. See the job summary or the uploaded artifact."
             exit 1
           fi
 
