@@ -1,9 +1,6 @@
 name: WordPress Plugin Check
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -69,31 +66,52 @@ jobs:
         run: |
           bash .github/build
 
-      - name: Start WordPress Environment
+      # wordpress/plugin-check-action@v1 force-installs the latest @wordpress/env,
+      # and @wordpress/env@11.8.0 (2026-06-04) silently exits 0 from `wp-env start`
+      # without bringing up Docker — breaking Plugin Check on GitHub runners since
+      # 2026-06-08. We pin @wordpress/env@11.7.0 (last good release) and run the
+      # check directly, mirroring the action. Revert to the action once upstream
+      # ships a fixed @wordpress/env.
+      - name: Start WordPress environment (pinned wp-env)
         run: |
-          npm install -g @wordpress/env
+          npm install -g @wordpress/env@11.7.0
+          cat > .wp-env.json <<'JSON'
+          {
+            "core": null,
+            "testsEnvironment": false,
+            "plugins": [ "https://downloads.wordpress.org/plugin/plugin-check.zip" ],
+            "mappings": {
+              "wp-content/plugins/${{ env.PLUGIN_SLUG }}": "./build/${{ env.PLUGIN_SLUG }}"
+            }
+          }
+          JSON
           wp-env start
 
       - name: WordPress Plugin Check
-        uses: wordpress/plugin-check-action@v1
+        run: |
+          wp-env run cli wp plugin activate "${PLUGIN_SLUG}"
+
+          # WP-CLI's `plugin check` exits 0 even when it reports findings, so the
+          # JSON is captured for the artifact and the job is gated on ERROR rows.
+          wp-env run cli wp plugin check "${PLUGIN_SLUG}" \
+            --format=json \
+            --categories=general,security,performance,accessibility,plugin_repo \
+            --checks=i18n_usage,late_escaping,plugin_readme,file_type,performant_wp_query_params,plugin_updater,enqueued_scripts_size,plugin_review_phpcs,trademarks \
+            --exclude-directories=vendor,node_modules \
+            --require=./wp-content/plugins/plugin-check/cli.php \
+            > plugin-check-results.json || true
+
+          cat plugin-check-results.json
+
+          if grep -q '"type":"ERROR"' plugin-check-results.json; then
+            echo "::error::Plugin Check reported errors. See the log above or the uploaded artifact."
+            exit 1
+          fi
+
+      - name: Upload Plugin Check results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
         with:
-          build-dir: './build/${{ env.PLUGIN_SLUG }}'
-          exclude-directories: |
-            vendor
-            node_modules
-          categories: |
-            general
-            security
-            performance
-            accessibility
-            plugin_repo
-          checks: |
-            i18n_usage
-            late_escaping
-            plugin_readme
-            file_type
-            performant_wp_query_params
-            plugin_updater
-            enqueued_scripts_size
-            plugin_review_phpcs
-            trademarks
+          name: plugin-check-results
+          path: plugin-check-results.json
+          if-no-files-found: ignore
