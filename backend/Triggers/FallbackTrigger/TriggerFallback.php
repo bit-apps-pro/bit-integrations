@@ -2832,8 +2832,7 @@ final class TriggerFallback
                 if (strpos($key, 'signature') !== false) {
                     $decodedSignature = self::safeMaybeUnserialize($val);
                     $baseUrl = \is_array($decodedSignature) ? ($decodedSignature['signature_raster_data'] ?? '') : '';
-                    $path = self::happySaveImage($baseUrl, 'sign');
-                    $form_data[$key] = $path;
+                    $form_data[$key] = $baseUrl !== '' ? self::happySaveImage($baseUrl, 'sign') : '';
                 } elseif (strpos($key, 'date') !== false) {
                     if (strtotime($val)) {
                         $dateTmp = new DateTime($val);

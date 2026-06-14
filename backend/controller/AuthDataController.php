@@ -49,7 +49,7 @@ final class AuthDataController
     {
         self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
 
-        $actionName = sanitize_text_field(\is_object($request) ? ($request->actionName ?? '') : (string) $request);
+        $actionName = sanitize_text_field(\is_object($request) ? ($request->actionName ?? '') : (\is_scalar($request) ? (string) $request : ''));
         if (empty($actionName)) {
             wp_send_json_error('Action name is not available');
             exit;

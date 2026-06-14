@@ -184,7 +184,7 @@ final class Common
         }
 
         $real = realpath($file);
-        if ($real === false) {
+        if ($real === false || !is_file($real)) {
             return '';
         }
 

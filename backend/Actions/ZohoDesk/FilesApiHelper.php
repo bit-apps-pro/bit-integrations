@@ -55,6 +55,7 @@ final class FilesApiHelper
         $payload = '';
         if (\is_array($files)) {
             foreach ($files as $fileIndex => $fileName) {
+                $payload = '';
                 if (($safeFile = Common::safeUploadFilePath($fileName)) !== '') {
                     $payload .= '--' . $this->_payloadBoundary;
                     $payload .= "\r\n";
