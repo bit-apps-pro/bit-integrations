@@ -1,0 +1,101 @@
+name: 'WordPress Plugin Check (pinned wp-env)'
+description: >-
+  Drop-in replacement for wordpress/plugin-check-action@v1 that pins
+  @wordpress/env to a working release. The upstream action force-installs the
+  latest @wordpress/env at runtime, and 11.8.0 silently exits 0 from
+  `wp-env start` without bringing up Docker. Remove this action and switch the
+  workflow back to wordpress/plugin-check-action@v1 once upstream is fixed.
+
+inputs:
+  build-dir:
+    description: 'Path to the built plugin directory to check.'
+    required: true
+  categories:
+    description: 'Check categories (newline- or comma-separated).'
+    required: false
+    default: ''
+  checks:
+    description: 'Checks to run (newline- or comma-separated).'
+    required: false
+    default: ''
+  exclude-directories:
+    description: 'Directories to exclude (newline- or comma-separated).'
+    required: false
+    default: ''
+  ignore-warnings:
+    description: 'Only fail on errors; do not report warnings.'
+    required: false
+    default: 'false'
+  wp-env-version:
+    description: 'Pinned @wordpress/env version (workaround for the 11.8.0 Docker regression).'
+    required: false
+    default: '11.7.0'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Start WordPress environment (pinned wp-env)
+      shell: bash
+      env:
+        BUILD_DIR: ${{ inputs.build-dir }}
+        WP_ENV_VERSION: ${{ inputs.wp-env-version }}
+      run: |
+        PLUGIN_SLUG="$(basename "$BUILD_DIR")"
+        echo "PLUGIN_SLUG=$PLUGIN_SLUG" >> "$GITHUB_ENV"
+
+        npm install -g "@wordpress/env@${WP_ENV_VERSION}"
+
+        cat > .wp-env.json <<JSON
+        {
+          "core": null,
+          "testsEnvironment": false,
+          "plugins": [ "https://downloads.wordpress.org/plugin/plugin-check.zip" ],
+          "mappings": {
+            "wp-content/plugins/${PLUGIN_SLUG}": "${BUILD_DIR}"
+          }
+        }
+        JSON
+
+        wp-env start
+
+    - name: Run Plugin Check
+      shell: bash
+      env:
+        CATEGORIES: ${{ inputs.categories }}
+        CHECKS: ${{ inputs.checks }}
+        EXCLUDE_DIRECTORIES: ${{ inputs.exclude-directories }}
+        IGNORE_WARNINGS: ${{ inputs.ignore-warnings }}
+      run: |
+        # Normalise newline-separated workflow inputs to comma-separated CLI args.
+        csv() { printf '%s' "$1" | tr -s '[:space:]' ',' | sed 's/^,//;s/,$//'; }
+
+        args=()
+        [ -n "$(csv "$CATEGORIES")" ]          && args+=("--categories=$(csv "$CATEGORIES")")
+        [ -n "$(csv "$CHECKS")" ]              && args+=("--checks=$(csv "$CHECKS")")
+        [ -n "$(csv "$EXCLUDE_DIRECTORIES")" ] && args+=("--exclude-directories=$(csv "$EXCLUDE_DIRECTORIES")")
+        [ "$IGNORE_WARNINGS" = "true" ]         && args+=("--ignore-warnings")
+
+        wp-env run cli wp plugin activate "$PLUGIN_SLUG"
+
+        # WP-CLI `plugin check` exits 0 even with findings, so we render + gate
+        # ourselves. 2>/dev/null drops the cli container's bootstrap notices; the
+        # sed strips a stray wpdb error banner the plugin prints on a fresh
+        # (table-less) install, keeping the JSON clean for the artifact.
+        wp-env run cli wp plugin check "$PLUGIN_SLUG" \
+          --format=json \
+          "${args[@]}" \
+          --require=./wp-content/plugins/plugin-check/cli.php \
+          2>/dev/null | sed 's#<div id="error">.*</div>##' \
+          > plugin-check-results.json || true
+
+        # Render the results (aligned log table + Markdown job summary) and exit
+        # non-zero on blocking errors.
+        php "${GITHUB_ACTION_PATH}/format-results.php" plugin-check-results.json "$IGNORE_WARNINGS"
+
+    - name: Upload Plugin Check results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: plugin-check-results
+        path: plugin-check-results.json
+        if-no-files-found: ignore

@@ -1,9 +1,6 @@
 name: WordPress Plugin Check
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -69,15 +66,14 @@ jobs:
         run: |
           bash .github/build
 
-      - name: Start WordPress Environment
-        run: |
-          npm install -g @wordpress/env
-          wp-env start
-
+      # Local pinned-wp-env action — workaround for the @wordpress/env 11.8.0
+      # Docker regression. Toggle back to the upstream action (identical `with:`)
+      # once it is fixed by swapping the two `uses:` lines below.
       - name: WordPress Plugin Check
-        uses: wordpress/plugin-check-action@v1
+        uses: ./.github/actions/plugin-check
+        # uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: './build/${{ env.PLUGIN_SLUG }}'
+          build-dir: ./build/${{ env.PLUGIN_SLUG }}
           exclude-directories: |
             vendor
             node_modules
