@@ -5,8 +5,7 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
-import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { generateMappedField, refreshLevels } from './WishlistMemberCommonFunc'
+import { addFieldMap, generateMappedField, refreshLevels } from './WishlistMemberCommonFunc'
 import WishlistMemberFieldMap from './WishlistMemberFieldMap'
 import { actionFieldsMap, modules } from './staticData'
 
@@ -60,33 +59,33 @@ export default function WishlistMemberIntegLayout({
       {['create_member', 'add_member_to_level', 'remove_member_from_level'].includes(
         wishlistMemberConf?.action
       ) && (
-        <>
-          <br />
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Membership Levels:', 'bit-integrations')}</b>
-            <MultiSelect
-              defaultValue={wishlistMemberConf?.level_id || ''}
-              className="btcd-paper-drpdwn w-5"
-              options={wishlistMemberConf?.levels?.map(lvl => ({
-                label: lvl.label,
-                value: lvl.value.toString()
-              }))}
-              onChange={value => setChange(value, 'level_id')}
-              closeOnSelect
-              singleSelect
-            />
-            <button
-              onClick={() => refreshLevels(setWishlistMemberConf, setIsLoading, setSnackbar)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh Membership Levels', 'bit-integrations')}'` }}
-              type="button"
-              disabled={isLoading}>
-              &#x21BB;
-            </button>
-          </div>
-          <br />
-        </>
-      )}
+          <>
+            <br />
+            <div className="flx">
+              <b className="wdt-200 d-in-b">{__('Membership Levels:', 'bit-integrations')}</b>
+              <MultiSelect
+                defaultValue={wishlistMemberConf?.level_id || ''}
+                className="btcd-paper-drpdwn w-5"
+                options={wishlistMemberConf?.levels?.map(lvl => ({
+                  label: lvl.label,
+                  value: lvl.value.toString()
+                }))}
+                onChange={value => setChange(value, 'level_id')}
+                closeOnSelect
+                singleSelect
+              />
+              <button
+                onClick={() => refreshLevels(setWishlistMemberConf, setIsLoading, setSnackbar)}
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': `'${__('Refresh Membership Levels', 'bit-integrations')}'` }}
+                type="button"
+                disabled={isLoading}>
+                &#x21BB;
+              </button>
+            </div>
+            <br />
+          </>
+        )}
 
       {isLoading && (
         <Loader
