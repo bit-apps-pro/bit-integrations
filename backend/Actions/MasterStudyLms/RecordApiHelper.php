@@ -382,38 +382,38 @@ class RecordApiHelper
                 return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
             }
             $response = Hooks::apply(Config::withPrefix('master_study_lms_enroll_user'), $defaultResponse, [
-                'course_id' => $integrationDetails->courseId,
+                'course_id' => $integrationDetails->courseId ?? null,
                 'email'     => $fieldData['user_email'],
             ]);
-            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'enroll-user', 'type_name' => 'enroll-user-to-course']), !empty($response['success']) ? 'success' : 'error', $response['message'] ?? '');
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'enroll-user', 'type_name' => 'enroll-user-to-course']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
         } elseif ((int) $mainAction === self::UNENROLL_USER) {
             if (empty($fieldData['user_email'])) {
                 return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
             }
             $response = Hooks::apply(Config::withPrefix('master_study_lms_unenroll_user'), $defaultResponse, [
-                'course_id' => $integrationDetails->courseId,
+                'course_id' => $integrationDetails->courseId ?? null,
                 'email'     => $fieldData['user_email'],
             ]);
-            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'unenroll-user', 'type_name' => 'unenroll-user-from-course']), !empty($response['success']) ? 'success' : 'error', $response['message'] ?? '');
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'unenroll-user', 'type_name' => 'unenroll-user-from-course']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
         } elseif ((int) $mainAction === self::MARK_COURSE_COMPLETE) {
             if (empty($fieldData['user_email'])) {
                 return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
             }
             $response = Hooks::apply(Config::withPrefix('master_study_lms_mark_course_complete'), $defaultResponse, [
-                'course_id' => $integrationDetails->courseId,
+                'course_id' => $integrationDetails->courseId ?? null,
                 'email'     => $fieldData['user_email'],
             ]);
-            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'mark-course-complete', 'type_name' => 'mark-course-complete-for-user']), !empty($response['success']) ? 'success' : 'error', $response['message'] ?? '');
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'mark-course-complete', 'type_name' => 'mark-course-complete-for-user']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
         } elseif ((int) $mainAction === self::MARK_LESSON_COMPLETE) {
             if (empty($fieldData['user_email'])) {
                 return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
             }
             $response = Hooks::apply(Config::withPrefix('master_study_lms_mark_lesson_complete'), $defaultResponse, [
-                'course_id' => $integrationDetails->courseId,
-                'lesson_id' => $integrationDetails->lessonId,
+                'course_id' => $integrationDetails->courseId ?? null,
+                'lesson_id' => $integrationDetails->lessonId ?? null,
                 'email'     => $fieldData['user_email'],
             ]);
-            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'mark-lesson-complete', 'type_name' => 'mark-lesson-complete-for-user']), !empty($response['success']) ? 'success' : 'error', $response['message'] ?? '');
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'mark-lesson-complete', 'type_name' => 'mark-lesson-complete-for-user']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
         }
 
         return $response;

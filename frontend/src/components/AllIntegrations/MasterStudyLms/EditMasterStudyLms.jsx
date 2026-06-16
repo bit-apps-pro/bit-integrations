@@ -10,7 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { handleInput } from './MasterStudyLmsCommonFunc'
+import { handleInput, isActionConfigIncomplete } from './MasterStudyLmsCommonFunc'
 import MasterStudyLmsIntegLayout from './MasterStudyLmsIntegLayout'
 
 function EditMasterStudyLms({ allIntegURL }) {
@@ -66,7 +66,7 @@ function EditMasterStudyLms({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={msLmsConf.mainAction === '' || isLoading}
+        disabled={msLmsConf.mainAction === '' || isLoading || isActionConfigIncomplete(msLmsConf)}
         isLoading={isLoading}
         dataConf={msLmsConf}
         setDataConf={setMsLmsConf}

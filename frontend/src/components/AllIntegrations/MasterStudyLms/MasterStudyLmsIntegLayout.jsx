@@ -6,6 +6,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import {
+  allActions,
   fetchAllLesson,
   fetchAllMsLmsCourse,
   fetchAllQuiz,
@@ -15,11 +16,9 @@ import {
 } from './MasterStudyLmsCommonFunc'
 import MasterStudyLmsFieldMap from './MasterStudyLmsFieldMap'
 import Note from '../../Utilities/Note'
-import { allActions } from './MasterStudyLms'
 
 export default function MasterStudyLmsIntegLayout({
   formFields,
-  handleInput,
   msLmsConf,
   setMsLmsConf,
   isLoading,
@@ -82,9 +81,13 @@ export default function MasterStudyLmsIntegLayout({
 
   const handleMainAction = val => {
     const newConf = { ...msLmsConf, mainAction: val }
-    newConf.field_map = emailActions.includes(val)
-      ? generateMappedField(msLmsUserFields)
-      : [{ formField: '', msLmsFormField: '' }]
+    const hasEmailRow = newConf.field_map?.some(f => f.msLmsFormField === 'user_email')
+    if (emailActions.includes(val)) {
+      // Keep an existing user_email mapping when switching between email actions.
+      if (!hasEmailRow) newConf.field_map = generateMappedField(msLmsUserFields)
+    } else {
+      newConf.field_map = [{ formField: '', msLmsFormField: '' }]
+    }
     setMsLmsConf(newConf)
   }
   return (

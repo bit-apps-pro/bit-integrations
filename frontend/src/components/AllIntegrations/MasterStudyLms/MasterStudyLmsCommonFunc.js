@@ -36,6 +36,56 @@ export const isUserEmailMapped = conf =>
     )
   )
 
+export const allActions = [
+  { key: MS_LMS_ACTIONS.COMPLETE_COURSE, label: __('Course complete for the user', 'bit-integrations') },
+  { key: MS_LMS_ACTIONS.COMPLETE_LESSON, label: __('Lesson complete for the user', 'bit-integrations') },
+  { key: MS_LMS_ACTIONS.COMPLETE_QUIZ, label: __('Quiz complete for the user', 'bit-integrations') },
+  { key: MS_LMS_ACTIONS.RESET_COURSE, label: __('Reset user course', 'bit-integrations') },
+  { key: MS_LMS_ACTIONS.RESET_LESSON, label: __('Reset user lesson', 'bit-integrations') },
+  {
+    key: MS_LMS_ACTIONS.ENROLL_USER,
+    label: __('Enroll user in a course', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    key: MS_LMS_ACTIONS.UNENROLL_USER,
+    label: __('Unenroll user from a course', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    key: MS_LMS_ACTIONS.MARK_COURSE_COMPLETE,
+    label: __('Mark a course complete for the user', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    key: MS_LMS_ACTIONS.MARK_LESSON_COMPLETE,
+    label: __('Mark a lesson complete for the user', 'bit-integrations'),
+    is_pro: true
+  }
+]
+
+// Per-action required-field validation shared by the New wizard and Edit screen.
+export const isActionConfigIncomplete = conf => {
+  switch (conf?.mainAction) {
+    case MS_LMS_ACTIONS.COMPLETE_COURSE:
+    case MS_LMS_ACTIONS.RESET_COURSE:
+      return conf.courseId === undefined
+    case MS_LMS_ACTIONS.COMPLETE_LESSON:
+    case MS_LMS_ACTIONS.RESET_LESSON:
+      return conf.lessonId === undefined
+    case MS_LMS_ACTIONS.COMPLETE_QUIZ:
+      return conf.quizId === undefined
+    case MS_LMS_ACTIONS.ENROLL_USER:
+    case MS_LMS_ACTIONS.UNENROLL_USER:
+    case MS_LMS_ACTIONS.MARK_COURSE_COMPLETE:
+      return conf.courseId === undefined || !isUserEmailMapped(conf)
+    case MS_LMS_ACTIONS.MARK_LESSON_COMPLETE:
+      return conf.courseId === undefined || conf.lessonId === undefined || !isUserEmailMapped(conf)
+    default:
+      return false
+  }
+}
+
 export const handleInput = (e, msLmsConf, setMsLmsConf, setIsLoading, setSnackbar, formID) => {
   const newConf = { ...msLmsConf }
   const { name } = e.target
