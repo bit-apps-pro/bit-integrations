@@ -3,6 +3,39 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
 import { sprintf, __ } from '../../../Utils/i18nwrap'
 
+export const MS_LMS_ACTIONS = {
+  COMPLETE_COURSE: '1',
+  COMPLETE_LESSON: '2',
+  COMPLETE_QUIZ: '3',
+  RESET_COURSE: '4',
+  RESET_LESSON: '5',
+  ENROLL_USER: '6',
+  UNENROLL_USER: '7',
+  MARK_COURSE_COMPLETE: '8',
+  MARK_LESSON_COMPLETE: '9'
+}
+
+// Field-map definition for the email-based (Pro) actions.
+export const msLmsUserFields = [
+  { key: 'user_email', label: __('User Email', 'bit-integrations'), required: true }
+]
+
+export const generateMappedField = (fields = msLmsUserFields) => {
+  const requiredFlds = fields.filter(fld => fld.required === true)
+  return requiredFlds.length > 0
+    ? requiredFlds.map(field => ({ formField: '', msLmsFormField: field.key }))
+    : [{ formField: '', msLmsFormField: '' }]
+}
+
+export const isUserEmailMapped = conf =>
+  Boolean(
+    conf?.field_map?.some(
+      f =>
+        f.msLmsFormField === 'user_email' &&
+        (f.formField === 'custom' ? f.customValue : f.formField)
+    )
+  )
+
 export const handleInput = (e, msLmsConf, setMsLmsConf, setIsLoading, setSnackbar, formID) => {
   const newConf = { ...msLmsConf }
   const { name } = e.target
