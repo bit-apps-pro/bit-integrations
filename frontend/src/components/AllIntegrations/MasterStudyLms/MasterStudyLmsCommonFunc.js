@@ -69,18 +69,18 @@ export const isActionConfigIncomplete = conf => {
   switch (conf?.mainAction) {
     case MS_LMS_ACTIONS.COMPLETE_COURSE:
     case MS_LMS_ACTIONS.RESET_COURSE:
-      return conf.courseId === undefined
+      return !conf.courseId
     case MS_LMS_ACTIONS.COMPLETE_LESSON:
     case MS_LMS_ACTIONS.RESET_LESSON:
-      return conf.lessonId === undefined
+      return !conf.lessonId
     case MS_LMS_ACTIONS.COMPLETE_QUIZ:
-      return conf.quizId === undefined
+      return !conf.quizId
     case MS_LMS_ACTIONS.ENROLL_USER:
     case MS_LMS_ACTIONS.UNENROLL_USER:
     case MS_LMS_ACTIONS.MARK_COURSE_COMPLETE:
-      return conf.courseId === undefined || !isUserEmailMapped(conf)
+      return !conf.courseId || !isUserEmailMapped(conf)
     case MS_LMS_ACTIONS.MARK_LESSON_COMPLETE:
-      return conf.courseId === undefined || conf.lessonId === undefined || !isUserEmailMapped(conf)
+      return !conf.courseId || !conf.lessonId || !isUserEmailMapped(conf)
     default:
       return false
   }
