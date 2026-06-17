@@ -180,6 +180,7 @@ export default function SelectAction() {
     { type: 'CreatorLms' },
     { type: 'Bookly' },
     { type: 'FluentCart' },
+    { type: 'Wsms', name: 'WSMS (WP SMS)' },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist' },
     { type: 'Heffl CRM' },
     { type: 'Secure Custom Fields' },
