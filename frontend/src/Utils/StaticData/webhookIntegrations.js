@@ -102,7 +102,15 @@ export const customFormIntegrations = [
   'WordPress',
   'FluentPdfGenerator',
   'BookingPress',
-  'FluentPdfGenerator'
+  'FluentPdfGenerator',
+  'B2BKing',
+  'FormyChat',
+  'GiveWp',
+  'SenseiLMS',
+  'SureDash',
+  'WpDataTables',
+  'WpErp',
+  'Wsms'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
