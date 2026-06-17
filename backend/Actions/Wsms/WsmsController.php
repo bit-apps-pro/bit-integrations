@@ -32,7 +32,7 @@ class WsmsController
         wp_send_json_success(true);
     }
 
-    public function refreshGroups()
+    public static function refreshGroups()
     {
         self::isExists();
 

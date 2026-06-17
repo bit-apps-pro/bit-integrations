@@ -72,12 +72,12 @@ export default function WsmsIntegLayout({
               defaultValue={wsmsConf?.groupId ?? null}
               className="btcd-paper-drpdwn w-5"
               options={
-                wsmsConf?.allGroups &&
-                Array.isArray(wsmsConf.allGroups) &&
-                wsmsConf.allGroups.map(group => ({
-                  label: group.label,
-                  value: group.value?.toString()
-                }))
+                Array.isArray(wsmsConf?.allGroups)
+                  ? wsmsConf.allGroups.map(group => ({
+                      label: group.label,
+                      value: group.value?.toString()
+                    }))
+                  : []
               }
               onChange={val =>
                 setWsmsConf(prevConf =>
