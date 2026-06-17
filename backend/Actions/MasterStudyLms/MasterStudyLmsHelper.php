@@ -6,59 +6,27 @@ class MasterStudyLmsHelper
 {
     public static function getLessonByCourse($courseId)
     {
-        global $wpdb;
+        $args = [
+            'post_type'      => 'stm-lessons',
+            'posts_per_page' => 999,
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+            'post_status'    => 'publish',
+        ];
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query needed for MasterStudy lessons
-        $lesson = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT ID, post_title,post_content
-                FROM {$wpdb->posts}
-                WHERE FIND_IN_SET(
-                    ID,
-                    (SELECT meta_value FROM wp_postmeta WHERE post_id = %d AND meta_key = 'curriculum')
-                )
-                AND post_type = 'stm-lessons'
-                ORDER BY post_title ASC
-                ",
-                absint($courseId)
-            )
-        );
-
-        return $lesson;
-
-        // if ($courseId == 'any') {
-        //     $lesson = $wpdb->get_results(
-        //         $wpdb->prepare(
-        //             "SELECT ID, post_title,post_content
-        //             FROM $wpdb->posts
-        //             WHERE post_type = 'stm-lesson'
-        //             ORDER BY post_title ASC
-        //             "
-        //         )
-        //     );
-        //     return $quizzes;
-        // }
+        return get_posts($args);
     }
 
     public static function getQuizByCourse($courseId)
     {
-        global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query needed for MasterStudy quizzes
-        $quizzes = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT ID, post_title,post_content
-                FROM {$wpdb->posts}
-                WHERE FIND_IN_SET(
-                    ID,
-                    (SELECT meta_value FROM wp_postmeta WHERE post_id = %d AND meta_key = 'curriculum')
-                )
-                AND post_type = 'stm-quizzes'
-                ORDER BY post_title ASC
-                ",
-                absint($courseId)
-            )
-        );
+        $args = [
+            'post_type'      => 'stm-quizzes',
+            'posts_per_page' => 999,
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+            'post_status'    => 'publish',
+        ];
 
-        return $quizzes;
+        return get_posts($args);
     }
 }
