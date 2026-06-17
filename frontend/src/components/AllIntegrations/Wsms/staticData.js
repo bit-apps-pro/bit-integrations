@@ -52,3 +52,8 @@ export const WsmsStaticData = {
   update_group: UpdateGroupFields,
   delete_group: DeleteGroupFields
 }
+
+export const wsmsStatuses = [
+  { value: '1', label: __('Active', 'bit-integrations') },
+  { value: '0', label: __('Inactive', 'bit-integrations') }
+]

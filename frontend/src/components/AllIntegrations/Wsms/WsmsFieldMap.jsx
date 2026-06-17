@@ -65,7 +65,7 @@ export default function WsmsFieldMap({ i, formFields, field, wsmsConf, setWsmsCo
             className="btcd-paper-inp"
             disabled={i < requiredFlds.length}
             name="wsmsField"
-            value={i < requiredFlds ? requiredFlds[i].label || '' : field.wsmsField || ''}
+            value={i < requiredFlds.length ? requiredFlds[i].key || '' : field.wsmsField || ''}
             onChange={ev => handleFieldMapping(ev, i, wsmsConf, setWsmsConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (

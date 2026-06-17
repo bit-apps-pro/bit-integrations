@@ -6,9 +6,9 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { generateMappedField, refreshGroups, refreshStatuses } from './WsmsCommonFunc'
+import { generateMappedField, refreshGroups } from './WsmsCommonFunc'
 import WsmsFieldMap from './WsmsFieldMap'
-import { modules, WsmsStaticData } from './staticData'
+import { modules, wsmsStatuses, WsmsStaticData } from './staticData'
 
 const GROUP_ACTIONS = ['add_subscriber', 'update_subscriber', 'delete_subscriber']
 const STATUS_ACTIONS = ['add_subscriber', 'update_subscriber']
@@ -31,14 +31,14 @@ export default function WsmsIntegLayout({
         draftConf.mainAction = value
         draftConf.wsmsFields = WsmsStaticData[value] || []
         draftConf.field_map = generateMappedField(draftConf.wsmsFields)
+        // Clear identifiers from the previous action so they do not leak into the new one.
+        delete draftConf.groupId
+        delete draftConf.status
       })
     )
 
     if (GROUP_ACTIONS.includes(value)) {
       refreshGroups(setWsmsConf, setIsLoading)
-    }
-    if (STATUS_ACTIONS.includes(value)) {
-      refreshStatuses(setWsmsConf, setIsLoading)
     }
   }
 
@@ -110,14 +110,7 @@ export default function WsmsIntegLayout({
               title="status"
               defaultValue={wsmsConf?.status ?? null}
               className="btcd-paper-drpdwn w-5"
-              options={
-                wsmsConf?.allStatuses &&
-                Array.isArray(wsmsConf.allStatuses) &&
-                wsmsConf.allStatuses.map(status => ({
-                  label: status.label,
-                  value: status.value?.toString()
-                }))
-              }
+              options={wsmsStatuses}
               onChange={val =>
                 setWsmsConf(prevConf =>
                   create(prevConf, draftConf => {
@@ -128,14 +121,6 @@ export default function WsmsIntegLayout({
               singleSelect
               closeOnSelect
             />
-            <button
-              onClick={() => refreshStatuses(setWsmsConf, setIsLoading)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh Statuses', 'bit-integrations')}'` }}
-              type="button"
-              disabled={isLoading}>
-              &#x21BB;
-            </button>
           </div>
         </>
       )}

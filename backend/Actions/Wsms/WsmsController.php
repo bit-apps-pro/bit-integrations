@@ -53,19 +53,6 @@ class WsmsController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshStatuses()
-    {
-        self::isExists();
-
-        $statuses = [
-            (object) ['value' => '1', 'label' => 'Active'],
-            (object) ['value' => '0', 'label' => 'Inactive'],
-        ];
-
-        $response['statuses'] = $statuses;
-        wp_send_json_success($response, 200);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

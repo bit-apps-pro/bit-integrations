@@ -34,28 +34,6 @@ export const refreshGroups = (setWsmsConf, setIsLoading) => {
     .catch(() => setIsLoading(false))
 }
 
-
-export const refreshStatuses = (setWsmsConf, setIsLoading) => {
-  setIsLoading(true)
-  bitsFetch(null, 'refresh_wsms_statuses')
-    .then(result => {
-      if (result && result?.success && result?.data?.statuses) {
-        setWsmsConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf.allStatuses = result.data.statuses
-          })
-        )
-
-        setIsLoading(false)
-        toast.success(__('All statuses fetched successfully', 'bit-integrations'))
-        return
-      }
-      setIsLoading(false)
-      toast.error(__('WSMS statuses fetch failed. Please try again', 'bit-integrations'))
-    })
-    .catch(() => setIsLoading(false))
-}
-
 export const checkMappedFields = wsmsConf => {
   const mappedFields = wsmsConf?.field_map
     ? wsmsConf.field_map.filter(
