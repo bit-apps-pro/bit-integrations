@@ -5,6 +5,7 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import { handleCustomValue } from '../IntegrationHelpers/IntegrationHelpers'
 import TagifyInput from '../../Utilities/TagifyInput'
 import { addFieldMap, delFieldMap, handleFieldMapping } from './IntegrationHelpers'
+import { ACTIONS_WITH_CUSTOM_FIELDS, CUSTOM_FIELD_KEY } from './InstasentCommonFunc'
 
 export default function InstasentFieldMap({ i, formFields, field, instasentConf, setInstasentConf }) {
   const btcbi = useRecoilValue($appConfigState)
@@ -12,6 +13,17 @@ export default function InstasentFieldMap({ i, formFields, field, instasentConf,
 
   const requiredFlds = instasentConf?.instasentFields.filter(fld => fld.required === true) || []
   const nonRequiredFlds = instasentConf?.instasentFields.filter(fld => fld.required === false) || []
+
+  const isExtraRow = i >= requiredFlds.length
+  const customCapable = ACTIONS_WITH_CUSTOM_FIELDS.includes(instasentConf?.action)
+  const predefinedKeys = (instasentConf?.instasentFields || []).map(fld => fld.key)
+  const isCustomKey =
+    isExtraRow &&
+    customCapable &&
+    !!field.instasentFormField &&
+    field.instasentFormField !== CUSTOM_FIELD_KEY &&
+    !predefinedKeys.includes(field.instasentFormField)
+  const showCustomKeyInput = field.instasentFormField === CUSTOM_FIELD_KEY || isCustomKey
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -57,25 +69,41 @@ export default function InstasentFieldMap({ i, formFields, field, instasentConf,
             />
           )}
 
-          <select
-            className="btcd-paper-inp"
-            disabled={i < requiredFlds.length}
-            name="instasentFormField"
-            value={i < requiredFlds ? requiredFlds[i].label || '' : field.instasentFormField || ''}
-            onChange={ev => handleFieldMapping(ev, i, instasentConf, setInstasentConf)}>
-            <option value="">{__('Select Field', 'bit-integrations')}</option>
-            {i < requiredFlds.length ? (
-              <option key={requiredFlds[i].key} value={requiredFlds[i].key}>
-                {requiredFlds[i].label}
-              </option>
-            ) : (
-              nonRequiredFlds.map(({ key, label }) => (
-                <option key={key} value={key}>
-                  {label}
+          {showCustomKeyInput ? (
+            <input
+              className="btcd-paper-inp"
+              type="text"
+              name="instasentFormField"
+              value={field.instasentFormField === CUSTOM_FIELD_KEY ? '' : field.instasentFormField || ''}
+              placeholder={__('Custom field key...', 'bit-integrations')}
+              onChange={ev => handleFieldMapping(ev, i, instasentConf, setInstasentConf)}
+            />
+          ) : (
+            <select
+              className="btcd-paper-inp"
+              disabled={i < requiredFlds.length}
+              name="instasentFormField"
+              value={i < requiredFlds.length ? requiredFlds[i].key : field.instasentFormField || ''}
+              onChange={ev => handleFieldMapping(ev, i, instasentConf, setInstasentConf)}>
+              <option value="">{__('Select Field', 'bit-integrations')}</option>
+              {i < requiredFlds.length ? (
+                <option key={requiredFlds[i].key} value={requiredFlds[i].key}>
+                  {requiredFlds[i].label}
                 </option>
-              ))
-            )}
-          </select>
+              ) : (
+                <>
+                  {nonRequiredFlds.map(({ key, label }) => (
+                    <option key={key} value={key}>
+                      {label}
+                    </option>
+                  ))}
+                  {customCapable && (
+                    <option value={CUSTOM_FIELD_KEY}>{__('Custom Field...', 'bit-integrations')}</option>
+                  )}
+                </>
+              )}
+            </select>
+          )}
         </div>
         {i >= requiredFlds.length && (
           <>

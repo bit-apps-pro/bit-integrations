@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
@@ -25,7 +24,6 @@ export default function InstasentAuthorization({
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
 
-    !instasentConf?.default
     setstep(2)
   }
 

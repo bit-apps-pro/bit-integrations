@@ -19,6 +19,13 @@ export const ACTIONS_WITH_DATASOURCE = [
   'create_contact_event'
 ]
 
+// Actions whose field map may carry arbitrary keys (contact custom attributes /
+// event parameters), entered via the "Custom Field..." option in the field map.
+export const ACTIONS_WITH_CUSTOM_FIELDS = ['create_or_update_contact', 'create_contact_event']
+
+// Sentinel chosen in the Instasent-field select to switch a row to a free-text key.
+export const CUSTOM_FIELD_KEY = '__custom_field__'
+
 export const InstasentStaticData = {
   send_sms: [
     { key: 'from', label: 'From', required: true },
@@ -55,6 +62,14 @@ export const handleInput = (e, instasentConf, setInstasentConf, loading, setLoad
 
   const updatedConf = create(instasentConf, draftConf => {
     draftConf[name] = value
+
+    // Changing the project invalidates the fetched data sources + the selection.
+    if (name === 'projectId') {
+      draftConf.datasourceId = ''
+      if (draftConf.default) {
+        draftConf.default.datasources = []
+      }
+    }
   })
 
   setInstasentConf(updatedConf)
@@ -88,7 +103,8 @@ export const checkMappedFields = instasentConf => {
         mappedField =>
           !mappedField.formField ||
           !mappedField.instasentFormField ||
-          (!mappedField.formField === 'custom' && !mappedField.customValue)
+          mappedField.instasentFormField === CUSTOM_FIELD_KEY ||
+          (mappedField.formField === 'custom' && !mappedField.customValue)
       )
     : []
   if (mappedFields.length > 0) {

@@ -113,31 +113,34 @@ export default function InstasentIntegLayout({
           />
         </div>
       )}
-      <br />
+
       {ACTIONS_WITH_DATASOURCE.includes(instasentConf?.action) && (
-        <div className="flx">
-          <b className="wdt-200 d-in-b">{__('Data Source:', 'bit-integrations')}</b>
-          <MultiSelect
-            title="datasourceId"
-            defaultValue={instasentConf?.datasourceId || ''}
-            className="w-5 d-in-b"
-            onChange={val => setDatasource(val)}
-            options={(instasentConf?.default?.datasources || []).map(ds => ({
-              label: ds.name || ds.id,
-              value: String(ds.id)
-            }))}
-            singleSelect
-            closeOnSelect
-          />
-          <button
-            onClick={() => refreshDatasources(instasentConf, setInstasentConf, loading, setLoading)}
-            className="icn-btn sh-sm ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': `'${__('Refresh Data Sources', 'bit-integrations')}'` }}
-            type="button"
-            disabled={loading.datasource}>
-            &#x21BB;
-          </button>
-        </div>
+        <>
+          <br />
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Data Source:', 'bit-integrations')}</b>
+            <MultiSelect
+              title="datasourceId"
+              defaultValue={instasentConf?.datasourceId || ''}
+              className="w-5 d-in-b"
+              onChange={val => setDatasource(val)}
+              options={(instasentConf?.default?.datasources || []).map(ds => ({
+                label: ds.name || ds.id,
+                value: String(ds.id)
+              }))}
+              singleSelect
+              closeOnSelect
+            />
+            <button
+              onClick={() => refreshDatasources(instasentConf, setInstasentConf, loading, setLoading)}
+              className="icn-btn sh-sm ml-2 mr-2 tooltip"
+              style={{ '--tooltip-txt': `'${__('Refresh Data Sources', 'bit-integrations')}'` }}
+              type="button"
+              disabled={loading.datasource}>
+              &#x21BB;
+            </button>
+          </div>
+        </>
       )}
 
       {loading.field && (

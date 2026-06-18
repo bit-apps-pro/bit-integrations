@@ -43,7 +43,7 @@ class RecordApiHelper
 
             if ($triggerValue === 'custom' && isset($value->customValue)) {
                 $dataFinal[$actionValue] = Common::replaceFieldWithValue($value->customValue, $data);
-            } elseif (!\is_null($data[$triggerValue])) {
+            } elseif (isset($data[$triggerValue])) {
                 $dataFinal[$actionValue] = $data[$triggerValue];
             }
         }

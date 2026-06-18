@@ -225,6 +225,9 @@ const tutorialLinks = {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AKe60pZMUmlWnHQWKrx8nw8',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mailerlite-integrations/'
   },
+  instasent: {
+    docLink: '#'
+  },
   mailchimp: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-ALUaeqiK9GwBSxVkAod1PzP',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mailchimp-integrations/'
