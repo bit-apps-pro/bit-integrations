@@ -32,6 +32,7 @@ export default function SelectAction() {
     { type: 'KonnectzIT' },
     { type: 'Ant Apps' },
     { type: 'MailerLite' },
+    { type: 'Instasent' },
     { type: 'Rapidmail' },
     { type: 'ActiveCampaign' },
     { type: 'Encharge' },
