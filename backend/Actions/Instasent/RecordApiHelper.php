@@ -109,6 +109,17 @@ class RecordApiHelper
                 break;
         }
 
+        if (is_wp_error($apiResponse)) {
+            LogHandler::save(
+                $this->_integrationID,
+                wp_json_encode(['type' => 'action', 'type_name' => $typeName]),
+                'error',
+                wp_json_encode(['message' => $apiResponse->get_error_message()])
+            );
+
+            return $apiResponse;
+        }
+
         $apiResponse = \is_array($apiResponse) ? (object) $apiResponse : $apiResponse;
 
         if (

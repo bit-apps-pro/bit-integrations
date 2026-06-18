@@ -125,8 +125,8 @@ export default function InstasentIntegLayout({
               className="w-5 d-in-b"
               onChange={val => setDatasource(val)}
               options={(instasentConf?.default?.datasources || []).map(ds => ({
-                label: ds.name || ds.id,
-                value: String(ds.id)
+                label: ds?.name || ds?.id || '',
+                value: String(ds?.id || '')
               }))}
               singleSelect
               closeOnSelect

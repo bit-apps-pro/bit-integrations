@@ -18,7 +18,7 @@ class InstasentController
 
     public function authorize($refreshFieldsRequestParams)
     {
-        if (empty($refreshFieldsRequestParams->auth_token)) {
+        if (empty($refreshFieldsRequestParams) || empty($refreshFieldsRequestParams->auth_token)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -37,6 +37,10 @@ class InstasentController
 
         $response = HttpHelper::get($endpoint, null, $header);
 
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
+
         if (HttpHelper::$responseCode == 200) {
             wp_send_json_success('Authorization Successful', 200);
 
@@ -51,7 +55,7 @@ class InstasentController
 
     public function refreshDatasources($refreshFieldsRequestParams)
     {
-        if (empty($refreshFieldsRequestParams->auth_token) || empty($refreshFieldsRequestParams->projectId)) {
+        if (empty($refreshFieldsRequestParams) || empty($refreshFieldsRequestParams->auth_token) || empty($refreshFieldsRequestParams->projectId)) {
             wp_send_json_error(
                 __('Requested parameter is empty', 'bit-integrations'),
                 400
@@ -67,6 +71,10 @@ class InstasentController
         ];
 
         $response = HttpHelper::get($endpoint, null, $header);
+
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
 
         if (HttpHelper::$responseCode == 200) {
             $entities = $response->entities ?? [];
@@ -114,10 +122,6 @@ class InstasentController
             $auth_token,
             $action
         );
-
-        if (is_wp_error($instasentApiResponse)) {
-            return $instasentApiResponse;
-        }
 
         return $instasentApiResponse;
     }

@@ -10,7 +10,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './InstasentCommonFunc'
+import { checkMappedFields, handleInput, InstasentStaticData } from './InstasentCommonFunc'
 import InstasentIntegLayout from './InstasentIntegLayout'
 
 function EditInstasent({ allIntegURL }) {
@@ -46,13 +46,15 @@ function EditInstasent({ allIntegURL }) {
   }
 
   useEffect(() => {
-    if (!instasentConf?.action) {
-      setInstasentConf(prev =>
-        create(prev, draftConf => {
-          draftConf.action = 'send_sms'
-        })
-      )
-    }
+    setInstasentConf(prev =>
+      create(prev, draftConf => {
+        const action = draftConf.action || 'send_sms'
+        draftConf.action = action
+        // instasentFields isn't persisted; rebuild it from the saved action so the
+        // field map can render its options on edit (without touching the saved field_map).
+        draftConf.instasentFields = InstasentStaticData[action] || []
+      })
+    )
   }, [])
 
   const handleEditIntegName = e => {

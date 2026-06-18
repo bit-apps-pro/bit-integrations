@@ -11,8 +11,8 @@ export default function InstasentFieldMap({ i, formFields, field, instasentConf,
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  const requiredFlds = instasentConf?.instasentFields.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = instasentConf?.instasentFields.filter(fld => fld.required === false) || []
+  const requiredFlds = instasentConf?.instasentFields?.filter(fld => fld.required === true) || []
+  const nonRequiredFlds = instasentConf?.instasentFields?.filter(fld => fld.required === false) || []
 
   const isExtraRow = i >= requiredFlds.length
   const customCapable = ACTIONS_WITH_CUSTOM_FIELDS.includes(instasentConf?.action)
