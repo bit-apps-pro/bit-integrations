@@ -102,7 +102,7 @@ export default function WishlistMemberFieldMap({
       {wishlistFields?.length > 1 && (
         <>
           <button
-            onClick={() => addFieldMap(i, setWishlistMemberConf)}
+            onClick={() => addFieldMap(i + 1, setWishlistMemberConf)}
             className="icn-btn sh-sm ml-2 mr-1"
             type="button">
             +

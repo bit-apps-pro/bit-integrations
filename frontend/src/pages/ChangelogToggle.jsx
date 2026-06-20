@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '08th June 2026'
+const releaseDate = '20th June 2026'
 
 // Example for items:
 // items: [
@@ -50,8 +50,8 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Post content sanitization',
-        desc: 'Sanitization route generalized to cover all rich-content integrations (Mail, Telegram, WhatsApp, and more).',
+        label: 'WooCommerce',
+        desc: 'Switched product image uploads to WordPress-native file helpers (wp_parse_url, wp_delete_file) for safer file handling.',
         isPro: false
       }
     ]
@@ -62,9 +62,9 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'SureCart',
-        desc: 'Fixed checkbox fields missing from trigger payload.',
-        isPro: true
+        label: 'Wishlist Member',
+        desc: 'Fixed membership level field mapping in the integration setup.',
+        isPro: false
       }
     ]
   },
@@ -72,35 +72,13 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'Trigger Test Data',
-        desc: 'Gated test-data read/delete endpoints with capability checks.',
-        isPro: false
-      },
-      {
-        label: 'SSRF & LFI',
-        desc: 'Blocked server-side request forgery and local file inclusion in file/upload fetching.',
-        isPro: false
-      },
-      {
-        label: 'Custom Function',
-        desc: 'Sanitized the custom-action file name on write to block path traversal.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'WordPress 5.1 compatibility',
-        desc: 'Replace WP 5.3/5.9 functions for WP 5.1 minimum support.',
-        isPro: false
-      }
-    ]
+    items: []
   }
 ]
 
