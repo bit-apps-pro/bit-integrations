@@ -70,6 +70,7 @@ const Acumbamail = lazy(() => import('./Acumbamail/Acumbamail'))
 const Groundhogg = lazy(() => import('./Groundhogg/Groundhogg'))
 const SendFox = lazy(() => import('./SendFox/SendFox'))
 const MailerLite = lazy(() => import('./MailerLite/MailerLite'))
+const Vimeo = lazy(() => import('./Vimeo/Vimeo'))
 const Vbout = lazy(() => import('./Vbout/Vbout'))
 const WhatsApp = lazy(() => import('./WhatsApp/WhatsApp'))
 const LearnDesh = lazy(() => import('./LearnDash/LearnDash'))
@@ -730,6 +731,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'MailerLite':
         return (
           <MailerLite
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Vimeo':
+        return (
+          <Vimeo
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

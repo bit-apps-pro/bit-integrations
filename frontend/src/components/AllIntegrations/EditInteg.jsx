@@ -68,6 +68,7 @@ const EditAcumbamail = lazy(() => import('./Acumbamail/EditAcumbamail'))
 const EditGroundhogg = lazy(() => import('./Groundhogg/EditGroundhogg'))
 const EditSendFox = lazy(() => import('./SendFox/EditSendFox'))
 const EditMailerLite = lazy(() => import('./MailerLite/EditMailerLite'))
+const EditVimeo = lazy(() => import('./Vimeo/EditVimeo'))
 const EditVbout = lazy(() => import('./Vbout/EditVbout'))
 const EditWhatsApp = lazy(() => import('./WhatsApp/EditWhatsApp'))
 const EditLearnDash = lazy(() => import('./LearnDash/EditLearnDash'))
@@ -397,6 +398,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSendFox allIntegURL={allIntegURL} />
     case 'MailerLite':
       return <EditMailerLite allIntegURL={allIntegURL} />
+    case 'Vimeo':
+      return <EditVimeo allIntegURL={allIntegURL} />
     case 'Vbout':
       return <EditVbout allIntegURL={allIntegURL} />
     case 'WhatsApp':
