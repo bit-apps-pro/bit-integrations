@@ -4,9 +4,11 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
+import Note from '../../Utilities/Note'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from './IntegrationHelpers'
 import {
+  actionNotes,
   actionRequirements,
   dropdownMeta,
   modules,
@@ -174,6 +176,11 @@ export default function VimeoIntegLayout({
               +
             </button>
           </div>
+          {action && actionNotes[action] && (
+            <div className="mt-3">
+              <Note note={actionNotes[action]} />
+            </div>
+          )}
           <br />
           <br />
         </>

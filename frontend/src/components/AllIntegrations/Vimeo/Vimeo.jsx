@@ -83,7 +83,7 @@ function Vimeo({ formFields, setFlow, flow, allIntegURL }) {
 
       <div
         className="btcd-stp-page"
-        style={{ ...(step === 2 && { width: 900, minHeight: '500px', overflow: 'visible' }) }}>
+        style={{ ...(step === 2 && { width: 900, minHeight: '500px', height: 'auto', overflow: 'visible' }) }}>
         <VimeoIntegLayout
           formFields={formFields}
           vimeoConf={vimeoConf}

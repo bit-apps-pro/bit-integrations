@@ -63,6 +63,36 @@ export const dropdownMeta = {
   channel: { confKey: 'channelId', dataKey: 'channels', route: 'refresh_vimeo_channels', label: __('Channel', 'bit-integrations') }
 }
 
+// Per-action helper note shown above the fields (HTML; rendered by <Note />).
+export const actionNotes = {
+  upload_video: __(
+    '<p>The <b>Video File</b> must be a direct, public link to the raw video file (e.g. https://…/clip.mp4) — Vimeo downloads it via the pull method. A YouTube, Vimeo, or other web-page URL will not work. For best results use an MP4 (H.264 High), ProRes 422 HQ, or H.265 file with AAC-LC audio.</p>',
+    'bit-integrations'
+  ),
+  edit_video: __(
+    '<p>Only the fields you map are updated; leave a field unmapped to keep its current value.</p>',
+    'bit-integrations'
+  ),
+  delete_video: __(
+    '<p>This <b>permanently deletes</b> the selected video from Vimeo and cannot be undone.</p>',
+    'bit-integrations'
+  ),
+  add_comment: __('<p>Posts a comment on the selected video.</p>', 'bit-integrations'),
+  add_video_to_showcase: __(
+    '<p>Adds the selected video to the chosen showcase (album).</p>',
+    'bit-integrations'
+  ),
+  add_video_to_folder: __(
+    '<p>Adds the selected video to the chosen folder (project).</p>',
+    'bit-integrations'
+  ),
+  add_video_to_channel: __('<p>Adds the selected video to the chosen channel.</p>', 'bit-integrations'),
+  upload_text_track: __(
+    '<p>This creates the caption / text-track entry on the video. Uploading the actual .vtt/.srt file content is a separate Vimeo step.</p>',
+    'bit-integrations'
+  )
+}
+
 export const privacyOptions = [
   { label: __('Public (anybody)', 'bit-integrations'), value: 'anybody' },
   { label: __('Private (nobody)', 'bit-integrations'), value: 'nobody' },

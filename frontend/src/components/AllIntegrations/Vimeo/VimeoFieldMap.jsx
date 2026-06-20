@@ -48,15 +48,18 @@ export default function VimeoFieldMap({ i, formFields, field, vimeoConf, setVime
           </select>
 
           {field.formField === 'custom' && (
-            <TagifyInput
-              onChange={e => handleCustomValue(e, i, vimeoConf, setVimeoConf)}
-              label={__('Custom Value', 'bit-integrations')}
+            <div
               className="mr-2"
-              type="text"
-              value={field.customValue}
-              placeholder={__('Custom Value', 'bit-integrations')}
-              formFields={formFields}
-            />
+              style={{ width: 230, minWidth: 230, maxWidth: 230, overflowX: 'auto' }}>
+              <TagifyInput
+                onChange={e => handleCustomValue(e, i, vimeoConf, setVimeoConf)}
+                label={__('Custom Value', 'bit-integrations')}
+                type="text"
+                value={field.customValue}
+                placeholder={__('Custom Value', 'bit-integrations')}
+                formFields={formFields}
+              />
+            </div>
           )}
 
           <select
