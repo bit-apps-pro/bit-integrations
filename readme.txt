@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.10
+Stable tag: 2.8.11
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
@@ -467,6 +467,15 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.8.10 - 2.8.11 =
+_Release Date - 20th June 2026_
+
+- **Bug Fixes**
+ - Wishlist Member: Fixed membership level field mapping in the integration setup.
+
+- **Improvements**
+ - WooCommerce: Switched product image uploads to WordPress-native file helpers (wp_parse_url, wp_delete_file) for safer file handling.
 
 = 2.8.9 =
 _Release Date - 14th June 2026_

@@ -637,7 +637,7 @@ class RecordApiHelper
             return false;
         }
 
-        $filename = basename(parse_url($url, PHP_URL_PATH));
+        $filename = basename(wp_parse_url($url, PHP_URL_PATH));
         $tmp = wp_tempnam($filename);
         if (!$tmp || file_put_contents($tmp, $image_data) === false) {
             return false;
@@ -651,7 +651,7 @@ class RecordApiHelper
         $attach_id = media_handle_sideload($file_array, $product_id);
 
         if (is_wp_error($attach_id)) {
-            @unlink($tmp);
+            wp_delete_file($tmp);
 
             return false;
         }
