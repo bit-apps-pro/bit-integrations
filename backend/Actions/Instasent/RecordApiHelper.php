@@ -56,9 +56,14 @@ class RecordApiHelper
         $fieldValues,
         $fieldMap,
         $auth_token,
-        $action
+        $action,
+        $utilities = null
     ) {
         $fieldData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+
+        if ($action === 'send_sms' && isset($utilities->allowUnicode)) {
+            $fieldData['allowUnicode'] = $utilities->allowUnicode;
+        }
 
         $default = [
             'success' => false,

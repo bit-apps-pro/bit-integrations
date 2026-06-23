@@ -104,6 +104,7 @@ class InstasentController
         $auth_token = $integrationDetails->auth_token ?? '';
         $fieldMap = $integrationDetails->field_map ?? '';
         $action = $integrationDetails->action ?? '';
+        $actions = isset($integrationDetails->actions) ? $integrationDetails->actions : (object) [];
 
         if (
             empty($fieldMap)
@@ -120,7 +121,8 @@ class InstasentController
             $fieldValues,
             $fieldMap,
             $auth_token,
-            $action
+            $action,
+            $actions
         );
 
         return $instasentApiResponse;

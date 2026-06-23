@@ -31,8 +31,7 @@ export const InstasentStaticData = {
     { key: 'from', label: 'From', required: true },
     { key: 'to', label: 'To', required: true },
     { key: 'text', label: 'Text', required: true },
-    { key: 'clientId', label: 'Client Id', required: false },
-    { key: 'allowUnicode', label: 'Allow Unicode', required: false }
+    { key: 'clientId', label: 'Client Id', required: false }
   ],
   create_lookup: [{ key: 'to', label: 'To', required: true }],
   create_datasource: [

@@ -34,6 +34,7 @@ function Instasent({ formFields, setFlow, flow, allIntegURL }) {
     datasourceId: '',
     instasentFields: [],
     field_map: [{ formField: '', instasentFormField: '' }],
+    actions: {},
     default: { datasources: [] }
   })
 

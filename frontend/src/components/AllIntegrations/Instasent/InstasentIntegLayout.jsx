@@ -12,6 +12,7 @@ import {
   instasentRefreshFields,
   refreshDatasources
 } from './InstasentCommonFunc'
+import InstasentActions from './InstasentActions'
 import InstasentFieldMap from './InstasentFieldMap'
 
 const actionOptions = [
@@ -206,6 +207,19 @@ export default function InstasentIntegLayout({
           </div>
           <br />
           <br />
+
+          {instasentConf?.action === 'send_sms' && (
+            <>
+              <div className="mt-4">
+                <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+              </div>
+              <div className="btcd-hr mt-1" />
+              <InstasentActions
+                instasentConf={instasentConf}
+                setInstasentConf={setInstasentConf}
+              />
+            </>
+          )}
         </>
       )}
     </>
