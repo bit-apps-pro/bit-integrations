@@ -61,6 +61,7 @@ export default function SelectAction() {
     { type: 'Mautic' },
     { type: 'Keap' },
     { type: 'Hubspot' },
+    { type: 'FreshBooks' },
     { type: 'Freshdesk' },
     { type: 'Zoho Desk' },
     { type: 'Sendy' },

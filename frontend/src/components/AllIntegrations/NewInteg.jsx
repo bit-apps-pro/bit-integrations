@@ -60,6 +60,7 @@ const Mautic = lazy(() => import('./Mautic/Mautic'))
 const Keap = lazy(() => import('./Keap/Keap'))
 const Hubspot = lazy(() => import('./Hubspot/Hubspot'))
 const ZohoDesk = lazy(() => import('./ZohoDesk/ZohoDesk'))
+const FreshBooks = lazy(() => import('./FreshBooks/FreshBooks'))
 const Freshdesk = lazy(() => import('./Freshdesk/Freshdesk'))
 const Sendy = lazy(() => import('./Sendy/Sendy'))
 const Zoom = lazy(() => import('./Zoom/Zoom'))
@@ -622,6 +623,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Hubspot':
         return (
           <Hubspot
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'FreshBooks':
+        return (
+          <FreshBooks
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

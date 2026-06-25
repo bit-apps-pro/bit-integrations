@@ -59,6 +59,7 @@ const EditGetgist = lazy(() => import('./Getgist/EditGetgist'))
 const EditZohoDesk = lazy(() => import('./ZohoDesk/EditZohoDesk'))
 const EditSendy = lazy(() => import('./Sendy/EditSendy'))
 const EditKeap = lazy(() => import('./Keap/EditKeap'))
+const EditFreshBooks = lazy(() => import('./FreshBooks/EditFreshBooks'))
 const EditFreshdesk = lazy(() => import('./Freshdesk/EditFreshdesk'))
 const EditZoom = lazy(() => import('./Zoom/EditZoom'))
 const EditZoomWebinar = lazy(() => import('./ZoomWebinar/EditZoomWebinar'))
@@ -379,6 +380,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditKeap allIntegURL={allIntegURL} />
     case 'User Registration & Membership':
       return <EditUserRegistrationMembership allIntegURL={allIntegURL} />
+    case 'FreshBooks':
+      return <EditFreshBooks allIntegURL={allIntegURL} />
     case 'Freshdesk':
       return <EditFreshdesk allIntegURL={allIntegURL} />
     case 'Zoom':
