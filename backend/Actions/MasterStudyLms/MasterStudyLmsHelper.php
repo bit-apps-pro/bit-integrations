@@ -6,27 +6,37 @@ class MasterStudyLmsHelper
 {
     public static function getLessonByCourse($courseId)
     {
-        $args = [
-            'post_type'      => 'stm-lessons',
-            'posts_per_page' => 999,
-            'orderby'        => 'title',
-            'order'          => 'ASC',
-            'post_status'    => 'publish',
-        ];
-
-        return get_posts($args);
+        return self::getCourseMaterialsByIdAndType($courseId, 'stm-lessons');
     }
 
     public static function getQuizByCourse($courseId)
     {
-        $args = [
-            'post_type'      => 'stm-quizzes',
-            'posts_per_page' => 999,
-            'orderby'        => 'title',
-            'order'          => 'ASC',
-            'post_status'    => 'publish',
-        ];
+        return self::getCourseMaterialsByIdAndType($courseId, 'stm-quizzes');
+    }
 
-        return get_posts($args);
+    public static function getCourseMaterialsByIdAndType($courseId, $postType)
+    {
+        if (!class_exists('\MasterStudy\Lms\Repositories\CurriculumRepository')) {
+            return [];
+        }
+
+        $CurriculumRepository = new \MasterStudy\Lms\Repositories\CurriculumRepository();
+
+        $curriculum = $CurriculumRepository->get_curriculum(absint($courseId));
+
+        if (empty($curriculum) || !isset($curriculum['materials'])) {
+            return [];
+        }
+
+        foreach ($curriculum['materials'] as $material) {
+            if ($material['post_type'] === $postType) {
+                $posts[] = [
+                    'ID'         => $material['post_id'],
+                    'post_title' => $material['title'],
+                ];
+            }
+        }
+
+        return $posts ?? [];
     }
 }
