@@ -85,7 +85,14 @@ function Dropbox({ formFields, setFlow, flow, allIntegURL }) {
       </div>
 
       {/* STEP 3 */}
-      <IntegrationStepThree step={step} saveConfig={() => saveConfig()} isLoading={isLoading} />
+      <IntegrationStepThree
+        step={step}
+        saveConfig={() => saveConfig()}
+        isLoading={isLoading}
+        dataConf={dropboxConf}
+        setDataConf={setDropboxConf}
+        formFields={formFields}
+      />
     </div>
   )
 }

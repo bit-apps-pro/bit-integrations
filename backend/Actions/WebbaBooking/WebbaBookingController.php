@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WebbaBooking;
 
+use BitApps\Integrations\Config;
 use WBK_Location;
 use WBK_Model_Utils;
 use WBK_Service;
@@ -154,7 +155,7 @@ class WebbaBookingController
         $table = self::resolveTable('wbk_appointments');
 
         if ($table) {
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- dropdown listing, table name validated by resolveTable()
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- dropdown listing, table name validated by resolveTable()
             $rows = $wpdb->get_results("SELECT id, name FROM `{$table}` ORDER BY id DESC");
 
             foreach ((array) $rows as $row) {
@@ -179,7 +180,7 @@ class WebbaBookingController
         $table = self::resolveTable('wbk_coupons');
 
         if ($table) {
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- dropdown listing, table name validated by resolveTable()
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- dropdown listing, table name validated by resolveTable()
             $rows = $wpdb->get_results("SELECT id, name FROM `{$table}` ORDER BY id DESC");
 
             foreach ((array) $rows as $row) {
@@ -217,13 +218,25 @@ class WebbaBookingController
      */
     private static function resolveTable($suffix)
     {
+        $cacheKey = Config::withPrefix('webba_table_' . $suffix);
+
+        $cached = wp_cache_get($cacheKey, 'bit-integrations');
+        if ($cached !== false) {
+            return $cached;
+        }
+
         global $wpdb;
 
         $table = get_option('wbk_db_prefix', '') . $suffix;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- table existence check, result cached below
         if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table))) !== $table) {
+            wp_cache_set($cacheKey, null, 'bit-integrations');
+
             return;
         }
+
+        wp_cache_set($cacheKey, $table, 'bit-integrations');
 
         return $table;
     }

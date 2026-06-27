@@ -112,6 +112,9 @@ export default function SecureCustomFields({ formFields, setFlow, flow, allInteg
           )
         }
         isLoading={isLoading}
+        dataConf={secureCustomFieldsConf}
+        setDataConf={setSecureCustomFieldsConf}
+        formFields={formFields}
       />
     </div>
   )

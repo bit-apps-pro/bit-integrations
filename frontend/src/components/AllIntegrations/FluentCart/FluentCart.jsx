@@ -108,6 +108,9 @@ export default function FluentCart({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, fluentCartConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={fluentCartConf}
+        setDataConf={setFluentCartConf}
+        formFields={formFields}
       />
     </div>
   )

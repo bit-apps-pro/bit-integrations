@@ -214,10 +214,7 @@ export default function InstasentIntegLayout({
                 <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
               </div>
               <div className="btcd-hr mt-1" />
-              <InstasentActions
-                instasentConf={instasentConf}
-                setInstasentConf={setInstasentConf}
-              />
+              <InstasentActions instasentConf={instasentConf} setInstasentConf={setInstasentConf} />
             </>
           )}
         </>

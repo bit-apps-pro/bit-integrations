@@ -96,6 +96,9 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
           saveIntegConfig(flow, setFlow, allIntegURL, bookingPressConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={bookingPressConf}
+        setDataConf={setBookingPressConf}
+        formFields={formFields}
       />
     </div>
   )

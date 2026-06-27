@@ -30,9 +30,7 @@ export const generateMappedField = (fields = msLmsUserFields) => {
 export const isUserEmailMapped = conf =>
   Boolean(
     conf?.field_map?.some(
-      f =>
-        f.msLmsFormField === 'user_email' &&
-        (f.formField === 'custom' ? f.customValue : f.formField)
+      f => f.msLmsFormField === 'user_email' && (f.formField === 'custom' ? f.customValue : f.formField)
     )
   )
 

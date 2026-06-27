@@ -104,15 +104,15 @@ export const customFormIntegrations = [
   'B2BKing',
   'SureDash',
   'Wsms',
-  "WebbaBooking",
-  "B2BKing",
-  "FormyChat",
-  "MainWP",
-  "SureDash",
-  "WpErp",
-  "WpDataTables",
-  "GiveWp",
-  "SenseiLMS"
+  'WebbaBooking',
+  'B2BKing',
+  'FormyChat',
+  'MainWP',
+  'SureDash',
+  'WpErp',
+  'WpDataTables',
+  'GiveWp',
+  'SenseiLMS'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

@@ -100,6 +100,9 @@ export default function CreatorLms({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, creatorLmsConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={creatorLmsConf}
+        setDataConf={setCreatorLmsConf}
+        formFields={formFields}
       />
     </div>
   )

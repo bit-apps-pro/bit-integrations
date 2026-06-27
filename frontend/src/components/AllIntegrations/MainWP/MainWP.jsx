@@ -104,6 +104,9 @@ export default function MainWP({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, mainWPConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={mainWPConf}
+        setDataConf={setMainWPConf}
+        formFields={formFields}
       />
     </div>
   )

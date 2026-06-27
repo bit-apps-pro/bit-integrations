@@ -94,6 +94,9 @@ export default function WordPress({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, wordPressConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={wordPressConf}
+        setDataConf={setWordPressConf}
+        formFields={formFields}
       />
     </div>
   )

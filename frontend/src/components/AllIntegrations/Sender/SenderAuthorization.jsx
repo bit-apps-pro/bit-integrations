@@ -11,9 +11,9 @@ const note = `
     <h4>${__('Steps to generate an API access token:', 'bit-integrations')}</h4>
     <ul>
       <li>${__('Go to', 'bit-integrations')} <a href=${tokenUrl} target="_blank" rel="noreferrer">${__(
-  'Sender API Access Tokens',
-  'bit-integrations'
-)}</a></li>
+        'Sender API Access Tokens',
+        'bit-integrations'
+      )}</a></li>
       <li>${__('Create a token and copy it.', 'bit-integrations')}</li>
       <li>${__('Paste it into the <b>API Token</b> field and click <b>Authorize</b>.', 'bit-integrations')}</li>
     </ul>

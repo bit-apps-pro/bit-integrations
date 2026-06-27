@@ -100,6 +100,9 @@ export default function WPCafe({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, wpcafeConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={wpcafeConf}
+        setDataConf={setWpcafeConf}
+        formFields={formFields}
       />
     </div>
   )
