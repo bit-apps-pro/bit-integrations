@@ -101,6 +101,9 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, formyChatConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={formyChatConf}
+        setDataConf={setFormyChatConf}
+        formFields={formFields}
       />
     </div>
   )

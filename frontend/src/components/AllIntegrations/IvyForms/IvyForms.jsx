@@ -100,6 +100,9 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, ivyFormsConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={ivyFormsConf}
+        setDataConf={setIvyFormsConf}
+        formFields={formFields}
       />
     </div>
   )

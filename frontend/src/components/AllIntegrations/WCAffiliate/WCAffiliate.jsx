@@ -108,6 +108,9 @@ export default function WCAffiliate({ formFields, setFlow, flow, allIntegURL }) 
           saveIntegConfig(flow, setFlow, allIntegURL, wcAffiliateConf, navigate, '', '', setIsLoading)
         }}
         isLoading={isLoading}
+        dataConf={wcAffiliateConf}
+        setDataConf={setWCAffiliateConf}
+        formFields={formFields}
       />
     </div>
   )

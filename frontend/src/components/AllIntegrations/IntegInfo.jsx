@@ -183,12 +183,10 @@ const UltimateAffiliateProAuthorization = lazy(
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
-const MoreConvertWishlistAuthorization = lazy(() =>
-  import('./MoreConvertWishlist/MoreConvertWishlistAuthorization'))
-const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBookingAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
 )
+const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBookingAuthorization'))
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')

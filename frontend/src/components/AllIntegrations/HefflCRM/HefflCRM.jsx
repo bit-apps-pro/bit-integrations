@@ -103,6 +103,9 @@ export default function HefflCRM({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, hefflCRMConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={hefflCRMConf}
+        setDataConf={setHefflCRMConf}
+        formFields={formFields}
       />
     </div>
   )

@@ -115,6 +115,9 @@ export default function NotificationX({ formFields, setFlow, flow, allIntegURL }
           saveIntegConfig(flow, setFlow, allIntegURL, notificationXConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={notificationXConf}
+        setDataConf={setNotificationXConf}
+        formFields={formFields}
       />
     </div>
   )

@@ -4,16 +4,16 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.11
+Stable tag: 2.9.0
 License: GPLv2 or later
 
-Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
+Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 350+ platforms
 
 == Description ==
 
 **Bit Integrations is a Easy Automation & Integration Plugin for WordPress**
 
-**Bit Integrations** help WordPress users integrate WordPress and plugin data to 320+ platforms.
+**Bit Integrations** help WordPress users integrate WordPress and plugin data to 350+ platforms.
 
 ### 🎯 Why Bit Integrations?
 
@@ -467,6 +467,25 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.9.0 =
+_Release Date - 27th June 2026_
+
+- **New Triggers**
+ - MainWP: 12 new event added (Pro).
+ - Webba Booking Calendar: 11 new event added (Pro).
+ - WSMS (WP SMS): 5 new events added (Pro).
+
+- **New Actions**
+ - Webba Booking Calendar: 13 new events added (Pro).
+ - Sender: 9 new events added (Pro).
+ - MainWP: 8 new events added (Pro).
+ - WSMS (WP SMS): 7 new events added (Pro).
+ - Instasent: 6 new events added (Pro).
+ - MasterStudyLms: 4 new events added (Pro).
+
+- **Bug Fixes**
+ - MasterStudyLms: Fixed course and quiz fetching so only lessons and quizzes from the selected course are returned, and validation now treats null/empty config values as incomplete (Pro).
 
 = 2.8.10 - 2.8.11 =
 _Release Date - 20th June 2026_

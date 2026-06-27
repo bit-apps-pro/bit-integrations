@@ -98,6 +98,9 @@ export default function WpDataTables({ formFields, setFlow, flow, allIntegURL })
           saveIntegConfig(flow, setFlow, allIntegURL, wpDataTablesConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={wpDataTablesConf}
+        setDataConf={setWpDataTablesConf}
+        formFields={formFields}
       />
     </div>
   )

@@ -100,6 +100,9 @@ export default function Wsms({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, wsmsConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={wsmsConf}
+        setDataConf={setWsmsConf}
+        formFields={formFields}
       />
     </div>
   )

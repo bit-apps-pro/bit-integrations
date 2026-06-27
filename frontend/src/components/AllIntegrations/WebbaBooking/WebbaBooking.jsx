@@ -154,6 +154,9 @@ export default function WebbaBooking({ formFields, setFlow, flow, allIntegURL })
           saveIntegConfig(flow, setFlow, allIntegURL, webbaBookingConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={webbaBookingConf}
+        setDataConf={setWebbaBookingConf}
+        formFields={formFields}
       />
     </div>
   )

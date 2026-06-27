@@ -105,6 +105,9 @@ export default function MoreConvertWishlist({ formFields, setFlow, flow, allInte
           )
         }
         isLoading={isLoading}
+        dataConf={moreConvertWishlistConf}
+        setDataConf={setMoreConvertWishlistConf}
+        formFields={formFields}
       />
     </div>
   )

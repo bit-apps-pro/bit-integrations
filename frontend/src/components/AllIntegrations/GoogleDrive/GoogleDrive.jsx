@@ -90,7 +90,14 @@ function GoogleDrive({ formFields, setFlow, flow, allIntegURL }) {
       </div>
 
       {/* STEP 3 */}
-      <IntegrationStepThree step={step} saveConfig={() => saveConfig()} isLoading={isLoading} />
+      <IntegrationStepThree
+        step={step}
+        saveConfig={() => saveConfig()}
+        isLoading={isLoading}
+        dataConf={googleDriveConf}
+        setDataConf={setGoogleDriveConf}
+        formFields={formFields}
+      />
     </div>
   )
 }

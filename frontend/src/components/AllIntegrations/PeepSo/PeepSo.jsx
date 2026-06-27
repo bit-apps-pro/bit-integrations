@@ -96,6 +96,9 @@ export default function PeepSo({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, peepSoConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={peepSoConf}
+        setDataConf={setPeepSoConf}
+        formFields={formFields}
       />
     </div>
   )

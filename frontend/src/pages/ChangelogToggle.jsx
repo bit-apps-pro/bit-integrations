@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '20th June 2026'
+const releaseDate = '27th June 2026'
 
 // Example for items:
 // items: [
@@ -30,13 +30,60 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Webba Booking Calendar',
+        desc: '11 new event added.',
+        isPro: true
+      },
+      {
+        label: 'MainWP',
+        desc: '12 new event added.',
+        isPro: true
+      },
+      {
+        label: 'WSMS (WP SMS)',
+        desc: '5 new event added.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Webba Booking Calendar',
+        desc: '13 new event added.',
+        isPro: true
+      },
+      {
+        label: 'Sender',
+        desc: '9 new event added.',
+        isPro: true
+      },
+      {
+        label: 'MainWP',
+        desc: '8 new event added.',
+        isPro: true
+      },
+      {
+        label: 'WSMS (WP SMS)',
+        desc: '7 new event added.',
+        isPro: true
+      },
+      {
+        label: 'Instasent',
+        desc: '6 new event added.',
+        isPro: true
+      },
+      {
+        label: 'MasterStudyLms',
+        desc: '4 new event added.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -49,11 +96,7 @@ const changeLog = [
     headClass: 'new-improvement',
     itemClass: 'feature-list',
     items: [
-      {
-        label: 'WooCommerce',
-        desc: 'Switched product image uploads to WordPress-native file helpers (wp_parse_url, wp_delete_file) for safer file handling.',
-        isPro: false
-      }
+
     ]
   },
   {
@@ -62,9 +105,9 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Wishlist Member',
-        desc: 'Fixed membership level field mapping in the integration setup.',
-        isPro: false
+        label: 'MasterStudyLms',
+        desc: 'Fixed course and quiz fetching so only lessons and quizzes from the selected course are returned, and validation now treats null/empty config values as incomplete.',
+        isPro: true
       }
     ]
   },

@@ -209,7 +209,7 @@ export default function SelectAction() {
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
     { type: 'Sender', is_pro: true },
-    { type: 'MainWP', is_pro: true },
+    { type: 'MainWP', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)
@@ -303,8 +303,9 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
+                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button

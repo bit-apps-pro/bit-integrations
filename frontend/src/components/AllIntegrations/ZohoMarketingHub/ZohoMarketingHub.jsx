@@ -112,6 +112,9 @@ function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, marketingHubConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={marketingHubConf}
+        setDataConf={setMarketingHubConf}
+        formFields={formFields}
       />
     </div>
   )
