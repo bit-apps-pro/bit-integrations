@@ -197,6 +197,7 @@ export default function SelectAction() {
     { type: 'PeepSo', is_pro: true },
     { type: 'Ninja Tables', is_pro: true },
     { type: 'WC Affiliate', is_pro: true },
+    { type: 'Instasent', is_pro: true },
     { type: 'WPCafe', is_pro: true },
     { type: 'Teams For WooCommerce Memberships', is_pro: true },
     { type: 'SeoPress', is_pro: true },
