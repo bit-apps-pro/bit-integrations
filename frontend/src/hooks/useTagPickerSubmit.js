@@ -1,10 +1,6 @@
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
-import {
-  dedupeIds,
-  findTagByName,
-  parseTagPickerInput
-} from '../components/AllIntegrations/tagUtils'
+import { dedupeIds, findTagByName, parseTagPickerInput } from '../components/AllIntegrations/tagUtils'
 import { __ } from '../Utils/i18nwrap'
 
 const TAG_NAME_LIMIT = 20
@@ -61,8 +57,7 @@ export default function useTagPickerSubmit({
       const currentTagIds = (updatedMapping[key] || []).map(String)
       const nextTagIds = uniqueResolvedTagIds.map(String)
       const isAssignmentChanged =
-        currentTagIds.length !== nextTagIds.length ||
-        currentTagIds.some(id => !nextTagIds.includes(id))
+        currentTagIds.length !== nextTagIds.length || currentTagIds.some(id => !nextTagIds.includes(id))
 
       if (!isAssignmentChanged && createdTagCount === 0) {
         toast.success(__('No changes found', 'bit-integrations'))

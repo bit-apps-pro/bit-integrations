@@ -7,10 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import {
-  checkMappedFields,
-  handleInput
-} from './UltimateAffiliateProCommonFunc'
+import { checkMappedFields, handleInput } from './UltimateAffiliateProCommonFunc'
 import UltimateAffiliateProIntegLayout from './UltimateAffiliateProIntegLayout'
 
 export default function EditUltimateAffiliatePro({ allIntegURL }) {

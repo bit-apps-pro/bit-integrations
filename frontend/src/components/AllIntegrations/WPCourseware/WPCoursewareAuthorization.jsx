@@ -20,7 +20,7 @@ export default function WPCoursewareAuthorization({
   const [showAuthMsg, setShowAuthMsg] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isMounted, setIsMounted] = useState(true)
-useEffect(
+  useEffect(
     () => () => {
       setIsMounted(false)
     },
@@ -54,7 +54,7 @@ useEffect(
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="wpCourseware" />
+        <TutorialLink linkKey="wpCourseware" />
 
         <div className="mt-3">
           <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -10,7 +10,7 @@ export default function GetgistAuthorization({ getgistConf, setGetgistConf, step
   const [error, setError] = useState({ name: '', api_key: '' })
   const [showAuthMsg, setShowAuthMsg] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-const handleAuthorize = () => {
+  const handleAuthorize = () => {
     const newConf = { ...getgistConf }
     if (!newConf.name || !newConf.api_key) {
       setError({
@@ -51,7 +51,7 @@ const handleAuthorize = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="getgist" />
+      <TutorialLink linkKey="getgist" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -75,7 +75,7 @@ export default function ActiveCampaignAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="activeCampaign" />
+      <TutorialLink linkKey="activeCampaign" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

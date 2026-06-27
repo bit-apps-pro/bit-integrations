@@ -7,10 +7,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import {
-  refreshWpDataTablesColumns,
-  refreshWpDataTablesTables
-} from './WpDataTablesCommonFunc'
+import { refreshWpDataTablesColumns, refreshWpDataTablesTables } from './WpDataTablesCommonFunc'
 import WpDataTablesFieldMap from './WpDataTablesFieldMap'
 import { modules } from './staticData'
 
@@ -120,7 +117,13 @@ export default function WpDataTablesIntegLayout({
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <button
-            onClick={() => refreshWpDataTablesColumns(wpDataTablesConf.selectedTable, setWpDataTablesConf, setIsLoading)}
+            onClick={() =>
+              refreshWpDataTablesColumns(
+                wpDataTablesConf.selectedTable,
+                setWpDataTablesConf,
+                setIsLoading
+              )
+            }
             className="icn-btn sh-sm ml-2 mt-2"
             type="button"
             title={__('Refresh Columns', 'bit-integrations')}>

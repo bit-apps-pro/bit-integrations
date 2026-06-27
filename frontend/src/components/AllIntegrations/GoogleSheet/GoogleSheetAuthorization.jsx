@@ -28,7 +28,7 @@ export default function GoogleSheetAuthorization({
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState({ clientId: '', clientSecret: '' })
   const btcbi = useRecoilValue($appConfigState)
-const [authData, setAuthData] = useState([])
+  const [authData, setAuthData] = useState([])
   const [authInfo, setAuthInfo] = useRecoilState(authInfoAtom)
   const [selectedAuthType, setSelectedAuthType] = useState('Custom Authorization')
 
@@ -93,7 +93,7 @@ const [authData, setAuthData] = useState([])
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="googleSheet" />
+      <TutorialLink linkKey="googleSheet" />
 
       {selectedAuthType === 'Custom Authorization' && (
         <div>

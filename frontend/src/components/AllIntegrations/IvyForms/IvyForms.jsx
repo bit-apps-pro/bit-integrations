@@ -33,7 +33,10 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
 
     if (val === 3) {
       if (!checkMappedFields(ivyFormsConf)) {
-        setSnackbar({ show: true, msg: __('Please map all required fields to continue.', 'bit-integrations') })
+        setSnackbar({
+          show: true,
+          msg: __('Please map all required fields to continue.', 'bit-integrations')
+        })
         return
       }
       if (ivyFormsConf.name !== '' && ivyFormsConf.field_map.length > 0) {
@@ -63,7 +66,11 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
       {/* STEP 2 */}
       <div
         className="btcd-stp-page"
-        style={{ width: step === 2 && 900, height: step === 2 && 'auto', minHeight: step === 2 && '500px' }}>
+        style={{
+          width: step === 2 && 900,
+          height: step === 2 && 'auto',
+          minHeight: step === 2 && '500px'
+        }}>
         <IvyFormsIntegLayout
           formID={formID}
           formFields={formFields}
@@ -73,7 +80,9 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
           setIsLoading={setIsLoading}
           isLoading={isLoading}
         />
-        <br /><br /><br />
+        <br />
+        <br />
+        <br />
         <button
           onClick={() => nextPage(3)}
           disabled={ivyFormsConf.field_map.length < 1}

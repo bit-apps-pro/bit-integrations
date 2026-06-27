@@ -3,7 +3,11 @@ import { __ } from '../../../Utils/i18nwrap'
 export const modules = [
   { name: 'create_student', label: __('Create Student', 'bit-integrations'), is_pro: true },
   { name: 'update_student_data', label: __('Update Student Data', 'bit-integrations'), is_pro: true },
-  { name: 'enroll_user_in_course', label: __('Enroll User in Course', 'bit-integrations'), is_pro: true },
+  {
+    name: 'enroll_user_in_course',
+    label: __('Enroll User in Course', 'bit-integrations'),
+    is_pro: true
+  },
   { name: 'create_course', label: __('Create Course', 'bit-integrations'), is_pro: true },
   { name: 'mark_lesson_completed', label: __('Mark Lesson Completed', 'bit-integrations'), is_pro: true }
 ]

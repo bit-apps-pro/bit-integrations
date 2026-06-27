@@ -49,7 +49,7 @@ function MoosendAuthorization({
 
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink linkKey="moosend" />
+      <TutorialLink linkKey="moosend" />
 
       <div className="mt-2">
         {/* Moosend Authorization */}

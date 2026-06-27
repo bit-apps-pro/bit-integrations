@@ -5,11 +5,7 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import {
-  generateMappedField,
-  refreshSureDashPosts,
-  refreshSureDashSpaces
-} from './SureDashCommonFunc'
+import { generateMappedField, refreshSureDashPosts, refreshSureDashSpaces } from './SureDashCommonFunc'
 import SureDashFieldMap from './SureDashFieldMap'
 import {
   BookmarkItemFields,
@@ -124,7 +120,9 @@ export default function SureDashIntegLayout({
               defaultValue={sureDashConf?.selectedSpaceId ?? null}
               style={{ minWidth: '440px' }}
               onChange={handleSelectSpace}
-              options={sureDashConf?.allSpaces?.map(s => ({ label: s.label, value: String(s.value) })) || []}
+              options={
+                sureDashConf?.allSpaces?.map(s => ({ label: s.label, value: String(s.value) })) || []
+              }
               singleSelect
               closeOnSelect
             />
@@ -147,7 +145,9 @@ export default function SureDashIntegLayout({
               defaultValue={sureDashConf?.selectedPostId ?? null}
               style={{ minWidth: '440px' }}
               onChange={handleSelectPost}
-              options={sureDashConf?.allPosts?.map(p => ({ label: p.label, value: String(p.value) })) || []}
+              options={
+                sureDashConf?.allPosts?.map(p => ({ label: p.label, value: String(p.value) })) || []
+              }
               singleSelect
               closeOnSelect
             />
@@ -187,9 +187,7 @@ export default function SureDashIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(sureDashConf.field_map.length, sureDashConf, setSureDashConf)
-              }
+              onClick={() => addFieldMap(sureDashConf.field_map.length, sureDashConf, setSureDashConf)}
               className="icn-btn sh-sm"
               type="button">
               +

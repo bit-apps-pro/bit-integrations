@@ -15,7 +15,7 @@ function Integromat({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [integromat, setIntegromat] = useState({
+  const [integromat, setIntegromat] = useState({
     name: 'Make(Integromat) Web Hooks',
     type: 'Make(Integromat)',
     method: 'POST',
@@ -34,7 +34,7 @@ const [integromat, setIntegromat] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="integromatLinks" />
+        <TutorialLink linkKey="integromatLinks" />
 
         <WebHooksIntegration
           formID={formID}

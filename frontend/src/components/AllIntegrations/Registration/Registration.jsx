@@ -187,15 +187,15 @@ const userUpdateInstruction = `
   <ul>
   <li>${__('The user must be logged in when updating profile', 'bit-integrations')}</li>
   <li>${__(
-  'The user cannot change the value of the username field when updating the user profile.',
-  'bit-integrations'
-)}</li>
+    'The user cannot change the value of the username field when updating the user profile.',
+    'bit-integrations'
+  )}</li>
      
   </ul>`
 const userCreateInstruction = `
   <ul>
   <li>${__(
-  'If the Username and Password fields are blank then the user will take the value of the email field as the field and the password will be auto-generated.',
-  'bit-integrations'
-)}</li>
+    'If the Username and Password fields are blank then the user will take the value of the email field as the field and the password will be auto-generated.',
+    'bit-integrations'
+  )}</li>
   </ul>`

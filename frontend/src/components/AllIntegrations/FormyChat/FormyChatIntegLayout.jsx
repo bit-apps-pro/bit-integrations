@@ -106,7 +106,9 @@ export default function FormyChatIntegLayout({
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <button
-            onClick={() => refreshFormyChatWidgetFields(formyChatConf.widgetId, setFormyChatConf, setIsLoading)}
+            onClick={() =>
+              refreshFormyChatWidgetFields(formyChatConf.widgetId, setFormyChatConf, setIsLoading)
+            }
             className="icn-btn sh-sm ml-2 mr-2 tooltip"
             style={{ '--tooltip-txt': `'${__('Refresh Fields', 'bit-integrations')}'` }}
             type="button"
@@ -137,7 +139,9 @@ export default function FormyChatIntegLayout({
 
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() => addFieldMap(formyChatConf.field_map.length, formyChatConf, setFormyChatConf)}
+              onClick={() =>
+                addFieldMap(formyChatConf.field_map.length, formyChatConf, setFormyChatConf)
+              }
               className="icn-btn sh-sm"
               type="button">
               +
@@ -173,7 +177,9 @@ export default function FormyChatIntegLayout({
 
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() => addMetaFieldMap((formyChatConf?.meta_map || []).length, formyChatConf, setFormyChatConf)}
+              onClick={() =>
+                addMetaFieldMap((formyChatConf?.meta_map || []).length, formyChatConf, setFormyChatConf)
+              }
               className="icn-btn sh-sm"
               type="button">
               +

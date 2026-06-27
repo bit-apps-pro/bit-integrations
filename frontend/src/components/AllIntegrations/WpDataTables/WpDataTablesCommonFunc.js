@@ -21,9 +21,7 @@ export const checkMappedFields = wpDataTablesConf => {
   if (!hasMappedRow) return false
 
   const brokenCustom =
-    wpDataTablesConf?.field_map?.filter(
-      m => m.formField === 'custom' && !m.customValue
-    ) ?? []
+    wpDataTablesConf?.field_map?.filter(m => m.formField === 'custom' && !m.customValue) ?? []
 
   return brokenCustom.length === 0
 }
@@ -38,7 +36,7 @@ export const generateMappedField = fields => {
 
 export const refreshWpDataTablesTables = (setConf, setIsLoading) => {
   setIsLoading(true)
-  bitsFetch(null, 'wp_data_tables_get_tables', null, "GET")
+  bitsFetch(null, 'wp_data_tables_get_tables', null, 'GET')
     .then(result => {
       if (result?.success && result?.data) {
         setConf(prev =>

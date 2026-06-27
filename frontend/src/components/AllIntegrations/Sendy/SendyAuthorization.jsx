@@ -14,7 +14,7 @@ export default function SendyAuthorization({ sendyConf, setSendyConf, step, sets
   const [error, setError] = useState({ name: '', api_key: '' })
   const [showAuthMsg, setShowAuthMsg] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-const handleAuthorize = () => {
+  const handleAuthorize = () => {
     const newConf = { ...sendyConf }
     if (!newConf.name || !newConf.api_key) {
       setError({
@@ -55,7 +55,7 @@ const handleAuthorize = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="sendy" />
+      <TutorialLink linkKey="sendy" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -47,7 +47,6 @@ export default function CreatorLmsAuthorization({
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-
       <TutorialLink linkKey="creatorLms" />
 
       <div className="mt-3">

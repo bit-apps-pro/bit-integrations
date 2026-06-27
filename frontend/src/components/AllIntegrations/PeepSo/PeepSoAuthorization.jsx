@@ -90,7 +90,7 @@ export default function PeepSoAuthorization({
         </div>
       )}
 
-      {!info &&
+      {!info && (
         <>
           <button
             onClick={authorizeHandler}
@@ -112,7 +112,7 @@ export default function PeepSoAuthorization({
             <BackIcn className="ml-1 rev-icn" />
           </button>
         </>
-      }
+      )}
     </div>
   )
 }

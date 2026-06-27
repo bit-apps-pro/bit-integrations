@@ -26,7 +26,7 @@ export const generateMappedField = fields => {
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({
         formField: '',
-        bookingPressField: field.key,
+        bookingPressField: field.key
       }))
     : [{ formField: '', bookingPressField: '' }]
 }

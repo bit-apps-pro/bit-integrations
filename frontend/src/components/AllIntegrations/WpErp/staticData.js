@@ -6,18 +6,53 @@ export const modules = [
   { name: 'updateContact', label: __('Update Contact', 'bit-integrations'), is_pro: true, group: 'CRM' },
   { name: 'createCompany', label: __('Create Company', 'bit-integrations'), is_pro: true, group: 'CRM' },
   { name: 'updateCompany', label: __('Update Company', 'bit-integrations'), is_pro: true, group: 'CRM' },
-  { name: 'createContactGroup', label: __('Create Contact Group', 'bit-integrations'), is_pro: true, group: 'CRM' },
-  { name: 'addContactToGroup', label: __('Add Contact To Group', 'bit-integrations'), is_pro: true, group: 'CRM' },
-  { name: 'removeContactFromGroup', label: __('Remove Contact From Group', 'bit-integrations'), is_pro: true, group: 'CRM' },
+  {
+    name: 'createContactGroup',
+    label: __('Create Contact Group', 'bit-integrations'),
+    is_pro: true,
+    group: 'CRM'
+  },
+  {
+    name: 'addContactToGroup',
+    label: __('Add Contact To Group', 'bit-integrations'),
+    is_pro: true,
+    group: 'CRM'
+  },
+  {
+    name: 'removeContactFromGroup',
+    label: __('Remove Contact From Group', 'bit-integrations'),
+    is_pro: true,
+    group: 'CRM'
+  },
   { name: 'addNote', label: __('Add Note To Contact', 'bit-integrations'), is_pro: true, group: 'CRM' },
   { name: 'createTask', label: __('Create Task', 'bit-integrations'), is_pro: true, group: 'CRM' },
   // HRM
-  { name: 'createDepartment', label: __('Create Department', 'bit-integrations'), is_pro: true, group: 'HRM' },
-  { name: 'createDesignation', label: __('Create Designation', 'bit-integrations'), is_pro: true, group: 'HRM' },
+  {
+    name: 'createDepartment',
+    label: __('Create Department', 'bit-integrations'),
+    is_pro: true,
+    group: 'HRM'
+  },
+  {
+    name: 'createDesignation',
+    label: __('Create Designation', 'bit-integrations'),
+    is_pro: true,
+    group: 'HRM'
+  },
   { name: 'createHoliday', label: __('Create Holiday', 'bit-integrations'), is_pro: true, group: 'HRM' },
   // Accounting
-  { name: 'createExpense', label: __('Create Expense', 'bit-integrations'), is_pro: true, group: 'Accounting' },
-  { name: 'createPayment', label: __('Create Payment', 'bit-integrations'), is_pro: true, group: 'Accounting' }
+  {
+    name: 'createExpense',
+    label: __('Create Expense', 'bit-integrations'),
+    is_pro: true,
+    group: 'Accounting'
+  },
+  {
+    name: 'createPayment',
+    label: __('Create Payment', 'bit-integrations'),
+    is_pro: true,
+    group: 'Accounting'
+  }
 ]
 
 export const ContactFields = [
@@ -81,7 +116,7 @@ export const ContactGroupFields = [
 ]
 
 export const GroupSubscriberFields = [
-  { key: 'contact_id', label: __('Contact ID', 'bit-integrations'), required: true },
+  { key: 'contact_id', label: __('Contact ID', 'bit-integrations'), required: true }
 ]
 
 export const NoteFields = [

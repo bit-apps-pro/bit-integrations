@@ -5,7 +5,13 @@ import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
 import { addMetaFieldMap, delMetaFieldMap, handleMetaMapping } from './FormyChatCommonFunc'
 
-export default function FormyChatMetaFieldMap({ i, formFields, field, formyChatConf, setFormyChatConf }) {
+export default function FormyChatMetaFieldMap({
+  i,
+  formFields,
+  field,
+  formyChatConf,
+  setFormyChatConf
+}) {
   const { isPro } = useRecoilValue($appConfigState)
 
   const handleCustomValue = (val, index) => {
@@ -26,7 +32,9 @@ export default function FormyChatMetaFieldMap({ i, formFields, field, formyChatC
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             <optgroup label={__('Form Fields', 'bit-integrations')}>
               {formFields?.map(f => (
-                <option key={`ff-fcm-${f.name}`} value={f.name}>{f.label}</option>
+                <option key={`ff-fcm-${f.name}`} value={f.name}>
+                  {f.label}
+                </option>
               ))}
             </optgroup>
             <option value="custom">{__('Custom...', 'bit-integrations')}</option>
@@ -35,9 +43,12 @@ export default function FormyChatMetaFieldMap({ i, formFields, field, formyChatC
                 __('General Smart Codes %s', 'bit-integrations'),
                 isPro ? '' : `(${__('Pro', 'bit-integrations')})`
               )}>
-              {isPro && SmartTagField?.map(f => (
-                <option key={`ff-fcm-st-${f.name}`} value={f.name}>{f.label}</option>
-              ))}
+              {isPro &&
+                SmartTagField?.map(f => (
+                  <option key={`ff-fcm-st-${f.name}`} value={f.name}>
+                    {f.label}
+                  </option>
+                ))}
             </optgroup>
           </select>
 

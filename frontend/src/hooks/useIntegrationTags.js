@@ -29,10 +29,7 @@ export default function useIntegrationTags() {
 
   const persistTagData = useCallback(
     (nextTags, nextIntegrationTags, successMsg = '') =>
-      bitsFetch(
-        { tags: nextTags, integrationTags: nextIntegrationTags },
-        'integration-tags/save'
-      )
+      bitsFetch({ tags: nextTags, integrationTags: nextIntegrationTags }, 'integration-tags/save')
         .then(res => {
           if (!res?.success) throw new Error('tag_save_failed')
           setTags(Array.isArray(res?.data?.tags) ? res.data.tags : nextTags)

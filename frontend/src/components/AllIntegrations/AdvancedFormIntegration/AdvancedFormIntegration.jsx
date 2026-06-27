@@ -21,7 +21,7 @@ function AdvancedFormIntegration({ formFields, setFlow, flow, allIntegURL }) {
     method: 'POST',
     url: ''
   })
-return (
+  return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2">
@@ -32,7 +32,7 @@ return (
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="afi" />
+        <TutorialLink linkKey="afi" />
 
         <WebHooksIntegration
           formID={formID}

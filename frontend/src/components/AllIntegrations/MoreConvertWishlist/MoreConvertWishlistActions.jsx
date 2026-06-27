@@ -214,8 +214,7 @@ export default function MoreConvertWishlistActions({
         />
       )}
 
-      {(mainAction === 'add_product_to_wishlist' ||
-        mainAction === 'remove_product_from_wishlist') && (
+      {(mainAction === 'add_product_to_wishlist' || mainAction === 'remove_product_from_wishlist') && (
         <TableCheckBox
           checked={isUtilitySet('wishlistId')}
           onChange={e => actionHandler(e, 'wishlistId')}

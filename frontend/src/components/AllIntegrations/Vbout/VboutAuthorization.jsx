@@ -19,7 +19,7 @@ export default function VboutAuthorization({
 }) {
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', auth_token: '' })
-const nextPage = () => {
+  const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -57,7 +57,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="vbout" />
+      <TutorialLink linkKey="vbout" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

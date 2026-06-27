@@ -27,7 +27,7 @@ export default function SalesforceAuthorization({
     clientId: '',
     clientSecret: ''
   })
-const nextPage = () => {
+  const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -50,7 +50,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink linkKey="salesforce" />
+      <TutorialLink linkKey="salesforce" />
 
       <div className="wdt-200 d-in-b mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

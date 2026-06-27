@@ -26,7 +26,7 @@ function Mail({ allIntegURL, isInfo, edit, isLearnDash = false, learnDashConf })
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const [snack, setSnackbar] = useState({ show: false })
-const btcbi = useRecoilValue($appConfigState)
+  const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   const mailOptions = () => {
@@ -170,7 +170,7 @@ const btcbi = useRecoilValue($appConfigState)
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-            <TutorialLink linkKey="mailLinks" />
+      <TutorialLink linkKey="mailLinks" />
 
       <span className="f-m wdt-200 d-in-b">{__('Integration Name', 'bit-integration')}</span>
       <input
