@@ -197,6 +197,7 @@ export default function SelectAction() {
     { type: 'PeepSo', is_pro: true },
     { type: 'Ninja Tables', is_pro: true },
     { type: 'WC Affiliate', is_pro: true },
+    { type: 'Instasent', is_pro: true },
     { type: 'WPCafe', is_pro: true },
     { type: 'Teams For WooCommerce Memberships', is_pro: true },
     { type: 'SeoPress', is_pro: true },
@@ -206,6 +207,8 @@ export default function SelectAction() {
     { type: 'B2BKing', is_pro: true },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
+    { type: 'Sender', is_pro: true },
+    { type: 'MainWP', is_pro: true },
   ]
 
   const [showProModal, setShowProModal] = useState(false)
