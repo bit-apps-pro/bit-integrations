@@ -15,7 +15,7 @@ function ZohoFlow({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [zohoFlow, setZohoFlow] = useState({
+  const [zohoFlow, setZohoFlow] = useState({
     name: 'Zoho Flow Web Hooks',
     type: 'Zoho Flow',
     method: 'POST',
@@ -34,7 +34,7 @@ const [zohoFlow, setZohoFlow] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="zohoFlowLinks" />
+        <TutorialLink linkKey="zohoFlowLinks" />
 
         <WebHooksLayouts
           formID={formID}

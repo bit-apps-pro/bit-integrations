@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -102,13 +103,17 @@ final class FilesApiHelper
             $payload .= "\r\n";
 
             if (filter_var($file, FILTER_VALIDATE_URL)) {
-                $response = wp_remote_get($file);
+                $response = Common::safeRemoteGet($file);
                 if (is_wp_error($response)) {
                     return '';
                 }
                 $payload .= wp_remote_retrieve_body($response);
             } else {
-                $payload .= file_get_contents("{$file}");
+                $safeFilePath = Common::safeUploadFilePath($file);
+                if ($safeFilePath === '') {
+                    return '';
+                }
+                $payload .= file_get_contents($safeFilePath);
             }
 
             $payload .= "\r\n";

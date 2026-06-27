@@ -18,7 +18,7 @@ export default function GetResponseAuthorization({
 }) {
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', auth_token: '' })
-useEffect(() => {
+  useEffect(() => {
     isAuthorized && fetchCustomFields(getResponseConf, setGetResponseConf, setLoading, 'default')
   }, [isAuthorized])
 
@@ -62,7 +62,7 @@ useEffect(() => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="getResponse" />
+      <TutorialLink linkKey="getResponse" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

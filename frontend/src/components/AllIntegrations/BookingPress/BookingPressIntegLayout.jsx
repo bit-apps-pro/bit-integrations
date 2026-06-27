@@ -21,7 +21,7 @@ export default function BookingPressIntegLayout({
   formFields,
   bookingPressConf,
   setBookingPressConf,
-  setSnackbar,
+  setSnackbar
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
@@ -72,7 +72,7 @@ export default function BookingPressIntegLayout({
           options={modules?.map(action => ({
             label: checkIsPro(isPro, action.is_pro) ? action.label : getProLabel(action.label),
             value: action.name,
-            disabled: !checkIsPro(isPro, action.is_pro),
+            disabled: !checkIsPro(isPro, action.is_pro)
           }))}
           singleSelect
           closeOnSelect

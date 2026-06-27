@@ -15,7 +15,7 @@ function IFTTT({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [ifttt, setIfttt] = useState({
+  const [ifttt, setIfttt] = useState({
     name: 'IFTTT Web Hooks',
     type: 'IFTTT',
     method: 'POST',
@@ -33,7 +33,7 @@ const [ifttt, setIfttt] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="iFTTT" />
+        <TutorialLink linkKey="iFTTT" />
 
         <WebHooksIntegration
           formID={formID}

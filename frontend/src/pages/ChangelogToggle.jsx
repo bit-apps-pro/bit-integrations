@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '08th June 2026'
+const releaseDate = '20th June 2026'
 
 // Example for items:
 // items: [
@@ -30,85 +30,13 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'WordPress',
-        desc: '33 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP Post',
-        desc: '11 new events added',
-        isPro: true
-      },
-      {
-        label: 'IvyForms',
-        desc: '1 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP User Registration',
-        desc: '12 new events added',
-        isPro: true
-      },
-      {
-        label: 'MoreConvert Wishlist for WooCommerce',
-        desc: '9 new events added',
-        isPro: true
-      },
-      {
-        label: 'Secure Custom Fields (SCF)',
-        desc: '6 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'WordPress',
-        desc: '33 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP Post',
-        desc: '6 new events added',
-        isPro: true
-      },
-      {
-        label: 'Heffl CRM',
-        desc: '3 new events added',
-        isPro: true
-      },
-      {
-        label: 'IvyForms',
-        desc: '1 new events added',
-        isPro: true
-      },
-      {
-        label: 'WP User Registration',
-        desc: '11 new events added',
-        isPro: true
-      },
-      {
-        label: 'Zendesk Support',
-        desc: '17 new events added',
-        isPro: true
-      },
-      {
-        label: 'MoreConvert Wishlist for WooCommerce',
-        desc: '8 new events added',
-        isPro: true
-      },
-      {
-        label: 'Secure Custom Fields (SCF)',
-        desc: '5 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -122,14 +50,9 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Response review modal',
-        desc: 'Improved UI.',
+        label: 'WooCommerce',
+        desc: 'Switched product image uploads to WordPress-native file helpers (wp_parse_url, wp_delete_file) for safer file handling.',
         isPro: false
-      },
-      {
-        label: 'Custom Trigger, Webhook & Form Submission',
-        desc: 'Added a countdown timer and improved loading state for data-fetching operations.',
-        isPro: true
       }
     ]
   },
@@ -139,8 +62,8 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Telegram',
-        desc: 'Fixed chat list fetching issue.',
+        label: 'Wishlist Member',
+        desc: 'Fixed membership level field mapping in the integration setup.',
         isPro: false
       }
     ]
@@ -252,7 +175,9 @@ export default function ChangelogToggle() {
                   {__('Updated at:', 'bit-integrations')} <b>{releaseDate}</b>
                 </small>
               </div>
-              <div className="changelog-content" style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
+              <div
+                className="changelog-content"
+                style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
                 {changeLog.map((log, index) => (
                   <Fragment key={index}>
                     {log.items.length > 0 && (

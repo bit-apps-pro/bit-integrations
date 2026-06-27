@@ -64,6 +64,150 @@ final class Common
     }
 
     /**
+     * SSRF-safe outbound GET (CWE-918).
+     *
+     * Validates the URL with wp_http_validate_url() (http/https scheme only,
+     * blocks most private ranges) and additionally blocks link-local / reserved
+     * ranges that WordPress misses (e.g. 169.254.0.0/16 cloud metadata, IPv6
+     * loopback/ULA) for external hosts. The site's own host is always allowed so
+     * legitimate fetches of the site's own uploads URL keep working. Returns a
+     * WP_Error for disallowed URLs so existing is_wp_error() callers short-circuit.
+     *
+     * @param string $url
+     * @param array  $args
+     *
+     * @return array|\WP_Error
+     */
+    public static function safeRemoteGet($url, $args = [])
+    {
+        if (!self::isSafeRemoteUrl($url)) {
+            return new \WP_Error('bit_integrations_blocked_url', __('The requested URL is not allowed.', 'bit-integrations'));
+        }
+
+        return wp_safe_remote_get($url, $args);
+    }
+
+    /**
+     * Whether $url is a public http/https URL safe to fetch server-side.
+     *
+     * @param string $url
+     *
+     * @return bool
+     */
+    public static function isSafeRemoteUrl($url)
+    {
+        if (!\is_string($url) || $url === '' || !wp_http_validate_url($url)) {
+            return false;
+        }
+
+        $host = wp_parse_url($url, PHP_URL_HOST);
+        if (empty($host)) {
+            return false;
+        }
+
+        // Always allow the site's own host (mirrors wp_http_validate_url's home-host
+        // allowance) so fetching the site's own uploads URL is not blocked on
+        // installs whose host resolves to a private/loopback IP (local/staging).
+        $homeHost = wp_parse_url(home_url(), PHP_URL_HOST);
+        if (!empty($homeHost) && strtolower($host) === strtolower($homeHost)) {
+            return true;
+        }
+
+        $ips = [];
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            $ips[] = $host;
+        } else {
+            $records = @dns_get_record($host, DNS_A | DNS_AAAA);
+            if (\is_array($records)) {
+                foreach ($records as $record) {
+                    if (!empty($record['ip'])) {
+                        $ips[] = $record['ip'];
+                    }
+                    if (!empty($record['ipv6'])) {
+                        $ips[] = $record['ipv6'];
+                    }
+                }
+            }
+            if (empty($ips)) {
+                $resolved = gethostbyname($host);
+                if ($resolved && $resolved !== $host) {
+                    $ips[] = $resolved;
+                }
+            }
+        }
+
+        // Deny unresolvable hostnames — allowing them through would let a DNS failure
+        // bypass all IP range checks (the foreach below would iterate zero times).
+        // Note: DNS-rebinding (TOCTOU) between this check and wp_safe_remote_get's
+        // own resolution is an inherent limitation of server-side DNS validation.
+        if (empty($ips)) {
+            return false;
+        }
+
+        foreach ($ips as $ip) {
+            // Reject private (10/8, 172.16/12, 192.168/16, fc00::/7, fe80::/10) and
+            // reserved (0/8, 127/8, 169.254/16, ::1, ...) ranges -> blocks loopback
+            // and cloud-metadata SSRF targets.
+            if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Resolve a mapped file value to a local path contained within the WordPress
+     * uploads directory (LFI / path-traversal guard, CWE-22). A same-site uploads
+     * URL is first converted to its local path; any value carrying a URL scheme
+     * (remote URL / php:// / file:// wrappers) or resolving outside the uploads
+     * directory is rejected.
+     *
+     * @param string      $file
+     * @param string|null $baseDir Directory the resolved path must stay within.
+     *                             Defaults to the WordPress uploads base dir.
+     *
+     * @return string Contained absolute path, or '' if not allowed
+     */
+    public static function safeUploadFilePath($file, $baseDir = null)
+    {
+        if (!\is_string($file) || $file === '') {
+            return '';
+        }
+
+        // Convert a same-site uploads URL to its local filesystem path.
+        $file = self::filePath($file);
+
+        // Reject anything still carrying a scheme (external URL or stream wrapper).
+        if (wp_parse_url($file, PHP_URL_SCHEME) !== null) {
+            return '';
+        }
+
+        $real = realpath($file);
+        if ($real === false || !is_file($real)) {
+            return '';
+        }
+
+        if ($baseDir === null) {
+            $uploadDir = wp_upload_dir();
+            $baseDir = empty($uploadDir['basedir']) ? '' : $uploadDir['basedir'];
+        }
+
+        if ($baseDir === '') {
+            return '';
+        }
+
+        $base = realpath($baseDir);
+        if ($base === false) {
+            return '';
+        }
+
+        $base = rtrim($base, '/\\') . DIRECTORY_SEPARATOR;
+
+        return strpos($real, $base) === 0 ? $real : '';
+    }
+
+    /**
      * Replaces dir path with url
      *
      * @param array|string $file Single or multiple files path

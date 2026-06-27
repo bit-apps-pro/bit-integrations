@@ -116,6 +116,7 @@ class HefflCRMController
         $fieldMap = $integrationDetails->field_map ?? [];
 
         if (empty($fieldMap) || empty($apiKey)) {
+            // translators: %s is the name of the integration.
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('API key and field map are required for %s api', 'bit-integrations'), 'Heffl CRM'));
         }
 
@@ -193,8 +194,6 @@ class HefflCRMController
         if (\is_object($response) && !is_wp_error($response) && !empty($response->hasMore) && !empty($response->nextCursor)) {
             return $response->nextCursor;
         }
-
-        return null;
     }
 
     private static function defaultLabel($item, $id)

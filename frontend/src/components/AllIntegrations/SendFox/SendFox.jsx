@@ -7,10 +7,7 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SendFoxAuthorization from './SendFoxAuthorization'
-import {
-  handleInput,
-  isDisabled
-} from './SendFoxCommonFunc'
+import { handleInput, isDisabled } from './SendFoxCommonFunc'
 import SendFoxIntegLayout from './SendFoxIntegLayout'
 
 function SendFox({ formFields, setFlow, flow, allIntegURL }) {

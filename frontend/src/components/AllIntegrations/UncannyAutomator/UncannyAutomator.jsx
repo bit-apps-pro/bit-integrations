@@ -15,7 +15,7 @@ function UncannyAutomator({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [uncannyAutomator, setUncannyAutomator] = useState({
+  const [uncannyAutomator, setUncannyAutomator] = useState({
     name: 'UncannyAutomator Web Hooks',
     type: 'UncannyAutomator',
     method: 'POST',
@@ -33,7 +33,7 @@ const [uncannyAutomator, setUncannyAutomator] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="uncannyAutomatorLinks" />
+        <TutorialLink linkKey="uncannyAutomatorLinks" />
 
         <WebHooksIntegration
           formID={formID}

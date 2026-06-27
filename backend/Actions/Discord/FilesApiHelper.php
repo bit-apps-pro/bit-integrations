@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Discord;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
@@ -48,10 +49,15 @@ final class FilesApiHelper
             return false;
         }
 
+        $safePath = Common::safeUploadFilePath($file);
+        if ($safePath === '') {
+            return false;
+        }
+
         return HttpHelper::post(
             $uploadFileEndpoint,
             [
-                'filename' => new CURLFile($file)
+                'filename' => new CURLFile($safePath)
             ],
             [
                 'Content-Type'  => 'multipart/form-data',

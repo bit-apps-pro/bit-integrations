@@ -33,7 +33,9 @@ export default function UltimateAffiliateProFieldMap({
             className="btcd-paper-inp mr-2"
             name="formField"
             value={field.formField || ''}
-            onChange={ev => handleFieldMapping(ev, i, ultimateAffiliateProConf, setUltimateAffiliateProConf)}>
+            onChange={ev =>
+              handleFieldMapping(ev, i, ultimateAffiliateProConf, setUltimateAffiliateProConf)
+            }>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             <optgroup label={__('Form Fields', 'bit-integrations')}>
               {formFields?.map(f => (
@@ -59,7 +61,9 @@ export default function UltimateAffiliateProFieldMap({
 
           {field.formField === 'custom' && (
             <TagifyInput
-              onChange={e => handleCustomValue(e, i, ultimateAffiliateProConf, setUltimateAffiliateProConf)}
+              onChange={e =>
+                handleCustomValue(e, i, ultimateAffiliateProConf, setUltimateAffiliateProConf)
+              }
               label={__('Custom Value', 'bit-integrations')}
               className="mr-2"
               type="text"
@@ -74,11 +78,11 @@ export default function UltimateAffiliateProFieldMap({
             disabled={i < requiredFlds.length}
             name="ultimateAffiliateProField"
             value={
-              i < requiredFlds.length
-                ? requiredFlds[i].key || ''
-                : field.ultimateAffiliateProField || ''
+              i < requiredFlds.length ? requiredFlds[i].key || '' : field.ultimateAffiliateProField || ''
             }
-            onChange={ev => handleFieldMapping(ev, i, ultimateAffiliateProConf, setUltimateAffiliateProConf)}>
+            onChange={ev =>
+              handleFieldMapping(ev, i, ultimateAffiliateProConf, setUltimateAffiliateProConf)
+            }>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (
               <option key={requiredFlds[i].key} value={requiredFlds[i].key}>

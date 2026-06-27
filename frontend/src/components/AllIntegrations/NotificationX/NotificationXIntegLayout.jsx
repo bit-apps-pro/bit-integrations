@@ -27,7 +27,7 @@ export default function NotificationXIntegLayout({
   setNotificationXConf,
   isLoading,
   setIsLoading,
-  setSnackbar,
+  setSnackbar
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
@@ -96,7 +96,7 @@ export default function NotificationXIntegLayout({
           options={modules?.map(action => ({
             label: checkIsPro(isPro, action.is_pro) ? action.label : getProLabel(action.label),
             value: action.name,
-            disabled: !checkIsPro(isPro, action.is_pro),
+            disabled: !checkIsPro(isPro, action.is_pro)
           }))}
           singleSelect
           closeOnSelect
@@ -119,7 +119,7 @@ export default function NotificationXIntegLayout({
             }
             options={(notificationXConf?.notifications || []).map(n => ({
               label: n.label,
-              value: n.value,
+              value: n.value
             }))}
             singleSelect
             closeOnSelect
@@ -149,7 +149,7 @@ export default function NotificationXIntegLayout({
             justifyContent: 'center',
             alignItems: 'center',
             height: 100,
-            transform: 'scale(0.7)',
+            transform: 'scale(0.7)'
           }}
         />
       )}
@@ -230,14 +230,14 @@ export default function NotificationXIntegLayout({
       )}
 
       <br />
-      {['add_sales_notification', 'add_reviews', 'add_email_subscription'].includes(notificationXConf?.mainAction) && (
+      {['add_sales_notification', 'add_reviews', 'add_email_subscription'].includes(
+        notificationXConf?.mainAction
+      ) && (
         <Note
-          note={
-            __(
-              'Make sure to select Bit Integrations as the notification source in your NotificationX settings for this action.',
-              'bit-integrations'
-            )
-          }
+          note={__(
+            'Make sure to select Bit Integrations as the notification source in your NotificationX settings for this action.',
+            'bit-integrations'
+          )}
         />
       )}
     </>

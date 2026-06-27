@@ -361,7 +361,8 @@ class RecordApiHelper
             // ------------------------------------------------------------
             // 2) Natural-language dates ("today", "tomorrow", "next Monday", etc.)
             // ------------------------------------------------------------
-            if (preg_match('/^[a-zA-Z ]+$/', $input) || str_contains($input, 'ago')) {
+            // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
+            if (preg_match('/^[a-zA-Z ]+$/', $input) || strpos($input, 'ago') !== false) {
                 $ts = strtotime($input);
                 if ($ts) {
                     return gmdate('Y-m-d', $ts);

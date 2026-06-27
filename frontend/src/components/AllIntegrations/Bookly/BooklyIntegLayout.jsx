@@ -11,7 +11,7 @@ import {
   generateMappedField,
   refreshBooklyServices,
   refreshBooklyStaff,
-  refreshBooklyStatuses,
+  refreshBooklyStatuses
 } from './BooklyCommonFunc'
 import BooklyFieldMap from './BooklyFieldMap'
 import {
@@ -21,7 +21,7 @@ import {
   DeleteCustomerFields,
   modules,
   UpdateAppointmentStatusFields,
-  UpdateCustomerFields,
+  UpdateCustomerFields
 } from './staticData'
 
 const FIELDS_BY_ACTION = {
@@ -30,7 +30,7 @@ const FIELDS_BY_ACTION = {
   delete_appointment: DeleteAppointmentFields,
   create_customer: CreateCustomerFields,
   update_customer: UpdateCustomerFields,
-  delete_customer: DeleteCustomerFields,
+  delete_customer: DeleteCustomerFields
 }
 
 const STATUS_ACTIONS = ['create_appointment', 'update_appointment_status']
@@ -223,9 +223,7 @@ export default function BooklyIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(booklyConf.field_map.length, booklyConf, setBooklyConf)
-              }
+              onClick={() => addFieldMap(booklyConf.field_map.length, booklyConf, setBooklyConf)}
               className="icn-btn sh-sm"
               type="button">
               +
