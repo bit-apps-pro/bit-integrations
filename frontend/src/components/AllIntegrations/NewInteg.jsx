@@ -71,6 +71,7 @@ const Acumbamail = lazy(() => import('./Acumbamail/Acumbamail'))
 const Groundhogg = lazy(() => import('./Groundhogg/Groundhogg'))
 const SendFox = lazy(() => import('./SendFox/SendFox'))
 const MailerLite = lazy(() => import('./MailerLite/MailerLite'))
+const Instasent = lazy(() => import('./Instasent/Instasent'))
 const Vbout = lazy(() => import('./Vbout/Vbout'))
 const WhatsApp = lazy(() => import('./WhatsApp/WhatsApp'))
 const LearnDesh = lazy(() => import('./LearnDash/LearnDash'))
@@ -160,6 +161,7 @@ const Newsletter = lazy(() => import('./Newsletter/Newsletter'))
 const SureDash = lazy(() => import('./SureDash/SureDash'))
 const SureMembers = lazy(() => import('./SureMembers/SureMembers'))
 const Mailster = lazy(() => import('./Mailster/Mailster'))
+const MainWP = lazy(() => import('./MainWP/MainWP'))
 const WPForo = lazy(() => import('./WPForo/WPForo'))
 const Dokan = lazy(() => import('./Dokan/Dokan'))
 const JetEngine = lazy(() => import('./JetEngine/JetEngine'))
@@ -740,6 +742,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'MailerLite':
         return (
           <MailerLite
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Instasent':
+        return (
+          <Instasent
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
@@ -1579,6 +1590,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Mailster':
         return (
           <Mailster
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'MainWP':
+        return (
+          <MainWP
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
