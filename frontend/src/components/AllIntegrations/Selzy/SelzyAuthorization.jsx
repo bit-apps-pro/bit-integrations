@@ -12,7 +12,7 @@ import { __ } from '../../../Utils/i18nwrap'
 function SelzyAuthorization({ selzyConf, setSelzyConf, step, setStep, loading, setLoading, isInfo }) {
   const [authorized, setAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', authKey: '' })
-const nextPage = async () => {
+  const nextPage = async () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -46,7 +46,7 @@ const nextPage = async () => {
 
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink linkKey="selzy" />
+      <TutorialLink linkKey="selzy" />
 
       <div className="mt-2">
         {/* SelzyAuthorization */}

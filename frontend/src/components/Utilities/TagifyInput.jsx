@@ -7,8 +7,8 @@ import { useEffect, useRef } from 'react'
 function TagifyInput({ label, onChange, value, disabled, type, textarea, className, formFields }) {
   const fields = formFields
     ? formFields
-      .filter(itm => itm.label !== undefined)
-      .map(item => ({ name: item.label, value: item.name }))
+        .filter(itm => itm.label !== undefined)
+        .map(item => ({ name: item.label, value: item.name }))
     : []
 
   const targetRef = useRef(null)

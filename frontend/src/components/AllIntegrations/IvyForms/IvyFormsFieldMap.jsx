@@ -11,7 +11,14 @@ import {
 } from '../GlobalIntegrationHelper'
 import { isRequiredField } from './IvyFormsCommonFunc'
 
-export default function IvyFormsFieldMap({ i, formFields, field, ivyFormsConf, setIvyFormsConf, allFields }) {
+export default function IvyFormsFieldMap({
+  i,
+  formFields,
+  field,
+  ivyFormsConf,
+  setIvyFormsConf,
+  allFields
+}) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
@@ -31,7 +38,9 @@ export default function IvyFormsFieldMap({ i, formFields, field, ivyFormsConf, s
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             <optgroup label={__('Form Fields', 'bit-integrations')}>
               {formFields?.map(f => (
-                <option key={`ff-iv-${f.name}`} value={f.name}>{f.label}</option>
+                <option key={`ff-iv-${f.name}`} value={f.name}>
+                  {f.label}
+                </option>
               ))}
             </optgroup>
             <option value="custom">{__('Custom...', 'bit-integrations')}</option>
@@ -40,9 +49,12 @@ export default function IvyFormsFieldMap({ i, formFields, field, ivyFormsConf, s
                 __('General Smart Codes %s', 'bit-integrations'),
                 isPro ? '' : `(${__('Pro', 'bit-integrations')})`
               )}>
-              {isPro && SmartTagField?.map(f => (
-                <option key={`st-iv-${f.name}`} value={f.name}>{f.label}</option>
-              ))}
+              {isPro &&
+                SmartTagField?.map(f => (
+                  <option key={`st-iv-${f.name}`} value={f.name}>
+                    {f.label}
+                  </option>
+                ))}
             </optgroup>
           </select>
 
@@ -62,14 +74,18 @@ export default function IvyFormsFieldMap({ i, formFields, field, ivyFormsConf, s
             className="btcd-paper-inp"
             disabled={Boolean(requiredField)}
             name="ivyFormsField"
-            value={requiredField ? requiredField.value ?? '' : field.ivyFormsField || ''}
+            value={requiredField ? (requiredField.value ?? '') : field.ivyFormsField || ''}
             onChange={ev => handleFieldMapping(ev, i, ivyFormsConf, setIvyFormsConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {requiredField ? (
-              <option key={requiredField.value} value={requiredField.value}>{requiredField.label}</option>
+              <option key={requiredField.value} value={requiredField.value}>
+                {requiredField.label}
+              </option>
             ) : (
               nonRequiredFields.map(({ value, label }) => (
-                <option key={value} value={value}>{label}</option>
+                <option key={value} value={value}>
+                  {label}
+                </option>
               ))
             )}
           </select>

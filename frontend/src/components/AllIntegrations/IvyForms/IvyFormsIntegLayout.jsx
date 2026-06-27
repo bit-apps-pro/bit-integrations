@@ -6,11 +6,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import {
-  generateMappedField,
-  refreshIvyFormsFields,
-  refreshIvyFormsForms
-} from './IvyFormsCommonFunc'
+import { generateMappedField, refreshIvyFormsFields, refreshIvyFormsForms } from './IvyFormsCommonFunc'
 import IvyFormsFieldMap from './IvyFormsFieldMap'
 
 const modules = [{ label: __('Create Entry', 'bit-integrations'), value: 'create_entry', is_pro: true }]

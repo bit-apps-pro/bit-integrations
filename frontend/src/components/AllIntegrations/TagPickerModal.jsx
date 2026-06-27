@@ -31,11 +31,14 @@ function TagPickerModal({
           <p className="tag-picker-subtitle">
             {bulkTagIntegrationIds.length > 0
               ? __(
-                'Search existing tags or create new tags, then assign them to all selected integrations.',
-                'bit-integrations'
-              )
+                  'Search existing tags or create new tags, then assign them to all selected integrations.',
+                  'bit-integrations'
+                )
               : editingIntegrationId
-                ? __('Search existing tags or create new tags, then save assignment.', 'bit-integrations')
+                ? __(
+                    'Search existing tags or create new tags, then save assignment.',
+                    'bit-integrations'
+                  )
                 : __('Search existing tags or create new ones for filtering.', 'bit-integrations')}
           </p>
         </div>
@@ -55,7 +58,10 @@ function TagPickerModal({
           />
           <p className="tag-picker-counter">
             {bulkTagIntegrationIds.length > 0
-              ? __('Tip: selected tags will be added to all selected integrations (20 characters max).', 'bit-integrations')
+              ? __(
+                  'Tip: selected tags will be added to all selected integrations (20 characters max).',
+                  'bit-integrations'
+                )
               : __('Tip: press Enter to create a new tag (20 characters max).', 'bit-integrations')}
           </p>
         </div>

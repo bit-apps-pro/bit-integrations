@@ -96,9 +96,7 @@ export default function ZendeskSupportActions({
             action={clsActionMdl}
             title={util.label}>
             <div className="btcd-hr mt-2 mb-2" />
-            <div className="mt-2">
-              {sprintf(__('Select %s', 'bit-integrations'), util.label)}
-            </div>
+            <div className="mt-2">{sprintf(__('Select %s', 'bit-integrations'), util.label)}</div>
             <div className="flx flx-between mt-2">
               <MultiSelect
                 options={options}

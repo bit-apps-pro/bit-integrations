@@ -31,11 +31,11 @@ const Webhook = () => {
   const triggerLinkKey = newFlow?.triggered_entity
   const triggerTutorialLinks = triggerLinkKey
     ? {
-      [triggerLinkKey]: {
-        docLink: newFlow?.triggerDetail?.documentation_url || '',
-        youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        [triggerLinkKey]: {
+          docLink: newFlow?.triggerDetail?.documentation_url || '',
+          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        }
       }
-    }
     : undefined
 
   let controller = new AbortController()
@@ -230,20 +230,20 @@ const info = `${__(
             <h4>${__('Quick Setup', 'bit-integrations')}</h4>
             <ul>
                 <li>${__(
-  'Copy the Webhook URL and add it to your form or app.',
-  'bit-integrations'
-)}</li>
+                  'Copy the Webhook URL and add it to your form or app.',
+                  'bit-integrations'
+                )}</li>
                 <li>${__(
-  'Click <b>Fetch</b>, then submit your form (or send a test request).',
-  'bit-integrations'
-)}</li>
+                  'Click <b>Fetch</b>, then submit your form (or send a test request).',
+                  'bit-integrations'
+                )}</li>
                 <li>${__(
-  'When response data appears, click <b>Set Action</b> to continue.',
-  'bit-integrations'
-)}</li>
+                  'When response data appears, click <b>Set Action</b> to continue.',
+                  'bit-integrations'
+                )}</li>
             </ul>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-  'The Fetch button will keep spinning until you submit the form/task.',
-  'bit-integrations'
-)}</p>
+              'The Fetch button will keep spinning until you submit the form/task.',
+              'bit-integrations'
+            )}</p>
   `

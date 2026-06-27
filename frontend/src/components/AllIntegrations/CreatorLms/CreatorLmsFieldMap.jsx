@@ -10,19 +10,12 @@ import {
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
-export default function CreatorLmsFieldMap({
-  i,
-  formFields,
-  field,
-  creatorLmsConf,
-  setCreatorLmsConf
-}) {
+export default function CreatorLmsFieldMap({ i, formFields, field, creatorLmsConf, setCreatorLmsConf }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   const requiredFlds = creatorLmsConf?.creatorLmsFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds =
-    creatorLmsConf?.creatorLmsFields?.filter(fld => fld.required === false) || []
+  const nonRequiredFlds = creatorLmsConf?.creatorLmsFields?.filter(fld => fld.required === false) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -72,9 +65,7 @@ export default function CreatorLmsFieldMap({
             className="btcd-paper-inp"
             disabled={i < requiredFlds.length}
             name="creatorLmsField"
-            value={
-              i < requiredFlds.length ? requiredFlds[i]?.key || '' : field.creatorLmsField || ''
-            }
+            value={i < requiredFlds.length ? requiredFlds[i]?.key || '' : field.creatorLmsField || ''}
             onChange={ev => handleFieldMapping(ev, i, creatorLmsConf, setCreatorLmsConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (

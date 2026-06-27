@@ -33,8 +33,8 @@ export const isLegacyRegistrationAction = actionType =>
 
 const registrationActionFields = {
   deleteExistingUser: [
-    { key: 'user_email', name: __('User Email', 'bit-integrations'), required: true},
-    { key: 'reassign_id', name: __('Reassign ID', 'bit-integrations'), required: false}
+    { key: 'user_email', name: __('User Email', 'bit-integrations'), required: true },
+    { key: 'reassign_id', name: __('Reassign ID', 'bit-integrations'), required: false }
   ],
   updateUserMetadata: [
     { key: 'user_email', name: __('User Email', 'bit-integrations'), required: true },

@@ -8,7 +8,10 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { resetActionHookFlowData, useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  resetActionHookFlowData,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import GetLogo from '../../Utils/GetLogo'
 import { extractValueFromPath } from '../../Utils/Helpers'
 import { __, sprintf } from '../../Utils/i18nwrap'
@@ -187,9 +190,9 @@ const ActionHook = () => {
       !val
         ? undefined
         : {
-          key: val,
-          value: extractValueFromPath(newFlow.triggerDetail?.data, val)
-        }
+            key: val,
+            value: extractValueFromPath(newFlow.triggerDetail?.data, val)
+          }
     )
   }
 
@@ -269,8 +272,9 @@ const ActionHook = () => {
       <div className="flx flx-between">
         <button
           onClick={handleFetch}
-          className={`btn btcd-btn-lg sh-sm flx ${isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
-            }`}
+          className={`btn btcd-btn-lg sh-sm flx ${
+            isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
+          }`}
           type="button"
           disabled={!hookID}>
           {isLoading
@@ -350,12 +354,8 @@ const ActionHook = () => {
           </button>
         </div>
       )}
-      <Note note={info} isInstruction={true} maxWidth="100%" >
-        <TutorialLink
-          style={{ margin: 0 }}
-          linkKey="actionHook"
-          linksMap={actionHookTutorialLinks}
-        />
+      <Note note={info} isInstruction={true} maxWidth="100%">
+        <TutorialLink style={{ margin: 0 }} linkKey="actionHook" linksMap={actionHookTutorialLinks} />
       </Note>
     </div>
   )
@@ -375,25 +375,25 @@ const info = `<h4>${sprintf(
             <ul>
               <li>${__('Click the <b>Fetch</b> button.', 'bit-integrations')}</li>
               <li>${__(
-  'Submit <b>The Form</b> while the Fetch button is <b>spinning</b>.',
-  'bit-integrations'
-)}</li>
+                'Submit <b>The Form</b> while the Fetch button is <b>spinning</b>.',
+                'bit-integrations'
+              )}</li>
               <li>${__(
-  'After submitting the form, Click <b>Next</b> and then <b>Go</b></b>',
-  'bit-integrations'
-)}</li>
+                'After submitting the form, Click <b>Next</b> and then <b>Go</b></b>',
+                'bit-integrations'
+              )}</li>
             </ul>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-  'The Fetch button will keep spinning until you submit the form/task.',
-  'bit-integrations'
-)}</p>
+              'The Fetch button will keep spinning until you submit the form/task.',
+              'bit-integrations'
+            )}</p>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-  'Choose a consistent unique identifier like <b>Form ID</b> (default) or <b>Post ID</b> for each form entry, or create a hidden custom field if unavailable.',
-  'bit-integrations'
-)}</p>
+              'Choose a consistent unique identifier like <b>Form ID</b> (default) or <b>Post ID</b> for each form entry, or create a hidden custom field if unavailable.',
+              'bit-integrations'
+            )}</p>
             <h5>
               <a className="btcd-link" href="https://bit-integrations.com/wp-docs/trigger-hooks/" target="_blank" rel="noreferrer">${__(
-  'Bit Integrations Trigger Hooks',
-  'bit-integrations'
-)}</a>
+                'Bit Integrations Trigger Hooks',
+                'bit-integrations'
+              )}</a>
             </h5>`

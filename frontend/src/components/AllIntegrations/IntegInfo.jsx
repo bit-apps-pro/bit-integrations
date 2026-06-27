@@ -107,9 +107,7 @@ const InsightlyAuthorization = lazy(() => import('./Insightly/InsightlyAuthoriza
 const CapsuleCRMAuthorization = lazy(() => import('./CapsuleCRM/CapsuleCRMAuthorization'))
 const MasterStudyLmsAuthorization = lazy(() => import('./MasterStudyLms/MasterStudyLmsAuthorization'))
 const ZendeskAuthorization = lazy(() => import('./Zendesk/ZendeskAuthorization'))
-const ZendeskSupportAuthorization = lazy(() =>
-  import('./ZendeskSupport/ZendeskSupportAuthorization')
-)
+const ZendeskSupportAuthorization = lazy(() => import('./ZendeskSupport/ZendeskSupportAuthorization'))
 const AsanaAuthorization = lazy(() => import('./Asana/AsanaAuthorization'))
 const PropovoiceCrmAuthorization = lazy(() => import('./PropovoiceCRM/PropovoiceCrmAuthorization'))
 const MailMintAuthorization = lazy(() => import('./MailMint/MailMintAuthorization'))
@@ -181,8 +179,9 @@ const UltimateAffiliateProAuthorization = lazy(
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
-const MoreConvertWishlistAuthorization = lazy(() =>
-  import('./MoreConvertWishlist/MoreConvertWishlistAuthorization'))
+const MoreConvertWishlistAuthorization = lazy(
+  () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
+)
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -533,9 +532,7 @@ export default function IntegInfo() {
       case 'Zendesk':
         return <ZendeskAuthorization zendeskConf={integrationConf} step={1} isInfo />
       case 'ZendeskSupport':
-        return (
-          <ZendeskSupportAuthorization zendeskSupportConf={integrationConf} step={1} isInfo />
-        )
+        return <ZendeskSupportAuthorization zendeskSupportConf={integrationConf} step={1} isInfo />
       case 'Asana':
         return <AsanaAuthorization asanaConf={integrationConf} step={1} isInfo />
       case 'Propovoice CRM':
@@ -668,11 +665,7 @@ export default function IntegInfo() {
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
       case 'MoreConvert Wishlist':
         return (
-          <MoreConvertWishlistAuthorization
-            moreConvertWishlistConf={integrationConf}
-            step={1}
-            isInfo
-          />
+          <MoreConvertWishlistAuthorization moreConvertWishlistConf={integrationConf} step={1} isInfo />
         )
       case 'Heffl CRM':
         return <HefflCRMAuthorization hefflCRMConf={integrationConf} step={1} isInfo />

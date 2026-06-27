@@ -53,7 +53,17 @@ export default function EditNinjaTables({ allIntegURL }) {
 
       <IntegrationStepThree
         edit
-        saveConfig={() => saveActionConf({ flow, allIntegURL, conf: ninjaTablesConf, navigate, edit: 1, setIsLoading, setSnackbar })}
+        saveConfig={() =>
+          saveActionConf({
+            flow,
+            allIntegURL,
+            conf: ninjaTablesConf,
+            navigate,
+            edit: 1,
+            setIsLoading,
+            setSnackbar
+          })
+        }
         disabled={!ninjaTablesConf?.mainAction || !checkMappedFields(ninjaTablesConf)}
         isLoading={isLoading}
         dataConf={ninjaTablesConf}

@@ -42,7 +42,7 @@ export const generateMappedField = fields => {
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({
         formField: '',
-        booklyField: field.key,
+        booklyField: field.key
       }))
     : [{ formField: '', booklyField: '' }]
 }

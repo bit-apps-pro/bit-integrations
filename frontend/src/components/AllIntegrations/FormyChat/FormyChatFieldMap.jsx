@@ -10,7 +10,14 @@ import {
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
-export default function FormyChatFieldMap({ i, formFields, field, formyChatConf, setFormyChatConf, allFields }) {
+export default function FormyChatFieldMap({
+  i,
+  formFields,
+  field,
+  formyChatConf,
+  setFormyChatConf,
+  allFields
+}) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
@@ -26,7 +33,9 @@ export default function FormyChatFieldMap({ i, formFields, field, formyChatConf,
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             <optgroup label={__('Form Fields', 'bit-integrations')}>
               {formFields?.map(f => (
-                <option key={`ff-fc-${f.name}`} value={f.name}>{f.label}</option>
+                <option key={`ff-fc-${f.name}`} value={f.name}>
+                  {f.label}
+                </option>
               ))}
             </optgroup>
             <option value="custom">{__('Custom...', 'bit-integrations')}</option>
@@ -35,9 +44,12 @@ export default function FormyChatFieldMap({ i, formFields, field, formyChatConf,
                 __('General Smart Codes %s', 'bit-integrations'),
                 isPro ? '' : `(${__('Pro', 'bit-integrations')})`
               )}>
-              {isPro && SmartTagField?.map(f => (
-                <option key={`st-fc-${f.name}`} value={f.name}>{f.label}</option>
-              ))}
+              {isPro &&
+                SmartTagField?.map(f => (
+                  <option key={`st-fc-${f.name}`} value={f.name}>
+                    {f.label}
+                  </option>
+                ))}
             </optgroup>
           </select>
 
@@ -60,7 +72,9 @@ export default function FormyChatFieldMap({ i, formFields, field, formyChatConf,
             onChange={ev => handleFieldMapping(ev, i, formyChatConf, setFormyChatConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {allFields.map(({ value, label }) => (
-              <option key={value} value={value}>{label}</option>
+              <option key={value} value={value}>
+                {label}
+              </option>
             ))}
           </select>
         </div>

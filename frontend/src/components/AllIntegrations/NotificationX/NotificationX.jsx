@@ -25,7 +25,7 @@ export default function NotificationX({ formFields, setFlow, flow, allIntegURL }
     actions: {},
     mainAction: '',
     selected_notification_id: '',
-    notifications: [],
+    notifications: []
   })
 
   const nextPage = val => {
@@ -34,10 +34,13 @@ export default function NotificationX({ formFields, setFlow, flow, allIntegURL }
     }, 300)
 
     if (val === 3) {
-      if (NOTIFICATION_SELECTION_ACTIONS.includes(notificationXConf?.mainAction) && !notificationXConf?.selected_notification_id) {
+      if (
+        NOTIFICATION_SELECTION_ACTIONS.includes(notificationXConf?.mainAction) &&
+        !notificationXConf?.selected_notification_id
+      ) {
         setSnackbar({
           show: true,
-          msg: __('Please select a notification to continue.', 'bit-integrations'),
+          msg: __('Please select a notification to continue.', 'bit-integrations')
         })
         return
       }
@@ -45,7 +48,7 @@ export default function NotificationX({ formFields, setFlow, flow, allIntegURL }
       if (!checkMappedFields(notificationXConf)) {
         setSnackbar({
           show: true,
-          msg: __('Please map all required fields to continue.', 'bit-integrations'),
+          msg: __('Please map all required fields to continue.', 'bit-integrations')
         })
         return
       }
@@ -81,7 +84,7 @@ export default function NotificationX({ formFields, setFlow, flow, allIntegURL }
         style={{
           width: step === 2 && 900,
           height: step === 2 && 'auto',
-          minHeight: step === 2 && `${500}px`,
+          minHeight: step === 2 && `${500}px`
         }}>
         <NotificationXIntegLayout
           formID={formID}
@@ -109,16 +112,7 @@ export default function NotificationX({ formFields, setFlow, flow, allIntegURL }
       <IntegrationStepThree
         step={step}
         saveConfig={() =>
-          saveIntegConfig(
-            flow,
-            setFlow,
-            allIntegURL,
-            notificationXConf,
-            navigate,
-            '',
-            '',
-            setIsLoading
-          )
+          saveIntegConfig(flow, setFlow, allIntegURL, notificationXConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
       />

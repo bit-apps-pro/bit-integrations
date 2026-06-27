@@ -12,8 +12,7 @@ export default function UltimateAffiliateProAuthorization({
   isLoading,
   setIsLoading,
   setSnackbar,
-  isInfo,
-
+  isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [showAuthMsg, setShowAuthMsg] = useState(false)

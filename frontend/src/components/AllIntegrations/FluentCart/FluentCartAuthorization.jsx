@@ -17,7 +17,7 @@ export default function FluentCartAuthorization({
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [showAuthMsg, setShowAuthMsg] = useState(false)
-const authorizeHandler = () => {
+  const authorizeHandler = () => {
     setIsLoading('auth')
     bitsFetch({}, 'fluent_cart_authorize').then(result => {
       if (result?.success) {
@@ -45,7 +45,7 @@ const authorizeHandler = () => {
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink linkKey="fluentCart" />
+      <TutorialLink linkKey="fluentCart" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

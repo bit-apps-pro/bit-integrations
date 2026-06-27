@@ -15,7 +15,7 @@ function WPWebhooks({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [wPWebhooks, setWPWebhooks] = useState({
+  const [wPWebhooks, setWPWebhooks] = useState({
     name: 'WPWebhooks Web Hooks',
     type: 'WPWebhooks',
     method: 'POST',
@@ -33,7 +33,7 @@ const [wPWebhooks, setWPWebhooks] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="wPWebhooksLinks" />
+        <TutorialLink linkKey="wPWebhooksLinks" />
 
         <WebHooksIntegration
           formID={formID}
