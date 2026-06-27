@@ -197,6 +197,7 @@ export default function SelectAction() {
     { type: 'PeepSo', is_pro: true },
     { type: 'Ninja Tables', is_pro: true },
     { type: 'WC Affiliate', is_pro: true },
+    { type: 'Instasent', is_pro: true },
     { type: 'WPCafe', is_pro: true },
     { type: 'Teams For WooCommerce Memberships', is_pro: true },
     { type: 'SeoPress', is_pro: true },
@@ -298,9 +299,8 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button

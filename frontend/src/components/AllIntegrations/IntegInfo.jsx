@@ -68,6 +68,7 @@ const GroundhoggAuthorization = lazy(() => import('./Groundhogg/GroundhoggAuthor
 const SendFoxAuthorization = lazy(() => import('./SendFox/SendFoxAuthorization'))
 const TwilioAuthorization = lazy(() => import('./Twilio/TwilioAuthorization'))
 const MailerLiteAuthorization = lazy(() => import('./MailerLite/MailerLiteAuthorization'))
+const InstasentAuthorization = lazy(() => import('./Instasent/InstasentAuthorization'))
 const VboutAuthorization = lazy(() => import('./Vbout/VboutAuthorization'))
 const FreshdeskAuthorization = lazy(() => import('./Freshdesk/FreshdeskAuthorization'))
 const GoogleContactsAuthorization = lazy(() => import('./GoogleContacts/GoogleContactsAuthorization'))
@@ -429,6 +430,8 @@ export default function IntegInfo() {
         return <TwilioAuthorization twilioConf={integrationConf} step={1} isInfo />
       case 'MailerLite':
         return <MailerLiteAuthorization mailerLiteConf={integrationConf} step={1} isInfo />
+      case 'Instasent':
+        return <InstasentAuthorization instasentConf={integrationConf} step={1} isInfo />
       case 'Vbout':
         return <VboutAuthorization vboutConf={integrationConf} step={1} isInfo />
       case 'Freshdesk':
