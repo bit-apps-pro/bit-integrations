@@ -26,6 +26,7 @@ const EditPod = lazy(() => import('./Pods/EditPod'))
 const EditMailPoet = lazy(() => import('./MailPoet/EditMailPoet'))
 const EditMailerPress = lazy(() => import('./MailerPress/EditMailerPress'))
 const EditSendinBlue = lazy(() => import('./SendinBlue/EditSendinBlue'))
+const EditSender = lazy(() => import('./Sender/EditSender'))
 const EditWooCommerce = lazy(() => import('./WooCommerce/EditWooCommerce'))
 const EditActiveCampaign = lazy(() => import('./ActiveCampaign/EditActiveCampaign'))
 const EditWebHooks = lazy(() => import('./WebHooks/EditWebHooks'))
@@ -68,6 +69,7 @@ const EditAcumbamail = lazy(() => import('./Acumbamail/EditAcumbamail'))
 const EditGroundhogg = lazy(() => import('./Groundhogg/EditGroundhogg'))
 const EditSendFox = lazy(() => import('./SendFox/EditSendFox'))
 const EditMailerLite = lazy(() => import('./MailerLite/EditMailerLite'))
+const EditInstasent = lazy(() => import('./Instasent/EditInstasent'))
 const EditVbout = lazy(() => import('./Vbout/EditVbout'))
 const EditWhatsApp = lazy(() => import('./WhatsApp/EditWhatsApp'))
 const EditLearnDash = lazy(() => import('./LearnDash/EditLearnDash'))
@@ -160,6 +162,7 @@ const EditNewsletter = lazy(() => import('./Newsletter/EditNewsletter'))
 const EditSureDash = lazy(() => import('./SureDash/EditSureDash'))
 const EditSureMembers = lazy(() => import('./SureMembers/EditSureMembers'))
 const EditMailster = lazy(() => import('./Mailster/EditMailster'))
+const EditMainWP = lazy(() => import('./MainWP/EditMainWP'))
 const EditWPForo = lazy(() => import('./WPForo/EditWPForo'))
 const EditDokan = lazy(() => import('./Dokan/EditDokan'))
 const EditJetEngine = lazy(() => import('./JetEngine/EditJetEngine'))
@@ -305,6 +308,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditMailPoet allIntegURL={allIntegURL} />
     case 'MailerPress':
       return <EditMailerPress allIntegURL={allIntegURL} />
+    case 'Sender':
+      return <EditSender allIntegURL={allIntegURL} />
     case 'SendinBlue':
     case 'Brevo(Sendinblue)':
       return <EditSendinBlue allIntegURL={allIntegURL} />
@@ -397,6 +402,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSendFox allIntegURL={allIntegURL} />
     case 'MailerLite':
       return <EditMailerLite allIntegURL={allIntegURL} />
+    case 'Instasent':
+      return <EditInstasent allIntegURL={allIntegURL} />
     case 'Vbout':
       return <EditVbout allIntegURL={allIntegURL} />
     case 'WhatsApp':
@@ -584,6 +591,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSureMembers allIntegURL={allIntegURL} />
     case 'Mailster':
       return <EditMailster allIntegURL={allIntegURL} />
+    case 'MainWP':
+      return <EditMainWP allIntegURL={allIntegURL} />
     case 'WPForo':
       return <EditWPForo allIntegURL={allIntegURL} />
     case 'Dokan':
