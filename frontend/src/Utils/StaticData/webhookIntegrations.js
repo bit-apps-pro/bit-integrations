@@ -101,6 +101,7 @@ export const customFormIntegrations = [
   'WordPress',
   'BookingPress',
   "FluentPdfGenerator",
+  "WebbaBooking",
   "B2BKing",
   "FormyChat",
   "MainWP",
