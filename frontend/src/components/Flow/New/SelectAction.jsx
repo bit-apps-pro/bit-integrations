@@ -205,7 +205,8 @@ export default function SelectAction() {
     { type: 'weDocs', is_pro: true },
     { type: 'Asgaros Forum', logo: 'asgaros', is_pro: true },
     { type: 'B2BKing', is_pro: true },
-    { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true }
+    { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
+    { type: 'MainWP', is_pro: true },
   ]
 
   const [showProModal, setShowProModal] = useState(false)

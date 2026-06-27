@@ -89,6 +89,7 @@ final class AllTriggersName
             'MailPoet'                       => ['name' => 'MailPoet',  'isPro' => true, 'is_active' => false],
             'MailMint'                       => ['name' => 'Mail Mint',  'isPro' => true, 'is_active' => false],
             'Mailster'                       => ['name' => 'Mailster',  'isPro' => true, 'is_active' => false],
+            'MainWP'                         => ['name' => 'MainWP',  'isPro' => true, 'is_active' => false],
             'MasterStudyLms'                 => ['name' => 'MasterStudyLms',  'isPro' => true, 'is_active' => false],
             'MasteriyoLMS'                   => ['name' => 'Masteriyo LMS',  'isPro' => true, 'is_active' => false],
             'MyCred'                         => ['name' => 'myCred',  'isPro' => true, 'is_active' => false],
