@@ -193,15 +193,15 @@ export const saveIntegConfig = async (
   } else if (flow.triggered_entity === 'CustomTrigger') {
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = customTriggerStateIH(dataFlow, tmpConf)
-  } 
-  
+  }
+
   if (
     flow?.triggerData?.trigger_type === 'custom_form_submission' ||
     flow?.flow_details?.trigger_type === 'custom_form_submission'
   ) {
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = CFSStateIH(dataFlow, tmpConf)
-  } 
+  }
 
   if (isPro && !freeTriggers.includes(flow.triggered_entity)) {
     tmpConf['pro_integ_v'] = version
@@ -388,14 +388,14 @@ export const saveActionConf = async ({
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = customTriggerStateIH(dataFlow, tmpConf)
   }
-  
+
   if (
     flow?.triggerData?.trigger_type === 'custom_form_submission' ||
     flow?.flow_details?.trigger_type === 'custom_form_submission'
   ) {
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = CFSStateIH(dataFlow, tmpConf)
-  } 
+  }
 
   if (isPro && !freeTriggers.includes(flow.triggered_entity)) {
     tmpConf['pro_integ_v'] = version

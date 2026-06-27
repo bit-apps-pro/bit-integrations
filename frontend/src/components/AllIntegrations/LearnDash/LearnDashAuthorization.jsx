@@ -19,7 +19,7 @@ export default function LearnDashAuthorization({
   const [isAuthorized, setisAuthorized] = useState(false)
   // const [isLoading, setIsLoading] = useState(false)
   const [showAuthMsg, setShowAuthMsg] = useState(false)
-const authorizeHandler = () => {
+  const authorizeHandler = () => {
     setIsLoading('auth')
     bitsFetch({}, 'learnDash_authorize').then(result => {
       if (result?.success) {
@@ -47,7 +47,7 @@ const authorizeHandler = () => {
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink linkKey="learnDash" />
+      <TutorialLink linkKey="learnDash" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

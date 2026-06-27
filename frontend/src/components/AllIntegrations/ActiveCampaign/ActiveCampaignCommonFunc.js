@@ -15,9 +15,7 @@ const getFieldMeta = fields => {
   return {
     requiredFieldIds,
     requiredFieldIdSet: new Set(requiredFieldIds),
-    allFieldIdSet: new Set(
-      refreshedFields.map(field => normalizeFieldId(field.fieldId)).filter(Boolean)
-    )
+    allFieldIdSet: new Set(refreshedFields.map(field => normalizeFieldId(field.fieldId)).filter(Boolean))
   }
 }
 

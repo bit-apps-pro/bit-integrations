@@ -53,7 +53,11 @@ export default function SelectAction() {
     { type: 'WooCommerce', is_pro: false },
     { type: 'Zoho Bigin', is_pro: false },
     { type: 'Zoho Campaigns', is_pro: false },
-    { type: 'Zoho Marketing Automation(Zoho Marketing Hub)', logo: 'zohoMarketingAutomation', is_pro: false },
+    {
+      type: 'Zoho Marketing Automation(Zoho Marketing Hub)',
+      logo: 'zohoMarketingAutomation',
+      is_pro: false
+    },
     { type: 'Zoho Recruit', is_pro: false },
     { type: 'Getgist', is_pro: false },
     { type: 'ElasticEmail', is_pro: false },
@@ -291,9 +295,7 @@ export default function SelectAction() {
                   ? setAction(inte.type)
                   : showPModal(inte.name || inte.type)
               }
-              onKeyUp={() =>
-                !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)
-              }
+              onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
               className={`btcd-inte-card inte-sm mr-4 mt-3 ${

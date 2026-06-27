@@ -20,7 +20,7 @@ function Pods({ formFields, setFlow, flow, allIntegURL }) {
   const [postTypes, setPostTypes] = useState([])
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-const [podsConf, setPodsConf] = useState({
+  const [podsConf, setPodsConf] = useState({
     name: 'Pods',
     type: 'Pods',
     post_map: [{ post_author: 'logged_in_user' }],
@@ -118,7 +118,7 @@ const [podsConf, setPodsConf] = useState({
   return (
     <div style={{ width: 900 }}>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-            <TutorialLink linkKey="podLinks" />
+      <TutorialLink linkKey="podLinks" />
 
       <div className="mt-3">
         <b>{__('Integration Name', 'bit-integrations')}</b>

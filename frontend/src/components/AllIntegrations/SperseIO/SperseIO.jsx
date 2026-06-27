@@ -34,7 +34,7 @@ function SperseIO({ formFields, setFlow, flow, allIntegURL }) {
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="sperse" />
+        <TutorialLink linkKey="sperse" />
 
         <WebHooksIntegration
           formID={formID}

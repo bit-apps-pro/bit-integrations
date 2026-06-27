@@ -11,7 +11,7 @@ export default function NotificationXEntryFieldMap({
   field,
   formFields,
   notificationXConf,
-  setNotificationXConf,
+  setNotificationXConf
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi

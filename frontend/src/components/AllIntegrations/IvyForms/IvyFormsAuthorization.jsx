@@ -23,7 +23,10 @@ export default function IvyFormsAuthorization({
       .then(result => {
         if (result?.success) {
           setIsAuthorized(true)
-          setSnackbar({ show: true, msg: __('Connected with IvyForms Successfully', 'bit-integrations') })
+          setSnackbar({
+            show: true,
+            msg: __('Connected with IvyForms Successfully', 'bit-integrations')
+          })
         }
         setIsLoading(false)
         setShowAuthMsg(true)
@@ -38,10 +41,7 @@ export default function IvyFormsAuthorization({
   }
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
-
+    <div className="btcd-stp-page" style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>
@@ -65,15 +65,21 @@ export default function IvyFormsAuthorization({
       {showAuthMsg && !isAuthorized && !isLoading && (
         <div className="flx mt-5" style={{ width: 900, justifyContent: 'center' }}>
           <div className="txt-center">
-            <div className="btcd-icn btcd-icn-err"><span>✕</span></div>
-            <div className="mt-2">{__('IvyForms is not activated or not installed', 'bit-integrations')}</div>
+            <div className="btcd-icn btcd-icn-err">
+              <span>✕</span>
+            </div>
+            <div className="mt-2">
+              {__('IvyForms is not activated or not installed', 'bit-integrations')}
+            </div>
           </div>
         </div>
       )}
 
       {showAuthMsg && isAuthorized && !isLoading && (
         <div className="flx mt-5" style={{ width: 900 }}>
-          <div className="btcd-icn btcd-icn-success"><span>✓</span></div>
+          <div className="btcd-icn btcd-icn-success">
+            <span>✓</span>
+          </div>
           <div className="mt-2">{__('IvyForms is activated', 'bit-integrations')}</div>
         </div>
       )}
@@ -85,7 +91,9 @@ export default function IvyFormsAuthorization({
             className="btn btcd-btn-lg purple sh-sm flx"
             type="button"
             disabled={isAuthorized || isLoading === 'auth'}>
-            {isAuthorized ? __('Connected', 'bit-integrations') : __('Connect to IvyForms', 'bit-integrations')}
+            {isAuthorized
+              ? __('Connected', 'bit-integrations')
+              : __('Connect to IvyForms', 'bit-integrations')}
             {isLoading === 'auth' && <LoaderSm size={20} clr="#022217" className="ml-2" />}
           </button>
           <br />

@@ -25,26 +25,16 @@ export const staticFieldsMap = {
     { label: __('Group ID', 'bit-integrations'), key: 'group_id', required: true },
     { label: __('Item ID', 'bit-integrations'), key: 'item_id', required: true }
   ],
-  archive_item: [
-    { label: __('Item ID', 'bit-integrations'), key: 'item_id', required: true }
-  ],
-  delete_item: [
-    { label: __('Item ID', 'bit-integrations'), key: 'item_id', required: true }
-  ],
-  archive_board: [
-    { label: __('Board ID', 'bit-integrations'), key: 'board_id', required: true }
-  ],
+  archive_item: [{ label: __('Item ID', 'bit-integrations'), key: 'item_id', required: true }],
+  delete_item: [{ label: __('Item ID', 'bit-integrations'), key: 'item_id', required: true }],
+  archive_board: [{ label: __('Board ID', 'bit-integrations'), key: 'board_id', required: true }],
   create_group: [{ label: __('Group Name', 'bit-integrations'), key: 'group_name', required: true }],
   duplicate_group: [
     { label: __('Group ID', 'bit-integrations'), key: 'group_id', required: true },
     { label: __('Group Title', 'bit-integrations'), key: 'group_title', required: true }
   ],
-  archive_group: [
-    { label: __('Group ID', 'bit-integrations'), key: 'group_id', required: true }
-  ],
-  delete_group: [
-    { label: __('Group ID', 'bit-integrations'), key: 'group_id', required: true }
-  ],
+  archive_group: [{ label: __('Group ID', 'bit-integrations'), key: 'group_id', required: true }],
+  delete_group: [{ label: __('Group ID', 'bit-integrations'), key: 'group_id', required: true }],
   create_column: [{ label: __('Column Title', 'bit-integrations'), key: 'column_title', required: true }]
 }
 

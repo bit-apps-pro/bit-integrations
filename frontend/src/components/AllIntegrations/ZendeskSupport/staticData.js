@@ -46,11 +46,36 @@ const priority = staticUtil('priority', __('Priority', 'bit-integrations'), 'pri
 const status = staticUtil('status', __('Status', 'bit-integrations'), 'status')
 const type = staticUtil('type', __('Type', 'bit-integrations'), 'type')
 const role = staticUtil('role', __('Role', 'bit-integrations'), 'role')
-const group = fetchUtil('groupId', __('Group', 'bit-integrations'), 'groups', 'zendesk_support_refresh_groups')
-const brand = fetchUtil('brandId', __('Brand', 'bit-integrations'), 'brands', 'zendesk_support_refresh_brands')
-const ticketForm = fetchUtil('ticketFormId', __('Ticket Form', 'bit-integrations'), 'ticketForms', 'zendesk_support_refresh_ticket_forms')
-const assignee = fetchUtil('assigneeId', __('Assignee', 'bit-integrations'), 'agents', 'zendesk_support_refresh_agents')
-const organization = fetchUtil('organizationId', __('Organization', 'bit-integrations'), 'organizations', 'zendesk_support_refresh_organizations')
+const group = fetchUtil(
+  'groupId',
+  __('Group', 'bit-integrations'),
+  'groups',
+  'zendesk_support_refresh_groups'
+)
+const brand = fetchUtil(
+  'brandId',
+  __('Brand', 'bit-integrations'),
+  'brands',
+  'zendesk_support_refresh_brands'
+)
+const ticketForm = fetchUtil(
+  'ticketFormId',
+  __('Ticket Form', 'bit-integrations'),
+  'ticketForms',
+  'zendesk_support_refresh_ticket_forms'
+)
+const assignee = fetchUtil(
+  'assigneeId',
+  __('Assignee', 'bit-integrations'),
+  'agents',
+  'zendesk_support_refresh_agents'
+)
+const organization = fetchUtil(
+  'organizationId',
+  __('Organization', 'bit-integrations'),
+  'organizations',
+  'zendesk_support_refresh_organizations'
+)
 
 const ticketUtilities = [priority, status, type, group, brand, ticketForm, assignee]
 const userUtilities = [role, organization]
@@ -75,10 +100,18 @@ export const ZendeskSupportStaticData = {
     { label: __('Delete Ticket', 'bit-integrations'), value: 'deleteTicket', is_pro: true },
     { label: __('Add Ticket Comment', 'bit-integrations'), value: 'addTicketComment', is_pro: true },
     { label: __('Add Tags to Ticket', 'bit-integrations'), value: 'addTagsToTicket', is_pro: true },
-    { label: __('Remove Tags from Ticket', 'bit-integrations'), value: 'removeTagsFromTicket', is_pro: true },
+    {
+      label: __('Remove Tags from Ticket', 'bit-integrations'),
+      value: 'removeTagsFromTicket',
+      is_pro: true
+    },
     { label: __('Create User', 'bit-integrations'), value: 'createUser', is_pro: true },
     { label: __('Update User', 'bit-integrations'), value: 'updateUser', is_pro: true },
-    { label: __('Create or Update User', 'bit-integrations'), value: 'createOrUpdateUser', is_pro: true },
+    {
+      label: __('Create or Update User', 'bit-integrations'),
+      value: 'createOrUpdateUser',
+      is_pro: true
+    },
     { label: __('Delete User', 'bit-integrations'), value: 'deleteUser', is_pro: true },
     { label: __('Suspend User', 'bit-integrations'), value: 'suspendUser', is_pro: true },
     { label: __('Create Organization', 'bit-integrations'), value: 'createOrganization', is_pro: true },
@@ -148,7 +181,11 @@ export const ZendeskSupportStaticData = {
     { key: 'details', label: __('Details', 'bit-integrations'), required: false },
     { key: 'notes', label: __('Notes', 'bit-integrations'), required: false },
     { key: 'externalId', label: __('External ID', 'bit-integrations'), required: false },
-    { key: 'domainNames', label: __('Domain Names (comma separated)', 'bit-integrations'), required: false },
+    {
+      key: 'domainNames',
+      label: __('Domain Names (comma separated)', 'bit-integrations'),
+      required: false
+    },
     { key: 'tags', label: __('Tags (comma separated)', 'bit-integrations'), required: false }
   ],
   updateOrganization: [
@@ -157,7 +194,11 @@ export const ZendeskSupportStaticData = {
     { key: 'details', label: __('Details', 'bit-integrations'), required: false },
     { key: 'notes', label: __('Notes', 'bit-integrations'), required: false },
     { key: 'externalId', label: __('External ID', 'bit-integrations'), required: false },
-    { key: 'domainNames', label: __('Domain Names (comma separated)', 'bit-integrations'), required: false },
+    {
+      key: 'domainNames',
+      label: __('Domain Names (comma separated)', 'bit-integrations'),
+      required: false
+    },
     { key: 'tags', label: __('Tags (comma separated)', 'bit-integrations'), required: false }
   ],
   deleteOrganization: [

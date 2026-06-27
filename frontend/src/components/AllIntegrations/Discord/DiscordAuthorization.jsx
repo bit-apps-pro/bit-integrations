@@ -60,7 +60,7 @@ export default function DiscordAuthorization({
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink linkKey="discord" />
+      <TutorialLink linkKey="discord" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

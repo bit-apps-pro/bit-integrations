@@ -36,9 +36,7 @@ export default function WordPressAuthorization({
   }
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
+    <div className="btcd-stp-page" style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
       <TutorialLink linkKey="wordPress" />
 
       <div className="mt-3">
@@ -58,7 +56,9 @@ export default function WordPressAuthorization({
         className="btn btcd-btn-lg purple sh-sm flx"
         type="button"
         disabled={isAuthorized || isLoading === 'auth'}>
-        {isAuthorized ? __('Connected', 'bit-integrations') : __('Connect to WordPress', 'bit-integrations')}
+        {isAuthorized
+          ? __('Connected', 'bit-integrations')
+          : __('Connect to WordPress', 'bit-integrations')}
         {isLoading === 'auth' && <LoaderSm size={20} clr="#022217" className="ml-2" />}
       </button>
 

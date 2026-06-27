@@ -40,7 +40,7 @@ export default function FabmanAuthorization({
 
   return (
     <div className="btcd-stp-page" style={step === 1 ? STEP_ONE_STYLE : undefined}>
-            <TutorialLink linkKey="fabman" />
+      <TutorialLink linkKey="fabman" />
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>

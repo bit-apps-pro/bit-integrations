@@ -7,11 +7,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import {
-  generateMappedField,
-  refreshContactGroups,
-  refreshLifeStages
-} from './WpErpCommonFunc'
+import { generateMappedField, refreshContactGroups, refreshLifeStages } from './WpErpCommonFunc'
 import WpErpFieldMap from './WpErpFieldMap'
 import {
   CompanyFields,
@@ -47,7 +43,12 @@ const FIELDS_BY_ACTION = {
   createPayment: PaymentFields
 }
 
-const CRM_GROUP_ACTIONS = ['createContact', 'updateContact', 'addContactToGroup', 'removeContactFromGroup']
+const CRM_GROUP_ACTIONS = [
+  'createContact',
+  'updateContact',
+  'addContactToGroup',
+  'removeContactFromGroup'
+]
 const LIFE_STAGE_ACTIONS = ['createContact', 'updateContact']
 
 export default function WpErpIntegLayout({
@@ -149,7 +150,10 @@ export default function WpErpIntegLayout({
               title="groupId"
               defaultValue={wpErpConf?.utilities?.groupId ?? null}
               className="btcd-paper-drpdwn w-5"
-              options={(wpErpConf?.allContactGroups || []).map(group => ({ label: group?.label, value: group?.value?.toString() }))}
+              options={(wpErpConf?.allContactGroups || []).map(group => ({
+                label: group?.label,
+                value: group?.value?.toString()
+              }))}
               onChange={val => setUtility('groupId', val)}
             />
             <button
@@ -201,9 +205,7 @@ export default function WpErpIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(wpErpConf.field_map.length, wpErpConf, setWpErpConf)
-              }
+              onClick={() => addFieldMap(wpErpConf.field_map.length, wpErpConf, setWpErpConf)}
               className="icn-btn sh-sm"
               type="button">
               +

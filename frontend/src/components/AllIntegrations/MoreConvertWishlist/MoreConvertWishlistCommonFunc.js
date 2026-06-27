@@ -29,7 +29,9 @@ export const refreshMoreConvertWishlistWishlists = (setMoreConvertWishlistConf, 
         return
       }
       setIsLoading(false)
-      toast.error(__('MoreConvert Wishlist wishlists fetch failed. Please try again', 'bit-integrations'))
+      toast.error(
+        __('MoreConvert Wishlist wishlists fetch failed. Please try again', 'bit-integrations')
+      )
     })
     .catch(() => setIsLoading(false))
 }
@@ -50,7 +52,9 @@ export const refreshMoreConvertWishlistCustomers = (setMoreConvertWishlistConf, 
         return
       }
       setIsLoading(false)
-      toast.error(__('MoreConvert Wishlist customers fetch failed. Please try again', 'bit-integrations'))
+      toast.error(
+        __('MoreConvert Wishlist customers fetch failed. Please try again', 'bit-integrations')
+      )
     })
     .catch(() => setIsLoading(false))
 }

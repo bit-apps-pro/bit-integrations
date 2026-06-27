@@ -42,7 +42,7 @@ export default function TrelloAuthorization({
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="trello" />
+      <TutorialLink linkKey="trello" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

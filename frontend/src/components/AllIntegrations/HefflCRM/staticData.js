@@ -33,12 +33,36 @@ export const ClientFields = [
   { key: 'billingCountry', label: __('Billing Country', 'bit-integrations'), required: false },
   { key: 'billingPostalCode', label: __('Billing Postal Code', 'bit-integrations'), required: false },
   { key: 'billingLandmark', label: __('Billing Landmark', 'bit-integrations'), required: false },
-  { key: 'primaryContactFirstName', label: __('Primary Contact First Name', 'bit-integrations'), required: false },
-  { key: 'primaryContactLastName', label: __('Primary Contact Last Name', 'bit-integrations'), required: false },
-  { key: 'primaryContactEmail', label: __('Primary Contact Email', 'bit-integrations'), required: false },
-  { key: 'primaryContactPhone', label: __('Primary Contact Phone', 'bit-integrations'), required: false },
-  { key: 'primaryContactSalutation', label: __('Primary Contact Salutation', 'bit-integrations'), required: false },
-  { key: 'primaryContactJobTitle', label: __('Primary Contact Job Title', 'bit-integrations'), required: false }
+  {
+    key: 'primaryContactFirstName',
+    label: __('Primary Contact First Name', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'primaryContactLastName',
+    label: __('Primary Contact Last Name', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'primaryContactEmail',
+    label: __('Primary Contact Email', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'primaryContactPhone',
+    label: __('Primary Contact Phone', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'primaryContactSalutation',
+    label: __('Primary Contact Salutation', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'primaryContactJobTitle',
+    label: __('Primary Contact Job Title', 'bit-integrations'),
+    required: false
+  }
 ]
 
 export const DealFields = [
