@@ -58,6 +58,7 @@ final class AllTriggersName
             'FluentBooking'                  => ['name' => 'Fluent Booking',  'isPro' => true, 'is_active' => false],
             'CreatorLms'                     => ['name' => 'Creator LMS', 'isPro' => true, 'is_active' => false],
             'FluentCart'                     => ['name' => 'FluentCart',  'isPro' => true, 'is_active' => false],
+            'Wsms'                           => ['name' => 'WSMS (WP SMS)',  'isPro' => true, 'is_active' => false],
             'FluentCrm'                      => ['name' => 'Fluent CRM',  'isPro' => true, 'is_active' => false],
             'FluentCommunity'                => ['name' => 'Fluent Community',  'isPro' => true, 'is_active' => false],
             'FluentPdfGenerator'             => ['name' => 'Fluent PDF Generator',  'isPro' => true, 'is_active' => false],
