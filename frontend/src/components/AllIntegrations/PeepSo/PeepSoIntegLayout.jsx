@@ -11,12 +11,7 @@ import PeepSoFieldMap from './PeepSoFieldMap'
 import { AddPostFields, ChangeUserRoleFields, FollowUserFields, modules } from './staticData'
 import Note from '../../Utilities/Note'
 
-export default function PeepSoIntegLayout({
-  formFields,
-  peepSoConf,
-  setPeepSoConf,
-  isLoading,
-}) {
+export default function PeepSoIntegLayout({ formFields, peepSoConf, setPeepSoConf, isLoading }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
@@ -101,9 +96,7 @@ export default function PeepSoIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(peepSoConf.field_map.length, peepSoConf, setPeepSoConf)
-              }
+              onClick={() => addFieldMap(peepSoConf.field_map.length, peepSoConf, setPeepSoConf)}
               className="icn-btn sh-sm"
               type="button">
               +
@@ -111,7 +104,6 @@ export default function PeepSoIntegLayout({
           </div>
           <br />
         </div>
-
       )}
       {peepSoConf.mainAction === 'change_user_role' && <Note note={note} />}
     </>

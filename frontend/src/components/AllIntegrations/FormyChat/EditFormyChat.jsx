@@ -15,10 +15,10 @@ export default function EditFormyChat({ allIntegURL }) {
   const { id, formID } = useParams()
 
   const [formyChatConf, setFormyChatConf] = useRecoilState($actionConf)
-  const [flow, setFlow]                   = useRecoilState($newFlow)
-  const formFields                        = useRecoilValue($formFields)
-  const [isLoading, setIsLoading]         = useState(false)
-  const [snack, setSnackbar]              = useState({ show: false })
+  const [flow, setFlow] = useRecoilState($newFlow)
+  const formFields = useRecoilValue($formFields)
+  const [isLoading, setIsLoading] = useState(false)
+  const [snack, setSnackbar] = useState({ show: false })
 
   return (
     <div style={{ width: 900 }}>
@@ -61,7 +61,7 @@ export default function EditFormyChat({ allIntegURL }) {
             id,
             edit: 1,
             setIsLoading,
-            setSnackbar,
+            setSnackbar
           })
         }
         disabled={!checkMappedFields(formyChatConf)}

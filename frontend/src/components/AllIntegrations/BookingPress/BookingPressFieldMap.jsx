@@ -7,7 +7,7 @@ import {
   addFieldMap,
   delFieldMap,
   handleCustomValue,
-  handleFieldMapping,
+  handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
 export default function BookingPressFieldMap({
@@ -15,13 +15,14 @@ export default function BookingPressFieldMap({
   formFields,
   field,
   bookingPressConf,
-  setBookingPressConf,
+  setBookingPressConf
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   const requiredFlds = bookingPressConf?.bookingPressFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = bookingPressConf?.bookingPressFields?.filter(fld => fld.required === false) || []
+  const nonRequiredFlds =
+    bookingPressConf?.bookingPressFields?.filter(fld => fld.required === false) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">

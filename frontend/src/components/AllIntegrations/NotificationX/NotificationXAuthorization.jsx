@@ -13,11 +13,11 @@ export default function NotificationXAuthorization({
   nextPage,
   isLoading,
   setIsLoading,
-  isInfo,
+  isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState({ name: '' })
-const handleInput = e => {
+  const handleInput = e => {
     const newConf = { ...notificationXConf }
     newConf[e.target.name] = e.target.value
     setNotificationXConf(newConf)
@@ -27,7 +27,7 @@ const handleInput = e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="notificationX" />
+      <TutorialLink linkKey="notificationX" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
@@ -65,9 +65,7 @@ const handleInput = e => {
             className="btn btcd-btn-lg purple sh-sm flx"
             type="button"
             disabled={isAuthorized || isLoading}>
-            {isAuthorized
-              ? __('Authorized ✔', 'bit-integrations')
-              : __('Authorize', 'bit-integrations')}
+            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
             {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
           </button>
           <br />

@@ -7,7 +7,10 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { resetActionHookFlowData, useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  resetActionHookFlowData,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { __, sprintf } from '../../Utils/i18nwrap'
 import Loader from '../Loaders/Loader'
 import LoaderSm from '../Loaders/LoaderSm'

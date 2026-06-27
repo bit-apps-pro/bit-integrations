@@ -36,11 +36,11 @@ const CustomFormSubmission = () => {
   const triggerLinkKey = newFlow?.triggered_entity
   const triggerTutorialLinks = triggerLinkKey
     ? {
-      [triggerLinkKey]: {
-        docLink: newFlow?.triggerDetail?.documentation_url || '',
-        youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        [triggerLinkKey]: {
+          docLink: newFlow?.triggerDetail?.documentation_url || '',
+          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        }
       }
-    }
     : undefined
 
   let controller = new AbortController()
@@ -247,12 +247,14 @@ const CustomFormSubmission = () => {
         <>
           <SnackMsg snack={snack} setSnackbar={setSnackbar} />
           <div
-            className={`flx mt-2 flx-${newFlow.triggerDetail?.data && !skipPrimaryKey ? 'between' : 'around'
-              }`}>
+            className={`flx mt-2 flx-${
+              newFlow.triggerDetail?.data && !skipPrimaryKey ? 'between' : 'around'
+            }`}>
             <button
               onClick={handleFetch}
-              className={`btn btcd-btn-lg sh-sm flx ${isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
-                }`}
+              className={`btn btcd-btn-lg sh-sm flx ${
+                isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
+              }`}
               type="button">
               {isLoading
                 ? `${__('Waiting for form submission...', 'bit-integrations')} (${formatTime(countdown)})`
@@ -264,8 +266,9 @@ const CustomFormSubmission = () => {
             {newFlow.triggerDetail?.data?.length > 0 && !skipPrimaryKey && (
               <button
                 onClick={() => setPrimaryKeyModal(true)}
-                className={`btn btcd-btn-lg sh-sm flx ${newFlow.triggerDetail?.data?.length > 0 && 'gray'
-                  }`}
+                className={`btn btcd-btn-lg sh-sm flx ${
+                  newFlow.triggerDetail?.data?.length > 0 && 'gray'
+                }`}
                 type="button"
                 disabled={!newFlow.triggerDetail?.data?.length > 0}>
                 {primaryKey
@@ -355,23 +358,24 @@ const info = newFlow => `<h4>${sprintf(
             <ul>
               <li>${__('Click the <b>Fetch</b> button.', 'bit-integrations')}</li>
               <li>${__(
-  'Submit <b>The Form</b> while the Fetch button is <b>spinning</b>.',
-  'bit-integrations'
-)}</li>
+                'Submit <b>The Form</b> while the Fetch button is <b>spinning</b>.',
+                'bit-integrations'
+              )}</li>
               <li>${__(
-  'After submitting the form, Click <b>Next</b> and then <b>Go</b></b>',
-  'bit-integrations'
-)}</li>
+                'After submitting the form, Click <b>Next</b> and then <b>Go</b></b>',
+                'bit-integrations'
+              )}</li>
             </ul>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-  'The Fetch button will keep spinning until you submit the form/task.',
-  'bit-integrations'
-)}</p>
+              'The Fetch button will keep spinning until you submit the form/task.',
+              'bit-integrations'
+            )}</p>
             <p><b>${__('Important', 'bit-integrations')}:</b> ${__(
-  'Choose a consistent unique identifier like <b>Form ID</b> (default) or <b>Post ID</b> for each form entry, or create a hidden custom field if unavailable.',
-  'bit-integrations'
-)}</p>
-            ${newFlow?.triggerDetail?.note
-    ? `<h4 className="mt-0">Note</h4>${newFlow?.triggerDetail?.note}`
-    : ''
-  }`
+              'Choose a consistent unique identifier like <b>Form ID</b> (default) or <b>Post ID</b> for each form entry, or create a hidden custom field if unavailable.',
+              'bit-integrations'
+            )}</p>
+            ${
+              newFlow?.triggerDetail?.note
+                ? `<h4 className="mt-0">Note</h4>${newFlow?.triggerDetail?.note}`
+                : ''
+            }`

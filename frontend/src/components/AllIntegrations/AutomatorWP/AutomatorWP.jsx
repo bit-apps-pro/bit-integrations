@@ -14,7 +14,7 @@ function AutomatorWP({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [automatorWP, setAutomatorWP] = useState({
+  const [automatorWP, setAutomatorWP] = useState({
     name: 'AutomatorWP Web Hooks',
     type: 'AutomatorWP',
     method: 'POST',
@@ -32,7 +32,7 @@ const [automatorWP, setAutomatorWP] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="automatorWP" />
+        <TutorialLink linkKey="automatorWP" />
 
         <WebHooksIntegration
           formID={formID}

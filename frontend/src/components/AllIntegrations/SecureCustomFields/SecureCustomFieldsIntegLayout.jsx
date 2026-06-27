@@ -161,10 +161,10 @@ export default function SecureCustomFieldsIntegLayout({
             <b className="wdt-100">{__('Map Sub-Fields', 'bit-integrations')}</b>
             <div className="btcd-hr mt-1" />
             <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
-              <div className="txt-dp" style={{ padding: "0 100px" }}>
+              <div className="txt-dp" style={{ padding: '0 100px' }}>
                 <b>{__('Form Field', 'bit-integrations')}</b>
               </div>
-              <div className="txt-dp" style={{ padding: "0 50px" }}>
+              <div className="txt-dp" style={{ padding: '0 50px' }}>
                 <b>{__('Sub-field Name', 'bit-integrations')}</b>
               </div>
               {isRepeater && (
@@ -208,13 +208,13 @@ export default function SecureCustomFieldsIntegLayout({
         note={
           isRepeater
             ? __(
-              'Map each sub-field of the repeater with its Row # (0 based). Add a row per sub-field; reuse the same Row # to fill multiple sub-fields of one row.',
-              'bit-integrations'
-            )
+                'Map each sub-field of the repeater with its Row # (0 based). Add a row per sub-field; reuse the same Row # to fill multiple sub-fields of one row.',
+                'bit-integrations'
+              )
             : __(
-              'Field Name accepts the field name or field key. Post ID / User ID must be numeric. Values are saved with update_field().',
-              'bit-integrations'
-            )
+                'Field Name accepts the field name or field key. Post ID / User ID must be numeric. Values are saved with update_field().',
+                'bit-integrations'
+              )
         }
       />
     </>

@@ -18,7 +18,7 @@ export default function DirectIqAuthorization({
   isLoading,
   setIsLoading
 }) {
-const [isAuthorized, setisAuthorized] = useState(false)
+  const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', client_secret: '' })
   const [showAuthMsg, setShowAuthMsg] = useState(false)
 
@@ -77,7 +77,7 @@ const [isAuthorized, setisAuthorized] = useState(false)
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="directIq" />
+      <TutorialLink linkKey="directIq" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

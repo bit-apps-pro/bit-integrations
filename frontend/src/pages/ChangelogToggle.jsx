@@ -175,7 +175,9 @@ export default function ChangelogToggle() {
                   {__('Updated at:', 'bit-integrations')} <b>{releaseDate}</b>
                 </small>
               </div>
-              <div className="changelog-content" style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
+              <div
+                className="changelog-content"
+                style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
                 {changeLog.map((log, index) => (
                   <Fragment key={index}>
                     {log.items.length > 0 && (

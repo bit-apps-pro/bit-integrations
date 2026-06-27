@@ -33,7 +33,9 @@ export default function MoreConvertWishlistFieldMap({
             className="btcd-paper-inp mr-2"
             name="formField"
             value={field.formField || ''}
-            onChange={ev => handleFieldMapping(ev, i, moreConvertWishlistConf, setMoreConvertWishlistConf)}>
+            onChange={ev =>
+              handleFieldMapping(ev, i, moreConvertWishlistConf, setMoreConvertWishlistConf)
+            }>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             <optgroup label={__('Form Fields', 'bit-integrations')}>
               {formFields?.map(f => (
@@ -59,7 +61,9 @@ export default function MoreConvertWishlistFieldMap({
 
           {field.formField === 'custom' && (
             <TagifyInput
-              onChange={e => handleCustomValue(e, i, moreConvertWishlistConf, setMoreConvertWishlistConf)}
+              onChange={e =>
+                handleCustomValue(e, i, moreConvertWishlistConf, setMoreConvertWishlistConf)
+              }
               label={__('Custom Value', 'bit-integrations')}
               className="mr-2"
               type="text"
@@ -73,8 +77,12 @@ export default function MoreConvertWishlistFieldMap({
             className="btcd-paper-inp"
             disabled={i < requiredFlds.length}
             name="moreConvertWishlistField"
-            value={i < requiredFlds.length ? requiredFlds[i].key || '' : field.moreConvertWishlistField || ''}
-            onChange={ev => handleFieldMapping(ev, i, moreConvertWishlistConf, setMoreConvertWishlistConf)}>
+            value={
+              i < requiredFlds.length ? requiredFlds[i].key || '' : field.moreConvertWishlistField || ''
+            }
+            onChange={ev =>
+              handleFieldMapping(ev, i, moreConvertWishlistConf, setMoreConvertWishlistConf)
+            }>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (
               <option key={requiredFlds[i].key} value={requiredFlds[i].key}>

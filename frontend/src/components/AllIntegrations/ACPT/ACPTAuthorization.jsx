@@ -18,7 +18,7 @@ export default function ACPTAuthorization({
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState({ api_key: '', api_secret: '' })
-const handleInput = useCallback(e => {
+  const handleInput = useCallback(e => {
     const { name, value } = e.target
 
     setAcptConf(prev => ({
@@ -46,7 +46,7 @@ const handleInput = useCallback(e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="acpt" />
+      <TutorialLink linkKey="acpt" />
 
       <div>
         <div className="mt-3">

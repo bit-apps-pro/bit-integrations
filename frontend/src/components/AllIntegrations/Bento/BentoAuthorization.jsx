@@ -17,7 +17,7 @@ export default function BentoAuthorization({
   isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
-const [error, setError] = useState({ publishable_key: '', secret_key: '' })
+  const [error, setError] = useState({ publishable_key: '', secret_key: '' })
 
   const nextPage = () => {
     setTimeout(() => {
@@ -41,7 +41,7 @@ const [error, setError] = useState({ publishable_key: '', secret_key: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="bento" />
+      <TutorialLink linkKey="bento" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

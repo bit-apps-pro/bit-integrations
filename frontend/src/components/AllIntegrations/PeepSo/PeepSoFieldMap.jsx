@@ -65,7 +65,7 @@ export default function PeepSoFieldMap({ i, formFields, field, peepSoConf, setPe
             className="btcd-paper-inp"
             disabled={i < requiredFlds.length}
             name="peepSoField"
-            value={i < requiredFlds.length ? (requiredFlds[i].key || '') : (field.peepSoField || '')}
+            value={i < requiredFlds.length ? requiredFlds[i].key || '' : field.peepSoField || ''}
             onChange={ev => handleFieldMapping(ev, i, peepSoConf, setPeepSoConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (

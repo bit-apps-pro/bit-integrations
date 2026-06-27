@@ -21,7 +21,7 @@ export default function CampaignMonitorAuthorization({
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', api_key: '' })
   const [showAuthMsg, setShowAuthMsg] = useState(false)
-const handleAuthorize = () => {
+  const handleAuthorize = () => {
     const newConf = { ...campaignMonitorConf }
     if (!newConf.name || !newConf.client_id || !newConf.api_key) {
       setError({
@@ -93,7 +93,7 @@ const handleAuthorize = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="campaignMonitor" />
+      <TutorialLink linkKey="campaignMonitor" />
 
       <div className="mt-3 wdt-200">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

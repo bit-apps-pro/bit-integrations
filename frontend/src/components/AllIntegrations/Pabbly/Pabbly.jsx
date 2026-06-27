@@ -15,7 +15,7 @@ function Pabbly({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [pabbly, setPabbly] = useState({
+  const [pabbly, setPabbly] = useState({
     name: 'Pabbly Web Hooks',
     type: 'Pabbly',
     method: 'POST',
@@ -34,7 +34,7 @@ const [pabbly, setPabbly] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink linkKey="pabblyLinks" />
+        <TutorialLink linkKey="pabblyLinks" />
 
         <WebHooksIntegration
           formID={formID}

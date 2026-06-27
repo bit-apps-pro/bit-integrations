@@ -60,7 +60,7 @@ export default function EditBookingPress({ allIntegURL }) {
             id,
             edit: 1,
             setIsLoading,
-            setSnackbar,
+            setSnackbar
           })
         }
         disabled={!checkMappedFields(bookingPressConf)}

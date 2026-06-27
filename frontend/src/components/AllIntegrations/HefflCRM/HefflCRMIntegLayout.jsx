@@ -16,14 +16,7 @@ import {
   refreshPipelineStages
 } from './HefflCRMCommonFunc'
 import HefflCRMFieldMap from './HefflCRMFieldMap'
-import {
-  ClientFields,
-  ClientTypes,
-  DealFields,
-  DealPriorities,
-  LeadFields,
-  modules
-} from './staticData'
+import { ClientFields, ClientTypes, DealFields, DealPriorities, LeadFields, modules } from './staticData'
 
 const setField = (setHefflCRMConf, key, val) =>
   setHefflCRMConf(prev =>
@@ -337,9 +330,7 @@ export default function HefflCRMIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(hefflCRMConf.field_map.length, hefflCRMConf, setHefflCRMConf)
-              }
+              onClick={() => addFieldMap(hefflCRMConf.field_map.length, hefflCRMConf, setHefflCRMConf)}
               className="icn-btn sh-sm"
               type="button">
               +

@@ -75,9 +75,7 @@ export default function HefflCRMAuthorization({
             className="btn btcd-btn-lg purple sh-sm flx"
             type="button"
             disabled={isAuthorized || isLoading}>
-            {isAuthorized
-              ? __('Authorized ✔', 'bit-integrations')
-              : __('Authorize', 'bit-integrations')}
+            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
             {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
           </button>
           <br />
@@ -101,12 +99,12 @@ const note = `
     <ul>
       <li>${__('Log in to your Heffl CRM account.', 'bit-integrations')}</li>
       <li>${__(
-  'Go to Settings → Developers / API Keys and generate a new key.',
-  'bit-integrations'
-)}</li>
+        'Go to Settings → Developers / API Keys and generate a new key.',
+        'bit-integrations'
+      )}</li>
       <li>${__(
-  'Copy the API key and paste it into the field above, then click Authorize.',
-  'bit-integrations'
-)}</li>
+        'Copy the API key and paste it into the field above, then click Authorize.',
+        'bit-integrations'
+      )}</li>
     </ul>
   `

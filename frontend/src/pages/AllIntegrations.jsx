@@ -149,11 +149,9 @@ function AllIntegrations({ isValidUser }) {
       else delete updatedMapping[integrationKey]
 
       setIntegrationTags(updatedMapping)
-      persistTagData(
-        tags,
-        updatedMapping,
-        __('Tag removed successfully', 'bit-integrations')
-      ).catch(() => { })
+      persistTagData(tags, updatedMapping, __('Tag removed successfully', 'bit-integrations')).catch(
+        () => {}
+      )
     },
     [integrationTags, setIntegrationTags, persistTagData, tags]
   )
@@ -244,7 +242,7 @@ function AllIntegrations({ isValidUser }) {
         updatedTags,
         updatedMapping,
         __('Tag deleted successfully', 'bit-integrations')
-      ).catch(() => { })
+      ).catch(() => {})
     },
     [tags, integrationTags, persistTagData]
   )
@@ -276,11 +274,7 @@ function AllIntegrations({ isValidUser }) {
     }
 
     const lower = trimmed.toLowerCase()
-    if (
-      tags.some(
-        tag => String(tag.id) !== String(tagToEdit) && tag.name.toLowerCase() === lower
-      )
-    ) {
+    if (tags.some(tag => String(tag.id) !== String(tagToEdit) && tag.name.toLowerCase() === lower)) {
       toast.error(__('Tag already exists', 'bit-integrations'))
       return Promise.resolve(false)
     }
@@ -306,9 +300,7 @@ function AllIntegrations({ isValidUser }) {
       setSelectedTags([])
       return
     }
-    setSelectedTags(prev =>
-      prev.includes(tagId) ? prev.filter(id => id !== tagId) : [...prev, tagId]
-    )
+    setSelectedTags(prev => (prev.includes(tagId) ? prev.filter(id => id !== tagId) : [...prev, tagId]))
   }, [])
 
   const clearTagFilters = useCallback(() => setSelectedTags([]), [])
@@ -330,9 +322,7 @@ function AllIntegrations({ isValidUser }) {
         : __('Assign Tags', 'bit-integrations')
     }
     if (editingIntegrationId) {
-      return hasCustom
-        ? __('Create & Assign', 'bit-integrations')
-        : __('Save Tags', 'bit-integrations')
+      return hasCustom ? __('Create & Assign', 'bit-integrations') : __('Save Tags', 'bit-integrations')
     }
     if (hasCustom) return __('Create Tag', 'bit-integrations')
     return __('Select Tag', 'bit-integrations')

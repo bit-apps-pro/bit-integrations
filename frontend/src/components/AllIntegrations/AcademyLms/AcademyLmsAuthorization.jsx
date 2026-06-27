@@ -13,7 +13,7 @@ export default function AcademyLmsAuthorization({
   setStep,
   setSnackbar
 }) {
-const [isAuthorized, setisAuthorized] = useState(false)
+  const [isAuthorized, setisAuthorized] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [showAuthMsg, setShowAuthMsg] = useState(false)
 
@@ -45,7 +45,7 @@ const [isAuthorized, setisAuthorized] = useState(false)
         width: step === 1 && 900,
         height: step === 1 && 'auto'
       }}>
-            <TutorialLink linkKey="academyLms" />
+      <TutorialLink linkKey="academyLms" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
