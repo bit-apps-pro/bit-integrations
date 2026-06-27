@@ -46,7 +46,7 @@ class RecordApiHelper
             $fieldData['site_id'] = (int) $this->_integrationDetails->selectedSite;
         }
 
-        if (in_array($mainAction, ['create_post', 'update_post'], true)) {
+        if (\in_array($mainAction, ['create_post', 'update_post'], true)) {
             $utils = (array) ($this->_integrationDetails->utilities ?? []);
             if (!empty($utils['post_type'])) {
                 $fieldData['post_type'] = sanitize_text_field($utils['post_type']);
@@ -58,6 +58,7 @@ class RecordApiHelper
 
         $defaultResponse = [
             'success' => false,
+            // translators: %s is the plugin name
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro'),
         ];
 

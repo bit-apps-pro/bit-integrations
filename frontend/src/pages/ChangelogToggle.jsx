@@ -95,9 +95,7 @@ const changeLog = [
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: [
-
-    ]
+    items: []
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
