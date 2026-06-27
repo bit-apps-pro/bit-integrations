@@ -32,6 +32,7 @@ const MailChimpAuthorization = lazy(() => import('./MailChimp/MailChimpAuthoriza
 const MailPoetAuthorization = lazy(() => import('./MailPoet/MailPoetAuthorization'))
 const MailerPressAuthorization = lazy(() => import('./MailerPress/MailerPressAuthorization'))
 const SendinblueAuthorization = lazy(() => import('./SendinBlue/SendinBlueAuthorization'))
+const SenderAuthorization = lazy(() => import('./Sender/SenderAuthorization'))
 const WooCommerceAuthorization = lazy(() => import('./WooCommerce/WooCommerceAuthorization'))
 const ActiveCampaignAuthorization = lazy(() => import('./ActiveCampaign/ActiveCampaignAuthorization'))
 const ZohoFlowAuthorization = lazy(() => import('./IntegrationHelpers/WebHook/WebHooksIntegration'))
@@ -68,6 +69,7 @@ const GroundhoggAuthorization = lazy(() => import('./Groundhogg/GroundhoggAuthor
 const SendFoxAuthorization = lazy(() => import('./SendFox/SendFoxAuthorization'))
 const TwilioAuthorization = lazy(() => import('./Twilio/TwilioAuthorization'))
 const MailerLiteAuthorization = lazy(() => import('./MailerLite/MailerLiteAuthorization'))
+const InstasentAuthorization = lazy(() => import('./Instasent/InstasentAuthorization'))
 const VboutAuthorization = lazy(() => import('./Vbout/VboutAuthorization'))
 const FreshdeskAuthorization = lazy(() => import('./Freshdesk/FreshdeskAuthorization'))
 const GoogleContactsAuthorization = lazy(() => import('./GoogleContacts/GoogleContactsAuthorization'))
@@ -158,6 +160,7 @@ const NewsletterAuthorization = lazy(() => import('./Newsletter/NewsletterAuthor
 const SureDashAuthorization = lazy(() => import('./SureDash/SureDashAuthorization'))
 const SureMembersAuthorization = lazy(() => import('./SureMembers/SureMembersAuthorization'))
 const MailsterAuthentication = lazy(() => import('./Mailster/MailsterAuthorization'))
+const MainWPAuthorization = lazy(() => import('./MainWP/MainWPAuthorization'))
 const WPForoAuthorization = lazy(() => import('./WPForo/WPForoAuthorization'))
 const DokanAuthorization = lazy(() => import('./Dokan/DokanAuthorization'))
 const JetEngineAuthorization = lazy(() => import('./JetEngine/JetEngineAuthorization'))
@@ -182,6 +185,10 @@ const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthor
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(() =>
   import('./MoreConvertWishlist/MoreConvertWishlistAuthorization'))
+const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBookingAuthorization'))
+const MoreConvertWishlistAuthorization = lazy(
+  () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
+)
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -339,6 +346,8 @@ export default function IntegInfo() {
         return <MailPoetAuthorization mailPoetConf={integrationConf} step={1} isInfo />
       case 'MailerPress':
         return <MailerPressAuthorization mailerPressConf={integrationConf} step={1} isInfo />
+      case 'Sender':
+        return <SenderAuthorization senderConf={integrationConf} step={1} isInfo />
       case 'SendinBlue':
       case 'Brevo(Sendinblue)':
         return <SendinblueAuthorization sendinBlueConf={integrationConf} step={1} isInfo />
@@ -429,6 +438,8 @@ export default function IntegInfo() {
         return <TwilioAuthorization twilioConf={integrationConf} step={1} isInfo />
       case 'MailerLite':
         return <MailerLiteAuthorization mailerLiteConf={integrationConf} step={1} isInfo />
+      case 'Instasent':
+        return <InstasentAuthorization instasentConf={integrationConf} step={1} isInfo />
       case 'Vbout':
         return <VboutAuthorization vboutConf={integrationConf} step={1} isInfo />
       case 'Freshdesk':
@@ -623,6 +634,8 @@ export default function IntegInfo() {
         return <SureMembersAuthorization sureMembersConf={integrationConf} step={1} isInfo />
       case 'Mailster':
         return <MailsterAuthentication mailsterConf={integrationConf} step={1} isInfo />
+      case 'MainWP':
+        return <MainWPAuthorization mainWPConf={integrationConf} step={1} isInfo />
       case 'WPForo':
         return <WPForoAuthorization wpforoConf={integrationConf} step={1} isInfo />
       case 'Dokan':
@@ -665,6 +678,8 @@ export default function IntegInfo() {
         return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
       case 'Wsms':
         return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
+      case 'WebbaBooking':
+        return <WebbaBookingAuthorization webbaBookingConf={integrationConf} step={1} isInfo />
       case 'MoreConvert Wishlist':
         return (
           <MoreConvertWishlistAuthorization moreConvertWishlistConf={integrationConf} step={1} isInfo />

@@ -27,6 +27,7 @@ const MailChimp = lazy(() => import('./MailChimp/MailChimp'))
 const MailPoet = lazy(() => import('./MailPoet/MailPoet'))
 const MailerPress = lazy(() => import('./MailerPress/MailerPress'))
 const Sendinblue = lazy(() => import('./SendinBlue/SendinBlue'))
+const Sender = lazy(() => import('./Sender/Sender'))
 const WooCommerce = lazy(() => import('./WooCommerce/WooCommerce'))
 const Pods = lazy(() => import('./Pods/Pods'))
 const ActiveCampaign = lazy(() => import('./ActiveCampaign/ActiveCampaign'))
@@ -70,6 +71,7 @@ const Acumbamail = lazy(() => import('./Acumbamail/Acumbamail'))
 const Groundhogg = lazy(() => import('./Groundhogg/Groundhogg'))
 const SendFox = lazy(() => import('./SendFox/SendFox'))
 const MailerLite = lazy(() => import('./MailerLite/MailerLite'))
+const Instasent = lazy(() => import('./Instasent/Instasent'))
 const Vbout = lazy(() => import('./Vbout/Vbout'))
 const WhatsApp = lazy(() => import('./WhatsApp/WhatsApp'))
 const LearnDesh = lazy(() => import('./LearnDash/LearnDash'))
@@ -159,6 +161,7 @@ const Newsletter = lazy(() => import('./Newsletter/Newsletter'))
 const SureDash = lazy(() => import('./SureDash/SureDash'))
 const SureMembers = lazy(() => import('./SureMembers/SureMembers'))
 const Mailster = lazy(() => import('./Mailster/Mailster'))
+const MainWP = lazy(() => import('./MainWP/MainWP'))
 const WPForo = lazy(() => import('./WPForo/WPForo'))
 const Dokan = lazy(() => import('./Dokan/Dokan'))
 const JetEngine = lazy(() => import('./JetEngine/JetEngine'))
@@ -177,6 +180,7 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
+const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
@@ -326,6 +330,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Mail Poet':
         return (
           <MailPoet
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Sender':
+        return (
+          <Sender
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
@@ -731,6 +744,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'MailerLite':
         return (
           <MailerLite
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Instasent':
+        return (
+          <Instasent
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
@@ -1576,6 +1598,15 @@ export default function NewInteg({ allIntegURL }) {
             setFlow={setFlow}
           />
         )
+      case 'MainWP':
+        return (
+          <MainWP
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
       case 'WPForo':
         return (
           <WPForo
@@ -1732,6 +1763,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Wsms':
         return (
           <Wsms
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'WebbaBooking':
+        return (
+          <WebbaBooking
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}
