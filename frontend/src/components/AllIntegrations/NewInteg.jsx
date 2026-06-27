@@ -27,6 +27,7 @@ const MailChimp = lazy(() => import('./MailChimp/MailChimp'))
 const MailPoet = lazy(() => import('./MailPoet/MailPoet'))
 const MailerPress = lazy(() => import('./MailerPress/MailerPress'))
 const Sendinblue = lazy(() => import('./SendinBlue/SendinBlue'))
+const Sender = lazy(() => import('./Sender/Sender'))
 const WooCommerce = lazy(() => import('./WooCommerce/WooCommerce'))
 const Pods = lazy(() => import('./Pods/Pods'))
 const ActiveCampaign = lazy(() => import('./ActiveCampaign/ActiveCampaign'))
@@ -327,6 +328,15 @@ export default function NewInteg({ allIntegURL }) {
       case 'Mail Poet':
         return (
           <MailPoet
+            allIntegURL={allIntegURL}
+            formFields={flow?.triggerData?.fields}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        )
+      case 'Sender':
+        return (
+          <Sender
             allIntegURL={allIntegURL}
             formFields={flow?.triggerData?.fields}
             flow={flow}

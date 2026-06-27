@@ -26,6 +26,7 @@ const EditPod = lazy(() => import('./Pods/EditPod'))
 const EditMailPoet = lazy(() => import('./MailPoet/EditMailPoet'))
 const EditMailerPress = lazy(() => import('./MailerPress/EditMailerPress'))
 const EditSendinBlue = lazy(() => import('./SendinBlue/EditSendinBlue'))
+const EditSender = lazy(() => import('./Sender/EditSender'))
 const EditWooCommerce = lazy(() => import('./WooCommerce/EditWooCommerce'))
 const EditActiveCampaign = lazy(() => import('./ActiveCampaign/EditActiveCampaign'))
 const EditWebHooks = lazy(() => import('./WebHooks/EditWebHooks'))
@@ -307,6 +308,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditMailPoet allIntegURL={allIntegURL} />
     case 'MailerPress':
       return <EditMailerPress allIntegURL={allIntegURL} />
+    case 'Sender':
+      return <EditSender allIntegURL={allIntegURL} />
     case 'SendinBlue':
     case 'Brevo(Sendinblue)':
       return <EditSendinBlue allIntegURL={allIntegURL} />

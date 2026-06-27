@@ -32,6 +32,7 @@ const MailChimpAuthorization = lazy(() => import('./MailChimp/MailChimpAuthoriza
 const MailPoetAuthorization = lazy(() => import('./MailPoet/MailPoetAuthorization'))
 const MailerPressAuthorization = lazy(() => import('./MailerPress/MailerPressAuthorization'))
 const SendinblueAuthorization = lazy(() => import('./SendinBlue/SendinBlueAuthorization'))
+const SenderAuthorization = lazy(() => import('./Sender/SenderAuthorization'))
 const WooCommerceAuthorization = lazy(() => import('./WooCommerce/WooCommerceAuthorization'))
 const ActiveCampaignAuthorization = lazy(() => import('./ActiveCampaign/ActiveCampaignAuthorization'))
 const ZohoFlowAuthorization = lazy(() => import('./IntegrationHelpers/WebHook/WebHooksIntegration'))
@@ -341,6 +342,8 @@ export default function IntegInfo() {
         return <MailPoetAuthorization mailPoetConf={integrationConf} step={1} isInfo />
       case 'MailerPress':
         return <MailerPressAuthorization mailerPressConf={integrationConf} step={1} isInfo />
+      case 'Sender':
+        return <SenderAuthorization senderConf={integrationConf} step={1} isInfo />
       case 'SendinBlue':
       case 'Brevo(Sendinblue)':
         return <SendinblueAuthorization sendinBlueConf={integrationConf} step={1} isInfo />
