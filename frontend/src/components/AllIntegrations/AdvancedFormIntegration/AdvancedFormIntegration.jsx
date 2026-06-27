@@ -7,7 +7,6 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksIntegration from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function AdvancedFormIntegration({ formFields, setFlow, flow, allIntegURL }) {
@@ -22,7 +21,7 @@ function AdvancedFormIntegration({ formFields, setFlow, flow, allIntegURL }) {
     method: 'POST',
     url: ''
   })
-return (
+  return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2">
@@ -33,7 +32,7 @@ return (
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="Advanced Form Integration" links={tutorialLinks?.afi || {}} />
+        <TutorialLink linkKey="afi" />
 
         <WebHooksIntegration
           formID={formID}

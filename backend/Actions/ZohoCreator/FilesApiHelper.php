@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZohoCreator;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 /**
@@ -57,23 +58,23 @@ final class FilesApiHelper
         $payload = '';
         if (\is_array($files)) {
             foreach ($files as $fileIndex => $fileName) {
-                if (file_exists("{$this->_basepath}{$fileName}")) {
+                if (($safeFile = Common::safeUploadFilePath("{$this->_basepath}{$fileName}", $this->_basepath)) !== '') {
                     $payload .= '--' . $this->_payloadBoundary;
                     $payload .= "\r\n";
                     $payload .= 'Content-Disposition: form-data; name="' . 'file'
                         . '"; filename="' . basename("{$this->_basepath}{$fileName}") . '"' . "\r\n";
                     $payload .= "\r\n";
-                    $payload .= file_get_contents("{$this->_basepath}{$fileName}");
+                    $payload .= file_get_contents($safeFile);
                     $payload .= "\r\n";
                 }
             }
-        } elseif (file_exists("{$this->_basepath}{$files}")) {
+        } elseif (($safeFiles = Common::safeUploadFilePath("{$this->_basepath}{$files}", $this->_basepath)) !== '') {
             $payload .= '--' . $this->_payloadBoundary;
             $payload .= "\r\n";
             $payload .= 'Content-Disposition: form-data; name="' . 'file'
                 . '"; filename="' . basename("{$this->_basepath}{$files}") . '"' . "\r\n";
             $payload .= "\r\n";
-            $payload .= file_get_contents("{$this->_basepath}{$files}");
+            $payload .= file_get_contents($safeFiles);
             $payload .= "\r\n";
         }
 

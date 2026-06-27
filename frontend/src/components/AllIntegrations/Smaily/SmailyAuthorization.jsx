@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { smailyAuthentication } from './SmailyCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function SmailyAuthorization({
@@ -24,7 +23,7 @@ export default function SmailyAuthorization({
     api_user_name: '',
     api_user_password: ''
   })
-const nextPage = () => {
+  const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -63,7 +62,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Smaily" links={tutorialLinks?.smaily || {}} />
+      <TutorialLink linkKey="smaily" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

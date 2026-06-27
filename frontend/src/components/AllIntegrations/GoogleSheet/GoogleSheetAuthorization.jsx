@@ -6,7 +6,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleAuthorize, refreshSpreadsheets, tokenHelper } from './GoogleSheetCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import SelectAuthorizationType from '../../OneClickRadioComponents/SelectAuthorizationType'
 import AuthorizationAccountList from '../../OneClickRadioComponents/AuthorizationAccountList'
@@ -29,7 +28,7 @@ export default function GoogleSheetAuthorization({
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState({ clientId: '', clientSecret: '' })
   const btcbi = useRecoilValue($appConfigState)
-const [authData, setAuthData] = useState([])
+  const [authData, setAuthData] = useState([])
   const [authInfo, setAuthInfo] = useRecoilState(authInfoAtom)
   const [selectedAuthType, setSelectedAuthType] = useState('Custom Authorization')
 
@@ -94,7 +93,7 @@ const [authData, setAuthData] = useState([])
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Google Sheets" links={tutorialLinks?.googleSheet || {}} />
+      <TutorialLink linkKey="googleSheet" />
 
       {selectedAuthType === 'Custom Authorization' && (
         <div>

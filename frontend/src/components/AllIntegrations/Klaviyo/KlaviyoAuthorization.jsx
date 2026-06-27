@@ -3,7 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { handleAuthorize } from './KlaviyoCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function KlaviyoAuthorization({
@@ -17,7 +16,7 @@ function KlaviyoAuthorization({
 }) {
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', authKey: '' })
-const handleInput = e => {
+  const handleInput = e => {
     const newConf = { ...klaviyoConf }
     const koError = { ...error }
     koError[e.target.name] = ''
@@ -57,7 +56,7 @@ const handleInput = e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Klaviyo" links={tutorialLinks?.klaviyo || {}} />
+      <TutorialLink linkKey="klaviyo" />
 
       <div className="mt-2">
         <div className="my-1">

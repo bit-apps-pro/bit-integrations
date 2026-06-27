@@ -88,10 +88,12 @@ export default function B2BKingIntegLayout({
               title="selected_group"
               defaultValue={b2bKingConf?.utilities?.selected_group ?? null}
               className="btcd-paper-drpdwn w-5"
-              options={(Array.isArray(b2bKingConf?.allGroups) ? b2bKingConf.allGroups : []).map(group => ({
-                label: group.label,
-                value: String(group.value)
-              }))}
+              options={(Array.isArray(b2bKingConf?.allGroups) ? b2bKingConf.allGroups : []).map(
+                group => ({
+                  label: group.label,
+                  value: String(group.value)
+                })
+              )}
               onChange={val =>
                 setB2BKingConf(prevConf =>
                   create(prevConf, draftConf => {
@@ -152,9 +154,7 @@ export default function B2BKingIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(b2bKingConf.field_map.length, b2bKingConf, setB2BKingConf)
-              }
+              onClick={() => addFieldMap(b2bKingConf.field_map.length, b2bKingConf, setB2BKingConf)}
               className="icn-btn sh-sm"
               type="button">
               +

@@ -177,7 +177,13 @@ class CustomFuncValidator
         }
 
         $uploadDir     = wp_upload_dir();
-        $fileLocation  = "{$uploadDir['basedir']}/{$fileName}.php";
+        $safeFileName  = sanitize_file_name(basename((string) $fileName));
+        if (empty($safeFileName)) {
+            wp_send_json_error(__('Invalid file name.', 'bit-integrations'));
+
+            return false;
+        }
+        $fileLocation  = "{$uploadDir['basedir']}/{$safeFileName}.php";
         $previousContent = file_exists($fileLocation) ? file_get_contents($fileLocation) : null;
         $written       = $wp_filesystem->put_contents($fileLocation, $fileContent, FS_CHMOD_FILE);
 

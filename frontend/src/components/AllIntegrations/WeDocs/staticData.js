@@ -19,10 +19,10 @@ export const modules = [
 ]
 
 export const weDocsActionFields = [
-    { key: 'post_title', label: __('Title', 'bit-integrations'), required: true },
-    { key: 'post_content', label: __('Content', 'bit-integrations'), required: false },
-    { key: 'post_status', label: __('Status', 'bit-integrations'), required: false }
-  ]
+  { key: 'post_title', label: __('Title', 'bit-integrations'), required: true },
+  { key: 'post_content', label: __('Content', 'bit-integrations'), required: false },
+  { key: 'post_status', label: __('Status', 'bit-integrations'), required: false }
+]
 
 export const documentationSelectionActions = ['create_section', 'create_article']
 

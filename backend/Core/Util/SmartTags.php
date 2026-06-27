@@ -52,12 +52,13 @@ final class SmartTags
         $smartTags = [
             '_bi_current_time' => gmdate('Y-m-d H:i:s'),
             '_bi_admin_email'  => get_bloginfo('admin_email'),
-            '_bi_date_default' => wp_date(get_option('date_format')),
-            '_bi_date.m/d/y'   => wp_date('m/d/y'),
-            '_bi_date.d/m/y'   => wp_date('d/m/y'),
-            '_bi_date.y/m/d'   => wp_date('y/m/d'),
-            '_bi_time'         => wp_date(get_option('time_format')),
-            '_bi_weekday'      => wp_date('l'),
+            // date_i18n() (since WP 0.71) used instead of wp_date() (WP 5.3) for WP 5.1 compatibility
+            '_bi_date_default' => date_i18n(get_option('date_format')),
+            '_bi_date.m/d/y'   => date_i18n('m/d/y'),
+            '_bi_date.d/m/y'   => date_i18n('d/m/y'),
+            '_bi_date.y/m/d'   => date_i18n('y/m/d'),
+            '_bi_time'         => date_i18n(get_option('time_format')),
+            '_bi_weekday'      => date_i18n('l'),
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized with sanitize_text_field
             '_bi_http_referer_url'   => isset($_SERVER['HTTP_REFERER']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER'])) : '',
             '_bi_ip_address'         => IpTool::getIP(),

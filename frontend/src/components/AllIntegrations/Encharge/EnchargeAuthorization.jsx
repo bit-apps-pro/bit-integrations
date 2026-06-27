@@ -4,7 +4,6 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { refreshEnchargeHeader } from './EnchargeCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function EnchargeAuthorization({
@@ -20,7 +19,7 @@ export default function EnchargeAuthorization({
   const [error, setError] = useState({ name: '', api_key: '' })
   const [showAuthMsg, setShowAuthMsg] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-const handleAuthorize = () => {
+  const handleAuthorize = () => {
     const newConf = { ...enchargeConf }
     if (!newConf.name || !newConf.api_key) {
       setError({
@@ -61,7 +60,7 @@ const handleAuthorize = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Encharge" links={tutorialLinks?.encharge || {}} />
+      <TutorialLink linkKey="encharge" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

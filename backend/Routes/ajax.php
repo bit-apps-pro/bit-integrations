@@ -35,9 +35,9 @@ Route::post('flow/clone', [Flow::class, 'flowClone']);
 Route::get('integration-tags/get', [IntegrationTagController::class, 'get']);
 Route::post('integration-tags/save', [IntegrationTagController::class, 'save']);
 
-// Mail Action
-Route::sanitize_post_content()->post('flow/mail/save', [Flow::class, 'save']);
-Route::sanitize_post_content()->post('flow/mail/update', [Flow::class, 'update']);
+// Post Content Action e.g. Mail, Telegram, Whatsapp etc.
+Route::sanitize_post_content()->post('flow/sanitize_post_content/save', [Flow::class, 'save']);
+Route::sanitize_post_content()->post('flow/sanitize_post_content/update', [Flow::class, 'update']);
 
 // Custom Action
 Route::no_sanitize()->post('flow/custom-action/save', [Flow::class, 'save']);

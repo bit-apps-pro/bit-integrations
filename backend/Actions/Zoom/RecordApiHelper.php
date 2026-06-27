@@ -72,9 +72,10 @@ class RecordApiHelper
             $triggerValue = $value->formField;
             $actionValue = $value->zoomField;
 
-            if (str_starts_with($actionValue, 'custom_questions_') && $triggerValue === 'custom') {
+            // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
+            if (strpos($actionValue, 'custom_questions_') === 0 && $triggerValue === 'custom') {
                 $dataFinal['custom_questions'][] = self::setCustomFieldMap(str_replace('custom_questions_', '', $value->zoomField), Common::replaceFieldWithValue($value->customValue, $data));
-            } elseif (str_starts_with($actionValue, 'custom_questions_')) {
+            } elseif (strpos($actionValue, 'custom_questions_') === 0) {
                 $dataFinal['custom_questions'][] = self::setCustomFieldMap(str_replace('custom_questions_', '', $value->zoomField), $data[$triggerValue]);
             } elseif ($triggerValue === 'custom') {
                 $dataFinal[$actionValue] = Common::replaceFieldWithValue($value->customValue, $data);

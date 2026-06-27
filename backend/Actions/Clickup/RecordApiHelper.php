@@ -119,10 +119,13 @@ class RecordApiHelper
             if (\is_array($file)) {
                 $result = static::uploadFile($file, $taskId);
             } else {
-                $file = Common::filePath($file);
+                $safePath = Common::safeUploadFilePath($file);
+                if ($safePath === '') {
+                    continue;
+                }
                 $result = HttpHelper::post(
                     $this->apiUrl . "task/{$taskId}/attachment",
-                    ['attachment' => new CURLFile($file)],
+                    ['attachment' => new CURLFile($safePath)],
                     [
                         'Authorization' => $this->integrationDetails->api_key,
                         'Content-Type'  => 'multipart/form-data',

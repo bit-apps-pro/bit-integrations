@@ -25,7 +25,7 @@ export default function BookingPressAuthorization({
         setIsAuthorized(true)
         setSnackbar({
           show: true,
-          msg: __('Connected with BookingPress Successfully', 'bit-integrations'),
+          msg: __('Connected with BookingPress Successfully', 'bit-integrations')
         })
       }
       setIsLoading(false)
@@ -44,9 +44,9 @@ export default function BookingPressAuthorization({
       className="btcd-stp-page"
       style={{
         width: step === 1 && 900,
-        height: step === 1 && 'auto',
+        height: step === 1 && 'auto'
       }}>
-      <TutorialLink title="BookingPress" links={tutorialLinks?.bookingPress || {}} />
+      <TutorialLink linkKey="bookingPress" />
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>

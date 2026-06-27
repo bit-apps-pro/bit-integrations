@@ -8,15 +8,13 @@ import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksIntegration from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 function AutomatorWP({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
   const { formID } = useParams()
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [automatorWP, setAutomatorWP] = useState({
+  const [automatorWP, setAutomatorWP] = useState({
     name: 'AutomatorWP Web Hooks',
     type: 'AutomatorWP',
     method: 'POST',
@@ -34,7 +32,7 @@ const [automatorWP, setAutomatorWP] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="AutomatorWP" links={tutorialLinks?.automatorWP || {}} />
+        <TutorialLink linkKey="automatorWP" />
 
         <WebHooksIntegration
           formID={formID}

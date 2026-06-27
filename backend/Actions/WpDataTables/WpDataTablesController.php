@@ -27,6 +27,7 @@ class WpDataTablesController
         self::isExists();
 
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $tables = $wpdb->get_results(
             "SELECT id, title FROM {$wpdb->prefix}wpdatatables ORDER BY id ASC",
             ARRAY_A
@@ -50,6 +51,7 @@ class WpDataTablesController
         }
 
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $table = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT content FROM {$wpdb->prefix}wpdatatables WHERE id = %d",

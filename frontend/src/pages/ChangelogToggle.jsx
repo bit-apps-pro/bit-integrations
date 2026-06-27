@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '13th May 2026'
+const releaseDate = '20th June 2026'
 
 // Example for items:
 // items: [
@@ -30,70 +30,13 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'B2BKing',
-        desc: '3 new events added',
-        isPro: true
-      },
-      {
-        label: 'BookingPress',
-        desc: '7 new events added',
-        isPro: true
-      },
-      {
-        label: 'FormyChat',
-        desc: '2 new events added',
-        isPro: true
-      },
-      {
-        label: 'SureDash',
-        desc: '18 new events added',
-        isPro: true
-      },
-      {
-        label: 'wpDataTables',
-        desc: '4 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'B2BKing',
-        desc: '3 new events added',
-        isPro: true
-      },
-      {
-        label: 'BookingPress',
-        desc: '6 new events added',
-        isPro: true
-      },
-      {
-        label: 'Bookly',
-        desc: '6 new events added',
-        isPro: true
-      },
-      {
-        label: 'FormyChat',
-        desc: '1 new events added',
-        isPro: true
-      },
-      {
-        label: 'SureDash',
-        desc: '7 new events added',
-        isPro: true
-      },
-      {
-        label: 'wpDataTables',
-        desc: '1 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -105,13 +48,25 @@ const changeLog = [
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'WooCommerce',
+        desc: 'Switched product image uploads to WordPress-native file helpers (wp_parse_url, wp_delete_file) for safer file handling.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'Wishlist Member',
+        desc: 'Fixed membership level field mapping in the integration setup.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Security', 'bit-integrations'),
@@ -220,7 +175,9 @@ export default function ChangelogToggle() {
                   {__('Updated at:', 'bit-integrations')} <b>{releaseDate}</b>
                 </small>
               </div>
-              <div className="changelog-content" style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
+              <div
+                className="changelog-content"
+                style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
                 {changeLog.map((log, index) => (
                   <Fragment key={index}>
                     {log.items.length > 0 && (

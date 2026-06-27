@@ -56,13 +56,41 @@ const refreshGeneric = (endpoint, dataKey, setWpErpConf, setIsLoading, draftKey,
 }
 
 export const refreshContactGroups = (setWpErpConf, setIsLoading) =>
-  refreshGeneric('refresh_wp_erp_contact_groups', 'groups', setWpErpConf, setIsLoading, 'allContactGroups', 'Contact groups')
+  refreshGeneric(
+    'refresh_wp_erp_contact_groups',
+    'groups',
+    setWpErpConf,
+    setIsLoading,
+    'allContactGroups',
+    'Contact groups'
+  )
 
 export const refreshLifeStages = (setWpErpConf, setIsLoading) =>
-  refreshGeneric('refresh_wp_erp_life_stages', 'stages', setWpErpConf, setIsLoading, 'allLifeStages', 'Life stages')
+  refreshGeneric(
+    'refresh_wp_erp_life_stages',
+    'stages',
+    setWpErpConf,
+    setIsLoading,
+    'allLifeStages',
+    'Life stages'
+  )
 
 export const refreshDepartments = (setWpErpConf, setIsLoading) =>
-  refreshGeneric('refresh_wp_erp_departments', 'departments', setWpErpConf, setIsLoading, 'allDepartments', 'Departments')
+  refreshGeneric(
+    'refresh_wp_erp_departments',
+    'departments',
+    setWpErpConf,
+    setIsLoading,
+    'allDepartments',
+    'Departments'
+  )
 
 export const refreshDesignations = (setWpErpConf, setIsLoading) =>
-  refreshGeneric('refresh_wp_erp_designations', 'designations', setWpErpConf, setIsLoading, 'allDesignations', 'Designations')
+  refreshGeneric(
+    'refresh_wp_erp_designations',
+    'designations',
+    setWpErpConf,
+    setIsLoading,
+    'allDesignations',
+    'Designations'
+  )

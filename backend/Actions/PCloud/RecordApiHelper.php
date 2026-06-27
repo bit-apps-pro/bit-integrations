@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\PCloud;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use CURLFile;
@@ -27,10 +28,14 @@ class RecordApiHelper
 
         if (\is_array($filePath)) {
             foreach ($filePath as $item) {
+                $safePath = Common::safeUploadFilePath($item);
+                if ($safePath === '') {
+                    continue;
+                }
                 $response = HttpHelper::post(
                     'https://api.pcloud.com/uploadfile?folderid=' . $folder,
                     [
-                        'filename' => new CURLFile($item)
+                        'filename' => new CURLFile($safePath)
                     ],
                     [
                         'Content-Type'  => 'multipart/form-data',
@@ -39,10 +44,14 @@ class RecordApiHelper
                 );
             }
         } else {
+            $safePath = Common::safeUploadFilePath($filePath);
+            if ($safePath === '') {
+                return false;
+            }
             $response = HttpHelper::post(
                 'https://api.pcloud.com/uploadfile?folderid=' . $folder,
                 [
-                    'filename' => new CURLFile($filePath)
+                    'filename' => new CURLFile($safePath)
                 ],
                 [
                     'Content-Type'  => 'multipart/form-data',
@@ -74,8 +83,10 @@ class RecordApiHelper
     public function deleteFile($filePath, $actions)
     {
         if (isset($actions->delete_from_wp) && $actions->delete_from_wp) {
-            if (file_exists($filePath)) {
-                wp_delete_file($filePath);
+            $safePath = Common::safeUploadFilePath($filePath);
+
+            if ($safePath !== '' && file_exists($safePath)) {
+                wp_delete_file($safePath);
             }
         }
     }

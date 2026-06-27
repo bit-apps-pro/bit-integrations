@@ -1,5 +1,6 @@
 import { memo, useCallback, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
+import CopyIcn from '../../Icons/CopyIcn'
 import noData from '../../resource/img/nodata.svg'
 import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
@@ -47,7 +48,7 @@ function Log({ allIntegURL }) {
             type="button"
             className="icn-btn tooltip"
             style={{ '--tooltip-txt': '"Preview"' }}
-            onClick={() => setResponse(val.row.values.response_obj)}>
+            onClick={() => setResponse(val.row.values)}>
             <EyeIcn width="40" height="40" strokeColor="#222" />
           </Button>
         </>
@@ -201,31 +202,45 @@ function Log({ allIntegURL }) {
 
       {response && (
         <Modal
-          sm
           closeIcon
           show={response}
           setModal={setResponse}
-          style={{ maxWidth: '900px' }}
-          title={__('Response', 'bit-integrations')}>
-          <div className="flx flx-around mr-1 mt-1">
-            <div
-              className="txt-dp"
-              style={{
-                background: '#1e293b',
-                borderRadius: '8px',
-                padding: '16px',
-                color: '#f8fafc',
-                fontFamily: "'Fira Code', monospace",
-                fontSize: '14px',
-                overflow: 'auto',
-                maxWidth: '800px',
-                maxHeight: '500px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                width: '100%',
-                height: '100%'
-              }}>
-              <pre style={{ margin: 0 }}>
-                <code className="">{jsonPrint(response)}</code>
+          className="resp-modal-shell"
+          style={{ width: '600px', maxWidth: '92vw', height: 'auto' }}
+          title={__('Response Preview', 'bit-integrations')}>
+          <div className="resp-mdl">
+            <div className="resp-mdl__meta">
+              <span
+                className={`resp-badge resp-badge--${
+                  String(response.response_type).toLowerCase() === 'success' ? 'success' : 'error'
+                }`}>
+                <span className="resp-badge__dot" />
+                {response.response_type || __('Unknown', 'bit-integrations')}
+              </span>
+              {recordTypeLabel(response.api_type) && (
+                <span className="resp-mdl__chip">{recordTypeLabel(response.api_type)}</span>
+              )}
+              {response.created_at && <span className="resp-mdl__date">{response.created_at}</span>}
+            </div>
+
+            <div className="resp-mdl__code-wrp">
+              <div className="resp-mdl__code-bar">
+                <span className="resp-mdl__lang">JSON</span>
+                <button
+                  type="button"
+                  className="resp-mdl__copy"
+                  onClick={() => {
+                    const text = jsonPrint(response.response_obj)
+                    if (navigator.clipboard) navigator.clipboard.writeText(text)
+                    setSnackbar({ show: true, msg: __('Copied on Clipboard.', 'bit-integrations') })
+                  }}>
+                  <CopyIcn size="13" />
+                  {__('Copy', 'bit-integrations')}
+                </button>
+              </div>
+              <pre className="resp-mdl__pre">
+                {/* eslint-disable-next-line react/no-danger */}
+                <code dangerouslySetInnerHTML={{ __html: syntaxHighlight(response.response_obj) }} />
               </pre>
             </div>
           </div>
@@ -243,4 +258,35 @@ const jsonPrint = data => {
   } catch (e) {
     return data
   }
+}
+
+// Human-readable label for the record type column (stored as JSON string)
+const recordTypeLabel = raw => {
+  if (!raw) return ''
+  try {
+    const obj = JSON.parse(raw)
+    return [obj.type, obj.type_name].filter(Boolean).join(' · ') || raw
+  } catch (e) {
+    return raw
+  }
+}
+
+// Lightweight JSON syntax highlighter → HTML with token classes
+const syntaxHighlight = data => {
+  const json = jsonPrint(data).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+  return json.replace(
+    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false)\b|\bnull\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
+    match => {
+      let cls = 'tok-num'
+      if (/^"/.test(match)) {
+        cls = /:$/.test(match) ? 'tok-key' : 'tok-str'
+      } else if (/true|false/.test(match)) {
+        cls = 'tok-bool'
+      } else if (/null/.test(match)) {
+        cls = 'tok-null'
+      }
+      return `<span class="${cls}">${match}</span>`
+    }
+  )
 }
