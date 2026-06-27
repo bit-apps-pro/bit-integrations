@@ -7,7 +7,7 @@ import {
   addFieldMap,
   delFieldMap,
   handleCustomValue,
-  handleFieldMapping,
+  handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
 export default function NotificationXFieldMap({
@@ -15,13 +15,14 @@ export default function NotificationXFieldMap({
   formFields,
   field,
   notificationXConf,
-  setNotificationXConf,
+  setNotificationXConf
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   const requiredFlds = notificationXConf?.notificationXFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = notificationXConf?.notificationXFields?.filter(fld => fld?.required === false) || []
+  const nonRequiredFlds =
+    notificationXConf?.notificationXFields?.filter(fld => fld?.required === false) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -71,9 +72,7 @@ export default function NotificationXFieldMap({
             className="btcd-paper-inp"
             disabled={i < requiredFlds.length}
             name="notificationXField"
-            value={
-              i < requiredFlds.length ? requiredFlds[i].key || '' : field.notificationXField || ''
-            }
+            value={i < requiredFlds.length ? requiredFlds[i].key || '' : field.notificationXField || ''}
             onChange={ev => handleFieldMapping(ev, i, notificationXConf, setNotificationXConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (

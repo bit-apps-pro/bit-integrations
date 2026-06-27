@@ -68,7 +68,8 @@ export const checkMappedFields = ivyFormsConf => {
 
 export const formatFields = fields => (Array.isArray(fields) ? fields : Object.values(fields || {}))
 
-export const isRequiredField = field => field?.required === true || field?.required === 1 || field?.required === '1'
+export const isRequiredField = field =>
+  field?.required === true || field?.required === 1 || field?.required === '1'
 
 export const generateMappedField = (fields = []) => {
   const requiredFlds = formatFields(fields).filter(isRequiredField)

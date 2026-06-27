@@ -17,7 +17,7 @@ export default function DemioAuthorization({
   isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
-const [error, setError] = useState({ api_key: '', api_secret: '' })
+  const [error, setError] = useState({ api_key: '', api_secret: '' })
 
   const nextPage = () => {
     setTimeout(() => {
@@ -52,7 +52,7 @@ const [error, setError] = useState({ api_key: '', api_secret: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink linkKey="demio" />
+      <TutorialLink linkKey="demio" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

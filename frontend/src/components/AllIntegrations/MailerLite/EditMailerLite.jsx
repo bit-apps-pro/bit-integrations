@@ -37,7 +37,10 @@ function EditMailerLite({ allIntegURL }) {
       return
     }
 
-    if (mailerLiteConf?.action === 'unassign_subscriber_from_group' && !mailerLiteConf?.selected_group_id) {
+    if (
+      mailerLiteConf?.action === 'unassign_subscriber_from_group' &&
+      !mailerLiteConf?.selected_group_id
+    ) {
       setSnackbar({ show: true, msg: __('Please select a group', 'bit-integrations') })
       return
     }

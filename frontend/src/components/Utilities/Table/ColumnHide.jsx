@@ -16,8 +16,9 @@ function ColumnHide({ cols, setCols, tableCol, tableAllCols }) {
           {tableCol.map((column, i) => (
             <div
               key={tableAllCols[i + 1].id}
-              className={`btcd-pane ${(column.Header === 'Actions' || column.accessor === 't_action') && 'd-non'
-                }`}>
+              className={`btcd-pane ${
+                (column.Header === 'Actions' || column.accessor === 't_action') && 'd-non'
+              }`}>
               <TableCheckBox
                 cls="scl-7"
                 id={tableAllCols[i + 1].id}

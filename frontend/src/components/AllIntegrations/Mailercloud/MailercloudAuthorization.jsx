@@ -20,7 +20,7 @@ function MailercloudAuthorization({
 }) {
   const [authorized, setAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', authKey: '' })
-const nextPage = async () => {
+  const nextPage = async () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -54,7 +54,7 @@ const nextPage = async () => {
 
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink linkKey="mailercloud" />
+      <TutorialLink linkKey="mailercloud" />
 
       <div className="mt-2">
         {/* Mailercloud Authorization */}

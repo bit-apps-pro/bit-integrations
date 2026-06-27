@@ -10,12 +10,19 @@ import {
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
-export default function WpDataTablesFieldMap({ i, formFields, field, wpDataTablesConf, setWpDataTablesConf }) {
+export default function WpDataTablesFieldMap({
+  i,
+  formFields,
+  field,
+  wpDataTablesConf,
+  setWpDataTablesConf
+}) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  const requiredFlds    = wpDataTablesConf?.wpDataTablesFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = wpDataTablesConf?.wpDataTablesFields?.filter(fld => fld.required === false) || []
+  const requiredFlds = wpDataTablesConf?.wpDataTablesFields?.filter(fld => fld.required === true) || []
+  const nonRequiredFlds =
+    wpDataTablesConf?.wpDataTablesFields?.filter(fld => fld.required === false) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">

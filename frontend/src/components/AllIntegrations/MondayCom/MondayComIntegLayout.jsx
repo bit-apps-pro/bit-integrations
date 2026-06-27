@@ -14,13 +14,7 @@ import {
   generateMappedField
 } from './MondayComCommonFunc'
 import MondayComFieldMap from './MondayComFieldMap'
-import {
-  staticFieldsMap,
-  columnTypeList,
-  needsBoard,
-  needsItem,
-  needsColumnMap
-} from './staticData'
+import { staticFieldsMap, columnTypeList, needsBoard, needsItem, needsColumnMap } from './staticData'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { create } from 'mutative'
 import MondayComActions from './MondayComActions'
@@ -106,8 +100,7 @@ export default function MondayComIntegLayout({
 
   const mainAction = mondayComConf?.mainAction
   const hasFieldMap =
-    mainAction
-    && (staticFieldsMap[mainAction]?.length > 0 || needsColumnMap.includes(mainAction))
+    mainAction && (staticFieldsMap[mainAction]?.length > 0 || needsColumnMap.includes(mainAction))
 
   return (
     <>
@@ -138,9 +131,7 @@ export default function MondayComIntegLayout({
           <div className="flx">
             <b className="wdt-200 d-in-b">{__('Select Board:', 'bit-integrations')}</b>
             <MultiSelect
-              options={
-                mondayComConf?.boards?.map(b => ({ label: b.name, value: `${b.id}` })) || []
-              }
+              options={mondayComConf?.boards?.map(b => ({ label: b.name, value: `${b.id}` })) || []}
               className="msl-wrp-options dropdown-custom-width"
               defaultValue={mondayComConf?.selectedBoard}
               onChange={handleBoardChange}
@@ -160,18 +151,24 @@ export default function MondayComIntegLayout({
         </>
       )}
 
-      {mainAction
-        && !['create_column', 'delete_group', 'archive_group', 'duplicate_group', 'archive_item', 'delete_item', 'move_item_to_group'].includes(mainAction)
-        && mondayComConf?.selectedBoard
-        && !loading.group && (
+      {mainAction &&
+        ![
+          'create_column',
+          'delete_group',
+          'archive_group',
+          'duplicate_group',
+          'archive_item',
+          'delete_item',
+          'move_item_to_group'
+        ].includes(mainAction) &&
+        mondayComConf?.selectedBoard &&
+        !loading.group && (
           <>
             <br />
             <div className="flx">
               <b className="wdt-200 d-in-b">{__('Select Group:', 'bit-integrations')}</b>
               <MultiSelect
-                options={
-                  mondayComConf?.groups?.map(g => ({ label: g.name, value: `${g.id}` })) || []
-                }
+                options={mondayComConf?.groups?.map(g => ({ label: g.name, value: `${g.id}` })) || []}
                 className="msl-wrp-options dropdown-custom-width"
                 defaultValue={mondayComConf?.selectedGroup}
                 onChange={val => handleSelectChange(val, 'selectedGroup')}
@@ -180,12 +177,7 @@ export default function MondayComIntegLayout({
               />
               <button
                 onClick={() =>
-                  getAllGroups(
-                    mondayComConf,
-                    setMondayComConf,
-                    mondayComConf.selectedBoard,
-                    setLoading
-                  )
+                  getAllGroups(mondayComConf, setMondayComConf, mondayComConf.selectedBoard, setLoading)
                 }
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{ '--tooltip-txt': `'${__('Refresh Groups', 'bit-integrations')}'` }}
@@ -197,42 +189,32 @@ export default function MondayComIntegLayout({
           </>
         )}
 
-      {mainAction
-        && needsItem.includes(mainAction)
-        && mondayComConf?.selectedBoard
-        && !loading.item && (
-          <>
-            <br />
-            <div className="flx">
-              <b className="wdt-200 d-in-b">{__('Select Item:', 'bit-integrations')}</b>
-              <MultiSelect
-                options={
-                  mondayComConf?.items?.map(it => ({ label: it.name, value: `${it.id}` })) || []
-                }
-                className="msl-wrp-options dropdown-custom-width"
-                defaultValue={mondayComConf?.selectedItem}
-                onChange={val => handleSelectChange(val, 'selectedItem')}
-                singleSelect
-                closeOnSelect
-              />
-              <button
-                onClick={() =>
-                  getAllItems(
-                    mondayComConf,
-                    setMondayComConf,
-                    mondayComConf.selectedBoard,
-                    setLoading
-                  )
-                }
-                className="icn-btn sh-sm ml-2 mr-2 tooltip"
-                style={{ '--tooltip-txt': `'${__('Refresh Items', 'bit-integrations')}'` }}
-                type="button"
-                disabled={loading.item}>
-                &#x21BB;
-              </button>
-            </div>
-          </>
-        )}
+      {mainAction && needsItem.includes(mainAction) && mondayComConf?.selectedBoard && !loading.item && (
+        <>
+          <br />
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Select Item:', 'bit-integrations')}</b>
+            <MultiSelect
+              options={mondayComConf?.items?.map(it => ({ label: it.name, value: `${it.id}` })) || []}
+              className="msl-wrp-options dropdown-custom-width"
+              defaultValue={mondayComConf?.selectedItem}
+              onChange={val => handleSelectChange(val, 'selectedItem')}
+              singleSelect
+              closeOnSelect
+            />
+            <button
+              onClick={() =>
+                getAllItems(mondayComConf, setMondayComConf, mondayComConf.selectedBoard, setLoading)
+              }
+              className="icn-btn sh-sm ml-2 mr-2 tooltip"
+              style={{ '--tooltip-txt': `'${__('Refresh Items', 'bit-integrations')}'` }}
+              type="button"
+              disabled={loading.item}>
+              &#x21BB;
+            </button>
+          </div>
+        </>
+      )}
 
       {mainAction === 'create_column' && (
         <>
@@ -293,12 +275,7 @@ export default function MondayComIntegLayout({
             <div className="txt-center btcbi-field-map-button mt-2">
               <button
                 onClick={() =>
-                  addFieldMap(
-                    mondayComConf.field_map.length,
-                    mondayComConf,
-                    setMondayComConf,
-                    false
-                  )
+                  addFieldMap(mondayComConf.field_map.length, mondayComConf, setMondayComConf, false)
                 }
                 className="icn-btn sh-sm"
                 type="button">

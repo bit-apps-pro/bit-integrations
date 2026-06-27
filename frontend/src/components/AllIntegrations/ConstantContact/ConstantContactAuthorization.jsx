@@ -22,7 +22,7 @@ export default function ConstantContactAuthorization({
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const [isAuthorized, setisAuthorized] = useState(false)
-const [error, setError] = useState({
+  const [error, setError] = useState({
     dataCenter: '',
     clientId: '',
     clientSecret: ''
@@ -82,7 +82,7 @@ const [error, setError] = useState({
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink linkKey="constantContact" />
+      <TutorialLink linkKey="constantContact" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

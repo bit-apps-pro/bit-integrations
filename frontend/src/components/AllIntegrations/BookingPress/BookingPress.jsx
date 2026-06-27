@@ -19,7 +19,7 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
     name: 'BookingPress',
     type: 'BookingPress',
     field_map: [{ formField: '', bookingPressField: '' }],
-    mainAction: '',
+    mainAction: ''
   })
 
   const nextPage = val => {
@@ -31,7 +31,7 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
       if (!checkMappedFields(bookingPressConf)) {
         setSnackbar({
           show: true,
-          msg: __('Please map all required fields to continue.', 'bit-integrations'),
+          msg: __('Please map all required fields to continue.', 'bit-integrations')
         })
         return
       }
@@ -66,7 +66,7 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
         style={{
           width: step === 2 && 900,
           height: step === 2 && 'auto',
-          minHeight: step === 2 && '500px',
+          minHeight: step === 2 && '500px'
         }}>
         <BookingPressIntegLayout
           formFields={formFields}

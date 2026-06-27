@@ -70,9 +70,7 @@ export default function ZendeskSupportFieldMap({
             disabled={i < requiredFields.length}
             name="zendeskSupportField"
             value={
-              i < requiredFields.length
-                ? requiredFields[i].key || ''
-                : field.zendeskSupportField || ''
+              i < requiredFields.length ? requiredFields[i].key || '' : field.zendeskSupportField || ''
             }
             onChange={ev => handleFieldMapping(ev, i, zendeskSupportConf, setZendeskSupportConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
