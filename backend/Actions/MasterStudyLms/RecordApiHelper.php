@@ -2,6 +2,9 @@
 
 namespace BitApps\Integrations\Actions\MasterStudyLms;
 
+use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use STM_LMS_Course;
 use STM_LMS_Helpers;
@@ -12,6 +15,24 @@ use WP_Error;
 
 class RecordApiHelper
 {
+    private const COMPLETE_COURSE = 1;
+
+    private const COMPLETE_LESSON = 2;
+
+    private const COMPLETE_QUIZ = 3;
+
+    private const RESET_COURSE = 4;
+
+    private const RESET_LESSON = 5;
+
+    private const ENROLL_USER = 6;
+
+    private const UNENROLL_USER = 7;
+
+    private const MARK_COURSE_COMPLETE = 8;
+
+    private const MARK_LESSON_COMPLETE = 9;
+
     private $integrationID;
 
     private $_integrationDetails;
@@ -305,9 +326,15 @@ class RecordApiHelper
         $integrationData
     ) {
         $response = [];
-        $fieldData = [];
+        $fieldData = static::generateReqDataFromFieldMap($integrationDetails->field_map ?? [], $fieldValues);
 
-        if ($mainAction == 1) {
+        $defaultResponse = [
+            'success' => false,
+            // translators: %s: Plugin name
+            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro'),
+        ];
+
+        if ((int) $mainAction === self::COMPLETE_COURSE) {
             $courseId = $integrationDetails->courseId;
             $response = self::complete_course($courseId);
             if ($response) {
@@ -315,7 +342,7 @@ class RecordApiHelper
             } else {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-complete', 'type_name' => 'user-course-complete']), 'error', __('Failed to completed course', 'bit-integrations'));
             }
-        } elseif ($mainAction == 2) {
+        } elseif ((int) $mainAction === self::COMPLETE_LESSON) {
             $courseId = $integrationDetails->courseId;
             $lessonId = $integrationDetails->lessonId;
             $response = self::complete_lesson($courseId, $lessonId);
@@ -324,7 +351,7 @@ class RecordApiHelper
             } else {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'lesson-complete', 'type_name' => 'user-lesson-complete']), 'error', __('Failed to completed lesson', 'bit-integrations'));
             }
-        } elseif ($mainAction == 3) {
+        } elseif ((int) $mainAction === self::COMPLETE_QUIZ) {
             $courseId = $integrationDetails->courseId;
             $quizId = $integrationDetails->quizId;
             $response = self::complete_quiz($courseId, $quizId);
@@ -333,7 +360,7 @@ class RecordApiHelper
             } else {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'quiz-complete', 'type_name' => 'user-quiz-complete']), 'error', __('Failed to completed quiz', 'bit-integrations'));
             }
-        } elseif ($mainAction == 4) {
+        } elseif ((int) $mainAction === self::RESET_COURSE) {
             $courseId = $integrationDetails->courseId;
             $response = self::reset_course($courseId);
             if ($response) {
@@ -341,7 +368,7 @@ class RecordApiHelper
             } else {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-reset', 'type_name' => 'user-course-reset']), 'error', __('Failed to reset course', 'bit-integrations'));
             }
-        } elseif ($mainAction == 5) {
+        } elseif ((int) $mainAction === self::RESET_LESSON) {
             $course_id = $integrationDetails->courseId;
             $lesson_id = $integrationDetails->lessonId;
             $response = self::reset_lesson($course_id, $lesson_id);
@@ -350,8 +377,66 @@ class RecordApiHelper
             } else {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'lesson-reset', 'type_name' => 'user-lesson-reset']), 'error', __('Failed to reset lesson', 'bit-integrations'));
             }
+        } elseif ((int) $mainAction === self::ENROLL_USER) {
+            if (empty($fieldData['user_email'])) {
+                return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
+            }
+            $response = Hooks::apply(Config::withPrefix('master_study_lms_enroll_user'), $defaultResponse, [
+                'course_id' => $integrationDetails->courseId ?? null,
+                'email'     => $fieldData['user_email'],
+            ]);
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'enroll-user', 'type_name' => 'enroll-user-to-course']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
+        } elseif ((int) $mainAction === self::UNENROLL_USER) {
+            if (empty($fieldData['user_email'])) {
+                return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
+            }
+            $response = Hooks::apply(Config::withPrefix('master_study_lms_unenroll_user'), $defaultResponse, [
+                'course_id' => $integrationDetails->courseId ?? null,
+                'email'     => $fieldData['user_email'],
+            ]);
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'unenroll-user', 'type_name' => 'unenroll-user-from-course']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
+        } elseif ((int) $mainAction === self::MARK_COURSE_COMPLETE) {
+            if (empty($fieldData['user_email'])) {
+                return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
+            }
+            $response = Hooks::apply(Config::withPrefix('master_study_lms_mark_course_complete'), $defaultResponse, [
+                'course_id' => $integrationDetails->courseId ?? null,
+                'email'     => $fieldData['user_email'],
+            ]);
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'mark-course-complete', 'type_name' => 'mark-course-complete-for-user']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
+        } elseif ((int) $mainAction === self::MARK_LESSON_COMPLETE) {
+            if (empty($fieldData['user_email'])) {
+                return new WP_Error('REQ_FIELD_EMPTY', __('User email is required', 'bit-integrations'));
+            }
+            $response = Hooks::apply(Config::withPrefix('master_study_lms_mark_lesson_complete'), $defaultResponse, [
+                'course_id' => $integrationDetails->courseId ?? null,
+                'lesson_id' => $integrationDetails->lessonId ?? null,
+                'email'     => $fieldData['user_email'],
+            ]);
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'mark-lesson-complete', 'type_name' => 'mark-lesson-complete-for-user']), (\is_array($response) && !empty($response['success'])) ? 'success' : 'error', \is_array($response) ? ($response['message'] ?? '') : '');
         }
 
         return $response;
+    }
+
+    protected static function generateReqDataFromFieldMap($fieldMap, $fieldValues)
+    {
+        $data = [];
+
+        foreach ($fieldMap as $map) {
+            if (empty($map->msLmsFormField)) {
+                continue;
+            }
+
+            $formField = $map->formField ?? '';
+
+            if ($formField === 'custom' && isset($map->customValue)) {
+                $data[$map->msLmsFormField] = Common::replaceFieldWithValue($map->customValue, $fieldValues);
+            } else {
+                $data[$map->msLmsFormField] = $fieldValues[$formField] ?? '';
+            }
+        }
+
+        return $data;
     }
 }

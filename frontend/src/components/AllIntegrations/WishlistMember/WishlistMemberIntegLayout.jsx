@@ -38,6 +38,7 @@ export default function WishlistMemberIntegLayout({
   }
 
   return (
+
     <>
       <br />
       <div className="flx">
