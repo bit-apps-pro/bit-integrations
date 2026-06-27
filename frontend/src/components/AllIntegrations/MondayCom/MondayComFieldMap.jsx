@@ -6,13 +6,7 @@ import TagifyInput from '../../Utilities/TagifyInput'
 import { addFieldMap, delFieldMap, handleFieldMapping } from '../IntegrationHelpers/FieldMapHelper'
 import { handleCustomValue } from '../IntegrationHelpers/IntegrationHelpers'
 
-export default function MondayComFieldMap({
-  i,
-  formFields,
-  field,
-  mondayComConf,
-  setMondayComConf
-}) {
+export default function MondayComFieldMap({ i, formFields, field, mondayComConf, setMondayComConf }) {
   const { isPro } = useRecoilValue($appConfigState)
 
   const availableFields = mondayComConf?.mondayComFields || []
@@ -67,11 +61,7 @@ export default function MondayComFieldMap({
             className="btcd-paper-inp"
             disabled={i < requiredFields.length}
             name="mondayComField"
-            value={
-              i < requiredFields.length
-                ? requiredFields[i].key || ''
-                : field.mondayComField || ''
-            }
+            value={i < requiredFields.length ? requiredFields[i].key || '' : field.mondayComField || ''}
             onChange={ev => handleFieldMapping(ev, i, mondayComConf, setMondayComConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFields.length ? (

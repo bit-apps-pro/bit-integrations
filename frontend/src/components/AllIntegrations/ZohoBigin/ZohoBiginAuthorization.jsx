@@ -7,7 +7,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import CopyText from '../../Utilities/CopyText'
 import { handleAuthorize } from '../IntegrationHelpers/IntegrationHelpers'
 import { refreshModules } from './ZohoBiginCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZohoBiginAuthorization({
@@ -27,7 +26,7 @@ export default function ZohoBiginAuthorization({
   const btcbi = useRecoilValue($appConfigState)
   const scopes =
     'ZohoBigin.settings.modules.READ,ZohoBigin.settings.fields.READ,ZohoBigin.settings.tags.READ,ZohoBigin.users.READ,ZohoBigin.modules.ALL,ZohoBigin.settings.layouts.READ'
-const nextPage = () => {
+  const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -48,7 +47,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho Bigin" links={tutorialLinks?.zohoBigin || {}} />
+      <TutorialLink linkKey="zohoBigin" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -6,7 +6,6 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { $actionConf, $appConfigState, $formFields, $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import ConditionalLogic from '../../ConditionalLogic'
 import LoaderSm from '../../Loaders/LoaderSm'
 import DropDown from '../../Utilities/DropDown'
@@ -27,7 +26,7 @@ function Mail({ allIntegURL, isInfo, edit, isLearnDash = false, learnDashConf })
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const [snack, setSnackbar] = useState({ show: false })
-const btcbi = useRecoilValue($appConfigState)
+  const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   const mailOptions = () => {
@@ -171,7 +170,7 @@ const btcbi = useRecoilValue($appConfigState)
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-            <TutorialLink title="Mail" links={tutorialLinks?.mailLinks || {}} />
+      <TutorialLink linkKey="mailLinks" />
 
       <span className="f-m wdt-200 d-in-b">{__('Integration Name', 'bit-integration')}</span>
       <input

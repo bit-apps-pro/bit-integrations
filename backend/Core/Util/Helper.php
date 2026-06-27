@@ -92,13 +92,17 @@ final class Helper
 
             // Get file content using WordPress HTTP API for remote files
             if (filter_var($file, FILTER_VALIDATE_URL)) {
-                $response = wp_remote_get($file);
+                $response = Common::safeRemoteGet($file);
                 if (is_wp_error($response)) {
                     continue;
                 }
                 $fileContent = wp_remote_retrieve_body($response);
             } else {
-                $fileContent = file_get_contents($file);
+                $safeFilePath = Common::safeUploadFilePath($file);
+                if ($safeFilePath === '') {
+                    continue;
+                }
+                $fileContent = file_get_contents($safeFilePath);
             }
 
             // prepare upload image to WordPress Media Library

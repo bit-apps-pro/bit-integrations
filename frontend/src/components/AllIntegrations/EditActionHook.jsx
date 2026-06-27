@@ -7,7 +7,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { extractValueFromPath } from '../../Utils/Helpers'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
@@ -27,7 +27,8 @@ function EditActionHook() {
 
   let controller = new AbortController()
   const signal = controller.signal
-  const { stopFetching } = CustomFetcherHelper(
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
     isFetchingRef,
     flow?.triggered_entity_id,
     controller,
@@ -36,6 +37,10 @@ function EditActionHook() {
     'POST',
     'hook_id'
   )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
 
   const handleFetch = () => {
     if (isFetchingRef.current) {
@@ -45,6 +50,7 @@ function EditActionHook() {
 
     isFetchingRef.current = true
     setIsLoading(true)
+    startCountdown(stopFetching)
     fetchSequentially()
   }
 
@@ -274,7 +280,7 @@ function EditActionHook() {
           }`}
           type="button">
           {isLoading
-            ? __('Stop', 'bit-integrations')
+            ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
             : flow.flow_details.fields
               ? __('Fetched ✔', 'bit-integrations')
               : __('Fetch', 'bit-integrations')}

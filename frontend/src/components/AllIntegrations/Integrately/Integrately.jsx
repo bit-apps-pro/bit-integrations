@@ -7,7 +7,6 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksIntegration from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function Integrately({ formFields, setFlow, flow, allIntegURL }) {
@@ -16,7 +15,7 @@ function Integrately({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [integrately, setIntegrately] = useState({
+  const [integrately, setIntegrately] = useState({
     name: 'Integrately Web Hooks',
     type: 'Integrately',
     method: 'POST',
@@ -35,7 +34,7 @@ const [integrately, setIntegrately] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="Integrately" links={tutorialLinks?.integratelyLinks || {}} />
+        <TutorialLink linkKey="integratelyLinks" />
 
         <WebHooksIntegration
           formID={formID}

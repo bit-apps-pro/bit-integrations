@@ -3,7 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { handleAuthorize } from './LineCommonFunc'
 import Note from '../../Utilities/Note'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function LineAuthorization({
@@ -20,7 +19,7 @@ export default function LineAuthorization({
 }) {
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ accessToken: '' })
-const nextPage = () => {
+  const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -44,7 +43,7 @@ const nextPage = () => {
         ...{ width: step === 1 && 900 },
         ...{ height: step === 1 && 'auto' }
       }}>
-            <TutorialLink title="Line" links={tutorialLinks?.line || {}} />
+      <TutorialLink linkKey="line" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

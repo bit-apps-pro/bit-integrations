@@ -39,9 +39,7 @@ export default function WpErpAuthorization({
   }
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
+    <div className="btcd-stp-page" style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>
       </div>

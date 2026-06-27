@@ -6,7 +6,6 @@ import LoaderSm from '../../Loaders/LoaderSm'
 import { refreshModules } from './ZohoCRMCommonFunc'
 import { handleAuthorize } from '../IntegrationHelpers/IntegrationHelpers'
 import { $appConfigState } from '../../../GlobalStates'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZohoCRMAuthorization({
@@ -24,7 +23,7 @@ export default function ZohoCRMAuthorization({
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ dataCenter: '', clientId: '', clientSecret: '' })
   const btcbi = useRecoilValue($appConfigState)
-const scopes = 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.Read,zohocrm.files.CREATE'
+  const scopes = 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.Read,zohocrm.files.CREATE'
   const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
@@ -46,7 +45,7 @@ const scopes = 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL,ZohoCRM.users.Read,zoho
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho CRM" links={tutorialLinks?.zohoCRM || {}} />
+      <TutorialLink linkKey="zohoCRM" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -120,20 +120,30 @@ final class PostCreationController
     {
         foreach ($metaboxMapField as $fieldPair) {
             if (property_exists($fieldPair, 'metaboxFileUpload')) {
-                if (!empty($fieldValues[$fieldPair->formField])) {
-                    $triggerValue = $fieldPair->formField;
-                    $actionValue = $fieldPair->metaboxFile;
-                    $fieldObject = $metaboxFields->{$actionValue};
+                if (empty($fieldPair->formField) || empty($fieldPair->metaboxFileUpload)) {
+                    continue;
+                }
 
-                    if ($fieldObject['multiple'] == false) {
-                        static::uploadMBFile($postId, $fieldValues[$triggerValue], $fieldObject);
-                    } elseif ($fieldObject['multiple'] == true) {
-                        $attachMentId = Helper::multiFileMoveWpMedia($fieldValues[$triggerValue], $postId);
+                if (empty($fieldValues[$fieldPair->formField])) {
+                    continue;
+                }
 
-                        if (!empty($attachMentId) && \is_array($attachMentId)) {
-                            foreach ($attachMentId as $attachemnt) {
-                                add_post_meta($postId, $fieldObject['field_name'], $attachemnt);
-                            }
+                $triggerValue = $fieldPair->formField;
+                $actionValue = $fieldPair->metaboxFileUpload;
+                $fieldObject = isset($metaboxFields[$actionValue]) ? $metaboxFields[$actionValue] : null;
+
+                if (empty($fieldObject)) {
+                    continue;
+                }
+
+                if (empty($fieldObject['multiple'])) {
+                    static::uploadMBFile($postId, $fieldValues[$triggerValue], $fieldObject);
+                } else {
+                    $attachMentId = Helper::multiFileMoveWpMedia($fieldValues[$triggerValue], $postId);
+
+                    if (!empty($attachMentId) && \is_array($attachMentId)) {
+                        foreach ($attachMentId as $attachemnt) {
+                            add_post_meta($postId, $fieldObject['field_name'], $attachemnt);
                         }
                     }
                 }
@@ -286,6 +296,10 @@ final class PostCreationController
         if (\in_array($fieldValues['bit-integrator%trigger_data%']['triggered_entity'], $triggers)) {
             $fieldValues = Helper::splitStringToarray($fieldValues);
         }
+        $actionType = isset($flowDetails->action_type) ? $flowDetails->action_type : 'createNewPost';
+        if ($actionType !== 'createNewPost') {
+            return $this->executeWordPressPostAction($flowDetails, $fieldValues, $actionType, $integrationData->id);
+        }
 
         $postData = $this->postFieldData($flowDetails);
         $postFieldMap = $flowDetails->post_map;
@@ -361,6 +375,49 @@ final class PostCreationController
             self::HandleJeCPTFieldMap($jeCPTFieldMap, $updatedJeCPTValues, $postId, $fields);
             self::HandleJeCPTFileMap($jeCPTFileMap, $updatedJeCPTValues, $postId, $fields);
         }
+    }
+
+    private function executeWordPressPostAction($flowDetails, $fieldValues, $actionType, $integrationId)
+    {
+        $defaultResponse = [
+            'success' => false,
+            'message' => wp_sprintf(
+                // translators: %s: Plugin name
+                __('%s plugin is not installed or activated', 'bit-integrations'),
+                'Bit Integrations Pro'
+            ),
+        ];
+
+        $response = Hooks::apply(
+            Config::withPrefix($actionType),
+            $defaultResponse,
+            $this->buildRequestDataFromPostMap(isset($flowDetails->post_map) ? $flowDetails->post_map : [], $fieldValues),
+        );
+
+        $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
+        LogHandler::save($integrationId, ['type' => 'WP Post Creation', 'type_name' => $actionType], $responseType, $response);
+
+        return true;
+    }
+
+    private function buildRequestDataFromPostMap($postMap, $fieldValues)
+    {
+        $dataFinal = [];
+
+        foreach ($postMap as $mapItem) {
+            if (empty($mapItem->formField) || empty($mapItem->postField)) {
+                continue;
+            }
+
+            $triggerValue = $mapItem->formField;
+            $actionValue = $mapItem->postField;
+
+            $dataFinal[$actionValue] = $triggerValue === 'custom' && isset($mapItem->customValue)
+                ? Common::replaceFieldWithValue($mapItem->customValue, $fieldValues)
+                : ($fieldValues[$triggerValue] ?? '');
+        }
+
+        return $dataFinal;
     }
 
     private static function setPostCategories($postId, $postCategories)

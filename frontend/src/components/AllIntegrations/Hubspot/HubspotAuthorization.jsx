@@ -7,7 +7,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { hubspotAuthorization } from './HubspotCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function HubspotAuthorization({
@@ -21,7 +20,7 @@ export default function HubspotAuthorization({
 }) {
   const [isAuthorized, setisAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', api_key: '' })
-const handleInput = e => {
+  const handleInput = e => {
     const newConf = { ...hubspotConf }
     const rmError = { ...error }
     rmError[e.target.name] = ''
@@ -57,7 +56,7 @@ const handleInput = e => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="HubSpot" links={tutorialLinks?.hubspot || {}} />
+      <TutorialLink linkKey="hubspot" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -28,10 +28,15 @@ class RecordApiHelper
             return false;
         }
 
-        $body = file_get_contents(Common::filePath(trim($filePath)));
+        $safeFilePath = Common::safeUploadFilePath(trim($filePath));
+        if ($safeFilePath === '') {
+            return new WP_Error(423, __('Can\'t open file!', 'bit-integrations'));
+        }
+
+        $body = file_get_contents($safeFilePath);
 
         if (!$body) {
-            return new WP_Error(423, 'Can\'t open file!');
+            return new WP_Error(423, __('Can\'t open file!', 'bit-integrations'));
         }
 
         $apiEndPoint = $this->contentBaseUri . '/2/files/upload';
@@ -64,8 +69,10 @@ class RecordApiHelper
     public function deleteFile($filePath, $actions)
     {
         if (isset($actions->delete_from_wp) && $actions->delete_from_wp) {
-            if (file_exists($filePath)) {
-                wp_delete_file($filePath);
+            $safePath = Common::safeUploadFilePath($filePath);
+
+            if ($safePath !== '' && file_exists($safePath)) {
+                wp_delete_file($safePath);
             }
         }
     }

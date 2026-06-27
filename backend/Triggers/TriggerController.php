@@ -41,6 +41,10 @@ final class TriggerController
 
     public static function getTriggerField($triggerName, $data)
     {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+            wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
+        }
+
         $trigger = basename($triggerName);
 
         if (file_exists(__DIR__ . '/' . $trigger . '/' . $trigger . 'Controller.php')) {
@@ -60,6 +64,10 @@ final class TriggerController
 
     public static function getTestData($data)
     {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+            wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
+        }
+
         $triggerName = $data->triggered_entity_id;
         $testData = get_option(Config::withPrefix("{$triggerName}_test"));
 
@@ -76,6 +84,10 @@ final class TriggerController
 
     public static function removeTestData($data)
     {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+            wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
+        }
+
         $triggerName = $data->triggered_entity_id;
 
         if (\is_object($data) && property_exists($data, 'reset') && $data->reset) {

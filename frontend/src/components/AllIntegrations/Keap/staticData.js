@@ -1,4 +1,4 @@
-import { __ } from "../../../Utils/i18nwrap";
+import { __ } from '../../../Utils/i18nwrap'
 
 export const contactFields = [
   { key: 'given_name', label: __('First Name', 'bit-integrations'), required: true },

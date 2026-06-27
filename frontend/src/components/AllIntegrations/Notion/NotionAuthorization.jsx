@@ -8,7 +8,6 @@ import Input from '../../Utilities/Input'
 import Note from '../../Utilities/Note'
 import StepPage from '../../Utilities/StepPage'
 import { getAllDatabaseLists, handleAuthorize, handleInput } from './NotionCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import { __ } from '../../../Utils/i18nwrap'
 
@@ -16,7 +15,7 @@ function NotionAuthorization({ notionConf, setNotionConf, step, setStep, isInfo,
   const btcbi = useRecoilValue($appConfigState)
   const [authorized, setAuthorized] = useState(false)
   const [error, setError] = useState({ clientId: '', clientSecret: '' })
-const nextPage = async () => {
+  const nextPage = async () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -51,7 +50,7 @@ const nextPage = async () => {
 `
   return (
     <StepPage step={step} stepNo={1} style={{ width: 900, height: 'auto' }}>
-            <TutorialLink title="Notion" links={tutorialLinks?.notion || {}} />
+      <TutorialLink linkKey="notion" />
 
       <div className="mt-2">
         {/* Notion Authorization */}

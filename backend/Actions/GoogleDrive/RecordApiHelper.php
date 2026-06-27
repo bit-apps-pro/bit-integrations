@@ -25,7 +25,11 @@ class RecordApiHelper
             return false;
         }
 
-        $filePath = Common::filePath($file);
+        $filePath = Common::safeUploadFilePath($file);
+        if ($filePath === '') {
+            return new \WP_Error(423, __("Can't open file!", 'bit-integrations'));
+        }
+
         $apiEndpoint = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
         $boundary = $this->getBoundary();
         $headers = [
@@ -57,9 +61,9 @@ class RecordApiHelper
     public function deleteFile($file, $actions)
     {
         if (isset($actions->delete_from_wp) && $actions->delete_from_wp) {
-            $filePath = Common::filePath($file);
+            $filePath = Common::safeUploadFilePath($file);
 
-            if (file_exists($filePath)) {
+            if ($filePath !== '' && file_exists($filePath)) {
                 wp_delete_file($filePath);
             }
         }

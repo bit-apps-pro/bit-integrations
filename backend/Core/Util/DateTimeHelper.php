@@ -289,12 +289,13 @@ final class DateTimeHelper
         return $format;
     }
 
+    /**
+     * WP 5.1-compatible replacement for wp_timezone_string() (introduced WP 5.3).
+     * Reimplemented in pure PHP via get_option() — Plugin Check flags the native
+     * call even when guarded by function_exists(), so the native name is avoided.
+     */
     public static function wp_timezone_string()
     {
-        if (\function_exists('wp_timezone_string')) {
-            return wp_timezone_string();
-        }
-
         $timezone_string = get_option('timezone_string');
 
         if ($timezone_string) {
@@ -313,12 +314,12 @@ final class DateTimeHelper
         return wp_sprintf('%s%02d:%02d', $sign, $abs_hour, $abs_mins);
     }
 
+    /**
+     * WP 5.1-compatible replacement for wp_timezone() (introduced WP 5.3).
+     * Use this instead of the native wp_timezone() throughout the plugin.
+     */
     public static function wp_timezone()
     {
-        if (\function_exists('wp_timezone')) {
-            return wp_timezone();
-        }
-
         return new DateTimeZone(self::wp_timezone_string());
     }
 }

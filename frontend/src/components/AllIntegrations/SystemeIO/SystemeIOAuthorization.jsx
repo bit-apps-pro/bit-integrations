@@ -5,7 +5,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import { systemeIOAuthentication, getAllTags, getAllFields } from './SystemeIOCommonFunc'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function SystemeIOAuthorization({
@@ -18,7 +17,7 @@ export default function SystemeIOAuthorization({
   isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
-const [error, setError] = useState({ api_key: '' })
+  const [error, setError] = useState({ api_key: '' })
 
   const nextPage = () => {
     setTimeout(() => {
@@ -57,7 +56,7 @@ const [error, setError] = useState({ api_key: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="SystemeIO" links={tutorialLinks?.systemeIO || {}} />
+      <TutorialLink linkKey="systemeIO" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

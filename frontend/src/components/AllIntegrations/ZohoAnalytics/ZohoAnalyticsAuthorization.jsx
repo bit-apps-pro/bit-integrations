@@ -5,7 +5,6 @@ import CopyText from '../../Utilities/CopyText'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { handleAuthorize, refreshWorkspaces } from './ZohoAnalyticsCommonFunc'
 import BackIcn from '../../../Icons/BackIcn'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function ZohoAnalyticsAuthorization({
@@ -27,7 +26,7 @@ export default function ZohoAnalyticsAuthorization({
     clientSecret: '',
     ownerEmail: ''
   })
-const nextPage = () => {
+  const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -56,7 +55,7 @@ const nextPage = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Zoho Analytics" links={tutorialLinks?.analytics || {}} />
+      <TutorialLink linkKey="analytics" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

@@ -3,7 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import LoaderSm from '../../Loaders/LoaderSm'
 import BackIcn from '../../../Icons/BackIcn'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 export default function MailPoetAuthorization({
@@ -19,7 +18,7 @@ export default function MailPoetAuthorization({
   const [error, setError] = useState({ integrationName: '' })
   const [showAuthMsg, setShowAuthMsg] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-const handleAuthorize = () => {
+  const handleAuthorize = () => {
     setIsLoading('auth')
     bitsFetch({}, 'mail_poet_authorize').then(result => {
       if (result?.success) {
@@ -43,7 +42,7 @@ const handleAuthorize = () => {
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="MailPoet" links={tutorialLinks?.mailPoet || {}} />
+      <TutorialLink linkKey="mailPoet" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

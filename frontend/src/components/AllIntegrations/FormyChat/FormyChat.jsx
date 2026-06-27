@@ -24,7 +24,7 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
     actions: {},
     allWidgets: [],
     allFields: [],
-    meta_map: [{ formField: '', metaKey: '' }],
+    meta_map: [{ formField: '', metaKey: '' }]
   })
 
   const nextPage = val => {
@@ -34,7 +34,10 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
 
     if (val === 3) {
       if (!checkMappedFields(formyChatConf)) {
-        setSnackbar({ show: true, msg: __('Please map all required fields to continue.', 'bit-integrations') })
+        setSnackbar({
+          show: true,
+          msg: __('Please map all required fields to continue.', 'bit-integrations')
+        })
         return
       }
       if (formyChatConf.name !== '' && formyChatConf.field_map.length > 0) {
@@ -64,7 +67,11 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
       {/* STEP 2 */}
       <div
         className="btcd-stp-page"
-        style={{ width: step === 2 && 900, height: step === 2 && 'auto', minHeight: step === 2 && '500px' }}>
+        style={{
+          width: step === 2 && 900,
+          height: step === 2 && 'auto',
+          minHeight: step === 2 && '500px'
+        }}>
         <FormyChatIntegLayout
           formID={formID}
           formFields={formFields}
@@ -74,7 +81,9 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
           setIsLoading={setIsLoading}
           isLoading={isLoading}
         />
-        <br /><br /><br />
+        <br />
+        <br />
+        <br />
         <button
           onClick={() => nextPage(3)}
           disabled={formyChatConf.field_map.length < 1}

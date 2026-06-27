@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Note from '../../Utilities/Note'
 import TutorialLink from '../../Utilities/TutorialLink'
@@ -18,7 +17,7 @@ export default function BentoAuthorization({
   isInfo
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
-const [error, setError] = useState({ publishable_key: '', secret_key: '' })
+  const [error, setError] = useState({ publishable_key: '', secret_key: '' })
 
   const nextPage = () => {
     setTimeout(() => {
@@ -42,7 +41,7 @@ const [error, setError] = useState({ publishable_key: '', secret_key: '' })
     <div
       className="btcd-stp-page"
       style={{ ...{ width: step === 1 && 900 }, ...{ height: step === 1 && 'auto' } }}>
-            <TutorialLink title="Bento" links={tutorialLinks?.bento || {}} />
+      <TutorialLink linkKey="bento" />
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

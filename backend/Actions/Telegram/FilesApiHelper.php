@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Telegram;
 
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
@@ -34,7 +35,12 @@ final class FilesApiHelper
      */
     public function uploadFiles($apiEndPoint, $data)
     {
-        $mimeType = mime_content_type("{$data['photo']}");
+        $safePath = Common::safeUploadFilePath($data['photo']);
+        if ($safePath === '') {
+            return false;
+        }
+
+        $mimeType = mime_content_type($safePath);
         $fileType = explode('/', $mimeType);
 
         switch ($fileType[0]) {
@@ -63,7 +69,7 @@ final class FilesApiHelper
         }
         $uploadFileEndpoint = $apiEndPoint . $apiMethod;
 
-        $data[$param] = new CURLFile("{$data['photo']}");
+        $data[$param] = new CURLFile($safePath);
 
         if ($param != 'photo') {
             unset($data['photo']);
@@ -88,15 +94,18 @@ final class FilesApiHelper
         ];
 
         foreach ($data['media'] as $key => $value) {
-            $mimeType = mime_content_type("{$value}");
+            $safePath = Common::safeUploadFilePath($value);
+            if ($safePath === '') {
+                continue;
+            }
+
+            $mimeType = mime_content_type($safePath);
             $fileType = explode('/', $mimeType);
             unset($data['media'][$key]);
 
             if ($fileType[0] == 'image') {
                 $type = 'photo';
             } elseif ($fileType[0] == 'application' || $fileType[0] == 'text') {
-                $type = 'document';
-            } elseif ($fileType[0] == 'application') {
                 $type = 'document';
             } else {
                 $type = empty($fileType[0]) ? 'photo' : $fileType[0];
@@ -109,7 +118,7 @@ final class FilesApiHelper
                 'parse_mode' => 'HTML'
             ];
             $nameK = "{$key}.path";
-            $postFields[$nameK] = new CURLFile(empty(realpath($value)) ? "{$value}" : realpath($value));
+            $postFields[$nameK] = new CURLFile($safePath);
         }
         $postFields['media'] = wp_json_encode($media);
 

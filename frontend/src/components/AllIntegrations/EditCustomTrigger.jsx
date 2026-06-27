@@ -6,7 +6,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyTextTrigger from '../Utilities/CopyTextTrigger'
@@ -28,14 +28,20 @@ function EditCustomTrigger() {
 
   let controller = new AbortController()
   const signal = controller.signal
-  const { stopFetching } = CustomFetcherHelper(
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
     isFetchingRef,
     flow?.triggered_entity_id,
     controller,
     setIsLoading,
     'custom_trigger/test/remove',
+    'POST',
     'hook_id'
   )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
 
   const triggerAbeleHook = `do_action(
     'bit_integrations_custom_trigger',
@@ -106,6 +112,7 @@ function EditCustomTrigger() {
 
     isFetchingRef.current = true
     setIsLoading(true)
+    startCountdown(stopFetching)
     fetchSequentially()
   }
 
@@ -205,7 +212,7 @@ function EditCustomTrigger() {
           }`}
           type="button">
           {isLoading
-            ? __('Stop', 'bit-integrations')
+            ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
             : flow.flow_details?.rawData
               ? __('Fetched ✔', 'bit-integrations')
               : __('Fetch', 'bit-integrations')}

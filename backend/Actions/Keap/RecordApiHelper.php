@@ -73,14 +73,15 @@ class RecordApiHelper
             $triggerValue = $value->formField;
             $actionValue = $value->keapField;
 
-            if ($triggerValue === 'custom' && str_starts_with($actionValue, 'custom_fields_')) {
+            // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
+            if ($triggerValue === 'custom' && strpos($actionValue, 'custom_fields_') === 0) {
                 $customFields[] = (object) [
                     'id'      => str_replace('custom_fields_', '', $actionValue),
                     'content' => Common::replaceFieldWithValue($value->customValue, $data)
                 ];
             } elseif ($triggerValue === 'custom') {
                 $dataFinal[$actionValue] = Common::replaceFieldWithValue($value->customValue, $data);
-            } elseif (!\is_null($data[$triggerValue]) && str_starts_with($actionValue, 'custom_fields_')) {
+            } elseif (!\is_null($data[$triggerValue]) && strpos($actionValue, 'custom_fields_') === 0) {
                 $customFields[] = (object) [
                     'id'      => str_replace('custom_fields_', '', $actionValue),
                     'content' => $data[$triggerValue]

@@ -8,15 +8,13 @@ import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import WebHooksIntegration from '../IntegrationHelpers/WebHook/WebHooksIntegration'
 import WebHooksStepTwo from '../IntegrationHelpers/WebHook/WebHooksStepTwo'
 import TutorialLink from '../../Utilities/TutorialLink'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
-
 function AntApps({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
   const { formID } = useParams()
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [isLoading, setIsLoading] = useState(false)
-const [antapps, setAntapps] = useState({
+  const [antapps, setAntapps] = useState({
     name: 'Ants & Apps',
     type: 'Ant Apps',
     method: 'POST',
@@ -35,7 +33,7 @@ const [antapps, setAntapps] = useState({
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
-                <TutorialLink title="Ants and Apps" links={tutorialLinks?.antsAndApps || {}} />
+        <TutorialLink linkKey="antsAndApps" />
 
         <WebHooksIntegration
           formID={formID}

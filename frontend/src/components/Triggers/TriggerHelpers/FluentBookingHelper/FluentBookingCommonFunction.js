@@ -9,7 +9,7 @@ export const getFluentFluentBookingFields = (setFlowData, value, edit, setFormFi
 
       if (!edit) {
         setFlowData(result.data, 'fields')
-      } 
+      }
 
       return __('Fetched fields successfully', 'bit-integrations')
     }

@@ -42,6 +42,7 @@ export const customFormIntegrations = [
   'WishlistMember',
   'GravityKit',
   'AdvancedCustomFields',
+  'SecureCustomFields',
   'PrestoPlayer',
   'SimplyScheduleAppointments',
   'LearnPress',
@@ -78,6 +79,8 @@ export const customFormIntegrations = [
   'StoreEngine',
   'CreatorLms',
   'FluentCart',
+  'MoreConvertWishlist',
+  'IvyForms',
   'MailMint',
   'BookingCalendarContactForm',
   'ContactFormEmail',
@@ -94,9 +97,14 @@ export const customFormIntegrations = [
   'WeDocs',
   'UserRegistrationMembership',
   'UltimateAffiliatePro',
+  'Registration',
+  'Post',
+  'WordPress',
+  'FluentPdfGenerator',
   'BookingPress',
   "FluentPdfGenerator",
-  "WebbaBooking"
+  "WebbaBooking",
+  'FluentPdfGenerator'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
