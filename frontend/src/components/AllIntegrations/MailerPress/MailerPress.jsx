@@ -100,6 +100,9 @@ export default function MailerPress({ formFields, setFlow, flow, allIntegURL }) 
           saveIntegConfig(flow, setFlow, allIntegURL, mailerPressConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={mailerPressConf}
+        setDataConf={setMailerPressConf}
+        formFields={formFields}
       />
     </div>
   )

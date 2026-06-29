@@ -99,6 +99,9 @@ export default function SeoPress({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, seoPressConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={seoPressConf}
+        setDataConf={setSeoPressConf}
+        formFields={formFields}
       />
     </div>
   )

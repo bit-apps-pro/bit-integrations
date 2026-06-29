@@ -4,16 +4,16 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.8.6
+Stable tag: 2.9.0
 License: GPLv2 or later
 
-Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 300+ platforms
+Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 350+ platforms
 
 == Description ==
 
 **Bit Integrations is a Easy Automation & Integration Plugin for WordPress**
 
-**Bit Integrations** help WordPress users integrate WordPress and plugin data to 320+ platforms.
+**Bit Integrations** help WordPress users integrate WordPress and plugin data to 350+ platforms.
 
 ### 🎯 Why Bit Integrations?
 
@@ -102,9 +102,9 @@ You can easily integrate WooCommerce with Google Sheet, CRM, Email Marketing & m
 
 **WordPress Integration**
 
-Automating WordPress tasks is now smarter with Bit Flows.
+Automating WordPress tasks is now smarter with Bit Integrations.
 Connect plugins like Elementor, Fluent Forms, Tutor LMS, or Contact Form 7 to your workflows.
-For example, when a form is submitted, Bit Flows can create a post, send emails, and update CRM records (e.g. FluentCRM) automatically.
+For example, when a form is submitted, Bit Integrations can create a post, send emails, and update CRM records (e.g. FluentCRM) automatically.
 
 **MailChimp Integration**
 
@@ -467,6 +467,89 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.9.0 =
+_Release Date - 27th June 2026_
+
+- **New Triggers**
+ - MainWP: 12 new event added (Pro).
+ - Webba Booking Calendar: 11 new event added (Pro).
+ - WSMS (WP SMS): 5 new events added (Pro).
+
+- **New Actions**
+ - Webba Booking Calendar: 13 new events added (Pro).
+ - Sender: 9 new events added (Pro).
+ - MainWP: 8 new events added (Pro).
+ - WSMS (WP SMS): 7 new events added (Pro).
+ - Instasent: 6 new events added (Pro).
+ - MasterStudyLms: 4 new events added (Pro).
+
+- **Bug Fixes**
+ - MasterStudyLms: Fixed course and quiz fetching so only lessons and quizzes from the selected course are returned, and validation now treats null/empty config values as incomplete (Pro).
+
+= 2.8.10 - 2.8.11 =
+_Release Date - 20th June 2026_
+
+- **Bug Fixes**
+ - Wishlist Member: Fixed membership level field mapping in the integration setup.
+
+- **Improvements**
+ - WooCommerce: Switched product image uploads to WordPress-native file helpers (wp_parse_url, wp_delete_file) for safer file handling.
+
+= 2.8.9 =
+_Release Date - 14th June 2026_
+
+- **Security Fixes**
+ - Dropbox & OneDrive: Hardened file deletion paths to prevent path traversal outside the uploads directory.
+ - WooCommerce: Improved attachment uploads by validating sideloaded files before moving them into uploads.
+ - ClickUp, Discord, Freshdesk, PCloud, Slack & Telegram: Restricted file-upload paths to safe WordPress uploads locations before sending files to third-party APIs.
+ - HappyForms: Validated saved image payloads as PNG files and sanitized generated filenames before writing to disk.
+
+= 2.8.8 =
+_Release Date - 14th June 2026_
+
+- **Security Fixes**
+ - Trigger Test Data: Gated test-data read/delete endpoints with capability checks.
+ - SSRF & LFI: Blocked server-side request forgery and local file inclusion in file/upload fetching.
+ - HappyForms: Hardened PHP object injection in the FallbackTrigger by restricting unserialize to non-object types.
+ - Custom Function: Sanitized the custom-action file name on write to block path traversal.
+ - GamiPress & FormCraft: Parameterized raw SQL queries to prevent SQL injection (Pro).
+ - BuddyBoss, AppointmentHourBooking, FluentSMTP & HappyForms: Blocked PHP object injection by restricting unserialize to non-object types (Pro).
+
+- **Improvements**
+ - Post content sanitization route generalized to cover all rich-content integrations (Mail, Telegram, WhatsApp, and more).
+
+- **Bug Fixes**
+ - WordPress 5.1 compatibility: Replace WP 5.3/5.9 functions for WP 5.1 minimum support.
+ - SureCart: Fixed checkbox fields missing from trigger payload (Pro).
+
+= 2.8.7 =
+_Release Date - 8th June 2026_
+
+- **New Triggers**
+ - WordPress: 33 new events added (Pro).
+ - WP Post: 11 new events added (Pro).
+ - WP User Registration: 12 new events added (Pro).
+ - MoreConvert Wishlist for WooCommerce: 9 new events added (Pro).
+ - Secure Custom Fields (SCF): 6 new events added (Pro).
+ - IvyForms: 1 new event added (Pro).
+
+- **New Actions**
+ - WordPress: 33 new events added (Pro).
+ - Zendesk Support: 17 new events added (Pro).
+ - WP User Registration: 11 new events added (Pro).
+ - MoreConvert Wishlist for WooCommerce: 8 new events added (Pro).
+ - WP Post: 6 new events added (Pro).
+ - Secure Custom Fields (SCF): 5 new events added (Pro).
+ - Heffl CRM: 3 new events added (Pro).
+ - IvyForms: 1 new event added (Pro).
+
+- **Improvements**
+ - Custom Trigger, Webhook & Form Submission: Added a countdown timer and improved loading state for data-fetching operations.
+ - Response review modal: Improved UI.
+
+- **Bug Fixes**
+ - Telegram: Fixed chat list fetching issue.
 
 = 2.8.6 =
 _Release Date - 23rd May 2026_

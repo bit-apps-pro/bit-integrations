@@ -100,6 +100,9 @@ export default function AsgarosForum({ formFields, setFlow, flow, allIntegURL })
           saveIntegConfig(flow, setFlow, allIntegURL, asgarosForumConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={asgarosForumConf}
+        setDataConf={setAsgarosForumConf}
+        formFields={formFields}
       />
     </div>
   )

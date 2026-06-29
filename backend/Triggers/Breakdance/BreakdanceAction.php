@@ -7,6 +7,10 @@ use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Flow\Flow;
 use Breakdance\Forms\Actions\Action;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 if (class_exists('Breakdance\Forms\Actions\Action')) {
     class BreakdanceAction extends Action
     {

@@ -6,59 +6,37 @@ class MasterStudyLmsHelper
 {
     public static function getLessonByCourse($courseId)
     {
-        global $wpdb;
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query needed for MasterStudy lessons
-        $lesson = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT ID, post_title,post_content
-                FROM {$wpdb->posts}
-                WHERE FIND_IN_SET(
-                    ID,
-                    (SELECT meta_value FROM wp_postmeta WHERE post_id = %d AND meta_key = 'curriculum')
-                )
-                AND post_type = 'stm-lessons'
-                ORDER BY post_title ASC
-                ",
-                absint($courseId)
-            )
-        );
-
-        return $lesson;
-
-        // if ($courseId == 'any') {
-        //     $lesson = $wpdb->get_results(
-        //         $wpdb->prepare(
-        //             "SELECT ID, post_title,post_content
-        //             FROM $wpdb->posts
-        //             WHERE post_type = 'stm-lesson'
-        //             ORDER BY post_title ASC
-        //             "
-        //         )
-        //     );
-        //     return $quizzes;
-        // }
+        return self::getCourseMaterialsByIdAndType($courseId, 'stm-lessons');
     }
 
     public static function getQuizByCourse($courseId)
     {
-        global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query needed for MasterStudy quizzes
-        $quizzes = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT ID, post_title,post_content
-                FROM {$wpdb->posts}
-                WHERE FIND_IN_SET(
-                    ID,
-                    (SELECT meta_value FROM wp_postmeta WHERE post_id = %d AND meta_key = 'curriculum')
-                )
-                AND post_type = 'stm-quizzes'
-                ORDER BY post_title ASC
-                ",
-                absint($courseId)
-            )
-        );
+        return self::getCourseMaterialsByIdAndType($courseId, 'stm-quizzes');
+    }
 
-        return $quizzes;
+    public static function getCourseMaterialsByIdAndType($courseId, $postType)
+    {
+        if (!class_exists('\MasterStudy\Lms\Repositories\CurriculumRepository')) {
+            return [];
+        }
+
+        $CurriculumRepository = new \MasterStudy\Lms\Repositories\CurriculumRepository();
+
+        $curriculum = $CurriculumRepository->get_curriculum(absint($courseId));
+
+        if (empty($curriculum) || !isset($curriculum['materials'])) {
+            return [];
+        }
+
+        foreach ($curriculum['materials'] as $material) {
+            if ($material['post_type'] === $postType) {
+                $posts[] = [
+                    'ID'         => $material['post_id'],
+                    'post_title' => $material['title'],
+                ];
+            }
+        }
+
+        return $posts ?? [];
     }
 }

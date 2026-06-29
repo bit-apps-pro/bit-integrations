@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Admin;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Route;
 
 class AdminAjax
@@ -16,6 +17,8 @@ class AdminAjax
 
     public function updatedAppConfig($data)
     {
+        $this->ensurePermission(['manage_options', 'bit_integrations_manage_integrations']);
+
         if (!property_exists($data, 'data')) {
             wp_send_json_error(__('Data can\'t be empty', 'bit-integrations'));
         }
@@ -26,6 +29,8 @@ class AdminAjax
 
     public function getAppConfig()
     {
+        $this->ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
+
         // Deprecated: 'btcbi_app_conf'. Use 'bit_integrations_app_conf' instead.
         $data = Config::getOption('app_conf', []);
         if (empty($data)) {
@@ -37,6 +42,8 @@ class AdminAjax
 
     public function setChangelogVersion()
     {
+        $this->ensurePermission(['manage_options', 'bit_integrations_manage_integrations']);
+
         if (empty($_REQUEST['_ajax_nonce'])) {
             wp_send_json_error(
                 __(
@@ -62,5 +69,16 @@ class AdminAjax
         } else {
             wp_send_json_error(__('Token expired or no data received', 'bit-integrations'), 401);
         }
+    }
+
+    private function ensurePermission(array $capabilities)
+    {
+        foreach ($capabilities as $capability) {
+            if (Capabilities::Check($capability)) {
+                return;
+            }
+        }
+
+        wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
     }
 }

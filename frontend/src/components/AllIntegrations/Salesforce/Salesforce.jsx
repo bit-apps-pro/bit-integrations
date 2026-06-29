@@ -131,6 +131,10 @@ function Salesforce({ formFields, setFlow, flow, allIntegURL }) {
             setSnackbar
           })
         }
+        isLoading={isLoading}
+        dataConf={salesforceConf}
+        setDataConf={setSalesforceConf}
+        formFields={formFields}
       />
     </div>
   )

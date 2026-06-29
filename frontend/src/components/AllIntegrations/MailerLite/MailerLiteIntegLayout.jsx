@@ -202,7 +202,7 @@ export default function MailerLiteIntegLayout({
 
 const note = `
     <p>${__(
-  'This action requires a MailerLite New account. It isn’t supported with Classic accounts.',
-  'bit-integrations'
-)}</p>
+      'This action requires a MailerLite New account. It isn’t supported with Classic accounts.',
+      'bit-integrations'
+    )}</p>
   `

@@ -9,7 +9,7 @@ import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '13th May 2026'
+const releaseDate = '27th June 2026'
 
 // Example for items:
 // items: [
@@ -32,28 +32,18 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'B2BKing',
-        desc: '3 new events added',
+        label: 'Webba Booking Calendar',
+        desc: '11 new event added.',
         isPro: true
       },
       {
-        label: 'BookingPress',
-        desc: '7 new events added',
+        label: 'MainWP',
+        desc: '12 new event added.',
         isPro: true
       },
       {
-        label: 'FormyChat',
-        desc: '2 new events added',
-        isPro: true
-      },
-      {
-        label: 'SureDash',
-        desc: '18 new events added',
-        isPro: true
-      },
-      {
-        label: 'wpDataTables',
-        desc: '4 new events added',
+        label: 'WSMS (WP SMS)',
+        desc: '5 new event added.',
         isPro: true
       }
     ]
@@ -64,33 +54,33 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'B2BKing',
-        desc: '3 new events added',
+        label: 'Webba Booking Calendar',
+        desc: '13 new event added.',
         isPro: true
       },
       {
-        label: 'BookingPress',
-        desc: '6 new events added',
+        label: 'Sender',
+        desc: '9 new event added.',
         isPro: true
       },
       {
-        label: 'Bookly',
-        desc: '6 new events added',
+        label: 'MainWP',
+        desc: '8 new event added.',
         isPro: true
       },
       {
-        label: 'FormyChat',
-        desc: '1 new events added',
+        label: 'WSMS (WP SMS)',
+        desc: '7 new event added.',
         isPro: true
       },
       {
-        label: 'SureDash',
-        desc: '7 new events added',
+        label: 'Instasent',
+        desc: '6 new event added.',
         isPro: true
       },
       {
-        label: 'wpDataTables',
-        desc: '1 new events added',
+        label: 'MasterStudyLms',
+        desc: '4 new event added.',
         isPro: true
       }
     ]
@@ -111,7 +101,13 @@ const changeLog = [
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'MasterStudyLms',
+        desc: 'Fixed course and quiz fetching so only lessons and quizzes from the selected course are returned, and validation now treats null/empty config values as incomplete.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('Security', 'bit-integrations'),
@@ -220,7 +216,9 @@ export default function ChangelogToggle() {
                   {__('Updated at:', 'bit-integrations')} <b>{releaseDate}</b>
                 </small>
               </div>
-              <div className="changelog-content" style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
+              <div
+                className="changelog-content"
+                style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
                 {changeLog.map((log, index) => (
                   <Fragment key={index}>
                     {log.items.length > 0 && (

@@ -7,7 +7,10 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { resetActionHookFlowData } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  resetActionHookFlowData,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { __, sprintf } from '../../Utils/i18nwrap'
 import Loader from '../Loaders/Loader'
 import LoaderSm from '../Loaders/LoaderSm'
@@ -30,10 +33,20 @@ const CustomTrigger = () => {
   const [snack, setSnackbar] = useState({ show: false })
   const [showResponse, setShowResponse] = useState(false)
   const isFetchingRef = useRef(false)
+  const triggerLinkKey = newFlow?.triggered_entity
+  const triggerTutorialLinks = triggerLinkKey
+    ? {
+        [triggerLinkKey]: {
+          docLink: newFlow?.triggerDetail?.documentation_url || '',
+          youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
+        }
+      }
+    : undefined
 
   let controller = new AbortController()
   const signal = controller.signal
-  const { stopFetching } = CustomFetcherHelper(
+  const { countdown, startCountdown, clearCountdown, formatTime } = useFetchCountdown()
+  const { stopFetching: helperStop } = CustomFetcherHelper(
     isFetchingRef,
     hookID,
     controller,
@@ -42,6 +55,10 @@ const CustomTrigger = () => {
     'POST',
     'hook_id'
   )
+  const stopFetching = () => {
+    clearCountdown()
+    helperStop()
+  }
 
   const triggerAbeleHook = `do_action(
     'bit_integrations_custom_trigger',
@@ -134,6 +151,7 @@ const CustomTrigger = () => {
     }
 
     startFetching()
+    startCountdown(stopFetching)
     fetchSequentially()
   }
 
@@ -212,12 +230,13 @@ const CustomTrigger = () => {
       <div className="flx flx-between">
         <button
           onClick={handleFetch}
-          className={`btn btcd-btn-lg sh-sm flx ${isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
-            }`}
+          className={`btn btcd-btn-lg sh-sm flx ${
+            isLoading ? 'purple' : newFlow.triggerDetail?.data ? 'gray' : 'purple'
+          }`}
           type="button"
           disabled={!hookID}>
           {isLoading
-            ? __('Stop', 'bit-integrations')
+            ? `${__('Stop', 'bit-integrations')} (${formatTime(countdown)})`
             : newFlow.triggerDetail?.data
               ? __('Fetched ✔', 'bit-integrations')
               : __('Fetch', 'bit-integrations')}
@@ -259,13 +278,11 @@ const CustomTrigger = () => {
           </button>
         </div>
       )}
-      <Note note={info} isInstruction={true} >
+      <Note note={info} isInstruction={true}>
         <TutorialLink
+          linkKey={triggerLinkKey}
+          linksMap={triggerTutorialLinks}
           style={{ marginTop: 0 }}
-          links={{
-            docLink: newFlow?.triggerDetail?.documentation_url || '',
-            youTubeLink: newFlow?.triggerDetail?.tutorial_url || ''
-          }}
         />
       </Note>
     </div>
@@ -279,9 +296,9 @@ const info = `<h4>${sprintf(
 )}</h4>
             <ul>
             <li>${__(
-  'Copy the <b>do action hook</b> snippet and paste it into your form submission function.',
-  'bit-integrations'
-)}</li>
+              'Copy the <b>do action hook</b> snippet and paste it into your form submission function.',
+              'bit-integrations'
+            )}</li>
               <li>${__('Click <b>Fetch</b>.', 'bit-integrations')}</li>
               <li>${__('Submit the form to send test data.', 'bit-integrations')}</li>
               <li>${__('Select the fields you need, then click <b>Set Action</b>.', 'bit-integrations')}</li>

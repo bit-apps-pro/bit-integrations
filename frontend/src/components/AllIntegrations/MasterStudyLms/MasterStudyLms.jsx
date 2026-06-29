@@ -8,10 +8,9 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { handleInput, checkMappedFields } from './MasterStudyLmsCommonFunc'
+import { isActionConfigIncomplete } from './MasterStudyLmsCommonFunc'
 import MasterStudyLmsAuthorization from './MasterStudyLmsAuthorization'
 import MasterStudyLmsIntegLayout from './MasterStudyLmsIntegLayout'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 
 function MasterStudyLms({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
@@ -22,20 +21,11 @@ function MasterStudyLms({ formFields, setFlow, flow, allIntegURL, isInfo, edit }
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const allActions = [
-    { key: '1', label: __('Course complete for the user', 'bit-integrations') },
-    { key: '2', label: __('Lesson complete for the user', 'bit-integrations') },
-    { key: '3', label: __('Quiz complete for the user', 'bit-integrations') },
-    { key: '4', label: __('Reset user course', 'bit-integrations') },
-    { key: '5', label: __('Reset user lesson', 'bit-integrations') }
-  ]
-
   const [msLmsConf, setMsLmsConf] = useState({
     name: 'MasterStudyLms',
     type: 'MasterStudyLms',
     mainAction: '',
     field_map: [{ formField: '', msLmsFormField: '' }],
-    allActions,
     actions: {}
   })
 
@@ -50,20 +40,7 @@ function MasterStudyLms({ formFields, setFlow, flow, allIntegURL, isInfo, edit }
   }
 
   function isDisabled() {
-    switch (msLmsConf.mainAction) {
-      case '1':
-        return msLmsConf.courseId === undefined
-      case '4':
-        return msLmsConf.courseId === undefined
-      case '2':
-        return msLmsConf.lessonId === undefined
-      case '5':
-        return msLmsConf.lessonId === undefined
-      case '3':
-        return msLmsConf.quizId === undefined
-      default:
-        return false
-    }
+    return isActionConfigIncomplete(msLmsConf)
   }
 
   return (
@@ -91,7 +68,6 @@ function MasterStudyLms({ formFields, setFlow, flow, allIntegURL, isInfo, edit }
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
         <MasterStudyLmsIntegLayout
           formFields={formFields}
-          handleInput={e => handleInput(e, msLmsConf, setMsLmsConf, setIsLoading, setSnackbar, formID)}
           msLmsConf={msLmsConf}
           setMsLmsConf={setMsLmsConf}
           isLoading={isLoading}

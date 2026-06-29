@@ -87,6 +87,10 @@ function ZohoCreator({ formFields, setFlow, flow, allIntegURL }) {
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveIntegConfig(flow, setFlow, allIntegURL, creatorConf, navigate)}
+        isLoading={isLoading}
+        dataConf={creatorConf}
+        setDataConf={setCreatorConf}
+        formFields={formFields}
       />
     </div>
   )

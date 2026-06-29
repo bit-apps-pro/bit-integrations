@@ -30,7 +30,10 @@ class RecordApiHelper
             return false;
         }
 
-        $filePath = Common::filePath($file);
+        $filePath = Common::safeUploadFilePath($file);
+        if ($filePath === '') {
+            return new \WP_Error(423, __("Can't open file!", 'bit-integrations'));
+        }
         $apiEndpoint = 'https://api.onedrive.com/v1.0/drives/' . $ids[0] . '/items/' . $parentId . ':/' . basename($filePath) . ':/content';
 
         $headers = [
@@ -74,8 +77,10 @@ class RecordApiHelper
     public function deleteFile($filePath, $actions)
     {
         if (isset($actions->delete_from_wp) && $actions->delete_from_wp) {
-            if (file_exists($filePath)) {
-                wp_delete_file($filePath);
+            $safePath = Common::safeUploadFilePath($filePath);
+
+            if ($safePath !== '' && file_exists($safePath)) {
+                wp_delete_file($safePath);
             }
         }
     }

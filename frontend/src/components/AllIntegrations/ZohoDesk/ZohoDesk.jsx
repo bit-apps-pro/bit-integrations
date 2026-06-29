@@ -107,6 +107,10 @@ function ZohoDesk({ formFields, setFlow, flow, allIntegURL }) {
             setSnackbar
           })
         }
+        isLoading={isLoading}
+        dataConf={deskConf}
+        setDataConf={setDeskConf}
+        formFields={formFields}
       />
     </div>
   )

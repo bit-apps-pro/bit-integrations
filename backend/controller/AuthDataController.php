@@ -3,11 +3,14 @@
 namespace BitApps\Integrations\controller;
 
 use BitApps\Integrations\Core\Database\AuthModel;
+use BitApps\Integrations\Core\Util\Capabilities;
 
 final class AuthDataController
 {
     public function saveAuthData($requestParams)
     {
+        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_create_integrations']);
+
         if (empty($requestParams->actionName) || empty($requestParams->tokenDetails) || empty($requestParams->userInfo)) {
             wp_send_json_error(['error' => 'Requested Parameters are empty']);
         }
@@ -44,7 +47,9 @@ final class AuthDataController
 
     public function getAuthData($request)
     {
-        $actionName = sanitize_text_field($request->actionName ? $request->actionName : $request);
+        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
+
+        $actionName = sanitize_text_field(\is_object($request) ? ($request->actionName ?? '') : (\is_scalar($request) ? (string) $request : ''));
         if (empty($actionName)) {
             wp_send_json_error('Action name is not available');
             exit;
@@ -77,6 +82,8 @@ final class AuthDataController
 
     public function getAuthDataById($request)
     {
+        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
+
         $id = absint($request->id);
         if (empty($id)) {
             wp_send_json_error('Action name is not available');
@@ -108,18 +115,34 @@ final class AuthDataController
         exit;
     }
 
-    public function deleteAuthData($id)
+    public function deleteAuthData($request)
     {
-        $condition = null;
-        $id = absint($id);
-        if (!empty($id)) {
-            $condition = [
-                'id' => $id
-            ];
-        }
-        $authModel = new AuthModel();
+        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_delete_integrations']);
 
-        return $authModel->delete($condition);
+        $id = absint(\is_object($request) ? ($request->id ?? 0) : (\is_scalar($request) ? $request : 0));
+        if (empty($id)) {
+            wp_send_json_error(__('Invalid credential id', 'bit-integrations'));
+        }
+
+        $authModel = new AuthModel();
+        $result = $authModel->delete(['id' => $id]);
+
+        if (is_wp_error($result)) {
+            wp_send_json_error(__('Failed to delete credential', 'bit-integrations'));
+        }
+
+        wp_send_json_success(__('Credential deleted successfully', 'bit-integrations'));
+    }
+
+    private static function ensurePermission(array $capabilities)
+    {
+        foreach ($capabilities as $capability) {
+            if (Capabilities::Check($capability)) {
+                return;
+            }
+        }
+
+        wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
     }
 
     public function checkAuthDataExist($actionName, $emailAddress)

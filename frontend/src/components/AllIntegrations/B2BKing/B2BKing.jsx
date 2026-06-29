@@ -97,6 +97,9 @@ export default function B2BKing({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, b2bKingConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={b2bKingConf}
+        setDataConf={setB2BKingConf}
+        formFields={formFields}
       />
     </div>
   )

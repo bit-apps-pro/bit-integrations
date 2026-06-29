@@ -11,10 +11,7 @@ import { Toaster } from 'react-hot-toast'
 import { useRecoilValue } from 'recoil'
 import 'regenerator-runtime/runtime.js'
 import logo from '../logo.svg'
-import {
-  defaultLoaderFallback,
-  getIntegrationsElement
-} from './components/AppRouteElements'
+import { defaultLoaderFallback, getIntegrationsElement } from './components/AppRouteElements'
 import Loader from './components/Loaders/Loader'
 import TableLoader from './components/Loaders/TableLoader2'
 import ProModalBtn from './components/Utilities/ProModalBtn'

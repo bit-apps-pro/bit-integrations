@@ -193,15 +193,15 @@ export const saveIntegConfig = async (
   } else if (flow.triggered_entity === 'CustomTrigger') {
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = customTriggerStateIH(dataFlow, tmpConf)
-  } 
-  
+  }
+
   if (
     flow?.triggerData?.trigger_type === 'custom_form_submission' ||
     flow?.flow_details?.trigger_type === 'custom_form_submission'
   ) {
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = CFSStateIH(dataFlow, tmpConf)
-  } 
+  }
 
   if (isPro && !freeTriggers.includes(flow.triggered_entity)) {
     tmpConf['pro_integ_v'] = version
@@ -229,8 +229,9 @@ export const saveIntegConfig = async (
   if (confTmp?.type === 'CustomAction') {
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
-  if (confTmp?.type === 'Mail') {
-    action = edit ? 'flow/mail/update' : 'flow/mail/save'
+
+  if (['Mail', 'Telegram', 'WhatsApp'].includes(confTmp?.type)) {
+    action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 
   try {
@@ -387,14 +388,14 @@ export const saveActionConf = async ({
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = customTriggerStateIH(dataFlow, tmpConf)
   }
-  
+
   if (
     flow?.triggerData?.trigger_type === 'custom_form_submission' ||
     flow?.flow_details?.trigger_type === 'custom_form_submission'
   ) {
     const dataFlow = edit ? flow?.flow_details : flow?.triggerData
     tmpConf = CFSStateIH(dataFlow, tmpConf)
-  } 
+  }
 
   if (isPro && !freeTriggers.includes(flow.triggered_entity)) {
     tmpConf['pro_integ_v'] = version
@@ -421,8 +422,9 @@ export const saveActionConf = async ({
   if (conf?.type === 'CustomAction') {
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
-  if (conf?.type === 'Mail') {
-    action = edit ? 'flow/mail/update' : 'flow/mail/save'
+
+  if (['Mail', 'Telegram', 'WhatsApp'].includes(conf?.type)) {
+    action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 
   try {

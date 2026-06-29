@@ -30,15 +30,12 @@ export const checkMappedFields = weDocsConf => {
 
   if (
     requiredDocumentationSelectionActions.includes(mainAction) &&
-    (!weDocsConf?.selectedDocumentationId)
+    !weDocsConf?.selectedDocumentationId
   ) {
     return false
   }
 
-  if (
-    requiredSectionSelectionActions.includes(mainAction) &&
-    (!weDocsConf?.selectedSectionId)
-  ) {
+  if (requiredSectionSelectionActions.includes(mainAction) && !weDocsConf?.selectedSectionId) {
     return false
   }
 

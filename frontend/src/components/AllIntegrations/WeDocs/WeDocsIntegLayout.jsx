@@ -44,10 +44,7 @@ export default function WeDocsIntegLayout({
       refreshDocumentations(setWeDocsConf, setIsLoading, setSnackbar)
     }
 
-    if (
-      sectionSelectionActions.includes(weDocsConf.mainAction) &&
-      weDocsConf?.selectedDocumentationId
-    ) {
+    if (sectionSelectionActions.includes(weDocsConf.mainAction) && weDocsConf?.selectedDocumentationId) {
       refreshSections(weDocsConf.selectedDocumentationId, setWeDocsConf, setIsLoading, setSnackbar)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,18 +65,14 @@ export default function WeDocsIntegLayout({
           return
         }
 
-        if (
-          requiredDocumentationSelectionActions.includes(value)
-        ) {
+        if (requiredDocumentationSelectionActions.includes(value)) {
           draftConf.selectedDocumentationId = ''
         }
 
         if (!sectionSelectionActions.includes(value)) {
           draftConf.selectedSectionId = ''
           draftConf.sections = []
-        } else if (
-          requiredSectionSelectionActions.includes(value)
-        ) {
+        } else if (requiredSectionSelectionActions.includes(value)) {
           draftConf.selectedSectionId = ''
         }
       })

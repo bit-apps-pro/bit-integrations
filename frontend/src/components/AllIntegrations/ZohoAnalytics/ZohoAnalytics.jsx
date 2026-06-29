@@ -88,6 +88,10 @@ export default function ZohoAnalytics({ formFields, setFlow, flow, allIntegURL }
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveIntegConfig(flow, setFlow, allIntegURL, analyticsConf, navigate)}
+        isLoading={isLoading}
+        dataConf={analyticsConf}
+        setDataConf={setAnalyticsConf}
+        formFields={formFields}
       />
     </div>
   )

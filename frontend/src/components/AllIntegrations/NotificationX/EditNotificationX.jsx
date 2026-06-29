@@ -61,7 +61,7 @@ export default function EditNotificationX({ allIntegURL }) {
             id,
             edit: 1,
             setIsLoading,
-            setSnackbar,
+            setSnackbar
           })
         }
         disabled={!checkMappedFields(notificationXConf)}

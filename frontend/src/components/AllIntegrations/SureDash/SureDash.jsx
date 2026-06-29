@@ -97,6 +97,9 @@ export default function SureDash({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, sureDashConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={sureDashConf}
+        setDataConf={setSureDashConf}
+        formFields={formFields}
       />
     </div>
   )

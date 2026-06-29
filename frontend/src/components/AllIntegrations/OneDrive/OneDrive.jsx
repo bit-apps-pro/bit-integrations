@@ -83,7 +83,14 @@ function OneDrive({ formFields, setFlow, flow, allIntegURL }) {
           {__('Next', 'bit-integrations')} <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      <IntegrationStepThree step={step} saveConfig={() => saveConfig()} isLoading={isLoading} />
+      <IntegrationStepThree
+        step={step}
+        saveConfig={() => saveConfig()}
+        isLoading={isLoading}
+        dataConf={oneDriveConf}
+        setDataConf={setOneDriveConf}
+        formFields={formFields}
+      />
     </div>
   )
 }

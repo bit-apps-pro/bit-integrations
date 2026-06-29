@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
-// import { postFields } from '../../../Utils/StaticData/postField'
 import Cooltip from '../../Utilities/Cooltip'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import CustomField from './CustomField'
-import { postFields } from '../../../Utils/StaticData/postField'
 import {
   addFieldMap,
   checkMappedAcfFields,
   checkMappedJEFields,
   checkMappedMbFields,
   checkMappedPostFields,
+  generatePostCreationFieldMap,
+  getPostCreationFieldsByAction,
+  isLegacyPostCreationAction,
+  postCreationExtraActions,
   refreshPostCategories,
   refreshPostTypes
 } from './PostHelperFunction'
@@ -20,33 +22,33 @@ import FieldMap from './FieldMap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { ProFeatureTitle } from '../IntegrationHelpers/ActionProFeatureLabels'
+import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 
 function Post({ formFields, setFlow, flow, allIntegURL }) {
   const [users, setUsers] = useState([])
   const [postTypes, setPostTypes] = useState([])
   const [postCategories, setPostCategories] = useState([])
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [acf, setAcf] = useState({ fields: [], files: [] })
   const [mb, setMb] = useState({ fields: [], files: [] })
   const [jeCPTMeta, setJeCPTMeta] = useState({ fields: [], files: [] })
-const btcbi = useRecoilValue($appConfigState)
+  const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
   const [postConf, setPostConf] = useState({
     name: 'WP Post Creation',
     type: 'WP Post Creation',
-    post_map: [{ post_author: 'logged_in_user' }],
+    action_type: 'createNewPost',
+    post_map: generatePostCreationFieldMap('createNewPost'),
     acf_map: [{}],
     acf_file_map: [{}],
     metabox_map: [{}],
@@ -72,10 +74,14 @@ const btcbi = useRecoilValue($appConfigState)
       const { data } = res
       setPostTypes(data)
     })
+
     const newConf = { ...postConf }
-    newConf.post_map = postFields
-      .filter(fld => fld.required)
-      .map(fl => ({ formField: '', postField: fl.key, required: fl.required }))
+    if (!newConf.action_type) {
+      newConf.action_type = 'createNewPost'
+    }
+    if (!newConf?.post_map?.[0]?.postField) {
+      newConf.post_map = generatePostCreationFieldMap(newConf.action_type)
+    }
     setPostConf(newConf)
   }, [])
 
@@ -116,10 +122,21 @@ const btcbi = useRecoilValue($appConfigState)
       }
     })
 
-    //  tmpData.metabox_map = postFields.filter(fld => fld.required).map(fl => ({ formField: '', postFormField: fl.key, required: fl.required }))
     setPostConf(tmpData)
-    // setLoad(false)
   }
+
+  const setActionType = actionType => {
+    const nextAction = actionType || 'createNewPost'
+    setPostConf(prevConf => ({
+      ...prevConf,
+      action_type: nextAction,
+      post_map: generatePostCreationFieldMap(nextAction)
+    }))
+    setstep(1)
+  }
+
+  const isLegacyAction = isLegacyPostCreationAction(postConf?.action_type)
+  const selectedPostFields = getPostCreationFieldsByAction(postConf?.action_type || 'createNewPost')
 
   const nextPage = stepNo => {
     setTimeout(() => {
@@ -130,16 +147,17 @@ const btcbi = useRecoilValue($appConfigState)
       setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       return
     }
-    if (!postConf.post_type) {
+
+    if (isLegacyAction && !postConf.post_type) {
       setSnackbar({ show: true, msg: __("Post Type can't be empty", 'bit-integrations') })
       return
     }
-    if (!postConf.post_status) {
+    if (isLegacyAction && !postConf.post_status) {
       setSnackbar({ show: true, msg: __("Post Status can't be empty", 'bit-integrations') })
       return
     }
 
-    if (stepNo === 3) {
+    if (isLegacyAction && stepNo === 3) {
       if (!checkMappedAcfFields(postConf)) {
         setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
         return
@@ -174,7 +192,7 @@ const btcbi = useRecoilValue($appConfigState)
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-            <TutorialLink title="WP Post Creation" links={tutorialLinks?.postCreation || {}} />
+      <TutorialLink linkKey="postCreation" />
 
       <div className="txt-center mt-2">
         <Steps step={3} active={step} />
@@ -194,155 +212,176 @@ const btcbi = useRecoilValue($appConfigState)
           placeholder={__('Integration Name...', 'bit-integrations')}
         />
 
-        <div className="mt-3 flx">
-          <b>{__('Post Type', 'bit-integrations')}</b>
-          <Cooltip width={250} icnSize={17} className="ml-2">
-            <div className="txt-body">
-              {__(
-                'Select one of the defined WordPress post types Or custom post types for the post',
-                'bit-integrations'
-              )}
-              <br />
-            </div>
-          </Cooltip>
-        </div>
-        <div>
-          <select
-            name="post_type"
-            onChange={e => getCustomFields(e.target.name, e.target.value)}
-            className="btcd-paper-inp w-5 mt-1">
-            <option disabled selected>
-              {__('Select Post Type', 'bit-integrations')}
-            </option>
-            {postTypes?.map((postType, key) => (
-              <option key={`acf-${key * 2}`} value={postType?.id}>
-                {postType?.title}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={() => refreshPostTypes(postTypes, setPostTypes)}
-            className="icn-btn sh-sm ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': `'${__('Refresh Post Types', 'bit-integrations')}'` }}
-            type="button">
-            &#x21BB;
-          </button>
-        </div>
-
         <div className="mt-3">
-          <b>{__('Post Categories', 'bit-integrations')}</b>
-          <Cooltip width={250} icnSize={17} className="ml-2">
-            <div className="txt-body">
-              {__('Select one or multiple categories for the post', 'bit-integrations')}
-              <br />
-            </div>
-          </Cooltip>
-        </div>
-        <div className='flx'>
-          <MultiSelect
-            key={`post-categories-${postConf?.post_type || 'default'}-${postConf?.post_categories || ''}`}
-            className="mt-2 w-5"
-            defaultValue={postConf?.post_categories || ''}
-            options={postCategories}
-            onChange={val => handleInput('post_categories', val)}
-          />
-          <button
-            onClick={() => refreshPostCategories(postConf?.post_type, setPostCategories)}
-            className="icn-btn sh-sm ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': `'${__('Refresh Post Categories', 'bit-integrations')}'` }}
-            type="button">
-            &#x21BB;
-          </button>
-        </div>
-
-        <div className="mt-3">
-          <b>{__('Post Status', 'bit-integrations')}</b>
-          <Cooltip width={250} icnSize={17} className="ml-2">
-            <div className="txt-body">
-              {__(
-                'Select the status for the post. If published status is selected and the post date is in the future, it will automatically be changed to scheduled',
-                'bit-integrations'
-              )}
-              <br />
-            </div>
-          </Cooltip>
+          <b>{__('Action Type', 'bit-integrations')}</b>
         </div>
         <select
-          name="post_status"
-          onChange={e => handleInput(e.target.name, e.target.value)}
-          className="btcd-paper-inp w-5 mt-2">
-          <option disabled selected>
-            {__('Select Status', 'bit-integrations')}
-          </option>
-          <option value="publish">{__('Publish', 'bit-integrations')}</option>
-          <option value="draft">{__('Draft', 'bit-integrations')}</option>
-          <option value="auto-draft">{__('Auto-Draft', 'bit-integrations')}</option>
-          <option value="private">{__('Private', 'bit-integrations')}</option>
-          <option value="pending">{__('Pending', 'bit-integrations')}</option>
-        </select>
-
-        <div className="mt-3 flx">
-          <b>{__('Author', 'bit-integrations')}</b>
-          <Cooltip width={250} icnSize={17} className="ml-2">
-            <div className="txt-body">
-              {('Select the user to be assigned to the post', 'bit-integrations')}
-              <br />
-            </div>
-          </Cooltip>
-        </div>
-        <div>
-          <select
-            name="post_author"
-            onChange={e => handleInput(e.target.name, e.target.value)}
-            className="btcd-paper-inp w-5 mt-2">
-            <option disabled selected>
-              {__('Select Author', 'bit-integrations')}
+          className="btcd-paper-inp w-5 mt-1"
+          value={postConf?.action_type || 'createNewPost'}
+          onChange={e => setActionType(e.target.value)}>
+          {postCreationExtraActions.map(action => (
+            <option key={action.value} value={action.value} disabled={!checkIsPro(isPro, action.is_pro)}>
+              {checkIsPro(isPro, action.is_pro) ? action.label : getProLabel(action.label)}
             </option>
-            <option value="logged_in_user">{__('Logged In User', 'bit-integrations')}</option>
-            {users?.map((user, key) => (
-              <option key={`acf-${key * 2}`} value={user.ID}>
-                {user.display_name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mt-3">
-          <b>{__('Comment Status', 'bit-integrations')}</b>
-        </div>
-        <select
-          name="comment_status"
-          onChange={e => handleInput(e.target.name, e.target.value)}
-          className="btcd-paper-inp w-5 mt-2">
-          <option disabled selected>
-            {__('Select Status', 'bit-integrations')}
-          </option>
-          <option value="open">{__('Open', 'bit-integrations')}</option>
-          <option value="closed">{__('Closed', 'bit-integrations')}</option>
+          ))}
         </select>
 
-        <div className="mt-3">
-          <b>
-            <ProFeatureTitle title={__('Add Post Tags', 'bit-integrations')} />
-          </b>
-
-          <Cooltip width={250} icnSize={17} className="ml-2">
-            <div className="txt-body">
-              {__('Use commas to separate multiple tags. Example: tag1, tag2, tag3', 'bit-integrations')}
-              <br />
+        {isLegacyAction && (
+          <>
+            <div className="mt-3 flx">
+              <b>{__('Post Type', 'bit-integrations')}</b>
+              <Cooltip width={250} icnSize={17} className="ml-2">
+                <div className="txt-body">
+                  {__(
+                    'Select one of the defined WordPress post types Or custom post types for the post',
+                    'bit-integrations'
+                  )}
+                  <br />
+                </div>
+              </Cooltip>
             </div>
-          </Cooltip>
-        </div>
+            <div>
+              <select
+                name="post_type"
+                onChange={e => getCustomFields(e.target.name, e.target.value)}
+                className="btcd-paper-inp w-5 mt-1">
+                <option disabled selected>
+                  {__('Select Post Type', 'bit-integrations')}
+                </option>
+                {postTypes?.map((postType, key) => (
+                  <option key={`acf-${key * 2}`} value={postType?.id}>
+                    {postType?.title}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={() => refreshPostTypes(setPostTypes)}
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': `'${__('Refresh Post Types', 'bit-integrations')}'` }}
+                type="button">
+                &#x21BB;
+              </button>
+            </div>
 
-        <input
-          className="btcd-paper-inp w-5 mt-2 "
-          onChange={e => handleInput(e.target.name, e.target.value)}
-          name="post_tags"
-          value={postConf.post_tags}
-          type="text"
-          placeholder={__('Add Post Tags...', 'bit-integrations')}
-          disabled={!isPro}
-        />
+            <div className="mt-3">
+              <b>{__('Post Categories', 'bit-integrations')}</b>
+              <Cooltip width={250} icnSize={17} className="ml-2">
+                <div className="txt-body">
+                  {__('Select one or multiple categories for the post', 'bit-integrations')}
+                  <br />
+                </div>
+              </Cooltip>
+            </div>
+            <div className="flx">
+              <MultiSelect
+                key={`post-categories-${postConf?.post_type || 'default'}-${postConf?.post_categories || ''}`}
+                className="mt-2 w-5"
+                defaultValue={postConf?.post_categories || ''}
+                options={postCategories}
+                onChange={val => handleInput('post_categories', val)}
+              />
+              <button
+                onClick={() => refreshPostCategories(postConf?.post_type, setPostCategories)}
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': `'${__('Refresh Post Categories', 'bit-integrations')}'` }}
+                type="button">
+                &#x21BB;
+              </button>
+            </div>
+
+            <div className="mt-3">
+              <b>{__('Post Status', 'bit-integrations')}</b>
+              <Cooltip width={250} icnSize={17} className="ml-2">
+                <div className="txt-body">
+                  {__(
+                    'Select the status for the post. If published status is selected and the post date is in the future, it will automatically be changed to scheduled',
+                    'bit-integrations'
+                  )}
+                  <br />
+                </div>
+              </Cooltip>
+            </div>
+            <select
+              name="post_status"
+              onChange={e => handleInput(e.target.name, e.target.value)}
+              className="btcd-paper-inp w-5 mt-2">
+              <option disabled selected>
+                {__('Select Status', 'bit-integrations')}
+              </option>
+              <option value="publish">{__('Publish', 'bit-integrations')}</option>
+              <option value="draft">{__('Draft', 'bit-integrations')}</option>
+              <option value="auto-draft">{__('Auto-Draft', 'bit-integrations')}</option>
+              <option value="private">{__('Private', 'bit-integrations')}</option>
+              <option value="pending">{__('Pending', 'bit-integrations')}</option>
+            </select>
+
+            <div className="mt-3 flx">
+              <b>{__('Author', 'bit-integrations')}</b>
+              <Cooltip width={250} icnSize={17} className="ml-2">
+                <div className="txt-body">
+                  {__('Select the user to be assigned to the post', 'bit-integrations')}
+                  <br />
+                </div>
+              </Cooltip>
+            </div>
+            <div>
+              <select
+                name="post_author"
+                onChange={e => handleInput(e.target.name, e.target.value)}
+                className="btcd-paper-inp w-5 mt-2">
+                <option disabled selected>
+                  {__('Select Author', 'bit-integrations')}
+                </option>
+                <option value="logged_in_user">{__('Logged In User', 'bit-integrations')}</option>
+                {users?.map((user, key) => (
+                  <option key={`acf-${key * 2}`} value={user.ID}>
+                    {user.display_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mt-3">
+              <b>{__('Comment Status', 'bit-integrations')}</b>
+            </div>
+            <select
+              name="comment_status"
+              onChange={e => handleInput(e.target.name, e.target.value)}
+              className="btcd-paper-inp w-5 mt-2">
+              <option disabled selected>
+                {__('Select Status', 'bit-integrations')}
+              </option>
+              <option value="open">{__('Open', 'bit-integrations')}</option>
+              <option value="closed">{__('Closed', 'bit-integrations')}</option>
+            </select>
+
+            <div className="mt-3">
+              <b>
+                <ProFeatureTitle title={__('Add Post Tags', 'bit-integrations')} />
+              </b>
+
+              <Cooltip width={250} icnSize={17} className="ml-2">
+                <div className="txt-body">
+                  {__(
+                    'Use commas to separate multiple tags. Example: tag1, tag2, tag3',
+                    'bit-integrations'
+                  )}
+                  <br />
+                </div>
+              </Cooltip>
+            </div>
+
+            <input
+              className="btcd-paper-inp w-5 mt-2 "
+              onChange={e => handleInput(e.target.name, e.target.value)}
+              name="post_tags"
+              value={postConf.post_tags}
+              type="text"
+              placeholder={__('Add Post Tags...', 'bit-integrations')}
+              disabled={!isPro}
+            />
+          </>
+        )}
 
         <div>
           <div className="mt-3 mb-1">
@@ -368,13 +407,15 @@ const btcbi = useRecoilValue($appConfigState)
             formFields={formFields}
             postConf={postConf}
             setPostConf={setPostConf}
-            customFields={postFields}
+            customFields={selectedPostFields}
           />
         ))}
 
         <div className="txt-center btcbi-field-map-button mt-2">
           <button
-            onClick={() => addFieldMap('post_map', postConf.post_map.length, postConf, setPostConf)}
+            onClick={() =>
+              addFieldMap('post_map', postConf?.post_map?.length || 0, postConf, setPostConf)
+            }
             className="icn-btn sh-sm"
             type="button">
             +
@@ -382,38 +423,36 @@ const btcbi = useRecoilValue($appConfigState)
         </div>
 
         <button
-          onClick={() => nextPage(2)}
+          onClick={() => nextPage(isLegacyAction ? 2 : 3)}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      <div
-        className="btcd-stp-page"
-        style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
-        <CustomField
-          formID={formID}
-          formFields={formFields}
-          handleInput={e => handleInput(e, postConf, setPostConf, formID, setIsLoading, setSnackbar)}
-          postConf={postConf}
-          setPostConf={setPostConf}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          setSnackbar={setSnackbar}
-          acfFields={acf}
-          mbFields={mb}
-          jeCPTFields={jeCPTMeta}
-        />
 
-        <button
-          onClick={() => nextPage(3)}
-          className="btn f-right btcd-btn-lg purple sh-sm flx"
-          type="button">
-          {__('Next', 'bit-integrations')}
-          <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-        </button>
-      </div>
+      {isLegacyAction && (
+        <div
+          className="btcd-stp-page"
+          style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
+          <CustomField
+            formFields={formFields}
+            postConf={postConf}
+            setPostConf={setPostConf}
+            acfFields={acf}
+            mbFields={mb}
+            jeCPTFields={jeCPTMeta}
+          />
+
+          <button
+            onClick={() => nextPage(3)}
+            className="btn f-right btcd-btn-lg purple sh-sm flx"
+            type="button">
+            {__('Next', 'bit-integrations')}
+            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
+          </button>
+        </div>
+      )}
 
       <IntegrationStepThree
         step={step}

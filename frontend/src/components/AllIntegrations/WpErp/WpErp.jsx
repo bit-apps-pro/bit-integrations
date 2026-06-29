@@ -97,6 +97,9 @@ export default function WpErp({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, wpErpConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={wpErpConf}
+        setDataConf={setWpErpConf}
+        formFields={formFields}
       />
     </div>
   )

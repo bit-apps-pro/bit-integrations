@@ -99,6 +99,9 @@ export default function Bookly({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, booklyConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={booklyConf}
+        setDataConf={setBooklyConf}
+        formFields={formFields}
       />
     </div>
   )

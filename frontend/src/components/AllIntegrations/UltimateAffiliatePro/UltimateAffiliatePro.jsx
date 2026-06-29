@@ -107,6 +107,9 @@ export default function UltimateAffiliatePro({ formFields, setFlow, flow, allInt
           )
         }
         isLoading={isLoading}
+        dataConf={ultimateAffiliateProConf}
+        setDataConf={setUltimateAffiliateProConf}
+        formFields={formFields}
       />
     </div>
   )

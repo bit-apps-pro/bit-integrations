@@ -299,7 +299,7 @@ class RecordApiHelper
                 $value = $getDateFormat['value'];
 
                 $dateTimeHelper = new DateTimeHelper();
-                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, wp_timezone(), 'Y-m-d\TH:i:sP', null);
+                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, DateTimeHelper::wp_timezone(), 'Y-m-d\TH:i:sP', null);
                 $formatedValue = !$formatedValue ? null : $formatedValue;
             } elseif ($formatSpecs->data_type === 'date') {
                 $getDateFormat = self::setDateFormat($value);
@@ -307,7 +307,7 @@ class RecordApiHelper
                 $value = $getDateFormat['value'];
 
                 $dateTimeHelper = new DateTimeHelper();
-                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, wp_timezone(), 'Y-m-d', null);
+                $formatedValue = $dateTimeHelper->getFormated($value, $date_format, DateTimeHelper::wp_timezone(), 'Y-m-d', null);
                 $formatedValue = !$formatedValue ? null : $formatedValue;
             } else {
                 $stringyfieldValue = \is_array($value) || \is_object($value) ? implode(',', (array) $value) : $value;

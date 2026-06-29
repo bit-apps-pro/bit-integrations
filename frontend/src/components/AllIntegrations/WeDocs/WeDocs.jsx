@@ -103,6 +103,9 @@ export default function WeDocs({ formFields, setFlow, flow, allIntegURL }) {
           saveIntegConfig(flow, setFlow, allIntegURL, weDocsConf, navigate, '', '', setIsLoading)
         }
         isLoading={isLoading}
+        dataConf={weDocsConf}
+        setDataConf={setWeDocsConf}
+        formFields={formFields}
       />
     </div>
   )
