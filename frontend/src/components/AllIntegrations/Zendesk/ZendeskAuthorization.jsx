@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function ZendeskAuthorization({
-  zendeskConf,
-  setZendeskConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function ZendeskAuthorization({ zendeskConf, setZendeskConf, step, setStep, isInfo }) {
   const note = `
     <small class="d-blk mt-3">
       ${__('To Get API Token, Please Visit', 'bit-integrations')}

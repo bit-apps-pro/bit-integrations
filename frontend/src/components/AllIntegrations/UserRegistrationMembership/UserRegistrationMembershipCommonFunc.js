@@ -8,7 +8,6 @@ export const handleInput = (e, userRegistrationConf, setUserRegistrationConf) =>
   setUserRegistrationConf(newConf)
 }
 
-
 export const refreshForms = (
   userRegistrationConf,
   setUserRegistrationConf,

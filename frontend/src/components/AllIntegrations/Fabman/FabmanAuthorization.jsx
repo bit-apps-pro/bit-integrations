@@ -60,10 +60,10 @@ export default function FabmanAuthorization({
       authDetails={{
         authType: AUTH_TYPES.BEARER_TOKEN,
         apiEndpoint: 'https://fabman.io/api/v1/accounts',
-        method: 'GET',
+        method: 'GET'
       }}
       noteDetails={{
-        note: fabmanApiKeyNote,
+        note: fabmanApiKeyNote
       }}
       onConnectionSelected={handleConnectionSelected}
     />
@@ -73,9 +73,9 @@ export default function FabmanAuthorization({
 const fabmanApiKeyNote = `<h2>${__('To get your Fabman API key:', 'bit-integrations')}</h2>
      <ul>
          <li>${sprintf(
-  __('Log in to your %s.', 'bit-integrations'),
-  '<a href="https://fabman.io/" target="_blank">Fabman account</a>'
-)}</li>
+           __('Log in to your %s.', 'bit-integrations'),
+           '<a href="https://fabman.io/" target="_blank">Fabman account</a>'
+         )}</li>
          <li>${__('Go to "Configure" → "Integrations (API & Webhooks)".', 'bit-integrations')}</li>
          <li>${__('Click "Create API key", add a title, and choose a member.', 'bit-integrations')}</li>
          <li>${__('Save, then click "Reveal" to copy your API key.', 'bit-integrations')}</li>

@@ -44,9 +44,7 @@ export default function AirtableIntegLayout({
           onChange={val => setChanges(val, 'selectedBase')}
         />
         <button
-          onClick={() =>
-            fetchAllBases(airtableConf, setAirtableConf, loading, setLoading, 'refresh')
-          }
+          onClick={() => fetchAllBases(airtableConf, setAirtableConf, loading, setLoading, 'refresh')}
           className="icn-btn sh-sm ml-2 mr-2 tooltip"
           style={{ '--tooltip-txt': `'${__('Refresh  Bases', 'bit-integrations')}'` }}
           type="button"

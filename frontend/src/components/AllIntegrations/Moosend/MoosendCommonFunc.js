@@ -22,9 +22,7 @@ export const handleAuthorize = (conf, setError, setAuthorized, loading, setLoadi
 }
 
 const buildAuthRequestParams = conf =>
-  conf.connection_id
-    ? { connection_id: conf.connection_id }
-    : { authKey: conf.authKey || conf.api_key }
+  conf.connection_id ? { connection_id: conf.connection_id } : { authKey: conf.authKey || conf.api_key }
 
 export const getAllLists = async (conf, setConf, loading, setLoading) => {
   setLoading && setLoading({ ...loading, list: true })

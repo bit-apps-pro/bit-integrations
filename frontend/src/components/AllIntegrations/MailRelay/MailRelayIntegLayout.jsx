@@ -60,13 +60,7 @@ export default function MailRelayIntegLayout({
               {__('Field Map', 'bit-integrations')}
               <button
                 onClick={() =>
-                  refreshCustomFields(
-                    mailRelayConf,
-                    setMailRelayConf,
-                    loading,
-                    setLoading,
-                    setSnackbar
-                  )
+                  refreshCustomFields(mailRelayConf, setMailRelayConf, loading, setLoading, setSnackbar)
                 }
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{

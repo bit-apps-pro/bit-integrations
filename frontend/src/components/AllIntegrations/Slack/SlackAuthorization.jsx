@@ -16,9 +16,7 @@ export default function SlackAuthorization({
 }) {
   const loadChannels = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...slackConf, connection_id: connectionId }
-        : slackConf
+      const nextConf = connectionId ? { ...slackConf, connection_id: connectionId } : slackConf
 
       await fetchChannels(nextConf, setSlackConf, setIsLoading)
     },

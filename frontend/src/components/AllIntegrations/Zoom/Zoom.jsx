@@ -56,12 +56,7 @@ function Zoom({ formFields, setFlow, flow, allIntegURL }) {
       </div>
 
       {/* STEP 1 */}
-      <ZoomAuthorization
-        zoomConf={zoomConf}
-        setZoomConf={setZoomConf}
-        step={step}
-        setStep={setStep}
-      />
+      <ZoomAuthorization zoomConf={zoomConf} setZoomConf={setZoomConf} step={step} setStep={setStep} />
       {/* STEP 2 */}
       <div
         className="btcd-stp-page"

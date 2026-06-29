@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function FlowluAuthorization({
-  flowluConf,
-  setFlowluConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function FlowluAuthorization({ flowluConf, setFlowluConf, step, setStep, isInfo }) {
   const note = `
     <h4>${__('Get the API Key', 'bit-integrations')}</h4>
     <ul>

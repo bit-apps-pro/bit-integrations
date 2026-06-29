@@ -16,9 +16,7 @@ export default function DiscordAuthorization({
 }) {
   const loadServers = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...discordConf, connection_id: connectionId }
-        : discordConf
+      const nextConf = connectionId ? { ...discordConf, connection_id: connectionId } : discordConf
 
       await getAllServers(nextConf, setDiscordConf, setIsLoading)
     },

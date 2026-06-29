@@ -120,4 +120,3 @@ export const refreshSections = (documentationId, setWeDocsConf, setIsLoading, se
       setIsLoading(false)
     })
 }
-

@@ -18,7 +18,7 @@ export default function ElasticEmailAuthorization({
         ? { ...elasticEmailConf, connection_id: connectionId }
         : elasticEmailConf
 
-      getAllList(nextConf, setElasticEmailConf, () => { })
+      getAllList(nextConf, setElasticEmailConf, () => {})
     },
     [elasticEmailConf, setElasticEmailConf]
   )

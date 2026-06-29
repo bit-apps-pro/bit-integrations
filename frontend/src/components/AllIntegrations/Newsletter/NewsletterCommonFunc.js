@@ -36,7 +36,6 @@ export const checkMappedFields = newsletterConf => {
   return true
 }
 
-
 export const staticFields = [
   { key: 'email', label: __('Email', 'bit-integrations'), required: true },
   { key: 'name', label: __('First Name', 'bit-integrations'), required: false },

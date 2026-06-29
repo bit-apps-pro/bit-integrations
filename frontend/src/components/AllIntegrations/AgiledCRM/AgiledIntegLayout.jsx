@@ -131,9 +131,7 @@ export default function AgiledIntegLayout({
               singleSelect
             />
             <button
-              onClick={() =>
-                getAllCRMPipelineStages(agiledConf, setAgiledConf, loading, setLoading)
-              }
+              onClick={() => getAllCRMPipelineStages(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh pipeline stages', 'bit-integrations')}'` }}
               type="button"

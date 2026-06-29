@@ -17,7 +17,7 @@ export const getallTemplates = (confTmp, setConf, setIsLoading, setSnackbar) => 
   if (!confTmp.connection_id && (!confTmp.numberID || !confTmp.businessAccountID || !confTmp.token)) {
     setSnackbar({
       show: true,
-      msg: __("Phone number ID, Business Account ID and Access Token are required.", 'bit-integrations')
+      msg: __('Phone number ID, Business Account ID and Access Token are required.', 'bit-integrations')
     })
     return
   }

@@ -117,10 +117,7 @@ const getOauth1Payload = ({
   const resolvedApiEndpoint = resolveConfigValue(authDetails?.apiEndpoint, formData)
   const resolvedHeaders = resolveConfigValue(authDetails?.headers, formData)
   const resolvedPayload = resolveConfigValue(authDetails?.payload, formData)
-  const additionalHeaders = resolveHeaderTemplates(
-    normalizeAdditionalHeaders(resolvedHeaders),
-    formData
-  )
+  const additionalHeaders = resolveHeaderTemplates(normalizeAdditionalHeaders(resolvedHeaders), formData)
   const sslVerify = authDetails?.ssl_verify !== false
 
   const extraAuthDetails = (authDetails?.extraFields || []).reduce((acc, { name }) => {
@@ -295,11 +292,10 @@ export default function Oauth1Connection({
       )
 
       const popupResponse = normalizePopupResponse(
-        await openOauthPopup(
-          authUrl,
-          authDetails?.authorizationWindowLabel || 'OAuth1',
-          { channelKey: oauthChannelKey, includeLegacyFallback: true }
-        )
+        await openOauthPopup(authUrl, authDetails?.authorizationWindowLabel || 'OAuth1', {
+          channelKey: oauthChannelKey,
+          includeLegacyFallback: true
+        })
       )
 
       if (popupResponse?.error) {
@@ -346,7 +342,9 @@ export default function Oauth1Connection({
       await saveOauth1Connection(payload)
     } catch (error) {
       setIsAuthorized(false)
-      toast.error(`${__('Authorization failed Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`)
+      toast.error(
+        `${__('Authorization failed Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`
+      )
     } finally {
       setIsLoading(false)
     }
@@ -378,12 +376,16 @@ export default function Oauth1Connection({
       />
       <div style={ERROR_TEXT_STYLE}>{errors.connectionName || ''}</div>
 
-      {(authDetails?.showCallbackInfo !== false) && (
+      {authDetails?.showCallbackInfo !== false && (
         <>
           <div className="mt-3">
             <b>{__('Homepage URL:', 'bit-integrations')}</b>
           </div>
-          <CopyText value={`${APP_CONFIG?.siteURL || ''}`} className="field-key-cpy w-6 ml-0" readOnly={isInfo} />
+          <CopyText
+            value={`${APP_CONFIG?.siteURL || ''}`}
+            className="field-key-cpy w-6 ml-0"
+            readOnly={isInfo}
+          />
           <div className="mt-3">
             <b>{authDetails?.callbackLabel || __('Callback / Return URL:', 'bit-integrations')}</b>
           </div>

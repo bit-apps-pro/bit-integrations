@@ -16,9 +16,7 @@ export default function AcumbamailAuthorization({
 }) {
   const loadLists = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...acumbamailConf, connection_id: connectionId }
-        : acumbamailConf
+      const nextConf = connectionId ? { ...acumbamailConf, connection_id: connectionId } : acumbamailConf
       fetchAllList(nextConf, setAcumbamailConf, setIsLoading, setSnackbar)
     },
     [acumbamailConf, setAcumbamailConf, setIsLoading, setSnackbar]

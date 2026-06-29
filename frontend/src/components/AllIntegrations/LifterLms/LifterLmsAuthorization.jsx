@@ -22,7 +22,10 @@ export default function LifterLmsAuthorization({
       tutorialLinks={tutorialLinks?.lifterLms || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'plugin_file', value: 'lifterlms/lifterlms.php' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'plugin_file', value: 'lifterlms/lifterlms.php' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(

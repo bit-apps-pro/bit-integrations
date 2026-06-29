@@ -17,9 +17,7 @@ export default function SendPulseAuthorization({
 }) {
   const loadLists = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...sendPulseConf, connection_id: connectionId }
-        : sendPulseConf
+      const nextConf = connectionId ? { ...sendPulseConf, connection_id: connectionId } : sendPulseConf
 
       refreshSendPulseList(nextConf, setSendPulseConf, setIsLoading, setSnackbar)
     },

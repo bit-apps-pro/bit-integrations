@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function SureCartAuthorization({
-  sureCartConf,
-  setSureCartConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function SureCartAuthorization({ sureCartConf, setSureCartConf, step, setStep, isInfo }) {
   const note = `
     <small class="d-blk mt-5">
       ${__('To get bearer token, please visit', 'bit-integrations')}

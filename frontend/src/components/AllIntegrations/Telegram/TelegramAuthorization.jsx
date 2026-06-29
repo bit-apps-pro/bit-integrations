@@ -15,9 +15,7 @@ export default function TelegramAuthorization({
 }) {
   const loadUpdates = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...telegramConf, connection_id: connectionId }
-        : telegramConf
+      const nextConf = connectionId ? { ...telegramConf, connection_id: connectionId } : telegramConf
 
       refreshGetUpdates(nextConf, setTelegramConf, () => {}, setSnackbar)
     },

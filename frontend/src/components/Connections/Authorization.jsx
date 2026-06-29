@@ -48,8 +48,7 @@ export default function Authorization({
 
     try {
       const res = await listConnections(appSlug)
-      const savedConnections =
-        res?.success && Array.isArray(res?.data?.data) ? res.data.data : []
+      const savedConnections = res?.success && Array.isArray(res?.data?.data) ? res.data.data : []
 
       setConnections(savedConnections)
       setShowNewConnection(savedConnections.length === 0)
@@ -148,31 +147,32 @@ export default function Authorization({
     [onConnectionSelected]
   )
 
-  const canGoNext = isWpPluginCheck
-    ? isVerified
-    : Boolean(config?.connection_id) && !isPendingPostAuth
+  const canGoNext = isWpPluginCheck ? isVerified : Boolean(config?.connection_id) && !isPendingPostAuth
 
   const pageStyle = useMemo(() => (step === 1 ? STEP_ONE_STYLE : undefined), [step])
 
-  const handleConnectionSaved = useCallback(async savedConnection => {
-    const refreshedConnections = await refreshConnections()
-    const savedConnectionId = savedConnection?.id
+  const handleConnectionSaved = useCallback(
+    async savedConnection => {
+      const refreshedConnections = await refreshConnections()
+      const savedConnectionId = savedConnection?.id
 
-    if (savedConnectionId) {
-      const matchedConnection = refreshedConnections.find(
-        conn => String(conn.id) === String(savedConnectionId)
-      )
-      const selectedConnectionId = matchedConnection?.id || savedConnectionId
-      setConfig(prev => ({ ...prev, connection_id: selectedConnectionId }))
-      setShowNewConnection(false)
-      await fireConnectionSelected(selectedConnectionId)
-      return
-    }
+      if (savedConnectionId) {
+        const matchedConnection = refreshedConnections.find(
+          conn => String(conn.id) === String(savedConnectionId)
+        )
+        const selectedConnectionId = matchedConnection?.id || savedConnectionId
+        setConfig(prev => ({ ...prev, connection_id: selectedConnectionId }))
+        setShowNewConnection(false)
+        await fireConnectionSelected(selectedConnectionId)
+        return
+      }
 
-    if (refreshedConnections.length > 0) {
-      setShowNewConnection(false)
-    }
-  }, [refreshConnections, setConfig, fireConnectionSelected])
+      if (refreshedConnections.length > 0) {
+        setShowNewConnection(false)
+      }
+    },
+    [refreshConnections, setConfig, fireConnectionSelected]
+  )
 
   return (
     <div className="btcd-stp-page" style={pageStyle}>
@@ -226,18 +226,13 @@ export default function Authorization({
           className="btn btcd-btn-lg purple mt-3 sh-sm flx"
           type="button"
           disabled={isVerified || isVerifying}>
-          {isVerified
-            ? __('Authorized ✔', 'bit-integrations')
-            : __('Authorize', 'bit-integrations')}
+          {isVerified ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
           {isVerifying && <LoaderSm size={20} clr="#022217" className="ml-2" />}
         </button>
       )}
 
       {!isInfo && canGoNext && (
-        <button
-          onClick={handleNext}
-          className="btn f-right btcd-btn-lg purple sh-sm flx"
-          type="button">
+        <button onClick={handleNext} className="btn f-right btcd-btn-lg purple sh-sm flx" type="button">
           {__('Next', 'bit-integrations')}
           <BackIcn className="ml-1 rev-icn" />
         </button>

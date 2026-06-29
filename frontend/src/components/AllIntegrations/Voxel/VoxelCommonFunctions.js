@@ -34,7 +34,6 @@ export const checkMappedFields = voxelConf => {
   return true
 }
 
-
 export const getPostTypes = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, postTypes: true })
 

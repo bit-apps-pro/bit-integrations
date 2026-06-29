@@ -15,9 +15,7 @@ export default function GroundhoggAuthorization({
 }) {
   const loadTags = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...groundhoggConf, connection_id: connectionId }
-        : groundhoggConf
+      const nextConf = connectionId ? { ...groundhoggConf, connection_id: connectionId } : groundhoggConf
 
       await fetchAllTags(nextConf, setGroundhoggConf, setIsLoading)
     },

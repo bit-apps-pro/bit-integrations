@@ -16,9 +16,7 @@ export default function SmartSuiteAuthorization({
 }) {
   const loadSolutions = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...smartSuiteConf, connection_id: connectionId }
-        : smartSuiteConf
+      const nextConf = connectionId ? { ...smartSuiteConf, connection_id: connectionId } : smartSuiteConf
 
       await getAllSolutions(nextConf, setSmartSuiteConf, setLoading)
     },

@@ -62,7 +62,10 @@ const buildAuthRequestParams = confTmp =>
       }
 
 export const fetchAllTags = (groundhoggConf, setGroundhoggConf, setIsLoading, setSnackbar) => {
-  if (!groundhoggConf.connection_id && (!groundhoggConf.public_key || !groundhoggConf.token || !groundhoggConf.domainName)) {
+  if (
+    !groundhoggConf.connection_id &&
+    (!groundhoggConf.public_key || !groundhoggConf.token || !groundhoggConf.domainName)
+  ) {
     toast.error(__('Authorization data is missing', 'bit-integrations'))
     return
   }

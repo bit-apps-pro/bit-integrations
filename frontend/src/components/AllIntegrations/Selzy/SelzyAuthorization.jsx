@@ -5,15 +5,7 @@ import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 import { getAllCustomFields, getAllLists, getAllTags } from './SelzyCommonFunc'
 
-function SelzyAuthorization({
-  selzyConf,
-  setSelzyConf,
-  step,
-  setStep,
-  loading,
-  setLoading,
-  isInfo
-}) {
+function SelzyAuthorization({ selzyConf, setSelzyConf, step, setStep, loading, setLoading, isInfo }) {
   const loadLists = useCallback(
     async connectionId => {
       const nextConf = connectionId ? { ...selzyConf, connection_id: connectionId } : selzyConf

@@ -17,9 +17,7 @@ export default function MailChimpAuthorization({
 }) {
   const loadAudience = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...mailChimpConf, connection_id: connectionId }
-        : mailChimpConf
+      const nextConf = connectionId ? { ...mailChimpConf, connection_id: connectionId } : mailChimpConf
 
       refreshModules(setMailChimpConf, setIsLoading, setSnackbar)
       refreshAudience(formID, nextConf, setMailChimpConf, setIsLoading, setSnackbar)

@@ -59,7 +59,7 @@ export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoadi
 export const refreshSendPulseHeader = (sendPulseConf, setSendPulseConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
     ...buildAuthRequestParams(sendPulseConf),
-    list_id: sendPulseConf.listId,
+    list_id: sendPulseConf.listId
   }
 
   bitsFetch(refreshListsRequestParams, 'sendPulse_headers')

@@ -4,13 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function WPForoAuthorization({
-  wpforoConf,
-  setWPForoConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function WPForoAuthorization({ wpforoConf, setWPForoConf, step, setStep, isInfo }) {
   return (
     <Authorization
       config={wpforoConf}

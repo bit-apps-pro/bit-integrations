@@ -16,9 +16,7 @@ export default function ConvertKitAuthorization({
 }) {
   const loadForms = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...convertKitConf, connection_id: connectionId }
-        : convertKitConf
+      const nextConf = connectionId ? { ...convertKitConf, connection_id: connectionId } : convertKitConf
 
       refreshConvertKitForm(nextConf, setConvertKitConf, setIsLoading, setSnackbar)
     },

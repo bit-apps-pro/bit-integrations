@@ -42,9 +42,7 @@ export const checkMappedFields = nimbleConf => {
 }
 
 const buildAuthRequestParams = confTmp =>
-  confTmp?.connection_id
-    ? { connection_id: confTmp.connection_id }
-    : { api_key: confTmp.api_key }
+  confTmp?.connection_id ? { connection_id: confTmp.connection_id } : { api_key: confTmp.api_key }
 
 export const getAllFields = (confTmp, setConf, setLoading, setSnackbar = null) => {
   setLoading(prev => ({ ...prev, allFields: true }))

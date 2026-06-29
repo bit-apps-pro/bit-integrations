@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function ZoomAuthorization({
-  zoomConf,
-  setZoomConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function ZoomAuthorization({ zoomConf, setZoomConf, step, setStep, isInfo }) {
   const note = `<h4>${__('Pro or higher plan only .', 'bit-integrations')}</h4>
   <h4>${__('Client Id and Client Secret generate with OAuth .', 'bit-integrations')}</h4>
   <h4>${__('Scope:', 'bit-integrations')}</h4>

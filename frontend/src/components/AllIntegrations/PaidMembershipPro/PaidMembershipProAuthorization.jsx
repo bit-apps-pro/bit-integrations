@@ -22,7 +22,10 @@ export default function PaidMembershipProAuthorization({
       tutorialLinks={tutorialLinks?.paidMembershipPro || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'plugin_file', value: 'paid-memberships-pro/paid-memberships-pro.php' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'plugin_file', value: 'paid-memberships-pro/paid-memberships-pro.php' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(

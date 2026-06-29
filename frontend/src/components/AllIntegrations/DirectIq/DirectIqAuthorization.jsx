@@ -17,9 +17,7 @@ export default function DirectIqAuthorization({
 }) {
   const loadLists = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...directIqConf, connection_id: connectionId }
-        : directIqConf
+      const nextConf = connectionId ? { ...directIqConf, connection_id: connectionId } : directIqConf
 
       refreshDirectIqList(nextConf, setDirectIqConf, setIsLoading, setSnackbar)
     },

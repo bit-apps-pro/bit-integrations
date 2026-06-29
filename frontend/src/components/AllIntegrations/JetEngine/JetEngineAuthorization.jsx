@@ -22,7 +22,10 @@ export default function JetEngineAuthorization({
       tutorialLinks={tutorialLinks?.jetEngine || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'plugin_file', value: 'jet-engine/jet-engine.php' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'plugin_file', value: 'jet-engine/jet-engine.php' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(

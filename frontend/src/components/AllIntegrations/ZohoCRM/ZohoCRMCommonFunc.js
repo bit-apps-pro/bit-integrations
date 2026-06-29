@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (
   e,
   recordTab,
@@ -148,7 +147,7 @@ export const refreshModules = (formID, crmConf, setCrmConf, setIsLoading, setSna
     formID,
     id: crmConf.id,
     ...buildAuthRequestParams(crmConf),
-    dataCenter: crmConf.dataCenter,
+    dataCenter: crmConf.dataCenter
   }
   bitsFetch(refreshModulesRequestParams, 'zcrm_refresh_modules')
     .then(result => {
@@ -196,7 +195,7 @@ export const refreshLayouts = (recordTab, formID, crmConf, setCrmConf, setIsLoad
     formID,
     module,
     ...buildAuthRequestParams(newConf),
-    dataCenter: newConf.dataCenter,
+    dataCenter: newConf.dataCenter
   }
   bitsFetch(refreshLayoutsRequestParams, 'zcrm_refresh_layouts')
     .then(result => {
@@ -262,7 +261,7 @@ export const refreshRelatedList = (formID, crmConf, setCrmConf, setIsLoading, se
     formID,
     module: crmConf.module,
     ...buildAuthRequestParams(crmConf),
-    dataCenter: crmConf.dataCenter,
+    dataCenter: crmConf.dataCenter
   }
   bitsFetch(relatedListRequestParams, 'zcrm_get_related_lists')
     .then(result => {
@@ -306,7 +305,7 @@ export const refreshTags = (recordTab, formID, crmConf, setCrmConf, setIsLoading
     formID,
     module,
     ...buildAuthRequestParams(crmConf),
-    dataCenter: crmConf.dataCenter,
+    dataCenter: crmConf.dataCenter
   }
   bitsFetch(refreshTagsParams, 'zcrm_get_tags')
     .then(result => {
@@ -346,7 +345,7 @@ export const refreshOwners = (formID, crmConf, setCrmConf, setIsLoading, setSnac
   const getOwnersParams = {
     formID,
     ...buildAuthRequestParams(crmConf),
-    dataCenter: crmConf.dataCenter,
+    dataCenter: crmConf.dataCenter
   }
   bitsFetch(getOwnersParams, 'zcrm_get_users')
     .then(result => {
@@ -376,7 +375,7 @@ export const refreshAssigmentRules = (recordTab, crmConf, setCrmConf, setIsLoadi
   const getAssigmentRulesParams = {
     module,
     ...buildAuthRequestParams(crmConf),
-    dataCenter: crmConf.dataCenter,
+    dataCenter: crmConf.dataCenter
   }
   bitsFetch(getAssigmentRulesParams, 'zcrm_get_assignment_rules')
     .then(result => {

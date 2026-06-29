@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function GravitecAuthorization({
-  gravitecConf,
-  setGravitecConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function GravitecAuthorization({ gravitecConf, setGravitecConf, step, setStep, isInfo }) {
   const note = `
     <h4>${__('To Get App key & App Secret', 'bit-integrations')}</h4>
     <ul>

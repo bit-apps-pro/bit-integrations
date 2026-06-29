@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (
   e,
   recordTab,
@@ -106,7 +105,7 @@ export const refreshModules = (formID, biginConf, setBiginConf, setIsLoading, se
     formID,
     id: biginConf.id,
     ...buildAuthRequestParams(biginConf),
-    dataCenter: biginConf.dataCenter,
+    dataCenter: biginConf.dataCenter
   }
   bitsFetch(refreshModulesRequestParams, 'zbigin_refresh_modules')
     .then(result => {
@@ -151,7 +150,7 @@ export const refreshPipelinesLayout = (formID, biginConf, setBiginConf, setIsLoa
     formID,
     id: biginConf.id,
     ...buildAuthRequestParams(biginConf),
-    dataCenter: biginConf.dataCenter,
+    dataCenter: biginConf.dataCenter
   }
   bitsFetch(refreshLayoutRequestParams, 'zbigin_refresh_playouts')
     .then(result => {
@@ -199,7 +198,7 @@ export const refreshRelatedList = (formID, biginConf, setBiginConf, setIsLoading
     formID,
     module: biginConf.module,
     ...buildAuthRequestParams(biginConf),
-    dataCenter: biginConf.dataCenter,
+    dataCenter: biginConf.dataCenter
   }
   bitsFetch(relatedListRequestParams, 'zbigin_refresh_related_lists')
     .then(result => {
@@ -245,7 +244,7 @@ export const getFields = (recordTab, formID, biginConf, setBiginConf, setIsLoadi
     formID,
     module,
     ...buildAuthRequestParams(biginConf),
-    dataCenter: biginConf.dataCenter,
+    dataCenter: biginConf.dataCenter
   }
   bitsFetch(getFieldsRequestParams, 'zbigin_refresh_fields')
     .then(result => {
@@ -299,7 +298,7 @@ export const refreshTags = (recordTab, formID, biginConf, setBiginConf, setIsLoa
     formID,
     module,
     ...buildAuthRequestParams(biginConf),
-    dataCenter: biginConf.dataCenter,
+    dataCenter: biginConf.dataCenter
   }
   bitsFetch(getTagsRequestParams, 'zbigin_refresh_tags')
     .then(result => {
@@ -333,7 +332,7 @@ export const refreshUsers = (formID, biginConf, setBiginConf, setIsLoading, setS
   const getUsersRequestParams = {
     formID,
     ...buildAuthRequestParams(biginConf),
-    dataCenter: biginConf.dataCenter,
+    dataCenter: biginConf.dataCenter
   }
   bitsFetch(getUsersRequestParams, 'zbigin_refresh_users')
     .then(result => {

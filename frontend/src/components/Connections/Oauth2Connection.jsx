@@ -197,11 +197,10 @@ export default function Oauth2Connection({
     const oauthChannelKey = createOauthChannelKey()
     const state = buildCallbackState(oauthChannelKey)
     const authUrl = buildAuthUrl(populatedAuthCodeEndpoint, { state, redirectUri, extraParams })
-    const popupResponse = await openOauthPopup(
-      authUrl,
-      formData.connectionName || 'OAuth',
-      { channelKey: oauthChannelKey, includeLegacyFallback: true }
-    )
+    const popupResponse = await openOauthPopup(authUrl, formData.connectionName || 'OAuth', {
+      channelKey: oauthChannelKey,
+      includeLegacyFallback: true
+    })
 
     if (popupResponse?.error) {
       throw new Error(
@@ -212,7 +211,9 @@ export default function Oauth2Connection({
     }
 
     if (!popupResponse?.code) {
-      throw new Error(popupResponse?.error_description || __('Authorization code missing', 'bit-integrations'))
+      throw new Error(
+        popupResponse?.error_description || __('Authorization code missing', 'bit-integrations')
+      )
     }
 
     const tokenRes = await exchangeAuthCodeForToken({
@@ -231,7 +232,16 @@ export default function Oauth2Connection({
     }
 
     return tokenRes?.data?.data || {}
-  }, [clientAuthentication, formData, grantType, redirectUri, resolvedAuthCodeEndpoint, resolvedTokenEndpoint, scope, sslVerify])
+  }, [
+    clientAuthentication,
+    formData,
+    grantType,
+    redirectUri,
+    resolvedAuthCodeEndpoint,
+    resolvedTokenEndpoint,
+    scope,
+    sslVerify
+  ])
 
   const handleClientCredentialsFlow = useCallback(async () => {
     const tokenRes = await exchangeClientCredentialsForToken({
@@ -248,7 +258,14 @@ export default function Oauth2Connection({
     }
 
     return tokenRes?.data?.data || {}
-  }, [clientAuthentication, formData.clientId, formData.clientSecret, resolvedTokenEndpoint, scope, sslVerify])
+  }, [
+    clientAuthentication,
+    formData.clientId,
+    formData.clientSecret,
+    resolvedTokenEndpoint,
+    scope,
+    sslVerify
+  ])
 
   const handleAuthorize = useCallback(async () => {
     if (!validate()) return
@@ -284,7 +301,9 @@ export default function Oauth2Connection({
       await storeConnection(savedAuthDetails)
     } catch (error) {
       setIsAuthorized(false)
-      toast.error(`${__('Authorization failed Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`)
+      toast.error(
+        `${__('Authorization failed Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`
+      )
     } finally {
       setIsLoading(false)
     }
@@ -305,8 +324,7 @@ export default function Oauth2Connection({
   ])
 
   const isAuthCodeFlow =
-    grantType === GRANT_TYPES.AUTHORIZATION_CODE ||
-    grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE
+    grantType === GRANT_TYPES.AUTHORIZATION_CODE || grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE
 
   return (
     <>
@@ -372,11 +390,7 @@ export default function Oauth2Connection({
           <div className="mt-3">
             <b>{__('Callback / Redirect URL:', 'bit-integrations')}</b>
           </div>
-          <CopyText
-            value={redirectUri}
-            className="field-key-cpy w-6 ml-0"
-            readOnly={isInfo}
-          />
+          <CopyText value={redirectUri} className="field-key-cpy w-6 ml-0" readOnly={isInfo} />
         </>
       )}
 

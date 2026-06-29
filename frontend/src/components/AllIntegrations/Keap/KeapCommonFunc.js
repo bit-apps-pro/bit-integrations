@@ -55,23 +55,24 @@ export const getAllTags = (confTmp, setConf, setLoading) => {
   setLoading(true)
 
   const requestParams = {
-    ...buildAuthRequestParams(confTmp),
+    ...buildAuthRequestParams(confTmp)
   }
 
-  bitsFetch(requestParams, 'keap_fetch_all_tags').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      if (result.data) {
-        newConf.tags = result.data
+  bitsFetch(requestParams, 'keap_fetch_all_tags')
+    .then(result => {
+      if (result && result.success) {
+        const newConf = { ...confTmp }
+        if (result.data) {
+          newConf.tags = result.data
+        }
+        setConf(newConf)
+        setLoading(false)
+        toast.success(__('Tag Fetched Successfully', 'bit-integrations'))
+        return
       }
-      setConf(newConf)
       setLoading(false)
-      toast.success(__('Tag Fetched Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading(false)
-    toast.error(__("Tag Couldn't Fetched Successfully", 'bit-integrations'))
-  })
+      toast.error(__("Tag Couldn't Fetched Successfully", 'bit-integrations'))
+    })
     .catch(() => {
       setLoading(false)
       toast.error(__("Tag Couldn't Fetched Successfully", 'bit-integrations'))
@@ -83,7 +84,7 @@ export const refreshCustomFields = (id, confTmp, setConf, setIsLoading, setSnack
 
   const requestParams = {
     id: id,
-    ...buildAuthRequestParams(confTmp),
+    ...buildAuthRequestParams(confTmp)
   }
 
   bitsFetch(requestParams, 'keap_fetch_all_custom_fields').then(result => {

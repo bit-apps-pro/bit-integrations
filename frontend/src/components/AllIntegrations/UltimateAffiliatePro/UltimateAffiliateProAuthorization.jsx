@@ -25,9 +25,20 @@ export default function UltimateAffiliateProAuthorization({
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {
           groups: [
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'ultimate-affiliate/ultimate-affiliate.php' }] },
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'ultimate-affiliate-pro/ultimate-affiliate-pro.php' }] },
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'indeed-affiliate-pro/indeed-affiliate-pro.php' }] }
+            {
+              logic: 'AND',
+              checks: [{ type: 'plugin_file', value: 'ultimate-affiliate/ultimate-affiliate.php' }]
+            },
+            {
+              logic: 'AND',
+              checks: [
+                { type: 'plugin_file', value: 'ultimate-affiliate-pro/ultimate-affiliate-pro.php' }
+              ]
+            },
+            {
+              logic: 'AND',
+              checks: [{ type: 'plugin_file', value: 'indeed-affiliate-pro/indeed-affiliate-pro.php' }]
+            }
           ],
           logic: 'OR'
         }

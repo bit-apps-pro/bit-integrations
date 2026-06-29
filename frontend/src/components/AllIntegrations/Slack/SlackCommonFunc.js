@@ -13,12 +13,7 @@ export const handleInput = (e, slackConf, setSlackConf) => {
   setSlackConf({ ...newConf })
 }
 
-export const fetchChannels = async (
-  confTmp,
-  setConf,
-  setIsLoading,
-  type = 'fetch'
-) => {
+export const fetchChannels = async (confTmp, setConf, setIsLoading, type = 'fetch') => {
   if (!confTmp.connection_id && !confTmp.accessToken) {
     toast.error(__("Access Token can't be empty", 'bit-integrations'))
     return

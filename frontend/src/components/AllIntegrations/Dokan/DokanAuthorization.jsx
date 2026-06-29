@@ -4,13 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function DokanAuthorization({
-  dokanConf,
-  setDokanConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function DokanAuthorization({ dokanConf, setDokanConf, step, setStep, isInfo }) {
   return (
     <Authorization
       config={dokanConf}

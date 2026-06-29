@@ -34,7 +34,6 @@ export const checkMappedFields = theEventsCalendarConf => {
   return true
 }
 
-
 export const getAllEvents = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, events: true })
 

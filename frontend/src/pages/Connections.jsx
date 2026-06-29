@@ -5,11 +5,7 @@ import EditIcn from '../Icons/EditIcn'
 import TrashIcn from '../Icons/TrashIcn'
 import Table from '../components/Utilities/Table'
 import ConfirmModal from '../components/Utilities/ConfirmModal'
-import {
-  deleteConnection,
-  listConnections,
-  updateConnection
-} from '../Utils/connectionApi'
+import { deleteConnection, listConnections, updateConnection } from '../Utils/connectionApi'
 import { __, sprintf } from '../Utils/i18nwrap'
 
 export default function Connections() {
@@ -156,83 +152,82 @@ export default function Connections() {
       .finally(() => setIsConfirmPending(false))
   }, [deletingId, isConfirmPending, getDeleteErrorMessage])
 
-  const setBulkDelete = useCallback(rows => {
-    const ids = []
+  const setBulkDelete = useCallback(
+    rows => {
+      const ids = []
 
-    if (Array.isArray(rows)) {
-      rows.forEach(row => {
-        if (row?.original?.id) {
-          ids.push(row.original.id)
-        }
-      })
-    } else if (rows?.original?.id) {
-      ids.push(rows.original.id)
-    }
-
-    if (ids.length < 1) {
-      return
-    }
-
-    const promise = Promise.allSettled(
-      ids.map(id =>
-        deleteConnection(id).then(res => {
-          if (!res?.success) {
-            throw new Error(getDeleteErrorMessage(res))
+      if (Array.isArray(rows)) {
+        rows.forEach(row => {
+          if (row?.original?.id) {
+            ids.push(row.original.id)
           }
-          return id
         })
-      )
-    ).then(results => {
-      const deletedIds = results
-        .filter(r => r.status === 'fulfilled')
-        .map(r => r.value)
-
-      if (deletedIds.length > 0) {
-        setConnections(prev => prev.filter(item => !deletedIds.includes(item.id)))
+      } else if (rows?.original?.id) {
+        ids.push(rows.original.id)
       }
 
-      const failedCount = results.filter(r => r.status === 'rejected').length
+      if (ids.length < 1) {
+        return
+      }
 
-      if (failedCount > 0) {
-        const uniqueFailureMessages = [
-          ...new Set(
-            results
-              .filter(r => r.status === 'rejected')
-              .map(r => r.reason?.message)
-              .filter(Boolean)
-          )
-        ]
-
-        if (failedCount === ids.length && uniqueFailureMessages.length === 1) {
-          throw new Error(uniqueFailureMessages[0])
-        }
-
-        throw new Error(
-          failedCount === ids.length ? 'bulk_delete_failed' : 'bulk_delete_partial'
+      const promise = Promise.allSettled(
+        ids.map(id =>
+          deleteConnection(id).then(res => {
+            if (!res?.success) {
+              throw new Error(getDeleteErrorMessage(res))
+            }
+            return id
+          })
         )
-      }
+      ).then(results => {
+        const deletedIds = results.filter(r => r.status === 'fulfilled').map(r => r.value)
 
-      return deletedIds.length > 1
-        ? __('Connections deleted', 'bit-integrations')
-        : __('Connection deleted', 'bit-integrations')
-    })
-
-    toast.promise(promise, {
-      success: msg => msg,
-      error: error => {
-        if (error?.message === 'bulk_delete_partial') {
-          return __('Some selected connections could not be deleted.', 'bit-integrations')
+        if (deletedIds.length > 0) {
+          setConnections(prev => prev.filter(item => !deletedIds.includes(item.id)))
         }
 
-        if (error?.message === 'bulk_delete_failed') {
-          return __('Failed to delete', 'bit-integrations')
+        const failedCount = results.filter(r => r.status === 'rejected').length
+
+        if (failedCount > 0) {
+          const uniqueFailureMessages = [
+            ...new Set(
+              results
+                .filter(r => r.status === 'rejected')
+                .map(r => r.reason?.message)
+                .filter(Boolean)
+            )
+          ]
+
+          if (failedCount === ids.length && uniqueFailureMessages.length === 1) {
+            throw new Error(uniqueFailureMessages[0])
+          }
+
+          throw new Error(failedCount === ids.length ? 'bulk_delete_failed' : 'bulk_delete_partial')
         }
 
-        return error?.message || __('Failed to delete', 'bit-integrations')
-      },
-      loading: __('Deleting...', 'bit-integrations')
-    })
-  }, [getDeleteErrorMessage])
+        return deletedIds.length > 1
+          ? __('Connections deleted', 'bit-integrations')
+          : __('Connection deleted', 'bit-integrations')
+      })
+
+      toast.promise(promise, {
+        success: msg => msg,
+        error: error => {
+          if (error?.message === 'bulk_delete_partial') {
+            return __('Some selected connections could not be deleted.', 'bit-integrations')
+          }
+
+          if (error?.message === 'bulk_delete_failed') {
+            return __('Failed to delete', 'bit-integrations')
+          }
+
+          return error?.message || __('Failed to delete', 'bit-integrations')
+        },
+        loading: __('Deleting...', 'bit-integrations')
+      })
+    },
+    [getDeleteErrorMessage]
+  )
 
   const columns = useMemo(
     () => [
@@ -321,7 +316,8 @@ export default function Connections() {
             .filter(Boolean)
 
           const extraCount = linkedIntegrations.length - previewNames.length
-          const linkedText = extraCount > 0 ? `${previewNames.join(', ')} +${extraCount}` : previewNames.join(', ')
+          const linkedText =
+            extraCount > 0 ? `${previewNames.join(', ')} +${extraCount}` : previewNames.join(', ')
           const tooltipText = linkedIntegrations
             .map(item => item?.name || `#${item?.id || ''}`)
             .filter(Boolean)
@@ -438,7 +434,10 @@ export default function Connections() {
         {!isLoading && filteredConnections.length === 0 && (
           <p className="txt-center mt-3 connections-empty-note">
             {connections.length === 0
-              ? __('No connections saved yet. Authorize an app from any integration to add one.', 'bit-integrations')
+              ? __(
+                  'No connections saved yet. Authorize an app from any integration to add one.',
+                  'bit-integrations'
+                )
               : __('No connections match the current filters.', 'bit-integrations')}
           </p>
         )}

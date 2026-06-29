@@ -105,7 +105,15 @@ export const mailjetAuthentication = (
 }
 
 export const getAllLists = (confTmp, setConf, loading, setLoading, type = 'refresh') =>
-  mailjetAuthentication(confTmp, setConf, () => {}, () => {}, loading, setLoading, type === 'fetch' ? 'authentication' : 'refreshLists')
+  mailjetAuthentication(
+    confTmp,
+    setConf,
+    () => {},
+    () => {},
+    loading,
+    setLoading,
+    type === 'fetch' ? 'authentication' : 'refreshLists'
+  )
 
 export const getCustomFields = (confTmp, setConf, setLoading) => {
   setLoading(prev => ({ ...prev, customFields: true }))

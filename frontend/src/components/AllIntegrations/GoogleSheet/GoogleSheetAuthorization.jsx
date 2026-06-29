@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function GoogleSheetAuthorization({
-  sheetConf,
-  setSheetConf,
-  step,
-  setstep,
-  isInfo
-}) {
+export default function GoogleSheetAuthorization({ sheetConf, setSheetConf, step, setstep, isInfo }) {
   const note = `
     <h4>${__('Google Sheets OAuth setup', 'bit-integrations')}</h4>
     <ul>

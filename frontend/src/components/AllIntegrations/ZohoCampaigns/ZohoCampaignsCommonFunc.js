@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (e, formID, campaignsConf, setCampaignsConf, setIsLoading, setSnackbar) => {
   let newConf = { ...campaignsConf }
   newConf[e.target.name] = e.target.value
@@ -41,7 +40,7 @@ export const refreshLists = (formID, campaignsConf, setCampaignsConf, setIsLoadi
     formID,
     id: campaignsConf.id,
     ...buildAuthRequestParams(campaignsConf),
-    dataCenter: campaignsConf.dataCenter,
+    dataCenter: campaignsConf.dataCenter
   }
   bitsFetch(refreshListsRequestParams, 'zcampaigns_refresh_lists')
     .then(result => {
@@ -93,7 +92,7 @@ export const refreshContactFields = (
     formID,
     list,
     ...buildAuthRequestParams(campaignsConf),
-    dataCenter: campaignsConf.dataCenter,
+    dataCenter: campaignsConf.dataCenter
   }
   bitsFetch(refreshContactFieldsRequestParams, 'zcampaigns_refresh_contact_fields')
     .then(result => {

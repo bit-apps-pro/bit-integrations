@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function SendFoxAuthorization({
-  sendFoxConf,
-  setSendFoxConf,
-  step,
-  setstep,
-  isInfo
-}) {
+export default function SendFoxAuthorization({ sendFoxConf, setSendFoxConf, step, setstep, isInfo }) {
   const note = `
     <small class="d-blk mt-3">
       ${__('To generate an access token, please visit', 'bit-integrations')}

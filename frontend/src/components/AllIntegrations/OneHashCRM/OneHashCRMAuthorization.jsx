@@ -16,7 +16,7 @@ export default function OneHashCRMAuthorization({
       <h4>${__('Get API credentials', 'bit-integrations')}</h4>
       <ul>
           <li>${__(
-            "Go to your OneHash CRM user dashboard and click profile from top-right corner.",
+            'Go to your OneHash CRM user dashboard and click profile from top-right corner.',
             'bit-integrations'
           )}</li>
           <li>${__('Select My Settings.', 'bit-integrations')}</li>

@@ -15,9 +15,7 @@ export default function SendinBlueAuthorization({
 }) {
   const loadLists = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...sendinBlueConf, connection_id: connectionId }
-        : sendinBlueConf
+      const nextConf = connectionId ? { ...sendinBlueConf, connection_id: connectionId } : sendinBlueConf
 
       refreshLists(nextConf, setSendinBlueConf, () => {}, setSnackbar)
     },

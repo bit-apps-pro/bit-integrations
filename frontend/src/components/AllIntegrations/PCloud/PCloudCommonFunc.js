@@ -26,9 +26,7 @@ export const checkMappedFields = pCloudConf => {
 }
 
 const buildAuthRequestParams = conf =>
-  conf?.connection_id
-    ? { connection_id: conf.connection_id }
-    : { tokenDetails: conf.tokenDetails }
+  conf?.connection_id ? { connection_id: conf.connection_id } : { tokenDetails: conf.tokenDetails }
 
 export const getAllPCloudFolders = (pCloudConf, setPCloudConf, type) => {
   const queryParams = buildAuthRequestParams(pCloudConf)

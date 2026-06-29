@@ -48,10 +48,10 @@ export const refreshCampaignMonitorLists = (
 
         setCampaignMonitorConf({ ...newConf })
       } else {
-          setSnackbar({
-            show: true,
-            msg: __('CampaignMonitor Lists refresh failed. please try again', 'bit-integrations')
-          })
+        setSnackbar({
+          show: true,
+          msg: __('CampaignMonitor Lists refresh failed. please try again', 'bit-integrations')
+        })
       }
       if (typeof setIsLoading === 'function') setIsLoading(false)
     })

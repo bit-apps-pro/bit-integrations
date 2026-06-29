@@ -16,9 +16,7 @@ export default function CompanyHubAuthorization({
 }) {
   const loadMetadata = useCallback(
     connectionId => {
-      const nextConf = connectionId
-        ? { ...companyHubConf, connection_id: connectionId }
-        : companyHubConf
+      const nextConf = connectionId ? { ...companyHubConf, connection_id: connectionId } : companyHubConf
 
       getAllCompanies(nextConf, setCompanyHubConf, () => {})
       getAllContacts(nextConf, setCompanyHubConf, () => {})

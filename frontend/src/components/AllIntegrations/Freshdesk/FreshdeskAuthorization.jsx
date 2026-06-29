@@ -38,33 +38,33 @@ export default function FreshdeskAuthorization({
             <ul>
                 <li>${__('Access your Freshdesk account.', 'bit-integrations')}</li>
                 <li>${__(
-    'Copy the URL displayed in your browser’s address bar',
-    'bit-integrations'
-  )} (e.g., https://domain.freshdesk.com/)</li>
+                  'Copy the URL displayed in your browser’s address bar',
+                  'bit-integrations'
+                )} (e.g., https://domain.freshdesk.com/)</li>
                 <li>${__(
-    'Paste the copied App Domain into the designated “App Domain” field within the integrations you’re setting up.',
-    'bit-integrations'
-  )}</li>
+                  'Paste the copied App Domain into the designated “App Domain” field within the integrations you’re setting up.',
+                  'bit-integrations'
+                )}</li>
             </ul>
             <h4>${__('Retrieve Your App API Key', 'bit-integrations')}</h4>
             <ul>
                 <li>${__(
-    'Within your Freshdesk account, click on your profile icon, situated in the top right corner.',
-    'bit-integrations'
-  )}</li>
+                  'Within your Freshdesk account, click on your profile icon, situated in the top right corner.',
+                  'bit-integrations'
+                )}</li>
                 <li>${__(
-    'Select “Profile Settings” from the options that appear.',
-    'bit-integrations'
-  )}</li>
+                  'Select “Profile Settings” from the options that appear.',
+                  'bit-integrations'
+                )}</li>
                 <li>${__(
-    'Locate your App API key, prominently displayed on the top right side of the Profile Settings page.',
-    'bit-integrations'
-  )}</li>
+                  'Locate your App API key, prominently displayed on the top right side of the Profile Settings page.',
+                  'bit-integrations'
+                )}</li>
                 <li>${__('Copy this key.', 'bit-integrations')}</li>
                 <li>${__(
-    'Paste the copied App API key into the designated “App API key” field within the integrations you’re configuring.',
-    'bit-integrations'
-  )}</li>
+                  'Paste the copied App API key into the designated “App API key” field within the integrations you’re configuring.',
+                  'bit-integrations'
+                )}</li>
 </ul>
 <small className="d-blk mt-2">
             ${__('To get access Token , Please Visit', 'bit-integrations')}${' '}

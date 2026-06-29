@@ -4,13 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function WPCafeAuthorization({
-  wpcafeConf,
-  setWpcafeConf,
-  step,
-  nextPage,
-  isInfo
-}) {
+export default function WPCafeAuthorization({ wpcafeConf, setWpcafeConf, step, nextPage, isInfo }) {
   const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
     <Authorization

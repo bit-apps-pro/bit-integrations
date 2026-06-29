@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function LionDeskAuthorization({
-  lionDeskConf,
-  setLionDeskConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function LionDeskAuthorization({ lionDeskConf, setLionDeskConf, step, setStep, isInfo }) {
   const note = `
     <h4>${__('Get Redirect URI, Client ID and Client Secret', 'bit-integrations')}</h4>
     <ul>

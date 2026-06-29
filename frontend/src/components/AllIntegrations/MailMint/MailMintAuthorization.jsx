@@ -14,13 +14,16 @@ export default function MailMintAuthorization({
   setIsLoading,
   setSnackbar
 }) {
-  const handleSetStep = useCallback(value => {
-    if (value === 2) {
-      getAllList(mailMintConf, setMailMintConf, setIsLoading, setSnackbar)
-      getAllTags(mailMintConf, setMailMintConf, setIsLoading, setSnackbar)
-    }
-    setStep(value)
-  }, [setStep, mailMintConf, setMailMintConf, setIsLoading, setSnackbar])
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2) {
+        getAllList(mailMintConf, setMailMintConf, setIsLoading, setSnackbar)
+        getAllTags(mailMintConf, setMailMintConf, setIsLoading, setSnackbar)
+      }
+      setStep(value)
+    },
+    [setStep, mailMintConf, setMailMintConf, setIsLoading, setSnackbar]
+  )
 
   return (
     <Authorization

@@ -34,7 +34,6 @@ export const checkMappedFields = jetEngineConf => {
   return true
 }
 
-
 export const getJetEngineOptions = (
   route,
   actionOptions,

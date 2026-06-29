@@ -149,12 +149,7 @@ function Line({ formFields, setFlow, flow, allIntegURL }) {
       </div>
 
       {/* STEP 1 */}
-      <LineAuthorization
-        lineConf={lineConf}
-        setLineConf={setLineConf}
-        step={step}
-        setstep={setstep}
-      />
+      <LineAuthorization lineConf={lineConf} setLineConf={setLineConf} step={step} setstep={setstep} />
 
       {/* STEP 2 */}
       <div

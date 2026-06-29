@@ -14,16 +14,16 @@ export default function FreshSalesAuthorization({
     <h4>${__('Step of generate API token:', 'bit-integrations')}</h4>
     <ul>
       <li>${__(
-    'Goto',
-    'bit-integrations'
-  )} <a href="https://www.myfreshworks.com/crm/sales/personal-settings/api-settings">${__(
-    'Generate API Token',
-    'bit-integrations'
-  )}</a></li>
+        'Goto',
+        'bit-integrations'
+      )} <a href="https://www.myfreshworks.com/crm/sales/personal-settings/api-settings">${__(
+        'Generate API Token',
+        'bit-integrations'
+      )}</a></li>
       <li>${__(
-    'Copy the <b>Token</b> and paste into <b>API Token</b> field of your authorization form.',
-    'bit-integrations'
-  )}</li>
+        'Copy the <b>Token</b> and paste into <b>API Token</b> field of your authorization form.',
+        'bit-integrations'
+      )}</li>
       <li>${__('Finally, click <b>Authorize</b> button.', 'bit-integrations')}</li>
   </ul>
   <small className="d-blk mt-3">

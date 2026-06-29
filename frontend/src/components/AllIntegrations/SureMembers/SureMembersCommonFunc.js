@@ -33,7 +33,6 @@ export const checkMappedFields = sureMembersConf => {
   return true
 }
 
-
 export const getSureMembersGroups = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, groups: true })
 

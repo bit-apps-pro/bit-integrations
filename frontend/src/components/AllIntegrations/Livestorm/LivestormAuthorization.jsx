@@ -58,7 +58,11 @@ export default function LivestormAuthorization({
         method: 'GET',
         key: 'X-BI-Auth',
         addTo: 'header',
-        headers: { Authorization: '{api_key}', Accept: 'application/json', 'Content-Type': 'application/json' }
+        headers: {
+          Authorization: '{api_key}',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
       }}
       noteDetails={{ note: ActiveInstructions }}
       onConnectionSelected={loadEvents}

@@ -27,9 +27,7 @@ export default function ZohoCampaignsAuthorization({
 
   const loadLists = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...campaignsConf, connection_id: connectionId }
-        : campaignsConf
+      const nextConf = connectionId ? { ...campaignsConf, connection_id: connectionId } : campaignsConf
       refreshLists(formID, nextConf, setCampaignsConf, setIsLoading, setSnackbar)
     },
     [campaignsConf, formID, setCampaignsConf, setIsLoading, setSnackbar]

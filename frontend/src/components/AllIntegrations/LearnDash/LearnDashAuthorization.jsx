@@ -24,7 +24,10 @@ export default function LearnDashAuthorization({
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {
           groups: [
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'learndash-propanel/learndash_propanel.php' }] },
+            {
+              logic: 'AND',
+              checks: [{ type: 'plugin_file', value: 'learndash-propanel/learndash_propanel.php' }]
+            },
             { logic: 'AND', checks: [{ type: 'plugin_file', value: 'learndash/learndash.php' }] },
             { logic: 'AND', checks: [{ type: 'plugin_file', value: 'sfwd-lms/sfwd_lms.php' }] }
           ],

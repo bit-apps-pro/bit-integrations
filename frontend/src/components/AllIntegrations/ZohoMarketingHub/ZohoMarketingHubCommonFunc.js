@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (
   e,
   formID,
@@ -62,7 +61,7 @@ export const refreshLists = (
     formID,
     id: marketingHubConf.id,
     ...buildAuthRequestParams(marketingHubConf),
-    dataCenter: marketingHubConf.dataCenter,
+    dataCenter: marketingHubConf.dataCenter
   }
   bitsFetch(refreshListsRequestParams, 'zmarketingHub_refresh_lists')
     .then(result => {
@@ -115,7 +114,7 @@ export const refreshContactFields = (
     formID,
     list,
     ...buildAuthRequestParams(marketingHubConf),
-    dataCenter: marketingHubConf.dataCenter,
+    dataCenter: marketingHubConf.dataCenter
   }
   bitsFetch(refreshContactFieldsRequestParams, 'zmarketingHub_refresh_contact_fields')
     .then(result => {

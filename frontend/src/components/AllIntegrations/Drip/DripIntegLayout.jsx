@@ -43,14 +43,7 @@ export default function DripIntegLayout({ formFields, dripConf, setDripConf, loa
         ))}
       </select>
       <button
-        onClick={() =>
-          fetchDripAccounts(
-            dripConf,
-            setDripConf,
-            setLoading,
-            'refresh'
-          )
-        }
+        onClick={() => fetchDripAccounts(dripConf, setDripConf, setLoading, 'refresh')}
         className="icn-btn sh-sm ml-2 mr-2 tooltip"
         style={{ '--tooltip-txt': '"Refresh Accounts"' }}
         type="button"

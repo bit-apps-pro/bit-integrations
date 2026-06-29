@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (
   e,
   deskConf,
@@ -75,7 +74,7 @@ export const refreshOrganizations = (formID, deskConf, setDeskConf, setIsLoading
     formID,
     id: deskConf.id,
     ...buildAuthRequestParams(deskConf),
-    dataCenter: deskConf.dataCenter,
+    dataCenter: deskConf.dataCenter
   }
   bitsFetch(refreshOrganizationsRequestParams, 'zdesk_refresh_organizations')
     .then(result => {

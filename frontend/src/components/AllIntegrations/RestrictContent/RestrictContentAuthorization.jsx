@@ -13,12 +13,15 @@ export default function RestrictContentAuthorization({
   isInfo,
   setIsLoading
 }) {
-  const handleSetStep = useCallback(value => {
-    if (value === 2) {
-      getAllLevels(restrictConf, setRestrictConf, setIsLoading)
-    }
-    setStep(value)
-  }, [setStep, restrictConf, setRestrictConf, setIsLoading])
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2) {
+        getAllLevels(restrictConf, setRestrictConf, setIsLoading)
+      }
+      setStep(value)
+    },
+    [setStep, restrictConf, setRestrictConf, setIsLoading]
+  )
 
   return (
     <Authorization
@@ -33,8 +36,14 @@ export default function RestrictContentAuthorization({
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {
           groups: [
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'restrict-content-pro/restrict-content-pro.php' }] },
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'restrict-content/restrictcontent.php' }] }
+            {
+              logic: 'AND',
+              checks: [{ type: 'plugin_file', value: 'restrict-content-pro/restrict-content-pro.php' }]
+            },
+            {
+              logic: 'AND',
+              checks: [{ type: 'plugin_file', value: 'restrict-content/restrictcontent.php' }]
+            }
           ],
           logic: 'OR'
         }

@@ -3,13 +3,7 @@ import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
 
-export default function WpErpAuthorization({
-  wpErpConf,
-  setWpErpConf,
-  step,
-  nextPage,
-  isInfo
-}) {
+export default function WpErpAuthorization({ wpErpConf, setWpErpConf, step, nextPage, isInfo }) {
   const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
     <Authorization

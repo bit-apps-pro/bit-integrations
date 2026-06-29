@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function MoxieCRMAuthorization({
-  moxiecrmConf,
-  setMoxieCRMConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function MoxieCRMAuthorization({ moxiecrmConf, setMoxieCRMConf, step, setStep, isInfo }) {
   const note = `
     <h4>${__('Get API Key', 'bit-integrations')}</h4>
     <ul>

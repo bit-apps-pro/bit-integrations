@@ -45,8 +45,7 @@ const randomToken = (bytes = 16) => {
   return base64UrlEncode(arr)
 }
 
-const getChannelName = channelKey =>
-  channelKey ? `${OAUTH_CHANNEL}:${channelKey}` : OAUTH_CHANNEL
+const getChannelName = channelKey => (channelKey ? `${OAUTH_CHANNEL}:${channelKey}` : OAUTH_CHANNEL)
 
 export const createOauthChannelKey = () => randomToken(18)
 
@@ -99,9 +98,7 @@ export const openOauthPopup = (
     let resolved = false
     const channel = new BroadcastChannel(getChannelName(channelKey))
     const fallbackChannel =
-      includeLegacyFallback && channelKey
-        ? new BroadcastChannel(OAUTH_CHANNEL)
-        : null
+      includeLegacyFallback && channelKey ? new BroadcastChannel(OAUTH_CHANNEL) : null
 
     const cleanup = () => {
       channel.close()
@@ -113,7 +110,9 @@ export const openOauthPopup = (
       if (resolved) return
       resolved = true
       cleanup()
-      try { popup.close() } catch (_) {} // eslint-disable-line no-unused-vars, no-empty
+      try {
+        popup.close()
+      } catch (_) {} // eslint-disable-line no-unused-vars, no-empty
       resolve(event.data || {})
     }
     channel.onmessage = resolveMessage
@@ -180,15 +179,15 @@ export const exchangeAuthCodeForToken = ({
   if (codeVerifier) bodyParams.code_verifier = codeVerifier
 
   return oauthConnectionExchange({
-      url: tokenEndpoint.url,
-      method: tokenEndpoint.method || 'POST',
-      body_params: bodyParams,
-      headers: {
-        ...(tokenEndpoint?.headers || {}),
-        ...buildClientAuthHeaders({ clientId, clientSecret, clientAuthentication })
-      },
-      ssl_verify: sslVerify
-    })
+    url: tokenEndpoint.url,
+    method: tokenEndpoint.method || 'POST',
+    body_params: bodyParams,
+    headers: {
+      ...(tokenEndpoint?.headers || {}),
+      ...buildClientAuthHeaders({ clientId, clientSecret, clientAuthentication })
+    },
+    ssl_verify: sslVerify
+  })
 }
 
 export const exchangeClientCredentialsForToken = ({
@@ -208,13 +207,13 @@ export const exchangeClientCredentialsForToken = ({
   if (scope) bodyParams.scope = scope
 
   return oauthConnectionExchange({
-      url: tokenEndpoint.url,
-      method: tokenEndpoint.method || 'POST',
-      body_params: bodyParams,
-      headers: {
-        ...(tokenEndpoint?.headers || {}),
-        ...buildClientAuthHeaders({ clientId, clientSecret, clientAuthentication })
-      },
-      ssl_verify: sslVerify
-    })
+    url: tokenEndpoint.url,
+    method: tokenEndpoint.method || 'POST',
+    body_params: bodyParams,
+    headers: {
+      ...(tokenEndpoint?.headers || {}),
+      ...buildClientAuthHeaders({ clientId, clientSecret, clientAuthentication })
+    },
+    ssl_verify: sslVerify
+  })
 }

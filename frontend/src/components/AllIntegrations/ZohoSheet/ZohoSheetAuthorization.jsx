@@ -26,9 +26,7 @@ export default function ZohoSheetAuthorization({
 
   const loadWorkbooks = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...zohoSheetConf, connection_id: connectionId }
-        : zohoSheetConf
+      const nextConf = connectionId ? { ...zohoSheetConf, connection_id: connectionId } : zohoSheetConf
       if (!nextConf?.workbooks?.length) {
         getAllWorkbooks(nextConf, setZohoSheetConf, loading, setLoading)
       }

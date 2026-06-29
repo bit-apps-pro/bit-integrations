@@ -5,9 +5,7 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
 const buildAuthRequestParams = confTmp =>
-  confTmp.connection_id
-    ? { connection_id: confTmp.connection_id }
-    : { api_key: confTmp.api_key }
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { api_key: confTmp.api_key }
 
 export const handleInput = (e, salesmateConf, setSalesmateConf) => {
   const newConf = { ...salesmateConf }

@@ -4,13 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function WooCommerceAuthorization({
-  wcConf,
-  setWcConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function WooCommerceAuthorization({ wcConf, setWcConf, step, setStep, isInfo }) {
   return (
     <Authorization
       config={wcConf}
@@ -22,7 +16,10 @@ export default function WooCommerceAuthorization({
       tutorialLinks={tutorialLinks?.wooCommerce || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'plugin_file', value: 'woocommerce/woocommerce.php' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'plugin_file', value: 'woocommerce/woocommerce.php' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(

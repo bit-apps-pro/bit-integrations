@@ -79,14 +79,7 @@ export const getAllEvents = (confTmp, setConf, loading, setLoading, setSnackbar 
   })
 }
 
-export const getAllSessions = (
-  confTmp,
-  setConf,
-  event_id,
-  loading,
-  setLoading,
-  setSnackbar = null
-) => {
+export const getAllSessions = (confTmp, setConf, event_id, loading, setLoading, setSnackbar = null) => {
   setLoading({ ...loading, session: true })
 
   const requestParams = {

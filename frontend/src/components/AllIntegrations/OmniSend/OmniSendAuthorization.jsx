@@ -4,13 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
-export default function OmniSendAuthorization({
-  omniSendConf,
-  setOmniSendConf,
-  step,
-  setstep,
-  isInfo
-}) {
+export default function OmniSendAuthorization({ omniSendConf, setOmniSendConf, step, setstep, isInfo }) {
   const note = `
     <h4>${__('Step of generate API token:', 'bit-integrations')}</h4>
     <ul>

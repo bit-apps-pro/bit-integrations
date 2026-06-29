@@ -7,9 +7,9 @@ export default function ACPTAuthorization({ acptConf, setAcptConf, step, setStep
   const note = `
     <b>${__('Please note', 'bit-integrations')}</b>
     <p>${__(
-    'The secret key will no longer be displayed, so please take note of it. Eventually, you can regenerate your API keys.',
-    'bit-integrations'
-  )}</p>
+      'The secret key will no longer be displayed, so please take note of it. Eventually, you can regenerate your API keys.',
+      'bit-integrations'
+    )}</p>
     <h4>${__('To get API key-secret', 'bit-integrations')}</h4>
     <ul>
       <li>${__('Go to the ACPT dashboard.', 'bit-integrations')}</li>

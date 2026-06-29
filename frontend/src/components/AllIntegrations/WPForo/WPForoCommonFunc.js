@@ -34,7 +34,6 @@ export const checkMappedFields = wpforoConf => {
   return true
 }
 
-
 export const getWPForoReputations = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, reputation: true })
 

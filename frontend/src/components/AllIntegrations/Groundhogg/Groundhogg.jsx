@@ -117,9 +117,7 @@ function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
         <GroundhoggIntegLayout
           formFields={formFields}
-          handleInput={e =>
-            handleInput(e, groundhoggConf, setGroundhoggConf, setIsLoading, setSnackbar)
-          }
+          handleInput={e => handleInput(e, groundhoggConf, setGroundhoggConf, setIsLoading, setSnackbar)}
           groundhoggConf={groundhoggConf}
           setGroundhoggConf={setGroundhoggConf}
           isLoading={isLoading}

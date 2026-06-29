@@ -28,4 +28,3 @@ export const checkMappedFields = wpcafeConf => {
   }
   return true
 }
-

@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (
   e,
   creatorConf,
@@ -81,7 +80,7 @@ export const refreshApplications = (formID, creatorConf, setCreatorConf, setIsLo
     formID,
     id: creatorConf.id,
     ...buildAuthRequestParams(creatorConf),
-    dataCenter: creatorConf.dataCenter,
+    dataCenter: creatorConf.dataCenter
   }
   bitsFetch(refreshApplicationsRequestParams, 'zcreator_refresh_applications')
     .then(result => {

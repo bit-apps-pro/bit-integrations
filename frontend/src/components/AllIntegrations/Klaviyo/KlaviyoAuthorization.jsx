@@ -5,13 +5,7 @@ import Authorization from '../../Connections/Authorization'
 import { getAllLists } from './KlaviyoCommonFunc'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
-function KlaviyoAuthorization({
-  klaviyoConf,
-  setKlaviyoConf,
-  step,
-  setStep,
-  isInfo
-}) {
+function KlaviyoAuthorization({ klaviyoConf, setKlaviyoConf, step, setStep, isInfo }) {
   const loadLists = useCallback(
     connectionId => {
       const nextConf = connectionId ? { ...klaviyoConf, connection_id: connectionId } : klaviyoConf

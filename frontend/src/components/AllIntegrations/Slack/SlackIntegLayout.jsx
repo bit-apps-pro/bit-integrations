@@ -33,10 +33,10 @@ export default function SlackIntegLayout({
           className="btcd-paper-inp w-5">
           <option value="">{__('Select Channel List', 'bit-integrations')}</option>
           {(slackConf?.channels || slackConf?.tokenDetails?.channels || []).map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
         </select>
         <button
           onClick={() => fetchChannels(slackConf, setSlackConf, setIsLoading, 'refresh')}

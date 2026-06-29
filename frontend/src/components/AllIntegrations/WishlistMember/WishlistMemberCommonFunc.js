@@ -2,7 +2,6 @@ import { create } from 'mutative'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
-
 export const generateMappedField = wishlistFields => {
   const requiredFields = wishlistFields.filter(fld => fld?.required === true)
 

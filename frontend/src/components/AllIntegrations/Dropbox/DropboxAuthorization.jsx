@@ -3,13 +3,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function DropboxAuthorization({
-  dropboxConf,
-  setDropboxConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function DropboxAuthorization({ dropboxConf, setDropboxConf, step, setStep, isInfo }) {
   const note = `
     <h4>${__('Dropbox OAuth setup', 'bit-integrations')}</h4>
     <ul>

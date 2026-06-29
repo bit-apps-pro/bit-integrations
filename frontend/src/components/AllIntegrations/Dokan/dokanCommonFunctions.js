@@ -34,7 +34,6 @@ export const checkMappedFields = dokanConf => {
   return true
 }
 
-
 export const getAllVendors = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, vendors: true })
 

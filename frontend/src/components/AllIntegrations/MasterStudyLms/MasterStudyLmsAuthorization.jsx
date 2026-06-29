@@ -4,13 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
-export default function MasterStudyLmsAuthorization({
-  msLmsConf,
-  setMsLmsConf,
-  step,
-  setStep,
-  isInfo
-}) {
+export default function MasterStudyLmsAuthorization({ msLmsConf, setMsLmsConf, step, setStep, isInfo }) {
   return (
     <Authorization
       config={msLmsConf}
@@ -24,8 +18,26 @@ export default function MasterStudyLmsAuthorization({
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {
           groups: [
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'masterstudy-lms-learning-management-system/masterstudy-lms-learning-management-system.php' }] },
-            { logic: 'AND', checks: [{ type: 'plugin_file', value: 'masterstudy-lms-learning-management-system-pro/masterstudy-lms-learning-management-system-pro.php' }] }
+            {
+              logic: 'AND',
+              checks: [
+                {
+                  type: 'plugin_file',
+                  value:
+                    'masterstudy-lms-learning-management-system/masterstudy-lms-learning-management-system.php'
+                }
+              ]
+            },
+            {
+              logic: 'AND',
+              checks: [
+                {
+                  type: 'plugin_file',
+                  value:
+                    'masterstudy-lms-learning-management-system-pro/masterstudy-lms-learning-management-system-pro.php'
+                }
+              ]
+            }
           ],
           logic: 'OR'
         }

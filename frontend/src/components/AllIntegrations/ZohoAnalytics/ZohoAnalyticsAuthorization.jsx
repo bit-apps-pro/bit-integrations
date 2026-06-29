@@ -28,9 +28,7 @@ export default function ZohoAnalyticsAuthorization({
 
   const loadWorkspaces = useCallback(
     async connectionId => {
-      const nextConf = connectionId
-        ? { ...analyticsConf, connection_id: connectionId }
-        : analyticsConf
+      const nextConf = connectionId ? { ...analyticsConf, connection_id: connectionId } : analyticsConf
       refreshWorkspaces(formID, nextConf, setAnalyticsConf, setIsLoading, setSnackbar)
     },
     [analyticsConf, formID, setAnalyticsConf, setIsLoading, setSnackbar]

@@ -40,7 +40,6 @@ export const checkMappedFields = mailsterConf => {
   return true
 }
 
-
 export const mailsterFields = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, fields: true })
 

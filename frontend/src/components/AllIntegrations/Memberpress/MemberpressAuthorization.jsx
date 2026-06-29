@@ -14,13 +14,16 @@ export default function MemberpressAuthorization({
   setIsLoading,
   setSnackbar
 }) {
-  const handleSetStep = useCallback(value => {
-    if (value === 2) {
-      getAllMemberShip(memberpressConf, setMemberpressConf, setIsLoading, setSnackbar)
-      paymentGateway(memberpressConf, setMemberpressConf, setIsLoading, setSnackbar)
-    }
-    setStep(value)
-  }, [setStep, memberpressConf, setMemberpressConf, setIsLoading, setSnackbar])
+  const handleSetStep = useCallback(
+    value => {
+      if (value === 2) {
+        getAllMemberShip(memberpressConf, setMemberpressConf, setIsLoading, setSnackbar)
+        paymentGateway(memberpressConf, setMemberpressConf, setIsLoading, setSnackbar)
+      }
+      setStep(value)
+    },
+    [setStep, memberpressConf, setMemberpressConf, setIsLoading, setSnackbar]
+  )
 
   return (
     <Authorization
@@ -33,7 +36,10 @@ export default function MemberpressAuthorization({
       tutorialLinks={tutorialLinks?.memberpress || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'plugin_file', value: 'memberpress/memberpress.php' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'plugin_file', value: 'memberpress/memberpress.php' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(

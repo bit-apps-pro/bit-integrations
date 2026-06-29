@@ -10,7 +10,6 @@ const buildAuthRequestParams = conf =>
         tokenDetails: conf.tokenDetails
       }
 
-
 export const handleInput = (
   e,
   recordTab,
@@ -106,7 +105,7 @@ export const refreshModules = (formID, recruitConf, setRecruitConf, setIsLoading
     formID,
     id: recruitConf.id,
     ...buildAuthRequestParams(recruitConf),
-    dataCenter: recruitConf.dataCenter,
+    dataCenter: recruitConf.dataCenter
   }
   bitsFetch(refreshModulesRequestParams, 'zrecruit_refresh_modules')
     .then(result => {
@@ -151,7 +150,7 @@ export const refreshNoteTypes = (formID, recruitConf, setRecruitConf, setIsLoadi
     formID,
     id: recruitConf.id,
     ...buildAuthRequestParams(recruitConf),
-    dataCenter: recruitConf.dataCenter,
+    dataCenter: recruitConf.dataCenter
   }
   bitsFetch(refreshModulesRequestParams, 'zrecruit_refresh_notetypes')
     .then(result => {
@@ -199,7 +198,7 @@ export const refreshRelatedList = (formID, recruitConf, setRecruitConf, setIsLoa
     formID,
     module: recruitConf.module,
     ...buildAuthRequestParams(recruitConf),
-    dataCenter: recruitConf.dataCenter,
+    dataCenter: recruitConf.dataCenter
   }
   bitsFetch(relatedListRequestParams, 'zrecruit_refresh_related_lists')
     .then(result => {
@@ -246,7 +245,7 @@ const getFields = (recordTab, formID, recruitConf, setRecruitConf, setIsLoading,
     formID,
     module,
     ...buildAuthRequestParams(recruitConf),
-    dataCenter: recruitConf.dataCenter,
+    dataCenter: recruitConf.dataCenter
   }
   bitsFetch(getFieldsRequestParams, 'zrecruit_get_fields')
     .then(result => {

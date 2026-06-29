@@ -6,13 +6,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
-export default function HubspotAuthorization({
-  hubspotConf,
-  setHubspotConf,
-  step,
-  setstep,
-  isInfo
-}) {
+export default function HubspotAuthorization({ hubspotConf, setHubspotConf, step, setstep, isInfo }) {
   const note = `
     <h4>${__('Step of generating Access Token:', 'bit-integrations')}</h4>
     <ul>

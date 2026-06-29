@@ -13,14 +13,8 @@ export default function ConstantContactAuthorization({
   const note = `
   <h4>${__('Steps to get Client ID and Client Secret', 'bit-integrations')}</h4>
   <ul>
-    <li>${__(
-      'Go to Constant Contact developer portal and create app.',
-      'bit-integrations'
-    )}</li>
-    <li>${__(
-      'Enable Authorization Code flow and refresh token support.',
-      'bit-integrations'
-    )}</li>
+    <li>${__('Go to Constant Contact developer portal and create app.', 'bit-integrations')}</li>
+    <li>${__('Enable Authorization Code flow and refresh token support.', 'bit-integrations')}</li>
     <li>${__(
       'Copy redirect URI from this form and add it to app configuration.',
       'bit-integrations'

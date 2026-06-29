@@ -22,7 +22,10 @@ export default function AffiliateAuthorization({
       tutorialLinks={tutorialLinks?.affiliate || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'plugin_file', value: 'affiliate-wp/affiliate-wp.php' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'plugin_file', value: 'affiliate-wp/affiliate-wp.php' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(
