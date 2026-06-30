@@ -29,7 +29,7 @@ class SenseiLMSController
         wp_send_json_success(true);
     }
 
-    public function refreshCourses()
+    public static function refreshCourses()
     {
         self::isExists();
 
@@ -37,7 +37,7 @@ class SenseiLMSController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshLessons()
+    public static function refreshLessons()
     {
         self::isExists();
 
@@ -45,7 +45,7 @@ class SenseiLMSController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshQuizzes()
+    public static function refreshQuizzes()
     {
         self::isExists();
 

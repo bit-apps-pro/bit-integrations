@@ -19,17 +19,26 @@ export default function SenseiLMSAuthorization({
 
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'sensei_lms_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
+    bitsFetch({}, 'sensei_lms_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar({
+            show: true,
+            msg: __('Connected with Sensei LMS Successfully', 'bit-integrations')
+          })
+        }
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        setShowAuthMsg(true)
         setSnackbar({
           show: true,
-          msg: __('Connected with Sensei LMS Successfully', 'bit-integrations')
+          msg: __('Sensei LMS authorization failed', 'bit-integrations')
         })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+      })
   }
 
   const handleInput = e => {

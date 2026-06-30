@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { create } from 'mutative'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
@@ -7,8 +8,15 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './SenseiLMSCommonFunc'
+import {
+  checkMappedFields,
+  handleInput,
+  refreshCourses,
+  refreshLessons,
+  refreshQuizzes
+} from './SenseiLMSCommonFunc'
 import SenseiLMSIntegLayout from './SenseiLMSIntegLayout'
+import { courseActions, lessonActions, quizActions, senseiLMSStaticData } from './staticData'
 
 export default function EditSenseiLMS({ allIntegURL }) {
   const navigate = useNavigate()
@@ -19,6 +27,30 @@ export default function EditSenseiLMS({ allIntegURL }) {
   const formFields = useRecoilValue($formFields)
   const [isLoading, setIsLoading] = useState(false)
   const [snack, setSnackbar] = useState({ show: false })
+
+  // On edit, rebuild the non-persisted field definitions from the saved action and
+  // repopulate the resource dropdown options. The saved field_map mapping is untouched.
+  useEffect(() => {
+    const action = senseiLMSConf?.mainAction
+    if (!action) {
+      return
+    }
+
+    setSenseiLMSConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.senseiLMSFields = senseiLMSStaticData[action] || []
+      })
+    )
+
+    if (courseActions.includes(action)) {
+      refreshCourses(setSenseiLMSConf, setIsLoading)
+    } else if (lessonActions.includes(action)) {
+      refreshLessons(setSenseiLMSConf, setIsLoading)
+    } else if (quizActions.includes(action)) {
+      refreshQuizzes(setSenseiLMSConf, setIsLoading)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div style={{ width: 900 }}>
