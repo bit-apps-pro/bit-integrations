@@ -21,8 +21,7 @@ const userEmailFields = [
 
 const postContentFields = [
   { key: 'post_content', label: __('Content', 'bit-integrations'), required: false },
-  { key: 'post_excerpt', label: __('Excerpt', 'bit-integrations'), required: false },
-  { key: 'post_status', label: __('Status (publish, draft, pending, private)', 'bit-integrations'), required: false }
+  { key: 'post_excerpt', label: __('Excerpt', 'bit-integrations'), required: false }
 ]
 
 export const senseiLMSStaticData = {
@@ -33,18 +32,11 @@ export const senseiLMSStaticData = {
   reset_course_for_user: userEmailFields,
   reset_lesson_for_user: userEmailFields,
   create_certificate: userEmailFields,
-  start_lesson_for_user: [
-    ...userEmailFields,
-    { key: 'mark_complete', label: __('Mark Complete (yes/no)', 'bit-integrations'), required: false }
-  ],
-  update_lesson_status: [
-    ...userEmailFields,
-    { key: 'status', label: __('Status (in-progress, ungraded, graded, passed, failed)', 'bit-integrations'), required: true }
-  ],
+  start_lesson_for_user: userEmailFields,
+  update_lesson_status: userEmailFields,
   grade_quiz: [
     ...userEmailFields,
-    { key: 'grade', label: __('Grade', 'bit-integrations'), required: true },
-    { key: 'grade_type', label: __('Grade Type (auto, manual)', 'bit-integrations'), required: false }
+    { key: 'grade', label: __('Grade', 'bit-integrations'), required: true }
   ],
   create_course: [
     { key: 'post_title', label: __('Title', 'bit-integrations'), required: true },
@@ -69,3 +61,31 @@ export const courseActions = [
 ]
 export const lessonActions = ['start_lesson_for_user', 'update_lesson_status', 'reset_lesson_for_user']
 export const quizActions = ['grade_quiz']
+
+// actions whose static choices are shown as Utilities dropdowns (not field-map rows)
+export const statusActions = ['create_course', 'create_lesson']
+export const markCompleteActions = ['start_lesson_for_user']
+export const gradeTypeActions = ['grade_quiz']
+export const lessonStatusActions = ['update_lesson_status']
+
+export const postStatusOptions = [
+  { label: __('Publish', 'bit-integrations'), value: 'publish' },
+  { label: __('Draft', 'bit-integrations'), value: 'draft' },
+  { label: __('Pending', 'bit-integrations'), value: 'pending' },
+  { label: __('Private', 'bit-integrations'), value: 'private' }
+]
+export const markCompleteOptions = [
+  { label: __('No', 'bit-integrations'), value: 'no' },
+  { label: __('Yes', 'bit-integrations'), value: 'yes' }
+]
+export const gradeTypeOptions = [
+  { label: __('Auto', 'bit-integrations'), value: 'auto' },
+  { label: __('Manual', 'bit-integrations'), value: 'manual' }
+]
+export const lessonStatusOptions = [
+  { label: __('In Progress', 'bit-integrations'), value: 'in-progress' },
+  { label: __('Ungraded', 'bit-integrations'), value: 'ungraded' },
+  { label: __('Graded', 'bit-integrations'), value: 'graded' },
+  { label: __('Passed', 'bit-integrations'), value: 'passed' },
+  { label: __('Failed', 'bit-integrations'), value: 'failed' }
+]

@@ -45,29 +45,60 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        $actionMap = [
-            'enroll_user_in_course'    => 'sensei_lms_enroll_user_in_course',
-            'withdraw_user_from_course'=> 'sensei_lms_withdraw_user_from_course',
-            'start_course_for_user'    => 'sensei_lms_start_course_for_user',
-            'complete_course_for_user' => 'sensei_lms_complete_course_for_user',
-            'reset_course_for_user'    => 'sensei_lms_reset_course_for_user',
-            'start_lesson_for_user'    => 'sensei_lms_start_lesson_for_user',
-            'update_lesson_status'     => 'sensei_lms_update_lesson_status',
-            'reset_lesson_for_user'    => 'sensei_lms_reset_lesson_for_user',
-            'grade_quiz'               => 'sensei_lms_grade_quiz',
-            'create_course'            => 'sensei_lms_create_course',
-            'create_lesson'            => 'sensei_lms_create_lesson',
-            'create_certificate'       => 'sensei_lms_create_certificate',
-        ];
+        switch ($mainAction) {
+            case 'enroll_user_in_course':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_enroll_user_in_course'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
 
-        if (!isset($actionMap[$mainAction])) {
-            $response = ['success' => false, 'message' => __('Invalid action', 'bit-integrations')];
-            LogHandler::save($this->_integrationID, ['type' => 'SenseiLMS', 'type_name' => 'unknown'], 'error', $response);
+                break;
+            case 'withdraw_user_from_course':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_withdraw_user_from_course'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
 
-            return $response;
+                break;
+            case 'start_course_for_user':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_start_course_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'complete_course_for_user':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_complete_course_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'reset_course_for_user':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_reset_course_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'start_lesson_for_user':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_start_lesson_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'update_lesson_status':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_update_lesson_status'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'reset_lesson_for_user':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_reset_lesson_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'grade_quiz':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_grade_quiz'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'create_course':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_course'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'create_lesson':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_lesson'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            case 'create_certificate':
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_certificate'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+
+                break;
+            default:
+                $response = ['success' => false, 'message' => __('Invalid action', 'bit-integrations')];
+
+                break;
         }
-
-        $response = Hooks::apply(Config::withPrefix($actionMap[$mainAction]), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
 
         $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
         LogHandler::save($this->_integrationID, ['type' => 'SenseiLMS', 'type_name' => $mainAction], $responseType, $response);

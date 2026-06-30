@@ -8,10 +8,18 @@ import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import {
   courseActions,
+  gradeTypeActions,
+  gradeTypeOptions,
   lessonActions,
+  lessonStatusActions,
+  lessonStatusOptions,
+  markCompleteActions,
+  markCompleteOptions,
   modules,
+  postStatusOptions,
   quizActions,
-  senseiLMSStaticData
+  senseiLMSStaticData,
+  statusActions
 } from './staticData'
 import { generateMappedField, refreshCourses, refreshLessons, refreshQuizzes } from './SenseiLMSCommonFunc'
 import SenseiLMSFieldMap from './SenseiLMSFieldMap'
@@ -84,6 +92,24 @@ export default function SenseiLMSIntegLayout({
     </>
   )
 
+  const staticDropdown = (label, confKey, options) => (
+    <>
+      <br />
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{label}</b>
+        <MultiSelect
+          title={confKey}
+          defaultValue={senseiLMSConf?.[confKey] ?? null}
+          className="btcd-paper-drpdwn w-5"
+          options={options}
+          onChange={val => setVal(confKey, val)}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
+    </>
+  )
+
   return (
     <>
       <br />
@@ -112,6 +138,18 @@ export default function SenseiLMSIntegLayout({
 
       {quizActions.includes(senseiLMSConf?.mainAction) &&
         resourceDropdown(__('Quiz:', 'bit-integrations'), 'selectedQuiz', 'allQuizzes', refreshQuizzes)}
+
+      {statusActions.includes(senseiLMSConf?.mainAction) &&
+        staticDropdown(__('Status:', 'bit-integrations'), 'selectedStatus', postStatusOptions)}
+
+      {lessonStatusActions.includes(senseiLMSConf?.mainAction) &&
+        staticDropdown(__('Status:', 'bit-integrations'), 'selectedLessonStatus', lessonStatusOptions)}
+
+      {markCompleteActions.includes(senseiLMSConf?.mainAction) &&
+        staticDropdown(__('Mark Complete:', 'bit-integrations'), 'selectedMarkComplete', markCompleteOptions)}
+
+      {gradeTypeActions.includes(senseiLMSConf?.mainAction) &&
+        staticDropdown(__('Grade Type:', 'bit-integrations'), 'selectedGradeType', gradeTypeOptions)}
 
       {isLoading && (
         <Loader
