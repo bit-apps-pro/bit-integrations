@@ -37,61 +37,61 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        $mainAction = $this->_integrationDetails->mainAction ?? 'enroll_user_in_course';
+        $mainAction = $this->_integrationDetails->mainAction ?? null;
 
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {
             case 'enroll_user_in_course':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_enroll_user_in_course'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_enroll_user_in_course'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'withdraw_user_from_course':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_withdraw_user_from_course'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_withdraw_user_from_course'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'start_course_for_user':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_start_course_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_start_course_for_user'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'complete_course_for_user':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_complete_course_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_complete_course_for_user'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'reset_course_for_user':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_reset_course_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_reset_course_for_user'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'start_lesson_for_user':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_start_lesson_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_start_lesson_for_user'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'update_lesson_status':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_update_lesson_status'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_update_lesson_status'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'reset_lesson_for_user':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_reset_lesson_for_user'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_reset_lesson_for_user'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'grade_quiz':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_grade_quiz'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_grade_quiz'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'create_course':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_course'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_course'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'create_lesson':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_lesson'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_lesson'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             case 'create_certificate':
-                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_certificate'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('sensei_lms_create_certificate'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
                 break;
             default:
