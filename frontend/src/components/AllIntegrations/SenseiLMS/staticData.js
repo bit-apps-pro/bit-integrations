@@ -1,18 +1,50 @@
 import { __ } from '../../../Utils/i18nwrap'
 
 export const modules = [
-  { name: 'enroll_user_in_course', label: __('Enroll User in Course', 'bit-integrations'), is_pro: true },
-  { name: 'withdraw_user_from_course', label: __('Withdraw User from Course', 'bit-integrations'), is_pro: true },
-  { name: 'start_course_for_user', label: __('Start Course for User', 'bit-integrations'), is_pro: true },
-  { name: 'complete_course_for_user', label: __('Complete Course for User', 'bit-integrations'), is_pro: true },
-  { name: 'reset_course_for_user', label: __('Reset Course Progress', 'bit-integrations'), is_pro: true },
-  { name: 'start_lesson_for_user', label: __('Start Lesson for User', 'bit-integrations'), is_pro: true },
+  {
+    name: 'enroll_user_in_course',
+    label: __('Enroll User in Course', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'withdraw_user_from_course',
+    label: __('Withdraw User from Course', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'start_course_for_user',
+    label: __('Start Course for User', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'complete_course_for_user',
+    label: __('Complete Course for User', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'reset_course_for_user',
+    label: __('Reset Course Progress', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'start_lesson_for_user',
+    label: __('Start Lesson for User', 'bit-integrations'),
+    is_pro: true
+  },
   { name: 'update_lesson_status', label: __('Update Lesson Status', 'bit-integrations'), is_pro: true },
-  { name: 'reset_lesson_for_user', label: __('Reset Lesson Progress', 'bit-integrations'), is_pro: true },
+  {
+    name: 'reset_lesson_for_user',
+    label: __('Reset Lesson Progress', 'bit-integrations'),
+    is_pro: true
+  },
   { name: 'grade_quiz', label: __('Grade Quiz for User', 'bit-integrations'), is_pro: true },
   { name: 'create_course', label: __('Create Course', 'bit-integrations'), is_pro: true },
   { name: 'create_lesson', label: __('Create Lesson', 'bit-integrations'), is_pro: true },
-  { name: 'create_certificate', label: __('Create Certificate for User', 'bit-integrations'), is_pro: true }
+  {
+    name: 'create_certificate',
+    label: __('Create Certificate for User', 'bit-integrations'),
+    is_pro: true
+  }
 ]
 
 const userEmailFields = [

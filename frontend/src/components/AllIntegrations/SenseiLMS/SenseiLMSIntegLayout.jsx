@@ -21,7 +21,12 @@ import {
   senseiLMSStaticData,
   statusActions
 } from './staticData'
-import { generateMappedField, refreshCourses, refreshLessons, refreshQuizzes } from './SenseiLMSCommonFunc'
+import {
+  generateMappedField,
+  refreshCourses,
+  refreshLessons,
+  refreshQuizzes
+} from './SenseiLMSCommonFunc'
 import SenseiLMSFieldMap from './SenseiLMSFieldMap'
 
 export default function SenseiLMSIntegLayout({
@@ -131,10 +136,20 @@ export default function SenseiLMSIntegLayout({
       </div>
 
       {courseActions.includes(senseiLMSConf?.mainAction) &&
-        resourceDropdown(__('Course:', 'bit-integrations'), 'selectedCourse', 'allCourses', refreshCourses)}
+        resourceDropdown(
+          __('Course:', 'bit-integrations'),
+          'selectedCourse',
+          'allCourses',
+          refreshCourses
+        )}
 
       {lessonActions.includes(senseiLMSConf?.mainAction) &&
-        resourceDropdown(__('Lesson:', 'bit-integrations'), 'selectedLesson', 'allLessons', refreshLessons)}
+        resourceDropdown(
+          __('Lesson:', 'bit-integrations'),
+          'selectedLesson',
+          'allLessons',
+          refreshLessons
+        )}
 
       {quizActions.includes(senseiLMSConf?.mainAction) &&
         resourceDropdown(__('Quiz:', 'bit-integrations'), 'selectedQuiz', 'allQuizzes', refreshQuizzes)}
@@ -146,7 +161,11 @@ export default function SenseiLMSIntegLayout({
         staticDropdown(__('Status:', 'bit-integrations'), 'selectedLessonStatus', lessonStatusOptions)}
 
       {markCompleteActions.includes(senseiLMSConf?.mainAction) &&
-        staticDropdown(__('Mark Complete:', 'bit-integrations'), 'selectedMarkComplete', markCompleteOptions)}
+        staticDropdown(
+          __('Mark Complete:', 'bit-integrations'),
+          'selectedMarkComplete',
+          markCompleteOptions
+        )}
 
       {gradeTypeActions.includes(senseiLMSConf?.mainAction) &&
         staticDropdown(__('Grade Type:', 'bit-integrations'), 'selectedGradeType', gradeTypeOptions)}
