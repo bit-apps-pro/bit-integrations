@@ -20,7 +20,8 @@ export default function WebHooksIntegration({
   setStep,
   setSnackbar,
   create,
-  isInfo
+  isInfo,
+  showTutorial = true,
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const [tab, setTab] = useState(1)
@@ -90,7 +91,7 @@ export default function WebHooksIntegration({
 
   return (
     <div style={{ ...{ width: isInfo && 900 } }}>
-      <TutorialLink linkKey="webHooksLinks" />
+      {showTutorial && <TutorialLink linkKey="webHooksLinks" />}
       <div className="flx ">
         <div className="w-8 mr-2 mt-2 mb-4">
           <div className="f-m">{__('Integration Name', 'bit-integrations')}</div>
