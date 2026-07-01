@@ -28,6 +28,7 @@ function Log({ allIntegURL }) {
   const [reloadIndex, setReloadIndex] = useState(0)
   const [statusFilter, setStatusFilter] = useState('all')
   const [search, setSearch] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
   const [response, setResponse] = useState(false)
   const [previewTab, setPreviewTab] = useState('output')
   const [previewInput, setPreviewInput] = useState(null)
@@ -38,8 +39,9 @@ function Log({ allIntegURL }) {
     setPreviewTab('output')
     setPreviewInput(null)
     setResponse(row)
+    // Bump the token for every open so any in-flight field-data fetch from a prior row is ignored.
+    const token = (previewReqRef.current += 1)
     if (row?.has_field_data && row?.id) {
-      const token = (previewReqRef.current += 1)
       bitsFetch({ log_id: row.id }, 'log/field-data')
         .then(res => {
           // Ignore a stale response if the user has since opened a different row's preview.
@@ -211,6 +213,10 @@ function Log({ allIntegURL }) {
     setCols(newCols)
   }, [])
 
+  // Sorting is disabled: rows arrive in server order (originals then their nested re-runs), which a
+  // client-side sort would scramble, detaching re-runs from their parent.
+  const tableCols = useMemo(() => cols.map(col => ({ ...col, disableSortBy: true })), [cols])
+
   const setBulkDelete = useCallback((rows, action) => {
     const entries = []
     if (typeof rows[0] === 'object') {
@@ -222,9 +228,7 @@ function Log({ allIntegURL }) {
     }
     bitsFetch({ id: entries }, 'log/delete').then(res => {
       if (res.success) {
-        if (action && action.fetchData && action.data) {
-          action.fetchData(action.data)
-        }
+        // setReloadIndex triggers a single refetch (via fetchData deps) and resets collapse state.
         setReloadIndex(i => i + 1)
         setSnackbar({ show: true, msg: __('Log deleted successfully', 'bit-integrations') })
       }
@@ -236,23 +240,24 @@ function Log({ allIntegURL }) {
     ({ pageSize, pageIndex }) => {
       // eslint-disable-next-line no-plusplus
       const fetchId = ++fetchIdRef.current
-      if (log.length < 1) {
-        setIsLoading(true)
-      }
-      if (fetchId === fetchIdRef.current) {
-        const startRow = pageSize * pageIndex
-        bitsFetch({ id, offset: startRow, pageSize }, 'log/get').then(res => {
-          if (res?.success) {
-            setPageCount(Math.ceil(res.data.count / pageSize))
-            setCountEntries(res.data.count)
-            setLog(res.data.data)
-          }
-          setIsLoading(false)
-        })
-      }
+      setIsLoading(true)
+      const startRow = pageSize * pageIndex
+      bitsFetch(
+        { id, offset: startRow, pageSize, status: statusFilter, search: searchQuery },
+        'log/get'
+      ).then(res => {
+        // Ignore out-of-order responses: only the most recent request may commit state.
+        if (fetchId !== fetchIdRef.current) return
+        if (res?.success) {
+          setPageCount(Math.ceil(res.data.count / pageSize))
+          setCountEntries(res.data.count)
+          setLog(res.data.data)
+        }
+        setIsLoading(false)
+      })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [id, reloadIndex]
+    [id, reloadIndex, statusFilter, searchQuery]
   )
 
   // Depth-ordered rows from the server (each original followed by its re-runs), with collapse applied.
@@ -273,30 +278,18 @@ function Log({ allIntegURL }) {
     return rows
   }, [log, collapsed])
 
-  // Filter/search over the loaded page. When a filter is active, show a flat result set (no nesting)
-  // so matches read cleanly; otherwise show the nested, collapse-aware view.
-  const visibleRows = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    if (statusFilter === 'all' && q === '') return displayRows
-    return log
-      .filter(row => {
-        const key = statusKey(row.response_type)
-        if (statusFilter === 'success' && key !== 'success') return false
-        if (statusFilter === 'failed' && key === 'success') return false
-        if (q) {
-          const hay = `#${row.id} ${row.response_type || ''} ${recordTypeLabel(row.api_type)}`.toLowerCase()
-          if (!hay.includes(q)) return false
-        }
-        return true
-      })
-      .map(row => ({ ...row, depth: 0, child_count: 0, _collapsed: false }))
-  }, [displayRows, log, statusFilter, search])
+  // Debounce the search box, then let the server filter (correct counts + matches across all pages).
+  useEffect(() => {
+    const timer = setTimeout(() => setSearchQuery(search.trim()), 300)
+    return () => clearTimeout(timer)
+  }, [search])
 
   // After a refresh / re-execute, expand all groups so a newly created re-run is visible.
   useEffect(() => {
     if (reloadIndex) setCollapsed(new Set())
   }, [reloadIndex])
 
+  const isFiltering = statusFilter !== 'all' || searchQuery !== ''
   const reload = useCallback(() => setReloadIndex(i => i + 1), [])
 
   return (
@@ -316,20 +309,20 @@ function Log({ allIntegURL }) {
 
       <div className="forms btcd-log-forms">
         <Table
+          key={`${statusFilter}|${searchQuery}`}
           className="f-table btcd-all-frm btcd-log-tbl"
           height={500}
-          columns={cols}
-          data={visibleRows}
+          columns={tableCols}
+          data={displayRows}
           loading={isLoading}
           countEntries={countEntries}
           topLeftContent={
-            <div className="btcd-log-filters" role="tablist">
+            <div className="btcd-log-filters" role="group" aria-label={__('Filter by status', 'bit-integrations')}>
               {STATUS_FILTERS.map(f => (
                 <button
                   key={f.key}
                   type="button"
-                  role="tab"
-                  aria-selected={statusFilter === f.key}
+                  aria-pressed={statusFilter === f.key}
                   className={`btcd-log-chip${statusFilter === f.key ? ' is-active' : ''}`}
                   onClick={() => setStatusFilter(f.key)}>
                   {f.label}
@@ -368,23 +361,24 @@ function Log({ allIntegURL }) {
           pageCount={pageCount}
         />
 
-        {!isLoading && log.length === 0 && (
+        {!isLoading && log.length === 0 && !isFiltering && (
           <div className="btcd-no-data txt-center">
             <img src={noData} alt={__('No logs', 'bit-integrations')} />
             <div className="mt-2 data-txt">{__('No executions logged yet.', 'bit-integrations')}</div>
           </div>
         )}
 
-        {!isLoading && log.length > 0 && visibleRows.length === 0 && (
+        {!isLoading && log.length === 0 && isFiltering && (
           <div className="btcd-log-empty txt-center">
             <img src={noData} alt={__('No matches', 'bit-integrations')} />
-            <div className="data-txt">{__('No entries match on this page.', 'bit-integrations')}</div>
+            <div className="data-txt">{__('No entries match your filters.', 'bit-integrations')}</div>
             <button
               type="button"
               className="btcd-log-linkbtn"
               onClick={() => {
                 setStatusFilter('all')
                 setSearch('')
+                setSearchQuery('')
               }}>
               {__('Clear filters', 'bit-integrations')}
             </button>

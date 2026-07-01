@@ -39,7 +39,23 @@ final class LogHandler
 
         // Grouped mode: paginate original runs and nest their re-executions (children) underneath,
         // so a re-run always appears with its parent regardless of which page the parent lands on.
-        if (self::logColumnsReady()) {
+        $status = isset($data->status) ? (string) $data->status : 'all';
+        $search = isset($data->search) ? trim((string) $data->search) : '';
+        $hasReexecCols = self::logColumnsReady();
+
+        // Any active status/search filter is served by a correctly-paginated FLAT query — even on
+        // installs where the re-execution columns are missing (it queries base columns only there).
+        if ('all' !== $status || '' !== $search) {
+            $filtered = self::getFilteredLogs($data->id, $limit, $offset, $status, $search, $hasReexecCols);
+            wp_send_json_success(
+                [
+                    'count' => $filtered['count'],
+                    'data'  => $filtered['data'],
+                ]
+            );
+        }
+
+        if ($hasReexecCols) {
             $grouped = self::getGroupedLogs($data->id, $limit, $offset);
             wp_send_json_success(
                 [
@@ -49,7 +65,7 @@ final class LogHandler
             );
         }
 
-        // Fallback (columns not migrated yet): flat, unnested list.
+        // Fallback (columns not migrated yet, no filter active): flat, unnested list.
         $logModel = new LogModel();
         $countResult = $logModel->count(['flow_id' => $data->id]);
         if (is_wp_error($countResult)) {
@@ -157,6 +173,61 @@ final class LogHandler
         }
 
         return ['count' => $count, 'data' => $ordered];
+    }
+
+    /**
+     * Fetch a correctly-paginated FLAT list of log rows for the active status/search filter.
+     * Runs entirely server-side so counts and paging reflect the whole flow, not just one page.
+     *
+     * @param int    $flowId        Flow id
+     * @param int    $limit         Page size
+     * @param int    $offset        Offset
+     * @param string $status        'all' | 'success' | 'failed'
+     * @param string $search        Free-text search
+     * @param bool   $hasReexecCols Whether the field_data/parent_id columns exist
+     *
+     * @return array{count:int, data:array}
+     */
+    private static function getFilteredLogs($flowId, $limit, $offset, $status, $search, $hasReexecCols = true)
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'btcbi_log';
+        $cols = $hasReexecCols
+            ? "id, flow_id, job_id, api_type, response_type, response_obj, parent_id, created_at, (field_data IS NOT NULL AND field_data <> '') AS has_field_data"
+            : 'id, flow_id, job_id, api_type, response_type, response_obj, created_at, 0 AS has_field_data';
+
+        $where = 'flow_id = %d';
+        $params = [(int) $flowId];
+
+        if ('success' === $status) {
+            $where .= " AND response_type = 'success'";
+        } elseif ('failed' === $status) {
+            $where .= " AND response_type IN ('error', 'validation')";
+        }
+
+        if ('' !== $search) {
+            $like = '%' . $wpdb->esc_like(ltrim($search, '#')) . '%';
+            $where .= ' AND (CAST(id AS CHAR) LIKE %s OR response_type LIKE %s OR api_type LIKE %s OR response_obj LIKE %s)';
+            array_push($params, $like, $like, $like, $like);
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table from prefix; WHERE clause is literal SQL with %d/%s placeholders bound below
+        $count = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `{$table}` WHERE {$where}", $params));
+        if ($count < 1) {
+            return ['count' => 0, 'data' => []];
+        }
+
+        $rowParams = array_merge($params, [(int) $limit, (int) $offset]);
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table/columns are constants; WHERE is literal SQL; values bound below
+        $rows = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE {$where} ORDER BY id DESC LIMIT %d OFFSET %d", $rowParams));
+
+        foreach ((array) $rows as $row) {
+            $row->depth = 0;
+            $row->child_count = 0;
+            $row->has_field_data = (bool) (int) $row->has_field_data;
+        }
+
+        return ['count' => $count, 'data' => (array) $rows];
     }
 
     /**
