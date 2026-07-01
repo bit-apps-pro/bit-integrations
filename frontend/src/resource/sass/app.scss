@@ -2932,9 +2932,14 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
   }
 }
 
+.btcd-log-search {
+  min-width: 0;
+}
+
 .btcd-log-search input {
-  width: 210px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 210px;
+  min-width: 120px;
   padding: 7px 13px;
   border: 1px solid #e2e8f0;
   border-radius: 9px;
@@ -2983,6 +2988,16 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
 
 .btcd-log-forms {
   position: relative;
+}
+
+// The wrapper is now a positioned ancestor, so re-anchor the shared absolute empty-state graphic
+// to the table body instead of its legacy top:240px/right:45% (which was tuned for the outer wrapper).
+.btcd-log-forms .btcd-no-data {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
 }
 
 // Overlay the "no match" message inside the table body area (roughly centered over the rows),
