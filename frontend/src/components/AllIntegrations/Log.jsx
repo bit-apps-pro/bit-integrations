@@ -12,6 +12,12 @@ import Reload from '../Utilities/Reload'
 import SnackMsg from '../Utilities/SnackMsg'
 import Table from '../Utilities/Table'
 
+const STATUS_FILTERS = [
+  { key: 'all', label: __('All', 'bit-integrations') },
+  { key: 'success', label: __('Success', 'bit-integrations') },
+  { key: 'failed', label: __('Failed', 'bit-integrations') }
+]
+
 function Log({ allIntegURL }) {
   const { id, type } = useParams()
   const [snack, setSnackbar] = useState({ show: false })
@@ -20,6 +26,8 @@ function Log({ allIntegURL }) {
   const [countEntries, setCountEntries] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [reloadIndex, setReloadIndex] = useState(0)
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [search, setSearch] = useState('')
   const [response, setResponse] = useState(false)
   const [previewTab, setPreviewTab] = useState('output')
   const [previewInput, setPreviewInput] = useState(null)
@@ -47,7 +55,7 @@ function Log({ allIntegURL }) {
   const handleReexecute = useCallback(logId => {
     if (!logId || reexecutingRef.current) return
     reexecutingRef.current = true
-    setSnackbar({ show: true, msg: __('Re-executing integration...', 'bit-integrations') })
+    setSnackbar({ show: true, msg: __('Re-executing integration…', 'bit-integrations') })
     bitsFetch({ log_id: logId }, 'log/reexecute')
       .then(res => {
         if (res?.success) {
@@ -83,7 +91,7 @@ function Log({ allIntegURL }) {
 
   const [cols, setCols] = useState([
     {
-      width: 170,
+      width: 150,
       minWidth: 120,
       Header: __('Execution', 'bit-integrations'),
       accessor: 'id',
@@ -93,9 +101,7 @@ function Log({ allIntegURL }) {
         const isChild = depth > 0
         const childCount = row.child_count || 0
         return (
-          <span
-            className="btcd-exec-cell"
-            style={depth ? { paddingLeft: Math.min(depth, 8) * 16 } : undefined}>
+          <span className="btcd-exec-cell" style={depth ? { paddingLeft: Math.min(depth, 8) * 16 } : undefined}>
             {childCount > 0 ? (
               <button
                 type="button"
@@ -120,29 +126,43 @@ function Log({ allIntegURL }) {
               )
             )}
             {!isChild && childCount === 0 && row.parent_id && (
-              <span className="btcd-reexec-badge">
-                {`↻ ${__('from', 'bit-integrations')} #${row.parent_id}`}
-              </span>
+              <span className="btcd-reexec-badge">{`↻ ${__('from', 'bit-integrations')} #${row.parent_id}`}</span>
             )}
           </span>
         )
       }
     },
     {
-      width: 200,
-      minWidth: 80,
+      width: 140,
+      minWidth: 110,
       Header: __('Status', 'bit-integrations'),
-      accessor: 'response_type'
+      accessor: 'response_type',
+      Cell: val => {
+        const key = statusKey(val.row.original.response_type)
+        return (
+          <span className={`resp-badge resp-badge--${key} btcd-status-pill`}>
+            <span className="btcd-status-ico" aria-hidden="true">
+              {key === 'success' ? '✓' : key === 'warn' ? '!' : key === 'error' ? '✕' : '•'}
+            </span>
+            {val.row.original.response_type || __('unknown', 'bit-integrations')}
+          </span>
+        )
+      }
     },
     {
-      width: 250,
-      minWidth: 80,
+      width: 230,
+      minWidth: 120,
       Header: __('Record Type', 'bit-integrations'),
-      accessor: 'api_type'
+      accessor: 'api_type',
+      Cell: val => (
+        <span className="btcd-record-type" title={recordTypeLabel(val.row.original.api_type)}>
+          {recordTypeLabel(val.row.original.api_type) || '—'}
+        </span>
+      )
     },
     {
-      width: 220,
-      minWidth: 200,
+      width: 200,
+      minWidth: 160,
       Header: __('Response', 'bit-integrations'),
       accessor: 'response_obj',
       Cell: val => (
@@ -151,14 +171,24 @@ function Log({ allIntegURL }) {
           <Button
             type="button"
             className="icn-btn tooltip"
-            style={{ '--tooltip-txt': '"Preview"' }}
+            style={{ '--tooltip-txt': `'${__('Preview', 'bit-integrations')}'` }}
             onClick={() => openPreview(val.row.original)}>
             <EyeIcn width="40" height="40" strokeColor="#222" />
           </Button>
         </>
       )
     },
-    { width: 220, minWidth: 200, Header: __('Date', 'bit-integrations'), accessor: 'created_at' },
+    {
+      width: 170,
+      minWidth: 130,
+      Header: __('Date', 'bit-integrations'),
+      accessor: 'created_at',
+      Cell: val => (
+        <span className="btcd-log-date" title={val.row.original.created_at || ''}>
+          {relativeTime(val.row.original.created_at)}
+        </span>
+      )
+    },
     {
       width: 150,
       minWidth: 120,
@@ -180,31 +210,23 @@ function Log({ allIntegURL }) {
   const setTableCols = useCallback(newCols => {
     setCols(newCols)
   }, [])
-  // route is info/:id but for redirect uri need to make new/:type
-  // const location = window.location.toString()
-
-  // const toReplaceInd = location.indexOf('/info')
-  // location = window.encodeURI(`${location.slice(0, toReplaceInd)}/new/${integrations[id].type}`)
 
   const setBulkDelete = useCallback((rows, action) => {
-    const rowID = []
     const entries = []
     if (typeof rows[0] === 'object') {
       for (let i = 0; i < rows.length; i += 1) {
-        rowID.push(rows[i].id)
         entries.push(rows[i].original.id)
       }
     } else {
-      rowID.push(rows.id)
       entries.push(rows.original.id)
     }
-    const ajaxData = { id: entries }
-    bitsFetch(ajaxData, 'log/delete').then(res => {
+    bitsFetch({ id: entries }, 'log/delete').then(res => {
       if (res.success) {
         if (action && action.fetchData && action.data) {
           action.fetchData(action.data)
         }
-        setSnackbar({ show: true, msg: __('Response delete successfully', 'bit-integrations') })
+        setReloadIndex(i => i + 1)
+        setSnackbar({ show: true, msg: __('Log deleted successfully', 'bit-integrations') })
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -219,14 +241,7 @@ function Log({ allIntegURL }) {
       }
       if (fetchId === fetchIdRef.current) {
         const startRow = pageSize * pageIndex
-        bitsFetch(
-          {
-            id,
-            offset: startRow,
-            pageSize
-          },
-          'log/get'
-        ).then(res => {
+        bitsFetch({ id, offset: startRow, pageSize }, 'log/get').then(res => {
           if (res?.success) {
             setPageCount(Math.ceil(res.data.count / pageSize))
             setCountEntries(res.data.count)
@@ -240,8 +255,7 @@ function Log({ allIntegURL }) {
     [id, reloadIndex]
   )
 
-  // Rows arrive depth-ordered from the server (each original followed by its re-runs).
-  // Apply collapse: hide the descendants of any collapsed original.
+  // Depth-ordered rows from the server (each original followed by its re-runs), with collapse applied.
   const displayRows = useMemo(() => {
     const rows = []
     let hideDeeperThan = null
@@ -259,44 +273,92 @@ function Log({ allIntegURL }) {
     return rows
   }, [log, collapsed])
 
-  // After a refresh / re-execute, expand all groups so a newly created re-run is visible even if its
-  // parent original was collapsed.
+  // Filter/search over the loaded page. When a filter is active, show a flat result set (no nesting)
+  // so matches read cleanly; otherwise show the nested, collapse-aware view.
+  const visibleRows = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    if (statusFilter === 'all' && q === '') return displayRows
+    return log
+      .filter(row => {
+        const key = statusKey(row.response_type)
+        if (statusFilter === 'success' && key !== 'success') return false
+        if (statusFilter === 'failed' && key === 'success') return false
+        if (q) {
+          const hay = `#${row.id} ${row.response_type || ''} ${recordTypeLabel(row.api_type)}`.toLowerCase()
+          if (!hay.includes(q)) return false
+        }
+        return true
+      })
+      .map(row => ({ ...row, depth: 0, child_count: 0, _collapsed: false }))
+  }, [displayRows, log, statusFilter, search])
+
+  // After a refresh / re-execute, expand all groups so a newly created re-run is visible.
   useEffect(() => {
     if (reloadIndex) setCollapsed(new Set())
   }, [reloadIndex])
 
+  const reload = useCallback(() => setReloadIndex(i => i + 1), [])
+
   return (
     <>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-      <div className="flx">
-        <div className="ml-2">
-          <Link to={allIntegURL} className="btn btcd-btn-o-gray">
-            <span className="btcd-icn icn-chevron-left" />
-            &nbsp;{__('Back', 'bit-integrations')}
-          </Link>
-          <button
-            onClick={() => setReloadIndex(i => i + 1)}
-            className="icn-btn ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': `'${__('Refresh Log', 'bit-integrations')}'` }}
-            type="button"
-            disabled={isLoading}>
-            &#x21BB;
-          </button>
-        </div>
-        <div className="w-8 txt-center">
-          <b className="f-lg">{type}</b>
-          <div>{__('Integration Log', 'bit-integrations')}</div>
-        </div>
-      </div>
 
-      <div className="forms">
+      <header className="btcd-log-head">
+        <Link to={allIntegURL} className="btn btcd-btn-o-gray btcd-log-head__back">
+          <span className="btcd-icn icn-chevron-left" />
+          &nbsp;{__('Back', 'bit-integrations')}
+        </Link>
+        <div className="btcd-log-head__title">
+          <b className="f-lg">{type}</b>
+          <span className="btcd-log-head__sub">{__('Integration Log', 'bit-integrations')}</span>
+        </div>
+      </header>
+
+      <div className="forms btcd-log-forms">
         <Table
           className="f-table btcd-all-frm btcd-log-tbl"
           height={500}
           columns={cols}
-          data={displayRows}
+          data={visibleRows}
           loading={isLoading}
           countEntries={countEntries}
+          topLeftContent={
+            <div className="btcd-log-filters" role="tablist">
+              {STATUS_FILTERS.map(f => (
+                <button
+                  key={f.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={statusFilter === f.key}
+                  className={`btcd-log-chip${statusFilter === f.key ? ' is-active' : ''}`}
+                  onClick={() => setStatusFilter(f.key)}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          }
+          topRightContent={
+            <div className="btcd-log-controls">
+              <div className="btcd-log-search">
+                <input
+                  type="search"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder={__('Search…', 'bit-integrations')}
+                  aria-label={__('Search logs', 'bit-integrations')}
+                />
+              </div>
+              <button
+                type="button"
+                className="btcd-log-head__refresh"
+                onClick={reload}
+                disabled={isLoading}
+                title={__('Refresh', 'bit-integrations')}>
+                <Reload width="15" height="15" />
+                <span>{__('Refresh', 'bit-integrations')}</span>
+              </button>
+            </div>
+          }
           rowSeletable
           resizable
           columnHidable
@@ -308,8 +370,24 @@ function Log({ allIntegURL }) {
 
         {!isLoading && log.length === 0 && (
           <div className="btcd-no-data txt-center">
-            <img src={noData} alt="no data found" />
-            <div className="mt-2 data-txt">{__('No Log Found.', 'bit-integrations')}</div>
+            <img src={noData} alt={__('No logs', 'bit-integrations')} />
+            <div className="mt-2 data-txt">{__('No executions logged yet.', 'bit-integrations')}</div>
+          </div>
+        )}
+
+        {!isLoading && log.length > 0 && visibleRows.length === 0 && (
+          <div className="btcd-log-empty txt-center">
+            <img src={noData} alt={__('No matches', 'bit-integrations')} />
+            <div className="data-txt">{__('No entries match on this page.', 'bit-integrations')}</div>
+            <button
+              type="button"
+              className="btcd-log-linkbtn"
+              onClick={() => {
+                setStatusFilter('all')
+                setSearch('')
+              }}>
+              {__('Clear filters', 'bit-integrations')}
+            </button>
           </div>
         )}
       </div>
@@ -321,13 +399,10 @@ function Log({ allIntegURL }) {
           setModal={setResponse}
           className="resp-modal-shell"
           style={{ width: '600px', maxWidth: '92vw', height: 'auto' }}
-          title={__('Response Preview', 'bit-integrations')}>
+          title={__('Execution details', 'bit-integrations')}>
           <div className="resp-mdl">
             <div className="resp-mdl__meta">
-              <span
-                className={`resp-badge resp-badge--${
-                  String(response.response_type).toLowerCase() === 'success' ? 'success' : 'error'
-                }`}>
+              <span className={`resp-badge resp-badge--${statusKey(response.response_type)}`}>
                 <span className="resp-badge__dot" />
                 {response.response_type || __('Unknown', 'bit-integrations')}
               </span>
@@ -364,9 +439,7 @@ function Log({ allIntegURL }) {
                     type="button"
                     className="resp-mdl__copy"
                     onClick={() => {
-                      const text = jsonPrint(
-                        previewTab === 'input' ? previewInput : response.response_obj
-                      )
+                      const text = jsonPrint(previewTab === 'input' ? previewInput : response.response_obj)
                       if (navigator.clipboard) navigator.clipboard.writeText(text)
                       setSnackbar({ show: true, msg: __('Copied on Clipboard.', 'bit-integrations') })
                     }}>
@@ -378,9 +451,7 @@ function Log({ allIntegURL }) {
                   {/* eslint-disable-next-line react/no-danger */}
                   <code
                     dangerouslySetInnerHTML={{
-                      __html: syntaxHighlight(
-                        previewTab === 'input' ? previewInput : response.response_obj
-                      )
+                      __html: syntaxHighlight(previewTab === 'input' ? previewInput : response.response_obj)
                     }}
                   />
                 </pre>
@@ -395,6 +466,29 @@ function Log({ allIntegURL }) {
 
 export default memo(Log)
 
+// Map a stored response_type to a visual status key.
+const statusKey = st => {
+  const s = String(st || '').toLowerCase()
+  if (s === 'success') return 'success'
+  if (s === 'validation') return 'warn'
+  if (s === 'error') return 'error'
+  return 'neutral'
+}
+
+const parseDate = s => (s ? new Date(String(s).replace(' ', 'T')) : null)
+
+// Compact relative time; absolute value stays available via the cell's title attribute.
+const relativeTime = s => {
+  const d = parseDate(s)
+  if (!d || Number.isNaN(d.getTime())) return s || '—'
+  const diff = (Date.now() - d.getTime()) / 1000
+  if (diff < 45) return __('just now', 'bit-integrations')
+  if (diff < 3600) return `${Math.max(1, Math.round(diff / 60))}${__('m ago', 'bit-integrations')}`
+  if (diff < 86400) return `${Math.round(diff / 3600)}${__('h ago', 'bit-integrations')}`
+  if (diff < 172800) return __('Yesterday', 'bit-integrations')
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
 const jsonPrint = data => {
   try {
     return JSON.stringify(JSON.parse(data), null, 2)
@@ -403,7 +497,7 @@ const jsonPrint = data => {
   }
 }
 
-// Human-readable label for the record type column (stored as JSON string)
+// Human-readable label for the record type column (stored as JSON string).
 const recordTypeLabel = raw => {
   if (!raw) return ''
   try {
@@ -414,7 +508,7 @@ const recordTypeLabel = raw => {
   }
 }
 
-// Lightweight JSON syntax highlighter → HTML with token classes
+// Lightweight JSON syntax highlighter → HTML with token classes.
 const syntaxHighlight = data => {
   const json = jsonPrint(data).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 

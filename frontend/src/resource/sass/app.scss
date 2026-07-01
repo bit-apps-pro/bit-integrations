@@ -2814,6 +2814,229 @@ nav.top-nav {
     border-color: $purple;
     background: $purple;
   }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ===== Integration Log — refined table view ===== */
+
+$log-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+.btcd-log-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin: 6px 2px 14px;
+}
+
+.btcd-log-head__back {
+  justify-self: start;
+}
+
+.btcd-log-head__title {
+  grid-column: 2;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.35;
+
+  .f-lg {
+    font-size: 17px;
+    color: #1e293b;
+  }
+}
+
+.btcd-log-head__sub {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.btcd-log-head__refresh {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s $log-ease, color 0.2s $log-ease, transform 0.12s $log-ease;
+
+  svg {
+    stroke: currentColor;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: rgba($purple, 0.5);
+    color: $purple;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+}
+
+.btcd-log-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btcd-log-filters {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.btcd-log-chip {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.18s $log-ease, background 0.18s $log-ease, box-shadow 0.18s $log-ease,
+    transform 0.12s $log-ease;
+
+  &:hover {
+    color: #334155;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &.is-active {
+    background: #fff;
+    color: $purple;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+  }
+}
+
+.btcd-log-search input {
+  width: 210px;
+  max-width: 100%;
+  padding: 7px 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #fff;
+  font-size: 13px;
+  color: #1e293b;
+  transition: border-color 0.18s $log-ease, box-shadow 0.18s $log-ease;
+
+  &::placeholder {
+    color: #94a3b8;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: rgba($purple, 0.6);
+    box-shadow: 0 0 0 3px rgba($purple, 0.12);
+  }
+}
+
+.btcd-status-pill {
+  text-transform: capitalize;
+}
+
+.btcd-status-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.btcd-record-type {
+  color: #334155;
+  font-weight: 500;
+}
+
+.btcd-log-date {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.btcd-log-forms {
+  position: relative;
+}
+
+// Overlay the "no match" message inside the table body area (roughly centered over the rows),
+// rather than after the pagination footer.
+.btcd-log-empty {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
+
+  img {
+    width: 150px;
+    max-width: 60%;
+    opacity: 0.95;
+  }
+
+  .data-txt {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #475569;
+  }
+}
+
+.btcd-log-linkbtn {
+  margin-top: 8px;
+  border: none;
+  background: none;
+  color: $purple;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resp-badge--warn {
+  color: #92600b;
+  background: #fef4e2;
+}
+
+.resp-badge--neutral {
+  color: #475569;
+  background: #eef1f5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btcd-reexec-btn,
+  .btcd-log-head__refresh,
+  .btcd-log-chip {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
 }
 
 .resp-mdl {
