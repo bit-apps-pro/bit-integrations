@@ -2810,9 +2810,9 @@ nav.top-nav {
   }
 
   &:hover {
-    color: #fff;
+    color: $purple;
     border-color: $purple;
-    background: $purple;
+    background: #fff;
   }
 
   &:active {
@@ -2918,7 +2918,7 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
     transform 0.12s $log-ease;
 
   &:hover {
-    color: #334155;
+    color: $purple;
   }
 
   &:active {
@@ -7669,6 +7669,8 @@ _:-ms-fullscreen,
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: color 0.2s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    background 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .btcd-columns-btn .btcd-icn {
@@ -7676,8 +7678,9 @@ _:-ms-fullscreen,
 }
 
 .btcd-columns-btn:hover {
-  border-color: #c7cfde;
-  background: #f8fafd;
+  color: $purple;
+  border-color: $purple;
+  background: #fff;
 }
 
 .btcd-table-top .btcd-columns-menu {
