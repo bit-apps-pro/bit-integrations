@@ -43,6 +43,7 @@ export default function SlackAuthorization({
 
   const slackInstructions = `<h4>${__('Get Access Token few step', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://api.slack.com/apps" target="_blank" rel="noreferrer">${__('Slack Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First create app.', 'bit-integrations')}</li>
                 <li>${__(
                   "Add an OAuth Scope <b>'channels:read, channels:write, chat:write, files:read, files:write'</b>.",

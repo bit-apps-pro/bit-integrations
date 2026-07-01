@@ -36,6 +36,7 @@ export default function BenchMarkAuthorization({
   const note = `
             <h4>${__('Get api secret key', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://ui.benchmarkemail.com/Integrate#API" target="_blank" rel="noreferrer">${__('Benchmark API Settings', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First go to your BenchMark dashboard.', 'bit-integrations')}</li>
                 <li>${__('Click "Integrations", Then click "API Key"', 'bit-integrations')}</li>
             </ul>`

@@ -13,6 +13,7 @@ export default function CapsuleCRMAuthorization({
   const note = `
     <h4>${__('Get API Token', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.capsulecrm.com/preferences/tokens" target="_blank" rel="noreferrer">${__('Capsule API Tokens', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Sign in to your CapsuleCRM account.', 'bit-integrations')}</li>
       <li>${__('Open My Preferences, then API Authentication Tokens.', 'bit-integrations')}</li>
       <li>${__('Create and copy your API token.', 'bit-integrations')}</li>

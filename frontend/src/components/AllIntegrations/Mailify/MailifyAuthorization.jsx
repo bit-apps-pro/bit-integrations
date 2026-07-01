@@ -35,6 +35,7 @@ export default function MailifyAuthorization({
   const ActiveInstructions = `
             <h4>${__('Get Account Id and Api key', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://app.mailify.com/#!/p/home" target="_blank" rel="noreferrer">${__('Mailify Dashboard', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First go to your Mailify dashboard.', 'bit-integrations')}</li>
                 <li>${__(
                   'Click on the "Settings" from Top-Right corner dropdown',

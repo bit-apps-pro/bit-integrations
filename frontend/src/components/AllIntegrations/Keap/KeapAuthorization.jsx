@@ -36,6 +36,7 @@ export default function KeapAuthorization({
 
   const note = `<h4>${__('Get Keap client id and secret', 'bit-integrations')}</h4>
   <ul>
+    <li>${__('Visit', 'bit-integrations')} <a href="https://keys.developer.keap.com/my-apps" target="_blank" rel="noreferrer">${__('Keap Developer Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
     <li>${__('Go to Keap developer apps page.', 'bit-integrations')}</li>
     <li>${__('Create or open app and copy Client ID and Client Secret.', 'bit-integrations')}</li>
     <li>${__('Use callback URL shown in connection form.', 'bit-integrations')}</li>

@@ -35,6 +35,7 @@ export default function NimbleAuthorization({
   const ActiveInstructions = `
             <h4>${__('To Get API Token', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://app.nimble.com/#app/settings/tokens" target="_blank" rel="noreferrer">${__('Nimble API Tokens', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First go to your Nimble dashboard.', 'bit-integrations')}</li>
                 <li>${__('Click go to "Settings"', 'bit-integrations')}</li>
                 <li>${__('Then Click "API Tokens"', 'bit-integrations')}</li>

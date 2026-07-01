@@ -35,6 +35,7 @@ export default function TrelloAuthorization({
 
   const note = `<h4>${__('Get Trello OAuth details', 'bit-integrations')}</h4>
   <ul>
+    <li>${__('Visit', 'bit-integrations')} <a href="https://trello.com/app-key/" target="_blank" rel="noreferrer">${__('Trello API Key', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
     <li>${__('Open Trello API key page and copy your API key.', 'bit-integrations')}</li>
     <li>${__('Use the callback/return URL from this form when generating your user token.', 'bit-integrations')}</li>
     <li>${__('Authorize and save the connection, then continue to map fields.', 'bit-integrations')}</li>

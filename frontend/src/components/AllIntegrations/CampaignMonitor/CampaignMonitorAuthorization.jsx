@@ -46,7 +46,7 @@ export default function CampaignMonitorAuthorization({
         ${__('To get Client Id & API key, please visit', 'bit-integrations')}
         <a
           class="btcd-link"
-          href="https://bitcode2.createsend.com/account/apikeys"
+          href="https://login.createsend.com/"
           target="_blank"
           rel="noreferrer">
           ${__(' Campaign Monitor API Key', 'bit-integrations')}

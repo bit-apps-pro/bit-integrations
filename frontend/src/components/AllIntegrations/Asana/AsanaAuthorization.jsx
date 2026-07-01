@@ -7,6 +7,7 @@ export default function AsanaAuthorization({ asanaConf, setAsanaConf, step, setS
   const note = `
     <h4>${__('Get API token', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.asana.com/0/my-apps" target="_blank" rel="noreferrer">${__('Asana Developer Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open your Asana account settings.', 'bit-integrations')}</li>
       <li>${__('Create a personal access token.', 'bit-integrations')}</li>
       <li>${__('Use that token for this connection.', 'bit-integrations')}</li>

@@ -35,6 +35,7 @@ export default function MondayComAuthorization({
   const note = `
     <h4>${__('To Get Monday.com API Token', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://monday.com/developers/apps" target="_blank" rel="noreferrer">${__('Monday.com Developer Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Log in to your Monday.com account.', 'bit-integrations')}</li>
       <li>${__('Click on your avatar in the bottom left corner.', 'bit-integrations')}</li>
       <li>${__('Select Developers → API Token.', 'bit-integrations')}</li>

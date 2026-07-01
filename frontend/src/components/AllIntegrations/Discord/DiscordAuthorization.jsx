@@ -43,6 +43,7 @@ export default function DiscordAuthorization({
 
   const discordInstructions = `<h4>${__('Get Access Token few step', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://discord.com/developers/applications" target="_blank" rel="noreferrer">${__('Discord Developer Portal', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First create app.', 'bit-integrations')}</li>
                 <li>${__('Click on OAuth2.', 'bit-integrations')}</li>
                 <li>${__('Select <b>bot</b> from scopes.', 'bit-integrations')}</li>

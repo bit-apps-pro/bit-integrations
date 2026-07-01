@@ -43,6 +43,7 @@ export default function SmartSuiteAuthorization({
 
   const ActiveInstructions = `<h4>${__('To Get Workspace ID & API Token', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://app.smartsuite.com/" target="_blank" rel="noreferrer">${__('SmartSuite Dashboard', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First go to your SmartSuite dashboard.', 'bit-integrations')}</li>
                 <li>${__('Click go to Profile Icon from Right Top corner.', 'bit-integrations')}</li>
                 <li>${__('Then Click "API Key" from the "My Profile Menu".', 'bit-integrations')}</li>

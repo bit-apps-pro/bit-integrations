@@ -38,7 +38,8 @@ export default function MauticAuthorization({
     <li>${__('Open your Mautic account and create an OAuth2 API credential.', 'bit-integrations')}</li>
     <li>${__('Set the callback URL exactly as shown below.', 'bit-integrations')}</li>
     <li>${__('Use your Mautic base URL (example: https://mautic.example.com).', 'bit-integrations')}</li>
-  </ol>`
+  </ol>
+  <p>${__('Visit', 'bit-integrations')} <a href="https://docs.mautic.org/en/5.x/rest_api/oauth2.html" target="_blank" rel="noreferrer">${__('Mautic API Credentials Guide', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</p>`
 
   return (
     <Authorization

@@ -7,6 +7,7 @@ export default function ClickupAuthorization({ clickupConf, setClickupConf, step
   const note = `
     <h4>${__('To get the ClickUp API key', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.clickup.com/settings/apps" target="_blank" rel="noreferrer">${__('ClickUp Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open your personal Settings in ClickUp.', 'bit-integrations')}</li>
       <li>${__('Go to Apps in the left sidebar.', 'bit-integrations')}</li>
       <li>${__('Generate your API token and copy it.', 'bit-integrations')}</li>

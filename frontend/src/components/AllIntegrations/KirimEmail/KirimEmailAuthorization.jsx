@@ -36,6 +36,7 @@ export default function KirmilEmailAuthorization({
 
   const note = `<h4>${__('Get Kirim Email credentials', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://aplikasi.kirim.email/" target="_blank" rel="noreferrer">${__('Kirim.Email Dashboard', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Log in to your Kirim Email account.', 'bit-integrations')}</li>
       <li>${__('Copy your username and App API key.', 'bit-integrations')}</li>
       <li>${__('Authorize and save the connection.', 'bit-integrations')}</li>

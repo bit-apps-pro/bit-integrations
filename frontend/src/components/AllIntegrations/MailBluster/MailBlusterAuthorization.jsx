@@ -54,10 +54,7 @@ export default function MailBlusterAuthorization({
 
   const note = `<h4>${__('Step of generate API token:', 'bit-integrations')}</h4>
     <ul>
-      <li>${__(
-        'Goto',
-        'bit-integrations'
-      )} <a target="_blank" href="https://app.mailbluster.com/vM7N8vG0Pp/settings/api-keys">${__(
+      <li>${__('Goto', 'bit-integrations')} <a target="_blank" href="https://app.mailbluster.com/">${__(
         'Generate API Token',
         'bit-integrations'
       )}</a></li>

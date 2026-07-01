@@ -36,6 +36,7 @@ export default function MailjetAuthorization({
   const note = `
     <h4>${__('To Get API key & Secret Key', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.mailjet.com/account/apikeys" target="_blank" rel="noreferrer">${__('Mailjet API Keys', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open your Mailjet account API keys page.', 'bit-integrations')}</li>
       <li>${__('Use API Key as Username and Secret Key as Password in this form.', 'bit-integrations')}</li>
     </ul>`

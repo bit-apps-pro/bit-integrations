@@ -7,6 +7,7 @@ export default function DropboxAuthorization({ dropboxConf, setDropboxConf, step
   const note = `
     <h4>${__('Dropbox OAuth setup', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://www.dropbox.com/developers/apps/create" target="_blank" rel="noreferrer">${__('Dropbox App Console', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create app in Dropbox API Console.', 'bit-integrations')}</li>
       <li>${__('Add redirect URI from integration settings and keep offline token access enabled.', 'bit-integrations')}</li>
     </ul>

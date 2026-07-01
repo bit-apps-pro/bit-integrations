@@ -45,6 +45,7 @@ export default function ZohoRecruitAuthorization({
 
   const note = `<h4>${__('Zoho Recruit OAuth setup', 'bit-integrations')}</h4>
   <ul>
+    <li>${__('Visit', 'bit-integrations')} <a href="https://api-console.zoho.com/" target="_blank" rel="noreferrer">${__('Zoho API Console', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
     <li>${__('Create app in Zoho API Console.', 'bit-integrations')}</li>
     <li>${__('Choose account data center.', 'bit-integrations')}</li>
     <li>${__('Use callback URL shown in connection form.', 'bit-integrations')}</li>

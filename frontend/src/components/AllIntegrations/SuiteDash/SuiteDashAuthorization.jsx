@@ -13,6 +13,7 @@ export default function SuiteDashAuthorization({
   const note = `
     <h4>${__('To get Public ID and Secret Key', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.suitedash.com/integrations/publicApi?t=authentication" target="_blank" rel="noreferrer">${__('SuiteDash Public API', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open your SuiteDash dashboard.', 'bit-integrations')}</li>
       <li>${__('Go to Profile, then Integrations.', 'bit-integrations')}</li>
       <li>${__('Open Secure API and copy credentials.', 'bit-integrations')}</li>

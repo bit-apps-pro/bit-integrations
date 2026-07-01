@@ -13,6 +13,7 @@ export default function GoogleCalendarAuthorization({
   const note = `
     <h4>${__('Google Calendar OAuth setup', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://console.developers.google.com/apis/credentials" target="_blank" rel="noreferrer">${__('Google API Console', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create OAuth client in Google API Console.', 'bit-integrations')}</li>
       <li>${__('Set homepage and redirect URI exactly from integration settings.', 'bit-integrations')}</li>
       <li>${__('Enable Google Calendar API and authorize with required scope.', 'bit-integrations')}</li>

@@ -7,6 +7,7 @@ export default function GravitecAuthorization({ gravitecConf, setGravitecConf, s
   const note = `
     <h4>${__('To Get App key & App Secret', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://push.gravitec.net/" target="_blank" rel="noreferrer">${__('Gravitec Dashboard', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('First go to your Gravitec dashboard.', 'bit-integrations')}</li>
       <li>${__('Open your site from the left sidebar.', 'bit-integrations')}</li>
       <li>${__('Open Settings, then REST API.', 'bit-integrations')}</li>

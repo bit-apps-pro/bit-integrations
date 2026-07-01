@@ -14,6 +14,7 @@ export default function SystemeIOAuthorization({
   const activeInstructions = `
             <h4>${__('To Get API Key & API Secret', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://systeme.io/dashboard/profile/public-api-settings" target="_blank" rel="noreferrer">${__('Systeme.io Public API Settings', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First go to your SystemeIO dashboard.', 'bit-integrations')}</li>
                 <li>${__('Click go to "Settings" from Right Top corner', 'bit-integrations')}</li>
                 <li>${__(

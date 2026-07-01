@@ -13,6 +13,7 @@ export default function ConstantContactAuthorization({
   const note = `
   <h4>${__('Steps to get Client ID and Client Secret', 'bit-integrations')}</h4>
   <ul>
+    <li>${__('Visit', 'bit-integrations')} <a href="https://app.constantcontact.com/pages/dma/portal/" target="_blank" rel="noreferrer">${__('Constant Contact My Applications', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
     <li>${__('Go to Constant Contact developer portal and create app.', 'bit-integrations')}</li>
     <li>${__('Enable Authorization Code flow and refresh token support.', 'bit-integrations')}</li>
     <li>${__(

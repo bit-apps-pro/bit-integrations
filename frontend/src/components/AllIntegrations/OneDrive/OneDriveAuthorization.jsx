@@ -7,6 +7,7 @@ export default function OneDriveAuthorization({ oneDriveConf, setOneDriveConf, s
   const note = `
     <h4>${__('OneDrive OAuth setup', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" target="_blank" rel="noreferrer">${__('Azure App Registrations', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create app in Azure Portal and add redirect URI from integration settings.', 'bit-integrations')}</li>
       <li>${__('Use delegated permissions for OneDrive read/write with offline access.', 'bit-integrations')}</li>
     </ul>

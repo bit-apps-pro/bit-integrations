@@ -7,6 +7,7 @@ export default function BentoAuthorization({ bentoConf, setBentoConf, step, setS
   const note = `
     <h4>${__('To get Publishable Key, Secret Key and Site UUID', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.bentonow.com/account/teams" target="_blank" rel="noreferrer">${__('Bento Team Dashboard', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open the Bento team dashboard.', 'bit-integrations')}</li>
       <li>${__('Go to Settings, then API Keys.', 'bit-integrations')}</li>
       <li>${__('Copy Publishable Key, Secret Key and Site UUID.', 'bit-integrations')}</li>

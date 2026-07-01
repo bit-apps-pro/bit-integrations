@@ -7,6 +7,7 @@ export default function LionDeskAuthorization({ lionDeskConf, setLionDeskConf, s
   const note = `
     <h4>${__('Get Redirect URI, Client ID and Client Secret', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://developers.liondesk.com/account/apps" target="_blank" rel="noreferrer">${__('LionDesk Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Go to LionDesk Developer Center Apps.', 'bit-integrations')}</li>
       <li>${__('Create a new app and set redirect URI from this form.', 'bit-integrations')}</li>
       <li>${__('Copy client ID and client secret from LionDesk app.', 'bit-integrations')}</li>

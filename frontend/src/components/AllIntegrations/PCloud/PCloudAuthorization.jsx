@@ -7,6 +7,7 @@ export default function PCloudAuthorization({ pCloudConf, setPCloudConf, step, s
   const note = `
     <h4>${__('PCloud OAuth setup', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://docs.pcloud.com/my_apps/" target="_blank" rel="noreferrer">${__('pCloud My Applications', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create an app from PCloud API apps.', 'bit-integrations')}</li>
       <li>${__('Set the redirect URI exactly as shown below.', 'bit-integrations')}</li>
       <li>${__('Use your app Client ID and Client Secret to authorize.', 'bit-integrations')}</li>

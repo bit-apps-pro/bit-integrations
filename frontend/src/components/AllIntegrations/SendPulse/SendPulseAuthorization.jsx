@@ -37,6 +37,7 @@ export default function SendPulseAuthorization({
   const note = `
       <h4>${__('Get client id and client secret key', 'bit-integrations')}</h4>
       <ul>
+        <li>${__('Visit', 'bit-integrations')} <a href="https://login.sendpulse.com/settings/#api" target="_blank" rel="noreferrer">${__('SendPulse API Settings', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
         <li>${__('First go to your SendPulse dashboard.', 'bit-integrations')}</li>
         <li>${__('Click "Integrations", Then click "API Keys"', 'bit-integrations')}</li>
       </ul>`

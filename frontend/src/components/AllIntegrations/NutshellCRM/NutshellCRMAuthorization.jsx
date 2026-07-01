@@ -14,6 +14,7 @@ export default function NutshellCRMAuthorization({
   const note = `
     <h4>${__('Get API Token', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://app.nutshell.com/setup/api-key" target="_blank" rel="noreferrer">${__('Nutshell API Key', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__("Go to your Nutshell CRM's user dashboard", 'bit-integrations')}</li>
       <li>${__('Then select "Settings"', 'bit-integrations')}</li>
       <li>${__('Then go to "API Keys → Add API Key"', 'bit-integrations')}</li>

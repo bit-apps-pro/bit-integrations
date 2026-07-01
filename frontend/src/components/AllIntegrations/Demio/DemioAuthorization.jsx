@@ -34,6 +34,7 @@ export default function DemioAuthorization({
   const note = `
     <h4>${__('To get API Key and API Secret', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://my.demio.com/manage/settings/api-details" target="_blank" rel="noreferrer">${__('Demio API Details', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open your Demio dashboard.', 'bit-integrations')}</li>
       <li>${__('Go to Settings, then API.', 'bit-integrations')}</li>
       <li>${__('Generate API secret and copy credentials.', 'bit-integrations')}</li>

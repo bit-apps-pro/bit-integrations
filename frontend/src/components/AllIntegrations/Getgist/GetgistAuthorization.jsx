@@ -27,11 +27,7 @@ export default function GetgistAuthorization({ getgistConf, setGetgistConf, step
         children: (
           <small className="d-blk mt-5">
             {__('To get API , Please Visit', 'bit-integrations')}{' '}
-            <a
-              className="btcd-link"
-              href="https://app.getgist.com/projects/jgmmrszy/settings/api-key"
-              target="_blank"
-              rel="noreferrer">
+            <a className="btcd-link" href="https://app.getgist.com/" target="_blank" rel="noreferrer">
               {__('Getgist API Console', 'bit-integrations')}
             </a>
           </small>

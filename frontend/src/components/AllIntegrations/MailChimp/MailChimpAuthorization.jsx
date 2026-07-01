@@ -38,6 +38,7 @@ export default function MailChimpAuthorization({
 
   const note = `<h4>${__('Get Mailchimp client id and secret', 'bit-integrations')}</h4>
   <ul>
+    <li>${__('Visit', 'bit-integrations')} <a href="https://admin.mailchimp.com/account/oauth2/" target="_blank" rel="noreferrer">${__('Mailchimp Registered Apps', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
     <li>${__('Open Mailchimp developer API keys/apps page.', 'bit-integrations')}</li>
     <li>${__('Create or open an app and copy Client ID and Client Secret.', 'bit-integrations')}</li>
     <li>${__('Use the callback URL shown in the connection form.', 'bit-integrations')}</li>

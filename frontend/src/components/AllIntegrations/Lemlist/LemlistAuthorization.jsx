@@ -35,6 +35,7 @@ export default function LemlistAuthorization({
   const ActiveInstructions = `
             <h4>${__('Get Api key', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://app.lemlist.com/settings/integrations" target="_blank" rel="noreferrer">${__('Lemlist Integrations', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${__('First go to your Lemlist dashboard.', 'bit-integrations')}</li>
                 <li>${__('Click on the "Team Setting" from sidebar', 'bit-integrations')}</li>
                 <li>${__('Then Click "Integrations"', 'bit-integrations')}</li>

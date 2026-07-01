@@ -37,6 +37,7 @@ export default function DirectIqAuthorization({
   const note = `
       <h4>${__('Get client id and client secret key', 'bit-integrations')}</h4>
       <ul>
+        <li>${__('Visit', 'bit-integrations')} <a href="https://app.directiq.com/integrations/apikeys" target="_blank" rel="noreferrer">${__('DirectIQ API Keys', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
         <li>${__('First go to your DirectIq dashboard.', 'bit-integrations')}</li>
         <li>${__('Click "Integrations", Then click "API Keys"', 'bit-integrations')}</li>
       </ul>`

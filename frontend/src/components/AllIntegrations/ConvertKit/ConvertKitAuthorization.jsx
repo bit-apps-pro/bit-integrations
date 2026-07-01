@@ -36,6 +36,7 @@ export default function ConvertKitAuthorization({
   const note = `
             <h4>${__('Get api secret key', 'bit-integrations')}</h4>
             <ul>
+                <li>${__('Visit', 'bit-integrations')} <a href="https://app.convertkit.com/account_settings/advanced_settings" target="_blank" rel="noreferrer">${__('Kit (ConvertKit) Advanced Settings', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
                 <li>${sprintf(
                   __('First go to your %s dashboard.', 'bit-integrations'),
                   'Kit(ConvertKit)'

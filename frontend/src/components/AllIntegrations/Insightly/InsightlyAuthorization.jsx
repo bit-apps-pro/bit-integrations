@@ -13,6 +13,7 @@ export default function InsightlyAuthorization({
   const note = `
     <h4>${__('Get Insightly API credentials', 'bit-integrations')}</h4>
     <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://crm.insightly.com/Users/UserSettings" target="_blank" rel="noreferrer">${__('Insightly User Settings', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Open your Insightly account settings.', 'bit-integrations')}</li>
       <li>${__('Copy your API key and account host (without https://api.).', 'bit-integrations')}</li>
       <li>${__('Use API key in Username field, leave password empty, then authorize.', 'bit-integrations')}</li>

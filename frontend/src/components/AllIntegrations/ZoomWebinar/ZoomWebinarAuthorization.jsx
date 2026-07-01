@@ -14,6 +14,7 @@ export default function ZoomWebinarAuthorization({
   <h4>${__('Client Id and Client Secret generate with OAuth .', 'bit-integrations')}</h4>
   <h4>${__('Scope:', 'bit-integrations')}</h4>
   <ul>
+      <li>${__('Visit', 'bit-integrations')} <a href="https://marketplace.zoom.us/develop/create" target="_blank" rel="noreferrer">${__('Zoom App Marketplace', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__("User:<b>'user:master, user:read:admin, user:write:admin'</b> ", 'bit-integrations')}</li>
       <li>${__(
         "Webinar:<b>'webinar:master, webinar:read:admin, webinar:write:admin'</b> ",

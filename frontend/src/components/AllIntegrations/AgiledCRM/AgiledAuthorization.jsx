@@ -37,4 +37,4 @@ export default function AgiledAuthorization({ agiledConf, setAgiledConf, step, s
   )
 }
 
-const note = `${__('Example: name.agiled.app', 'bit-integrations')}`
+const note = `${__('Example: name.agiled.app', 'bit-integrations')}<p>${__('Visit', 'bit-integrations')} <a href="https://my.agiled.app/admin/settings/api-settings" target="_blank" rel="noreferrer">${__('Agiled API Settings', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</p>`
