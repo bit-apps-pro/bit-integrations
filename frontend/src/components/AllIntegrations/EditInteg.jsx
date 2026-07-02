@@ -180,6 +180,7 @@ const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
 const EditWebbaBooking = lazy(() => import('./WebbaBooking/EditWebbaBooking'))
 const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
@@ -629,6 +630,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBookly allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'ConvertForce':
+      return <EditConvertForce allIntegURL={allIntegURL} />
     case 'Wsms':
       return <EditWsms allIntegURL={allIntegURL} />
     case 'WebbaBooking':
