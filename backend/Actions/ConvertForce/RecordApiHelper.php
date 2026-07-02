@@ -48,7 +48,7 @@ class RecordApiHelper
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {
@@ -93,7 +93,7 @@ class RecordApiHelper
                 break;
         }
 
-        $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
+        $responseType = isset($response['success']) && $response['success'] && !is_wp_error($response) ? 'success' : 'error';
         LogHandler::save($this->_integrationID, ['type' => $type, 'type_name' => $actionType], $responseType, $response);
 
         return $response;
@@ -105,6 +105,10 @@ class RecordApiHelper
         foreach ($fieldMap ?? [] as $item) {
             $triggerValue = $item->formField;
             $actionValue = $item->convertForceField;
+
+            if (empty($actionValue)) {
+                continue;
+            }
 
             $dataFinal[$actionValue] = $triggerValue === 'custom' && isset($item->customValue) ? Common::replaceFieldWithValue($item->customValue, $fieldValues) : $fieldValues[$triggerValue] ?? '';
         }
