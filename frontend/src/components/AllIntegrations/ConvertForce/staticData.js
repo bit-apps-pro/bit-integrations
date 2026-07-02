@@ -34,6 +34,5 @@ export const CampaignStatusFields = [
 ]
 
 export const CampaignDeleteFields = [
-  { key: 'campaignId', label: __('Campaign ID', 'bit-integrations'), required: true },
-  { key: 'forceDelete', label: __('Force Delete', 'bit-integrations'), required: false }
+  { key: 'campaignId', label: __('Campaign ID', 'bit-integrations'), required: true }
 ]

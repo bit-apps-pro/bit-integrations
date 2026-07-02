@@ -6,6 +6,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import { generateMappedField } from './ConvertForceCommonFunc'
+import ConvertForceUtilities from './ConvertForceUtilities'
 import ConvertForceFieldMap from './ConvertForceFieldMap'
 import {
   CampaignDeleteFields,
@@ -89,12 +90,25 @@ export default function ConvertForceIntegLayout({ formFields, convertForceConf, 
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() => addFieldMap(0, convertForceConf, setConvertForceConf)}
+              onClick={() => addFieldMap(convertForceConf.field_map.length, convertForceConf, setConvertForceConf)}
               className="icn-btn sh-sm mt-2"
               type="button">
               +
             </button>
           </div>
+        </>
+      )}
+
+      {convertForceConf?.mainAction === 'deleteCampaign' && (
+        <>
+          <div className="mt-4">
+            <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          </div>
+          <div className="btcd-hr mt-1" />
+          <ConvertForceUtilities
+            convertForceConf={convertForceConf}
+            setConvertForceConf={setConvertForceConf}
+          />
         </>
       )}
     </>

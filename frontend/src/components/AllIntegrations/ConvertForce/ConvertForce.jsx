@@ -19,7 +19,7 @@ export default function ConvertForce({ formFields, setFlow, flow, allIntegURL })
     name: 'ConvertForce Popup Builder',
     type: 'ConvertForce',
     field_map: [{ formField: '', convertForceField: '' }],
-    actions: {},
+    utilities: {},
     mainAction: ''
   })
 

@@ -74,6 +74,8 @@ class RecordApiHelper
                 break;
 
             case 'deleteCampaign':
+                $utilities = $this->_integrationDetails->utilities ?? (object) [];
+                $fieldData['forceDelete'] = !empty($utilities->forceDelete);
                 $response = Hooks::apply(Config::withPrefix('convertforce_delete_campaign'), $defaultResponse, $fieldData);
                 $type = 'campaign';
                 $actionType = 'delete_campaign';
