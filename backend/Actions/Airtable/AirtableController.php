@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Airtable;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,9 +15,17 @@ use WP_Error;
  */
 class AirtableController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'airtable',
+        'fields'   => [
+            'auth_token' => 'token',
+        ],
+    ];
+
     protected $_defaultHeader;
 
-    public function authentication($fieldsRequestParams)
+    public function fetchAllBases($fieldsRequestParams)
     {
         if (empty($fieldsRequestParams->auth_token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
@@ -31,6 +40,7 @@ class AirtableController
         $response = HttpHelper::get($apiEndpoint, null, $header);
 
         if (isset($response->bases)) {
+            $bases = [];
             foreach ($response->bases as $base) {
                 if ($base->permissionLevel === 'create') {
                     $bases[] = [
@@ -61,6 +71,7 @@ class AirtableController
         $response = HttpHelper::get($apiEndpoint, null, $header);
 
         if (isset($response->tables)) {
+            $tables = [];
             foreach ($response->tables as $table) {
                 $tables[] = [
                     'id'   => $table->id,
@@ -91,6 +102,7 @@ class AirtableController
         $acceptedTypes = ['singleLineText', 'multilineText', 'singleSelect', 'multipleSelects', 'multipleAttachments', 'date', 'phoneNumber', 'email', 'url', 'number', 'currency', 'percent', 'duration', 'rating', 'barcode'];
 
         if (isset($response->tables)) {
+            $fields = [];
             foreach ($response->tables as $table) {
                 if ($table->id === $tableId) {
                     foreach ($table->fields as $field) {

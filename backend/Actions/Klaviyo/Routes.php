@@ -7,4 +7,4 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Klaviyo\KlaviyoController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('klaviyo_handle_authorize', [klaviyoController::class, 'handleAuthorize']);
+Route::post('klaviyo_lists', [KlaviyoController::class, 'getAllLists']);

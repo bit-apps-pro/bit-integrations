@@ -2,8 +2,10 @@
 
 namespace BitApps\Integrations\Flow;
 
+use BitApps\Integrations\Core\Integration\IntegrationHandler;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\CredentialInjector;
 use BitApps\Integrations\Core\Util\CustomFuncValidator;
 use BitApps\Integrations\Core\Util\IpTool;
 use BitApps\Integrations\Core\Util\SmartTags;
@@ -440,7 +442,7 @@ final class Flow
                 ) {
                     $error = new WP_Error('Conditional Logic False', __('Conditional Logic not matched', 'bit-integrations'));
                     if (isset($flowData->id)) {
-                        LogHandler::save($flowData->id, 'Conditional Logic', 'validation', $error);
+                        LogHandler::save($flowData->id, 'Conditional Logic', 'validation', $error, $data);
                     }
 
                     continue;
@@ -515,13 +517,16 @@ final class Flow
                 }
 
                 if (!\is_null($integrationName) && $integration = static::isActionExists($integrationName)) {
+                    CredentialInjector::inject($flowData->flow_details, $integration);
+
                     $handler = new $integration($flowData->id);
                     if (isset($flowData->flow_details->field_map)) {
                         $sptagData = self::specialTagMappingValue($flowData->flow_details->field_map);
                         // $data = array_merge($data, $sptagData);
                         $data = $data + $sptagData;
                     }
-                    $handler->execute($flowData, $data);
+                    // Execute through the wrapper so field data is captured for re-execution.
+                    IntegrationHandler::executeWithCapture($flowData, $data, $handler);
                 }
             }
         }

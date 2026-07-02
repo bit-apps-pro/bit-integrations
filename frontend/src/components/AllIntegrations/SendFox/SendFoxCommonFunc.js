@@ -5,6 +5,13 @@ import { contactFields } from './SendFoxFieldMap'
 import { listFields } from './SendFoxListFieldMap'
 import { unsubscribeFields } from './SendFoxUnsubscribeFieldMap'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        access_token: conf.access_token
+      }
+
 export const handleInput = (e, sendFoxConf, setSendFoxConf, setIsLoading, setSnackbar, formID) => {
   const newConf = { ...sendFoxConf }
   const { name } = e.target
@@ -21,7 +28,7 @@ export const handleInput = (e, sendFoxConf, setSendFoxConf, setIsLoading, setSna
 
 export const fetchAllList = (sendFoxConf, setSendFoxConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { access_token: sendFoxConf.access_token }
+  const requestParams = buildAuthRequestParams(sendFoxConf)
 
   bitsFetch(requestParams, 'sendfox_fetch_all_list')
     .then(result => {
@@ -43,39 +50,6 @@ export const fetchAllList = (sendFoxConf, setSendFoxConf, setIsLoading, setSnack
     })
 
     .catch(() => setIsLoading(false))
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.access_token) {
-    setError({
-      access_token: !confTmp.access_token ? __("Access Token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
-  setIsLoading(true)
-
-  const requestParams = { access_token: confTmp.access_token }
-
-  bitsFetch(requestParams, 'sendFox_authorize').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setisAuthorized(true)
-      setIsLoading(false)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setIsLoading(false)
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
 }
 
 export const generateMappedField = sendFoxConf => {

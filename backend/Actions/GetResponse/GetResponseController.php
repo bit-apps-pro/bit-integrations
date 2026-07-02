@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\GetResponse;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class GetResponseController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'getresponse',
+        'fields'   => [
+            'auth_token' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     private $baseUrl = 'https://api.getresponse.com/v3/';
@@ -97,9 +106,9 @@ class GetResponseController
         }
     }
 
-    public function authentication($refreshFieldsRequestParams)
+    public function fetchAllList($requestParams)
     {
-        if (empty($refreshFieldsRequestParams->auth_token)) {
+        if (empty($requestParams->auth_token)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -108,16 +117,14 @@ class GetResponseController
                 400
             );
         }
+
         $apiEndpoints = $this->baseUrl . 'campaigns';
-
-        $apiKey = $refreshFieldsRequestParams->auth_token;
-
+        $apiKey = $requestParams->auth_token;
         $header = [
             'X-Auth-Token' => 'api-key ' . $apiKey,
         ];
 
         $response = HttpHelper::get($apiEndpoints, null, $header);
-
         $campaigns = [];
 
         foreach ($response as $campaign) {
@@ -127,7 +134,7 @@ class GetResponseController
             ];
         }
 
-        if (property_exists($response[0], 'campaignId')) {
+        if (!empty($response) && isset($response[0]) && property_exists($response[0], 'campaignId')) {
             wp_send_json_success($campaigns, 200);
         } else {
             wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);

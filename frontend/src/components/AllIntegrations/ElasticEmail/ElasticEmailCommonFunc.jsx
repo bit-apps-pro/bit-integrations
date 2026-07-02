@@ -34,9 +34,13 @@ export const generateMappedField = elasticEmailConf => {
     ? requiredFlds.map(field => ({ formField: '', elasticEmailField: field.key }))
     : [{ formField: '', elasticEmailField: '' }]
 }
+
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { apiKey: conf.api_key }
+
 export const getAllList = (elasticEmailConf, setElasticEmailConf, setIsLoading) => {
-  setIsLoading(true)
-  const queryParams = { apiKey: elasticEmailConf.api_key }
+  if (setIsLoading) setIsLoading(true)
+  const queryParams = buildAuthRequestParams(elasticEmailConf)
   const loadPostTypes = bitsFetch(null, 'get_all_lists', queryParams, 'GET').then(result => {
     if (result && result.success) {
       const newConf = { ...elasticEmailConf }
@@ -45,10 +49,10 @@ export const getAllList = (elasticEmailConf, setElasticEmailConf, setIsLoading) 
         newConf.default.lists = result.data.lists
       }
       setElasticEmailConf({ ...newConf })
-      setIsLoading(false)
+      if (setIsLoading) setIsLoading(false)
       return __('List refreshed successfully', 'bit-integrations')
     }
-    setIsLoading(false)
+    if (setIsLoading) setIsLoading(false)
     return __('List refresh failed. please try again', 'bit-integrations')
   })
   toast.promise(loadPostTypes, {

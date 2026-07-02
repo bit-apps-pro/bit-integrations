@@ -14,15 +14,6 @@ class WPCoursewareController
         $this->integrationID = $integrationID;
     }
 
-    public static function wpCoursewareAuthorize()
-    {
-        if (!is_plugin_active('wp-courseware/wp-courseware.php')) {
-            wp_send_json_error(__('WP Courseware Plugin is not active or installed', 'bit-integrations'), 400);
-        } else {
-            wp_send_json_success(true);
-        }
-    }
-
     public static function WPCWCourses()
     {
         if (!is_plugin_active('wp-courseware/wp-courseware.php')) {

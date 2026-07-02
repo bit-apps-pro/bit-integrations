@@ -8,12 +8,7 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoMarketingHubAuthorization from './ZohoMarketingHubAuthorization'
-import {
-  checkMappedFields,
-  handleInput,
-  refreshLists,
-  setGrantTokenResponse
-} from './ZohoMarketingHubCommonFunc'
+import { checkMappedFields, handleInput, refreshLists } from './ZohoMarketingHubCommonFunc'
 import ZohoMarketingHubIntegLayout from './ZohoMarketingHubIntegLayout'
 
 function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
@@ -30,10 +25,6 @@ function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
     list: '',
     field_map: [{ formField: '', zohoFormField: '' }]
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoMarketingHub')
-  }, [])
 
   const nextPage = val => {
     if (val === 3) {

@@ -13,15 +13,6 @@ use WP_Error;
  */
 class TheEventsCalendarController
 {
-    public function authentication()
-    {
-        if (self::checkedTheEventsCalendarExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(__('The Events Calendar and/or Event Tickets are not active or installed!', 'bit-integrations'), 400);
-        }
-    }
-
     public static function checkedTheEventsCalendarExists()
     {
         if (is_plugin_active('the-events-calendar/the-events-calendar.php') && is_plugin_active('event-tickets/event-tickets.php')) {

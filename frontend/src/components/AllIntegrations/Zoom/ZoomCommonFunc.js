@@ -38,32 +38,22 @@ export const handleInput = (
   setZoomConf({ ...newConf })
 }
 
-export const setGrantTokenResponse = integ => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation.replace(`${window.opener.location.href}`, '').split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails,
+        accessToken: conf?.tokenDetails?.access_token,
+        refreshToken: conf?.tokenDetails?.refresh_token
       }
-    })
-  }
-  localStorage.setItem(`__${integ}`, JSON.stringify(grantTokenResponse))
-  window.close()
-}
 
 export const zoomAllMeeting = (formID, zoomConf, setZoomConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const fetchMeetingModulesRequestParams = {
     formID,
-    clientId: zoomConf.clientId,
-    accessToken: zoomConf.tokenDetails.access_token,
-    clientSecret: zoomConf.clientSecret,
-    refreshToken: zoomConf.tokenDetails.refresh_token,
-    tokenDetails: zoomConf.tokenDetails
+    ...buildAuthRequestParams(zoomConf)
   }
   bitsFetch(fetchMeetingModulesRequestParams, 'zoom_fetch_all_meetings')
     .then(result => {
@@ -107,11 +97,7 @@ export const refreshFields = (zoomConf, setZoomConf, setIsLoading, setSnackbar) 
   setIsLoading(true)
   const fetchMeetingModulesRequestParams = {
     meetingId: zoomConf.id,
-    clientId: zoomConf.clientId,
-    accessToken: zoomConf.tokenDetails.access_token,
-    clientSecret: zoomConf.clientSecret,
-    refreshToken: zoomConf.tokenDetails.refresh_token,
-    tokenDetails: zoomConf.tokenDetails
+    ...buildAuthRequestParams(zoomConf)
   }
   bitsFetch(fetchMeetingModulesRequestParams, 'zoom_fetch_all_fields')
     .then(result => {
@@ -134,118 +120,6 @@ export const refreshFields = (zoomConf, setZoomConf, setIsLoading, setSnackbar) 
       })
     })
     .catch(() => setIsLoading(false))
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-  const apiEndpoint = `https://zoom.us/oauth/authorize?response_type=code&client_id=${
-    confTmp.clientId
-  }&state=${encodeURIComponent(window.location.href)}/redirect&redirect_uri=${encodeURIComponent(
-    `${btcbi.api}/redirect`
-  )}`
-  const authWindow = window.open(apiEndpoint, 'zoom', 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitsGoogleSheet = localStorage.getItem('__zoom')
-      if (bitsGoogleSheet) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitsGoogleSheet)
-        localStorage.removeItem('__zoom')
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(
-          grantTokenResponse,
-          newConf,
-          setConf,
-          setisAuthorized,
-          setIsLoading,
-          setSnackbar,
-          btcbi
-        )
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (
-  grantToken,
-  confTmp,
-  setConf,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  // eslint-disable-next-line no-undef
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-  bitsFetch(tokenRequestParams, 'zoom_generate_token')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Authorized Successfully', 'bit-integrations')
-        })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
 }
 
 export const checkMappedFields = zoomConf => {

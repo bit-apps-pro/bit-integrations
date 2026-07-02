@@ -1,6 +1,5 @@
 import bitsFetch from '../../../Utils/bitsFetch'
-import { deepCopy } from '../../../Utils/Helpers'
-import { sprintf, __ } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
 
 export const handleInput = (
@@ -159,46 +158,4 @@ export const checkMappedFields = fluentSupportConf => {
     return false
   }
   return true
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  setError({})
-  setIsLoading(true)
-
-  bitsFetch(null, 'fluentSupport_authorization')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Connected Successfully', 'bit-integrations')
-        })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Cunnection failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Cunnection failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
 }

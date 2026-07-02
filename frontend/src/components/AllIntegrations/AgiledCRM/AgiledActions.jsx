@@ -33,7 +33,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
 
     if (type === 'owner') {
       if (e.target?.checked) {
-        getAllOwners(agiledConf, setAgiledConf, setLoading)
+        getAllOwners(agiledConf, setAgiledConf, loading, setLoading)
         newConf.actions.owner = true
       } else {
         setActionMdl({ show: false })
@@ -41,7 +41,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
       }
     } else if (type === 'account') {
       if (e.target?.checked) {
-        getAllAccounts(agiledConf, setAgiledConf, setLoading)
+        getAllAccounts(agiledConf, setAgiledConf, loading, setLoading)
         newConf.actions.account = true
       } else {
         setActionMdl({ show: false })
@@ -49,7 +49,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
       }
     } else if (type === 'source') {
       if (e.target?.checked) {
-        getAllSources(agiledConf, setAgiledConf, setLoading)
+        getAllSources(agiledConf, setAgiledConf, loading, setLoading)
         newConf.actions.source = true
       } else {
         setActionMdl({ show: false })
@@ -57,7 +57,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
       }
     } else if (type === 'status') {
       if (e.target?.checked) {
-        getAllStatuses(agiledConf, setAgiledConf, setLoading)
+        getAllStatuses(agiledConf, setAgiledConf, loading, setLoading)
         newConf.actions.status = true
       } else {
         setActionMdl({ show: false })
@@ -65,7 +65,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
       }
     } else if (type === 'lifeCycleStage') {
       if (e.target?.checked) {
-        getAllLifeCycleStage(agiledConf, setAgiledConf, setLoading)
+        getAllLifeCycleStage(agiledConf, setAgiledConf, loading, setLoading)
         newConf.actions.lifeCycleStage = true
       } else {
         setActionMdl({ show: false })
@@ -169,7 +169,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
               singleSelect
             />
             <button
-              onClick={() => getAllOwners(agiledConf, setAgiledConf, setLoading)}
+              onClick={() => getAllOwners(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh Owners', 'bit-integrations')}'` }}
               type="button">
@@ -213,7 +213,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
               singleSelect
             />
             <button
-              onClick={() => getAllAccounts(agiledConf, setAgiledConf, setLoading)}
+              onClick={() => getAllAccounts(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh Accounts', 'bit-integrations')}'` }}
               type="button">
@@ -257,7 +257,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
               singleSelect
             />
             <button
-              onClick={() => getAllSources(agiledConf, setAgiledConf, setLoading)}
+              onClick={() => getAllSources(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh Sources', 'bit-integrations')}'` }}
               type="button">
@@ -301,7 +301,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
               singleSelect
             />
             <button
-              onClick={() => getAllStatuses(agiledConf, setAgiledConf, setLoading)}
+              onClick={() => getAllStatuses(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh statuses', 'bit-integrations')}'` }}
               type="button">
@@ -369,7 +369,7 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
               singleSelect
             />
             <button
-              onClick={() => getAllLifeCycleStage(agiledConf, setAgiledConf, setLoading)}
+              onClick={() => getAllLifeCycleStage(agiledConf, setAgiledConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh life cycle stages', 'bit-integrations')}'` }}
               type="button">

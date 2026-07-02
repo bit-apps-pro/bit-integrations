@@ -37,60 +37,43 @@ export const checkMappedFields = emailOctopusConf => {
   return true
 }
 
-export const emailOctopusAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading,
-  type
-) => {
-  if (!confTmp.auth_token) {
-    setError({
-      auth_token: !confTmp.auth_token ? __("Api Key can't be empty", 'bit-integrations') : ''
-    })
+export const fetchAllLists = (confTmp, setConf, loading, setLoading, type = 'fetch') => {
+  if (!confTmp.connection_id && !confTmp.auth_token) {
+    toast.error(__("Api Key can't be empty", 'bit-integrations'))
     return
   }
 
-  setError({})
+  setLoading({ ...loading, lists: true })
 
-  if (type === 'authentication') {
-    setLoading({ ...loading, auth: true })
-  }
-  if (type === 'refreshLists') {
-    setLoading({ ...loading, lists: true })
-  }
-  const requestParams = { auth_token: confTmp.auth_token }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { auth_token: confTmp.auth_token }
 
-  bitsFetch(requestParams, 'emailOctopus_authentication').then(result => {
+  bitsFetch(requestParams, 'emailOctopus_fetch_all_lists').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
-      setIsAuthorized(true)
-      if (type === 'authentication') {
-        if (result.data) {
-          newConf.lists = result.data
-        }
-        setLoading({ ...loading, auth: false })
-        toast.success(__('Authorized Successfully', 'bit-integrations'))
-      } else if (type === 'refreshLists') {
-        if (result.data) {
-          newConf.lists = result.data
-        }
-        setLoading({ ...loading, lists: false })
-        toast.success(__('All lists fectched successfully', 'bit-integrations'))
+      if (result.data) {
+        newConf.lists = result.data
       }
       setConf(newConf)
+      setLoading({ ...loading, lists: false })
+      toast.success(
+        type === 'refresh'
+          ? __('All lists fetched successfully', 'bit-integrations')
+          : __('Lists fetched successfully', 'bit-integrations')
+      )
       return
     }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid domain name & API key', 'bit-integrations'))
+    setLoading({ ...loading, lists: false })
+    toast.error(__('Lists fetching failed', 'bit-integrations'))
   })
 }
 
-export const getAllFields = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, customFields: true })
-  const requestParams = { auth_token: confTmp.auth_token, listId: confTmp.selectedList }
+export const getAllFields = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, customFields: true })
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id, listId: confTmp.selectedList }
+    : { auth_token: confTmp.auth_token, listId: confTmp.selectedList }
 
   bitsFetch(requestParams, 'emailOctopus_fetch_all_fields').then(result => {
     if (result && result.success) {
@@ -99,21 +82,22 @@ export const getAllFields = (confTmp, setConf, setLoading) => {
         newConf.emailOctopusFields = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, customFields: false })
-      setLoading({ ...setLoading, emailOctopusFields: true })
+      setLoading({ ...loading, customFields: false, emailOctopusFields: true })
 
       toast.success(__('Fields fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, customFields: false })
+    setLoading({ ...loading, customFields: false })
     toast.error(__('Fields fetching failed', 'bit-integrations'))
   })
 }
 
-export const getAllTags = (confTmp, setConf, setLoading) => {
-  setLoading({ tags: true, emailOctopusFields: true })
+export const getAllTags = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, tags: true, emailOctopusFields: true })
 
-  const requestParams = { auth_token: confTmp.auth_token, listId: confTmp.selectedList }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id, listId: confTmp.selectedList }
+    : { auth_token: confTmp.auth_token, listId: confTmp.selectedList }
 
   bitsFetch(requestParams, 'emailOctopus_fetch_all_tags').then(result => {
     if (result && result.success) {
@@ -122,12 +106,12 @@ export const getAllTags = (confTmp, setConf, setLoading) => {
         newConf.tags = result.data
       }
       setConf(newConf)
-      setLoading({ tags: false, emailOctopusFields: true })
+      setLoading({ ...loading, tags: false, emailOctopusFields: true })
 
       toast.success(__('Tags fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ tags: false, emailOctopusFields: true })
+    setLoading({ ...loading, tags: false, emailOctopusFields: true })
     toast.error(__('Tags fetching failed', 'bit-integrations'))
   })
 }

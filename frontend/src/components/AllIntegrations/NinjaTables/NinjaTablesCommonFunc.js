@@ -6,8 +6,7 @@ const API_ENDPOINTS = {
   REFRESH_TABLES: 'refresh_ninja_tables',
   REFRESH_ROWS: 'refresh_ninja_tables_rows',
   REFRESH_USERS: 'refresh_ninja_tables_users',
-  REFRESH_COLUMNS: 'refresh_ninja_tables_columns',
-  AUTHORIZE: 'ninja_tables_authorize'
+  REFRESH_COLUMNS: 'refresh_ninja_tables_columns'
 }
 
 const ACTIONS = {

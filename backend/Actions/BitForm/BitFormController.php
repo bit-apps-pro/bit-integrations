@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\BitForm;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,36 +15,14 @@ use WP_Error;
  */
 class BitFormController
 {
-    public function bitFormAuthorization($requestParams)
-    {
-        if (
-            empty($requestParams->app_domain)
-            || empty($requestParams->api_key)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $authorizationHeader = [
-            'Bitform-Api-Key' => $requestParams->api_key
-        ];
-
-        $apiEndpoint = $requestParams->app_domain . '/wp-json/bitform/v1/forms';
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader, ['sslverify' => false]);
-
-        if ($apiResponse->success) {
-            wp_send_json_success($apiResponse, 200);
-        } else {
-            wp_send_json_error(
-                'There is an error .',
-                400
-            );
-        }
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'bitform',
+        'fields'   => [
+            'api_key'    => 'value',
+            'domainName' => 'domainName',
+        ],
+    ];
 
     public function bitFormAllFormList($requestParams)
     {

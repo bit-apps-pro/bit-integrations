@@ -31,11 +31,11 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public function createCustomer($finalData, $api_key)
+    public function createCustomer($finalData, $token)
     {
         $requestData = [
             'headers' => [
-                'Authorization' => 'Bearer ' . $api_key,
+                'Authorization' => 'Bearer ' . $token,
                 'User-Agent'    => 'bit-integrations',
                 'Content-Type'  => 'application/json',
             ],
@@ -62,7 +62,7 @@ class RecordApiHelper
     }
 
     public function execute(
-        $api_key,
+        $token,
         $fieldValues,
         $fieldMap,
         $integrationDetails,
@@ -71,7 +71,7 @@ class RecordApiHelper
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
 
         if ($mainAction == '1') {
-            $apiResponse = $this->createCustomer($finalData, $api_key);
+            $apiResponse = $this->createCustomer($finalData, $token);
             if ($apiResponse[1] === 200) {
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'create', 'type_name' => 'create-customer']), 'success', $apiResponse[0]);
             } else {

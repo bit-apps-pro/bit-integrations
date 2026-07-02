@@ -5,7 +5,7 @@ import PCloudFieldMap from './PCloudFieldMap'
 import PCloudActions from './PCloudActions'
 import { getAllPCloudFolders } from './PCloudCommonFunc'
 
-export default function PCloudIntegLayout({ flowID, formFields, pCloudConf, setPCloudConf }) {
+export default function PCloudIntegLayout({ formFields, pCloudConf, setPCloudConf }) {
   return (
     <>
       <div className="mt-5">

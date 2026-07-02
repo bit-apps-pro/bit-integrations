@@ -1,18 +1,27 @@
 /* eslint-disable no-console */
-import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
-import { deepCopy } from '../../../Utils/Helpers'
 import { sprintf, __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        tokenDetails: conf.tokenDetails,
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret
+      }
+
 export const handleInput = (e, mailupConf, setMailupConf, setIsLoading, setSnackbar) => {
   const newConf = { ...mailupConf }
-  const { name } = e.target
+  const { name, value } = e.target
 
-  if (e.target.value !== '') {
-    newConf[name] = e.target.value
-    fetchAllGroup(newConf, setMailupConf, setIsLoading, setSnackbar)
-    fetchAllField(newConf, setMailupConf, setIsLoading, setSnackbar)
+  if (value !== '') {
+    newConf[name] = value
+    if (name === 'listId') {
+      fetchAllGroup(newConf, setMailupConf, setIsLoading, setSnackbar)
+      fetchAllField(newConf, setMailupConf, setIsLoading, setSnackbar)
+    }
   } else {
     delete newConf[name]
   }
@@ -22,11 +31,7 @@ export const handleInput = (e, mailupConf, setMailupConf, setIsLoading, setSnack
 
 export const fetchAllList = (mailupConf, setMailupConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = {
-    tokenDetails: mailupConf.tokenDetails,
-    clientId: mailupConf.clientId,
-    clientSecret: mailupConf.clientSecret
-  }
+  const requestParams = buildAuthRequestParams(mailupConf)
   bitsFetch(requestParams, 'mailup_fetch_all_list')
     .then(result => {
       if (result && result.success) {
@@ -52,11 +57,7 @@ export const fetchAllList = (mailupConf, setMailupConf, setIsLoading, setSnackba
 
 export const fetchAllField = (mailupConf, setMailupConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = {
-    tokenDetails: mailupConf.tokenDetails,
-    clientId: mailupConf.clientId,
-    clientSecret: mailupConf.clientSecret
-  }
+  const requestParams = buildAuthRequestParams(mailupConf)
   bitsFetch(requestParams, 'mailup_fetch_all_field')
     .then(result => {
       if (result && result.success) {
@@ -84,9 +85,7 @@ export const fetchAllField = (mailupConf, setMailupConf, setIsLoading, setSnackb
 export const fetchAllGroup = (mailupConf, setMailupConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    tokenDetails: mailupConf.tokenDetails,
-    clientId: mailupConf.clientId,
-    clientSecret: mailupConf.clientSecret,
+    ...buildAuthRequestParams(mailupConf),
     listId: mailupConf.listId
   }
   bitsFetch(requestParams, 'mailup_fetch_all_group')
@@ -107,120 +106,6 @@ export const fetchAllGroup = (mailupConf, setMailupConf, setIsLoading, setSnackb
       setIsLoading(false)
     })
     .catch(() => setIsLoading(false))
-}
-
-export const setGrantTokenResponse = integ => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation.replace(`${window.opener.location.href}`, '').split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
-      }
-    })
-  }
-  localStorage.setItem(`__${integ}`, JSON.stringify(grantTokenResponse))
-  window.close()
-}
-
-export const handleMailupAuthorize = (
-  integ,
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.clientId) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client ID can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  if (!confTmp.clientSecret) {
-    setError({
-      clientSecret: !confTmp.clientSecret ? __("Client Secret can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-
-  const apiEndpoint = `https://services.mailup.com/Authorization/OAuth/LogOn?client_id=${
-    confTmp.clientId
-  }&response_type=code&redirect_uri=${encodeURIComponent(window.location.href)}`
-
-  const authWindow = window.open(apiEndpoint, integ, 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitsMailup = localStorage.getItem(`__${integ}`)
-
-      if (bitsMailup) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitsMailup)
-        localStorage.removeItem(`__${integ}`)
-
-        if (grantTokenResponse.token) {
-          grantTokenResponse.code = grantTokenResponse.token
-        }
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization Failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        tokenHelper(grantTokenResponse, newConf, setConf, setIsAuthorized, setIsLoading)
-      }
-    }
-    setIsLoading(false)
-  }, 500)
-}
-
-const tokenHelper = (grantToken, confTmp, setConf, setIsAuthorized, setIsLoading) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  // eslint-disable-next-line no-undef
-
-  bitsFetch(tokenRequestParams, 'mailup_authorization').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      newConf.tokenDetails = result.data
-      setConf(newConf)
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-    } else if (
-      (result && result.data && result.data.data) ||
-      (!result.success && typeof result.data === 'string')
-    ) {
-      toast.error(
-        `${__('Authorization failed Cause:', 'bit-integrations')}${
-          result.data.data || result.data
-        }. ${__('please try again', 'bit-integrations')}`
-      )
-    } else {
-      toast.error(__('Authorization failed. please try again', 'bit-integrations'))
-    }
-    setIsLoading(false)
-  })
 }
 
 export const generateMappedField = mailupConf => {

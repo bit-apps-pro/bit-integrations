@@ -202,6 +202,7 @@ class RecordApiHelper
         $integrationDetails,
         $app_base_domamin
     ) {
+        $apiKey = $integrationDetails->api_key ?: ($integrationDetails->value ?? '');
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $finalData = $finalData + ['status' => json_decode($integrationDetails->status)] + ['priority' => json_decode($integrationDetails->priority)];
 
@@ -225,15 +226,15 @@ class RecordApiHelper
             $finalDataContact = $this->generateReqDataFromFieldMapContact($fieldValues, $fieldMapContact);
             $avatarFieldName = $integrationDetails->actions->attachments;
             $avatar = $fieldValues[$avatarFieldName];
-            $apiResponseFetchContact = $this->fetchContact($app_base_domamin, $finalDataContact['email'], $integrationDetails->api_key);
+            $apiResponseFetchContact = $this->fetchContact($app_base_domamin, $finalDataContact['email'], $apiKey);
 
             if (empty($apiResponseFetchContact)) {
                 $typeName = 'create-contact';
-                $apiResponseContact = $this->insertContact($app_base_domamin, $finalDataContact, $integrationDetails->api_key, $avatar);
+                $apiResponseContact = $this->insertContact($app_base_domamin, $finalDataContact, $apiKey, $avatar);
             } elseif ($integrationDetails->updateContact) {
                 $typeName = 'update-contact';
                 $contactId = $apiResponseFetchContact[0]->id;
-                $apiResponseContact = $this->updateContact($app_base_domamin, $finalDataContact, $integrationDetails->api_key, $contactId);
+                $apiResponseContact = $this->updateContact($app_base_domamin, $finalDataContact, $apiKey, $contactId);
             } else {
                 $finalData['requester_id'] = $apiResponseFetchContact[0]->id;
                 $typeName = 'fetch-contact';
@@ -253,7 +254,7 @@ class RecordApiHelper
 
         $attachmentsFieldName = $integrationDetails->actions->file;
         $fileTicket = $fieldValues[$attachmentsFieldName];
-        $apiResponse = $this->insertTicket($apiEndpoint, $finalData, $integrationDetails->api_key, $fileTicket);
+        $apiResponse = $this->insertTicket($apiEndpoint, $finalData, $apiKey, $fileTicket);
 
         if (property_exists($apiResponse, 'errors')) {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'ticket', 'type_name' => 'create-ticket']), 'error', wp_json_encode($apiResponse));

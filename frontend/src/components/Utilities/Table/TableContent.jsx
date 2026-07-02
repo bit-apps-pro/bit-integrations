@@ -38,7 +38,7 @@ function TableContent({
                   <div key={column.id} className="th flx" {...column.getHeaderProps()}>
                     <div {...(column.id !== 't_action' && column.getSortByToggleProps())}>
                       {column.render('Header')}{' '}
-                      {column.id !== 't_action' && column.id !== 'selection' && (
+                      {column.id !== 't_action' && column.id !== 'selection' && column.canSort && (
                         <span>
                           {column.isSorted ? (
                             column.isSortedDesc ? (

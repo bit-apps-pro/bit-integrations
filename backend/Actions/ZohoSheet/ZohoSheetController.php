@@ -2,47 +2,30 @@
 
 namespace BitApps\Integrations\Actions\ZohoSheet;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
 class ZohoSheetController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'zohosheet',
+        'fields'   => [
+            'dataCenter'   => 'dataCenter',
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on']],
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
     {
         $this->integrationID = $integrationID;
     }
-
-    public static function generateTokens($requestParams)
-    {
-        if (
-            empty($requestParams->{'accounts-server'}) || empty($requestParams->dataCenter) || empty($requestParams->clientId)
-            || empty($requestParams->clientSecret) || empty($requestParams->redirectURI) || empty($requestParams->code)
-        ) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiEndpoint = urldecode($requestParams->{'accounts-server'}) . '/oauth/v2/token';
-        $requestParams = [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $requestParams->clientId,
-            'client_secret' => $requestParams->clientSecret,
-            'redirect_uri'  => urldecode($requestParams->redirectURI),
-            'code'          => $requestParams->code
-        ];
-
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(empty($apiResponse->error) ? 'Unknown' : $apiResponse->error, 400);
-        }
-
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
-
     public static function getAllWorkbooks($requestParams)
     {
         if (

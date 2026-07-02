@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\AgiledCRM\AgiledCRMController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('agiled_authentication', [AgiledCRMController::class, 'authentication']);
 Route::post('agiled_fetch_all_owners', [AgiledCRMController::class, 'getAllOwners']);
 Route::post('agiled_fetch_all_accounts', [AgiledCRMController::class, 'getAllAccounts']);
 Route::post('agiled_fetch_all_sources', [AgiledCRMController::class, 'getAllSources']);

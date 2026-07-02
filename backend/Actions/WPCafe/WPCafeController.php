@@ -26,12 +26,6 @@ class WPCafeController
         }
     }
 
-    public static function wpcafeAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

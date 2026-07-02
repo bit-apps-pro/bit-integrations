@@ -7,6 +7,5 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\OneDrive\OneDriveController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::no_sanitize()->post('oneDrive_authorization', [OneDriveController::class, 'authorization']);
 Route::post('oneDrive_get_all_folders', [OneDriveController::class, 'getAllFolders']);
 Route::post('oneDrive_get_single_folder', [OneDriveController::class, 'singleOneDriveFolderList']);

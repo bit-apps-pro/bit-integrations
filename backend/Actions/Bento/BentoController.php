@@ -6,9 +6,9 @@
 
 namespace BitApps\Integrations\Actions\Bento;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
 /**
@@ -16,24 +16,15 @@ use WP_Error;
  */
 class BentoController
 {
-    protected $_defaultHeader;
-
-    public function authentication($fieldsRequestParams)
-    {
-        BentoHelper::checkValidation($fieldsRequestParams);
-
-        $headers = BentoHelper::setHeaders($fieldsRequestParams->publishable_key, $fieldsRequestParams->secret_key);
-        $apiEndpoint = BentoHelper::setEndpoint('tags', $fieldsRequestParams->site_uuid);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (BentoHelper::checkResponseCode()) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-
-            return;
-        }
-
-        wp_send_json_error(!empty($response) ? $response : __('Please enter valid Publishable Key, Secret Key & Site UUID', 'bit-integrations'), 400);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'bento',
+        'fields'   => [
+            'publishable_key' => 'username',
+            'secret_key'      => 'password',
+            'site_uuid'       => 'site_uuid',
+        ],
+    ];
 
     public function getAllFields($fieldsRequestParams)
     {

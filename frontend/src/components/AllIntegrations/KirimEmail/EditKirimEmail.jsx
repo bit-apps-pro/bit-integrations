@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
@@ -15,7 +15,6 @@ import { checkMappedFields, handleInput } from './KirimEmailCommonFunc'
 
 function EditKirimEmail({ allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
 
   const [kirimEmailConf, setKirimEmailConf] = useRecoilState($actionConf)
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -42,7 +41,6 @@ function EditKirimEmail({ allIntegURL }) {
 
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
       <KirimEmailIntegLayout
-        formID={formID}
         formFields={formFields}
         kirimEmailConf={kirimEmailConf}
         setKirimEmailConf={setKirimEmailConf}

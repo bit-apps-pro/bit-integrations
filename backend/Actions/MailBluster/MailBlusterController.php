@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\MailBluster;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,11 +15,19 @@ use WP_Error;
  */
 class MailBlusterController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'mailbluster',
+        'fields'   => [
+            'auth_token' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     private $baseUrl = 'https://api.mailbluster.com/api/';
 
-    public function authentication($fieldsRequestParams)
+    public function fetchCustomFields($fieldsRequestParams)
     {
         if (empty($fieldsRequestParams->auth_token)) {
             wp_send_json_error(

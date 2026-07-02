@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Telegram;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -15,6 +16,13 @@ use WP_Error;
 class TelegramController
 {
     public const APIENDPOINT = 'https://api.telegram.org/bot';
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'telegram',
+        'fields'   => [
+            'bot_api_key' => 'value',
+        ],
+    ];
 
     private $_integrationID;
 
@@ -22,49 +30,6 @@ class TelegramController
     // {
     //     $this->_integrationID = $integrationID;
     // }
-
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams Params to authorize
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function telegramAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->bot_api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::APIENDPOINT . $requestsParams->bot_api_key . '/getMe';
-        $authorizationHeader['Accept'] = 'application/x-www-form-urlencoded';
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || !$apiResponse->ok) {
-            wp_send_json_error(
-                empty($apiResponse->error_code) ? 'Unknown' : $apiResponse,
-                400
-            );
-        }
-        $apiEndpoint = self::APIENDPOINT . $requestsParams->bot_api_key . '/getUpdates';
-        $authorizationHeader['Accept'] = 'application/x-www-form-urlencoded';
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || !$apiResponse->ok) {
-            wp_send_json_error(
-                empty($apiResponse->error_code) ? 'Unknown' : $apiResponse,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
-    }
 
     /**
      * Process ajax request for refresh telegram get Updates

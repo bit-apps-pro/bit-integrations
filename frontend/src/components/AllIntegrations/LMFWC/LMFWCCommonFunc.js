@@ -41,56 +41,22 @@ export const checkMappedFields = licenseManagerConf => {
   return true
 }
 
-export const lmfwcAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key || !confTmp.api_secret) {
-    setError({
-      base_url: !confTmp.base_url ? __("Consumer key can't be empty", 'bit-integrations') : '',
-      api_key: !confTmp.api_key ? __("Consumer key can't be empty", 'bit-integrations') : '',
-      api_secret: !confTmp.api_secret ? __("Consumer secret can't be empty", 'bit-integrations') : ''
-    })
-    return
+const buildAuthRequestParams = confTmp => {
+  if (confTmp?.connection_id) {
+    return { connection_id: confTmp.connection_id }
   }
 
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
+  return {
     base_url: confTmp.base_url,
     api_key: confTmp.api_key,
     api_secret: confTmp.api_secret
   }
-
-  bitsFetch(requestParams, 'lmfwc_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(
-      result?.data && typeof result.data === 'string'
-        ? result.data
-        : __('Authorized failed, Please enter valid Consumer key & Consumer secret', 'bit-integrations')
-    )
-  })
 }
 
-export const getAllCustomer = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, customer: true })
+export const getAllCustomer = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, customer: true })
 
-  const requestParams = {
-    base_url: confTmp.base_url,
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'lmfwc_fetch_all_customer').then(result => {
     if (result && result.success) {
@@ -100,27 +66,23 @@ export const getAllCustomer = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, customer: false })
+        setLoading({ ...loading, customer: false })
         toast.success(__('Customers fetched successfully', 'bit-integrations'))
         return
       }
-      setLoading({ ...setLoading, customer: false })
+      setLoading({ ...loading, customer: false })
       toast.error(__('Customers Not Found!', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, customer: false })
+    setLoading({ ...loading, customer: false })
     toast.error(__('Customers fetching failed', 'bit-integrations'))
   })
 }
 
-export const getAllProduct = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, product: true })
+export const getAllProduct = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, product: true })
 
-  const requestParams = {
-    base_url: confTmp.base_url,
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'lmfwc_fetch_all_product').then(result => {
     if (result && result.success) {
@@ -130,27 +92,23 @@ export const getAllProduct = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, product: false })
+        setLoading({ ...loading, product: false })
         toast.success(__('Product fetched successfully', 'bit-integrations'))
         return
       }
-      setLoading({ ...setLoading, product: false })
+      setLoading({ ...loading, product: false })
       toast.error(__('Product Not Found!', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, product: false })
+    setLoading({ ...loading, product: false })
     toast.error(__('Product fetching failed', 'bit-integrations'))
   })
 }
 
-export const getAllOrder = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, order: true })
+export const getAllOrder = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, order: true })
 
-  const requestParams = {
-    base_url: confTmp.base_url,
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'lmfwc_fetch_all_order').then(result => {
     if (result && result.success) {
@@ -160,27 +118,23 @@ export const getAllOrder = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, order: false })
+        setLoading({ ...loading, order: false })
         toast.success(__('Order fetched successfully', 'bit-integrations'))
         return
       }
-      setLoading({ ...setLoading, order: false })
+      setLoading({ ...loading, order: false })
       toast.error(__('Order Not Found!', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, order: false })
+    setLoading({ ...loading, order: false })
     toast.error(__('Order fetching failed', 'bit-integrations'))
   })
 }
 
-export const getAllLicense = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, license: true })
+export const getAllLicense = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, license: true })
 
-  const requestParams = {
-    base_url: confTmp.base_url,
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'lmfwc_fetch_all_license').then(result => {
     if (result && result.success) {
@@ -190,27 +144,23 @@ export const getAllLicense = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, license: false })
+        setLoading({ ...loading, license: false })
         toast.success(__('License fetched successfully', 'bit-integrations'))
         return
       }
-      setLoading({ ...setLoading, license: false })
+      setLoading({ ...loading, license: false })
       toast.error(__('License Not Found!', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, license: false })
+    setLoading({ ...loading, license: false })
     toast.error(__('License fetching failed', 'bit-integrations'))
   })
 }
 
-export const getAllGenerator = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, generator: true })
+export const getAllGenerator = (confTmp, setConf, loading, setLoading) => {
+  setLoading({ ...loading, generator: true })
 
-  const requestParams = {
-    base_url: confTmp.base_url,
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'lmfwc_fetch_all_generator').then(result => {
     if (result && result.success) {
@@ -220,15 +170,15 @@ export const getAllGenerator = (confTmp, setConf, setLoading) => {
           return prevConf
         })
 
-        setLoading({ ...setLoading, generator: false })
+        setLoading({ ...loading, generator: false })
         toast.success(__('Generator fetched successfully', 'bit-integrations'))
         return
       }
-      setLoading({ ...setLoading, generator: false })
+      setLoading({ ...loading, generator: false })
       toast.error(__('Generator Not Found!', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, generator: false })
+    setLoading({ ...loading, generator: false })
     toast.error(__('Generator fetching failed', 'bit-integrations'))
   })
 }

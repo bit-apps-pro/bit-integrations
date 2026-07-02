@@ -31,16 +31,6 @@ class GamiPressController
         return false;
     }
 
-    public static function authorizeGamiPress()
-    {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'GamiPress'));
-    }
-
     public static function getCourses()
     {
         $courses = [];

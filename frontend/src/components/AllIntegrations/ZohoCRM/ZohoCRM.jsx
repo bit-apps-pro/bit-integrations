@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveActionConf, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoCRMAuthorization from './ZohoCRMAuthorization'
 import { checkMappedFields, handleInput } from './ZohoCRMCommonFunc'
@@ -30,10 +30,6 @@ function ZohoCRM({ formFields, setFlow, flow, allIntegURL }) {
     relatedlists: [],
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoCRM')
-  }, [])
 
   const saveConfig = () => {
     saveActionConf({

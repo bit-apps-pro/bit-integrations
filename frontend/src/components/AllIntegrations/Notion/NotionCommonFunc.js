@@ -20,95 +20,14 @@ export const handleInput = (e, conf, setConf, error, setError) => {
   setConf(newConf)
 }
 
-export const handleAuthorize = (
-  conf,
-  setConf,
-  error,
-  setError,
-  setAuthorized,
-  loading,
-  setLoading,
-  btcbi
-) => {
-  if (!conf.clientId || !conf.clientSecret) {
-    setError({
-      clientId: !conf.clientId ? __("Client Id can't be empty") : '',
-      clientSecret: !conf.clientSecret ? __("Client Secret can't be empty") : ''
-    })
-    return
-  }
-  setError({})
-  setLoading({ ...loading, auth: true })
-  const apiEndpoint = `https://api.notion.com/v1/oauth/authorize?client_id=${
-    conf.clientId
-  }&response_type=code&owner=user&state=${encodeURIComponent(
-    window.location.href
-  )}/redirect&redirect_uri=${encodeURIComponent(`${btcbi.api}`)}/redirect`
-  const authWindow = window.open(apiEndpoint, 'Notion', 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isAuthRedirectLocation = false
-      const notionStoreValue = localStorage.getItem('__notion')
-      if (notionStoreValue) {
-        isAuthRedirectLocation = true
-        grantTokenResponse = JSON.parse(notionStoreValue)
-        localStorage.removeItem('__notion')
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isAuthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        toast.error(
-          `${__('Authorization failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        )
-        setLoading({ ...loading, auth: false })
-      } else {
-        tokenHelper(grantTokenResponse, conf, setConf, setAuthorized, loading, setLoading, btcbi)
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (grantToken, conf, setConf, setAuthorized, loading, setLoading, btcbi) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = conf.clientId
-  tokenRequestParams.clientSecret = conf.clientSecret
-  // eslint-disable-next-line no-undef
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-  bitsFetch(tokenRequestParams, 'notion_authorization').then(result => {
-    if (result && result.success) {
-      const newConf = { ...conf }
-      newConf.tokenDetails = result.data
-      setConf(newConf)
-      setAuthorized(true)
-      toast.success(__('Authorized Successfully'))
-    } else if (
-      (result && result.data && result.data.data) ||
-      (!result.success && typeof result.data === 'string')
-    ) {
-      toast.error(
-        `${__('Authorization failed Cause:')}${result.data.data || result.data}. ${__(
-          'please try again'
-        )}`
-      )
-    } else {
-      toast.error(__('Authorization failed. please try again'))
-    }
-    setLoading({ ...loading, auth: false })
-  })
-}
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : { accessToken: conf?.tokenDetails?.access_token }
 
 export const getAllDatabaseLists = async (conf, setConf, loading, setLoading) => {
   setLoading && setLoading({ ...loading, list: true })
-  const requestParams = { accessToken: conf.tokenDetails.access_token }
+  const requestParams = buildAuthRequestParams(conf)
   const result = await bitsFetch(requestParams, 'notion_database_lists')
   if (result.success && result.data.results) {
     const data = result?.data.results
@@ -139,7 +58,7 @@ export const getAllDatabaseLists = async (conf, setConf, loading, setLoading) =>
 export const getFieldsProperties = async (conf, setConf, loading, setLoading) => {
   setLoading && setLoading({ ...loading, field: true })
   const requestParams = {
-    accessToken: conf.tokenDetails.access_token,
+    ...buildAuthRequestParams(conf),
     databaseId: conf.databaseId
   }
   const result = await bitsFetch(requestParams, 'notion_database_properties')

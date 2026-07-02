@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\EmailOctopus;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,9 +15,17 @@ use WP_Error;
  */
 class EmailOctopusController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'emailoctopus',
+        'fields'   => [
+            'auth_token' => 'token',
+        ],
+    ];
+
     protected $_defaultHeader;
 
-    public function authentication($fieldsRequestParams)
+    public function fetchAllLists($fieldsRequestParams)
     {
         if (empty($fieldsRequestParams->auth_token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
@@ -27,6 +36,7 @@ class EmailOctopusController
         $response = HttpHelper::get($apiEndpoint, null, null);
 
         if (!isset($response->error)) {
+            $lists = [];
             foreach ($response->data as $list) {
                 $lists[] = [
                     'id'   => $list->id,
@@ -51,6 +61,7 @@ class EmailOctopusController
         $response = HttpHelper::get($apiEndpoint, null, null);
 
         if (!isset($response->error)) {
+            $fields = [];
             foreach ($response->fields as $field) {
                 $fields[] = [
                     'key'      => $field->tag,
@@ -75,6 +86,7 @@ class EmailOctopusController
         $apiEndpoint = 'https://emailoctopus.com/api/1.6/lists/' . $listId . '/tags?api_key=' . $apiKey;
         $response = HttpHelper::get($apiEndpoint, null, null);
 
+        $tags = [];
         foreach ($response->data as $tag) {
             $tags[] = [
                 'name' => $tag->tag

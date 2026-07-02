@@ -18,8 +18,7 @@ export const handleInput = (e, salesmateConf, setSalesmateConf) => {
 export const refreshSuiteDashFields = (suiteDashConf, setSuiteDashConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    public_id: suiteDashConf.public_id,
-    secret_key: suiteDashConf.secret_key,
+    ...buildAuthRequestParams(suiteDashConf),
     action_name: suiteDashConf.actionName
   }
 
@@ -81,49 +80,15 @@ export const checkMappedFields = suiteDashConf => {
   return true
 }
 
-export const suiteDashAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.public_id || !confTmp.secret_key) {
-    setError({
-      public_id: !confTmp.public_id ? __("Public Id can't be empty", 'bit-integrations') : '',
-      secret_key: !confTmp.secret_key ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    public_id: confTmp.public_id,
-    secret_key: confTmp.secret_key
-  }
-
-  bitsFetch(requestParams, 'suite_dash_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid Public Id & Secret Key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { public_id: confTmp.public_id, secret_key: confTmp.secret_key }
 
 export const getAllCompanies = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, companies: true })
 
-  const requestParams = {
-    public_id: confTmp.public_id,
-    secret_key: confTmp.secret_key
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'suite_dash_fetch_all_companies').then(result => {
     if (result && result.success) {

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\PerfexCRM;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,27 +15,20 @@ use WP_Error;
  */
 class PerfexCRMController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'perfexcrm',
+        'fields'   => [
+            'api_token' => 'value',
+            'domain'    => 'domain',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
 
     protected $domain;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->domain = $fieldsRequestParams->domain;
-        $apiToken = $fieldsRequestParams->api_token;
-        $apiEndpoint = $this->setApiEndpoint() . '/staffs';
-        $headers = $this->setHeaders($apiToken);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (\is_string($response) || isset($response->errors) || (isset($response->status) && !$response->status)) {
-            wp_send_json_error(\is_string($response) ? $response : (!empty($response->message) ? $response->message : 'Please enter valid API Token or Access Api URL'), 400);
-        } else {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        }
-    }
 
     public function getCustomFields($fieldsRequestParams)
     {

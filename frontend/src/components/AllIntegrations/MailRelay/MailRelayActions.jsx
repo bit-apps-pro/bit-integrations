@@ -9,13 +9,19 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import Loader from '../../Loaders/Loader'
 import { getAllGroups } from './MailRelayCommonFunc'
 
-export default function MailRelayActions({ mailRelayConf, setMailRelayConf, loading, setLoading }) {
+export default function MailRelayActions({
+  mailRelayConf,
+  setMailRelayConf,
+  loading,
+  setLoading,
+  setSnackbar
+}) {
   const [actionMdl, setActionMdl] = useState({ show: false, action: () => {} })
   const actionHandler = (e, type) => {
     const newConf = { ...mailRelayConf }
     if (type === 'group') {
       if (e.target?.checked) {
-        getAllGroups(mailRelayConf, setMailRelayConf, setLoading)
+        getAllGroups(mailRelayConf, setMailRelayConf, loading, setLoading, setSnackbar)
         newConf.actions.groups = true
       } else {
         setActionMdl({ show: false })
@@ -101,7 +107,9 @@ export default function MailRelayActions({ mailRelayConf, setMailRelayConf, load
               onChange={val => setChanges(val)}
             />
             <button
-              onClick={() => getAllGroups(mailRelayConf, setMailRelayConf, setLoading)}
+              onClick={() =>
+                getAllGroups(mailRelayConf, setMailRelayConf, loading, setLoading, setSnackbar)
+              }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh Groups', 'bit-integrations')}'` }}
               type="button">

@@ -14,11 +14,6 @@ use WP_Error;
  */
 class VoxelController
 {
-    public function authentication()
-    {
-        return self::checkIfVoxelExists();
-    }
-
     public static function checkIfVoxelExists()
     {
         if (wp_get_theme()->get_template() === 'voxel') {

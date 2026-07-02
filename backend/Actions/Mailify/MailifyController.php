@@ -2,11 +2,21 @@
 
 namespace BitApps\Integrations\Actions\Mailify;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
 class MailifyController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'mailify',
+        'fields'   => [
+            'account_id' => 'username',
+            'api_key'    => 'password',
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
@@ -14,31 +24,10 @@ class MailifyController
         $this->integrationID = $integrationID;
     }
 
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->account_id) || empty($requestParams->api_key)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiEndpoint = 'https://mailifyapis.com/v1/users';
-        $header['Authorization'] = 'Basic ' . base64_encode("{$requestParams->account_id}:{$requestParams->api_key}");
-
-        $response = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (!isset($response->users)) {
-            wp_send_json_error(
-                empty($response->message) ? 'Unknown' : $response->message,
-                400
-            );
-        }
-        wp_send_json_success(true);
-    }
-
     public static function mailifyHeaders($requestParams)
     {
-        if (
-            empty($requestParams->account_id) || empty($requestParams->api_key)
-        ) {
+        $credentials = self::extractCredentials($requestParams);
+        if (empty($credentials['account_id']) || empty($credentials['api_key'])) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -51,8 +40,8 @@ class MailifyController
         $listId = $requestParams->list_id;
         $apiEndpoint = "https://mailifyapis.com/v1/lists/{$listId}/fields";
         $headers = [
-            'accountId' => $requestParams->account_id,
-            'apiKey'    => $requestParams->api_key,
+            'accountId' => $credentials['account_id'],
+            'apiKey'    => $credentials['api_key'],
         ];
 
         $mailifyResponse = HttpHelper::get($apiEndpoint, null, $headers);
@@ -78,13 +67,14 @@ class MailifyController
 
     public static function getAllList($requestParams)
     {
-        if (empty($requestParams->account_id) || empty($requestParams->api_key)) {
+        $credentials = self::extractCredentials($requestParams);
+        if (empty($credentials['account_id']) || empty($credentials['api_key'])) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
         $headers = [
-            'accountId' => $requestParams->account_id,
-            'apiKey'    => $requestParams->api_key,
+            'accountId' => $credentials['account_id'],
+            'apiKey'    => $credentials['api_key'],
         ];
         $apiEndpoint = 'https://mailifyapis.com/v1/lists';
         $apiResponse = HttpHelper::get($apiEndpoint, null, $headers);
@@ -132,5 +122,16 @@ class MailifyController
         }
 
         return $mailifyApiResponse;
+    }
+
+    private static function extractCredentials($requestParams)
+    {
+        $accountId = !empty($requestParams->account_id) ? $requestParams->account_id : (!empty($requestParams->username) ? $requestParams->username : '');
+        $apiKey = !empty($requestParams->api_key) ? $requestParams->api_key : (!empty($requestParams->password) ? $requestParams->password : '');
+
+        return [
+            'account_id' => $accountId,
+            'api_key'    => $apiKey,
+        ];
     }
 }

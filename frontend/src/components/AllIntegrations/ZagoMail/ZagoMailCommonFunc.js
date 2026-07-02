@@ -8,11 +8,12 @@ export const handleInput = (e, zagoMailConf, setZagoMailConf) => {
   setZagoMailConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { api_public_key: conf.api_public_key }
+
 export const refreshZagoMailList = (zagoMailConf, setZagoMailConf, setIsLoading, setSnackbar) => {
-  setIsLoading(true)
-  const refreshListsRequestParams = {
-    api_public_key: zagoMailConf.api_public_key
-  }
+  if (typeof setIsLoading === 'function') setIsLoading(true)
+  const refreshListsRequestParams = buildAuthRequestParams(zagoMailConf)
   bitsFetch(refreshListsRequestParams, 'zagoMail_lists')
     .then(result => {
       if (result && result.success) {
@@ -22,12 +23,12 @@ export const refreshZagoMailList = (zagoMailConf, setZagoMailConf, setIsLoading,
             newConf.default = {}
           }
           newConf.default.zagoMailLists = result.data.zagoMailLists
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __('ZagoMail lists refreshed', 'bit-integrations')
           })
         } else {
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __(
               'No ZagoMail lists found. Try changing the header row number or try again',
@@ -38,21 +39,21 @@ export const refreshZagoMailList = (zagoMailConf, setZagoMailConf, setIsLoading,
 
         setZagoMailConf({ ...newConf })
       } else {
-        setSnackbar({
+        setSnackbar?.({
           show: true,
           msg: __('ZagoMail lists refresh failed. please try again', 'bit-integrations')
         })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 // refreshZagoMailTags
 export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading, setSnackbar) => {
-  setIsLoading({ tags: true })
-  const refreshListsRequestParams = {
-    api_public_key: zagoMailConf.api_public_key
-  }
+  if (typeof setIsLoading === 'function') setIsLoading({ tags: true })
+  const refreshListsRequestParams = buildAuthRequestParams(zagoMailConf)
   bitsFetch(refreshListsRequestParams, 'zagoMail_tags')
     .then(result => {
       if (result && result.success) {
@@ -63,12 +64,12 @@ export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading,
           }
           newConf.tags = result.data.zagoMailTags
           setZagoMailConf({ ...newConf })
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __('ZagoMail tags refreshed', 'bit-integrations')
           })
         } else {
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __(
               'No ZagoMail tags found. Try changing the header row number or try again',
@@ -79,20 +80,22 @@ export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading,
 
         // console.log('newConf', newConf)
       } else {
-        setSnackbar({
+        setSnackbar?.({
           show: true,
           msg: __('ZagoMail tags refresh failed. please try again', 'bit-integrations')
         })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 // refreshMappedFields
 export const refreshZagoMailFields = (zagoMailConf, setZagoMailConf, setIsLoading, setSnackbar) => {
-  setIsLoading(true)
+  if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = {
-    api_public_key: zagoMailConf.api_public_key,
+    ...buildAuthRequestParams(zagoMailConf),
     listId: zagoMailConf.listId
   }
   // console.log('zagoMailConf', zagoMailConf)
@@ -113,12 +116,12 @@ export const refreshZagoMailFields = (zagoMailConf, setZagoMailConf, setIsLoadin
               zagoMailField: f.fieldId,
               required: true
             }))
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __('ZagoMail fields refreshed', 'bit-integrations')
           })
         } else {
-          setSnackbar({
+          setSnackbar?.({
             show: true,
             msg: __(
               'No ZagoMail fields found. Try changing the header row number or try again',
@@ -129,14 +132,16 @@ export const refreshZagoMailFields = (zagoMailConf, setZagoMailConf, setIsLoadin
 
         setZagoMailConf({ ...newConf })
       } else {
-        setSnackbar({
+        setSnackbar?.({
           show: true,
           msg: __('ZagoMail fields refresh failed. please try again', 'bit-integrations')
         })
       }
-      setIsLoading(false)
+      if (typeof setIsLoading === 'function') setIsLoading(false)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      if (typeof setIsLoading === 'function') setIsLoading(false)
+    })
 }
 
 export const checkMappedFields = zagoMailConf => {

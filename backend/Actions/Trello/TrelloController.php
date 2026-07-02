@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Trello;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -16,11 +17,16 @@ use WP_Error;
  */
 class TrelloController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH1,
+        'slug'     => 'trello',
+        'fields'   => [
+            'clientId'    => 'consumer_key',
+            'accessToken' => 'access_token',
+        ],
+    ];
+
     private $baseUrl = 'https://api.trello.com/1/';
-
-    private $_integrationID;
-
-    private $accessToken;
 
     public function fetchAllBoards($queryParams)
     {

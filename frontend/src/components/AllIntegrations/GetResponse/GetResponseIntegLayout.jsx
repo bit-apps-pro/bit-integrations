@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import GetResponseActions from './GetResponseActions'
-import { fetchCustomFields, getresponseAuthentication } from './GetResponseCommonFunc'
+import { fetchCampaigns, fetchCustomFields } from './GetResponseCommonFunc'
 import GetResponseFieldMap from './GetResponseFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 
@@ -15,9 +14,6 @@ export default function GetResponseIntegLayout({
   setLoading,
   setSnackbar
 }) {
-  const [error, setError] = useState({ name: '', auth_token: '' })
-  const [isAuthorized, setisAuthorized] = useState(false)
-
   return (
     <>
       <br />
@@ -38,11 +34,11 @@ export default function GetResponseIntegLayout({
       </select>
       <button
         onClick={() =>
-          getresponseAuthentication(
+          fetchCampaigns(
             getResponseConf,
             setGetResponseConf,
-            setError,
-            setisAuthorized,
+            undefined,
+            undefined,
             loading,
             setLoading,
             'refreshCampaigns'

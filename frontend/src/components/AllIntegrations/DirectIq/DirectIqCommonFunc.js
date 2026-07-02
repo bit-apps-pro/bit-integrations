@@ -8,12 +8,17 @@ export const handleInput = (e, directIqConf, setDirectIqConf) => {
   setDirectIqConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        client_id: confTmp.client_id,
+        client_secret: confTmp.client_secret
+      }
+
 // refreshMappedLists
 export const refreshDirectIqList = (directIqConf, setDirectIqConf, setIsLoading, setSnackbar) => {
-  const refreshListsRequestParams = {
-    client_id: directIqConf.client_id,
-    client_secret: directIqConf.client_secret
-  }
+  const refreshListsRequestParams = buildAuthRequestParams(directIqConf)
   bitsFetch(refreshListsRequestParams, 'directIq_lists')
     .then(result => {
       if (result && result.success) {
@@ -52,8 +57,7 @@ export const refreshDirectIqList = (directIqConf, setDirectIqConf, setIsLoading,
 // refreshMappedFields
 export const refreshDirectIqHeader = (directIqConf, setDirectIqConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
-    client_id: directIqConf.client_id,
-    client_secret: directIqConf.client_secret,
+    ...buildAuthRequestParams(directIqConf),
     list_id: directIqConf.listId
   }
 

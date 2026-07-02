@@ -4,6 +4,14 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        api_email: confTmp.api_email
+      }
+
 export const handleInput = (e, copperCRMConf, setCopperCRMConf) => {
   const newConf = { ...copperCRMConf }
   const { name } = e.target
@@ -51,48 +59,11 @@ export const checkMappedFields = copperCRMConf => {
   return true
 }
 
-export const coppercrmAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_email || !confTmp.api_key) {
-    setError({
-      api_email: !confTmp.api_email ? __("API Email can't be empty", 'bit-integrations') : '',
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email
-  }
-
-  bitsFetch(requestParams, 'coppercrm_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid api_email name & API key', 'bit-integrations'))
-  })
-}
-
 export const getCustomFields = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, customFields: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email,
+    ...buildAuthRequestParams(confTmp),
     action: confTmp.actionName
   }
 
@@ -119,10 +90,7 @@ export const getCustomFields = (confTmp, setConf, setLoading) => {
 export const getAllOpportunities = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, opportunities: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'coppercrm_fetch_all_opportunities').then(result => {
     if (result && result.success) {
@@ -144,10 +112,7 @@ export const getAllOpportunities = (confTmp, setConf, setLoading) => {
 export const getAllOwners = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, owners: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'coppercrm_fetch_all_owners').then(result => {
     if (result && result.success) {
@@ -169,10 +134,7 @@ export const getAllOwners = (confTmp, setConf, setLoading) => {
 export const getAllCompanies = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, companies: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'coppercrm_fetch_all_companies').then(result => {
     if (result && result.success) {
@@ -194,10 +156,7 @@ export const getAllCompanies = (confTmp, setConf, setLoading) => {
 export const getAllTags = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, tags: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'coppercrm_fetch_all_tags').then(result => {
     if (result && result.success) {
@@ -220,8 +179,7 @@ export const getAllPipelineStages = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, pipelineStages: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -246,8 +204,7 @@ export const getAllCRMPeoples = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMPeoples: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -271,10 +228,7 @@ export const getAllCRMPeoples = (confTmp, setConf, setLoading) => {
 export const getAllCRMPipelines = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMPipelines: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_email: confTmp.api_email
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'coppercrm_fetch_all_CRMPipelines').then(result => {
     if (result && result.success) {

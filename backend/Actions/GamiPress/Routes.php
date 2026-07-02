@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\GamiPress\GamiPressController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('gamiPress_authorize', [GamiPressController::class, 'authorizeGamiPress']);
 Route::post('gamiPress_fetch_all_rank_type', [GamiPressController::class, 'fetchAllRankType']);
 Route::post('gamiPress_fetch_all_rank_by_type', [GamiPressController::class, 'fetchAllRankBYType']);
 Route::post('gamiPress_fetch_all_achievement_type', [GamiPressController::class, 'fetchAllAchievementType']);

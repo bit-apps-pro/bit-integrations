@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { setGrantTokenResponse } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import OneDriveAuthorization from './OneDriveAuthorization'
@@ -31,10 +29,6 @@ function OneDrive({ formFields, setFlow, flow, allIntegURL }) {
     actions: {}
   })
 
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('oneDrive')
-  }, [])
-
   const saveConfig = () => {
     saveActionConf({
       flow,
@@ -56,14 +50,10 @@ function OneDrive({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <OneDriveAuthorization
-        flowID={flowID}
         oneDriveConf={oneDriveConf}
         setOneDriveConf={setOneDriveConf}
         step={step}
         setStep={setStep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

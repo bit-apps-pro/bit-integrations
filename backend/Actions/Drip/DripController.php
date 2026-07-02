@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Drip;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class DripController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'drip',
+        'fields'   => [
+            'api_token' => 'username',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -21,7 +30,7 @@ class DripController
         $this->_integrationID = $integrationID;
     }
 
-    public static function dripAuthorize($requestsParams)
+    public static function getAllAccounts($requestsParams)
     {
         if (empty($requestsParams->api_token)
         ) {
@@ -56,16 +65,16 @@ class DripController
             ];
         }
 
-        wp_send_json_success($accounts);
+        wp_send_json_success($accounts, 200);
     }
 
     public static function getCustomFields($fieldsRequestParams)
     {
-        if (empty($fieldsRequestParams->apiToken) || empty($fieldsRequestParams->selectedAccountId)) {
+        if (empty($fieldsRequestParams->api_token) || empty($fieldsRequestParams->selectedAccountId)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $apiToken = $fieldsRequestParams->apiToken;
+        $apiToken = $fieldsRequestParams->api_token;
         $accountId = $fieldsRequestParams->selectedAccountId;
         $apiEndpoints = 'https://api.getdrip.com/v2/' . $accountId . '/custom_field_identifiers';
         $header = [
@@ -96,11 +105,11 @@ class DripController
 
     public static function getAllTags($fieldsRequestParams)
     {
-        if (empty($fieldsRequestParams->apiToken) || empty($fieldsRequestParams->selectedAccountId)) {
+        if (empty($fieldsRequestParams->api_token) || empty($fieldsRequestParams->selectedAccountId)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $apiToken = $fieldsRequestParams->apiToken;
+        $apiToken = $fieldsRequestParams->api_token;
         $accountId = $fieldsRequestParams->selectedAccountId;
         $apiEndpoints = 'https://api.getdrip.com/v2/' . $accountId . '/tags';
         $header = [

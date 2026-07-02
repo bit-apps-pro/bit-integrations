@@ -34,17 +34,6 @@ class MailerPressController
     }
 
     /**
-     * Process ajax request for authorization
-     *
-     * @return JSON response
-     */
-    public static function mailerPressAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
-    /**
      * Process ajax request for refresh lists
      *
      * @return JSON list data

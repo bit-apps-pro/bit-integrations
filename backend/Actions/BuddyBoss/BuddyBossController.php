@@ -19,16 +19,6 @@ class BuddyBossController
         return (bool) (class_exists('BuddyPress'));
     }
 
-    public static function authorizeBuddyBoss()
-    {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'BuddyBoss'));
-    }
-
     public static function getAllGroups()
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';

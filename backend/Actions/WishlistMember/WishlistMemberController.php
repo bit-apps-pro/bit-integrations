@@ -24,24 +24,6 @@ class WishlistMemberController
     }
 
     /**
-     * Validate if WishlistMember plugin exists or not.
-     */
-    public static function authorization()
-    {
-        if (!self::isPluginInstalled()) {
-            wp_send_json_error(
-                __(
-                    'WishlistMember is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        wp_send_json_success(true);
-    }
-
-    /**
      * Get wishlist levels
      */
     public function getLevels()

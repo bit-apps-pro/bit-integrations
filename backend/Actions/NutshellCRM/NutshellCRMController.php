@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\NutshellCRM;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,30 +15,18 @@ use WP_Error;
  */
 class NutshellCRMController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'nutshellcrm',
+        'fields'   => [
+            'user_name' => 'username',
+            'api_token' => 'password',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $userName = $fieldsRequestParams->user_name;
-        $apiToken = $fieldsRequestParams->api_token;
-        $apiEndpoint = $this->setApiEndpoint();
-        $headers = $this->setHeaders($userName, $apiToken);
-        $body = [
-            'method' => 'getUser',
-            'id'     => 'randomstring',
-        ];
-
-        $response = HttpHelper::post($apiEndpoint, wp_json_encode($body), $headers);
-
-        if (isset($response->result)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid User Name & Secret or Access Api URL', 'bit-integrations'), 400);
-        }
-    }
 
     public function getCompanies($fieldsRequestParams)
     {

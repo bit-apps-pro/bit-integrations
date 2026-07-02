@@ -20,22 +20,6 @@ class TutorLmsController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Process ajax request for generate_token
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function TutorAuthorize()
-    {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if (is_plugin_active('tutor/tutor.php')) {
-            wp_send_json_success(true, 200);
-        }
-
-        // translators: %s: Plugin name
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'Tutor LMS'));
-    }
-
     public static function getAllLesson()
     {
         if (!\function_exists('tutor')) {

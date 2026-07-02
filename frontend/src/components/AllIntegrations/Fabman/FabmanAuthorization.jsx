@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-expressions */
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
-import { fabmanAuthentication, fetchFabmanWorkspaces } from './FabmanCommonFunc'
+import { fabmanAuthentication, fetchFabmanAccountId, fetchFabmanWorkspaces } from './FabmanCommonFunc'
 import Note from '../../Utilities/Note'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
+import Authorization from '../../Connections/Authorization'
 
 const STEP_ONE_STYLE = { width: 900, height: 'auto' }
 
@@ -20,6 +23,13 @@ export default function FabmanAuthorization({
 }) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState({ name: '', apiKey: '' })
+
+  const handleConnectionSelected = useCallback(
+    async connectionId => {
+      await fetchFabmanAccountId(connectionId, setFabmanConf)
+    },
+    [setFabmanConf]
+  )
 
   const nextPage = () => {
     fetchFabmanWorkspaces(fabmanConf, setFabmanConf, loading, setLoading, 'fetch')
@@ -39,68 +49,24 @@ export default function FabmanAuthorization({
   }
 
   return (
-    <div className="btcd-stp-page" style={step === 1 ? STEP_ONE_STYLE : undefined}>
-      <TutorialLink linkKey="fabman" />
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={fabmanConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="apiKey"
-        value={fabmanConf.apiKey}
-        type="text"
-        placeholder={__('Your API Key', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div className="mt-3" style={{ color: 'red', fontSize: '15px' }}>
-        {error.apiKey}
-      </div>
-
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() =>
-              fabmanAuthentication(
-                fabmanConf,
-                setFabmanConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading
-              )
-            }
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || loading.auth}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {loading.auth && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-
-          <button
-            onClick={nextPage}
-            className="btn ml-auto btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-          </button>
-        </div>
-      )}
-      <Note note={fabmanApiKeyNote} />
-    </div>
+    <Authorization
+      config={fabmanConf}
+      setConfig={setFabmanConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialTitle="Fabman"
+      tutorialLinks={tutorialLinks?.fabman || {}}
+      authDetails={{
+        authType: AUTH_TYPES.BEARER_TOKEN,
+        apiEndpoint: 'https://fabman.io/api/v1/accounts',
+        method: 'GET'
+      }}
+      noteDetails={{
+        note: fabmanApiKeyNote
+      }}
+      onConnectionSelected={handleConnectionSelected}
+    />
   )
 }
 

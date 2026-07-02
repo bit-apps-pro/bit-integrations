@@ -13,21 +13,6 @@ use WP_Error;
  */
 class NewsletterController
 {
-    public function authentication()
-    {
-        if (self::checkedNewsletterExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install Newsletter',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public static function checkedNewsletterExists()
     {
         if (!is_plugin_active('newsletter/plugin.php')) {

@@ -2,37 +2,26 @@
 
 namespace BitApps\Integrations\Actions\Hubspot;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
 final class HubspotController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'hubspot',
+        'fields'   => [
+            'api_key' => 'token',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->api_key)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiEndpoint = 'https://api.hubapi.com/crm/v3/objects/contacts';
-        $header = [
-            'authorization' => 'Bearer ' . $requestParams->api_key
-        ];
-
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (isset($apiResponse->results)) {
-            wp_send_json_success(__('Authorization successfull', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
-        }
     }
 
     public static function getFields($requestParams)

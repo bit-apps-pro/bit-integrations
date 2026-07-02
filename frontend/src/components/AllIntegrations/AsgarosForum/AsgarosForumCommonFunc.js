@@ -1,6 +1,4 @@
 import { create } from 'mutative'
-import bitsFetch from '../../../Utils/bitsFetch'
-import { __ } from '../../../Utils/i18nwrap'
 import { asgarosForumActionFields } from './staticData'
 
 export const handleInput = (e, asgarosForumConf, setAsgarosForumConf) => {
@@ -44,46 +42,4 @@ export const checkMappedFields = asgarosForumConf => {
         (mappedField.formField !== 'custom' || mappedField?.customValue)
     )
   )
-}
-
-export const asgarosForumAuthentication = (
-  confTmp,
-  setAsgarosForumConf,
-  setError,
-  setIsAuthorized,
-  setIsLoading
-) => {
-  if (!confTmp?.name) {
-    setError({
-      name: __("Integration name can't be empty", 'bit-integrations')
-    })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  bitsFetch({ name: confTmp.name }, 'asgaros_forum_authorize')
-    .then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
-        setAsgarosForumConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf.name = confTmp.name
-          })
-        )
-      } else {
-        setError({
-          name: result?.data || __('Authorization failed', 'bit-integrations')
-        })
-      }
-    })
-    .catch(() => {
-      setError({
-        name: __('Authorization failed', 'bit-integrations')
-      })
-    })
-    .finally(() => {
-      setIsLoading(false)
-    })
 }

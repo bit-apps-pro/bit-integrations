@@ -1,6 +1,15 @@
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
+
 export const handleInput = (e, formID, campaignsConf, setCampaignsConf, setIsLoading, setSnackbar) => {
   let newConf = { ...campaignsConf }
   newConf[e.target.name] = e.target.value
@@ -30,10 +39,8 @@ export const refreshLists = (formID, campaignsConf, setCampaignsConf, setIsLoadi
   const refreshListsRequestParams = {
     formID,
     id: campaignsConf.id,
-    dataCenter: campaignsConf.dataCenter,
-    clientId: campaignsConf.clientId,
-    clientSecret: campaignsConf.clientSecret,
-    tokenDetails: campaignsConf.tokenDetails
+    ...buildAuthRequestParams(campaignsConf),
+    dataCenter: campaignsConf.dataCenter
   }
   bitsFetch(refreshListsRequestParams, 'zcampaigns_refresh_lists')
     .then(result => {
@@ -84,10 +91,8 @@ export const refreshContactFields = (
   const refreshContactFieldsRequestParams = {
     formID,
     list,
-    dataCenter: campaignsConf.dataCenter,
-    clientId: campaignsConf.clientId,
-    clientSecret: campaignsConf.clientSecret,
-    tokenDetails: campaignsConf.tokenDetails
+    ...buildAuthRequestParams(campaignsConf),
+    dataCenter: campaignsConf.dataCenter
   }
   bitsFetch(refreshContactFieldsRequestParams, 'zcampaigns_refresh_contact_fields')
     .then(result => {

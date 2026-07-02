@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ActiveCampaign;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,15 @@ use WP_Error;
  */
 class ActiveCampaignController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'activecampaign',
+        'fields'   => [
+            'api_key' => 'value',
+            'api_url' => 'api_url',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -24,42 +34,6 @@ class ActiveCampaignController
     public static function _apiEndpoint($api_url, $method)
     {
         return "{$api_url}/api/3/{$method}/";
-    }
-
-    /**
-     * Process ajax request
-     *
-     * @param $requestsParams Params to authorize
-     *
-     * @return JSON Active Campaign api response and status
-     */
-    public static function activeCampaignAuthorize($requestsParams)
-    {
-        if (
-            empty($requestsParams->api_key)
-            || empty($requestsParams->api_url)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::_apiEndpoint($requestsParams->api_url, 'accounts');
-        $authorizationHeader['Api-Token'] = $requestsParams->api_key;
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || empty($apiResponse)) {
-            wp_send_json_error(
-                empty($apiResponse) ? 'Unknown' : $apiResponse,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
     }
 
     /**

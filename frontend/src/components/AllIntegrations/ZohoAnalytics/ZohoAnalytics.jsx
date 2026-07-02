@@ -7,7 +7,7 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoAnalyticsAuthorization from './ZohoAnalyticsAuthorization'
-import { handleInput, setGrantTokenResponse } from './ZohoAnalyticsCommonFunc'
+import { handleInput } from './ZohoAnalyticsCommonFunc'
 import ZohoAnalyticsIntegLayout from './ZohoAnalyticsIntegLayout'
 
 export default function ZohoAnalytics({ formFields, setFlow, flow, allIntegURL }) {
@@ -22,10 +22,6 @@ export default function ZohoAnalytics({ formFields, setFlow, flow, allIntegURL }
     field_map: [{ formField: '', zohoFormField: '' }],
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse()
-  }, [])
 
   const nextPage = () => {
     setTimeout(() => {

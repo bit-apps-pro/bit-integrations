@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Flowlu;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,15 @@ use WP_Error;
  */
 class FlowluController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'flowlu',
+        'fields'   => [
+            'api_key'      => 'value',
+            'company_name' => 'company_name',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -23,21 +33,6 @@ class FlowluController
     public function __construct()
     {
         $this->_defaultHeader = ['Content-type' => 'application/json'];
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->comapnyName = $fieldsRequestParams->company_name;
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEndpoint = $this->setApiEndpoint() . "/module/crm/account?api_key={$apiKey}";
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (!isset($response->error)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid Session Token or Link Name', 'bit-integrations'), 400);
-        }
     }
 
     public function getAllFields($fieldsRequestParams)

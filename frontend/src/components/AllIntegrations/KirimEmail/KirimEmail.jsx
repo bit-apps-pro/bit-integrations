@@ -1,20 +1,19 @@
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { checkMappedFields, handleInput } from './KirimEmailCommonFunc'
+import { checkMappedFields } from './KirimEmailCommonFunc'
 import BackIcn from '../../../Icons/BackIcn'
 import KirimEmailAuthorization from './KirimEmailAuthorization'
 import KirimEmailIntegLayout from './KirimEmailIntegLayout'
 
 function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -33,8 +32,9 @@ function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
   const [kirimEmailConf, setKirimEmailConf] = useState({
     name: 'Kirim Email',
     type: 'Kirim Email',
+    app_slug: 'KirimEmail',
     mainAction: '',
-    userName: 'vaishak',
+    userName: '',
     api_key: '',
     field_map: [{ formField: '', kirimEmailFormField: '' }],
     subscriberFields,
@@ -57,7 +57,6 @@ function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <KirimEmailAuthorization
-        formID={formID}
         kirimEmailConf={kirimEmailConf}
         setKirimEmailConf={setKirimEmailConf}
         step={step}
@@ -80,7 +79,6 @@ function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
         }}>
         <KirimEmailIntegLayout
           formFields={formFields}
-          handleInput={e => handleInput(e, kirimEmailConf, setKirimEmailConf, setIsLoading, setSnackbar)}
           kirimEmailConf={kirimEmailConf}
           setKirimEmailConf={setKirimEmailConf}
           isLoading={isLoading}

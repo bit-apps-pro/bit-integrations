@@ -1,7 +1,15 @@
 import bitsFetch from '../../../Utils/bitsFetch'
-import { deepCopy } from '../../../Utils/Helpers'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
 
 export const handleInput = (
   e,
@@ -83,9 +91,7 @@ export const refreshAudience = (formID, mailChimpConf, setMailChimpConf, setIsLo
   setIsLoading(true)
   const refreshModulesRequestParams = {
     formID,
-    clientId: mailChimpConf.clientId,
-    clientSecret: mailChimpConf.clientSecret,
-    tokenDetails: mailChimpConf.tokenDetails
+    ...buildAuthRequestParams(mailChimpConf)
   }
   bitsFetch(refreshModulesRequestParams, 'mChimp_refresh_audience')
     .then(result => {
@@ -140,9 +146,7 @@ export const refreshTags = (
   setLoading({ ...loading, tags: true })
   const refreshModulesRequestParams = {
     formID,
-    clientId: mailChimpConf.clientId,
-    clientSecret: mailChimpConf.clientSecret,
-    tokenDetails: mailChimpConf.tokenDetails,
+    ...buildAuthRequestParams(mailChimpConf),
     listId: mailChimpConf.listId
   }
   bitsFetch(refreshModulesRequestParams, 'mChimp_refresh_tags')
@@ -199,9 +203,7 @@ export const refreshFields = (
     formID,
     listId,
     module: mailChimpConf?.module,
-    clientId: mailChimpConf.clientId,
-    clientSecret: mailChimpConf.clientSecret,
-    tokenDetails: mailChimpConf.tokenDetails
+    ...buildAuthRequestParams(mailChimpConf)
   }
   bitsFetch(refreshSpreadsheetsRequestParams, 'mChimp_refresh_fields')
     .then(result => {
@@ -235,139 +237,6 @@ export const refreshFields = (
       setLoading({ ...loading, refreshFields: false })
     })
     .catch(() => setLoading({ ...loading, refreshFields: false }))
-}
-
-export const setGrantTokenResponse = integ => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation.replace(`${window.opener.location.href}`, '').split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
-      }
-    })
-  }
-  localStorage.setItem(`__${integ}`, JSON.stringify(grantTokenResponse))
-  window.close()
-}
-
-export const handleMailChimpAuthorize = (
-  integ,
-  ajaxInteg,
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-
-  const apiEndpoint = `https://login.mailchimp.com/oauth2/authorize?client_id=${
-    confTmp.clientId
-  }&redirect_uri=${encodeURIComponent(window.location.href)}&response_type=code`
-  const authWindow = window.open(apiEndpoint, integ, 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitsMailChimp = localStorage.getItem(`__${integ}`)
-      if (bitsMailChimp) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitsMailChimp)
-        localStorage.removeItem(`__${integ}`)
-        if (grantTokenResponse.code.search('#')) {
-          const [code] = grantTokenResponse.code.split('#')
-          grantTokenResponse.code = code
-        }
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(
-          ajaxInteg,
-          grantTokenResponse,
-          newConf,
-          setConf,
-          setisAuthorized,
-          setIsLoading,
-          setSnackbar
-        )
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (
-  ajaxInteg,
-  grantToken,
-  confTmp,
-  setConf,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  tokenRequestParams.redirectURI = window.location.href
-
-  bitsFetch(tokenRequestParams, `${ajaxInteg}_generate_token`)
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Authorized Successfully', 'bit-integrations')
-        })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
 }
 
 export const checkMappedFields = mailChimpConf => {

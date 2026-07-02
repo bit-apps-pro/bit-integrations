@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
@@ -9,7 +9,7 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import MailupAuthorization from './MailupAuthorization'
-import { handleInput, setGrantTokenResponse, checkMappedFields } from './MailupCommonFunc'
+import { handleInput, checkMappedFields } from './MailupCommonFunc'
 import MailupIntegLayout from './MailupIntegLayout'
 
 function Mailup({ formFields, setFlow, flow, allIntegURL }) {
@@ -32,11 +32,6 @@ function Mailup({ formFields, setFlow, flow, allIntegURL }) {
     staticFields: [],
     actions: {}
   })
-
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    window.opener && setGrantTokenResponse('mailup')
-  }, [])
 
   const nextPage = pageNo => {
     setTimeout(() => {

@@ -151,6 +151,7 @@ export default function Fabman({ formFields, setFlow, flow, allIntegURL }) {
   const [fabmanConf, setFabmanConf] = useState({
     name: 'Fabman',
     type: 'Fabman',
+    app_slug: 'fabman',
     field_map: [{ formField: '', fabmanFormField: '' }],
     customFields: [],
     actions: {},

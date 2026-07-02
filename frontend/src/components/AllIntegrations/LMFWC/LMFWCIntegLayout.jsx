@@ -38,12 +38,12 @@ export default function LMFWCIntegLayout({
         draftConf[name] = val
 
         if (name === 'module' && (val === 'create_license' || val === 'update_license')) {
-          getAllCustomer(licenseManagerConf, setLicenseManagerConf, setLoading)
-          getAllProduct(licenseManagerConf, setLicenseManagerConf, setLoading)
-          getAllOrder(licenseManagerConf, setLicenseManagerConf, setLoading)
+          getAllCustomer(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+          getAllProduct(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+          getAllOrder(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
 
           if (val === 'update_license') {
-            getAllLicense(licenseManagerConf, setLicenseManagerConf, setLoading)
+            getAllLicense(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
             draftConf.lmfwcFields = [
               { label: __('License key', 'bit-integrations'), key: 'license_key', required: false },
               ...draftConf.generalFields
@@ -68,7 +68,7 @@ export default function LMFWCIntegLayout({
           draftConf.field_map = generateMappedField(draftConf.lmfwcFields)
         } else if (name === 'module' && (val === 'create_generator' || val === 'update_generator')) {
           if (val === 'update_generator') {
-            getAllGenerator(licenseManagerConf, setLicenseManagerConf, setLoading)
+            getAllGenerator(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
             draftConf.lmfwcFields = draftConf.generatorFields.map(fields => {
               return { ...fields, required: false }
             })
@@ -131,7 +131,9 @@ export default function LMFWCIntegLayout({
               closeOnSelect
             />
             <button
-              onClick={() => getAllLicense(licenseManagerConf, setLicenseManagerConf, setLoading)}
+              onClick={() =>
+                getAllLicense(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+              }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh License', 'bit-integrations')}'` }}
               type="button"
@@ -159,7 +161,9 @@ export default function LMFWCIntegLayout({
               closeOnSelect
             />
             <button
-              onClick={() => getAllGenerator(licenseManagerConf, setLicenseManagerConf, setLoading)}
+              onClick={() =>
+                getAllGenerator(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+              }
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh Generator', 'bit-integrations')}'` }}
               type="button"
@@ -211,7 +215,9 @@ export default function LMFWCIntegLayout({
                 closeOnSelect
               />
               <button
-                onClick={() => getAllCustomer(licenseManagerConf, setLicenseManagerConf, setLoading)}
+                onClick={() =>
+                  getAllCustomer(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+                }
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{ '--tooltip-txt': `'${__('Refresh Customers', 'bit-integrations')}'` }}
                 type="button"
@@ -237,7 +243,9 @@ export default function LMFWCIntegLayout({
                 closeOnSelect
               />
               <button
-                onClick={() => getAllProduct(licenseManagerConf, setLicenseManagerConf, setLoading)}
+                onClick={() =>
+                  getAllProduct(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+                }
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{ '--tooltip-txt': `'${__('Refresh Products', 'bit-integrations')}'` }}
                 type="button"
@@ -263,7 +271,9 @@ export default function LMFWCIntegLayout({
                 closeOnSelect
               />
               <button
-                onClick={() => getAllOrder(licenseManagerConf, setLicenseManagerConf, setLoading)}
+                onClick={() =>
+                  getAllOrder(licenseManagerConf, setLicenseManagerConf, loading, setLoading)
+                }
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{ '--tooltip-txt': `'${__('Refresh Orders', 'bit-integrations')}'` }}
                 type="button"

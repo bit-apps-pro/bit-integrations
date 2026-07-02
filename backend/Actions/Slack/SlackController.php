@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Slack;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -16,6 +17,14 @@ class SlackController
 {
     public const APIENDPOINT = 'https://slack.com/api';
 
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'slack',
+        'fields'   => [
+            'accessToken' => 'token',
+        ],
+    ];
+
     /**
      * Process ajax request for generate_token
      *
@@ -24,7 +33,7 @@ class SlackController
      *
      * @return JSON slack api response and status
      */
-    public static function checkAuthorizationAndFetchChannels($tokenRequestParams)
+    public static function fetchChannels($tokenRequestParams)
     {
         if (
             empty($tokenRequestParams->accessToken)
@@ -52,8 +61,20 @@ class SlackController
                 400
             );
         }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
+
+        $channels = [];
+        if (!empty($apiResponse->channels) && \is_array($apiResponse->channels)) {
+            foreach ($apiResponse->channels as $channel) {
+                if (!empty($channel->id) && !empty($channel->name)) {
+                    $channels[] = [
+                        'id'   => $channel->id,
+                        'name' => $channel->name,
+                    ];
+                }
+            }
+        }
+
+        wp_send_json_success(['channels' => $channels], 200);
     }
 
     public function execute($integrationData, $fieldValues)

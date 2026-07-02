@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SendGrid;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,7 +15,15 @@ use WP_Error;
  */
 class SendGridController
 {
-    public function authentication($fieldsRequestParams)
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'sendgrid',
+        'fields'   => [
+            'apiKey' => 'token',
+        ],
+    ];
+
+    public function getCustomFields($fieldsRequestParams)
     {
         if (empty($fieldsRequestParams->apiKey)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
@@ -28,6 +37,7 @@ class SendGridController
 
         $response = HttpHelper::get($apiEndpoints, null, $header);
         if (!isset($response->errors)) {
+            $customFields = [];
             foreach ($response->custom_fields as $customField) {
                 $customFields[] = [
                     'key'      => $customField->id,
@@ -37,7 +47,7 @@ class SendGridController
             }
             wp_send_json_success($customFields, 200);
         } else {
-            wp_send_json_error($response->errors[0]->message ?? __('Please enter valid API key', 'bit-integrations'), 400);
+            wp_send_json_error($response->errors[0]->message ?? __('Custom fields fetch failed', 'bit-integrations'), 400);
         }
     }
 

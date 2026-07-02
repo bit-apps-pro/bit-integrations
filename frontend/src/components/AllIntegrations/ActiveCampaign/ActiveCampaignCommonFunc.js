@@ -89,16 +89,21 @@ export const handleInput = (e, activeCampaingConf, setActiveCampaingConf) => {
   setActiveCampaingConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        api_url: confTmp.api_url
+      }
+
 export const refreshActiveCampaingList = (
   activeCampaingConf,
   setActiveCampaingConf,
   setIsLoading,
   setSnackbar
 ) => {
-  const refreshListsRequestParams = {
-    api_key: activeCampaingConf.api_key,
-    api_url: activeCampaingConf.api_url
-  }
+  const refreshListsRequestParams = buildAuthRequestParams(activeCampaingConf)
   setIsLoading(true)
   bitsFetch(refreshListsRequestParams, 'aCampaign_lists')
     .then(result => {
@@ -142,10 +147,7 @@ export const refreshActiveCampaingAccounts = (
   setIsLoading,
   setSnackbar
 ) => {
-  const refreshListsRequestParams = {
-    api_key: activeCampaingConf.api_key,
-    api_url: activeCampaingConf.api_url
-  }
+  const refreshListsRequestParams = buildAuthRequestParams(activeCampaingConf)
   setIsLoading(true)
   bitsFetch(refreshListsRequestParams, 'aCampaign_accounts')
     .then(result => {
@@ -186,10 +188,7 @@ export const refreshActiveCampaingTags = (
   setIsLoading,
   setSnackbar
 ) => {
-  const refreshListsRequestParams = {
-    api_key: activeCampaingConf.api_key,
-    api_url: activeCampaingConf.api_url
-  }
+  const refreshListsRequestParams = buildAuthRequestParams(activeCampaingConf)
   bitsFetch(refreshListsRequestParams, 'aCampaign_tags')
     .then(result => {
       if (result && result.success) {
@@ -231,10 +230,7 @@ export const refreshActiveCampaingHeader = (
   setIsLoading,
   setSnackbar
 ) => {
-  const refreshListsRequestParams = {
-    api_key: activeCampaingConf.api_key,
-    api_url: activeCampaingConf.api_url
-  }
+  const refreshListsRequestParams = buildAuthRequestParams(activeCampaingConf)
   setIsLoading(true)
   bitsFetch(refreshListsRequestParams, 'aCampaign_headers')
     .then(result => {

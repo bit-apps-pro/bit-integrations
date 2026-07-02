@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZagoMail;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class ZagoMailController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'zagomail',
+        'fields'   => [
+            'api_public_key' => 'value',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -24,45 +33,6 @@ class ZagoMailController
     public static function _apiEndpoint($method)
     {
         return "https://api.zagomail.com/{$method}";
-    }
-
-    /**
-     * Process ajax request
-     *
-     * @param $requestsParams Params to authorize
-     *
-     * @return JSON ZagoMail api response and status
-     */
-    public static function zagoMailAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_public_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $body = [
-            'publicKey' => $requestsParams->api_public_key
-        ];
-
-        $header['Content-Type'] = 'application/json';
-
-        $apiEndpoint = self::_apiEndpoint('lists/all-lists');
-
-        $apiResponse = HttpHelper::post($apiEndpoint, wp_json_encode($body), $header);
-
-        if ($apiResponse->status == 'error' || $apiResponse->status !== 'success') {
-            wp_send_json_error(
-                empty($apiResponse) ? 'Unknown' : $apiResponse,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
     }
 
     /**

@@ -1,12 +1,11 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import StepPage from '../../Utilities/StepPage'
 import Steps from '../../Utilities/Steps'
-import { setGrantTokenResponse } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import NotionAuthorization from './NotionAuthorization'
 import { nextPage, saveConfig } from './NotionCommonFunc'
@@ -14,13 +13,9 @@ import NotionIntegLayout from './NotionIntegLayout'
 
 function Notion({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('notion')
-  }, [])
 
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState({
-    auth: false,
     list: false,
     page: false,
     field: false
@@ -48,8 +43,6 @@ function Notion({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
         notionConf={notionConf}
         setNotionConf={setNotionConf}
-        loading={loading}
-        setLoading={setLoading}
       />
 
       {/* --- STEP 2 --- */}

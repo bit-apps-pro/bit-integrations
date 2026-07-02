@@ -14,60 +14,17 @@ export const handleInput = (e, slackConf, setSlackConf) => {
   setSlackConf({ ...newConf })
 }
 
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.api_key) {
-    setError({ api_key: !confTmp.api_key ? __("Api Key can't be empty", 'bit-integrations') : '' })
-    return
-  }
-  setError({})
-  setIsLoading(true)
-
-  const tokenRequestParams = { username: confTmp.userName, api_key: confTmp.api_key }
-
-  bitsFetch(tokenRequestParams, 'kirimEmail_authorization')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        if (!newConf.default) {
-          newConf.default = {}
-        }
-        if (result.data) {
-          newConf.default.allLists = result.data
-        }
-        setConf(newConf)
-        setIsAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
+const buildAuthRequestParams = confTmp =>
+  confTmp?.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        userName: confTmp.userName,
+        api_key: confTmp.api_key
       }
-      setIsLoading(false)
-    })
-}
 
 export const getAllList = (kirimEmailConf, setKirimEmailConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const tokenRequestParams = { username: kirimEmailConf.userName, api_key: kirimEmailConf.api_key }
+  const tokenRequestParams = buildAuthRequestParams(kirimEmailConf)
 
   bitsFetch(tokenRequestParams, 'kirimEmail_fetch_all_list')
     .then(result => {

@@ -1,61 +1,8 @@
 import { __ } from '../../../Utils/i18nwrap'
-import bitsFetch from '../../../Utils/bitsFetch'
 
 export const handleInput = (e, lineConf, setLineConf) => {
   const { name, value } = e.target
   setLineConf(prev => ({ ...prev, [name]: value }))
-}
-
-export const handleAuthorize = async (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.accessToken) {
-    setError({ accessToken: __("Access Token can't be empty", 'bit-integrations') })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  try {
-    const result = await bitsFetch({ accessToken: confTmp.accessToken }, 'line_authorization')
-
-    if (result?.success) {
-      setConf({ ...confTmp, tokenDetails: result.data })
-      setisAuthorized(true)
-      setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-    } else {
-      const msg = result?.data?.data
-        ? `${__('Authorization failed Cause:', 'bit-integrations')} ${result.data.data}. ${__(
-            'Please try again',
-            'bit-integrations'
-          )}`
-        : typeof result?.data === 'string'
-          ? `${__('Authorization failed Cause:', 'bit-integrations')} ${result.data}. ${__(
-              'Please try again',
-              'bit-integrations'
-            )}`
-          : __('Authorization failed. Please try again', 'bit-integrations')
-
-      setSnackbar({ show: true, msg })
-    }
-
-    setIsLoading(false)
-  } catch (error) {
-    setSnackbar({
-      show: true,
-      msg: `${__('An error occurred during authorization:', 'bit-integrations')} ${
-        error?.message || error
-      }`
-    })
-
-    setIsLoading(false)
-  }
 }
 
 const updateFieldMap = (prevConf, type, index, updater) => {

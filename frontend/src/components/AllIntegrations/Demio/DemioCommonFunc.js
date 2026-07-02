@@ -41,49 +41,15 @@ export const checkMappedFields = demioConf => {
   return true
 }
 
-export const demioAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key || !confTmp.api_secret) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : '',
-      api_secret: !confTmp.api_secret ? __("API Secret can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
-
-  bitsFetch(requestParams, 'demio_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid Sub Domain & API Key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { api_key: confTmp.api_key, api_secret: confTmp.api_secret }
 
 export const getAllEvents = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, event: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'demio_fetch_all_events').then(result => {
     if (result && result.success) {
@@ -110,8 +76,7 @@ export const getAllSessions = (confTmp, setConf, event_id, setLoading) => {
   setLoading({ ...setLoading, session: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_secret: confTmp.api_secret,
+    ...buildAuthRequestParams(confTmp),
     event_id: event_id
   }
 

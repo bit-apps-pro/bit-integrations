@@ -16,16 +16,6 @@ class MasterStudyLmsController
         );
     }
 
-    public static function authorizeMasterStudyLms()
-    {
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        // translators: %s: Placeholder value
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'MasterStudyLms'));
-    }
-
     public static function getAllCourse()
     {
         if (self::pluginActive()) {

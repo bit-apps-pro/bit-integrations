@@ -16,12 +16,19 @@ export const handleInput = (e, perfexCRMConf, setPerfexCRMConf) => {
   setPerfexCRMConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_token: confTmp.api_token,
+        domain: confTmp.domain
+      }
+
 // refreshMappedFields
 export const refreshCustomFields = (perfexCRMConf, setPerfexCRMConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    api_token: perfexCRMConf.api_token,
-    domain: perfexCRMConf.domain,
+    ...buildAuthRequestParams(perfexCRMConf),
     action_name: perfexCRMConf.actionName
   }
 
@@ -97,53 +104,10 @@ export const checkMappedFields = perfexCRMConf => {
   return true
 }
 
-export const perfexCRMAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_token || !confTmp.domain) {
-    setError({
-      api_token: !confTmp.api_token ? __("API Token can't be empty", 'bit-integrations') : '',
-      domain: !confTmp.domain ? __("API URL can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_token: confTmp.api_token,
-    domain: confTmp.domain
-  }
-
-  bitsFetch(requestParams, 'perfexcrm_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(
-      String(result?.data)
-        ? result?.data
-        : __('Authorized failed, Please enter valid API Token or Access API URL', 'bit-integrations')
-    )
-  })
-}
-
 export const getAllCustomer = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, customers: true })
 
-  const requestParams = {
-    api_token: confTmp.api_token,
-    domain: confTmp.domain
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'perfexcrm_fetch_all_customers').then(result => {
     if (result && result.success) {
@@ -166,10 +130,7 @@ export const getAllCustomer = (confTmp, setConf, loading, setLoading) => {
 export const getAllLeads = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, leads: true })
 
-  const requestParams = {
-    api_token: confTmp.api_token,
-    domain: confTmp.domain
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'perfexcrm_fetch_all_leads').then(result => {
     if (result && result.success) {
@@ -192,10 +153,7 @@ export const getAllLeads = (confTmp, setConf, loading, setLoading) => {
 export const getAllStaffs = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, staffs: true })
 
-  const requestParams = {
-    api_token: confTmp.api_token,
-    domain: confTmp.domain
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'perfexcrm_fetch_all_staffs').then(result => {
     if (result && result.success) {

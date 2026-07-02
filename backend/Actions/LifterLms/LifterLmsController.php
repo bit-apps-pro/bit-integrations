@@ -17,15 +17,6 @@ class LifterLmsController
         return false;
     }
 
-    public static function authorizeLifterLms()
-    {
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'LifterLms'));
-    }
-
     public static function getAllLesson()
     {
         $lessonParams = [

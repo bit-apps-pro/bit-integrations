@@ -2033,6 +2033,16 @@ nav.top-nav {
   overflow: visible;
 }
 
+// Log timeline: reveal cell overflow on the hovered row so action tooltips are not clipped
+// (ellipsis is preserved on idle rows). Robust to column show/hide unlike :nth-child targeting.
+.btcd-log-tbl .tbody .tr:hover {
+  z-index: 20;
+
+  .td {
+    overflow: visible;
+  }
+}
+
 .btcd-row-selected > .td {
   background: #eff2f5 !important;
 }
@@ -2726,6 +2736,324 @@ nav.top-nav {
   display: block !important;
 }
 
+.btcd-exec-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btcd-exec-id {
+  font-variant-numeric: tabular-nums;
+  color: #475569;
+}
+
+.btcd-reexec-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #6366f1;
+  background: #eef2ff;
+}
+
+.btcd-exec-toggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: #f1f5f9;
+    color: #334155;
+  }
+}
+
+.btcd-exec-branch {
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.btcd-exec-count {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.btcd-reexec-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+
+  svg {
+    display: block;
+    transition: stroke 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover {
+    color: $purple;
+    border-color: $purple;
+    background: #fff;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ===== Integration Log — refined table view ===== */
+
+$log-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+.btcd-log-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin: 6px 2px 14px;
+}
+
+.btcd-log-head__back {
+  justify-self: start;
+}
+
+.btcd-log-head__title {
+  grid-column: 2;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.35;
+
+  .f-lg {
+    font-size: 17px;
+    color: #1e293b;
+  }
+}
+
+.btcd-log-head__sub {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.btcd-log-head__refresh {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s $log-ease, color 0.2s $log-ease, transform 0.12s $log-ease;
+
+  svg {
+    stroke: currentColor;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: rgba($purple, 0.5);
+    color: $purple;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+}
+
+.btcd-log-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btcd-log-filters {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.btcd-log-chip {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.18s $log-ease, background 0.18s $log-ease, box-shadow 0.18s $log-ease,
+    transform 0.12s $log-ease;
+
+  &:hover {
+    color: $purple;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &.is-active {
+    background: #fff;
+    color: $purple;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+  }
+}
+
+.btcd-log-search {
+  min-width: 0;
+}
+
+.btcd-log-search input {
+  width: 100%;
+  max-width: 210px;
+  min-width: 120px;
+  padding: 7px 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #fff;
+  font-size: 13px;
+  color: #1e293b;
+  transition: border-color 0.18s $log-ease, box-shadow 0.18s $log-ease;
+
+  &::placeholder {
+    color: #94a3b8;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: rgba($purple, 0.6);
+    box-shadow: 0 0 0 3px rgba($purple, 0.12);
+  }
+}
+
+.btcd-status-pill {
+  text-transform: capitalize;
+}
+
+.btcd-status-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.btcd-record-type {
+  color: #334155;
+  font-weight: 500;
+}
+
+.btcd-log-date {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.btcd-log-forms {
+  position: relative;
+}
+
+// The wrapper is now a positioned ancestor, so re-anchor the shared absolute empty-state graphic
+// to the table body instead of its legacy top:240px/right:45% (which was tuned for the outer wrapper).
+.btcd-log-forms .btcd-no-data {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+}
+
+// Overlay the "no match" message inside the table body area (roughly centered over the rows),
+// rather than after the pagination footer.
+.btcd-log-empty {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
+
+  img {
+    width: 150px;
+    max-width: 60%;
+    opacity: 0.95;
+  }
+
+  .data-txt {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #475569;
+  }
+}
+
+.btcd-log-linkbtn {
+  margin-top: 8px;
+  border: none;
+  background: none;
+  color: $purple;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resp-badge--warn {
+  color: #92600b;
+  background: #fef4e2;
+}
+
+.resp-badge--neutral {
+  color: #475569;
+  background: #eef1f5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btcd-reexec-btn,
+  .btcd-log-head__refresh,
+  .btcd-log-chip {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
+}
+
 .resp-mdl {
   display: flex;
   flex-direction: column;
@@ -2783,6 +3111,41 @@ nav.top-nav {
   font-size: 12px;
   color: #94a3b8;
   white-space: nowrap;
+}
+
+.resp-mdl__tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.resp-mdl__tab {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #334155;
+  }
+
+  &.is-active {
+    color: #6366f1;
+    border-bottom-color: #6366f1;
+  }
+}
+
+.resp-mdl__loading {
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
 }
 
 .resp-mdl__code-wrp {
@@ -7172,7 +7535,7 @@ _:-ms-fullscreen,
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin: 0 16px 12px;
+  margin: 0 5px 10px;
 }
 
 .btcd-table-top .btcd-t-actions {
@@ -7321,6 +7684,8 @@ _:-ms-fullscreen,
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: color 0.2s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    background 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .btcd-columns-btn .btcd-icn {
@@ -7328,8 +7693,9 @@ _:-ms-fullscreen,
 }
 
 .btcd-columns-btn:hover {
-  border-color: #c7cfde;
-  background: #f8fafd;
+  color: $purple;
+  border-color: $purple;
+  background: #fff;
 }
 
 .btcd-table-top .btcd-columns-menu {
@@ -7526,6 +7892,220 @@ _:-ms-fullscreen,
     margin: 10px 8px 0;
     flex-wrap: wrap;
     gap: 8px;
+  }
+}
+
+#connections-page {
+  .f-table .thead .tr .th,
+  .f-table .tbody .tr .td {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .f-table .thead .tr .th:first-child,
+  .f-table .tbody .tr .td:first-child {
+    padding-left: 10px;
+  }
+
+  .connections-toolbar {
+    align-items: center;
+    justify-content: start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .connections-toolbar-meta {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .connections-count-txt {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5f6d8a;
+    line-height: 1;
+    border: 1px solid #dce4f3;
+    border-radius: 999px;
+    background: #f3f6fd;
+    padding: 7px 10px;
+  }
+
+  .connections-table-filters {
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 220px;
+    flex: 1 1 220px;
+  }
+
+  .connections-filter-select {
+    width: 220px;
+    margin: 0 !important;
+  }
+
+  .connections-app-tag {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid #d8e0f1;
+    background: #f2f5fb;
+    color: #34415f;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .connections-auth-tag {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid #f4d8b8;
+    background: #fff4e7;
+    color: #8f5c21;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .connections-name-cell {
+    line-height: 1.35;
+    overflow: visible !important;
+    white-space: normal !important;
+    position: relative;
+    z-index: 0;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .connections-name-row {
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    min-width: 0;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+
+    .connections-name-txt {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .connections-rename-btn {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 7px;
+    background: transparent;
+    color: #9246f7;
+    margin: 0;
+
+    &:hover {
+      background: #efe4ff;
+      color: #6f26dc;
+    }
+
+    &:active {
+      background: #e5d6ff;
+    }
+  }
+
+  .connections-edit-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    width: 100%;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .connections-edit-input {
+    min-width: 0 !important;
+    margin: 0 !important;
+    min-height: 34px !important;
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+  }
+
+  .connections-edit-btn {
+    margin: 0 !important;
+    min-height: 28px;
+    font-size: 11px;
+    line-height: 1.1;
+    border-radius: 6px;
+    padding: 5px 8px;
+  }
+
+  .connections-edit-cancel-btn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    margin: 0 !important;
+    border-radius: 7px;
+    background: #f2f4fa;
+    color: #6a7693;
+    border: 1px solid #e0e7f3;
+
+    &:hover {
+      background: #e8edf8;
+      color: #4c5979;
+    }
+
+    &:active {
+      background: #dfe6f3;
+    }
+  }
+
+  .connections-edit-cancel-icn {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .connections-edit-cancel-icn .svg-icn {
+    stroke: currentcolor;
+  }
+
+  .connections-action-cell {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .connections-empty-note {
+    color: #697694;
+    line-height: 1.5;
+    padding-bottom: 12px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #connections-page {
+    .connections-toolbar {
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .connections-table-filters {
+      width: 100%;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .connections-filter-select {
+      width: 100%;
+      max-width: none;
+    }
+
+    .connections-toolbar-meta {
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 }
 

@@ -1,120 +1,40 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
-import bitsFetch from '../../../Utils/bitsFetch'
+import { useCallback } from 'react'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
+import Authorization from '../../Connections/Authorization'
 
 export default function WCAffiliateAuthorization({
   wcAffiliateConf,
   setWCAffiliateConf,
   step,
   nextPage,
-  isLoading,
-  setIsLoading,
-  setSnackbar,
   isInfo
 }) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [showAuthMsg, setShowAuthMsg] = useState(false)
-
-  const authorizeHandler = () => {
-    if (isInfo) {
-      return
-    }
-
-    setIsLoading('auth')
-    bitsFetch({}, 'wc_affiliate_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Connected with WC Affiliate successfully', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
-  }
-
-  const handleInput = e => {
-    if (!setWCAffiliateConf) {
-      return
-    }
-
-    const newConf = { ...wcAffiliateConf }
-    newConf[e.target.name] = e.target.value
-    setWCAffiliateConf(newConf)
-  }
-
+  const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
-    <div
-      className="btcd-stp-page"
-      style={{
-        width: step === 1 && 900,
-        height: step === 1 && 'auto'
-      }}>
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={wcAffiliateConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-      />
-
-      {isLoading === 'auth' && (
-        <div className="flx mt-5">
-          <LoaderSm size={25} clr="#022217" className="mr-2" />
-          {__('Checking if WC Affiliate is authorized...', 'bit-integrations')}
-        </div>
-      )}
-
-      {showAuthMsg && !isAuthorized && !isLoading && (
-        <div className="flx mt-5" style={{ width: 900, justifyContent: 'center' }}>
-          <div className="txt-center">
-            <div className="btcd-icn btcd-icn-err">
-              <span>✕</span>
-            </div>
-            <div className="mt-2">
-              {__('WC Affiliate is not activated or not installed', 'bit-integrations')}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showAuthMsg && isAuthorized && !isLoading && (
-        <div className="flx mt-5" style={{ width: 900 }}>
-          <div className="btcd-icn btcd-icn-success">
-            <span>✓</span>
-          </div>
-          <div className="mt-2">{__('WC Affiliate is activated', 'bit-integrations')}</div>
-        </div>
-      )}
-
-      <button
-        onClick={authorizeHandler}
-        className="btn btcd-btn-lg purple sh-sm flx"
-        type="button"
-        disabled={isInfo || isAuthorized || isLoading === 'auth'}>
-        {isAuthorized
-          ? __('Connected', 'bit-integrations')
-          : __('Connect to WC Affiliate', 'bit-integrations')}
-        {isLoading === 'auth' && <LoaderSm size={20} clr="#022217" className="ml-2" />}
-      </button>
-      <br />
-      {!isInfo && (
-        <button
-          onClick={() => nextPage(2)}
-          className="btn f-right btcd-btn-lg purple sh-sm flx"
-          type="button"
-          disabled={!isAuthorized}>
-          {__('Next', 'bit-integrations')}
-          <BackIcn className="ml-1 rev-icn" />
-        </button>
-      )}
-    </div>
+    <Authorization
+      config={wcAffiliateConf}
+      setConfig={setWCAffiliateConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      authDetails={{
+        authType: AUTH_TYPES.WP_PLUGIN_CHECK,
+        pluginCheck: {
+          checks: [
+            { type: 'class', value: 'WC_Affiliate\\Models\\Affiliate' },
+            { type: 'class', value: 'WC_Affiliate\\Models\\Referral' },
+            { type: 'class', value: 'WC_Affiliate\\Models\\Transaction' }
+          ],
+          logic: 'AND'
+        }
+      }}
+      noteDetails={{
+        note: __(
+          'To use WC Affiliate integration, make sure the WC Affiliate plugin is installed and active on your site.',
+          'bit-integrations'
+        )
+      }}
+    />
   )
 }

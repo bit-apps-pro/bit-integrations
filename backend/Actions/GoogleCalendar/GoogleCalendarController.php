@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\GoogleCalendar;
 
 use BitApps\Integrations\Actions\GoogleCalendar\RecordApiHelper as GoogleCalendarRecordApiHelper;
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
@@ -10,6 +11,16 @@ use WP_Error;
 
 class GoogleCalendarController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'googlecalendar',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
@@ -17,43 +28,41 @@ class GoogleCalendarController
         $this->integrationID = $integrationID;
     }
 
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->clientId) || empty($requestParams->clientSecret) || empty($requestParams->code) || empty($requestParams->redirectURI)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $body = [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $requestParams->clientId,
-            'client_secret' => $requestParams->clientSecret,
-            'redirect_uri'  => urldecode($requestParams->redirectURI),
-            'code'          => urldecode($requestParams->code)
-        ];
-
-        $apiEndpoint = 'https://oauth2.googleapis.com/token';
-        $header['Content-Type'] = 'application/x-www-form-urlencoded';
-
-        $apiResponse = HttpHelper::post($apiEndpoint, $body, $header);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(empty($apiResponse->error_description) ? 'Unknown' : $apiResponse->error_description, 400);
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
-
     public static function getAllCalendarLists($queryParams)
     {
-        if (empty($queryParams->tokenDetails) || empty($queryParams->clientId) || empty($queryParams->clientSecret)) {
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $clientId = $queryParams->clientId ?? '';
+        $clientSecret = $queryParams->clientSecret ?? '';
+        $flowID = $queryParams->flowID ?? null;
+        $isConnectionAuth = !empty($queryParams->connection_id);
+
+        if (empty($tokenDetails->access_token) && !empty($queryParams->accessToken)) {
+            $tokenDetails->access_token = $queryParams->accessToken;
+            $tokenDetails->refresh_token = $queryParams->refreshToken ?? '';
+        }
+
+        if (empty($tokenDetails->access_token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $token = self::tokenExpiryCheck($queryParams->tokenDetails, $queryParams->clientId, $queryParams->clientSecret);
-        $lists = self::getGoogleCalendarList($token->access_token);
+        $oldToken = $tokenDetails->access_token;
+
+        if (!$isConnectionAuth) {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
+
+            if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+                wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
+            }
+
+            if (!empty($flowID) && $tokenDetails->access_token !== $oldToken) {
+                self::saveRefreshedToken($flowID, $tokenDetails);
+            }
+        }
+
+        $lists = self::getGoogleCalendarList($tokenDetails->access_token);
 
         $data = [];
-        if (\is_array($lists->items)) {
+        if (!empty($lists) && !empty($lists->items) && \is_array($lists->items)) {
             foreach ($lists->items as $list) {
                 $data[] = (object) [
                     'id'         => $list->id,
@@ -64,28 +73,47 @@ class GoogleCalendarController
         }
 
         $response['googleCalendarLists'] = $data;
-        $response['tokenDetails'] = $token;
+        $response['tokenDetails'] = $tokenDetails;
         wp_send_json_success($response, 200);
     }
 
     public function execute($integrationData, $fieldValues)
     {
-        if (empty($integrationData->flow_details->tokenDetails->access_token)) {
-            // translators: %s: Service name
-            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'error', wp_sprintf(__('Not Authorization By %s', 'bit-integrations'), 'GoogleCalendar'));
-
-            return false;
-        }
-
         $integrationDetails = $integrationData->flow_details;
         $actions = $integrationDetails->actions;
         $timeZone = $integrationDetails->timeZone;
         $fieldMap = $integrationDetails->field_map;
         $calendarId = $integrationDetails->calendarId;
         $reminderFieldMap = $integrationDetails->reminder_field_map;
-        $tokenDetails = self::tokenExpiryCheck($integrationDetails->tokenDetails, $integrationDetails->clientId, $integrationDetails->clientSecret);
-        if ($tokenDetails->access_token !== $integrationDetails->tokenDetails->access_token) {
-            $this->saveRefreshedToken($this->integrationID, $tokenDetails);
+        $isConnectionAuth = !empty($integrationDetails->connection_id);
+        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
+
+        if (empty($tokenDetails->access_token)) {
+            // translators: %s: Service name
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'error', wp_sprintf(__('Not Authorization By %s', 'bit-integrations'), 'GoogleCalendar'));
+
+            return false;
+        }
+
+        $oldToken = $tokenDetails->access_token;
+
+        if (!$isConnectionAuth) {
+            $tokenDetails = self::tokenExpiryCheck(
+                $tokenDetails,
+                $integrationDetails->clientId ?? '',
+                $integrationDetails->clientSecret ?? ''
+            );
+
+            if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+                // translators: %s: Service name
+                LogHandler::save($this->integrationID, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'error', wp_sprintf(__('Not Authorization By %s', 'bit-integrations'), 'GoogleCalendar'));
+
+                return false;
+            }
+
+            if ($tokenDetails->access_token !== $oldToken) {
+                $this->saveRefreshedToken($this->integrationID, $tokenDetails);
+            }
         }
 
         if (empty($fieldMap)) {
@@ -125,15 +153,21 @@ class GoogleCalendarController
             return false;
         }
 
-        if ((\intval($token->generates_on) + (55 * 60)) < time()) {
+        $generatedOn = !empty($token->generates_on) ? (int) $token->generates_on : (int) ($token->generated_at ?? 0);
+
+        if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
             if (is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
 
-            $token->access_token = $refreshToken->access_token;
-            $token->expires_in = $refreshToken->expires_in;
-            $token->generates_on = $refreshToken->generates_on;
+            if (isset($refreshToken->access_token)) {
+                $token->access_token = $refreshToken->access_token;
+                $token->expires_in = $refreshToken->expires_in;
+                $token->generates_on = $refreshToken->generates_on;
+                $token->generated_at = $refreshToken->generated_at;
+                $token->refresh_token = $refreshToken->refresh_token;
+            }
         }
 
         return $token;
@@ -155,6 +189,20 @@ class GoogleCalendarController
         }
         $token = $apiResponse;
         $token->generates_on = time();
+        $token->generated_at = $token->generates_on;
+
+        return $token;
+    }
+
+    protected static function normalizeConnectionToken($token)
+    {
+        if (!\is_object($token)) {
+            $token = (object) [];
+        }
+
+        if (empty($token->generates_on) && !empty($token->generated_at)) {
+            $token->generates_on = (int) $token->generated_at;
+        }
 
         return $token;
     }
