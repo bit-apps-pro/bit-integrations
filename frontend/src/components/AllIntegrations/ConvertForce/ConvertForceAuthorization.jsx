@@ -19,17 +19,25 @@ export default function ConvertForceAuthorization({
 
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'convert_force_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
+    bitsFetch({}, 'convert_force_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar({
+            show: true,
+            msg: __('Connected with ConvertForce Popup Builder Successfully', 'bit-integrations')
+          })
+        }
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
+      .catch(() => {
+        setIsLoading(false)
         setSnackbar({
           show: true,
-          msg: __('Connected with ConvertForce Popup Builder Successfully', 'bit-integrations')
+          msg: __('Failed to authorize ConvertForce Popup Builder', 'bit-integrations')
         })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+      })
   }
 
   const handleInput = e => {
