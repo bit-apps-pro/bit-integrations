@@ -121,9 +121,8 @@ function Log({ allIntegURL }) {
             ) : (
               childCount > 0 && (
                 <span className="btcd-exec-count">
-                  {`${childCount} ${
-                    childCount === 1 ? __('re-run', 'bit-integrations') : __('re-runs', 'bit-integrations')
-                  }`}
+                  {`${childCount} ${childCount === 1 ? __('re-run', 'bit-integrations') : __('re-runs', 'bit-integrations')
+                    }`}
                 </span>
               )
             )}
@@ -187,7 +186,7 @@ function Log({ allIntegURL }) {
       accessor: 'created_at',
       Cell: val => (
         <span className="btcd-log-date" title={val.row.original.created_at || ''}>
-          {relativeTime(val.row.original.created_at)}
+          {val.row.original.created_at || '—'}
         </span>
       )
     },
@@ -467,20 +466,6 @@ const statusKey = st => {
   if (s === 'validation') return 'warn'
   if (s === 'error') return 'error'
   return 'neutral'
-}
-
-const parseDate = s => (s ? new Date(String(s).replace(' ', 'T')) : null)
-
-// Compact relative time; absolute value stays available via the cell's title attribute.
-const relativeTime = s => {
-  const d = parseDate(s)
-  if (!d || Number.isNaN(d.getTime())) return s || '—'
-  const diff = (Date.now() - d.getTime()) / 1000
-  if (diff < 45) return __('just now', 'bit-integrations')
-  if (diff < 3600) return `${Math.max(1, Math.round(diff / 60))}${__('m ago', 'bit-integrations')}`
-  if (diff < 86400) return `${Math.round(diff / 3600)}${__('h ago', 'bit-integrations')}`
-  if (diff < 172800) return __('Yesterday', 'bit-integrations')
-  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
 const jsonPrint = data => {
