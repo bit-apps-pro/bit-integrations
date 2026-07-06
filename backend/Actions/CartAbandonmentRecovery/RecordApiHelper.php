@@ -19,7 +19,7 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    public function execute($fieldValues, $fieldMap, $utilities)
+    public function execute($fieldValues, $fieldMap)
     {
         if (!\defined('CARTFLOWS_CA_FILE')) {
             return [
@@ -37,19 +37,19 @@ class RecordApiHelper
 
         switch ($mainAction) {
             case 'delete_abandoned_cart':
-                $response = Hooks::apply(Config::withPrefix('cart_abandonment_recovery_delete_abandoned_cart'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('cart_abandonment_recovery_delete_abandoned_cart'), $defaultResponse, $fieldData, $this->_integrationDetails);
                 $actionType = 'delete_abandoned_cart';
 
                 break;
 
             case 'reschedule_recovery_emails':
-                $response = Hooks::apply(Config::withPrefix('cart_abandonment_recovery_reschedule_recovery_emails'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('cart_abandonment_recovery_reschedule_recovery_emails'), $defaultResponse, $fieldData, $this->_integrationDetails);
                 $actionType = 'reschedule_recovery_emails';
 
                 break;
 
             case 'update_cart_status':
-                $response = Hooks::apply(Config::withPrefix('cart_abandonment_recovery_update_cart_status'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('cart_abandonment_recovery_update_cart_status'), $defaultResponse, $fieldData, $this->_integrationDetails);
                 $actionType = 'update_cart_status';
 
                 break;
