@@ -86,10 +86,7 @@ export const checkMappedFields = modernCartConf => {
     return false
   }
 
-  if (
-    ['update_cart_quantity', 'remove_product_from_cart'].includes(modernCartConf.mainAction) &&
-    !modernCartConf?.cartItemKey
-  ) {
+  if (modernCartConf.mainAction === 'update_cart_quantity' && !modernCartConf?.cartItemKey) {
     return false
   }
 

@@ -26,3 +26,7 @@ export const AddProductToCartFields = [
 export const UpdateCartQuantityFields = [
   { key: 'quantity', label: __('Quantity', 'bit-integrations'), required: true }
 ]
+
+export const RemoveProductFromCartFields = [
+  { key: 'cart_item_key', label: __('Cart Item Key', 'bit-integrations'), required: true }
+]

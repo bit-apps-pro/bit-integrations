@@ -13,7 +13,12 @@ import {
   refreshModernCartProductVariations
 } from './ModernCartCommonFunc'
 import ModernCartFieldMap from './ModernCartFieldMap'
-import { AddProductToCartFields, modules, UpdateCartQuantityFields } from './staticData'
+import {
+  AddProductToCartFields,
+  modules,
+  RemoveProductFromCartFields,
+  UpdateCartQuantityFields
+} from './staticData'
 
 export default function ModernCartIntegLayout({
   formFields,
@@ -31,6 +36,8 @@ export default function ModernCartIntegLayout({
         return AddProductToCartFields
       case 'update_cart_quantity':
         return UpdateCartQuantityFields
+      case 'remove_product_from_cart':
+        return RemoveProductFromCartFields
       default:
         return []
     }
@@ -54,7 +61,7 @@ export default function ModernCartIntegLayout({
       refreshModernCartProducts(setModernCartConf, setIsLoading)
     }
 
-    if (['update_cart_quantity', 'remove_product_from_cart'].includes(value)) {
+    if (value === 'update_cart_quantity') {
       refreshModernCartCartItems(setModernCartConf, setIsLoading)
     }
   }
@@ -162,7 +169,7 @@ export default function ModernCartIntegLayout({
         </>
       )}
 
-      {['update_cart_quantity', 'remove_product_from_cart'].includes(modernCartConf?.mainAction) && (
+      {modernCartConf?.mainAction === 'update_cart_quantity' && (
         <>
           <br />
           <div className="flx">
