@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { create } from 'mutative'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
@@ -7,8 +8,19 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './ModernCartCommonFunc'
+import {
+  checkMappedFields,
+  handleInput,
+  refreshModernCartCartItems,
+  refreshModernCartProducts,
+  refreshModernCartProductVariations
+} from './ModernCartCommonFunc'
 import ModernCartIntegLayout from './ModernCartIntegLayout'
+import {
+  AddProductToCartFields,
+  RemoveProductFromCartFields,
+  UpdateCartQuantityFields
+} from './staticData'
 
 export default function EditModernCart({ allIntegURL }) {
   const navigate = useNavigate()

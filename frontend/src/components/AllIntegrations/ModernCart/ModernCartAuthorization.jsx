@@ -18,17 +18,26 @@ export default function ModernCartAuthorization({
   const [showAuthMsg, setShowAuthMsg] = useState(false)
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'modern_cart_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
+    bitsFetch({}, 'modern_cart_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar({
+            show: true,
+            msg: __('Connected with Modern Cart Successfully', 'bit-integrations')
+          })
+        }
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
+      .catch(() => {
         setSnackbar({
           show: true,
-          msg: __('Connected with Modern Cart Successfully', 'bit-integrations')
+          msg: __('Modern Cart authorization failed. Please try again', 'bit-integrations')
         })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
   }
 
   const handleInput = e => {
