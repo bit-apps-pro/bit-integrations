@@ -7,7 +7,10 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './CartAbandonmentRecoveryCommonFunc'
+import {
+  checkMappedFields,
+  handleInput
+} from './CartAbandonmentRecoveryCommonFunc'
 import CartAbandonmentRecoveryIntegLayout from './CartAbandonmentRecoveryIntegLayout'
 
 export default function EditCartAbandonmentRecovery({ allIntegURL }) {

@@ -30,6 +30,9 @@ export default function CartAbandonmentRecoveryAuthorization({
       }
       setIsLoading?.(false)
       setShowAuthMsg(true)
+    }).catch(() => {
+      setIsLoading?.(false)
+      setShowAuthMsg(true)
     })
   }
 

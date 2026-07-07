@@ -32,7 +32,7 @@ class RecordApiHelper
         $mainAction = $this->_integrationDetails->mainAction ?? 'delete_abandoned_cart';
         $defaultResponse = [
             'success' => false,
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {
