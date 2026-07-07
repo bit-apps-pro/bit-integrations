@@ -9,14 +9,13 @@ import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import {
   generateMappedField,
   refreshModernCartCartItems,
-  refreshModernCartProductVariations,
-  refreshModernCartProducts
+  refreshModernCartProducts,
+  refreshModernCartProductVariations
 } from './ModernCartCommonFunc'
 import ModernCartFieldMap from './ModernCartFieldMap'
 import {
   AddProductToCartFields,
   modules,
-  RemoveProductFromCartFields,
   UpdateCartQuantityFields
 } from './staticData'
 
@@ -36,8 +35,6 @@ export default function ModernCartIntegLayout({
         return AddProductToCartFields
       case 'update_cart_quantity':
         return UpdateCartQuantityFields
-      case 'remove_product_from_cart':
-        return RemoveProductFromCartFields
       default:
         return []
     }

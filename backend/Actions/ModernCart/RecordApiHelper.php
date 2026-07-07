@@ -26,7 +26,7 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    public function execute($fieldValues, $fieldMap, $utilities)
+    public function execute($fieldValues, $fieldMap)
     {
         if (!\defined('MODERNCART_VER') && !class_exists('\ModernCart\Plugin_Loader')) {
             return [
@@ -41,20 +41,23 @@ class RecordApiHelper
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {
             case 'add_product_to_cart':
-                $response = Hooks::apply(Config::withPrefix('modern_cart_add_product_to_cart'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('modern_cart_add_product_to_cart'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
                 break;
 
             case 'update_cart_quantity':
-                $response = Hooks::apply(Config::withPrefix('modern_cart_update_cart_quantity'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('modern_cart_update_cart_quantity'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
                 break;
 
             case 'remove_product_from_cart':
-                $response = Hooks::apply(Config::withPrefix('modern_cart_remove_product_from_cart'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('modern_cart_remove_product_from_cart'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
                 break;
 
             default:
@@ -62,6 +65,7 @@ class RecordApiHelper
                     'success' => false,
                     'message' => __('Invalid action', 'bit-integrations')
                 ];
+
                 break;
         }
 

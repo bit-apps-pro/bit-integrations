@@ -115,9 +115,8 @@ class ModernCartController
         $integrationDetails = $integrationData->flow_details;
         $integId            = $integrationData->id;
         $fieldMap           = $integrationDetails->field_map ?? [];
-        $utilities          = $integrationDetails->utilities ?? [];
 
-        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap, $utilities);
+        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
     }
 
     private static function isWooCommerceAvailable()
