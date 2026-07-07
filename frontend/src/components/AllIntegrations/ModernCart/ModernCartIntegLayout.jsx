@@ -53,7 +53,10 @@ export default function ModernCartIntegLayout({
         draftConf.field_map = generateMappedField(fields)
         draftConf.productId = ''
         draftConf.variationId = ''
+        draftConf.productType = ''
         draftConf.cartItemKey = ''
+        draftConf.cartItemProductId = ''
+        draftConf.cartItemVariationId = ''
       })
     )
 
@@ -75,19 +78,47 @@ export default function ModernCartIntegLayout({
   }
 
   const handleProductChange = value => {
+    const selectedProduct = (modernCartConf?.allProducts || []).find(
+      product => product.product_id?.toString() === value?.toString()
+    )
+
     setModernCartConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.productId = value
         draftConf.variationId = ''
+        draftConf.productType = selectedProduct?.product_type || ''
         draftConf.allProductVariations = []
       })
     )
 
-    if (value) {
+    if (value && selectedProduct?.product_type === 'variable') {
       refreshModernCartProductVariations(value, setModernCartConf, setIsLoading)
     }
   }
 
+  const handleCartItemChange = value => {
+    const selectedCartItem = (modernCartConf?.allCartItems || []).find(
+      item => item.cart_item_key?.toString() === value?.toString()
+    )
+
+    setModernCartConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.cartItemKey = value
+        draftConf.cartItemProductId = selectedCartItem?.product_id?.toString() || ''
+        draftConf.cartItemVariationId = selectedCartItem?.variation_id?.toString() || ''
+      })
+    )
+  }
+
+  const selectedProduct = (modernCartConf?.allProducts || []).find(
+    product => product.product_id?.toString() === modernCartConf?.productId?.toString()
+  )
+  const selectedProductType = selectedProduct?.product_type || modernCartConf?.productType
+  const shouldShowVariation =
+    modernCartConf?.mainAction === 'add_product_to_cart' &&
+    (selectedProductType === 'variable' ||
+      modernCartConf?.variationId ||
+      modernCartConf?.allProductVariations?.length > 0)
   const hasMappableFields = modernCartConf?.modernCartFields?.length > 0
 
   return (
@@ -137,6 +168,11 @@ export default function ModernCartIntegLayout({
             </button>
           </div>
           <br />
+        </>
+      )}
+
+      {shouldShowVariation && (
+        <>
           <div className="flx">
             <b className="wdt-200 d-in-b">{__('Variation:', 'bit-integrations')}</b>
             <MultiSelect
@@ -182,7 +218,7 @@ export default function ModernCartIntegLayout({
                 label: item.cart_item_name,
                 value: item.cart_item_key?.toString()
               }))}
-              onChange={val => setField('cartItemKey', val)}
+              onChange={handleCartItemChange}
               singleSelect
               closeOnSelect
             />

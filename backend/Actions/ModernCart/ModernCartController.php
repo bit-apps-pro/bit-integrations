@@ -21,6 +21,11 @@ class ModernCartController
     public static function modernCartAuthorize()
     {
         self::isExists();
+
+        if (!self::isWooCommerceAvailable()) {
+            wp_send_json_error(__('WooCommerce cart is not available', 'bit-integrations'), 400);
+        }
+
         wp_send_json_success(true);
     }
 
@@ -28,28 +33,31 @@ class ModernCartController
     {
         self::isExists();
 
+        if (!\function_exists('wc_get_products')) {
+            wp_send_json_error(__('WooCommerce products are not available', 'bit-integrations'), 400);
+        }
+
         $products = [];
+        $supportedProductTypes = ['simple', 'variable'];
 
-        if (\function_exists('wc_get_products')) {
-            $allProducts = wc_get_products(
-                [
-                    'limit'  => -1,
-                    'return' => 'objects',
-                    'status' => ['publish', 'private'],
-                ]
-            );
+        $allProducts = wc_get_products(
+            [
+                'limit'  => -1,
+                'return' => 'objects',
+                'status' => ['publish', 'private'],
+            ]
+        );
 
-            foreach ($allProducts as $product) {
-                if (!$product instanceof \WC_Product) {
-                    continue;
-                }
-
-                $products[] = (object) [
-                    'product_id'   => $product->get_id(),
-                    'product_name' => $product->get_name() ?: '#' . $product->get_id(),
-                    'product_type' => $product->get_type(),
-                ];
+        foreach ($allProducts as $product) {
+            if (!$product instanceof \WC_Product || !\in_array($product->get_type(), $supportedProductTypes, true)) {
+                continue;
             }
+
+            $products[] = (object) [
+                'product_id'   => $product->get_id(),
+                'product_name' => $product->get_name() ?: '#' . $product->get_id(),
+                'product_type' => $product->get_type(),
+            ];
         }
 
         wp_send_json_success(['products' => $products], 200);
@@ -65,14 +73,18 @@ class ModernCartController
             wp_send_json_error(__('Product ID is required', 'bit-integrations'), 400);
         }
 
-        $product = \function_exists('wc_get_product') ? wc_get_product($productId) : null;
+        if (!\function_exists('wc_get_product')) {
+            wp_send_json_error(__('WooCommerce products are not available', 'bit-integrations'), 400);
+        }
+
+        $product = wc_get_product($productId);
         $variations = [];
 
-        if ($product instanceof \WC_Product && method_exists($product, 'get_children')) {
+        if ($product instanceof \WC_Product_Variable) {
             foreach ($product->get_children() as $variationId) {
                 $variation = wc_get_product((int) $variationId);
 
-                if (!$variation instanceof \WC_Product) {
+                if (!$variation instanceof \WC_Product_Variation) {
                     continue;
                 }
 
@@ -104,6 +116,8 @@ class ModernCartController
             $items[] = (object) [
                 'cart_item_key' => (string) $cartItemKey,
                 'cart_item_name' => ($productName ?: '#' . ($cartItem['product_id'] ?? $cartItemKey)) . ' x ' . $quantity,
+                'product_id'     => isset($cartItem['product_id']) ? (int) $cartItem['product_id'] : 0,
+                'variation_id'   => isset($cartItem['variation_id']) ? (int) $cartItem['variation_id'] : 0,
             ];
         }
 

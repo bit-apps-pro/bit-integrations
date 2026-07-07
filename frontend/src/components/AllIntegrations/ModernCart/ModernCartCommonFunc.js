@@ -86,6 +86,17 @@ export const checkMappedFields = modernCartConf => {
     return false
   }
 
+  if (modernCartConf.mainAction === 'add_product_to_cart') {
+    const selectedProduct = (modernCartConf?.allProducts || []).find(
+      product => product.product_id?.toString() === modernCartConf?.productId?.toString()
+    )
+    const productType = selectedProduct?.product_type || modernCartConf?.productType
+
+    if (productType === 'variable' && !modernCartConf?.variationId) {
+      return false
+    }
+  }
+
   if (modernCartConf.mainAction === 'update_cart_quantity' && !modernCartConf?.cartItemKey) {
     return false
   }
