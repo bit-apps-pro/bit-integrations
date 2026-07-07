@@ -26,4 +26,3 @@ export const AddProductToCartFields = [
 export const UpdateCartQuantityFields = [
   { key: 'quantity', label: __('Quantity', 'bit-integrations'), required: true }
 ]
-

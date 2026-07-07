@@ -13,11 +13,7 @@ import {
   refreshModernCartProductVariations
 } from './ModernCartCommonFunc'
 import ModernCartFieldMap from './ModernCartFieldMap'
-import {
-  AddProductToCartFields,
-  modules,
-  UpdateCartQuantityFields
-} from './staticData'
+import { AddProductToCartFields, modules, UpdateCartQuantityFields } from './staticData'
 
 export default function ModernCartIntegLayout({
   formFields,

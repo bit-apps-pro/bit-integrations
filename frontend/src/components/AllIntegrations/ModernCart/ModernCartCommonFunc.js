@@ -128,8 +128,10 @@ export const checkMappedFields = modernCartConf => {
 
 export const generateMappedField = fields => {
   const requiredFlds = fields.filter(fld => fld.required === true)
-  return requiredFlds.map(field => ({
-    formField: '',
-    modernCartField: field.key
-  }))
+  return requiredFlds.length > 0
+    ? requiredFlds.map(field => ({
+        formField: '',
+        modernCartField: field.key
+      }))
+    : [{ formField: '', modernCartField: '' }]
 }
