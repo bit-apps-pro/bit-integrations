@@ -116,7 +116,9 @@ const normalizeFieldMap = (fieldMap, fields) => {
   const requiredFieldMap = requiredFields.map(field => {
     const mappedField = mappedFields.find(item => item.powerCouponsField === field.key)
 
-    return mappedField ? { ...mappedField, powerCouponsField: field.key } : { formField: '', powerCouponsField: field.key }
+    return mappedField
+      ? { ...mappedField, powerCouponsField: field.key }
+      : { formField: '', powerCouponsField: field.key }
   })
   const optionalFieldMap = mappedFields.filter(field => !requiredFieldKeys.includes(field.powerCouponsField))
 

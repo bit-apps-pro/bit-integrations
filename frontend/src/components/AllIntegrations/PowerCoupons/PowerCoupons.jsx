@@ -47,7 +47,7 @@ export default function PowerCoupons({ formFields, setFlow, flow, allIntegURL })
       if (!hasCouponLookup(powerCouponsConf)) {
         setSnackbar({
           show: true,
-          msg: __('Please select or map a coupon to continue.', 'bit-integrations')
+          msg: __('Please map a coupon code to continue.', 'bit-integrations')
         })
         return
       }
