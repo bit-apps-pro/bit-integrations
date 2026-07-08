@@ -54,6 +54,7 @@ class RecordApiHelper
             $this->_integrationDetails->utilities ?? [],
             $mainAction
         );
+        $fieldData = static::removeUnsupportedIdentifierFields($fieldData);
 
         $defaultResponse = [
             'success' => false,
@@ -159,6 +160,13 @@ class RecordApiHelper
 
             $fieldData[$field] = $utilities[$field];
         }
+
+        return $fieldData;
+    }
+
+    private static function removeUnsupportedIdentifierFields(array $fieldData)
+    {
+        unset($fieldData['coupon_id'], $fieldData['id']);
 
         return $fieldData;
     }

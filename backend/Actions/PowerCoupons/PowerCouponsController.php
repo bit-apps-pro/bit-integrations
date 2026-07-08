@@ -36,43 +36,6 @@ class PowerCouponsController
         wp_send_json_success(true);
     }
 
-    public static function refreshCoupons()
-    {
-        self::isExists();
-
-        $coupons = [];
-        $couponPosts = get_posts(
-            [
-                'post_type'      => 'shop_coupon',
-                'post_status'    => ['publish', 'draft', 'pending', 'private'],
-                'posts_per_page' => -1,
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-                'fields'         => 'ids',
-            ]
-        );
-
-        foreach ($couponPosts as $couponId) {
-            try {
-                $coupon = new \WC_Coupon((int) $couponId);
-                $code = $coupon->get_code();
-            } catch (\Throwable $th) {
-                continue;
-            }
-
-            if ($code === '') {
-                continue;
-            }
-
-            $coupons[] = (object) [
-                'value' => (int) $couponId,
-                'label' => '#' . (int) $couponId . ' - ' . $code,
-            ];
-        }
-
-        wp_send_json_success(['coupons' => $coupons], 200);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

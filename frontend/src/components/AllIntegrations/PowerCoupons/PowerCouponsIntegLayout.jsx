@@ -6,14 +6,18 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
-import TableCheckBox from '../../Utilities/TableCheckBox'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { generateMappedField, refreshPowerCouponsCoupons } from './PowerCouponsCommonFunc'
+import PowerCouponsActions from './PowerCouponsActions'
+import { generateMappedField } from './PowerCouponsCommonFunc'
 import PowerCouponsFieldMap from './PowerCouponsFieldMap'
 import {
+  actionUtilityDefaults,
+  actionUtilityKeys,
   CouponCreateFields,
   CouponDeleteFields,
   CouponUpdateFields,
+  discountTypeOptions,
+  getUtilityDefaults,
   modules,
   ToggleFields
 } from './staticData'
@@ -27,87 +31,8 @@ const FIELD_MAP = {
   toggle_rules: ToggleFields
 }
 
-const COUPON_PICKER_ACTIONS = [
-  'update_coupon',
-  'delete_coupon',
-  'toggle_auto_apply',
-  'toggle_show_in_slideout',
-  'toggle_rules'
-]
-
-const DISCOUNT_TYPE_OPTIONS = [
-  { label: __('Percentage discount', 'bit-integrations'), value: 'percent' },
-  { label: __('Fixed cart discount', 'bit-integrations'), value: 'fixed_cart' },
-  { label: __('Fixed product discount', 'bit-integrations'), value: 'fixed_product' }
-]
-
-const UPDATE_DISCOUNT_TYPE_OPTIONS = [
-  { label: __('No Change', 'bit-integrations'), value: '' },
-  ...DISCOUNT_TYPE_OPTIONS
-]
-
-const YES_NO_OPTIONS = [
-  { label: __('Yes', 'bit-integrations'), value: 'yes' },
-  { label: __('No', 'bit-integrations'), value: 'no' }
-]
-
-const UPDATE_YES_NO_OPTIONS = [{ label: __('No Change', 'bit-integrations'), value: '' }, ...YES_NO_OPTIONS]
-
-const BOOLEAN_UTILITY_FIELDS = [
-  { key: 'free_shipping', label: __('Free Shipping', 'bit-integrations') },
-  { key: 'individual_use', label: __('Individual Use Only', 'bit-integrations') },
-  { key: 'exclude_sale_items', label: __('Exclude Sale Items', 'bit-integrations') },
-  { key: 'auto_apply', label: __('Auto Apply', 'bit-integrations') },
-  { key: 'show_in_slideout', label: __('Show in Slideout', 'bit-integrations') },
-  { key: 'rules_enabled', label: __('Rules Enabled', 'bit-integrations') }
-]
-
-const ACTION_UTILITY_KEYS = {
-  create_coupon: ['discount_type', ...BOOLEAN_UTILITY_FIELDS.map(field => field.key)],
-  update_coupon: ['discount_type', ...BOOLEAN_UTILITY_FIELDS.map(field => field.key)],
-  delete_coupon: ['permanent_delete'],
-  toggle_auto_apply: ['enabled'],
-  toggle_show_in_slideout: ['enabled'],
-  toggle_rules: ['enabled']
-}
-
-const ACTION_UTILITY_DEFAULTS = {
-  create_coupon: {
-    discount_type: 'percent',
-    free_shipping: false,
-    individual_use: false,
-    exclude_sale_items: false,
-    auto_apply: false,
-    show_in_slideout: false,
-    rules_enabled: false
-  },
-  update_coupon: {
-    discount_type: '',
-    free_shipping: '',
-    individual_use: '',
-    exclude_sale_items: '',
-    auto_apply: '',
-    show_in_slideout: '',
-    rules_enabled: ''
-  },
-  delete_coupon: {
-    permanent_delete: false
-  },
-  toggle_auto_apply: {
-    enabled: 'yes'
-  },
-  toggle_show_in_slideout: {
-    enabled: 'yes'
-  },
-  toggle_rules: {
-    enabled: 'yes'
-  }
-}
-
 const TRUE_VALUES = ['1', 'yes', 'true', 'on', 'enabled']
 const FALSE_VALUES = ['0', 'no', 'false', 'off', 'disabled']
-
-const getUtilityDefaults = action => ({ ...(ACTION_UTILITY_DEFAULTS[action] || {}) })
 
 const normalizeBooleanOption = value => {
   const normalizedValue = String(value ?? '')
@@ -131,11 +56,11 @@ const normalizeLegacyUtilityValue = (action, key, value) => {
       .trim()
       .toLowerCase()
 
-    if (DISCOUNT_TYPE_OPTIONS.some(option => option.value === normalizedValue)) {
+    if (discountTypeOptions.some(option => option.value === normalizedValue)) {
       return normalizedValue
     }
 
-    return action === 'create_coupon' ? ACTION_UTILITY_DEFAULTS.create_coupon.discount_type : ''
+    return action === 'create_coupon' ? actionUtilityDefaults.create_coupon.discount_type : ''
   }
 
   const booleanValue = normalizeBooleanOption(value)
@@ -148,7 +73,7 @@ const normalizeLegacyUtilityValue = (action, key, value) => {
 }
 
 const normalizeUtilities = (action, utilities, fieldMap) => {
-  const utilityKeys = ACTION_UTILITY_KEYS[action] || []
+  const utilityKeys = actionUtilityKeys[action] || []
   const normalizedUtilities = getUtilityDefaults(action)
   const currentUtilities = utilities || {}
   const mappedFields = fieldMap || []
@@ -178,19 +103,31 @@ const normalizeUtilities = (action, utilities, fieldMap) => {
 
 const normalizeFieldMap = (fieldMap, fields) => {
   const allowedFieldKeys = fields.map(field => field.key)
+  const requiredFields = fields.filter(field => field.required === true)
+  const requiredFieldKeys = requiredFields.map(field => field.key)
   const mappedFields = (fieldMap || []).filter(
-    field => !field.powerCouponsField || allowedFieldKeys.includes(field.powerCouponsField)
+    field => field && (!field.powerCouponsField || allowedFieldKeys.includes(field.powerCouponsField))
   )
 
-  return mappedFields.length ? mappedFields : generateMappedField(fields)
+  if (!mappedFields.length) {
+    return generateMappedField(fields)
+  }
+
+  const requiredFieldMap = requiredFields.map(field => {
+    const mappedField = mappedFields.find(item => item.powerCouponsField === field.key)
+
+    return mappedField ? { ...mappedField, powerCouponsField: field.key } : { formField: '', powerCouponsField: field.key }
+  })
+  const optionalFieldMap = mappedFields.filter(field => !requiredFieldKeys.includes(field.powerCouponsField))
+
+  return [...requiredFieldMap, ...optionalFieldMap]
 }
 
 export default function PowerCouponsIntegLayout({
   formFields,
   powerCouponsConf,
   setPowerCouponsConf,
-  isLoading,
-  setIsLoading
+  isLoading
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
@@ -234,14 +171,6 @@ export default function PowerCouponsIntegLayout({
     setPowerCouponsConf
   ])
 
-  const setConfValue = (key, value) => {
-    setPowerCouponsConf(prevConf =>
-      create(prevConf, draftConf => {
-        draftConf[key] = value
-      })
-    )
-  }
-
   const handleMainAction = value => {
     setPowerCouponsConf(prevConf =>
       create(prevConf, draftConf => {
@@ -249,140 +178,8 @@ export default function PowerCouponsIntegLayout({
         draftConf.powerCouponsFields = FIELD_MAP[value] || []
         draftConf.field_map = generateMappedField(draftConf.powerCouponsFields)
         draftConf.utilities = getUtilityDefaults(value)
-        draftConf.selectedCoupon = ''
       })
     )
-
-    if (COUPON_PICKER_ACTIONS.includes(value)) {
-      refreshPowerCouponsCoupons(setPowerCouponsConf, setIsLoading)
-    }
-  }
-
-  const setUtilityValue = (key, value) => {
-    setPowerCouponsConf(prevConf =>
-      create(prevConf, draftConf => {
-        draftConf.utilities = draftConf.utilities || {}
-        draftConf.utilities[key] = value
-      })
-    )
-  }
-
-  const utilityValue = key => powerCouponsConf?.utilities?.[key]
-
-  const recordSelect = (label, confKey, optionSource, onRefresh) => (
-    <>
-      <br />
-      <div className="flx">
-        <b className="wdt-200 d-in-b">{label}</b>
-        <MultiSelect
-          title={confKey}
-          defaultValue={powerCouponsConf?.[confKey] ?? null}
-          className="btcd-paper-drpdwn w-5"
-          options={(powerCouponsConf?.[optionSource] ?? []).map(opt => ({
-            label: opt.label,
-            value: String(opt.value ?? '')
-          }))}
-          onChange={val => setConfValue(confKey, val)}
-          singleSelect
-          closeOnSelect
-        />
-        <button
-          onClick={() => onRefresh(setPowerCouponsConf, setIsLoading)}
-          className="icn-btn sh-sm ml-2 mr-2 tooltip"
-          style={{ '--tooltip-txt': `'${__('Refresh', 'bit-integrations')}'` }}
-          type="button"
-          disabled={isLoading}>
-          &#x21BB;
-        </button>
-      </div>
-    </>
-  )
-
-  const renderUtilitySelect = (label, confKey, options) => (
-    <div key={confKey} className="flx mt-4">
-      <b className="wdt-200 d-in-b">{label}</b>
-      <select
-        className="btcd-paper-inp w-5"
-        name={confKey}
-        value={utilityValue(confKey) ?? ''}
-        onChange={event => setUtilityValue(confKey, event.target.value)}>
-        {options.map(option => (
-          <option key={`${confKey}-${option.value}`} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-
-  const renderUtilityCheckbox = ({ key, label }) => (
-    <TableCheckBox
-      key={key}
-      checked={Boolean(utilityValue(key))}
-      onChange={event => setUtilityValue(key, event.target.checked)}
-      className="wdt-200 mt-4 mr-2"
-      value={key}
-      title={label}
-    />
-  )
-
-  const renderUtilities = () => {
-    if (action === 'create_coupon') {
-      return (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Options', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          {renderUtilitySelect(__('Discount Type:', 'bit-integrations'), 'discount_type', DISCOUNT_TYPE_OPTIONS)}
-          <div className="pos-rel d-flx w-10 flx-wrp">
-            {BOOLEAN_UTILITY_FIELDS.map(field => renderUtilityCheckbox(field))}
-          </div>
-        </div>
-      )
-    }
-
-    if (action === 'update_coupon') {
-      return (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Options', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          {renderUtilitySelect(
-            __('Discount Type:', 'bit-integrations'),
-            'discount_type',
-            UPDATE_DISCOUNT_TYPE_OPTIONS
-          )}
-          {BOOLEAN_UTILITY_FIELDS.map(field =>
-            renderUtilitySelect(field.label, field.key, UPDATE_YES_NO_OPTIONS)
-          )}
-        </div>
-      )
-    }
-
-    if (action === 'delete_coupon') {
-      return (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Options', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          <div className="pos-rel d-flx w-10">
-            {renderUtilityCheckbox({
-              key: 'permanent_delete',
-              label: __('Permanently Delete', 'bit-integrations')
-            })}
-          </div>
-        </div>
-      )
-    }
-
-    if (['toggle_auto_apply', 'toggle_show_in_slideout', 'toggle_rules'].includes(action)) {
-      return (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Options', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          {renderUtilitySelect(__('Enabled:', 'bit-integrations'), 'enabled', YES_NO_OPTIONS)}
-        </div>
-      )
-    }
-
-    return null
   }
 
   return (
@@ -404,16 +201,6 @@ export default function PowerCouponsIntegLayout({
           closeOnSelect
         />
       </div>
-
-      {COUPON_PICKER_ACTIONS.includes(action) &&
-        recordSelect(
-          __('Coupon:', 'bit-integrations'),
-          'selectedCoupon',
-          'allCoupons',
-          refreshPowerCouponsCoupons
-        )}
-
-      {action && renderUtilities()}
 
       {isLoading && (
         <Loader
@@ -461,6 +248,17 @@ export default function PowerCouponsIntegLayout({
             </button>
           </div>
           <br />
+        </div>
+      )}
+
+      {action && powerCouponsConf?.powerCouponsFields?.length > 0 && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <PowerCouponsActions
+            powerCouponsConf={powerCouponsConf}
+            setPowerCouponsConf={setPowerCouponsConf}
+          />
         </div>
       )}
     </>

@@ -1,7 +1,4 @@
 import { create } from 'mutative'
-import toast from 'react-hot-toast'
-import bitsFetch from '../../../Utils/bitsFetch'
-import { __ } from '../../../Utils/i18nwrap'
 
 const TOGGLE_ACTIONS = ['toggle_auto_apply', 'toggle_show_in_slideout', 'toggle_rules']
 const UPDATE_UTILITY_FIELDS = [
@@ -23,47 +20,6 @@ export const handleInput = (e, powerCouponsConf, setPowerCouponsConf) => {
     })
   )
 }
-
-const refreshList = (
-  route,
-  dataKey,
-  confKey,
-  successMsg,
-  errorMsg,
-  setPowerCouponsConf,
-  setIsLoading
-) => {
-  setIsLoading(true)
-  bitsFetch(null, route)
-    .then(result => {
-      if (result && result?.success && result?.data?.[dataKey]) {
-        setPowerCouponsConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf[confKey] = result.data[dataKey]
-          })
-        )
-
-        setIsLoading(false)
-        toast.success(successMsg)
-        return
-      }
-
-      setIsLoading(false)
-      toast.error(errorMsg)
-    })
-    .catch(() => setIsLoading(false))
-}
-
-export const refreshPowerCouponsCoupons = (setPowerCouponsConf, setIsLoading) =>
-  refreshList(
-    'refresh_power_coupons_coupons',
-    'coupons',
-    'allCoupons',
-    __('All coupons fetched successfully', 'bit-integrations'),
-    __('Power Coupons fetch failed. Please try again', 'bit-integrations'),
-    setPowerCouponsConf,
-    setIsLoading
-  )
 
 export const checkMappedFields = powerCouponsConf => {
   const fieldMap = powerCouponsConf?.field_map || []
@@ -96,14 +52,10 @@ export const hasCouponLookup = powerCouponsConf => {
     return true
   }
 
-  if (powerCouponsConf?.selectedCoupon) {
-    return true
-  }
-
   return (powerCouponsConf?.field_map || []).some(
     field =>
       field.formField &&
-      ['coupon_id', 'coupon_code'].includes(field.powerCouponsField)
+      field.powerCouponsField === 'coupon_code'
   )
 }
 
@@ -122,7 +74,7 @@ export const hasUpdatePayload = powerCouponsConf => {
     field =>
       field.formField &&
       field.powerCouponsField &&
-      !['coupon_id', 'coupon_code'].includes(field.powerCouponsField)
+      field.powerCouponsField !== 'coupon_code'
   )
 
   return hasMappedUpdateField || UPDATE_UTILITY_FIELDS.some(key => hasUtilityValue(powerCouponsConf, key))

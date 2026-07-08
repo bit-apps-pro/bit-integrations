@@ -21,6 +21,101 @@ export const modules = [
   }
 ]
 
+export const discountTypeOptions = [
+  { label: __('Percentage discount', 'bit-integrations'), value: 'percent' },
+  { label: __('Fixed cart discount', 'bit-integrations'), value: 'fixed_cart' },
+  { label: __('Fixed product discount', 'bit-integrations'), value: 'fixed_product' }
+]
+
+export const updateDiscountTypeOptions = [
+  { label: __('No Change', 'bit-integrations'), value: '' },
+  ...discountTypeOptions
+]
+
+export const yesNoOptions = [
+  { label: __('Yes', 'bit-integrations'), value: 'yes' },
+  { label: __('No', 'bit-integrations'), value: 'no' }
+]
+
+export const updateYesNoOptions = [{ label: __('No Change', 'bit-integrations'), value: '' }, ...yesNoOptions]
+
+export const booleanUtilityFields = [
+  {
+    key: 'free_shipping',
+    label: __('Free Shipping', 'bit-integrations'),
+    subTitle: __('Allow free shipping for this coupon', 'bit-integrations')
+  },
+  {
+    key: 'individual_use',
+    label: __('Individual Use Only', 'bit-integrations'),
+    subTitle: __('Prevent use with other coupons', 'bit-integrations')
+  },
+  {
+    key: 'exclude_sale_items',
+    label: __('Exclude Sale Items', 'bit-integrations'),
+    subTitle: __('Exclude discounted products', 'bit-integrations')
+  },
+  {
+    key: 'auto_apply',
+    label: __('Auto Apply', 'bit-integrations'),
+    subTitle: __('Apply coupon automatically', 'bit-integrations')
+  },
+  {
+    key: 'show_in_slideout',
+    label: __('Show in Slideout', 'bit-integrations'),
+    subTitle: __('Show coupon in the slideout', 'bit-integrations')
+  },
+  {
+    key: 'rules_enabled',
+    label: __('Rules Enabled', 'bit-integrations'),
+    subTitle: __('Enable coupon rules', 'bit-integrations')
+  }
+]
+
+export const actionUtilityKeys = {
+  create_coupon: ['discount_type', ...booleanUtilityFields.map(field => field.key)],
+  update_coupon: ['discount_type', ...booleanUtilityFields.map(field => field.key)],
+  delete_coupon: ['permanent_delete'],
+  toggle_auto_apply: ['enabled'],
+  toggle_show_in_slideout: ['enabled'],
+  toggle_rules: ['enabled']
+}
+
+export const actionUtilityDefaults = {
+  create_coupon: {
+    discount_type: 'percent',
+    free_shipping: false,
+    individual_use: false,
+    exclude_sale_items: false,
+    auto_apply: false,
+    show_in_slideout: false,
+    rules_enabled: false
+  },
+  update_coupon: {
+    discount_type: '',
+    free_shipping: '',
+    individual_use: '',
+    exclude_sale_items: '',
+    auto_apply: '',
+    show_in_slideout: '',
+    rules_enabled: ''
+  },
+  delete_coupon: {
+    permanent_delete: false
+  },
+  toggle_auto_apply: {
+    enabled: 'yes'
+  },
+  toggle_show_in_slideout: {
+    enabled: 'yes'
+  },
+  toggle_rules: {
+    enabled: 'yes'
+  }
+}
+
+export const getUtilityDefaults = action => ({ ...(actionUtilityDefaults[action] || {}) })
+
 const CouponBaseFields = [
   { key: 'description', label: __('Description', 'bit-integrations'), required: false },
   { key: 'minimum_amount', label: __('Minimum Amount', 'bit-integrations'), required: false },
@@ -67,19 +162,16 @@ export const CouponCreateFields = [
 ]
 
 export const CouponUpdateFields = [
-  { key: 'coupon_id', label: __('Coupon ID', 'bit-integrations'), required: false },
-  { key: 'coupon_code', label: __('Current Coupon Code', 'bit-integrations'), required: false },
+  { key: 'coupon_code', label: __('Current Coupon Code', 'bit-integrations'), required: true },
   { key: 'code', label: __('New Coupon Code', 'bit-integrations'), required: false },
   { key: 'amount', label: __('Discount Amount', 'bit-integrations'), required: false },
   ...CouponBaseFields
 ]
 
 export const CouponDeleteFields = [
-  { key: 'coupon_id', label: __('Coupon ID', 'bit-integrations'), required: false },
-  { key: 'coupon_code', label: __('Coupon Code', 'bit-integrations'), required: false }
+  { key: 'coupon_code', label: __('Coupon Code', 'bit-integrations'), required: true }
 ]
 
 export const ToggleFields = [
-  { key: 'coupon_id', label: __('Coupon ID', 'bit-integrations'), required: false },
-  { key: 'coupon_code', label: __('Coupon Code', 'bit-integrations'), required: false }
+  { key: 'coupon_code', label: __('Coupon Code', 'bit-integrations'), required: true }
 ]
