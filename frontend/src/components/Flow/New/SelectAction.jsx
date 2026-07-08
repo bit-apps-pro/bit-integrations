@@ -185,6 +185,7 @@ export default function SelectAction() {
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
     { type: 'FluentCart', is_pro: true },
+    { type: 'PowerCoupons', name: 'Power Coupons', logo: 'powerCoupons', extension: 'svg', is_pro: true },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },
     { type: 'Heffl CRM', is_pro: true },
     { type: 'Secure Custom Fields', is_pro: true },
@@ -317,7 +318,7 @@ export default function SelectAction() {
                 </div>
               )}
 
-              <GetLogo name={inte?.logo || inte.type} extension="webp" />
+              <GetLogo name={inte?.logo || inte.type} extension={inte.extension || 'webp'} />
               <div className="txt-center">{inte.name || inte.type}</div>
             </div>
           ))}

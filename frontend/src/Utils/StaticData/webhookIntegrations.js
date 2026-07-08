@@ -29,6 +29,7 @@ export const customFormIntegrations = [
   'NinjaTables',
   'AdvancedAds',
   'AdvancedCoupons',
+  'PowerCoupons',
   'AppointmentHourBooking',
   'BetterMessages',
   'ConvertPro',
