@@ -106,6 +106,10 @@ final class Flow
             wp_send_json_error($integrations->get_error_message());
         }
         $integration = $integrations[0];
+        if (self::isCustomActionFlowDetails($integration->flow_details)) {
+            self::requireCustomActionCapability();
+        }
+
         if (!($trigger = self::isTriggerExists($integration->triggered_entity))) {
             wp_send_json_error(__('Trigger does not exists', 'bit-integrations'));
         }
@@ -156,7 +160,8 @@ final class Flow
         }
 
         // custom action
-        if ($data->flow_details->type === 'CustomAction') {
+        if (self::isCustomActionFlowDetails($data->flow_details)) {
+            self::requireCustomActionCapability();
             CustomFuncValidator::functionValidateHandler($data);
         }
 
@@ -199,6 +204,10 @@ final class Flow
         );
         if (!is_wp_error($integrations) && \count($integrations) > 0) {
             $newInteg = $integrations[0];
+            if (self::isCustomActionFlowDetails($newInteg->flow_details)) {
+                self::requireCustomActionCapability();
+            }
+
             $newInteg->name = 'duplicate of ' . $newInteg->name;
             $saveStatus = $integrationHandler->save($newInteg->name, $newInteg->triggered_entity, $newInteg->triggered_entity_id, $newInteg->flow_details);
             static::updateFlowTrigger($saveStatus);
@@ -229,7 +238,11 @@ final class Flow
             wp_send_json_error(wp_sprintf(__('%s can\'t be empty', 'bit-integrations'), $missing_field));
         }
 
-        if ($data->flow_details->type === 'CustomAction') {
+        if (self::isCustomActionFlow($data->id) || self::isCustomActionFlowDetails($data->flow_details)) {
+            self::requireCustomActionCapability();
+        }
+
+        if (self::isCustomActionFlowDetails($data->flow_details)) {
             CustomFuncValidator::functionValidateHandler($data);
         }
 
@@ -298,6 +311,8 @@ final class Flow
             // translators: %s: Placeholder value
             wp_send_json_error(wp_sprintf(__('%s can\'t be empty', 'bit-integrations'), $missing_field));
         }
+        self::requireCustomActionCapabilityForFlowIds([$data->id]);
+
         $integrationHandler = new FlowController();
         $deleteStatus = $integrationHandler->delete($data->id);
         static::updateFlowTrigger($deleteStatus);
@@ -317,6 +332,7 @@ final class Flow
             // translators: %s: Placeholder value
             wp_send_json_error(wp_sprintf(__('%s can\'t be empty', 'bit-integrations'), 'Integration id'));
         }
+        self::requireCustomActionCapabilityForFlowIds($param->flowID);
 
         $integrationHandler = new FlowController();
         $deleteStatus = $integrationHandler->bulkDelete($param->flowID);
@@ -344,6 +360,8 @@ final class Flow
             // translators: %s: Placeholder value
             wp_send_json_error(wp_sprintf(__('%s can\'t be empty', 'bit-integrations'), $missing_field));
         }
+        self::requireCustomActionCapabilityForFlowIds([$data->id]);
+
         $integrationHandler = new FlowController();
         $toggleStatus = $integrationHandler->updateStatus($data->id, $data->status);
         static::updateFlowTrigger($toggleStatus);
@@ -572,5 +590,56 @@ final class Flow
         if ($saveStatus) {
             StoreInCache::getActiveFlowEntities(true);
         }
+    }
+
+    private static function requireCustomActionCapability()
+    {
+        if (!Capabilities::Check('manage_options')) {
+            wp_send_json_error(__('Custom actions require administrator permissions.', 'bit-integrations'));
+        }
+    }
+
+    private static function requireCustomActionCapabilityForFlowIds($flowIds)
+    {
+        if (Capabilities::Check('manage_options')) {
+            return;
+        }
+
+        $flowIds = array_values(array_filter(array_map('intval', (array) $flowIds)));
+        if (empty($flowIds)) {
+            return;
+        }
+
+        $integrationHandler = new FlowController();
+        $flows = $integrationHandler->get(['id' => $flowIds], ['id', 'flow_details']);
+        if (is_wp_error($flows)) {
+            wp_send_json_error($flows->get_error_message());
+        }
+
+        foreach ($flows as $flow) {
+            if (self::isCustomActionFlowDetails($flow->flow_details ?? null)) {
+                self::requireCustomActionCapability();
+            }
+        }
+    }
+
+    private static function isCustomActionFlow($flowId)
+    {
+        $integrationHandler = new FlowController();
+        $flows = $integrationHandler->get(['id' => $flowId], ['id', 'flow_details']);
+        if (is_wp_error($flows) || empty($flows)) {
+            return false;
+        }
+
+        return self::isCustomActionFlowDetails($flows[0]->flow_details ?? null);
+    }
+
+    private static function isCustomActionFlowDetails($flowDetails)
+    {
+        if (\is_string($flowDetails)) {
+            $flowDetails = json_decode($flowDetails);
+        }
+
+        return \is_object($flowDetails) && !empty($flowDetails->type) && $flowDetails->type === 'CustomAction';
     }
 }

@@ -45,7 +45,7 @@ class SureCartController
             'body'        => wp_json_encode($request_data),
         ];
 
-        $request = wp_remote_post($this->api_url . 'webhook_endpoints', $headers);
+        $request = wp_safe_remote_post($this->api_url . 'webhook_endpoints', $headers);
         if (is_wp_error($request)) {
             wp_send_json_error($request->get_error_message(), 400);
         }
