@@ -47,8 +47,13 @@ class RecordApiHelper
             ];
         }
 
-        $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_coupon';
+        $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
+        $fieldData = static::applyUtilities(
+            $fieldData,
+            $this->_integrationDetails->utilities ?? [],
+            $mainAction
+        );
 
         $defaultResponse = [
             'success' => false,
@@ -109,5 +114,52 @@ class RecordApiHelper
         }
 
         return $dataFinal;
+    }
+
+    private static function applyUtilities(array $fieldData, $utilities, $mainAction)
+    {
+        $utilities = is_object($utilities) ? (array) $utilities : (array) $utilities;
+        $actionUtilityFields = [
+            'create_coupon'           => [
+                'discount_type',
+                'free_shipping',
+                'individual_use',
+                'exclude_sale_items',
+                'auto_apply',
+                'show_in_slideout',
+                'rules_enabled',
+            ],
+            'update_coupon'           => [
+                'discount_type',
+                'free_shipping',
+                'individual_use',
+                'exclude_sale_items',
+                'auto_apply',
+                'show_in_slideout',
+                'rules_enabled',
+            ],
+            'delete_coupon'           => ['permanent_delete'],
+            'toggle_auto_apply'       => ['enabled'],
+            'toggle_show_in_slideout' => ['enabled'],
+            'toggle_rules'            => ['enabled'],
+        ];
+
+        if (!isset($actionUtilityFields[$mainAction])) {
+            return $fieldData;
+        }
+
+        foreach ($actionUtilityFields[$mainAction] as $field) {
+            if (!array_key_exists($field, $utilities)) {
+                continue;
+            }
+
+            if ($mainAction === 'update_coupon' && ($utilities[$field] === '' || $utilities[$field] === null)) {
+                continue;
+            }
+
+            $fieldData[$field] = $utilities[$field];
+        }
+
+        return $fieldData;
     }
 }

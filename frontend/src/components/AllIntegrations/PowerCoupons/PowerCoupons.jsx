@@ -7,7 +7,12 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import PowerCouponsAuthorization from './PowerCouponsAuthorization'
-import { checkMappedFields, hasCouponLookup, hasUpdatePayload } from './PowerCouponsCommonFunc'
+import {
+  checkMappedFields,
+  hasCouponLookup,
+  hasRequiredUtilities,
+  hasUpdatePayload
+} from './PowerCouponsCommonFunc'
 import PowerCouponsIntegLayout from './PowerCouponsIntegLayout'
 
 export default function PowerCoupons({ formFields, setFlow, flow, allIntegURL }) {
@@ -21,6 +26,7 @@ export default function PowerCoupons({ formFields, setFlow, flow, allIntegURL })
     type: 'PowerCoupons',
     field_map: [{ formField: '', powerCouponsField: '' }],
     actions: {},
+    utilities: {},
     mainAction: ''
   })
 
@@ -42,6 +48,14 @@ export default function PowerCoupons({ formFields, setFlow, flow, allIntegURL })
         setSnackbar({
           show: true,
           msg: __('Please select or map a coupon to continue.', 'bit-integrations')
+        })
+        return
+      }
+
+      if (!hasRequiredUtilities(powerCouponsConf)) {
+        setSnackbar({
+          show: true,
+          msg: __('Please select all required options to continue.', 'bit-integrations')
         })
         return
       }

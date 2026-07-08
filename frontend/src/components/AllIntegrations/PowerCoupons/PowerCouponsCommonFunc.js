@@ -3,6 +3,17 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
+const TOGGLE_ACTIONS = ['toggle_auto_apply', 'toggle_show_in_slideout', 'toggle_rules']
+const UPDATE_UTILITY_FIELDS = [
+  'discount_type',
+  'free_shipping',
+  'individual_use',
+  'exclude_sale_items',
+  'auto_apply',
+  'show_in_slideout',
+  'rules_enabled'
+]
+
 export const handleInput = (e, powerCouponsConf, setPowerCouponsConf) => {
   const { name, value } = e.target
 
@@ -79,13 +90,7 @@ export const checkMappedFields = powerCouponsConf => {
 }
 
 export const hasCouponLookup = powerCouponsConf => {
-  const lookupActions = [
-    'update_coupon',
-    'delete_coupon',
-    'toggle_auto_apply',
-    'toggle_show_in_slideout',
-    'toggle_rules'
-  ]
+  const lookupActions = ['update_coupon', 'delete_coupon', ...TOGGLE_ACTIONS]
 
   if (!lookupActions.includes(powerCouponsConf?.mainAction)) {
     return true
@@ -102,24 +107,45 @@ export const hasCouponLookup = powerCouponsConf => {
   )
 }
 
+const hasUtilityValue = (powerCouponsConf, key) => {
+  const utilities = powerCouponsConf?.utilities || {}
+
+  return Object.prototype.hasOwnProperty.call(utilities, key) && utilities[key] !== ''
+}
+
 export const hasUpdatePayload = powerCouponsConf => {
   if (powerCouponsConf?.mainAction !== 'update_coupon') {
     return true
   }
 
-  return (powerCouponsConf?.field_map || []).some(
+  const hasMappedUpdateField = (powerCouponsConf?.field_map || []).some(
     field =>
       field.formField &&
       field.powerCouponsField &&
       !['coupon_id', 'coupon_code'].includes(field.powerCouponsField)
   )
+
+  return hasMappedUpdateField || UPDATE_UTILITY_FIELDS.some(key => hasUtilityValue(powerCouponsConf, key))
+}
+
+export const hasRequiredUtilities = powerCouponsConf => {
+  if (powerCouponsConf?.mainAction === 'create_coupon') {
+    return hasUtilityValue(powerCouponsConf, 'discount_type')
+  }
+
+  if (TOGGLE_ACTIONS.includes(powerCouponsConf?.mainAction)) {
+    return hasUtilityValue(powerCouponsConf, 'enabled')
+  }
+
+  return true
 }
 
 export const checkPowerCouponsConfig = powerCouponsConf =>
   Boolean(powerCouponsConf?.mainAction) &&
   checkMappedFields(powerCouponsConf) &&
   hasCouponLookup(powerCouponsConf) &&
-  hasUpdatePayload(powerCouponsConf)
+  hasUpdatePayload(powerCouponsConf) &&
+  hasRequiredUtilities(powerCouponsConf)
 
 export const generateMappedField = fields => {
   const requiredFlds = fields.filter(fld => fld.required === true)
