@@ -7,6 +7,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
+import BookingCalendarActions from './BookingCalendarActions'
 import {
   generateMappedField,
   refreshBookingCalendarBookings,
@@ -33,6 +34,7 @@ export default function BookingCalendarIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.bookingCalendarFields)
         draftConf.bookingId = ''
         draftConf.resourceId = ''
+        draftConf.utilities = {}
       })
     )
 
@@ -189,6 +191,15 @@ export default function BookingCalendarIntegLayout({
               +
             </button>
           </div>
+
+          <div className="mt-4">
+            <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          </div>
+          <div className="btcd-hr mt-1" />
+          <BookingCalendarActions
+            bookingCalendarConf={bookingCalendarConf}
+            setBookingCalendarConf={setBookingCalendarConf}
+          />
         </div>
       )}
     </>

@@ -22,6 +22,7 @@ export default function BookingCalendar({ formFields, setFlow, flow, allIntegURL
     type: 'BookingCalendar',
     field_map: [{ formField: '', bookingCalendarField: '' }],
     actions: {},
+    utilities: {},
     mainAction: ''
   })
 
