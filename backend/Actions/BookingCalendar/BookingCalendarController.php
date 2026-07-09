@@ -45,7 +45,7 @@ class BookingCalendarController
             $label = '#' . $bookingId;
             $formFields = self::parseBookingForm((string) ($row['form'] ?? ''));
 
-            if (!empty($formFields[0]['value'])) {
+            if (!empty($formFields) && !empty($formFields[0]['value'])) {
                 $label .= ' - ' . $formFields[0]['value'];
             }
 

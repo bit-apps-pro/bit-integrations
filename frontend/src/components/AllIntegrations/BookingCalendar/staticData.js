@@ -7,6 +7,7 @@ export const modules = [
 
 const CommonBookingFields = [
   { key: 'dates', label: __('Booking Dates', 'bit-integrations'), required: true },
+  { key: 'resource_id', label: __('Booking Resource ID', 'bit-integrations'), required: false },
   { key: 'name', label: __('First Name', 'bit-integrations'), required: false },
   { key: 'secondname', label: __('Last Name', 'bit-integrations'), required: false },
   { key: 'email', label: __('Email', 'bit-integrations'), required: false },
@@ -22,7 +23,12 @@ const CommonBookingFields = [
   { key: 'locale', label: __('Locale', 'bit-integrations'), required: false }
 ]
 
+const UpdateBookingFields = [
+  { key: 'booking_id', label: __('Booking ID', 'bit-integrations'), required: false },
+  ...CommonBookingFields
+]
+
 export const BookingCalendarStaticData = {
   create_booking: CommonBookingFields,
-  update_booking: CommonBookingFields
+  update_booking: UpdateBookingFields
 }

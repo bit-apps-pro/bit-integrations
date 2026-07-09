@@ -10,6 +10,7 @@ import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import BookingCalendarActions from './BookingCalendarActions'
 import {
   generateMappedField,
+  hasMappedBookingId,
   refreshBookingCalendarBookings,
   refreshBookingCalendarResources
 } from './BookingCalendarCommonFunc'
@@ -68,6 +69,7 @@ export default function BookingCalendarIntegLayout({
     )
 
   const isLoadingAny = dataLoading?.bookings || dataLoading?.resources
+  const hasBookingTarget = bookingCalendarConf?.bookingId || hasMappedBookingId(bookingCalendarConf)
 
   return (
     <>
@@ -99,7 +101,7 @@ export default function BookingCalendarIntegLayout({
             </b>
             <MultiSelect
               defaultValue={bookingCalendarConf?.bookingId ?? null}
-              className={`btcd-paper-drpdwn w-5${!bookingCalendarConf?.bookingId ? ' btcd-paper-inp-err' : ''}`}
+              className={`btcd-paper-drpdwn w-5${!hasBookingTarget ? ' btcd-paper-inp-err' : ''}`}
               options={bookingCalendarConf?.allBookings || []}
               onChange={val => setField('bookingId', val)}
               singleSelect

@@ -20,17 +20,26 @@ export default function BookingCalendarAuthorization({
 
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'booking_calendar_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
+    bitsFetch({}, 'booking_calendar_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar?.({
+            show: true,
+            msg: __('Connected with Booking Calendar Successfully', 'bit-integrations')
+          })
+        }
+      })
+      .catch(() => {
         setSnackbar?.({
           show: true,
-          msg: __('Connected with Booking Calendar Successfully', 'bit-integrations')
+          msg: __('Unable to connect with Booking Calendar', 'bit-integrations')
         })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+      })
+      .finally(() => {
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
   }
 
   const handleInput = e => {

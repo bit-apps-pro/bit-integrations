@@ -2,6 +2,14 @@ import { create } from 'mutative'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
+export const hasMappedBookingId = bookingCalendarConf =>
+  bookingCalendarConf?.field_map?.some(
+    field =>
+      field.bookingCalendarField === 'booking_id' &&
+      field.formField &&
+      (field.formField !== 'custom' || field.customValue)
+  )
+
 export const handleInput = (e, bookingCalendarConf, setBookingCalendarConf) => {
   const { name, value } = e.target
   setBookingCalendarConf(prevConf =>
@@ -22,14 +30,24 @@ export const checkMappedFields = bookingCalendarConf => {
     : []
 
   if (unmapped.length > 0) return false
-  if (bookingCalendarConf?.mainAction === 'update_booking' && !bookingCalendarConf?.bookingId) return false
+  if (
+    bookingCalendarConf?.mainAction === 'update_booking' &&
+    !bookingCalendarConf?.bookingId &&
+    !hasMappedBookingId(bookingCalendarConf)
+  ) {
+    return false
+  }
 
   return true
 }
 
 export const getBookingCalendarValidationMsg = bookingCalendarConf => {
-  if (bookingCalendarConf?.mainAction === 'update_booking' && !bookingCalendarConf?.bookingId) {
-    return __('Please select a booking to continue.', 'bit-integrations')
+  if (
+    bookingCalendarConf?.mainAction === 'update_booking' &&
+    !bookingCalendarConf?.bookingId &&
+    !hasMappedBookingId(bookingCalendarConf)
+  ) {
+    return __('Please select or map a booking to continue.', 'bit-integrations')
   }
 
   const unmapped = bookingCalendarConf?.field_map?.filter(
