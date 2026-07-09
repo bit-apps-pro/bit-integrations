@@ -140,38 +140,26 @@ export default function PowerCouponsIntegLayout({
       return
     }
 
-    const normalizedFields = FIELD_MAP[action]
-    const normalizedFieldMap = normalizeFieldMap(powerCouponsConf?.field_map, normalizedFields)
-    const normalizedUtilities = normalizeUtilities(
-      action,
-      powerCouponsConf?.utilities,
-      powerCouponsConf?.field_map
-    )
-    const fieldsChanged =
-      JSON.stringify(powerCouponsConf?.powerCouponsFields || []) !== JSON.stringify(normalizedFields)
-    const fieldMapChanged =
-      JSON.stringify(powerCouponsConf?.field_map || []) !== JSON.stringify(normalizedFieldMap)
-    const utilitiesChanged =
-      JSON.stringify(powerCouponsConf?.utilities || {}) !== JSON.stringify(normalizedUtilities)
-
-    if (!fieldsChanged && !fieldMapChanged && !utilitiesChanged) {
-      return
-    }
-
     setPowerCouponsConf(prevConf =>
       create(prevConf, draftConf => {
+        const normalizedFields = FIELD_MAP[action]
+        const normalizedFieldMap = normalizeFieldMap(draftConf.field_map, normalizedFields)
+        const normalizedUtilities = normalizeUtilities(action, draftConf.utilities, draftConf.field_map)
+        const fieldsChanged =
+          JSON.stringify(draftConf.powerCouponsFields || []) !== JSON.stringify(normalizedFields)
+        const fieldMapChanged = JSON.stringify(draftConf.field_map || []) !== JSON.stringify(normalizedFieldMap)
+        const utilitiesChanged = JSON.stringify(draftConf.utilities || {}) !== JSON.stringify(normalizedUtilities)
+
+        if (!fieldsChanged && !fieldMapChanged && !utilitiesChanged) {
+          return
+        }
+
         draftConf.powerCouponsFields = normalizedFields
         draftConf.field_map = normalizedFieldMap
         draftConf.utilities = normalizedUtilities
       })
     )
-  }, [
-    action,
-    powerCouponsConf?.field_map,
-    powerCouponsConf?.powerCouponsFields,
-    powerCouponsConf?.utilities,
-    setPowerCouponsConf
-  ])
+  }, [action, setPowerCouponsConf])
 
   const handleMainAction = value => {
     setPowerCouponsConf(prevConf =>

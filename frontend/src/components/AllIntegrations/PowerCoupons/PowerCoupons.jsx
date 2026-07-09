@@ -76,7 +76,15 @@ export default function PowerCoupons({ formFields, setFlow, flow, allIntegURL })
         return
       }
 
-      if (powerCouponsConf.name !== '' && powerCouponsConf.field_map.length > 0) {
+      if (!powerCouponsConf.name) {
+        setSnackbar({
+          show: true,
+          msg: __('Integration name cannot be empty.', 'bit-integrations')
+        })
+        return
+      }
+
+      if (powerCouponsConf.field_map.length > 0) {
         setStep(val)
       }
     } else {
