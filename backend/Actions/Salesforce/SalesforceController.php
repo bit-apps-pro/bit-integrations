@@ -317,6 +317,49 @@ class SalesforceController
         wp_send_json_success($response, 200);
     }
 
+    public static function selesforceUserList($params)
+    {
+        if (
+            empty($params->tokenDetails)
+            || empty($params->clientId)
+            || empty($params->clientSecret)
+        ) {
+            wp_send_json_error(
+                __(
+                    'Requested parameter is empty',
+                    'bit-integrations'
+                ),
+                400
+            );
+        }
+
+        $response = self::refreshTokenDetails($params);
+        $tokenDetails = $response['tokenDetails'];
+
+        $apiEndpoint = "{$tokenDetails->instance_url}/services/data/v37.0/query/?q=" . urlencode('SELECT Id, Name FROM User');
+
+        $apiResponse = HttpHelper::get($apiEndpoint, null, self::setHeaders($tokenDetails->access_token));
+
+        if (!\is_object($apiResponse) || !property_exists($apiResponse, 'records')) {
+            wp_send_json_error($apiResponse, 400);
+        }
+
+        $users = array_map(function ($user) {
+            return (object) [
+                'label' => $user->Name,
+                'value' => $user->Id
+            ];
+        }, $apiResponse->records);
+
+        $response['users'] = $users;
+
+        if (!empty($tokenDetails)) {
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
+        }
+
+        wp_send_json_success($response, 200);
+    }
+
     public static function selesforceCaseOrigin($params)
     {
         $caseOrigin = static::getCaseMetaData($params, 'Origin');

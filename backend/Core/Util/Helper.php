@@ -138,12 +138,16 @@ final class Helper
     {
         require_once ABSPATH . 'wp-load.php';
 
-        $filePath = Common::filePath($filePath);
+        $filePath = Common::safeUploadFilePath($filePath);
 
-        if (file_exists($filePath)) {
+        if ($filePath !== '') {
             $imgFileName = basename($filePath);
             // prepare upload image to WordPress Media Library
-            $upload = wp_upload_bits($imgFileName, null, file_get_contents($filePath, FILE_USE_INCLUDE_PATH));
+            $upload = wp_upload_bits($imgFileName, null, file_get_contents($filePath));
+
+            if (!empty($upload['error']) || empty($upload['file'])) {
+                return;
+            }
 
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
@@ -157,6 +161,10 @@ final class Helper
             ];
             // insert and return attachment id
             $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
+            if (is_wp_error($attachmentId)) {
+                return;
+            }
+
             require_once ABSPATH . 'wp-admin/includes/image.php';
             // insert and return attachment metadata
             $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
@@ -172,11 +180,15 @@ final class Helper
         $attachMentId = [];
         require_once ABSPATH . 'wp-admin/includes/image.php';
         foreach ($files as $file) {
-            $file = Common::filePath($file);
-            if (file_exists($file)) {
+            $file = Common::safeUploadFilePath($file);
+            if ($file !== '') {
                 $imgFileName = basename($file);
                 // prepare upload image to WordPress Media Library
-                $upload = wp_upload_bits($imgFileName, null, file_get_contents($file, FILE_USE_INCLUDE_PATH));
+                $upload = wp_upload_bits($imgFileName, null, file_get_contents($file));
+
+                if (!empty($upload['error']) || empty($upload['file'])) {
+                    continue;
+                }
 
                 $imageFile = $upload['file'];
                 // echo $imageFile;
@@ -191,6 +203,9 @@ final class Helper
                 ];
                 // insert and return attachment id
                 $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
+                if (is_wp_error($attachmentId)) {
+                    continue;
+                }
                 // $attachMentId[]=$attachmentId;
                 $attachMentId[] = $attachmentId;
 

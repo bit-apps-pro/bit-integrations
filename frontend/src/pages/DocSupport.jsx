@@ -7,6 +7,7 @@ import ReviewStarIcn from '../resource/img/supportIcon/ReviewStarIcon'
 import YoutubeIcn from '../resource/img/supportIcon/YoutubeIcon'
 import { __ } from '../Utils/i18nwrap'
 import bitSocial from '../resource/img/products/bit-social.gif'
+import bitPi from '../resource/img/products/bit-pi.svg'
 import bitForm from '../resource/img/products/bitForm.gif'
 import bitAssist from '../resource/img/products/bitAssist.svg'
 import bitFileManager from '../resource/img/products/bitFileManager.png'
@@ -17,6 +18,13 @@ function DocSupport() {
   const [snack, setSnackbar] = useState({ show: false })
 
   const products = [
+    {
+      name: 'Bit Flows',
+      description: 'AI Agent Automation & Integrations for Forms, CRM and More',
+      slug: 'bit-pi',
+      url: 'https://wordpress.org/plugins/bit-pi/',
+      image: bitPi
+    },
     {
       name: 'Bit Social',
       description: 'Auto Post Scheduler & Poster for Blog to Social Media Share.',

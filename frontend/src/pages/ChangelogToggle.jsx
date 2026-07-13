@@ -5,7 +5,6 @@ import Modal from '../components/Utilities/Modal'
 import { $appConfigState } from '../GlobalStates'
 import ChangelogIcn from '../Icons/ChangeLogIcn'
 import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
-import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
@@ -30,66 +29,30 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Webba Booking Calendar',
-        desc: '11 new event added.',
-        isPro: true
-      },
-      {
-        label: 'MainWP',
-        desc: '12 new event added.',
-        isPro: true
-      },
-      {
-        label: 'WSMS (WP SMS)',
-        desc: '5 new event added.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Webba Booking Calendar',
-        desc: '13 new event added.',
-        isPro: true
-      },
-      {
-        label: 'Sender',
-        desc: '9 new event added.',
-        isPro: true
-      },
-      {
-        label: 'MainWP',
-        desc: '8 new event added.',
-        isPro: true
-      },
-      {
-        label: 'WSMS (WP SMS)',
-        desc: '7 new event added.',
-        isPro: true
-      },
-      {
-        label: 'Instasent',
-        desc: '6 new event added.',
-        isPro: true
-      },
-      {
-        label: 'MasterStudyLms',
-        desc: '4 new event added.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
     headClass: 'new-feature',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'Salesforce',
+        desc: 'Added record owner selection for supported record creation actions.',
+        isPro: false
+      },
+      {
+        label: 'MemberPress',
+        desc: 'Added Transaction expired trigger event.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('Improvements', 'bit-integrations'),
@@ -103,9 +66,9 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'MasterStudyLms',
-        desc: 'Fixed course and quiz fetching so only lessons and quizzes from the selected course are returned, and validation now treats null/empty config values as incomplete.',
-        isPro: true
+        label: 'ActiveCampaign',
+        desc: 'Improved tag fetching error handling through the shared HTTP helper.',
+        isPro: false
       }
     ]
   },
@@ -113,7 +76,23 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'Custom Action',
+        desc: 'Added administrator capability checks for creating, updating, duplicating, deleting and toggling custom-action flows.',
+        isPro: false
+      },
+      {
+        label: 'File Handling',
+        desc: 'Hardened attachment and upload path validation for Mail, PropovoiceCRM, SureCart and shared media upload helpers.',
+        isPro: false
+      },
+      {
+        label: 'HTTP Requests',
+        desc: 'Switched external requests to safer URL validation and WordPress safe remote request helpers.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),

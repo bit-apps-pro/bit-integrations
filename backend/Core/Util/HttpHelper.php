@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Core\Util;
 
 use CURLFile;
+use WP_Error;
 
 final class HttpHelper
 {
@@ -30,6 +31,10 @@ final class HttpHelper
 
     public static function request($url, $type, $data, $headers = null, $options = null)
     {
+        if (!Common::isSafeRemoteUrl($url, false)) {
+            return new WP_Error('bit_integrations_blocked_url', __('The requested URL is not allowed.', 'bit-integrations'));
+        }
+
         $headers['user-agent'] = 'wordpress/bit-integrations';
         $contentType = 'application/json';
 
@@ -63,7 +68,7 @@ final class HttpHelper
         ];
 
         $options = wp_parse_args($options, $defaultOptions);
-        $requestReponse = wp_remote_request($url, $options);
+        $requestReponse = wp_safe_remote_request($url, $options);
 
         if (is_wp_error($requestReponse)) {
             return $requestReponse;

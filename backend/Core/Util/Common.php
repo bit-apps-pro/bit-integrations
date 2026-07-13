@@ -91,10 +91,12 @@ final class Common
      * Whether $url is a public http/https URL safe to fetch server-side.
      *
      * @param string $url
+     * @param bool   $allowHomeHost Whether to allow this site's own host even if it
+     *                              resolves to a private/loopback address.
      *
      * @return bool
      */
-    public static function isSafeRemoteUrl($url)
+    public static function isSafeRemoteUrl($url, $allowHomeHost = true)
     {
         if (!\is_string($url) || $url === '' || !wp_http_validate_url($url)) {
             return false;
@@ -109,7 +111,7 @@ final class Common
         // allowance) so fetching the site's own uploads URL is not blocked on
         // installs whose host resolves to a private/loopback IP (local/staging).
         $homeHost = wp_parse_url(home_url(), PHP_URL_HOST);
-        if (!empty($homeHost) && strtolower($host) === strtolower($homeHost)) {
+        if ($allowHomeHost && !empty($homeHost) && strtolower($host) === strtolower($homeHost)) {
             return true;
         }
 

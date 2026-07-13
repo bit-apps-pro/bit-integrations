@@ -54,7 +54,7 @@ class RecordApiHelper
             ),
         ];
 
-        $request = wp_remote_post('https://api.surecart.com/v1/customers', $requestData);
+        $request = wp_safe_remote_post('https://api.surecart.com/v1/customers', $requestData);
         $response_code = wp_remote_retrieve_response_code($request);
         $response_body = wp_remote_retrieve_body($request);
 
