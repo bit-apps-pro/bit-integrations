@@ -114,14 +114,13 @@ final class MailController
     {
         $attachments = [];
         if (isset($fields[$file])) {
-            if (\is_array($fields[$file])) {
-                foreach ($fields[$file] as $singleFile) {
-                    if (is_readable("{$singleFile}")) {
-                        $attachments[] = "{$singleFile}";
-                    }
+            $files = \is_array($fields[$file]) ? $fields[$file] : [$fields[$file]];
+
+            foreach ($files as $singleFile) {
+                $safeFilePath = Common::safeUploadFilePath($singleFile);
+                if ($safeFilePath !== '') {
+                    $attachments[] = $safeFilePath;
                 }
-            } elseif (is_readable("{$fields[$file]}")) {
-                $attachments[] = "{$fields[$file]}";
             }
         }
 

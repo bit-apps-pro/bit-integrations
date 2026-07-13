@@ -607,6 +607,40 @@ export const getAllCustomActionModules = (
 //   })
 // }
 
+export const getAllUserList = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
+  setIsLoading(true)
+  const requestParams = {
+    formID,
+    clientId: salesforceConf.clientId,
+    clientSecret: salesforceConf.clientSecret,
+    tokenDetails: salesforceConf.tokenDetails
+  }
+  const loadPostTypes = bitsFetch(requestParams, 'selesforce_user_list').then(result => {
+    if (result && result.success) {
+      setSalesforceConf(oldConf => {
+        const newConf = { ...oldConf }
+        if (!newConf.default) newConf.default = {}
+        if (result.data.users) {
+          newConf.default.userLists = result.data.users
+        }
+        if (result.data.tokenDetails) {
+          newConf.tokenDetails = result.data.tokenDetails
+        }
+        return newConf
+      })
+      setIsLoading(false)
+      return __('User list refreshed', 'bit-integrations')
+    }
+    setIsLoading(false)
+    return __('User list refresh failed. please try again', 'bit-integrations')
+  })
+  toast.promise(loadPostTypes, {
+    success: data => data,
+    error: __('Error Occurred', 'bit-integrations'),
+    loading: __('Loading User list...')
+  })
+}
+
 export const getAllAccountList = (
   formID,
   salesforceConf,

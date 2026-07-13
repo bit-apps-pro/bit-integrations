@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import announcement from '../resource/img/announcement.svg'
-import promo from '../resource/img/new_commer.webp'
 import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import { __, sprintf } from '../Utils/i18nwrap'
 import '../resource/css/cashback-modal.css'
@@ -44,7 +43,7 @@ export default function AnnouncementModal() {
         closeIcon={true}>
         <div>
           <a href={Early_Bird_URL} target="_blank" rel="noreferrer">
-            <img src={promo} style={{ width: '100%', marginTop: '-10px' }} alt="Early Bird Offer" />
+            <img src={announcement} style={{ width: '100%', marginTop: '-10px' }} alt="Early Bird Offer" />
           </a>
         </div>
         <div

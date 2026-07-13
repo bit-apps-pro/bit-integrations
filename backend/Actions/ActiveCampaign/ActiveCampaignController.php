@@ -125,16 +125,15 @@ class ActiveCampaignController
         $has_items = true;
         $available_tags = [];
         while ($has_items) {
-            $tagResponse = wp_safe_remote_get(
+            $tagResponse = HttpHelper::get(
                 $queryParams->api_url . '/api/3/tags?limit=' . $limit . '&offset=' . $offset,
-                [
-                    'headers' => [
-                        'Api-token' => $queryParams->api_key,
-                    ],
-                ]
+                null,
+                ['Api-token' => $queryParams->api_key]
             );
 
-            $tagResponse = json_decode(wp_remote_retrieve_body($tagResponse));
+            if (is_wp_error($tagResponse)) {
+                wp_send_json_error($tagResponse->get_error_message(), 400);
+            }
 
             if (isset($tagResponse->tags)) {
                 foreach ($tagResponse->tags as $tag) {
