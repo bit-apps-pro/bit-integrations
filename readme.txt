@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.9.0
+Stable tag: 2.9.1
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 350+ platforms
@@ -467,6 +467,21 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.9.1 =
+_Release Date - 13th July 2026_
+
+- **Security Fixes**
+ - Custom Action: Added administrator capability checks for creating, updating, duplicating, deleting and toggling custom-action flows.
+ - File Handling: Hardened attachment and upload path validation for Mail, PropovoiceCRM, SureCart and shared media upload helpers.
+ - HTTP Requests: Switched external requests to safer URL validation and WordPress safe remote request helpers.
+
+- **Bug Fixes**
+ - ActiveCampaign: Improved tag fetching error handling through the shared HTTP helper.
+
+- **New Feature**
+ - Salesforce: Added record owner selection for supported record creation actions.
+ - MemberPress: Added Transaction expired trigger event (Pro).
 
 = 2.9.0 =
 _Release Date - 27th June 2026_
