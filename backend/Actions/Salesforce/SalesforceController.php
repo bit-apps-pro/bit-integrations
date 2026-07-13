@@ -340,7 +340,7 @@ class SalesforceController
 
         $apiResponse = HttpHelper::get($apiEndpoint, null, self::setHeaders($tokenDetails->access_token));
 
-        if (!property_exists($apiResponse, 'records')) {
+        if (!\is_object($apiResponse) || !property_exists($apiResponse, 'records')) {
             wp_send_json_error($apiResponse, 400);
         }
 

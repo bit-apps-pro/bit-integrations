@@ -7,13 +7,13 @@ Requires PHP: 7.4
 Stable tag: 2.9.1
 License: GPLv2 or later
 
-Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 350+ platforms
+Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 360+ platforms
 
 == Description ==
 
 **Bit Integrations is a Easy Automation & Integration Plugin for WordPress**
 
-**Bit Integrations** help WordPress users integrate WordPress and plugin data to 350+ platforms.
+**Bit Integrations** help WordPress users integrate WordPress and plugin data to 360+ platforms.
 
 ### 🎯 Why Bit Integrations?
 
