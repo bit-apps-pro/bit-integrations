@@ -74,7 +74,7 @@ const resolveConfigValue = (value, data) => {
   return value
 }
 
-const getAuthPayload = ({ authType, apiEndpoint, method, authData, authDetails }) => {
+const getAuthPayload = ({ authType, apiEndpoint, method, authData, authDetails, appSlug }) => {
   const resolvedApiEndpoint = resolveConfigValue(apiEndpoint, authData)
   const resolvedHeaders = resolveConfigValue(authDetails?.headers, authData)
   const resolvedPayload = resolveConfigValue(authDetails?.payload, authData)
@@ -89,6 +89,7 @@ const getAuthPayload = ({ authType, apiEndpoint, method, authData, authDetails }
   }, {})
 
   const basePayload = {
+    app_slug: appSlug,
     auth_type: authType,
     api_endpoint: resolveTemplate(resolvedApiEndpoint, authData),
     method: method || 'GET',
@@ -210,7 +211,8 @@ export default function ApiConnection({
       apiEndpoint,
       method,
       authData,
-      authDetails
+      authDetails,
+      appSlug: config?.app_slug || config?.type
     })
 
     setIsLoading(true)
@@ -247,7 +249,13 @@ export default function ApiConnection({
       }
 
       const connection = saveRes?.data?.data || null
-      const persistedExtraFields = (authDetails?.extraFields || []).reduce((acc, { name }) => {
+      const persistedExtraFields = (authDetails?.extraFields || []).reduce((acc, field) => {
+        const { name } = field
+
+        if (field.persistToConfig === false) {
+          return acc
+        }
+
         if (authData[name] != null) {
           acc[name] = authData[name]
         }

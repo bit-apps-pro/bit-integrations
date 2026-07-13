@@ -26,6 +26,7 @@ if (!defined('ABSPATH')) {
  *         'checks' => [
  *           ['type' => 'class',       'value' => 'Foo'],
  *           ['type' => 'function',    'value' => 'foo_init'],
+ *           ['type' => 'constant',    'value' => 'FOO_FILE', 'expected' => 'foo/foo.php'],
  *         ],
  *       ],
  *     ],
@@ -72,7 +73,14 @@ final class PluginCheck
                     continue;
                 }
 
-                $checkResults[] = self::matches($type, (string) $value);
+                $hasExpected = \array_key_exists('expected', $check);
+                $expected = $check['expected'] ?? null;
+
+                if ($hasExpected && !\is_scalar($expected) && $expected !== null) {
+                    continue;
+                }
+
+                $checkResults[] = self::matches($type, (string) $value, $hasExpected, $expected);
             }
 
             if (empty($checkResults)) {
@@ -162,7 +170,10 @@ final class PluginCheck
             : !\in_array(false, $results, true);
     }
 
-    private static function matches(string $type, string $value): bool
+    /**
+     * @param null|bool|float|int|string $expected
+     */
+    private static function matches(string $type, string $value, bool $hasExpected = false, $expected = null): bool
     {
         switch ($type) {
             case 'class':
@@ -170,7 +181,11 @@ final class PluginCheck
             case 'function':
                 return \function_exists($value);
             case 'constant':
-                return \defined($value);
+                if (!\defined($value)) {
+                    return false;
+                }
+
+                return !$hasExpected || \constant($value) === $expected;
             case 'plugin_file':
                 if (!\function_exists('is_plugin_active')) {
                     require_once ABSPATH . 'wp-admin/includes/plugin.php';

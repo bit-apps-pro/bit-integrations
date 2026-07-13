@@ -21,7 +21,7 @@ export default function WebHooksIntegration({
   setSnackbar,
   create,
   isInfo,
-  showTutorial = true,
+  showTutorial = true
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const [tab, setTab] = useState(1)

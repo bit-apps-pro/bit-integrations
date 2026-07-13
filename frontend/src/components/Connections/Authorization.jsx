@@ -19,6 +19,7 @@ export default function Authorization({
   setStep,
   isInfo,
   tutorialTitle,
+  tutorialLinkKey,
   tutorialLinks,
   extraFields,
   noteDetails = undefined,
@@ -36,6 +37,14 @@ export default function Authorization({
 
   const appSlug = config?.app_slug || config?.type
   const isWpPluginCheck = isWpPluginCheckType(authDetails?.authType)
+  const resolvedTutorialLinkKey = tutorialLinkKey || tutorialTitle
+  const tutorialLinksMap = useMemo(
+    () =>
+      resolvedTutorialLinkKey && tutorialLinks
+        ? { [resolvedTutorialLinkKey]: tutorialLinks }
+        : undefined,
+    [resolvedTutorialLinkKey, tutorialLinks]
+  )
 
   const refreshConnections = useCallback(async () => {
     if (!appSlug) {
@@ -51,7 +60,7 @@ export default function Authorization({
       const savedConnections = res?.success && Array.isArray(res?.data?.data) ? res.data.data : []
 
       setConnections(savedConnections)
-      setShowNewConnection(savedConnections.length === 0)
+      setShowNewConnection(current => current || savedConnections.length === 0)
       return savedConnections
     } catch {
       return []
@@ -176,7 +185,9 @@ export default function Authorization({
 
   return (
     <div className="btcd-stp-page" style={pageStyle}>
-      {tutorialTitle && <TutorialLink title={tutorialTitle} links={tutorialLinks || {}} />}
+      {resolvedTutorialLinkKey && (
+        <TutorialLink linkKey={resolvedTutorialLinkKey} linksMap={tutorialLinksMap} />
+      )}
 
       <div className="mt-3">
         <b>{__('Integration Name:', 'bit-integrations')}</b>

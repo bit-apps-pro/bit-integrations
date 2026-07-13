@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
@@ -12,7 +12,6 @@ import WpDataTablesIntegLayout from './WpDataTablesIntegLayout'
 
 export default function WpDataTables({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -53,14 +52,10 @@ export default function WpDataTables({ formFields, setFlow, flow, allIntegURL })
 
       {/* STEP 1 */}
       <WpDataTablesAuthorization
-        formID={formID}
         wpDataTablesConf={wpDataTablesConf}
         setWpDataTablesConf={setWpDataTablesConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

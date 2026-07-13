@@ -52,14 +52,10 @@ export default function Bookly({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <BooklyAuthorization
-        formID={formID}
         booklyConf={booklyConf}
         setBooklyConf={setBooklyConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

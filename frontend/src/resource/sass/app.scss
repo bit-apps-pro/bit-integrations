@@ -2766,7 +2766,9 @@ nav.top-nav {
   line-height: 1;
   padding: 2px 4px;
   border-radius: 4px;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 
   &:hover {
     background: #f1f5f9;
@@ -2797,7 +2799,8 @@ nav.top-nav {
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
-  transition: color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -2866,7 +2869,10 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s $log-ease, color 0.2s $log-ease, transform 0.12s $log-ease;
+  transition:
+    border-color 0.2s $log-ease,
+    color 0.2s $log-ease,
+    transform 0.12s $log-ease;
 
   svg {
     stroke: currentColor;
@@ -2911,7 +2917,10 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: color 0.18s $log-ease, background 0.18s $log-ease, box-shadow 0.18s $log-ease,
+  transition:
+    color 0.18s $log-ease,
+    background 0.18s $log-ease,
+    box-shadow 0.18s $log-ease,
     transform 0.12s $log-ease;
 
   &:hover {
@@ -2943,7 +2952,9 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
   background: #fff;
   font-size: 13px;
   color: #1e293b;
-  transition: border-color 0.18s $log-ease, box-shadow 0.18s $log-ease;
+  transition:
+    border-color 0.18s $log-ease,
+    box-shadow 0.18s $log-ease;
 
   &::placeholder {
     color: #94a3b8;
@@ -7681,7 +7692,9 @@ _:-ms-fullscreen,
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: color 0.2s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+  transition:
+    color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
     background 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 

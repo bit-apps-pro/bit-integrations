@@ -46,7 +46,7 @@ function Log({ allIntegURL }) {
         .then(res => {
           // Ignore a stale response if the user has since opened a different row's preview.
           if (token !== previewReqRef.current) return
-          setPreviewInput(res?.success ? res.data ?? '' : '')
+          setPreviewInput(res?.success ? (res.data ?? '') : '')
         })
         .catch(() => {
           if (token === previewReqRef.current) setPreviewInput('')
@@ -103,7 +103,9 @@ function Log({ allIntegURL }) {
         const isChild = depth > 0
         const childCount = row.child_count || 0
         return (
-          <span className="btcd-exec-cell" style={depth ? { paddingLeft: Math.min(depth, 8) * 16 } : undefined}>
+          <span
+            className="btcd-exec-cell"
+            style={depth ? { paddingLeft: Math.min(depth, 8) * 16 } : undefined}>
             {childCount > 0 ? (
               <button
                 type="button"
@@ -121,8 +123,11 @@ function Log({ allIntegURL }) {
             ) : (
               childCount > 0 && (
                 <span className="btcd-exec-count">
-                  {`${childCount} ${childCount === 1 ? __('re-run', 'bit-integrations') : __('re-runs', 'bit-integrations')
-                    }`}
+                  {`${childCount} ${
+                    childCount === 1
+                      ? __('re-run', 'bit-integrations')
+                      : __('re-runs', 'bit-integrations')
+                  }`}
                 </span>
               )
             )}
@@ -316,7 +321,10 @@ function Log({ allIntegURL }) {
           loading={isLoading}
           countEntries={countEntries}
           topLeftContent={
-            <div className="btcd-log-filters" role="group" aria-label={__('Filter by status', 'bit-integrations')}>
+            <div
+              className="btcd-log-filters"
+              role="group"
+              aria-label={__('Filter by status', 'bit-integrations')}>
               {STATUS_FILTERS.map(f => (
                 <button
                   key={f.key}
@@ -432,7 +440,9 @@ function Log({ allIntegURL }) {
                     type="button"
                     className="resp-mdl__copy"
                     onClick={() => {
-                      const text = jsonPrint(previewTab === 'input' ? previewInput : response.response_obj)
+                      const text = jsonPrint(
+                        previewTab === 'input' ? previewInput : response.response_obj
+                      )
                       if (navigator.clipboard) navigator.clipboard.writeText(text)
                       setSnackbar({ show: true, msg: __('Copied on Clipboard.', 'bit-integrations') })
                     }}>
@@ -444,7 +454,9 @@ function Log({ allIntegURL }) {
                   {/* eslint-disable-next-line react/no-danger */}
                   <code
                     dangerouslySetInnerHTML={{
-                      __html: syntaxHighlight(previewTab === 'input' ? previewInput : response.response_obj)
+                      __html: syntaxHighlight(
+                        previewTab === 'input' ? previewInput : response.response_obj
+                      )
                     }}
                   />
                 </pre>

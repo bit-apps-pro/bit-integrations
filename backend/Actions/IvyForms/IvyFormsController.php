@@ -18,12 +18,6 @@ class IvyFormsController
         }
     }
 
-    public static function ivyFormsAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshForms()
     {
         self::isExists();
