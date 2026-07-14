@@ -13,11 +13,6 @@ export const modules = [
     name: 'toggle_show_in_slideout',
     label: __('Toggle Show in Slideout', 'bit-integrations'),
     is_pro: true
-  },
-  {
-    name: 'toggle_rules',
-    label: __('Toggle Rules', 'bit-integrations'),
-    is_pro: true
   }
 ]
 
@@ -37,7 +32,10 @@ export const yesNoOptions = [
   { label: __('No', 'bit-integrations'), value: 'no' }
 ]
 
-export const updateYesNoOptions = [{ label: __('No Change', 'bit-integrations'), value: '' }, ...yesNoOptions]
+export const updateYesNoOptions = [
+  { label: __('No Change', 'bit-integrations'), value: '' },
+  ...yesNoOptions
+]
 
 export const booleanUtilityFields = [
   {
@@ -77,8 +75,7 @@ export const actionUtilityKeys = {
   update_coupon: ['discount_type', ...booleanUtilityFields.map(field => field.key)],
   delete_coupon: ['permanent_delete'],
   toggle_auto_apply: ['enabled'],
-  toggle_show_in_slideout: ['enabled'],
-  toggle_rules: ['enabled']
+  toggle_show_in_slideout: ['enabled']
 }
 
 export const actionUtilityDefaults = {
@@ -107,9 +104,6 @@ export const actionUtilityDefaults = {
     enabled: 'yes'
   },
   toggle_show_in_slideout: {
-    enabled: 'yes'
-  },
-  toggle_rules: {
     enabled: 'yes'
   }
 }

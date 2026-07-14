@@ -1,6 +1,6 @@
 import { create } from 'mutative'
 
-const TOGGLE_ACTIONS = ['toggle_auto_apply', 'toggle_show_in_slideout', 'toggle_rules']
+const TOGGLE_ACTIONS = ['toggle_auto_apply', 'toggle_show_in_slideout']
 const UPDATE_UTILITY_FIELDS = [
   'discount_type',
   'free_shipping',
@@ -53,9 +53,7 @@ export const hasCouponLookup = powerCouponsConf => {
   }
 
   return (powerCouponsConf?.field_map || []).some(
-    field =>
-      field.formField &&
-      field.powerCouponsField === 'coupon_code'
+    field => field.formField && field.powerCouponsField === 'coupon_code'
   )
 }
 
@@ -71,13 +69,12 @@ export const hasUpdatePayload = powerCouponsConf => {
   }
 
   const hasMappedUpdateField = (powerCouponsConf?.field_map || []).some(
-    field =>
-      field.formField &&
-      field.powerCouponsField &&
-      field.powerCouponsField !== 'coupon_code'
+    field => field.formField && field.powerCouponsField && field.powerCouponsField !== 'coupon_code'
   )
 
-  return hasMappedUpdateField || UPDATE_UTILITY_FIELDS.some(key => hasUtilityValue(powerCouponsConf, key))
+  return (
+    hasMappedUpdateField || UPDATE_UTILITY_FIELDS.some(key => hasUtilityValue(powerCouponsConf, key))
+  )
 }
 
 export const hasRequiredUtilities = powerCouponsConf => {

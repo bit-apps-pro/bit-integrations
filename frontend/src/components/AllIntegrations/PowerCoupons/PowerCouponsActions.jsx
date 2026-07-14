@@ -15,7 +15,7 @@ import {
   yesNoOptions
 } from './staticData'
 
-const TOGGLE_ACTIONS = ['toggle_auto_apply', 'toggle_show_in_slideout', 'toggle_rules']
+const TOGGLE_ACTIONS = ['toggle_auto_apply', 'toggle_show_in_slideout']
 
 export default function PowerCouponsActions({ powerCouponsConf, setPowerCouponsConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false })

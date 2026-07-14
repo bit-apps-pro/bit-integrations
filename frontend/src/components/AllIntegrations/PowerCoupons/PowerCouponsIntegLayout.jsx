@@ -27,8 +27,7 @@ const FIELD_MAP = {
   update_coupon: CouponUpdateFields,
   delete_coupon: CouponDeleteFields,
   toggle_auto_apply: ToggleFields,
-  toggle_show_in_slideout: ToggleFields,
-  toggle_rules: ToggleFields
+  toggle_show_in_slideout: ToggleFields
 }
 
 const TRUE_VALUES = ['1', 'yes', 'true', 'on', 'enabled']
@@ -120,7 +119,9 @@ const normalizeFieldMap = (fieldMap, fields) => {
       ? { ...mappedField, powerCouponsField: field.key }
       : { formField: '', powerCouponsField: field.key }
   })
-  const optionalFieldMap = mappedFields.filter(field => !requiredFieldKeys.includes(field.powerCouponsField))
+  const optionalFieldMap = mappedFields.filter(
+    field => !requiredFieldKeys.includes(field.powerCouponsField)
+  )
 
   return [...requiredFieldMap, ...optionalFieldMap]
 }
@@ -147,8 +148,10 @@ export default function PowerCouponsIntegLayout({
         const normalizedUtilities = normalizeUtilities(action, draftConf.utilities, draftConf.field_map)
         const fieldsChanged =
           JSON.stringify(draftConf.powerCouponsFields || []) !== JSON.stringify(normalizedFields)
-        const fieldMapChanged = JSON.stringify(draftConf.field_map || []) !== JSON.stringify(normalizedFieldMap)
-        const utilitiesChanged = JSON.stringify(draftConf.utilities || {}) !== JSON.stringify(normalizedUtilities)
+        const fieldMapChanged =
+          JSON.stringify(draftConf.field_map || []) !== JSON.stringify(normalizedFieldMap)
+        const utilitiesChanged =
+          JSON.stringify(draftConf.utilities || {}) !== JSON.stringify(normalizedUtilities)
 
         if (!fieldsChanged && !fieldMapChanged && !utilitiesChanged) {
           return

@@ -62,27 +62,39 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        $hookMap = [
-            'create_coupon'          => 'power_coupons_create_coupon',
-            'update_coupon'          => 'power_coupons_update_coupon',
-            'delete_coupon'          => 'power_coupons_delete_coupon',
-            'toggle_auto_apply'      => 'power_coupons_toggle_auto_apply',
-            'toggle_show_in_slideout' => 'power_coupons_toggle_show_in_slideout',
-            'toggle_rules'           => 'power_coupons_toggle_rules',
-        ];
+        switch ($mainAction) {
+            case 'create_coupon':
+                $response = Hooks::apply(Config::withPrefix('power_coupons_create_coupon'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
-        if (!isset($hookMap[$mainAction])) {
-            $response = [
-                'success' => false,
-                'message' => __('Invalid action', 'bit-integrations')
-            ];
-        } else {
-            $response = Hooks::apply(
-                Config::withPrefix($hookMap[$mainAction]),
-                $defaultResponse,
-                $fieldData,
-                $this->_integrationDetails
-            );
+                break;
+
+            case 'update_coupon':
+                $response = Hooks::apply(Config::withPrefix('power_coupons_update_coupon'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'delete_coupon':
+                $response = Hooks::apply(Config::withPrefix('power_coupons_delete_coupon'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'toggle_auto_apply':
+                $response = Hooks::apply(Config::withPrefix('power_coupons_toggle_auto_apply'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            case 'toggle_show_in_slideout':
+                $response = Hooks::apply(Config::withPrefix('power_coupons_toggle_show_in_slideout'), $defaultResponse, $fieldData, $this->_integrationDetails);
+
+                break;
+
+            default:
+                $response = [
+                    'success' => false,
+                    'message' => __('Invalid action', 'bit-integrations')
+                ];
+
+                break;
         }
 
         if (is_wp_error($response)) {
@@ -119,9 +131,9 @@ class RecordApiHelper
 
     private static function applyUtilities(array $fieldData, $utilities, $mainAction)
     {
-        $utilities = is_object($utilities) ? (array) $utilities : (array) $utilities;
+        $utilities = \is_object($utilities) ? (array) $utilities : (array) $utilities;
         $actionUtilityFields = [
-            'create_coupon'           => [
+            'create_coupon' => [
                 'discount_type',
                 'free_shipping',
                 'individual_use',
@@ -130,7 +142,7 @@ class RecordApiHelper
                 'show_in_slideout',
                 'rules_enabled',
             ],
-            'update_coupon'           => [
+            'update_coupon' => [
                 'discount_type',
                 'free_shipping',
                 'individual_use',
@@ -142,7 +154,6 @@ class RecordApiHelper
             'delete_coupon'           => ['permanent_delete'],
             'toggle_auto_apply'       => ['enabled'],
             'toggle_show_in_slideout' => ['enabled'],
-            'toggle_rules'            => ['enabled'],
         ];
 
         if (!isset($actionUtilityFields[$mainAction])) {
@@ -150,7 +161,7 @@ class RecordApiHelper
         }
 
         foreach ($actionUtilityFields[$mainAction] as $field) {
-            if (!array_key_exists($field, $utilities)) {
+            if (!\array_key_exists($field, $utilities)) {
                 continue;
             }
 
