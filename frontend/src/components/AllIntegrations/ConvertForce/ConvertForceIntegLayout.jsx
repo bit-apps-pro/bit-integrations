@@ -16,6 +16,8 @@ import {
   modules
 } from './staticData'
 
+const UTILITY_ACTIONS = ['createCampaign', 'updateCampaign', 'updateCampaignStatus', 'deleteCampaign']
+
 export default function ConvertForceIntegLayout({ formFields, convertForceConf, setConvertForceConf }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
@@ -24,6 +26,7 @@ export default function ConvertForceIntegLayout({ formFields, convertForceConf, 
     setConvertForceConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
+        draftConf.utilities = {}
 
         switch (value) {
           case 'createCampaign':
@@ -90,7 +93,9 @@ export default function ConvertForceIntegLayout({ formFields, convertForceConf, 
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() => addFieldMap(convertForceConf.field_map.length, convertForceConf, setConvertForceConf)}
+              onClick={() =>
+                addFieldMap(convertForceConf.field_map.length, convertForceConf, setConvertForceConf)
+              }
               className="icn-btn sh-sm mt-2"
               type="button">
               +
@@ -99,7 +104,7 @@ export default function ConvertForceIntegLayout({ formFields, convertForceConf, 
         </>
       )}
 
-      {convertForceConf?.mainAction === 'deleteCampaign' && (
+      {UTILITY_ACTIONS.includes(convertForceConf?.mainAction) && (
         <>
           <div className="mt-4">
             <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>

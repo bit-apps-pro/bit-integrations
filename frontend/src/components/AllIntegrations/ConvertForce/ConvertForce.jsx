@@ -40,7 +40,11 @@ export default function ConvertForce({ formFields, setFlow, flow, allIntegURL })
       if (!checkMappedFields(convertForceConf)) {
         setSnackbar({
           show: true,
-          msg: __('Please map all required fields to continue.', 'bit-integrations')
+          msg:
+            convertForceConf.mainAction === 'updateCampaignStatus' &&
+            !convertForceConf?.utilities?.status
+              ? __('Please select a campaign status to continue.', 'bit-integrations')
+              : __('Please map all required fields to continue.', 'bit-integrations')
         })
         return
       }

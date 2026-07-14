@@ -11,6 +11,10 @@ export const handleInput = (e, convertForceConf, setConvertForceConf) => {
 }
 
 export const checkMappedFields = convertForceConf => {
+  if (convertForceConf?.mainAction === 'updateCampaignStatus' && !convertForceConf?.utilities?.status) {
+    return false
+  }
+
   const mappedFields = convertForceConf?.field_map
     ? convertForceConf.field_map.filter(
         mappedField =>

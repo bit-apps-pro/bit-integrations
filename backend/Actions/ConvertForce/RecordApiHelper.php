@@ -45,6 +45,15 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $mainAction = $this->_integrationDetails->mainAction ?? 'createCampaign';
+
+        if (\in_array($mainAction, ['createCampaign', 'updateCampaign', 'updateCampaignStatus'], true)) {
+            $utilities = (array) ($this->_integrationDetails->utilities ?? []);
+
+            if (!empty($utilities['status'])) {
+                $fieldData['status'] = sanitize_text_field($utilities['status']);
+            }
+        }
+
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
