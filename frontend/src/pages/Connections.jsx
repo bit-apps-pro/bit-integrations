@@ -8,6 +8,151 @@ import ConfirmModal from '../components/Utilities/ConfirmModal'
 import { deleteConnection, listConnections, updateConnection } from '../Utils/connectionApi'
 import { __, sprintf } from '../Utils/i18nwrap'
 
+const buildColumnsConfig = ({
+  editingId,
+  savingId,
+  editValue,
+  setEditValue,
+  inputRef,
+  handleKeyDown,
+  saveRename,
+  cancelEdit,
+  startEdit,
+  onDelete
+}) => [
+  {
+    Header: __('Action', 'bit-integrations'),
+    accessor: 'app_slug',
+    width: 130,
+    minWidth: 90,
+    Cell: ({ value }) => <span className="connections-app-tag">{value || '—'}</span>
+  },
+  {
+    Header: __('Connection Name', 'bit-integrations'),
+    accessor: 'connection_name',
+    width: 250,
+    minWidth: 170,
+    className: 'connections-name-cell',
+    Cell: ({ row, value }) => {
+      const conn = row.original
+
+      if (editingId === conn.id) {
+        return (
+          <div className="connections-edit-row">
+            <input
+              ref={inputRef}
+              type="text"
+              className="btcd-paper-inp connections-edit-input"
+              value={editValue}
+              onChange={e => setEditValue(e.target.value)}
+              onKeyDown={e => handleKeyDown(e, conn.id)}
+              disabled={savingId === conn.id}
+            />
+            <button
+              type="button"
+              className="btn purple connections-edit-btn"
+              onClick={() => saveRename(conn.id, editValue)}
+              disabled={savingId === conn.id}>
+              {__('Save', 'bit-integrations')}
+            </button>
+            <button
+              type="button"
+              onClick={cancelEdit}
+              disabled={savingId === conn.id}
+              className="icn-btn icn-btn-sm connections-edit-cancel-btn tooltip"
+              style={{ '--tooltip-txt': `'${__('Cancel', 'bit-integrations')}'` }}
+              title={__('Cancel', 'bit-integrations')}>
+              <CloseIcn size={10} stroke={3} className="connections-edit-cancel-icn" />
+            </button>
+          </div>
+        )
+      }
+
+      return (
+        <div className="flx connections-name-row">
+          <span className="connections-name-txt">{value || '—'}</span>
+          <button
+            type="button"
+            className="icn-btn tooltip"
+            style={{ '--tooltip-txt': `'${__('Rename Connection', 'bit-integrations')}'` }}
+            onClick={() => startEdit(conn)}>
+            <EditIcn size={14} />
+          </button>
+        </div>
+      )
+    }
+  },
+  {
+    Header: __('Linked Integrations', 'bit-integrations'),
+    accessor: 'linked_count',
+    width: 250,
+    minWidth: 180,
+    Cell: ({ row }) => {
+      const linkedIntegrations = Array.isArray(row?.original?.linked_integrations)
+        ? row.original.linked_integrations
+        : []
+
+      if (linkedIntegrations.length < 1) {
+        return '—'
+      }
+
+      const previewLimit = 3
+      const previewNames = linkedIntegrations
+        .slice(0, previewLimit)
+        .map(item => item?.name || `#${item?.id || ''}`)
+        .filter(Boolean)
+
+      const extraCount = linkedIntegrations.length - previewNames.length
+      const linkedText =
+        extraCount > 0 ? `${previewNames.join(', ')} +${extraCount}` : previewNames.join(', ')
+      const tooltipText = linkedIntegrations
+        .map(item => item?.name || `#${item?.id || ''}`)
+        .filter(Boolean)
+        .join(', ')
+
+      return (
+        <span className="connections-name-txt" title={tooltipText}>
+          {linkedText}
+        </span>
+      )
+    }
+  },
+  {
+    Header: __('Auth Type', 'bit-integrations'),
+    accessor: 'auth_type',
+    width: 120,
+    minWidth: 95,
+    Cell: ({ value }) => <span className="connections-auth-tag">{value || '—'}</span>
+  },
+  {
+    Header: __('Created', 'bit-integrations'),
+    accessor: 'created_at',
+    width: 140,
+    minWidth: 110,
+    Cell: ({ value }) => value || '—'
+  },
+  {
+    id: 't_action',
+    Header: '',
+    accessor: 'id',
+    width: 70,
+    minWidth: 60,
+    maxWidth: 80,
+    disableSortBy: true,
+    Cell: ({ row }) => (
+      <div className="flx connections-action-cell">
+        <button
+          type="button"
+          className="icn-btn tooltip"
+          style={{ '--tooltip-txt': `'${__('Delete', 'bit-integrations')}'` }}
+          onClick={() => onDelete(row.original.id)}>
+          <TrashIcn size={18} />
+        </button>
+      </div>
+    )
+  }
+]
+
 export default function Connections() {
   const getDeleteErrorMessage = useCallback(res => {
     const linkedCount = Number(res?.data?.linked_count || 0)
@@ -34,11 +179,22 @@ export default function Connections() {
   const [isLoading, setIsLoading] = useState(true)
   const [filterApp, setFilterApp] = useState('')
   const [editingId, setEditingId] = useState(null)
+  const [editValue, setEditValue] = useState('')
   const [deletingId, setDeletingId] = useState(null)
   const [savingId, setSavingId] = useState(null)
   const [isConfirmPending, setIsConfirmPending] = useState(false)
   const inputRef = useRef(null)
-  const editValueRef = useRef('')
+
+  const deleteOne = useCallback(
+    id =>
+      deleteConnection(id).then(res => {
+        if (!res?.success) {
+          throw new Error(getDeleteErrorMessage(res))
+        }
+        return id
+      }),
+    [getDeleteErrorMessage]
+  )
 
   const fetchConnections = useCallback(() => {
     setIsLoading(true)
@@ -74,16 +230,16 @@ export default function Connections() {
 
   const startEdit = useCallback(conn => {
     setEditingId(conn.id)
-    editValueRef.current = conn.connection_name || ''
+    setEditValue(conn.connection_name || '')
   }, [])
 
   const cancelEdit = useCallback(() => {
     setEditingId(null)
-    editValueRef.current = ''
+    setEditValue('')
   }, [])
 
   const saveRename = useCallback(
-    (id, rawName = editValueRef.current) => {
+    (id, rawName) => {
       const next = (rawName || '').trim()
       if (!next) {
         toast.error(__('Connection name cannot be empty', 'bit-integrations'))
@@ -135,11 +291,8 @@ export default function Connections() {
     setDeletingId(null)
     setIsConfirmPending(true)
 
-    const promise = deleteConnection(id).then(res => {
-      if (!res?.success) {
-        throw new Error(getDeleteErrorMessage(res))
-      }
-      setConnections(prev => prev.filter(c => c.id !== id))
+    const promise = deleteOne(id).then(deletedId => {
+      setConnections(prev => prev.filter(c => c.id !== deletedId))
       return __('Connection deleted', 'bit-integrations')
     })
 
@@ -150,7 +303,7 @@ export default function Connections() {
         loading: __('Deleting...', 'bit-integrations')
       })
       .finally(() => setIsConfirmPending(false))
-  }, [deletingId, isConfirmPending, getDeleteErrorMessage])
+  }, [deletingId, isConfirmPending, deleteOne])
 
   const setBulkDelete = useCallback(
     rows => {
@@ -170,16 +323,7 @@ export default function Connections() {
         return
       }
 
-      const promise = Promise.allSettled(
-        ids.map(id =>
-          deleteConnection(id).then(res => {
-            if (!res?.success) {
-              throw new Error(getDeleteErrorMessage(res))
-            }
-            return id
-          })
-        )
-      ).then(results => {
+      const promise = Promise.allSettled(ids.map(id => deleteOne(id))).then(results => {
         const deletedIds = results.filter(r => r.status === 'fulfilled').map(r => r.value)
 
         if (deletedIds.length > 0) {
@@ -226,146 +370,24 @@ export default function Connections() {
         loading: __('Deleting...', 'bit-integrations')
       })
     },
-    [getDeleteErrorMessage]
+    [deleteOne]
   )
 
   const columns = useMemo(
-    () => [
-      {
-        Header: __('Action', 'bit-integrations'),
-        accessor: 'app_slug',
-        width: 130,
-        minWidth: 90,
-        Cell: ({ value }) => <span className="connections-app-tag">{value || '—'}</span>
-      },
-      {
-        Header: __('Connection Name', 'bit-integrations'),
-        accessor: 'connection_name',
-        width: 250,
-        minWidth: 170,
-        className: 'connections-name-cell',
-        Cell: ({ row, value }) => {
-          const conn = row.original
-
-          if (editingId === conn.id) {
-            return (
-              <div className="connections-edit-row">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  className="btcd-paper-inp connections-edit-input"
-                  defaultValue={editValueRef.current}
-                  onChange={e => {
-                    editValueRef.current = e.target.value
-                  }}
-                  onKeyDown={e => handleKeyDown(e, conn.id)}
-                  disabled={savingId === conn.id}
-                />
-                <button
-                  type="button"
-                  className="btn purple connections-edit-btn"
-                  onClick={() => saveRename(conn.id, inputRef.current?.value ?? editValueRef.current)}
-                  disabled={savingId === conn.id}>
-                  {__('Save', 'bit-integrations')}
-                </button>
-                <button
-                  type="button"
-                  onClick={cancelEdit}
-                  disabled={savingId === conn.id}
-                  className="icn-btn icn-btn-sm connections-edit-cancel-btn tooltip"
-                  style={{ '--tooltip-txt': `'${__('Cancel', 'bit-integrations')}'` }}
-                  title={__('Cancel', 'bit-integrations')}>
-                  <CloseIcn size={10} stroke={3} className="connections-edit-cancel-icn" />
-                </button>
-              </div>
-            )
-          }
-
-          return (
-            <div className="flx connections-name-row">
-              <span className="connections-name-txt">{value || '—'}</span>
-              <button
-                type="button"
-                className="icn-btn tooltip"
-                style={{ '--tooltip-txt': `'${__('Rename Connection', 'bit-integrations')}'` }}
-                onClick={() => startEdit(conn)}>
-                <EditIcn size={14} />
-              </button>
-            </div>
-          )
-        }
-      },
-      {
-        Header: __('Linked Integrations', 'bit-integrations'),
-        accessor: 'linked_count',
-        width: 250,
-        minWidth: 180,
-        Cell: ({ row }) => {
-          const linkedIntegrations = Array.isArray(row?.original?.linked_integrations)
-            ? row.original.linked_integrations
-            : []
-
-          if (linkedIntegrations.length < 1) {
-            return '—'
-          }
-
-          const previewLimit = 3
-          const previewNames = linkedIntegrations
-            .slice(0, previewLimit)
-            .map(item => item?.name || `#${item?.id || ''}`)
-            .filter(Boolean)
-
-          const extraCount = linkedIntegrations.length - previewNames.length
-          const linkedText =
-            extraCount > 0 ? `${previewNames.join(', ')} +${extraCount}` : previewNames.join(', ')
-          const tooltipText = linkedIntegrations
-            .map(item => item?.name || `#${item?.id || ''}`)
-            .filter(Boolean)
-            .join(', ')
-
-          return (
-            <span className="connections-name-txt" title={tooltipText}>
-              {linkedText}
-            </span>
-          )
-        }
-      },
-      {
-        Header: __('Auth Type', 'bit-integrations'),
-        accessor: 'auth_type',
-        width: 120,
-        minWidth: 95,
-        Cell: ({ value }) => <span className="connections-auth-tag">{value || '—'}</span>
-      },
-      {
-        Header: __('Created', 'bit-integrations'),
-        accessor: 'created_at',
-        width: 140,
-        minWidth: 110,
-        Cell: ({ value }) => value || '—'
-      },
-      {
-        id: 't_action',
-        Header: '',
-        accessor: 'id',
-        width: 70,
-        minWidth: 60,
-        maxWidth: 80,
-        disableSortBy: true,
-        Cell: ({ row }) => (
-          <div className="flx connections-action-cell">
-            <button
-              type="button"
-              className="icn-btn tooltip"
-              style={{ '--tooltip-txt': `'${__('Delete', 'bit-integrations')}'` }}
-              onClick={() => setDeletingId(row.original.id)}>
-              <TrashIcn size={18} />
-            </button>
-          </div>
-        )
-      }
-    ],
-    [editingId, savingId, cancelEdit, saveRename, startEdit]
+    () =>
+      buildColumnsConfig({
+        editingId,
+        savingId,
+        editValue,
+        setEditValue,
+        inputRef,
+        handleKeyDown,
+        saveRename,
+        cancelEdit,
+        startEdit,
+        onDelete: setDeletingId
+      }),
+    [editingId, savingId, editValue, cancelEdit, saveRename, startEdit]
   )
 
   return (

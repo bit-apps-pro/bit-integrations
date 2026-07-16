@@ -84,31 +84,44 @@ abstract class AbstractBaseAuthorization
         $response = $this->sendRequest($url, $method === '' ? 'GET' : $method, $payload, $headers, $requestOptions);
 
         if (is_wp_error($response)) {
-            return [
-                'error'    => true,
-                'message'  => $response->get_error_message(),
-                'response' => $response,
-            ];
+            return $this->errorResult($response->get_error_message(), $response);
         }
 
         if ((\is_object($response) && !empty($response->error)) || (\is_array($response) && !empty($response['error']))) {
             $fallback = __('Authorization failed', 'bit-integrations');
 
-            return [
-                'error'    => true,
-                'message'  => \is_object($response) ? ($response->error ?? $fallback) : ($response['error'] ?? $fallback),
-                'response' => $response,
-            ];
+            return $this->errorResult(
+                \is_object($response) ? ($response->error ?? $fallback) : ($response['error'] ?? $fallback),
+                $response
+            );
         }
 
         if (isset(HttpHelper::$responseCode) && ((int) HttpHelper::$responseCode < 200 || (int) HttpHelper::$responseCode >= 300)) {
-            return [
-                'error'    => true,
-                'message'  => __('Authorization failed', 'bit-integrations'),
-                'response' => $response,
-            ];
+            return $this->errorResult(__('Authorization failed', 'bit-integrations'), $response);
         }
 
+        return $this->successResult($response);
+    }
+
+    /**
+     * Standard error result shape shared across the base and subclasses.
+     */
+    protected function errorResult(string $message, $response = null): array
+    {
+        return [
+            'error'    => true,
+            'message'  => $message,
+            'response' => $response,
+        ];
+    }
+
+    /**
+     * Standard success result shape shared across the base and subclasses.
+     *
+     * @param mixed $response
+     */
+    protected function successResult($response): array
+    {
         return [
             'success'  => true,
             'response' => $response,
@@ -150,11 +163,7 @@ abstract class AbstractBaseAuthorization
 
     protected function setLastError(string $message, $response = null): void
     {
-        $this->lastError = [
-            'error'    => true,
-            'message'  => $message,
-            'response' => $response,
-        ];
+        $this->lastError = $this->errorResult($message, $response);
     }
 
     protected function clearLastError(): void

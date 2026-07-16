@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
 import { AUTH_TYPES, defaultEncryptKeys } from '../../Utils/connectionAuth'
-import { saveConnection } from '../../Utils/connectionApi'
+import { resolveTemplate } from '../../Utils/connectionTemplates'
+import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
 import {
   buildAuthUrl,
   buildCallbackState,
@@ -19,18 +19,6 @@ import CopyText from '../Utilities/CopyText'
 import { APP_CONFIG } from '../../config/app'
 
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
-const READONLY_INPUT_STYLE = { backgroundColor: '#f5f5f5' }
-
-// Resolves {fieldName} placeholders in URL templates using form data.
-// Strips trailing slashes from substituted values. Unknown tokens → ''.
-const resolveTemplate = (template, data) => {
-  if (!template) return ''
-  return template.replace(/\{(\w+)\}/g, (_, key) => {
-    const val = data[key]
-    if (val == null) return ''
-    return typeof val === 'string' ? val.replace(/\/+$/, '') : String(val)
-  })
-}
 
 const GRANT_TYPES = Object.freeze({
   AUTHORIZATION_CODE: 'authorization_code',
@@ -90,9 +78,6 @@ export default function Oauth2Connection({
   onConnectionSaved
 }) {
   const [formData, setFormData] = useState({})
-  const [errors, setErrors] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
-  const [isAuthorized, setIsAuthorized] = useState(false)
 
   const {
     authCodeEndpoint,
@@ -119,12 +104,6 @@ export default function Oauth2Connection({
     return { ...tokenEndpoint, url: resolveTemplate(tokenEndpoint.url, formData) }
   }, [tokenEndpoint, formData])
 
-  const handleChange = useCallback(event => {
-    const { name, value } = event.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    setErrors(prev => ({ ...prev, [name]: '' }))
-  }, [])
-
   const validate = useCallback(() => {
     const next = {}
     if (!formData.connectionName?.trim()) {
@@ -141,38 +120,8 @@ export default function Oauth2Connection({
         next[field.name] = `${field.label} ${__('is required', 'bit-integrations')}`
       }
     })
-    setErrors(next)
-    return Object.keys(next).length === 0
+    return next
   }, [extraFields, formData])
-
-  const storeConnection = useCallback(
-    async authPayload => {
-      const saveRes = await saveConnection({
-        app_slug: config?.app_slug || config?.type,
-        auth_type: AUTH_TYPES.OAUTH2,
-        connection_name: formData.connectionName,
-        account_name: formData.connectionName,
-        auth_details: authPayload,
-        encrypt_keys: defaultEncryptKeys[AUTH_TYPES.OAUTH2] || []
-      })
-
-      if (!saveRes?.success) {
-        const reason = saveRes?.data?.data || saveRes?.data || ''
-        toast.error(`${__('Failed to save connection Cause:', 'bit-integrations')}${reason}`)
-        return null
-      }
-
-      const connection = saveRes?.data?.data || null
-      setConfig(prev => ({ ...prev, connection_id: connection?.id }))
-
-      if (onConnectionSaved) await onConnectionSaved(connection)
-
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return connection
-    },
-    [config, formData.connectionName, onConnectionSaved, setConfig]
-  )
 
   const handleAuthorizationCodeFlow = useCallback(async () => {
     const isPkce = grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE
@@ -267,18 +216,16 @@ export default function Oauth2Connection({
     sslVerify
   ])
 
-  const handleAuthorize = useCallback(async () => {
-    if (!validate()) return
+  const flowFn = useCallback(async () => {
+    if (grantType === GRANT_TYPES.CLIENT_CREDENTIALS) {
+      return handleClientCredentialsFlow()
+    }
 
-    setIsLoading(true)
-    try {
-      let tokenResponse
-      if (grantType === GRANT_TYPES.CLIENT_CREDENTIALS) {
-        tokenResponse = await handleClientCredentialsFlow()
-      } else {
-        tokenResponse = await handleAuthorizationCodeFlow()
-      }
+    return handleAuthorizationCodeFlow()
+  }, [grantType, handleAuthorizationCodeFlow, handleClientCredentialsFlow])
 
+  const buildSavePayload = useCallback(
+    tokenResponse => {
       const extraFormData = extraFields.reduce((acc, { name }) => {
         if (formData[name] != null) acc[name] = formData[name]
         return acc
@@ -298,30 +245,46 @@ export default function Oauth2Connection({
         extraFormData
       })
 
-      await storeConnection(savedAuthDetails)
-    } catch (error) {
-      setIsAuthorized(false)
-      toast.error(
-        `${__('Authorization failed Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`
-      )
-    } finally {
-      setIsLoading(false)
-    }
-  }, [
-    clientAuthentication,
-    extraFields,
-    extraTokenFields,
-    formData,
-    grantType,
-    handleAuthorizationCodeFlow,
-    handleClientCredentialsFlow,
-    refreshTokenUrl,
-    resolvedTokenEndpoint,
-    scope,
-    sslVerify,
-    storeConnection,
-    validate
-  ])
+      return {
+        app_slug: config?.app_slug || config?.type,
+        auth_type: AUTH_TYPES.OAUTH2,
+        connection_name: formData.connectionName,
+        account_name: formData.connectionName,
+        auth_details: savedAuthDetails,
+        encrypt_keys: defaultEncryptKeys[AUTH_TYPES.OAUTH2] || []
+      }
+    },
+    [
+      clientAuthentication,
+      config?.app_slug,
+      config?.type,
+      extraFields,
+      extraTokenFields,
+      formData,
+      grantType,
+      refreshTokenUrl,
+      resolvedTokenEndpoint?.url,
+      scope,
+      sslVerify
+    ]
+  )
+
+  const { isLoading, isAuthorized, errors, setErrors, handleAuthorize } = useConnectionAuthorize({
+    validate,
+    flowFn,
+    buildSavePayload,
+    onConnectionSaved,
+    setConfig
+  })
+
+  const handleChange = useCallback(
+    event => {
+      const { name, value } = event.target
+      setFormData(prev => ({ ...prev, [name]: value }))
+      setErrors(prev => ({ ...prev, [name]: '' }))
+    },
+    [setErrors]
+  )
 
   const isAuthCodeFlow =
     grantType === GRANT_TYPES.AUTHORIZATION_CODE || grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE

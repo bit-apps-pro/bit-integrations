@@ -166,7 +166,7 @@ final class ConnectionController
         ];
 
         if (isset($request->status)) {
-            $update['status'] = absint($request->status);
+            $update['status'] = $this->sanitizeStatus($request->status, ConnectionModel::STATUS_VERIFIED);
         }
 
         $result = (new ConnectionModel())->update($update, ['id' => $id]);
@@ -500,8 +500,29 @@ final class ConnectionController
             'account_name'    => $accountName,
             'auth_details'    => $authDetails,
             'encrypt_keys'    => $this->resolveEncryptKeys($request),
-            'status'          => isset($request->status) ? absint($request->status) : ConnectionModel::STATUS_VERIFIED,
+            'status'          => isset($request->status)
+                ? $this->sanitizeStatus($request->status, ConnectionModel::STATUS_VERIFIED)
+                : ConnectionModel::STATUS_VERIFIED,
         ];
+    }
+
+    /**
+     * Map an incoming status value to the allowed set, falling back to $default
+     * when the value is not a recognised connection status.
+     *
+     * @param mixed $value
+     */
+    private function sanitizeStatus($value, int $default): int
+    {
+        $status = absint($value);
+
+        $allowed = [
+            ConnectionModel::STATUS_VERIFIED,
+            ConnectionModel::STATUS_PENDING,
+            ConnectionModel::STATUS_FAILED,
+        ];
+
+        return \in_array($status, $allowed, true) ? $status : $default;
     }
 
     private function persist(array $payload, int $existingId)

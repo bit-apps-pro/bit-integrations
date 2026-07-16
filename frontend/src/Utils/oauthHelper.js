@@ -116,7 +116,19 @@ export const openOauthPopup = (
       resolve(event.data || {})
     }
     channel.onmessage = resolveMessage
-    if (fallbackChannel) fallbackChannel.onmessage = resolveMessage
+
+    if (fallbackChannel) {
+      // The bare channel is shared by every concurrent attempt, so a legacy
+      // message must prove it belongs to THIS attempt (our random channelKey is
+      // echoed back via oauth_channel or the provider-echoed state) before we
+      // resolve — otherwise a sibling tab could cross-resolve on it.
+      fallbackChannel.onmessage = event => {
+        const data = event?.data || {}
+        const messageChannel = data.oauth_channel || extractChannelFromState(data.state)
+        if (messageChannel !== channelKey) return
+        resolveMessage(event)
+      }
+    }
 
     const closeTimer = setInterval(() => {
       if (popup.closed && !resolved) {
@@ -158,25 +170,19 @@ const buildClientAuthBody = ({ clientId, clientSecret, clientAuthentication }) =
   return { client_id: clientId, client_secret: clientSecret }
 }
 
-export const exchangeAuthCodeForToken = ({
+const requestToken = ({
   tokenEndpoint,
   clientId,
   clientSecret,
-  clientAuthentication = 'body',
-  code,
-  codeVerifier,
-  redirectUri,
-  sslVerify = true
+  clientAuthentication,
+  grantParams,
+  sslVerify
 }) => {
   const bodyParams = {
-    grant_type: 'authorization_code',
-    code: decodeURIComponent(code),
-    redirect_uri: redirectUri,
+    ...grantParams,
     ...(tokenEndpoint?.bodyParams || {}),
     ...buildClientAuthBody({ clientId, clientSecret, clientAuthentication })
   }
-
-  if (codeVerifier) bodyParams.code_verifier = codeVerifier
 
   return oauthConnectionExchange({
     url: tokenEndpoint.url,
@@ -190,6 +196,34 @@ export const exchangeAuthCodeForToken = ({
   })
 }
 
+export const exchangeAuthCodeForToken = ({
+  tokenEndpoint,
+  clientId,
+  clientSecret,
+  clientAuthentication = 'body',
+  code,
+  codeVerifier,
+  redirectUri,
+  sslVerify = true
+}) => {
+  const grantParams = {
+    grant_type: 'authorization_code',
+    code: decodeURIComponent(code),
+    redirect_uri: redirectUri
+  }
+
+  if (codeVerifier) grantParams.code_verifier = codeVerifier
+
+  return requestToken({
+    tokenEndpoint,
+    clientId,
+    clientSecret,
+    clientAuthentication,
+    grantParams,
+    sslVerify
+  })
+}
+
 export const exchangeClientCredentialsForToken = ({
   tokenEndpoint,
   clientId,
@@ -198,22 +232,16 @@ export const exchangeClientCredentialsForToken = ({
   scope,
   sslVerify = true
 }) => {
-  const bodyParams = {
-    grant_type: 'client_credentials',
-    ...(tokenEndpoint?.bodyParams || {}),
-    ...buildClientAuthBody({ clientId, clientSecret, clientAuthentication })
-  }
+  const grantParams = { grant_type: 'client_credentials' }
 
-  if (scope) bodyParams.scope = scope
+  if (scope) grantParams.scope = scope
 
-  return oauthConnectionExchange({
-    url: tokenEndpoint.url,
-    method: tokenEndpoint.method || 'POST',
-    body_params: bodyParams,
-    headers: {
-      ...(tokenEndpoint?.headers || {}),
-      ...buildClientAuthHeaders({ clientId, clientSecret, clientAuthentication })
-    },
-    ssl_verify: sslVerify
+  return requestToken({
+    tokenEndpoint,
+    clientId,
+    clientSecret,
+    clientAuthentication,
+    grantParams,
+    sslVerify
   })
 }

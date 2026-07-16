@@ -1,5 +1,3 @@
-import { reauthorizeConnection, saveConnection } from './connectionApi'
-
 export const AUTH_TYPES = Object.freeze({
   WP_PLUGIN_CHECK: 'wp_plugin_check',
   OAUTH2: 'oauth2',

@@ -54,11 +54,7 @@ class ZendeskSupportAuthorization extends AbstractBaseAuthorization
         $userId = \is_object($user) ? ($user->id ?? null) : (\is_array($user) ? ($user['id'] ?? null) : null);
 
         if (empty($userId)) {
-            return [
-                'error'    => true,
-                'message'  => __('Invalid Zendesk subdomain, email, or API token', 'bit-integrations'),
-                'response' => $response,
-            ];
+            return $this->errorResult(__('Invalid Zendesk subdomain, email, or API token', 'bit-integrations'), $response);
         }
 
         return $result;

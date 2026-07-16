@@ -97,6 +97,67 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     public function refreshAccessToken(array $authDetails): ?array
     {
+        $connectionId = $this->getConnectionId();
+        $lockKey = 'btcbi_oauth_refresh_lock_' . $connectionId;
+        $lockAcquired = $connectionId > 0 ? $this->acquireRefreshLock($lockKey) : false;
+
+        try {
+            if ($lockAcquired) {
+                // Double-checked read: a concurrent request may have refreshed the
+                // token while we contended for the lock. Force a fresh DB read
+                // (bypassing the in-memory connection cache) and re-evaluate expiry
+                // before spending a refresh token on a network call.
+                $this->connection = null;
+                $freshDetails = parent::getAuthDetails();
+
+                if (!empty($freshDetails)) {
+                    $generatedAt = $freshDetails['generated_at'] ?? null;
+                    $expiresIn = $freshDetails['expires_in'] ?? null;
+
+                    if (!$this->isTokenExpired($generatedAt, $expiresIn)) {
+                        // Already refreshed by another request — no network call.
+                        return $freshDetails;
+                    }
+
+                    // Still expired: refresh using the freshest persisted details.
+                    $authDetails = $freshDetails;
+                }
+            }
+
+            return $this->performTokenRefresh($authDetails);
+        } finally {
+            if ($lockAcquired) {
+                delete_option($lockKey);
+            }
+        }
+    }
+
+    /**
+     * Best-effort per-connection refresh lock that works without a persistent
+     * object cache. add_option() performs an atomic INSERT (autoload 'no') and
+     * returns false when the row already exists. A stale lock older than the
+     * timeout is reclaimed so a crashed request can never deadlock refreshes.
+     */
+    private function acquireRefreshLock(string $lockKey, int $timeout = 15): bool
+    {
+        if (add_option($lockKey, time(), '', 'no')) {
+            return true;
+        }
+
+        $lockedAt = (int) get_option($lockKey, 0);
+
+        if ($lockedAt > 0 && (time() - $lockedAt) < $timeout) {
+            return false;
+        }
+
+        // Stale (or unreadable) lock: reclaim it.
+        delete_option($lockKey);
+
+        return (bool) add_option($lockKey, time(), '', 'no');
+    }
+
+    private function performTokenRefresh(array $authDetails): ?array
+    {
         $url = $this->refreshTokenUrl ?: ($authDetails['refresh_token_url'] ?? ($authDetails['refreshTokenUrl'] ?? ''));
 
         if (empty($url)) {

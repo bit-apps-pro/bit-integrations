@@ -1,7 +1,14 @@
 import { useCallback, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
-import { authorizeConnection, saveConnection } from '../../Utils/connectionApi'
+import { authorizeConnection } from '../../Utils/connectionApi'
 import { AUTH_TYPES, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import {
+  normalizeAdditionalHeaders,
+  resolveConfigValue,
+  resolveHeaderTemplates,
+  resolvePayloadTemplates,
+  resolveTemplate
+} from '../../Utils/connectionTemplates'
+import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
 import {
   buildCallbackState,
   createOauthChannelKey,
@@ -14,15 +21,6 @@ import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
 
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
-
-const resolveTemplate = (template, data) => {
-  if (!template) return ''
-  return template.replace(/\{(\w+)\}/g, (_, key) => {
-    const val = data[key]
-    if (val == null) return ''
-    return typeof val === 'string' ? val.replace(/\/+$/, '') : String(val)
-  })
-}
 
 const appendQueryParam = (url, key, value) => {
   if (value == null || value === '') return
@@ -37,57 +35,6 @@ const buildOauth1AuthUrl = (authEndpoint, extraParams = {}) => {
   Object.entries(extraParams).forEach(([key, value]) => appendQueryParam(url, key, value))
 
   return url.toString()
-}
-
-const normalizeAdditionalHeaders = headers => {
-  if (!headers || typeof headers !== 'object') return {}
-
-  return Object.entries(headers).reduce((acc, [key, value]) => {
-    const normalizedKey = String(key || '').trim()
-    const normalizedValue = value == null ? '' : String(value).trim()
-
-    if (normalizedKey && normalizedValue) {
-      acc[normalizedKey] = normalizedValue
-    }
-
-    return acc
-  }, {})
-}
-
-const resolveHeaderTemplates = (headers, data) => {
-  if (!headers || typeof headers !== 'object') return {}
-
-  return Object.entries(headers).reduce((acc, [key, value]) => {
-    acc[key] = typeof value === 'string' ? resolveTemplate(value, data) : value
-    return acc
-  }, {})
-}
-
-const resolvePayloadTemplates = (payload, data) => {
-  if (Array.isArray(payload)) {
-    return payload.map(item => resolvePayloadTemplates(item, data))
-  }
-
-  if (payload && typeof payload === 'object') {
-    return Object.entries(payload).reduce((acc, [key, value]) => {
-      acc[key] = resolvePayloadTemplates(value, data)
-      return acc
-    }, {})
-  }
-
-  if (typeof payload === 'string') {
-    return resolveTemplate(payload, data)
-  }
-
-  return payload
-}
-
-const resolveConfigValue = (value, data) => {
-  if (typeof value === 'function') {
-    return value(data)
-  }
-
-  return value
 }
 
 const normalizePopupResponse = popupResponse => {
@@ -163,9 +110,6 @@ export default function Oauth1Connection({
   onConnectionSaved
 }) {
   const [formData, setFormData] = useState({})
-  const [errors, setErrors] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
-  const [isAuthorized, setIsAuthorized] = useState(false)
 
   const callbackUrl = useMemo(
     () => authDetails?.callbackUrl || getCallbackState(),
@@ -186,12 +130,6 @@ export default function Oauth1Connection({
   const tokenParam = authDetails?.tokenParam || 'oauth_token'
   const responseTokenField = authDetails?.responseTokenField || tokenParam
   const responseTokenSecretField = authDetails?.responseTokenSecretField || 'oauth_token_secret'
-
-  const handleChange = useCallback(event => {
-    const { name, value } = event.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    setErrors(prev => ({ ...prev, [name]: '' }))
-  }, [])
 
   const validate = useCallback(() => {
     const nextErrors = {}
@@ -219,47 +157,10 @@ export default function Oauth1Connection({
       nextErrors.authorize = __('OAuth1 authorization URL is required', 'bit-integrations')
     }
 
-    setErrors(nextErrors)
-    return Object.keys(nextErrors).length === 0
+    return nextErrors
   }, [authDetails?.extraFields, formData, requireClientSecret, resolvedAuthEndpoint?.url])
 
-  const saveOauth1Connection = useCallback(
-    async payload => {
-      const saveRes = await saveConnection({
-        app_slug: config?.app_slug || config?.type,
-        auth_type: AUTH_TYPES.OAUTH1,
-        connection_name: formData.connectionName,
-        account_name: formData.connectionName,
-        auth_details: payload.auth_details,
-        encrypt_keys: authDetails?.encryptKeys || defaultEncryptKeys[AUTH_TYPES.OAUTH1] || []
-      })
-
-      if (!saveRes?.success) {
-        const reason = saveRes?.data?.data || saveRes?.data || ''
-        toast.error(`${__('Failed to save connection Cause:', 'bit-integrations')}${reason}`)
-        return null
-      }
-
-      const connection = saveRes?.data?.data || null
-      const persistedExtraFields = (authDetails?.extraFields || []).reduce((acc, { name }) => {
-        if (formData[name] != null) acc[name] = formData[name]
-        return acc
-      }, {})
-
-      setConfig(prev => ({ ...prev, connection_id: connection?.id, ...persistedExtraFields }))
-
-      if (onConnectionSaved) await onConnectionSaved(connection)
-
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return connection
-    },
-    [authDetails?.encryptKeys, authDetails?.extraFields, config, formData, onConnectionSaved, setConfig]
-  )
-
-  const handleAuthorize = useCallback(async () => {
-    if (!validate()) return
-
+  const flowFn = useCallback(async () => {
     const declaredQueryParams = resolvedAuthEndpoint?.queryParams || {}
     const queryParams = { ...declaredQueryParams }
     const authExtraParams = {}
@@ -274,80 +175,69 @@ export default function Oauth1Connection({
       authExtraParams[callbackUrlParam] = callbackUrl
     }
 
-    setIsLoading(true)
+    const oauthChannelKey = createOauthChannelKey()
+    const callbackState = buildCallbackState(oauthChannelKey)
 
-    try {
-      const oauthChannelKey = createOauthChannelKey()
-      const callbackState = buildCallbackState(oauthChannelKey)
+    const authUrl = buildOauth1AuthUrl(
+      {
+        ...resolvedAuthEndpoint,
+        queryParams
+      },
+      {
+        ...authExtraParams,
+        ...(queryParams[stateParam] ? {} : { [stateParam]: callbackState })
+      }
+    )
 
-      const authUrl = buildOauth1AuthUrl(
-        {
-          ...resolvedAuthEndpoint,
-          queryParams
-        },
-        {
-          ...authExtraParams,
-          ...(queryParams[stateParam] ? {} : { [stateParam]: callbackState })
-        }
+    const popupResponse = normalizePopupResponse(
+      await openOauthPopup(authUrl, authDetails?.authorizationWindowLabel || 'OAuth1', {
+        channelKey: oauthChannelKey,
+        includeLegacyFallback: true
+      })
+    )
+
+    if (popupResponse?.error) {
+      throw new Error(
+        popupResponse.error === 'popup_blocked'
+          ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
+          : popupResponse.error_description ||
+              __('Authorization window closed before completing.', 'bit-integrations')
       )
+    }
 
-      const popupResponse = normalizePopupResponse(
-        await openOauthPopup(authUrl, authDetails?.authorizationWindowLabel || 'OAuth1', {
-          channelKey: oauthChannelKey,
-          includeLegacyFallback: true
-        })
-      )
+    const accessToken =
+      popupResponse?.[responseTokenField] || popupResponse?.[tokenParam] || popupResponse?.token || ''
+    const accessTokenSecret =
+      popupResponse?.[responseTokenSecretField] || popupResponse?.oauth_token_secret || ''
 
-      if (popupResponse?.error) {
+    if (!accessToken) {
+      throw new Error(__('Authorization token missing', 'bit-integrations'))
+    }
+
+    const payload = getOauth1Payload({
+      authDetails,
+      formData,
+      accessToken,
+      accessTokenSecret,
+      consumerKeyParam,
+      tokenParam
+    })
+
+    if (!authDetails?.skipAuthorizationCheck) {
+      const authorizeRes = await authorizeConnection(payload)
+
+      if (!authorizeRes?.success) {
         throw new Error(
-          popupResponse.error === 'popup_blocked'
-            ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
-            : popupResponse.error_description ||
-                __('Authorization window closed before completing.', 'bit-integrations')
+          authorizeRes?.data?.data?.message ||
+            authorizeRes?.data?.message ||
+            authorizeRes?.data?.data ||
+            authorizeRes?.data ||
+            __('Authorization failed', 'bit-integrations')
         )
       }
-
-      const accessToken =
-        popupResponse?.[responseTokenField] || popupResponse?.[tokenParam] || popupResponse?.token || ''
-      const accessTokenSecret =
-        popupResponse?.[responseTokenSecretField] || popupResponse?.oauth_token_secret || ''
-
-      if (!accessToken) {
-        throw new Error(__('Authorization token missing', 'bit-integrations'))
-      }
-
-      const payload = getOauth1Payload({
-        authDetails,
-        formData,
-        accessToken,
-        accessTokenSecret,
-        consumerKeyParam,
-        tokenParam
-      })
-
-      if (!authDetails?.skipAuthorizationCheck) {
-        const authorizeRes = await authorizeConnection(payload)
-
-        if (!authorizeRes?.success) {
-          throw new Error(
-            authorizeRes?.data?.data?.message ||
-              authorizeRes?.data?.message ||
-              authorizeRes?.data?.data ||
-              authorizeRes?.data ||
-              __('Authorization failed', 'bit-integrations')
-          )
-        }
-      }
-
-      await saveOauth1Connection(payload)
-    } catch (error) {
-      setIsAuthorized(false)
-      toast.error(
-        `${__('Authorization failed Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`
-      )
-    } finally {
-      setIsLoading(false)
     }
+
+    return payload
   }, [
     authDetails,
     callbackUrl,
@@ -356,10 +246,47 @@ export default function Oauth1Connection({
     resolvedAuthEndpoint,
     responseTokenField,
     responseTokenSecretField,
-    saveOauth1Connection,
-    tokenParam,
-    validate
+    tokenParam
   ])
+
+  const buildSavePayload = useCallback(
+    payload => ({
+      app_slug: config?.app_slug || config?.type,
+      auth_type: AUTH_TYPES.OAUTH1,
+      connection_name: formData.connectionName,
+      account_name: formData.connectionName,
+      auth_details: payload.auth_details,
+      encrypt_keys: authDetails?.encryptKeys || defaultEncryptKeys[AUTH_TYPES.OAUTH1] || []
+    }),
+    [authDetails?.encryptKeys, config?.app_slug, config?.type, formData.connectionName]
+  )
+
+  const buildConfigUpdate = useCallback(
+    () =>
+      (authDetails?.extraFields || []).reduce((acc, { name }) => {
+        if (formData[name] != null) acc[name] = formData[name]
+        return acc
+      }, {}),
+    [authDetails?.extraFields, formData]
+  )
+
+  const { isLoading, isAuthorized, errors, setErrors, handleAuthorize } = useConnectionAuthorize({
+    validate,
+    flowFn,
+    buildSavePayload,
+    buildConfigUpdate,
+    onConnectionSaved,
+    setConfig
+  })
+
+  const handleChange = useCallback(
+    event => {
+      const { name, value } = event.target
+      setFormData(prev => ({ ...prev, [name]: value }))
+      setErrors(prev => ({ ...prev, [name]: '' }))
+    },
+    [setErrors]
+  )
 
   return (
     <>

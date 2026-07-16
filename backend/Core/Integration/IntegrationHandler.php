@@ -9,6 +9,20 @@ namespace BitApps\Integrations\Core\Integration;
 class IntegrationHandler
 {
     /**
+     * Request-scoped store of captured field values, keyed by flow id.
+     *
+     * @var array
+     */
+    private static $fieldValues = [];
+
+    /**
+     * Request-scoped re-execution parent-log markers, keyed by flow id.
+     *
+     * @var array
+     */
+    private static $reexecuteParent = [];
+
+    /**
      * Execute an integration with automatic field data capture.
      * Only captures field values; execution and any thrown exception behave exactly as a direct
      * $handler->execute() call (no added catch), preserving the pre-feature error-handling behavior.
@@ -36,10 +50,8 @@ class IntegrationHandler
      */
     public static function getFieldValues($flowId)
     {
-        global $btcbi_current_field_values;
-
-        if (isset($btcbi_current_field_values[$flowId])) {
-            return $btcbi_current_field_values[$flowId];
+        if (isset(self::$fieldValues[$flowId])) {
+            return self::$fieldValues[$flowId];
         }
 
         return null;
@@ -57,13 +69,7 @@ class IntegrationHandler
      */
     public static function setReexecuteParent($flowId, $parentLogId)
     {
-        global $btcbi_reexecute_parent;
-
-        if (!isset($btcbi_reexecute_parent)) {
-            $btcbi_reexecute_parent = [];
-        }
-
-        $btcbi_reexecute_parent[$flowId] = $parentLogId;
+        self::$reexecuteParent[$flowId] = $parentLogId;
     }
 
     /**
@@ -75,9 +81,7 @@ class IntegrationHandler
      */
     public static function getReexecuteParent($flowId)
     {
-        global $btcbi_reexecute_parent;
-
-        return isset($btcbi_reexecute_parent[$flowId]) ? $btcbi_reexecute_parent[$flowId] : null;
+        return isset(self::$reexecuteParent[$flowId]) ? self::$reexecuteParent[$flowId] : null;
     }
 
     /**
@@ -89,15 +93,13 @@ class IntegrationHandler
      */
     public static function clearReexecuteParent($flowId = null)
     {
-        global $btcbi_reexecute_parent;
-
         if (null === $flowId) {
-            $btcbi_reexecute_parent = [];
+            self::$reexecuteParent = [];
 
             return;
         }
 
-        unset($btcbi_reexecute_parent[$flowId]);
+        unset(self::$reexecuteParent[$flowId]);
     }
 
     /**
@@ -110,12 +112,6 @@ class IntegrationHandler
      */
     private static function storeFieldValues($flowId, $fieldValues)
     {
-        global $btcbi_current_field_values;
-
-        if (!isset($btcbi_current_field_values)) {
-            $btcbi_current_field_values = [];
-        }
-
-        $btcbi_current_field_values[$flowId] = $fieldValues;
+        self::$fieldValues[$flowId] = $fieldValues;
     }
 }

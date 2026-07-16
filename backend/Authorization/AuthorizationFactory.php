@@ -17,36 +17,39 @@ class AuthorizationFactory
 {
     public const ACTION_NAMESPACE = 'BitApps\\Integrations\\Actions\\';
 
+    /**
+     * Maps a built-in AuthorizationType to its handler class. CUSTOM (and any
+     * unmapped type) is dispatched via the authorizationClassExists() probe.
+     *
+     * @var array<string, class-string>
+     */
+    private static $handlerMap = [
+        AuthorizationType::BASIC_AUTH   => BasicAuthorization::class,
+        AuthorizationType::API_KEY      => ApiKeyAuthorization::class,
+        AuthorizationType::BEARER_TOKEN => BearerTokenAuthorization::class,
+        AuthorizationType::OAUTH2       => OAuth2Authorization::class,
+        AuthorizationType::OAUTH1       => OAuth1Authorization::class,
+    ];
+
     public static function getAuthorizationHandler($type, $connectionId, $appSlug = '')
     {
-        switch ($type) {
-            case AuthorizationType::BASIC_AUTH:
-                return new BasicAuthorization($connectionId);
+        if (isset(self::$handlerMap[$type])) {
+            $class = self::$handlerMap[$type];
 
-            case AuthorizationType::API_KEY:
-                return new ApiKeyAuthorization($connectionId);
-
-            case AuthorizationType::BEARER_TOKEN:
-                return new BearerTokenAuthorization($connectionId);
-
-            case AuthorizationType::OAUTH2:
-                return new OAuth2Authorization($connectionId);
-
-            case AuthorizationType::OAUTH1:
-                return new OAuth1Authorization($connectionId);
-
-            case AuthorizationType::CUSTOM:
-                $class = self::authorizationClassExists($appSlug);
-
-                if ($class) {
-                    return new $class($connectionId);
-                }
-
-                throw new Exception(esc_html__('Authorization class not found', 'bit-integrations'));
-
-            default:
-                throw new Exception(esc_html__('Invalid authorization type', 'bit-integrations'));
+            return new $class($connectionId);
         }
+
+        if ($type === AuthorizationType::CUSTOM) {
+            $class = self::authorizationClassExists($appSlug);
+
+            if ($class) {
+                return new $class($connectionId);
+            }
+
+            throw new Exception(esc_html__('Authorization class not found', 'bit-integrations'));
+        }
+
+        throw new Exception(esc_html__('Invalid authorization type', 'bit-integrations'));
     }
 
     public static function authorizationClassExists($appSlug)
