@@ -139,17 +139,17 @@ final class LogHandler
         // been deleted (orphaned re-run) — so nothing is ever hidden from the list.
         $rootWhere = "flow_id = %d AND (parent_id IS NULL OR parent_id NOT IN (SELECT id FROM `{$table}` sub WHERE sub.flow_id = %d))";
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix; values prepared
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name from $wpdb->prefix (no input); the two %d placeholders live inside $rootWhere and are bound via prepare()
         $count = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `{$table}` WHERE {$rootWhere}", $flowId, $flowId));
         if ($count < 1) {
             return ['count' => 0, 'data' => []];
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix; values prepared
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list, $table from $wpdb->prefix; the extra %d placeholders live inside $rootWhere and are all bound via prepare()
         $tops = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE {$rootWhere} ORDER BY id DESC LIMIT %d OFFSET %d", $flowId, $flowId, (int) $limit, (int) $offset));
 
         // Re-executions are rare, so fetch them all for this flow (without the LONGTEXT payload) and nest.
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix; values prepared
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list and $table from $wpdb->prefix (no input); the %d value is bound via prepare()
         $descendants = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE flow_id = %d AND parent_id IS NOT NULL ORDER BY id DESC", $flowId));
 
         $childrenBy = [];
@@ -211,14 +211,14 @@ final class LogHandler
             array_push($params, $like, $like, $like, $like);
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table from prefix; WHERE clause is literal SQL with %d/%s placeholders bound below
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table from $wpdb->prefix; the %d/%s placeholders live inside $where and are bound via $params in prepare()
         $count = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `{$table}` WHERE {$where}", $params));
         if ($count < 1) {
             return ['count' => 0, 'data' => []];
         }
 
         $rowParams = array_merge($params, [(int) $limit, (int) $offset]);
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table/columns are constants; WHERE is literal SQL; values bound below
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols/$table are constants; the %d/%s placeholders live inside $where and are all bound via the $rowParams array in prepare()
         $rows = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE {$where} ORDER BY id DESC LIMIT %d OFFSET %d", $rowParams));
 
         foreach ((array) $rows as $row) {
@@ -420,7 +420,7 @@ final class LogHandler
         while (!empty($ids)) {
             $placeholders = implode(', ', array_fill(0, \count($ids), '%d'));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table from prefix; ids are integers bound via placeholders
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table from $wpdb->prefix; $placeholders is a generated list of %d bound to the integer $ids via prepare()
             $childIds = $wpdb->get_col($wpdb->prepare("SELECT id FROM `{$table}` WHERE parent_id IN ({$placeholders})", $ids));
             $childIds = array_values(array_filter(array_map('intval', (array) $childIds)));
             if (empty($childIds)) {
@@ -428,7 +428,7 @@ final class LogHandler
             }
 
             $childPlaceholders = implode(', ', array_fill(0, \count($childIds), '%d'));
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table from prefix; ids are integers bound via placeholders
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table from $wpdb->prefix; $childPlaceholders is a generated list of %d bound to the integer $childIds via prepare()
             $wpdb->query($wpdb->prepare("DELETE FROM `{$table}` WHERE id IN ({$childPlaceholders})", $childIds));
 
             $ids = $childIds;

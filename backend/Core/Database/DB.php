@@ -160,7 +160,7 @@ final class DB
 
         // Only proceed once the column itself exists (index add would otherwise fail).
         if (empty($index_exists) && self::logColumnHasParentId()) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- One-time schema migration; table from prefix, index/column names are constants
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- One-time schema migration; $table_name from $wpdb->prefix, index/column names are constants (no user input)
             $wpdb->query("ALTER TABLE `{$table_name}` ADD INDEX `parent_id` (`parent_id`)");
         }
     }
@@ -226,7 +226,7 @@ final class DB
         );
 
         if (empty($column_exists)) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- One-time schema migration; column/definition come from a hard-coded allow-list, not user input
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- One-time schema migration; $table_name from $wpdb->prefix and column/definition come from a hard-coded allow-list, not user input
             $wpdb->query("ALTER TABLE `{$table_name}` ADD COLUMN `{$column}` {$definition} AFTER `{$after}`");
         }
     }
