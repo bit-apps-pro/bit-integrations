@@ -17,21 +17,21 @@ export default function ZendeskSupportAuthorization({
     <h4>${__('How to connect Zendesk Support:', 'bit-integrations')}</h4>
     <ul>
       <li>${__(
-    'Your <b>Subdomain</b> is the part before <b>.zendesk.com</b> in your account URL. Example: for <b>https://acme.zendesk.com</b> the subdomain is <b>acme</b>.',
-    'bit-integrations'
-  )}</li>
+        'Your <b>Subdomain</b> is the part before <b>.zendesk.com</b> in your account URL. Example: for <b>https://acme.zendesk.com</b> the subdomain is <b>acme</b>.',
+        'bit-integrations'
+      )}</li>
       <li>${__(
-    'Use the <b>Email</b> of an agent/admin account that has API access.',
-    'bit-integrations'
-  )}</li>
+        'Use the <b>Email</b> of an agent/admin account that has API access.',
+        'bit-integrations'
+      )}</li>
       <li>${__(
-    'In Zendesk, go to <b>Admin Center → Apps and integrations → APIs → Zendesk API</b> and enable <b>Token access</b>, then click <b>Add API token</b>.',
-    'bit-integrations'
-  )}</li>
+        'In Zendesk, go to <b>Admin Center → Apps and integrations → APIs → Zendesk API</b> and enable <b>Token access</b>, then click <b>Add API token</b>.',
+        'bit-integrations'
+      )}</li>
       <li>${__(
-    'Copy the generated token and paste it into the <b>API Token</b> field.',
-    'bit-integrations'
-  )}</li>
+        'Copy the generated token and paste it into the <b>API Token</b> field.',
+        'bit-integrations'
+      )}</li>
       <li>${__('Finally, authorize and save the connection.', 'bit-integrations')}</li>
     </ul>`
 
