@@ -37,7 +37,9 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private $tokenPrefix = 'Bearer ';
 
-    /** Unique value written to the refresh-lock option so we can confirm ownership. */
+    /**
+     * Unique value written to the refresh-lock option so we can confirm ownership.
+     */
     private $refreshLockValue;
 
     public function setBodyParams(array $bodyParams)
@@ -255,6 +257,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- A mutex must be decided by the unique index on option_name; add_option() cannot express INSERT IGNORE and its non-atomic pre-check lets two racers both win. Caching this would defeat the lock outright: a cached read is exactly how a live lock reads as absent. Table from $wpdb->options, values bound via prepare().
         $wpdb->query(
             $wpdb->prepare(
                 "INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'no')",
@@ -289,6 +292,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Compare-and-set: the WHERE on option_value is what stops one request deleting a lock another just took, and delete_option() cannot express it. Caching a mutex would defeat it. Table from $wpdb->options, values bound via prepare().
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE option_name = %s AND option_value = %s",
@@ -307,6 +311,8 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         // Read the table directly: get_option() consults the `notoptions` cache before
         // the per-key cache, and wp_cache_delete() clears only the latter — so a live
         // lock written by another worker can read back as absent.
+        //
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Reading a mutex through a cache is the bug this avoids: a cached value cannot observe another worker's write, which is the entire point of the read. Table from $wpdb->options, key bound via prepare().
         $value = $wpdb->get_var(
             $wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $lockKey)
         );
@@ -316,7 +322,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private function newLockValue(): string
     {
-        $random = function_exists('wp_generate_uuid4') ? wp_generate_uuid4() : bin2hex(random_bytes(16));
+        $random = \function_exists('wp_generate_uuid4') ? wp_generate_uuid4() : bin2hex(random_bytes(16));
 
         return $random . '|' . time();
     }

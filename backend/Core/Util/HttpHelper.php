@@ -81,46 +81,6 @@ final class HttpHelper
         return \is_null($jsonData) ? $responseBody : $jsonData;
     }
 
-    /**
-     * Send the request with every hop re-checked against Common::isSafeRemoteUrl().
-     *
-     * isSafeRemoteUrl() only ever sees the URL we pass in, but WP follows up to 5
-     * redirects and validates those with wp_http_validate_url() alone — which does not
-     * block 169.254.0.0/16. A remote host could answer 302 to the cloud metadata
-     * service and have its response handed straight back to the caller. WP_Http::request
-     * applies `pre_http_request` on every request, and handle_redirects() re-enters
-     * through wp_remote_request(), so this filter sees each hop.
-     *
-     * Scoped to this call and removed immediately: it must never judge another
-     * plugin's requests.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return array|WP_Error
-     */
-    private static function sendGuarded($url, $options)
-    {
-        $guard = static function ($preempt, $args, $requestUrl) {
-            if (!Common::isSafeRemoteUrl($requestUrl, false)) {
-                return new WP_Error(
-                    'bit_integrations_blocked_url',
-                    __('The requested URL is not allowed.', 'bit-integrations')
-                );
-            }
-
-            return $preempt;
-        };
-
-        add_filter('pre_http_request', $guard, 10, 3);
-
-        try {
-            return wp_safe_remote_request($url, $options);
-        } finally {
-            remove_filter('pre_http_request', $guard, 10);
-        }
-    }
-
     public static function processFormData($data, $boundary)
     {
         $payload = '';
@@ -180,5 +140,45 @@ final class HttpHelper
         $payload .= "\r\n";
 
         return $payload;
+    }
+
+    /**
+     * Send the request with every hop re-checked against Common::isSafeRemoteUrl().
+     *
+     * isSafeRemoteUrl() only ever sees the URL we pass in, but WP follows up to 5
+     * redirects and validates those with wp_http_validate_url() alone — which does not
+     * block 169.254.0.0/16. A remote host could answer 302 to the cloud metadata
+     * service and have its response handed straight back to the caller. WP_Http::request
+     * applies `pre_http_request` on every request, and handle_redirects() re-enters
+     * through wp_remote_request(), so this filter sees each hop.
+     *
+     * Scoped to this call and removed immediately: it must never judge another
+     * plugin's requests.
+     *
+     * @param string $url
+     * @param array  $options
+     *
+     * @return array|WP_Error
+     */
+    private static function sendGuarded($url, $options)
+    {
+        $guard = static function ($preempt, $args, $requestUrl) {
+            if (!Common::isSafeRemoteUrl($requestUrl, false)) {
+                return new WP_Error(
+                    'bit_integrations_blocked_url',
+                    __('The requested URL is not allowed.', 'bit-integrations')
+                );
+            }
+
+            return $preempt;
+        };
+
+        add_filter('pre_http_request', $guard, 10, 3);
+
+        try {
+            return wp_safe_remote_request($url, $options);
+        } finally {
+            remove_filter('pre_http_request', $guard, 10);
+        }
     }
 }

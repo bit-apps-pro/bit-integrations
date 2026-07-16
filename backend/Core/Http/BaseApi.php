@@ -25,19 +25,29 @@ use BitApps\Integrations\Core\Util\HttpHelper;
  */
 abstract class BaseApi
 {
-    /** @var AuthStrategyInterface */
+    /**
+     * @var AuthStrategyInterface
+     */
     protected $auth;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $baseUrl;
 
-    /** @var array<string, string> */
+    /**
+     * @var array<string, string>
+     */
     protected $defaultHeaders = [];
 
-    /** @var bool guards the lazy getEndpointBase() resolution, which may hit the network */
+    /**
+     * @var bool guards the lazy getEndpointBase() resolution, which may hit the network
+     */
     private $baseUrlResolved = false;
 
-    /** @var null|AuthorizationException set by the last request() that failed to build a credential */
+    /**
+     * @var null|AuthorizationException set by the last request() that failed to build a credential
+     */
     private $lastAuthException;
 
     public function __construct(AuthStrategyInterface $auth, ?string $baseUrl = null)

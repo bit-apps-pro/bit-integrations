@@ -47,6 +47,25 @@ final class ConnectionController
         'updated_at',
     ];
 
+    /**
+     * Credentials that must be encrypted at rest for a given auth type, regardless
+     * of what the client asked for.
+     *
+     * encrypt_keys arrives from the client, so without a server-side floor a caller
+     * (or an integration that simply forgets to declare its keys) can have secrets
+     * written to the database in plaintext. Mirrors defaultEncryptKeys in
+     * frontend/src/Utils/connectionAuth.js.
+     *
+     * @var array<string, string[]>
+     */
+    private const ENCRYPT_KEY_FLOOR = [
+        AuthorizationType::API_KEY      => ['value'],
+        AuthorizationType::BASIC_AUTH   => ['username', 'password'],
+        AuthorizationType::BEARER_TOKEN => ['token'],
+        AuthorizationType::OAUTH2       => ['client_secret', 'access_token', 'refresh_token'],
+        AuthorizationType::OAUTH1       => ['consumer_secret', 'access_token', 'access_token_secret'],
+    ];
+
     public function index($request)
     {
         $this->guard();
@@ -750,28 +769,11 @@ final class ConnectionController
     }
 
     /**
-     * Credentials that must be encrypted at rest for a given auth type, regardless
-     * of what the client asked for.
-     *
-     * encrypt_keys arrives from the client, so without a server-side floor a caller
-     * (or an integration that simply forgets to declare its keys) can have secrets
-     * written to the database in plaintext. Mirrors defaultEncryptKeys in
-     * frontend/src/Utils/connectionAuth.js.
-     *
-     * @var array<string, string[]>
-     */
-    private const ENCRYPT_KEY_FLOOR = [
-        AuthorizationType::API_KEY      => ['value'],
-        AuthorizationType::BASIC_AUTH   => ['username', 'password'],
-        AuthorizationType::BEARER_TOKEN => ['token'],
-        AuthorizationType::OAUTH2       => ['client_secret', 'access_token', 'refresh_token'],
-        AuthorizationType::OAUTH1       => ['consumer_secret', 'access_token', 'access_token_secret'],
-    ];
-
-    /**
      * Union the client's encrypt_keys with the server-side floor for this auth type.
      * A client may add keys but never drop one, and omitting the field entirely no
      * longer means "store everything in plaintext".
+     *
+     * @param mixed $request
      */
     private function resolveEncryptKeys($request, string $authType = ''): array
     {

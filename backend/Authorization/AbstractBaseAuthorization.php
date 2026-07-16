@@ -51,16 +51,15 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         $authConfig = $this->getAuthHeadersOrParams();
 
         if (!\is_array($authConfig)) {
-            throw new AuthorizationException(__('Invalid authorization config', 'bit-integrations'));
+            throw new AuthorizationException(esc_html__('Invalid authorization config', 'bit-integrations'));
         }
 
         if (!empty($authConfig['error'])) {
             // Carry the handler's array through untouched: the credential-test path
             // returns it verbatim, and handlers disagree on its exact keys.
-            throw AuthorizationException::fromErrorArray(
-                $authConfig,
-                (string) ($authConfig['message'] ?? __('Authorization failed', 'bit-integrations'))
-            );
+            //
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: BaseApi::request() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
+            throw AuthorizationException::fromErrorArray($authConfig, (string) ($authConfig['message'] ?? __('Authorization failed', 'bit-integrations')));
         }
 
         $data = (isset($authConfig['data']) && \is_array($authConfig['data'])) ? $authConfig['data'] : [];
@@ -167,31 +166,6 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         return $this->successResult($response);
     }
 
-    /**
-     * Standard error result shape shared across the base and subclasses.
-     */
-    protected function errorResult(string $message, $response = null): array
-    {
-        return [
-            'error'    => true,
-            'message'  => $message,
-            'response' => $response,
-        ];
-    }
-
-    /**
-     * Standard success result shape shared across the base and subclasses.
-     *
-     * @param mixed $response
-     */
-    protected function successResult($response): array
-    {
-        return [
-            'success'  => true,
-            'response' => $response,
-        ];
-    }
-
     public function getConnectionId(): int
     {
         return (int) $this->connectionId;
@@ -230,16 +204,6 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         return $this->lastError;
     }
 
-    protected function setLastError(string $message, $response = null): void
-    {
-        $this->lastError = $this->errorResult($message, $response);
-    }
-
-    protected function clearLastError(): void
-    {
-        $this->lastError = null;
-    }
-
     public function setAuthDetailsOverride(array $authDetails)
     {
         $this->authDetailsOverride = $authDetails;
@@ -272,7 +236,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         $connection = $this->getConnection();
 
         if (!$connection) {
-            return null;
+            return;
         }
 
         $authDetails = $this->decodeAuthDetails($connection->auth_details ?? null);
@@ -322,6 +286,43 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         $this->connection = null;
 
         return true;
+    }
+
+    /**
+     * Standard error result shape shared across the base and subclasses.
+     *
+     * @param null|mixed $response
+     */
+    protected function errorResult(string $message, $response = null): array
+    {
+        return [
+            'error'    => true,
+            'message'  => $message,
+            'response' => $response,
+        ];
+    }
+
+    /**
+     * Standard success result shape shared across the base and subclasses.
+     *
+     * @param mixed $response
+     */
+    protected function successResult($response): array
+    {
+        return [
+            'success'  => true,
+            'response' => $response,
+        ];
+    }
+
+    protected function setLastError(string $message, $response = null): void
+    {
+        $this->lastError = $this->errorResult($message, $response);
+    }
+
+    protected function clearLastError(): void
+    {
+        $this->lastError = null;
     }
 
     protected function decodeAuthDetails($value): array

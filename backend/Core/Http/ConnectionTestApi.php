@@ -23,7 +23,9 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
  */
 class ConnectionTestApi extends BaseApi
 {
-    /** @var AbstractBaseAuthorization */
+    /**
+     * @var AbstractBaseAuthorization
+     */
     private $handler;
 
     public function __construct(AbstractBaseAuthorization $handler)
@@ -94,7 +96,7 @@ class ConnectionTestApi extends BaseApi
     }
 
     /**
-     * @param mixed $message legacy path passes body error values through untouched
+     * @param mixed $message  legacy path passes body error values through untouched
      * @param mixed $response
      */
     private function errorShape($message, $response): array

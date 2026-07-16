@@ -109,6 +109,8 @@ class CredentialInjector
      * $authConfig carries a bare slug ("zohocrm"), so both sides are reduced to
      * alphanumerics before comparing. A connection that cannot be loaded at all is
      * left to the caller's own null handling.
+     *
+     * @param mixed $connection
      */
     private static function belongsToIntegration($connection, string $slug): bool
     {
@@ -134,6 +136,7 @@ class CredentialInjector
             return;
         }
 
-        error_log(sprintf('CredentialInjector: skipped injection for %s — %s', $controllerClass, $reason));
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Diagnostic, not leftover debug code: this path swallows every credential-resolution failure to keep the flow from fataling, which otherwise reports a broken connection as a missing parameter. Gated on WP_DEBUG and logs only the controller and the reason — never auth details.
+        error_log(\sprintf('CredentialInjector: skipped injection for %s — %s', $controllerClass, $reason));
     }
 }
