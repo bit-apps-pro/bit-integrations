@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Database\FlowModel;
 use BitApps\Integrations\Core\Util\Capabilities;
@@ -312,8 +313,8 @@ final class ConnectionController
         // is not sufficient for a destructive action.
         if (
             !Capabilities::Check('manage_options')
-            && !Capabilities::Check('bit_integrations_manage_integrations')
-            && !Capabilities::Check('bit_integrations_delete_integrations')
+            && !Capabilities::Check(Config::withPrefix('manage_integrations'))
+            && !Capabilities::Check(Config::withPrefix('delete_integrations'))
         ) {
             wp_send_json_error(__('You do not have permission to delete connections', 'bit-integrations'));
         }
@@ -917,9 +918,9 @@ final class ConnectionController
     {
         if (
             !Capabilities::Check('manage_options')
-            && !Capabilities::Check('bit_integrations_manage_integrations')
-            && !Capabilities::Check('bit_integrations_create_integrations')
-            && !Capabilities::Check('bit_integrations_edit_integrations')
+            && !Capabilities::Check(Config::withPrefix('manage_integrations'))
+            && !Capabilities::Check(Config::withPrefix('create_integrations'))
+            && !Capabilities::Check(Config::withPrefix('edit_integrations'))
         ) {
             wp_send_json_error(__('You do not have permission to manage connections', 'bit-integrations'));
         }

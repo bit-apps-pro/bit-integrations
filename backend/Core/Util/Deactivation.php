@@ -6,6 +6,8 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Config;
+
 /**
  * Class handling plugin deactivation.
  *
@@ -31,11 +33,11 @@ final class Deactivation
     public function remove_capability_to_administrator()
     {
         $role = get_role('administrator');
-        $role->remove_cap('bit_integrations_manage_integrations');
-        $role->remove_cap('bit_integrations_view_integrations');
-        $role->remove_cap('bit_integrations_create_integrations');
-        $role->remove_cap('bit_integrations_edit_integrations');
-        $role->remove_cap('bit_integrations_delete_integrations');
+        $role->remove_cap(Config::withPrefix('manage_integrations'));
+        $role->remove_cap(Config::withPrefix('view_integrations'));
+        $role->remove_cap(Config::withPrefix('create_integrations'));
+        $role->remove_cap(Config::withPrefix('edit_integrations'));
+        $role->remove_cap(Config::withPrefix('delete_integrations'));
     }
 
     public function deactive()

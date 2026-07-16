@@ -21,7 +21,7 @@ final class LogHandler
 
     public function get($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
 
@@ -368,7 +368,7 @@ final class LogHandler
 
     public static function delete($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $condition = null;
@@ -451,7 +451,7 @@ final class LogHandler
      */
     public static function reexecute($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
 
@@ -542,7 +542,7 @@ final class LogHandler
      */
     public static function getFieldData($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
 

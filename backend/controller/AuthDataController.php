@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\controller;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Database\AuthModel;
 use BitApps\Integrations\Core\Util\Capabilities;
 
@@ -9,7 +10,7 @@ final class AuthDataController
 {
     public function saveAuthData($requestParams)
     {
-        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_create_integrations']);
+        self::ensurePermission(['manage_options', Config::withPrefix('manage_integrations'), Config::withPrefix('create_integrations')]);
 
         if (empty($requestParams->actionName) || empty($requestParams->tokenDetails) || empty($requestParams->userInfo)) {
             wp_send_json_error(['error' => 'Requested Parameters are empty']);
@@ -47,7 +48,7 @@ final class AuthDataController
 
     public function getAuthData($request)
     {
-        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
+        self::ensurePermission(['manage_options', Config::withPrefix('manage_integrations'), Config::withPrefix('view_integrations'), Config::withPrefix('create_integrations'), Config::withPrefix('edit_integrations')]);
 
         $actionName = sanitize_text_field(\is_object($request) ? ($request->actionName ?? '') : (\is_scalar($request) ? (string) $request : ''));
         if (empty($actionName)) {
@@ -82,7 +83,7 @@ final class AuthDataController
 
     public function getAuthDataById($request)
     {
-        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
+        self::ensurePermission(['manage_options', Config::withPrefix('manage_integrations'), Config::withPrefix('view_integrations'), Config::withPrefix('create_integrations'), Config::withPrefix('edit_integrations')]);
 
         $id = absint($request->id);
         if (empty($id)) {
@@ -117,7 +118,7 @@ final class AuthDataController
 
     public function deleteAuthData($request)
     {
-        self::ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_delete_integrations']);
+        self::ensurePermission(['manage_options', Config::withPrefix('manage_integrations'), Config::withPrefix('delete_integrations')]);
 
         $id = absint(\is_object($request) ? ($request->id ?? 0) : (\is_scalar($request) ? $request : 0));
         if (empty($id)) {
