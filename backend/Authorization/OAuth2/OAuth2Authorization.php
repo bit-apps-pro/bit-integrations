@@ -56,9 +56,18 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     }
 
     /**
-     * Return auth details with a non-expired access token, refreshing it first
-     * if needed. Null when details are missing or the refresh failed (the reason
-     * is available via getLastError()).
+     * Return auth details, refreshing the access token first when it has expired.
+     * Null only when the connection has no auth details at all.
+     *
+     * A FAILED refresh falls back to the stored (stale) details rather than null.
+     * Returning null here is not "no fresh token", it reads to every caller as "no
+     * credentials": CredentialInjector skips injection entirely, so an action that
+     * would have worked reports missing parameters instead of an auth error. Several
+     * integrations also carry their own refresh (ZohoCRM::_refreshAccessToken builds
+     * its endpoint from dataCenter) and recover on their own once the stored details
+     * reach them. A stale token surfaces as the provider's 401 — an accurate error —
+     * which beats silently withholding the credentials. getLastError() still carries
+     * why the refresh failed.
      */
     public function ensureFreshToken(): ?array
     {
@@ -75,11 +84,13 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         $generatedAt = $authDetails['generated_at'] ?? null;
         $expiresIn = $authDetails['expires_in'] ?? null;
 
-        if ($this->isTokenExpired($generatedAt, $expiresIn)) {
-            return $this->refreshAccessToken($authDetails);
+        if (!$this->isTokenExpired($generatedAt, $expiresIn)) {
+            return $authDetails;
         }
 
-        return $authDetails;
+        $refreshed = $this->refreshAccessToken($authDetails);
+
+        return $refreshed !== null ? $refreshed : $authDetails;
     }
 
     public function getAccessToken()

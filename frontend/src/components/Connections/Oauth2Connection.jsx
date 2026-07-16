@@ -104,6 +104,14 @@ export default function Oauth2Connection({
     return { ...tokenEndpoint, url: resolveTemplate(tokenEndpoint.url, formData) }
   }, [tokenEndpoint, formData])
 
+  // The refresh URL is persisted into auth_details and replayed by the backend long
+  // after this form is gone, so it must be resolved here too. Leaving it templated
+  // stores a literal '{dataCenter}'/'{baseUrl}' host that fails every later refresh.
+  const resolvedRefreshTokenUrl = useMemo(
+    () => resolveTemplate(refreshTokenUrl, formData),
+    [refreshTokenUrl, formData]
+  )
+
   const validate = useCallback(() => {
     const next = {}
     if (!formData.connectionName?.trim()) {
@@ -237,7 +245,7 @@ export default function Oauth2Connection({
         clientSecret: formData.clientSecret,
         clientAuthentication,
         grantType,
-        refreshTokenUrl,
+        refreshTokenUrl: resolvedRefreshTokenUrl,
         tokenUrl: resolvedTokenEndpoint?.url,
         scope,
         sslVerify,
@@ -262,7 +270,7 @@ export default function Oauth2Connection({
       extraTokenFields,
       formData,
       grantType,
-      refreshTokenUrl,
+      resolvedRefreshTokenUrl,
       resolvedTokenEndpoint?.url,
       scope,
       sslVerify
