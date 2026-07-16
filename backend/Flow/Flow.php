@@ -509,7 +509,7 @@ final class Flow
 
                         break;
 
-                    case 'OttoKit (SureTriggers)':
+                    case 'OttoKit(SureTriggers)':
                         $integrationName = 'SureTriggers';
 
                         break;

@@ -34,7 +34,6 @@ export const getallTemplates = (confTmp, setConf, setIsLoading, setSnackbar) => 
   bitsFetch(requestParams, 'whats_app_all_template').then(result => {
     setIsLoading(false)
     if (result?.data?.error?.message) {
-      console.log(result?.data?.error?.message)
       setSnackbar({
         show: true,
         msg: __(result?.data?.error?.message, 'bit-integrations')

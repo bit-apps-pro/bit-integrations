@@ -23,7 +23,7 @@ class ZohoMarketingHubController
             'dataCenter'   => 'dataCenter',
             'clientId'     => 'client_id',
             'clientSecret' => 'client_secret',
-            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on']],
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'api_domain']],
         ],
     ];
 

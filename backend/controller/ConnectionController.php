@@ -14,6 +14,7 @@ use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Database\FlowModel;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Helper;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\PluginCheck;
 use Exception;
@@ -598,6 +599,13 @@ final class ConnectionController
      */
     private function isPublicHttpsUrl(string $url): bool
     {
+        // Opt-in escape hatch for self-hosted / on-prem integrations reachable only over
+        // HTTP or on a private/LAN IP. The default keeps the SSRF-hardened public-HTTPS
+        // rule; a site owner accepts the risk per-URL by returning true from this filter.
+        if (Hooks::apply('bit_integrations_allow_internal_connection_url', false, $url)) {
+            return true;
+        }
+
         $parts = wp_parse_url($url);
 
         if (!$parts || empty($parts['scheme']) || empty($parts['host'])) {

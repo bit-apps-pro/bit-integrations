@@ -18,6 +18,9 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private $tokenPrefix = 'Bearer ';
 
+    /** Unique value written to the refresh-lock option so we can confirm ownership. */
+    private $refreshLockValue;
+
     public function setBodyParams(array $bodyParams)
     {
         $this->bodyParams = $bodyParams;
@@ -142,33 +145,81 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             return $this->performTokenRefresh($authDetails);
         } finally {
             if ($lockAcquired) {
-                delete_option($lockKey);
+                $this->releaseRefreshLock($lockKey);
             }
         }
     }
 
     /**
-     * Best-effort per-connection refresh lock that works without a persistent
-     * object cache. add_option() performs an atomic INSERT (autoload 'no') and
-     * returns false when the row already exists. A stale lock older than the
-     * timeout is reclaimed so a crashed request can never deadlock refreshes.
+     * Per-connection refresh lock that works without a persistent object cache.
+     *
+     * add_option() is NOT a reliable mutex on its own: WP core does a non-atomic
+     * get_option() pre-check then INSERT ... ON DUPLICATE KEY UPDATE, so two racers
+     * can both get a truthy return. But the INSERT sets option_value only once (the
+     * duplicate branch updates option_name to itself, never the value), so the FIRST
+     * writer's unique token survives. We therefore write a unique value and re-read to
+     * confirm we actually own the row. A lock older than the timeout is reclaimed so a
+     * crashed request can never deadlock refreshes.
      */
     private function acquireRefreshLock(string $lockKey, int $timeout = 15): bool
     {
-        if (add_option($lockKey, time(), '', 'no')) {
+        if ($this->claimLock($lockKey, $this->newLockValue())) {
             return true;
         }
 
-        $lockedAt = (int) get_option($lockKey, 0);
+        $current = (string) $this->readLockOption($lockKey);
+        $lockedAt = (int) substr(strrchr('|' . $current, '|'), 1);
 
-        if ($lockedAt > 0 && (time() - $lockedAt) < $timeout) {
+        if ($current !== '' && $lockedAt > 0 && (time() - $lockedAt) < $timeout) {
             return false;
         }
 
-        // Stale (or unreadable) lock: reclaim it.
+        // Stale (or unreadable) lock: drop it and re-claim with ownership confirmation.
         delete_option($lockKey);
 
-        return (bool) add_option($lockKey, time(), '', 'no');
+        return $this->claimLock($lockKey, $this->newLockValue());
+    }
+
+    /**
+     * Write our unique token and confirm the persisted value is ours (see acquire doc).
+     */
+    private function claimLock(string $lockKey, string $value): bool
+    {
+        add_option($lockKey, $value, '', 'no');
+
+        if ($this->readLockOption($lockKey) === $value) {
+            $this->refreshLockValue = $value;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private function releaseRefreshLock(string $lockKey): void
+    {
+        // Only delete the row if it is still the one we own — never clobber a lock a
+        // stale-reclaim handed to another request.
+        if ($this->refreshLockValue !== null && $this->readLockOption($lockKey) === $this->refreshLockValue) {
+            delete_option($lockKey);
+        }
+
+        $this->refreshLockValue = null;
+    }
+
+    private function readLockOption(string $lockKey)
+    {
+        // Bypass the per-request options cache so we observe another request's write/release.
+        wp_cache_delete($lockKey, 'options');
+
+        return get_option($lockKey, '');
+    }
+
+    private function newLockValue(): string
+    {
+        $random = function_exists('wp_generate_uuid4') ? wp_generate_uuid4() : bin2hex(random_bytes(16));
+
+        return $random . '|' . time();
     }
 
     /**
@@ -179,7 +230,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
      * the lock without a valid token (it failed) or the wait timed out — the caller
      * then performs its own best-effort refresh so we never block indefinitely.
      */
-    private function waitForRefreshedToken(string $lockKey, int $maxWaitMs = 3000, int $intervalMs = 200): ?array
+    private function waitForRefreshedToken(string $lockKey, int $maxWaitMs = 8000, int $intervalMs = 250): ?array
     {
         $elapsed = 0;
 
@@ -207,10 +258,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private function isRefreshLocked(string $lockKey): bool
     {
-        // Bypass the per-request option cache so we observe another request's release.
-        wp_cache_delete($lockKey, 'options');
-
-        return (bool) get_option($lockKey, false);
+        return (string) $this->readLockOption($lockKey) !== '';
     }
 
     private function performTokenRefresh(array $authDetails): ?array

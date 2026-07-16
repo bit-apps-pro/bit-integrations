@@ -54,6 +54,15 @@ export const buildCallbackState = channelKey => {
   return channelKey ? `${baseState}&oauth_channel=${encodeURIComponent(channelKey)}` : baseState
 }
 
+// Carry the channel key on a redirect/return URL for providers that do NOT echo `state`
+// (e.g. Trello's token flow returns to return_url#token=… with no state), so the popup
+// still broadcasts on our keyed channel instead of only the shared fallback one.
+export const appendOauthChannel = (url, channelKey) => {
+  if (!url || !channelKey) return url
+  const separator = url.includes('?') ? '&' : '?'
+  return `${url}${separator}oauth_channel=${encodeURIComponent(channelKey)}`
+}
+
 const appendQueryParam = (url, key, value) => {
   url.searchParams.append(key, String(value))
 }
@@ -207,8 +216,10 @@ export const exchangeAuthCodeForToken = ({
   sslVerify = true
 }) => {
   const grantParams = {
+    // `code` is already percent-decoded once by URLSearchParams in
+    // readAuthResponseFromUrl; decoding again corrupts codes containing '%'.
     grant_type: 'authorization_code',
-    code: decodeURIComponent(code),
+    code,
     redirect_uri: redirectUri
   }
 

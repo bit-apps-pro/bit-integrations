@@ -44,6 +44,9 @@ export default function useConnectionAuthorize({
       const saveRes = await saveConnection(buildSavePayload(authResult))
 
       if (!saveRes?.success) {
+        // A prior attempt may have set isAuthorized; a failed re-auth must clear it
+        // so the button/step doesn't stay in the "Authorized" state on stale creds.
+        setIsAuthorized(false)
         const reason = saveRes?.data?.data || saveRes?.data || ''
         toast.error(`${__('Failed to save connection Cause:', 'bit-integrations')}${reason}`)
         return

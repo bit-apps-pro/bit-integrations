@@ -117,12 +117,24 @@ class Hash
         $secretKey = Config::getOption('secret_key');
 
         if (!$secretKey) {
-            $secretKey = function_exists('wp_generate_password')
+            $generated = function_exists('wp_generate_password')
                 ? wp_generate_password(64, true, true)
                 : Config::VAR_PREFIX . bin2hex(random_bytes(32));
 
             // Autoloaded so encrypt/decrypt loops avoid repeated DB hits.
-            Config::addOption('secret_key', $secretKey, true);
+            Config::addOption('secret_key', $generated, true);
+
+            // Two concurrent first-time requests could each generate a different key;
+            // add_option only persists the first, but WP updates THIS request's option
+            // cache to its own value. Bust the cache and re-read so every request
+            // converges on the single persisted key (else the loser encrypts with a key
+            // that can never decrypt its own ciphertext).
+            wp_cache_delete('alloptions', 'options');
+            $secretKey = Config::getOption('secret_key');
+
+            if (!$secretKey) {
+                $secretKey = $generated;
+            }
         }
 
         self::$cachedKey = $secretKey;

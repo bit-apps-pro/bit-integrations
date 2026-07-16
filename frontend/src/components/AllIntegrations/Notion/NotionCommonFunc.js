@@ -32,7 +32,7 @@ export const getAllDatabaseLists = async (conf, setConf, loading, setLoading) =>
   if (result.success && result.data.results) {
     const data = result?.data.results
       .filter(e => e.object === 'database')
-      .map(e => ({ id: e.id, name: e.title[0].text.content }))
+      .map(e => ({ id: e.id, name: e.title?.[0]?.text?.content || '(untitled)' }))
     const newConf = { ...conf }
     if (data) {
       if (!newConf.default) {
@@ -126,7 +126,7 @@ const checkMappedFields = notionConf => {
         mappedField =>
           !mappedField.formFields ||
           !mappedField.notionFormFields ||
-          (!mappedField.formFields === 'custom' && !mappedField.customValue)
+          (mappedField.formFields === 'custom' && !mappedField.customValue)
       )
     : []
   if (mappedFields.length > 0) {

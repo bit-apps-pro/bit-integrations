@@ -10,6 +10,7 @@ import {
 } from '../../Utils/connectionTemplates'
 import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
 import {
+  appendOauthChannel,
   buildCallbackState,
   createOauthChannelKey,
   getCallbackState,
@@ -167,16 +168,19 @@ export default function Oauth1Connection({
     const callbackUrlParam = authDetails?.callbackUrlParam || ''
     const stateParam = authDetails?.stateParam || 'state'
 
+    const oauthChannelKey = createOauthChannelKey()
+    const callbackState = buildCallbackState(oauthChannelKey)
+
     if (!queryParams[consumerKeyParam]) {
       authExtraParams[consumerKeyParam] = formData.clientId
     }
 
+    // Round-trip the channel key on the callback URL so providers that redirect to
+    // return_url without echoing `state` (e.g. Trello token flow) still broadcast on
+    // our channel — otherwise the popup response is dropped and authorization hangs.
     if (callbackUrlParam && !queryParams[callbackUrlParam]) {
-      authExtraParams[callbackUrlParam] = callbackUrl
+      authExtraParams[callbackUrlParam] = appendOauthChannel(callbackUrl, oauthChannelKey)
     }
-
-    const oauthChannelKey = createOauthChannelKey()
-    const callbackState = buildCallbackState(oauthChannelKey)
 
     const authUrl = buildOauth1AuthUrl(
       {

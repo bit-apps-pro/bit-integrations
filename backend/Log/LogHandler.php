@@ -337,9 +337,34 @@ final class LogHandler
         }
         $attempted = true;
 
-        DB::addFieldDataColumn();
-        DB::addParentIdColumn();
-        DB::addParentIdIndex();
+        // Serialize the one-time DDL across concurrent front-end requests. Without this,
+        // two simultaneous post-upgrade submissions both pass the column-exists check and
+        // both run ALTER TABLE, the second failing with "Duplicate column". A request that
+        // does not win the sentinel skips the migration and relies on the cached-ready flag
+        // a later request sets. A stale sentinel (crashed migration) is reclaimed after 30s.
+        $migrationLock = 'btcbi_log_columns_migrating';
+
+        if (!add_option($migrationLock, time(), '', 'no')) {
+            $lockedAt = (int) get_option($migrationLock, 0);
+
+            if ($lockedAt > 0 && (time() - $lockedAt) < 30) {
+                return false;
+            }
+
+            delete_option($migrationLock);
+
+            if (!add_option($migrationLock, time(), '', 'no')) {
+                return false;
+            }
+        }
+
+        try {
+            DB::addFieldDataColumn();
+            DB::addParentIdColumn();
+            DB::addParentIdIndex();
+        } finally {
+            delete_option($migrationLock);
+        }
 
         // Only cache "ready" once the columns are confirmed present; otherwise a failed ALTER would be
         // cached permanently and break every future write. Leaving the option unset lets a LATER
