@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 class OAuth2Authorization extends AbstractBaseAuthorization
@@ -101,7 +102,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     public function refreshAccessToken(array $authDetails): ?array
     {
         $connectionId = $this->getConnectionId();
-        $lockKey = 'btcbi_oauth_refresh_lock_' . $connectionId;
+        $lockKey = Config::VAR_PREFIX . 'oauth_refresh_lock_' . $connectionId;
         $lockAcquired = $connectionId > 0 ? $this->acquireRefreshLock($lockKey) : false;
 
         if ($connectionId > 0 && !$lockAcquired) {

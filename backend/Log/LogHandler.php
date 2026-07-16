@@ -342,7 +342,7 @@ final class LogHandler
         // both run ALTER TABLE, the second failing with "Duplicate column". A request that
         // does not win the sentinel skips the migration and relies on the cached-ready flag
         // a later request sets. A stale sentinel (crashed migration) is reclaimed after 30s.
-        $migrationLock = 'btcbi_log_columns_migrating';
+        $migrationLock = Config::VAR_PREFIX . 'log_columns_migrating';
 
         if (!add_option($migrationLock, time(), '', 'no')) {
             $lockedAt = (int) get_option($migrationLock, 0);
