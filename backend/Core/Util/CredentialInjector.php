@@ -31,13 +31,28 @@ class CredentialInjector
             return;
         }
 
-        $config    = $controllerClass::$authConfig;
-        $handler   = AuthorizationFactory::getAuthorizationHandler(
-            $config['authType'],
-            $connectionId,
-            $config['slug']
-        );
-        $authDetails = $handler->getAuthDetails();
+        $config = $controllerClass::$authConfig;
+
+        try {
+            $handler = AuthorizationFactory::getAuthorizationHandler(
+                $config['authType'],
+                $connectionId,
+                $config['slug']
+            );
+            $authDetails = $handler->getAuthDetails();
+        } catch (\Throwable $e) {
+            // Unknown auth type or a decrypt error can throw here. Skip injection so
+            // the action runs with its own (un-injected) fields and fails its own
+            // validation — this keeps the "no exception escapes Flow::execute" invariant.
+            return;
+        }
+
+        // A missing connection or a decrypt failure otherwise surfaces as null or an
+        // empty set. Skip injection rather than flattening empty strings onto every
+        // field — which would silently ship blank credentials to the action.
+        if (!\is_array($authDetails) || $authDetails === []) {
+            return;
+        }
 
         foreach ($config['fields'] as $oldField => $authKey) {
             if ($oldField === '__object') {

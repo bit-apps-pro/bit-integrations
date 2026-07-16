@@ -307,6 +307,17 @@ final class ConnectionController
     {
         $this->guard();
 
+        // Deleting a connection requires a delete-scoped capability (mirrors flow
+        // deletion, Flow::deleteFlow) — the generic manage/create/edit guard above
+        // is not sufficient for a destructive action.
+        if (
+            !Capabilities::Check('manage_options')
+            && !Capabilities::Check('bit_integrations_manage_integrations')
+            && !Capabilities::Check('bit_integrations_delete_integrations')
+        ) {
+            wp_send_json_error(__('You do not have permission to delete connections', 'bit-integrations'));
+        }
+
         $id = $this->normalizeId($request);
 
         if ($id === 0) {
@@ -323,7 +334,8 @@ final class ConnectionController
             $linkedIntegrationCount = \count($linkedIntegrations);
             wp_send_json_error(
                 [
-                    'message'             => wp_sprintf(
+                    'message' => wp_sprintf(
+                        // translators: %d: number of linked integrations
                         __('Connection is linked with %d integration(s). Remove this connection from those integrations before deleting.', 'bit-integrations'),
                         $linkedIntegrationCount
                     ),
@@ -672,6 +684,8 @@ final class ConnectionController
 
     /**
      * List responses should not expose decrypted credential payloads.
+     *
+     * @param mixed $row
      */
     private function formatListRow($row, ?array $linkedIntegrations = null): array
     {

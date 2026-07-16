@@ -67,8 +67,6 @@ class Hash
             $envelope = base64_decode(urldecode(substr($encryptedData, \strlen(self::V2_PREFIX))), true);
 
             if ($envelope === false || \strlen($envelope) <= self::GCM_IV_LENGTH + self::GCM_TAG_LENGTH) {
-                error_log('[bit-integrations] auth credential decrypt failed (tampered or key rotated)');
-
                 return null;
             }
 
@@ -79,8 +77,6 @@ class Hash
             $decrypted = openssl_decrypt($cipherRaw, self::CIPHER_GCM, self::gcmKey(), OPENSSL_RAW_DATA, $iv, $tag);
 
             if ($decrypted === false) {
-                error_log('[bit-integrations] auth credential decrypt failed (tampered or key rotated)');
-
                 return null;
             }
 

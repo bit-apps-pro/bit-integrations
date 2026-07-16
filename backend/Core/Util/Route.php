@@ -145,6 +145,8 @@ final class Route
                 }
 
                 if (\is_object($data)) {
+                    // inject() is total — credential-resolution failures are handled
+                    // inside it (injection skipped), so it never surfaces a fatal here.
                     CredentialInjector::inject($data, $invokeable[0]);
                 }
 

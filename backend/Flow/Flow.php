@@ -535,6 +535,8 @@ final class Flow
                 }
 
                 if (!\is_null($integrationName) && $integration = static::isActionExists($integrationName)) {
+                    // inject() is total — it swallows credential-resolution failures
+                    // internally and skips injection, so it can never abort Flow::execute.
                     CredentialInjector::inject($flowData->flow_details, $integration);
 
                     $handler = new $integration($flowData->id);

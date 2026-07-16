@@ -101,6 +101,21 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         $lockKey = 'btcbi_oauth_refresh_lock_' . $connectionId;
         $lockAcquired = $connectionId > 0 ? $this->acquireRefreshLock($lockKey) : false;
 
+        if ($connectionId > 0 && !$lockAcquired) {
+            // Another request is already refreshing. Block briefly for it to finish
+            // and reload the token it persisted, rather than issuing our own refresh —
+            // a second POST would replay/rotate the refresh token and can brick the
+            // connection on providers that rotate it (see performTokenRefresh).
+            $fresh = $this->waitForRefreshedToken($lockKey);
+
+            if ($fresh !== null) {
+                return $fresh;
+            }
+
+            // Winner released the lock without producing a fresh token (it failed or
+            // timed out); fall through to a best-effort refresh so we never block forever.
+        }
+
         try {
             if ($lockAcquired) {
                 // Double-checked read: a concurrent request may have refreshed the
@@ -154,6 +169,48 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         delete_option($lockKey);
 
         return (bool) add_option($lockKey, time(), '', 'no');
+    }
+
+    /**
+     * Loser path: block up to $maxWaitMs for the lock holder to persist a refreshed
+     * token, polling the connection row directly (a fresh ConnectionModel query, not
+     * the option cache) so we observe the holder's write. Returns the fresh auth
+     * details once the token is no longer expired; returns null if the holder released
+     * the lock without a valid token (it failed) or the wait timed out — the caller
+     * then performs its own best-effort refresh so we never block indefinitely.
+     */
+    private function waitForRefreshedToken(string $lockKey, int $maxWaitMs = 3000, int $intervalMs = 200): ?array
+    {
+        $elapsed = 0;
+
+        while ($elapsed < $maxWaitMs) {
+            usleep($intervalMs * 1000);
+            $elapsed += $intervalMs;
+
+            // Force a fresh DB read of the connection so we see the holder's persisted token.
+            $this->connection = null;
+            $fresh = parent::getAuthDetails();
+
+            if (!empty($fresh) && !$this->isTokenExpired($fresh['generated_at'] ?? null, $fresh['expires_in'] ?? null)) {
+                return $fresh;
+            }
+
+            // Holder released the lock but the token is still expired => it failed;
+            // stop waiting and let the caller do a best-effort refresh.
+            if (!$this->isRefreshLocked($lockKey)) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private function isRefreshLocked(string $lockKey): bool
+    {
+        // Bypass the per-request option cache so we observe another request's release.
+        wp_cache_delete($lockKey, 'options');
+
+        return (bool) get_option($lockKey, false);
     }
 
     private function performTokenRefresh(array $authDetails): ?array
