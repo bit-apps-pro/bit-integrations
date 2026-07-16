@@ -194,7 +194,7 @@ export default function Oauth1Connection({
     )
 
     const popupResponse = normalizePopupResponse(
-      await openOauthPopup(authUrl, authDetails?.authorizationWindowLabel || 'OAuth1', {
+      await openOauthPopup(authUrl, {
         channelKey: oauthChannelKey,
         includeLegacyFallback: true
       })

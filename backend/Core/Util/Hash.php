@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\Config;
+use RuntimeException;
 
 class Hash
 {
@@ -52,6 +53,14 @@ class Hash
             self::GCM_TAG_LENGTH
         );
 
+        // Without this, a failed encrypt concatenates false as '' and returns a
+        // well-formed-looking envelope holding no ciphertext. It stores cleanly and only
+        // fails at decrypt — by which point the original credential is gone. Throwing
+        // keeps a credential that cannot be encrypted from being written at all.
+        if ($cipherRaw === false) {
+            throw new RuntimeException('Unable to encrypt value: ' . openssl_error_string());
+        }
+
         return self::V2_PREFIX . urlencode(base64_encode($iv . $tag . $cipherRaw));
     }
 
@@ -67,7 +76,7 @@ class Hash
             $envelope = base64_decode(urldecode(substr($encryptedData, \strlen(self::V2_PREFIX))), true);
 
             if ($envelope === false || \strlen($envelope) <= self::GCM_IV_LENGTH + self::GCM_TAG_LENGTH) {
-                return null;
+                return;
             }
 
             $iv = substr($envelope, 0, self::GCM_IV_LENGTH);
@@ -77,7 +86,7 @@ class Hash
             $decrypted = openssl_decrypt($cipherRaw, self::CIPHER_GCM, self::gcmKey(), OPENSSL_RAW_DATA, $iv, $tag);
 
             if ($decrypted === false) {
-                return null;
+                return;
             }
 
             return $decrypted;
@@ -88,7 +97,7 @@ class Hash
         $decode = urldecode($encryptedData);
         $ivLength = openssl_cipher_iv_length(self::CIPHER);
 
-        if (strlen($decode) <= $ivLength) {
+        if (\strlen($decode) <= $ivLength) {
             return $encryptedData;
         }
 
@@ -117,7 +126,7 @@ class Hash
         $secretKey = Config::getOption('secret_key');
 
         if (!$secretKey) {
-            $generated = function_exists('wp_generate_password')
+            $generated = \function_exists('wp_generate_password')
                 ? wp_generate_password(64, true, true)
                 : Config::VAR_PREFIX . bin2hex(random_bytes(32));
 

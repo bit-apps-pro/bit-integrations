@@ -14,11 +14,13 @@ use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Database\FlowModel;
 use BitApps\Integrations\Core\Http\ConnectionTestApi;
 use BitApps\Integrations\Core\Util\Capabilities;
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\PluginCheck;
 use Exception;
+use Throwable;
 use WP_Error;
 
 final class ConnectionController
@@ -64,6 +66,18 @@ final class ConnectionController
         AuthorizationType::BEARER_TOKEN => ['token'],
         AuthorizationType::OAUTH2       => ['client_secret', 'access_token', 'refresh_token'],
         AuthorizationType::OAUTH1       => ['consumer_secret', 'access_token', 'access_token_secret'],
+    ];
+
+    /**
+     * Auth types with no fixed credential shape, so no floor can be derived for them.
+     *
+     * These must declare their own encrypt_keys; a save that omits them is rejected
+     * rather than stored. Defaulting to [] instead would mean "encrypt nothing" —
+     * the secrets would be written to the database in plaintext AND handed back in
+     * full by getById/save, which is the opposite of a safe default.
+     */
+    private const ENCRYPT_KEYS_REQUIRED_TYPES = [
+        AuthorizationType::CUSTOM,
     ];
 
     public function index($request)
@@ -136,10 +150,22 @@ final class ConnectionController
             wp_send_json_error($payload->get_error_message());
         }
 
-        // Upsert policy: same (app_slug, account_name) is treated as the same connection
-        // and gets refreshed. Prevents accidental duplicates when re-authorizing the same
-        // account from a flow builder. Skipped when account_name is empty.
-        $existingId = $this->findExistingIdForAccount($payload['app_slug'], $payload['account_name']);
+        // Upsert policy: same (app_slug, auth_type, account_name) is treated as the same
+        // connection and gets refreshed. Prevents accidental duplicates when
+        // re-authorizing the same account from a flow builder.
+        //
+        // Requires a caller-supplied account_name. A backfilled one is derived from the
+        // app slug, so matching on it would make every nameless connection for an app
+        // collide and overwrite the previous one's credentials. Without a real account
+        // name a new row is the only safe outcome: a duplicate is recoverable, a
+        // clobbered credential is not.
+        $existingId = empty($payload['account_name_provided'])
+            ? 0
+            : $this->findExistingIdForAccount(
+                $payload['app_slug'],
+                $payload['account_name'],
+                $payload['auth_type']
+            );
 
         if ($existingId > 0) {
             $updated = $this->persist($payload, $existingId);
@@ -434,7 +460,6 @@ final class ConnectionController
         $method = strtoupper($this->sanitizeScalar($request->method ?? 'POST'));
         $bodyParams = $this->normalizeArray($request->body_params ?? []);
         $headers = $this->normalizeHeaders($request->headers ?? []);
-        $sslVerify = AuthDataCodec::normalizeSslVerify($request->ssl_verify ?? null);
 
         if ($url === '') {
             wp_send_json_error(__('Token URL is required', 'bit-integrations'));
@@ -450,9 +475,14 @@ final class ConnectionController
 
         $options = [];
 
-        if ($sslVerify !== null) {
-            $options['sslverify'] = $sslVerify;
-            $options['verify'] = $sslVerify;
+        // TLS verification is deliberately not negotiable from the request. This exchange
+        // sends client_secret and receives access_token, so honouring a client-supplied
+        // ssl_verify=false would hand an attacker a MITM on the credential itself. The URL
+        // is already pinned to public HTTPS, where a valid certificate is the norm; a site
+        // owner fronting an on-prem provider with a self-signed cert opts out per-URL here.
+        if (!Hooks::apply('bit_integrations_connection_ssl_verify', true, $url)) {
+            $options['sslverify'] = false;
+            $options['verify'] = false;
         }
 
         $contentType = strtolower($headers['Content-Type'] ?? ($headers['content-type'] ?? ''));
@@ -526,12 +556,18 @@ final class ConnectionController
         $accountName = $this->sanitizeScalar($request->account_name ?? '');
         $connectionName = $this->sanitizeScalar($request->connection_name ?? '');
 
+        // Only a caller-supplied account_name identifies a real account, and only that
+        // may key the upsert. A synthesized one must never match an existing row: with
+        // both names omitted the backfill below collapses to $appSlug for every account,
+        // so a second connection would silently overwrite the first one's credentials.
+        $accountNameProvided = $accountName !== '';
+
         if ($connectionName === '') {
             $connectionName = $accountName !== '' ? $accountName : $appSlug;
         }
 
-        // Backfill account_name so findExistingIdForAccount upsert key is never empty —
-        // otherwise re-authorize creates duplicate rows for the same logical account.
+        // Backfill account_name so the column is never empty — otherwise re-authorize
+        // creates duplicate rows for the same logical account.
         if ($accountName === '') {
             $accountName = $connectionName;
         }
@@ -539,13 +575,14 @@ final class ConnectionController
         $resolvedAuthType = $authType !== '' ? $authType : AuthorizationType::OAUTH2;
 
         return [
-            'app_slug'        => $appSlug,
-            'auth_type'       => $resolvedAuthType,
-            'connection_name' => $connectionName,
-            'account_name'    => $accountName,
-            'auth_details'    => $authDetails,
-            'encrypt_keys'    => $this->resolveEncryptKeys($request, $resolvedAuthType),
-            'status'          => isset($request->status)
+            'app_slug'              => $appSlug,
+            'auth_type'             => $resolvedAuthType,
+            'connection_name'       => $connectionName,
+            'account_name'          => $accountName,
+            'account_name_provided' => $accountNameProvided,
+            'auth_details'          => $authDetails,
+            'encrypt_keys'          => $this->resolveEncryptKeys($request, $resolvedAuthType),
+            'status'                => isset($request->status)
                 ? $this->sanitizeStatus($request->status, ConnectionModel::STATUS_VERIFIED)
                 : ConnectionModel::STATUS_VERIFIED,
         ];
@@ -579,7 +616,16 @@ final class ConnectionController
             $authDetails['generated_at'] = time();
         }
 
-        $authDetails = AuthDataCodec::encryptValues($authDetails, $encryptKeys);
+        try {
+            $authDetails = AuthDataCodec::encryptValues($authDetails, $encryptKeys);
+        } catch (Throwable $e) {
+            // Hash::encrypt throws rather than hand back an envelope it could not fill.
+            // Refuse the save: storing the row anyway would write the credential to the
+            // database in plaintext, which is the one outcome encrypt_keys exists to
+            // prevent. The message is generic — the exception carries OpenSSL detail
+            // that does not belong in an HTTP response.
+            wp_send_json_error(__('Connection credentials could not be encrypted.', 'bit-integrations'), 500);
+        }
 
         $now = current_time('mysql');
 
@@ -630,38 +676,9 @@ final class ConnectionController
      */
     private function isPublicHttpsUrl(string $url): bool
     {
-        // Opt-in escape hatch for self-hosted / on-prem integrations reachable only over
-        // HTTP or on a private/LAN IP. The default keeps the SSRF-hardened public-HTTPS
-        // rule; a site owner accepts the risk per-URL by returning true from this filter.
-        if (Hooks::apply('bit_integrations_allow_internal_connection_url', false, $url)) {
-            return true;
-        }
-
-        $parts = wp_parse_url($url);
-
-        if (!$parts || empty($parts['scheme']) || empty($parts['host'])) {
-            return false;
-        }
-
-        if (strtolower($parts['scheme']) !== 'https') {
-            return false;
-        }
-
-        $host = strtolower($parts['host']);
-
-        if (\in_array($host, ['localhost', 'localhost.localdomain', 'ip6-localhost', 'ip6-loopback'], true)) {
-            return false;
-        }
-
-        if (filter_var($host, FILTER_VALIDATE_IP)) {
-            return (bool) filter_var(
-                $host,
-                FILTER_VALIDATE_IP,
-                FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
-            );
-        }
-
-        return true;
+        // Shared with the OAuth2 refresh path so a URL rejected here cannot be reached
+        // by a later refresh under a looser rule.
+        return Common::isPublicHttpsUrl($url);
     }
 
     private function findById(int $id)
@@ -675,9 +692,16 @@ final class ConnectionController
         return $rows[0];
     }
 
-    private function findExistingIdForAccount(string $appSlug, string $accountName): int
+    /**
+     * The id of the existing connection this save should refresh, or 0 to create a new one.
+     *
+     * auth_type is part of the key: the same account can legitimately be connected two
+     * ways (an API key and an OAuth2 grant), and those rows hold different credential
+     * shapes. Matching on (app_slug, account_name) alone would let one overwrite the other.
+     */
+    private function findExistingIdForAccount(string $appSlug, string $accountName, string $authType = ''): int
     {
-        if ($appSlug === '' || $accountName === '') {
+        if ($appSlug === '' || $accountName === '' || $authType === '') {
             return 0;
         }
 
@@ -686,6 +710,7 @@ final class ConnectionController
             [
                 'app_slug'     => $appSlug,
                 'account_name' => $accountName,
+                'auth_type'    => $authType,
                 'status'       => ConnectionModel::STATUS_VERIFIED,
             ],
             1,
@@ -758,11 +783,15 @@ final class ConnectionController
      * non-secret configuration (version, location_id, dataCenter, api_url, ...)
      * that the UI legitimately reads back. Callers needing to know a secret exists
      * can test encrypt_keys, which is still returned.
+     *
+     * Keys are dot-paths, resolved the same way AuthDataCodec encrypts them. A flat
+     * unset() here would leave a nested credential (`tokenDetails.access_token`)
+     * encrypted at rest but still present in the response.
      */
     private function withoutSecrets(array $authDetails, array $encryptKeys): array
     {
         foreach ($encryptKeys as $key) {
-            unset($authDetails[$key]);
+            AuthDataCodec::unsetNested($authDetails, (string) $key);
         }
 
         return $authDetails;
@@ -773,14 +802,26 @@ final class ConnectionController
      * A client may add keys but never drop one, and omitting the field entirely no
      * longer means "store everything in plaintext".
      *
+     * Types with no derivable floor (CUSTOM) must declare their own keys: the request
+     * is rejected instead of falling through to an empty set, which would store the
+     * credentials in plaintext and return them verbatim to the browser.
+     *
      * @param mixed $request
      */
     private function resolveEncryptKeys($request, string $authType = ''): array
     {
         $keys = $this->resolveRequestedEncryptKeys($request);
         $floor = self::ENCRYPT_KEY_FLOOR[$authType] ?? [];
+        $resolved = array_values(array_unique(array_merge($floor, $keys)));
 
-        return array_values(array_unique(array_merge($floor, $keys)));
+        if ($resolved === [] && \in_array($authType, self::ENCRYPT_KEYS_REQUIRED_TYPES, true)) {
+            wp_send_json_error(
+                __('This connection type must declare which credential fields to encrypt.', 'bit-integrations'),
+                400
+            );
+        }
+
+        return $resolved;
     }
 
     private function resolveRequestedEncryptKeys($request): array

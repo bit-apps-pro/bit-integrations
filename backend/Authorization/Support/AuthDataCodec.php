@@ -94,6 +94,34 @@ class AuthDataCodec
         $cursor[$last] = $value;
     }
 
+    /**
+     * Remove the value at a dot-path, if present.
+     *
+     * Mirrors setNested so a key that encryptValues() wrote to a nested path is
+     * removed from that same path — a flat unset() would miss it and leak the
+     * credential back to the client.
+     */
+    public static function unsetNested(array &$data, string $path): void
+    {
+        if ($path === '') {
+            return;
+        }
+
+        $segments = explode('.', $path);
+        $last = array_pop($segments);
+        $cursor = &$data;
+
+        foreach ($segments as $segment) {
+            if (!isset($cursor[$segment]) || !\is_array($cursor[$segment])) {
+                return;
+            }
+
+            $cursor = &$cursor[$segment];
+        }
+
+        unset($cursor[$last]);
+    }
+
     public static function encryptValues(array $data, array $keys): array
     {
         return self::transformValues($data, $keys, [Hash::class, 'encrypt']);

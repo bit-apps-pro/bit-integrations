@@ -42,6 +42,43 @@ final class PluginCheck
     private const ALLOWED_LOGIC = ['AND', 'OR'];
 
     /**
+     * Constants whose VALUE must never be comparable through a check.
+     *
+     * The 'constant' check reports whether constant(X) === expected for a caller-supplied
+     * X, which is an equality oracle: repeated calls can confirm a guessed DB_PASSWORD or
+     * AUTH_KEY one candidate at a time. Existence (defined()) leaks nothing and stays
+     * allowed — only the comparison is refused, and it is refused rather than answered so
+     * a denied probe is indistinguishable from a wrong guess.
+     */
+    private const VALUE_COMPARISON_DENIED = [
+        'DB_NAME',
+        'DB_USER',
+        'DB_PASSWORD',
+        'DB_HOST',
+        'AUTH_KEY',
+        'SECURE_AUTH_KEY',
+        'LOGGED_IN_KEY',
+        'NONCE_KEY',
+        'AUTH_SALT',
+        'SECURE_AUTH_SALT',
+        'LOGGED_IN_SALT',
+        'NONCE_SALT',
+    ];
+
+    /**
+     * Name fragments marking a constant as secret-bearing, so plugin-defined credentials
+     * (ACME_API_SECRET, FOO_PRIVATE_KEY) are covered without enumerating them. A legitimate
+     * activation check asserts on a path or version, never on a value named like this.
+     */
+    private const VALUE_COMPARISON_DENIED_PATTERNS = [
+        'PASSWORD',
+        'SECRET',
+        'SALT',
+        'PRIVATE',
+        'TOKEN',
+    ];
+
+    /**
      * @param array $spec accepts groups OR flat checks; nested values may be stdClass
      *
      * @return array{available:bool,message?:string}
@@ -171,6 +208,26 @@ final class PluginCheck
     }
 
     /**
+     * Whether comparing this constant's value would expose a secret.
+     */
+    private static function isValueComparisonDenied(string $name): bool
+    {
+        $name = strtoupper($name);
+
+        if (\in_array($name, self::VALUE_COMPARISON_DENIED, true)) {
+            return true;
+        }
+
+        foreach (self::VALUE_COMPARISON_DENIED_PATTERNS as $fragment) {
+            if (strpos($name, $fragment) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param null|bool|float|int|string $expected
      */
     private static function matches(string $type, string $value, bool $hasExpected = false, $expected = null): bool
@@ -185,7 +242,15 @@ final class PluginCheck
                     return false;
                 }
 
-                return !$hasExpected || \constant($value) === $expected;
+                if (!$hasExpected) {
+                    return true;
+                }
+
+                if (self::isValueComparisonDenied($value)) {
+                    return false;
+                }
+
+                return \constant($value) === $expected;
             case 'plugin_file':
                 if (!\function_exists('is_plugin_active')) {
                     require_once ABSPATH . 'wp-admin/includes/plugin.php';

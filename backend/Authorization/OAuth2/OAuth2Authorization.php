@@ -31,6 +31,17 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private const WAIT_POLL_MS = 250;
 
+    /**
+     * Lifetime assumed for a token whose provider omitted expires_in.
+     *
+     * RFC 6749 only RECOMMENDS expires_in, and real providers (Salesforce) leave it out.
+     * Treating "no expires_in" as "never expires" means a refreshable connection is
+     * never refreshed and 401s forever once the provider's own session lapses. One hour
+     * is the de-facto default and errs on the safe side: refreshing early costs a POST,
+     * refreshing never costs the connection.
+     */
+    private const ASSUMED_EXPIRES_IN = 3600;
+
     private $bodyParams;
 
     private $refreshTokenUrl;
@@ -101,10 +112,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             return null;
         }
 
-        $generatedAt = $authDetails['generated_at'] ?? null;
-        $expiresIn = $authDetails['expires_in'] ?? null;
-
-        if (!$this->isTokenExpired($generatedAt, $expiresIn)) {
+        if (!$this->isStoredTokenExpired($authDetails)) {
             return $authDetails;
         }
 
@@ -188,10 +196,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             $freshDetails = parent::getAuthDetails();
 
             if (!empty($freshDetails)) {
-                $generatedAt = $freshDetails['generated_at'] ?? null;
-                $expiresIn = $freshDetails['expires_in'] ?? null;
-
-                if (!$this->isTokenExpired($generatedAt, $expiresIn)) {
+                if (!$this->isStoredTokenExpired($freshDetails)) {
                     // Already refreshed by another request — no network call.
                     return $freshDetails;
                 }
@@ -320,6 +325,43 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         return $value === null ? '' : $value;
     }
 
+    /**
+     * Expiry check that accounts for providers omitting expires_in.
+     */
+    private function isStoredTokenExpired(array $authDetails): bool
+    {
+        return $this->isTokenExpired(
+            $authDetails['generated_at'] ?? null,
+            $this->effectiveExpiresIn($authDetails)
+        );
+    }
+
+    /**
+     * The token's expires_in, or an assumed lifetime when the provider omitted it.
+     *
+     * The assumption is only made when a refresh could actually succeed — a stored
+     * refresh_token, or a client_credentials grant that re-fetches without one. With
+     * neither, there is nothing to refresh with, so the token is left to be used until
+     * the provider rejects it; pretending it expires would only force a refresh that is
+     * guaranteed to fail.
+     */
+    private function effectiveExpiresIn(array $authDetails): int
+    {
+        $expiresIn = (int) ($authDetails['expires_in'] ?? 0);
+
+        if ($expiresIn > 0) {
+            return $expiresIn;
+        }
+
+        $isClientCredentials = ($authDetails['grant_type'] ?? '') === 'client_credentials';
+
+        if (empty($authDetails['refresh_token']) && !$isClientCredentials) {
+            return 0;
+        }
+
+        return self::ASSUMED_EXPIRES_IN;
+    }
+
     private function newLockValue(): string
     {
         $random = \function_exists('wp_generate_uuid4') ? wp_generate_uuid4() : bin2hex(random_bytes(16));
@@ -370,7 +412,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         $this->connection = null;
         $fresh = parent::getAuthDetails();
 
-        if (empty($fresh) || $this->isTokenExpired($fresh['generated_at'] ?? null, $fresh['expires_in'] ?? null)) {
+        if (empty($fresh) || $this->isStoredTokenExpired($fresh)) {
             return null;
         }
 
@@ -392,17 +434,32 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             return null;
         }
 
+        // This POST carries client_id/client_secret and the refresh_token. HttpHelper
+        // already screens the resolved IP, but it accepts http:// — so without this a
+        // connection row whose refresh_token_url is cleartext would replay the client
+        // credentials in the open on every refresh. Same rule the connection endpoints
+        // apply at save time, so a URL rejected there cannot slip back in here.
+        if (!Common::isPublicHttpsUrl((string) $url)) {
+            $this->setLastError(__('Refresh token endpoint must be a public https URL', 'bit-integrations'));
+
+            return null;
+        }
+
         $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
         $headers = $this->buildRefreshHeaders($authDetails);
 
         // Bound explicitly: HttpHelper's 30s default would outlive both the waiters
         // blocking on this refresh and the stale-lock window (see the constants above).
         $requestOptions = ['timeout' => self::REFRESH_HTTP_TIMEOUT];
+
+        // ssl_verify is read from the stored connection, but only ever to tighten —
+        // never to disable verification on a request carrying the client_secret.
+        // A site owner needing an on-prem exception uses the filter above.
         $sslVerify = AuthDataCodec::normalizeSslVerify($authDetails['ssl_verify'] ?? null);
 
-        if ($sslVerify !== null) {
-            $requestOptions['sslverify'] = $sslVerify;
-            $requestOptions['verify'] = $sslVerify;
+        if ($sslVerify === true) {
+            $requestOptions['sslverify'] = true;
+            $requestOptions['verify'] = true;
         }
 
         $response = HttpHelper::post($url, $body, $headers, $requestOptions);
@@ -424,7 +481,17 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
         $response = \is_object($response) ? json_decode(wp_json_encode($response), true) : (array) $response;
 
-        $authDetails['access_token'] = $response['access_token'] ?? ($authDetails['access_token'] ?? '');
+        // A 2xx carrying no access_token is a failed refresh wearing a success status.
+        // Falling back to the old token while restamping generated_at would re-mark a
+        // stale token fresh for another full expires_in window, suppressing every
+        // subsequent refresh until it lapses — the connection 401s the whole time.
+        if (empty($response['access_token'])) {
+            $this->setLastError(__('Token refresh response did not contain an access token', 'bit-integrations'), $response);
+
+            return null;
+        }
+
+        $authDetails['access_token'] = $response['access_token'];
 
         if (!empty($response['refresh_token'])) {
             $authDetails['refresh_token'] = $response['refresh_token'];
@@ -446,7 +513,19 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             $this->authDetailsOverride = $authDetails;
         }
 
-        $this->updateAuthDetails($authDetails);
+        // A silently-dropped persist is the worst failure this class has: the provider
+        // has already rotated the grant, so the refresh_token still in the database is
+        // spent. Every later request reads those stale details, replays the spent token,
+        // and providers that rotate (Google, Dropbox, Zoho) revoke the whole grant on
+        // replay — the exact bricking the lock above exists to prevent. It cannot be
+        // undone here, so surface it loudly instead of returning as if all is well.
+        //
+        // connectionId <= 0 is the credential-test path: there is no row to write to and
+        // the in-memory override above already carries the token, so a false return there
+        // is expected rather than a failure.
+        if ($this->getConnectionId() > 0 && !$this->updateAuthDetails($authDetails)) {
+            $this->setLastError(__('Refreshed token could not be saved to the connection', 'bit-integrations'));
+        }
 
         return $authDetails;
     }

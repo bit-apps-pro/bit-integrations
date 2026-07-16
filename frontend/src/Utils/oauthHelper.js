@@ -91,13 +91,17 @@ const extractChannelFromState = stateValue => {
   }
 }
 
-export const openOauthPopup = (
-  authUrl,
-  label = 'OAuth',
-  { channelKey = '', includeLegacyFallback = false } = {}
-) =>
+// The popup's window name must never come from user input. A connection named `_top`,
+// `_self` or `_parent` is a reserved browsing-context name: the admin tab itself would
+// navigate to the provider instead of a popup opening, and the promise would never
+// settle because `popup.closed` stays false. Two connections sharing a name also reuse
+// the same window, so one flow hijacks the other's. channelKey is random and unique per
+// attempt, which is exactly the property the window name needs.
+const getPopupName = channelKey => `bit_oauth_${channelKey || randomToken(8)}`
+
+export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback = false } = {}) =>
   new Promise(resolve => {
-    const popup = window.open(authUrl, label, 'width=500,height=650,toolbar=off')
+    const popup = window.open(authUrl, getPopupName(channelKey), 'width=500,height=650,toolbar=off')
 
     if (!popup) {
       resolve({ error: 'popup_blocked' })

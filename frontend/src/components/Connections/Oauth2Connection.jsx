@@ -157,7 +157,7 @@ export default function Oauth2Connection({
     const oauthChannelKey = createOauthChannelKey()
     const state = buildCallbackState(oauthChannelKey)
     const authUrl = buildAuthUrl(populatedAuthCodeEndpoint, { state, redirectUri, extraParams })
-    const popupResponse = await openOauthPopup(authUrl, formData.connectionName || 'OAuth', {
+    const popupResponse = await openOauthPopup(authUrl, {
       channelKey: oauthChannelKey,
       includeLegacyFallback: true
     })

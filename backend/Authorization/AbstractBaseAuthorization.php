@@ -11,6 +11,7 @@ use BitApps\Integrations\Authorization\Exception\AuthorizationException;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Util\HttpHelper;
+use Throwable;
 
 abstract class AbstractBaseAuthorization implements AuthStrategyInterface
 {
@@ -46,9 +47,9 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      *
      * @throws AuthorizationException
      */
-    public function credential(): AuthCredential
+    public function credential(?RequestContext $context = null): AuthCredential
     {
-        $authConfig = $this->getAuthHeadersOrParams();
+        $authConfig = $this->authConfigFor($context);
 
         if (!\is_array($authConfig)) {
             throw new AuthorizationException(esc_html__('Invalid authorization config', 'bit-integrations'));
@@ -109,7 +110,13 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
             ];
         }
 
-        $authConfig = $this->getAuthHeadersOrParams();
+        // Built before the credential: a signing strategy needs the method, URL and
+        // params it is about to authenticate. Only array payloads are included — those
+        // are the ones sent form-encoded, and an OAuth1 signature covers form body
+        // params but never a JSON or multipart body.
+        $authConfig = $this->authConfigFor(
+            new RequestContext($method === '' ? 'GET' : $method, $apiEndpoint, \is_array($payload) ? $payload : [])
+        );
 
         if (!\is_array($authConfig)) {
             return [
@@ -268,7 +275,15 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         }
 
         $encryptKeys = AuthDataCodec::parseEncryptKeys($connection->encrypt_keys ?? '');
-        $authDetails = AuthDataCodec::encryptValues($authDetails, $encryptKeys);
+
+        try {
+            $authDetails = AuthDataCodec::encryptValues($authDetails, $encryptKeys);
+        } catch (Throwable $e) {
+            // Hash::encrypt throws rather than store a credential it could not encrypt.
+            // Report a failed persist so callers surface it; writing the row without the
+            // encrypted values would put the secret in the database in plaintext.
+            return false;
+        }
 
         $connectionModel = new ConnectionModel();
         $result = $connectionModel->update(
@@ -286,6 +301,25 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         $this->connection = null;
 
         return true;
+    }
+
+    /**
+     * The auth config for a specific request.
+     *
+     * Seam between the context-free getAuthHeadersOrParams() every handler implements
+     * and the strategies that must see the request to authenticate it. The default
+     * ignores $context, which is correct for every credential derived from stored
+     * secrets alone; OAuth1 overrides this to sign over the method, URL and params.
+     *
+     * Both credential() and authorize() route through here so a signing strategy is
+     * driven identically whether it is called from BaseApi or the credential test.
+     *
+     * @return array the handler's ['authLocation' => ..., 'data' => [...]] config, or
+     *               its ['error' => true, 'message' => ...] failure array
+     */
+    protected function authConfigFor(?RequestContext $context = null)
+    {
+        return $this->getAuthHeadersOrParams();
     }
 
     /**

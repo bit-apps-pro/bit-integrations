@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\Exception\AuthorizationException;
+use BitApps\Integrations\Authorization\RequestContext;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 /**
@@ -116,18 +117,25 @@ abstract class BaseApi
     {
         $this->lastAuthException = null;
 
+        $method = strtoupper(trim($method));
+        $method = $method === '' ? 'GET' : $method;
+        $url = $this->resolveUrl($path);
+        $headers = array_merge($this->defaultHeaders, $headers);
+
+        // The URL and method are resolved BEFORE the credential is built: an OAuth1
+        // signature is computed over them, so a credential produced first would be
+        // signing a request that does not exist yet. Only array payloads are passed —
+        // those are the ones sent form-encoded, and an OAuth1 signature covers form body
+        // params but never a JSON or multipart body.
         try {
-            $credential = $this->auth->credential();
+            $credential = $this->auth->credential(
+                new RequestContext($method, $url, \is_array($payload) ? $payload : [])
+            );
         } catch (AuthorizationException $e) {
             $this->lastAuthException = $e;
 
             return ApiResponse::failure(0, $e->getMessage());
         }
-
-        $method = strtoupper(trim($method));
-        $method = $method === '' ? 'GET' : $method;
-        $url = $this->resolveUrl($path);
-        $headers = array_merge($this->defaultHeaders, $headers);
 
         if ($credential->isQuery()) {
             if ($method === 'GET') {
