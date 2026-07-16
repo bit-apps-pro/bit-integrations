@@ -6,11 +6,13 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
+use BitApps\Integrations\Authorization\Exception\AuthorizationException;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-abstract class AbstractBaseAuthorization
+abstract class AbstractBaseAuthorization implements AuthStrategyInterface
 {
     protected $connectionId;
 
@@ -28,6 +30,68 @@ abstract class AbstractBaseAuthorization
     abstract public function getAccessToken();
 
     abstract public function getAuthHeadersOrParams();
+
+    /**
+     * AuthStrategyInterface adapter over getAuthHeadersOrParams(): turns the
+     * legacy ['authLocation' => ..., 'data' => [...]] array into an
+     * AuthCredential, and its ['error' => true, 'message' => ...] failure array
+     * into an AuthorizationException.
+     *
+     * Adapting rather than reimplementing keeps one copy of each auth type's
+     * logic, so every handler works with BaseApi without being rewritten and
+     * the two paths cannot drift.
+     *
+     * Called once per request and never memoized — handlers may compute
+     * per-call values (KirimEmail signs an HMAC over the current timestamp).
+     *
+     * @throws AuthorizationException
+     */
+    public function credential(): AuthCredential
+    {
+        $authConfig = $this->getAuthHeadersOrParams();
+
+        if (!\is_array($authConfig)) {
+            throw new AuthorizationException(__('Invalid authorization config', 'bit-integrations'));
+        }
+
+        if (!empty($authConfig['error'])) {
+            // Carry the handler's array through untouched: the credential-test path
+            // returns it verbatim, and handlers disagree on its exact keys.
+            throw AuthorizationException::fromErrorArray(
+                $authConfig,
+                (string) ($authConfig['message'] ?? __('Authorization failed', 'bit-integrations'))
+            );
+        }
+
+        $data = (isset($authConfig['data']) && \is_array($authConfig['data'])) ? $authConfig['data'] : [];
+
+        return ($authConfig['authLocation'] ?? 'header') === 'query'
+            ? AuthCredential::query($data)
+            : AuthCredential::header($data);
+    }
+
+    /**
+     * Extra WP HTTP API options applied to every BaseApi request.
+     */
+    public function requestOptions(): array
+    {
+        return $this->buildRequestOptionsFromAuthDetails();
+    }
+
+    /**
+     * Reject an otherwise-successful (2xx) credential test. Return an error
+     * message to fail it, or null to accept.
+     *
+     * Some providers answer 200 to a wrong-but-well-formed credential (a
+     * mistyped Zendesk subdomain resolves and returns 200), so a status-only
+     * check would silently pass. Subclasses override to assert on the payload.
+     *
+     * @param mixed $response
+     */
+    public function validateAuthResponse($response): ?string
+    {
+        return null;
+    }
 
     /**
      * Test authorization credentials by calling an API endpoint.
@@ -134,10 +198,15 @@ abstract class AbstractBaseAuthorization
     }
 
     /**
-     * Region-aware providers (Zoho .com/.in/.eu, Salesforce instance_url, MailChimp dc-prefix)
-     * should persist their resolved API base in auth_details under `endpoint_base` or
-     * `api_domain`. RecordApiHelper reads it via $handler->getEndpointBase() to avoid
-     * scattering region logic across the codebase. Subclasses may override.
+     * Resolved API base for region/instance-aware providers (Zoho .com/.in/.eu,
+     * Salesforce instance_url, ActiveCampaign per-account api_url), read from
+     * auth_details so region logic is not scattered across the codebase.
+     *
+     * Consumed by BaseApi when a client is constructed without an explicit base
+     * URL. Handlers whose base is not a stored field override this — see
+     * ZendeskSupportAuthorization, which composes one from the subdomain.
+     * Returns null when the integration derives its base elsewhere; callers must
+     * handle that (BaseApi then only accepts absolute URLs).
      */
     public function getEndpointBase(): ?string
     {
@@ -147,7 +216,7 @@ abstract class AbstractBaseAuthorization
             return null;
         }
 
-        foreach (['endpoint_base', 'api_domain', 'instance_url', 'apiDomain'] as $key) {
+        foreach (['endpoint_base', 'api_domain', 'instance_url', 'apiDomain', 'api_url'] as $key) {
             if (!empty($details[$key]) && \is_string($details[$key])) {
                 return rtrim($details[$key], '/');
             }

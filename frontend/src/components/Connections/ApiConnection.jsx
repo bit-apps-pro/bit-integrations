@@ -164,7 +164,9 @@ export default function ApiConnection({
         setIsAuthorized(false)
         toast.error(
           `${__('Authorization failed Cause:', 'bit-integrations')}${
-            authorizeRes?.data?.data || authorizeRes?.data || 'Unknown error'
+            authorizeRes?.data?.message ||
+            (typeof authorizeRes?.data === 'string' && authorizeRes.data) ||
+            __('Unknown error', 'bit-integrations')
           }. ${__('please try again', 'bit-integrations')}`
         )
         return

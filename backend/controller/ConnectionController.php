@@ -12,6 +12,7 @@ use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Database\FlowModel;
+use BitApps\Integrations\Core\Http\ConnectionTestApi;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\Hooks;
@@ -279,9 +280,11 @@ final class ConnectionController
         }
 
         try {
+            // connectionId 0 + an override is the inline-credential seam: nothing is
+            // persisted yet, so the handler reads the posted details directly.
             $handler = AuthorizationFactory::getAuthorizationHandler($authType, 0, $appSlug);
             $handler->setAuthDetailsOverride($authDetails);
-            $result = $handler->authorize($apiEndpoint, $method, $payload, $headers);
+            $result = (new ConnectionTestApi($handler))->test($apiEndpoint, $method, $payload, $headers);
         } catch (Exception $e) {
             wp_send_json_error($e->getMessage());
         }

@@ -41,6 +41,24 @@ class ZendeskSupportAuthorization extends AbstractBaseAuthorization
         ];
     }
 
+    /**
+     * Zendesk answers 200 for a well-formed request against a wrong subdomain,
+     * so the credential test must assert on the payload, not the status code.
+     *
+     * @param mixed $response
+     */
+    public function validateAuthResponse($response): ?string
+    {
+        $user = \is_object($response) ? ($response->user ?? null) : (\is_array($response) ? ($response['user'] ?? null) : null);
+        $userId = \is_object($user) ? ($user->id ?? null) : (\is_array($user) ? ($user['id'] ?? null) : null);
+
+        if (empty($userId)) {
+            return __('Invalid Zendesk subdomain, email, or API token', 'bit-integrations');
+        }
+
+        return null;
+    }
+
     public function authorize(string $apiEndpoint, string $method = 'GET', $payload = null, array $headers = []): array
     {
         $result = parent::authorize($apiEndpoint, $method, $payload, $headers);
@@ -50,11 +68,10 @@ class ZendeskSupportAuthorization extends AbstractBaseAuthorization
         }
 
         $response = $result['response'] ?? null;
-        $user = \is_object($response) ? ($response->user ?? null) : (\is_array($response) ? ($response['user'] ?? null) : null);
-        $userId = \is_object($user) ? ($user->id ?? null) : (\is_array($user) ? ($user['id'] ?? null) : null);
+        $rejection = $this->validateAuthResponse($response);
 
-        if (empty($userId)) {
-            return $this->errorResult(__('Invalid Zendesk subdomain, email, or API token', 'bit-integrations'), $response);
+        if ($rejection !== null) {
+            return $this->errorResult($rejection, $response);
         }
 
         return $result;

@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
+use stdClass;
+use Throwable;
 
 /**
  * Injects resolved connection credentials into flow_details or request params
@@ -40,7 +42,7 @@ class CredentialInjector
                 $config['slug']
             );
             $authDetails = $handler->getAuthDetails();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // Unknown auth type or a decrypt error can throw here. Skip injection so
             // the action runs with its own (un-injected) fields and fails its own
             // validation — this keeps the "no exception escapes Flow::execute" invariant.
@@ -58,23 +60,25 @@ class CredentialInjector
             if ($oldField === '__object') {
                 // Nested object injection: $authKey = [$targetProp, [$key1, $key2, ...]]
                 [$targetProp, $keys] = $authKey;
-                $obj = new \stdClass();
+                $obj = new stdClass();
                 foreach ($keys as $key) {
                     if ($key === 'generates_on' && empty($authDetails[$key]) && !empty($authDetails['generated_at'])) {
-                        $obj->$key = (int) $authDetails['generated_at'];
+                        $obj->{$key} = (int) $authDetails['generated_at'];
+
                         continue;
                     }
 
                     if ($key === 'generated_at' && empty($authDetails[$key]) && !empty($authDetails['generates_on'])) {
-                        $obj->$key = (int) $authDetails['generates_on'];
+                        $obj->{$key} = (int) $authDetails['generates_on'];
+
                         continue;
                     }
 
-                    $obj->$key = $authDetails[$key] ?? '';
+                    $obj->{$key} = $authDetails[$key] ?? '';
                 }
-                $target->$targetProp = $obj;
+                $target->{$targetProp} = $obj;
             } else {
-                $target->$oldField = $authDetails[$authKey] ?? '';
+                $target->{$oldField} = $authDetails[$authKey] ?? '';
             }
         }
     }

@@ -43,7 +43,24 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         return $this;
     }
 
+    /**
+     * Reading auth details can refresh the token as a side effect (network POST
+     * + DB write) — see ensureFreshToken(), which the getter delegates to so
+     * existing callers keep their implicit refresh. Prefer calling
+     * ensureFreshToken() explicitly at the point a fresh token is actually
+     * needed; the getter will stop refreshing once its callers have migrated.
+     */
     public function getAuthDetails(): ?array
+    {
+        return $this->ensureFreshToken();
+    }
+
+    /**
+     * Return auth details with a non-expired access token, refreshing it first
+     * if needed. Null when details are missing or the refresh failed (the reason
+     * is available via getLastError()).
+     */
+    public function ensureFreshToken(): ?array
     {
         $this->clearLastError();
 
@@ -315,6 +332,16 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         }
 
         $authDetails['generated_at'] = time();
+
+        // Keep an in-memory override in sync with the refreshed token. Without this a
+        // caller running on an override (the credential-test path, which builds the
+        // handler with connectionId 0) has nowhere to persist to — updateAuthDetails()
+        // needs a connection row — so the stale token would still read as expired and
+        // every subsequent getAuthDetails() would replay the same refresh_token on a
+        // second POST. Providers that rotate refresh tokens reject that replay.
+        if (\is_array($this->authDetailsOverride)) {
+            $this->authDetailsOverride = $authDetails;
+        }
 
         $this->updateAuthDetails($authDetails);
 
