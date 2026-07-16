@@ -41,11 +41,25 @@ class CredentialInjector
                 $connectionId,
                 $config['slug']
             );
+
+            // connection_id arrives from the request/flow and is only ever an integer,
+            // so nothing about it says which app it belongs to. Bind it to the
+            // controller asking for it: otherwise pointing a MailChimp action at a
+            // Salesforce connection_id would decrypt Salesforce's token and ship it to
+            // MailChimp's endpoint.
+            if (!self::belongsToIntegration($handler->getConnection(), $config['slug'])) {
+                self::debug($controllerClass, "connection {$connectionId} belongs to a different app");
+
+                return;
+            }
+
             $authDetails = $handler->getAuthDetails();
         } catch (Throwable $e) {
             // Unknown auth type or a decrypt error can throw here. Skip injection so
             // the action runs with its own (un-injected) fields and fails its own
             // validation — this keeps the "no exception escapes Flow::execute" invariant.
+            self::debug($controllerClass, $e->getMessage());
+
             return;
         }
 
@@ -53,6 +67,11 @@ class CredentialInjector
         // empty set. Skip injection rather than flattening empty strings onto every
         // field — which would silently ship blank credentials to the action.
         if (!\is_array($authDetails) || $authDetails === []) {
+            // getLastError() carries the real reason (expired refresh, decrypt failure);
+            // without it the action only reports "missing parameters".
+            $reason = method_exists($handler, 'getLastError') ? $handler->getLastError() : null;
+            self::debug($controllerClass, $reason['message'] ?? 'no auth details resolved');
+
             return;
         }
 
@@ -81,5 +100,40 @@ class CredentialInjector
                 $target->{$oldField} = $authDetails[$authKey] ?? '';
             }
         }
+    }
+
+    /**
+     * Whether $connection was created for the integration declaring $slug.
+     *
+     * app_slug is stored as the integration's display name ("Zoho CRM") while
+     * $authConfig carries a bare slug ("zohocrm"), so both sides are reduced to
+     * alphanumerics before comparing. A connection that cannot be loaded at all is
+     * left to the caller's own null handling.
+     */
+    private static function belongsToIntegration($connection, string $slug): bool
+    {
+        if (empty($connection) || empty($connection->app_slug)) {
+            return true;
+        }
+
+        $normalize = static function ($value) {
+            return strtolower(preg_replace('/[^a-z0-9]/i', '', (string) $value));
+        };
+
+        return $normalize($connection->app_slug) === $normalize($slug);
+    }
+
+    /**
+     * Credential resolution fails silently by design — the flow must not fatal — but
+     * silence made a broken connection indistinguishable from a missing field. Log the
+     * reason under WP_DEBUG only, and never the credentials themselves.
+     */
+    private static function debug(string $controllerClass, string $reason): void
+    {
+        if (!\defined('WP_DEBUG') || !WP_DEBUG) {
+            return;
+        }
+
+        error_log(sprintf('CredentialInjector: skipped injection for %s — %s', $controllerClass, $reason));
     }
 }

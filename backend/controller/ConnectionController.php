@@ -207,6 +207,10 @@ final class ConnectionController
             wp_send_json_error($existing->get_error_message());
         }
 
+        // Inherit the row's existing encrypt_keys when the request omits them, on top of
+        // the floor for its auth type. Re-resolving from the request alone would let a
+        // reauthorize that simply does not send the field rewrite encrypt_keys to '' and
+        // store the new credentials in plaintext.
         $payload = [
             'app_slug'        => $existing->app_slug,
             'auth_type'       => (string) $existing->auth_type,
@@ -214,7 +218,10 @@ final class ConnectionController
             'account_name'    => $existing->account_name,
             'status'          => ConnectionModel::STATUS_VERIFIED,
             'auth_details'    => $this->normalizeArray($request->auth_details),
-            'encrypt_keys'    => $this->resolveEncryptKeys($request),
+            'encrypt_keys'    => array_values(array_unique(array_merge(
+                AuthDataCodec::parseEncryptKeys($existing->encrypt_keys ?? ''),
+                $this->resolveEncryptKeys($request, (string) $existing->auth_type)
+            ))),
         ];
 
         if (!empty($request->account_name)) {
@@ -510,13 +517,15 @@ final class ConnectionController
             $accountName = $connectionName;
         }
 
+        $resolvedAuthType = $authType !== '' ? $authType : AuthorizationType::OAUTH2;
+
         return [
             'app_slug'        => $appSlug,
-            'auth_type'       => $authType !== '' ? $authType : AuthorizationType::OAUTH2,
+            'auth_type'       => $resolvedAuthType,
             'connection_name' => $connectionName,
             'account_name'    => $accountName,
             'auth_details'    => $authDetails,
-            'encrypt_keys'    => $this->resolveEncryptKeys($request),
+            'encrypt_keys'    => $this->resolveEncryptKeys($request, $resolvedAuthType),
             'status'          => isset($request->status)
                 ? $this->sanitizeStatus($request->status, ConnectionModel::STATUS_VERIFIED)
                 : ConnectionModel::STATUS_VERIFIED,
@@ -677,7 +686,7 @@ final class ConnectionController
     {
         $encryptKeys = AuthDataCodec::parseEncryptKeys($row->encrypt_keys ?? '');
         $authDetails = $this->normalizeArray($row->auth_details ?? null);
-        $authDetails = AuthDataCodec::decryptValues($authDetails, $encryptKeys);
+        $authDetails = $this->withoutSecrets($authDetails, $encryptKeys);
 
         return [
             'id'              => (int) $row->id,
@@ -721,7 +730,58 @@ final class ConnectionController
         return $payload;
     }
 
-    private function resolveEncryptKeys($request): array
+    /**
+     * Strip every credential the connection encrypts at rest.
+     *
+     * Responses carrying a connection must never hand back the secrets themselves.
+     * Anything named in encrypt_keys is a credential by the connection's own
+     * declaration, so it is dropped rather than decrypted; the remaining keys are
+     * non-secret configuration (version, location_id, dataCenter, api_url, ...)
+     * that the UI legitimately reads back. Callers needing to know a secret exists
+     * can test encrypt_keys, which is still returned.
+     */
+    private function withoutSecrets(array $authDetails, array $encryptKeys): array
+    {
+        foreach ($encryptKeys as $key) {
+            unset($authDetails[$key]);
+        }
+
+        return $authDetails;
+    }
+
+    /**
+     * Credentials that must be encrypted at rest for a given auth type, regardless
+     * of what the client asked for.
+     *
+     * encrypt_keys arrives from the client, so without a server-side floor a caller
+     * (or an integration that simply forgets to declare its keys) can have secrets
+     * written to the database in plaintext. Mirrors defaultEncryptKeys in
+     * frontend/src/Utils/connectionAuth.js.
+     *
+     * @var array<string, string[]>
+     */
+    private const ENCRYPT_KEY_FLOOR = [
+        AuthorizationType::API_KEY      => ['value'],
+        AuthorizationType::BASIC_AUTH   => ['username', 'password'],
+        AuthorizationType::BEARER_TOKEN => ['token'],
+        AuthorizationType::OAUTH2       => ['client_secret', 'access_token', 'refresh_token'],
+        AuthorizationType::OAUTH1       => ['consumer_secret', 'access_token', 'access_token_secret'],
+    ];
+
+    /**
+     * Union the client's encrypt_keys with the server-side floor for this auth type.
+     * A client may add keys but never drop one, and omitting the field entirely no
+     * longer means "store everything in plaintext".
+     */
+    private function resolveEncryptKeys($request, string $authType = ''): array
+    {
+        $keys = $this->resolveRequestedEncryptKeys($request);
+        $floor = self::ENCRYPT_KEY_FLOOR[$authType] ?? [];
+
+        return array_values(array_unique(array_merge($floor, $keys)));
+    }
+
+    private function resolveRequestedEncryptKeys($request): array
     {
         if (!isset($request->encrypt_keys)) {
             return [];

@@ -77,6 +77,7 @@ export default function ZohoCampaignsAuthorization({
           method: 'POST'
         },
         refreshTokenUrl: 'https://accounts.zoho.{dataCenter}/oauth/v2/token',
+        extraTokenFields: ['api_domain'],
         extraFields: [
           {
             name: 'dataCenter',

@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
-import { fabmanAuthentication, fetchFabmanAccountId, fetchFabmanWorkspaces } from './FabmanCommonFunc'
+import { fetchFabmanAccountId, fetchFabmanWorkspaces } from './FabmanCommonFunc'
 import Note from '../../Utilities/Note'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import TutorialLink from '../../Utilities/TutorialLink'

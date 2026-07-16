@@ -34,6 +34,8 @@ export default function SuiteDashAuthorization({
         method: 'GET',
         key: 'X-Public-ID',
         addTo: 'header',
+        // `value` holds the public X-Public-ID; secret_key (X-Secret-Key) is the real secret.
+        encryptKeys: ['secret_key'],
         headers: {
           'X-Secret-Key': '{secret_key}'
         },

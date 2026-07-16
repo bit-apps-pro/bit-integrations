@@ -44,6 +44,11 @@ const buildSavedAuthDetails = ({
     grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE ? GRANT_TYPES.AUTHORIZATION_CODE : grantType
 
   const base = {
+    // Extra form fields first (e.g. baseUrl for a self-hosted Mautic). They are raw
+    // user input, so the standard credential keys below must always win on collision —
+    // merging them afterwards would let an extraField named client_secret or
+    // access_token overwrite the real one.
+    ...extraFormData,
     access_token: tokenResponse?.access_token || '',
     refresh_token: tokenResponse?.refresh_token || '',
     token_type: tokenResponse?.token_type || 'Bearer',
@@ -58,13 +63,11 @@ const buildSavedAuthDetails = ({
     ssl_verify: sslVerify !== false
   }
 
-  // Capture provider-specific extra fields from token response (e.g., instance_url for Salesforce)
+  // Capture provider-specific extra fields from token response (e.g., instance_url for
+  // Salesforce, api_domain for Zoho) — these come from the provider, not the form.
   extraTokenFields.forEach(field => {
     if (tokenResponse?.[field] != null) base[field] = tokenResponse[field]
   })
-
-  // Merge extra form fields (e.g., baseUrl for Mautic self-hosted instance)
-  Object.assign(base, extraFormData)
 
   return base
 }
@@ -185,7 +188,13 @@ export default function Oauth2Connection({
     })
 
     if (!tokenRes?.success) {
-      throw new Error(tokenRes?.data?.message || __('Token exchange failed', 'bit-integrations'))
+      // The backend sends {message} on some paths and a bare string on others (e.g.
+      // $wpError->get_error_message()); reading only .message swallowed the real cause.
+      throw new Error(
+        tokenRes?.data?.message ||
+          (typeof tokenRes?.data === 'string' && tokenRes.data) ||
+          __('Token exchange failed', 'bit-integrations')
+      )
     }
 
     return tokenRes?.data?.data || {}
@@ -211,7 +220,13 @@ export default function Oauth2Connection({
     })
 
     if (!tokenRes?.success) {
-      throw new Error(tokenRes?.data?.message || __('Token exchange failed', 'bit-integrations'))
+      // The backend sends {message} on some paths and a bare string on others (e.g.
+      // $wpError->get_error_message()); reading only .message swallowed the real cause.
+      throw new Error(
+        tokenRes?.data?.message ||
+          (typeof tokenRes?.data === 'string' && tokenRes.data) ||
+          __('Token exchange failed', 'bit-integrations')
+      )
     }
 
     return tokenRes?.data?.data || {}
@@ -259,7 +274,10 @@ export default function Oauth2Connection({
         connection_name: formData.connectionName,
         account_name: formData.connectionName,
         auth_details: savedAuthDetails,
-        encrypt_keys: defaultEncryptKeys[AUTH_TYPES.OAUTH2] || []
+        // Honor a per-integration override, as ApiConnection and Oauth1Connection do.
+        // Hardcoding the default silently dropped the encryptKeys of any OAuth2
+        // integration declaring a sensitive extraField.
+        encrypt_keys: authDetails?.encryptKeys || defaultEncryptKeys[AUTH_TYPES.OAUTH2] || []
       }
     },
     [

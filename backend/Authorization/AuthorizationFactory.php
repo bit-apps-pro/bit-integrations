@@ -54,7 +54,17 @@ class AuthorizationFactory
 
     public static function authorizationClassExists($appSlug)
     {
-        $appSlug = ucfirst((string) $appSlug);
+        $appSlug = (string) $appSlug;
+
+        // $appSlug reaches here from request data (ConnectionController::authorize).
+        // class_exists() triggers the PSR-4 autoloader, which maps namespace separators
+        // onto the filesystem, so a slug containing a backslash or dot would be resolved
+        // as a path. Only a plain class-name segment is ever legitimate.
+        if (!preg_match('/^[A-Za-z0-9_]+$/', $appSlug)) {
+            return false;
+        }
+
+        $appSlug = ucfirst($appSlug);
         $class = self::ACTION_NAMESPACE . "{$appSlug}\\{$appSlug}Authorization";
 
         if (class_exists($class)) {

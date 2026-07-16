@@ -16,7 +16,10 @@ export default function MailerLiteAuthorization({
   const syncVersionFromConnection = useCallback(
     async connectionId => {
       const connectionRes = await getConnection(connectionId)
-      const version = connectionRes?.success ? connectionRes?.data?.auth_details?.version : ''
+      // wp_send_json_success(['data' => formatRow]) nests one level deeper than the
+      // bitsFetch envelope: res.data.data. Reading res.data.auth_details was always
+      // undefined, so the version never synced.
+      const version = connectionRes?.success ? connectionRes?.data?.data?.auth_details?.version : ''
 
       if (version) {
         setMailerLiteConf(prev => ({ ...prev, version }))

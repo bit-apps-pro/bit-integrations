@@ -13,6 +13,24 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 
 class OAuth2Authorization extends AbstractBaseAuthorization
 {
+    /**
+     * These three must keep this order:
+     *
+     *     REFRESH_HTTP_TIMEOUT < WAIT_FOR_REFRESH_MS < STALE_LOCK_SECONDS
+     *
+     * A waiter has to outlast the slowest legitimate refresh, or it gives up while the
+     * holder is still working; and a lock must not be declared stale while its holder
+     * could still be inside the HTTP call, or a second request reclaims a live lock.
+     * Getting this backwards turns one slow token endpoint into a refresh stampede.
+     */
+    private const REFRESH_HTTP_TIMEOUT = 10;
+
+    private const WAIT_FOR_REFRESH_MS = 12000;
+
+    private const STALE_LOCK_SECONDS = 15;
+
+    private const WAIT_POLL_MS = 250;
+
     private $bodyParams;
 
     private $refreshTokenUrl;
@@ -130,118 +148,170 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     public function refreshAccessToken(array $authDetails): ?array
     {
         $connectionId = $this->getConnectionId();
-        $lockKey = Config::VAR_PREFIX . 'oauth_refresh_lock_' . $connectionId;
-        $lockAcquired = $connectionId > 0 ? $this->acquireRefreshLock($lockKey) : false;
 
-        if ($connectionId > 0 && !$lockAcquired) {
-            // Another request is already refreshing. Block briefly for it to finish
-            // and reload the token it persisted, rather than issuing our own refresh —
-            // a second POST would replay/rotate the refresh token and can brick the
-            // connection on providers that rotate it (see performTokenRefresh).
+        // No persisted row to serialize on (inline credentials / the credential-test
+        // path): there is nothing for a concurrent request to race against and nowhere
+        // to publish the result, so refresh directly.
+        if ($connectionId <= 0) {
+            return $this->performTokenRefresh($authDetails);
+        }
+
+        $lockKey = Config::VAR_PREFIX . 'oauth_refresh_lock_' . $connectionId;
+
+        if (!$this->acquireRefreshLock($lockKey)) {
+            // Someone else holds the lock. Wait for the token they persist.
             $fresh = $this->waitForRefreshedToken($lockKey);
 
             if ($fresh !== null) {
                 return $fresh;
             }
 
-            // Winner released the lock without producing a fresh token (it failed or
-            // timed out); fall through to a best-effort refresh so we never block forever.
+            // The holder failed or outlived the wait. Do NOT refresh anyway: a second
+            // POST replays a refresh_token the holder may already have consumed, and
+            // providers that rotate it (Google, Dropbox, Zoho) revoke the whole grant
+            // on replay — turning a slow refresh into a bricked connection. Returning
+            // null lets ensureFreshToken() fall back to the stored token, so the
+            // provider answers 401 and the request fails honestly instead.
+            $this->setLastError(__('Token refresh is already in progress', 'bit-integrations'));
+
+            return null;
         }
 
         try {
-            if ($lockAcquired) {
-                // Double-checked read: a concurrent request may have refreshed the
-                // token while we contended for the lock. Force a fresh DB read
-                // (bypassing the in-memory connection cache) and re-evaluate expiry
-                // before spending a refresh token on a network call.
-                $this->connection = null;
-                $freshDetails = parent::getAuthDetails();
+            // Double-checked read: a concurrent request may have refreshed the token
+            // while we contended for the lock. Force a fresh DB read (bypassing the
+            // in-memory connection cache) and re-evaluate expiry before spending a
+            // refresh token on a network call.
+            $this->connection = null;
+            $freshDetails = parent::getAuthDetails();
 
-                if (!empty($freshDetails)) {
-                    $generatedAt = $freshDetails['generated_at'] ?? null;
-                    $expiresIn = $freshDetails['expires_in'] ?? null;
+            if (!empty($freshDetails)) {
+                $generatedAt = $freshDetails['generated_at'] ?? null;
+                $expiresIn = $freshDetails['expires_in'] ?? null;
 
-                    if (!$this->isTokenExpired($generatedAt, $expiresIn)) {
-                        // Already refreshed by another request — no network call.
-                        return $freshDetails;
-                    }
-
-                    // Still expired: refresh using the freshest persisted details.
-                    $authDetails = $freshDetails;
+                if (!$this->isTokenExpired($generatedAt, $expiresIn)) {
+                    // Already refreshed by another request — no network call.
+                    return $freshDetails;
                 }
+
+                // Still expired: refresh using the freshest persisted details.
+                $authDetails = $freshDetails;
             }
 
             return $this->performTokenRefresh($authDetails);
         } finally {
-            if ($lockAcquired) {
-                $this->releaseRefreshLock($lockKey);
-            }
+            $this->releaseRefreshLock($lockKey);
         }
     }
 
     /**
      * Per-connection refresh lock that works without a persistent object cache.
      *
-     * add_option() is NOT a reliable mutex on its own: WP core does a non-atomic
-     * get_option() pre-check then INSERT ... ON DUPLICATE KEY UPDATE, so two racers
-     * can both get a truthy return. But the INSERT sets option_value only once (the
-     * duplicate branch updates option_name to itself, never the value), so the FIRST
-     * writer's unique token survives. We therefore write a unique value and re-read to
-     * confirm we actually own the row. A lock older than the timeout is reclaimed so a
-     * crashed request can never deadlock refreshes.
+     * Implemented as a compare-and-set directly on the options table rather than via
+     * add_option(): core's add_option() runs `INSERT ... ON DUPLICATE KEY UPDATE
+     * option_value = VALUES(option_value)` (wp-includes/option.php), which is
+     * last-writer-wins, so two racers can each write and then confirm-read their own
+     * token and both believe they hold the lock. `INSERT IGNORE` + rows_affected === 1
+     * is decided by the unique index on option_name and admits exactly one winner.
+     *
+     * A lock older than STALE_LOCK_SECONDS is reclaimed so a crashed request cannot
+     * deadlock refreshes forever; the reclaim is itself a CAS on the exact value
+     * observed, so it can never delete a lock another request just took.
+     *
+     * All reads go to the DB directly — get_option() would consult the `notoptions`
+     * cache, which wp_cache_delete() does not clear, and a live lock could read as
+     * absent.
      */
-    private function acquireRefreshLock(string $lockKey, int $timeout = 15): bool
+    private function acquireRefreshLock(string $lockKey): bool
     {
-        if ($this->claimLock($lockKey, $this->newLockValue())) {
+        $value = $this->newLockValue();
+
+        if ($this->claimLock($lockKey, $value)) {
             return true;
         }
 
         $current = (string) $this->readLockOption($lockKey);
         $lockedAt = (int) substr(strrchr('|' . $current, '|'), 1);
 
-        if ($current !== '' && $lockedAt > 0 && (time() - $lockedAt) < $timeout) {
+        if ($current === '' || $lockedAt <= 0 || (time() - $lockedAt) < self::STALE_LOCK_SECONDS) {
             return false;
         }
 
-        // Stale (or unreadable) lock: drop it and re-claim with ownership confirmation.
-        delete_option($lockKey);
+        // Stale lock: delete only if it is still the exact row we observed, then race
+        // for it normally. If another request reclaimed it first, our DELETE matches
+        // nothing and our INSERT loses — either way only one winner emerges.
+        if (!$this->deleteLockIfValueMatches($lockKey, $current)) {
+            return false;
+        }
 
-        return $this->claimLock($lockKey, $this->newLockValue());
+        return $this->claimLock($lockKey, $value);
     }
 
     /**
-     * Write our unique token and confirm the persisted value is ours (see acquire doc).
+     * INSERT IGNORE: the unique index on option_name means exactly one concurrent
+     * caller gets rows_affected === 1.
      */
     private function claimLock(string $lockKey, string $value): bool
     {
-        add_option($lockKey, $value, '', 'no');
+        global $wpdb;
 
-        if ($this->readLockOption($lockKey) === $value) {
-            $this->refreshLockValue = $value;
+        $wpdb->query(
+            $wpdb->prepare(
+                "INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'no')",
+                $lockKey,
+                $value
+            )
+        );
 
-            return true;
+        if ((int) $wpdb->rows_affected !== 1) {
+            return false;
         }
 
-        return false;
+        $this->refreshLockValue = $value;
+
+        return true;
     }
 
     private function releaseRefreshLock(string $lockKey): void
     {
-        // Only delete the row if it is still the one we own — never clobber a lock a
-        // stale-reclaim handed to another request.
-        if ($this->refreshLockValue !== null && $this->readLockOption($lockKey) === $this->refreshLockValue) {
-            delete_option($lockKey);
+        if ($this->refreshLockValue !== null) {
+            // Delete only our own lock — never clobber one a stale-reclaim handed on.
+            $this->deleteLockIfValueMatches($lockKey, $this->refreshLockValue);
         }
 
         $this->refreshLockValue = null;
     }
 
+    /**
+     * CAS delete: removes the row only while it still holds $value.
+     */
+    private function deleteLockIfValueMatches(string $lockKey, string $value): bool
+    {
+        global $wpdb;
+
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM {$wpdb->options} WHERE option_name = %s AND option_value = %s",
+                $lockKey,
+                $value
+            )
+        );
+
+        return (int) $wpdb->rows_affected === 1;
+    }
+
     private function readLockOption(string $lockKey)
     {
-        // Bypass the per-request options cache so we observe another request's write/release.
-        wp_cache_delete($lockKey, 'options');
+        global $wpdb;
 
-        return get_option($lockKey, '');
+        // Read the table directly: get_option() consults the `notoptions` cache before
+        // the per-key cache, and wp_cache_delete() clears only the latter — so a live
+        // lock written by another worker can read back as absent.
+        $value = $wpdb->get_var(
+            $wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $lockKey)
+        );
+
+        return $value === null ? '' : $value;
     }
 
     private function newLockValue(): string
@@ -252,37 +322,53 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     }
 
     /**
-     * Loser path: block up to $maxWaitMs for the lock holder to persist a refreshed
-     * token, polling the connection row directly (a fresh ConnectionModel query, not
-     * the option cache) so we observe the holder's write. Returns the fresh auth
-     * details once the token is no longer expired; returns null if the holder released
-     * the lock without a valid token (it failed) or the wait timed out — the caller
-     * then performs its own best-effort refresh so we never block indefinitely.
+     * Loser path: block for the lock holder to persist a refreshed token, polling the
+     * connection row directly so we observe its write. Returns the fresh auth details,
+     * or null if the holder failed or the wait ran out — the caller must NOT refresh on
+     * its own afterwards (see refreshAccessToken).
+     *
+     * The wait outlasts REFRESH_HTTP_TIMEOUT so a legitimately slow refresh is never
+     * abandoned mid-flight.
      */
-    private function waitForRefreshedToken(string $lockKey, int $maxWaitMs = 8000, int $intervalMs = 250): ?array
+    private function waitForRefreshedToken(string $lockKey): ?array
     {
         $elapsed = 0;
 
-        while ($elapsed < $maxWaitMs) {
-            usleep($intervalMs * 1000);
-            $elapsed += $intervalMs;
+        while ($elapsed < self::WAIT_FOR_REFRESH_MS) {
+            usleep(self::WAIT_POLL_MS * 1000);
+            $elapsed += self::WAIT_POLL_MS;
 
-            // Force a fresh DB read of the connection so we see the holder's persisted token.
-            $this->connection = null;
-            $fresh = parent::getAuthDetails();
+            $fresh = $this->readPersistedToken();
 
-            if (!empty($fresh) && !$this->isTokenExpired($fresh['generated_at'] ?? null, $fresh['expires_in'] ?? null)) {
+            if ($fresh !== null) {
                 return $fresh;
             }
 
-            // Holder released the lock but the token is still expired => it failed;
-            // stop waiting and let the caller do a best-effort refresh.
             if (!$this->isRefreshLocked($lockKey)) {
-                return null;
+                // The holder is gone. Re-read once more before giving up: it may have
+                // persisted the token and released between our two reads above, and
+                // treating that as a failure would discard a perfectly good token.
+                return $this->readPersistedToken();
             }
         }
 
         return null;
+    }
+
+    /**
+     * Fresh DB read of the connection (bypassing the in-memory cache); returns the auth
+     * details only when they carry a non-expired token, else null.
+     */
+    private function readPersistedToken(): ?array
+    {
+        $this->connection = null;
+        $fresh = parent::getAuthDetails();
+
+        if (empty($fresh) || $this->isTokenExpired($fresh['generated_at'] ?? null, $fresh['expires_in'] ?? null)) {
+            return null;
+        }
+
+        return $fresh;
     }
 
     private function isRefreshLocked(string $lockKey): bool
@@ -303,14 +389,14 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
         $headers = $this->buildRefreshHeaders($authDetails);
 
-        $requestOptions = [];
+        // Bound explicitly: HttpHelper's 30s default would outlive both the waiters
+        // blocking on this refresh and the stale-lock window (see the constants above).
+        $requestOptions = ['timeout' => self::REFRESH_HTTP_TIMEOUT];
         $sslVerify = AuthDataCodec::normalizeSslVerify($authDetails['ssl_verify'] ?? null);
 
         if ($sslVerify !== null) {
-            $requestOptions = [
-                'sslverify' => $sslVerify,
-                'verify'    => $sslVerify,
-            ];
+            $requestOptions['sslverify'] = $sslVerify;
+            $requestOptions['verify'] = $sslVerify;
         }
 
         $response = HttpHelper::post($url, $body, $headers, $requestOptions);

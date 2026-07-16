@@ -55,6 +55,8 @@ export default function DemioAuthorization({
         method: 'GET',
         key: 'Api-Key',
         addTo: 'header',
+        // api_secret is sent as the Api-Secret header; without this it is stored plaintext.
+        encryptKeys: ['value', 'api_secret'],
         headers: {
           'Api-Secret': '{api_secret}'
         },

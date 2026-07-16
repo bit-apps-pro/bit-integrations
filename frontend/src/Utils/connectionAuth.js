@@ -8,12 +8,18 @@ export const AUTH_TYPES = Object.freeze({
   CUSTOM: 'custom'
 })
 
+// Credentials encrypted at rest per auth type. The backend applies the same set as a
+// floor (ConnectionController::ENCRYPT_KEY_FLOOR) and unions it with whatever is sent,
+// so an integration can add keys here but never silently store less than this.
+// CUSTOM has no standard key shape — such integrations must declare their own
+// `encryptKeys`, and the empty default is what makes forgetting it obvious.
 export const defaultEncryptKeys = {
   [AUTH_TYPES.API_KEY]: ['value'],
-  [AUTH_TYPES.BASIC_AUTH]: ['password'],
+  [AUTH_TYPES.BASIC_AUTH]: ['username', 'password'],
   [AUTH_TYPES.BEARER_TOKEN]: ['token'],
   [AUTH_TYPES.OAUTH2]: ['client_secret', 'access_token', 'refresh_token'],
-  [AUTH_TYPES.OAUTH1]: ['consumer_secret', 'access_token', 'access_token_secret']
+  [AUTH_TYPES.OAUTH1]: ['consumer_secret', 'access_token', 'access_token_secret'],
+  [AUTH_TYPES.CUSTOM]: []
 }
 
 export const isWpPluginCheckType = authType => authType === AUTH_TYPES.WP_PLUGIN_CHECK
