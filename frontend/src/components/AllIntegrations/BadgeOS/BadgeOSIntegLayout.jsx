@@ -74,12 +74,12 @@ export default function BadgeOSIntegLayout({
               defaultValue={badgeOSConf?.selectedAchievement ?? null}
               className="btcd-paper-drpdwn w-5"
               options={
-                badgeOSConf?.allAchievements &&
-                Array.isArray(badgeOSConf.allAchievements) &&
-                badgeOSConf.allAchievements.map(achievement => ({
-                  label: `${achievement.achievement_name} (${achievement.achievement_type})`,
-                  value: achievement?.achievement_id?.toString()
-                }))
+                Array.isArray(badgeOSConf?.allAchievements)
+                  ? badgeOSConf.allAchievements.map(achievement => ({
+                      label: `${achievement.achievement_name} (${achievement.achievement_type})`,
+                      value: achievement?.achievement_id?.toString()
+                    }))
+                  : []
               }
               onChange={val =>
                 setBadgeOSConf(prevConf =>
