@@ -29,7 +29,7 @@ class FluentPlayerController
         wp_send_json_success(true);
     }
 
-    public function refreshMedia()
+    public static function refreshMedia()
     {
         self::isExists();
 
@@ -55,7 +55,7 @@ class FluentPlayerController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshTags()
+    public static function refreshTags()
     {
         self::isExists();
 
@@ -78,7 +78,7 @@ class FluentPlayerController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshPresets()
+    public static function refreshPresets()
     {
         self::isExists();
 
@@ -101,7 +101,7 @@ class FluentPlayerController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshUsers()
+    public static function refreshUsers()
     {
         self::isExists();
 
@@ -119,7 +119,7 @@ class FluentPlayerController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshAttachments()
+    public static function refreshAttachments()
     {
         self::isExists();
 

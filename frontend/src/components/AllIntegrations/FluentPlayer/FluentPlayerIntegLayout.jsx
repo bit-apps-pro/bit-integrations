@@ -1,4 +1,5 @@
 import { create } from 'mutative'
+import { useEffect } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
@@ -52,6 +53,26 @@ export default function FluentPlayerIntegLayout({
       })
     )
 
+  const fetchListsFor = selectedAction => {
+    if (!selectedAction) return
+
+    if (needsPreset.includes(selectedAction)) refreshFluentPlayerPresets(setFluentPlayerConf, setIsLoading)
+    if (needsTags.includes(selectedAction)) refreshFluentPlayerTags(setFluentPlayerConf, setIsLoading)
+    if (needsAttachment.includes(selectedAction)) refreshFluentPlayerAttachments(setFluentPlayerConf, setIsLoading)
+    if (needsOptionalUser.includes(selectedAction)) refreshFluentPlayerUsers(setFluentPlayerConf, setIsLoading)
+    if (needsOptionalMedia.includes(selectedAction) || needsOptionalMediaIds.includes(selectedAction)) {
+      refreshFluentPlayerMedia(setFluentPlayerConf, setIsLoading)
+    }
+  }
+
+  // On edit the action is already chosen but the option lists have not been
+  // fetched this session, so rebuild them once on mount. The saved field map is
+  // deliberately left untouched.
+  useEffect(() => {
+    fetchListsFor(action)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const handleMainAction = value => {
     setFluentPlayerConf(prevConf =>
       create(prevConf, draftConf => {
@@ -61,13 +82,7 @@ export default function FluentPlayerIntegLayout({
       })
     )
 
-    if (needsPreset.includes(value)) refreshFluentPlayerPresets(setFluentPlayerConf, setIsLoading)
-    if (needsTags.includes(value)) refreshFluentPlayerTags(setFluentPlayerConf, setIsLoading)
-    if (needsAttachment.includes(value)) refreshFluentPlayerAttachments(setFluentPlayerConf, setIsLoading)
-    if (needsOptionalUser.includes(value)) refreshFluentPlayerUsers(setFluentPlayerConf, setIsLoading)
-    if (needsOptionalMedia.includes(value) || needsOptionalMediaIds.includes(value)) {
-      refreshFluentPlayerMedia(setFluentPlayerConf, setIsLoading)
-    }
+    fetchListsFor(value)
   }
 
   // Fixed option set.

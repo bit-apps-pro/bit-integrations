@@ -30,7 +30,10 @@ const refreshList = (route, dataKey, confKey, successMsg, errorMsg) => (setFluen
       setIsLoading(false)
       toast.error(errorMsg)
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      setIsLoading(false)
+      toast.error(errorMsg)
+    })
 }
 
 export const refreshFluentPlayerMedia = refreshList(

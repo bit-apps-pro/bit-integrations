@@ -20,17 +20,26 @@ export default function FluentPlayerAuthorization({
 
   const authorizeHandler = () => {
     setIsLoading('auth')
-    bitsFetch({}, 'fluent_player_authorize').then(result => {
-      if (result?.success) {
-        setIsAuthorized(true)
+    bitsFetch({}, 'fluent_player_authorize')
+      .then(result => {
+        if (result?.success) {
+          setIsAuthorized(true)
+          setSnackbar({
+            show: true,
+            msg: __('Connected with FluentPlayer Successfully', 'bit-integrations')
+          })
+        }
+        setIsLoading(false)
+        setShowAuthMsg(true)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        setShowAuthMsg(true)
         setSnackbar({
           show: true,
-          msg: __('Connected with FluentPlayer Successfully', 'bit-integrations')
+          msg: __('Connection failed. Please try again.', 'bit-integrations')
         })
-      }
-      setIsLoading(false)
-      setShowAuthMsg(true)
-    })
+      })
   }
 
   const handleInput = e => {
