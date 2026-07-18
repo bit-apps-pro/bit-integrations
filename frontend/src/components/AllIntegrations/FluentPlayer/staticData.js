@@ -29,8 +29,13 @@ export const modules = [
   { name: 'delete_preset', label: __('Delete Preset', 'bit-integrations'), is_pro: true }
 ]
 
-// Field map holds only free-text values. Anything with a fixed option set or a
-// fetchable record list is a select (see the needs* lists / Utilities below).
+// The field map carries free text plus the REQUIRED identifier of the record the
+// action targets (media id, playlist id, tag name…) so it can be mapped from
+// trigger data. Optional or non-identifying values that can be fetched — preset,
+// tags, attachment, an optional media/user — are dropdowns the user picks.
+const mediaId = { key: 'media_id', label: __('Media Id', 'bit-integrations'), required: true }
+const playlistId = { key: 'playlist_id', label: __('Playlist Id', 'bit-integrations'), required: true }
+
 export const FluentPlayerStaticData = {
   create_media: [
     { key: 'title', label: __('Title', 'bit-integrations'), required: true },
@@ -38,34 +43,45 @@ export const FluentPlayerStaticData = {
     { key: 'poster_src', label: __('Poster Image URL', 'bit-integrations'), required: false }
   ],
   update_media: [
+    mediaId,
     { key: 'title', label: __('Title', 'bit-integrations'), required: false },
     { key: 'src', label: __('Media Source URL', 'bit-integrations'), required: false },
     { key: 'poster_src', label: __('Poster Image URL', 'bit-integrations'), required: false }
   ],
-  trash_media: [],
-  restore_media: [],
-  delete_media: [],
-  change_media_status: [],
+  trash_media: [mediaId],
+  restore_media: [mediaId],
+  delete_media: [mediaId],
+  change_media_status: [mediaId],
   create_tag: [{ key: 'tag', label: __('New Tag Name', 'bit-integrations'), required: true }],
-  rename_tag: [{ key: 'new_name', label: __('New Tag Name', 'bit-integrations'), required: true }],
-  delete_tag: [],
-  set_media_tags: [],
-  add_media_tags: [],
-  remove_media_tags: [],
+  rename_tag: [
+    { key: 'old_name', label: __('Current Tag Name', 'bit-integrations'), required: true },
+    { key: 'new_name', label: __('New Tag Name', 'bit-integrations'), required: true }
+  ],
+  delete_tag: [{ key: 'tag', label: __('Tag Name', 'bit-integrations'), required: true }],
+  set_media_tags: [mediaId],
+  add_media_tags: [mediaId],
+  remove_media_tags: [mediaId],
   create_playlist: [
     { key: 'title', label: __('Title', 'bit-integrations'), required: true },
     { key: 'poster_src', label: __('Poster Image URL', 'bit-integrations'), required: false }
   ],
   update_playlist: [
+    playlistId,
     { key: 'title', label: __('Title', 'bit-integrations'), required: false },
     { key: 'poster_src', label: __('Poster Image URL', 'bit-integrations'), required: false }
   ],
-  trash_playlist: [],
-  restore_playlist: [],
-  delete_playlist: [],
-  change_playlist_status: [],
-  add_media_to_playlist: [],
-  remove_media_from_playlist: [],
+  trash_playlist: [playlistId],
+  restore_playlist: [playlistId],
+  delete_playlist: [playlistId],
+  change_playlist_status: [playlistId],
+  add_media_to_playlist: [
+    playlistId,
+    { key: 'media_ids', label: __('Media Ids (comma separated)', 'bit-integrations'), required: true }
+  ],
+  remove_media_from_playlist: [
+    playlistId,
+    { key: 'media_ids', label: __('Media Ids (comma separated)', 'bit-integrations'), required: true }
+  ],
   create_email_submission: [
     { key: 'email', label: __('Email', 'bit-integrations'), required: true },
     { key: 'layer_id', label: __('Layer Id', 'bit-integrations'), required: false },
@@ -74,13 +90,18 @@ export const FluentPlayerStaticData = {
     { key: 'browser', label: __('Browser', 'bit-integrations'), required: false },
     { key: 'device', label: __('Device', 'bit-integrations'), required: false }
   ],
-  subscribe_email_to_providers: [{ key: 'email', label: __('Email', 'bit-integrations'), required: true }],
+  subscribe_email_to_providers: [
+    { key: 'email', label: __('Email', 'bit-integrations'), required: true }
+  ],
   record_watch_progression: [
+    mediaId,
+    { key: 'user_id', label: __('User Id', 'bit-integrations'), required: true },
     { key: 'watched_duration', label: __('Watched Duration (seconds)', 'bit-integrations'), required: true },
     { key: 'course_id', label: __('LMS Course Id', 'bit-integrations'), required: false },
     { key: 'step_id', label: __('LMS Step Id', 'bit-integrations'), required: false }
   ],
   record_visit: [
+    mediaId,
     { key: 'duration', label: __('Watched Duration (seconds)', 'bit-integrations'), required: true },
     { key: 'percentage', label: __('Watched Percentage (0-100)', 'bit-integrations'), required: false },
     { key: 'ip_address', label: __('IP Address', 'bit-integrations'), required: false },
@@ -95,7 +116,7 @@ export const FluentPlayerStaticData = {
   delete_preset: []
 }
 
-// ---- Fixed option sets (rendered as selects, never mapped) ----
+// ---- Fixed option sets (selects, never mapped) ----
 export const providerOptions = [
   { label: __('WordPress Media', 'bit-integrations'), value: 'wordpress' },
   { label: __('YouTube', 'bit-integrations'), value: 'youtube' },
@@ -125,25 +146,19 @@ export const endedOptions = [
   { label: __('No', 'bit-integrations'), value: '0' }
 ]
 
-// ---- Which actions render which select (IntegLayout) ----
-export const needsMedia = [
-  'update_media', 'trash_media', 'restore_media', 'delete_media', 'change_media_status',
-  'set_media_tags', 'add_media_tags', 'remove_media_tags', 'create_playlist', 'update_playlist',
-  'add_media_to_playlist', 'remove_media_from_playlist', 'create_email_submission',
-  'subscribe_email_to_providers', 'record_watch_progression', 'record_visit'
+// ---- Fetched dropdowns (user picks; never an action's required identifier) ----
+export const needsPreset = [
+  'create_media', 'update_media', 'create_email_submission', 'subscribe_email_to_providers', 'delete_preset'
 ]
-export const needsMultipleMedia = ['create_playlist', 'update_playlist', 'add_media_to_playlist', 'remove_media_from_playlist']
-export const needsPlaylist = [
-  'update_playlist', 'trash_playlist', 'restore_playlist', 'delete_playlist',
-  'change_playlist_status', 'add_media_to_playlist', 'remove_media_from_playlist'
-]
-export const needsPreset = ['create_media', 'update_media', 'create_email_submission', 'subscribe_email_to_providers', 'delete_preset']
 export const needsTags = ['create_media', 'update_media', 'set_media_tags', 'add_media_tags', 'remove_media_tags']
-export const needsSingleTag = ['rename_tag', 'delete_tag']
+export const needsAttachment = ['create_media']
+export const needsOptionalMedia = ['create_email_submission', 'subscribe_email_to_providers']
+export const needsOptionalMediaIds = ['create_playlist', 'update_playlist']
+export const needsOptionalUser = ['create_email_submission', 'record_visit']
+
+// ---- Option selects ----
 export const needsProvider = ['create_media', 'update_media']
 export const needsPostStatus = ['change_media_status', 'change_playlist_status']
-export const needsUser = ['create_email_submission', 'record_watch_progression', 'record_visit']
-export const needsAttachment = ['create_media']
 
-// ---- Optional option selects rendered in the Utilities section ----
+// ---- Optional option selects in the Utilities section ----
 export const hasUtilities = ['create_media', 'update_media', 'record_watch_progression']

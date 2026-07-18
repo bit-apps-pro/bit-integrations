@@ -41,14 +41,6 @@ export const refreshFluentPlayerMedia = refreshList(
   __('FluentPlayer media fetch failed. Please try again', 'bit-integrations')
 )
 
-export const refreshFluentPlayerPlaylists = refreshList(
-  'refresh_fluent_player_playlists',
-  'playlists',
-  'allPlaylists',
-  __('All playlists fetched successfully', 'bit-integrations'),
-  __('FluentPlayer playlists fetch failed. Please try again', 'bit-integrations')
-)
-
 export const refreshFluentPlayerTags = refreshList(
   'refresh_fluent_player_tags',
   'tags',

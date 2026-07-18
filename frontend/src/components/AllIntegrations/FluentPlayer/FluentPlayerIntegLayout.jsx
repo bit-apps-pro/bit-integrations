@@ -11,7 +11,6 @@ import {
   generateMappedField,
   refreshFluentPlayerAttachments,
   refreshFluentPlayerMedia,
-  refreshFluentPlayerPlaylists,
   refreshFluentPlayerPresets,
   refreshFluentPlayerTags,
   refreshFluentPlayerUsers
@@ -22,15 +21,13 @@ import {
   hasUtilities,
   modules,
   needsAttachment,
-  needsMedia,
-  needsMultipleMedia,
-  needsPlaylist,
+  needsOptionalMedia,
+  needsOptionalMediaIds,
+  needsOptionalUser,
   needsPostStatus,
   needsPreset,
   needsProvider,
-  needsSingleTag,
   needsTags,
-  needsUser,
   postStatusOptions,
   providerOptions
 } from './staticData'
@@ -64,18 +61,17 @@ export default function FluentPlayerIntegLayout({
       })
     )
 
-    if (needsMedia.includes(value)) refreshFluentPlayerMedia(setFluentPlayerConf, setIsLoading)
-    if (needsPlaylist.includes(value)) refreshFluentPlayerPlaylists(setFluentPlayerConf, setIsLoading)
     if (needsPreset.includes(value)) refreshFluentPlayerPresets(setFluentPlayerConf, setIsLoading)
-    if (needsTags.includes(value) || needsSingleTag.includes(value)) {
-      refreshFluentPlayerTags(setFluentPlayerConf, setIsLoading)
-    }
-    if (needsUser.includes(value)) refreshFluentPlayerUsers(setFluentPlayerConf, setIsLoading)
+    if (needsTags.includes(value)) refreshFluentPlayerTags(setFluentPlayerConf, setIsLoading)
     if (needsAttachment.includes(value)) refreshFluentPlayerAttachments(setFluentPlayerConf, setIsLoading)
+    if (needsOptionalUser.includes(value)) refreshFluentPlayerUsers(setFluentPlayerConf, setIsLoading)
+    if (needsOptionalMedia.includes(value) || needsOptionalMediaIds.includes(value)) {
+      refreshFluentPlayerMedia(setFluentPlayerConf, setIsLoading)
+    }
   }
 
-  // Static option select — no fetch, no refresh button.
-  const renderOptionSelect = (label, confKey, options, multiple = false) => (
+  // Fixed option set.
+  const renderOptionSelect = (label, confKey, options) => (
     <>
       <br />
       <div className="flx">
@@ -86,14 +82,15 @@ export default function FluentPlayerIntegLayout({
           className="btcd-paper-drpdwn w-5"
           options={options}
           onChange={val => setField(confKey, val)}
-          singleSelect={!multiple}
-          closeOnSelect={!multiple}
+          singleSelect
+          closeOnSelect
         />
       </div>
     </>
   )
 
-  // Fetched record select — options come from conf[listKey] with a refresh button.
+  // Fetched list the user picks from. Required identifiers are never rendered
+  // here — those live in the field map so they can be mapped from trigger data.
   const renderFetchedSelect = (label, confKey, listKey, onRefresh, multiple = false) => (
     <>
       <br />
@@ -142,24 +139,11 @@ export default function FluentPlayerIntegLayout({
         />
       </div>
 
-      {needsMedia.includes(action) &&
-        renderFetchedSelect(
-          needsMultipleMedia.includes(action)
-            ? __('Media Items:', 'bit-integrations')
-            : __('Media:', 'bit-integrations'),
-          'selectedMedia',
-          'allMedia',
-          refreshFluentPlayerMedia,
-          needsMultipleMedia.includes(action)
-        )}
+      {needsProvider.includes(action) &&
+        renderOptionSelect(__('Provider:', 'bit-integrations'), 'provider', providerOptions)}
 
-      {needsPlaylist.includes(action) &&
-        renderFetchedSelect(
-          __('Playlist:', 'bit-integrations'),
-          'selectedPlaylist',
-          'allPlaylists',
-          refreshFluentPlayerPlaylists
-        )}
+      {needsPostStatus.includes(action) &&
+        renderOptionSelect(__('Status:', 'bit-integrations'), 'postStatus', postStatusOptions)}
 
       {needsPreset.includes(action) &&
         renderFetchedSelect(
@@ -167,14 +151,6 @@ export default function FluentPlayerIntegLayout({
           'selectedPreset',
           'allPresets',
           refreshFluentPlayerPresets
-        )}
-
-      {needsSingleTag.includes(action) &&
-        renderFetchedSelect(
-          __('Tag:', 'bit-integrations'),
-          'selectedTag',
-          'allTags',
-          refreshFluentPlayerTags
         )}
 
       {needsTags.includes(action) &&
@@ -186,14 +162,6 @@ export default function FluentPlayerIntegLayout({
           true
         )}
 
-      {needsUser.includes(action) &&
-        renderFetchedSelect(
-          __('User:', 'bit-integrations'),
-          'selectedUser',
-          'allUsers',
-          refreshFluentPlayerUsers
-        )}
-
       {needsAttachment.includes(action) &&
         renderFetchedSelect(
           __('Attachment:', 'bit-integrations'),
@@ -202,11 +170,30 @@ export default function FluentPlayerIntegLayout({
           refreshFluentPlayerAttachments
         )}
 
-      {needsProvider.includes(action) &&
-        renderOptionSelect(__('Provider:', 'bit-integrations'), 'provider', providerOptions)}
+      {needsOptionalMedia.includes(action) &&
+        renderFetchedSelect(
+          __('Media:', 'bit-integrations'),
+          'selectedMedia',
+          'allMedia',
+          refreshFluentPlayerMedia
+        )}
 
-      {needsPostStatus.includes(action) &&
-        renderOptionSelect(__('Status:', 'bit-integrations'), 'postStatus', postStatusOptions)}
+      {needsOptionalMediaIds.includes(action) &&
+        renderFetchedSelect(
+          __('Media Items:', 'bit-integrations'),
+          'selectedMediaIds',
+          'allMedia',
+          refreshFluentPlayerMedia,
+          true
+        )}
+
+      {needsOptionalUser.includes(action) &&
+        renderFetchedSelect(
+          __('User:', 'bit-integrations'),
+          'selectedUser',
+          'allUsers',
+          refreshFluentPlayerUsers
+        )}
 
       {isLoading && (
         <Loader

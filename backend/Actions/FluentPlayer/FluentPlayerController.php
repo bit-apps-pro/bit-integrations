@@ -33,15 +33,25 @@ class FluentPlayerController
     {
         self::isExists();
 
-        $response['media'] = self::mapPosts('fluent_player_media');
-        wp_send_json_success($response, 200);
-    }
+        $media = array_map(
+            function ($post) {
+                return (object) [
+                    'value' => $post->ID,
+                    'label' => $post->post_title !== '' ? $post->post_title : "(no title) #{$post->ID}",
+                ];
+            },
+            get_posts(
+                [
+                    'post_type'      => 'fluent_player_media',
+                    'posts_per_page' => -1,
+                    'post_status'    => ['publish', 'private', 'draft'],
+                    'orderby'        => 'date',
+                    'order'          => 'DESC',
+                ]
+            )
+        );
 
-    public function refreshPlaylists()
-    {
-        self::isExists();
-
-        $response['playlists'] = self::mapPosts('fluent_playlist');
+        $response['media'] = $media;
         wp_send_json_success($response, 200);
     }
 
@@ -49,7 +59,7 @@ class FluentPlayerController
     {
         self::isExists();
 
-        $tags = get_terms(
+        $terms = get_terms(
             [
                 'taxonomy'   => 'flp_media_tag',
                 'hide_empty' => false,
@@ -57,14 +67,14 @@ class FluentPlayerController
             ]
         );
 
-        $allTags = is_wp_error($tags) ? [] : array_map(
-            function ($tag) {
-                return (object) ['value' => $tag->name, 'label' => $tag->name];
+        $tags = is_wp_error($terms) ? [] : array_map(
+            function ($term) {
+                return (object) ['value' => $term->name, 'label' => $term->name];
             },
-            $tags
+            $terms
         );
 
-        $response['tags'] = $allTags;
+        $response['tags'] = $tags;
         wp_send_json_success($response, 200);
     }
 
@@ -150,35 +160,5 @@ class FluentPlayerController
         $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
 
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
-    }
-
-    /**
-     * Map a post type into value/label dropdown options.
-     *
-     * @param string $postType
-     *
-     * @return array
-     */
-    private static function mapPosts($postType)
-    {
-        $posts = get_posts(
-            [
-                'post_type'      => $postType,
-                'posts_per_page' => -1,
-                'post_status'    => ['publish', 'private', 'draft'],
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-            ]
-        );
-
-        return array_map(
-            function ($post) {
-                return (object) [
-                    'value' => $post->ID,
-                    'label' => $post->post_title !== '' ? $post->post_title : "(no title) #{$post->ID}",
-                ];
-            },
-            $posts
-        );
     }
 }
