@@ -95,15 +95,16 @@ export default function ProfilePressIntegLayout({
           <div className="flx">
             <b className="wdt-200 d-in-b">{__('Plan:', 'bit-integrations')}</b>
             <MultiSelect
+              key={`selectedPlan-${lists?.plans?.length ?? 0}`}
               title="selectedPlan"
               defaultValue={profilePressConf?.selectedPlan ?? null}
               className="btcd-paper-drpdwn w-5"
               options={
                 Array.isArray(lists?.plans)
                   ? lists.plans.map(plan => ({
-                      label: plan.label,
-                      value: plan.value?.toString()
-                    }))
+                    label: plan.label,
+                    value: plan.value?.toString()
+                  }))
                   : []
               }
               onChange={val => setField('selectedPlan', val)}
