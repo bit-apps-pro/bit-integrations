@@ -62,6 +62,8 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
     messageType: '',
     body: '',
     templateName: '',
+    template_fields: [],
+    template_field_map: [],
     token: '',
     field_map: generateMappedField(whatsAppFields),
     whatsAppFields,
@@ -75,7 +77,7 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
 
-    if (checkDisabledButton(whatsAppConf)) {
+    if (checkDisabledButton(whatsAppConf, isPro)) {
       setSnackbar({ show: true, msg: __('Please map fields to continue.', 'bit-integrations') })
       return
     }
@@ -116,7 +118,7 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
-          disabled={checkDisabledButton(whatsAppConf)}
+          disabled={checkDisabledButton(whatsAppConf, isPro)}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')} &nbsp;
