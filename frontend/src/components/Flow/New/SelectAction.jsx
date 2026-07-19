@@ -106,6 +106,7 @@ export default function SelectAction() {
     { type: 'CustomAction', is_pro: false },
     { type: 'PipeDrive', is_pro: false },
     { type: 'EmailOctopus', is_pro: false },
+    { type: 'EventsManager', logo: 'eventsManager', is_pro: true },
     { type: 'Smaily', is_pro: false },
     { type: 'CustomApi', is_pro: false },
     { type: 'SureCart', is_pro: false },

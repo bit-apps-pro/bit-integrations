@@ -100,6 +100,7 @@ const SendGrid = lazy(() => import('./SendGrid/SendGrid'))
 const Fabman = lazy(() => import('./Fabman/Fabman'))
 const PCloud = lazy(() => import('./PCloud/PCloud'))
 const EmailOctopus = lazy(() => import('./EmailOctopus/EmailOctopus'))
+const EventsManager = lazy(() => import('./EventsManager/EventsManager'))
 const Smaily = lazy(() => import('./Smaily/Smaily'))
 const CustomApi = lazy(() => import('./CustomApi/CustomApi'))
 const SureCart = lazy(() => import('./SureCart/SureCart'))
@@ -1002,6 +1003,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'EmailOctopus':
       return (
         <EmailOctopus
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'EventsManager':
+      return (
+        <EventsManager
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
