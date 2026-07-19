@@ -12,7 +12,7 @@ export const modules = [
 // The plan is chosen per flow via a fetched dropdown, so it is deliberately absent
 // from the field map below.
 export const AddNewOrderFields = [
-  { key: 'customer_id', label: __('Customer ID', 'bit-integrations'), required: true },
+  { key: 'customer_email', label: __('Customer Email', 'bit-integrations'), required: true },
   { key: 'amount', label: __('Amount', 'bit-integrations'), required: false },
   { key: 'payment_method', label: __('Payment Method', 'bit-integrations'), required: false },
   { key: 'transaction_id', label: __('Transaction ID', 'bit-integrations'), required: false },
