@@ -1,19 +1,22 @@
+import { useEffect, useState } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
+import Loader from '../../Loaders/Loader'
 import Note from '../../Utilities/Note'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import ClickWhaleActions from './ClickWhaleActions'
-import { generateMappedField } from './ClickWhaleCommonFunc'
+import { generateMappedField, listsForAction, refreshClickWhaleAuthors } from './ClickWhaleCommonFunc'
 import ClickWhaleFieldMap from './ClickWhaleFieldMap'
 import {
   CreateLinkFields,
   DeleteLinkFields,
   hasUtilities,
   modules,
+  needsAuthor,
   UpdateLinkFields
 } from './staticData'
 
@@ -35,7 +38,27 @@ export default function ClickWhaleIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  // Authors live here rather than on conf so they are not persisted into
+  // flow_details every time the flow is saved.
+  const [lists, setLists] = useState({})
+
   const mainAction = clickWhaleConf?.mainAction
+
+  // Populate the dropdown for whatever action is already selected. Matters most on
+  // the edit screen, where handleMainAction never runs.
+  useEffect(() => {
+    if (listsForAction(mainAction).length > 0) {
+      refreshClickWhaleAuthors(setLists, setIsLoading)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainAction])
+
+  const setField = (key, val) =>
+    setClickWhaleConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf[key] = val
+      })
+    )
 
   const handleMainAction = value => {
     setClickWhaleConf(prevConf =>
@@ -45,6 +68,7 @@ export default function ClickWhaleIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.clickWhaleFields)
       })
     )
+    // The effect above fetches the lists this action needs.
   }
 
   return (
@@ -66,6 +90,56 @@ export default function ClickWhaleIntegLayout({
           closeOnSelect
         />
       </div>
+
+      {needsAuthor.includes(mainAction) && (
+        <>
+          <br />
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Author:', 'bit-integrations')}</b>
+            <MultiSelect
+              // MultiSelect matches defaultValue against its options in an effect keyed
+              // on defaultValue alone, never on the options. Authors are fetched after
+              // mount, so without remounting once they land, a saved author would match
+              // nothing and render blank while conf still held the id.
+              key={`selectedAuthor-${lists?.authors?.length ?? 0}`}
+              title="selectedAuthor"
+              defaultValue={clickWhaleConf?.selectedAuthor ?? null}
+              className="btcd-paper-drpdwn w-5"
+              options={
+                Array.isArray(lists?.authors)
+                  ? lists.authors.map(author => ({
+                      label: author.label,
+                      value: author.value?.toString()
+                    }))
+                  : []
+              }
+              onChange={val => setField('selectedAuthor', val)}
+              singleSelect
+              closeOnSelect
+            />
+            <button
+              onClick={() => refreshClickWhaleAuthors(setLists, setIsLoading)}
+              className="icn-btn sh-sm ml-2 mr-2 tooltip"
+              style={{ '--tooltip-txt': `'${__('Refresh Authors', 'bit-integrations')}'` }}
+              type="button"
+              disabled={isLoading}>
+              &#x21BB;
+            </button>
+          </div>
+        </>
+      )}
+
+      {isLoading && (
+        <Loader
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 100,
+            transform: 'scale(0.7)'
+          }}
+        />
+      )}
 
       {mainAction && clickWhaleConf.clickWhaleFields && (
         <div className="mt-4">
@@ -107,7 +181,7 @@ export default function ClickWhaleIntegLayout({
       {mainAction === 'create_link' && (
         <Note
           note={__(
-            'Leave Slug unmapped to derive it from the Title. The link is created under the currently logged-in user.',
+            'Leave Slug unmapped to derive it from the Title; a slug already in use is rejected. Pick an Author to set the owner — front-end triggers have no logged-in user, so the link would otherwise be left unassigned.',
             'bit-integrations'
           )}
         />

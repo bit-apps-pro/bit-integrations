@@ -58,7 +58,9 @@ class RecordApiHelper
 
         switch ($mainAction) {
             case 'create_link':
-                $response = Hooks::apply(Config::withPrefix('clickwhale_create_link'), $defaultResponse, $fieldData, $utilities);
+                // Also passes the config: the link owner is a per-flow dropdown choice
+                // (selectedAuthor), not a field-map row.
+                $response = Hooks::apply(Config::withPrefix('clickwhale_create_link'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'link';
                 $actionType = 'create_link';
 

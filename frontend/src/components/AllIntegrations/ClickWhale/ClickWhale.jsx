@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ClickWhaleAuthorization from './ClickWhaleAuthorization'
-import { checkMappedFields, validateClickWhaleConf } from './ClickWhaleCommonFunc'
+import { checkMappedFields } from './ClickWhaleCommonFunc'
 import ClickWhaleIntegLayout from './ClickWhaleIntegLayout'
 
 export default function ClickWhale({ formFields, setFlow, flow, allIntegURL }) {
@@ -30,13 +30,6 @@ export default function ClickWhale({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (val === 3) {
-      const selectionError = validateClickWhaleConf(clickWhaleConf)
-
-      if (selectionError) {
-        setSnackbar({ show: true, msg: selectionError })
-        return
-      }
-
       if (!checkMappedFields(clickWhaleConf)) {
         setSnackbar({
           show: true,

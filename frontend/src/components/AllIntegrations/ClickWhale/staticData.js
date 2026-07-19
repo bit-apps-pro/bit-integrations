@@ -40,6 +40,10 @@ export const yesNoOptions = [
   { label: __('No', 'bit-integrations'), value: 'no' }
 ]
 
+// The link owner is a per-flow config choice backed by a fetchable list, so it is a
+// dropdown rather than a field-map row.
+export const needsAuthor = ['create_link']
+
 // Actions exposing optional link settings under Utilities. All three have working
 // defaults — redirection falls back to 301, and the flags are left untouched — so
 // they are opt-in rather than always-visible selects.
