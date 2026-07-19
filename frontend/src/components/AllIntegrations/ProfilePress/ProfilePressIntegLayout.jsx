@@ -102,9 +102,9 @@ export default function ProfilePressIntegLayout({
               options={
                 Array.isArray(lists?.plans)
                   ? lists.plans.map(plan => ({
-                    label: plan.label,
-                    value: plan.value?.toString()
-                  }))
+                      label: plan.label,
+                      value: plan.value?.toString()
+                    }))
                   : []
               }
               onChange={val => setField('selectedPlan', val)}

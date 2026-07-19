@@ -25,8 +25,16 @@ export const refreshProfilePressPlans = (setLists, setIsLoading) => {
     .then(result => {
       setIsLoading(false)
 
-      if (result?.success && result?.data?.plans) {
+      if (result?.success && Array.isArray(result?.data?.plans)) {
         setLists(prev => ({ ...prev, plans: result.data.plans }))
+
+        // An empty array is truthy, so without this a site with no plans would get a
+        // success toast beside an empty dropdown and no idea why it could not save.
+        if (result.data.plans.length === 0) {
+          toast.error(__('No ProfilePress plans found. Create a plan first.', 'bit-integrations'))
+          return
+        }
+
         toast.success(__('All plans fetched successfully', 'bit-integrations'))
         return
       }

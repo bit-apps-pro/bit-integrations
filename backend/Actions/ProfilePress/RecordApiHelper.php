@@ -46,7 +46,10 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        $mainAction = $this->_integrationDetails->mainAction ?? 'add_or_update_customer';
+        // No fallback action: both actions write, and add_or_update_customer provisions
+        // WordPress accounts. A flow that lost its mainAction should fail loudly through
+        // the default branch rather than silently create users.
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
         $integrationDetails = $this->_integrationDetails;
 
         $defaultResponse = [
