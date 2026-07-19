@@ -78,13 +78,9 @@ export default function EventsManager({ formFields, setFlow, flow, allIntegURL }
           minHeight: step === 2 && '500px'
         }}>
         <EventsManagerIntegLayout
-          formID={formID}
           formFields={formFields}
           eventsManagerConf={eventsManagerConf}
           setEventsManagerConf={setEventsManagerConf}
-          setSnackbar={setSnackbar}
-          setIsLoading={setIsLoading}
-          isLoading={isLoading}
         />
         <br />
         <br />

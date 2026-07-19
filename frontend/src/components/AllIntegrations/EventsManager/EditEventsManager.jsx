@@ -12,7 +12,7 @@ import EventsManagerIntegLayout from './EventsManagerIntegLayout'
 
 export default function EditEventsManager({ allIntegURL }) {
   const navigate = useNavigate()
-  const { id, formID } = useParams()
+  const { id } = useParams()
 
   const [eventsManagerConf, setEventsManagerConf] = useRecoilState($actionConf)
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -40,13 +40,9 @@ export default function EditEventsManager({ allIntegURL }) {
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
       <EventsManagerIntegLayout
-        formID={formID}
         formFields={formFields}
         eventsManagerConf={eventsManagerConf}
         setEventsManagerConf={setEventsManagerConf}
-        setSnackbar={setSnackbar}
-        setIsLoading={setIsLoading}
-        isLoading={isLoading}
       />
 
       <IntegrationStepThree

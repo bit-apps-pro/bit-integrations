@@ -15,13 +15,9 @@ const fieldsByAction = {
 }
 
 export default function EventsManagerIntegLayout({
-  formID,
   formFields,
   eventsManagerConf,
-  setEventsManagerConf,
-  isLoading,
-  setIsLoading,
-  setSnackbar
+  setEventsManagerConf
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
