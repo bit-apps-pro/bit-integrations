@@ -106,8 +106,10 @@ class RecordApiHelper
     {
         $dataFinal = [];
         foreach ($fieldMap as $item) {
-            $triggerValue = $item->formField;
-            $actionValue = $item->wpTableBuilderField;
+            // Direct property reads, so unlike isset()/empty() these do warn when a
+            // stored field-map row is missing a key.
+            $triggerValue = $item->formField ?? '';
+            $actionValue = $item->wpTableBuilderField ?? '';
 
             if (empty($actionValue)) {
                 continue;

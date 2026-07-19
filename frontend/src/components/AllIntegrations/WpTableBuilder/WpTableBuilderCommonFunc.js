@@ -13,7 +13,7 @@ export const handleInput = (e, wpTableBuilderConf, setWpTableBuilderConf) => {
   )
 }
 
-export const generateMappedField = fields => {
+export const generateMappedField = (fields = []) => {
   const requiredFlds = fields.filter(fld => fld.required === true)
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({
@@ -66,7 +66,10 @@ export const refreshTables = (wpTableBuilderConf, setWpTableBuilderConf, setIsLo
         typeof result?.data === 'string' ? result.data : __('Failed to fetch tables', 'bit-integrations')
       )
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      setIsLoading(false)
+      toast.error(__('An error occurred while fetching tables', 'bit-integrations'))
+    })
 }
 
 export const refreshColumns = (
@@ -108,5 +111,8 @@ export const refreshColumns = (
           : __('Failed to fetch columns', 'bit-integrations')
       )
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => {
+      setIsLoading(false)
+      toast.error(__('An error occurred while fetching columns', 'bit-integrations'))
+    })
 }
