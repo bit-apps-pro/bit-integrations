@@ -78,8 +78,6 @@ class RecordApiHelper
 
                 break;
 
-                // The target table is a config choice here, not a mapped value, so the
-                // integration details have to travel with the row data.
             case 'add_row':
                 $response = Hooks::apply(Config::withPrefix('wptablebuilder_add_row'), $defaultResponse, $fieldData, $this->_integrationDetails);
                 $type = 'row';

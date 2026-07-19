@@ -69,6 +69,7 @@ class WpTableBuilderController
                     'value' => (string) $table->ID,
                     // An untitled table is still selectable, so fall back to the id.
                     'label' => $table->post_title === ''
+                        // Translators: %d is the table's post ID. WP Table Builder tables are a custom post type, and the title is optional.
                         ? wp_sprintf(__('Table #%d', 'bit-integrations'), $table->ID)
                         : $table->post_title,
                 ];
@@ -167,15 +168,11 @@ class WpTableBuilderController
             $label = trim($cell->textContent);
 
             $columns[] = [
-                // Positional: WP Table Builder cells carry no stable identifier, so the
-                // index is the only thing that survives a header being renamed.
                 'key'   => 'cell_' . $index,
                 'label' => $label === ''
                     ? wp_sprintf(__('Column %d', 'bit-integrations'), $index + 1)
                     : $label,
-                // Pins each field-map row to one column so the mapping stays positional.
-                // A blank cell is still allowed — see checkMappedFields on the frontend.
-                'required' => true,
+                'required' => false,
             ];
         }
 
