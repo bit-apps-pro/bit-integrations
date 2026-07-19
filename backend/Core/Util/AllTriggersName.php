@@ -168,6 +168,7 @@ final class AllTriggersName
             'WishlistMember'                 => ['name' => 'Wishlist Member',  'isPro' => true, 'is_active' => false],
             'WpAllImport'                    => ['name' => 'WP All Import',  'isPro' => true, 'is_active' => false],
             'WpDataTables'                   => ['name' => 'wpDataTables',  'isPro' => true, 'is_active' => false],
+            'WpTableBuilder'                 => ['name' => 'WP Table Builder',  'isPro' => true, 'is_active' => false],
             'WpErp'                          => ['name' => 'WP ERP',  'isPro' => true, 'is_active' => false],
             'WPLMS'                          => ['name' => 'WPLMS',  'isPro' => true, 'is_active' => false],
             'WPLoyalty'                      => ['name' => 'WPLoyalty',  'isPro' => true, 'is_active' => false],

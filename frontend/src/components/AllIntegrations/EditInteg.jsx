@@ -187,6 +187,7 @@ const EditHefflCRM = lazy(() => import('./HefflCRM/EditHefflCRM'))
 const EditSecureCustomFields = lazy(() => import('./SecureCustomFields/EditSecureCustomFields'))
 const EditWordPress = lazy(() => import('./WordPress/EditWordPress'))
 const EditWpDataTables = lazy(() => import('./WpDataTables/EditWpDataTables'))
+const EditWpTableBuilder = lazy(() => import('./WpTableBuilder/EditWpTableBuilder'))
 const EditFormyChat = lazy(() => import('./FormyChat/EditFormyChat'))
 const EditIvyForms = lazy(() => import('./IvyForms/EditIvyForms'))
 const EditWpErp = lazy(() => import('./WpErp/EditWpErp'))
@@ -643,6 +644,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditWordPress allIntegURL={allIntegURL} />
     case 'WpDataTables':
       return <EditWpDataTables allIntegURL={allIntegURL} />
+    case 'WpTableBuilder':
+      return <EditWpTableBuilder allIntegURL={allIntegURL} />
     case 'FormyChat':
       return <EditFormyChat allIntegURL={allIntegURL} />
     case 'IvyForms':

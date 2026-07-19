@@ -186,6 +186,7 @@ const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
 const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
+const WpTableBuilder = lazy(() => import('./WpTableBuilder/WpTableBuilder'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const IvyForms = lazy(() => import('./IvyForms/IvyForms'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
@@ -1805,6 +1806,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WpDataTables':
       return (
         <WpDataTables
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpTableBuilder':
+      return (
+        <WpTableBuilder
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

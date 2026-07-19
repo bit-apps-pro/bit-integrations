@@ -194,6 +194,9 @@ const SecureCustomFieldsAuthorization = lazy(
 const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
+const WpTableBuilderAuthorization = lazy(
+  () => import('./WpTableBuilder/WpTableBuilderAuthorization')
+)
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const IvyFormsAuthorization = lazy(() => import('./IvyForms/IvyFormsAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
@@ -646,6 +649,8 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
       return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
     case 'WpDataTables':
       return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
+    case 'WpTableBuilder':
+      return <WpTableBuilderAuthorization wpTableBuilderConf={integrationConf} step={1} isInfo />
     case 'FormyChat':
       return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
     case 'IvyForms':

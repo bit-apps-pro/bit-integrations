@@ -111,6 +111,7 @@ export const customFormIntegrations = [
   'SureDash',
   'WpErp',
   'WpDataTables',
+  'WpTableBuilder',
   'GiveWp',
   'SenseiLMS'
 ]
