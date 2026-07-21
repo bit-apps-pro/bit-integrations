@@ -208,6 +208,7 @@ export default function WhatsAppIntegLayout({
           setSnackbar={setSnackbar}
         />
       ))}
+      <Note note={recipientPhoneNote} />
 
       {whatsAppConf.messageType === 'template' && whatsAppConf?.template_fields?.length > 0 && (
         <div className="mt-5">
@@ -342,23 +343,28 @@ export default function WhatsAppIntegLayout({
   )
 }
 
+const recipientPhoneNote = `<p>${__(
+  "Map the recipient's phone number <strong>with the country code</strong> (e.g. <strong>14155552671</strong> for the US), without any <strong>+</strong>, spaces, or dashes. Messages sent without the country code will fail to deliver.",
+  'bit-integrations'
+)}</p>`
+
 const textMsgNote = `<p>${__(
   'To ensure successful message delivery using the WhatsApp Business API:',
   'bit-integrations'
 )}</p>
             <ul>
                 <li><strong>${__(
-                  'The conversation must be initiated by the user.',
-                  'bit-integrations'
-                )}</strong></li>
+  'The conversation must be initiated by the user.',
+  'bit-integrations'
+)}</strong></li>
                 <li>${__(
-                  "To begin, <strong>send a message from your WhatsApp number to the recipient's number.</strong>",
-                  'bit-integrations'
-                )}</li>
+  "To begin, <strong>send a message from your WhatsApp number to the recipient's number.</strong>",
+  'bit-integrations'
+)}</li>
                 <li>${__(
-                  'Once the user has started the conversation, you can continue to communicate with the recipient normally.',
-                  'bit-integrations'
-                )}</li>
+  'Once the user has started the conversation, you can continue to communicate with the recipient normally.',
+  'bit-integrations'
+)}</li>
             </ul>`
 
 const textMediaNote = `<p>${__(
@@ -367,41 +373,41 @@ const textMediaNote = `<p>${__(
 )}</p>
             <ul>
                 <li><strong>${__(
-                  'The conversation must be initiated by the user.',
-                  'bit-integrations'
-                )}</strong></li>
+  'The conversation must be initiated by the user.',
+  'bit-integrations'
+)}</strong></li>
                 <li>${__(
-                  "To begin, <strong>send a message from your WhatsApp number to the recipient's number.</strong>",
-                  'bit-integrations'
-                )}</li>
+  "To begin, <strong>send a message from your WhatsApp number to the recipient's number.</strong>",
+  'bit-integrations'
+)}</li>
                 <li>${__(
-                  'Once the user has started the conversation, you can continue to communicate with the recipient normally.',
-                  'bit-integrations'
-                )}</li>
+  'Once the user has started the conversation, you can continue to communicate with the recipient normally.',
+  'bit-integrations'
+)}</li>
             </ul>
             <h5>${__('Caption', 'bit-integrations')}</h5>
             <ul>
                 <li>${__(
-                  'Do not use with <strong>audio</strong> or <strong>sticker</strong> media.',
-                  'bit-integrations'
-                )}</li>
+  'Do not use with <strong>audio</strong> or <strong>sticker</strong> media.',
+  'bit-integrations'
+)}</li>
                 <li>${__('Media asset <strong>caption</strong>.', 'bit-integrations')}</li>
                 <li>${__(
-                  '<strong>Captions</strong> are currently not supported for <strong>document</strong> media',
-                  'bit-integrations'
-                )}</li>
+  '<strong>Captions</strong> are currently not supported for <strong>document</strong> media',
+  'bit-integrations'
+)}</li>
             </ul>
             <h5>${__('FileName', 'bit-integrations')}</h5>
             <ul>
                 <li>${__('Use only with <strong>document media</strong>.', 'bit-integrations')}</li>
                 <li>${__(
-                  'Describes the <strong>FileName</strong> for the specific <strong>document</strong>.',
-                  'bit-integrations'
-                )}</li>
+  'Describes the <strong>FileName</strong> for the specific <strong>document</strong>.',
+  'bit-integrations'
+)}</li>
                 <li>${__(
-                  'The extension of the filename will specify what format the document is displayed as in WhatsApp.',
-                  'bit-integrations'
-                )}</li>
+  'The extension of the filename will specify what format the document is displayed as in WhatsApp.',
+  'bit-integrations'
+)}</li>
             </ul>`
 
 const contactFields = [

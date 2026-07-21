@@ -4,6 +4,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import LoaderSm from '../../Loaders/LoaderSm'
 import { handleAuthorize } from './WhatsAppCommonFunc'
 import TutorialLink from '../../Utilities/TutorialLink'
+import Note from '../../Utilities/Note'
 
 export default function WhatsAppAuthorization({
   formID,
@@ -35,6 +36,16 @@ export default function WhatsAppAuthorization({
     setError(rmError)
     setWhatsAppConf(newConf)
   }
+
+  const whatsAppInstructions = `
+            <h4>${__('Get Phone number ID, Business Account ID & Access Token', 'bit-integrations')}</h4>
+            <ul>
+                <li>${__('Go to Meta for Developers', 'bit-integrations')} (<a href="https://developers.facebook.com/apps/" target="_blank" rel="noopener noreferrer">https://developers.facebook.com/apps/</a>) ${__('and open your App.', 'bit-integrations')}</li>
+                <li>${__('Add the "WhatsApp" product and open its "API Setup" page.', 'bit-integrations')}</li>
+                <li>${__('Copy the "Phone number ID" and the "WhatsApp Business Account ID" shown there.', 'bit-integrations')}</li>
+                <li>${__('Generate a permanent Access Token from a System User with the whatsapp_business_messaging permission.', 'bit-integrations')}</li>
+                <li>${__('Paste each value into the fields above, then click Authorize.', 'bit-integrations')}</li>
+            </ul>`
 
   return (
     <div
@@ -126,6 +137,7 @@ export default function WhatsAppAuthorization({
           </button>
         </>
       )}
+      <Note note={whatsAppInstructions} isInstruction />
     </div>
   )
 }
