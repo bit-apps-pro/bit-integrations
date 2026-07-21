@@ -40,7 +40,7 @@ class RecordApiHelper
         $templateName = $this->_integrationDetails->templateName;
         $apiEndPoint = "{$this->_baseUrl}{$businessAccountID}/message_templates?fields=language&name={$templateName}";
         $response = HttpHelper::get($apiEndPoint, null, static::setHeaders($token));
-        $language = $response->data[0]->language ?? 'en_US';
+        $language = isset($response->data[0]->language) ? $response->data[0]->language : 'en_US';
 
         $apiEndPoint = "{$this->_baseUrl}{$numberId}/messages";
         $template = [
@@ -150,9 +150,7 @@ class RecordApiHelper
         $token = $this->_integrationDetails->token;
 
         if ($messageType === 'template' || $messageType === '2') {
-            $templateFieldMap = isset($this->_integrationDetails->template_field_map)
-                ? $this->_integrationDetails->template_field_map
-                : [];
+            $templateFieldMap = $this->_integrationDetails->template_field_map ?? [];
             $templatePlaceholders = $this->generateReqDataFromFieldMap($fieldValues, $templateFieldMap);
 
             $apiResponse = $this->sendMessageWithTemplate($numberId, $businessAccountID, $token, $finalData, $phoneNumber, $templatePlaceholders);
