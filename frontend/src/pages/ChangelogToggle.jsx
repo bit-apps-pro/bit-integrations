@@ -43,13 +43,8 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Salesforce',
-        desc: 'Added record owner selection for supported record creation actions.',
-        isPro: false
-      },
-      {
-        label: 'MemberPress',
-        desc: 'Added Transaction expired trigger event.',
+        label: 'WhatsApp',
+        desc: 'Added template placeholder support and improved template handling in the integration setup.',
         isPro: true
       }
     ]
@@ -64,35 +59,13 @@ const changeLog = [
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'ActiveCampaign',
-        desc: 'Improved tag fetching error handling through the shared HTTP helper.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'Custom Action',
-        desc: 'Added administrator capability checks for creating, updating, duplicating, deleting and toggling custom-action flows.',
-        isPro: false
-      },
-      {
-        label: 'File Handling',
-        desc: 'Hardened attachment and upload path validation for Mail, PropovoiceCRM, SureCart and shared media upload helpers.',
-        isPro: false
-      },
-      {
-        label: 'HTTP Requests',
-        desc: 'Switched external requests to safer URL validation and WordPress safe remote request helpers.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),
