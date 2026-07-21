@@ -35,7 +35,7 @@ class WhatsAppController
     {
         static::checkValidation($requestParams);
 
-        $apiEndpoint = "{$this->baseUrl}{$requestParams->businessAccountID}/message_templates?fields=name";
+        $apiEndpoint = "{$this->baseUrl}{$requestParams->businessAccountID}/message_templates?fields=name,language,components";
         $allTemplates = static::getTemplate($apiEndpoint, $requestParams->token);
 
         if (is_wp_error($allTemplates)) {
@@ -88,7 +88,11 @@ class WhatsAppController
         }
 
         foreach ($response->data as $template) {
-            $allTemplates[] = $template->name;
+            $allTemplates[] = [
+                'name'       => $template->name,
+                'language'   => isset($template->language) ? $template->language : 'en_US',
+                'components' => isset($template->components) ? $template->components : [],
+            ];
         }
 
         if (isset($response->paging->next)) {
