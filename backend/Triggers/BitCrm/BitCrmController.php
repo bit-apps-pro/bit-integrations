@@ -33,13 +33,13 @@ final class BitCrmController
         ];
     }
 
-    public function getAllTasks()
+    public function getAllEvents()
     {
         if (!self::isPluginInstalled()) {
             wp_send_json_error(\sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Bit CRM'));
         }
 
-        wp_send_json_success(self::tasks());
+        wp_send_json_success(self::events());
     }
 
     public static function handleLeadCreated($lead)
@@ -569,7 +569,7 @@ final class BitCrmController
         return class_exists('BitApps\\Crm\\Config');
     }
 
-    private static function tasks()
+    private static function events()
     {
         return [
             ['form_name' => __('Lead Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/lead_created', 'skipPrimaryKey' => true],
