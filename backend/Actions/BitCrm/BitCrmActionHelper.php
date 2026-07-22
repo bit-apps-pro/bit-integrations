@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 
 final class BitCrmActionHelper
 {
-    public static function createLead($response, $fieldData)
+    public static function createLead($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\LeadService')) {
             return self::missing('BitApps\Crm\Services\LeadService');
@@ -28,7 +28,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\LeadService())->store($payload), __('Lead created successfully.', 'bit-integrations'));
     }
 
-    public static function updateLead($response, $fieldData)
+    public static function updateLead($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\LeadService')) {
             return self::missing('BitApps\Crm\Services\LeadService');
@@ -46,7 +46,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\LeadService())->update($payload), __('Lead updated successfully.', 'bit-integrations'));
     }
 
-    public static function deleteLead($response, $fieldData)
+    public static function deleteLead($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\LeadService')) {
             return self::missing('BitApps\Crm\Services\LeadService');
@@ -59,7 +59,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\LeadService())->trash(['ids' => [(int) $fieldData['lead_id']]]), __('Lead deleted successfully.', 'bit-integrations'));
     }
 
-    public static function addTagToLead($response, $fieldData)
+    public static function addTagToLead($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\LeadService')) {
             return self::missing('BitApps\Crm\Services\LeadService');
@@ -85,7 +85,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag attached to lead successfully.', 'bit-integrations')];
     }
 
-    public static function removeTagFromLead($response, $fieldData)
+    public static function removeTagFromLead($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\LeadService')) {
             return self::missing('BitApps\Crm\Services\LeadService');
@@ -103,7 +103,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag removed from lead successfully.', 'bit-integrations')];
     }
 
-    public static function createContact($response, $fieldData)
+    public static function createContact($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\ContactService')) {
             return self::missing('BitApps\Crm\Services\ContactService');
@@ -123,7 +123,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\ContactService())->store($payload), __('Contact created successfully.', 'bit-integrations'));
     }
 
-    public static function updateContact($response, $fieldData)
+    public static function updateContact($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\ContactService')) {
             return self::missing('BitApps\Crm\Services\ContactService');
@@ -141,7 +141,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\ContactService())->update($payload), __('Contact updated successfully.', 'bit-integrations'));
     }
 
-    public static function deleteContact($response, $fieldData)
+    public static function deleteContact($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\ContactService')) {
             return self::missing('BitApps\Crm\Services\ContactService');
@@ -154,7 +154,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\ContactService())->trash(['ids' => [(int) $fieldData['contact_id']]]), __('Contact deleted successfully.', 'bit-integrations'));
     }
 
-    public static function addTagToContact($response, $fieldData)
+    public static function addTagToContact($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\ContactService')) {
             return self::missing('BitApps\Crm\Services\ContactService');
@@ -180,7 +180,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag attached to contact successfully.', 'bit-integrations')];
     }
 
-    public static function removeTagFromContact($response, $fieldData)
+    public static function removeTagFromContact($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\ContactService')) {
             return self::missing('BitApps\Crm\Services\ContactService');
@@ -198,7 +198,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag removed from contact successfully.', 'bit-integrations')];
     }
 
-    public static function createCompany($response, $fieldData)
+    public static function createCompany($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\CompanyService')) {
             return self::missing('BitApps\Crm\Services\CompanyService');
@@ -218,7 +218,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\CompanyService())->store($payload), __('Company created successfully.', 'bit-integrations'));
     }
 
-    public static function updateCompany($response, $fieldData)
+    public static function updateCompany($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\CompanyService')) {
             return self::missing('BitApps\Crm\Services\CompanyService');
@@ -236,7 +236,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\CompanyService())->update($payload), __('Company updated successfully.', 'bit-integrations'));
     }
 
-    public static function deleteCompany($response, $fieldData)
+    public static function deleteCompany($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\CompanyService')) {
             return self::missing('BitApps\Crm\Services\CompanyService');
@@ -249,7 +249,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\CompanyService())->trash(['ids' => [(int) $fieldData['company_id']]]), __('Company deleted successfully.', 'bit-integrations'));
     }
 
-    public static function addTagToCompany($response, $fieldData)
+    public static function addTagToCompany($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\CompanyService')) {
             return self::missing('BitApps\Crm\Services\CompanyService');
@@ -275,7 +275,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag attached to company successfully.', 'bit-integrations')];
     }
 
-    public static function removeTagFromCompany($response, $fieldData)
+    public static function removeTagFromCompany($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\CompanyService')) {
             return self::missing('BitApps\Crm\Services\CompanyService');
@@ -293,7 +293,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag removed from company successfully.', 'bit-integrations')];
     }
 
-    public static function createDeal($response, $fieldData)
+    public static function createDeal($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\DealService')) {
             return self::missing('BitApps\Crm\Services\DealService');
@@ -313,7 +313,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\DealService())->store($payload), __('Deal created successfully.', 'bit-integrations'));
     }
 
-    public static function updateDeal($response, $fieldData)
+    public static function updateDeal($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\DealService')) {
             return self::missing('BitApps\Crm\Services\DealService');
@@ -331,7 +331,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\DealService())->update($payload), __('Deal updated successfully.', 'bit-integrations'));
     }
 
-    public static function deleteDeal($response, $fieldData)
+    public static function deleteDeal($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\DealService')) {
             return self::missing('BitApps\Crm\Services\DealService');
@@ -344,7 +344,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\DealService())->trash(['ids' => [(int) $fieldData['deal_id']]]), __('Deal deleted successfully.', 'bit-integrations'));
     }
 
-    public static function addTagToDeal($response, $fieldData)
+    public static function addTagToDeal($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\DealService')) {
             return self::missing('BitApps\Crm\Services\DealService');
@@ -370,7 +370,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag attached to deal successfully.', 'bit-integrations')];
     }
 
-    public static function removeTagFromDeal($response, $fieldData)
+    public static function removeTagFromDeal($fieldData)
     {
         if (!class_exists('BitApps\Crm\Services\DealService')) {
             return self::missing('BitApps\Crm\Services\DealService');
@@ -388,7 +388,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag removed from deal successfully.', 'bit-integrations')];
     }
 
-    public static function createProduct($response, $fieldData)
+    public static function createProduct($fieldData)
     {
         if (!class_exists('BitApps\CrmPro\Services\ProductService')) {
             return self::missing('BitApps\CrmPro\Services\ProductService');
@@ -408,7 +408,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\CrmPro\Services\ProductService())->store($payload), __('Product created successfully.', 'bit-integrations'));
     }
 
-    public static function updateProduct($response, $fieldData)
+    public static function updateProduct($fieldData)
     {
         if (!class_exists('BitApps\CrmPro\Services\ProductService')) {
             return self::missing('BitApps\CrmPro\Services\ProductService');
@@ -426,7 +426,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\CrmPro\Services\ProductService())->update($payload), __('Product updated successfully.', 'bit-integrations'));
     }
 
-    public static function deleteProduct($response, $fieldData)
+    public static function deleteProduct($fieldData)
     {
         if (!class_exists('BitApps\CrmPro\Services\ProductService')) {
             return self::missing('BitApps\CrmPro\Services\ProductService');
@@ -439,7 +439,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\CrmPro\Services\ProductService())->trash(['ids' => [(int) $fieldData['product_id']]]), __('Product deleted successfully.', 'bit-integrations'));
     }
 
-    public static function addTagToProduct($response, $fieldData)
+    public static function addTagToProduct($fieldData)
     {
         if (!class_exists('BitApps\CrmPro\Services\ProductService')) {
             return self::missing('BitApps\CrmPro\Services\ProductService');
@@ -465,7 +465,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag attached to product successfully.', 'bit-integrations')];
     }
 
-    public static function removeTagFromProduct($response, $fieldData)
+    public static function removeTagFromProduct($fieldData)
     {
         if (!class_exists('BitApps\CrmPro\Services\ProductService')) {
             return self::missing('BitApps\CrmPro\Services\ProductService');
@@ -483,7 +483,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag removed from product successfully.', 'bit-integrations')];
     }
 
-    public static function updateDealStage($response, $fieldData)
+    public static function updateDealStage($fieldData)
     {
         if (!class_exists('BitApps\\Crm\\Model\\Deal')) {
             return self::missing('BitApps\\Crm\\Model\\Deal');
@@ -507,7 +507,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Deal stage updated successfully.', 'bit-integrations')];
     }
 
-    public static function convertLead($response, $fieldData)
+    public static function convertLead($fieldData)
     {
         if (!class_exists('BitApps\\Crm\\Services\\LeadConvertService')) {
             return self::missing('BitApps\\Crm\\Services\\LeadConvertService');
@@ -544,7 +544,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Lead converted successfully.', 'bit-integrations')];
     }
 
-    public static function createTag($response, $fieldData)
+    public static function createTag($fieldData)
     {
         if (!class_exists('BitApps\\Crm\\Services\\TagService')) {
             return self::missing('BitApps\\Crm\\Services\\TagService');
@@ -562,7 +562,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Tag created successfully.', 'bit-integrations')];
     }
 
-    public static function createNote($response, $fieldData)
+    public static function createNote($fieldData)
     {
         if (!class_exists('BitApps\\Crm\\Services\\NoteService')) {
             return self::missing('BitApps\\Crm\\Services\\NoteService');
@@ -585,7 +585,7 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\NoteService())->store($payload), __('Note created successfully.', 'bit-integrations'));
     }
 
-    public static function createActivity($response, $fieldData)
+    public static function createActivity($fieldData)
     {
         if (!class_exists('BitApps\\Crm\\Model\\Activity')) {
             return self::missing('BitApps\\Crm\\Model\\Activity');
@@ -622,7 +622,7 @@ final class BitCrmActionHelper
         return ['success' => true, 'message' => __('Activity created successfully.', 'bit-integrations')];
     }
 
-    public static function createInvoice($response, $fieldData)
+    public static function createInvoice($fieldData)
     {
         if (!class_exists('BitApps\\Crm\\Model\\Invoice')) {
             return self::missing('BitApps\\Crm\\Model\\Invoice');
