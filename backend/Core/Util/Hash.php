@@ -58,7 +58,7 @@ class Hash
         // fails at decrypt — by which point the original credential is gone. Throwing
         // keeps a credential that cannot be encrypted from being written at all.
         if ($cipherRaw === false) {
-            throw new RuntimeException('Unable to encrypt value: ' . openssl_error_string());
+            throw new RuntimeException('Unable to encrypt value: ' . esc_html((string) openssl_error_string()));
         }
 
         return self::V2_PREFIX . urlencode(base64_encode($iv . $tag . $cipherRaw));
