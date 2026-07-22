@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 class OAuth2Authorization extends AbstractBaseAuthorization
