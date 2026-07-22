@@ -269,23 +269,23 @@ const productTags = tags('refresh_bitcrm_product_tags')
 
 export const actionDropdowns = {
   create_lead: [currency, leadTags],
-  update_lead: [currency, leadTags],
+  update_lead: [currency],
   add_tag_to_lead: [leadTags],
   remove_tag_from_lead: [leadTags],
   convert_lead: [],
 
   create_contact: [company, parentContact, currency, contactTags],
-  update_contact: [company, parentContact, currency, contactTags],
+  update_contact: [company, parentContact, currency],
   add_tag_to_contact: [contactTags],
   remove_tag_from_contact: [contactTags],
 
   create_company: [parentCompany, currency, companyTags],
-  update_company: [parentCompany, currency, companyTags],
+  update_company: [parentCompany, currency],
   add_tag_to_company: [companyTags],
   remove_tag_from_company: [companyTags],
 
   create_deal: [stage, contact, company, currency, dealTags],
-  update_deal: [stage, contact, company, currency, dealTags],
+  update_deal: [stage, contact, company, currency],
   update_deal_stage: [stage],
   add_tag_to_deal: [dealTags],
   remove_tag_from_deal: [dealTags],

@@ -122,7 +122,7 @@ final class BitCrmController
 
     public static function handleContactCreated($contact)
     {
-        if (empty(${arg1})) {
+        if (empty($contact)) {
             return;
         }
 
@@ -131,7 +131,7 @@ final class BitCrmController
 
     public static function handleContactUpdated($contact)
     {
-        if (empty(${arg1})) {
+        if (empty($contact)) {
             return;
         }
 
@@ -191,7 +191,7 @@ final class BitCrmController
 
     public static function handleCompanyCreated($company)
     {
-        if (empty(${arg1})) {
+        if (empty($company)) {
             return;
         }
 
@@ -200,7 +200,7 @@ final class BitCrmController
 
     public static function handleCompanyUpdated($company)
     {
-        if (empty(${arg1})) {
+        if (empty($company)) {
             return;
         }
 
@@ -260,7 +260,7 @@ final class BitCrmController
 
     public static function handleDealCreated($deal)
     {
-        if (empty(${arg1})) {
+        if (empty($deal)) {
             return;
         }
 
@@ -269,7 +269,7 @@ final class BitCrmController
 
     public static function handleDealUpdated($deal)
     {
-        if (empty(${arg1})) {
+        if (empty($deal)) {
             return;
         }
 
@@ -338,7 +338,7 @@ final class BitCrmController
 
     public static function handleProductCreated($product)
     {
-        if (empty(${arg1})) {
+        if (empty($product)) {
             return;
         }
 
@@ -347,7 +347,7 @@ final class BitCrmController
 
     public static function handleProductUpdated($product)
     {
-        if (empty(${arg1})) {
+        if (empty($product)) {
             return;
         }
 
@@ -407,7 +407,7 @@ final class BitCrmController
 
     public static function handleTagCreated($tag)
     {
-        if (empty(${arg1})) {
+        if (empty($tag)) {
             return;
         }
 
@@ -416,7 +416,7 @@ final class BitCrmController
 
     public static function handleTagUpdated($tag)
     {
-        if (empty(${arg1})) {
+        if (empty($tag)) {
             return;
         }
 
@@ -434,7 +434,7 @@ final class BitCrmController
 
     public static function handleNoteCreated($note)
     {
-        if (empty(${arg1})) {
+        if (empty($note)) {
             return;
         }
 
@@ -443,7 +443,7 @@ final class BitCrmController
 
     public static function handleNoteUpdated($note)
     {
-        if (empty(${arg1})) {
+        if (empty($note)) {
             return;
         }
 
@@ -461,7 +461,7 @@ final class BitCrmController
 
     public static function handleActivityCreated($activity)
     {
-        if (empty(${arg1})) {
+        if (empty($activity)) {
             return;
         }
 
@@ -470,7 +470,7 @@ final class BitCrmController
 
     public static function handleActivityUpdated($activity)
     {
-        if (empty(${arg1})) {
+        if (empty($activity)) {
             return;
         }
 
@@ -497,7 +497,7 @@ final class BitCrmController
 
     public static function handleInvoiceCreated($invoice)
     {
-        if (empty(${arg1})) {
+        if (empty($invoice)) {
             return;
         }
 
@@ -506,7 +506,7 @@ final class BitCrmController
 
     public static function handleInvoiceUpdated($invoice)
     {
-        if (empty(${arg1})) {
+        if (empty($invoice)) {
             return;
         }
 
@@ -515,7 +515,7 @@ final class BitCrmController
 
     public static function handleInvoiceStatusUpdated($invoice)
     {
-        if (empty(${arg1})) {
+        if (empty($invoice)) {
             return;
         }
 

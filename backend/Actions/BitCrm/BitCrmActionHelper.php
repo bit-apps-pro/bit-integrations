@@ -534,8 +534,8 @@ final class BitCrmActionHelper
             $mapping = \BitApps\Crm\Services\ConvertService::getConversionMapping();
             $service = new \BitApps\Crm\Services\LeadConvertService([$leadId], $ownerId, $options, $mapping);
             $service->convertToCompanies();
-            $service->convertToContacts();
-            $service->convertToDeals();
+            $convertedContacts = $service->convertToContacts();
+            $service->convertToDeals($convertedContacts);
             \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::commit();
         } catch (Throwable $th) {
             \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::rollback();
@@ -602,7 +602,6 @@ final class BitCrmActionHelper
         $payload = [
             'title'       => $fieldData['title'],
             'type'        => $fieldData['type'],
-            'due_date'    => $fieldData['due_date'] ?? '',
             'details'     => $fieldData['details'] ?? '',
             'entity_id'   => (int) $fieldData['entity_id'],
             'module'      => $fieldData['module'],
@@ -612,6 +611,11 @@ final class BitCrmActionHelper
         ];
         if (!empty($fieldData['priority'])) {
             $payload['priority'] = $fieldData['priority'];
+        }
+        // Only set due_date when supplied — the column is nullable and an empty
+        // string is rejected by MySQL strict mode as an invalid datetime.
+        if (!empty($fieldData['due_date'])) {
+            $payload['due_date'] = $fieldData['due_date'];
         }
 
         $activity = \BitApps\Crm\Model\Activity::insert($payload);
@@ -630,7 +634,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Model\Invoice');
         }
 
-        foreach (['invoice_date', 'deal_id', 'term_key', 'due_date', 'tax_option', 'currency', 'invoice_prefix'] as $req) {
+        foreach (['invoice_date', 'deal_id', 'term_key', 'due_date', 'tax_option', 'invoice_prefix'] as $req) {
             if (empty($fieldData[$req])) {
                 return self::required($req);
             }

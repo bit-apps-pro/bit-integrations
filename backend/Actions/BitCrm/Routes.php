@@ -9,7 +9,6 @@ use BitApps\Integrations\Core\Util\Route;
 
 Route::post('bitcrm_authorize', [BitCrmController::class, 'bitCrmAuthorize']);
 
-Route::post('refresh_bitcrm_users', [BitCrmController::class, 'refreshUsers']);
 Route::post('refresh_bitcrm_currencies', [BitCrmController::class, 'refreshCurrencies']);
 Route::post('refresh_bitcrm_deal_stages', [BitCrmController::class, 'refreshDealStages']);
 Route::post('refresh_bitcrm_invoice_terms', [BitCrmController::class, 'refreshInvoiceTerms']);

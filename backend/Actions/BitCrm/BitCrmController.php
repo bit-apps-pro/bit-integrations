@@ -23,12 +23,6 @@ class BitCrmController
         wp_send_json_success(true);
     }
 
-    public static function refreshUsers()
-    {
-        self::ensureClass('BitApps\Crm\Services\UserService');
-        wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\UserService())->getUsersAsOptions())]);
-    }
-
     public static function refreshCurrencies()
     {
         self::ensureClass('BitApps\Crm\Services\CurrencyService');
