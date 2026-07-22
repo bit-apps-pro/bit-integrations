@@ -42,493 +42,493 @@ final class BitCrmController
         wp_send_json_success(self::tasks());
     }
 
-    public static function handleLeadCreated($arg1)
+    public static function handleLeadCreated($lead)
     {
-        if (empty($arg1)) {
+        if (empty($lead)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/lead_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/lead_created', self::normalize($lead));
     }
 
-    public static function handleLeadUpdated($arg1)
+    public static function handleLeadUpdated($lead)
     {
-        if (empty($arg1)) {
+        if (empty($lead)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/lead_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/lead_updated', self::normalize($lead));
     }
 
-    public static function handleLeadsTrashed($arg1)
+    public static function handleLeadsTrashed($ids)
     {
-        if (empty($arg1)) {
+        if (empty($ids)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/leads_trashed', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/leads_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
-    public static function handleLeadConverted($arg1)
+    public static function handleLeadConverted($ids)
     {
-        if (empty($arg1)) {
+        if (empty($ids)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/leads_converted_to_contact', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/leads_converted_to_contact', ['ids' => implode(',', (array) $ids)]);
     }
 
-    public static function handleLeadTagAttached($arg1, $arg2 = null)
+    public static function handleLeadTagAttached($tag, $leadId = null)
     {
-        if (empty($arg2)) {
+        if (empty($leadId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_attached_to_lead', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_attached_to_lead', array_merge(self::normalize($tag), ['entity_id' => $leadId]));
     }
 
-    public static function handleLeadTagDetached($arg1, $arg2 = null)
+    public static function handleLeadTagDetached($tagId, $leadId = null)
     {
-        if (empty($arg2)) {
+        if (empty($leadId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_detached_from_lead', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_detached_from_lead', array_merge(self::normalize($tagId), ['entity_id' => $leadId]));
     }
 
-    public static function handleLeadTagsAttached($arg1, $arg2 = null)
+    public static function handleLeadTagsAttached($tagIds, $leadIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($leadIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_attached_to_leads', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $leadIds),
         ]);
     }
 
-    public static function handleLeadTagsDetached($arg1, $arg2 = null)
+    public static function handleLeadTagsDetached($tagIds, $leadIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($leadIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_detached_from_leads', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $leadIds),
         ]);
     }
 
-    public static function handleContactCreated($arg1)
+    public static function handleContactCreated($contact)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/contact_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/contact_created', self::normalize($contact));
     }
 
-    public static function handleContactUpdated($arg1)
+    public static function handleContactUpdated($contact)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/contact_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/contact_updated', self::normalize($contact));
     }
 
-    public static function handleContactsTrashed($arg1)
+    public static function handleContactsTrashed($ids)
     {
-        if (empty($arg1)) {
+        if (empty($ids)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/contacts_trashed', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/contacts_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
-    public static function handleContactTagAttached($arg1, $arg2 = null)
+    public static function handleContactTagAttached($tag, $contactId = null)
     {
-        if (empty($arg2)) {
+        if (empty($contactId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_attached_to_contact', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_attached_to_contact', array_merge(self::normalize($tag), ['entity_id' => $contactId]));
     }
 
-    public static function handleContactTagDetached($arg1, $arg2 = null)
+    public static function handleContactTagDetached($tagId, $contactId = null)
     {
-        if (empty($arg2)) {
+        if (empty($contactId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_detached_from_contact', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_detached_from_contact', array_merge(self::normalize($tagId), ['entity_id' => $contactId]));
     }
 
-    public static function handleContactTagsAttached($arg1, $arg2 = null)
+    public static function handleContactTagsAttached($tagIds, $contactIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($contactIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_attached_to_contacts', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $contactIds),
         ]);
     }
 
-    public static function handleContactTagsDetached($arg1, $arg2 = null)
+    public static function handleContactTagsDetached($tagIds, $contactIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($contactIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_detached_from_contacts', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $contactIds),
         ]);
     }
 
-    public static function handleCompanyCreated($arg1)
+    public static function handleCompanyCreated($company)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/company_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/company_created', self::normalize($company));
     }
 
-    public static function handleCompanyUpdated($arg1)
+    public static function handleCompanyUpdated($company)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/company_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/company_updated', self::normalize($company));
     }
 
-    public static function handleCompaniesTrashed($arg1)
+    public static function handleCompaniesTrashed($ids)
     {
-        if (empty($arg1)) {
+        if (empty($ids)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/companies_trashed', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/companies_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
-    public static function handleCompanyTagAttached($arg1, $arg2 = null)
+    public static function handleCompanyTagAttached($tag, $companyId = null)
     {
-        if (empty($arg2)) {
+        if (empty($companyId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_attached_to_company', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_attached_to_company', array_merge(self::normalize($tag), ['entity_id' => $companyId]));
     }
 
-    public static function handleCompanyTagDetached($arg1, $arg2 = null)
+    public static function handleCompanyTagDetached($tagId, $companyId = null)
     {
-        if (empty($arg2)) {
+        if (empty($companyId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_detached_from_company', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_detached_from_company', array_merge(self::normalize($tagId), ['entity_id' => $companyId]));
     }
 
-    public static function handleCompanyTagsAttached($arg1, $arg2 = null)
+    public static function handleCompanyTagsAttached($tagIds, $companyIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($companyIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_attached_to_companies', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $companyIds),
         ]);
     }
 
-    public static function handleCompanyTagsDetached($arg1, $arg2 = null)
+    public static function handleCompanyTagsDetached($tagIds, $companyIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($companyIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_detached_from_companies', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $companyIds),
         ]);
     }
 
-    public static function handleDealCreated($arg1)
+    public static function handleDealCreated($deal)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/deal_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/deal_created', self::normalize($deal));
     }
 
-    public static function handleDealUpdated($arg1)
+    public static function handleDealUpdated($deal)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/deal_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/deal_updated', self::normalize($deal));
     }
 
-    public static function handleDealsTrashed($arg1)
+    public static function handleDealsTrashed($ids)
     {
-        if (empty($arg1)) {
+        if (empty($ids)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/deals_trashed', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/deals_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
-    public static function handleDealStageUpdated($arg1, $arg2 = null)
+    public static function handleDealStageUpdated($deal, $stage = null)
     {
-        if (empty($arg1)) {
+        if (empty($deal)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/deal_stage_updated', array_merge(self::normalize($arg1), ['stage' => $arg2]));
+        return self::flowExecute('bit_crm/deal_stage_updated', array_merge(self::normalize($deal), ['stage' => $stage]));
     }
 
-    public static function handleDealTagAttached($arg1, $arg2 = null)
+    public static function handleDealTagAttached($tag, $dealId = null)
     {
-        if (empty($arg2)) {
+        if (empty($dealId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_attached_to_deal', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_attached_to_deal', array_merge(self::normalize($tag), ['entity_id' => $dealId]));
     }
 
-    public static function handleDealTagDetached($arg1, $arg2 = null)
+    public static function handleDealTagDetached($tagId, $dealId = null)
     {
-        if (empty($arg2)) {
+        if (empty($dealId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_detached_from_deal', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_detached_from_deal', array_merge(self::normalize($tagId), ['entity_id' => $dealId]));
     }
 
-    public static function handleDealTagsAttached($arg1, $arg2 = null)
+    public static function handleDealTagsAttached($tagIds, $dealIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($dealIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_attached_to_deals', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $dealIds),
         ]);
     }
 
-    public static function handleDealTagsDetached($arg1, $arg2 = null)
+    public static function handleDealTagsDetached($tagIds, $dealIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($dealIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_detached_from_deals', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $dealIds),
         ]);
     }
 
-    public static function handleProductCreated($arg1)
+    public static function handleProductCreated($product)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/product_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/product_created', self::normalize($product));
     }
 
-    public static function handleProductUpdated($arg1)
+    public static function handleProductUpdated($product)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/product_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/product_updated', self::normalize($product));
     }
 
-    public static function handleProductsTrashed($arg1)
+    public static function handleProductsTrashed($ids)
     {
-        if (empty($arg1)) {
+        if (empty($ids)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/products_trashed', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/products_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
-    public static function handleProductTagAttached($arg1, $arg2 = null)
+    public static function handleProductTagAttached($tag, $productId = null)
     {
-        if (empty($arg2)) {
+        if (empty($productId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_attached_to_product', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_attached_to_product', array_merge(self::normalize($tag), ['entity_id' => $productId]));
     }
 
-    public static function handleProductTagDetached($arg1, $arg2 = null)
+    public static function handleProductTagDetached($tagId, $productId = null)
     {
-        if (empty($arg2)) {
+        if (empty($productId)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_detached_from_product', array_merge(self::normalize($arg1), ['entity_id' => $arg2]));
+        return self::flowExecute('bit_crm/tag_detached_from_product', array_merge(self::normalize($tagId), ['entity_id' => $productId]));
     }
 
-    public static function handleProductTagsAttached($arg1, $arg2 = null)
+    public static function handleProductTagsAttached($tagIds, $productIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($productIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_attached_to_products', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $productIds),
         ]);
     }
 
-    public static function handleProductTagsDetached($arg1, $arg2 = null)
+    public static function handleProductTagsDetached($tagIds, $productIds = null)
     {
-        if (empty($arg2)) {
+        if (empty($productIds)) {
             return;
         }
 
         return self::flowExecute('bit_crm/tags_detached_from_products', [
-            'tag_ids'    => implode(',', (array) $arg1),
-            'entity_ids' => implode(',', (array) $arg2),
+            'tag_ids'    => implode(',', (array) $tagIds),
+            'entity_ids' => implode(',', (array) $productIds),
         ]);
     }
 
-    public static function handleTagCreated($arg1)
+    public static function handleTagCreated($tag)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/tag_created', self::normalize($tag));
     }
 
-    public static function handleTagUpdated($arg1)
+    public static function handleTagUpdated($tag)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/tag_updated', self::normalize($tag));
     }
 
-    public static function handleTagDeleted($arg1)
+    public static function handleTagDeleted($id)
     {
-        if (empty($arg1)) {
+        if (empty($id)) {
             return;
         }
 
-        return self::flowExecute('bit_crm/tag_deleted', ['id' => $arg1]);
+        return self::flowExecute('bit_crm/tag_deleted', ['id' => $id]);
     }
 
-    public static function handleNoteCreated($arg1)
-    {
-        if (empty(${arg1})) {
-            return;
-        }
-
-        return self::flowExecute('bit_crm/note_created', self::normalize($arg1));
-    }
-
-    public static function handleNoteUpdated($arg1)
+    public static function handleNoteCreated($note)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/note_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/note_created', self::normalize($note));
     }
 
-    public static function handleNoteDeleted($arg1)
-    {
-        if (empty($arg1)) {
-            return;
-        }
-
-        return self::flowExecute('bit_crm/note_deleted', ['id' => $arg1]);
-    }
-
-    public static function handleActivityCreated($arg1)
+    public static function handleNoteUpdated($note)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/activity_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/note_updated', self::normalize($note));
     }
 
-    public static function handleActivityUpdated($arg1)
+    public static function handleNoteDeleted($id)
+    {
+        if (empty($id)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/note_deleted', ['id' => $id]);
+    }
+
+    public static function handleActivityCreated($activity)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/activity_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/activity_created', self::normalize($activity));
     }
 
-    public static function handleActivityStatusUpdated($arg1, $arg2 = null, $arg3 = null)
-    {
-        if (empty($arg1)) {
-            return;
-        }
-
-        return self::flowExecute('bit_crm/activity_status_updated', array_merge(self::normalize($arg1), ['new_status' => $arg2, 'old_status' => $arg3]));
-    }
-
-    public static function handleActivityDeleted($arg1)
-    {
-        if (empty($arg1)) {
-            return;
-        }
-
-        return self::flowExecute('bit_crm/activity_deleted', ['id' => $arg1]);
-    }
-
-    public static function handleInvoiceCreated($arg1)
+    public static function handleActivityUpdated($activity)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/invoice_created', self::normalize($arg1));
+        return self::flowExecute('bit_crm/activity_updated', self::normalize($activity));
     }
 
-    public static function handleInvoiceUpdated($arg1)
+    public static function handleActivityStatusUpdated($activity, $newStatus = null, $oldStatus = null)
+    {
+        if (empty($activity)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/activity_status_updated', array_merge(self::normalize($activity), ['new_status' => $newStatus, 'old_status' => $oldStatus]));
+    }
+
+    public static function handleActivityDeleted($id)
+    {
+        if (empty($id)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/activity_deleted', ['id' => $id]);
+    }
+
+    public static function handleInvoiceCreated($invoice)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/invoice_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/invoice_created', self::normalize($invoice));
     }
 
-    public static function handleInvoiceStatusUpdated($arg1)
+    public static function handleInvoiceUpdated($invoice)
     {
         if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/invoice_status_updated', self::normalize($arg1));
+        return self::flowExecute('bit_crm/invoice_updated', self::normalize($invoice));
     }
 
-    public static function handleInvoicesTrashed($arg1)
+    public static function handleInvoiceStatusUpdated($invoice)
     {
-        if (empty($arg1)) {
+        if (empty(${arg1})) {
             return;
         }
 
-        return self::flowExecute('bit_crm/invoices_trashed', ['ids' => implode(',', (array) $arg1)]);
+        return self::flowExecute('bit_crm/invoice_status_updated', self::normalize($invoice));
+    }
+
+    public static function handleInvoicesTrashed($ids)
+    {
+        if (empty($ids)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/invoices_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
     private static function flowExecute($triggered_entity_id, $data)
