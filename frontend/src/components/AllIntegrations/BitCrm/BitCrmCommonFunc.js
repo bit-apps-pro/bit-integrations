@@ -2,6 +2,7 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
+import { actionDropdowns, actionSelects } from './staticData'
 
 export const handleInput = (e, bitCrmConf, setBitCrmConf) => {
   const { name, value } = e.target
@@ -44,6 +45,24 @@ export const checkMappedFields = bitCrmConf => {
     : []
   return mappedFields.length === 0
 }
+
+const isEmptyValue = value =>
+  value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0)
+
+// First required select/dropdown (for the selected action) whose value is unset,
+// as its label — or null when every required select/dropdown is filled.
+export const missingRequiredSelect = bitCrmConf => {
+  const action = bitCrmConf?.mainAction
+  const required = [...(actionSelects[action] || []), ...(actionDropdowns[action] || [])].filter(
+    field => field.required
+  )
+  const missing = required.find(field => isEmptyValue(bitCrmConf?.[field.key]))
+  return missing ? missing.label : null
+}
+
+// Full save/next guard: field map complete AND every required select/dropdown set.
+export const isBitCrmConfValid = bitCrmConf =>
+  checkMappedFields(bitCrmConf) && !missingRequiredSelect(bitCrmConf)
 
 export const generateMappedField = fields => {
   const requiredFlds = fields.filter(fld => fld.required === true)

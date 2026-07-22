@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './BitCrmCommonFunc'
+import { handleInput, isBitCrmConfValid } from './BitCrmCommonFunc'
 import BitCrmIntegLayout from './BitCrmIntegLayout'
 
 export default function EditBitCrm({ allIntegURL }) {
@@ -64,7 +64,7 @@ export default function EditBitCrm({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={!checkMappedFields(bitCrmConf)}
+        disabled={!isBitCrmConfValid(bitCrmConf)}
         isLoading={isLoading}
         dataConf={bitCrmConf}
         setDataConf={setBitCrmConf}

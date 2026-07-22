@@ -2,12 +2,12 @@ import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import BitCrmAuthorization from './BitCrmAuthorization'
-import { checkMappedFields } from './BitCrmCommonFunc'
+import { checkMappedFields, missingRequiredSelect } from './BitCrmCommonFunc'
 import BitCrmIntegLayout from './BitCrmIntegLayout'
 
 export default function BitCrm({ formFields, setFlow, flow, allIntegURL }) {
@@ -39,6 +39,16 @@ export default function BitCrm({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar({
           show: true,
           msg: __('Please map all required fields to continue.', 'bit-integrations')
+        })
+        return
+      }
+
+      const missing = missingRequiredSelect(bitCrmConf)
+      if (missing) {
+        setSnackbar({
+          show: true,
+          // translators: %s: required field label
+          msg: sprintf(__('%s is required.', 'bit-integrations'), missing)
         })
         return
       }
