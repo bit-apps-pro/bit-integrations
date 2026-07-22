@@ -41,13 +41,78 @@ export const getallTemplates = (confTmp, setConf, setIsLoading, setSnackbar) => 
     } else if (result && result.success) {
       setConf(prevConf =>
         create(prevConf, draftConf => {
-          draftConf['allTemplates'] = result?.data || []
+          draftConf['allTemplates'] = normalizeTemplates(result?.data)
         })
       )
       setSnackbar({ show: true, msg: __('Template Fetched Successfully', 'bit-integrations') })
       return
     }
   })
+}
+
+/**
+ * Templates were stored as plain names before placeholder mapping existed,
+ * so old configurations are upgraded to the object shape on the fly.
+ */
+export const normalizeTemplates = templates =>
+  (templates || []).map(template =>
+    typeof template === 'string' ? { name: template, language: '', components: [] } : template
+  )
+
+const PLACEHOLDER_PATTERN = /{{\s*(\w+)\s*}}/g
+
+const extractTokens = (text = '') => {
+  const tokens = []
+
+  for (const match of String(text || '').matchAll(PLACEHOLDER_PATTERN)) {
+    if (!tokens.includes(match[1])) tokens.push(match[1])
+  }
+
+  return tokens
+}
+
+const placeholderLabel = placeholder => {
+  const [section, ...rest] = placeholder.split('.')
+
+  if (section === 'button') {
+    return `${__('Button', 'bit-integrations')} ${Number(rest[0]) + 1} {{${rest[1]}}}`
+  }
+
+  return `${
+    section === 'header' ? __('Header', 'bit-integrations') : __('Body', 'bit-integrations')
+  } {{${rest[0]}}}`
+}
+
+/**
+ * Collects every dynamic placeholder of a template
+ * from its header text, body text and dynamic url buttons.
+ */
+export const extractTemplatePlaceholders = template => {
+  const placeholders = []
+
+  ;(template?.components || []).forEach(component => {
+    const type = component?.type?.toUpperCase()
+
+    if (type === 'HEADER' && component.format === 'TEXT') {
+      extractTokens(component.text).forEach(token => placeholders.push(`header.${token}`))
+    }
+
+    if (type === 'BODY') {
+      extractTokens(component.text).forEach(token => placeholders.push(`body.${token}`))
+    }
+
+    if (type === 'BUTTONS') {
+      component.buttons?.forEach((button, index) => {
+        extractTokens(button?.url).forEach(token => placeholders.push(`button.${index}.${token}`))
+      })
+    }
+  })
+
+  return placeholders.map(placeholder => ({
+    key: placeholder,
+    label: placeholderLabel(placeholder),
+    required: true
+  }))
 }
 
 export const generateMappedField = whatsAppFields => {
@@ -67,12 +132,19 @@ export const checkMappedFields = whatsAppFields => {
   return true
 }
 
-export const checkDisabledButton = whatsAppConf => {
+const hasUnmappedPlaceholder = templateFieldMap =>
+  (templateFieldMap || []).some(field => !field?.formField)
+
+export const checkDisabledButton = (whatsAppConf, isPro = false) => {
   let check = false
 
   if (whatsAppConf?.messageType === '') {
     check = true
-  } else if (whatsAppConf?.messageType === 'template' && whatsAppConf.templateName === '') {
+  } else if (
+    whatsAppConf?.messageType === 'template' &&
+    (whatsAppConf.templateName === '' ||
+      (isPro && hasUnmappedPlaceholder(whatsAppConf.template_field_map)))
+  ) {
     check = true
   } else if (whatsAppConf?.messageType === 'text' && whatsAppConf.body === '') {
     check = true

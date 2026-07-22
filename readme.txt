@@ -1,10 +1,10 @@
 === Bit integrations - Form Integration, Webhook, Spreadsheets, CRM, LMS & Email Automation ===
-Contributors: bitpressadmin, akaioum, rishadbitcode, niloy121, fahimsakib, shuvomohajan, tanvirchy, shakhawathosen, khoaiz, mazharul78
+Contributors: bitpressadmin
 Tags: automation, automator, google sheets integration, form integration, WooCommerce Integration
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 360+ platforms
@@ -467,6 +467,12 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.9.2 =
+_Release Date - 21st July 2026_
+
+- **New Feature**
+ - WhatsApp: Added template placeholder support and improved template handling in the integration setup (Pro).
 
 = 2.9.1 =
 _Release Date - 13th July 2026_
