@@ -16,12 +16,6 @@ class WpDataTablesController
         }
     }
 
-    public static function wpDataTablesAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function wpDataTablesGetTables()
     {
         self::isExists();

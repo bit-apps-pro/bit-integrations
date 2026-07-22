@@ -7,6 +7,5 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Keap\KeapController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::no_sanitize()->post('keap_generate_token', [KeapController::class, 'generateTokens']);
 Route::post('keap_fetch_all_tags', [KeapController::class, 'refreshTagListAjaxHelper']);
 Route::post('keap_fetch_all_custom_fields', [KeapController::class, 'refreshCustomFieldAjaxHelper']);

@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\controller\AuthDataController;
+use BitApps\Integrations\controller\ConnectionController;
 use BitApps\Integrations\controller\IntegrationTagController;
 use BitApps\Integrations\controller\PostController;
 use BitApps\Integrations\controller\UserController;
@@ -17,6 +18,8 @@ use BitApps\Integrations\Triggers\TriggerController;
 
 Route::post('log/get', [LogHandler::class, 'get']);
 Route::post('log/delete', [LogHandler::class, 'delete']);
+Route::post('log/reexecute', [LogHandler::class, 'reexecute']);
+Route::post('log/field-data', [LogHandler::class, 'getFieldData']);
 
 // Trigger Controller
 Route::get('trigger/list', [TriggerController::class, 'triggerList']);
@@ -58,3 +61,14 @@ Route::post('store/authData', [AuthDataController::class, 'saveAuthData']);
 Route::get('auth/get', [AuthDataController::class, 'getAuthData']);
 Route::get('auth/getbyId', [AuthDataController::class, 'getAuthDataById']);
 Route::post('auth/account/delete', [AuthDataController::class, 'deleteAuthData']);
+
+// Connection management (encrypted reusable credentials)
+Route::get('connections/list', [ConnectionController::class, 'index']);
+Route::get('connections/get', [ConnectionController::class, 'getById']);
+Route::post('connections/authorize', [ConnectionController::class, 'authorize']);
+Route::post('connections/oauth2/exchange', [ConnectionController::class, 'oauth2Exchange']);
+Route::post('connections/verify-plugin-activation', [ConnectionController::class, 'verifyPluginActivation']);
+Route::post('connections/save', [ConnectionController::class, 'save']);
+Route::post('connections/update', [ConnectionController::class, 'update']);
+Route::post('connections/reauthorize', [ConnectionController::class, 'reauthorize']);
+Route::post('connections/delete', [ConnectionController::class, 'delete']);

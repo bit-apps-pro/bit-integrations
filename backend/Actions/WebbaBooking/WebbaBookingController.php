@@ -31,12 +31,6 @@ class WebbaBookingController
         }
     }
 
-    public static function webbaBookingAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshServices()
     {
         self::isExists();

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ConvertKit;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class ConvertKitController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'convertkit',
+        'fields'   => [
+            'api_secret' => 'value',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -24,38 +33,6 @@ class ConvertKitController
     public static function _apiEndpoint($method, $apiSecret)
     {
         return "https://api.convertkit.com/v3/{$method}?api_secret={$apiSecret}";
-    }
-
-    /**
-     * Process ajax request
-     *
-     * @param $requestsParams Params to authorize
-     *
-     * @return JSON Convert Kit api response and status
-     */
-    public static function convertKitAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_secret)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = self::_apiEndpoint('account', $requestsParams->api_secret);
-        $apiResponse = HttpHelper::get($apiEndpoint, null);
-
-        if (is_wp_error($apiResponse) || empty($apiResponse) || !empty($apiResponse->error) || empty($apiResponse->primary_email_address)) {
-            wp_send_json_error(
-                !empty($apiResponse->error) ? $apiResponse->message : 'Unknown',
-                400
-            );
-        }
-
-        wp_send_json_success(true);
     }
 
     /**

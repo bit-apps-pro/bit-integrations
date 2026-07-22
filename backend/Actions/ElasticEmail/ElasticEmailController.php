@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ElasticEmail;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,37 +15,18 @@ use WP_Error;
  */
 class ElasticEmailController
 {
-    public static function elasticEmailAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = 'https://api.elasticemail.com/v4/lists';
-        $apiKey = $requestsParams->api_key;
-        $header = [
-            'X-ElasticEmail-ApiKey' => $apiKey,
-            'Accept'                => '*/*',
-        ];
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
-        if (is_wp_error($apiResponse) || !\is_null($apiResponse->Error)) {
-            wp_send_json_error(
-                empty($apiResponse->code) ? 'Unknown' : $apiResponse->Error,
-                400
-            );
-        }
-        wp_send_json_success(true);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'elasticemail',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
 
     public static function getAllLists($requestsParams)
     {
-        if (empty($requestsParams->apiKey)) {
+        $apiKey = $requestsParams->apiKey ?? $requestsParams->api_key ?? null;
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -55,7 +37,6 @@ class ElasticEmailController
         }
 
         $apiEndpoint = 'https://api.elasticemail.com/v4/lists';
-        $apiKey = $requestsParams->apiKey;
         $header = [
             'X-ElasticEmail-ApiKey' => $apiKey,
             'Accept'                => '*/*',

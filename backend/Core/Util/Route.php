@@ -144,6 +144,15 @@ final class Route
                         : (object) map_deep(wp_unslash($_GET), [__CLASS__, 'sanitizeValue']); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 }
 
+                if (\is_object($data)) {
+                    // $invokeable[0] may be a class-name string OR an object instance
+                    // (both are valid callables); inject() needs the class name to read
+                    // its static $authConfig. inject() is total — credential-resolution
+                    // failures are handled inside it, so it never surfaces a fatal here.
+                    $controllerClass = \is_object($invokeable[0]) ? \get_class($invokeable[0]) : $invokeable[0];
+                    CredentialInjector::inject($data, $controllerClass);
+                }
+
                 $reflectionMethod = new ReflectionMethod($invokeable[0], $invokeable[1]);
                 $response = $reflectionMethod->invoke($reflectionMethod->isStatic() ? null : new $invokeable[0](), $data);
 

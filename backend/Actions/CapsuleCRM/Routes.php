@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\CapsuleCRM\CapsuleCRMController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('capsulecrm_authentication', [CapsuleCRMController::class, 'authentication']);
 Route::post('capsulecrm_fetch_custom_fields', [CapsuleCRMController::class, 'getCustomFields']);
 Route::post('capsulecrm_fetch_all_opportunities', [CapsuleCRMController::class, 'getAllOpportunities']);
 Route::post('capsulecrm_fetch_all_owners', [CapsuleCRMController::class, 'getAllOwners']);

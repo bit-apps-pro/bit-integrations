@@ -51,45 +51,19 @@ export const checkMappedFields = capsulecrmConf => {
   return true
 }
 
-export const capsulecrmAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_url || !confTmp.api_key) {
-    setError({
-      api_url: !confTmp.api_url ? __("API URL can't be empty", 'bit-integrations') : '',
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
-
-  bitsFetch(requestParams, 'capsulecrm_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid api_url name & API key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        api_url: confTmp.api_url
+      }
 
 export const getCustomFields = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, customFields: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     action: confTmp.actionName
   }
 
@@ -116,7 +90,7 @@ export const getCustomFields = (confTmp, setConf, setLoading) => {
 export const getAllOpportunities = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, opportunities: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'capsulecrm_fetch_all_opportunities').then(result => {
     if (result && result.success) {
@@ -138,7 +112,7 @@ export const getAllOpportunities = (confTmp, setConf, setLoading) => {
 export const getAllOwners = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, owners: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'capsulecrm_fetch_all_owners').then(result => {
     if (result && result.success) {
@@ -160,7 +134,7 @@ export const getAllOwners = (confTmp, setConf, setLoading) => {
 export const getAllTeams = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, teams: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'capsulecrm_fetch_all_teams').then(result => {
     if (result && result.success) {
@@ -183,8 +157,7 @@ export const getAllCurrencies = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, currencies: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -209,8 +182,7 @@ export const getAllCRMParties = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMParties: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -234,10 +206,7 @@ export const getAllCRMParties = (confTmp, setConf, setLoading) => {
 export const getAllCRMMilestones = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMMilestones: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'capsulecrm_fetch_all_CRMMilestones').then(result => {
     if (result && result.success) {

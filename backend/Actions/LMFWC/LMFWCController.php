@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\LMFWC;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,25 +15,17 @@ use WP_Error;
  */
 class LMFWCController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'lmfwc',
+        'fields'   => [
+            'api_key'    => 'value',
+            'api_secret' => 'api_secret',
+            'base_url'   => 'base_url',
+        ],
+    ];
+
     protected $_defaultHeader;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->api_key, $fieldsRequestParams->api_secret);
-
-        $apiEndpoint = $fieldsRequestParams->base_url . '/wp-json/lmfwc/v2/licenses';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader, ['sslverify' => false]);
-
-        if (is_wp_error($response)) {
-            wp_send_json_error($response->get_error_message(), HttpHelper::$responseCode);
-        }
-        if ((isset($response->code) && $response->code === 'lmfwc_rest_data_error') || (isset($response->success) && $response->success)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        }
-
-        wp_send_json_error(!empty($response->message) ? $response->message : __('Please enter valid Consumer key & Consumer secret', 'bit-integrations'), 400);
-    }
 
     public function getAllCustomer($fieldsRequestParams)
     {

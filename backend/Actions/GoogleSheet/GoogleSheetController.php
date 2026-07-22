@@ -9,6 +9,7 @@ namespace BitApps\Integrations\Actions\GoogleSheet;
 if (! defined('ABSPATH')) {
     exit;
 }
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
@@ -18,6 +19,16 @@ use WP_Error;
  */
 class GoogleSheetController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'googlesheet',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -32,7 +43,6 @@ class GoogleSheetController
      */
     public static function registerAjax()
     {
-        add_action('wp_ajax_gsheet_generate_token', [__CLASS__, 'generateTokens']);
         add_action('wp_ajax_gsheet_refresh_spreadsheets', [__CLASS__, 'refreshSpreadsheetsAjaxHelper']);
         add_action('wp_ajax_gsheet_refresh_worksheets', [__CLASS__, 'refreshWorksheetsAjaxHelper']);
         add_action('wp_ajax_gsheet_refresh_worksheet_headers', [__CLASS__, 'refreshWorksheetHeadersAjaxHelper']);
@@ -93,8 +103,10 @@ class GoogleSheetController
      */
     public static function refreshSpreadsheetsAjaxHelper($queryParams)
     {
-        if (empty($queryParams->tokenDetails)
-        ) {
+        $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+
+        if (empty($queryParams->tokenDetails->access_token)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -105,10 +117,13 @@ class GoogleSheetController
         }
         $spreadSheets = "https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20'application%2Fvnd.google-apps.spreadsheet'";
         $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
-            $authorizationHeader['Authorization'] = 'Bearer ' . $response['tokenDetails']->access_token;
-        } else {
+            if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
+                $authorizationHeader['Authorization'] = 'Bearer ' . $response['tokenDetails']->access_token;
+            }
+        }
+        if (empty($authorizationHeader['Authorization'])) {
             $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         }
 
@@ -130,8 +145,8 @@ class GoogleSheetController
                 400
             );
         }
-        if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response['$spreadsheets']);
+        if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
+            GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -145,7 +160,10 @@ class GoogleSheetController
      */
     public static function refreshWorksheetsAjaxHelper($queryParams)
     {
-        if (empty($queryParams->tokenDetails)
+        $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+
+        if (empty($queryParams->tokenDetails->access_token)
             || empty($queryParams->spreadsheetId)
         ) {
             wp_send_json_error(
@@ -157,8 +175,11 @@ class GoogleSheetController
             );
         }
         $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
+            if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
+                $queryParams->tokenDetails = $response['tokenDetails'];
+            }
         }
 
         $worksheetsMetaApiEndpoint = "https://sheets.googleapis.com/v4/spreadsheets/{$queryParams->spreadsheetId}?&fields=sheets.properties";
@@ -176,7 +197,7 @@ class GoogleSheetController
                 400
             );
         }
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->id)) {
+        if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             $response['queryWorkbook'] = $queryParams->workbook;
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
@@ -192,8 +213,11 @@ class GoogleSheetController
      */
     public static function refreshWorksheetHeadersAjaxHelper($queryParams)
     {
+        $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+
         if (empty($queryParams->worksheetName)
-            || empty($queryParams->tokenDetails)
+            || empty($queryParams->tokenDetails->access_token)
             || empty($queryParams->header)
             || empty($queryParams->headerRow)
         ) {
@@ -206,8 +230,11 @@ class GoogleSheetController
             );
         }
         $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
+            if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
+                $queryParams->tokenDetails = $response['tokenDetails'];
+            }
         }
         $headerRow = $queryParams->headerRow;
         if ($queryParams->header === 'ROWS') {
@@ -237,7 +264,7 @@ class GoogleSheetController
             $response['worksheet_headers'][] = "{$header}_{$key}";
         }
 
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->id)) {
+        if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             $response['queryModule'] = $queryParams->module;
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
@@ -251,7 +278,8 @@ class GoogleSheetController
 
         //    wp_send_json_success($integrationDetails);
 
-        $tokenDetails = $integrationDetails->tokenDetails;
+        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
+        $isConnectionAuth = !empty($integrationDetails->connection_id);
         $spreadsheetId = $integrationDetails->spreadsheetId;
         $worksheetName = $integrationDetails->worksheetName;
         $headerRow = $integrationDetails->headerRow;
@@ -269,7 +297,7 @@ class GoogleSheetController
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Google sheet'));
         }
 
-        if ((\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
+        if (!$isConnectionAuth && (\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
             $requiredParams['clientId'] = $integrationDetails->clientId;
             $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
             $requiredParams['tokenDetails'] = $tokenDetails;
@@ -331,6 +359,7 @@ class GoogleSheetController
             return false;
         }
         $tokenDetails->generates_on = time();
+        $tokenDetails->generated_at = $tokenDetails->generates_on;
         $tokenDetails->access_token = $apiResponse->access_token;
 
         return $tokenDetails;
@@ -371,5 +400,18 @@ class GoogleSheetController
         }
 
         $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
+    }
+
+    private static function normalizeConnectionToken($token)
+    {
+        if (!\is_object($token)) {
+            $token = (object) [];
+        }
+
+        if (empty($token->generates_on) && !empty($token->generated_at)) {
+            $token->generates_on = (int) $token->generated_at;
+        }
+
+        return $token;
     }
 }

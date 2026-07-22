@@ -2,12 +2,24 @@
 
 namespace BitApps\Integrations\Actions\Zoom;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
 class ZoomController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'zoom',
+        'fields'   => [
+            'clientId'    => 'client_id',
+            'clientSecret' => 'client_secret',
+            'accessToken' => 'access_token',
+            '__object'    => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
@@ -15,36 +27,28 @@ class ZoomController
         $this->integrationID = $integrationID;
     }
 
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->clientId) || empty($requestParams->clientSecret) || empty($requestParams->code) || empty($requestParams->redirectURI)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $body = [
-            'redirect_uri' => urldecode($requestParams->redirectURI),
-            'grant_type'   => 'authorization_code',
-            'code'         => urldecode($requestParams->code)
-        ];
-
-        $apiEndpoint = 'https://zoom.us/oauth/token';
-        $header['Content-Type'] = 'application/x-www-form-urlencoded';
-        $header['Authorization'] = 'Basic ' . base64_encode("{$requestParams->clientId}:{$requestParams->clientSecret}");
-        $apiResponse = HttpHelper::post($apiEndpoint, $body, $header);
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(empty($apiResponse->error_description) ? 'Unknown' : $apiResponse->error_description, 400);
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
-
     public static function zoomFetchAllMeetings($requestParams)
     {
-        if (empty($requestParams->tokenDetails) || empty($requestParams->clientId) || empty($requestParams->clientSecret)) {
+        $tokenDetails = $requestParams->tokenDetails ?? null;
+        $clientId = $requestParams->clientId ?? '';
+        $clientSecret = $requestParams->clientSecret ?? '';
+
+        if (empty($tokenDetails) && !empty($requestParams->accessToken)) {
+            $tokenDetails = (object) [
+                'access_token'  => $requestParams->accessToken,
+                'refresh_token' => $requestParams->refreshToken ?? '',
+            ];
+        }
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $tokenDetails = self::tokenExpiryCheck($requestParams->tokenDetails, $requestParams->clientId, $requestParams->clientSecret);
+        if (!empty($requestParams->connection_id)) {
+            $tokenDetails = self::normalizeConnectionToken($tokenDetails);
+        } else {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
+        }
         $header = [
             'Authorization' => 'Bearer ' . $tokenDetails->access_token,
             'Content-Type'  => 'application/json'
@@ -63,11 +67,26 @@ class ZoomController
 
     public static function zoomFetchAllCustomFields($requestParams)
     {
-        if (empty($requestParams->tokenDetails) || empty($requestParams->clientId) || empty($requestParams->clientSecret) || empty($requestParams->meetingId)) {
+        $tokenDetails = $requestParams->tokenDetails ?? null;
+        $clientId = $requestParams->clientId ?? '';
+        $clientSecret = $requestParams->clientSecret ?? '';
+
+        if (empty($tokenDetails) && !empty($requestParams->accessToken)) {
+            $tokenDetails = (object) [
+                'access_token'  => $requestParams->accessToken,
+                'refresh_token' => $requestParams->refreshToken ?? '',
+            ];
+        }
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token) || empty($requestParams->meetingId)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $tokenDetails = self::tokenExpiryCheck($requestParams->tokenDetails, $requestParams->clientId, $requestParams->clientSecret);
+        if (!empty($requestParams->connection_id)) {
+            $tokenDetails = self::normalizeConnectionToken($tokenDetails);
+        } else {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
+        }
         $header = [
             'Authorization' => 'Bearer ' . $tokenDetails->access_token,
             'Content-Type'  => 'application/json'
@@ -118,9 +137,16 @@ class ZoomController
         $actions = $integrationDetails->actions;
         $defaultDataConf = $integrationDetails->default;
         $selectedAction = $integrationDetails->selectedActions;
-        $oldToken = $integrationDetails->tokenDetails->access_token;
-        $tokenDetails = self::tokenExpiryCheck($integrationDetails->tokenDetails, $integrationDetails->clientId, $integrationDetails->clientSecret);
-        if ($tokenDetails->access_token !== $oldToken) {
+
+        $isConnectionAuth = !empty($integrationDetails->connection_id);
+        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails);
+        $oldToken = $tokenDetails->access_token ?? '';
+
+        if (!$isConnectionAuth) {
+            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $integrationDetails->clientId, $integrationDetails->clientSecret);
+        }
+
+        if (!$isConnectionAuth && $tokenDetails->access_token !== $oldToken) {
             self::saveRefreshedToken($this->integrationID, $tokenDetails);
         }
         if (
@@ -155,7 +181,9 @@ class ZoomController
             return false;
         }
 
-        if ((\intval($token->generates_on) + (55 * 60)) < time()) {
+        $generatedOn = !empty($token->generates_on) ? (int) $token->generates_on : (int) ($token->generated_at ?? 0);
+
+        if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
             if (is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
@@ -165,6 +193,7 @@ class ZoomController
                 $token->access_token = $refreshToken->access_token;
                 $token->expires_in = $refreshToken->expires_in;
                 $token->generates_on = $refreshToken->generates_on;
+                $token->generated_at = $refreshToken->generated_at;
                 $token->refresh_token = $refreshToken->refresh_token;
             }
         }
@@ -191,6 +220,20 @@ class ZoomController
         }
         $token = $apiResponse;
         $token->generates_on = time();
+        $token->generated_at = $token->generates_on;
+
+        return $token;
+    }
+
+    private static function normalizeConnectionToken($token)
+    {
+        if (!\is_object($token)) {
+            $token = (object) [];
+        }
+
+        if (empty($token->generates_on) && !empty($token->generated_at)) {
+            $token->generates_on = (int) $token->generated_at;
+        }
 
         return $token;
     }

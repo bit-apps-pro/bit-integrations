@@ -45,43 +45,14 @@ export const checkMappedFields = clickupConf => {
   return true
 }
 
-export const clickupAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'clickup_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { api_key: confTmp.api_key }
 
 export const getCustomFields = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, customFields: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action: confTmp.actionName,
     list_id: confTmp.selectedList
   }
@@ -115,7 +86,7 @@ export const getAllTeams = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, Teams: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -144,7 +115,7 @@ export const getAllSpaces = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, Spaces: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName,
     team_id: confTmp.selectedTeam
   }
@@ -174,7 +145,7 @@ export const getAllFolders = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, Folders: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName,
     space_id: confTmp.selectedSpace
   }
@@ -204,7 +175,7 @@ export const getAllLists = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, Lists: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName,
     folder_id: confTmp.selectedFolder
   }

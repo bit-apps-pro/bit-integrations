@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Salesmate\SalesmateController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('salesmate_authentication', [SalesmateController::class, 'authentication']);
 Route::post('Salesmate_fields', [SalesmateController::class, 'getAllFields']);
 Route::post('salesmate_fetch_all_CRMSources', [SalesmateController::class, 'getAllCRMSources']);
 Route::post('salesmate_fetch_all_currencies', [SalesmateController::class, 'getAllCurrencies']);

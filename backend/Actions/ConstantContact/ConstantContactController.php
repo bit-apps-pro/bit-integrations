@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ConstantContact;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
@@ -16,81 +17,44 @@ use WP_Error;
  */
 class ConstantContactController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'constantcontact',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
+        ],
+    ];
+
     protected $_defaultHeader;
-
-    public static function generateTokens($requestsParams)
-    {
-        if (empty($requestsParams->clientId)
-        || empty($requestsParams->clientSecret)
-            || empty($requestsParams->redirectURI)
-            || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $auth = $requestsParams->clientId . ':' . $requestsParams->clientSecret;
-        // Base64 encode it
-        $credentials = base64_encode($auth);
-
-        $authorizationHeader['Accept'] = 'application/json';
-        $authorizationHeader['Content-Type'] = 'application/x-www-form-urlencoded';
-        $authorizationHeader['Authorization'] = 'Basic ' . $credentials;
-
-        $requestParams = [
-            'code'         => $requestsParams->code,
-            'redirect_uri' => "{$requestsParams->redirectURI}",
-            'grant_type'   => 'authorization_code'
-        ];
-
-        $apiResponse = HttpHelper::post('https://authz.constantcontact.com/oauth2/default/v1/token', $requestParams, $authorizationHeader);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
 
     public static function refreshList($queryParams)
     {
-        if (empty($queryParams->tokenDetails)
-            || empty($queryParams->clientId)
-            || empty($queryParams->clientSecret)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+        $oldToken = $tokenDetails->access_token ?? '';
+
+        if (empty($oldToken)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
-        $response = [];
 
-        if ((\intval($queryParams->tokenDetails->generates_on) + (1435 * 60)) < time()) {
-            $refreshedToken = ConstantContactController::_refreshAccessToken($queryParams);
+        if (!$isConnectionAuth && self::isTokenExpired($tokenDetails)) {
+            $refreshedToken = self::_refreshAccessToken((object) [
+                'clientId'     => $queryParams->clientId ?? '',
+                'clientSecret' => $queryParams->clientSecret ?? '',
+                'tokenDetails' => $tokenDetails,
+            ]);
 
-            if ($refreshedToken) {
-                $response['tokenDetails'] = $refreshedToken;
-            } else {
-                wp_send_json_error(
-                    __('Failed to refresh access token', 'bit-integrations'),
-                    400
-                );
+            if (!$refreshedToken) {
+                wp_send_json_error(__('Failed to refresh access token', 'bit-integrations'), 400);
             }
-        }
-        $apiEndpoint = 'https://api.cc.email/v3/contact_lists';
 
-        $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
+            $tokenDetails = $refreshedToken;
+        }
+
+        $apiEndpoint = 'https://api.cc.email/v3/contact_lists';
+        $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
 
         $allList = [];
@@ -103,51 +67,51 @@ class ConstantContactController
                 ];
             }
             uksort($allList, 'strnatcasecmp');
-
-            $response['contactList'] = $allList;
         } else {
-            wp_send_json_error(
-                $apiResponse->response->error->message,
-                400
-            );
+            wp_send_json_error($apiResponse->response->error->message ?? __('List fetch failed', 'bit-integrations'), 400);
         }
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->integId)) {
-            static::_saveRefreshedToken($queryParams->integId, $response['tokenDetails'], $response);
+
+        if (!$isConnectionAuth && $oldToken !== ($tokenDetails->access_token ?? '') && !empty($queryParams->integId)) {
+            self::_saveRefreshedToken($queryParams->integId, $tokenDetails);
         }
-        wp_send_json_success($response, 200);
+
+        wp_send_json_success(
+            [
+                'contactList' => $allList,
+                'tokenDetails' => $tokenDetails
+            ],
+            200
+        );
     }
 
     public static function refreshTags($queryParams)
     {
-        if (empty($queryParams->tokenDetails)
-            || empty($queryParams->clientId)
-            || empty($queryParams->clientSecret)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (1435 * 60)) < time()) {
-            $refreshedToken = ConstantContactController::_refreshAccessToken($queryParams);
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+        $oldToken = $tokenDetails->access_token ?? '';
 
-            if ($refreshedToken) {
-                $response['tokenDetails'] = $refreshedToken;
-            } else {
-                wp_send_json_error(
-                    __('Failed to refresh access token', 'bit-integrations'),
-                    400
-                );
+        if (empty($oldToken)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        if (!$isConnectionAuth && self::isTokenExpired($tokenDetails)) {
+            $refreshedToken = self::_refreshAccessToken((object) [
+                'clientId'     => $queryParams->clientId ?? '',
+                'clientSecret' => $queryParams->clientSecret ?? '',
+                'tokenDetails' => $tokenDetails,
+            ]);
+
+            if (!$refreshedToken) {
+                wp_send_json_error(__('Failed to refresh access token', 'bit-integrations'), 400);
             }
-        }
-        $apiEndpoint = 'https://api.cc.email/v3/contact_tags';
 
-        $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
+            $tokenDetails = $refreshedToken;
+        }
+
+        $apiEndpoint = 'https://api.cc.email/v3/contact_tags';
+        $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
+
         $allTag = [];
         if (!is_wp_error($apiResponse) && empty($apiResponse->response->error)) {
             $contactTags = $apiResponse->tags;
@@ -158,51 +122,49 @@ class ConstantContactController
                 ];
             }
             uksort($allTag, 'strnatcasecmp');
-
-            $response['contactTag'] = $allTag;
         } else {
-            wp_send_json_error(
-                $apiResponse->response->error->message,
-                400
-            );
+            wp_send_json_error($apiResponse->response->error->message ?? __('Tag fetch failed', 'bit-integrations'), 400);
         }
 
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->integId)) {
-            static::_saveRefreshedToken($queryParams->integId, $response['tokenDetails'], $response);
+        if (!$isConnectionAuth && $oldToken !== ($tokenDetails->access_token ?? '') && !empty($queryParams->integId)) {
+            self::_saveRefreshedToken($queryParams->integId, $tokenDetails);
         }
-        wp_send_json_success($response, 200);
+
+        wp_send_json_success(
+            [
+                'contactTag' => $allTag,
+                'tokenDetails' => $tokenDetails
+            ],
+            200
+        );
     }
 
     public static function getCustomFields($queryParams)
     {
-        if (empty($queryParams->tokenDetails)
-            || empty($queryParams->clientId)
-            || empty($queryParams->clientSecret)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $response = [];
-        if ((\intval($queryParams->tokenDetails->generates_on) + (1435 * 60)) < time()) {
-            $refreshedToken = ConstantContactController::_refreshAccessToken($queryParams);
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $isConnectionAuth = !empty($queryParams->connection_id);
+        $oldToken = $tokenDetails->access_token ?? '';
 
-            if ($refreshedToken) {
-                $response['tokenDetails'] = $refreshedToken;
-            } else {
-                wp_send_json_error(
-                    __('Failed to refresh access token', 'bit-integrations'),
-                    400
-                );
+        if (empty($oldToken)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        if (!$isConnectionAuth && self::isTokenExpired($tokenDetails)) {
+            $refreshedToken = self::_refreshAccessToken((object) [
+                'clientId'     => $queryParams->clientId ?? '',
+                'clientSecret' => $queryParams->clientSecret ?? '',
+                'tokenDetails' => $tokenDetails,
+            ]);
+
+            if (!$refreshedToken) {
+                wp_send_json_error(__('Failed to refresh access token', 'bit-integrations'), 400);
             }
-        }
-        $apiEndpoint = 'https://api.cc.email/v3/contact_custom_fields';
 
-        $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
+            $tokenDetails = $refreshedToken;
+        }
+
+        $apiEndpoint = 'https://api.cc.email/v3/contact_custom_fields';
+        $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
         $allCFields = [];
         if (!is_wp_error($apiResponse) && empty($apiResponse->response->error)) {
@@ -215,26 +177,30 @@ class ConstantContactController
                 ];
             }
             uksort($allCFields, 'strnatcasecmp');
-
-            $response['customFields'] = $allCFields;
         } else {
-            wp_send_json_error(
-                $apiResponse->response->error->message,
-                400
-            );
+            wp_send_json_error($apiResponse->response->error->message ?? __('Custom fields fetch failed', 'bit-integrations'), 400);
         }
 
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->integId)) {
-            static::_saveRefreshedToken($queryParams->integId, $response['tokenDetails'], $response);
+        if (!$isConnectionAuth && $oldToken !== ($tokenDetails->access_token ?? '') && !empty($queryParams->integId)) {
+            self::_saveRefreshedToken($queryParams->integId, $tokenDetails);
         }
-        wp_send_json_success($response, 200);
+
+        wp_send_json_success(
+            [
+                'customFields' => $allCFields,
+                'tokenDetails' => $tokenDetails
+            ],
+            200
+        );
     }
 
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $auth_token = $integrationDetails->tokenDetails->access_token;
+        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
+        $isConnectionAuth = !empty($integrationDetails->connection_id);
+        $authToken = $tokenDetails->access_token ?? '';
         $listIds = $integrationDetails->list_ids;
         $tagIds = $integrationDetails->tag_ids;
         $fieldMap = $integrationDetails->field_map;
@@ -245,24 +211,22 @@ class ConstantContactController
         $phoneType = $integrationDetails->phone_type;
         $update = $integrationDetails->actions->update ?? false;
 
-        if (
-            empty($fieldMap)
-             || empty($auth_token)
-        ) {
+        if (empty($fieldMap) || empty($authToken)) {
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Constant Contact'));
         }
 
-        if ((\intval($integrationDetails->tokenDetails->generates_on) + (1435 * 60)) < time()) {
-            $requiredParams['clientId'] = $integrationDetails->clientId;
-            $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
-            $requiredParams['tokenDetails'] = $integrationDetails->tokenDetails;
-
-            $newTokenDetails = ConstantContactController::_refreshAccessToken((object) $requiredParams);
+        if (!$isConnectionAuth && self::isTokenExpired($tokenDetails)) {
+            $newTokenDetails = self::_refreshAccessToken((object) [
+                'clientId'     => $integrationDetails->clientId ?? '',
+                'clientSecret' => $integrationDetails->clientSecret ?? '',
+                'tokenDetails' => $tokenDetails
+            ]);
 
             if ($newTokenDetails) {
-                ConstantContactController::_saveRefreshedToken($integId, $newTokenDetails);
-                $integrationDetails->tokenDetails->access_token = $newTokenDetails->access_token;
+                self::_saveRefreshedToken($integId, $newTokenDetails);
+                $tokenDetails = $newTokenDetails;
+                $integrationDetails->tokenDetails = $newTokenDetails;
             } else {
                 LogHandler::save($integId, 'token', 'error', __('Failed to refresh access token', 'bit-integrations'));
 
@@ -294,21 +258,24 @@ class ConstantContactController
 
     protected static function _refreshAccessToken($apiData)
     {
-        if (
-            empty($apiData->tokenDetails)
-        ) {
+        if (empty($apiData->tokenDetails) || empty($apiData->tokenDetails->refresh_token)) {
             return false;
         }
-        $tokenDetails = $apiData->tokenDetails;
 
+        $clientId = $apiData->clientId ?? ($apiData->tokenDetails->client_id ?? '');
+        $clientSecret = $apiData->clientSecret ?? ($apiData->tokenDetails->client_secret ?? '');
+        if (empty($clientId) || empty($clientSecret)) {
+            return false;
+        }
+
+        $tokenDetails = $apiData->tokenDetails;
         $apiEndpoint = 'https://authz.constantcontact.com/oauth2/default/v1/token';
         $requestParams = [
             'grant_type'    => 'refresh_token',
             'refresh_token' => $tokenDetails->refresh_token,
         ];
 
-        $auth = $apiData->clientId . ':' . $apiData->clientSecret;
-        // Base64 encode it
+        $auth = $clientId . ':' . $clientSecret;
         $credentials = base64_encode($auth);
         $authorizationHeader['Authorization'] = 'Basic ' . $credentials;
 
@@ -318,9 +285,50 @@ class ConstantContactController
             return false;
         }
         $tokenDetails->generates_on = time();
-        $tokenDetails->access_token = $apiResponse->access_token;
+        $tokenDetails->generated_at = $tokenDetails->generates_on;
+        $tokenDetails->access_token = $apiResponse->access_token ?? $tokenDetails->access_token;
+        $tokenDetails->refresh_token = $apiResponse->refresh_token ?? $tokenDetails->refresh_token;
+        $tokenDetails->token_type = $apiResponse->token_type ?? ($tokenDetails->token_type ?? 'Bearer');
+        $tokenDetails->expires_in = $apiResponse->expires_in ?? ($tokenDetails->expires_in ?? 0);
 
         return $tokenDetails;
+    }
+
+    private static function isTokenExpired($tokenDetails)
+    {
+        if (empty($tokenDetails)) {
+            return true;
+        }
+
+        $generatedOn = (int) ($tokenDetails->generates_on ?? $tokenDetails->generated_at ?? 0);
+        $expiresIn = (int) ($tokenDetails->expires_in ?? 0);
+
+        if ($generatedOn <= 0) {
+            return true;
+        }
+
+        if ($expiresIn > 0) {
+            return ($generatedOn + \max($expiresIn - 300, 0)) < time();
+        }
+
+        return ($generatedOn + (1435 * 60)) < time();
+    }
+
+    private static function normalizeConnectionToken($token)
+    {
+        if (!\is_object($token)) {
+            $token = (object) [];
+        }
+
+        if (empty($token->generates_on) && !empty($token->generated_at)) {
+            $token->generates_on = (int) $token->generated_at;
+        }
+
+        if (empty($token->generated_at) && !empty($token->generates_on)) {
+            $token->generated_at = (int) $token->generates_on;
+        }
+
+        return $token;
     }
 
     private static function _saveRefreshedToken($integrationID, $tokenDetails)

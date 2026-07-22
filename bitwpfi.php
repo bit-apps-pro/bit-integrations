@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
  * @deprecated since version 2.7.8. use Config::DB_VERSION instead.
  */
 global $btcbi_db_version;
-$btcbi_db_version = '1.1';
+$btcbi_db_version = '1.2';
 
 // Define most essential constants.
 /**

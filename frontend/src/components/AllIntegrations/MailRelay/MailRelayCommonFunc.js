@@ -37,70 +37,46 @@ export const checkMappedFields = mailRelayConf => {
   return true
 }
 
-export const mailRelayAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading,
-  type
-) => {
-  if (!confTmp.domain) {
-    setError({
-      domain: !confTmp.domain ? __("Account Name can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  if (!confTmp.auth_token) {
-    setError({
-      auth_token: !confTmp.auth_token ? __("Api Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        auth_token: conf?.auth_token || conf?.api_key,
+        domain: conf?.domain
+      }
 
-  setError({})
+export const refreshCustomFields = (confTmp, setConf, loading, setLoading, setSnackbar = null) => {
+  setLoading({ ...loading, customFields: true })
 
-  if (type === 'authentication') {
-    setLoading({ ...loading, auth: true })
-  }
-  if (type === 'refreshCustomFields') {
-    setLoading({ ...loading, customFields: true })
-  }
-  const requestParams = { auth_token: confTmp.auth_token, domain: confTmp.domain }
+  const requestParams = buildAuthRequestParams(confTmp)
 
-  bitsFetch(requestParams, 'mailRelay_authentication').then(result => {
+  bitsFetch(requestParams, 'mailRelay_fetch_custom_fields').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
       if (result.data) {
-        newConf.campaigns = result.data
+        newConf.customFields = result.data
       }
       setConf(newConf)
-      setIsAuthorized(true)
-      if (type === 'authentication') {
-        if (result.data) {
-          newConf.customFields = result.data
-        }
-        setLoading({ ...loading, auth: false })
-        toast.success(__('Authorized Successfully', 'bit-integrations'))
-      } else if (type === 'refreshCustomFields') {
-        if (result.data) {
-          newConf.customFields = result.data
-        }
-        setLoading({ ...loading, customFields: false })
-        toast.success(__('Custom fields fectched successfully', 'bit-integrations'))
+      setLoading({ ...loading, customFields: false })
+      toast.success(__('Custom fields fetched successfully', 'bit-integrations'))
+      if (typeof setSnackbar === 'function') {
+        setSnackbar({ show: true, msg: __('Custom fields fetched successfully', 'bit-integrations') })
       }
       return
     }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid domain name & API key', 'bit-integrations'))
+
+    setLoading({ ...loading, customFields: false })
+    toast.error(__('Custom fields fetch failed', 'bit-integrations'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Custom fields fetch failed', 'bit-integrations') })
+    }
   })
 }
 
-export const getAllGroups = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, groups: true })
+export const getAllGroups = (confTmp, setConf, loading, setLoading, setSnackbar = null) => {
+  setLoading({ ...loading, groups: true })
 
-  const requestParams = { auth_token: confTmp.auth_token, domain: confTmp.domain }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'mailRelay_fetch_all_groups').then(result => {
     if (result && result.success) {
@@ -109,12 +85,18 @@ export const getAllGroups = (confTmp, setConf, setLoading) => {
         newConf.groups = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, groups: false })
+      setLoading({ ...loading, groups: false })
 
       toast.success(__('Groups fetch successfully', 'bit-integrations'))
+      if (typeof setSnackbar === 'function') {
+        setSnackbar({ show: true, msg: __('Groups fetch successfully', 'bit-integrations') })
+      }
       return
     }
-    setLoading({ ...setLoading, groups: false })
+    setLoading({ ...loading, groups: false })
     toast.error(__('Groups fetch failed', 'bit-integrations'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Groups fetch failed', 'bit-integrations') })
+    }
   })
 }

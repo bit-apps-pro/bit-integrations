@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\MailChimp;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
@@ -15,6 +16,16 @@ use WP_Error;
  */
 class MailChimpController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'mailchimp',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'dc']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -66,58 +77,6 @@ class MailChimpController
     }
 
     /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams Params for generate token
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function generateTokens($requestsParams)
-    {
-        if (
-            empty($requestsParams->clientId)
-            || empty($requestsParams->clientSecret)
-            || empty($requestsParams->redirectURI)
-            || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = 'https://login.mailchimp.com/oauth2/token';
-        $authorizationHeader['Content-Type'] = 'application/x-www-form-urlencoded';
-        $requestParams = [
-            'code'          => $requestsParams->code,
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'redirect_uri'  => $requestsParams->redirectURI,
-            'grant_type'    => 'authorization_code'
-        ];
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams, $authorizationHeader);
-
-        $metaDataEndPoint = 'https://login.mailchimp.com/oauth2/metadata';
-
-        $authorizationHeader['Authorization'] = "Bearer {$apiResponse->access_token}";
-        $metaData = HttpHelper::post($metaDataEndPoint, null, $authorizationHeader);
-
-        $apiResponse->dc = $metaData->dc;
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
-    }
-
-    /**
      * Process ajax request for refresh MailChimp Audience list
      *
      * @param $queryParams Params to refresh audience
@@ -126,12 +85,7 @@ class MailChimpController
      */
     public static function refreshAudience($queryParams)
     {
-        if (
-            empty($queryParams->tokenDetails)
-            || empty($queryParams->clientId)
-            || empty($queryParams->clientSecret)
-            || empty($queryParams->tokenDetails->dc)
-        ) {
+        if (empty($queryParams->tokenDetails)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -140,10 +94,17 @@ class MailChimpController
                 400
             );
         }
-        $response = [];
-        $apiEndpoint = self::apiEndPoint($queryParams->tokenDetails->dc) . '/lists?count=1000&offset=0';
 
-        $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
+        $tokenDetails = self::resolveTokenDetails($queryParams->tokenDetails);
+
+        if (empty($tokenDetails->dc) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization info is missing. please authorize again', 'bit-integrations'), 400);
+        }
+
+        $response = [];
+        $apiEndpoint = self::apiEndPoint($tokenDetails->dc) . '/lists?count=1000&offset=0';
+
+        $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $audienceResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
 
         $allList = [];
@@ -159,6 +120,7 @@ class MailChimpController
             uksort($allList, 'strnatcasecmp');
 
             $response['audiencelist'] = $allList;
+            $response['tokenDetails'] = $tokenDetails;
         } else {
             wp_send_json_error(
                 $audienceResponse->response->error->message,
@@ -180,7 +142,6 @@ class MailChimpController
         if (
             empty($queryParams->tokenDetails)
             || empty($queryParams->listId)
-            || empty($queryParams->tokenDetails->dc)
         ) {
             wp_send_json_error(
                 __(
@@ -191,6 +152,12 @@ class MailChimpController
             );
         }
 
+        $tokenDetails = self::resolveTokenDetails($queryParams->tokenDetails);
+
+        if (empty($tokenDetails->dc) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization info is missing. please authorize again', 'bit-integrations'), 400);
+        }
+
         if (isset($queryParams->module) && ($queryParams->module == 'add_tag_to_a_member' || $queryParams->module == 'remove_tag_from_a_member')) {
             $fields['Email'] = (object) ['tag' => 'email_address', 'name' => 'Email', 'required' => true];
             $response['audienceField'] = $fields;
@@ -199,8 +166,8 @@ class MailChimpController
             return;
         }
 
-        $apiEndpoint = self::apiEndPoint($queryParams->tokenDetails->dc) . "/lists/{$queryParams->listId}/merge-fields?count=1000&offset=0";
-        $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
+        $apiEndpoint = self::apiEndPoint($tokenDetails->dc) . "/lists/{$queryParams->listId}/merge-fields?count=1000&offset=0";
+        $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $mergeFieldResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
 
         $fields = [];
@@ -218,6 +185,7 @@ class MailChimpController
             }
             $fields['Email'] = (object) ['tag' => 'email_address', 'name' => 'Email', 'required' => true];
             $response['audienceField'] = $fields;
+            $response['tokenDetails'] = $tokenDetails;
             wp_send_json_success($response);
         }
     }
@@ -234,7 +202,6 @@ class MailChimpController
         if (
             empty($queryParams->tokenDetails)
             || empty($queryParams->listId)
-            || empty($queryParams->tokenDetails->dc)
         ) {
             wp_send_json_error(
                 __(
@@ -244,8 +211,15 @@ class MailChimpController
                 400
             );
         }
-        $apiEndpoint = self::apiEndPoint($queryParams->tokenDetails->dc) . "/lists/{$queryParams->listId}/segments?count=1000&offset=0";
-        $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
+
+        $tokenDetails = self::resolveTokenDetails($queryParams->tokenDetails);
+
+        if (empty($tokenDetails->dc) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization info is missing. please authorize again', 'bit-integrations'), 400);
+        }
+
+        $apiEndpoint = self::apiEndPoint($tokenDetails->dc) . "/lists/{$queryParams->listId}/segments?count=1000&offset=0";
+        $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $tagsList = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
 
         $allList = [];
@@ -257,6 +231,7 @@ class MailChimpController
         }
         uksort($allList, 'strnatcasecmp');
         $response['audienceTags'] = $allList;
+        $response['tokenDetails'] = $tokenDetails;
         wp_send_json_success($response);
     }
 
@@ -272,7 +247,7 @@ class MailChimpController
     {
         $integrationDetails = $integrationData->flow_details;
 
-        $tokenDetails = $integrationDetails->tokenDetails;
+        $tokenDetails = self::resolveTokenDetails($integrationDetails->tokenDetails);
         $listId = $integrationDetails->listId;
         $module = isset($integrationDetails->module) ? $integrationDetails->module : '';
         $tags = $integrationDetails->tags;
@@ -283,6 +258,8 @@ class MailChimpController
 
         if (
             empty($tokenDetails)
+            || empty($tokenDetails->access_token)
+            || empty($tokenDetails->dc)
             || empty($listId)
             || empty($fieldMap)
             || empty($defaultDataConf)
@@ -307,5 +284,24 @@ class MailChimpController
         }
 
         return $mChimpApiResponse;
+    }
+
+    private static function resolveTokenDetails($tokenDetails)
+    {
+        if (empty($tokenDetails) || !\is_object($tokenDetails) || empty($tokenDetails->access_token) || !empty($tokenDetails->dc)) {
+            return $tokenDetails;
+        }
+
+        $metadataResponse = HttpHelper::get(
+            'https://login.mailchimp.com/oauth2/metadata',
+            null,
+            ['Authorization' => "Bearer {$tokenDetails->access_token}"]
+        );
+
+        if (!is_wp_error($metadataResponse) && empty($metadataResponse->error) && !empty($metadataResponse->dc)) {
+            $tokenDetails->dc = $metadataResponse->dc;
+        }
+
+        return $tokenDetails;
     }
 }

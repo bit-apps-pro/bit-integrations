@@ -22,7 +22,6 @@ import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 
 export default function WhatsAppIntegLayout({
   formFields,
-  handleInput,
   whatsAppConf,
   setWhatsAppConf,
   isLoading,
