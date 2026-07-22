@@ -14,7 +14,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Services\LeadService');
         }
 
-        $systemValues = self::systemValues($fieldData, ['lead_id', 'tag_ids', 'new_tags']);
+        $systemValues = self::systemValues($fieldData, ['tag_ids']);
         $error = self::validateRequired($systemValues, 'last_name');
         if ($error !== null) {
             return $error;
@@ -40,7 +40,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'id'                        => (int) $fieldData['lead_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['lead_id', 'tag_ids', 'new_tags']),
+            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['lead_id', 'tag_ids']),
         ];
 
         return self::result((new \BitApps\Crm\Services\LeadService())->update($payload), __('Lead updated successfully.', 'bit-integrations'));
@@ -109,7 +109,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Services\ContactService');
         }
 
-        $systemValues = self::systemValues($fieldData, ['contact_id', 'tag_ids', 'new_tags']);
+        $systemValues = self::systemValues($fieldData, ['tag_ids']);
         $error = self::validateRequired($systemValues, 'last_name');
         if ($error !== null) {
             return $error;
@@ -135,7 +135,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'id'                        => (int) $fieldData['contact_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['contact_id', 'tag_ids', 'new_tags']),
+            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['contact_id', 'tag_ids']),
         ];
 
         return self::result((new \BitApps\Crm\Services\ContactService())->update($payload), __('Contact updated successfully.', 'bit-integrations'));
@@ -204,7 +204,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Services\CompanyService');
         }
 
-        $systemValues = self::systemValues($fieldData, ['company_id', 'tag_ids', 'new_tags']);
+        $systemValues = self::systemValues($fieldData, ['tag_ids']);
         $error = self::validateRequired($systemValues, 'name');
         if ($error !== null) {
             return $error;
@@ -230,7 +230,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'id'                        => (int) $fieldData['company_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['company_id', 'tag_ids', 'new_tags']),
+            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['company_id', 'tag_ids']),
         ];
 
         return self::result((new \BitApps\Crm\Services\CompanyService())->update($payload), __('Company updated successfully.', 'bit-integrations'));
@@ -299,7 +299,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Services\DealService');
         }
 
-        $systemValues = self::systemValues($fieldData, ['deal_id', 'tag_ids', 'new_tags']);
+        $systemValues = self::systemValues($fieldData, ['tag_ids']);
         $error = self::validateRequired($systemValues, 'name');
         if ($error !== null) {
             return $error;
@@ -325,7 +325,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'id'                        => (int) $fieldData['deal_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['deal_id', 'tag_ids', 'new_tags']),
+            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['deal_id', 'tag_ids']),
         ];
 
         return self::result((new \BitApps\Crm\Services\DealService())->update($payload), __('Deal updated successfully.', 'bit-integrations'));
@@ -394,7 +394,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\CrmPro\Services\ProductService');
         }
 
-        $systemValues = self::systemValues($fieldData, ['product_id', 'tag_ids', 'new_tags']);
+        $systemValues = self::systemValues($fieldData, ['tag_ids']);
         $error = self::validateRequired($systemValues, 'name');
         if ($error !== null) {
             return $error;
@@ -420,7 +420,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'id'                        => (int) $fieldData['product_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['product_id', 'tag_ids', 'new_tags']),
+            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['product_id', 'tag_ids']),
         ];
 
         return self::result((new \BitApps\CrmPro\Services\ProductService())->update($payload), __('Product updated successfully.', 'bit-integrations'));
