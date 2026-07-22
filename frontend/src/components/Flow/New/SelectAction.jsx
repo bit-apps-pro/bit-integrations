@@ -185,6 +185,7 @@ export default function SelectAction() {
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
     { type: 'FluentCart', is_pro: true },
+    { type: 'BitCrm', logo: 'bitCrm', is_pro: false },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },
     { type: 'Heffl CRM', is_pro: true },
     { type: 'Secure Custom Fields', is_pro: true },
