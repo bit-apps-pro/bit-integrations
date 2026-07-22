@@ -60,133 +60,155 @@ export const modules = [
   { name: 'create_invoice', label: __('Create Invoice', 'bit-integrations'), is_pro: false }
 ]
 
-const R = (key, label) => ({ key, label: __(label, 'bit-integrations'), required: true })
-const O = (key, label) => ({ key, label: __(label, 'bit-integrations'), required: false })
-
 // ---- Field maps: ONLY the target's required identifier + free-text fields ----
 export const bitCrmStaticData = {
   create_lead: [
-    R('last_name', 'Last Name'),
-    O('first_name', 'First Name'),
-    O('email', 'Email'),
-    O('phone', 'Phone'),
-    O('company_name', 'Company Name'),
-    O('website', 'Website'),
-    O('description', 'Description')
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
+    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
+    { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
+    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
   update_lead: [
-    R('lead_id', 'Lead Id'),
-    O('first_name', 'First Name'),
-    O('last_name', 'Last Name'),
-    O('email', 'Email'),
-    O('phone', 'Phone'),
-    O('company_name', 'Company Name'),
-    O('website', 'Website'),
-    O('description', 'Description')
+    { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
+    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
+    { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
+    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
-  delete_lead: [R('lead_id', 'Lead Id')],
-  add_tag_to_lead: [R('lead_id', 'Lead Id'), O('new_tags', 'New Tags (comma separated)')],
-  remove_tag_from_lead: [R('lead_id', 'Lead Id')],
-  convert_lead: [R('lead_id', 'Lead Id')],
+  delete_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
+  add_tag_to_lead: [
+    { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
+    { key: 'new_tags', label: __('New Tags (comma separated)', 'bit-integrations'), required: false }
+  ],
+  remove_tag_from_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
+  convert_lead: [
+    { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+  ],
 
   create_contact: [
-    R('last_name', 'Last Name'),
-    O('first_name', 'First Name'),
-    O('email', 'Email'),
-    O('phone', 'Phone'),
-    O('description', 'Description')
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
+    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
   update_contact: [
-    R('contact_id', 'Contact Id'),
-    O('first_name', 'First Name'),
-    O('last_name', 'Last Name'),
-    O('email', 'Email'),
-    O('phone', 'Phone'),
-    O('description', 'Description')
+    { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true },
+    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
-  delete_contact: [R('contact_id', 'Contact Id')],
-  add_tag_to_contact: [R('contact_id', 'Contact Id'), O('new_tags', 'New Tags (comma separated)')],
-  remove_tag_from_contact: [R('contact_id', 'Contact Id')],
+  delete_contact: [{ key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }],
+  add_tag_to_contact: [
+    { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true },
+    { key: 'new_tags', label: __('New Tags (comma separated)', 'bit-integrations'), required: false }
+  ],
+  remove_tag_from_contact: [
+    { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }
+  ],
 
   create_company: [
-    R('name', 'Company Name'),
-    O('phone', 'Phone'),
-    O('website', 'Website'),
-    O('description', 'Description')
+    { key: 'name', label: __('Company Name', 'bit-integrations'), required: true },
+    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
+    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
   update_company: [
-    R('company_id', 'Company Id'),
-    O('name', 'Company Name'),
-    O('phone', 'Phone'),
-    O('website', 'Website'),
-    O('description', 'Description')
+    { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true },
+    { key: 'name', label: __('Company Name', 'bit-integrations'), required: false },
+    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
+    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
-  delete_company: [R('company_id', 'Company Id')],
-  add_tag_to_company: [R('company_id', 'Company Id'), O('new_tags', 'New Tags (comma separated)')],
-  remove_tag_from_company: [R('company_id', 'Company Id')],
+  delete_company: [{ key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true }],
+  add_tag_to_company: [
+    { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true },
+    { key: 'new_tags', label: __('New Tags (comma separated)', 'bit-integrations'), required: false }
+  ],
+  remove_tag_from_company: [
+    { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true }
+  ],
 
-  create_deal: [R('name', 'Deal Name'), O('email', 'Email')],
-  update_deal: [R('deal_id', 'Deal Id'), O('name', 'Deal Name'), O('email', 'Email')],
-  delete_deal: [R('deal_id', 'Deal Id')],
-  update_deal_stage: [R('deal_id', 'Deal Id')],
-  add_tag_to_deal: [R('deal_id', 'Deal Id'), O('new_tags', 'New Tags (comma separated)')],
-  remove_tag_from_deal: [R('deal_id', 'Deal Id')],
+  create_deal: [
+    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: true },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+  ],
+  update_deal: [
+    { key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true },
+    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: false },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+  ],
+  delete_deal: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
+  update_deal_stage: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
+  add_tag_to_deal: [
+    { key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true },
+    { key: 'new_tags', label: __('New Tags (comma separated)', 'bit-integrations'), required: false }
+  ],
+  remove_tag_from_deal: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
 
   create_product: [
-    R('name', 'Product Name'),
-    R('code', 'Product Code'),
-    O('price', 'Unit Price'),
-    O('brand', 'Brand'),
-    O('description', 'Description')
+    { key: 'name', label: __('Product Name', 'bit-integrations'), required: true },
+    { key: 'code', label: __('Product Code', 'bit-integrations'), required: true },
+    { key: 'price', label: __('Unit Price', 'bit-integrations'), required: false },
+    { key: 'brand', label: __('Brand', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   update_product: [
-    R('product_id', 'Product Id'),
-    O('name', 'Product Name'),
-    O('code', 'Product Code'),
-    O('price', 'Unit Price'),
-    O('brand', 'Brand'),
-    O('description', 'Description')
+    { key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true },
+    { key: 'name', label: __('Product Name', 'bit-integrations'), required: false },
+    { key: 'code', label: __('Product Code', 'bit-integrations'), required: false },
+    { key: 'price', label: __('Unit Price', 'bit-integrations'), required: false },
+    { key: 'brand', label: __('Brand', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
-  delete_product: [R('product_id', 'Product Id')],
-  add_tag_to_product: [R('product_id', 'Product Id'), O('new_tags', 'New Tags (comma separated)')],
-  remove_tag_from_product: [R('product_id', 'Product Id')],
+  delete_product: [{ key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true }],
+  add_tag_to_product: [
+    { key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true },
+    { key: 'new_tags', label: __('New Tags (comma separated)', 'bit-integrations'), required: false }
+  ],
+  remove_tag_from_product: [
+    { key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true }
+  ],
 
-  create_tag: [R('title', 'Title')],
-  create_note: [R('entity_id', 'Record Id'), R('title', 'Title'), O('details', 'Details')],
+  create_tag: [{ key: 'title', label: __('Title', 'bit-integrations'), required: true }],
+  create_note: [
+    { key: 'entity_id', label: __('Record Id', 'bit-integrations'), required: true },
+    { key: 'title', label: __('Title', 'bit-integrations'), required: true },
+    { key: 'details', label: __('Details', 'bit-integrations'), required: false }
+  ],
   create_activity: [
-    R('entity_id', 'Record Id'),
-    R('title', 'Title'),
-    O('due_date', 'Due Date (YYYY-MM-DD)'),
-    O('details', 'Details')
+    { key: 'entity_id', label: __('Record Id', 'bit-integrations'), required: true },
+    { key: 'title', label: __('Title', 'bit-integrations'), required: true },
+    { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
+    { key: 'details', label: __('Details', 'bit-integrations'), required: false },
+    { key: 'assigned_to_email', label: __('Assigned To (email)', 'bit-integrations'), required: true }
   ],
   create_invoice: [
-    R('deal_id', 'Deal Id'),
-    R('invoice_date', 'Invoice Date (YYYY-MM-DD)'),
-    R('due_date', 'Due Date (YYYY-MM-DD)'),
-    R('invoice_prefix', 'Invoice Prefix')
+    { key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true },
+    { key: 'invoice_date', label: __('Invoice Date (YYYY-MM-DD)', 'bit-integrations'), required: true },
+    { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: true },
+    { key: 'invoice_prefix', label: __('Invoice Prefix', 'bit-integrations'), required: true }
   ]
 }
 
 // ---- Fetched dropdowns: reusable descriptors (key = conf storage key) ----
-const owner = {
-  key: 'selectedOwner',
-  label: __('Owner', 'bit-integrations'),
-  route: 'refresh_bitcrm_users',
-  listKey: 'allUsers'
-}
-const ownerNew = {
-  key: 'selectedOwner',
-  label: __('Assign New Records To', 'bit-integrations'),
-  route: 'refresh_bitcrm_users',
-  listKey: 'allUsers'
-}
-const assignedTo = {
-  key: 'selectedAssignedTo',
-  label: __('Assigned To', 'bit-integrations'),
-  route: 'refresh_bitcrm_users',
-  listKey: 'allUsers',
-  required: true
-}
 const currency = {
   key: 'selectedCurrency',
   label: __('Currency', 'bit-integrations'),
@@ -246,24 +268,24 @@ const dealTags = tags('refresh_bitcrm_deal_tags')
 const productTags = tags('refresh_bitcrm_product_tags')
 
 export const actionDropdowns = {
-  create_lead: [owner, currency, leadTags],
-  update_lead: [owner, currency, leadTags],
+  create_lead: [currency, leadTags],
+  update_lead: [currency, leadTags],
   add_tag_to_lead: [leadTags],
   remove_tag_from_lead: [leadTags],
-  convert_lead: [ownerNew],
+  convert_lead: [],
 
-  create_contact: [company, parentContact, owner, currency, contactTags],
-  update_contact: [company, parentContact, owner, currency, contactTags],
+  create_contact: [company, parentContact, currency, contactTags],
+  update_contact: [company, parentContact, currency, contactTags],
   add_tag_to_contact: [contactTags],
   remove_tag_from_contact: [contactTags],
 
-  create_company: [parentCompany, owner, currency, companyTags],
-  update_company: [parentCompany, owner, currency, companyTags],
+  create_company: [parentCompany, currency, companyTags],
+  update_company: [parentCompany, currency, companyTags],
   add_tag_to_company: [companyTags],
   remove_tag_from_company: [companyTags],
 
-  create_deal: [stage, contact, company, owner, currency, dealTags],
-  update_deal: [stage, contact, company, owner, currency, dealTags],
+  create_deal: [stage, contact, company, currency, dealTags],
+  update_deal: [stage, contact, company, currency, dealTags],
   update_deal_stage: [stage],
   add_tag_to_deal: [dealTags],
   remove_tag_from_deal: [dealTags],
@@ -273,7 +295,7 @@ export const actionDropdowns = {
   add_tag_to_product: [productTags],
   remove_tag_from_product: [productTags],
 
-  create_activity: [assignedTo],
+  create_activity: [],
   create_invoice: [termKey, currency]
 }
 

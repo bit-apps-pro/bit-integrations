@@ -303,8 +303,6 @@ class RecordApiHelper
 
         // conf select/dropdown key => CRM field key
         $map = [
-            'selectedOwner'        => 'owner_id',
-            'selectedAssignedTo'   => 'assigned_to',
             'selectedCurrency'     => 'currency',
             'selectedStage'        => 'stage',
             'selectedTermKey'      => 'term_key',
@@ -338,6 +336,41 @@ class RecordApiHelper
             foreach (get_object_vars($conf->utilities) as $utilKey => $utilVal) {
                 $fieldData[$utilKey] = $utilVal;
             }
+        }
+
+        return static::resolveUserFields($fieldData);
+    }
+
+    /**
+     * Resolve user-identifier fields supplied as an email into the numeric user id
+     * the CRM expects. Mapping an email is far more portable in a flow than a raw
+     * user id, so the UI collects `owner_email` / `assigned_to_email` and this
+     * turns them into `owner_id` / `assigned_to`.
+     *
+     * @param array $fieldData
+     *
+     * @return array
+     */
+    private static function resolveUserFields($fieldData)
+    {
+        $emailToId = [
+            'owner_email'       => 'owner_id',
+            'assigned_to_email' => 'assigned_to',
+        ];
+
+        foreach ($emailToId as $emailKey => $idKey) {
+            if (empty($fieldData[$emailKey])) {
+                unset($fieldData[$emailKey]);
+
+                continue;
+            }
+
+            $user = get_user_by('email', $fieldData[$emailKey]);
+            if ($user) {
+                $fieldData[$idKey] = $user->ID;
+            }
+
+            unset($fieldData[$emailKey]);
         }
 
         return $fieldData;
