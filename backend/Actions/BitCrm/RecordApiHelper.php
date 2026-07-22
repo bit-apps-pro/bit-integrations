@@ -33,6 +33,7 @@ class RecordApiHelper
         }
 
         $fieldData  = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
+        $fieldData  = $this->mergeConfiguredValues($fieldData);
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_lead';
 
         $defaultResponse = [
@@ -285,5 +286,60 @@ class RecordApiHelper
         }
 
         return $dataFinal;
+    }
+
+    /**
+     * Merge the dropdown/enum selects (conf.selected*) and Utilities (conf.utilities.*)
+     * into the field-map data, keyed by the CRM field the action handler reads.
+     * Only non-empty values overwrite, so an unset select never clobbers a mapping.
+     *
+     * @param array $fieldData
+     *
+     * @return array
+     */
+    private function mergeConfiguredValues($fieldData)
+    {
+        $conf = $this->_integrationDetails;
+
+        // conf select/dropdown key => CRM field key
+        $map = [
+            'selectedOwner'        => 'owner_id',
+            'selectedAssignedTo'   => 'assigned_to',
+            'selectedCurrency'     => 'currency',
+            'selectedStage'        => 'stage',
+            'selectedTermKey'      => 'term_key',
+            'selectedContact'      => 'contact_id',
+            'selectedCompany'      => 'company_id',
+            'selectedParent'       => 'parent_id',
+            'selectedTags'         => 'tag_ids',
+            'title'                => 'title',
+            'leadSource'           => 'lead_source',
+            'leadStatus'           => 'lead_status',
+            'dealType'             => 'type',
+            'dealLeadSource'       => 'lead_source',
+            'productType'          => 'type',
+            'productStatus'        => 'status',
+            'activityType'         => 'type',
+            'module'               => 'module',
+            'convertTo'            => 'convert_to',
+            'moveRelatedDataTo'    => 'move_related_data_to',
+            'priority'             => 'priority',
+            'taxOption'            => 'tax_option',
+        ];
+
+        foreach ($map as $confKey => $crmKey) {
+            if (isset($conf->{$confKey}) && $conf->{$confKey} !== '' && $conf->{$confKey} !== []) {
+                $fieldData[$crmKey] = $conf->{$confKey};
+            }
+        }
+
+        // Utilities (booleans) — e.g. is_shared
+        if (isset($conf->utilities) && \is_object($conf->utilities)) {
+            foreach (get_object_vars($conf->utilities) as $utilKey => $utilVal) {
+                $fieldData[$utilKey] = $utilVal;
+            }
+        }
+
+        return $fieldData;
     }
 }

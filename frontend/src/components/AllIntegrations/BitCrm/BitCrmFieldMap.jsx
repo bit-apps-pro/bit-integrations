@@ -10,7 +10,14 @@ import {
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
-export default function BitCrmFieldMap({ i, formFields, field, bitCrmFields, bitCrmConf, setBitCrmConf }) {
+export default function BitCrmFieldMap({
+  i,
+  formFields,
+  field,
+  bitCrmFields,
+  bitCrmConf,
+  setBitCrmConf
+}) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 

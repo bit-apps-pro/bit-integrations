@@ -36,9 +36,7 @@ export default function BitCrmAuthorization({
   }
 
   return (
-    <div
-      className="btcd-stp-page"
-      style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
+    <div className="btcd-stp-page" style={{ width: step === 1 && 900, height: step === 1 && 'auto' }}>
       <TutorialLink linkKey="bitCrm" />
 
       <div className="mt-3">
@@ -87,7 +85,9 @@ export default function BitCrmAuthorization({
         className="btn btcd-btn-lg purple sh-sm flx"
         type="button"
         disabled={isAuthorized || isLoading === 'auth'}>
-        {isAuthorized ? __('Connected', 'bit-integrations') : __('Connect to Bit CRM', 'bit-integrations')}
+        {isAuthorized
+          ? __('Connected', 'bit-integrations')
+          : __('Connect to Bit CRM', 'bit-integrations')}
         {isLoading === 'auth' && <LoaderSm size={20} clr="#022217" className="ml-2" />}
       </button>
       <br />
