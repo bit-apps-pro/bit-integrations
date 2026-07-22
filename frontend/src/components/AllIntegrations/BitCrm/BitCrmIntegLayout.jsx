@@ -48,14 +48,18 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
 
       {bitCrmConf?.mainAction && (
         <div className="mt-4">
-          <div className="flx flx-between mt-3">
-            <b className="wdt-200 d-in-b">{__('Map Fields:', 'bit-integrations')}</b>
-            <button
-              onClick={() => addFieldMap(bitCrmConf.field_map.length, bitCrmConf, setBitCrmConf)}
-              className="icn-btn sh-sm mr-3"
-              type="button">
-              +
-            </button>
+          <div className="mt-5">
+            <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
+          </div>
+
+          <div className="btcd-hr mt-1" />
+          <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
+            <div className="txt-dp">
+              <b>{__('Form Fields', 'bit-integrations')}</b>
+            </div>
+            <div className="txt-dp">
+              <b>{__('Bit CRM Fields', 'bit-integrations')}</b>
+            </div>
           </div>
 
           {bitCrmConf?.field_map?.map((field, i) => (
@@ -70,6 +74,15 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
               setBitCrmConf={setBitCrmConf}
             />
           ))}
+
+          <div className="txt-center btcbi-field-map-button mt-2">
+            <button
+              onClick={() => addFieldMap(bitCrmConf.field_map.length, bitCrmConf, setBitCrmConf)}
+              className="icn-btn sh-sm ml-2 mr-1"
+              type="button">
+              +
+            </button>
+          </div>
         </div>
       )}
     </>
