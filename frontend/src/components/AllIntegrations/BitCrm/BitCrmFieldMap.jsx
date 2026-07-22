@@ -10,12 +10,12 @@ import {
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
 
-export default function BitCrmFieldMap({ i, formFields, field, bitCrmConf, setBitCrmConf }) {
+export default function BitCrmFieldMap({ i, formFields, field, bitCrmFields, bitCrmConf, setBitCrmConf }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  const requiredFlds = bitCrmConf?.bitCrmFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = bitCrmConf?.bitCrmFields?.filter(fld => fld.required === false) || []
+  const requiredFlds = bitCrmFields?.filter(fld => fld.required === true) || []
+  const nonRequiredFlds = bitCrmFields?.filter(fld => fld.required === false) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">

@@ -13,12 +13,15 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  // Derived from mainAction on every render (not stored in conf) so it is
+  // always correct on Edit too, where only mainAction/field_map are persisted.
+  const bitCrmFields = bitCrmStaticData[bitCrmConf?.mainAction] ?? []
+
   const handleMainAction = value => {
     setBitCrmConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
-        draftConf.bitCrmFields = bitCrmStaticData[value] ?? []
-        draftConf.field_map = generateMappedField(draftConf.bitCrmFields)
+        draftConf.field_map = generateMappedField(bitCrmStaticData[value] ?? [])
       })
     )
   }
@@ -62,6 +65,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
               i={i}
               field={field}
               formFields={formFields}
+              bitCrmFields={bitCrmFields}
               bitCrmConf={bitCrmConf}
               setBitCrmConf={setBitCrmConf}
             />
