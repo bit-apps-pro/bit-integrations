@@ -8140,3 +8140,706 @@ _:-ms-fullscreen,
     transform: translateY(0) scale(1);
   }
 }
+
+/* ==========================================================================
+   Settings + Documentation & support pages
+   Shared "page shell" primitives: header, grouped panels, option rows,
+   link rows and the product grid. Prefixed btcd-pg / btcd-opt / btcd-doc.
+   ========================================================================== */
+
+$pg-ink: #031b4e;
+$pg-muted: #5f6d8a;
+$pg-bdr: #e4e9f4;
+$pg-bdr-strong: #d3dbec;
+$pg-surface: #ffffff;
+$pg-canvas: #f8f9fd;
+$pg-accent: $purple;
+$pg-accent-soft: #f4ecff;
+$pg-danger-ink: #c0272d;
+$pg-danger-soft: #fff1f1;
+$pg-danger-bdr: #f6d4d4;
+$pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+.btcd-pg {
+  background: $pg-canvas;
+  min-height: 82vh;
+  padding: 30px 32px 64px;
+  color: $pg-ink;
+  font-size: 14px;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.btcd-pg-head {
+  max-width: 760px;
+  margin: 0 0 28px;
+}
+
+.btcd-pg-title {
+  margin: 0 0 6px;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: $pg-ink;
+  text-wrap: balance;
+}
+
+.btcd-pg-sub {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: $pg-muted;
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+
+.btcd-pg-body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 980px;
+}
+
+/* ---------- grouped section ---------- */
+
+.btcd-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btcd-group-title {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: $pg-ink;
+}
+
+.btcd-group-title--danger {
+  color: $pg-danger-ink;
+}
+
+.btcd-panel {
+  background: $pg-surface;
+  border: 1px solid $pg-bdr;
+  border-radius: 12px;
+  overflow: hidden;
+
+  & > * + * {
+    border-top: 1px solid $pg-bdr;
+  }
+}
+
+.btcd-panel--danger {
+  border-color: $pg-danger-bdr;
+  background: linear-gradient(180deg, $pg-danger-soft 0%, $pg-surface 72px);
+
+  & > * + * {
+    border-top-color: $pg-danger-bdr;
+  }
+}
+
+/* ---------- option row ---------- */
+
+.btcd-opt {
+  padding: 16px 18px;
+}
+
+.btcd-opt-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.btcd-opt-icn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: $pg-accent-soft;
+  color: $pg-accent;
+  margin-top: 1px;
+
+  & > .btcd-icn {
+    font-size: 16px;
+    line-height: 1;
+  }
+}
+
+.btcd-opt-icn--danger {
+  background: #ffe6e6;
+  color: $pg-danger-ink;
+}
+
+.btcd-opt-txt {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.btcd-opt-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: $pg-ink;
+}
+
+.btcd-opt-desc {
+  margin: 3px 0 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: $pg-muted;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.btcd-opt-ctl {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+}
+
+/* progressive disclosure for the retention input */
+.btcd-opt-extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 220ms $pg-ease,
+    opacity 160ms $pg-ease;
+
+  &[data-open='true'] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+.btcd-opt-extra-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.btcd-opt-extra-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 2px 48px;
+  padding: 10px 12px;
+  border: 1px solid $pg-bdr;
+  border-radius: 10px;
+  background: $pg-canvas;
+  width: max-content;
+  max-width: 100%;
+}
+
+.btcd-opt-extra-lbl {
+  font-size: 13px;
+  font-weight: 500;
+  color: $pg-muted;
+}
+
+.btcd-opt-extra-inp {
+  width: 84px !important;
+  padding: 6px 10px !important;
+  font-size: 14px !important;
+  text-align: center;
+}
+
+/* ---------- link row (doc & support channels) ---------- */
+
+.btcd-link-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: $pg-ink;
+  background: $pg-surface;
+  transition:
+    background 160ms $pg-ease,
+    box-shadow 160ms $pg-ease !important;
+
+  &:hover,
+  &:focus {
+    color: $pg-ink;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $pg-accent;
+    outline-offset: -2px;
+  }
+}
+
+.btcd-link-row-icn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: $pg-canvas;
+  border: 1px solid $pg-bdr;
+  color: $pg-muted;
+  transition:
+    color 160ms $pg-ease,
+    background 160ms $pg-ease,
+    border-color 160ms $pg-ease;
+
+  /* the icon set ships mixed intrinsic sizes — normalise them */
+  & > svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+.btcd-link-row-txt {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.btcd-link-row-lbl {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.btcd-link-row-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: $pg-muted;
+}
+
+.btcd-link-row-arw {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: #97a3bd;
+  transition:
+    transform 180ms $pg-ease,
+    color 180ms $pg-ease;
+}
+
+/* ---------- doc & support hero ---------- */
+
+.btcd-doc-hero {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 16px;
+}
+
+.btcd-doc-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px;
+  border: 1px solid $pg-bdr;
+  border-radius: 14px;
+  background: $pg-surface;
+  text-decoration: none;
+  color: $pg-ink;
+  transition:
+    border-color 180ms $pg-ease,
+    box-shadow 180ms $pg-ease,
+    transform 180ms $pg-ease !important;
+
+  &:hover,
+  &:focus {
+    color: $pg-ink;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $pg-accent;
+    outline-offset: 2px;
+  }
+}
+
+.btcd-doc-card--primary {
+  background:
+    radial-gradient(115% 135% at 100% 0%, rgba(121, 2, 248, 0.09) 0%, rgba(121, 2, 248, 0) 60%),
+    $pg-surface;
+  border-color: #e3d8fb;
+}
+
+.btcd-doc-card-icn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: $pg-accent;
+  color: #ffffff;
+  margin-bottom: 14px;
+
+  & > svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+.btcd-doc-card-icn--soft {
+  background: $pg-accent-soft;
+  color: $pg-accent;
+}
+
+.btcd-doc-card-title {
+  margin: 0 0 8px;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: $pg-ink;
+}
+
+.btcd-doc-card-txt {
+  margin: 0 0 18px;
+  padding: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: $pg-muted;
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+
+.btcd-doc-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: $pg-accent;
+
+  & > svg {
+    transition: transform 180ms $pg-ease;
+  }
+}
+
+.btcd-doc-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.btcd-doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 9px;
+  border: 1px solid $pg-bdr-strong;
+  background: $pg-surface;
+  color: $pg-ink;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 160ms $pg-ease,
+    border-color 160ms $pg-ease,
+    transform 120ms $pg-ease !important;
+
+  &:hover,
+  &:focus {
+    color: $pg-ink;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $pg-accent;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.btcd-doc-btn--solid {
+  background: $pg-accent;
+  border-color: $pg-accent;
+  color: #ffffff;
+
+  &:hover,
+  &:focus {
+    color: #ffffff;
+  }
+}
+
+/* ---------- product grid ---------- */
+
+.btcd-prod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 12px;
+}
+
+.btcd-prod-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 15px;
+  border: 1px solid $pg-bdr;
+  border-radius: 12px;
+  background: $pg-surface;
+  text-decoration: none;
+  color: $pg-ink;
+  transition:
+    border-color 180ms $pg-ease,
+    box-shadow 180ms $pg-ease,
+    transform 180ms $pg-ease !important;
+
+  &:hover,
+  &:focus {
+    color: $pg-ink;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $pg-accent;
+    outline-offset: 2px;
+  }
+}
+
+.btcd-prod-logo {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.btcd-prod-txt {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.btcd-prod-name {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.btcd-prod-desc {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: $pg-muted;
+}
+
+.btcd-prod-arw {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: #a7b1c7;
+  opacity: 0;
+  transition:
+    opacity 180ms $pg-ease,
+    color 180ms $pg-ease;
+}
+
+/* ---------- loading skeleton ---------- */
+
+.btcd-skel {
+  display: block;
+  border-radius: 6px;
+  background: #e9edf7;
+  animation: btcdSkelPulse 1.4s ease-in-out infinite;
+}
+
+.btcd-skel-title {
+  width: 120px;
+  height: 14px;
+}
+
+.btcd-skel-icn {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+}
+
+.btcd-skel-line {
+  width: 62%;
+  height: 13px;
+  margin-bottom: 8px;
+}
+
+.btcd-skel-line--sm {
+  width: 88%;
+  height: 11px;
+  margin-bottom: 0;
+}
+
+.btcd-skel-tgl {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 22px;
+  border-radius: 999px;
+}
+
+@keyframes btcdSkelPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* ---------- hover states (pointer devices only) ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .btcd-link-row:hover {
+    background: #fafbff;
+
+    & .btcd-link-row-icn {
+      color: $pg-accent;
+      background: $pg-accent-soft;
+      border-color: #e3d8fb;
+    }
+
+    & .btcd-link-row-arw {
+      color: $pg-accent;
+      transform: translate(2px, -2px);
+    }
+  }
+
+  .btcd-doc-card:hover {
+    border-color: #cbb8f5;
+    box-shadow: 0 6px 18px -8px rgba(57, 23, 148, 0.28);
+  }
+
+  .btcd-doc-card--primary:hover {
+    transform: translateY(-2px);
+
+    & .btcd-doc-card-cta > svg {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  .btcd-doc-btn:hover {
+    border-color: $pg-accent;
+    background: $pg-accent-soft;
+  }
+
+  .btcd-doc-btn--solid:hover {
+    background: $dp-purple;
+    border-color: $dp-purple;
+  }
+
+  .btcd-prod-card:hover {
+    transform: translateY(-2px);
+    border-color: #cbb8f5;
+    box-shadow: 0 6px 16px -8px rgba(57, 23, 148, 0.26);
+
+    & .btcd-prod-arw {
+      opacity: 1;
+      color: $pg-accent;
+    }
+  }
+}
+
+.btcd-doc-card--primary:active,
+.btcd-prod-card:active {
+  transform: scale(0.99);
+}
+
+/* ---------- responsive ---------- */
+
+@media only screen and (max-width: 900px) {
+  .btcd-doc-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .btcd-pg {
+    padding: 22px 16px 48px;
+  }
+
+  .btcd-pg-title {
+    font-size: 20px;
+  }
+
+  /* keep icon | text | control on one row — wrapping orphans the icon */
+  .btcd-opt {
+    padding: 15px 14px;
+  }
+
+  .btcd-opt-main {
+    gap: 11px;
+  }
+
+  .btcd-opt-desc {
+    font-size: 12.5px;
+  }
+
+  .btcd-opt-extra-row {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .btcd-doc-card {
+    padding: 18px;
+  }
+
+  .btcd-prod-arw {
+    opacity: 1;
+  }
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .btcd-opt-extra,
+  .btcd-link-row,
+  .btcd-link-row-icn,
+  .btcd-link-row-arw,
+  .btcd-doc-card,
+  .btcd-doc-card-cta > svg,
+  .btcd-doc-btn,
+  .btcd-prod-card,
+  .btcd-prod-arw {
+    transition-duration: 1ms !important;
+  }
+
+  .btcd-doc-card--primary:hover,
+  .btcd-prod-card:hover,
+  .btcd-doc-card--primary:active,
+  .btcd-prod-card:active {
+    transform: none;
+  }
+
+  .btcd-link-row:hover .btcd-link-row-arw,
+  .btcd-doc-card--primary:hover .btcd-doc-card-cta > svg {
+    transform: none;
+  }
+
+  .btcd-skel {
+    animation: none;
+  }
+}
