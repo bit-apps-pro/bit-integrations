@@ -8239,7 +8239,7 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
 
 .btcd-panel--danger {
   border-color: $pg-danger-bdr;
-  background: linear-gradient(180deg, $pg-danger-soft 0%, $pg-surface 72px);
+  background: $pg-danger-soft;
 
   & > * + * {
     border-top-color: $pg-danger-bdr;
@@ -8472,9 +8472,7 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .btcd-doc-card--primary {
-  background:
-    radial-gradient(115% 135% at 100% 0%, rgba(121, 2, 248, 0.09) 0%, rgba(121, 2, 248, 0) 60%),
-    $pg-surface;
+  background: $pg-surface;
   border-color: #e3d8fb;
 }
 
