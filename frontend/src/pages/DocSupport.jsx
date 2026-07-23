@@ -1,10 +1,10 @@
 import DocIcn from '../Icons/DocIcn'
 import ExternalLinkIcn from '../resource/img/supportIcon/ExternalLinkIcn'
-import FacebookIcn from '../resource/img/supportIcon/FbIcon'
+import FacebookLogo from '../resource/img/supportIcon/FacebookLogo'
 import MessagesCircle from '../resource/img/supportIcon/MessengerIcon'
-import ReviewStarIcn from '../resource/img/supportIcon/ReviewStarIcon'
+import WordPressLogo from '../resource/img/supportIcon/WordPressLogo'
 import SupportIcon from '../resource/img/supportIcon/SupportIcon'
-import YoutubeIcn from '../resource/img/supportIcon/YoutubeIcon'
+import YoutubeLogo from '../resource/img/supportIcon/YoutubeLogo'
 import bitAssist from '../resource/img/products/bit-assist.svg'
 import bitFileManager from '../resource/img/products/file-manager.png'
 import bitForm from '../resource/img/products/bit-form.png'
@@ -19,21 +19,21 @@ const CHAT_URL = 'https://tawk.to/chat/60eac4b6d6e7610a49aab375/1faah0r3e'
 const getChannels = () => [
   {
     key: 'youtube',
-    icon: <YoutubeIcn size="20" />,
+    icon: <YoutubeLogo size="20" />,
     label: __('Video tutorials', 'bit-integrations'),
     meta: __('Watch setup walkthroughs on our YouTube channel', 'bit-integrations'),
     url: 'https://www.youtube.com/channel/UCjUl8UGn-G6zXZ-Wpd7Sc3g'
   },
   {
     key: 'facebook',
-    icon: <FacebookIcn size="20" />,
+    icon: <FacebookLogo size="20" />,
     label: __('Facebook community', 'bit-integrations'),
     meta: __('Ask other users and share what you have built', 'bit-integrations'),
     url: 'https://www.facebook.com/groups/3308027439209387'
   },
   {
     key: 'review',
-    icon: <ReviewStarIcn size="20" />,
+    icon: <WordPressLogo size="20" />,
     label: __('Rate us on WordPress.org', 'bit-integrations'),
     meta: __('Reviews keep the plugin free and actively maintained', 'bit-integrations'),
     url: 'https://wordpress.org/support/plugin/bit-integrations/reviews/#new-post'

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAsyncDebounce } from 'react-table'
 import SingleToggle2 from '../components/Utilities/SingleToggle2'
+import { DangerIcn, LogRetentionIcn, MailIcn, PrivacyIcn } from '../Icons/SettingIcns'
 import bitsFetch from '../Utils/bitsFetch'
 import { __ } from '../Utils/i18nwrap'
 
@@ -10,7 +11,7 @@ function SettingRow({ icon, name, desc, descId, tone = '', children, extra }) {
     <div className={`btcd-opt${tone ? ` btcd-opt--${tone}` : ''}`}>
       <div className="btcd-opt-main">
         <span className={`btcd-opt-icn${tone ? ` btcd-opt-icn--${tone}` : ''}`} aria-hidden="true">
-          <span className={`btcd-icn ${icon}`} />
+          {icon}
         </span>
         <div className="btcd-opt-txt">
           <span className="btcd-opt-name">{name}</span>
@@ -160,7 +161,7 @@ function Settings() {
             <h2 className="btcd-group-title">{__('Notifications', 'bit-integrations')}</h2>
             <div className="btcd-panel">
               <SettingRow
-                icon="icn-email"
+                icon={<MailIcn />}
                 descId="opt-failure-email-desc"
                 name={__('Email me when an integration fails', 'bit-integrations')}
                 desc={__(
@@ -183,7 +184,7 @@ function Settings() {
             <h2 className="btcd-group-title">{__('Logs', 'bit-integrations')}</h2>
             <div className="btcd-panel">
               <SettingRow
-                icon="icn-time"
+                icon={<LogRetentionIcn />}
                 descId="opt-log-del-desc"
                 name={__('Automatically delete old logs', 'bit-integrations')}
                 desc={__(
@@ -230,7 +231,7 @@ function Settings() {
               <h2 className="btcd-group-title">{__('Privacy', 'bit-integrations')}</h2>
               <div className="btcd-panel">
                 <SettingRow
-                  icon="icn-information-outline"
+                  icon={<PrivacyIcn />}
                   descId="opt-telemetry-desc"
                   name={__('Share anonymous usage data', 'bit-integrations')}
                   desc={__(
@@ -256,7 +257,7 @@ function Settings() {
             </h2>
             <div className="btcd-panel btcd-panel--danger">
               <SettingRow
-                icon="icn-trash-fill"
+                icon={<DangerIcn />}
                 tone="danger"
                 descId="opt-erase-db-desc"
                 name={__('Erase all plugin data on deletion', 'bit-integrations')}

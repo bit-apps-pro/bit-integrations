@@ -8155,9 +8155,9 @@ $pg-surface: #ffffff;
 $pg-canvas: #f8f9fd;
 $pg-accent: $purple;
 $pg-accent-soft: #f4ecff;
-$pg-danger-ink: #c0272d;
-$pg-danger-soft: #fff1f1;
-$pg-danger-bdr: #f6d4d4;
+$pg-danger-ink: #b32318;
+$pg-danger-soft: #fdecea;
+$pg-danger-bdr: #eec3bd;
 $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
 
 .btcd-pg {
@@ -8237,9 +8237,10 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   }
 }
 
+/* red border and heading carry the warning; a filled pink panel reads cheap */
 .btcd-panel--danger {
   border-color: $pg-danger-bdr;
-  background: $pg-danger-soft;
+  background: $pg-surface;
 
   & > * + * {
     border-top-color: $pg-danger-bdr;
@@ -8270,14 +8271,14 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   color: $pg-accent;
   margin-top: 1px;
 
-  & > .btcd-icn {
-    font-size: 16px;
-    line-height: 1;
+  & > svg {
+    width: 19px;
+    height: 19px;
   }
 }
 
 .btcd-opt-icn--danger {
-  background: #ffe6e6;
+  background: $pg-danger-soft;
   color: $pg-danger-ink;
 }
 
@@ -8713,10 +8714,10 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   .btcd-link-row:hover {
     background: #fafbff;
 
+    /* neutral tint — these chips hold brand marks, a purple wash fights them */
     & .btcd-link-row-icn {
-      color: $pg-accent;
-      background: $pg-accent-soft;
-      border-color: #e3d8fb;
+      background: #eff2f9;
+      border-color: #d7dfee;
     }
 
     & .btcd-link-row-arw {
