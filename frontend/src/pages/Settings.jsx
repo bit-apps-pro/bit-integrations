@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { useAsyncDebounce } from 'react-table'
 import SingleToggle2 from '../components/Utilities/SingleToggle2'
 import { DangerIcn, LogRetentionIcn, MailIcn, PrivacyIcn } from '../Icons/UiIcns'
+import ExternalLinkIcn from '../resource/img/supportIcon/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __ } from '../Utils/i18nwrap'
 
@@ -234,10 +235,22 @@ function Settings() {
                   icon={<PrivacyIcn />}
                   descId="opt-telemetry-desc"
                   name={__('Share anonymous usage data', 'bit-integrations')}
-                  desc={__(
-                    'Helps us decide what to build next. Turn this off and Bit Integrations collects no telemetry at all.',
-                    'bit-integrations'
-                  )}>
+                  desc={
+                    <>
+                      {__(
+                        'Helps us decide what to build next. Turn this off and Bit Integrations collects no telemetry at all.',
+                        'bit-integrations'
+                      )}{' '}
+                      <a
+                        className="btcd-opt-lnk"
+                        href="https://bitapps.pro/privacy-policy/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {__('Read the privacy policy', 'bit-integrations')}
+                        <ExternalLinkIcn size="12" />
+                      </a>
+                    </>
+                  }>
                   <SingleToggle2
                     action={analyticsHandle}
                     name="analytics_optin"

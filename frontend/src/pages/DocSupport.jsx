@@ -1,6 +1,7 @@
 import ExternalLinkIcn from '../resource/img/supportIcon/ExternalLinkIcn'
 import FacebookLogo from '../resource/img/supportIcon/FacebookLogo'
 import MessagesCircle from '../resource/img/supportIcon/MessengerIcon'
+import SupportIcon from '../resource/img/supportIcon/SupportIcon'
 import WordPressLogo from '../resource/img/supportIcon/WordPressLogo'
 import YoutubeLogo from '../resource/img/supportIcon/YoutubeLogo'
 import bitAssist from '../resource/img/products/bit-assist.svg'
@@ -9,7 +10,7 @@ import bitForm from '../resource/img/products/bit-form.png'
 import bitPi from '../resource/img/products/bit-pi.svg'
 import bitSmtp from '../resource/img/products/bit-smtp.png'
 import bitSocial from '../resource/img/products/bit-social.png'
-import { DocsIcn, SupportIcn } from '../Icons/UiIcns'
+import { DocsIcn } from '../Icons/UiIcns'
 import { __ } from '../Utils/i18nwrap'
 
 const DOC_URL = 'https://bit-integrations.com/wp-docs/'
@@ -125,7 +126,7 @@ function DocSupport() {
 
           <div className="btcd-doc-card btcd-doc-card--contact">
             <span className="btcd-doc-card-icn" aria-hidden="true">
-              <SupportIcn size="22" />
+              <SupportIcon size="22" />
             </span>
             <h2 className="btcd-doc-card-title">{__('Talk to a human', 'bit-integrations')}</h2>
             <p className="btcd-doc-card-txt">

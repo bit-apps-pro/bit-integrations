@@ -63,19 +63,6 @@ export function DocsIcn({ size = 20, className }) {
   )
 }
 
-export function SupportIcn({ size = 20, className }) {
-  return (
-    <Frame size={size} className={className}>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="3.6" />
-      <path d="m14.55 9.45 3.8-3.8" />
-      <path d="m5.65 18.35 3.8-3.8" />
-      <path d="m14.55 14.55 3.8 3.8" />
-      <path d="m5.65 5.65 3.8 3.8" />
-    </Frame>
-  )
-}
-
 export function DangerIcn({ size = 20, className }) {
   return (
     <Frame size={size} className={className}>
