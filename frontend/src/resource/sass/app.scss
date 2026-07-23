@@ -8267,7 +8267,8 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   width: 34px;
   height: 34px;
   border-radius: 9px;
-  background: $pg-accent-soft;
+  background: $pg-canvas;
+  border: 1px solid $pg-bdr;
   color: $pg-accent;
   margin-top: 1px;
 
@@ -8278,7 +8279,7 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .btcd-opt-icn--danger {
-  background: $pg-danger-soft;
+  border-color: $pg-danger-bdr;
   color: $pg-danger-ink;
 }
 
