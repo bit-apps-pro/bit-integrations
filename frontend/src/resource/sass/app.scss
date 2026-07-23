@@ -8485,19 +8485,15 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   width: 40px;
   height: 40px;
   border-radius: 11px;
-  background: $pg-accent;
-  color: #ffffff;
+  background: $pg-canvas;
+  border: 1px solid $pg-bdr;
+  color: $pg-accent;
   margin-bottom: 14px;
 
   & > svg {
     width: 21px;
     height: 21px;
   }
-}
-
-.btcd-doc-card-icn--soft {
-  background: $pg-accent-soft;
-  color: $pg-accent;
 }
 
 .btcd-doc-card-title {

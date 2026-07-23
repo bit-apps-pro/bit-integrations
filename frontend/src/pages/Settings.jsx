@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAsyncDebounce } from 'react-table'
 import SingleToggle2 from '../components/Utilities/SingleToggle2'
-import { DangerIcn, LogRetentionIcn, MailIcn, PrivacyIcn } from '../Icons/SettingIcns'
+import { DangerIcn, LogRetentionIcn, MailIcn, PrivacyIcn } from '../Icons/UiIcns'
 import bitsFetch from '../Utils/bitsFetch'
 import { __ } from '../Utils/i18nwrap'
 

@@ -1,7 +1,8 @@
 /**
- * Icon set for the settings rows. Kept in one file so the whole set shares a
- * grid, stroke weight and cap style — mixing the existing per-file icons here
- * reads as four different sets stacked on top of each other.
+ * Icon set for the settings rows and the documentation cards. Kept in one file
+ * so the whole set shares a grid, stroke weight and cap style — mixing the
+ * existing per-file icons here reads as several different sets stacked on top
+ * of each other.
  */
 
 function Frame({ size, className, children }) {
@@ -47,6 +48,30 @@ export function PrivacyIcn({ size = 20, className }) {
     <Frame size={size} className={className}>
       <path d="M12 2.9 4.8 5.7v5.1c0 4.4 3 7.8 7.2 9.3 4.2-1.5 7.2-4.9 7.2-9.3V5.7Z" />
       <polyline points="9.2 11.8 11.3 13.9 15 10.1" />
+    </Frame>
+  )
+}
+
+export function DocsIcn({ size = 20, className }) {
+  return (
+    <Frame size={size} className={className}>
+      <path d="M5.1 4.4a1.9 1.9 0 0 1 1.9-1.9h8.3l3.6 3.7v13.4a1.9 1.9 0 0 1-1.9 1.9H7a1.9 1.9 0 0 1-1.9-1.9Z" />
+      <polyline points="15.1 2.6 15.1 6.4 18.8 6.4" />
+      <path d="M8.7 12.3h6.6" />
+      <path d="M8.7 15.9h4.4" />
+    </Frame>
+  )
+}
+
+export function SupportIcn({ size = 20, className }) {
+  return (
+    <Frame size={size} className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="3.6" />
+      <path d="m14.55 9.45 3.8-3.8" />
+      <path d="m5.65 18.35 3.8-3.8" />
+      <path d="m14.55 14.55 3.8 3.8" />
+      <path d="m5.65 5.65 3.8 3.8" />
     </Frame>
   )
 }
