@@ -2563,7 +2563,7 @@ final class TriggerFallback
             return;
         }
 
-        $finalData = json_decode(wp_json_encode($payment), true);
+        $finalData = Helper::jsonEncodeDecode($payment);
 
         $donarUserInfo = give_get_payment_meta_user_info($payment_id);
         if ($donarUserInfo) {
@@ -2785,25 +2785,6 @@ final class TriggerFallback
         }
 
         return $base64_img;
-    }
-
-    /**
-     * Decode a HappyForms field value without instantiating PHP objects.
-     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
-     * by passing allowed_classes => false to unserialize(). Legitimate
-     * signature/attachment payloads are plain arrays and decode unchanged.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    private static function safeMaybeUnserialize($value)
-    {
-        if (\is_string($value) && is_serialized($value)) {
-            return unserialize($value, ['allowed_classes' => false]);
-        }
-
-        return $value;
     }
 
     public static function happyGetPath($val)
@@ -5793,6 +5774,25 @@ final class TriggerFallback
         }
 
         return $filteredFlows;
+    }
+
+    /**
+     * Decode a HappyForms field value without instantiating PHP objects.
+     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
+     * by passing allowed_classes => false to unserialize(). Legitimate
+     * signature/attachment payloads are plain arrays and decode unchanged.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private static function safeMaybeUnserialize($value)
+    {
+        if (\is_string($value) && is_serialized($value)) {
+            return unserialize($value, ['allowed_classes' => false]);
+        }
+
+        return $value;
     }
 
     private static function evfFieldType($type)

@@ -10,6 +10,7 @@ use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\Exception\AuthorizationException;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Core\Database\ConnectionModel;
+use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use Throwable;
 
@@ -366,7 +367,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         }
 
         if (\is_object($value)) {
-            return json_decode(wp_json_encode($value), true) ?: [];
+            return Helper::jsonEncodeDecode($value) ?: [];
         }
 
         if (\is_string($value) && $value !== '') {
