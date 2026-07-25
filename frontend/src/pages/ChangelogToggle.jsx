@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '27th June 2026'
+const releaseDate = '25th July 2026'
 
 // Example for items:
 // items: [
@@ -43,9 +43,19 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'WhatsApp',
-        desc: 'Added template placeholder support and improved template handling in the integration setup.',
-        isPro: true
+        label: 'Connections',
+        desc: 'New centralized connection manager - authorize an app once and reuse the same credentials across every integration, with linked integration listing, inline editing and clearer authorization errors.',
+        isPro: false
+      },
+      {
+        label: 'Timeline',
+        desc: 'Integration logs can now be re-executed, with nested re-run history kept for each attempt.',
+        isPro: false
+      },
+      {
+        label: 'Connections',
+        desc: 'Redesigned log page with server-side status filtering, search and column controls.',
+        isPro: false
       }
     ]
   },
@@ -59,13 +69,45 @@ const changeLog = [
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'OAuth2',
+        desc: 'Fixed refresh URL template resolution and credentials being lost during token refresh.',
+        isPro: false
+      },
+      {
+        label: 'Google Sheets',
+        desc: 'Improved access token validation.',
+        isPro: false
+      },
+      {
+        label: 'Zoho Desk',
+        desc: 'Guarded against null API response data.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'Security',
+        desc: 'Hardened AJAX authorization, credential storage and input handling across request routing.',
+        isPro: false
+      },
+      {
+        label: 'Connections',
+        desc: 'Stopped credentials from being returned in connection responses and made the token refresh lock reliable.',
+        isPro: false
+      },
+      {
+        label: 'Encryption',
+        desc: 'Escaped OpenSSL error output in encryption exception handling.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),
