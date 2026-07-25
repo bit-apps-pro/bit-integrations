@@ -65,16 +65,6 @@ final class DB
                 PRIMARY KEY (`id`)
             ) {$collate};",
 
-            "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}btcbi_auth` (
-                `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                `action_name` varchar(255) DEFAULT NULL,
-                `tokenDetails` longtext DEFAULT NULL,
-                `userInfo` longtext DEFAULT NULL,
-                `created_at` datetime DEFAULT NULL,
-                `updated_at` datetime DEFAULT NULL,
-                PRIMARY KEY (`id`)
-            ) {$collate};",
-
             "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}btcbi_connections` (
                 `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                 `app_slug` varchar(191) NOT NULL,
@@ -258,10 +248,8 @@ final class DB
     {
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared -- Database migration for plugin rename
-        $wpdb->query("RENAME TABLE `{$wpdb->prefix}btcfi_log` TO `{$wpdb->prefix}btcbi_log`, 
-                                   `{$wpdb->prefix}btcfi_flow` TO `{$wpdb->prefix}btcbi_flow`
-                                   `{$wpdb->prefix}btcfi_auth` TO `{$wpdb->prefix}btcbi_auth`
-                                   ;");
+        $wpdb->query("RENAME TABLE `{$wpdb->prefix}btcfi_log` TO `{$wpdb->prefix}btcbi_log`,
+                                   `{$wpdb->prefix}btcfi_flow` TO `{$wpdb->prefix}btcbi_flow`;");
         $options = [
             'btcfi_db_version' => 'btcbi_db_version',
             'btcfi_installed'  => 'btcbi_installed',

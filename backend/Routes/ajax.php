@@ -5,7 +5,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\controller\AuthDataController;
 use BitApps\Integrations\controller\ConnectionController;
 use BitApps\Integrations\controller\IntegrationTagController;
 use BitApps\Integrations\controller\PostController;
@@ -56,11 +55,6 @@ Route::post('post-categories/list', [PostController::class, 'getPostCategories']
 Route::post('pods/fields', [PostController::class, 'getPodsField']);
 Route::post('user/list', [UserController::class, 'getWpUsers']);
 Route::get('role/list', [UserController::class, 'getUserRoles']);
-
-Route::post('store/authData', [AuthDataController::class, 'saveAuthData']);
-Route::get('auth/get', [AuthDataController::class, 'getAuthData']);
-Route::get('auth/getbyId', [AuthDataController::class, 'getAuthDataById']);
-Route::post('auth/account/delete', [AuthDataController::class, 'deleteAuthData']);
 
 // Connection management (encrypted reusable credentials)
 Route::get('connections/list', [ConnectionController::class, 'index']);

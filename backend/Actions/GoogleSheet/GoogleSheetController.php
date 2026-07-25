@@ -37,19 +37,6 @@ class GoogleSheetController
     }
 
     /**
-     * Helps to register ajax function's with wp
-     *
-     * @return null
-     */
-    public static function registerAjax()
-    {
-        add_action('wp_ajax_gsheet_refresh_spreadsheets', [__CLASS__, 'refreshSpreadsheetsAjaxHelper']);
-        add_action('wp_ajax_gsheet_refresh_worksheets', [__CLASS__, 'refreshWorksheetsAjaxHelper']);
-        add_action('wp_ajax_gsheet_refresh_worksheet_headers', [__CLASS__, 'refreshWorksheetHeadersAjaxHelper']);
-        add_action('wp_ajax_gsheet_get_credentials', [__CLASS__, 'getCredentials']);
-    }
-
-    /**
      * Process ajax request for generate_token
      *
      * @param object $requestsParams
