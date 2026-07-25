@@ -150,7 +150,12 @@ class KeapController
         }
         $tokenDetails->generates_on = time();
         $tokenDetails->access_token = $apiResponse->access_token;
-        $tokenDetails->refresh_token = $apiResponse->refresh_token;
+
+        // Keap rotates refresh_token on every refresh, but a response that omits it must
+        // not wipe the stored one — that leaves nothing to refresh with next time.
+        if (!empty($apiResponse->refresh_token)) {
+            $tokenDetails->refresh_token = $apiResponse->refresh_token;
+        }
 
         return $tokenDetails;
     }

@@ -10,6 +10,20 @@ use BitApps\Integrations\Log\LogHandler;
 
 final class RegistrationController
 {
+    /**
+     * wp_insert_user / wp_update_user fields a form submission is allowed to set.
+     * Deliberately excludes `role` (handled separately, admin-static only) and any
+     * capability/level field, so a mapped form value can never grant privileges.
+     *
+     * @var string[]
+     */
+    private const ALLOWED_USER_FIELDS = [
+        'user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email',
+        'display_name', 'nickname', 'first_name', 'last_name', 'description',
+        'rich_editing', 'syntax_highlighting', 'comment_shortcuts', 'admin_color',
+        'use_ssl', 'user_registered', 'show_admin_bar_front', 'locale',
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -119,12 +133,35 @@ final class RegistrationController
     {
         $fieldData = [];
         foreach ($user_map as $fieldPair) {
-            if (!empty($fieldPair->userField) && !empty($fieldPair->formField)) {
-                if ($fieldPair->formField === 'custom' && isset($fieldPair->customValue)) {
-                    $fieldData[$fieldPair->userField] = Common::replaceFieldWithValue($fieldPair->customValue, $fieldValues);
-                } else {
-                    $fieldData[$fieldPair->userField] = $fieldValues[$fieldPair->formField];
+            if (empty($fieldPair->userField) || empty($fieldPair->formField)) {
+                continue;
+            }
+
+            $userField = $fieldPair->userField;
+            $isStatic  = ($fieldPair->formField === 'custom' && isset($fieldPair->customValue));
+
+            // Role is a privilege boundary: only honour it as a static admin literal
+            // naming a real role — never a form-field value or an interpolated token,
+            // which would let a submitter pick their own role.
+            if ($this->isRoleField($userField)) {
+                $role = $isStatic ? $this->resolveStaticRole($fieldPair->customValue) : '';
+                if ($role !== '') {
+                    $fieldData['role'] = $role;
                 }
+
+                continue;
+            }
+
+            // Drop anything outside the safe wp_insert_user field set (blocks
+            // wp_capabilities, user_level, and similar capability-granting keys).
+            if (!\in_array($userField, self::ALLOWED_USER_FIELDS, true)) {
+                continue;
+            }
+
+            if ($isStatic) {
+                $fieldData[$userField] = Common::replaceFieldWithValue($fieldPair->customValue, $fieldValues);
+            } else {
+                $fieldData[$userField] = $fieldValues[$fieldPair->formField];
             }
         }
         if (isset($flowDetails->action_type) && $flowDetails->action_type === 'updated_user') {
@@ -142,6 +179,58 @@ final class RegistrationController
         }
 
         return $fieldData;
+    }
+
+    private function isRoleField($field)
+    {
+        return \in_array(strtolower((string) $field), ['role', 'roles'], true);
+    }
+
+    /**
+     * Accept a role only when it is a plain static literal (no `${...}` form token)
+     * that names a currently-registered role. Returns '' otherwise.
+     *
+     * @param mixed $customValue
+     *
+     * @return string
+     */
+    private function resolveStaticRole($customValue)
+    {
+        if (!\is_string($customValue) || $customValue === '' || strpos($customValue, '${') !== false) {
+            return '';
+        }
+
+        $role  = strtolower(trim($customValue));
+        $roles = function_exists('wp_roles') ? wp_roles() : null;
+
+        return ($roles && $roles->is_role($role)) ? $role : '';
+    }
+
+    /**
+     * Whether a user-meta key would grant capabilities or a user level, in which
+     * case a form-mapped value must never be written to it.
+     *
+     * @param string $metaKey
+     *
+     * @return bool
+     */
+    private function isProtectedMetaKey($metaKey)
+    {
+        global $wpdb;
+
+        $key     = strtolower((string) $metaKey);
+        $blocked = [
+            'wp_capabilities', strtolower($wpdb->prefix . 'capabilities'),
+            'wp_user_level', strtolower($wpdb->prefix . 'user_level'),
+            'user_level', 'session_tokens',
+        ];
+
+        if (\in_array($key, $blocked, true)) {
+            return true;
+        }
+
+        // Catches custom/multisite prefixes, e.g. wp_2_capabilities.
+        return (bool) preg_match('/(^|_)(capabilities|user_level)$/', $key);
     }
 
     private function userMetaMapping($user_map, $fieldValues)
@@ -181,6 +270,10 @@ final class RegistrationController
             foreach ($metaFields as $meta) {
                 if (isset($meta['name']) && (isset($meta['value']))) {
                     $metaKey = $meta['name'];
+                    // Never let a form-mapped meta value grant capabilities or a level.
+                    if ($this->isProtectedMetaKey($metaKey)) {
+                        continue;
+                    }
                     $metaValue = \is_string($meta['value']) ? trim($meta['value']) : $meta['value'];
                     if (metadata_exists('user', $user, $metaKey)) {
                         update_user_meta($user, $metaKey, $metaValue);

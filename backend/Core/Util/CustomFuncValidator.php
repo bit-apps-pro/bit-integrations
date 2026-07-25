@@ -9,6 +9,12 @@ class CustomFuncValidator
 {
     public static function functionValidateHandler($data)
     {
+        if (self::fileModsDisabled()) {
+            wp_send_json_error(__('Custom actions are disabled because file modifications are not allowed on this site.', 'bit-integrations'));
+
+            return;
+        }
+
         if (empty($data->flow_details->value)) {
             wp_send_json_error(__('No function content provided.', 'bit-integrations'));
 
@@ -111,6 +117,12 @@ class CustomFuncValidator
      */
     public static function loopbackValidateContent($fileContent)
     {
+        if (self::fileModsDisabled()) {
+            wp_send_json_error(__('Custom actions are disabled because file modifications are not allowed on this site.', 'bit-integrations'));
+
+            return false;
+        }
+
         $wp_filesystem = self::getFilesystem();
         if (false === $wp_filesystem) {
             wp_send_json_error(__('Unable to initialize filesystem.', 'bit-integrations'));
@@ -118,8 +130,14 @@ class CustomFuncValidator
             return false;
         }
 
-        $uploadDir = wp_upload_dir();
-        $tmpFile = "{$uploadDir['basedir']}/" . Config::withPrefix('tmp_') . md5(wp_rand()) . '.php';
+        $customDir = self::customFunctionDir($wp_filesystem);
+        if ($customDir === '') {
+            wp_send_json_error(__('Unable to initialize custom function directory.', 'bit-integrations'));
+
+            return false;
+        }
+
+        $tmpFile = "{$customDir}/" . Config::withPrefix('tmp_') . md5(wp_rand()) . '.php';
 
         $written = $wp_filesystem->put_contents($tmpFile, $fileContent, FS_CHMOD_FILE);
 
@@ -137,6 +155,63 @@ class CustomFuncValidator
         }
 
         return $passed;
+    }
+
+    /**
+     * Whether file modifications are disabled for this site.
+     * Custom actions write and include PHP on disk, so they must honour the
+     * standard WordPress lockdown constants.
+     *
+     * @return bool
+     */
+    private static function fileModsDisabled()
+    {
+        return (\defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)
+            || (\defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT);
+    }
+
+    /**
+     * Resolve (and, on first use, create + lock down) the directory that holds
+     * custom-action PHP files.
+     *
+     * These files are executable PHP that gets include()d on every flow run, so
+     * they must never live at the uploads root where the web server would serve
+     * them directly. The directory is dropped under uploads with index.php +
+     * .htaccess + web.config guards so it is not web-reachable; include() from
+     * disk (the loopback + Flow engine) is unaffected by those guards.
+     *
+     * @param WP_Filesystem_Base $wp_filesystem
+     *
+     * @return string Absolute directory path, or '' on failure.
+     */
+    private static function customFunctionDir($wp_filesystem)
+    {
+        $uploadDir = wp_upload_dir();
+        if (empty($uploadDir['basedir'])) {
+            return '';
+        }
+
+        $dir = rtrim($uploadDir['basedir'], '/\\') . '/' . Config::withPrefix('custom_functions');
+
+        if (!$wp_filesystem->is_dir($dir) && !wp_mkdir_p($dir)) {
+            return '';
+        }
+
+        // Deny direct web access. Written once; harmless to re-assert.
+        $guards = [
+            'index.php'  => "<?php\n// Silence is golden.\n",
+            '.htaccess'  => "# Bit Integrations custom functions — deny direct access\n<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nOrder allow,deny\nDeny from all\n</IfModule>\n",
+            'web.config' => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<configuration><system.webServer><authorization><deny users=\"*\" /></authorization></system.webServer></configuration>\n",
+        ];
+
+        foreach ($guards as $name => $contents) {
+            $path = "{$dir}/{$name}";
+            if (!$wp_filesystem->exists($path)) {
+                $wp_filesystem->put_contents($path, $contents, FS_CHMOD_FILE);
+            }
+        }
+
+        return $dir;
     }
 
     /**
@@ -176,14 +251,20 @@ class CustomFuncValidator
             return false;
         }
 
-        $uploadDir     = wp_upload_dir();
+        $customDir = self::customFunctionDir($wp_filesystem);
+        if ($customDir === '') {
+            wp_send_json_error(__('Unable to initialize custom function directory.', 'bit-integrations'));
+
+            return false;
+        }
+
         $safeFileName  = sanitize_file_name(basename((string) $fileName));
         if (empty($safeFileName)) {
             wp_send_json_error(__('Invalid file name.', 'bit-integrations'));
 
             return false;
         }
-        $fileLocation  = "{$uploadDir['basedir']}/{$safeFileName}.php";
+        $fileLocation  = "{$customDir}/{$safeFileName}.php";
         $previousContent = file_exists($fileLocation) ? file_get_contents($fileLocation) : null;
         $written       = $wp_filesystem->put_contents($fileLocation, $fileContent, FS_CHMOD_FILE);
 

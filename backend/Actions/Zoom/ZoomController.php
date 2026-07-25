@@ -185,16 +185,23 @@ class ZoomController
 
         if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
-            if (is_wp_error($refreshToken) || !empty($refreshToken->error)) {
+            // refreshToken() returns false on failure, and is_wp_error(false) is false while
+            // false->error reads as null — so a bool used to pass this guard.
+            if (!\is_object($refreshToken) || is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
 
-            if (isset($refreshToken->access_token)) {
+            if (!empty($refreshToken->access_token)) {
                 $token->access_token = $refreshToken->access_token;
-                $token->expires_in = $refreshToken->expires_in;
+                $token->expires_in = $refreshToken->expires_in ?? ($token->expires_in ?? 3600);
                 $token->generates_on = $refreshToken->generates_on;
                 $token->generated_at = $refreshToken->generated_at;
-                $token->refresh_token = $refreshToken->refresh_token;
+
+                // Zoom rotates refresh_token on every refresh, but a response that omits it
+                // must not wipe the stored one — that leaves nothing to refresh with.
+                if (!empty($refreshToken->refresh_token)) {
+                    $token->refresh_token = $refreshToken->refresh_token;
+                }
             }
         }
 

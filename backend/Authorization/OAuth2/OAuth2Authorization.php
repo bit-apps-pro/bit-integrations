@@ -10,6 +10,7 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 class OAuth2Authorization extends AbstractBaseAuthorization
@@ -480,7 +481,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             return null;
         }
 
-        $response = \is_object($response) ? json_decode(wp_json_encode($response), true) : (array) $response;
+        $response = \is_object($response) ? Helper::jsonEncodeDecode($response) : (array) $response;
 
         // A 2xx carrying no access_token is a failed refresh wearing a success status.
         // Falling back to the old token while restamping generated_at would re-mark a

@@ -80,6 +80,9 @@ final class Route
         if (static::$_no_auth) {
             static::$_no_auth = false;
 
+            // Explicitly public route: exempt from the capability gate in action().
+            static::$_invokeable[Config::VAR_PREFIX . $hook][$method . '_public'] = true;
+
             Hooks::add('wp_ajax_nopriv_' . Config::VAR_PREFIX . $hook, [__CLASS__, 'action']);
         }
     }
@@ -108,6 +111,19 @@ final class Route
         ) {
             $invokeable = static::$_invokeable[$action][$requestMethod];
             unset($_POST['_ajax_nonce'], $_POST['action'], $_GET['_ajax_nonce'], $_GET['action']);
+
+            // A valid nonce proves the request origin, not the caller's authority.
+            // Every route except those explicitly registered as public (no_auth())
+            // requires the caller to hold at least one Bit Integrations capability,
+            // so a leaked/shared nonce can never by itself reach an action or
+            // trigger handler.
+            $isPublicRoute = !empty(static::$_invokeable[$action][$requestMethod . '_public']);
+            if (!$isPublicRoute && !Capabilities::hasIntegrationAccess()) {
+                wp_send_json_error(
+                    __('You do not have permission to perform this action.', 'bit-integrations'),
+                    403
+                );
+            }
 
             if (method_exists($invokeable[0], $invokeable[1])) {
                 $noSanitize = isset(static::$_invokeable[$action][$requestMethod . '_no_sanitize'])
