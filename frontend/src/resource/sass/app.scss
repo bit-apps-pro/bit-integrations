@@ -2574,6 +2574,21 @@ $log-ease: cubic-bezier(0.23, 1, 0.32, 1);
   max-width: 800px;
 }
 
+// The library paints a background only on the active and disabled control, so an
+// idle multiselect let the page canvas show through, and its border is a dark
+// #9c9c9c against the #e2e2e2 every other input uses. Integration wrapper classes
+// are inconsistent, so match on the library's own markup instead — and note its
+// stylesheet ships in a lazy chunk, i.e. loads after this file, so a bare `.msl`
+// here would lose. `.msl-disabled > .msl` still wins for the disabled grey.
+.msl-wrp > .msl {
+  background: #fff;
+  border-color: #e2e2e2;
+
+  &:not(.msl-active, .msl-active-up):hover {
+    border-color: $dp-txt;
+  }
+}
+
 .btcd-paper-drpdwn {
   --menu-max-height: 300px;
   --font-size: 15px;
