@@ -126,6 +126,16 @@ class Hash
         $secretKey = Config::getOption('secret_key');
 
         if (!$secretKey) {
+            // Prefer a key held in wp-config.php so a database-only compromise does not hand
+            // over the credentials stored beside it. Only consulted when no key has been
+            // persisted yet: switching keys under existing ciphertext would make every stored
+            // credential undecryptable, so an install that already has one keeps it.
+            if (\defined('BIT_INTEGRATIONS_SECRET_KEY') && \is_string(\constant('BIT_INTEGRATIONS_SECRET_KEY')) && \constant('BIT_INTEGRATIONS_SECRET_KEY') !== '') {
+                self::$cachedKey = \constant('BIT_INTEGRATIONS_SECRET_KEY');
+
+                return self::$cachedKey;
+            }
+
             $generated = \function_exists('wp_generate_password')
                 ? wp_generate_password(64, true, true)
                 : Config::VAR_PREFIX . bin2hex(random_bytes(32));

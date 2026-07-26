@@ -506,6 +506,11 @@ final class LogHandler
 
         $flowData = $flows[0];
 
+        // Re-execution runs the flow's action for real, so it has to clear the same
+        // administrator gate that save/update/delete/toggle apply to custom actions —
+        // otherwise manage_integrations alone could invoke admin-authored PHP on demand.
+        Flow::guardCustomActionFlowDetails($flowData->flow_details ?? null);
+
         if ($flowData->status != 1) {
             wp_send_json_error(__('Integration is not active', 'bit-integrations'));
         }

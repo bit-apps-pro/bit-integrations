@@ -30,8 +30,8 @@ class CustomFuncValidator
         $fileContent = $data->flow_details->value;
         $fileName = $data->flow_details->randomFileName;
 
-        if (strpos($fileContent, "defined('ABSPATH')") === false) {
-            wp_send_json_error(__("Your function must include a defined('ABSPATH') check.", 'bit-integrations'));
+        if (!self::hasAbspathGuard($fileContent)) {
+            wp_send_json_error(__("Your function must start with a defined('ABSPATH') check that exits, e.g. if (!defined('ABSPATH')) { exit; }", 'bit-integrations'));
 
             return;
         }
@@ -65,7 +65,16 @@ class CustomFuncValidator
         $scrapeKey    = sanitize_key($data->bit_integrations_scrape_key);
         $fileLocation = get_transient(Config::withPrefix('scrape_file_') . $scrapeKey);
 
-        if (false === $fileLocation || !file_exists($fileLocation)) {
+        if (false === $fileLocation) {
+            wp_die(0);
+        }
+
+        // This route is no_auth()/ignore_token() by necessity (the loopback is an
+        // unauthenticated self-request), so confine the include here too rather than
+        // trusting the transient alone.
+        $fileLocation = self::resolveCustomFunctionFile($fileLocation);
+
+        if ($fileLocation === '') {
             wp_die(0);
         }
 
@@ -137,7 +146,7 @@ class CustomFuncValidator
             return false;
         }
 
-        $tmpFile = "{$customDir}/" . Config::withPrefix('tmp_') . md5(wp_rand()) . '.php';
+        $tmpFile = "{$customDir}/" . Config::withPrefix('tmp_') . bin2hex(random_bytes(16)) . '.php';
 
         $written = $wp_filesystem->put_contents($tmpFile, $fileContent, FS_CHMOD_FILE);
 
@@ -158,6 +167,41 @@ class CustomFuncValidator
     }
 
     /**
+     * Whether $fileContent opens with a real "not loaded by WordPress -> stop" guard.
+     *
+     * The previous check only looked for the substring "defined('ABSPATH')" anywhere in the
+     * file, which a comment satisfied. This matters beyond tidiness: the custom-function
+     * directory is protected by .htaccess (Apache) and web.config (IIS), and neither applies
+     * on nginx, where /wp-content/uploads/**\/*.php is normally handed to PHP-FPM. The guard
+     * in the file itself is the only portable defence, so it has to actually be there.
+     *
+     * @param string $fileContent
+     *
+     * @return bool
+     */
+    private static function hasAbspathGuard($fileContent)
+    {
+        if (!\is_string($fileContent) || $fileContent === '') {
+            return false;
+        }
+
+        // if ( ! defined( 'ABSPATH' ) ) { exit; }  — tolerant of spacing, quote style,
+        // braces, and exit/die/return, but the terminator must follow the condition.
+        $pattern = '/if\s*\(\s*!\s*(?:\\\\)?defined\s*\(\s*[\'"]ABSPATH[\'"]\s*\)\s*\)\s*\{?\s*(?:exit|die|return)\b/i';
+
+        if (!preg_match($pattern, $fileContent, $matches, PREG_OFFSET_CAPTURE)) {
+            return false;
+        }
+
+        // Must guard the whole file, not sit halfway down it: nothing executable may
+        // precede it. Allow the opening tag, whitespace, comments and declare().
+        $prefix = substr($fileContent, 0, $matches[0][1]);
+        $prefix = preg_replace('/<\?php|<\?=|\/\*.*?\*\/|\/\/[^\r\n]*|#[^\r\n]*|declare\s*\([^)]*\)\s*;?/s', '', $prefix);
+
+        return trim((string) $prefix) === '';
+    }
+
+    /**
      * Whether file modifications are disabled for this site.
      * Custom actions write and include PHP on disk, so they must honour the
      * standard WordPress lockdown constants.
@@ -168,6 +212,53 @@ class CustomFuncValidator
     {
         return (\defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)
             || (\defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT);
+    }
+
+    /**
+     * Resolve a stored custom-action file path to a real file inside the custom-function
+     * directory, or '' when it points anywhere else.
+     *
+     * funcFileLocation travels in flow_details, which is caller-supplied JSON. Everything
+     * that include()s it must confine it first: an absolute path that merely exists is not
+     * proof the plugin wrote it.
+     *
+     * @param string $fileLocation
+     *
+     * @return string Absolute path inside the custom-function directory, or ''.
+     */
+    public static function resolveCustomFunctionFile($fileLocation)
+    {
+        if (!\is_string($fileLocation) || $fileLocation === '') {
+            return '';
+        }
+
+        // Reject stream wrappers (phar://, http://) before touching the filesystem.
+        if (wp_parse_url($fileLocation, PHP_URL_SCHEME) !== null) {
+            return '';
+        }
+
+        $real = realpath($fileLocation);
+        if ($real === false || !is_file($real)) {
+            return '';
+        }
+
+        if (strtolower(pathinfo($real, PATHINFO_EXTENSION)) !== 'php') {
+            return '';
+        }
+
+        $uploadDir = wp_upload_dir();
+        if (empty($uploadDir['basedir'])) {
+            return '';
+        }
+
+        $base = realpath(rtrim($uploadDir['basedir'], '/\\') . '/' . Config::withPrefix('custom_functions'));
+        if ($base === false) {
+            return '';
+        }
+
+        $base = rtrim($base, '/\\') . DIRECTORY_SEPARATOR;
+
+        return strpos($real, $base) === 0 ? $real : '';
     }
 
     /**
@@ -296,7 +387,10 @@ class CustomFuncValidator
      */
     private static function loopbackCheck($fileLocation, $previousContent, $wp_filesystem)
     {
-        $scrapeKey = md5(wp_rand());
+        // Not md5(wp_rand()): wp_rand() returns an int below mt_getrandmax(), so hashing it
+        // leaves only ~2^31 possible keys — enumerable inside the 60s window by anyone, since
+        // the scrape route is unauthenticated. random_bytes() gives a real 128-bit key.
+        $scrapeKey = bin2hex(random_bytes(16));
 
         set_transient(Config::withPrefix('scrape_file_') . $scrapeKey, $fileLocation, 60);
 

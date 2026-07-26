@@ -17,6 +17,17 @@ final class Route
 
     private static $_sanitize_post_content = false;
 
+    /**
+     * Baseline authorization applied to routes registered from here on.
+     * 'any'   — any Bit Integrations capability (core app routes; their controllers
+     *           then apply the precise per-endpoint check).
+     * 'write' — a capability that implies authority to change something. Used for
+     *           integration-owned routes, which carry no check of their own.
+     *
+     * @var string
+     */
+    private static $_default_access = 'any';
+
     public static function get($hook, $invokeable)
     {
         return static::request('GET', $hook, $invokeable);
@@ -74,6 +85,7 @@ final class Route
         }
 
         static::$_invokeable[Config::VAR_PREFIX . $hook][$method] = $invokeable;
+        static::$_invokeable[Config::VAR_PREFIX . $hook][$method . '_access'] = static::$_default_access;
 
         Hooks::add('wp_ajax_' . Config::VAR_PREFIX . $hook, [__CLASS__, 'action']);
 
@@ -114,11 +126,17 @@ final class Route
 
             // A valid nonce proves the request origin, not the caller's authority.
             // Every route except those explicitly registered as public (no_auth())
-            // requires the caller to hold at least one Bit Integrations capability,
-            // so a leaked/shared nonce can never by itself reach an action or
-            // trigger handler.
+            // requires the caller to hold a Bit Integrations capability, so a leaked or
+            // shared nonce can never by itself reach an action or trigger handler.
+            // Integration-owned routes are registered under the stricter 'write' baseline
+            // (see HookService) because they carry no capability check of their own.
             $isPublicRoute = !empty(static::$_invokeable[$action][$requestMethod . '_public']);
-            if (!$isPublicRoute && !Capabilities::hasIntegrationAccess()) {
+            $requiresWrite = (static::$_invokeable[$action][$requestMethod . '_access'] ?? 'any') === 'write';
+            $isAuthorized = $requiresWrite
+                ? Capabilities::hasIntegrationWriteAccess()
+                : Capabilities::hasIntegrationAccess();
+
+            if (!$isPublicRoute && !$isAuthorized) {
                 wp_send_json_error(
                     __('You do not have permission to perform this action.', 'bit-integrations'),
                     403
@@ -189,6 +207,19 @@ final class Route
                 401
             );
         }
+    }
+
+    /**
+     * Set the baseline authorization for routes registered after this call.
+     * Call with 'any' to restore the default once the group has been registered.
+     *
+     * @param string $access 'any'|'write'
+     *
+     * @return void
+     */
+    public static function defaultAccess($access)
+    {
+        self::$_default_access = $access === 'write' ? 'write' : 'any';
     }
 
     public static function no_auth()
