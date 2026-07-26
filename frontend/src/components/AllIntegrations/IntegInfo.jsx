@@ -2,13 +2,16 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-undef */
-import { lazy, memo, Suspense, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router'
+import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
+import { Link, useNavigate, useParams } from 'react-router'
 import useFetch from '../../hooks/useFetch'
+import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
 import SnackMsg from '../Utilities/SnackMsg'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../GlobalStates'
+import { ConnectionSwitchProvider } from '../Connections/ConnectionSwitchContext'
 
 const Loader = lazy(() => import('../Loaders/Loader'))
 const PaidMembershipProAuthorization = lazy(
@@ -681,20 +684,39 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
   }
 })
 
+// Same route split saveActionConf() uses: the plain flow/update route runs every
+// value through sanitize_text_field(), which would strip the HTML message bodies
+// of these actions on save.
+const RICH_CONTENT_TYPES = ['Mail', 'Telegram', 'WhatsApp']
+
+const getUpdateAction = confType => {
+  if (confType === 'CustomAction') return 'flow/custom-action/update'
+  if (RICH_CONTENT_TYPES.includes(confType)) return 'flow/sanitize_post_content/update'
+
+  return 'flow/update'
+}
+
 export default function IntegInfo() {
   const { id, type } = useParams()
   const btcbi = useRecoilValue($appConfigState)
   const [snack, setSnackbar] = useState({ show: false })
   const [integrationConf, setIntegrationConf] = useState({})
-  const { data, isLoading, isError } = useFetch({
+  const [integration, setIntegration] = useState(null)
+  const [isSwitching, setIsSwitching] = useState(false)
+  const [switchedConnection, setSwitchedConnection] = useState(false)
+  const navigate = useNavigate()
+  // Keyed by id (like EditInteg) so one flow's cached response can't be shown —
+  // or written back — while another flow's info page is open.
+  const { data, isLoading, isError, mutate } = useFetch({
     payload: { id },
-    action: 'flow/get',
+    action: ['flow/get', id],
     method: 'post'
   })
 
   useEffect(() => {
     if (!isError && !isLoading) {
       if (data?.success) {
+        setIntegration(data?.data?.integration)
         setIntegrationConf(data?.data?.integration.flow_details)
       } else {
         setSnackbar({
@@ -706,6 +728,70 @@ export default function IntegInfo() {
       }
     }
   }, [data])
+
+  const switchConnection = useCallback(
+    async (connectionId, extraConf = {}) => {
+      if (!integration?.id || !connectionId) return
+
+      const nextConf = { ...integrationConf, ...extraConf, connection_id: connectionId }
+      setIsSwitching(true)
+
+      try {
+        const res = await bitsFetch(
+          {
+            id: integration.id,
+            name: integration.name,
+            trigger: integration.triggered_entity,
+            triggered_entity_id: integration.triggered_entity_id,
+            flow_details: nextConf
+          },
+          getUpdateAction(nextConf?.type)
+        )
+
+        if (res?.success) {
+          setIntegrationConf(nextConf)
+          setSwitchedConnection(true)
+          // EditInteg shares this cache entry — refresh it so the edit wizard
+          // opens on the switched connection instead of the stale response.
+          mutate()
+          toast.success(__('Connection switched successfully', 'bit-integrations'))
+          return
+        }
+
+        toast.error(
+          `${__('Failed to switch connection Cause:', 'bit-integrations')} ${res?.data?.data || res?.data || ''}`
+        )
+      } catch (error) {
+        toast.error(
+          `${__('Failed to switch connection Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`
+        )
+      } finally {
+        setIsSwitching(false)
+      }
+    },
+    [integration, integrationConf, mutate]
+  )
+
+  const goToEditIntegration = useCallback(() => navigate(`/flow/action/edit/${id}`), [navigate, id])
+
+  // Only connection-based integrations carry a connection_id; the legacy ones
+  // keep credentials inline in flow_details and stay read-only here.
+  const connectionSwitch = useMemo(
+    () => ({
+      enabled: Boolean(integrationConf?.connection_id),
+      isSwitching,
+      switched: switchedConnection,
+      onSwitch: switchConnection,
+      onNext: goToEditIntegration
+    }),
+    [
+      integrationConf?.connection_id,
+      isSwitching,
+      switchedConnection,
+      switchConnection,
+      goToEditIntegration
+    ]
+  )
 
   // route is info/:id but for redirect uri need to make new/:type
   // let location = window.location.toString()
@@ -726,9 +812,11 @@ export default function IntegInfo() {
         </div>
       </div>
 
-      <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
-        <IntegrationInfo integrationConf={integrationConf} location={location} />
-      </Suspense>
+      <ConnectionSwitchProvider value={connectionSwitch}>
+        <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
+          <IntegrationInfo integrationConf={integrationConf} location={location} />
+        </Suspense>
+      </ConnectionSwitchProvider>
     </>
   )
 }

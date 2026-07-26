@@ -2,9 +2,12 @@ import { useCallback, useMemo } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useParams } from 'react-router'
 import { __ } from '../../Utils/i18nwrap'
+import LoaderSm from '../Loaders/LoaderSm'
+import { useConnectionSwitch } from './ConnectionSwitchContext'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 
 const NEW_VALUE = '__new__'
+const HINT_TEXT_STYLE = { opacity: 0.7 }
 
 const buildConnectionOption = conn => {
   const accountName = conn.account_name || conn.connection_name
@@ -38,6 +41,11 @@ export default function ConnectionAccountSelect({
   onConnectionSelected
 }) {
   const { integUrlName } = useParams()
+  const connectionSwitch = useConnectionSwitch()
+  // On the info page the whole form is read-only, but the connection itself
+  // stays swappable — the provider persists the pick straight to the flow.
+  const canSwitch = Boolean(isInfo && connectionSwitch?.enabled)
+  const isSwitching = Boolean(connectionSwitch?.isSwitching)
   const dropdownValue = getConnectionOptionById(connections, config?.connection_id)
 
   const options = useMemo(
@@ -50,6 +58,22 @@ export default function ConnectionAccountSelect({
 
   const handleChange = useCallback(
     value => {
+      if (canSwitch) {
+        if (!value) return
+
+        // The form below handles creation; the flow is switched once it saves.
+        if (value === NEW_VALUE) {
+          setShowNewConnection(true)
+          return
+        }
+
+        setShowNewConnection(false)
+        if (String(value) === String(config?.connection_id)) return
+
+        connectionSwitch.onSwitch(value)
+        return
+      }
+
       const isNewConnection = value === NEW_VALUE
       setShowNewConnection(isNewConnection)
 
@@ -61,7 +85,14 @@ export default function ConnectionAccountSelect({
       setConfig(prev => ({ ...prev, connection_id: value }))
       onConnectionSelected?.(value)
     },
-    [setConfig, setShowNewConnection, onConnectionSelected]
+    [
+      canSwitch,
+      connectionSwitch,
+      config?.connection_id,
+      setConfig,
+      setShowNewConnection,
+      onConnectionSelected
+    ]
   )
 
   const connectionTitle = integUrlName
@@ -86,9 +117,10 @@ export default function ConnectionAccountSelect({
           closeOnSelect
           showSearch
           placeholder={__('Select a connection...', 'bit-integrations')}
-          disabled={isInfo}
+          disabled={canSwitch ? isSwitching || isLoading : isInfo}
         />
-        {!isInfo && fetchConnections && (
+        {isSwitching && <LoaderSm size={20} clr="#022217" />}
+        {(canSwitch || !isInfo) && fetchConnections && (
           <button
             type="button"
             className="icn-btn sh-sm tooltip"
@@ -100,6 +132,19 @@ export default function ConnectionAccountSelect({
           </button>
         )}
       </div>
+      {canSwitch && (
+        <div className="mt-1 f-sm" style={HINT_TEXT_STYLE}>
+          {connectionSwitch.switched
+            ? __(
+                'Connection updated. Continue to review the integration config against the new account.',
+                'bit-integrations'
+              )
+            : __(
+                'Pick another connection or add a new one — this integration is updated instantly.',
+                'bit-integrations'
+              )}
+        </div>
+      )}
     </div>
   )
 }
