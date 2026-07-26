@@ -56,6 +56,8 @@ $bg: #f7f8fc;
 $red: #ff4646;
 $dp-txt: #545582;
 $gray: #e2e2e2;
+// Page canvas: every route shell, page and table surface sits on this.
+$pg-canvas: #f8f9fd;
 $select-arrow: "data:image/svg+xml;charset=utf8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3C!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ --%3E%3Cg%3E%3Ctitle%3Ebackground%3C/title%3E%3Crect fill='none' id='canvas_background' height='22' width='22' y='-1' x='-1'/%3E%3Cg display='none' overflow='visible' y='0' x='0' height='100%25' width='100%25' id='canvasGrid'%3E%3Crect fill='url(%23gridpattern)' stroke-width='0' y='0' x='0' height='100%25' width='100%25'/%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Ctitle%3ELayer 1%3C/title%3E%3Cline transform='rotate(45 9.707600593566898,10.544168472290037) ' stroke-linecap='undefined' stroke-linejoin='undefined' id='svg_2' y2='14.860267' x2='9.7076' y1='6.228069' x1='9.7076' stroke-width='1.5' stroke='%238c8c8c' fill='none'/%3E%3Cline transform='rotate(-45 4.444442749023432,10.544166564941404) ' stroke-linecap='undefined' stroke-linejoin='undefined' id='svg_1' y2='14.860266' x2='4.444443' y1='6.228067' x1='4.444443' stroke-width='1.5' stroke='%238c8c8c' fill='none'/%3E%3C/g%3E%3C/svg%3E";
 
 html,
@@ -84,7 +86,7 @@ a:hover {
   min-height: 82vh;
   height: auto;
   font-size: 16px;
-  background-color: #f5f8ff;
+  background-color: $pg-canvas;
 
   & a {
     text-decoration: none;
@@ -1897,7 +1899,7 @@ nav.top-nav {
 }
 
 .route-wrp {
-  background: white;
+  background: $pg-canvas;
   min-height: 82vh;
   margin: -150px 15px 15px;
   border-radius: 20px;
@@ -2050,7 +2052,7 @@ nav.top-nav {
 
 .f-table > .thead > .tr > .th,
 .f-table .tbody .tr .td {
-  background-color: white;
+  background-color: $pg-canvas;
   text-align: left;
   padding: 10px;
   text-overflow: ellipsis;
@@ -7803,7 +7805,7 @@ _:-ms-fullscreen,
 .btcd-scroll {
   border: 1px solid #d9deea;
   border-radius: 8px;
-  background: #fff;
+  background: $pg-canvas;
   overflow: hidden;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -7837,12 +7839,12 @@ _:-ms-fullscreen,
 
 .f-table .tbody .tr {
   height: 56px;
-  background: #fff;
+  background: $pg-canvas;
   box-shadow: none;
 }
 
 .f-table .tbody .tr:hover {
-  background: #fbfcff;
+  background: #edf0f8;
   box-shadow: none;
   z-index: 9;
 }
@@ -7855,7 +7857,9 @@ _:-ms-fullscreen,
   font-weight: 400;
   color: #303b55;
   border-bottom: 1px solid #e7ebf3;
-  background: #fff;
+  // Transparent so the row's hover tint shows across every cell, not just the
+  // one under the cursor.
+  background: transparent;
 }
 
 .f-table .tbody .tr .td:hover {
@@ -8152,7 +8156,6 @@ $pg-muted: #5f6d8a;
 $pg-bdr: #e4e9f4;
 $pg-bdr-strong: #d3dbec;
 $pg-surface: #ffffff;
-$pg-canvas: #f8f9fd;
 $pg-accent: $purple;
 $pg-accent-soft: #f4ecff;
 $pg-danger-ink: #b32318;
