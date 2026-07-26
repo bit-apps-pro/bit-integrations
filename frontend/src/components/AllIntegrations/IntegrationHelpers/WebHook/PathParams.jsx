@@ -1,9 +1,10 @@
 import { useEffect, useMemo } from 'react'
-import MultiSelect from 'react-multiple-select-dropdown-lite'
 import TrashIcn from '../../../../Icons/TrashIcn'
 import { __ } from '../../../../Utils/i18nwrap'
 import Button from '../../../Utilities/Button'
 import Note from '../../../Utilities/Note'
+import FlowFormFieldsOptions from '../FlowFormFieldsOptions'
+import SmartTagOptions from '../SmartTagOptions'
 
 // matches `{id}` placeholders but keeps `${field}` smart tags out of the way
 const PLACEHOLDER_PATTERN = '(\\$?)\\{([^{}\\s/?#]+)\\}'
@@ -26,7 +27,7 @@ export const getPathPlaceholders = url => {
   return names
 }
 
-function PathParams({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
+function PathParams({ webHooks, setWebHooks, isInfo, setTab }) {
   useEffect(() => {
     setTab(2)
   }, [])
@@ -101,13 +102,15 @@ function PathParams({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
                     <Button onClick={() => setParamValue(key, '')} icn>
                       <TrashIcn size={16} />
                     </Button>
-                    <MultiSelect
-                      options={formFields.map(f => ({ label: f.label, value: `\${${f.name}}` }))}
-                      className="btcd-paper-drpdwn wdt-200 ml-2"
-                      singleSelect
-                      onChange={val => setParamValue(key, val)}
-                      defaultValue={paramValue(key)}
-                    />
+                    <select
+                      className="btcd-paper-inp mr-2"
+                      name="formField"
+                      value={paramValue(key)}
+                      onChange={ev => setParamValue(key, ev.target.value)}>
+                      <option value="">{__('Select Field', 'bit-integrations')}</option>
+                      <FlowFormFieldsOptions />
+                      <SmartTagOptions />
+                    </select>
                   </div>
                 )}
               </div>

@@ -182,7 +182,6 @@ export default function WebHooksIntegration({
               <Params
                 webHooks={webHooks}
                 setWebHooks={setWebHooks}
-                formFields={formFields}
                 isInfo={isInfo}
                 setTab={setTab}
               />
@@ -191,7 +190,6 @@ export default function WebHooksIntegration({
               <PathParams
                 webHooks={webHooks}
                 setWebHooks={setWebHooks}
-                formFields={formFields}
                 isInfo={isInfo}
                 setTab={setTab}
               />
@@ -200,7 +198,6 @@ export default function WebHooksIntegration({
               <RequestHeaders
                 webHooks={webHooks}
                 setWebHooks={setWebHooks}
-                formFields={formFields}
                 isInfo={isInfo}
                 setTab={setTab}
               />
