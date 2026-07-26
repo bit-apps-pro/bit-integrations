@@ -49,7 +49,7 @@ function Params({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
   }
   return (
     <div className="mt-2">
-      <div className="f-m">{__('Add Url Parameter: (optional)', 'bit-integrations')}</div>
+      <div className="f-m">{__('Url Query Parameters: (optional)', 'bit-integrations')}</div>
       <div className="btcd-param-t-wrp mt-1">
         <div className="btcd-param-t">
           <div className="tr">

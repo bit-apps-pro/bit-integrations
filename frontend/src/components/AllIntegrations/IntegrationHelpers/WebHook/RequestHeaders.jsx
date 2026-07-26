@@ -7,7 +7,7 @@ import Button from '../../../Utilities/Button'
 
 function RequestHeaders({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
   useEffect(() => {
-    setTab(2)
+    setTab(3)
   }, [])
 
   const handleHeader = (e, index) => {
