@@ -8,6 +8,7 @@ import { Link, useNavigate, useParams } from 'react-router'
 import useFetch from '../../hooks/useFetch'
 import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
+import Note from '../Utilities/Note'
 import SnackMsg from '../Utilities/SnackMsg'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../GlobalStates'
@@ -215,8 +216,42 @@ const B2BKingAuthorization = lazy(() => import('./B2BKing/B2BKingAuthorization')
 const UserRegistrationMembershipAuthorization = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembershipAuthorization')
 )
+const TutorLmsAuthorization = lazy(() => import('./TutorLms/TutorLmsAuthorization'))
+const LearnDashAuthorization = lazy(() => import('./LearnDash/LearnDashAuthorization'))
+const LifterLmsAuthorization = lazy(() => import('./LifterLms/LifterLmsAuthorization'))
+const GamiPressAuthorization = lazy(() => import('./GamiPress/GamiPressAuthorization'))
+const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthorization'))
+const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
+const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
+const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
 
-const IntegrationInfo = memo(({ integrationConf, location }) => {
+const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
+  <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
+    <div className="mt-3">
+      <b>{__('Integration Name:', 'bit-integrations')}</b>
+    </div>
+    <input
+      className="btcd-paper-inp w-6 mt-1"
+      value={integrationConf?.name || ''}
+      type="text"
+      disabled
+    />
+
+    <Note
+      note={__(
+        'There are no connection details to show for this action. Open the integration settings to review or change how it is configured.',
+        'bit-integrations'
+      )}
+    />
+
+    <Link to={editUrl} className="btn btcd-btn-lg purple sh-sm">
+      {__('Integration Settings', 'bit-integrations')}
+      <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
+    </Link>
+  </div>
+)
+
+const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
   switch (integrationConf.type) {
     case 'Zoho CRM':
       return (
@@ -344,6 +379,7 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
     case 'KonnectzIT':
       return <KonnectzITAuthorization webHooks={integrationConf} step={1} isInfo />
     case 'Ants & Apps':
+    case 'Ant Apps':
       return <AntAppsAuthorization webHooks={integrationConf} step={1} isInfo />
     case 'Zoho Flow':
       return (
@@ -352,6 +388,7 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
     case 'Telegram':
       return <TelegramAuthorization telegramConf={integrationConf} step={1} isInfo />
     case 'Fluent CRM':
+    case 'Fluent Crm':
       return <FluentCrmAuthorization fluentCrmConf={integrationConf} step={1} isInfo />
     case 'Encharge':
       return <EnchargeAuthorization enchargeConf={integrationConf} step={1} isInfo />
@@ -620,6 +657,7 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
     case 'ACPT':
       return <ACPTAuthorization acptConf={integrationConf} step={1} isInfo />
     case 'WishlistMember':
+    case 'Wishlist Member':
       return <WishlistMemberAuthorization wishlistMemberConf={integrationConf} step={1} isInfo />
     case 'CreatorLms':
       return <CreatorLmsAuthorization creatorLmsConf={integrationConf} step={1} isInfo />
@@ -679,8 +717,27 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
       return <AsgarosForumAuthorization asgarosForumConf={integrationConf} step={1} isInfo />
     case 'B2BKing':
       return <B2BKingAuthorization b2bKingConf={integrationConf} step={1} isInfo />
+    case 'Tutor Lms':
+      return <TutorLmsAuthorization tutorlmsConf={integrationConf} step={1} isInfo />
+    case 'LearnDash':
+      return <LearnDashAuthorization learnDashConf={integrationConf} step={1} isInfo />
+    case 'LifterLms':
+      return <LifterLmsAuthorization lifterLmsConf={integrationConf} step={1} isInfo />
+    case 'GamiPress':
+      return <GamiPressAuthorization gamiPressConf={integrationConf} step={1} isInfo />
+    case 'Affiliate':
+      return <AffiliateAuthorization affiliateConf={integrationConf} step={1} isInfo />
+    case 'BuddyBoss':
+      return <BuddyBossAuthorization buddyBossConf={integrationConf} step={1} isInfo />
+    case 'SliceWp':
+      return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
+    case 'CustomApi':
+      return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
     default:
-      return <></>
+      // Actions with no authorization UI of their own (site-local ones like Mail
+      // or Post Creation, and anything this build has no component for) used to
+      // render an empty page here.
+      return <IntegrationInfoFallback integrationConf={integrationConf} editUrl={editUrl} />
   }
 })
 
@@ -772,7 +829,8 @@ export default function IntegInfo() {
     [integration, integrationConf, mutate]
   )
 
-  const goToEditIntegration = useCallback(() => navigate(`/flow/action/edit/${id}`), [navigate, id])
+  const editUrl = `/flow/action/edit/${id}`
+  const goToEditIntegration = useCallback(() => navigate(editUrl), [navigate, editUrl])
 
   // Only connection-based integrations carry a connection_id; the legacy ones
   // keep credentials inline in flow_details and stay read-only here.
@@ -814,7 +872,7 @@ export default function IntegInfo() {
 
       <ConnectionSwitchProvider value={connectionSwitch}>
         <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
-          <IntegrationInfo integrationConf={integrationConf} location={location} />
+          <IntegrationInfo integrationConf={integrationConf} location={location} editUrl={editUrl} />
         </Suspense>
       </ConnectionSwitchProvider>
     </>
