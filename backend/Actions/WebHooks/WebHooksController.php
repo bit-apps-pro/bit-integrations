@@ -37,16 +37,13 @@ class WebHooksController
         $method = isset($details->method) ? $details->method : 'get';
         $pathParams = isset($details->pathParams) ? $details->pathParams : [];
         $url = isset($details->url) ? self::urlParserWrapper($details->url, $fieldValues, $pathParams, $isTest) : false;
+        if (empty($url)) {
+            $url = new \WP_Error('bit-integrations-webhook-url', __('Webhook url is empty', 'bit-integrations'));
+        }
         if (is_wp_error($url)) {
-            LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'error', wp_json_encode(['message' => $url->get_error_message()]));
+            LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'error', $url);
 
             return $url;
-        }
-        if (empty($url)) {
-            $error = new \WP_Error('bit-integrations-webhook-url', __('Webhook url is empty', 'bit-integrations'));
-            LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'error', wp_json_encode(['message' => $error->get_error_message()]));
-
-            return $error;
         }
         $boundary = wp_generate_password(24);
         $payload = self::processPayload($details, $fieldValues, $boundary);
@@ -174,10 +171,10 @@ class WebHooksController
             $mapping[trim((string) $param->key)] = isset($param->value) ? $param->value : '';
         }
 
-        $error = null;
+        $emptyTokens = [];
         $resolvedPath = preg_replace_callback(
             '/\$\{\w[^ ${}]*\}|\{[^{}\s\/?#]+\}/',
-            function ($matches) use ($mapping, $fieldValues, $isTest, &$error) {
+            function ($matches) use ($mapping, $fieldValues, $isTest, &$emptyTokens) {
                 $token = $matches[0];
 
                 if (0 === strpos($token, '${')) {
@@ -199,7 +196,7 @@ class WebHooksController
                     if ($isTest) {
                         return $token; // no trigger data while testing, keep it visible
                     }
-                    $error = $token;
+                    $emptyTokens[$token] = true;
 
                     return $token;
                 }
@@ -209,13 +206,13 @@ class WebHooksController
             $path
         );
 
-        if (null !== $error) {
+        if (!empty($emptyTokens)) {
             return new \WP_Error(
                 'bit-integrations-webhook-path-param',
                 sprintf(
-                    /* translators: %s: url path placeholder, e.g. {id} */
-                    __('Url path parameter %s has no value, webhook request skipped', 'bit-integrations'),
-                    $error
+                    /* translators: %s: comma separated url path variables, e.g. {id}, {slug} */
+                    __('Url path variable %s has no value, webhook request skipped', 'bit-integrations'),
+                    implode(', ', array_keys($emptyTokens))
                 )
             );
         }

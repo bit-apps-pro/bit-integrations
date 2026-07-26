@@ -27,15 +27,19 @@ export const getPathPlaceholders = url => {
   return names
 }
 
-function PathParams({ webHooks, setWebHooks, isInfo, setTab }) {
-  useEffect(() => {
-    setTab(2)
-  }, [])
-
+/**
+ * Keeps `pathParams` in sync with the variables currently written in the url.
+ *
+ * Lives outside the component on purpose: the tab panel holding <PathParams /> is
+ * unmounted while another tab is open, so syncing from there would leave the
+ * variables unmapped whenever the tab is never visited.
+ */
+export const usePathParamsSync = (webHooks, setWebHooks, enabled = true) => {
   const placeholders = useMemo(() => getPathPlaceholders(webHooks?.url), [webHooks?.url])
 
-  // keep pathParams in sync with the placeholders currently present in the url
   useEffect(() => {
+    if (!enabled) return
+
     const existing = Array.isArray(webHooks?.pathParams) ? webHooks.pathParams : []
     const synced = placeholders.map(
       key => existing.find(param => param?.key === key) || { key, value: '' }
@@ -44,7 +48,17 @@ function PathParams({ webHooks, setWebHooks, isInfo, setTab }) {
       existing.length === synced.length && synced.every((param, i) => existing[i]?.key === param.key)
 
     if (!isSame) setWebHooks({ ...webHooks, pathParams: synced })
-  }, [placeholders, webHooks?.pathParams])
+  }, [placeholders, webHooks?.pathParams, enabled])
+
+  return placeholders
+}
+
+function PathParams({ webHooks, setWebHooks, isInfo, setTab }) {
+  useEffect(() => {
+    setTab(2)
+  }, [])
+
+  const placeholders = useMemo(() => getPathPlaceholders(webHooks?.url), [webHooks?.url])
 
   const paramValue = key =>
     (Array.isArray(webHooks?.pathParams) ? webHooks.pathParams : []).find(param => param?.key === key)

@@ -6,7 +6,7 @@ import { __ } from '../../../../Utils/i18nwrap'
 import Button from '../../../Utilities/Button'
 import LoaderSm from '../../../Loaders/LoaderSm'
 import Params from './Params'
-import PathParams from './PathParams'
+import PathParams, { usePathParamsSync } from './PathParams'
 import RequestHeaders from './RequestHeaders'
 import Body from './Body'
 import TableCheckBox from '../../../Utilities/TableCheckBox'
@@ -26,6 +26,8 @@ export default function WebHooksIntegration({
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const [tab, setTab] = useState(1)
+  // runs here, not in <PathParams />, so the mapping exists even if that tab is never opened
+  usePathParamsSync(webHooks, setWebHooks, !isInfo)
   const method = ['GET', 'POST', 'PUT', 'PATCH', 'OPTION', 'DELETE', 'TRACE', 'CONNECT']
   const handleInput = e => {
     const tmpConfConf = { ...webHooks }
@@ -179,12 +181,7 @@ export default function WebHooksIntegration({
             </div>
             <div className="btcd-hr" />
             <Panel>
-              <Params
-                webHooks={webHooks}
-                setWebHooks={setWebHooks}
-                isInfo={isInfo}
-                setTab={setTab}
-              />
+              <Params webHooks={webHooks} setWebHooks={setWebHooks} isInfo={isInfo} setTab={setTab} />
             </Panel>
             <Panel>
               <PathParams
