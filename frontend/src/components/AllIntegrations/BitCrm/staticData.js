@@ -526,7 +526,14 @@ export const actionSelects = {
 
   create_invoice: [taxSel],
   update_invoice: [
-    { ...taxSel, required: false },
+    {
+      ...taxSel,
+      helperText: __(
+        'Existing line items keep the tax mode they were created with.',
+        'bit-integrations'
+      ),
+      required: false
+    },
     { ...invoiceStatusSel, required: false }
   ],
   update_invoice_status: [invoiceStatusSel],
@@ -534,6 +541,15 @@ export const actionSelects = {
   grant_portal_access: [portalCapabilitiesSel],
   update_portal_access: [portalCapabilitiesSel]
 }
+
+// Every conf key a select or dropdown can write, so switching action can clear
+// the ones the new action does not use. Several keys share a Bit CRM field
+// (status, type, lead source), and a leftover value would otherwise win.
+export const allConfigurableKeys = [
+  ...new Set(
+    [...Object.values(actionSelects), ...Object.values(actionDropdowns)].flat().map(item => item.key)
+  )
+]
 
 // ---- Utilities: boolean options ----
 const isSharedUtil = {

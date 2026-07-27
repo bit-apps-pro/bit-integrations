@@ -14,6 +14,12 @@ use BitApps\Integrations\Log\LogHandler;
  */
 class RecordApiHelper
 {
+    /**
+     * Scratch key holding emails that matched no WordPress user. Stripped from
+     * the payload before any action sees it.
+     */
+    private const UNRESOLVED_USERS_KEY = '__unresolved_users';
+
     private $_integrationID;
 
     private $_integrationDetails;
@@ -30,9 +36,25 @@ class RecordApiHelper
             return ['success' => false, 'message' => __('Bit CRM is not installed or activated', 'bit-integrations')];
         }
 
-        $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-        $fieldData = $this->mergeConfiguredValues($fieldData);
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_lead';
+        $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
+        $fieldData = $this->mergeConfiguredValues($fieldData, $mainAction);
+
+        // A mapped email that matches no WordPress user leaves the id unset, which
+        // would surface downstream as a bare "assigned_to is required". Name the
+        // real problem instead.
+        if (!empty($fieldData[self::UNRESOLVED_USERS_KEY])) {
+            $unresolved = $fieldData[self::UNRESOLVED_USERS_KEY];
+
+            return [
+                'success' => false,
+                'message' => \sprintf(
+                    // translators: %s: comma separated list of email addresses
+                    __('No WordPress user found for: %s. Bit CRM needs a user account to own or be assigned a record.', 'bit-integrations'),
+                    implode(', ', $unresolved)
+                ),
+            ];
+        }
 
         switch ($mainAction) {
             case 'create_lead':
@@ -443,11 +465,12 @@ class RecordApiHelper
      * into the field-map data, keyed by the CRM field the action handler reads.
      * Only non-empty values overwrite, so an unset select never clobbers a mapping.
      *
-     * @param array $fieldData
+     * @param array  $fieldData
+     * @param string $mainAction
      *
      * @return array
      */
-    private function mergeConfiguredValues($fieldData)
+    private function mergeConfiguredValues($fieldData, $mainAction)
     {
         $conf = $this->_integrationDetails;
 
@@ -472,13 +495,31 @@ class RecordApiHelper
             'moveRelatedDataTo' => 'move_related_data_to',
             'priority'          => 'priority',
             'taxOption'         => 'tax_option',
-            // Both write `status`, but only one is ever offered per action.
             'activityStatus'    => 'status',
             'invoiceStatus'     => 'status',
             'capabilities'      => 'capabilities',
         ];
 
+        // Several conf keys share a CRM field, and switching the action does not
+        // erase the value the previous one stored. Without this guard a leftover
+        // `activityStatus` would win over `productStatus` on a later save, because
+        // it is merged last. Only the key the chosen action actually renders may
+        // write its CRM field.
+        $exclusive = [
+            'dealType'       => ['create_deal', 'update_deal'],
+            'productType'    => ['create_product', 'update_product'],
+            'leadSource'     => ['create_lead', 'update_lead', 'create_contact', 'update_contact'],
+            'dealLeadSource' => ['create_deal', 'update_deal'],
+            'productStatus'  => ['create_product', 'update_product'],
+            'activityStatus' => ['update_task_status', 'update_meeting_status', 'update_call_status'],
+            'invoiceStatus'  => ['update_invoice', 'update_invoice_status'],
+        ];
+
         foreach ($map as $confKey => $crmKey) {
+            if (isset($exclusive[$confKey]) && !\in_array($mainAction, $exclusive[$confKey], true)) {
+                continue;
+            }
+
             if (isset($conf->{$confKey}) && $conf->{$confKey} !== '' && $conf->{$confKey} !== []) {
                 $fieldData[$crmKey] = $conf->{$confKey};
             }
@@ -511,6 +552,8 @@ class RecordApiHelper
             'assigned_to_email' => 'assigned_to',
         ];
 
+        $unresolved = [];
+
         foreach ($emailToId as $emailKey => $idKey) {
             if (empty($fieldData[$emailKey])) {
                 unset($fieldData[$emailKey]);
@@ -518,12 +561,20 @@ class RecordApiHelper
                 continue;
             }
 
-            $user = get_user_by('email', $fieldData[$emailKey]);
+            $email = $fieldData[$emailKey];
+            $user = get_user_by('email', $email);
+
             if ($user) {
                 $fieldData[$idKey] = $user->ID;
+            } else {
+                $unresolved[] = $email;
             }
 
             unset($fieldData[$emailKey]);
+        }
+
+        if (!empty($unresolved)) {
+            $fieldData[self::UNRESOLVED_USERS_KEY] = $unresolved;
         }
 
         return $fieldData;

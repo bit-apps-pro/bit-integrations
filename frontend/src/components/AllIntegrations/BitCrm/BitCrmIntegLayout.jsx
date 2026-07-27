@@ -9,7 +9,14 @@ import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import { generateMappedField, refreshBitCrmList } from './BitCrmCommonFunc'
 import BitCrmFieldMap from './BitCrmFieldMap'
-import { actionDropdowns, actionSelects, actionUtilities, bitCrmStaticData, modules } from './staticData'
+import {
+  actionDropdowns,
+  actionSelects,
+  actionUtilities,
+  allConfigurableKeys,
+  bitCrmStaticData,
+  modules
+} from './staticData'
 
 export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmConf }) {
   const { isPro } = useRecoilValue($appConfigState)
@@ -36,13 +43,26 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       })
     )
 
-  const handleMainAction = value =>
+  // Selects are stored flat on conf, and several of them write the same Bit CRM
+  // field (status, type, lead source). Drop whatever the previous action left
+  // behind, so a stale value can never be sent with the new action.
+  const handleMainAction = value => {
+    const keepKeys = new Set(
+      [...(actionSelects[value] ?? []), ...(actionDropdowns[value] ?? [])].map(item => item.key)
+    )
+
     setBitCrmConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
         draftConf.field_map = generateMappedField(bitCrmStaticData[value] ?? [])
+        draftConf.utilities = {}
+
+        allConfigurableKeys.forEach(key => {
+          if (!keepKeys.has(key)) delete draftConf[key]
+        })
       })
     )
+  }
 
   return (
     <>
@@ -80,6 +100,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
             singleSelect={!sel.multi}
             closeOnSelect={!sel.multi}
           />
+          {sel.helperText && <small className="ml-2 txt-dp">{sel.helperText}</small>}
         </div>
       ))}
 
