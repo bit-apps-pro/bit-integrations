@@ -542,6 +542,16 @@ final class BitCrmController
         return self::flowExecute('bit_crm/link_deleted', ['id' => $id]);
     }
 
+    public static function handlePortalAccessGranted($contact, $email = '')
+    {
+        return self::portalEvent('bit_crm/client_portal_access_granted', $contact, $email);
+    }
+
+    public static function handlePortalAccessRevoked($contact, $email = '')
+    {
+        return self::portalEvent('bit_crm/client_portal_access_revoked', $contact, $email);
+    }
+
     public static function handleInvoiceCreated($invoice)
     {
         if (empty($invoice)) {
@@ -603,6 +613,23 @@ final class BitCrmController
         }
 
         return self::flowExecute("bit_crm/{$type}_{$event}", $data) ?? $result;
+    }
+
+    /**
+     * Dispatch a client portal event as the contact's fields plus the portal
+     * email. Revoking can start from a WordPress user that has no CRM contact,
+     * so the contact may be null and the email is the only certainty.
+     *
+     * @param string $triggered_entity_id
+     * @param mixed  $contact
+     * @param mixed  $email
+     */
+    private static function portalEvent($triggered_entity_id, $contact, $email)
+    {
+        $data = empty($contact) ? [] : self::normalize($contact);
+        $data['email'] = (string) $email;
+
+        return self::flowExecute($triggered_entity_id, $data);
     }
 
     private static function flowExecute($triggered_entity_id, $data)
@@ -712,7 +739,10 @@ final class BitCrmController
             ['form_name' => __('Invoice Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_created', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_status_updated', 'skipPrimaryKey' => true],
-            ['form_name' => __('Invoice Trashed', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoices_trashed', 'skipPrimaryKey' => true]
+            ['form_name' => __('Invoice Trashed', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoices_trashed', 'skipPrimaryKey' => true],
+            // Bit CRM Pro owns the client portal, so these stay silent without it.
+            ['form_name' => __('Client Portal Access Granted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/client_portal_access_granted', 'skipPrimaryKey' => true],
+            ['form_name' => __('Client Portal Access Revoked', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/client_portal_access_revoked', 'skipPrimaryKey' => true]
         ];
     }
 }

@@ -59,6 +59,9 @@ Hooks::add('bit_crm/attachment_deleted', [BitCrmController::class, 'handleAttach
 Hooks::add('bit_crm/link_created', [BitCrmController::class, 'handleLinkCreated'], 20, 1);
 Hooks::add('bit_crm/link_updated', [BitCrmController::class, 'handleLinkUpdated'], 20, 1);
 Hooks::add('bit_crm/link_deleted', [BitCrmController::class, 'handleLinkDeleted'], 20, 1);
+// Fired by Bit CRM Pro, which owns the client portal.
+Hooks::add('bit_crm/client_portal_access_granted', [BitCrmController::class, 'handlePortalAccessGranted'], 20, 2);
+Hooks::add('bit_crm/client_portal_access_revoked', [BitCrmController::class, 'handlePortalAccessRevoked'], 20, 2);
 Hooks::add('bit_crm/invoice_created', [BitCrmController::class, 'handleInvoiceCreated'], 20, 1);
 Hooks::add('bit_crm/invoice_updated', [BitCrmController::class, 'handleInvoiceUpdated'], 20, 1);
 Hooks::add('bit_crm/invoice_status_updated', [BitCrmController::class, 'handleInvoiceStatusUpdated'], 20, 1);
