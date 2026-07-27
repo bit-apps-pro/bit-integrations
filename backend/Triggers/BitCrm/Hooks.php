@@ -54,6 +54,11 @@ Hooks::add('bit_crm/activity_created', [BitCrmController::class, 'handleActivity
 Hooks::add('bit_crm/activity_updated', [BitCrmController::class, 'handleActivityUpdated'], 20, 1);
 Hooks::add('bit_crm/activity_status_updated', [BitCrmController::class, 'handleActivityStatusUpdated'], 20, 3);
 Hooks::add('bit_crm/activity_deleted', [BitCrmController::class, 'handleActivityDeleted'], 20, 1);
+Hooks::add('bit_crm/attachment_created', [BitCrmController::class, 'handleAttachmentCreated'], 20, 1);
+Hooks::add('bit_crm/attachment_deleted', [BitCrmController::class, 'handleAttachmentDeleted'], 20, 1);
+Hooks::add('bit_crm/link_created', [BitCrmController::class, 'handleLinkCreated'], 20, 1);
+Hooks::add('bit_crm/link_updated', [BitCrmController::class, 'handleLinkUpdated'], 20, 1);
+Hooks::add('bit_crm/link_deleted', [BitCrmController::class, 'handleLinkDeleted'], 20, 1);
 Hooks::add('bit_crm/invoice_created', [BitCrmController::class, 'handleInvoiceCreated'], 20, 1);
 Hooks::add('bit_crm/invoice_updated', [BitCrmController::class, 'handleInvoiceUpdated'], 20, 1);
 Hooks::add('bit_crm/invoice_status_updated', [BitCrmController::class, 'handleInvoiceStatusUpdated'], 20, 1);

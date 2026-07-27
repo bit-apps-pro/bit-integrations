@@ -465,7 +465,7 @@ final class BitCrmController
             return;
         }
 
-        return self::flowExecute('bit_crm/activity_created', self::normalize($activity));
+        return self::activityEvent('created', $activity);
     }
 
     public static function handleActivityUpdated($activity)
@@ -474,7 +474,7 @@ final class BitCrmController
             return;
         }
 
-        return self::flowExecute('bit_crm/activity_updated', self::normalize($activity));
+        return self::activityEvent('updated', $activity);
     }
 
     public static function handleActivityStatusUpdated($activity, $newStatus = null, $oldStatus = null)
@@ -483,7 +483,7 @@ final class BitCrmController
             return;
         }
 
-        return self::flowExecute('bit_crm/activity_status_updated', array_merge(self::normalize($activity), ['new_status' => $newStatus, 'old_status' => $oldStatus]));
+        return self::activityEvent('status_updated', $activity, ['new_status' => $newStatus, 'old_status' => $oldStatus]);
     }
 
     public static function handleActivityDeleted($id)
@@ -492,7 +492,54 @@ final class BitCrmController
             return;
         }
 
+        // Stays type-agnostic: Bit CRM hard-deletes the row before firing and
+        // passes only the id, so the activity type can no longer be resolved.
         return self::flowExecute('bit_crm/activity_deleted', ['id' => $id]);
+    }
+
+    public static function handleAttachmentCreated($attachment)
+    {
+        if (empty($attachment)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/attachment_created', self::normalize($attachment));
+    }
+
+    public static function handleAttachmentDeleted($id)
+    {
+        if (empty($id)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/attachment_deleted', ['id' => $id]);
+    }
+
+    public static function handleLinkCreated($link)
+    {
+        if (empty($link)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/link_created', self::normalize($link));
+    }
+
+    public static function handleLinkUpdated($link)
+    {
+        if (empty($link)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/link_updated', self::normalize($link));
+    }
+
+    public static function handleLinkDeleted($id)
+    {
+        if (empty($id)) {
+            return;
+        }
+
+        return self::flowExecute('bit_crm/link_deleted', ['id' => $id]);
     }
 
     public static function handleInvoiceCreated($invoice)
@@ -529,6 +576,33 @@ final class BitCrmController
         }
 
         return self::flowExecute('bit_crm/invoices_trashed', ['ids' => implode(',', (array) $ids)]);
+    }
+
+    /**
+     * Bit CRM fires one hook for tasks, meetings and calls alike, because they
+     * share the activities table and differ only by `type`. Dispatch both the
+     * generic event and the type-specific one, so a flow can subscribe at
+     * whichever granularity it needs.
+     *
+     * The typed ids (`bit_crm/task_created`, …) are flow keys, not WordPress
+     * hooks — no such hook exists.
+     *
+     * @param string $event one of created|updated|status_updated
+     * @param mixed  $activity
+     * @param array  $extra
+     */
+    private static function activityEvent($event, $activity, $extra = [])
+    {
+        $data = array_merge(self::normalize($activity), $extra);
+
+        $result = self::flowExecute("bit_crm/activity_{$event}", $data);
+
+        $type = $data['type'] ?? '';
+        if (!\in_array($type, ['task', 'meeting', 'call'], true)) {
+            return $result;
+        }
+
+        return self::flowExecute("bit_crm/{$type}_{$event}", $data) ?? $result;
     }
 
     private static function flowExecute($triggered_entity_id, $data)
@@ -619,6 +693,22 @@ final class BitCrmController
             ['form_name' => __('Activity Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Activity Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_status_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Activity Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_deleted', 'skipPrimaryKey' => true],
+            // Type-specific variants of the three activity events above. They run
+            // off the same Bit CRM hooks, filtered by the activity type.
+            ['form_name' => __('Task Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_created', 'skipPrimaryKey' => true],
+            ['form_name' => __('Task Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Task Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_status_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Meeting Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/meeting_created', 'skipPrimaryKey' => true],
+            ['form_name' => __('Meeting Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/meeting_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Meeting Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/meeting_status_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Call Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/call_created', 'skipPrimaryKey' => true],
+            ['form_name' => __('Call Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/call_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Call Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/call_status_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Attachment Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/attachment_created', 'skipPrimaryKey' => true],
+            ['form_name' => __('Attachment Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/attachment_deleted', 'skipPrimaryKey' => true],
+            ['form_name' => __('Link Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/link_created', 'skipPrimaryKey' => true],
+            ['form_name' => __('Link Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/link_updated', 'skipPrimaryKey' => true],
+            ['form_name' => __('Link Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/link_deleted', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_created', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_status_updated', 'skipPrimaryKey' => true],
