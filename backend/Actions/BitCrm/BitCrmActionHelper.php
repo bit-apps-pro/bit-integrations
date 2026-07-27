@@ -587,45 +587,209 @@ final class BitCrmActionHelper
         return self::result((new \BitApps\Crm\Services\NoteService())->store($payload), __('Note created successfully.', 'bit-integrations'));
     }
 
-    public static function createActivity($fieldData)
+    public static function updateTag($fieldData)
     {
-        if (!class_exists('BitApps\Crm\Model\Activity')) {
-            return self::missing('BitApps\Crm\Model\Activity');
+        if (!class_exists('BitApps\Crm\Model\Tag')) {
+            return self::missing('BitApps\Crm\Model\Tag');
         }
 
-        foreach (['title', 'type', 'entity_id', 'module', 'assigned_to'] as $req) {
+        if (!class_exists('BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug')) {
+            return self::missing('BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug');
+        }
+
+        foreach (['tag_id', 'title'] as $req) {
             if (empty($fieldData[$req])) {
                 return self::required($req);
             }
         }
 
-        $payload = [
-            'title'       => $fieldData['title'],
-            'type'        => $fieldData['type'],
-            'details'     => $fieldData['details'] ?? '',
-            'entity_id'   => (int) $fieldData['entity_id'],
-            'module'      => $fieldData['module'],
-            'assigned_to' => (int) $fieldData['assigned_to'],
-            'is_shared'   => !empty($fieldData['is_shared']),
-            'created_by'  => get_current_user_id(),
+        $tag = \BitApps\Crm\Model\Tag::findOne(['id' => (int) $fieldData['tag_id']]);
+        if (empty($tag)) {
+            return ['success' => false, 'message' => __('Tag not found.', 'bit-integrations')];
+        }
+
+        // Bit CRM regenerates the slug from the title on every tag update.
+        $updateData = [
+            'title'      => $fieldData['title'],
+            'slug'       => \BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug::generate($fieldData['title']),
+            'updated_by' => get_current_user_id(),
         ];
-        if (!empty($fieldData['priority'])) {
-            $payload['priority'] = $fieldData['priority'];
-        }
-        // Only set due_date when supplied — the column is nullable and an empty
-        // string is rejected by MySQL strict mode as an invalid datetime.
-        if (!empty($fieldData['due_date'])) {
-            $payload['due_date'] = $fieldData['due_date'];
+        if (!empty($fieldData['module'])) {
+            $updateData['module'] = $fieldData['module'];
         }
 
-        $activity = \BitApps\Crm\Model\Activity::insert($payload);
-        if (!$activity) {
-            return ['success' => false, 'message' => __('Failed to create activity.', 'bit-integrations')];
+        if (!$tag->update($updateData)) {
+            return ['success' => false, 'message' => __('Failed to update tag.', 'bit-integrations')];
         }
 
-        do_action('bit_crm/activity_created', $activity);
+        do_action('bit_crm/tag_updated', $tag);
 
-        return self::success(__('Activity created successfully.', 'bit-integrations'), $activity);
+        return self::success(__('Tag updated successfully.', 'bit-integrations'), $tag);
+    }
+
+    public static function deleteTag($fieldData)
+    {
+        foreach (['BitApps\Crm\Model\Tag', 'BitApps\Crm\Model\TagEntity'] as $class) {
+            if (!class_exists($class)) {
+                return self::missing($class);
+            }
+        }
+
+        if (empty($fieldData['tag_id'])) {
+            return self::required('tag_id');
+        }
+
+        $tagIds = self::toIntArray($fieldData['tag_id']);
+        if (empty($tagIds)) {
+            return self::required('tag_id');
+        }
+
+        $tags = \BitApps\Crm\Model\Tag::whereIn('id', $tagIds);
+        if (!$tags->count()) {
+            return ['success' => false, 'message' => __('Tag not found.', 'bit-integrations')];
+        }
+
+        try {
+            $tags->delete();
+            // The tags are gone, so drop their entity relations too, as Bit CRM does.
+            \BitApps\Crm\Model\TagEntity::whereIn('tag_id', $tagIds)->delete();
+        } catch (Throwable $th) {
+            return ['success' => false, 'message' => $th->getMessage()];
+        }
+
+        do_action('bit_crm/tag_deleted', $tagIds);
+
+        return self::success(__('Tag deleted successfully.', 'bit-integrations'), ['ids' => $tagIds]);
+    }
+
+    public static function updateNote($fieldData)
+    {
+        if (!class_exists('BitApps\Crm\Model\Note')) {
+            return self::missing('BitApps\Crm\Model\Note');
+        }
+
+        if (empty($fieldData['note_id'])) {
+            return self::required('note_id');
+        }
+
+        $note = \BitApps\Crm\Model\Note::findOne(['id' => (int) $fieldData['note_id']]);
+        if (empty($note)) {
+            return ['success' => false, 'message' => __('Note not found.', 'bit-integrations')];
+        }
+
+        $isShared = !empty($fieldData['is_shared']);
+
+        // Sharing needs the linked contact to hold a portal account with notes
+        // enabled, so let Bit CRM run that check rather than duplicating it.
+        if ($isShared && class_exists('BitApps\Crm\Services\NoteService')) {
+            $validation = (new \BitApps\Crm\Services\NoteService())->validateSharedNote((int) $note->entity_id);
+
+            if (($validation['success'] ?? false) === false) {
+                return ['success' => false, 'message' => $validation['errors'][0] ?? __('This note cannot be shared.', 'bit-integrations')];
+            }
+        }
+
+        $updateData = ['is_shared' => $isShared, 'updated_by' => get_current_user_id()];
+        foreach (['title', 'details'] as $field) {
+            if (isset($fieldData[$field]) && $fieldData[$field] !== '') {
+                $updateData[$field] = $fieldData[$field];
+            }
+        }
+
+        if (!$note->update($updateData)) {
+            return ['success' => false, 'message' => __('Failed to update note.', 'bit-integrations')];
+        }
+
+        do_action('bit_crm/note_updated', $note);
+
+        return self::success(__('Note updated successfully.', 'bit-integrations'), $note);
+    }
+
+    public static function deleteNote($fieldData)
+    {
+        if (!class_exists('BitApps\Crm\Model\Note')) {
+            return self::missing('BitApps\Crm\Model\Note');
+        }
+
+        if (empty($fieldData['note_id'])) {
+            return self::required('note_id');
+        }
+
+        $noteId = (int) $fieldData['note_id'];
+        $note = \BitApps\Crm\Model\Note::findOne(['id' => $noteId]);
+        if (empty($note)) {
+            return ['success' => false, 'message' => __('Note not found.', 'bit-integrations')];
+        }
+
+        $deletedNote = self::normalizeData($note);
+
+        if (!$note->delete()) {
+            return ['success' => false, 'message' => __('Failed to delete note.', 'bit-integrations')];
+        }
+
+        do_action('bit_crm/note_deleted', $noteId);
+
+        return self::success(__('Note deleted successfully.', 'bit-integrations'), $deletedNote);
+    }
+
+    public static function createTask($fieldData)
+    {
+        return self::storeActivity('task', $fieldData);
+    }
+
+    public static function createMeeting($fieldData)
+    {
+        return self::storeActivity('meeting', $fieldData);
+    }
+
+    public static function createCall($fieldData)
+    {
+        return self::storeActivity('call', $fieldData);
+    }
+
+    public static function updateTask($fieldData)
+    {
+        return self::modifyActivity('task', $fieldData);
+    }
+
+    public static function updateMeeting($fieldData)
+    {
+        return self::modifyActivity('meeting', $fieldData);
+    }
+
+    public static function updateCall($fieldData)
+    {
+        return self::modifyActivity('call', $fieldData);
+    }
+
+    public static function updateTaskStatus($fieldData)
+    {
+        return self::changeActivityStatus('task', $fieldData);
+    }
+
+    public static function updateMeetingStatus($fieldData)
+    {
+        return self::changeActivityStatus('meeting', $fieldData);
+    }
+
+    public static function updateCallStatus($fieldData)
+    {
+        return self::changeActivityStatus('call', $fieldData);
+    }
+
+    public static function deleteTask($fieldData)
+    {
+        return self::removeActivity('task', $fieldData);
+    }
+
+    public static function deleteMeeting($fieldData)
+    {
+        return self::removeActivity('meeting', $fieldData);
+    }
+
+    public static function deleteCall($fieldData)
+    {
+        return self::removeActivity('call', $fieldData);
     }
 
     public static function createInvoice($fieldData)
@@ -673,6 +837,509 @@ final class BitCrmActionHelper
         do_action('bit_crm/invoice_created', $storedInvoice);
 
         return self::success(__('Invoice created successfully.', 'bit-integrations'), $storedInvoice);
+    }
+
+    public static function updateInvoice($fieldData)
+    {
+        [$invoice, $error] = self::resolveInvoice($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        // Bit CRM locks paid invoices; respect that instead of writing behind its back.
+        if ($invoice->status === \BitApps\Crm\Model\Invoice::STATUS_PAID) {
+            return ['success' => false, 'message' => __('Cannot update a paid invoice.', 'bit-integrations')];
+        }
+
+        $updateData = ['updated_by' => get_current_user_id()];
+
+        foreach (['invoice_date', 'due_date', 'term_key', 'tax_option', 'currency', 'invoice_prefix'] as $field) {
+            if (isset($fieldData[$field]) && $fieldData[$field] !== '') {
+                $updateData[$field] = $fieldData[$field];
+            }
+        }
+
+        if (!empty($fieldData['deal_id'])) {
+            $updateData['entity_id'] = (int) $fieldData['deal_id'];
+            $updateData['module'] = \BitApps\Crm\Model\Deal::MODULE_NAME;
+        }
+
+        if (!empty($fieldData['status'])) {
+            if (!\BitApps\Crm\Model\Invoice::canTransitionStatus($invoice->status, $fieldData['status'])) {
+                return ['success' => false, 'message' => __('Invalid invoice status transition.', 'bit-integrations')];
+            }
+
+            $updateData['status'] = $fieldData['status'];
+            if ($fieldData['status'] === \BitApps\Crm\Model\Invoice::STATUS_PAID) {
+                $updateData['paid_at'] = current_time('mysql');
+            }
+        }
+
+        try {
+            $invoice->update($updateData);
+        } catch (Throwable $th) {
+            return ['success' => false, 'message' => $th->getMessage()];
+        }
+
+        do_action('bit_crm/invoice_updated', $invoice);
+
+        return self::success(__('Invoice updated successfully.', 'bit-integrations'), $invoice);
+    }
+
+    public static function updateInvoiceStatus($fieldData)
+    {
+        [$invoice, $error] = self::resolveInvoice($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        if (empty($fieldData['status'])) {
+            return self::required('status');
+        }
+
+        if ($invoice->status === \BitApps\Crm\Model\Invoice::STATUS_PAID) {
+            return ['success' => false, 'message' => __('Cannot change the status of a paid invoice.', 'bit-integrations')];
+        }
+
+        if (!\BitApps\Crm\Model\Invoice::canTransitionStatus($invoice->status, $fieldData['status'])) {
+            return ['success' => false, 'message' => __('Invalid invoice status transition.', 'bit-integrations')];
+        }
+
+        $updateData = ['status' => $fieldData['status'], 'updated_by' => get_current_user_id()];
+
+        if ($fieldData['status'] === \BitApps\Crm\Model\Invoice::STATUS_PAID) {
+            $updateData['paid_at'] = current_time('mysql');
+        }
+
+        if ($fieldData['status'] === \BitApps\Crm\Model\Invoice::STATUS_SENT) {
+            $updateData['sent_at'] = current_time('mysql');
+        }
+
+        try {
+            $invoice->update($updateData);
+        } catch (Throwable $th) {
+            return ['success' => false, 'message' => $th->getMessage()];
+        }
+
+        do_action('bit_crm/invoice_status_updated', $invoice);
+
+        return self::success(__('Invoice status updated successfully.', 'bit-integrations'), $invoice);
+    }
+
+    public static function deleteInvoice($fieldData)
+    {
+        [$invoice, $error] = self::resolveInvoice($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        if (!class_exists('BitApps\Crm\Model\Trash')) {
+            return self::missing('BitApps\Crm\Model\Trash');
+        }
+
+        $invoiceId = (int) $fieldData['invoice_id'];
+        $trashedInvoice = self::normalizeData($invoice);
+
+        \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::startTransaction();
+
+        try {
+            // Bit CRM soft-deletes invoices: flag the row and mirror it into the trash bin.
+            \BitApps\Crm\Model\Invoice::whereIn('id', [$invoiceId])->update(['is_trash' => true]);
+
+            \BitApps\Crm\Model\Trash::insert([
+                [
+                    'entity_id'  => $invoiceId,
+                    'module'     => \BitApps\Crm\Model\Invoice::MODULE_NAME,
+                    'created_by' => get_current_user_id(),
+                    'full_name'  => ($trashedInvoice['invoice_prefix'] ?? '') . '-' . $invoiceId,
+                ],
+            ]);
+
+            \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::commit();
+        } catch (Throwable $th) {
+            \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::rollback();
+
+            return ['success' => false, 'message' => $th->getMessage()];
+        }
+
+        do_action('bit_crm/invoices_trashed', [$invoiceId]);
+
+        return self::success(__('Invoice trashed successfully.', 'bit-integrations'), $trashedInvoice);
+    }
+
+    public static function grantPortalAccess($fieldData)
+    {
+        [$contact, , $email, $error] = self::resolvePortalContact($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+
+        if ($portalService->hasPortalAccessByEmail($email)) {
+            return ['success' => false, 'message' => __('This contact already has client portal access.', 'bit-integrations')];
+        }
+
+        // Creates the WordPress user when the email is new, and queues Bit CRM's
+        // access email with the generated password.
+        $result = $portalService->upsertPortalUser($contact, self::portalCapabilities($fieldData));
+
+        if (is_wp_error($result)) {
+            return ['success' => false, 'message' => $result->get_error_message()];
+        }
+
+        $userId = (int) ($result['userId'] ?? 0);
+
+        return self::success(
+            __('Client portal access granted.', 'bit-integrations'),
+            ['user_id' => $userId, 'email' => $email, 'capabilities' => $portalService->getUserCapabilities($userId)]
+        );
+    }
+
+    public static function updatePortalAccess($fieldData)
+    {
+        [, $user, $email, $error] = self::resolvePortalContact($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+
+        if (!$user || !$portalService->hasPortalAccessByUserId((int) $user->ID)) {
+            return ['success' => false, 'message' => __('This contact does not have client portal access yet.', 'bit-integrations')];
+        }
+
+        if (!$portalService->syncUserCapabilities($user, self::portalCapabilities($fieldData))) {
+            return ['success' => false, 'message' => __('Failed to update client portal capabilities.', 'bit-integrations')];
+        }
+
+        return self::success(
+            __('Client portal capabilities updated.', 'bit-integrations'),
+            ['user_id' => (int) $user->ID, 'email' => $email, 'capabilities' => $portalService->getUserCapabilities((int) $user->ID)]
+        );
+    }
+
+    public static function updatePortalPassword($fieldData)
+    {
+        [, $user, $email, $error] = self::resolvePortalContact($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        if (empty($fieldData['password'])) {
+            return self::required('password');
+        }
+
+        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+
+        if (!$user || !$portalService->hasPortalAccessByUserId((int) $user->ID)) {
+            return ['success' => false, 'message' => __('This contact does not have client portal access.', 'bit-integrations')];
+        }
+
+        $portalService->updatePassword((int) $user->ID, $fieldData['password']);
+        $portalService->markPasswordChanged((int) $user->ID);
+
+        return self::success(
+            __('Client portal password updated.', 'bit-integrations'),
+            ['user_id' => (int) $user->ID, 'email' => $email]
+        );
+    }
+
+    public static function revokePortalAccess($fieldData)
+    {
+        [, $user, $email, $error] = self::resolvePortalContact($fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+
+        if (!$user || !$portalService->hasPortalAccessByUserId((int) $user->ID)) {
+            return ['success' => false, 'message' => __('This contact does not have client portal access.', 'bit-integrations')];
+        }
+
+        // Strips the portal capabilities only; the WordPress account survives.
+        if (!$portalService->revokePortalAccess((int) $user->ID)) {
+            return ['success' => false, 'message' => __('Failed to revoke client portal access.', 'bit-integrations')];
+        }
+
+        return self::success(
+            __('Client portal access revoked.', 'bit-integrations'),
+            ['user_id' => (int) $user->ID, 'email' => $email]
+        );
+    }
+
+    /**
+     * Insert an activity of the given type and fire Bit CRM's created hook.
+     *
+     * @param string $type one of task|meeting|call
+     * @param array  $fieldData
+     */
+    private static function storeActivity($type, $fieldData)
+    {
+        if (!class_exists('BitApps\Crm\Model\Activity')) {
+            return self::missing('BitApps\Crm\Model\Activity');
+        }
+
+        $required = ['title', 'entity_id', 'module', 'assigned_to'];
+        // Bit CRM itself only requires a priority on tasks.
+        if ($type === 'task') {
+            $required[] = 'priority';
+        }
+
+        foreach ($required as $req) {
+            if (empty($fieldData[$req])) {
+                return self::required($req);
+            }
+        }
+
+        $payload = [
+            'title'       => $fieldData['title'],
+            'type'        => $type,
+            'details'     => $fieldData['details'] ?? '',
+            'entity_id'   => (int) $fieldData['entity_id'],
+            'module'      => $fieldData['module'],
+            'assigned_to' => (int) $fieldData['assigned_to'],
+            'is_shared'   => !empty($fieldData['is_shared']),
+            'created_by'  => get_current_user_id(),
+        ];
+        if (!empty($fieldData['priority'])) {
+            $payload['priority'] = $fieldData['priority'];
+        }
+        // Only set due_date when supplied — the column is nullable and an empty
+        // string is rejected by MySQL strict mode as an invalid datetime.
+        if (!empty($fieldData['due_date'])) {
+            $payload['due_date'] = $fieldData['due_date'];
+        }
+
+        $activity = \BitApps\Crm\Model\Activity::insert($payload);
+        if (!$activity) {
+            // translators: %s: activity type (task, meeting or call)
+            return ['success' => false, 'message' => \sprintf(__('Failed to create %s.', 'bit-integrations'), $type)];
+        }
+
+        do_action('bit_crm/activity_created', $activity);
+
+        // translators: %s: activity type (task, meeting or call)
+        return self::success(\sprintf(__('%s created successfully.', 'bit-integrations'), ucfirst($type)), $activity);
+    }
+
+    /**
+     * Apply the supplied fields to an existing activity. Only fields carrying a
+     * value are written, so a flow can change one column without blanking the rest.
+     *
+     * @param string $type one of task|meeting|call
+     * @param array  $fieldData
+     */
+    private static function modifyActivity($type, $fieldData)
+    {
+        [$activity, $error] = self::resolveActivity($type, $fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        $updateData = ['updated_by' => get_current_user_id()];
+
+        foreach (['title', 'priority', 'due_date', 'details', 'module'] as $field) {
+            if (isset($fieldData[$field]) && $fieldData[$field] !== '') {
+                $updateData[$field] = $fieldData[$field];
+            }
+        }
+
+        foreach (['entity_id', 'assigned_to'] as $field) {
+            if (!empty($fieldData[$field])) {
+                $updateData[$field] = (int) $fieldData[$field];
+            }
+        }
+
+        if (isset($fieldData['is_shared'])) {
+            $updateData['is_shared'] = !empty($fieldData['is_shared']);
+        }
+
+        if (!$activity->update($updateData)) {
+            // translators: %s: activity type (task, meeting or call)
+            return ['success' => false, 'message' => \sprintf(__('Failed to update %s.', 'bit-integrations'), $type)];
+        }
+
+        do_action('bit_crm/activity_updated', $activity);
+
+        // translators: %s: activity type (task, meeting or call)
+        return self::success(\sprintf(__('%s updated successfully.', 'bit-integrations'), ucfirst($type)), $activity);
+    }
+
+    /**
+     * Mark an activity completed or pending.
+     *
+     * @param string $type one of task|meeting|call
+     * @param array  $fieldData
+     */
+    private static function changeActivityStatus($type, $fieldData)
+    {
+        [$activity, $error] = self::resolveActivity($type, $fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        if (empty($fieldData['status'])) {
+            return self::required('status');
+        }
+
+        $newStatus = $fieldData['status'] === 'completed' ? 'completed' : 'pending';
+        $oldStatus = $activity->is_completed ? 'completed' : 'pending';
+
+        if ($newStatus === $oldStatus) {
+            // translators: %s: activity type (task, meeting or call)
+            return self::success(\sprintf(__('%s status already up to date.', 'bit-integrations'), ucfirst($type)), $activity);
+        }
+
+        if (!$activity->update(['is_completed' => $newStatus === 'completed', 'updated_by' => get_current_user_id()])) {
+            // translators: %s: activity type (task, meeting or call)
+            return ['success' => false, 'message' => \sprintf(__('Failed to update %s status.', 'bit-integrations'), $type)];
+        }
+
+        do_action('bit_crm/activity_status_updated', $activity, $newStatus, $oldStatus);
+
+        // translators: %s: activity type (task, meeting or call)
+        return self::success(\sprintf(__('%s status updated successfully.', 'bit-integrations'), ucfirst($type)), $activity);
+    }
+
+    /**
+     * Delete an activity and fire Bit CRM's deleted hook.
+     *
+     * @param string $type one of task|meeting|call
+     * @param array  $fieldData
+     */
+    private static function removeActivity($type, $fieldData)
+    {
+        [$activity, $error] = self::resolveActivity($type, $fieldData);
+        if ($error !== null) {
+            return $error;
+        }
+
+        $activityId = (int) $fieldData['activity_id'];
+        $deletedActivity = self::normalizeData($activity);
+
+        if (!$activity->delete()) {
+            // translators: %s: activity type (task, meeting or call)
+            return ['success' => false, 'message' => \sprintf(__('Failed to delete %s.', 'bit-integrations'), $type)];
+        }
+
+        do_action('bit_crm/activity_deleted', $activityId);
+
+        // translators: %s: activity type (task, meeting or call)
+        return self::success(\sprintf(__('%s deleted successfully.', 'bit-integrations'), ucfirst($type)), $deletedActivity);
+    }
+
+    /**
+     * Load the configured activity and confirm it is of the expected type, so a
+     * Delete Task never touches a meeting that happens to share the id space.
+     *
+     * @param string $type one of task|meeting|call
+     * @param array  $fieldData
+     *
+     * @return array{0: mixed, 1: null|array}
+     */
+    private static function resolveActivity($type, $fieldData)
+    {
+        if (!class_exists('BitApps\Crm\Model\Activity')) {
+            return [null, self::missing('BitApps\Crm\Model\Activity')];
+        }
+
+        if (empty($fieldData['activity_id'])) {
+            return [null, self::required('activity_id')];
+        }
+
+        $activity = \BitApps\Crm\Model\Activity::findOne(['id' => (int) $fieldData['activity_id']]);
+
+        if (empty($activity) || $activity->type !== $type) {
+            // translators: %s: activity type (task, meeting or call)
+            return [null, ['success' => false, 'message' => \sprintf(__('No %s found with this id.', 'bit-integrations'), $type)]];
+        }
+
+        return [$activity, null];
+    }
+
+    /**
+     * Load the configured invoice, skipping ones already in the trash.
+     *
+     * @param array $fieldData
+     *
+     * @return array{0: mixed, 1: null|array}
+     */
+    private static function resolveInvoice($fieldData)
+    {
+        if (!class_exists('BitApps\Crm\Model\Invoice')) {
+            return [null, self::missing('BitApps\Crm\Model\Invoice')];
+        }
+
+        if (empty($fieldData['invoice_id'])) {
+            return [null, self::required('invoice_id')];
+        }
+
+        $invoice = \BitApps\Crm\Model\Invoice::findOne(['id' => (int) $fieldData['invoice_id'], 'is_trash' => 0]);
+
+        if (empty($invoice)) {
+            return [null, ['success' => false, 'message' => __('Invoice not found.', 'bit-integrations')]];
+        }
+
+        return [$invoice, null];
+    }
+
+    /**
+     * Load the contact and the WordPress user behind its email. The user is null
+     * when no account exists yet, which is valid for granting access and an error
+     * for everything else.
+     *
+     * @param array $fieldData
+     *
+     * @return array{0: mixed, 1: mixed, 2: string, 3: null|array}
+     */
+    private static function resolvePortalContact($fieldData)
+    {
+        foreach (['BitApps\Crm\Services\ClientPortalService', 'BitApps\Crm\Model\Contact'] as $class) {
+            if (!class_exists($class)) {
+                return [null, null, '', self::missing($class)];
+            }
+        }
+
+        if (empty($fieldData['contact_id'])) {
+            return [null, null, '', self::required('contact_id')];
+        }
+
+        $contact = \BitApps\Crm\Model\Contact::findOne(['id' => (int) $fieldData['contact_id'], 'is_trash' => 0]);
+
+        if (empty($contact)) {
+            return [null, null, '', ['success' => false, 'message' => __('Contact not found.', 'bit-integrations')]];
+        }
+
+        $email = (string) ($contact->email ?? '');
+
+        if ($email === '' || !is_email($email)) {
+            return [null, null, '', ['success' => false, 'message' => __('This contact has no valid email, so it cannot use the client portal.', 'bit-integrations')]];
+        }
+
+        $user = get_user_by('email', $email);
+
+        return [$contact, $user ?: null, $email, null];
+    }
+
+    /**
+     * Turn the selected capability list into the `[shortName => true]` map Bit CRM
+     * expects. An empty selection makes Bit CRM apply its own portal defaults.
+     *
+     * @param array $fieldData
+     *
+     * @return array<string, bool>
+     */
+    private static function portalCapabilities($fieldData)
+    {
+        $capabilities = [];
+
+        foreach (self::csvList($fieldData['capabilities'] ?? []) as $capability) {
+            $capabilities[$capability] = true;
+        }
+
+        return $capabilities;
     }
 
     private static function missing($class)

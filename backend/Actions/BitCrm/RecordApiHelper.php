@@ -238,10 +238,115 @@ class RecordApiHelper
 
                 break;
 
-            case 'create_activity':
-                $response = BitCrmActionHelper::createActivity($fieldData);
-                $type = 'activity';
-                $actionType = 'create_activity';
+            case 'update_tag':
+                $response = BitCrmActionHelper::updateTag($fieldData);
+                $type = 'tag';
+                $actionType = 'update_tag';
+
+                break;
+
+            case 'delete_tag':
+                $response = BitCrmActionHelper::deleteTag($fieldData);
+                $type = 'tag';
+                $actionType = 'delete_tag';
+
+                break;
+
+            case 'update_note':
+                $response = BitCrmActionHelper::updateNote($fieldData);
+                $type = 'note';
+                $actionType = 'update_note';
+
+                break;
+
+            case 'delete_note':
+                $response = BitCrmActionHelper::deleteNote($fieldData);
+                $type = 'note';
+                $actionType = 'delete_note';
+
+                break;
+
+            case 'create_task':
+                $response = BitCrmActionHelper::createTask($fieldData);
+                $type = 'task';
+                $actionType = 'create_task';
+
+                break;
+
+            case 'update_task':
+                $response = BitCrmActionHelper::updateTask($fieldData);
+                $type = 'task';
+                $actionType = 'update_task';
+
+                break;
+
+            case 'update_task_status':
+                $response = BitCrmActionHelper::updateTaskStatus($fieldData);
+                $type = 'task';
+                $actionType = 'update_task_status';
+
+                break;
+
+            case 'delete_task':
+                $response = BitCrmActionHelper::deleteTask($fieldData);
+                $type = 'task';
+                $actionType = 'delete_task';
+
+                break;
+
+            case 'create_meeting':
+                $response = BitCrmActionHelper::createMeeting($fieldData);
+                $type = 'meeting';
+                $actionType = 'create_meeting';
+
+                break;
+
+            case 'update_meeting':
+                $response = BitCrmActionHelper::updateMeeting($fieldData);
+                $type = 'meeting';
+                $actionType = 'update_meeting';
+
+                break;
+
+            case 'update_meeting_status':
+                $response = BitCrmActionHelper::updateMeetingStatus($fieldData);
+                $type = 'meeting';
+                $actionType = 'update_meeting_status';
+
+                break;
+
+            case 'delete_meeting':
+                $response = BitCrmActionHelper::deleteMeeting($fieldData);
+                $type = 'meeting';
+                $actionType = 'delete_meeting';
+
+                break;
+
+            case 'create_call':
+                $response = BitCrmActionHelper::createCall($fieldData);
+                $type = 'call';
+                $actionType = 'create_call';
+
+                break;
+
+            case 'update_call':
+                $response = BitCrmActionHelper::updateCall($fieldData);
+                $type = 'call';
+                $actionType = 'update_call';
+
+                break;
+
+            case 'update_call_status':
+                $response = BitCrmActionHelper::updateCallStatus($fieldData);
+                $type = 'call';
+                $actionType = 'update_call_status';
+
+                break;
+
+            case 'delete_call':
+                $response = BitCrmActionHelper::deleteCall($fieldData);
+                $type = 'call';
+                $actionType = 'delete_call';
 
                 break;
 
@@ -249,6 +354,55 @@ class RecordApiHelper
                 $response = BitCrmActionHelper::createInvoice($fieldData);
                 $type = 'invoice';
                 $actionType = 'create_invoice';
+
+                break;
+
+            case 'update_invoice':
+                $response = BitCrmActionHelper::updateInvoice($fieldData);
+                $type = 'invoice';
+                $actionType = 'update_invoice';
+
+                break;
+
+            case 'update_invoice_status':
+                $response = BitCrmActionHelper::updateInvoiceStatus($fieldData);
+                $type = 'invoice';
+                $actionType = 'update_invoice_status';
+
+                break;
+
+            case 'delete_invoice':
+                $response = BitCrmActionHelper::deleteInvoice($fieldData);
+                $type = 'invoice';
+                $actionType = 'delete_invoice';
+
+                break;
+
+            case 'grant_portal_access':
+                $response = BitCrmActionHelper::grantPortalAccess($fieldData);
+                $type = 'client_portal';
+                $actionType = 'grant_portal_access';
+
+                break;
+
+            case 'update_portal_access':
+                $response = BitCrmActionHelper::updatePortalAccess($fieldData);
+                $type = 'client_portal';
+                $actionType = 'update_portal_access';
+
+                break;
+
+            case 'update_portal_password':
+                $response = BitCrmActionHelper::updatePortalPassword($fieldData);
+                $type = 'client_portal';
+                $actionType = 'update_portal_password';
+
+                break;
+
+            case 'revoke_portal_access':
+                $response = BitCrmActionHelper::revokePortalAccess($fieldData);
+                $type = 'client_portal';
+                $actionType = 'revoke_portal_access';
 
                 break;
             default:
@@ -313,12 +467,15 @@ class RecordApiHelper
             'dealLeadSource'    => 'lead_source',
             'productType'       => 'type',
             'productStatus'     => 'status',
-            'activityType'      => 'type',
             'module'            => 'module',
             'convertTo'         => 'convert_to',
             'moveRelatedDataTo' => 'move_related_data_to',
             'priority'          => 'priority',
             'taxOption'         => 'tax_option',
+            // Both write `status`, but only one is ever offered per action.
+            'activityStatus'    => 'status',
+            'invoiceStatus'     => 'status',
+            'capabilities'      => 'capabilities',
         ];
 
         foreach ($map as $confKey => $crmKey) {
