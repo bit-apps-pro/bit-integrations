@@ -16,12 +16,6 @@ class FormyChatController
         }
     }
 
-    public static function formyChatAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshWidgets()
     {
         self::isExists();

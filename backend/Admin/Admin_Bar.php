@@ -43,6 +43,7 @@ class Admin_Bar
 
         $submenu['bit-integrations'] = [
             [__('All Integrations', 'bit-integrations'), $capability, 'admin.php?page=bit-integrations#/'],
+            [__('Connections', 'bit-integrations'), $capability, 'admin.php?page=bit-integrations#/connections'],
             [__('Doc & Support', 'bit-integrations'), $capability, 'admin.php?page=bit-integrations#/doc-support'],
             [__('Settings', 'bit-integrations'), $capability, 'admin.php?page=bit-integrations#/app-settings'],
         ];

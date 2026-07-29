@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Acumbamail;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class AcumbamailController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'acumbamail',
+        'fields'   => [
+            'auth_token' => 'value',
+        ],
+    ];
+
     private $baseUrl = 'https://acumbamail.com/api/1/';
 
     public function fetchAllLists($requestParams)
@@ -43,32 +52,6 @@ class AcumbamailController
                 'The token is invalid',
                 400
             );
-        }
-    }
-
-    public function acumbamailAuthAndFetchSubscriberList($requestParams)
-    {
-        if (empty($requestParams->auth_token)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $apiEndpoints = $this->baseUrl . 'getSubscribers/';
-
-        $requestParams = [
-            'auth_token' => $requestParams->auth_token,
-        ];
-
-        $response = HttpHelper::post($apiEndpoints, $requestParams);
-
-        if ($response == 'Unauthorized' || $response == 'This endpoint is not available for non-paying customers' || $response == 'Your auth token has expired check /apidoc/ for the new one') {
-            wp_send_json_error($response, 400);
-        } else {
-            wp_send_json_success($response, 200);
         }
     }
 

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Mailjet;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,15 +15,24 @@ use WP_Error;
  */
 class MailjetController
 {
-    public function authentication($fieldsRequestParams)
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'mailjet',
+        'fields'   => [
+            'apiKey'    => 'username',
+            'secretKey' => 'password',
+        ],
+    ];
+
+    public function getAllLists($fieldsRequestParams)
     {
-        if (empty($fieldsRequestParams->secretKey) && empty($fieldsRequestParams->apiKey)) {
+        $apiKey = !empty($fieldsRequestParams->apiKey) ? $fieldsRequestParams->apiKey : (!empty($fieldsRequestParams->username) ? $fieldsRequestParams->username : '');
+        $secretKey = !empty($fieldsRequestParams->secretKey) ? $fieldsRequestParams->secretKey : (!empty($fieldsRequestParams->password) ? $fieldsRequestParams->password : '');
+        if (empty($secretKey) || empty($apiKey)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
         $apiEndpoints = 'https://api.mailjet.com/v3/REST/contactslist?Limit=1000';
-        $apiKey = $fieldsRequestParams->apiKey;
-        $secretKey = $fieldsRequestParams->secretKey;
         $header = [
             'Authorization' => 'Basic ' . base64_encode("{$apiKey}:{$secretKey}")
         ];
@@ -44,13 +54,13 @@ class MailjetController
 
     public function getCustomFields($fieldsRequestParams)
     {
-        if (empty($fieldsRequestParams->secretKey) && empty($fieldsRequestParams->apiKey)) {
+        $apiKey = !empty($fieldsRequestParams->apiKey) ? $fieldsRequestParams->apiKey : (!empty($fieldsRequestParams->username) ? $fieldsRequestParams->username : '');
+        $secretKey = !empty($fieldsRequestParams->secretKey) ? $fieldsRequestParams->secretKey : (!empty($fieldsRequestParams->password) ? $fieldsRequestParams->password : '');
+        if (empty($secretKey) || empty($apiKey)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
         $apiEndpoints = 'https://api.mailjet.com/v3/REST/contactmetadata?Limit=1000';
-        $apiKey = $fieldsRequestParams->apiKey;
-        $secretKey = $fieldsRequestParams->secretKey;
         $header = [
             'Authorization' => 'Basic ' . base64_encode("{$apiKey}:{$secretKey}")
         ];
@@ -76,8 +86,8 @@ class MailjetController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $apiKey = $integrationDetails->apiKey;
-        $secretKey = $integrationDetails->secretKey;
+        $apiKey = !empty($integrationDetails->apiKey) ? $integrationDetails->apiKey : (isset($integrationDetails->username) ? $integrationDetails->username : '');
+        $secretKey = !empty($integrationDetails->secretKey) ? $integrationDetails->secretKey : (isset($integrationDetails->password) ? $integrationDetails->password : '');
         $selectedLists = $integrationDetails->selectedLists;
         $fieldMap = $integrationDetails->field_map;
 

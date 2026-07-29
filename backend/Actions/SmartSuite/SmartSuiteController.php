@@ -6,10 +6,20 @@
 
 namespace BitApps\Integrations\Actions\SmartSuite;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 class SmartSuiteController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'smartsuite',
+        'fields'   => [
+            'apiToken'    => 'value',
+            'workspaceId' => 'workspaceId',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -106,19 +116,6 @@ class SmartSuiteController
         }
 
         return $smartSuiteApiResponse;
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->workspaceId, $fieldsRequestParams->apiToken);
-        $apiEndpoint = $this->apiEndpoint . 'solutions/';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-        if (\is_array($response)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error($response, 400);
-        }
     }
 
     private function checkValidation($fieldsRequestParams)

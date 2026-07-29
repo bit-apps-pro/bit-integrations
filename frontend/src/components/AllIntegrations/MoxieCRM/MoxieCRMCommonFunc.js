@@ -49,41 +49,13 @@ export const checkMappedFields = moxiecrmConf => {
   return true
 }
 
-export const moxiecrmAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_url || !confTmp.api_key) {
-    setError({
-      api_url: !confTmp.api_url ? __("API URL can't be empty", 'bit-integrations') : '',
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url
-  }
-
-  bitsFetch(requestParams, 'moxiecrm_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid api_url name & API key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        api_url: confTmp.api_url
+      }
 
 // export const getCustomFields = (confTmp, setConf, setLoading) => {
 //   setLoading({ ...setLoading, customFields: true });
@@ -119,10 +91,7 @@ export const moxiecrmAuthentication = (
 export const getAllClients = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, clients: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'moxiecrm_fetch_all_clients').then(result => {
     if (result && result.success) {
@@ -145,8 +114,7 @@ export const getAllPipelineStages = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, pipelineStages: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 

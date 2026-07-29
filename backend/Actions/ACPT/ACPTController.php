@@ -6,7 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ACPT;
 
-use BitApps\Integrations\Core\Util\HttpHelper;
+use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
 /**
@@ -14,27 +14,14 @@ use WP_Error;
  */
 class ACPTController
 {
-    protected $_defaultHeader;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->api_key);
-
-        $apiEndpoint = $fieldsRequestParams->base_url . '/wp-json/acpt/v1/taxonomy';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (is_wp_error($response) || HttpHelper::$responseCode != 200) {
-            wp_send_json_error(
-                !empty($response->message)
-                    ? $response->message
-                    : __('Please enter valid Api key-secret', 'bit-integrations'),
-                HttpHelper::$responseCode
-            );
-        }
-
-        wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'acpt',
+        'fields'   => [
+            'api_key'  => 'value',
+            'base_url' => 'base_url',
+        ],
+    ];
 
     public function execute($integrationData, $fieldValues)
     {
@@ -58,21 +45,5 @@ class ACPTController
         }
 
         return $acptApiResponse;
-    }
-
-    private function checkValidation($fieldsRequestParams, $customParam = '**')
-    {
-        if (empty($fieldsRequestParams->base_url) || empty($fieldsRequestParams->api_key) || empty($customParam)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-    }
-
-    private function setHeaders($apiKey)
-    {
-        $this->_defaultHeader = [
-            'acpt-api-key' => $apiKey,
-            'Content-Type' => 'application/json',
-            'accept'       => 'application/json',
-        ];
     }
 }

@@ -1,15 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { dripAuthentication, getCustomFields, staticFields } from './DripCommonFunc'
-import DripFieldMap from './DripFieldMap'
-import { useState } from 'react'
 import DripActions from './DripActions'
+import { fetchDripAccounts, getCustomFields, staticFields } from './DripCommonFunc'
+import DripFieldMap from './DripFieldMap'
 
 export default function DripIntegLayout({ formFields, dripConf, setDripConf, loading, setLoading }) {
   const [error, setError] = useState({ name: '', api_token: '' })
-  const [isAuthorized, setisAuthorized] = useState(false)
 
   const handleInput = e => {
     const accountId = e.target.value
@@ -44,17 +43,7 @@ export default function DripIntegLayout({ formFields, dripConf, setDripConf, loa
         ))}
       </select>
       <button
-        onClick={() =>
-          dripAuthentication(
-            dripConf,
-            setDripConf,
-            setError,
-            setisAuthorized,
-            loading,
-            setLoading,
-            'accounts'
-          )
-        }
+        onClick={() => fetchDripAccounts(dripConf, setDripConf, setLoading, 'refresh')}
         className="icn-btn sh-sm ml-2 mr-2 tooltip"
         style={{ '--tooltip-txt': '"Refresh Accounts"' }}
         type="button"

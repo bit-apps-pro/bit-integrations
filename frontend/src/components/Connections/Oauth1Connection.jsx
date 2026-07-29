@@ -1,0 +1,407 @@
+import { useCallback, useMemo, useState } from 'react'
+import { authorizeConnection } from '../../Utils/connectionApi'
+import { AUTH_TYPES, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import {
+  normalizeAdditionalHeaders,
+  resolveConfigValue,
+  resolveHeaderTemplates,
+  resolvePayloadTemplates,
+  resolveTemplate
+} from '../../Utils/connectionTemplates'
+import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
+import {
+  appendOauthChannel,
+  buildCallbackState,
+  createOauthChannelKey,
+  getCallbackState,
+  openOauthPopup
+} from '../../Utils/oauthHelper'
+import { __ } from '../../Utils/i18nwrap'
+import { APP_CONFIG } from '../../config/app'
+import LoaderSm from '../Loaders/LoaderSm'
+import CopyText from '../Utilities/CopyText'
+
+const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
+
+const appendQueryParam = (url, key, value) => {
+  if (value == null || value === '') return
+  url.searchParams.append(key, String(value))
+}
+
+const buildOauth1AuthUrl = (authEndpoint, extraParams = {}) => {
+  const url = new URL(authEndpoint.url)
+  const queryParams = authEndpoint.queryParams || {}
+
+  Object.entries(queryParams).forEach(([key, value]) => appendQueryParam(url, key, value))
+  Object.entries(extraParams).forEach(([key, value]) => appendQueryParam(url, key, value))
+
+  return url.toString()
+}
+
+const normalizePopupResponse = popupResponse => {
+  if (popupResponse && typeof popupResponse === 'object') return popupResponse
+
+  if (typeof popupResponse === 'string') {
+    const parsed = {}
+    const source = popupResponse.replace(/^#/, '').replace(/^\?/, '')
+    const params = new URLSearchParams(source)
+    for (const [key, value] of params.entries()) {
+      if (value) parsed[key] = value
+    }
+    return parsed
+  }
+
+  return {}
+}
+
+const getOauth1Payload = ({
+  authDetails,
+  formData,
+  accessToken,
+  accessTokenSecret,
+  consumerKeyParam,
+  tokenParam
+}) => {
+  const resolvedApiEndpoint = resolveConfigValue(authDetails?.apiEndpoint, formData)
+  const resolvedHeaders = resolveConfigValue(authDetails?.headers, formData)
+  const resolvedPayload = resolveConfigValue(authDetails?.payload, formData)
+  const additionalHeaders = resolveHeaderTemplates(normalizeAdditionalHeaders(resolvedHeaders), formData)
+  const sslVerify = authDetails?.ssl_verify !== false
+
+  const extraAuthDetails = (authDetails?.extraFields || []).reduce((acc, { name }) => {
+    if (formData[name] != null) acc[name] = formData[name]
+    return acc
+  }, {})
+
+  const payload = {
+    auth_type: AUTH_TYPES.OAUTH1,
+    api_endpoint: resolveTemplate(resolvedApiEndpoint, formData),
+    method: authDetails?.method || 'GET',
+    auth_details: {
+      ...extraAuthDetails,
+      consumer_key: formData.clientId,
+      consumer_secret: formData.clientSecret || '',
+      access_token: accessToken,
+      access_token_secret: accessTokenSecret || '',
+      consumer_key_param: consumerKeyParam,
+      token_param: tokenParam,
+      addTo: authDetails?.addTo || 'query',
+      ssl_verify: sslVerify
+    },
+    headers: additionalHeaders
+  }
+
+  if (authDetails?.signatureMethod) {
+    payload.auth_details.signature_method = authDetails.signatureMethod
+  }
+
+  if (resolvedPayload !== undefined) {
+    payload.payload = resolvePayloadTemplates(resolvedPayload, formData)
+  }
+
+  return payload
+}
+
+export default function Oauth1Connection({
+  authDetails,
+  config,
+  setConfig,
+  isInfo = false,
+  customAuthFields,
+  onConnectionSaved
+}) {
+  const [formData, setFormData] = useState({})
+
+  const callbackUrl = useMemo(
+    () => authDetails?.callbackUrl || getCallbackState(),
+    [authDetails?.callbackUrl]
+  )
+
+  const resolvedAuthEndpoint = useMemo(() => {
+    if (!authDetails?.authCodeEndpoint?.url) return null
+
+    return {
+      ...authDetails.authCodeEndpoint,
+      url: resolveTemplate(authDetails.authCodeEndpoint.url, formData)
+    }
+  }, [authDetails?.authCodeEndpoint, formData])
+
+  const requireClientSecret = authDetails?.requireClientSecret !== false
+  const consumerKeyParam = authDetails?.consumerKeyParam || 'oauth_consumer_key'
+  const tokenParam = authDetails?.tokenParam || 'oauth_token'
+  const responseTokenField = authDetails?.responseTokenField || tokenParam
+  const responseTokenSecretField = authDetails?.responseTokenSecretField || 'oauth_token_secret'
+
+  const validate = useCallback(() => {
+    const nextErrors = {}
+    const extraFields = authDetails?.extraFields || []
+
+    if (!formData.connectionName?.trim()) {
+      nextErrors.connectionName = __('Connection name is required', 'bit-integrations')
+    }
+
+    if (!formData.clientId?.trim()) {
+      nextErrors.clientId = __('Client ID is required', 'bit-integrations')
+    }
+
+    if (requireClientSecret && !formData.clientSecret?.trim()) {
+      nextErrors.clientSecret = __('Client secret is required', 'bit-integrations')
+    }
+
+    extraFields.forEach(field => {
+      if (field.required && !formData[field.name]?.trim()) {
+        nextErrors[field.name] = `${field.label} ${__('is required', 'bit-integrations')}`
+      }
+    })
+
+    if (!resolvedAuthEndpoint?.url) {
+      nextErrors.authorize = __('OAuth1 authorization URL is required', 'bit-integrations')
+    }
+
+    return nextErrors
+  }, [authDetails?.extraFields, formData, requireClientSecret, resolvedAuthEndpoint?.url])
+
+  const flowFn = useCallback(async () => {
+    const declaredQueryParams = resolvedAuthEndpoint?.queryParams || {}
+    const queryParams = { ...declaredQueryParams }
+    const authExtraParams = {}
+    const callbackUrlParam = authDetails?.callbackUrlParam || ''
+    const stateParam = authDetails?.stateParam || 'state'
+
+    const oauthChannelKey = createOauthChannelKey()
+    const callbackState = buildCallbackState(oauthChannelKey)
+
+    if (!queryParams[consumerKeyParam]) {
+      authExtraParams[consumerKeyParam] = formData.clientId
+    }
+
+    // Round-trip the channel key on the callback URL so providers that redirect to
+    // return_url without echoing `state` (e.g. Trello token flow) still broadcast on
+    // our channel — otherwise the popup response is dropped and authorization hangs.
+    if (callbackUrlParam && !queryParams[callbackUrlParam]) {
+      authExtraParams[callbackUrlParam] = appendOauthChannel(callbackUrl, oauthChannelKey)
+    }
+
+    const authUrl = buildOauth1AuthUrl(
+      {
+        ...resolvedAuthEndpoint,
+        queryParams
+      },
+      {
+        ...authExtraParams,
+        ...(queryParams[stateParam] ? {} : { [stateParam]: callbackState })
+      }
+    )
+
+    const popupResponse = normalizePopupResponse(
+      await openOauthPopup(authUrl, {
+        channelKey: oauthChannelKey,
+        includeLegacyFallback: true
+      })
+    )
+
+    if (popupResponse?.error) {
+      throw new Error(
+        popupResponse.error === 'popup_blocked'
+          ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
+          : popupResponse.error_description ||
+              __('Authorization window closed before completing.', 'bit-integrations')
+      )
+    }
+
+    const accessToken =
+      popupResponse?.[responseTokenField] || popupResponse?.[tokenParam] || popupResponse?.token || ''
+    const accessTokenSecret =
+      popupResponse?.[responseTokenSecretField] || popupResponse?.oauth_token_secret || ''
+
+    if (!accessToken) {
+      throw new Error(__('Authorization token missing', 'bit-integrations'))
+    }
+
+    const payload = getOauth1Payload({
+      authDetails,
+      formData,
+      accessToken,
+      accessTokenSecret,
+      consumerKeyParam,
+      tokenParam
+    })
+
+    if (!authDetails?.skipAuthorizationCheck) {
+      const authorizeRes = await authorizeConnection(payload)
+
+      if (!authorizeRes?.success) {
+        throw new Error(
+          authorizeRes?.data?.data?.message ||
+            authorizeRes?.data?.message ||
+            authorizeRes?.data?.data ||
+            authorizeRes?.data ||
+            __('Authorization failed', 'bit-integrations')
+        )
+      }
+    }
+
+    return payload
+  }, [
+    authDetails,
+    callbackUrl,
+    consumerKeyParam,
+    formData,
+    resolvedAuthEndpoint,
+    responseTokenField,
+    responseTokenSecretField,
+    tokenParam
+  ])
+
+  const buildSavePayload = useCallback(
+    payload => ({
+      app_slug: config?.app_slug || config?.type,
+      auth_type: AUTH_TYPES.OAUTH1,
+      connection_name: formData.connectionName,
+      account_name: formData.connectionName,
+      auth_details: payload.auth_details,
+      encrypt_keys: authDetails?.encryptKeys || defaultEncryptKeys[AUTH_TYPES.OAUTH1] || []
+    }),
+    [authDetails?.encryptKeys, config?.app_slug, config?.type, formData.connectionName]
+  )
+
+  const buildConfigUpdate = useCallback(
+    () =>
+      (authDetails?.extraFields || []).reduce((acc, { name }) => {
+        if (formData[name] != null) acc[name] = formData[name]
+        return acc
+      }, {}),
+    [authDetails?.extraFields, formData]
+  )
+
+  const { isLoading, isAuthorized, errors, setErrors, handleAuthorize } = useConnectionAuthorize({
+    validate,
+    flowFn,
+    buildSavePayload,
+    buildConfigUpdate,
+    onConnectionSaved,
+    setConfig
+  })
+
+  const handleChange = useCallback(
+    event => {
+      const { name, value } = event.target
+      setFormData(prev => ({ ...prev, [name]: value }))
+      setErrors(prev => ({ ...prev, [name]: '' }))
+    },
+    [setErrors]
+  )
+
+  return (
+    <>
+      <div className="mt-3">
+        <b>{__('Connection Name:', 'bit-integrations')}</b>
+      </div>
+      <input
+        className="btcd-paper-inp w-6 mt-1"
+        onChange={handleChange}
+        name="connectionName"
+        value={formData.connectionName || ''}
+        type="text"
+        placeholder={__('Connection Name...', 'bit-integrations')}
+      />
+      <div style={ERROR_TEXT_STYLE}>{errors.connectionName || ''}</div>
+
+      {authDetails?.showCallbackInfo !== false && (
+        <>
+          <div className="mt-3">
+            <b>{__('Homepage URL:', 'bit-integrations')}</b>
+          </div>
+          <CopyText
+            value={`${APP_CONFIG?.siteURL || ''}`}
+            className="field-key-cpy w-6 ml-0"
+            readOnly={isInfo}
+          />
+          <div className="mt-3">
+            <b>{authDetails?.callbackLabel || __('Callback / Return URL:', 'bit-integrations')}</b>
+          </div>
+          <CopyText value={callbackUrl} className="field-key-cpy w-6 ml-0" readOnly={isInfo} />
+        </>
+      )}
+
+      {customAuthFields}
+
+      {(authDetails?.extraFields || []).map(field => (
+        <div key={field.name}>
+          <div className="mt-3">
+            <b>{field.label}:</b>
+          </div>
+          {field.type === 'select' ? (
+            <select
+              className="btcd-paper-inp w-6 mt-1"
+              onChange={handleChange}
+              name={field.name}
+              value={formData[field.name] || ''}
+              disabled={isInfo}>
+              <option value="">{field.placeholder || `${field.label}...`}</option>
+              {(field.options || []).map(option => (
+                <option key={option.value || option.label || option} value={option.value ?? option}>
+                  {option.label ?? option}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              className="btcd-paper-inp w-6 mt-1"
+              onChange={handleChange}
+              name={field.name}
+              value={formData[field.name] || ''}
+              type={field.type || 'text'}
+              placeholder={field.placeholder || `${field.label}...`}
+              disabled={isInfo}
+            />
+          )}
+          <div style={ERROR_TEXT_STYLE}>{errors[field.name] || ''}</div>
+        </div>
+      ))}
+
+      <div className="mt-3">
+        <b>{authDetails?.clientIdLabel || __('Client ID:', 'bit-integrations')}</b>
+      </div>
+      <input
+        className="btcd-paper-inp w-6 mt-1"
+        onChange={handleChange}
+        name="clientId"
+        value={formData.clientId || ''}
+        type="text"
+        placeholder={__('Client ID...', 'bit-integrations')}
+        disabled={isInfo}
+      />
+      <div style={ERROR_TEXT_STYLE}>{errors.clientId || ''}</div>
+
+      {requireClientSecret && (
+        <>
+          <div className="mt-3">
+            <b>{authDetails?.clientSecretLabel || __('Client Secret:', 'bit-integrations')}</b>
+          </div>
+          <input
+            className="btcd-paper-inp w-6 mt-1"
+            onChange={handleChange}
+            name="clientSecret"
+            value={formData.clientSecret || ''}
+            type="password"
+            placeholder={__('Client Secret...', 'bit-integrations')}
+            disabled={isInfo}
+          />
+          <div style={ERROR_TEXT_STYLE}>{errors.clientSecret || ''}</div>
+        </>
+      )}
+
+      <div style={ERROR_TEXT_STYLE}>{errors.authorize || ''}</div>
+
+      <button
+        onClick={handleAuthorize}
+        className="btn btcd-btn-lg purple mt-3 sh-sm flx"
+        type="button"
+        disabled={isInfo || isLoading}>
+        {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
+        {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
+      </button>
+    </>
+  )
+}

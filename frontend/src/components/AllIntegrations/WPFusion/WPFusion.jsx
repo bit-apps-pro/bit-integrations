@@ -44,6 +44,7 @@ function WPFusion({ formFields, setFlow, flow, allIntegURL }) {
           setStep={setStep}
           setSnackbar={setSnackbar}
           create
+          showTutorial={false}
         />
       </div>
 

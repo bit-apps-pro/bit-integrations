@@ -34,7 +34,7 @@ final class FilesApiHelper
         $this->_defaultHeader['Authorization'] = "Zoho-oauthtoken {$tokenDetails->access_token}";
         $this->_defaultHeader['orgId'] = $orgId;
         $this->_defaultHeader['content-type'] = 'multipart/form-data; boundary=' . $this->_payloadBoundary;
-        $this->_apiDomain = urldecode($tokenDetails->api_domain);
+        $this->_apiDomain = urldecode($tokenDetails->api_domain ?? '');
     }
 
     /**

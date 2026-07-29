@@ -13,12 +13,6 @@ class BooklyController
         }
     }
 
-    public static function booklyAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshStaff()
     {
         self::isExists();

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\HighLevel;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -15,40 +16,21 @@ use WP_Error;
 class HighLevelController
 {
     private const V2_HEADER_VERSION = '2021-07-28';
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'gohighlevel',
+        'fields'   => [
+            'api_key'     => 'token',
+            'version'     => 'version',
+            'location_id' => 'location_id',
+        ],
+    ];
 
     private $_integrationID;
 
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    public static function highLevelAuthorization($requestsParams)
-    {
-        $apiKey = self::getApiKey($requestsParams);
-        $version = self::getVersion($requestsParams);
-        $headers = self::buildHeaders($apiKey, $version);
-
-        if ($version === 'v2') {
-            $locationId = self::getLocationIdIfV2($requestsParams, $version);
-            $endpoint = "https://services.leadconnectorhq.com/locations/{$locationId}";
-            $response = self::getOrError($endpoint, $headers);
-
-            if (!isset($response->location) && !isset($response->id)) {
-                wp_send_json_error($response, 400);
-            }
-
-            wp_send_json_success($response);
-        }
-
-        $endpoint = 'https://rest.gohighlevel.com/v1/contacts/?limit=1';
-        $response = self::getOrError($endpoint, $headers);
-
-        if (!isset($response->contacts) || !\is_array($response->contacts)) {
-            wp_send_json_error($response, 400);
-        }
-
-        wp_send_json_success($response);
     }
 
     public static function getCustomFields($requestsParams)

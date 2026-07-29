@@ -6,7 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Smaily;
 
-use BitApps\Integrations\Core\Util\HttpHelper;
+use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
 /**
@@ -14,28 +14,15 @@ use WP_Error;
  */
 class SmailyController
 {
-    public function authentication($fieldsRequestParams)
-    {
-        if (empty($fieldsRequestParams->subdomain) && empty($fieldsRequestParams->api_user_name) && empty($fieldsRequestParams->api_user_password)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $subdomain = $fieldsRequestParams->subdomain;
-        $apiEndpoint = "https://{$subdomain}.sendsmaily.net/api/organizations/users.php";
-        $apiUserName = $fieldsRequestParams->api_user_name;
-        $apiUserPassword = $fieldsRequestParams->api_user_password;
-        $header = [
-            'Authorization' => 'Basic ' . base64_encode("{$apiUserName}:{$apiUserPassword}")
-        ];
-
-        $response = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (isset($response[0]->id) && !empty($response)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid subdomain name and api credentials', 'bit-integrations'), 400);
-        }
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'smaily',
+        'fields'   => [
+            'api_user_name'     => 'username',
+            'api_user_password' => 'password',
+            'subdomain'         => 'subdomain',
+        ],
+    ];
 
     public function execute($integrationData, $fieldValues)
     {
