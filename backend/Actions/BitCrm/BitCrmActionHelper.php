@@ -1159,12 +1159,6 @@ final class BitCrmActionHelper
         );
     }
 
-    /**
-     * Insert an activity of the given type and fire Bit CRM's created hook.
-     *
-     * @param string $type one of task|meeting|call
-     * @param array  $fieldData
-     */
     private static function storeActivity($type, $fieldData)
     {
         if (!class_exists('BitApps\Crm\Model\Activity')) {
@@ -1263,12 +1257,6 @@ final class BitCrmActionHelper
         return self::success(\sprintf(__('%s updated successfully.', 'bit-integrations'), ucfirst($type)), $activity);
     }
 
-    /**
-     * Mark an activity completed or pending.
-     *
-     * @param string $type one of task|meeting|call
-     * @param array  $fieldData
-     */
     private static function changeActivityStatus($type, $fieldData)
     {
         [$activity, $error] = self::resolveActivity($type, $fieldData);
@@ -1299,12 +1287,6 @@ final class BitCrmActionHelper
         return self::success(\sprintf(__('%s status updated successfully.', 'bit-integrations'), ucfirst($type)), $activity);
     }
 
-    /**
-     * Delete an activity and fire Bit CRM's deleted hook.
-     *
-     * @param string $type one of task|meeting|call
-     * @param array  $fieldData
-     */
     private static function removeActivity($type, $fieldData)
     {
         [$activity, $error] = self::resolveActivity($type, $fieldData);
@@ -1356,10 +1338,6 @@ final class BitCrmActionHelper
     }
 
     /**
-     * Load the configured invoice, skipping ones already in the trash.
-     *
-     * @param array $fieldData
-     *
      * @return array{0: mixed, 1: null|array}
      */
     private static function resolveInvoice($fieldData)
@@ -1536,13 +1514,6 @@ final class BitCrmActionHelper
         return self::success($successMsg, $data);
     }
 
-    /**
-     * Success envelope. Includes the affected record as `data` when one is passed
-     * (create/update actions), omits it otherwise.
-     *
-     * @param mixed $data
-     * @param mixed $message
-     */
     private static function success($message, $data = null)
     {
         $response = ['success' => true, 'message' => $message];
@@ -1553,13 +1524,6 @@ final class BitCrmActionHelper
         return $response;
     }
 
-    /**
-     * Cast a Bit CRM model (or array) into a plain array for the response payload.
-     *
-     * @param mixed $data
-     *
-     * @return mixed
-     */
     private static function normalizeData($data)
     {
         if (\is_object($data) && method_exists($data, 'getAttributes')) {
