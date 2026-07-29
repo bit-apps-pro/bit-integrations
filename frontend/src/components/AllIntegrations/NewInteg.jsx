@@ -1977,6 +1977,9 @@ export default function NewInteg({ allIntegURL }) {
     case 'SureTriggers':
       integrationName = 'OttoKit (SureTriggers)'
       break
+    case 'BitCrm':
+      integrationName = 'Bit CRM'
+      break
 
     default:
       integrationName = integUrlName

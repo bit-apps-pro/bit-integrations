@@ -266,7 +266,7 @@ export default function EditInteg({ allIntegURL }) {
           &nbsp;{__('Back', 'bit-integrations')}
         </Link>
         <div className="w-10 txt-center" style={{ marginRight: '73px' }}>
-          <b className="f-lg mb-2">{flow.flow_details?.type}</b>
+          <b className="f-lg mb-2">{flow.flow_details?.name}</b>
           <div>{__('Integration Settings', 'bit-integrations')}</div>
         </div>
       </div>

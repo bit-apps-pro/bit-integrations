@@ -17,12 +17,6 @@ class BitCrmController
         }
     }
 
-    public static function bitCrmAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshCurrencies()
     {
         self::ensureClass('BitApps\Crm\Services\CurrencyService');

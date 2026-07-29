@@ -10,7 +10,7 @@ import BitCrmAuthorization from './BitCrmAuthorization'
 import { checkMappedFields, missingRequiredSelect } from './BitCrmCommonFunc'
 import BitCrmIntegLayout from './BitCrmIntegLayout'
 
-export default function BitCrm({ formFields, setFlow, flow, allIntegURL }) {
+export default function BitCrm({ formFields, setFlow, flow, allIntegURL, isInfo }) {
   const navigate = useNavigate()
   const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
@@ -67,14 +67,11 @@ export default function BitCrm({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2" />
 
       <BitCrmAuthorization
-        formID={formID}
         bitCrmConf={bitCrmConf}
         setBitCrmConf={setBitCrmConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
+        isInfo={isInfo}
       />
 
       <div
