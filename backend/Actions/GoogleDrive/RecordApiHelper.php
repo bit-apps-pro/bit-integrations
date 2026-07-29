@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\GoogleDrive;
 
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -95,7 +96,7 @@ class RecordApiHelper
         $body .= '{"name": "' . basename($filePath) . '", "parents": ["' . $folder . '"]}' . "\r\n";
         $body .= '--' . $boundary . "\r\n";
         $body .= "Content-Type: application/octet-stream\r\n\r\n";
-        $body .= file_get_contents($filePath) . "\r\n";
+        $body .= FileSystem::read($filePath) . "\r\n";
         $body .= '--' . $boundary . "--\r\n";
 
         return $body;

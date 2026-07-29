@@ -61,7 +61,7 @@ class Hash
             throw new RuntimeException('Unable to encrypt value: ' . esc_html((string) openssl_error_string()));
         }
 
-        return self::V2_PREFIX . urlencode(base64_encode($iv . $tag . $cipherRaw));
+        return self::V2_PREFIX . rawurlencode(base64_encode($iv . $tag . $cipherRaw));
     }
 
     public static function decrypt($encryptedData)

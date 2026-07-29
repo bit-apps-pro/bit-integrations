@@ -136,7 +136,7 @@ final class HttpHelper
             . '"; filename="' . basename($file->getFilename()) . '"' . "\r\n";
         $payload .= 'Content-Type: ' . $file->getMimeType() . "\r\n";
         $payload .= "\r\n";
-        $payload .= file_get_contents($file->getFilename());
+        $payload .= FileSystem::read($file->getFilename());
         $payload .= "\r\n";
 
         return $payload;

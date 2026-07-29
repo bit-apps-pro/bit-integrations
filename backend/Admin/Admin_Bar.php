@@ -8,6 +8,7 @@ if (! defined('ABSPATH')) {
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Capabilities;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\Hooks;
 
 /**
@@ -85,8 +86,7 @@ class Admin_Bar
 
             $manifestPath = Config::get('BASEDIR') . 'assets/.vite/manifest.json';
             if (file_exists($manifestPath)) {
-                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-                $manifest = json_decode(file_get_contents($manifestPath), true);
+                $manifest = json_decode(FileSystem::read($manifestPath), true);
                 if (!empty($manifest['main.jsx']['css'])) {
                     foreach ($manifest['main.jsx']['css'] as $index => $cssFile) {
                         wp_enqueue_style(

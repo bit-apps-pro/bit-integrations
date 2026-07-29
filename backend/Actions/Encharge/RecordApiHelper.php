@@ -47,7 +47,6 @@ class RecordApiHelper
 
         foreach ($fieldMap as $fieldKey => $fieldPair) {
             if (!empty($fieldPair->enChargeFields)) {
-                // echo $fieldPair->enChargeFields . ' ' . $fieldPair->formField;
                 if ($fieldPair->formField === 'custom' && isset($fieldPair->customValue)) {
                     $fieldData[$fieldPair->enChargeFields] = Common::replaceFieldWithValue($fieldPair->customValue, $fieldValues);
                 } elseif (!\is_null($fieldValues[$fieldPair->formField])) {
@@ -76,7 +75,7 @@ class RecordApiHelper
 
     private function combineTagsWithExisting($tags, $email)
     {
-        $endpoint = $this->_endpoint . '?people[0][email]=' . urlencode($email);
+        $endpoint = $this->_endpoint . '?people[0][email]=' . rawurlencode($email);
 
         $response = HttpHelper::get($endpoint, null, $this->_defaultHeader);
 

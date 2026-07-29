@@ -306,7 +306,7 @@ class SalesforceController
         $response = self::refreshTokenDetails($params);
         $tokenDetails = $response['tokenDetails'];
 
-        $apiEndpoint = "{$tokenDetails->instance_url}/services/data/v37.0/query/?q=" . urlencode('SELECT Id, Name FROM User');
+        $apiEndpoint = "{$tokenDetails->instance_url}/services/data/v37.0/query/?q=" . rawurlencode('SELECT Id, Name FROM User');
 
         $apiResponse = HttpHelper::get($apiEndpoint, null, self::setHeaders($tokenDetails->access_token));
 

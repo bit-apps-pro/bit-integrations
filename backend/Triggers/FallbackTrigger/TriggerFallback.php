@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Triggers\FallbackTrigger;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Flow\Flow;
@@ -2435,7 +2436,6 @@ final class TriggerFallback
             'post_url'       => get_permalink($achievement_id),
             'post_type'      => $postData->post_type,
             'post_author_id' => $postData->post_author,
-            // 'post_author_email' => $postData->post_author_email,
             'post_content'   => $postData->post_content,
             'post_parent_id' => $postData->post_parent,
         ];
@@ -2456,7 +2456,6 @@ final class TriggerFallback
             'post_url'       => get_permalink($achievement_id),
             'post_type'      => isset($expectedData->post_type),
             'post_author_id' => isset($expectedData->post_author),
-            // 'post_author_email' => $postData->post_author_email,
             'post_content'   => isset($expectedData->post_content),
             'post_parent_id' => isset($expectedData->post_parent),
         ];
@@ -2779,7 +2778,7 @@ final class TriggerFallback
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
         // Save the image in the uploads directory.
-        $upload_file = file_put_contents($upload_path . '/' . $hashed_filename, $decoded);
+        $upload_file = FileSystem::write($upload_path . '/' . $hashed_filename, $decoded);
         if ($upload_file) {
             return $upload_path . '/' . $hashed_filename;
         }

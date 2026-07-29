@@ -132,12 +132,7 @@ class CustomFuncValidator
             return false;
         }
 
-        $wp_filesystem = self::getFilesystem();
-        if (false === $wp_filesystem) {
-            wp_send_json_error(__('Unable to initialize filesystem.', 'bit-integrations'));
-
-            return false;
-        }
+        $wp_filesystem = FileSystem::instance();
 
         $customDir = self::customFunctionDir($wp_filesystem);
         if ($customDir === '') {
@@ -306,26 +301,6 @@ class CustomFuncValidator
     }
 
     /**
-     * Get initialized WP filesystem instance.
-     *
-     * @return WP_Filesystem_Base|false
-     */
-    private static function getFilesystem()
-    {
-        global $wp_filesystem;
-
-        if (empty($wp_filesystem)) {
-            require_once ABSPATH . '/wp-admin/includes/file.php';
-
-            if (!WP_Filesystem()) {
-                return false;
-            }
-        }
-
-        return $wp_filesystem instanceof WP_Filesystem_Base ? $wp_filesystem : false;
-    }
-
-    /**
      * Initialize filesystem, resolve file path, and write custom function content.
      *
      * @param string $fileName
@@ -335,12 +310,7 @@ class CustomFuncValidator
      */
     private static function writeCustomFunctionFile($fileName, $fileContent)
     {
-        $wp_filesystem = self::getFilesystem();
-        if (false === $wp_filesystem) {
-            wp_send_json_error(__('Unable to initialize filesystem.', 'bit-integrations'));
-
-            return false;
-        }
+        $wp_filesystem = FileSystem::instance();
 
         $customDir = self::customFunctionDir($wp_filesystem);
         if ($customDir === '') {
@@ -356,7 +326,7 @@ class CustomFuncValidator
             return false;
         }
         $fileLocation  = "{$customDir}/{$safeFileName}.php";
-        $previousContent = file_exists($fileLocation) ? file_get_contents($fileLocation) : null;
+        $previousContent = $wp_filesystem->exists($fileLocation) ? $wp_filesystem->get_contents($fileLocation) : null;
         $written       = $wp_filesystem->put_contents($fileLocation, $fileContent, FS_CHMOD_FILE);
 
         if (!$written) {

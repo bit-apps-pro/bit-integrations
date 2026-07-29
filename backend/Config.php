@@ -5,6 +5,7 @@
 namespace BitApps\Integrations;
 
 use BitApps\Integrations\Core\Util\DateTimeHelper;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\Hooks;
 
 if (!defined('ABSPATH')) {
@@ -179,7 +180,7 @@ class Config
 
     public static function getDevPort()
     {
-        return self::isDev() ? file_get_contents(Config::get('BASEDIR') . '/.port') : null;
+        return self::isDev() ? FileSystem::read(Config::get('BASEDIR') . '/.port') : null;
     }
 
     /**
@@ -278,69 +279,4 @@ class Config
             ],
         ];
     }
-
-    /**
-     * Provides menus for wordpress admin sidebar.
-     * should return an array of menus with the following structure:
-     * [
-     *   'type' => menu | submenu,
-     *  'name' => 'Name of menu will shown in sidebar',
-     *  'capability' => 'capability required to access menu',
-     *  'slug' => 'slug of menu after ?page=',.
-     *
-     *  'title' => 'page title will be shown in browser title if type is menu',
-     *  'callback' => 'function to call when menu is clicked',
-     *  'icon' =>   'icon to display in menu if menu type is menu',
-     *  'position' => 'position of menu in sidebar if menu type is menu',
-     *
-     * 'parent' => 'parent slug if submenu'
-     * ]
-     *
-     * @return array
-     */
-    // private static function sideBarMenu()
-    // {
-    //     $adminViews = new Layout();
-
-    //     return [
-    //         'Home' => [
-    //             'type'       => 'menu',
-    //             'title'      => __('Bit Integrations', 'bit-integrations'),
-    //             'name'       => __('Bit Integrations', 'bit-integrations'),
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG,
-    //             'callback'   => [$adminViews, 'body'],
-    //             'icon'       => 'dashicons-admin-home',
-    //             'position'   => '20',
-    //         ],
-    //         'Dashboard' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Dashboard',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/',
-    //         ],
-    //         'All Flows' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Flows',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/flows',
-    //         ],
-    //         'Connections' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Connections',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/connections',
-    //         ],
-    //         'Webhooks' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Webhooks',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/webhooks',
-    //         ],
-    //     ];
-    // }
 }

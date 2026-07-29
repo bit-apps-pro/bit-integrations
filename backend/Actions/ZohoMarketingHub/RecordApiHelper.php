@@ -31,7 +31,7 @@ class RecordApiHelper
 
     public function insertRecord($list, $dataCenter, $data)
     {
-        $insertRecordEndpoint = "https://marketinghub.zoho.{$dataCenter}/api/v1/json/listsubscribe?resfmt=JSON&listkey={$list}&leadinfo=" . urlencode($data);
+        $insertRecordEndpoint = "https://marketinghub.zoho.{$dataCenter}/api/v1/json/listsubscribe?resfmt=JSON&listkey={$list}&leadinfo=" . rawurlencode($data);
 
         return HttpHelper::post($insertRecordEndpoint, null, $this->_defaultHeader);
     }
