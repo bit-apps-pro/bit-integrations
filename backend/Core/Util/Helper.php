@@ -315,7 +315,7 @@ final class Helper
 
         foreach ($acfFieldGroups as $group) {
             foreach (acf_get_fields($group['ID']) as $field) {
-                $data[$field['_name']] = get_post_meta($postId, $field['_name'])[0];
+                $data[$field['_name']] = get_post_meta($postId, $field['_name'])[0] ?? null;
             }
         }
 
