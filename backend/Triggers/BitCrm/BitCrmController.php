@@ -590,9 +590,8 @@ final class BitCrmController
 
     /**
      * Bit CRM fires one hook for tasks, meetings and calls alike, because they
-     * share the activities table and differ only by `type`. Dispatch both the
-     * generic event and the type-specific one, so a flow can subscribe at
-     * whichever granularity it needs.
+     * share the activities table and differ only by `type`. Dispatch the
+     * type-specific event that hook belongs to.
      *
      * The typed ids (`bit_crm/task_created`, …) are flow keys, not WordPress
      * hooks — no such hook exists.
@@ -605,14 +604,12 @@ final class BitCrmController
     {
         $data = array_merge(self::normalize($activity), $extra);
 
-        $result = self::flowExecute("bit_crm/activity_{$event}", $data);
-
         $type = $data['type'] ?? '';
         if (!\in_array($type, ['task', 'meeting', 'call'], true)) {
-            return $result;
+            return;
         }
 
-        return self::flowExecute("bit_crm/{$type}_{$event}", $data) ?? $result;
+        return self::flowExecute("bit_crm/{$type}_{$event}", $data);
     }
 
     /**
@@ -716,12 +713,9 @@ final class BitCrmController
             ['form_name' => __('Note Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/note_created', 'skipPrimaryKey' => true],
             ['form_name' => __('Note Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/note_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Note Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/note_deleted', 'skipPrimaryKey' => true],
-            ['form_name' => __('Activity Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_created', 'skipPrimaryKey' => true],
-            ['form_name' => __('Activity Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_updated', 'skipPrimaryKey' => true],
-            ['form_name' => __('Activity Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_status_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Activity Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/activity_deleted', 'skipPrimaryKey' => true],
-            // Type-specific variants of the three activity events above. They run
-            // off the same Bit CRM hooks, filtered by the activity type.
+            // Bit CRM fires one hook per activity event; these are dispatched from it,
+            // filtered by the activity type.
             ['form_name' => __('Task Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_created', 'skipPrimaryKey' => true],
             ['form_name' => __('Task Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Task Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_status_updated', 'skipPrimaryKey' => true],
