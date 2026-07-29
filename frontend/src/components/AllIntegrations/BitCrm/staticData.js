@@ -150,7 +150,7 @@ export const bitCrmStaticData = {
   update_lead: [
     { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
     { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
-    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
     { key: 'email', label: __('Email', 'bit-integrations'), required: false },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
@@ -180,7 +180,7 @@ export const bitCrmStaticData = {
   update_contact: [
     { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true },
     { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
-    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
     { key: 'email', label: __('Email', 'bit-integrations'), required: false },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false },
@@ -204,7 +204,7 @@ export const bitCrmStaticData = {
   ],
   update_company: [
     { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Company Name', 'bit-integrations'), required: false },
+    { key: 'name', label: __('Company Name', 'bit-integrations'), required: true },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'website', label: __('Website', 'bit-integrations'), required: false },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false },
@@ -226,7 +226,7 @@ export const bitCrmStaticData = {
   ],
   update_deal: [
     { key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: false },
+    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: true },
     { key: 'email', label: __('Email', 'bit-integrations'), required: false },
     { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
   ],
@@ -247,8 +247,8 @@ export const bitCrmStaticData = {
   ],
   update_product: [
     { key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Product Name', 'bit-integrations'), required: false },
-    { key: 'code', label: __('Product Code', 'bit-integrations'), required: false },
+    { key: 'name', label: __('Product Name', 'bit-integrations'), required: true },
+    { key: 'code', label: __('Product Code', 'bit-integrations'), required: true },
     { key: 'price', label: __('Unit Price', 'bit-integrations'), required: false },
     { key: 'brand', label: __('Brand', 'bit-integrations'), required: false },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false }

@@ -40,9 +40,16 @@ final class BitCrmActionHelper
             return self::required('lead_id');
         }
 
+        $systemValues = self::systemValues($fieldData, ['lead_id', 'tag_ids']);
+
+        $error = self::validateRequired($systemValues, 'last_name');
+        if ($error !== null) {
+            return $error;
+        }
+
         $payload = [
             'id'                        => (int) $fieldData['lead_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['lead_id', 'tag_ids']),
+            'systemDefinedFieldsValues' => $systemValues,
         ];
 
         return self::result((new \BitApps\Crm\Services\LeadService())->update($payload), __('Lead updated successfully.', 'bit-integrations'));
@@ -135,9 +142,16 @@ final class BitCrmActionHelper
             return self::required('contact_id');
         }
 
+        $systemValues = self::systemValues($fieldData, ['contact_id', 'tag_ids']);
+
+        $error = self::validateRequired($systemValues, 'last_name');
+        if ($error !== null) {
+            return $error;
+        }
+
         $payload = [
             'id'                        => (int) $fieldData['contact_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['contact_id', 'tag_ids']),
+            'systemDefinedFieldsValues' => $systemValues,
         ];
 
         return self::result((new \BitApps\Crm\Services\ContactService())->update($payload), __('Contact updated successfully.', 'bit-integrations'));
@@ -230,9 +244,16 @@ final class BitCrmActionHelper
             return self::required('company_id');
         }
 
+        $systemValues = self::systemValues($fieldData, ['company_id', 'tag_ids']);
+
+        $error = self::validateRequired($systemValues, 'name');
+        if ($error !== null) {
+            return $error;
+        }
+
         $payload = [
             'id'                        => (int) $fieldData['company_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['company_id', 'tag_ids']),
+            'systemDefinedFieldsValues' => $systemValues,
         ];
 
         return self::result((new \BitApps\Crm\Services\CompanyService())->update($payload), __('Company updated successfully.', 'bit-integrations'));
@@ -325,9 +346,18 @@ final class BitCrmActionHelper
             return self::required('deal_id');
         }
 
+        $systemValues = self::systemValues($fieldData, ['deal_id', 'tag_ids']);
+
+        foreach (['name', 'stage', 'contact_id'] as $field) {
+            $error = self::validateRequired($systemValues, $field);
+            if ($error !== null) {
+                return $error;
+            }
+        }
+
         $payload = [
             'id'                        => (int) $fieldData['deal_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['deal_id', 'tag_ids']),
+            'systemDefinedFieldsValues' => $systemValues,
         ];
 
         return self::result((new \BitApps\Crm\Services\DealService())->update($payload), __('Deal updated successfully.', 'bit-integrations'));
@@ -412,20 +442,53 @@ final class BitCrmActionHelper
 
     public static function updateProduct($fieldData)
     {
-        if (!class_exists('BitApps\CrmPro\Services\ProductService')) {
-            return self::missing('BitApps\CrmPro\Services\ProductService');
+        if (!class_exists('BitApps\CrmPro\Model\Product')) {
+            return self::missing('BitApps\CrmPro\Model\Product');
         }
 
         if (empty($fieldData['product_id'])) {
             return self::required('product_id');
         }
 
-        $payload = [
-            'id'                        => (int) $fieldData['product_id'],
-            'systemDefinedFieldsValues' => self::systemValues($fieldData, ['product_id', 'tag_ids']),
-        ];
+        $systemValues = self::systemValues($fieldData, ['product_id', 'tag_ids']);
 
-        return self::result((new \BitApps\CrmPro\Services\ProductService())->update($payload), __('Product updated successfully.', 'bit-integrations'));
+        foreach (['name', 'code'] as $field) {
+            $error = self::validateRequired($systemValues, $field);
+            if ($error !== null) {
+                return $error;
+            }
+        }
+
+        $productId = (int) $fieldData['product_id'];
+        $product = \BitApps\CrmPro\Model\Product::findOne(['id' => $productId, 'is_trash' => 0]);
+
+        if (empty($product)) {
+            return ['success' => false, 'message' => __('Product not found.', 'bit-integrations')];
+        }
+
+        /*
+         * Bit CRM's product update request builds its unique-code rule from a
+         * Request instance, so the product cannot be excluded from that check
+         * when the payload is a plain array. Write the product here instead and
+         * run the same uniqueness check ourselves.
+         */
+        if ($systemValues['code'] !== $product->code) {
+            $duplicate = \BitApps\CrmPro\Model\Product::findOne(['code' => $systemValues['code'], 'is_trash' => 0]);
+
+            if (!empty($duplicate) && (int) $duplicate->id !== $productId) {
+                return ['success' => false, 'message' => __('Product Code/SKU must be unique!', 'bit-integrations')];
+            }
+        }
+
+        $systemValues['updated_by'] = get_current_user_id();
+
+        if (!$product->update($systemValues)) {
+            return ['success' => false, 'message' => __('Failed to update product.', 'bit-integrations')];
+        }
+
+        do_action('bit_crm/product_updated', $product);
+
+        return self::success(__('Product updated successfully.', 'bit-integrations'), self::normalizeData($product));
     }
 
     public static function deleteProduct($fieldData)
@@ -556,12 +619,9 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Title and module are required.', 'bit-integrations')];
         }
 
-        $tag = \BitApps\Crm\Services\TagService::store(['title' => $fieldData['title'], 'module' => $fieldData['module']]);
-        if ($tag === false) {
-            return ['success' => false, 'message' => __('Failed to create tag. The module may be invalid or the tag already exists.', 'bit-integrations')];
-        }
+        $result = (new \BitApps\Crm\Services\TagService())->store(['title' => $fieldData['title'], 'module' => $fieldData['module']]);
 
-        return self::success(__('Tag created successfully.', 'bit-integrations'), $tag);
+        return self::result($result, __('Tag created successfully.', 'bit-integrations'));
     }
 
     public static function createNote($fieldData)
@@ -974,7 +1034,7 @@ final class BitCrmActionHelper
             return $error;
         }
 
-        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+        $portalService = new \BitApps\CrmPro\Services\ClientPortalService();
 
         if ($portalService->hasPortalAccessByEmail($email)) {
             return ['success' => false, 'message' => __('This contact already has client portal access.', 'bit-integrations')];
@@ -1003,7 +1063,7 @@ final class BitCrmActionHelper
             return $error;
         }
 
-        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+        $portalService = new \BitApps\CrmPro\Services\ClientPortalService();
 
         if (!$user || !$portalService->hasPortalAccessByUserId((int) $user->ID)) {
             return ['success' => false, 'message' => __('This contact does not have client portal access yet.', 'bit-integrations')];
@@ -1030,7 +1090,7 @@ final class BitCrmActionHelper
             return self::required('password');
         }
 
-        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+        $portalService = new \BitApps\CrmPro\Services\ClientPortalService();
 
         if (!$user || !$portalService->hasPortalAccessByUserId((int) $user->ID)) {
             return ['success' => false, 'message' => __('This contact does not have client portal access.', 'bit-integrations')];
@@ -1052,7 +1112,7 @@ final class BitCrmActionHelper
             return $error;
         }
 
-        $portalService = new \BitApps\Crm\Services\ClientPortalService();
+        $portalService = new \BitApps\CrmPro\Services\ClientPortalService();
 
         if (!$user || !$portalService->hasPortalAccessByUserId((int) $user->ID)) {
             return ['success' => false, 'message' => __('This contact does not have client portal access.', 'bit-integrations')];
@@ -1296,7 +1356,7 @@ final class BitCrmActionHelper
      */
     private static function resolvePortalContact($fieldData)
     {
-        foreach (['BitApps\Crm\Services\ClientPortalService', 'BitApps\Crm\Model\Contact'] as $class) {
+        foreach (['BitApps\CrmPro\Services\ClientPortalService', 'BitApps\Crm\Model\Contact'] as $class) {
             if (!class_exists($class)) {
                 return [null, null, '', self::missing($class)];
             }
@@ -1395,7 +1455,17 @@ final class BitCrmActionHelper
         if ($result === false || (\is_array($result) && ($result['success'] ?? true) === false)) {
             $errors = \is_array($result) ? ($result['errors'] ?? null) : null;
 
-            return ['success' => false, 'message' => \is_array($errors) ? implode(', ', $errors) : ($errors ?? __('Bit CRM operation failed.', 'bit-integrations'))];
+            if (\is_array($errors)) {
+                // Validation errors arrive keyed by field, each holding its own list.
+                $flattened = [];
+                array_walk_recursive($errors, static function ($message) use (&$flattened) {
+                    $flattened[] = $message;
+                });
+
+                $errors = implode(', ', $flattened);
+            }
+
+            return ['success' => false, 'message' => $errors ?? __('Bit CRM operation failed.', 'bit-integrations')];
         }
 
         $data = \is_array($result) && \array_key_exists('data', $result) ? $result['data'] : $result;
