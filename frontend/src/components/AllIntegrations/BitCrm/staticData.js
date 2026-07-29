@@ -141,8 +141,7 @@ export const bitCrmStaticData = {
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
     { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   update_lead: [
     { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
@@ -152,8 +151,7 @@ export const bitCrmStaticData = {
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
     { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   delete_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
   add_tag_to_lead: [
@@ -161,18 +159,14 @@ export const bitCrmStaticData = {
     { key: 'new_tags', label: __('New Tags (comma separated)', 'bit-integrations'), required: false }
   ],
   remove_tag_from_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
-  convert_lead: [
-    { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
-  ],
+  convert_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
 
   create_contact: [
     { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
     { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
     { key: 'email', label: __('Email', 'bit-integrations'), required: false },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   update_contact: [
     { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true },
@@ -180,8 +174,7 @@ export const bitCrmStaticData = {
     { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
     { key: 'email', label: __('Email', 'bit-integrations'), required: false },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   delete_contact: [{ key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }],
   add_tag_to_contact: [
@@ -196,16 +189,14 @@ export const bitCrmStaticData = {
     { key: 'name', label: __('Company Name', 'bit-integrations'), required: true },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   update_company: [
     { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true },
     { key: 'name', label: __('Company Name', 'bit-integrations'), required: true },
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   delete_company: [{ key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true }],
   add_tag_to_company: [
@@ -218,14 +209,12 @@ export const bitCrmStaticData = {
 
   create_deal: [
     { key: 'name', label: __('Deal Name', 'bit-integrations'), required: true },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false }
   ],
   update_deal: [
     { key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true },
     { key: 'name', label: __('Deal Name', 'bit-integrations'), required: true },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
-    { key: 'owner_email', label: __('Owner (email)', 'bit-integrations'), required: false }
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false }
   ],
   delete_deal: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
   update_deal_stage: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
@@ -363,6 +352,12 @@ const parentCompany = {
   route: 'refresh_bitcrm_companies',
   listKey: 'allCompanies'
 }
+const owner = {
+  key: 'selectedOwner',
+  label: __('Owner', 'bit-integrations'),
+  route: 'refresh_bitcrm_users',
+  listKey: 'allUsers'
+}
 const assignee = {
   key: 'selectedAssignee',
   label: __('Assigned To', 'bit-integrations'),
@@ -392,24 +387,24 @@ const dealTags = tags('refresh_bitcrm_deal_tags')
 const productTags = tags('refresh_bitcrm_product_tags')
 
 export const actionDropdowns = {
-  create_lead: [currency, leadTags],
-  update_lead: [currency],
+  create_lead: [currency, leadTags, owner],
+  update_lead: [currency, owner],
   add_tag_to_lead: [leadTags],
   remove_tag_from_lead: [leadTags],
   convert_lead: [],
 
-  create_contact: [company, parentContact, currency, contactTags],
-  update_contact: [company, parentContact, currency],
+  create_contact: [company, parentContact, currency, contactTags, owner],
+  update_contact: [company, parentContact, currency, owner],
   add_tag_to_contact: [contactTags],
   remove_tag_from_contact: [contactTags],
 
-  create_company: [parentCompany, currency, companyTags],
-  update_company: [parentCompany, currency],
+  create_company: [parentCompany, currency, companyTags, owner],
+  update_company: [parentCompany, currency, owner],
   add_tag_to_company: [companyTags],
   remove_tag_from_company: [companyTags],
 
-  create_deal: [stage, contact, company, currency, dealTags],
-  update_deal: [stage, contact, company, currency],
+  create_deal: [stage, contact, company, currency, dealTags, owner],
+  update_deal: [stage, contact, company, currency, owner],
   update_deal_stage: [stage],
   add_tag_to_deal: [dealTags],
   remove_tag_from_deal: [dealTags],

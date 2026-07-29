@@ -482,6 +482,7 @@ class RecordApiHelper
             'selectedContact'   => 'contact_id',
             'selectedEntity'    => 'entity_id',
             'selectedAssignee'  => 'assigned_to',
+            'selectedOwner'     => 'owner_id',
             'selectedCompany'   => 'company_id',
             'selectedParent'    => 'parent_id',
             'selectedTags'      => 'tag_ids',
@@ -539,9 +540,9 @@ class RecordApiHelper
 
     /**
      * Resolve user-identifier fields supplied as an email into the numeric user id
-     * the CRM expects. Mapping an email is far more portable in a flow than a raw
-     * user id, so the UI collects `owner_email` / `assigned_to_email` and this
-     * turns them into `owner_id` / `assigned_to`.
+     * the CRM expects. The owner and assignee are picked from a list now, so this
+     * only serves flows saved before those pickers existed and still mapping
+     * `owner_email` / `assigned_to_email`.
      *
      * @param array $fieldData
      *
