@@ -87,9 +87,11 @@ final class BitCrmActionHelper
         $leadId = (int) $fieldData['lead_id'];
         $attached = (new \BitApps\Crm\Services\LeadService())->storeAndAttachTags($leadId, $tagIds, $newTags);
 
-        if (!empty($attached)) {
-            do_action('bit_crm/tags_attached_to_leads', $attached, [$leadId]);
+        if (empty($attached)) {
+            return ['success' => false, 'message' => __('No tag was attached. They may already be on this lead.', 'bit-integrations')];
         }
+
+        do_action('bit_crm/tags_attached_to_leads', $attached, [$leadId]);
 
         return ['success' => true, 'message' => __('Tag attached to lead successfully.', 'bit-integrations')];
     }
@@ -189,9 +191,11 @@ final class BitCrmActionHelper
         $contactId = (int) $fieldData['contact_id'];
         $attached = (new \BitApps\Crm\Services\ContactService())->storeAndAttachTags($contactId, $tagIds, $newTags);
 
-        if (!empty($attached)) {
-            do_action('bit_crm/tags_attached_to_contacts', $attached, [$contactId]);
+        if (empty($attached)) {
+            return ['success' => false, 'message' => __('No tag was attached. They may already be on this contact.', 'bit-integrations')];
         }
+
+        do_action('bit_crm/tags_attached_to_contacts', $attached, [$contactId]);
 
         return ['success' => true, 'message' => __('Tag attached to contact successfully.', 'bit-integrations')];
     }
@@ -291,9 +295,11 @@ final class BitCrmActionHelper
         $companyId = (int) $fieldData['company_id'];
         $attached = (new \BitApps\Crm\Services\CompanyService())->storeAndAttachTags($companyId, $tagIds, $newTags);
 
-        if (!empty($attached)) {
-            do_action('bit_crm/tags_attached_to_companies', $attached, [$companyId]);
+        if (empty($attached)) {
+            return ['success' => false, 'message' => __('No tag was attached. They may already be on this company.', 'bit-integrations')];
         }
+
+        do_action('bit_crm/tags_attached_to_companies', $attached, [$companyId]);
 
         return ['success' => true, 'message' => __('Tag attached to company successfully.', 'bit-integrations')];
     }
@@ -395,9 +401,11 @@ final class BitCrmActionHelper
         $dealId = (int) $fieldData['deal_id'];
         $attached = (new \BitApps\Crm\Services\DealService())->storeAndAttachTags($dealId, $tagIds, $newTags);
 
-        if (!empty($attached)) {
-            do_action('bit_crm/tags_attached_to_deals', $attached, [$dealId]);
+        if (empty($attached)) {
+            return ['success' => false, 'message' => __('No tag was attached. They may already be on this deal.', 'bit-integrations')];
         }
+
+        do_action('bit_crm/tags_attached_to_deals', $attached, [$dealId]);
 
         return ['success' => true, 'message' => __('Tag attached to deal successfully.', 'bit-integrations')];
     }
@@ -523,9 +531,11 @@ final class BitCrmActionHelper
         $productId = (int) $fieldData['product_id'];
         $attached = (new \BitApps\CrmPro\Services\ProductService())->storeAndAttachTags($productId, $tagIds, $newTags);
 
-        if (!empty($attached)) {
-            do_action('bit_crm/tags_attached_to_products', $attached, [$productId]);
+        if (empty($attached)) {
+            return ['success' => false, 'message' => __('No tag was attached. They may already be on this product.', 'bit-integrations')];
         }
+
+        do_action('bit_crm/tags_attached_to_products', $attached, [$productId]);
 
         return ['success' => true, 'message' => __('Tag attached to product successfully.', 'bit-integrations')];
     }
@@ -563,6 +573,10 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Deal not found!', 'bit-integrations')];
         }
 
+        if (!self::isKnownDealStage($fieldData['stage'])) {
+            return ['success' => false, 'message' => __('This deal stage does not exist in Bit CRM.', 'bit-integrations')];
+        }
+
         if (!$deal->update(['stage' => $fieldData['stage'], 'updated_by' => get_current_user_id()])) {
             return ['success' => false, 'message' => __('Failed to update deal stage.', 'bit-integrations')];
         }
@@ -574,8 +588,10 @@ final class BitCrmActionHelper
 
     public static function convertLead($fieldData)
     {
-        if (!class_exists('BitApps\Crm\Services\LeadConvertService')) {
-            return self::missing('BitApps\Crm\Services\LeadConvertService');
+        foreach (['BitApps\Crm\Services\LeadConvertService', 'BitApps\Crm\Model\Lead'] as $class) {
+            if (!class_exists($class)) {
+                return self::missing($class);
+            }
         }
 
         if (empty($fieldData['lead_id']) || empty($fieldData['convert_to']) || empty($fieldData['move_related_data_to'])) {
@@ -597,8 +613,20 @@ final class BitCrmActionHelper
             $mapping = \BitApps\Crm\Services\ConvertService::getConversionMapping();
             $service = new \BitApps\Crm\Services\LeadConvertService([$leadId], $ownerId, $options, $mapping);
             $service->convertToCompanies();
+
             $convertedContacts = $service->convertToContacts();
+            if (empty($convertedContacts) || !isset($convertedContacts[0]['id'])) {
+                \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::rollback();
+
+                return ['success' => false, 'message' => __('Failed to convert lead.', 'bit-integrations')];
+            }
+
             $service->convertToDeals($convertedContacts);
+
+            // Without this the lead stays listed as unconverted and every later
+            // run creates another contact, company and deal from it.
+            \BitApps\Crm\Model\Lead::where('id', $leadId)->update(['is_converted' => 1]);
+
             \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::commit();
         } catch (Throwable $th) {
             \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::rollback();
@@ -606,7 +634,9 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => $th->getMessage()];
         }
 
-        return ['success' => true, 'message' => __('Lead converted successfully.', 'bit-integrations')];
+        do_action('bit_crm/leads_converted_to_contact', [$leadId]);
+
+        return self::success(__('Lead converted successfully.', 'bit-integrations'), self::normalizeData($convertedContacts));
     }
 
     public static function createTag($fieldData)
@@ -858,7 +888,7 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Model\Invoice');
         }
 
-        foreach (['invoice_date', 'deal_id', 'term_key', 'due_date', 'tax_option', 'invoice_prefix'] as $req) {
+        foreach (['invoice_date', 'deal_id', 'term_key', 'due_date', 'tax_option', 'currency', 'invoice_prefix'] as $req) {
             if (empty($fieldData[$req])) {
                 return self::required($req);
             }
@@ -1212,6 +1242,12 @@ final class BitCrmActionHelper
             }
         }
 
+        // The record is a module + id pair, so moving one without the other would
+        // point the activity at whatever happens to hold that id in the new table.
+        if (isset($updateData['module']) !== isset($updateData['entity_id'])) {
+            return ['success' => false, 'message' => __('Changing the record needs both the module and the record itself.', 'bit-integrations')];
+        }
+
         if (isset($fieldData['is_shared'])) {
             $updateData['is_shared'] = !empty($fieldData['is_shared']);
         }
@@ -1412,6 +1448,33 @@ final class BitCrmActionHelper
     {
         // translators: %s: required field name
         return ['success' => false, 'message' => \sprintf(__('The field "%s" is required.', 'bit-integrations'), $field)];
+    }
+
+    /**
+     * Whether Bit CRM currently offers this stage, so a typo cannot be written
+     * into the column.
+     *
+     * @param string $stage
+     *
+     * @return bool
+     */
+    private static function isKnownDealStage($stage)
+    {
+        if (!class_exists('BitApps\Crm\Services\DealStageService')) {
+            return true;
+        }
+
+        $stages = (new \BitApps\Crm\Services\DealStageService())->getStagesAsOptions();
+
+        foreach ((array) $stages as $option) {
+            $option = (array) $option;
+
+            if ((string) ($option['value'] ?? '') === (string) $stage) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static function csvList($value)

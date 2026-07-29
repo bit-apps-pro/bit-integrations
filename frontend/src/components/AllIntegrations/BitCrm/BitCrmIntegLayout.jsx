@@ -1,5 +1,5 @@
 import { create } from 'mutative'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
@@ -7,7 +7,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { generateMappedField, refreshBitCrmList } from './BitCrmCommonFunc'
+import { generateMappedField, refreshBitCrmList, syncRequiredFieldMap } from './BitCrmCommonFunc'
 import BitCrmFieldMap from './BitCrmFieldMap'
 import {
   actionDropdowns,
@@ -27,6 +27,22 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
   const dropdowns = actionDropdowns[action] ?? []
   const selects = actionSelects[action] ?? []
   const utilities = actionUtilities[action] ?? []
+
+  // A config saved before a field became required still lists the old rows, and
+  // the field map renders its required rows by position.
+  useEffect(() => {
+    if (!action || bitCrmFields.length === 0) return
+
+    const synced = syncRequiredFieldMap(bitCrmConf?.field_map ?? [], bitCrmFields)
+    if (synced === bitCrmConf?.field_map) return
+
+    setBitCrmConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.field_map = synced
+      })
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action])
 
   const setField = (key, val) =>
     setBitCrmConf(prevConf =>

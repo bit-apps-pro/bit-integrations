@@ -431,7 +431,7 @@ export const actionDropdowns = {
     { ...assignee, required: false }
   ],
 
-  create_invoice: [termKey, currency],
+  create_invoice: [termKey, { ...currency, required: true }],
   // Everything is optional on update — an unset select leaves the column alone.
   update_invoice: [{ ...termKey, required: false }, currency]
 }
