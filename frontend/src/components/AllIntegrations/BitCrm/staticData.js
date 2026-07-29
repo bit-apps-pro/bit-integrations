@@ -256,7 +256,6 @@ export const bitCrmStaticData = {
   delete_tag: [{ key: 'tag_id', label: __('Tag Id', 'bit-integrations'), required: true }],
 
   create_note: [
-    { key: 'entity_id', label: __('Record Id', 'bit-integrations'), required: true },
     { key: 'title', label: __('Title', 'bit-integrations'), required: true },
     { key: 'details', label: __('Details', 'bit-integrations'), required: false }
   ],
@@ -413,6 +412,8 @@ export const actionDropdowns = {
   update_product: [productTags],
   add_tag_to_product: [productTags],
   remove_tag_from_product: [productTags],
+
+  create_note: [record],
 
   create_task: [record, assignee],
   update_task: [
