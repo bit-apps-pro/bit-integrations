@@ -12,6 +12,7 @@ Route::post('refresh_bitcrm_deal_stages', [BitCrmController::class, 'refreshDeal
 Route::post('refresh_bitcrm_invoice_terms', [BitCrmController::class, 'refreshInvoiceTerms']);
 Route::post('refresh_bitcrm_contacts', [BitCrmController::class, 'refreshContacts']);
 Route::post('refresh_bitcrm_companies', [BitCrmController::class, 'refreshCompanies']);
+Route::post('refresh_bitcrm_entities', [BitCrmController::class, 'refreshEntities']);
 Route::post('refresh_bitcrm_lead_tags', [BitCrmController::class, 'refreshLeadTags']);
 Route::post('refresh_bitcrm_contact_tags', [BitCrmController::class, 'refreshContactTags']);
 Route::post('refresh_bitcrm_company_tags', [BitCrmController::class, 'refreshCompanyTags']);

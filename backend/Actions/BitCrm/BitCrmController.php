@@ -48,6 +48,33 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\CompanyService())->getEntitiesAsOptions())]);
     }
 
+    /**
+     * Records of one module, for the pickers that follow a module select.
+     *
+     * @param object $data
+     */
+    public static function refreshEntities($data)
+    {
+        self::isExists();
+
+        $module = isset($data->module) ? sanitize_text_field($data->module) : '';
+
+        $serviceByModule = [
+            'lead'    => 'BitApps\\Crm\\Services\\LeadService',
+            'contact' => 'BitApps\\Crm\\Services\\ContactService',
+            'company' => 'BitApps\\Crm\\Services\\CompanyService',
+            'deal'    => 'BitApps\\Crm\\Services\\DealService',
+        ];
+
+        if (!isset($serviceByModule[$module]) || !class_exists($serviceByModule[$module])) {
+            wp_send_json_success(['options' => []]);
+        }
+
+        $service = $serviceByModule[$module];
+
+        wp_send_json_success(['options' => self::normalize((new $service())->getEntitiesAsOptions())]);
+    }
+
     public static function refreshLeadTags()
     {
         wp_send_json_success(['options' => self::tagOptions('lead')]);

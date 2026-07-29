@@ -15,9 +15,10 @@ export const handleInput = (e, bitCrmConf, setBitCrmConf) => {
 }
 
 // Generic fetcher for every dropdown: hits `route`, stashes options in conf[listKey].
-export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading) => {
+// `payload` carries what a dependent list needs, e.g. the module a record belongs to.
+export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading, payload = null) => {
   setIsLoading(listKey)
-  bitsFetch(null, route)
+  bitsFetch(payload, route)
     .then(result => {
       if (result?.success && Array.isArray(result?.data?.options)) {
         setBitCrmConf(prevConf =>

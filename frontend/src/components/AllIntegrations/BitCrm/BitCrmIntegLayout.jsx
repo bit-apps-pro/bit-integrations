@@ -32,6 +32,15 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     setBitCrmConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf[key] = val
+
+        // A dependent list belongs to the value just replaced, so drop it along
+        // with the selection made from it.
+        ;[...selects, ...dropdowns]
+          .filter(item => item.dependsOn === key)
+          .forEach(item => {
+            delete draftConf[item.key]
+            delete draftConf[item.listKey]
+          })
       })
     )
 
@@ -124,13 +133,24 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
             closeOnSelect={!dd.multi}
           />
           <button
-            onClick={() => refreshBitCrmList(dd.route, dd.listKey, setBitCrmConf, setIsLoading)}
+            onClick={() =>
+              refreshBitCrmList(
+                dd.route,
+                dd.listKey,
+                setBitCrmConf,
+                setIsLoading,
+                dd.dependsOn ? { [dd.dependsOn]: bitCrmConf?.[dd.dependsOn] } : null
+              )
+            }
             className="icn-btn sh-sm ml-2 mr-2 tooltip"
             style={{ '--tooltip-txt': `'${__('Refresh', 'bit-integrations')}'` }}
             type="button"
-            disabled={isLoading === dd.listKey}>
+            disabled={isLoading === dd.listKey || (dd.dependsOn && !bitCrmConf?.[dd.dependsOn])}>
             &#x21BB;
           </button>
+          {dd.dependsOn && !bitCrmConf?.[dd.dependsOn] && (
+            <small className="ml-2 txt-dp">{__('Select a module first.', 'bit-integrations')}</small>
+          )}
         </div>
       ))}
 

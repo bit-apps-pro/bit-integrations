@@ -104,7 +104,8 @@ export const modules = [
 
 // Task, meeting and call are the same activities table with a different `type`,
 // so their four actions share one shape. `activity_id` is the target identifier
-// and stays in the field map; the label just names the type.
+// and stays in the field map; the label just names the type. The record the
+// activity hangs off is picked from the list the module select feeds.
 const activityLabels = {
   call: __('Call Id', 'bit-integrations'),
   meeting: __('Meeting Id', 'bit-integrations'),
@@ -116,7 +117,6 @@ function activityFieldMaps(type) {
 
   return {
     [`create_${type}`]: [
-      { key: 'entity_id', label: __('Record Id', 'bit-integrations'), required: true },
       { key: 'title', label: __('Title', 'bit-integrations'), required: true },
       { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
       { key: 'details', label: __('Details', 'bit-integrations'), required: false },
@@ -125,7 +125,6 @@ function activityFieldMaps(type) {
     [`update_${type}`]: [
       idField,
       { key: 'title', label: __('Title', 'bit-integrations'), required: false },
-      { key: 'entity_id', label: __('Record Id', 'bit-integrations'), required: false },
       { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
       { key: 'details', label: __('Details', 'bit-integrations'), required: false },
       { key: 'assigned_to_email', label: __('Assigned To (email)', 'bit-integrations'), required: false }
@@ -366,6 +365,14 @@ const parentCompany = {
   route: 'refresh_bitcrm_companies',
   listKey: 'allCompanies'
 }
+const record = {
+  key: 'selectedEntity',
+  label: __('Record', 'bit-integrations'),
+  route: 'refresh_bitcrm_entities',
+  listKey: 'allEntities',
+  dependsOn: 'module',
+  required: true
+}
 const tags = route => ({
   key: 'selectedTags',
   label: __('Tags', 'bit-integrations'),
@@ -406,6 +413,13 @@ export const actionDropdowns = {
   update_product: [productTags],
   add_tag_to_product: [productTags],
   remove_tag_from_product: [productTags],
+
+  create_task: [record],
+  update_task: [{ ...record, required: false }],
+  create_meeting: [record],
+  update_meeting: [{ ...record, required: false }],
+  create_call: [record],
+  update_call: [{ ...record, required: false }],
 
   create_invoice: [termKey, currency],
   // Everything is optional on update — an unset select leaves the column alone.

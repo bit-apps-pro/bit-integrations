@@ -480,6 +480,7 @@ class RecordApiHelper
             'selectedStage'     => 'stage',
             'selectedTermKey'   => 'term_key',
             'selectedContact'   => 'contact_id',
+            'selectedEntity'    => 'entity_id',
             'selectedCompany'   => 'company_id',
             'selectedParent'    => 'parent_id',
             'selectedTags'      => 'tag_ids',
