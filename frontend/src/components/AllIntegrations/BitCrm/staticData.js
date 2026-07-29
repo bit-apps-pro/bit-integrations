@@ -119,15 +119,13 @@ function activityFieldMaps(type) {
     [`create_${type}`]: [
       { key: 'title', label: __('Title', 'bit-integrations'), required: true },
       { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
-      { key: 'details', label: __('Details', 'bit-integrations'), required: false },
-      { key: 'assigned_to_email', label: __('Assigned To (email)', 'bit-integrations'), required: true }
+      { key: 'details', label: __('Details', 'bit-integrations'), required: false }
     ],
     [`update_${type}`]: [
       idField,
       { key: 'title', label: __('Title', 'bit-integrations'), required: false },
       { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
-      { key: 'details', label: __('Details', 'bit-integrations'), required: false },
-      { key: 'assigned_to_email', label: __('Assigned To (email)', 'bit-integrations'), required: false }
+      { key: 'details', label: __('Details', 'bit-integrations'), required: false }
     ],
     [`update_${type}_status`]: [idField],
     [`delete_${type}`]: [idField]
@@ -365,6 +363,13 @@ const parentCompany = {
   route: 'refresh_bitcrm_companies',
   listKey: 'allCompanies'
 }
+const assignee = {
+  key: 'selectedAssignee',
+  label: __('Assigned To', 'bit-integrations'),
+  route: 'refresh_bitcrm_users',
+  listKey: 'allUsers',
+  required: true
+}
 const record = {
   key: 'selectedEntity',
   label: __('Record', 'bit-integrations'),
@@ -414,12 +419,21 @@ export const actionDropdowns = {
   add_tag_to_product: [productTags],
   remove_tag_from_product: [productTags],
 
-  create_task: [record],
-  update_task: [{ ...record, required: false }],
-  create_meeting: [record],
-  update_meeting: [{ ...record, required: false }],
-  create_call: [record],
-  update_call: [{ ...record, required: false }],
+  create_task: [record, assignee],
+  update_task: [
+    { ...record, required: false },
+    { ...assignee, required: false }
+  ],
+  create_meeting: [record, assignee],
+  update_meeting: [
+    { ...record, required: false },
+    { ...assignee, required: false }
+  ],
+  create_call: [record, assignee],
+  update_call: [
+    { ...record, required: false },
+    { ...assignee, required: false }
+  ],
 
   create_invoice: [termKey, currency],
   // Everything is optional on update — an unset select leaves the column alone.

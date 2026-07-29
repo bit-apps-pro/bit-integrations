@@ -481,6 +481,7 @@ class RecordApiHelper
             'selectedTermKey'   => 'term_key',
             'selectedContact'   => 'contact_id',
             'selectedEntity'    => 'entity_id',
+            'selectedAssignee'  => 'assigned_to',
             'selectedCompany'   => 'company_id',
             'selectedParent'    => 'parent_id',
             'selectedTags'      => 'tag_ids',

@@ -53,6 +53,12 @@ class BitCrmController
      *
      * @param object $data
      */
+    public static function refreshUsers()
+    {
+        self::ensureClass('BitApps\Crm\Services\UserService');
+        wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\UserService())->getUsersAsOptions())]);
+    }
+
     public static function refreshEntities($data)
     {
         self::isExists();
