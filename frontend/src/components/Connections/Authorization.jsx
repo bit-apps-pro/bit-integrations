@@ -8,6 +8,7 @@ import Note from '../Utilities/Note'
 import TutorialLink from '../Utilities/TutorialLink'
 import AddNewConnection from './AddNewConnection'
 import ConnectionAccountSelect from './ConnectionAccountSelect'
+import ConnectionNotice from './ConnectionNotice'
 import { useConnectionSwitch } from './ConnectionSwitchContext'
 
 const STEP_ONE_STYLE = { width: 900, height: 'auto' }
@@ -263,6 +264,10 @@ export default function Authorization({
               customAuthFields={customAuthFields}
               onConnectionSaved={handleConnectionSaved}
             />
+          )}
+
+          {isInfo && !config?.connection_id && (
+            <ConnectionNotice onOpenSettings={connectionSwitch?.onNext} />
           )}
         </>
       )}

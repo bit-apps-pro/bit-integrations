@@ -550,6 +550,116 @@ input[type='checkbox'].disabled:checked:before {
   }
 }
 
+// Explainer on the read-only integration info page: how reusable connections work,
+// and why a pre-2.10.0 integration shows no credentials.
+.conn-notice {
+  display: flex;
+  gap: 10px;
+  clear: both;
+  margin: 20px 0;
+  max-width: 640px;
+  padding: 14px 16px;
+  border: 1px solid #dde5f4;
+  border-left: 3px solid $purple;
+  border-radius: 8px;
+  background: $pg-canvas;
+  color: #4a5673;
+  font-size: 13px;
+  line-height: 1.55;
+  animation: fadeIn 180ms ease-out both;
+
+  .conn-notice-icn {
+    flex: 0 0 auto;
+    margin-top: 1px;
+    color: $purple;
+    line-height: 0;
+  }
+
+  .conn-notice-body {
+    min-width: 0;
+  }
+
+  .conn-notice-title {
+    margin: 0 0 6px;
+    color: #2c3654;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .conn-notice-sep {
+    height: 0;
+    margin: 16px 0;
+    border: 0;
+    border-top: 1px solid currentcolor;
+    opacity: 0.18;
+  }
+
+  p {
+    margin: 0 0 8px;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .conn-notice-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: $purple;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    transition: color 160ms ease-out;
+
+    &:hover,
+    &:focus-visible {
+      color: darken($purple, 12);
+    }
+  }
+
+  &.conn-notice-legacy {
+    border-color: #f4d8b8;
+    border-left-color: #d99326;
+    background: #fffaf3;
+    color: #6b5432;
+
+    .conn-notice-icn {
+      color: #b3721f;
+    }
+
+    .conn-notice-title {
+      color: #7a4f12;
+    }
+
+    .conn-notice-link {
+      color: #8f5c21;
+
+      &:hover,
+      &:focus-visible {
+        color: #6b4315;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .conn-notice {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .conn-notice {
+    animation: none;
+  }
+}
+
 .f-right {
   float: right;
 }
