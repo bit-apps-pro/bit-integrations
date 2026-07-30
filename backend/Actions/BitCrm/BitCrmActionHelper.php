@@ -42,11 +42,6 @@ final class BitCrmActionHelper
 
         $systemValues = self::systemValues($fieldData, ['lead_id', 'tag_ids']);
 
-        $error = self::validateRequired($systemValues, 'last_name');
-        if ($error !== null) {
-            return $error;
-        }
-
         $payload = [
             'id'                        => (int) $fieldData['lead_id'],
             'systemDefinedFieldsValues' => $systemValues,
@@ -145,11 +140,6 @@ final class BitCrmActionHelper
         }
 
         $systemValues = self::systemValues($fieldData, ['contact_id', 'tag_ids']);
-
-        $error = self::validateRequired($systemValues, 'last_name');
-        if ($error !== null) {
-            return $error;
-        }
 
         $payload = [
             'id'                        => (int) $fieldData['contact_id'],
@@ -250,11 +240,6 @@ final class BitCrmActionHelper
 
         $systemValues = self::systemValues($fieldData, ['company_id', 'tag_ids']);
 
-        $error = self::validateRequired($systemValues, 'name');
-        if ($error !== null) {
-            return $error;
-        }
-
         $payload = [
             'id'                        => (int) $fieldData['company_id'],
             'systemDefinedFieldsValues' => $systemValues,
@@ -353,13 +338,6 @@ final class BitCrmActionHelper
         }
 
         $systemValues = self::systemValues($fieldData, ['deal_id', 'tag_ids']);
-
-        foreach (['name', 'stage', 'contact_id'] as $field) {
-            $error = self::validateRequired($systemValues, $field);
-            if ($error !== null) {
-                return $error;
-            }
-        }
 
         $payload = [
             'id'                        => (int) $fieldData['deal_id'],
@@ -460,13 +438,6 @@ final class BitCrmActionHelper
 
         $systemValues = self::systemValues($fieldData, ['product_id', 'tag_ids']);
 
-        foreach (['name', 'code'] as $field) {
-            $error = self::validateRequired($systemValues, $field);
-            if ($error !== null) {
-                return $error;
-            }
-        }
-
         $productId = (int) $fieldData['product_id'];
         $product = \BitApps\CrmPro\Model\Product::findOne(['id' => $productId, 'is_trash' => 0]);
 
@@ -480,7 +451,7 @@ final class BitCrmActionHelper
          * when the payload is a plain array. Write the product here instead and
          * run the same uniqueness check ourselves.
          */
-        if ($systemValues['code'] !== $product->code) {
+        if (!empty($systemValues['code']) && $systemValues['code'] !== $product->code) {
             $duplicate = \BitApps\CrmPro\Model\Product::findOne(['code' => $systemValues['code'], 'is_trash' => 0]);
 
             if (!empty($duplicate) && (int) $duplicate->id !== $productId) {
@@ -687,10 +658,8 @@ final class BitCrmActionHelper
             return self::missing('BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug');
         }
 
-        foreach (['tag_id', 'title'] as $req) {
-            if (empty($fieldData[$req])) {
-                return self::required($req);
-            }
+        if (empty($fieldData['tag_id'])) {
+            return self::required('tag_id');
         }
 
         $tag = \BitApps\Crm\Model\Tag::findOne(['id' => (int) $fieldData['tag_id']]);
@@ -698,12 +667,13 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Tag not found.', 'bit-integrations')];
         }
 
+        $updateData = ['updated_by' => get_current_user_id()];
+
         // Bit CRM regenerates the slug from the title on every tag update.
-        $updateData = [
-            'title'      => $fieldData['title'],
-            'slug'       => \BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug::generate($fieldData['title']),
-            'updated_by' => get_current_user_id(),
-        ];
+        if (!empty($fieldData['title'])) {
+            $updateData['title'] = $fieldData['title'];
+            $updateData['slug'] = \BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug::generate($fieldData['title']);
+        }
         if (!empty($fieldData['module'])) {
             $updateData['module'] = $fieldData['module'];
         }
