@@ -18,6 +18,8 @@ class ConvertKitController
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'convertkit',
+        // Connections store the UI's display name, which carries the Kit rebrand.
+        'aliases'  => ['Kit(ConvertKit)'],
         'fields'   => [
             'api_secret' => 'value',
         ],
