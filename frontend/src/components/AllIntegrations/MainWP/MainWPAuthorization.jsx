@@ -10,6 +10,7 @@ export default function MainWPAuthorization({ mainWPConf, setMainWPConf, step, n
       step={step}
       setStep={nextPage}
       isInfo={isInfo}
+      tutorialLinkKey="mainWP"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {

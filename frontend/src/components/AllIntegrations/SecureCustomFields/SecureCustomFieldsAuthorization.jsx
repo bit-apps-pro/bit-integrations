@@ -16,6 +16,7 @@ export default function SecureCustomFieldsAuthorization({
       step={step}
       setStep={nextPage}
       isInfo={isInfo}
+      tutorialLinkKey="secureCustomFields"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {

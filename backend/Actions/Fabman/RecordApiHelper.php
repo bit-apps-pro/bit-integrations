@@ -160,7 +160,7 @@ class RecordApiHelper
     {
         unset($data['memberId']);
         $apiEndpoint = self::API_ENDPOINT . '/members';
-        $apiResponse = HttpHelper::post($apiEndpoint, json_encode($data), $this->setHeaders());
+        $apiResponse = HttpHelper::post($apiEndpoint, wp_json_encode($data), $this->setHeaders());
 
         if (\is_wp_error($apiResponse)) {
             return $apiResponse;
@@ -181,13 +181,13 @@ class RecordApiHelper
             return new WP_Error('MISSING_MEMBER_ID', __('The email provided did not match any existing Fabman member.', 'bit-integrations'));
         }
 
-        $response = Hooks::apply(Config::withPrefix('fabman_update_member'), false, json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
+        $response = Hooks::apply(Config::withPrefix('fabman_update_member'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
         /**
          * @deprecated 2.7.8 Use `bit_integrations_fabman_update_member` filter instead.
          * @since 2.7.8
          */
-        $response = Hooks::apply('btcbi_fabman_update_member', $response, json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
+        $response = Hooks::apply('btcbi_fabman_update_member', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
         return $this->handleFilterResponse($response);
     }
@@ -212,13 +212,13 @@ class RecordApiHelper
     private function createSpace($data)
     {
         unset($data['space']);
-        $response = Hooks::apply(Config::withPrefix('fabman_create_space'), false, json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
+        $response = Hooks::apply(Config::withPrefix('fabman_create_space'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
 
         /**
          * @deprecated 2.7.8 Use `bit_integrations_fabman_create_space` filter instead.
          * @since 2.7.8
          */
-        $response = Hooks::apply('btcbi_fabman_create_space', $response, json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
+        $response = Hooks::apply('btcbi_fabman_create_space', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
 
         return $this->handleFilterResponse($response);
     }
@@ -236,13 +236,13 @@ class RecordApiHelper
 
         $data['lockVersion'] = (int) $this->lockVersion;
 
-        $response = Hooks::apply(Config::withPrefix('fabman_update_space'), false, json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
+        $response = Hooks::apply(Config::withPrefix('fabman_update_space'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
 
         /**
          * @deprecated 2.7.8 Use `bit_integrations_fabman_update_space` filter instead.
          * @since 2.7.8
          */
-        $response = Hooks::apply('btcbi_fabman_update_space', $response, json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
+        $response = Hooks::apply('btcbi_fabman_update_space', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
 
         return $this->handleFilterResponse($response);
     }

@@ -19,6 +19,8 @@ class ZohoMarketingHubController
     public static array $authConfig = [
         'authType' => AuthorizationType::OAUTH2,
         'slug'     => 'zohomarketinghub',
+        // Connections store the UI's display name, which carries the Zoho rename.
+        'aliases'  => ['Zoho Marketing Automation(Zoho Marketing Hub)'],
         'fields'   => [
             'dataCenter'   => 'dataCenter',
             'clientId'     => 'client_id',

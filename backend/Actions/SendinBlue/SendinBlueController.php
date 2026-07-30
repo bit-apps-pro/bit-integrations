@@ -20,6 +20,8 @@ class SendinBlueController
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'sendinblue',
+        // Connections store the UI's display name, which carries the Brevo rebrand.
+        'aliases'  => ['Brevo(Sendinblue)'],
         'fields'   => [
             'api_key' => 'value',
         ],

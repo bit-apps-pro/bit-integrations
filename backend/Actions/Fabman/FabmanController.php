@@ -156,7 +156,7 @@ class FabmanController
             'Content-Type'  => 'application/json'
         ];
 
-        $apiEndpoint = 'https://fabman.io/api/v1/members?q=' . urlencode($email);
+        $apiEndpoint = 'https://fabman.io/api/v1/members?q=' . rawurlencode($email);
         $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
 
         if (is_wp_error($apiResponse) || !\is_array($apiResponse) || empty($apiResponse)) {

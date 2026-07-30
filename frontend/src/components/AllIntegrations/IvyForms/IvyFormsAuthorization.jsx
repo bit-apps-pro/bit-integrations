@@ -16,6 +16,7 @@ export default function IvyFormsAuthorization({
       step={step}
       setStep={nextPage}
       isInfo={isInfo}
+      tutorialLinkKey="ivyForms"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {

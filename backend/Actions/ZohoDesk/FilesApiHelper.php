@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\ZohoDesk;
 
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 /**
@@ -62,7 +63,7 @@ final class FilesApiHelper
                     $payload .= 'Content-Disposition: form-data; name="' . 'file'
                         . '"; filename="' . basename("{$fileName}") . '"' . "\r\n";
                     $payload .= "\r\n";
-                    $payload .= file_get_contents($safeFile);
+                    $payload .= FileSystem::read($safeFile);
                     $payload .= "\r\n";
                     $payload .= '--' . $this->_payloadBoundary . '--';
                 }
@@ -76,7 +77,7 @@ final class FilesApiHelper
             $payload .= 'Content-Disposition: form-data; name="' . 'file'
                 . '"; filename="' . basename("{$files}") . '"' . "\r\n";
             $payload .= "\r\n";
-            $payload .= file_get_contents($safeFiles);
+            $payload .= FileSystem::read($safeFiles);
             $payload .= "\r\n";
         }
         if (empty($payload)) {

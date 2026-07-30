@@ -16,6 +16,7 @@ export default function MoreConvertWishlistAuthorization({
       step={step}
       setStep={nextPage}
       isInfo={isInfo}
+      tutorialLinkKey="moreConvertWishlist"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {

@@ -47,7 +47,7 @@ class CredentialInjector
             // controller asking for it: otherwise pointing a MailChimp action at a
             // Salesforce connection_id would decrypt Salesforce's token and ship it to
             // MailChimp's endpoint.
-            if (!self::belongsToIntegration($handler->getConnection(), $config['slug'])) {
+            if (!self::belongsToIntegration($handler->getConnection(), $config)) {
                 self::debug($controllerClass, "connection {$connectionId} belongs to a different app");
 
                 return;
@@ -103,16 +103,21 @@ class CredentialInjector
     }
 
     /**
-     * Whether $connection was created for the integration declaring $slug.
+     * Whether $connection was created for the integration declaring $config.
      *
      * app_slug is stored as the integration's display name ("Zoho CRM") while
      * $authConfig carries a bare slug ("zohocrm"), so both sides are reduced to
-     * alphanumerics before comparing. A connection that cannot be loaded at all is
-     * left to the caller's own null handling.
+     * alphanumerics before comparing. Names that carry a second brand word
+     * ("Brevo(Sendinblue)" for slug "sendinblue") cannot reduce to the slug at all,
+     * so those integrations declare the stored names in $authConfig['aliases'] —
+     * an explicit list rather than a substring match, which would let a "Zoho"
+     * connection satisfy every zoho* controller. A connection that cannot be
+     * loaded at all is left to the caller's own null handling.
      *
-     * @param mixed $connection
+     * @param mixed                $connection
+     * @param array<string, mixed> $config     Controller's $authConfig
      */
-    private static function belongsToIntegration($connection, string $slug): bool
+    private static function belongsToIntegration($connection, array $config): bool
     {
         if (empty($connection) || empty($connection->app_slug)) {
             return true;
@@ -122,7 +127,9 @@ class CredentialInjector
             return strtolower(preg_replace('/[^a-z0-9]/i', '', (string) $value));
         };
 
-        return $normalize($connection->app_slug) === $normalize($slug);
+        $accepted = array_map($normalize, array_merge([$config['slug']], $config['aliases'] ?? []));
+
+        return \in_array($normalize($connection->app_slug), $accepted, true);
     }
 
     /**

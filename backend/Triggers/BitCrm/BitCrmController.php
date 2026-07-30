@@ -36,6 +36,7 @@ final class BitCrmController
     public function getAllEvents()
     {
         if (!self::isPluginInstalled()) {
+            // translators: %s: Plugin name
             wp_send_json_error(\sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Bit CRM'));
         }
 
@@ -594,7 +595,7 @@ final class BitCrmController
      * The typed ids (`bit_crm/task_created`, …) are flow keys, not WordPress
      * hooks — no such hook exists.
      *
-     * @param string $event one of created|updated|status_updated
+     * @param string $event    one of created|updated|status_updated
      * @param mixed  $activity
      * @param array  $extra
      */

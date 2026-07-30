@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BackIcn from '../../Icons/BackIcn'
 import { isWpPluginCheckType } from '../../Utils/connectionAuth'
 import { verifyPluginActivation, listConnections } from '../../Utils/connectionApi'
@@ -8,9 +8,13 @@ import Note from '../Utilities/Note'
 import TutorialLink from '../Utilities/TutorialLink'
 import AddNewConnection from './AddNewConnection'
 import ConnectionAccountSelect from './ConnectionAccountSelect'
+import ConnectionNotice from './ConnectionNotice'
+import { useConnectionSwitch } from './ConnectionSwitchContext'
 
 const STEP_ONE_STYLE = { width: 900, height: 'auto' }
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
+
+const omitConnectionId = ({ connection_id, ...rest }) => rest
 
 export default function Authorization({
   config,
@@ -30,10 +34,31 @@ export default function Authorization({
   const [errors, setErrors] = useState({ name: '' })
   const [connections, setConnections] = useState([])
   const [showNewConnection, setShowNewConnection] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
   const [isPendingPostAuth, setIsPendingPostAuth] = useState(false)
+
+  const connectionSwitch = useConnectionSwitch()
+  // Read-only page, but the connection stays changeable — including creating a
+  // new one and pointing the saved flow at it.
+  const canSwitch = Boolean(isInfo && connectionSwitch?.enabled)
+  // The info page holds no integration setter, so the sub-form's config writes
+  // (extra auth fields some actions persist beside connection_id) are collected
+  // here and handed to the flow update instead of being dropped.
+  const pendingConfig = useRef({})
+
+  const captureConfig = useCallback(
+    updater => {
+      const next =
+        typeof updater === 'function'
+          ? updater({ ...(config || {}), ...pendingConfig.current })
+          : updater
+
+      pendingConfig.current = { ...pendingConfig.current, ...(next || {}) }
+    },
+    [config]
+  )
 
   const appSlug = config?.app_slug || config?.type
   const isWpPluginCheck = isWpPluginCheckType(authDetails?.authType)
@@ -50,6 +75,7 @@ export default function Authorization({
     if (!appSlug) {
       setConnections([])
       setShowNewConnection(true)
+      setIsLoading(false)
       return []
     }
 
@@ -60,17 +86,20 @@ export default function Authorization({
       const savedConnections = res?.success && Array.isArray(res?.data?.data) ? res.data.data : []
 
       setConnections(savedConnections)
-      setShowNewConnection(current => current || savedConnections.length === 0)
+      // An empty list opens the create form on the wizard steps, but the info
+      // page must stay quiet until the user asks for a new connection.
+      setShowNewConnection(current => current || (savedConnections.length === 0 && !isInfo))
       return savedConnections
     } catch {
       return []
     } finally {
       setIsLoading(false)
     }
-  }, [appSlug])
+  }, [appSlug, isInfo])
 
   useEffect(() => {
     if (isWpPluginCheck) {
+      setIsLoading(false)
       return
     }
 
@@ -165,6 +194,16 @@ export default function Authorization({
       const refreshedConnections = await refreshConnections()
       const savedConnectionId = savedConnection?.id
 
+      if (canSwitch) {
+        if (savedConnectionId) {
+          const capturedConfig = omitConnectionId(pendingConfig.current)
+          pendingConfig.current = {}
+          setShowNewConnection(false)
+          await connectionSwitch.onSwitch(savedConnectionId, capturedConfig)
+        }
+        return
+      }
+
       if (savedConnectionId) {
         const matchedConnection = refreshedConnections.find(
           conn => String(conn.id) === String(savedConnectionId)
@@ -180,7 +219,7 @@ export default function Authorization({
         setShowNewConnection(false)
       }
     },
-    [refreshConnections, setConfig, fireConnectionSelected]
+    [canSwitch, connectionSwitch, refreshConnections, setConfig, fireConnectionSelected]
   )
 
   return (
@@ -210,23 +249,27 @@ export default function Authorization({
             setConfig={setConfig}
             connections={connections}
             setShowNewConnection={setShowNewConnection}
-            isInfo={isInfo || isLoading}
+            isInfo={isInfo}
             onRefresh={refreshConnections}
             isRefreshing={isLoading}
             onConnectionSelected={fireConnectionSelected}
           />
 
-          {showNewConnection && !isInfo && (extraFields || null)}
+          {showNewConnection && (!isInfo || canSwitch) && (extraFields || null)}
 
-          {showNewConnection && !isInfo && (
+          {showNewConnection && (!isInfo || canSwitch) && (
             <AddNewConnection
               authDetails={authDetails}
               config={config}
-              setConfig={setConfig}
-              isInfo={isInfo}
+              setConfig={canSwitch ? captureConfig : setConfig}
+              isInfo={canSwitch ? false : isInfo}
               customAuthFields={customAuthFields}
               onConnectionSaved={handleConnectionSaved}
             />
+          )}
+
+          {isInfo && !config?.connection_id && (
+            <ConnectionNotice onOpenSettings={connectionSwitch?.onNext} />
           )}
         </>
       )}
@@ -244,6 +287,18 @@ export default function Authorization({
 
       {!isInfo && canGoNext && (
         <button onClick={handleNext} className="btn f-right btcd-btn-lg purple sh-sm flx" type="button">
+          {__('Next', 'bit-integrations')}
+          <BackIcn className="ml-1 rev-icn" />
+        </button>
+      )}
+
+      {/* Switched connection: the field mapping still targets the old account,
+      so hand the user off to the edit wizard to review it. */}
+      {canSwitch && connectionSwitch.switched && (
+        <button
+          onClick={connectionSwitch.onNext}
+          className="btn f-right btcd-btn-lg purple sh-sm flx"
+          type="button">
           {__('Next', 'bit-integrations')}
           <BackIcn className="ml-1 rev-icn" />
         </button>
