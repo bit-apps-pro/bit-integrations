@@ -23,19 +23,52 @@ const changeLog = [
     label: __('Note', 'bit-integrations'),
     headClass: 'new-note',
     itemClass: '',
-    items: []
+    items: [
+      {
+        label: 'Since 2.10.0, credentials live in reusable Connections. Integrations you set up before that still keep their own credentials, so we call them legacy - their info page shows a short explainer instead of a connection to view or switch.',
+        desc: '',
+        isPro: false
+      },
+      {
+        label: 'They keep working exactly as before, and credentials stay safe on your server (never sent to your browser, which is why the fields look empty). To move one over, just open its settings and authorize the app once.',
+        desc: '',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Bit CRM',
+        desc: '66 new events added',
+        isPro: false
+      },
+      {
+        label: 'Fluent Player',
+        desc: '12 new events added',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Bit CRM',
+        desc: '50 new events added',
+        isPro: false
+      },
+      {
+        label: 'Fluent Player',
+        desc: '26 new events added',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -43,18 +76,18 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Connections',
-        desc: 'New centralized connection manager - authorize an app once and reuse the same credentials across every integration, with linked integration listing, inline editing and clearer authorization errors.',
+        label: 'Webhook (Action)',
+        desc: 'Dynamic URL path variables added to outgoing webhooks, mappable from trigger data.',
         isPro: false
       },
       {
-        label: 'Timeline',
-        desc: 'Integration logs can now be re-executed, with nested re-run history kept for each attempt.',
-        isPro: false
+        label: 'Webhook (Action)',
+        desc: 'Smart codes are now available in query parameters, request headers and path variables.',
+        isPro: true
       },
       {
         label: 'Connections',
-        desc: 'Redesigned log page with server-side status filtering, search and column controls.',
+        desc: "An action's connection can now be switched from its info page.",
         isPro: false
       }
     ]
@@ -71,19 +104,29 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'OAuth2',
-        desc: 'Fixed refresh URL template resolution and credentials being lost during token refresh.',
+        label: 'Connections',
+        desc: 'Fixed credentials not resolving for renamed integrations.',
         isPro: false
       },
       {
-        label: 'Google Sheets',
-        desc: 'Improved access token validation.',
+        label: 'Integration Info',
+        desc: 'Fixed legacy actions rendering a blank info page.',
         isPro: false
       },
       {
-        label: 'Zoho Desk',
-        desc: 'Guarded against null API response data.',
+        label: 'Webhook (Action)',
+        desc: 'Run status is now judged by the response HTTP status code, and path variables sync even when their tab is never opened.',
         isPro: false
+      },
+      {
+        label: 'ACF',
+        desc: 'Fixed field reading when the meta value is missing',
+        isPro: true
+      },
+      {
+        label: 'WP Post',
+        desc: 'Fixed trashed and internal posts firing the post created/inserted triggers',
+        isPro: true
       }
     ]
   },
@@ -93,18 +136,18 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Security',
-        desc: 'Hardened AJAX authorization, credential storage and input handling across request routing.',
+        label: 'Custom Action',
+        desc: "Closed an administrator gate bypass and confined the custom function file to the plugin's custom-function directory.",
         isPro: false
       },
       {
-        label: 'Connections',
-        desc: 'Stopped credentials from being returned in connection responses and made the token refresh lock reliable.',
+        label: 'Timeline',
+        desc: 'Log re-execution now applies the same administrator check as custom action save, update and delete.',
         isPro: false
       },
       {
-        label: 'Encryption',
-        desc: 'Escaped OpenSSL error output in encryption exception handling.',
+        label: 'Mail',
+        desc: 'Recipient addresses and headers are validated in all cases, and header display names are sanitized.',
         isPro: false
       }
     ]
