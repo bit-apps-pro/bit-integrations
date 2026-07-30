@@ -8,6 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Every do_action() below fires one of Bit CRM's own `bit_crm/*` hooks on its
+ * behalf, because the service methods this helper calls do not fire them
+ * themselves. The names belong to Bit CRM's namespace and must match it exactly
+ * for its listeners to react, so they cannot carry this plugin's prefix.
+ *
+ * phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+ */
 final class BitCrmActionHelper
 {
     public static function createLead($fieldData)

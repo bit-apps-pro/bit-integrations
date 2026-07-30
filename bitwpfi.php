@@ -58,6 +58,7 @@ function btcbi_activate_plugin($network_wide)
 {
     bit_integrations_activate_plugin($network_wide);
 }
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- `bit_integrations_` is the plugin slug; Plugin Check infers prefixes from hook names and misses it because the plugin fires third-party hooks.
 function bit_integrations_activate_plugin($network_wide)
 {
     global $wp_version;
@@ -87,6 +88,7 @@ function btcbi_deactivate_plugin($network_wide)
     bit_integrations_deactivate_plugin($network_wide);
 }
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- `bit_integrations_` is the plugin slug; Plugin Check infers prefixes from hook names and misses it because the plugin fires third-party hooks.
 function bit_integrations_deactivate_plugin($network_wide)
 {
     global $wp_version;
@@ -115,6 +117,7 @@ function btcbi_uninstall_plugin()
     bit_integrations_uninstall_plugin();
 }
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- `bit_integrations_` is the plugin slug; Plugin Check infers prefixes from hook names and misses it because the plugin fires third-party hooks.
 function bit_integrations_uninstall_plugin()
 {
     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is prefixed via Config::VAR_PREFIX.
