@@ -89,11 +89,12 @@ export default function PopupMakerIntegLayout({
       })
     )
 
-    if (needsTheme.includes(value)) {
+    // The refresh buttons cover re-fetching, so only load a list we do not have yet.
+    if (needsTheme.includes(value) && !popupMakerConf?.allThemes?.length) {
       refreshPopupMakerThemes(setPopupMakerConf, setIsLoading)
     }
 
-    if (needsPopup.includes(value)) {
+    if (needsPopup.includes(value) && !popupMakerConf?.allPopups?.length) {
       refreshPopupMakerPopups(setPopupMakerConf, setIsLoading)
     }
   }
@@ -284,12 +285,7 @@ export default function PopupMakerIntegLayout({
           <div className="mt-4">
             <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
             <div className="btcd-hr mt-1" />
-            <PopupMakerActions
-              popupMakerConf={popupMakerConf}
-              setPopupMakerConf={setPopupMakerConf}
-              formFields={formFields}
-              setSnackbar={setSnackbar}
-            />
+            <PopupMakerActions popupMakerConf={popupMakerConf} setPopupMakerConf={setPopupMakerConf} />
           </div>
         )}
     </>

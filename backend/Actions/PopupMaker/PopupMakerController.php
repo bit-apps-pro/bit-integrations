@@ -71,6 +71,10 @@ class PopupMakerController
                 'orderby'        => 'title',
                 'order'          => 'ASC',
                 'posts_per_page' => -1,
+                // The dropdown renders ids and titles only, so skip priming the meta cache
+                // with every popup's serialized settings, and the term cache with taxonomies.
+                'update_post_meta_cache' => false,
+                'update_post_term_cache' => false,
             ]
         );
 

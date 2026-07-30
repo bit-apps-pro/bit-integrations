@@ -11,6 +11,8 @@ import {
   animationOptions,
   consentOptions,
   forceDeleteOptions,
+  needsPopup,
+  needsTheme,
   sizeOptions,
   statusOptions
 } from './staticData'
@@ -18,17 +20,7 @@ import {
 export default function PopupMakerActions({ popupMakerConf, setPopupMakerConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false, action: () => {} })
 
-  const actionHandler = type => {
-    setPopupMakerConf(prevConf =>
-      create(prevConf, draftConf => {
-        if (!draftConf.utilities) {
-          draftConf.utilities = {}
-        }
-      })
-    )
-
-    setActionMdl({ show: type })
-  }
+  const actionHandler = type => setActionMdl({ show: type })
 
   const clsActionMdl = () => {
     setActionMdl({ show: false })
@@ -70,10 +62,8 @@ export default function PopupMakerActions({ popupMakerConf, setPopupMakerConf })
     </ConfirmModal>
   )
 
-  const isPopupWrite = ['create_popup', 'update_popup'].includes(popupMakerConf?.mainAction)
-  const isSubscriberWrite = ['create_subscriber', 'update_subscriber'].includes(
-    popupMakerConf?.mainAction
-  )
+  const isPopupWrite = needsTheme.includes(popupMakerConf?.mainAction)
+  const isSubscriberWrite = needsPopup.includes(popupMakerConf?.mainAction)
 
   return (
     <div className="pos-rel d-flx flx-wrp">
