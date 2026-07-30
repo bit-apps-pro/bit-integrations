@@ -1182,7 +1182,7 @@ final class BitCrmActionHelper
      * Apply the supplied fields to an existing activity. Only fields carrying a
      * value are written, so a flow can change one column without blanking the rest.
      *
-     * @param string $type one of task|meeting|call
+     * @param string $type      one of task|meeting|call
      * @param array  $fieldData
      */
     private static function modifyActivity($type, $fieldData)
@@ -1204,12 +1204,6 @@ final class BitCrmActionHelper
             if (!empty($fieldData[$field])) {
                 $updateData[$field] = (int) $fieldData[$field];
             }
-        }
-
-        // The record is a module + id pair, so moving one without the other would
-        // point the activity at whatever happens to hold that id in the new table.
-        if (isset($updateData['module']) !== isset($updateData['entity_id'])) {
-            return ['success' => false, 'message' => __('Changing the record needs both the module and the record itself.', 'bit-integrations')];
         }
 
         if (isset($fieldData['is_shared'])) {
@@ -1282,7 +1276,7 @@ final class BitCrmActionHelper
      * Load the configured activity and confirm it is of the expected type, so a
      * Delete Task never touches a meeting that happens to share the id space.
      *
-     * @param string $type one of task|meeting|call
+     * @param string $type      one of task|meeting|call
      * @param array  $fieldData
      *
      * @return array{0: mixed, 1: null|array}
@@ -1308,6 +1302,8 @@ final class BitCrmActionHelper
     }
 
     /**
+     * @param mixed $fieldData
+     *
      * @return array{0: mixed, 1: null|array}
      */
     private static function resolveInvoice($fieldData)
