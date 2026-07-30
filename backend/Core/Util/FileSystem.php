@@ -21,11 +21,11 @@ final class FileSystem
      */
     public static function instance()
     {
-        global $wp_filesystem;
-
         if (self::$filesystem instanceof WP_Filesystem_Base) {
             return self::$filesystem;
         }
+
+        global $wp_filesystem;
 
         if (empty($wp_filesystem)) {
             require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -33,9 +33,7 @@ final class FileSystem
         }
 
         if ($wp_filesystem instanceof WP_Filesystem_Base) {
-            self::$filesystem = $wp_filesystem;
-
-            return self::$filesystem;
+            return self::$filesystem = $wp_filesystem;
         }
 
         // WP_Filesystem() fails when the site is set to FTP/SSH with no stored credentials.
@@ -46,9 +44,7 @@ final class FileSystem
             require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
         }
 
-        self::$filesystem = new WP_Filesystem_Direct(null);
-
-        return self::$filesystem;
+        return self::$filesystem = new WP_Filesystem_Direct(null);
     }
 
     /**
