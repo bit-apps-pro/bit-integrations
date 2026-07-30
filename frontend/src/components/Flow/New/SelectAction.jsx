@@ -185,6 +185,7 @@ export default function SelectAction() {
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
     { type: 'FluentCart', is_pro: true },
+    { type: 'PopupMaker', name: 'Popup Maker', logo: 'popupMaker', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
     { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },

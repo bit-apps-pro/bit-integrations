@@ -186,6 +186,7 @@ const UltimateAffiliateProAuthorization = lazy(
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const PopupMakerAuthorization = lazy(() => import('./PopupMaker/PopupMakerAuthorization'))
 const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
 const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
@@ -671,6 +672,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'PopupMaker':
+      return <PopupMakerAuthorization popupMakerConf={integrationConf} step={1} isInfo />
     case 'FluentPlayer':
       return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
     case 'BitCrm':
