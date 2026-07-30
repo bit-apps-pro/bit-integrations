@@ -186,6 +186,7 @@ const UltimateAffiliateProAuthorization = lazy(
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
@@ -669,6 +670,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'BitCrm':
+      return <BitCrmAuthorization bitCrmConf={integrationConf} step={1} isInfo />
     case 'Wsms':
       return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
     case 'WebbaBooking':
