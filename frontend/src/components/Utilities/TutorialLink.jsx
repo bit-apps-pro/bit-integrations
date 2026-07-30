@@ -123,30 +123,30 @@ function TutorialLink({ subtitle, linkKey, style, linksMap }) {
             {__('Summarize with AI', 'bit-integrations')}
           </button>
 
-          {showAiTools && (
-            <div className="ai-tool-dropdown">
-              <p className="ai-tool-dropdown-title">
-                {__('Choose your AI assistant', 'bit-integrations')}
-              </p>
-              <div className="ai-tool-grid">
-                {aiTools.map(tool => (
-                  <a
-                    key={tool.id}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="ai-tool-option"
-                    href={`${tool.url}${encodedPrompt}`}
-                    title={sprintf(__('Summarize using %s', 'bit-integrations'), tool.name)}
-                    onClick={() => setShowAiTools(false)}>
-                    <span className="ai-tool-icon">
-                      <tool.Icon size="24" className="ai-tool-logo" />
-                    </span>
-                    <span className="ai-tool-name">{tool.name}</span>
-                  </a>
-                ))}
-              </div>
+          <div
+            className={`ai-tool-dropdown ${showAiTools ? 'ai-tool-dropdown-open' : ''}`}
+            aria-hidden={!showAiTools}>
+            <p className="ai-tool-dropdown-title">
+              {__('Choose your AI assistant', 'bit-integrations')}
+            </p>
+            <div className="ai-tool-grid">
+              {aiTools.map(tool => (
+                <a
+                  key={tool.id}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ai-tool-option"
+                  href={`${tool.url}${encodedPrompt}`}
+                  title={sprintf(__('Summarize using %s', 'bit-integrations'), tool.name)}
+                  onClick={() => setShowAiTools(false)}>
+                  <span className="ai-tool-icon">
+                    <tool.Icon size="24" className="ai-tool-logo" />
+                  </span>
+                  <span className="ai-tool-name">{tool.name}</span>
+                </a>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       )}
       {subtitle && <p className="mt-1">{subtitle}</p>}

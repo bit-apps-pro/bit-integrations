@@ -2930,17 +2930,86 @@ select.btcd-paper-inp {
   position: relative;
 }
 
+// Shared open/close motion for the popover menus, ported from the row-action
+// menu (.btcd-menu-list / .btcd-m-a): the panel unrolls like a book from the
+// edge its trigger sits on.
+//
+// The original unrolls by animating `width`, which relays out the panel and
+// everything inside it on every frame. Here the panel keeps its full size and
+// a `clip-path` inset walks across it instead — same read, but it is a paint,
+// so the content is laid out once and simply uncovered. The insets run
+// negative so the drop shadow lives outside the clip and survives the reveal.
+//
+// Each menu sets --menu-width (what it opens to) and --menu-radius (its
+// resting corner); the closed and open states read both.
+$menu-open-time: 280ms;
+$menu-close-time: 200ms;
+$menu-ease: cubic-bezier(0.23, 1, 0.32, 1);
+$menu-bleed: 40px;
+
+// Height never joins in: it cannot interpolate to `auto`, so collapsing it
+// would snap the content away and swallow the reveal on close. The original
+// hits the same wall and writes a measured pixel height inline, leaving its
+// CSS `height: 0` dead.
+@mixin menu-book-closed($width, $hinge: right, $radius: 10px) {
+  --menu-width: #{$width};
+  --menu-radius: #{$radius};
+  @if $hinge == right {
+    --menu-clip-shut: inset(#{-$menu-bleed} #{-$menu-bleed} #{-$menu-bleed} 100%);
+  } @else {
+    --menu-clip-shut: inset(#{-$menu-bleed} 100% #{-$menu-bleed} #{-$menu-bleed});
+  }
+
+  visibility: hidden;
+  width: var(--menu-width);
+  border-radius: 999px;
+  -webkit-clip-path: var(--menu-clip-shut);
+  clip-path: var(--menu-clip-shut);
+  pointer-events: none;
+  transition:
+    clip-path $menu-close-time $menu-ease,
+    -webkit-clip-path $menu-close-time $menu-ease,
+    border-radius $menu-close-time $menu-ease,
+    opacity $menu-close-time $menu-ease,
+    visibility 0s linear $menu-close-time;
+  opacity: 0;
+}
+
+@mixin menu-book-open {
+  visibility: visible;
+  opacity: 1;
+  border-radius: var(--menu-radius);
+  -webkit-clip-path: inset(-$menu-bleed);
+  clip-path: inset(-$menu-bleed);
+  pointer-events: auto;
+  transition:
+    clip-path $menu-open-time $menu-ease,
+    -webkit-clip-path $menu-open-time $menu-ease,
+    border-radius $menu-open-time $menu-ease,
+    opacity 140ms ease-out,
+    visibility 0s;
+}
+
+// The trigger answers the press before the panel finishes opening, the same
+// way the row-action button does.
+@mixin menu-trigger-press {
+  transition: transform 140ms ease-out;
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+
 .btcd-menu-li {
-  display: none;
+  @include menu-book-closed(200px);
+
+  display: block;
   background: transparentize($color: #fff, $amount: 0.1);
   position: absolute;
-  height: 350px;
-  width: max-content;
   -webkit-backdrop-filter: blur(7px);
   backdrop-filter: blur(7px);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.22);
   z-index: 999;
-  border-radius: 10px;
   overflow: hidden;
 
   & > div:not(.btcd-m-li-itm) {
@@ -3009,7 +3078,7 @@ select.btcd-paper-inp {
 }
 
 .btcd-menu-a {
-  display: block;
+  @include menu-book-open;
 }
 
 .btcd-t-actions {
@@ -4448,6 +4517,8 @@ _:-ms-fullscreen,
 }
 
 .tutoriallink-btn {
+  @include menu-trigger-press;
+
   align-items: center;
   background: transparent;
   color: inherit;
@@ -4473,16 +4544,20 @@ _:-ms-fullscreen,
 }
 
 .ai-tool-dropdown {
+  @include menu-book-closed(min(92vw, 360px), left);
+
   background: #fff;
   border: 1px solid #d9dce3;
-  border-radius: 10px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   padding: 10px;
   position: absolute;
   left: 0;
   top: calc(100% + 8px);
-  width: min(92vw, 360px);
   z-index: 20;
+}
+
+.ai-tool-dropdown-open {
+  @include menu-book-open;
 }
 
 .ai-tool-dropdown-title {
@@ -5429,6 +5504,8 @@ _:-ms-fullscreen,
 }
 
 .btcd-bulk-menu-btn {
+  @include menu-trigger-press;
+
   width: 34px;
   height: 34px;
   min-width: 34px;
@@ -5441,17 +5518,21 @@ _:-ms-fullscreen,
 }
 
 .btcd-bulk-menu-list {
+  @include menu-book-closed(220px);
+
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
   left: auto;
-  min-width: 220px;
   padding: 6px;
   border: 1px solid #d8ddea;
-  border-radius: 10px;
   background: #fff;
   box-shadow: 0 8px 22px rgba(27, 33, 50, 0.12);
   z-index: 40;
+}
+
+.btcd-bulk-menu-list-open {
+  @include menu-book-open;
 }
 
 .btcd-bulk-menu-list button {
@@ -5513,10 +5594,17 @@ _:-ms-fullscreen,
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  // This button already owns a transition list, so the press has to join it —
+  // a second `transition` declaration would drop the colour fades.
   transition:
     color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
     border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
-    background 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    background 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 140ms ease-out;
+
+  &:active {
+    transform: scale(0.94);
+  }
 }
 
 .btcd-columns-btn .btcd-icn {
@@ -5530,20 +5618,18 @@ _:-ms-fullscreen,
 }
 
 .btcd-table-top .btcd-columns-menu {
+  --menu-width: 214px;
+
   top: calc(100% + 8px);
   right: 0;
   left: auto;
-  height: auto;
-  min-width: 214px;
   max-height: none;
   padding: 6px 4px 6px 6px;
   border: 1px solid #d8ddea;
-  border-radius: 10px;
   background: #fff;
   box-shadow: 0 8px 22px rgba(27, 33, 50, 0.12);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  overflow: visible;
   z-index: 1200;
 }
 
@@ -6671,5 +6757,28 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
     line-height: 1;
     opacity: 0;
     animation: btcd-conn-loading-in 160ms cubic-bezier(0.23, 1, 0.32, 1) 180ms forwards;
+  }
+}
+
+/* ---------- popover menus: reduced motion ---------- */
+
+// Keeps the fade — it still explains that a panel opened — and drops the
+// movement. Last in the file so it outranks each menu's own transform.
+@media (prefers-reduced-motion: reduce) {
+  // The sweep is the whole effect here — there is no gentler version of it, so
+  // the panels just appear.
+  .btcd-menu-li,
+  .btcd-menu-a,
+  .btcd-bulk-menu-list,
+  .btcd-bulk-menu-list-open,
+  .ai-tool-dropdown,
+  .ai-tool-dropdown-open {
+    transition: visibility 0s;
+  }
+
+  .btcd-bulk-menu-btn:active,
+  .btcd-columns-btn:active,
+  .tutoriallink-btn:active {
+    transform: none;
   }
 }
