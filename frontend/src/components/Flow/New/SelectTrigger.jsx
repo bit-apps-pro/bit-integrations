@@ -69,7 +69,7 @@ export default function SelectTrigger() {
     }
   }, [data])
 
-  const featuredProducts = ['BitAssist', 'BitForm', 'BitSocial']
+  const featuredProducts = ['BitAssist', 'BitForm', 'BitCrm', 'BitSocial']
 
   const searchInteg = e => {
     const { value } = e.target
@@ -179,9 +179,8 @@ export default function SelectTrigger() {
                     }
                     role="button"
                     tabIndex="0"
-                    className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                      inte.disable && (isPro || !allTriggers?.data[inte]?.isPro) && 'btcd-inte-dis'
-                    } ${allTriggers?.data[inte]?.isPro && !isPro && 'btcd-inte-pro'}`}>
+                    className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !allTriggers?.data[inte]?.isPro) && 'btcd-inte-dis'
+                      } ${allTriggers?.data[inte]?.isPro && !isPro && 'btcd-inte-pro'}`}>
                     {allTriggers?.data[inte]?.isPro && !isPro && (
                       <>
                         <div className="pro-filter">
