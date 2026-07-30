@@ -11,7 +11,7 @@ import { __ } from '../../Utils/i18nwrap'
  */
 export default function ConnectionNotice({ onOpenSettings }) {
   return (
-    <div className={`conn-notice conn-notice-legacy`} role="note">
+    <div className={`conn-notice conn-notice-legacy w-6`} role="note">
       <span className="conn-notice-icn" aria-hidden="true">
         <InfoIcn size={18} stroke={2} />
       </span>

@@ -554,11 +554,11 @@ input[type='checkbox'].disabled:checked:before {
 // and why a pre-2.10.0 integration shows no credentials.
 .conn-notice {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   clear: both;
   margin: 20px 0;
   max-width: 640px;
-  padding: 14px 16px;
+  padding: 14px 14px 16px 5px;
   border: 1px solid #dde5f4;
   border-left: 3px solid $purple;
   border-radius: 8px;
@@ -604,22 +604,39 @@ input[type='checkbox'].disabled:checked:before {
   }
 
   .conn-notice-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 14px;
+    padding: 9px 15px;
     border: 0;
-    background: none;
-    color: $purple;
-    font-size: 13px;
+    border-radius: 8px;
+    background: $purple;
+    color: #fff;
+    font-size: 12.5px;
     font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    line-height: 1;
+    text-decoration: none;
     cursor: pointer;
-    transition: color 160ms ease-out;
+    transition:
+      background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+      box-shadow 160ms cubic-bezier(0.23, 1, 0.32, 1),
+      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 
     &:hover,
     &:focus-visible {
-      color: darken($purple, 12);
+      background: darken($purple, 10);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(151, 54, 255, 0.28);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $purple;
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.97);
+      box-shadow: none;
     }
   }
 
@@ -638,11 +655,22 @@ input[type='checkbox'].disabled:checked:before {
     }
 
     .conn-notice-link {
-      color: #8f5c21;
+      background: #8f5c21;
+      color: #fff;
 
       &:hover,
       &:focus-visible {
-        color: #6b4315;
+        background: #6b4315;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(143, 92, 33, 0.3);
+      }
+
+      &:focus-visible {
+        outline-color: #8f5c21;
+      }
+
+      &:active {
+        box-shadow: none;
       }
     }
   }
@@ -657,6 +685,10 @@ input[type='checkbox'].disabled:checked:before {
 @media (prefers-reduced-motion: reduce) {
   .conn-notice {
     animation: none;
+
+    .conn-notice-link:active {
+      transform: none;
+    }
   }
 }
 
