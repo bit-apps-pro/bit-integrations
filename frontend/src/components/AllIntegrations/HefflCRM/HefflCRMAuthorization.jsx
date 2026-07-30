@@ -10,6 +10,7 @@ export default function HefflCRMAuthorization({ hefflCRMConf, setHefflCRMConf, s
       step={step}
       setStep={setStep}
       isInfo={isInfo}
+      tutorialLinkKey="hefflCRM"
       authDetails={{
         authType: AUTH_TYPES.API_KEY,
         apiEndpoint: 'https://api.heffl.com/api/v1/leads?limit=1',

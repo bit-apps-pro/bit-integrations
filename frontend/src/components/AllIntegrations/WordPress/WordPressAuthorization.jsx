@@ -16,6 +16,7 @@ export default function WordPressAuthorization({
       step={step}
       setStep={nextPage}
       isInfo={isInfo}
+      tutorialLinkKey="wordPress"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {

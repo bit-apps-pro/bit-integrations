@@ -16,6 +16,7 @@ export default function WebbaBookingAuthorization({
       step={step}
       setStep={nextPage}
       isInfo={isInfo}
+      tutorialLinkKey="webbaBooking"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {
