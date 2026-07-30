@@ -1,8 +1,3 @@
-/* eslint-disable no-else-return */
-import toast from 'react-hot-toast'
-import { __ } from '../../../Utils/i18nwrap'
-import bitsFetch from '../../../Utils/bitsFetch'
-
 export const handleInput = (e, slackConf, setSlackConf) => {
   const newConf = { ...slackConf }
   const { name } = e.target
@@ -12,37 +7,6 @@ export const handleInput = (e, slackConf, setSlackConf) => {
     delete newConf[name]
   }
   setSlackConf({ ...newConf })
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.api_key) {
-    setError({ api_key: !confTmp.api_key ? __("Api Key can't be empty", 'bit-integrations') : '' })
-    return
-  }
-  setError({})
-  setIsLoading(true)
-  const auth_url = window.location.origin
-  const tokenRequestParams = { api_key: confTmp.api_key, auth_url }
-
-  bitsFetch(tokenRequestParams, 'sureCart_authorization').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setIsAuthorized(true)
-      setIsLoading(false)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    toast.error(__('Authorization Failed', 'bit-integrations'))
-    setIsLoading(false)
-  })
 }
 
 export const checkMappedFields = fieldsMapped => {

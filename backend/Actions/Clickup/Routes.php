@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Clickup\ClickupController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('clickup_authentication', [ClickupController::class, 'authentication']);
 Route::post('clickup_fetch_custom_fields', [ClickupController::class, 'getCustomFields']);
 Route::post('clickup_fetch_all_tasks', [ClickupController::class, 'getAllTasks']);
 Route::post('clickup_fetch_all_Teams', [ClickupController::class, 'getAllTeams']);

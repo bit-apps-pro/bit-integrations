@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\ZohoRecruit\ZohoRecruitController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::no_sanitize()->post('zrecruit_generate_token', [ZohoRecruitController::class, 'generateTokens']);
 Route::post('zrecruit_refresh_modules', [ZohoRecruitController::class, 'refreshModules']);
 Route::post('zrecruit_refresh_notetypes', [ZohoRecruitController::class, 'refreshNoteTypes']);
 Route::post('zrecruit_refresh_related_lists', [ZohoRecruitController::class, 'refreshRelatedModules']);

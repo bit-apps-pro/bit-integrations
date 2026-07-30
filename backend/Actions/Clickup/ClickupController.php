@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Clickup;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class ClickupController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'clickup',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -21,27 +30,6 @@ class ClickupController
     public function __construct()
     {
         $this->apiEndpoint = 'https://api.clickup.com/api/v2/';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        if (empty($fieldsRequestParams->api_key)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEndpoint = $this->apiEndpoint . 'user';
-        $headers = [
-            'Authorization' => $apiKey,
-        ];
-
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (isset($response->user)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);
-        }
     }
 
     public function getCustomFields($fieldsRequestParams)

@@ -19,6 +19,9 @@ export const handleInput = (e, hubspotConf, setHubspotConf, setIsLoading) => {
   setHubspotConf({ ...newConf })
 }
 
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
+
 export const checkMappedFields = hubspotConf => {
   const mappedFields = hubspotConf?.field_map
     ? hubspotConf.field_map.filter(
@@ -42,34 +45,9 @@ export const generateMappedField = hubspotConf => {
     : [{ formField: '', hubspotField: '' }]
 }
 
-export const hubspotAuthorization = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("Access token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'hubSpot_authorization').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid access token', 'bit-integrations'))
-  })
-}
-
 export const getAllPipelines = (confTmp, setConf, setLoading, type, loading) => {
   setLoading({ ...setLoading, pipelines: true })
-  const requestParams = { api_key: confTmp.api_key, type }
+  const requestParams = { ...buildAuthRequestParams(confTmp), type }
 
   bitsFetch(requestParams, 'hubspot_pipeline').then(result => {
     if (result.data) {
@@ -96,7 +74,7 @@ export const getAllPipelines = (confTmp, setConf, setLoading, type, loading) => 
 
 export const getAllOwners = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, owners: true, hubSpotFields: true })
-  const requestParams = { api_key: confTmp.api_key }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'hubspot_owners').then(result => {
     if (result && result.success) {
@@ -118,7 +96,7 @@ export const getAllOwners = (confTmp, setConf, setLoading) => {
 
 export const getAllContacts = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, contacts: true, hubSpotFields: true })
-  const requestParams = { api_key: confTmp.api_key }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'hubspot_contacts').then(result => {
     if (result && result.success) {
@@ -140,7 +118,7 @@ export const getAllContacts = (confTmp, setConf, setLoading) => {
 
 export const getAllCompany = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, companies: true, hubSpotFields: true })
-  const requestParams = { api_key: confTmp.api_key }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'hubspot_company').then(result => {
     if (result && result.success) {
@@ -162,7 +140,7 @@ export const getAllCompany = (confTmp, setConf, setLoading) => {
 
 export const getAllIndustry = (confTmp, setConf, setLoading) => {
   setLoading(prevLoading => ({ ...prevLoading, industry: true }))
-  const requestParams = { api_key: confTmp.api_key, type: 'company' }
+  const requestParams = { ...buildAuthRequestParams(confTmp), type: 'company' }
 
   bitsFetch(requestParams, 'hubspot_industry').then(result => {
     if (result && result.success) {
@@ -187,7 +165,7 @@ export const getFields = (confTmp, setConf, setLoading, type, loading, refreshCu
   } else {
     setLoading({ ...setLoading, customFields: true })
   }
-  const requestParams = { api_key: confTmp.api_key, type }
+  const requestParams = { ...buildAuthRequestParams(confTmp), type }
 
   bitsFetch(requestParams, 'getFields').then(result => {
     if (result && result.success) {

@@ -19,18 +19,6 @@ class WooCommerceController
         $this->_integrationID = $integrationID;
     }
 
-    public static function authorizeWC()
-    {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if (is_plugin_active('woocommerce/woocommerce.php')) {
-            wp_send_json_success(true, 200);
-        }
-
-        // translators: %s: Plugin name
-        // translators: %s: Placeholder value
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'WooCommerce'));
-    }
-
     public static function refreshFields($queryParams)
     {
         if (empty($queryParams->module)) {

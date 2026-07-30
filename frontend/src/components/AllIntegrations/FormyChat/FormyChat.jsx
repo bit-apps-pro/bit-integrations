@@ -54,14 +54,10 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <FormyChatAuthorization
-        formID={formID}
         formyChatConf={formyChatConf}
         setFormyChatConf={setFormyChatConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

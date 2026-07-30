@@ -16,11 +16,18 @@ export const handleInput = (e, flowluConf, setFlowluConf) => {
   setFlowluConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        company_name: confTmp.company_name
+      }
+
 export const getAllFields = (flowluConf, setFlowluConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    api_key: flowluConf.api_key,
-    company_name: flowluConf.company_name,
+    ...buildAuthRequestParams(flowluConf),
     action_name: flowluConf.actionName,
     selectedAccountType: flowluConf?.selectedAccountType
   }
@@ -79,49 +86,10 @@ export const checkMappedFields = flowluConf => {
   return true
 }
 
-export const flowluAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key || !confTmp.company_name) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : '',
-      company_name: !confTmp.company_name ? __("Company Name can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
-
-  bitsFetch(requestParams, 'flowlu_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API Key or Company Name', 'bit-integrations'))
-  })
-}
-
 export const getAllAccountCategories = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, accountCategories: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_account_categories').then(result => {
     if (result && result.success) {
@@ -143,10 +111,7 @@ export const getAllAccountCategories = (confTmp, setConf, setLoading) => {
 export const getAllIndustry = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, industry: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_industries').then(result => {
     if (result && result.success) {
@@ -168,10 +133,7 @@ export const getAllIndustry = (confTmp, setConf, setLoading) => {
 export const getAllPipeline = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, pipeline: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_pipelines').then(result => {
     if (result && result.success) {
@@ -194,8 +156,7 @@ export const getAllStage = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, stage: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name,
+    ...buildAuthRequestParams(confTmp),
     pipeline_id: confTmp.selectedPipeline
   }
 
@@ -219,10 +180,7 @@ export const getAllStage = (confTmp, setConf, setLoading) => {
 export const getAllSource = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, source: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_sources').then(result => {
     if (result && result.success) {
@@ -244,10 +202,7 @@ export const getAllSource = (confTmp, setConf, setLoading) => {
 export const getAllCustomer = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, customer: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_customers').then(result => {
     if (result && result.success) {
@@ -269,10 +224,7 @@ export const getAllCustomer = (confTmp, setConf, setLoading) => {
 export const getAllManagers = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, manager: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_managers').then(result => {
     if (result && result.success) {
@@ -294,10 +246,7 @@ export const getAllManagers = (confTmp, setConf, setLoading) => {
 export const getAllProjectStage = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, projectStage: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_project_tages').then(result => {
     if (result && result.success) {
@@ -319,10 +268,7 @@ export const getAllProjectStage = (confTmp, setConf, setLoading) => {
 export const getAllPortfolio = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, portfolio: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_portfolio').then(result => {
     if (result && result.success) {
@@ -344,10 +290,7 @@ export const getAllPortfolio = (confTmp, setConf, setLoading) => {
 export const getAllProjectOpportunity = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, projectOpportunity: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key,
-    company_name: confTmp.company_name
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'flowlu_fetch_all_project_opportunity').then(result => {
     if (result && result.success) {

@@ -13,7 +13,7 @@ final class TriggerController
 {
     public static function triggerList()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('view_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
         $triggers = [];
@@ -41,7 +41,7 @@ final class TriggerController
 
     public static function getTriggerField($triggerName, $data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('view_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
@@ -64,7 +64,7 @@ final class TriggerController
 
     public static function getTestData($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('view_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
@@ -84,7 +84,7 @@ final class TriggerController
 
     public static function removeTestData($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
@@ -106,7 +106,7 @@ final class TriggerController
 
     public static function saveListedTriggers($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User doesn\'t have permission to save triggers', 'bit-integrations'));
         }
 

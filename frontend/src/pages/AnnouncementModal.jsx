@@ -43,7 +43,11 @@ export default function AnnouncementModal() {
         closeIcon={true}>
         <div>
           <a href={Early_Bird_URL} target="_blank" rel="noreferrer">
-            <img src={announcement} style={{ width: '100%', marginTop: '-10px' }} alt="Early Bird Offer" />
+            <img
+              src={announcement}
+              style={{ width: '100%', marginTop: '-10px' }}
+              alt="Early Bird Offer"
+            />
           </a>
         </div>
         <div

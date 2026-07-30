@@ -1,10 +1,10 @@
 === Bit integrations - Form Integration, Webhook, Spreadsheets, CRM, LMS & Email Automation ===
-Contributors: bitpressadmin, akaioum, rishadbitcode, niloy121, fahimsakib, shuvomohajan, tanvirchy, shakhawathosen, khoaiz, mazharul78
+Contributors: bitpressadmin
 Tags: automation, automator, google sheets integration, form integration, WooCommerce Integration
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.9.1
+Stable tag: 2.10.0
 License: GPLv2 or later
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 360+ platforms
@@ -467,6 +467,30 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.0 =
+_Release Date - 25th July 2026_
+
+- **New Feature**
+ - Connections: New centralized connection manager - authorize an app once and reuse the same credentials across every integration, with linked integration listing, inline editing and clearer authorization errors.
+ - Timeline: Integration logs can now be re-executed, with nested re-run history kept for each attempt.
+ - Timeline: Redesigned log page with server-side status filtering, search and column controls.
+
+- **Security Fixes**
+ - Hardened AJAX authorization, credential storage and input handling across request routing.
+ - Stopped credentials from being returned in connection responses and made the token refresh lock reliable.
+ - Escaped OpenSSL error output in encryption exception handling.
+
+- **Bug Fixes**
+ - OAuth2: Fixed refresh URL template resolution and credentials being lost during token refresh.
+ - Google Sheets: Improved access token validation.
+ - Zoho Desk: Guarded against null API response data.
+
+= 2.9.2 =
+_Release Date - 21st July 2026_
+
+- **New Feature**
+ - WhatsApp: Added template placeholder support and improved template handling in the integration setup (Pro).
 
 = 2.9.1 =
 _Release Date - 13th July 2026_

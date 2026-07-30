@@ -56,9 +56,6 @@ export default function WordPress({ formFields, setFlow, flow, allIntegURL }) {
         setWordPressConf={setWordPressConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

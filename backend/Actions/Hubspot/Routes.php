@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Hubspot\HubspotController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('hubSpot_authorization', [HubspotController::class, 'authorization']);
 Route::post('getFields', [HubspotController::class, 'getFields']);
 Route::post('hubspot_pipeline', [HubspotController::class, 'getAllPipelines']);
 Route::post('hubspot_owners', [HubspotController::class, 'getAllOwners']);

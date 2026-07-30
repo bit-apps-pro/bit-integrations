@@ -72,7 +72,7 @@ export default function KeapActions({ keapConf, setKeapConf, loading, setLoading
         title={__('Tags', 'bit-integrations')}>
         <div className="btcd-hr mt-2 mb-2" />
         <div className="mt-2">{__('Select tags', 'bit-integrations')}</div>
-        {loading.tags ? (
+        {loading ? (
           <Loader
             style={{
               display: 'flex',

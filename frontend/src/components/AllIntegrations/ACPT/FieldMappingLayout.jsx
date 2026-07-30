@@ -13,7 +13,6 @@ export default function FieldMappingLayout({
   setSnackbar,
   fieldKey
 }) {
-  console.log(fieldKey)
   return (
     <>
       <br />
