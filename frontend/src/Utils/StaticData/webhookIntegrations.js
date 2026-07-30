@@ -113,6 +113,7 @@ export const customFormIntegrations = [
   'WpDataTables',
   'GiveWp',
   'SenseiLMS',
+  'FluentPlayer',
   'BitCrm'
 ]
 
