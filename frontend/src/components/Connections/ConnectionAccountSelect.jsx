@@ -8,6 +8,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 
 const NEW_VALUE = '__new__'
 const HINT_TEXT_STYLE = { opacity: 0.7 }
+const CONTROL_ROW_STYLE = { gap: 8, alignItems: 'center', flexWrap: 'wrap' }
 
 const buildConnectionOption = conn => {
   const accountName = conn.account_name || conn.connection_name
@@ -106,7 +107,7 @@ export default function ConnectionAccountSelect({
       <div className="mt-3">
         <b>{connectionTitle}</b>
       </div>
-      <div className="flx mt-1" style={{ gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+      <div className="flx mt-1" style={CONTROL_ROW_STYLE}>
         <MultiSelect
           key={`${dropdownValue}-${options.length}`}
           className="btcd-paper-drpdwn msl-wrp-options w-6"
@@ -116,8 +117,12 @@ export default function ConnectionAccountSelect({
           singleSelect
           closeOnSelect
           showSearch
-          placeholder={__('Select a connection...', 'bit-integrations')}
-          disabled={canSwitch ? isSwitching || isLoading : isInfo}
+          placeholder={
+            isLoading
+              ? __('Loading connections...', 'bit-integrations')
+              : __('Select a connection...', 'bit-integrations')
+          }
+          disabled={canSwitch ? isSwitching || isLoading : isInfo || isLoading}
         />
         {isSwitching && <LoaderSm size={20} clr="#022217" />}
         {(canSwitch || !isInfo) && fetchConnections && (
@@ -128,8 +133,13 @@ export default function ConnectionAccountSelect({
             onClick={fetchConnections}
             disabled={isLoading}
             aria-label={__('Refresh connections', 'bit-integrations')}>
-            &#x21BB;
+            {isLoading ? <LoaderSm size={16} clr="#022217" /> : <>&#x21BB;</>}
           </button>
+        )}
+        {isLoading && (
+          <span className="connection-loading-txt" aria-live="polite">
+            {__('Loading connections...', 'bit-integrations')}
+          </span>
         )}
       </div>
       {canSwitch && (

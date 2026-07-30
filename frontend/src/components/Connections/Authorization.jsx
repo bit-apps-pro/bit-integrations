@@ -34,7 +34,7 @@ export default function Authorization({
   const [errors, setErrors] = useState({ name: '' })
   const [connections, setConnections] = useState([])
   const [showNewConnection, setShowNewConnection] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
   const [isPendingPostAuth, setIsPendingPostAuth] = useState(false)
@@ -75,6 +75,7 @@ export default function Authorization({
     if (!appSlug) {
       setConnections([])
       setShowNewConnection(true)
+      setIsLoading(false)
       return []
     }
 
@@ -98,6 +99,7 @@ export default function Authorization({
 
   useEffect(() => {
     if (isWpPluginCheck) {
+      setIsLoading(false)
       return
     }
 
@@ -247,7 +249,7 @@ export default function Authorization({
             setConfig={setConfig}
             connections={connections}
             setShowNewConnection={setShowNewConnection}
-            isInfo={isInfo || isLoading}
+            isInfo={isInfo}
             onRefresh={refreshConnections}
             isRefreshing={isLoading}
             onConnectionSelected={fireConnectionSelected}
