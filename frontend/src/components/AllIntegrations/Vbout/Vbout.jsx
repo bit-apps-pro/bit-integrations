@@ -73,7 +73,6 @@ function Vbout({ formFields, setFlow, flow, allIntegURL }) {
         setstep={setstep}
         loading={loading}
         setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

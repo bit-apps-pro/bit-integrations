@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\FreshSales;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,37 +15,14 @@ use WP_Error;
  */
 class FreshSalesController
 {
-    public function authorization($requestParams)
-    {
-        if (empty($requestParams->api_key) || empty($requestParams->bundle_alias)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoints = 'https://' . $requestParams->bundle_alias . '/api/settings/sales_accounts/fields';
-        $headers = ['Authorization' => 'Token token=' . $requestParams->api_key];
-        $response = HttpHelper::get($apiEndpoints, null, $headers);
-
-        if (isset($response->fields)) {
-            wp_send_json_success(__(
-                'Authorization Success',
-                'bit-integrations'
-            ), 200);
-        } else {
-            wp_send_json_error(
-                __(
-                    'The token is invalid',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'freshsales',
+        'fields'   => [
+            'api_key'      => 'value',
+            'bundle_alias' => 'bundle_alias',
+        ],
+    ];
 
     public function getMetaData($requestParams)
     {
@@ -172,7 +150,7 @@ class FreshSalesController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $api_key = $integrationDetails->api_key;
+        $api_key = $integrationDetails->api_key ?: ($integrationDetails->value ?? '');
         $bundle_alias = $integrationDetails->bundle_alias;
         $fieldMap = $integrationDetails->field_map;
         $module = strtolower($integrationDetails->moduleData->module);

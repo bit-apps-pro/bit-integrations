@@ -53,6 +53,9 @@ final class UnInstallation
             $tableArray = [
                 $wpdb->prefix . 'btcbi_flow',
                 $wpdb->prefix . 'btcbi_log',
+                // Legacy credential store (removed). Drop any leftover rows so old
+                // plaintext OAuth tokens do not linger after uninstall.
+                $wpdb->prefix . 'btcbi_auth',
             ];
             foreach ($tableArray as $tablename) {
                 $wpdb->query(

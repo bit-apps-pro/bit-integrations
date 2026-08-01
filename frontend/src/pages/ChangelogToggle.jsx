@@ -5,11 +5,10 @@ import Modal from '../components/Utilities/Modal'
 import { $appConfigState } from '../GlobalStates'
 import ChangelogIcn from '../Icons/ChangeLogIcn'
 import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
-import NewYear from '../resource/img/NewYear.png'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '27th June 2026'
+const releaseDate = '25th July 2026'
 
 // Example for items:
 // items: [
@@ -24,7 +23,18 @@ const changeLog = [
     label: __('Note', 'bit-integrations'),
     headClass: 'new-note',
     itemClass: '',
-    items: []
+    items: [
+      {
+        label: 'Since 2.10.0, credentials live in reusable Connections. Integrations you set up before that still keep their own credentials, so we call them legacy - their info page shows a short explainer instead of a connection to view or switch.',
+        desc: '',
+        isPro: false
+      },
+      {
+        label: 'They keep working exactly as before, and credentials stay safe on your server (never sent to your browser, which is why the fields look empty). To move one over, just open its settings and authorize the app once.',
+        desc: '',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('New Triggers', 'bit-integrations'),
@@ -32,18 +42,13 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'Webba Booking Calendar',
-        desc: '11 new event added.',
-        isPro: true
+        label: 'Bit CRM',
+        desc: '66 new events added',
+        isPro: false
       },
       {
-        label: 'MainWP',
-        desc: '12 new event added.',
-        isPro: true
-      },
-      {
-        label: 'WSMS (WP SMS)',
-        desc: '5 new event added.',
+        label: 'Fluent Player',
+        desc: '12 new events added',
         isPro: true
       }
     ]
@@ -54,33 +59,13 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'Webba Booking Calendar',
-        desc: '13 new event added.',
-        isPro: true
+        label: 'Bit CRM',
+        desc: '50 new events added',
+        isPro: false
       },
       {
-        label: 'Sender',
-        desc: '9 new event added.',
-        isPro: true
-      },
-      {
-        label: 'MainWP',
-        desc: '8 new event added.',
-        isPro: true
-      },
-      {
-        label: 'WSMS (WP SMS)',
-        desc: '7 new event added.',
-        isPro: true
-      },
-      {
-        label: 'Instasent',
-        desc: '6 new event added.',
-        isPro: true
-      },
-      {
-        label: 'MasterStudyLms',
-        desc: '4 new event added.',
+        label: 'Fluent Player',
+        desc: '26 new events added',
         isPro: true
       }
     ]
@@ -89,7 +74,23 @@ const changeLog = [
     label: __('New Features', 'bit-integrations'),
     headClass: 'new-feature',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'Webhook (Action)',
+        desc: 'Dynamic URL path variables added to outgoing webhooks, mappable from trigger data.',
+        isPro: false
+      },
+      {
+        label: 'Webhook (Action)',
+        desc: 'Smart codes are now available in query parameters, request headers and path variables.',
+        isPro: true
+      },
+      {
+        label: 'Connections',
+        desc: "An action's connection can now be switched from its info page.",
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Improvements', 'bit-integrations'),
@@ -103,8 +104,28 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'MasterStudyLms',
-        desc: 'Fixed course and quiz fetching so only lessons and quizzes from the selected course are returned, and validation now treats null/empty config values as incomplete.',
+        label: 'Connections',
+        desc: 'Fixed credentials not resolving for renamed integrations.',
+        isPro: false
+      },
+      {
+        label: 'Integration Info',
+        desc: 'Fixed legacy actions rendering a blank info page.',
+        isPro: false
+      },
+      {
+        label: 'Webhook (Action)',
+        desc: 'Run status is now judged by the response HTTP status code, and path variables sync even when their tab is never opened.',
+        isPro: false
+      },
+      {
+        label: 'ACF',
+        desc: 'Fixed field reading when the meta value is missing',
+        isPro: true
+      },
+      {
+        label: 'WP Post',
+        desc: 'Fixed trashed and internal posts firing the post created/inserted triggers',
         isPro: true
       }
     ]
@@ -113,7 +134,23 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'Custom Action',
+        desc: "Closed an administrator gate bypass and confined the custom function file to the plugin's custom-function directory.",
+        isPro: false
+      },
+      {
+        label: 'Timeline',
+        desc: 'Log re-execution now applies the same administrator check as custom action save, update and delete.',
+        isPro: false
+      },
+      {
+        label: 'Mail',
+        desc: 'Recipient addresses and headers are validated in all cases, and header display names are sanitized.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),

@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Salesmate;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,28 +15,20 @@ use WP_Error;
  */
 class SalesmateController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'salesmate',
+        'fields'   => [
+            'session_token' => 'value',
+            'link_name'     => 'link_name',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
 
     protected $linkName;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $sessionToken = $fieldsRequestParams->session_token;
-        $this->linkName = $fieldsRequestParams->link_name;
-        $apiEndpoint = $this->setApiEndpoint() . 'v1/users/active';
-
-        $headers = $this->setHeaders($sessionToken);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (isset($response->Status) && $response->Status === 'success') {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid Session Token or Link Name', 'bit-integrations'), 400);
-        }
-    }
 
     public function getAllFields($fieldsRequestParams)
     {

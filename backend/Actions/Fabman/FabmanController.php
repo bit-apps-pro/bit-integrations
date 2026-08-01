@@ -6,11 +6,20 @@
 
 namespace BitApps\Integrations\Actions\Fabman;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 class FabmanController
 {
-    public static function authorization($requestParams)
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'fabman',
+        'fields'   => [
+            'apiKey' => 'token',
+        ],
+    ];
+
+    public static function fetchAccountId($requestParams)
     {
         if (empty($requestParams->apiKey)) {
             wp_send_json_error(__('API Key is required', 'bit-integrations'), 400);
@@ -68,7 +77,8 @@ class FabmanController
     public static function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
-        $apiKey = $integrationDetails->apiKey;
+        $apiKey = $integrationDetails->apiKey ?? '';
+
         $selectedWorkspace = $integrationDetails->selectedWorkspace ?? null;
         $accountId = $integrationDetails->accountId ?? null;
         $actionName = $integrationDetails->actionName;
@@ -146,7 +156,7 @@ class FabmanController
             'Content-Type'  => 'application/json'
         ];
 
-        $apiEndpoint = 'https://fabman.io/api/v1/members?q=' . urlencode($email);
+        $apiEndpoint = 'https://fabman.io/api/v1/members?q=' . rawurlencode($email);
         $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
 
         if (is_wp_error($apiResponse) || !\is_array($apiResponse) || empty($apiResponse)) {

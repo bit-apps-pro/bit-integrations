@@ -2,35 +2,25 @@
 
 namespace BitApps\Integrations\Actions\Lemlist;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
 class LemlistController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'lemlist',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
     {
         $this->integrationID = $integrationID;
-    }
-
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->api_key)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiEndpoint = 'https://api.lemlist.com/api/team';
-        $header['Authorization'] = 'Basic ' . base64_encode(":{$requestParams->api_key}");
-        $response = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (!isset($response->_id)) {
-            wp_send_json_error(
-                empty($response) ? 'Unknown' : $response,
-                400
-            );
-        }
-        wp_send_json_success(true);
     }
 
     public static function getAllCampaign($requestParams)

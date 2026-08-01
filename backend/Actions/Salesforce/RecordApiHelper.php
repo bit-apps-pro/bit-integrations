@@ -31,7 +31,7 @@ class RecordApiHelper
         $this->_integrationID = $_integrationID;
     }
 
-    public function generateReqDataFromFieldMap($data, $fieldMap)
+    public function generateReqDataFromFieldMap($data, $fieldMap, $actions = null)
     {
         $dataFinal = [];
         foreach ($fieldMap as $key => $value) {
@@ -43,6 +43,10 @@ class RecordApiHelper
                     ? Common::replaceFieldWithValue($value->customValue, $data)
                     : ($data[$triggerValue] ?? null)
             );
+        }
+
+        if ($actions && isset($actions->ownerId)) {
+            $dataFinal['OwnerId'] = $actions->ownerId;
         }
 
         return $dataFinal;
@@ -120,7 +124,7 @@ class RecordApiHelper
         return HttpHelper::post($apiEndpoint, wp_json_encode($finalData), $this->_defaultHeader);
     }
 
-    public function createTask($contactId, $accountId, $subjectId, $priorityId, $statusId)
+    public function createTask($contactId, $accountId, $subjectId, $priorityId, $statusId, $ownerId = null)
     {
         $apiEndpoint = $this->_apiDomain . '/services/data/v37.0/sobjects/Task';
         $finalData = [
@@ -130,6 +134,9 @@ class RecordApiHelper
             'WhatId'   => $accountId,
             'Status'   => $statusId
         ];
+        if ($ownerId) {
+            $finalData['OwnerId'] = $ownerId;
+        }
 
         return HttpHelper::post($apiEndpoint, wp_json_encode($finalData), $this->_defaultHeader);
     }
@@ -175,7 +182,7 @@ class RecordApiHelper
         $update = isset($actions->update) ? $actions->update : false;
 
         if ($actionName === 'contact-create') {
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
             $response = $this->insertContact($finalData, $update);
 
             $responseType = self::getResponseType();
@@ -192,7 +199,7 @@ class RecordApiHelper
 
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'Contact', 'type_name' => $typeName]), $responseType, $message);
         } elseif ($actionName === 'lead-create') {
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
 
             $finalData = Hooks::apply(Config::withPrefix('salesforce_add_lead_utilities'), $finalData, $actions);
 
@@ -218,7 +225,7 @@ class RecordApiHelper
 
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'Lead', 'type_name' => $typeName]), $responseType, $message);
         } elseif ($actionName === 'account-create') {
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
 
             if (isset($actions->selectedAccType)) {
                 $finalData['Type'] = $actions->selectedAccType;
@@ -236,7 +243,7 @@ class RecordApiHelper
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'Account', 'type_name' => 'Account-create']), 'error', wp_json_encode($createAccountResponse));
             }
         } elseif ($actionName === 'campaign-create') {
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
             $insertCampaignResponse = $this->createCampaign($finalData);
             if (\is_object($insertCampaignResponse) && property_exists($insertCampaignResponse, 'id')) {
                 // translators: %s: Placeholder value
@@ -262,7 +269,8 @@ class RecordApiHelper
             $subjectId = $integrationDetails->subjectId;
             $priorityId = $integrationDetails->priorityId;
             $statusId = isset($integrationDetails->statusId) ? $integrationDetails->statusId : null;
-            $apiResponse = $this->createTask($contactId, $accountId, $subjectId, $priorityId, $statusId);
+            $ownerId = isset($actions->ownerId) ? $actions->ownerId : null;
+            $apiResponse = $this->createTask($contactId, $accountId, $subjectId, $priorityId, $statusId, $ownerId);
             if (\is_object($apiResponse) && property_exists($apiResponse, 'id')) {
                 // translators: %s: Placeholder value
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'Task', 'type_name' => 'Task-create']), 'success', wp_json_encode(wp_sprintf(__('Created task id is : %s', 'bit-integrations'), $apiResponse->id)));
@@ -275,7 +283,7 @@ class RecordApiHelper
             $opportunityLeadSourceId = isset($actions->opportunityLeadSourceId) ? $actions->opportunityLeadSourceId : null;
             $accountId = isset($actions->accountId) ? $actions->accountId : null;
             $campaignId = isset($actions->campaignId) ? $actions->campaignId : null;
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
             $opportunityResponse = $this->createOpportunity($finalData, $opportunityTypeId, $opportunityStageId, $opportunityLeadSourceId, $accountId, $campaignId);
             if (\is_object($opportunityResponse) && property_exists($opportunityResponse, 'id')) {
                 // translators: %s: Placeholder value
@@ -287,7 +295,7 @@ class RecordApiHelper
             $contactId = isset($actions->contactId) ? $actions->contactId : null;
             $accountId = isset($actions->accountId) ? $actions->accountId : null;
             $eventSubjectId = isset($actions->eventSubjectId) ? $actions->eventSubjectId : null;
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
             $createEventResponse = $this->createEvent($finalData, $contactId, $accountId, $eventSubjectId);
             if (\is_object($createEventResponse) && property_exists($createEventResponse, 'id')) {
                 // translators: %s: Placeholder value
@@ -306,7 +314,7 @@ class RecordApiHelper
             $actionsData['PotentialLiability__c'] = isset($actions->potentialLiabilityId) ? $actions->potentialLiabilityId : null;
             $actionsData['SLAViolation__c'] = isset($actions->slaViolationId) ? $actions->slaViolationId : null;
 
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
             $createCaseResponse = $this->createCase($finalData, $actionsData);
 
             if (\is_object($createCaseResponse) && property_exists($createCaseResponse, 'id')) {
@@ -316,7 +324,7 @@ class RecordApiHelper
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'Case', 'type_name' => 'Case-create']), 'error', wp_json_encode($createCaseResponse));
             }
         } else {
-            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+            $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
             $insertContactResponse = $this->insertRecord($finalData, $actionName);
             if (\is_object($insertContactResponse) && property_exists($insertContactResponse, 'id')) {
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => $actionName, 'type_name' => $actionName . '-create']), 'success', wp_json_encode("{$actionName} id is : {$insertContactResponse->id}"));

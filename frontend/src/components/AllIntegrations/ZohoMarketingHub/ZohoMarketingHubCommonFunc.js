@@ -1,6 +1,15 @@
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
+      }
+
 export const handleInput = (
   e,
   formID,
@@ -51,10 +60,8 @@ export const refreshLists = (
   const refreshListsRequestParams = {
     formID,
     id: marketingHubConf.id,
-    dataCenter: marketingHubConf.dataCenter,
-    clientId: marketingHubConf.clientId,
-    clientSecret: marketingHubConf.clientSecret,
-    tokenDetails: marketingHubConf.tokenDetails
+    ...buildAuthRequestParams(marketingHubConf),
+    dataCenter: marketingHubConf.dataCenter
   }
   bitsFetch(refreshListsRequestParams, 'zmarketingHub_refresh_lists')
     .then(result => {
@@ -106,10 +113,8 @@ export const refreshContactFields = (
   const refreshContactFieldsRequestParams = {
     formID,
     list,
-    dataCenter: marketingHubConf.dataCenter,
-    clientId: marketingHubConf.clientId,
-    clientSecret: marketingHubConf.clientSecret,
-    tokenDetails: marketingHubConf.tokenDetails
+    ...buildAuthRequestParams(marketingHubConf),
+    dataCenter: marketingHubConf.dataCenter
   }
   bitsFetch(refreshContactFieldsRequestParams, 'zmarketingHub_refresh_contact_fields')
     .then(result => {
@@ -161,23 +166,4 @@ export const checkMappedFields = marketingHubConf => {
   }
 
   return true
-}
-
-export const setGrantTokenResponse = () => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation
-    .replace(`${window.opener.location.href}/redirect`, '')
-    .split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
-      }
-    })
-  }
-  localStorage.setItem('__zohoMarkatingHub', JSON.stringify(grantTokenResponse))
-  window.close()
 }

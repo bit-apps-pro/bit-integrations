@@ -30,62 +30,43 @@ export const checkMappedFields = airtableConf => {
   return true
 }
 
-export const airtableAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading,
-  type
-) => {
-  if (!confTmp.auth_token) {
-    setError({
-      auth_token: !confTmp.auth_token
-        ? __("Personal access token can't be empty", 'bit-integrations')
-        : ''
-    })
+export const fetchAllBases = (confTmp, setConf, loading, setLoading, type = 'fetch') => {
+  if (!confTmp.connection_id && !confTmp.auth_token) {
+    toast.error(__("Personal access token can't be empty", 'bit-integrations'))
     return
   }
 
-  setError({})
+  setLoading({ ...loading, bases: true })
 
-  if (type === 'authentication') {
-    setLoading({ ...loading, auth: true })
-  }
-  if (type === 'refreshBases') {
-    setLoading({ ...loading, bases: true })
-  }
-  const requestParams = { auth_token: confTmp.auth_token }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { auth_token: confTmp.auth_token }
 
-  bitsFetch(requestParams, 'airtable_authentication').then(result => {
+  bitsFetch(requestParams, 'airtable_fetch_all_bases').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
-      setIsAuthorized(true)
-      if (type === 'authentication') {
-        if (result.data) {
-          newConf.bases = result.data
-        }
-        setLoading({ ...loading, auth: false })
-        toast.success(__('Authorized Successfully', 'bit-integrations'))
-      } else if (type === 'refreshBases') {
-        if (result.data) {
-          newConf.bases = result.data
-        }
-        setLoading({ ...loading, bases: false })
-        toast.success(__('All bases fectched successfully', 'bit-integrations'))
+      if (result.data) {
+        newConf.bases = result.data
       }
       setConf(newConf)
+      setLoading({ ...loading, bases: false })
+      toast.success(
+        type === 'refresh'
+          ? __('All bases fetched successfully', 'bit-integrations')
+          : __('Bases fetched successfully', 'bit-integrations')
+      )
       return
     }
-    setLoading({ ...loading, auth: false, bases: false })
-    toast.error(__('Authorized failed!', 'bit-integrations'))
+    setLoading({ ...loading, bases: false })
+    toast.error(__('Bases fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllTables = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, tables: true })
-  const requestParams = { auth_token: confTmp.auth_token, baseId: confTmp.selectedBase }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id, baseId: confTmp.selectedBase }
+    : { auth_token: confTmp.auth_token, baseId: confTmp.selectedBase }
 
   bitsFetch(requestParams, 'airtable_fetch_all_tables').then(result => {
     if (result && result.success) {
@@ -109,11 +90,17 @@ export const getAllFields = (confTmp, setConf, loading, setLoading, type) => {
   } else if (type === 'refresh') {
     setLoading({ ...loading, customFields: true })
   }
-  const requestParams = {
-    auth_token: confTmp.auth_token,
-    baseId: confTmp.selectedBase,
-    tableId: confTmp.selectedTable
-  }
+  const requestParams = confTmp.connection_id
+    ? {
+        connection_id: confTmp.connection_id,
+        baseId: confTmp.selectedBase,
+        tableId: confTmp.selectedTable
+      }
+    : {
+        auth_token: confTmp.auth_token,
+        baseId: confTmp.selectedBase,
+        tableId: confTmp.selectedTable
+      }
 
   bitsFetch(requestParams, 'airtable_fetch_all_fields').then(result => {
     if (result && result.success) {

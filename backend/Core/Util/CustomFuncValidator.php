@@ -9,6 +9,12 @@ class CustomFuncValidator
 {
     public static function functionValidateHandler($data)
     {
+        if (self::fileModsDisabled()) {
+            wp_send_json_error(__('Custom actions are disabled because file modifications are not allowed on this site.', 'bit-integrations'));
+
+            return;
+        }
+
         if (empty($data->flow_details->value)) {
             wp_send_json_error(__('No function content provided.', 'bit-integrations'));
 
@@ -24,8 +30,8 @@ class CustomFuncValidator
         $fileContent = $data->flow_details->value;
         $fileName = $data->flow_details->randomFileName;
 
-        if (strpos($fileContent, "defined('ABSPATH')") === false) {
-            wp_send_json_error(__("Your function must include a defined('ABSPATH') check.", 'bit-integrations'));
+        if (!self::hasAbspathGuard($fileContent)) {
+            wp_send_json_error(__("Your function must start with a defined('ABSPATH') check that exits, e.g. if (!defined('ABSPATH')) { exit; }", 'bit-integrations'));
 
             return;
         }
@@ -59,7 +65,16 @@ class CustomFuncValidator
         $scrapeKey    = sanitize_key($data->bit_integrations_scrape_key);
         $fileLocation = get_transient(Config::withPrefix('scrape_file_') . $scrapeKey);
 
-        if (false === $fileLocation || !file_exists($fileLocation)) {
+        if (false === $fileLocation) {
+            wp_die(0);
+        }
+
+        // This route is no_auth()/ignore_token() by necessity (the loopback is an
+        // unauthenticated self-request), so confine the include here too rather than
+        // trusting the transient alone.
+        $fileLocation = self::resolveCustomFunctionFile($fileLocation);
+
+        if ($fileLocation === '') {
             wp_die(0);
         }
 
@@ -111,15 +126,22 @@ class CustomFuncValidator
      */
     public static function loopbackValidateContent($fileContent)
     {
-        $wp_filesystem = self::getFilesystem();
-        if (false === $wp_filesystem) {
-            wp_send_json_error(__('Unable to initialize filesystem.', 'bit-integrations'));
+        if (self::fileModsDisabled()) {
+            wp_send_json_error(__('Custom actions are disabled because file modifications are not allowed on this site.', 'bit-integrations'));
 
             return false;
         }
 
-        $uploadDir = wp_upload_dir();
-        $tmpFile = "{$uploadDir['basedir']}/" . Config::withPrefix('tmp_') . md5(wp_rand()) . '.php';
+        $wp_filesystem = FileSystem::instance();
+
+        $customDir = self::customFunctionDir($wp_filesystem);
+        if ($customDir === '') {
+            wp_send_json_error(__('Unable to initialize custom function directory.', 'bit-integrations'));
+
+            return false;
+        }
+
+        $tmpFile = "{$customDir}/" . Config::withPrefix('tmp_') . bin2hex(random_bytes(16)) . '.php';
 
         $written = $wp_filesystem->put_contents($tmpFile, $fileContent, FS_CHMOD_FILE);
 
@@ -140,23 +162,142 @@ class CustomFuncValidator
     }
 
     /**
-     * Get initialized WP filesystem instance.
+     * Whether $fileContent opens with a real "not loaded by WordPress -> stop" guard.
      *
-     * @return WP_Filesystem_Base|false
+     * The previous check only looked for the substring "defined('ABSPATH')" anywhere in the
+     * file, which a comment satisfied. This matters beyond tidiness: the custom-function
+     * directory is protected by .htaccess (Apache) and web.config (IIS), and neither applies
+     * on nginx, where /wp-content/uploads/**\/*.php is normally handed to PHP-FPM. The guard
+     * in the file itself is the only portable defence, so it has to actually be there.
+     *
+     * @param string $fileContent
+     *
+     * @return bool
      */
-    private static function getFilesystem()
+    private static function hasAbspathGuard($fileContent)
     {
-        global $wp_filesystem;
+        if (!\is_string($fileContent) || $fileContent === '') {
+            return false;
+        }
 
-        if (empty($wp_filesystem)) {
-            require_once ABSPATH . '/wp-admin/includes/file.php';
+        // if ( ! defined( 'ABSPATH' ) ) { exit; }  — tolerant of spacing, quote style,
+        // braces, and exit/die/return, but the terminator must follow the condition.
+        $pattern = '/if\s*\(\s*!\s*(?:\\\\)?defined\s*\(\s*[\'"]ABSPATH[\'"]\s*\)\s*\)\s*\{?\s*(?:exit|die|return)\b/i';
 
-            if (!WP_Filesystem()) {
-                return false;
+        if (!preg_match($pattern, $fileContent, $matches, PREG_OFFSET_CAPTURE)) {
+            return false;
+        }
+
+        // Must guard the whole file, not sit halfway down it: nothing executable may
+        // precede it. Allow the opening tag, whitespace, comments and declare().
+        $prefix = substr($fileContent, 0, $matches[0][1]);
+        $prefix = preg_replace('/<\?php|<\?=|\/\*.*?\*\/|\/\/[^\r\n]*|#[^\r\n]*|declare\s*\([^)]*\)\s*;?/s', '', $prefix);
+
+        return trim((string) $prefix) === '';
+    }
+
+    /**
+     * Whether file modifications are disabled for this site.
+     * Custom actions write and include PHP on disk, so they must honour the
+     * standard WordPress lockdown constants.
+     *
+     * @return bool
+     */
+    private static function fileModsDisabled()
+    {
+        return (\defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)
+            || (\defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT);
+    }
+
+    /**
+     * Resolve a stored custom-action file path to a real file inside the custom-function
+     * directory, or '' when it points anywhere else.
+     *
+     * funcFileLocation travels in flow_details, which is caller-supplied JSON. Everything
+     * that include()s it must confine it first: an absolute path that merely exists is not
+     * proof the plugin wrote it.
+     *
+     * @param string $fileLocation
+     *
+     * @return string Absolute path inside the custom-function directory, or ''.
+     */
+    public static function resolveCustomFunctionFile($fileLocation)
+    {
+        if (!\is_string($fileLocation) || $fileLocation === '') {
+            return '';
+        }
+
+        // Reject stream wrappers (phar://, http://) before touching the filesystem.
+        if (wp_parse_url($fileLocation, PHP_URL_SCHEME) !== null) {
+            return '';
+        }
+
+        $real = realpath($fileLocation);
+        if ($real === false || !is_file($real)) {
+            return '';
+        }
+
+        if (strtolower(pathinfo($real, PATHINFO_EXTENSION)) !== 'php') {
+            return '';
+        }
+
+        $uploadDir = wp_upload_dir();
+        if (empty($uploadDir['basedir'])) {
+            return '';
+        }
+
+        $base = realpath(rtrim($uploadDir['basedir'], '/\\') . '/' . Config::withPrefix('custom_functions'));
+        if ($base === false) {
+            return '';
+        }
+
+        $base = rtrim($base, '/\\') . DIRECTORY_SEPARATOR;
+
+        return strpos($real, $base) === 0 ? $real : '';
+    }
+
+    /**
+     * Resolve (and, on first use, create + lock down) the directory that holds
+     * custom-action PHP files.
+     *
+     * These files are executable PHP that gets include()d on every flow run, so
+     * they must never live at the uploads root where the web server would serve
+     * them directly. The directory is dropped under uploads with index.php +
+     * .htaccess + web.config guards so it is not web-reachable; include() from
+     * disk (the loopback + Flow engine) is unaffected by those guards.
+     *
+     * @param WP_Filesystem_Base $wp_filesystem
+     *
+     * @return string Absolute directory path, or '' on failure.
+     */
+    private static function customFunctionDir($wp_filesystem)
+    {
+        $uploadDir = wp_upload_dir();
+        if (empty($uploadDir['basedir'])) {
+            return '';
+        }
+
+        $dir = rtrim($uploadDir['basedir'], '/\\') . '/' . Config::withPrefix('custom_functions');
+
+        if (!$wp_filesystem->is_dir($dir) && !wp_mkdir_p($dir)) {
+            return '';
+        }
+
+        // Deny direct web access. Written once; harmless to re-assert.
+        $guards = [
+            'index.php'  => "<?php\n// Silence is golden.\n",
+            '.htaccess'  => "# Bit Integrations custom functions — deny direct access\n<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nOrder allow,deny\nDeny from all\n</IfModule>\n",
+            'web.config' => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<configuration><system.webServer><authorization><deny users=\"*\" /></authorization></system.webServer></configuration>\n",
+        ];
+
+        foreach ($guards as $name => $contents) {
+            $path = "{$dir}/{$name}";
+            if (!$wp_filesystem->exists($path)) {
+                $wp_filesystem->put_contents($path, $contents, FS_CHMOD_FILE);
             }
         }
 
-        return $wp_filesystem instanceof WP_Filesystem_Base ? $wp_filesystem : false;
+        return $dir;
     }
 
     /**
@@ -169,22 +310,23 @@ class CustomFuncValidator
      */
     private static function writeCustomFunctionFile($fileName, $fileContent)
     {
-        $wp_filesystem = self::getFilesystem();
-        if (false === $wp_filesystem) {
-            wp_send_json_error(__('Unable to initialize filesystem.', 'bit-integrations'));
+        $wp_filesystem = FileSystem::instance();
+
+        $customDir = self::customFunctionDir($wp_filesystem);
+        if ($customDir === '') {
+            wp_send_json_error(__('Unable to initialize custom function directory.', 'bit-integrations'));
 
             return false;
         }
 
-        $uploadDir     = wp_upload_dir();
         $safeFileName  = sanitize_file_name(basename((string) $fileName));
         if (empty($safeFileName)) {
             wp_send_json_error(__('Invalid file name.', 'bit-integrations'));
 
             return false;
         }
-        $fileLocation  = "{$uploadDir['basedir']}/{$safeFileName}.php";
-        $previousContent = file_exists($fileLocation) ? file_get_contents($fileLocation) : null;
+        $fileLocation  = "{$customDir}/{$safeFileName}.php";
+        $previousContent = $wp_filesystem->exists($fileLocation) ? $wp_filesystem->get_contents($fileLocation) : null;
         $written       = $wp_filesystem->put_contents($fileLocation, $fileContent, FS_CHMOD_FILE);
 
         if (!$written) {
@@ -215,7 +357,10 @@ class CustomFuncValidator
      */
     private static function loopbackCheck($fileLocation, $previousContent, $wp_filesystem)
     {
-        $scrapeKey = md5(wp_rand());
+        // Not md5(wp_rand()): wp_rand() returns an int below mt_getrandmax(), so hashing it
+        // leaves only ~2^31 possible keys — enumerable inside the 60s window by anyone, since
+        // the scrape route is unauthenticated. random_bytes() gives a real 128-bit key.
+        $scrapeKey = bin2hex(random_bytes(16));
 
         set_transient(Config::withPrefix('scrape_file_') . $scrapeKey, $fileLocation, 60);
 

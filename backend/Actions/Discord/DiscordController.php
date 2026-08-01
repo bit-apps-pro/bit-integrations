@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Discord;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -16,42 +17,13 @@ class DiscordController
 {
     public const APIENDPOINT = 'https://discord.com/api/v10';
 
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams     Params to authorize
-     * @param mixed  $tokenRequestParams
-     *
-     * @return JSON discord api response and status
-     */
-    public static function handleAuthorize($tokenRequestParams)
-    {
-        if (
-            empty($tokenRequestParams->accessToken)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $header = [
-            'Authorization' => 'Bot ' . $tokenRequestParams->accessToken,
-        ];
-        $apiEndpoint = self::APIENDPOINT . '/users/@me';
-
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (!isset($apiResponse->id)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        wp_send_json_success($apiResponse, 200);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'discord',
+        'fields'   => [
+            'accessToken' => 'value',
+        ],
+    ];
 
     public static function fetchServers($tokenRequestParams)
     {

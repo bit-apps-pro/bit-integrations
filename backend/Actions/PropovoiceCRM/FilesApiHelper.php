@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\PropovoiceCRM;
 
+use BitApps\Integrations\Core\Util\Common;
 use WP_Error;
 
 /**
@@ -15,7 +16,7 @@ final class FilesApiHelper
         $allowed_file_types = ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'];
         $reg_errors = new WP_Error();
 
-        if (!empty($file['name'])) {
+        if (!empty($file) && !empty($file['name'])) {
             if (!\in_array($file['type'], $allowed_file_types)) {
                 $valid_file_type = str_replace(
                     'image/',
@@ -101,7 +102,9 @@ final class FilesApiHelper
 
     private static function simulateFileUpload($file_path)
     {
-        if (!file_exists($file_path)) {
+        $file_path = Common::safeUploadFilePath($file_path);
+
+        if ($file_path === '') {
             return false;
         }
 

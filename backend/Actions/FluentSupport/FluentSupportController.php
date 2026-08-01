@@ -16,21 +16,6 @@ use WP_Error;
  */
 class FluentSupportController
 {
-    public function checkAuthorization()
-    {
-        if (!is_plugin_active('fluent-support/fluent-support.php')) {
-            wp_send_json_error(
-                __(
-                    'Fluent Support Plugin is not active or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        } else {
-            return true;
-        }
-    }
-
     public function getCustomFields()
     {
         if (!class_exists(\FluentSupportPro\App\Services\CustomFieldsService::class)) {
