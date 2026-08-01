@@ -10,7 +10,7 @@ import WpTableBuilderAuthorization from './WpTableBuilderAuthorization'
 import { checkMappedFields } from './WpTableBuilderCommonFunc'
 import WpTableBuilderIntegLayout from './WpTableBuilderIntegLayout'
 
-export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL }) {
+export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL, isInfo }) {
   const navigate = useNavigate()
   const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
@@ -59,14 +59,11 @@ export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL 
 
       {/* STEP 1 */}
       <WpTableBuilderAuthorization
-        formID={formID}
         wpTableBuilderConf={wpTableBuilderConf}
         setWpTableBuilderConf={setWpTableBuilderConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
+        isInfo={isInfo}
       />
 
       {/* STEP 2 */}

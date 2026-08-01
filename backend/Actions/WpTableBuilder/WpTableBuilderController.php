@@ -36,12 +36,6 @@ class WpTableBuilderController
         }
     }
 
-    public static function wpTableBuilderAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     /**
      * List the tables an Add Row flow can append to.
      *
