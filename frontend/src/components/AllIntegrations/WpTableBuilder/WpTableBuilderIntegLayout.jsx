@@ -171,7 +171,7 @@ export default function WpTableBuilderIntegLayout({
           ))}
           {/* Add Row's columns come from the table, so an extra map row has no column
               left to point at. */}
-          {!needsColumns && (
+          {needsColumns && (
             <div className="txt-center btcbi-field-map-button mt-2">
               <button
                 onClick={() =>
