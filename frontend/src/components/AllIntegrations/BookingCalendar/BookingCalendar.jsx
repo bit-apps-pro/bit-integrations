@@ -10,7 +10,7 @@ import BookingCalendarAuthorization from './BookingCalendarAuthorization'
 import { getBookingCalendarValidationMsg } from './BookingCalendarCommonFunc'
 import BookingCalendarIntegLayout from './BookingCalendarIntegLayout'
 
-export default function BookingCalendar({ formFields, setFlow, flow, allIntegURL }) {
+export default function BookingCalendar({ formFields, setFlow, flow, allIntegURL, isInfo }) {
   const navigate = useNavigate()
   const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
@@ -53,14 +53,11 @@ export default function BookingCalendar({ formFields, setFlow, flow, allIntegURL
       <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
 
       <BookingCalendarAuthorization
-        formID={formID}
         bookingCalendarConf={bookingCalendarConf}
         setBookingCalendarConf={setBookingCalendarConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
+        isInfo={isInfo}
       />
 
       <div

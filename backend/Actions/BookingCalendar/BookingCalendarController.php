@@ -13,12 +13,6 @@ class BookingCalendarController
         }
     }
 
-    public static function bookingCalendarAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshBookings()
     {
         self::isExists();
