@@ -10,7 +10,7 @@ import SenseiLMSAuthorization from './SenseiLMSAuthorization'
 import { checkMappedFields } from './SenseiLMSCommonFunc'
 import SenseiLMSIntegLayout from './SenseiLMSIntegLayout'
 
-export default function SenseiLMS({ formFields, setFlow, flow, allIntegURL }) {
+export default function SenseiLMS({ formFields, setFlow, flow, allIntegURL, isInfo }) {
   const navigate = useNavigate()
   const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
@@ -56,9 +56,7 @@ export default function SenseiLMS({ formFields, setFlow, flow, allIntegURL }) {
         setSenseiLMSConf={setSenseiLMSConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
+        isInfo={isInfo}
       />
 
       <div

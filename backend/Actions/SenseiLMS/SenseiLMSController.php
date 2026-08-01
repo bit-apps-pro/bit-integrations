@@ -23,12 +23,6 @@ class SenseiLMSController
         }
     }
 
-    public static function senseiLMSAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshCourses()
     {
         self::isExists();
