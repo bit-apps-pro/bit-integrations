@@ -72,9 +72,6 @@ function Twilio({ formFields, setFlow, flow, allIntegURL }) {
         setTwilioConf={setTwilioConf}
         step={step}
         setstep={setstep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

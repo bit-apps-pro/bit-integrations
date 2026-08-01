@@ -37,18 +37,18 @@ class RecordApiHelper
         switch ($type) {
             case 'sendReplyMessage':
                 $data['replyToken'] = $integrationDetails->replyToken ?? '';
-                $response = $this->sendReplyMessage(json_encode($data));
+                $response = $this->sendReplyMessage(wp_json_encode($data));
 
                 break;
 
             case 'sendBroadcastMessage':
-                $response = $this->sendBroadcastMessage(json_encode($data));
+                $response = $this->sendBroadcastMessage(wp_json_encode($data));
 
                 break;
 
             default:
                 $data['to'] = $integrationDetails->recipientId ?? '';
-                $response = $this->sendPushMessage(json_encode($data));
+                $response = $this->sendPushMessage(wp_json_encode($data));
                 $response = HttpHelper::$responseCode === 200 ? 'Push message sent successfully' : 'Failed';
         }
 

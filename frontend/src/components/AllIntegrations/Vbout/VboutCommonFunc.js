@@ -38,35 +38,13 @@ export const checkMappedFields = vboutConf => {
   }
   return true
 }
-export const handleAuthorize = (confTmp, setConf, setError, setisAuthorized, loading, setLoading) => {
-  if (!confTmp.auth_token) {
-    setError({
-      auth_token: !confTmp.auth_token ? __("Api Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { auth_token: confTmp.auth_token }
-  bitsFetch(requestParams, 'vbout_handle_authorize').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setisAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
-}
 
 export const VboutRefreshFields = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, field: true })
 
-  const requestParams = { auth_token: confTmp.auth_token, list_id: confTmp.list_id }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id, list_id: confTmp.list_id }
+    : { auth_token: confTmp.auth_token, list_id: confTmp.list_id }
 
   bitsFetch(requestParams, 'vbout_refresh_fields').then(result => {
     if (result && result.success) {
@@ -88,7 +66,9 @@ export const VboutRefreshFields = (confTmp, setConf, loading, setLoading) => {
 export const getAllLists = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, list: true })
 
-  const requestParams = { auth_token: confTmp.auth_token }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { auth_token: confTmp.auth_token }
 
   bitsFetch(requestParams, 'vbout_fetch_all_lists').then(result => {
     if (result && result.success) {

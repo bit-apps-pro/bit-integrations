@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Nimble;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class NimbleController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'nimble',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -23,24 +32,11 @@ class NimbleController
         $this->_apiEndpoint = 'https://app.nimble.com/api/v1';
     }
 
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->api_key);
-        $apiEndpoint = $this->_apiEndpoint . '/myself';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (isset($response->user_id)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);
-        }
-    }
-
     public function getAllFields($fieldsRequestParams)
     {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->api_key);
+        $apiKey = !empty($fieldsRequestParams->api_key) ? $fieldsRequestParams->api_key : (!empty($fieldsRequestParams->value) ? $fieldsRequestParams->value : '');
+        $this->checkValidation($apiKey);
+        $this->setHeaders($apiKey);
         $apiEndpoint = $this->_apiEndpoint . '/contacts/fields';
         $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
 
@@ -114,7 +110,7 @@ class NimbleController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $apiKey = $integrationDetails->api_key;
+        $apiKey = !empty($integrationDetails->api_key) ? $integrationDetails->api_key : (isset($integrationDetails->value) ? $integrationDetails->value : '');
         $fieldMap = $integrationDetails->field_map;
         $actionName = $integrationDetails->actionName;
 
@@ -133,9 +129,9 @@ class NimbleController
         return $nimbleApiResponse;
     }
 
-    private function checkValidation($fieldsRequestParams, $customParam = '**')
+    private function checkValidation($apiKey, $customParam = '**')
     {
-        if (empty($fieldsRequestParams->api_key) || empty($customParam)) {
+        if (empty($apiKey) || empty($customParam)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
     }

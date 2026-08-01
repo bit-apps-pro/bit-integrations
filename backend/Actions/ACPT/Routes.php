@@ -6,5 +6,3 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Actions\ACPT\ACPTController;
 use BitApps\Integrations\Core\Util\Route;
-
-Route::post('acpt_authentication', [ACPTController::class, 'authentication']);

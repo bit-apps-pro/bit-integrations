@@ -1,5 +1,4 @@
 import { atom } from 'recoil'
-import { atomWithBroadcast } from './components/atomWithBroadcast'
 import { APP_CONFIG } from './config/app'
 
 // atoms
@@ -17,5 +16,3 @@ export const $formFields = atom({
   dangerouslyAllowMutability: true
 })
 export const $flowStep = atom({ key: '$flowStep', default: 1, dangerouslyAllowMutability: true })
-
-export const authInfoAtom = atomWithBroadcast('authInfo', {})

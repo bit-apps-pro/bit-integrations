@@ -94,9 +94,7 @@ function MondayCom({ formFields, setFlow, flow, allIntegURL }) {
         setMondayComConf={setMondayComConf}
         step={step}
         setStep={setStep}
-        loading={loading}
         setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

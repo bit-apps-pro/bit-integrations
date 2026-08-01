@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\controller;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Capabilities;
 
 final class UserController
@@ -13,7 +14,7 @@ final class UserController
 
     public function getWpUsers()
     {
-        if (!(Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
 
@@ -24,7 +25,7 @@ final class UserController
 
     public function getUserRoles()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         global $wp_roles;

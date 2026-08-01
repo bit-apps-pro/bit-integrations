@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Sendy;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
@@ -15,46 +16,23 @@ use WP_Error;
  */
 class SendyController
 {
-    /**
-     * Process ajax request for generate_token.
-     *
-     * @param object $requestsParams Params for generate token
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function sendyAuthorize($requestsParams)
-    {
-        if (empty($requestsParams->api_key) || empty($requestsParams->sendy_url)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = "{$requestsParams->sendy_url}/api/brands/get-brands.php";
-        $authorizationHeader = ['Accept' => 'application/json'];
-        $requestsParams = ['api_key' => $requestsParams->api_key];
-
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestsParams, $authorizationHeader);
-
-        if (HttpHelper::$responseCode !== 200 && (is_wp_error($apiResponse) || !\is_array($apiResponse))) {
-            wp_send_json_error(
-                empty($apiResponse->message) ? $apiResponse : $apiResponse->message,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'sendy',
+        'fields'   => [
+            'api_key'   => 'value',
+            'sendy_url' => 'sendy_url',
+        ],
+    ];
 
     public function getAllBrands($queryParams)
     {
+        $apiKey = $queryParams->api_key ?: ($queryParams->value ?? '');
+        $sendy_url = $queryParams->sendy_url ?? '';
+
         if (
-            empty($queryParams->api_key)
-            || empty($queryParams->sendy_url)
+            empty($apiKey)
+            || empty($sendy_url)
         ) {
             wp_send_json_error(
                 __(
@@ -64,8 +42,6 @@ class SendyController
                 400
             );
         }
-        $apiKey = $queryParams->api_key;
-        $sendy_url = $queryParams->sendy_url;
         $apiEndpoint = "{$sendy_url}/api/brands/get-brands.php";
         $authorizationHeader['Accept'] = 'application/json';
         $requestsParams = [
@@ -85,9 +61,12 @@ class SendyController
 
     public function getAllLists($queryParams)
     {
+        $apiKey = $queryParams->api_key ?: ($queryParams->value ?? '');
+        $sendy_url = $queryParams->sendy_url ?? '';
+
         if (
-            empty($queryParams->api_key)
-            || empty($queryParams->sendy_url)
+            empty($apiKey)
+            || empty($sendy_url)
         ) {
             wp_send_json_error(
                 __(
@@ -97,8 +76,6 @@ class SendyController
                 400
             );
         }
-        $apiKey = $queryParams->api_key;
-        $sendy_url = $queryParams->sendy_url;
         $brand_id = $queryParams->brand_id;
         $apiEndpoint = "{$sendy_url}/api/lists/get-lists.php";
         $authorizationHeader['Accept'] = 'application/json';
@@ -123,7 +100,7 @@ class SendyController
     {
         $integrationDetails = $integrationData->flow_details;
         $fieldMap = $integrationDetails->field_map;
-        $apiKey = $integrationDetails->api_key;
+        $apiKey = $integrationDetails->api_key ?: ($integrationDetails->value ?? '');
         $integId = $integrationData->id;
 
         if (

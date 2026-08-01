@@ -26,12 +26,6 @@ class TeamsForWooCommerceMembershipsController
         }
     }
 
-    public static function teamsForWooCommerceMembershipsAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshTeams()
     {
         self::isExists();

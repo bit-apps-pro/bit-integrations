@@ -120,9 +120,6 @@ function Agiled({ formFields, setFlow, flow, allIntegURL }) {
         setAgiledConf={setAgiledConf}
         step={step}
         setStep={setStep}
-        loading={loading}
-        setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

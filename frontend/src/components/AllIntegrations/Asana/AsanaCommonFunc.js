@@ -45,43 +45,14 @@ export const checkMappedFields = asanaConf => {
   return true
 }
 
-export const asanaAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'asana_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { api_key: confTmp.api_key }
 
 export const getCustomFields = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, customFields: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action: confTmp.actionName,
     project_id: confTmp.selectedProject
   }
@@ -120,7 +91,7 @@ export const getAllProjects = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, Projects: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -149,7 +120,7 @@ export const getAllSections = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, Sections: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     selected_project: confTmp.selectedProject
   }
 

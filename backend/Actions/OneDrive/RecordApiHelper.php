@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\OneDrive;
 
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -46,7 +47,7 @@ class RecordApiHelper
 
         return HttpHelper::post(
             $apiEndpoint,
-            file_get_contents($filePath),
+            FileSystem::read($filePath),
             $headers
         );
     }

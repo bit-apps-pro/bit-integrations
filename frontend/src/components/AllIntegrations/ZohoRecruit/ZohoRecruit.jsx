@@ -5,7 +5,7 @@ import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveIntegConfig, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoRecruitAuthorization from './ZohoRecruitAuthorization'
 import { checkMappedFields, handleInput } from './ZohoRecruitCommonFunc'
@@ -28,10 +28,6 @@ function ZohoRecruit({ formFields, setFlow, flow, allIntegURL }) {
     relatedlists: [],
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoRecruit')
-  }, [])
 
   const nextPage = () => {
     setTimeout(() => {

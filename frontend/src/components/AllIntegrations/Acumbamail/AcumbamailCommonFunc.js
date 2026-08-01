@@ -1,7 +1,15 @@
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
-import { deepCopy } from '../../../Utils/Helpers'
-import { sprintf, __ } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        auth_token: conf.auth_token
+      }
+
+const hasAuthParams = conf => Boolean(conf?.connection_id || conf?.auth_token)
 
 export const handleInput = (e, acumbamailConf, setAcumbamailConf, setIsLoading, setSnackbar, formID) => {
   let newConf = { ...acumbamailConf }
@@ -27,11 +35,14 @@ export const handleInput = (e, acumbamailConf, setAcumbamailConf, setIsLoading, 
 
 export const refreshFields = (formID, acumbamailConf, setAcumbamailConf, setIsLoading, setSnackbar) => {
   const { listId } = acumbamailConf
-  if (!listId) {
+  if (!listId || !hasAuthParams(acumbamailConf)) {
     return
   }
   setIsLoading(true)
-  const refreshFieldsRequestParams = { auth_token: acumbamailConf.auth_token, list_id: listId }
+  const refreshFieldsRequestParams = {
+    ...buildAuthRequestParams(acumbamailConf),
+    list_id: listId
+  }
   bitsFetch(refreshFieldsRequestParams, 'acumbamail_refresh_fields')
     .then(result => {
       if (result && result.success) {
@@ -60,8 +71,16 @@ export const refreshFields = (formID, acumbamailConf, setAcumbamailConf, setIsLo
 }
 
 export const fetchAllList = (acumbamailConf, setAcumbamailConf, setIsLoading, setSnackbar) => {
+  if (!hasAuthParams(acumbamailConf)) {
+    setSnackbar({
+      show: true,
+      msg: __('Authorization info is missing. please authorize again', 'bit-integrations')
+    })
+    return
+  }
+
   setIsLoading(true)
-  const requestParams = { auth_token: acumbamailConf.auth_token }
+  const requestParams = buildAuthRequestParams(acumbamailConf)
 
   bitsFetch(requestParams, 'acumbamail_fetch_all_list')
     .then(result => {
@@ -83,39 +102,6 @@ export const fetchAllList = (acumbamailConf, setAcumbamailConf, setIsLoading, se
     })
 
     .catch(() => setIsLoading(false))
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.auth_token) {
-    setError({
-      auth_token: !confTmp.auth_token ? __("Api Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
-  setIsLoading(true)
-
-  const requestParams = { auth_token: confTmp.auth_token }
-
-  bitsFetch(requestParams, 'acumbamail_authorization_and_fetch_subscriber_list').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setisAuthorized(true)
-      setIsLoading(false)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setIsLoading(false)
-    toast.error(__(result.data, 'bit-integrations'))
-  })
 }
 
 export const checkMappedFields = acumbamailConf => {

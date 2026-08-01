@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SystemeIO;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,14 @@ use WP_Error;
  */
 class SystemeIOController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'systemeio',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -21,20 +30,6 @@ class SystemeIOController
     public function __construct()
     {
         $this->_apiEndpoint = 'https://api.systeme.io/api';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->api_key);
-        $apiEndpoint = $this->_apiEndpoint . '/contacts';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (isset($response->items)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API Key & API Secret', 'bit-integrations'), 400);
-        }
     }
 
     public function getAllTags($fieldsRequestParams)

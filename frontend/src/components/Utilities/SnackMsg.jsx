@@ -15,10 +15,9 @@ function SnackMsg({ snack, setSnackbar }) {
       }
       unmountOnExit>
       <div>
-        <span
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: msg }}
-        />
+        {/* Rendered as text: snackbar messages can carry third-party API strings,
+            so they must never be interpreted as HTML. */}
+        <span>{msg}</span>
         <button
           onClick={() => setSnackbar({ show: false, msg })}
           className="btcd-snack-cls"

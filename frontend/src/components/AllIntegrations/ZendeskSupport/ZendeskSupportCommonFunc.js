@@ -38,19 +38,27 @@ export const checkMappedFields = conf => {
   return mappedFields.length === 0
 }
 
+const hasAuthParams = conf =>
+  Boolean(conf?.connection_id || (conf?.subdomain && conf?.email && conf?.apiToken))
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        subdomain: conf?.subdomain,
+        email: conf?.email,
+        apiToken: conf?.apiToken
+      }
+
 export const fetchUtilityOptions = (confTmp, setConf, setLoading, route, listKey) => {
-  if (!confTmp.subdomain || !confTmp.email || !confTmp.apiToken) {
+  if (!hasAuthParams(confTmp)) {
     toast.error(__('Please authorize first', 'bit-integrations'))
     return
   }
 
   setLoading(prev => ({ ...prev, [listKey]: true }))
 
-  const requestParams = {
-    subdomain: confTmp.subdomain,
-    email: confTmp.email,
-    apiToken: confTmp.apiToken
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, route).then(result => {
     if (result && result.success) {
@@ -61,43 +69,5 @@ export const fetchUtilityOptions = (confTmp, setConf, setLoading, route, listKey
     }
     setLoading(prev => ({ ...prev, [listKey]: false }))
     toast.error(__('Data fetching failed', 'bit-integrations'))
-  })
-}
-
-export const zendeskSupportAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.subdomain || !confTmp.email || !confTmp.apiToken) {
-    setError({
-      subdomain: !confTmp.subdomain ? __("Subdomain can't be empty", 'bit-integrations') : '',
-      email: !confTmp.email ? __("Email can't be empty", 'bit-integrations') : '',
-      apiToken: !confTmp.apiToken ? __("API Token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    subdomain: confTmp.subdomain,
-    email: confTmp.email,
-    apiToken: confTmp.apiToken
-  }
-
-  bitsFetch(requestParams, 'zendesk_support_authorize').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorization failed, please enter valid credentials', 'bit-integrations'))
   })
 }

@@ -226,7 +226,7 @@ const tutorialLinks = {
     docLink: 'https://bit-integrations.com/wp-docs/actions/mailerlite-integrations/'
   },
   instasent: {
-    docLink: '#'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/instasent-integration-as-an-action/'
   },
   mailchimp: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-ALUaeqiK9GwBSxVkAod1PzP',
@@ -294,7 +294,7 @@ const tutorialLinks = {
   },
   postCreation: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AIXE9-3U0gaFuqscE32OHcz',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/post-creation-integrations/'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/wp-post-creation-integration-as-an-action/'
   },
   pCloud: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AKN8YP9ZiA2Nr2YJkPsQL8x',
@@ -314,7 +314,8 @@ const tutorialLinks = {
   },
   registration: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AJq1l8SeKisLk60ewQRreg1',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/registration-integrations/'
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/wp-user-registration-integration-as-an-action/'
   },
   restrictContent: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AJq1l8SeKisLk60ewQRreg1',
@@ -680,7 +681,50 @@ const tutorialLinks = {
   },
   sender: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/sender-integrations/'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/sender-integration-as-an-action/'
+  },
+  webbaBooking: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/webba-booking-calendar-integration-as-an-action/'
+  },
+  mainWP: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/mainwp-integration-as-an-action/'
+  },
+  wsms: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/wsms-integration-as-an-action/'
+  },
+  wordPress: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/wordpress-integration-as-an-action/'
+  },
+  zendeskSupport: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/zendesk-support-integration-as-an-action/'
+  },
+  moreConvertWishlist: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/moreconvert-wishlist-integration-as-an-action/'
+  },
+  secureCustomFields: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/secure-custom-fields-integration-as-an-action/'
+  },
+  hefflCRM: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/heffl-crm-integration-as-an-action/'
+  },
+  ivyForms: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/ivyforms-integration-as-an-action/'
+  },
+  weDocs: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
   }
 }
 export default tutorialLinks

@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Insightly\InsightlyController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('insightly_authentication', [InsightlyController::class, 'authentication']);
 Route::post('insightly_fetch_all_organisations', [InsightlyController::class, 'getAllOrganisations']);
 Route::post('insightly_fetch_all_categories', [InsightlyController::class, 'getAllCategories']);
 Route::post('insightly_fetch_all_statuses', [InsightlyController::class, 'getAllStatuses']);
