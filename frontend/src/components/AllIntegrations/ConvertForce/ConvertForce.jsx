@@ -10,7 +10,7 @@ import ConvertForceAuthorization from './ConvertForceAuthorization'
 import { checkMappedFields } from './ConvertForceCommonFunc'
 import ConvertForceIntegLayout from './ConvertForceIntegLayout'
 
-export default function ConvertForce({ formFields, setFlow, flow, allIntegURL }) {
+export default function ConvertForce({ formFields, setFlow, flow, allIntegURL, isInfo }) {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
@@ -63,9 +63,7 @@ export default function ConvertForce({ formFields, setFlow, flow, allIntegURL })
         setConvertForceConf={setConvertForceConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
+        isInfo={isInfo}
       />
 
       <div

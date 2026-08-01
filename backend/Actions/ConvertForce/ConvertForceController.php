@@ -13,25 +13,6 @@ use WP_Error;
  */
 class ConvertForceController
 {
-    public static function isExists()
-    {
-        if (!\defined('CONVERTFORCE_VERSION')) {
-            wp_send_json_error(
-                __(
-                    'ConvertForce Popup Builder is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
-    public static function convertForceAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
