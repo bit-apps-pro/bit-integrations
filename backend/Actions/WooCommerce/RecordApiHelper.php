@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\WooCommerce;
 
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Log\LogHandler;
 use WC_Product_Download;
 use WP_Error;
@@ -75,7 +76,6 @@ class RecordApiHelper
         }
 
         return $user_id;
-        // }
     }
 
     public function findCustomer($fieldMapCustomer, $required, $module, $fieldValues)
@@ -639,7 +639,7 @@ class RecordApiHelper
 
         $filename = basename(wp_parse_url($url, PHP_URL_PATH));
         $tmp = wp_tempnam($filename);
-        if (!$tmp || file_put_contents($tmp, $image_data) === false) {
+        if (!$tmp || !FileSystem::write($tmp, $image_data)) {
             return false;
         }
 

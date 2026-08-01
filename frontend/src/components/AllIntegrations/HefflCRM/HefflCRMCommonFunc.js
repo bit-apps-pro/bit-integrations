@@ -13,28 +13,10 @@ export const handleInput = (e, hefflCRMConf, setHefflCRMConf) => {
   )
 }
 
-export const handleAuthorize = (confTmp, setError, setIsAuthorized, setIsLoading) => {
-  if (!confTmp.api_key) {
-    setError({ api_key: __("API Key can't be empty", 'bit-integrations') })
-    return
-  }
-  setError({})
-  setIsLoading(true)
+const buildAuthRequestParams = conf =>
+  conf?.connection_id ? { connection_id: conf.connection_id } : { api_key: conf?.api_key }
 
-  bitsFetch({ api_key: confTmp.api_key }, 'heffl_crm_authorize').then(result => {
-    setIsLoading(false)
-    if (result?.success) {
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    toast.error(
-      result?.data && typeof result.data === 'string'
-        ? result.data
-        : __('Authorization failed', 'bit-integrations')
-    )
-  })
-}
+const hasAuthParams = conf => Boolean(conf?.connection_id || conf?.api_key)
 
 const refreshList = (
   hefflCRMConf,
@@ -46,13 +28,13 @@ const refreshList = (
   errorMsg,
   extra = {}
 ) => {
-  if (!hefflCRMConf?.api_key) {
+  if (!hasAuthParams(hefflCRMConf)) {
     toast.error(__('Authorize first to refresh', 'bit-integrations'))
     return
   }
   setIsLoading(true)
 
-  bitsFetch({ api_key: hefflCRMConf.api_key, ...extra }, action)
+  bitsFetch({ ...buildAuthRequestParams(hefflCRMConf), ...extra }, action)
     .then(result => {
       setIsLoading(false)
       if (result?.success) {

@@ -4,7 +4,7 @@
  * Plugin Name: Bit Integrations
  * Plugin URI:  https://bitapps.pro/bit-integrations
  * Description: Bit Integrations is a platform that integrates with over 300+ different platforms to help with various tasks on your WordPress site, like WooCommerce, Form builder, Page builder, LMS, Sales funnels, Bookings, CRM, Webhooks, Email marketing, Social media and Spreadsheets, etc
- * Version:     2.9.0
+ * Version:     2.10.1
  * Author:      Automation & Integration Plugin - Bit Apps
  * Author URI:  https://bitapps.pro
  * Text Domain: bit-integrations
@@ -12,7 +12,8 @@
  * Requires at least: 5.1
  * Tested up to: 7.0
  * Domain Path: /languages
- * License:  GPLv2 or later
+ * License:  GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 use BitApps\Integrations\Config;
@@ -25,7 +26,7 @@ if (!defined('ABSPATH')) {
  * @deprecated since version 2.7.8. use Config::DB_VERSION instead.
  */
 global $btcbi_db_version;
-$btcbi_db_version = '1.1';
+$btcbi_db_version = '1.2';
 
 // Define most essential constants.
 /**
@@ -33,7 +34,7 @@ $btcbi_db_version = '1.1';
  *
  * @deprecated 2.7.8 Use Config::VERSION instead.
  */
-define('BTCBI_VERSION', '2.9.0');
+define('BTCBI_VERSION', '2.10.1');
 /**
  * deprecated since version 2.7.8.
  *
@@ -57,6 +58,7 @@ function btcbi_activate_plugin($network_wide)
 {
     bit_integrations_activate_plugin($network_wide);
 }
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- `bit_integrations_` is the plugin slug; Plugin Check infers prefixes from hook names and misses it because the plugin fires third-party hooks.
 function bit_integrations_activate_plugin($network_wide)
 {
     global $wp_version;
@@ -86,6 +88,7 @@ function btcbi_deactivate_plugin($network_wide)
     bit_integrations_deactivate_plugin($network_wide);
 }
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- `bit_integrations_` is the plugin slug; Plugin Check infers prefixes from hook names and misses it because the plugin fires third-party hooks.
 function bit_integrations_deactivate_plugin($network_wide)
 {
     global $wp_version;
@@ -114,6 +117,7 @@ function btcbi_uninstall_plugin()
     bit_integrations_uninstall_plugin();
 }
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- `bit_integrations_` is the plugin slug; Plugin Check infers prefixes from hook names and misses it because the plugin fires third-party hooks.
 function bit_integrations_uninstall_plugin()
 {
     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is prefixed via Config::VAR_PREFIX.

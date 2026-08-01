@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Salesflare;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,26 +15,19 @@ use WP_Error;
  */
 class SalesflareController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'salesflare',
+        'fields'   => [
+            'api_key' => 'token',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
 
     protected $domain;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEndpoint = $this->setApiEndpoint() . '/accounts';
-        $headers = $this->setHeaders($apiKey);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (!isset($response->error)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);
-        }
-    }
 
     public function customFields($fieldsRequestParams)
     {

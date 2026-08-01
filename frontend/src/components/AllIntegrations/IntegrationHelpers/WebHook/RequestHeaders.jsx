@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
-import MultiSelect from 'react-multiple-select-dropdown-lite'
 import CloseIcn from '../../../../Icons/CloseIcn'
 import TrashIcn from '../../../../Icons/TrashIcn'
 import { __ } from '../../../../Utils/i18nwrap'
 import Button from '../../../Utilities/Button'
+import FlowFormFieldsOptions from '../FlowFormFieldsOptions'
+import SmartTagOptions from '../SmartTagOptions'
 
-function RequestHeaders({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
+function RequestHeaders({ webHooks, setWebHooks, isInfo, setTab }) {
   useEffect(() => {
-    setTab(2)
+    setTab(3)
   }, [])
 
   const handleHeader = (e, index) => {
@@ -70,13 +71,15 @@ function RequestHeaders({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
                   <Button onClick={() => delParam(childindx)} icn>
                     <TrashIcn size={16} />
                   </Button>
-                  <MultiSelect
-                    options={formFields.map(f => ({ label: f.label, value: `\${${f.name}}` }))}
-                    className="btcd-paper-drpdwn wdt-200 ml-2"
-                    singleSelect
-                    onChange={val => setFromField(val, childindx)}
-                    defaultValue={itm.value}
-                  />
+                  <select
+                    className="btcd-paper-inp mr-2"
+                    name="formField"
+                    value={itm.value || ''}
+                    onChange={ev => setFromField(ev.target.value, childindx)}>
+                    <option value="">{__('Select Field', 'bit-integrations')}</option>
+                    <FlowFormFieldsOptions />
+                    <SmartTagOptions />
+                  </select>
                 </div>
               )}
             </div>

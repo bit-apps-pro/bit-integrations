@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\OmniSend;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,38 +15,17 @@ use WP_Error;
  */
 class OmniSendController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'omnisend',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     private $baseUrl = 'https://api.omnisend.com/v3/';
-
-    public function authorization($requestParams)
-    {
-        if (empty($requestParams->api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoints = $this->baseUrl . 'contacts';
-
-        $header = [
-            'X-API-KEY' => $requestParams->api_key,
-        ];
-
-        $response = HttpHelper::get($apiEndpoints, null, $header);
-        if (isset($response->contacts)) {
-            wp_send_json_success('', 200);
-        } else {
-            wp_send_json_error(
-                'The token is invalid',
-                400
-            );
-        }
-    }
 
     public function execute($integrationData, $fieldValues)
     {

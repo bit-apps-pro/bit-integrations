@@ -6,7 +6,7 @@ import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveActionConf, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoDeskAuthorization from './ZohoDeskAuthorization'
 import { checkMappedFields, handleInput, refreshOrganizations } from './ZohoDeskCommonFunc'
@@ -28,10 +28,6 @@ function ZohoDesk({ formFields, setFlow, flow, allIntegURL }) {
     field_map: [{ formField: '', zohoFormField: '' }],
     actions: {}
   })
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoDesk')
-  }, [])
-
   const nextPage = val => {
     if (val === 3) {
       if (!checkMappedFields(deskConf)) {

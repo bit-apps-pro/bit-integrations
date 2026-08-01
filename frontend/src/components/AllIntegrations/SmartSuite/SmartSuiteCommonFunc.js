@@ -45,53 +45,17 @@ export const checkMappedFields = smartSuiteConf => {
   return true
 }
 
-export const smartSuiteAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.workspaceId || !confTmp.apiToken) {
-    setError({
-      workspaceId: !confTmp.workspaceId ? __("Workspace ID can't be empty", 'bit-integrations') : '',
-      apiToken: !confTmp.apiToken ? __("API Token can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    workspaceId: confTmp.workspaceId,
-    apiToken: confTmp.apiToken
-  }
-
-  bitsFetch(requestParams, 'smartSuite_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, ' + result.data, 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { workspaceId: confTmp.workspaceId, apiToken: confTmp.apiToken }
 
 export const getAllSolutions = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, solution: true })
 
   if (confTmp?.selectedSolution) delete confTmp?.selectedSolution
 
-  const requestParams = {
-    workspaceId: confTmp.workspaceId,
-    apiToken: confTmp.apiToken
-  }
-
-  bitsFetch(requestParams, 'smartSuite_fetch_all_solutions').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'smartSuite_fetch_all_solutions').then(result => {
     if (result && result.success) {
       if (result.data) {
         setConf(prevConf => {
@@ -116,13 +80,10 @@ export const getAllTables = (confTmp, setConf, solution_id, setLoading) => {
   if (confTmp?.selectedTable) delete confTmp?.selectedTable
 
   setLoading({ ...setLoading, table: true })
-  const requestParams = {
-    workspaceId: confTmp.workspaceId,
-    apiToken: confTmp.apiToken,
-    solution_id: solution_id
-  }
-
-  bitsFetch(requestParams, 'smartSuite_fetch_all_tables').then(result => {
+  bitsFetch(
+    { ...buildAuthRequestParams(confTmp), solution_id: solution_id },
+    'smartSuite_fetch_all_tables'
+  ).then(result => {
     if (result && result.success) {
       if (result.data) {
         setConf(prevConf => {
@@ -146,12 +107,7 @@ export const getAllTables = (confTmp, setConf, solution_id, setLoading) => {
 export const getAllUser = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, assignedUser: true })
 
-  const requestParams = {
-    workspaceId: confTmp.workspaceId,
-    apiToken: confTmp.apiToken
-  }
-
-  bitsFetch(requestParams, 'smartSuite_fetch_all_user').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'smartSuite_fetch_all_user').then(result => {
     if (result && result.success) {
       if (result.data) {
         setConf(prevConf => {

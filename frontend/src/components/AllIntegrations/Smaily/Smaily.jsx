@@ -74,9 +74,6 @@ function Smaily({ formFields, setFlow, flow, allIntegURL }) {
         setSmailyConf={setSmailyConf}
         step={step}
         setStep={setStep}
-        loading={loading}
-        setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

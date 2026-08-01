@@ -7,4 +7,4 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\Moosend\MoosendController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('moosend_handle_authorize', [MoosendController::class, 'handleAuthorize']);
+Route::post('moosend_lists', [MoosendController::class, 'getAllLists']);

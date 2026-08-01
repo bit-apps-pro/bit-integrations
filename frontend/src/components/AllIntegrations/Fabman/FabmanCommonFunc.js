@@ -5,6 +5,13 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
 
+export const fetchFabmanAccountId = async (connectionId, setConf) => {
+  const result = await bitsFetch({ connection_id: connectionId }, 'fabman_fetch_account_id')
+  if (result?.success && result.data?.accountId) {
+    setConf(prev => ({ ...prev, accountId: result.data.accountId }))
+  }
+}
+
 export const handleInput = (e, fabmanConf, setFabmanConf) => {
   const newConf = { ...fabmanConf }
   const { name } = e.target
@@ -41,59 +48,17 @@ export const checkMappedFields = fabmanConf => {
   return invalidMappings.length === 0
 }
 
-export const fabmanAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.apiKey) {
-    setError({ apiKey: !confTmp.apiKey ? __("API key can't be empty", 'bit-integrations') : '' })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { apiKey: confTmp.apiKey }
-
-  bitsFetch(requestParams, 'fabman_authorization')
-    .then(result => {
-      if (result && result.success) {
-        const newConf = create(confTmp, draft => {
-          if (result.data && result.data.accountId) {
-            draft.accountId = result.data.accountId
-          }
-        })
-
-        setIsAuthorized(true)
-        setConf(newConf)
-        setLoading({ ...loading, auth: false })
-        toast.success(__('Authorized Successfully', 'bit-integrations'))
-        return
-      }
-      setIsAuthorized(false)
-      setLoading({ ...loading, auth: false })
-      toast.error(__('Authorization Failed', 'bit-integrations'))
-    })
-    .catch(error => {
-      console.error(error)
-      setLoading({ ...loading, auth: false })
-      toast.error(__('Authorization Failed', 'bit-integrations'))
-    })
-}
-
 export const fetchFabmanWorkspaces = (confTmp, setConf, loading, setLoading, type = 'fetch') => {
-  if (!confTmp.apiKey) {
+  if (!confTmp.connection_id && !confTmp.apiKey) {
     toast.error(__("API key can't be empty", 'bit-integrations'))
     return
   }
 
   setLoading({ ...loading, workspaces: true })
 
-  const requestParams = { apiKey: confTmp.apiKey }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { apiKey: confTmp.apiKey }
 
   bitsFetch(requestParams, 'fabman_fetch_workspaces')
     .then(result => {

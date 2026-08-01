@@ -77,16 +77,8 @@ final class CF7Controller
     public static function fields($form_id)
     {
         $form_text = get_post_meta($form_id, '_form', true);
+        $fieldDetails = static::getFormTags($form_text);
 
-        if (method_exists('WPCF7_FormTagsManager', 'get_instance')) {
-            $formManager = WPCF7_FormTagsManager::get_instance();
-            $formManager->scan($form_text);
-            $fieldDetails = $formManager->get_scanned_tags();
-        } elseif (method_exists('WPCF7_ShortcodeManager', 'get_instance')) { //
-            $formManager = WPCF7_ShortcodeManager::get_instance();
-            $formManager->do_shortcode($form_text);
-            $fieldDetails = $formManager->get_scanned_tags();
-        }
         if (empty($fieldDetails)) {
             return $fieldDetails;
         }
@@ -110,11 +102,11 @@ final class CF7Controller
     {
         $submission = WPCF7_Submission::get_instance();
 
-        $postID = (int) $submission->get_meta('container_post_id');
-
         if (!$submission || !$posted_data = $submission->get_posted_data()) {
             return;
         }
+
+        $postID = (int) $submission->get_meta('container_post_id');
 
         if (isset($posted_data['_wpcf7'])) {
             $form_id = $posted_data['_wpcf7'];
@@ -123,6 +115,7 @@ final class CF7Controller
             $form_id = $current_form->id();
         }
 
+        $posted_data = static::unsetPostedFileFieldValues($posted_data, $form_id);
         $files = static::setFileRoot($submission->uploaded_files());
         $posted_data = array_merge($posted_data, $files);
 
@@ -158,6 +151,49 @@ final class CF7Controller
         $fields = Hooks::apply('btcbi_cf7_get_advance_custom_html_fields', $fields);
 
         return \is_array($fields) ? $fields : [];
+    }
+
+    private static function getFormTags($form_text)
+    {
+        if (method_exists('WPCF7_FormTagsManager', 'get_instance')) {
+            $formManager = WPCF7_FormTagsManager::get_instance();
+            $formManager->scan($form_text);
+
+            return $formManager->get_scanned_tags();
+        }
+
+        if (method_exists('WPCF7_ShortcodeManager', 'get_instance')) {
+            $formManager = WPCF7_ShortcodeManager::get_instance();
+            $formManager->do_shortcode($form_text);
+
+            return $formManager->get_scanned_tags();
+        }
+
+        return [];
+    }
+
+    private static function unsetPostedFileFieldValues($posted_data, $form_id)
+    {
+        $form_text = get_post_meta($form_id, '_form', true);
+
+        foreach (static::getFormTags($form_text) as $field) {
+            if (empty($field->name) || !static::isFileField($field)) {
+                continue;
+            }
+
+            unset($posted_data[$field->name]);
+        }
+
+        return $posted_data;
+    }
+
+    private static function isFileField($field)
+    {
+        if (!empty($field->basetype) && $field->basetype === 'file') {
+            return true;
+        }
+
+        return !empty($field->type) && strpos($field->type, 'file') === 0;
     }
 
     private static function setFileRoot($files)

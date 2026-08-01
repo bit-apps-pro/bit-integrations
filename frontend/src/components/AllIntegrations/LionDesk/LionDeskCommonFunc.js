@@ -47,156 +47,32 @@ export const checkMappedFields = lionDeskConf => {
   return true
 }
 
-export const setGrantTokenResponse = integ => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation
-    .replace(`${window.opener.location.href}/redirect`, '')
-    .split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        tokenDetails: conf.tokenDetails,
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        redirectURI: conf.redirectURI
       }
-    })
-  }
-  localStorage.setItem(`__${integ}`, JSON.stringify(grantTokenResponse))
-  window.close()
-}
 
-export const handleAuthorize = (
-  integ,
-  ajaxInteg,
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setIsLoading(true)
-  const apiEndpoint = `https://api-v2.liondesk.com/oauth2/authorize?response_type=code&client_id=${
-    confTmp.clientId
-  }&state=${encodeURIComponent(window.location.href)}/redirect&redirect_uri=${encodeURIComponent(
-    `${btcbi.api}`
-  )}/redirect&scope=['write','read']`
-  const authWindow = window.open(apiEndpoint, integ, 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitintegrationLionDesk = localStorage.getItem(`__${integ}`)
-
-      if (bitintegrationLionDesk) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitintegrationLionDesk)
-        localStorage.removeItem(`__${integ}`)
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization Failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accountServer = grantTokenResponse['accounts-server']
-        tokenHelper(
-          ajaxInteg,
-          grantTokenResponse,
-          newConf,
-          setConf,
-          setisAuthorized,
-          setIsLoading,
-          setSnackbar,
-          btcbi
-        )
-      }
-    }
-  }, 500)
-}
-
-const tokenHelper = (
-  ajaxInteg,
-  grantToken,
-  confTmp,
-  setConf,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  const tokenRequestParams = { ...grantToken }
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-
-  bitsFetch(tokenRequestParams, `${ajaxInteg}_generate_token`)
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
-}
-
-export const getCustomFields = (confTmp, setConf, setIsLoading, btcbi) => {
+export const getCustomFields = (confTmp, setConf, setIsLoading) => {
   setIsLoading(true)
   const requestParams = {
-    token_details: confTmp.tokenDetails,
-    client_id: confTmp.clientId,
-    client_secret: confTmp.clientSecret,
-    redirect_uri: `${btcbi.api}/redirect`
+    ...buildAuthRequestParams(confTmp)
   }
 
   bitsFetch(requestParams, 'lionDesk_fetch_custom_fields').then(result => {
     if (result && result.success) {
       setIsLoading(false)
-      if (result.data) {
+      if (result.data?.customFields) {
         setConf(prevConf => {
           const newConf = { ...prevConf }
-          newConf.customFields = result.data
+          newConf.customFields = result.data.customFields
+          if (result.data.tokenDetails) {
+            newConf.tokenDetails = result.data.tokenDetails
+          }
           return newConf
         })
         toast.success(__('Custom fields also fetched successfully', 'bit-integrations'))
@@ -213,19 +89,19 @@ export const getCustomFields = (confTmp, setConf, setIsLoading, btcbi) => {
 export const getAllTags = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, tags: true })
   const requestParams = {
-    token_details: confTmp.tokenDetails,
-    client_id: confTmp.clientId,
-    client_secret: confTmp.clientSecret,
-    redirect_uri: confTmp.redirectURI
+    ...buildAuthRequestParams(confTmp)
   }
 
   bitsFetch(requestParams, 'lionDesk_fetch_all_tags').then(result => {
     if (result && result.success) {
       setLoading({ ...setLoading, tags: false })
-      if (result.data) {
+      if (result.data?.tags) {
         setConf(prevConf => {
           const newConf = { ...prevConf }
-          newConf.tags = result.data
+          newConf.tags = result.data.tags
+          if (result.data.tokenDetails) {
+            newConf.tokenDetails = result.data.tokenDetails
+          }
           return newConf
         })
         toast.success(__('Tags fetched successfully', 'bit-integrations'))

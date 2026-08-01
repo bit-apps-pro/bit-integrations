@@ -14,21 +14,6 @@ use WP_Error;
  */
 class DokanController
 {
-    public function authentication()
-    {
-        if (self::checkedDokanExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install Dokan',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public static function checkedDokanExists()
     {
         if (!is_plugin_active('dokan-lite/dokan.php')) {
