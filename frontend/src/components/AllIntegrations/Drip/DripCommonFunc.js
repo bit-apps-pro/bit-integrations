@@ -9,55 +9,33 @@ export const handleInput = (e, dripConf, setDripConf) => {
   setDripConf({ ...newConf })
 }
 
-export const dripAuthentication = (
-  dripConf,
-  setDripConf,
-  setError,
-  setisAuthorized,
-  loading,
-  setLoading,
-  type = 'authentication'
-) => {
-  const newConf = { ...dripConf }
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { api_token: confTmp.api_token }
 
-  if (!newConf.name || !newConf.api_token) {
-    setError({
-      name: !newConf.name ? __("Integration name can't be empty", 'bit-integrations') : '',
-      api_token: !newConf.api_token ? __("Access Api Token Key can't be empty", 'bit-integrations') : ''
-    })
+export const fetchDripAccounts = async (confTmp, setConf, setLoading, type = 'fetch') => {
+  if (!confTmp.connection_id && !confTmp.api_token) {
+    toast.error(__("Access Api Token can't be empty", 'bit-integrations'))
     return
   }
 
-  let responseErrorMsg
+  setLoading(prev => ({ ...prev, accounts: true }))
 
-  if (type === 'authentication') {
-    setLoading({ ...loading, auth: true })
-    responseErrorMsg = 'Authorization Failed'
-  } else if (type === 'accounts') {
-    setLoading({ ...loading, accounts: true })
-    responseErrorMsg = 'Accounts fetching failed'
+  const result = await bitsFetch(buildAuthRequestParams(confTmp), 'drip_fetch_all_accounts')
+
+  if (result?.success) {
+    const newConf = { ...confTmp, accounts: result.data || [] }
+    setConf(newConf)
+    setLoading(prev => ({ ...prev, accounts: false }))
+    toast.success(
+      type === 'refresh'
+        ? __('Accounts fetched Successfully', 'bit-integrations')
+        : __('Authorized Successfully', 'bit-integrations')
+    )
+    return
   }
 
-  const data = {
-    api_token: newConf.api_token
-  }
-
-  bitsFetch(data, 'drip_authorize').then(result => {
-    if (result?.success) {
-      newConf.accounts = result.data
-      if (type === 'authentication') {
-        setisAuthorized(true)
-        toast.success('Authorized Successfully')
-      } else if (type === 'accounts') {
-        toast.success('Accounts fetched Successfully')
-      }
-    } else {
-      toast.error(responseErrorMsg)
-    }
-
-    setDripConf({ ...newConf })
-    setLoading({ ...loading, auth: false, accounts: false })
-  })
+  setLoading(prev => ({ ...prev, accounts: false }))
+  toast.error(__('Accounts fetching failed', 'bit-integrations'))
 }
 
 export const checkMappedFields = dripConf => {
@@ -83,10 +61,10 @@ export const generateMappedField = dripConf => {
 }
 
 export const getCustomFields = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, customFields: true })
+  setLoading(prev => ({ ...prev, customFields: true }))
 
   const requestParams = {
-    apiToken: confTmp.api_token,
+    ...buildAuthRequestParams(confTmp),
     selectedAccountId: confTmp.selectedAccountId
   }
 
@@ -97,19 +75,20 @@ export const getCustomFields = (confTmp, setConf, setLoading) => {
         newConf.dripFormFields = [...staticFields, ...result.data]
       }
       setConf(newConf)
-      setLoading({ ...setLoading, customFields: false })
+      setLoading(prev => ({ ...prev, customFields: false }))
       toast.success(__('Custom fields fetch successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, customFields: false })
+    setLoading(prev => ({ ...prev, customFields: false }))
     toast.error(__('Custom fields fetch failed', 'bit-integrations'))
   })
 }
+
 export const getAllTags = (confTmp, setConf, setLoading) => {
-  setLoading({ ...setLoading, tags: true })
+  setLoading(prev => ({ ...prev, tags: true }))
 
   const requestParams = {
-    apiToken: confTmp.api_token,
+    ...buildAuthRequestParams(confTmp),
     selectedAccountId: confTmp.selectedAccountId
   }
 
@@ -120,11 +99,11 @@ export const getAllTags = (confTmp, setConf, setLoading) => {
         newConf.tags = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, tags: false })
+      setLoading(prev => ({ ...prev, tags: false }))
       toast.success(__('Tags fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, customFields: false })
+    setLoading(prev => ({ ...prev, tags: false }))
     toast.error(__('Tags fetching failed', 'bit-integrations'))
   })
 }

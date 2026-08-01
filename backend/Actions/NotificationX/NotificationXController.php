@@ -26,12 +26,6 @@ class NotificationXController
         }
     }
 
-    public static function notificationXAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function getNotificationsBySource($requestsParams)
     {
         self::isExists();

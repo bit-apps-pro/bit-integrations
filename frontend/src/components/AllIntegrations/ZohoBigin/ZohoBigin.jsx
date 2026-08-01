@@ -5,7 +5,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveActionConf, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import { checkMappedFields, handleInput } from './ZohoBiginCommonFunc'
 import ZohoBiginIntegLayout from './ZohoBiginIntegLayout'
@@ -25,7 +25,6 @@ function ZohoBigin({ allIntegURL }) {
   const formFields = useRecoilValue($formFields)
 
   useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoBigin')
     setBiginConf({
       name: 'Zoho Bigin',
       type: 'Zoho Bigin',

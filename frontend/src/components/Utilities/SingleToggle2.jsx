@@ -1,5 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-export default function SingleToggle2({ className, title, action, disabled, checked, name = null }) {
+export default function SingleToggle2({
+  className,
+  title,
+  action,
+  disabled,
+  checked,
+  name = null,
+  ariaLabel = null,
+  ariaDescribedby = null
+}) {
   const onChange = e => {
     if (!disabled) {
       action(e)
@@ -11,7 +20,8 @@ export default function SingleToggle2({ className, title, action, disabled, chec
       <label className="btcd-label">
         <div className="btcd-toggle">
           <input
-            aria-label={title}
+            aria-label={ariaLabel || title}
+            aria-describedby={ariaDescribedby || undefined}
             onChange={onChange}
             className="btcd-toggle-state"
             type="checkbox"

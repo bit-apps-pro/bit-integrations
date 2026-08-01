@@ -1,5 +1,4 @@
 import MultiSelect from 'react-multiple-select-dropdown-lite'
-import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { addFieldMap } from './KirimEmailIntegrationHelpers'
@@ -9,15 +8,12 @@ import TableCheckBox from '../../Utilities/TableCheckBox'
 import { getAllList } from './KirimEmailCommonFunc'
 
 export default function KirimEmailIntegLayout({
-  formID,
   formFields,
-  handleInput,
   kirimEmailConf,
   setKirimEmailConf,
   isLoading,
   setIsLoading,
-  setSnackbar,
-  a
+  setSnackbar
 }) {
   const inputHandler = e => {
     const newConf = { ...kirimEmailConf }

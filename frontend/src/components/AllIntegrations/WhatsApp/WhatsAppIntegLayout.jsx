@@ -1,19 +1,27 @@
+import { useEffect } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useParams } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import TinyMCE from '../../Utilities/TinyMCE'
-import { addFieldMap, generateMappedField, getallTemplates } from './WhatsAppCommonFunc'
+import {
+  addFieldMap,
+  extractTemplatePlaceholders,
+  generateMappedField,
+  getallTemplates,
+  normalizeTemplates
+} from './WhatsAppCommonFunc'
 import WhatsAppFieldMap from './WhatsAppFieldMap'
 import Note from '../../Utilities/Note'
+import ActionProFeatureComponent from '../IntegrationHelpers/ActionProFeatureComponent'
+import { ProFeatureTitle } from '../IntegrationHelpers/ActionProFeatureLabels'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 
 export default function WhatsAppIntegLayout({
   formFields,
-  handleInput,
   whatsAppConf,
   setWhatsAppConf,
   isLoading,
@@ -30,10 +38,32 @@ export default function WhatsAppIntegLayout({
     setWhatsAppConf(newConf)
   }
 
+  const allTemplates = normalizeTemplates(whatsAppConf?.allTemplates)
+  // Flows saved before placeholder mapping hold template names only, refetch them once to get components
+  useEffect(() => {
+    if (
+      whatsAppConf?.messageType === 'template' &&
+      whatsAppConf?.allTemplates?.length > 0 &&
+      whatsAppConf.allTemplates.some(template => typeof template === 'string')
+    ) {
+      getallTemplates(whatsAppConf, setWhatsAppConf, setIsLoading, setSnackbar)
+    }
+  }, [])
+
   const setChange = (value, name) => {
     setWhatsAppConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf[name] = value
+
+        if (name === 'templateName') {
+          const templateFields = extractTemplatePlaceholders(
+            allTemplates.find(template => template.name === value)
+          )
+
+          draftConf['template_fields'] = templateFields
+          draftConf['template_field_map'] =
+            templateFields.length > 0 ? generateMappedField(templateFields) : []
+        }
 
         if (isPro) {
           if (name === 'messageType' && value === 'text') {
@@ -90,9 +120,9 @@ export default function WhatsAppIntegLayout({
               defaultValue={whatsAppConf?.templateName}
               className="mt-2 w-5"
               onChange={val => setChange(val, 'templateName')}
-              options={whatsAppConf?.allTemplates?.map(templateName => ({
-                label: templateName,
-                value: templateName
+              options={allTemplates.map(template => ({
+                label: template.language ? `${template.name} (${template.language})` : template.name,
+                value: template.name
               }))}
               singleSelect
               closeOnSelect
@@ -177,6 +207,39 @@ export default function WhatsAppIntegLayout({
           setSnackbar={setSnackbar}
         />
       ))}
+
+      {whatsAppConf.messageType === 'template' && whatsAppConf?.template_fields?.length > 0 && (
+        <div className="mt-5">
+          <ActionProFeatureComponent title={__('Template Placeholder Map', 'bit-integrations')}>
+            <b className="wdt-100">
+              <ProFeatureTitle title={__('Template Placeholder Map', 'bit-integrations')} />
+            </b>
+            <div className="btcd-hr mt-2 mb-4" />
+            <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
+              <div className="txt-dp">
+                <b>{__('Form Fields', 'bit-integrations')}</b>
+              </div>
+              <div className="txt-dp">
+                <b>{__('Template Placeholders', 'bit-integrations')}</b>
+              </div>
+            </div>
+
+            {whatsAppConf?.template_field_map?.map((itm, i) => (
+              <WhatsAppFieldMap
+                key={`tpl-m-${i + 9}`}
+                i={i}
+                field={itm}
+                whatsAppConf={whatsAppConf}
+                whatsAppFields={whatsAppConf.template_fields}
+                formFields={formFields}
+                setWhatsAppConf={setWhatsAppConf}
+                setSnackbar={setSnackbar}
+                mapKey="template_field_map"
+              />
+            ))}
+          </ActionProFeatureComponent>
+        </div>
+      )}
 
       {whatsAppConf.messageType === 'media' && isPro && whatsAppConf?.media_fields && (
         <>

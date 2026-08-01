@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '27th June 2026'
+const releaseDate = '25th July 2026'
 
 // Example for items:
 // items: [
@@ -23,19 +23,52 @@ const changeLog = [
     label: __('Note', 'bit-integrations'),
     headClass: 'new-note',
     itemClass: '',
-    items: []
+    items: [
+      {
+        label: 'Since 2.10.0, credentials live in reusable Connections. Integrations you set up before that still keep their own credentials, so we call them legacy - their info page shows a short explainer instead of a connection to view or switch.',
+        desc: '',
+        isPro: false
+      },
+      {
+        label: 'They keep working exactly as before, and credentials stay safe on your server (never sent to your browser, which is why the fields look empty). To move one over, just open its settings and authorize the app once.',
+        desc: '',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Bit CRM',
+        desc: '66 new events added',
+        isPro: false
+      },
+      {
+        label: 'Fluent Player',
+        desc: '12 new events added',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Bit CRM',
+        desc: '50 new events added',
+        isPro: false
+      },
+      {
+        label: 'Fluent Player',
+        desc: '26 new events added',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -43,14 +76,19 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Salesforce',
-        desc: 'Added record owner selection for supported record creation actions.',
+        label: 'Webhook (Action)',
+        desc: 'Dynamic URL path variables added to outgoing webhooks, mappable from trigger data.',
         isPro: false
       },
       {
-        label: 'MemberPress',
-        desc: 'Added Transaction expired trigger event.',
+        label: 'Webhook (Action)',
+        desc: 'Smart codes are now available in query parameters, request headers and path variables.',
         isPro: true
+      },
+      {
+        label: 'Connections',
+        desc: "An action's connection can now be switched from its info page.",
+        isPro: false
       }
     ]
   },
@@ -66,9 +104,29 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'ActiveCampaign',
-        desc: 'Improved tag fetching error handling through the shared HTTP helper.',
+        label: 'Connections',
+        desc: 'Fixed credentials not resolving for renamed integrations.',
         isPro: false
+      },
+      {
+        label: 'Integration Info',
+        desc: 'Fixed legacy actions rendering a blank info page.',
+        isPro: false
+      },
+      {
+        label: 'Webhook (Action)',
+        desc: 'Run status is now judged by the response HTTP status code, and path variables sync even when their tab is never opened.',
+        isPro: false
+      },
+      {
+        label: 'ACF',
+        desc: 'Fixed field reading when the meta value is missing',
+        isPro: true
+      },
+      {
+        label: 'WP Post',
+        desc: 'Fixed trashed and internal posts firing the post created/inserted triggers',
+        isPro: true
       }
     ]
   },
@@ -79,17 +137,17 @@ const changeLog = [
     items: [
       {
         label: 'Custom Action',
-        desc: 'Added administrator capability checks for creating, updating, duplicating, deleting and toggling custom-action flows.',
+        desc: "Closed an administrator gate bypass and confined the custom function file to the plugin's custom-function directory.",
         isPro: false
       },
       {
-        label: 'File Handling',
-        desc: 'Hardened attachment and upload path validation for Mail, PropovoiceCRM, SureCart and shared media upload helpers.',
+        label: 'Timeline',
+        desc: 'Log re-execution now applies the same administrator check as custom action save, update and delete.',
         isPro: false
       },
       {
-        label: 'HTTP Requests',
-        desc: 'Switched external requests to safer URL validation and WordPress safe remote request helpers.',
+        label: 'Mail',
+        desc: 'Recipient addresses and headers are validated in all cases, and header display names are sanitized.',
         isPro: false
       }
     ]

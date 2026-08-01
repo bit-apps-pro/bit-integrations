@@ -102,7 +102,7 @@ final class Helper
                 if ($safeFilePath === '') {
                     continue;
                 }
-                $fileContent = file_get_contents($safeFilePath);
+                $fileContent = FileSystem::read($safeFilePath);
             }
 
             // prepare upload image to WordPress Media Library
@@ -143,7 +143,7 @@ final class Helper
         if ($filePath !== '') {
             $imgFileName = basename($filePath);
             // prepare upload image to WordPress Media Library
-            $upload = wp_upload_bits($imgFileName, null, file_get_contents($filePath));
+            $upload = wp_upload_bits($imgFileName, null, FileSystem::read($filePath));
 
             if (!empty($upload['error']) || empty($upload['file'])) {
                 return;
@@ -184,14 +184,13 @@ final class Helper
             if ($file !== '') {
                 $imgFileName = basename($file);
                 // prepare upload image to WordPress Media Library
-                $upload = wp_upload_bits($imgFileName, null, file_get_contents($file));
+                $upload = wp_upload_bits($imgFileName, null, FileSystem::read($file));
 
                 if (!empty($upload['error']) || empty($upload['file'])) {
                     continue;
                 }
 
                 $imageFile = $upload['file'];
-                // echo $imageFile;
                 $wpFileType = wp_check_filetype($imageFile, null);
                 // Attachment attributes for file
                 $attachment = [
@@ -261,7 +260,6 @@ final class Helper
 
         if (\is_array($data)) {
             if (!isset($data[$currentPart])) {
-                // wp_send_json_error(new WP_Error($triggerEntity, __('Index out of bounds or invalid', 'bit-integrations')));
                 return;
             }
 
@@ -270,14 +268,12 @@ final class Helper
 
         if (\is_object($data)) {
             if (!property_exists($data, $currentPart)) {
-                // wp_send_json_error(new WP_Error($triggerEntity, __('Invalid path', 'bit-integrations')));
                 return;
             }
 
             return self::extractValueFromPath($data->{$currentPart}, $parts, $triggerEntity);
         }
 
-        // wp_send_json_error(new WP_Error($triggerEntity, __('Invalid path', 'bit-integrations')));
     }
 
     public static function parseFlowDetails($flowDetails)
@@ -319,7 +315,7 @@ final class Helper
 
         foreach ($acfFieldGroups as $group) {
             foreach (acf_get_fields($group['ID']) as $field) {
-                $data[$field['_name']] = get_post_meta($postId, $field['_name'])[0];
+                $data[$field['_name']] = get_post_meta($postId, $field['_name'])[0] ?? null;
             }
         }
 
@@ -529,7 +525,7 @@ final class Helper
 
     public static function jsonEncodeDecode($data)
     {
-        return json_decode(json_encode($data), true);
+        return json_decode(wp_json_encode($data), true);
     }
 
     public static function getPostIdFromReferer($referer)

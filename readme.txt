@@ -1,11 +1,12 @@
 === Bit integrations - Form Integration, Webhook, Spreadsheets, CRM, LMS & Email Automation ===
-Contributors: bitpressadmin, akaioum, rishadbitcode, niloy121, fahimsakib, shuvomohajan, tanvirchy, shakhawathosen, khoaiz, mazharul78
+Contributors: bitpressadmin
 Tags: automation, automator, google sheets integration, form integration, WooCommerce Integration
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.9.1
-License: GPLv2 or later
+Stable tag: 2.10.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 360+ platforms
 
@@ -467,6 +468,64 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.1 =
+_Release Date - 30th July 2026_
+
+- **New Triggers**
+ - Bit CRM: 66 new events added.
+ - Fluent Player: 12 new events added (Pro).
+
+- **New Actions**
+ - Bit CRM: 50 new events added.
+ - Fluent Player: 26 new events added (Pro).
+
+- **New Feature**
+ - Webhook (Action): Dynamic URL path variables added to outgoing webhooks, mappable from trigger data.
+ - Webhook (Action): Smart codes are now available in query parameters, request headers and path variables (Pro).
+ - Connections: An action's connection can now be switched from its info page.
+
+- **Security Fixes**
+ - Custom Action: Closed an administrator gate bypass and confined the custom function file to the plugin's custom-function directory.
+ - Timeline: Log re-execution now applies the same administrator check as custom action save, update and delete.
+ - AJAX Routes: Integration routes now require a write capability instead of view-only access.
+ - Mail: Recipient addresses and headers are validated in all cases, and header display names are sanitized.
+ - Admin Menu: Submenu is registered only when the capability check passes.
+
+- **Bug Fixes**
+ - Connections: Fixed credentials not resolving for renamed integrations.
+ - Integration Info: Fixed legacy actions rendering a blank info page.
+ - Webhook (Action): Run status is now judged by the response HTTP status code, and path variables sync even when their tab is never opened.
+ - ACF: Fixed field reading when the meta value is missing (Pro).
+ - WP Post: Fixed trashed and internal posts firing the post created/inserted triggers (Pro).
+
+- **Note: "Legacy" integrations**
+ - Since 2.10.0, credentials live in reusable Connections. Integrations you set up before that still keep their own credentials, so we call them legacy - their info page shows a short explainer instead of a connection to view or switch.
+ - They keep working exactly as before, and credentials stay safe on your server (never sent to your browser, which is why the fields look empty). To move one over, just open its settings and authorize the app once.
+
+= 2.10.0 =
+_Release Date - 25th July 2026_
+
+- **New Feature**
+ - Connections: New centralized connection manager - authorize an app once and reuse the same credentials across every integration, with linked integration listing, inline editing and clearer authorization errors.
+ - Timeline: Integration logs can now be re-executed, with nested re-run history kept for each attempt.
+ - Timeline: Redesigned log page with server-side status filtering, search and column controls.
+
+- **Security Fixes**
+ - Hardened AJAX authorization, credential storage and input handling across request routing.
+ - Stopped credentials from being returned in connection responses and made the token refresh lock reliable.
+ - Escaped OpenSSL error output in encryption exception handling.
+
+- **Bug Fixes**
+ - OAuth2: Fixed refresh URL template resolution and credentials being lost during token refresh.
+ - Google Sheets: Improved access token validation.
+ - Zoho Desk: Guarded against null API response data.
+
+= 2.9.2 =
+_Release Date - 21st July 2026_
+
+- **New Feature**
+ - WhatsApp: Added template placeholder support and improved template handling in the integration setup (Pro).
 
 = 2.9.1 =
 _Release Date - 13th July 2026_

@@ -4,6 +4,14 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key,
+        api_url: confTmp.api_url
+      }
+
 export const handleInput = (e, insightlyConf, setInsightlyConf) => {
   const newConf = { ...insightlyConf }
   const { name } = e.target
@@ -61,43 +69,10 @@ export const checkRequiredFields = insightlyConf => {
   return false
 }
 
-export const insightlyAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_url || !confTmp.api_key) {
-    setError({
-      api_url: !confTmp.api_url ? __("API URL can't be empty", 'bit-integrations') : '',
-      api_key: !confTmp.api_key ? __("Api Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
-
-  bitsFetch(requestParams, 'insightly_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid api_url name & API key', 'bit-integrations'))
-  })
-}
-
 export const getAllOrganisations = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, organisations: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'insightly_fetch_all_organisations').then(result => {
     if (result && result.success) {
@@ -120,8 +95,7 @@ export const getAllCategories = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, categories: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -145,7 +119,7 @@ export const getAllCategories = (confTmp, setConf, setLoading) => {
 export const getAllStatuses = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, statuses: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'insightly_fetch_all_statuses').then(result => {
     if (result && result.success) {
@@ -167,7 +141,7 @@ export const getAllStatuses = (confTmp, setConf, setLoading) => {
 export const getLeadSources = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, LeadSources: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'insightly_fetch_all_LeadSources').then(result => {
     if (result && result.success) {
@@ -194,7 +168,7 @@ export const getLeadSources = (confTmp, setConf, setLoading) => {
 export const getLeadStatuses = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, LeadStatues: true })
 
-  const requestParams = { api_key: confTmp.api_key, api_url: confTmp.api_url }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'insightly_fetch_all_LeadStatuses').then(result => {
     if (result && result.success) {
@@ -223,8 +197,7 @@ export const getAllCRMPipelines = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMPipelines: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -249,8 +222,7 @@ export const getAllCRMPipelineStages = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMPipelineStages: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
-    api_url: confTmp.api_url,
+    ...buildAuthRequestParams(confTmp),
     selectedCRMPipeline: confTmp.selectedCRMPipeline
   }
 

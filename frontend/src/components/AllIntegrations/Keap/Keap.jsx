@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { setGrantTokenResponse } from './KeapIntegrationHelpers'
 import KeapAuthorization from './KeapAuthorization'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import { handleInput, checkMappedFields } from './KeapCommonFunc'
@@ -31,11 +30,6 @@ function Keap({ formFields, setFlow, flow, allIntegURL }) {
     customFields: [],
     actions: {}
   })
-
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    window.opener && setGrantTokenResponse('keap')
-  }, [])
 
   const nextPage = () => {
     setTimeout(() => {

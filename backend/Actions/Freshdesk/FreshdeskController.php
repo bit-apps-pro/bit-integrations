@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Freshdesk;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
@@ -15,45 +16,14 @@ use WP_Error;
  */
 class FreshdeskController
 {
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams     Params to authorize
-     * @param mixed  $tokenRequestParams
-     *
-     * @return JSON Freshdesk api response and status
-     */
-    public function checkAuthorizationAndFetchTickets($tokenRequestParams)
-    {
-        if (
-            empty($tokenRequestParams->app_domain)
-            || empty($tokenRequestParams->api_key)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $header = [
-            'Authorization' => base64_encode("{$tokenRequestParams->api_key}"),
-            'Content-Type'  => 'application/json'
-        ];
-
-        $apiEndpoint = $tokenRequestParams->app_domain . '/api/v2/tickets';
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (is_wp_error($apiResponse) || HttpHelper::$responseCode !== 200) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-
-        wp_send_json_success($apiResponse, 200);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'freshdesk',
+        'fields'   => [
+            'api_key'    => 'value',
+            'app_domain' => 'app_domain',
+        ],
+    ];
 
     /**
      * Process ajax request for Fetch Ticket fields
@@ -186,15 +156,17 @@ class FreshdeskController
     {
         $integrationDetails = $integrationData->flow_details;
         $integrationId = $integrationData->id;
-        $api_key = $integrationDetails->api_key;
+        $api_key = $integrationDetails->api_key ?: ($integrationDetails->value ?? '');
         $status = (int) $integrationDetails->status;
         $priority = (int) $integrationDetails->priority;
         $fieldMap = $integrationDetails->field_map;
         $fieldMapContact = $integrationDetails->field_map_contact;
+        $app_base_domamin = $integrationDetails->app_domain;
 
         if (
             empty($api_key)
             || empty($integrationDetails)
+            || empty($app_base_domamin)
             || empty($status)
             || empty($priority)
             || empty($fieldMap)
@@ -203,7 +175,6 @@ class FreshdeskController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Freshdesk'));
         }
-        $app_base_domamin = $integrationDetails->app_domain;
         $apiEndpoint = $integrationDetails->app_domain . '/api/v2/tickets';
         $recordApiHelper = new RecordApiHelper($api_key, $integrationId);
         $freshdeskApiResponse = $recordApiHelper->execute(

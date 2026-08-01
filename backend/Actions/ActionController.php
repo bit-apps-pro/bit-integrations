@@ -53,6 +53,10 @@ final class ActionController
     {
         $parsed_url = wp_parse_url($url);
 
-        return $parsed_url['host'] . (empty($parsed_url['port']) ? null : (':' . $parsed_url['port']));
+        if (!\is_array($parsed_url) || empty($parsed_url['host'])) {
+            return '';
+        }
+
+        return $parsed_url['host'] . (empty($parsed_url['port']) ? '' : (':' . $parsed_url['port']));
     }
 }

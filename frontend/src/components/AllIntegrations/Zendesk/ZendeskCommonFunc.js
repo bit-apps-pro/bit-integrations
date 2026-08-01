@@ -51,43 +51,18 @@ export const checkMappedFields = zendeskConf => {
   return true
 }
 
-export const zendeskAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'zendesk_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key
+      }
 
 export const getCustomFields = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, customFields: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action: confTmp.actionName
   }
 
@@ -114,7 +89,7 @@ export const getCustomFields = (confTmp, setConf, setLoading) => {
 export const getAllLeads = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, leads: true })
 
-  const requestParams = { api_key: confTmp.api_key }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'zendesk_fetch_all_leads').then(result => {
     if (result && result.success) {
@@ -136,7 +111,7 @@ export const getAllLeads = (confTmp, setConf, setLoading) => {
 export const getAllParentOrganizations = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, parentOrganizations: true })
 
-  const requestParams = { api_key: confTmp.api_key }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'zendesk_fetch_all_parentOrganizations').then(result => {
     if (result && result.success) {
@@ -158,7 +133,7 @@ export const getAllParentOrganizations = (confTmp, setConf, setLoading) => {
 export const getAllTeams = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, teams: true })
 
-  const requestParams = { api_key: confTmp.api_key }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'zendesk_fetch_all_teams').then(result => {
     if (result && result.success) {
@@ -180,9 +155,7 @@ export const getAllTeams = (confTmp, setConf, setLoading) => {
 export const getAllCurrencies = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, currencies: true })
 
-  const requestParams = {
-    api_key: confTmp.api_key
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'zendesk_fetch_all_currencies').then(result => {
     if (result && result.success) {
@@ -205,7 +178,7 @@ export const getAllStages = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, stages: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -230,7 +203,7 @@ export const getAllCRMCompanies = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMCompanies: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -263,7 +236,7 @@ export const getAllCRMContacts = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMContacts: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
@@ -288,7 +261,7 @@ export const getAllCRMSources = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMSources: true })
 
   const requestParams = {
-    api_key: confTmp.api_key,
+    ...buildAuthRequestParams(confTmp),
     action_name: confTmp.actionName
   }
 
