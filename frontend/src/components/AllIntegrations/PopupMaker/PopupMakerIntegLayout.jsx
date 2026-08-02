@@ -84,7 +84,6 @@ export default function PopupMakerIntegLayout({
       })
     )
 
-    // The refresh buttons cover re-fetching, so only load a list we do not have yet.
     if (needsTheme.includes(value) && !popupMakerConf?.allThemes?.length) {
       refreshPopupMakerThemes(setPopupMakerConf, setIsLoading)
     }

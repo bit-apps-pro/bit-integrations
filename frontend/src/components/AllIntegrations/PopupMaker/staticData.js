@@ -104,17 +104,14 @@ export const forceDeleteOptions = [
   { label: __('No, move to trash', 'bit-integrations'), value: 'no' }
 ]
 
-// Actions that need a fetched theme dropdown
 export const needsTheme = ['create_popup', 'update_popup']
 
-// Actions that need a fetched popup dropdown (subscriber attribution)
 export const needsPopup = ['create_subscriber', 'update_subscriber']
 
-// Actions with a required select rendered in the layout
 export const needsStatus = ['change_popup_status']
+
 export const needsEvent = ['track_popup_event']
 
-// Actions with optional selects rendered under Utilities
 export const hasUtilities = [
   'create_popup',
   'update_popup',

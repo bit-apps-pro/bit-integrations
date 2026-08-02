@@ -46,7 +46,7 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        $mainAction = $this->_integrationDetails->mainAction ?? 'create_popup';
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         $defaultResponse = [
             'success' => false,
