@@ -43,5 +43,11 @@ final class Deactivation
     public function deactive()
     {
         wp_clear_scheduled_hook('btcbi_delete_integ_log');
+
+        // Drops the OAuth callback rewrite rule, which would otherwise keep
+        // resolving to a pagename nothing handles. Clearing the lock lets a
+        // reactivation restore the rule without waiting it out.
+        delete_transient(Config::withPrefix(RewriteRuleProvider::FLUSH_LOCK));
+        flush_rewrite_rules();
     }
 }
