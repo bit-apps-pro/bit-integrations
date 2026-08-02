@@ -9,7 +9,6 @@ export const modules = [
     label: __('Change Popup Status', 'bit-integrations'),
     is_pro: true
   },
-  { name: 'show_popup', label: __('Show Popup', 'bit-integrations'), is_pro: true },
   {
     name: 'reset_popup_counts',
     label: __('Reset Popup Counts', 'bit-integrations'),
@@ -36,12 +35,6 @@ export const PopupUpdateFields = [
 
 export const PopupIdField = [
   { key: 'popup_id', label: __('Popup ID', 'bit-integrations'), required: true }
-]
-
-export const ShowPopupFields = [
-  { key: 'popup_id', label: __('Popup ID', 'bit-integrations'), required: true },
-  { key: 'user_email', label: __('User Email', 'bit-integrations'), required: false },
-  { key: 'expires_in', label: __('Expires In (Minutes)', 'bit-integrations'), required: false }
 ]
 
 export const SubscriberFields = [

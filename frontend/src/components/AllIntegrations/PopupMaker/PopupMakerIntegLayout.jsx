@@ -4,7 +4,6 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import Note from '../../Utilities/Note'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import PopupMakerActions from './PopupMakerActions'
@@ -26,7 +25,6 @@ import {
   PopupFields,
   PopupIdField,
   PopupUpdateFields,
-  ShowPopupFields,
   SubscriberFields,
   SubscriberIdField,
   SubscriberUpdateFields
@@ -68,9 +66,6 @@ export default function PopupMakerIntegLayout({
           case 'reset_popup_counts':
           case 'track_popup_event':
             draftConf.popupMakerFields = PopupIdField
-            break
-          case 'show_popup':
-            draftConf.popupMakerFields = ShowPopupFields
             break
           case 'create_subscriber':
             draftConf.popupMakerFields = SubscriberFields
@@ -268,15 +263,6 @@ export default function PopupMakerIntegLayout({
           </div>
           <br />
         </div>
-      )}
-
-      {popupMakerConf?.mainAction === 'show_popup' && (
-        <Note
-          note={__(
-            'Popups open in the browser, so this action queues the popup and it opens on the user next page view. It needs a logged in WordPress user, either mapped by email or the user running the flow.',
-            'bit-integrations'
-          )}
-        />
       )}
 
       {popupMakerConf?.mainAction &&

@@ -97,13 +97,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'show_popup':
-                $response = Hooks::apply(Config::withPrefix('popup_maker_show_popup'), $defaultResponse, $fieldData);
-                $type = 'popup';
-                $actionType = 'show_popup';
-
-                break;
-
             case 'create_subscriber':
                 $response = Hooks::apply(Config::withPrefix('popup_maker_create_subscriber'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'subscriber';
