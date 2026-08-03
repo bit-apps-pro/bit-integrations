@@ -26,7 +26,6 @@ import {
 export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmConf }) {
   const { isPro } = useRecoilValue($appConfigState)
   const [isLoading, setIsLoading] = useState(false)
-  // Bumped to remount a locked select, see handleSelectChange.
   const [lockedSelectKey, setLockedSelectKey] = useState(0)
 
   const action = bitCrmConf?.mainAction
@@ -51,8 +50,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action])
 
-  // A select whose value Bit CRM enforces anyway carries a default. Seed it here
-  // too, so a config saved before the default existed still opens with it set.
+  // A config saved before a select gained its default still opens without it.
   useEffect(() => {
     if (!action) return
 
@@ -88,10 +86,9 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     )
 
   // A locked option cannot be clicked off in the menu, but its chip still carries
-  // a delete button and the clear button wipes the whole select. Put the locked
-  // values back, then remount the dropdown so its own copy of the value follows:
-  // it re-reads the prop only when the string changes, and a rejected delete
-  // leaves that string exactly as it was.
+  // a delete button and the clear button wipes the whole select. Remount on a
+  // rejected delete: the dropdown re-reads the prop only when the string changes,
+  // and putting the value back leaves it exactly as it was.
   const handleSelectChange = (sel, val) => {
     if (!sel.lockedValues) {
       setField(sel.key, val)
