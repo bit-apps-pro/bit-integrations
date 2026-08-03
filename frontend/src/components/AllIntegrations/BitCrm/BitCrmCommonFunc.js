@@ -34,6 +34,49 @@ export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading, p
     .catch(() => setIsLoading(false))
 }
 
+// Shares the loading state with the fetched dropdowns, which key it by list.
+export const CUSTOM_FIELDS_KEY = 'customFields'
+
+export const NO_CUSTOM_FIELDS = { fields: [], module: '' }
+
+/**
+ * Custom fields are defined per site rather than shipped with Bit CRM, and
+ * defining them is a Bit CRM Pro feature, so a site without them gets none and
+ * the field map falls back to the static list.
+ *
+ * The module is stored alongside the fields because a required custom field adds
+ * a locked row to the map, and the previous module's rows must not survive the
+ * render between switching action and the new list arriving.
+ */
+export const fetchBitCrmCustomFields = (module, setCustomFields, setIsLoading, notify = false) => {
+  if (!module) {
+    setCustomFields(NO_CUSTOM_FIELDS)
+    return
+  }
+
+  setIsLoading(CUSTOM_FIELDS_KEY)
+
+  bitsFetch({ module }, 'refresh_bitcrm_custom_fields')
+    .then(result => {
+      const fetched = result?.success && Array.isArray(result?.data?.fields) ? result.data.fields : []
+
+      setCustomFields({ fields: fetched, module })
+      setIsLoading(false)
+
+      if (!notify) return
+
+      if (result?.success) {
+        toast.success(__('Fields refreshed successfully', 'bit-integrations'))
+      } else {
+        toast.error(__('Bit CRM field fetch failed. Please try again', 'bit-integrations'))
+      }
+    })
+    .catch(() => {
+      setCustomFields({ fields: [], module })
+      setIsLoading(false)
+    })
+}
+
 export const checkMappedFields = bitCrmConf => {
   const mappedFields = bitCrmConf?.field_map
     ? bitCrmConf.field_map.filter(

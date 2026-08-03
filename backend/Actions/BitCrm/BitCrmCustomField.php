@@ -1,0 +1,198 @@
+<?php
+
+namespace BitApps\Integrations\Actions\BitCrm;
+
+use Throwable;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Bit CRM lets a site define extra fields per module. They live in their own
+ * tables rather than on the entity, so they are written and read through payload
+ * keys and hooks of their own.
+ *
+ * Defining them is a Bit CRM Pro feature; without it every module has none and
+ * the field maps fall back to system fields only.
+ *
+ * phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+ */
+final class BitCrmCustomField
+{
+    /**
+     * Marks a field map row as targeting a custom field rather than a column on
+     * the entity itself. Bit CRM takes the two through different payload keys.
+     */
+    public const PREFIX = 'cf::';
+
+    public const MODULES = ['lead', 'contact', 'company', 'deal', 'product'];
+
+    private const SAVE_HOOK = 'bit_crm_update_custom_fields_values';
+
+    /**
+     * Active custom field definitions for a module.
+     *
+     * @return array<int, array>
+     */
+    public static function all(string $module)
+    {
+        if (!\in_array($module, self::MODULES, true) || !class_exists('BitApps\CrmPro\Model\CustomField')) {
+            return [];
+        }
+
+        try {
+            $fields = \BitApps\CrmPro\Model\CustomField::where('module', $module)->get();
+        } catch (Throwable $th) {
+            return [];
+        }
+
+        if (empty($fields)) {
+            return [];
+        }
+        error_log('BitCrmCustomField::all() - ' . $module . ' - ' . print_r($fields->toArray(), true));
+        $active = [];
+        foreach ($fields->toArray() as $field) {
+            if (empty($field['field_key']) || empty($field['status'])) {
+                continue;
+            }
+
+            $active[] = $field;
+        }
+
+        return $active;
+    }
+
+    /**
+     * Custom fields as field map rows, shaped like the entries in bitCrmStaticData.
+     *
+     * @return array<int, array>
+     */
+    public static function fieldMapOptions(string $module)
+    {
+        $options = [];
+
+        foreach (self::all($module) as $field) {
+            $options[] = [
+                'key'      => self::PREFIX . $field['field_key'],
+                'label'    => $field['label'] ?? $field['field_key'],
+                'required' => !empty(self::attributes($field)['required']),
+            ];
+        }
+
+        return $options;
+    }
+
+    /**
+     * The mapped custom field rows, keyed the way Bit CRM's entity services
+     * expect: [field_key => ['field_id' => int, 'field_value' => string]].
+     *
+     * Rows whose field no longer exists on the module are dropped, so deleting a
+     * custom field in Bit CRM cannot break a flow that still maps it.
+     */
+    public static function values(array $fieldData, string $module)
+    {
+        $definitions = self::all($module);
+
+        if (empty($definitions)) {
+            return [];
+        }
+
+        $byKey = array_column($definitions, null, 'field_key');
+        $values = [];
+
+        foreach ($fieldData as $key => $value) {
+            if (strpos((string) $key, self::PREFIX) !== 0) {
+                continue;
+            }
+
+            $fieldKey = substr((string) $key, \strlen(self::PREFIX));
+
+            if (!isset($byKey[$fieldKey]) || $value === null || $value === '' || $value === []) {
+                continue;
+            }
+
+            $values[$fieldKey] = [
+                'field_id'    => (int) $byKey[$fieldKey]['id'],
+                'field_value' => self::formatValue($value, (string) ($byKey[$fieldKey]['type'] ?? '')),
+            ];
+        }
+
+        return $values;
+    }
+
+    /**
+     * Drop the custom field rows from a field map, so they never reach the
+     * entity's own columns.
+     */
+    public static function withoutCustomKeys(array $values)
+    {
+        return array_filter(
+            $values,
+            static function ($key) {
+                return strpos((string) $key, self::PREFIX) !== 0;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
+    /**
+     * Write custom field values the same way Bit CRM's own entity services do.
+     * Only needed where a record is written directly instead of through the
+     * service that fires this action itself.
+     */
+    public static function save(string $module, int $entityId, array $values)
+    {
+        if (empty($values) || empty($entityId)) {
+            return;
+        }
+
+        do_action(self::SAVE_HOOK, $module, $entityId, $values);
+    }
+
+    /**
+     * A custom field keeps everything but its label and status in one JSON blob,
+     * `required` included.
+     */
+    private static function attributes(array $field)
+    {
+        $attributes = $field['attributes'] ?? [];
+
+        if (\is_string($attributes)) {
+            $attributes = json_decode($attributes, true);
+        }
+
+        return \is_array($attributes) ? $attributes : [];
+    }
+
+    /**
+     * Multi-value custom fields are stored as a JSON list; everything else is a
+     * plain string. A mapped value arrives comma separated when it comes from a
+     * trigger token rather than a real array.
+     *
+     * @param mixed $value
+     */
+    private static function formatValue($value, string $type)
+    {
+        $multiValueTypes = class_exists('BitApps\CrmPro\Model\CustomField')
+            ? \BitApps\CrmPro\Model\CustomField::MULTI_VALUE_FIELD_TYPES
+            : ['multi-select', 'checkbox'];
+
+        if (!\in_array($type, $multiValueTypes, true)) {
+            return \is_array($value) ? implode(', ', $value) : (string) $value;
+        }
+
+        $items = \is_array($value) ? $value : explode(',', (string) $value);
+
+        $items = array_values(
+            array_filter(
+                array_map('trim', array_map('strval', $items)),
+                static function ($item) {
+                    return $item !== '';
+                }
+            )
+        );
+
+        return (string) wp_json_encode($items);
+    }
+}

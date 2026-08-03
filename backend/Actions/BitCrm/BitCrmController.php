@@ -81,6 +81,20 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new $service())->getEntitiesAsOptions())]);
     }
 
+    /**
+     * The module's custom fields, as extra rows for the field map.
+     *
+     * @param object $data
+     */
+    public static function refreshCustomFields($data)
+    {
+        self::isExists();
+
+        $module = isset($data->module) ? sanitize_text_field($data->module) : '';
+
+        wp_send_json_success(['fields' => BitCrmCustomField::fieldMapOptions($module)]);
+    }
+
     public static function refreshLeadTags()
     {
         wp_send_json_success(['options' => self::tagOptions('lead')]);

@@ -8,13 +8,17 @@ import TableCheckBox from '../../Utilities/TableCheckBox'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import {
+  CUSTOM_FIELDS_KEY,
+  fetchBitCrmCustomFields,
   generateMappedField,
   isEmptyValue,
+  NO_CUSTOM_FIELDS,
   refreshBitCrmList,
   syncRequiredFieldMap
 } from './BitCrmCommonFunc'
 import BitCrmFieldMap from './BitCrmFieldMap'
 import {
+  actionCustomFieldModules,
   actionDropdowns,
   actionSelects,
   actionUtilities,
@@ -27,19 +31,35 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
   const { isPro } = useRecoilValue($appConfigState)
   const [isLoading, setIsLoading] = useState(false)
   const [lockedSelectKey, setLockedSelectKey] = useState(0)
+  const [customFields, setCustomFields] = useState(NO_CUSTOM_FIELDS)
 
   const action = bitCrmConf?.mainAction
   const bitCrmFields = bitCrmStaticData[action] ?? []
   const dropdowns = actionDropdowns[action] ?? []
   const selects = actionSelects[action] ?? []
   const utilities = actionUtilities[action] ?? []
+  const customFieldModule = actionCustomFieldModules[action]
+
+  const fetchedFields = customFields.module === customFieldModule ? customFields.fields : []
+  const mappableFields = fetchedFields.length > 0 ? [...bitCrmFields, ...fetchedFields] : bitCrmFields
+
+  // A custom field can be required too, so the rows the field map locks depend on
+  // the fetched list as much as the static one.
+  const requiredKeys = mappableFields
+    .filter(fld => fld.required === true)
+    .map(fld => fld.key)
+    .join(',')
+
+  useEffect(() => {
+    fetchBitCrmCustomFields(customFieldModule, setCustomFields, setIsLoading)
+  }, [customFieldModule])
 
   // A config saved before a field became required still lists the old rows, and
   // the field map renders its required rows by position.
   useEffect(() => {
-    if (!action || bitCrmFields.length === 0) return
+    if (!action || mappableFields.length === 0) return
 
-    const synced = syncRequiredFieldMap(bitCrmConf?.field_map ?? [], bitCrmFields)
+    const synced = syncRequiredFieldMap(bitCrmConf?.field_map ?? [], mappableFields)
     if (synced === bitCrmConf?.field_map) return
 
     setBitCrmConf(prevConf =>
@@ -48,7 +68,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       })
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [action])
+  }, [action, requiredKeys])
 
   // A config saved before a select gained its default still opens without it.
   useEffect(() => {
@@ -229,8 +249,20 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       {/* Field map (map dynamic form fields onto free-text / identifier fields) */}
       {action && bitCrmFields.length > 0 && (
         <div className="mt-4">
-          <div className="mt-5">
+          <div className="flx mt-5">
             <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
+            {customFieldModule && (
+              <button
+                onClick={() =>
+                  fetchBitCrmCustomFields(customFieldModule, setCustomFields, setIsLoading, true)
+                }
+                className="icn-btn sh-sm tooltip"
+                style={{ '--tooltip-txt': `'${__('Refetch Fields', 'bit-integrations')}'` }}
+                type="button"
+                disabled={isLoading === CUSTOM_FIELDS_KEY}>
+                &#x21BB;
+              </button>
+            )}
           </div>
 
           <div className="btcd-hr mt-1" />
@@ -250,7 +282,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
               i={i}
               field={field}
               formFields={formFields}
-              bitCrmFields={bitCrmFields}
+              bitCrmFields={mappableFields}
               bitCrmConf={bitCrmConf}
               setBitCrmConf={setBitCrmConf}
             />

@@ -574,6 +574,21 @@ export const actionSelects = {
   update_portal_access: [portalCapabilitiesSel]
 }
 
+// A site can define its own fields on these modules, so the field map for these
+// actions is the static list plus whatever Bit CRM reports for the module.
+export const actionCustomFieldModules = {
+  create_lead: 'lead',
+  update_lead: 'lead',
+  create_contact: 'contact',
+  update_contact: 'contact',
+  create_company: 'company',
+  update_company: 'company',
+  create_deal: 'deal',
+  update_deal: 'deal',
+  create_product: 'product',
+  update_product: 'product'
+}
+
 // Every conf key a select or dropdown can write, so switching action can clear
 // the ones the new action does not use. Several keys share a Bit CRM field
 // (status, type, lead source), and a leftover value would otherwise win.
