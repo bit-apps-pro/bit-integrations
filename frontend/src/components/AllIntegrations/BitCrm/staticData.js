@@ -283,8 +283,22 @@ const companyTags = tags('refresh_bitcrm_company_tags')
 const dealTags = tags('refresh_bitcrm_deal_tags')
 const productTags = tags('refresh_bitcrm_product_tags')
 
-// Bit CRM names the module a lookup points at, not where to read its records
-// from. Keyed by `related_module`; a field pointing anywhere else is skipped.
+// Joins the field map only for a stage that closes the deal, where Bit CRM
+// requires it.
+export const closingDateField = {
+  key: 'closed_at',
+  label: __('Closing Date (YYYY-MM-DD HH:MM:SS)', 'bit-integrations'),
+  required: true
+}
+
+export const CLOSING_STAGE_CATEGORIES = ['closed_won', 'closed_lost']
+
+// Rows the field map only sometimes carries, so a stale one can be dropped when
+// the configuration that asked for it changes.
+export const conditionalFieldKeys = [closingDateField.key]
+
+// Bit CRM names a lookup's module, not where to read its records from. Keyed by
+// `related_module`; a field pointing anywhere else is skipped.
 export const lookupSources = {
   user: { route: 'refresh_bitcrm_users', listKey: 'allUsers' },
   contact: { route: 'refresh_bitcrm_contacts', listKey: 'allContacts' },

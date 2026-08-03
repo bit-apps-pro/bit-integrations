@@ -2,7 +2,15 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import { actionDropdowns, actionFieldModules, actionSelects, lookupSources } from './staticData'
+import {
+  actionDropdowns,
+  actionFieldModules,
+  actionSelects,
+  CLOSING_STAGE_CATEGORIES,
+  closingDateField,
+  conditionalFieldKeys,
+  lookupSources
+} from './staticData'
 
 // The two kinds that get their own control; everything else is a field map row.
 const SELECT_TYPE = 'select'
@@ -115,6 +123,27 @@ export const crmLookupFields = bitCrmConf =>
     bitCrmConf?.mainAction
   ).map(fld => ({ ...fld, ...lookupSources[fld.relatedModule] }))
 
+/**
+ * The rows a field map only carries in some configurations. A closing date
+ * belongs to a stage that closes the deal and to no other.
+ *
+ * A stage list cached before stages carried a category cannot answer that, and
+ * the action fails at run time without the row, so an unknown category offers it.
+ */
+export const conditionalFields = bitCrmConf => {
+  if (bitCrmConf?.mainAction !== 'update_deal_stage') return []
+  if (isEmptyValue(bitCrmConf?.selectedStage)) return []
+
+  const stage = (bitCrmConf?.allStages ?? []).find(
+    option => String(option.value) === String(bitCrmConf.selectedStage)
+  )
+
+  const isClosing =
+    stage?.category === undefined ? true : CLOSING_STAGE_CATEGORIES.includes(stage.category)
+
+  return isClosing ? [closingDateField] : []
+}
+
 export const checkMappedFields = bitCrmConf => {
   const mappedFields = bitCrmConf?.field_map
     ? bitCrmConf.field_map.filter(
@@ -157,6 +186,17 @@ export const missingRequiredSelect = bitCrmConf => {
 
 export const isBitCrmConfValid = bitCrmConf =>
   checkMappedFields(bitCrmConf) && !missingRequiredSelect(bitCrmConf)
+
+// A conditional row outlives the configuration that asked for it, so it is
+// dropped once the current field list no longer offers it.
+export const dropStaleConditionalRows = (fieldMap = [], fields = []) => {
+  const offered = new Set(fields.map(fld => fld.key))
+  const pruned = fieldMap.filter(
+    row => !conditionalFieldKeys.includes(row.bitCrmField) || offered.has(row.bitCrmField)
+  )
+
+  return pruned.length === fieldMap.length ? fieldMap : pruned
+}
 
 // The field map renders its required rows positionally, so the leading rows are
 // re-keyed onto the current required list and the rest pushed below.

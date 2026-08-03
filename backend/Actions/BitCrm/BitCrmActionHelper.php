@@ -565,11 +565,33 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Deal not found!', 'bit-integrations')];
         }
 
-        if (!self::isKnownDealStage($fieldData['stage'])) {
+        $stages = self::dealStages();
+        $definition = $stages[$fieldData['stage']] ?? null;
+
+        if (!empty($stages) && $definition === null) {
             return ['success' => false, 'message' => __('This deal stage does not exist in Bit CRM.', 'bit-integrations')];
         }
 
-        if (!$deal->update(['stage' => $fieldData['stage'], 'updated_by' => get_current_user_id()])) {
+        $update = ['stage' => $fieldData['stage'], 'updated_by' => get_current_user_id()];
+
+        // Bit CRM rewrites the probability on every stage change; leaving it would
+        // keep the odds of the stage before.
+        if (isset($definition['probability'])) {
+            $update['probability'] = $definition['probability'];
+        }
+
+        // Required on a stage that closes the deal, asked for on no other.
+        if (\in_array($definition['deal_category'] ?? '', ['closed_won', 'closed_lost'], true)) {
+            $closedAt = self::dealClosingDate($fieldData['closed_at'] ?? '');
+
+            if ($closedAt === null) {
+                return ['success' => false, 'message' => __('A closing date is required to move a deal to a won or lost stage.', 'bit-integrations')];
+            }
+
+            $update['closed_at'] = $closedAt;
+        }
+
+        if (!$deal->update($update)) {
             return ['success' => false, 'message' => __('Failed to update deal stage.', 'bit-integrations')];
         }
 
@@ -1429,23 +1451,58 @@ final class BitCrmActionHelper
      *
      * @return bool
      */
-    private static function isKnownDealStage($stage)
+    /**
+     * The site's deal stages keyed by stage key. Empty when they cannot be read,
+     * which leaves the stage unvalidated rather than rejected.
+     */
+    private static function dealStages()
     {
         if (!class_exists('BitApps\Crm\Services\DealStageService')) {
-            return true;
+            return [];
         }
 
-        $stages = (new \BitApps\Crm\Services\DealStageService())->getStagesAsOptions();
+        $stages = [];
 
-        foreach ((array) $stages as $option) {
-            $option = (array) $option;
+        foreach ((array) (new \BitApps\Crm\Services\DealStageService())->getAllStages() as $stage) {
+            $stage = (array) $stage;
+            $key = (string) ($stage['key'] ?? '');
 
-            if ((string) ($option['value'] ?? '') === (string) $stage) {
-                return true;
+            if ($key !== '') {
+                $stages[$key] = $stage;
             }
         }
 
-        return false;
+        return $stages;
+    }
+
+    /**
+     * Every branch returns a bare site-local `Y-m-d H:i:s`, the shape Bit CRM's
+     * own stage modal submits. Formatting one input as local and another as UTC
+     * would store the same instant two ways. Null when nothing usable was mapped.
+     */
+    private static function dealClosingDate($value)
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return null;
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+            return $value . ' 00:00:00';
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $value)) {
+            return $value . ':00';
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $value)) {
+            return $value;
+        }
+
+        $timestamp = strtotime($value);
+
+        return $timestamp === false ? null : wp_date('Y-m-d H:i:s', $timestamp);
     }
 
     private static function csvList($value)

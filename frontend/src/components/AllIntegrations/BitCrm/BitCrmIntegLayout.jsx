@@ -8,10 +8,12 @@ import TableCheckBox from '../../Utilities/TableCheckBox'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import {
+  conditionalFields,
   CRM_FIELDS_KEY,
   crmLookupFields,
   crmMapFields,
   crmSelectFields,
+  dropStaleConditionalRows,
   fetchBitCrmFields,
   generateMappedField,
   isEmptyValue,
@@ -43,7 +45,11 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
 
   const crmSelects = crmSelectFields(bitCrmConf)
   const crmLookups = crmLookupFields(bitCrmConf)
-  const mappableFields = [...staticFields, ...crmMapFields(bitCrmConf)]
+  const mappableFields = [
+    ...staticFields,
+    ...conditionalFields(bitCrmConf),
+    ...crmMapFields(bitCrmConf)
+  ]
 
   const requiredKeys = mappableFields
     .filter(fld => fld.required === true)
@@ -62,7 +68,8 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
   useEffect(() => {
     if (!action || mappableFields.length === 0) return
 
-    const synced = syncRequiredFieldMap(bitCrmConf?.field_map ?? [], mappableFields)
+    const pruned = dropStaleConditionalRows(bitCrmConf?.field_map ?? [], mappableFields)
+    const synced = syncRequiredFieldMap(pruned, mappableFields)
     if (synced === bitCrmConf?.field_map) return
 
     setBitCrmConf(prevConf =>
