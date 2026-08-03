@@ -48,17 +48,17 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\CompanyService())->getEntitiesAsOptions())]);
     }
 
-    /**
-     * Records of one module, for the pickers that follow a module select.
-     *
-     * @param object $data
-     */
     public static function refreshUsers()
     {
         self::ensureClass('BitApps\Crm\Services\UserService');
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\UserService())->getUsersAsOptions())]);
     }
 
+    /**
+     * Records of one module, for the pickers that follow a module select.
+     *
+     * @param object $data
+     */
     public static function refreshEntities($data)
     {
         self::isExists();
@@ -82,17 +82,15 @@ class BitCrmController
     }
 
     /**
-     * The module's custom fields, as extra rows for the field map.
-     *
      * @param object $data
      */
-    public static function refreshCustomFields($data)
+    public static function refreshFields($data)
     {
         self::isExists();
 
         $module = isset($data->module) ? sanitize_text_field($data->module) : '';
 
-        wp_send_json_success(['fields' => BitCrmCustomField::fieldMapOptions($module)]);
+        wp_send_json_success(['fields' => BitCrmFieldService::fields($module)]);
     }
 
     public static function refreshLeadTags()
@@ -125,13 +123,12 @@ class BitCrmController
         $integrationDetails = $integrationData->flow_details;
         $integId            = $integrationData->id;
         $fieldMap           = $integrationDetails->field_map;
-        $utilities          = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
         if (empty($fieldMap)) {
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap, $utilities);
+        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
     }
 
     private static function ensureClass($class)

@@ -14,7 +14,7 @@ Route::post('refresh_bitcrm_contacts', [BitCrmController::class, 'refreshContact
 Route::post('refresh_bitcrm_companies', [BitCrmController::class, 'refreshCompanies']);
 Route::post('refresh_bitcrm_users', [BitCrmController::class, 'refreshUsers']);
 Route::post('refresh_bitcrm_entities', [BitCrmController::class, 'refreshEntities']);
-Route::post('refresh_bitcrm_custom_fields', [BitCrmController::class, 'refreshCustomFields']);
+Route::post('refresh_bitcrm_fields', [BitCrmController::class, 'refreshFields']);
 Route::post('refresh_bitcrm_lead_tags', [BitCrmController::class, 'refreshLeadTags']);
 Route::post('refresh_bitcrm_contact_tags', [BitCrmController::class, 'refreshContactTags']);
 Route::post('refresh_bitcrm_company_tags', [BitCrmController::class, 'refreshCompanyTags']);

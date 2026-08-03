@@ -2,7 +2,11 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import { actionDropdowns, actionSelects } from './staticData'
+import { actionDropdowns, actionFieldModules, actionSelects, lookupSources } from './staticData'
+
+// The two kinds that get their own control; everything else is a field map row.
+const SELECT_TYPE = 'select'
+const LOOKUP_TYPE = 'lookup'
 
 export const handleInput = (e, bitCrmConf, setBitCrmConf) => {
   const { name, value } = e.target
@@ -35,32 +39,29 @@ export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading, p
 }
 
 // Shares the loading state with the fetched dropdowns, which key it by list.
-export const CUSTOM_FIELDS_KEY = 'customFields'
-
-export const NO_CUSTOM_FIELDS = { fields: [], module: '' }
+export const CRM_FIELDS_KEY = 'crmFields'
 
 /**
- * Custom fields are defined per site rather than shipped with Bit CRM, and
- * defining them is a Bit CRM Pro feature, so a site without them gets none and
- * the field map falls back to the static list.
- *
- * The module is stored alongside the fields because a required custom field adds
- * a locked row to the map, and the previous module's rows must not survive the
- * render between switching action and the new list arriving.
+ * Fills the selects, record pickers and field map of every action in
+ * actionFieldModules. Stored on the conf next to the fetched dropdown lists, and
+ * stamped with the module it describes so the previous module's rows cannot
+ * survive the render between switching action and the new list arriving.
  */
-export const fetchBitCrmCustomFields = (module, setCustomFields, setIsLoading, notify = false) => {
-  if (!module) {
-    setCustomFields(NO_CUSTOM_FIELDS)
-    return
-  }
+export const fetchBitCrmFields = (module, setBitCrmConf, setIsLoading, notify = false) => {
+  if (!module) return
 
-  setIsLoading(CUSTOM_FIELDS_KEY)
+  setIsLoading(CRM_FIELDS_KEY)
 
-  bitsFetch({ module }, 'refresh_bitcrm_custom_fields')
+  bitsFetch({ module }, 'refresh_bitcrm_fields')
     .then(result => {
       const fetched = result?.success && Array.isArray(result?.data?.fields) ? result.data.fields : []
 
-      setCustomFields({ fields: fetched, module })
+      setBitCrmConf(prevConf =>
+        create(prevConf, draftConf => {
+          draftConf.crmFields = fetched
+          draftConf.crmFieldsModule = module
+        })
+      )
       setIsLoading(false)
 
       if (!notify) return
@@ -72,10 +73,47 @@ export const fetchBitCrmCustomFields = (module, setCustomFields, setIsLoading, n
       }
     })
     .catch(() => {
-      setCustomFields({ fields: [], module })
+      setBitCrmConf(prevConf =>
+        create(prevConf, draftConf => {
+          draftConf.crmFields = []
+          draftConf.crmFieldsModule = module
+        })
+      )
       setIsLoading(false)
     })
 }
+
+// Only while the stored fields still describe the module the action writes to.
+export const crmFieldsOf = bitCrmConf => {
+  const module = actionFieldModules[bitCrmConf?.mainAction]
+
+  if (!module || bitCrmConf?.crmFieldsModule !== module) return []
+
+  return Array.isArray(bitCrmConf?.crmFields) ? bitCrmConf.crmFields : []
+}
+
+// An unmapped field leaves the column it would have written alone, so nothing
+// but the record id is required on an update.
+const relaxOnUpdate = (fields, action) =>
+  action?.startsWith('update_') ? fields.map(fld => ({ ...fld, required: false })) : fields
+
+export const crmMapFields = bitCrmConf =>
+  relaxOnUpdate(
+    crmFieldsOf(bitCrmConf).filter(fld => fld.type !== SELECT_TYPE && fld.type !== LOOKUP_TYPE),
+    bitCrmConf?.mainAction
+  )
+
+export const crmSelectFields = bitCrmConf =>
+  relaxOnUpdate(
+    crmFieldsOf(bitCrmConf).filter(fld => fld.type === SELECT_TYPE),
+    bitCrmConf?.mainAction
+  )
+
+export const crmLookupFields = bitCrmConf =>
+  relaxOnUpdate(
+    crmFieldsOf(bitCrmConf).filter(fld => fld.type === LOOKUP_TYPE && lookupSources[fld.relatedModule]),
+    bitCrmConf?.mainAction
+  ).map(fld => ({ ...fld, ...lookupSources[fld.relatedModule] }))
 
 export const checkMappedFields = bitCrmConf => {
   const mappedFields = bitCrmConf?.field_map
@@ -99,27 +137,29 @@ export const missingRequiredSelect = bitCrmConf => {
     .filter(field => field.required)
     .find(field => isEmptyValue(bitCrmConf?.[field.key]))
 
-  if (!missing) return null
+  if (missing) {
+    // A dependent list cannot be filled before the field it hangs off, so blame
+    // that one instead of the empty list it leaves behind.
+    if (missing.dependsOn && isEmptyValue(bitCrmConf?.[missing.dependsOn])) {
+      const dependency = fields.find(field => field.key === missing.dependsOn)
+      return dependency?.label ?? missing.label
+    }
 
-  // A dependent list cannot be filled before the field it hangs off, so blame
-  // that one instead of the empty list it leaves behind.
-  if (missing.dependsOn && isEmptyValue(bitCrmConf?.[missing.dependsOn])) {
-    const dependency = fields.find(field => field.key === missing.dependsOn)
-    return dependency?.label ?? missing.label
+    return missing.label
   }
 
-  return missing.label
+  const missingCrmField = [...crmSelectFields(bitCrmConf), ...crmLookupFields(bitCrmConf)]
+    .filter(field => field.required)
+    .find(field => isEmptyValue(bitCrmConf?.fieldValues?.[field.key]))
+
+  return missingCrmField ? missingCrmField.label : null
 }
 
 export const isBitCrmConfValid = bitCrmConf =>
   checkMappedFields(bitCrmConf) && !missingRequiredSelect(bitCrmConf)
 
-/**
- * The field map renders its required rows positionally, so a config saved before
- * a field became required would show one Bit CRM field while holding another.
- * Re-key the leading rows onto the current required list, keeping the form field
- * each Bit CRM field was already mapped to, and push the rest below.
- */
+// The field map renders its required rows positionally, so the leading rows are
+// re-keyed onto the current required list and the rest pushed below.
 export const syncRequiredFieldMap = (fieldMap = [], fields = []) => {
   const requiredKeys = fields.filter(fld => fld.required === true).map(fld => fld.key)
   if (requiredKeys.length === 0) return fieldMap

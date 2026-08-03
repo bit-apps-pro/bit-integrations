@@ -50,7 +50,7 @@ final class BitCrmCustomField
         if (empty($fields)) {
             return [];
         }
-        error_log('BitCrmCustomField::all() - ' . $module . ' - ' . print_r($fields->toArray(), true));
+
         $active = [];
         foreach ($fields->toArray() as $field) {
             if (empty($field['field_key']) || empty($field['status'])) {
@@ -61,26 +61,6 @@ final class BitCrmCustomField
         }
 
         return $active;
-    }
-
-    /**
-     * Custom fields as field map rows, shaped like the entries in bitCrmStaticData.
-     *
-     * @return array<int, array>
-     */
-    public static function fieldMapOptions(string $module)
-    {
-        $options = [];
-
-        foreach (self::all($module) as $field) {
-            $options[] = [
-                'key'      => self::PREFIX . $field['field_key'],
-                'label'    => $field['label'] ?? $field['field_key'],
-                'required' => !empty(self::attributes($field)['required']),
-            ];
-        }
-
-        return $options;
     }
 
     /**
@@ -148,21 +128,6 @@ final class BitCrmCustomField
         }
 
         do_action(self::SAVE_HOOK, $module, $entityId, $values);
-    }
-
-    /**
-     * A custom field keeps everything but its label and status in one JSON blob,
-     * `required` included.
-     */
-    private static function attributes(array $field)
-    {
-        $attributes = $field['attributes'] ?? [];
-
-        if (\is_string($attributes)) {
-            $attributes = json_decode($attributes, true);
-        }
-
-        return \is_array($attributes) ? $attributes : [];
     }
 
     /**
