@@ -46,7 +46,7 @@ export const checkMappedFields = bitCrmConf => {
   return mappedFields.length === 0
 }
 
-const isEmptyValue = value =>
+export const isEmptyValue = value =>
   value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0)
 
 export const missingRequiredSelect = bitCrmConf => {

@@ -578,7 +578,14 @@ final class BitCrmActionHelper
         }
 
         $leadId = (int) $fieldData['lead_id'];
-        $convertTo = self::csvList($fieldData['convert_to']);
+
+        // LeadConvertService always creates the contact and the company; only the
+        // deal is gated on convertTo. Older flows could store either one out, so
+        // put them back and keep the option list honest about what will happen.
+        $convertTo = array_values(array_unique(array_merge(
+            ['contact', 'company'],
+            self::csvList($fieldData['convert_to'])
+        )));
         $options = [
             'convertTo'         => $convertTo,
             'moveRelatedDataTo' => $fieldData['move_related_data_to'],

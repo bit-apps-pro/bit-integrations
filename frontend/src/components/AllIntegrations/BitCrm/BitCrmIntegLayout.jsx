@@ -7,7 +7,12 @@ import { __ } from '../../../Utils/i18nwrap'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { generateMappedField, refreshBitCrmList, syncRequiredFieldMap } from './BitCrmCommonFunc'
+import {
+  generateMappedField,
+  isEmptyValue,
+  refreshBitCrmList,
+  syncRequiredFieldMap
+} from './BitCrmCommonFunc'
 import BitCrmFieldMap from './BitCrmFieldMap'
 import {
   actionDropdowns,
@@ -21,6 +26,8 @@ import {
 export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmConf }) {
   const { isPro } = useRecoilValue($appConfigState)
   const [isLoading, setIsLoading] = useState(false)
+  // Bumped to remount a locked select, see handleSelectChange.
+  const [lockedSelectKey, setLockedSelectKey] = useState(0)
 
   const action = bitCrmConf?.mainAction
   const bitCrmFields = bitCrmStaticData[action] ?? []
@@ -44,21 +51,69 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action])
 
+  // A select whose value Bit CRM enforces anyway carries a default. Seed it here
+  // too, so a config saved before the default existed still opens with it set.
+  useEffect(() => {
+    if (!action) return
+
+    const unseeded = selects.filter(
+      sel => sel.defaultValue !== undefined && isEmptyValue(bitCrmConf?.[sel.key])
+    )
+    if (unseeded.length === 0) return
+
+    setBitCrmConf(prevConf =>
+      create(prevConf, draftConf => {
+        unseeded.forEach(sel => {
+          draftConf[sel.key] = sel.defaultValue
+        })
+      })
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action])
+
   const setField = (key, val) =>
     setBitCrmConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf[key] = val
 
-        // A dependent list belongs to the value just replaced, so drop it along
-        // with the selection made from it.
-        ;[...selects, ...dropdowns]
-          .filter(item => item.dependsOn === key)
-          .forEach(item => {
-            delete draftConf[item.key]
-            delete draftConf[item.listKey]
-          })
+          // A dependent list belongs to the value just replaced, so drop it along
+          // with the selection made from it.
+          ;[...selects, ...dropdowns]
+            .filter(item => item.dependsOn === key)
+            .forEach(item => {
+              delete draftConf[item.key]
+              delete draftConf[item.listKey]
+            })
       })
     )
+
+  // A locked option cannot be clicked off in the menu, but its chip still carries
+  // a delete button and the clear button wipes the whole select. Put the locked
+  // values back, then remount the dropdown so its own copy of the value follows:
+  // it re-reads the prop only when the string changes, and a rejected delete
+  // leaves that string exactly as it was.
+  const handleSelectChange = (sel, val) => {
+    if (!sel.lockedValues) {
+      setField(sel.key, val)
+      return
+    }
+
+    const picked = String(val ?? '')
+      .split(',')
+      .filter(Boolean)
+    const locked = [
+      ...sel.lockedValues,
+      ...picked.filter(item => !sel.lockedValues.includes(item))
+    ].join(',')
+
+    if (locked !== val) setLockedSelectKey(prevKey => prevKey + 1)
+    setField(sel.key, locked)
+  }
+
+  const selectOptions = sel =>
+    sel.lockedValues
+      ? sel.options.map(opt => (sel.lockedValues.includes(opt.value) ? { ...opt, disabled: true } : opt))
+      : sel.options
 
   const toggleUtility = key =>
     setBitCrmConf(prevConf =>
@@ -85,6 +140,9 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
         allConfigurableKeys.forEach(key => {
           if (!keepKeys.has(key)) delete draftConf[key]
         })
+          ; (actionSelects[value] ?? []).forEach(sel => {
+            if (sel.defaultValue !== undefined) draftConf[sel.key] = sel.defaultValue
+          })
       })
     )
   }
@@ -111,7 +169,9 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
 
       {/* Fixed enum selects */}
       {selects.map(sel => (
-        <div className="flx mt-3" key={`bit-crm-sel-${sel.key}`}>
+        <div
+          className="flx mt-3"
+          key={`bit-crm-sel-${sel.key}${sel.lockedValues ? `-${lockedSelectKey}` : ''}`}>
           <b className="wdt-200 d-in-b">
             {sel.label}
             {sel.required && <span className="required-icn">*</span>}:
@@ -120,12 +180,11 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
             title={sel.key}
             defaultValue={bitCrmConf?.[sel.key] ?? null}
             className="btcd-paper-drpdwn w-5"
-            options={sel.options}
-            onChange={val => setField(sel.key, val)}
+            options={selectOptions(sel)}
+            onChange={val => handleSelectChange(sel, val)}
             singleSelect={!sel.multi}
             closeOnSelect={!sel.multi}
           />
-          {sel.helperText && <small className="ml-2 txt-dp">{sel.helperText}</small>}
         </div>
       ))}
 

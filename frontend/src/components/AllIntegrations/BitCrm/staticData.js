@@ -485,7 +485,9 @@ const convertToSel = {
   label: __('Convert To', 'bit-integrations'),
   options: convertToOptions,
   multi: true,
-  required: true
+  required: true,
+  lockedValues: ['contact', 'company'],
+  defaultValue: 'contact,company',
 }
 const moveRelatedSel = {
   key: 'moveRelatedDataTo',
