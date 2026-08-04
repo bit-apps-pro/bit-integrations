@@ -127,6 +127,7 @@ final class BitCrmCustomField
             return;
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is owned by the Bit CRM plugin, not this one.
         do_action(self::SAVE_HOOK, $module, $entityId, $values);
     }
 

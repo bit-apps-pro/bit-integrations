@@ -1479,13 +1479,15 @@ final class BitCrmActionHelper
      * Every branch returns a bare site-local `Y-m-d H:i:s`, the shape Bit CRM's
      * own stage modal submits. Formatting one input as local and another as UTC
      * would store the same instant two ways. Null when nothing usable was mapped.
+     *
+     * @param mixed $value
      */
     private static function dealClosingDate($value)
     {
         $value = trim((string) $value);
 
         if ($value === '') {
-            return null;
+            return;
         }
 
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
@@ -1502,7 +1504,11 @@ final class BitCrmActionHelper
 
         $timestamp = strtotime($value);
 
-        return $timestamp === false ? null : wp_date('Y-m-d H:i:s', $timestamp);
+        if ($timestamp === false) {
+            return;
+        }
+
+        return gmdate('Y-m-d H:i:s', $timestamp + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS));
     }
 
     private static function csvList($value)
