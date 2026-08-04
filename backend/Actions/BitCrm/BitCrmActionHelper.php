@@ -580,7 +580,9 @@ final class BitCrmActionHelper
             $update['probability'] = $definition['probability'];
         }
 
-        // Required on a stage that closes the deal, asked for on no other.
+        // Required on a stage that closes the deal, asked for on no other. When the
+        // stages cannot be read $definition is null and the category reads as '', so
+        // this is skipped along with the stage check above.
         if (\in_array($definition['deal_category'] ?? '', ['closed_won', 'closed_lost'], true)) {
             $closedAt = self::dealClosingDate($fieldData['closed_at'] ?? '');
 
@@ -1508,7 +1510,11 @@ final class BitCrmActionHelper
             return;
         }
 
-        return gmdate('Y-m-d H:i:s', $timestamp + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS));
+        // WordPress pins PHP's default timezone to UTC, so a string without one of
+        // its own parses to a UTC instant here. get_date_from_gmt() carries it back
+        // to site-local through the site's timezone, which follows daylight saving;
+        // the raw gmt_offset option does not.
+        return get_date_from_gmt(gmdate('Y-m-d H:i:s', $timestamp), 'Y-m-d H:i:s');
     }
 
     private static function csvList($value)

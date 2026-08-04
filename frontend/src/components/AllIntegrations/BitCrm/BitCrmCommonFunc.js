@@ -107,7 +107,9 @@ const relaxOnUpdate = (fields, action) =>
 
 export const crmMapFields = bitCrmConf =>
   relaxOnUpdate(
-    crmFieldsOf(bitCrmConf).filter(fld => fld.type !== SELECT_TYPE && fld.type !== LOOKUP_TYPE),
+    crmFieldsOf(bitCrmConf).filter(
+      fld => fld.isCustom || (fld.type !== SELECT_TYPE && fld.type !== LOOKUP_TYPE)
+    ),
     bitCrmConf?.mainAction
   )
 
