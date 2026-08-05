@@ -22,7 +22,12 @@ export default function TrelloFieldMap({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
   const requiredFlds = trelloConf[fieldKey]?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = trelloConf[fieldKey]?.filter(fld => fld.required === false) || []
+  // description moves to the rich text editor when that utility is enabled
+  const hideDesc = fieldKey === 'cardFields' && Boolean(trelloConf?.actions?.richTextDesc)
+  const nonRequiredFlds =
+    trelloConf[fieldKey]?.filter(
+      fld => fld.required === false && !(hideDesc && fld.key === 'desc')
+    ) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">

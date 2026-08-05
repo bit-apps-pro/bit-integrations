@@ -230,7 +230,7 @@ export const saveIntegConfig = async (
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
 
-  if (['Mail', 'Telegram', 'WhatsApp'].includes(confTmp?.type)) {
+  if (['Mail', 'Telegram', 'WhatsApp', 'Trello'].includes(confTmp?.type)) {
     action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 
@@ -423,7 +423,7 @@ export const saveActionConf = async ({
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
 
-  if (['Mail', 'Telegram', 'WhatsApp'].includes(conf?.type)) {
+  if (['Mail', 'Telegram', 'WhatsApp', 'Trello'].includes(conf?.type)) {
     action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 

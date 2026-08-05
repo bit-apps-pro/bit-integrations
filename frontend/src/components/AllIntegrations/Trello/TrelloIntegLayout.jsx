@@ -6,7 +6,10 @@ import { $appConfigState } from '../../../GlobalStates'
 import { fetchAllBoard, fetchAllList } from './TrelloCommonFunc'
 import TrelloCustomFieldMap from './TrelloCustomFieldMap'
 import ProModal from '../../Utilities/ProModal'
+import TinyMCE from '../../Utilities/TinyMCE'
+import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import { useState } from 'react'
+import { useParams } from 'react-router'
 
 export default function TrelloIntegLayout({
   formFields,
@@ -20,6 +23,12 @@ export default function TrelloIntegLayout({
   const [showProModal, setShowProModal] = useState(false)
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
+  const { id } = useParams()
+  const richTextDesc = Boolean(trelloConf?.actions?.richTextDesc)
+
+  const setDescRichText = content => {
+    setTrelloConf(prevConf => ({ ...prevConf, descRichText: content }))
+  }
 
   return (
     <>
@@ -130,6 +139,32 @@ export default function TrelloIntegLayout({
         setShow={setShowProModal}
         sub={__('Custom Fields', 'bit-integrations')}
       />
+
+      {richTextDesc && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Card Description', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <div className="mt-2 mb-2 txt-dp">
+            <small>
+              {__(
+                'Trello renders card descriptions as Markdown, so formatting is converted before sending.',
+                'bit-integrations'
+              )}
+            </small>
+          </div>
+        </div>
+      )}
+      <TinyMCE
+        id={`trello-desc-${id || 'new'}`}
+        formFields={formFields}
+        SmartTagField={isPro ? SmartTagField : null}
+        value={trelloConf?.descRichText || ''}
+        onChangeHandler={setDescRichText}
+        width="100%"
+        toolbarMnu="formatselect | bold italic strikethrough | link | numlist bullist outdent indent | removeformat toogleCode | addFormField | addSmartField"
+        show={richTextDesc}
+      />
+
       <br />
       <div className="mt-4">
         <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>

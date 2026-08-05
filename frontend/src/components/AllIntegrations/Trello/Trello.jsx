@@ -32,6 +32,7 @@ function Trello({ formFields, setFlow, flow, allIntegURL }) {
     custom_field_map: [{ formField: '', trelloFormField: '' }],
     cardFields,
     customFields: [],
+    descRichText: '',
     actions: {}
   })
 

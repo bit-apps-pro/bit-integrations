@@ -23,6 +23,22 @@ export default function TrelloActions({ trelloConf, setTrelloConf, formFields })
       }
     }
 
+    if (type === 'richTextDesc') {
+      newConf.actions = { ...newConf.actions }
+      if (e.target?.checked) {
+        newConf.actions.richTextDesc = true
+        // description is handled by the rich text editor, drop it from the field map
+        const restFieldMap = (newConf.field_map || []).filter(
+          fld => fld?.trelloFormField !== 'desc'
+        )
+        newConf.field_map = restFieldMap.length
+          ? restFieldMap
+          : [{ formField: '', trelloFormField: '' }]
+      } else {
+        delete newConf.actions.richTextDesc
+      }
+    }
+
     setTrelloConf({ ...newConf })
   }
   const clsActionMdl = () => {
@@ -40,15 +56,30 @@ export default function TrelloActions({ trelloConf, setTrelloConf, formFields })
   ]
 
   return (
-    <div className="pos-rel d-flx w-8">
-      <TableCheckBox
-        checked={trelloConf?.actions?.tag || false}
-        onChange={e => actionHandler(e, 'tag')}
-        className="wdt-200 mt-4 mr-2"
-        value="tag"
-        title={__('Add Position', 'bit-integrations')}
-        subTitle={__('Add Card Position', 'bit-integrations')}
-      />
+    <div className="pos-rel w-8">
+      <div className="d-flx">
+        <TableCheckBox
+          checked={trelloConf?.actions?.tag || false}
+          onChange={e => actionHandler(e, 'tag')}
+          className="wdt-200 mt-4 mr-2"
+          value="tag"
+          title={__('Add Position', 'bit-integrations')}
+          subTitle={__('Add Card Position', 'bit-integrations')}
+        />
+      </div>
+      <div className="d-flx">
+        <TableCheckBox
+          checked={trelloConf?.actions?.richTextDesc || false}
+          onChange={e => actionHandler(e, 'richTextDesc')}
+          className="wdt-400 mt-4 mr-2"
+          value="richTextDesc"
+          title={__('Write Description with Rich Text Editor', 'bit-integrations')}
+          subTitle={__(
+            'Write long, formatted content in an editor instead of mapping a plain text field. Description is removed from Field Map.',
+            'bit-integrations'
+          )}
+        />
+      </div>
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
