@@ -155,48 +155,60 @@ export default function NextCrmIntegLayout({
           refreshNextCrmCampaigns
         )}
 
-      {action && (
-        <>
-          <br />
-          <div className="mt-4">
-            <b className="wdt-100 d-in-b">{__('Field Map', 'bit-integrations')}</b>
-          </div>
+      {isLoading && (
+        <Loader
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 100,
+            transform: 'scale(0.7)'
+          }}
+        />
+      )}
+
+      {action && nextCrmConf?.nextCrmFields && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <div className="btcd-hr mt-1" />
-          <div className="flx mt-2 mb-2">
-            <div className="txt-dp mt-2 wdt-200">{__('Form Field', 'bit-integrations')}</div>
-            <div className="txt-dp mt-2 wdt-200 ml-2">{__('NextCRM Field', 'bit-integrations')}</div>
+          <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
+            <div className="txt-dp">
+              <b>{__('Form Fields', 'bit-integrations')}</b>
+            </div>
+            <div className="txt-dp">
+              <b>{__('NextCRM Fields', 'bit-integrations')}</b>
+            </div>
           </div>
 
           {nextCrmConf?.field_map?.map((itm, i) => (
             <NextCrmFieldMap
-              key={`nextcrm-field-map-${i.toString()}`}
+              key={`nextcrm-m-${i + 9}`}
               i={i}
-              formFields={formFields}
               field={itm}
+              formFields={formFields}
               nextCrmConf={nextCrmConf}
               setNextCrmConf={setNextCrmConf}
             />
           ))}
 
-          <div className="txt-center mt-2">
+          <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() =>
-                addFieldMap(nextCrmConf?.field_map?.length ?? 0, nextCrmConf, setNextCrmConf)
-              }
+              onClick={() => addFieldMap(nextCrmConf.field_map.length, nextCrmConf, setNextCrmConf)}
               className="icn-btn sh-sm"
               type="button">
               +
             </button>
           </div>
-        </>
+          <br />
+        </div>
       )}
 
-      {hasUtilities.includes(action) && (
-        <NextCrmActions nextCrmConf={nextCrmConf} setNextCrmConf={setNextCrmConf} />
-      )}
-
-      {isLoading && (
-        <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />
+      {action && nextCrmConf?.nextCrmFields && hasUtilities.includes(action) && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <NextCrmActions nextCrmConf={nextCrmConf} setNextCrmConf={setNextCrmConf} />
+        </div>
       )}
     </>
   )

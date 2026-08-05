@@ -630,7 +630,7 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditUltimateAffiliatePro allIntegURL={allIntegURL} />
     case 'Bookly':
       return <EditBookly allIntegURL={allIntegURL} />
-    case 'FluentCart':
+    case 'NextCrm':
       return <EditNextCrm allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />

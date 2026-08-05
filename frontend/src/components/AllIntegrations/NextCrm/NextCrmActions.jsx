@@ -45,14 +45,54 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf }) {
 
   const toOptions = list => (list ?? []).map(item => ({ label: item.label, value: String(item.value) }))
 
-  return (
-    <>
-      <br />
-      <div className="mt-4">
-        <b className="wdt-100 d-in-b">{__('Utilities', 'bit-integrations')}</b>
-      </div>
-      <div className="btcd-hr mt-1" />
+  const renderModal = ({ type, title, options, valueName, isMulti = false, refresher }) => (
+    <ConfirmModal
+      className="custom-conf-mdl"
+      mainMdlCls="o-v"
+      btnClass="purple"
+      btnTxt={__('Ok', 'bit-integrations')}
+      show={actionMdl.show === type}
+      close={clsActionMdl}
+      action={clsActionMdl}
+      title={title}>
+      <div className="btcd-hr mt-2 mb-2" />
+      <div className="mt-2">{title}</div>
+      {isLoading ? (
+        <Loader
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 45,
+            transform: 'scale(0.5)'
+          }}
+        />
+      ) : (
+        <div className="flx flx-between mt-2">
+          <MultiSelect
+            options={options}
+            className="msl-wrp-options"
+            defaultValue={nextCrmConf?.utilities?.[valueName] || undefined}
+            onChange={val => setAction(isMulti ? (val ? val.split(',') : []) : val, valueName)}
+            singleSelect={!isMulti}
+            closeOnSelect={!isMulti}
+          />
+          {refresher && (
+            <button
+              onClick={() => refresher(setNextCrmConf, setIsLoading)}
+              className="icn-btn sh-sm"
+              type="button"
+              aria-label={__('Refresh', 'bit-integrations')}>
+              &#x21BB;
+            </button>
+          )}
+        </div>
+      )}
+    </ConfirmModal>
+  )
 
+  return (
+    <div className="pos-rel d-flx flx-wrp">
       {isContactSave && (
         <>
           <TableCheckBox
@@ -72,7 +112,7 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf }) {
             subTitle={__('Set the contact status', 'bit-integrations')}
           />
           <TableCheckBox
-            checked={nextCrmConf?.utilities?.selected_lists || false}
+            checked={nextCrmConf?.utilities?.selected_lists?.length > 0}
             onChange={() => actionHandler('lists')}
             className="wdt-200 mt-4 mr-2"
             value="lists"
@@ -80,7 +120,7 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf }) {
             subTitle={__('Assign the contact to lists', 'bit-integrations')}
           />
           <TableCheckBox
-            checked={nextCrmConf?.utilities?.selected_tags || false}
+            checked={nextCrmConf?.utilities?.selected_tags?.length > 0}
             onChange={() => actionHandler('tags')}
             className="wdt-200 mt-4 mr-2"
             value="tags"
@@ -112,133 +152,53 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf }) {
         />
       )}
 
-      <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-h"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'contact_type'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Contact Type', 'bit-integrations')}>
-        <div className="btcd-hr mt-2 mb-2" />
-        <MultiSelect
-          options={toOptions(nextCrmConf?.allContactTypes)}
-          className="msl-wrp-options"
-          defaultValue={nextCrmConf?.utilities?.selected_contact_type}
-          onChange={val => setAction(val, 'selected_contact_type')}
-          singleSelect
-          closeOnSelect
-        />
-        {isLoading && (
-          <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />
-        )}
-      </ConfirmModal>
+      {renderModal({
+        type: 'contact_type',
+        title: __('Contact Type', 'bit-integrations'),
+        options: toOptions(nextCrmConf?.allContactTypes),
+        valueName: 'selected_contact_type',
+        refresher: refreshNextCrmContactTypes
+      })}
 
-      <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-h"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'status'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Contact Status', 'bit-integrations')}>
-        <div className="btcd-hr mt-2 mb-2" />
-        <MultiSelect
-          options={toOptions(nextCrmConf?.allContactStatuses)}
-          className="msl-wrp-options"
-          defaultValue={nextCrmConf?.utilities?.selected_status}
-          onChange={val => setAction(val, 'selected_status')}
-          singleSelect
-          closeOnSelect
-        />
-        {isLoading && (
-          <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />
-        )}
-      </ConfirmModal>
+      {renderModal({
+        type: 'status',
+        title: __('Contact Status', 'bit-integrations'),
+        options: toOptions(nextCrmConf?.allContactStatuses),
+        valueName: 'selected_status',
+        refresher: refreshNextCrmContactStatuses
+      })}
 
-      <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-h"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'lists'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Lists', 'bit-integrations')}>
-        <div className="btcd-hr mt-2 mb-2" />
-        <MultiSelect
-          options={toOptions(nextCrmConf?.allLists)}
-          className="msl-wrp-options"
-          defaultValue={nextCrmConf?.utilities?.selected_lists}
-          onChange={val => setAction(val ? val.split(',') : [], 'selected_lists')}
-        />
-        {isLoading && (
-          <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />
-        )}
-      </ConfirmModal>
+      {renderModal({
+        type: 'lists',
+        title: __('Lists', 'bit-integrations'),
+        options: toOptions(nextCrmConf?.allLists),
+        valueName: 'selected_lists',
+        isMulti: true,
+        refresher: refreshNextCrmLists
+      })}
 
-      <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-h"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'tags'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Tags', 'bit-integrations')}>
-        <div className="btcd-hr mt-2 mb-2" />
-        <MultiSelect
-          options={toOptions(nextCrmConf?.allTags)}
-          className="msl-wrp-options"
-          defaultValue={nextCrmConf?.utilities?.selected_tags}
-          onChange={val => setAction(val ? val.split(',') : [], 'selected_tags')}
-        />
-        {isLoading && (
-          <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />
-        )}
-      </ConfirmModal>
+      {renderModal({
+        type: 'tags',
+        title: __('Tags', 'bit-integrations'),
+        options: toOptions(nextCrmConf?.allTags),
+        valueName: 'selected_tags',
+        isMulti: true,
+        refresher: refreshNextCrmTags
+      })}
 
-      <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-h"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'activity_status'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Activity Status', 'bit-integrations')}>
-        <div className="btcd-hr mt-2 mb-2" />
-        <MultiSelect
-          options={activityStatusOptions}
-          className="msl-wrp-options"
-          defaultValue={nextCrmConf?.utilities?.selected_activity_status}
-          onChange={val => setAction(val, 'selected_activity_status')}
-          singleSelect
-          closeOnSelect
-        />
-      </ConfirmModal>
+      {renderModal({
+        type: 'activity_status',
+        title: __('Activity Status', 'bit-integrations'),
+        options: activityStatusOptions,
+        valueName: 'selected_activity_status'
+      })}
 
-      <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-h"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'skip_already_sent'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Skip If Already Sent', 'bit-integrations')}>
-        <div className="btcd-hr mt-2 mb-2" />
-        <MultiSelect
-          options={yesNoOptions}
-          className="msl-wrp-options"
-          defaultValue={nextCrmConf?.utilities?.selected_skip_already_sent}
-          onChange={val => setAction(val, 'selected_skip_already_sent')}
-          singleSelect
-          closeOnSelect
-        />
-      </ConfirmModal>
-    </>
+      {renderModal({
+        type: 'skip_already_sent',
+        title: __('Skip If Already Sent', 'bit-integrations'),
+        options: yesNoOptions,
+        valueName: 'selected_skip_already_sent'
+      })}
+    </div>
   )
 }
