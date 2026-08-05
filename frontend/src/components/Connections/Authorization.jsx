@@ -261,6 +261,7 @@ export default function Authorization({
             <AddNewConnection
               authDetails={authDetails}
               config={config}
+              connections={connections}
               setConfig={canSwitch ? captureConfig : setConfig}
               isInfo={canSwitch ? false : isInfo}
               customAuthFields={customAuthFields}

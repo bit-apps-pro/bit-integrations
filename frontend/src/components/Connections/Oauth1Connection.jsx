@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { authorizeConnection } from '../../Utils/connectionApi'
-import { AUTH_TYPES, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import { AUTH_TYPES, buildDefaultConnectionName, defaultEncryptKeys } from '../../Utils/connectionAuth'
 import {
   normalizeAdditionalHeaders,
   resolveConfigValue,
@@ -107,11 +107,14 @@ export default function Oauth1Connection({
   authDetails,
   config,
   setConfig,
+  connections,
   isInfo = false,
   customAuthFields,
   onConnectionSaved
 }) {
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState(() => ({
+    connectionName: buildDefaultConnectionName(config?.type || config?.app_slug, connections)
+  }))
 
   const callbackUrl = useMemo(
     () => authDetails?.callbackUrl || getCallbackState(),

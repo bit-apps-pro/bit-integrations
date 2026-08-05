@@ -1,3 +1,5 @@
+import { __ } from './i18nwrap'
+
 export const AUTH_TYPES = Object.freeze({
   WP_PLUGIN_CHECK: 'wp_plugin_check',
   OAUTH2: 'oauth2',
@@ -23,3 +25,29 @@ export const defaultEncryptKeys = {
 }
 
 export const isWpPluginCheckType = authType => authType === AUTH_TYPES.WP_PLUGIN_CHECK
+
+// Pre-fills the required connection name so the user never has to invent one.
+// Suffixes a counter when the plain "{App} Connection" label is already taken.
+export const buildDefaultConnectionName = (appName, connections = []) => {
+  const app = String(appName || '').trim()
+  const base = app
+    ? `${app} ${__('Connection', 'bit-integrations')}`
+    : __('Connection', 'bit-integrations')
+
+  const taken = new Set(
+    (Array.isArray(connections) ? connections : [])
+      .map(conn =>
+        String(conn?.connection_name || '')
+          .trim()
+          .toLowerCase()
+      )
+      .filter(Boolean)
+  )
+
+  if (!taken.has(base.toLowerCase())) return base
+
+  let index = 2
+  while (taken.has(`${base} ${index}`.toLowerCase())) index += 1
+
+  return `${base} ${index}`
+}
