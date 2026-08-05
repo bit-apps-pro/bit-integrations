@@ -164,7 +164,7 @@ export default function SelectAction() {
     { type: 'ZagoMail', is_pro: false },
     { type: 'Drip', is_pro: false },
     { type: 'Newsletter', is_pro: false },
-    { type: 'NextCrm', is_pro: true },
+    { type: 'NextCrm', name: 'NextCRM', is_pro: true },
     { type: 'SureDash', is_pro: true },
     { type: 'SureMembers', is_pro: false },
     { type: 'Mailster', is_pro: false },

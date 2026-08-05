@@ -16,7 +16,7 @@ import {
 } from './NextCrmCommonFunc'
 import { activityStatusOptions, yesNoOptions } from './staticData'
 
-export default function NextCrmActions({ nextCrmConf, setNextCrmConf, setSnackbar }) {
+export default function NextCrmActions({ nextCrmConf, setNextCrmConf }) {
   const [isLoading, setIsLoading] = useState(false)
   const [actionMdl, setActionMdl] = useState({ show: false })
   const action = nextCrmConf?.mainAction
@@ -172,7 +172,7 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf, setSnackba
           options={toOptions(nextCrmConf?.allLists)}
           className="msl-wrp-options"
           defaultValue={nextCrmConf?.utilities?.selected_lists}
-          onChange={val => setAction(val.split(','), 'selected_lists')}
+          onChange={val => setAction(val ? val.split(',') : [], 'selected_lists')}
         />
         {isLoading && (
           <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />
@@ -193,7 +193,7 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf, setSnackba
           options={toOptions(nextCrmConf?.allTags)}
           className="msl-wrp-options"
           defaultValue={nextCrmConf?.utilities?.selected_tags}
-          onChange={val => setAction(val.split(','), 'selected_tags')}
+          onChange={val => setAction(val ? val.split(',') : [], 'selected_tags')}
         />
         {isLoading && (
           <Loader className="pos-abs" style={{ background: '#fff', width: '100%', height: '100%' }} />

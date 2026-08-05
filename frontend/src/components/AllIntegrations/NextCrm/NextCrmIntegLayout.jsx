@@ -192,12 +192,7 @@ export default function NextCrmIntegLayout({
       )}
 
       {hasUtilities.includes(action) && (
-        <NextCrmActions
-          nextCrmConf={nextCrmConf}
-          setNextCrmConf={setNextCrmConf}
-          setIsLoading={setIsLoading}
-          setSnackbar={setSnackbar}
-        />
+        <NextCrmActions nextCrmConf={nextCrmConf} setNextCrmConf={setNextCrmConf} />
       )}
 
       {isLoading && (
