@@ -28,12 +28,8 @@ export default function TrelloActions({ trelloConf, setTrelloConf, formFields })
       if (e.target?.checked) {
         newConf.actions.richTextDesc = true
         // description is handled by the rich text editor, drop it from the field map
-        const restFieldMap = (newConf.field_map || []).filter(
-          fld => fld?.trelloFormField !== 'desc'
-        )
-        newConf.field_map = restFieldMap.length
-          ? restFieldMap
-          : [{ formField: '', trelloFormField: '' }]
+        const restFieldMap = (newConf.field_map || []).filter(fld => fld?.trelloFormField !== 'desc')
+        newConf.field_map = restFieldMap.length ? restFieldMap : [{ formField: '', trelloFormField: '' }]
       } else {
         delete newConf.actions.richTextDesc
       }
@@ -75,7 +71,7 @@ export default function TrelloActions({ trelloConf, setTrelloConf, formFields })
           value="richTextDesc"
           title={__('Write Description with Rich Text Editor', 'bit-integrations')}
           subTitle={__(
-            'Write long, formatted content in an editor instead of mapping a plain text field. Description is removed from Field Map.',
+            'Write long, formatted content with Markdown instead of mapping a plain text field. Description is removed from Field Map.',
             'bit-integrations'
           )}
         />
