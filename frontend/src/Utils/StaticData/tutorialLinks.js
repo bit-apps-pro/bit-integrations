@@ -679,6 +679,14 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  bitCrm: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/bit-crm-integration-as-an-action/'
+  },
+  fluentPlayer: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/fluentplayer-integration-as-an-action/'
+  },
   sender: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/sender-integration-as-an-action/'
