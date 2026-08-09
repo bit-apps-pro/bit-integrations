@@ -21,7 +21,7 @@ class BrilliantDirectoriesController
      */
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'brilliant-directories',
+        'slug'     => 'BrilliantDirectories',
         'fields'   => [],
     ];
 
