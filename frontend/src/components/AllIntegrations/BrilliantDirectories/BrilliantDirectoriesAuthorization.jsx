@@ -31,11 +31,11 @@ export default function BrilliantDirectoriesAuthorization({
       tutorialLinks={tutorialLinks?.brilliantDirectories || {}}
       authDetails={{
         addTo: 'header',
-        apiEndpoint: '{site_url}/api/v2/token/verify',
+        apiEndpoint: '{endpoint_base}/api/v2/token/verify',
         extraFields: [
           {
             label: __('Site URL', 'bit-integrations'),
-            name: 'site_url',
+            name: 'endpoint_base',
             placeholder: 'https://your-directory.com',
             required: true
           }

@@ -134,7 +134,7 @@ abstract class BaseApi
         } catch (AuthorizationException $e) {
             $this->lastAuthException = $e;
 
-            return ApiResponse::failure(0, $e->getMessage());
+            return ApiResponse::fail(0, $e->getMessage());
         }
 
         if ($credential->isQuery()) {
@@ -155,7 +155,7 @@ abstract class BaseApi
         $raw = HttpHelper::request($url, $method, $payload, $headers, $this->auth->requestOptions());
 
         if (is_wp_error($raw)) {
-            return ApiResponse::failure(0, $raw->get_error_message(), $raw);
+            return ApiResponse::fail(0, $raw->get_error_message(), $raw);
         }
 
         // Capture immediately: the static is rewritten by the next request anywhere
@@ -182,10 +182,10 @@ abstract class BaseApi
     protected function normalize($raw, int $status): ApiResponse
     {
         if ($status >= 200 && $status < 300) {
-            return ApiResponse::success($status, $raw);
+            return ApiResponse::ok($status, $raw);
         }
 
-        return ApiResponse::failure($status, null, $raw);
+        return ApiResponse::fail($status, null, $raw);
     }
 
     protected function resolveUrl(string $path): string

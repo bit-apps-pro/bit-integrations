@@ -18,11 +18,9 @@ function BrilliantDirectories({ formFields, setFlow, flow, allIntegURL }) {
   const [snack, setSnackbar] = useState({ show: false })
 
   const [brilliantDirectoriesConf, setBrilliantDirectoriesConf] = useState({
-    api_key: '',
     brilliantDirectoriesFields: [],
     field_map: [{ brilliantDirectoriesField: '', formField: '' }],
     name: 'Brilliant Directories',
-    site_url: '',
     type: 'BrilliantDirectories',
     utilities: {}
   })

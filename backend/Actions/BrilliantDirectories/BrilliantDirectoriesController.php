@@ -7,30 +7,32 @@
 namespace BitApps\Integrations\Actions\BrilliantDirectories;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
-use BitApps\Integrations\Core\Util\HttpHelper;
+use BitApps\Integrations\Core\Http\ApiClient;
+use BitApps\Integrations\Core\Http\ApiResponse;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
 class BrilliantDirectoriesController
 {
+    /**
+     * Credentials are read straight off the connection, so nothing needs flattening
+     * onto flow_details or the request params. The entry still declares the auth type
+     * and slug: CredentialInjector uses them to reject a connection_id belonging to a
+     * different app.
+     */
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'brilliant-directories',
-        'fields'   => [
-            'api_key'  => 'value',
-            'site_url' => 'site_url',
-        ],
+        'fields'   => [],
     ];
 
     public function getMembershipPlans($queryParams)
     {
-        $response = self::fetchList($queryParams, 'subscription_types/get');
-
         $plans = [];
-        foreach ($response as $plan) {
+        foreach (self::fetchList($queryParams, 'subscription_types/get') as $plan) {
             $plans[] = (object) [
-                'planId'   => $plan->subscription_id ?? '',
-                'planName' => $plan->subscription_name ?? '',
+                'planId'   => ApiResponse::getValue($plan, 'subscription_id') ?? '',
+                'planName' => ApiResponse::getValue($plan, 'subscription_name') ?? '',
             ];
         }
 
@@ -39,13 +41,11 @@ class BrilliantDirectoriesController
 
     public function getTopCategories($queryParams)
     {
-        $response = self::fetchList($queryParams, 'list_professions/get');
-
         $categories = [];
-        foreach ($response as $category) {
+        foreach (self::fetchList($queryParams, 'list_professions/get') as $category) {
             $categories[] = (object) [
-                'categoryId'   => $category->profession_id ?? '',
-                'categoryName' => $category->name ?? '',
+                'categoryId'   => ApiResponse::getValue($category, 'profession_id') ?? '',
+                'categoryName' => ApiResponse::getValue($category, 'name') ?? '',
             ];
         }
 
@@ -54,13 +54,11 @@ class BrilliantDirectoriesController
 
     public function getPostTypes($queryParams)
     {
-        $response = self::fetchList($queryParams, 'data_categories/get');
-
         $postTypes = [];
-        foreach ($response as $postType) {
+        foreach (self::fetchList($queryParams, 'data_categories/get') as $postType) {
             $postTypes[] = (object) [
-                'postTypeId'   => ($postType->data_id ?? '') . ':' . ($postType->data_type ?? ''),
-                'postTypeName' => $postType->data_name ?? '',
+                'postTypeId'   => (ApiResponse::getValue($postType, 'data_id') ?? '') . ':' . (ApiResponse::getValue($postType, 'data_type') ?? ''),
+                'postTypeName' => ApiResponse::getValue($postType, 'data_name') ?? '',
             ];
         }
 
@@ -72,52 +70,111 @@ class BrilliantDirectoriesController
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
         $fieldMap = $integrationDetails->field_map;
-        $apiKey = $integrationDetails->api_key ?? ($integrationDetails->value ?? '');
-        $siteUrl = $integrationDetails->site_url ?? '';
 
-        if (empty($apiKey) || empty($siteUrl) || empty($fieldMap)) {
-            $error = new WP_Error(
-                'REQ_FIELD_EMPTY',
-                __('API key, Site URL and field map are required for Brilliant Directories api', 'bit-integrations')
-            );
-            LogHandler::save($integId, 'record', 'validation', $error);
-
-            return $error;
+        if (empty($fieldMap)) {
+            return self::validationError($integId, __('Field map is required for Brilliant Directories api', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiKey, $siteUrl);
+        $client = self::client($integrationDetails->connection_id ?? 0);
 
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
+        if ($client === null) {
+            return self::validationError($integId, __('A Brilliant Directories connection with an API Key and Site URL is required', 'bit-integrations'));
+        }
+
+        return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
     }
 
     /**
-     * BD returns `{ status, total, message: [...] }` on every list endpoint —
-     * the rows always live in `message`, never in `data`.
+     * BD answers HTTP 200 with `{"status":"error"}` on validation failures, so a 2xx
+     * alone does not mean the call did anything. Null when the response is good.
+     *
+     * @param mixed $response
+     */
+    public static function failureReason($response): ?string
+    {
+        if (!$response->success()) {
+            // BaseApi leaves the error null on a non-2xx, so the reason BD sent in the
+            // body is the only one there is.
+            return $response->getError()
+                ?: self::bodyMessage($response)
+                ?: __('Could not reach Brilliant Directories', 'bit-integrations');
+        }
+
+        if ($response->getBodyValue('status') !== 'error') {
+            return null;
+        }
+
+        return self::bodyMessage($response) ?: __('Brilliant Directories rejected the request', 'bit-integrations');
+    }
+
+    /**
+     * `message` carries the rows on a good list call and the reason on a bad one, so
+     * only a string is a reason.
+     *
+     * @param mixed $response
+     */
+    private static function bodyMessage($response): ?string
+    {
+        $message = $response->getBodyValue('message');
+
+        return \is_string($message) && $message !== '' ? $message : null;
+    }
+
+    private static function client($connectionId): ?ApiClient
+    {
+        $apiClient = new ApiClient($connectionId);
+        $apiClient->setAppSlug(self::$authConfig['slug']);
+
+        $siteUrl = $apiClient->getBaseURL();
+
+        if ($siteUrl === '') {
+            return null;
+        }
+
+        $apiClient->setBaseURL($siteUrl . '/api/v2');
+        $apiClient->setHeaders(
+            [
+                'Accept'       => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ]
+        );
+
+        return $apiClient;
+    }
+
+    /**
+     * Rows live in `message` on every list endpoint, never in `data`.
+     *
+     * @param mixed $queryParams
+     * @param mixed $path
+     *
+     * @return array<int, mixed>
      */
     private static function fetchList($queryParams, $path)
     {
-        $apiKey = $queryParams->api_key ?? ($queryParams->value ?? '');
-        $siteUrl = $queryParams->site_url ?? '';
+        $client = self::client($queryParams->connection_id ?? 0);
 
-        if (empty($apiKey) || empty($siteUrl)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        if ($client === null) {
+            wp_send_json_error(__('Select a connection with an API Key and Site URL first', 'bit-integrations'), 400);
         }
 
-        $apiEndpoint = rtrim($siteUrl, '/') . '/api/v2/' . $path . '?limit=100';
-        $headers = [
-            'Accept'    => 'application/json',
-            'X-Api-Key' => $apiKey,
-        ];
+        $response = $client->get($path, ['limit' => 100]);
+        $failure = self::failureReason($response);
 
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (is_wp_error($apiResponse) || empty($apiResponse->message) || !\is_array($apiResponse->message)) {
-            wp_send_json_error(
-                $apiResponse->message ?? __('Could not fetch data from Brilliant Directories', 'bit-integrations'),
-                400
-            );
+        if ($failure !== null) {
+            wp_send_json_error($failure, 400);
         }
+        error_log('BrilliantDirectoriesController::fetchList response: ' . print_r($response->getBody(), true));
+        $rows = $response->getBodyValue('message');
 
-        return $apiResponse->message;
+        return \is_array($rows) ? $rows : [];
+    }
+
+    private static function validationError($integId, $message)
+    {
+        $error = new WP_Error('REQ_FIELD_EMPTY', $message);
+        LogHandler::save($integId, 'record', 'validation', $error);
+
+        return $error;
     }
 }

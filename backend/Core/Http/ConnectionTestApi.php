@@ -49,7 +49,7 @@ class ConnectionTestApi extends BaseApi
         }
 
         $result = $this->request($method, $apiEndpoint, $payload, $headers);
-        $response = $result->body();
+        $response = $result->getBody();
         $authException = $this->lastAuthException();
 
         // The strategy could not produce a credential, so no request was sent.
@@ -66,7 +66,7 @@ class ConnectionTestApi extends BaseApi
         }
 
         if (is_wp_error($response)) {
-            return $this->errorShape((string) $result->error(), $response);
+            return $this->errorShape((string) $result->getError(), $response);
         }
 
         // Body-level error key wins over the status code (legacy order).
@@ -79,7 +79,7 @@ class ConnectionTestApi extends BaseApi
             );
         }
 
-        if (!$result->ok()) {
+        if (!$result->success()) {
             return $this->errorShape(__('Authorization failed', 'bit-integrations'), $response);
         }
 

@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\BrilliantDirectories;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
@@ -21,23 +22,20 @@ class RecordApiHelper
 
     private $_integrationDetails;
 
-    private $_apiKey;
+    private $apiClient;
 
-    private $_siteUrl;
-
-    public function __construct($integrationDetails, $integId, $apiKey, $siteUrl)
+    public function __construct($integrationDetails, $integId, ApiClient $apiClient)
     {
         $this->_integrationDetails = $integrationDetails;
         $this->_integrationID = $integId;
-        $this->_apiKey = $apiKey;
-        $this->_siteUrl = rtrim($siteUrl, '/');
+        $this->apiClient = $apiClient;
     }
 
     public function execute($fieldValues, $fieldMap)
     {
         $fieldData = static::generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_member';
-        $context = $this->buildContext();
+        $settings = $this->settings();
         $default = [
             'success' => false,
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro'),
@@ -46,57 +44,57 @@ class RecordApiHelper
 
         switch ($mainAction) {
             case 'create_member':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_member'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_member'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'update_member':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_update_member'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_update_member'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'delete_member':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_delete_member'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_delete_member'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'create_lead':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_lead'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_lead'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'update_lead':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_update_lead'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_update_lead'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'match_lead':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_match_lead'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_match_lead'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'delete_lead':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_delete_lead'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_delete_lead'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'create_member_post':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_member_post'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_member_post'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'create_review':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_review'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_create_review'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'update_review':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_update_review'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_update_review'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
             case 'delete_review':
-                $response = Hooks::apply(Config::withPrefix('brilliant_directories_delete_review'), $default, $fieldData, $context);
+                $response = Hooks::apply(Config::withPrefix('brilliant_directories_delete_review'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -135,25 +133,24 @@ class RecordApiHelper
     }
 
     /**
-     * Connection and config the Pro handlers need to talk to BD. Bundled into one
-     * argument so every action hook keeps the same 3-parameter contract.
+     * Everything the node saved that is not a mapped field: the dropdown selections and
+     * the Utilities toggles, flattened into one array. Utilities keys are prefixed
+     * `selected_`, so they cannot collide with a dropdown key.
+     *
+     * @return array<string, mixed>
      */
-    private function buildContext()
+    private function settings()
     {
-        return [
-            'baseUrl' => $this->_siteUrl . '/api/v2/',
-            'headers' => [
-                'Accept'       => 'application/json',
-                'Content-Type' => 'application/x-www-form-urlencoded',
-                'X-Api-Key'    => $this->_apiKey,
-            ],
-            'configs' => [
-                'post_type_id'    => $this->_integrationDetails->post_type_id ?? '',
-                'profession_id'   => $this->_integrationDetails->profession_id ?? '',
-                'subscription_id' => $this->_integrationDetails->subscription_id ?? '',
-                'top_category_id' => $this->_integrationDetails->top_category_id ?? '',
-            ],
-            'utilities' => (array) ($this->_integrationDetails->utilities ?? []),
-        ];
+        $details = $this->_integrationDetails;
+
+        return array_merge(
+            (array) ($details->utilities ?? []),
+            [
+                'post_type_id'    => $details->post_type_id ?? '',
+                'profession_id'   => $details->profession_id ?? '',
+                'subscription_id' => $details->subscription_id ?? '',
+                'top_category_id' => $details->top_category_id ?? '',
+            ]
+        );
     }
 }

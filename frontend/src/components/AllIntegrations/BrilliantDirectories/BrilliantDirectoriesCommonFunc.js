@@ -3,10 +3,8 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import { fieldsByAction } from './staticData'
 
-const buildAuthRequestParams = conf =>
-  conf?.connection_id
-    ? { connection_id: conf.connection_id }
-    : { api_key: conf.api_key, site_url: conf.site_url }
+// The backend reads credentials off the connection itself, so the id is all it needs.
+const buildAuthRequestParams = conf => ({ connection_id: conf?.connection_id })
 
 export const handleInput = (e, brilliantDirectoriesConf, setBrilliantDirectoriesConf) => {
   const newConf = { ...brilliantDirectoriesConf }
