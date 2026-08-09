@@ -15,10 +15,9 @@ use WP_Error;
 class BrilliantDirectoriesController
 {
     /**
-     * Credentials are read straight off the connection, so nothing needs flattening
-     * onto flow_details or the request params. The entry still declares the auth type
-     * and slug: CredentialInjector uses them to reject a connection_id belonging to a
-     * different app.
+     * Credentials are read off the connection by the client, so nothing needs
+     * flattening onto flow_details or the request params. The slug is still declared —
+     * client() passes it to setAppSlug(), which rejects another app's connection_id.
      */
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
@@ -93,7 +92,7 @@ class BrilliantDirectoriesController
     public static function failureReason($response): ?string
     {
         if (!$response->success()) {
-            // BaseApi leaves the error null on a non-2xx, so the reason BD sent in the
+            // ApiClient leaves the error null on a non-2xx, so the reason BD sent in the
             // body is the only one there is.
             return $response->getError()
                 ?: self::bodyMessage($response)

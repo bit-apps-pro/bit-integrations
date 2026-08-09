@@ -10,7 +10,7 @@ use BitApps\Integrations\Authorization\AuthCredential;
 use BitApps\Integrations\Authorization\RequestContext;
 
 /**
- * Strategy consumed by BaseApi to authenticate outbound requests.
+ * Strategy consumed by ApiClient to authenticate outbound requests.
  */
 interface AuthStrategyInterface
 {

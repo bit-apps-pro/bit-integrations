@@ -93,9 +93,6 @@ final class ApiResponse
     }
 
     /**
-     * Read a key off the response body. Named for what it returns rather than `get()`,
-     * which on the client means an HTTP GET.
-     *
      * @return mixed
      */
     public function getBodyValue(string $key)

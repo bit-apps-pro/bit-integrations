@@ -40,7 +40,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      * into an AuthorizationException.
      *
      * Adapting rather than reimplementing keeps one copy of each auth type's
-     * logic, so every handler works with BaseApi without being rewritten and
+     * logic, so every handler works with ApiClient without being rewritten and
      * the two paths cannot drift.
      *
      * Called once per request and never memoized — handlers may compute
@@ -60,7 +60,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
             // Carry the handler's array through untouched: the credential-test path
             // returns it verbatim, and handlers disagree on its exact keys.
             //
-            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: BaseApi::request() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: ApiClient::send() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
             throw AuthorizationException::fromErrorArray($authConfig, (string) ($authConfig['message'] ?? __('Authorization failed', 'bit-integrations')));
         }
 
@@ -72,7 +72,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
     }
 
     /**
-     * Extra WP HTTP API options applied to every BaseApi request.
+     * Extra WP HTTP API options applied to every ApiClient request.
      */
     public function requestOptions(): array
     {
@@ -184,11 +184,11 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      * Salesforce instance_url, ActiveCampaign per-account api_url), read from
      * auth_details so region logic is not scattered across the codebase.
      *
-     * Consumed by BaseApi when a client is constructed without an explicit base
+     * Consumed by ApiClient when a client is constructed without an explicit base
      * URL. Handlers whose base is not a stored field override this — see
      * ZendeskSupportAuthorization, which composes one from the subdomain.
      * Returns null when the integration derives its base elsewhere; callers must
-     * handle that (BaseApi then only accepts absolute URLs).
+     * handle that (ApiClient then only accepts absolute URLs).
      */
     public function getEndpointBase(): ?string
     {
@@ -313,7 +313,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      * secrets alone; OAuth1 overrides this to sign over the method, URL and params.
      *
      * Both credential() and authorize() route through here so a signing strategy is
-     * driven identically whether it is called from BaseApi or the credential test.
+     * driven identically whether it is called from ApiClient or the credential test.
      *
      * @return array the handler's ['authLocation' => ..., 'data' => [...]] config, or
      *               its ['error' => true, 'message' => ...] failure array

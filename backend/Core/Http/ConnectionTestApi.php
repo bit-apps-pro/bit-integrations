@@ -10,7 +10,7 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
 
 /**
  * Credential-test client for the connections/authorize endpoint. Runs one
- * authenticated request through BaseApi and returns the legacy result array
+ * authenticated request through ApiClient and returns the legacy result array
  * byte-compatible with AbstractBaseAuthorization::authorize():
  *
  *   success: ['success' => true, 'response' => mixed]
@@ -21,7 +21,7 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
  * integrations like ZendeskSupport can reject a 200 that lacks the expected
  * payload (wrong subdomain still returns 200 from Zendesk).
  */
-class ConnectionTestApi extends BaseApi
+class ConnectionTestApi extends ApiClient
 {
     /**
      * @var AbstractBaseAuthorization
