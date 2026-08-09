@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Brilliant Directories integration.
- */
 class BrilliantDirectoriesController
 {
     public static array $authConfig = [
@@ -61,8 +58,6 @@ class BrilliantDirectoriesController
 
         $postTypes = [];
         foreach ($response as $postType) {
-            // `data_type` is required on create but is only exposed as a column of the
-            // post type row, so both values ride in the option value.
             $postTypes[] = (object) [
                 'postTypeId'   => ($postType->data_id ?? '') . ':' . ($postType->data_type ?? ''),
                 'postTypeName' => $postType->data_name ?? '',

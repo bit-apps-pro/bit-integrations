@@ -144,13 +144,10 @@ class RecordApiHelper
             'baseUrl' => $this->_siteUrl . '/api/v2/',
             'headers' => [
                 'Accept'       => 'application/json',
-                // BD only accepts form-urlencoded bodies.
                 'Content-Type' => 'application/x-www-form-urlencoded',
                 'X-Api-Key'    => $this->_apiKey,
             ],
             'configs' => [
-                // The post type select carries `{data_id}:{data_type}` because BD requires
-                // both on create but only exposes `data_type` as a post type column.
                 'post_type_id'    => $this->_integrationDetails->post_type_id ?? '',
                 'profession_id'   => $this->_integrationDetails->profession_id ?? '',
                 'subscription_id' => $this->_integrationDetails->subscription_id ?? '',

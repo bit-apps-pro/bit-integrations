@@ -18,11 +18,6 @@ export const modules = [
   { name: 'delete_review', label: __('Delete Review', 'bit-integrations'), is_pro: true }
 ]
 
-/**
- * Field maps hold only the identifier of the record an action targets (so it can be
- * mapped from trigger data) plus free text. Membership plan, top category and post
- * type are fetchable config choices and render as dropdowns instead.
- */
 export const MemberFields = [
   { key: 'email', label: __('Email', 'bit-integrations'), required: true },
   { key: 'password', label: __('Password', 'bit-integrations'), required: true },
@@ -123,7 +118,7 @@ export const ReviewIdField = [
   { key: 'review_id', label: __('Review ID', 'bit-integrations'), required: true }
 ]
 
-/** Fixed option set — never field-mapped. `1` is not a valid BD review status. */
+/** `1` is not a valid BD review status. */
 export const reviewStatusOptions = [
   { label: __('Pending', 'bit-integrations'), value: '0' },
   { label: __('Accepted', 'bit-integrations'), value: '2' },
@@ -139,7 +134,6 @@ export const reviewStatusOptions = [
  * rewriting its address.
  */
 
-/** Which actions render which fetched dropdown, and which expose Utilities. */
 export const needsMembershipPlan = ['create_member']
 export const needsTopCategory = ['create_lead']
 export const needsPostType = ['create_member_post']
