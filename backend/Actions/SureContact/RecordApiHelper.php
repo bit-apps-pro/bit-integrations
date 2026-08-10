@@ -514,7 +514,9 @@ class RecordApiHelper
                 'list_uuids'    => $details->list_uuids ?? [],
                 'tag_uuids'     => $details->tag_uuids ?? [],
                 'pipeline_uuid' => $details->pipeline_uuid ?? '',
-                'stage_uuid'    => $details->stage_uuid ?? '',
+                'stage_uuid'     => $details->stage_uuid ?? '',
+                'contact_status' => $details->contact_status ?? '',
+                'activity_type'  => $details->activity_type ?? '',
             ]
         );
     }

@@ -16,9 +16,13 @@ import {
 } from './SureContactCommonFunc'
 import SureContactFieldMap from './SureContactFieldMap'
 import {
+  activityTypeOptions,
+  contactStatusOptions,
   fieldsByAction,
   hasUtilities,
   modules,
+  needsActivityType,
+  needsContactStatus,
   needsList,
   needsPipeline,
   needsStage,
@@ -60,6 +64,24 @@ export default function SureContactIntegLayout({
         draftConf[name] = value
       })
     )
+
+  const renderStaticSelect = (label, name, options) => (
+    <>
+      <br />
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{label}</b>
+        <MultiSelect
+          title={name}
+          defaultValue={sureContactConf?.[name] ?? null}
+          className="btcd-paper-drpdwn w-5"
+          options={options}
+          onChange={val => setField(name, val)}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
+    </>
+  )
 
   const renderFetchedSelect = (label, name, defaultKey, refresh, tooltip, optionMapper, multi) => (
     <>
@@ -106,6 +128,16 @@ export default function SureContactIntegLayout({
           closeOnSelect
         />
       </div>
+
+      {needsContactStatus.includes(action) &&
+        renderStaticSelect(__('Status:', 'bit-integrations'), 'contact_status', contactStatusOptions)}
+
+      {needsActivityType.includes(action) &&
+        renderStaticSelect(
+          __('Activity Type:', 'bit-integrations'),
+          'activity_type',
+          activityTypeOptions
+        )}
 
       {needsList.includes(action) &&
         renderFetchedSelect(

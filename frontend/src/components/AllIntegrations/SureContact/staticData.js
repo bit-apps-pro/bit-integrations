@@ -370,7 +370,6 @@ export const fieldsByAction = {
       label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
       required: false
     },
-    { key: 'type', label: __('Type', 'bit-integrations'), required: true },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
   create_contact_note: [
@@ -384,10 +383,10 @@ export const fieldsByAction = {
       label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
       required: false
     },
-    { key: 'body', label: __('Body', 'bit-integrations'), required: true }
+    { key: 'content', label: __('Content', 'bit-integrations'), required: true }
   ],
   create_deal: [
-    { key: 'title', label: __('Title', 'bit-integrations'), required: true },
+    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: true },
     { key: 'value', label: __('Value', 'bit-integrations'), required: false },
     { key: 'currency', label: __('Currency', 'bit-integrations'), required: false },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false },
@@ -395,7 +394,7 @@ export const fieldsByAction = {
   ],
   create_deal_note: [
     { key: 'deal_uuid', label: __('Deal', 'bit-integrations'), required: true },
-    { key: 'body', label: __('Body', 'bit-integrations'), required: true }
+    { key: 'content', label: __('Content', 'bit-integrations'), required: true }
   ],
   create_list: [
     { key: 'name', label: __('List Name', 'bit-integrations'), required: true },
@@ -417,8 +416,8 @@ export const fieldsByAction = {
   create_purchase: [
     { key: 'order_id', label: __('Order ID', 'bit-integrations'), required: true },
     { key: 'total_amount', label: __('Total Amount', 'bit-integrations'), required: true },
-    { key: 'currency', label: __('Currency', 'bit-integrations'), required: true },
-    { key: 'products', label: __('Products (JSON array)', 'bit-integrations'), required: true },
+    { key: 'currency', label: __('Currency', 'bit-integrations'), required: false },
+    { key: 'products', label: __('Products (JSON array)', 'bit-integrations'), required: false },
     { key: 'contact_uuid', label: __('Contact', 'bit-integrations'), required: false },
     { key: 'contact_email', label: __('Contact Email', 'bit-integrations'), required: false },
     { key: 'purchased_at', label: __('Purchased At', 'bit-integrations'), required: false },
@@ -427,6 +426,11 @@ export const fieldsByAction = {
   ],
   create_tag: [{ key: 'name', label: __('Tag Name', 'bit-integrations'), required: true }],
   create_task: [
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (comma separated, links the task)', 'bit-integrations'),
+      required: true
+    },
     { key: 'title', label: __('Title', 'bit-integrations'), required: true },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false },
     { key: 'due_date', label: __('Due Date', 'bit-integrations'), required: false },
@@ -734,12 +738,11 @@ export const fieldsByAction = {
       key: 'contact_uuid',
       label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
       required: false
-    },
-    { key: 'status', label: __('Status', 'bit-integrations'), required: true }
+    }
   ],
   update_deal: [
     { key: 'deal_uuid', label: __('Deal', 'bit-integrations'), required: true },
-    { key: 'title', label: __('Title', 'bit-integrations'), required: false },
+    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: false },
     { key: 'pipeline_uuid', label: __('Pipeline', 'bit-integrations'), required: false },
     { key: 'stage_uuid', label: __('Stage', 'bit-integrations'), required: false },
     { key: 'value', label: __('Value', 'bit-integrations'), required: false },
@@ -749,7 +752,7 @@ export const fieldsByAction = {
   ],
   update_deal_note: [
     { key: 'deal_note_uuid', label: __('Deal Note UUID', 'bit-integrations'), required: true },
-    { key: 'body', label: __('Body', 'bit-integrations'), required: true }
+    { key: 'content', label: __('Content', 'bit-integrations'), required: true }
   ],
   update_list: [
     { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
@@ -758,7 +761,7 @@ export const fieldsByAction = {
   ],
   update_note: [
     { key: 'note_uuid', label: __('Note UUID', 'bit-integrations'), required: true },
-    { key: 'body', label: __('Body', 'bit-integrations'), required: true }
+    { key: 'content', label: __('Content', 'bit-integrations'), required: true }
   ],
   update_page: [
     { key: 'page_uuid', label: __('Landing Page', 'bit-integrations'), required: true },
@@ -845,3 +848,38 @@ export const needsCompanyType = ['create_company', 'update_company']
 
 // Actions that render the Utilities section.
 export const hasUtilities = [...new Set([...needsGender, ...needsCompanyType])]
+
+// Verified against the API: PATCH /contacts/{uuid}/status rejects anything else.
+export const contactStatusOptions = [
+  { label: __('Active', 'bit-integrations'), value: 'active' },
+  { label: __('Unsubscribed', 'bit-integrations'), value: 'unsubscribed' },
+  { label: __('Bounced', 'bit-integrations'), value: 'bounced' },
+  { label: __('Invalid', 'bit-integrations'), value: 'invalid' },
+  { label: __('Complained', 'bit-integrations'), value: 'complained' }
+]
+
+// The activity feed uses the platform's own event vocabulary; anything else is
+// rejected with "Invalid activity type".
+export const activityTypeOptions = [
+  'contact_created',
+  'contact_updated',
+  'tag_added',
+  'tag_removed',
+  'list_added',
+  'list_removed',
+  'email_sent',
+  'email_opened',
+  'email_clicked',
+  'note_added',
+  'note_updated',
+  'purchase_cancelled',
+  'purchase_refunded',
+  'deal_created',
+  'deal_won',
+  'deal_lost',
+  'task_created',
+  'form_submitted'
+].map(value => ({ label: value.replace(/_/g, ' ').replace(/^./, c => c.toUpperCase()), value }))
+
+export const needsContactStatus = ['update_contact_status']
+export const needsActivityType = ['create_contact_activity']
