@@ -681,7 +681,7 @@ const tutorialLinks = {
   },
   sureContact: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/surecontact-integration-as-an-action/'
+    docLink: ''
   },
   sender: {
     youTubeLink: '',
