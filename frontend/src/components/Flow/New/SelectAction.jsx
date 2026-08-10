@@ -184,6 +184,7 @@ export default function SelectAction() {
     { type: 'MailerPress', is_pro: false },
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
+    { type: 'SureContact', name: 'SureContact', logo: 'sureContact', is_pro: false },
     { type: 'BrilliantDirectories', name: 'Brilliant Directories', logo: 'brilliantDirectories', is_pro: false },
     { type: 'FluentCart', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
