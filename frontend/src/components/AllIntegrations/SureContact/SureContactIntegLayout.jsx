@@ -17,9 +17,8 @@ import {
 import SureContactFieldMap from './SureContactFieldMap'
 import {
   fieldsByAction,
+  hasUtilities,
   modules,
-  needsCompanyType,
-  needsGender,
   needsList,
   needsPipeline,
   needsStage,
@@ -150,17 +149,6 @@ export default function SureContactIntegLayout({
           ({ stageId, stageName }) => ({ label: stageName, value: String(stageId) })
         )}
 
-      {(needsGender.includes(action) || needsCompanyType.includes(action)) && (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          <SureContactActions
-            sureContactConf={sureContactConf}
-            setSureContactConf={setSureContactConf}
-          />
-        </div>
-      )}
-
       {isLoading && (
         <Loader
           style={{
@@ -207,6 +195,17 @@ export default function SureContactIntegLayout({
               +
             </button>
           </div>
+        </div>
+      )}
+
+      {hasUtilities.includes(action) && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <SureContactActions
+            sureContactConf={sureContactConf}
+            setSureContactConf={setSureContactConf}
+          />
         </div>
       )}
     </>

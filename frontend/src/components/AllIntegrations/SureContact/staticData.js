@@ -842,3 +842,6 @@ export const employeeRangeOptions = [
 
 export const needsGender = ['create_contact', 'upsert_contact', 'update_contact']
 export const needsCompanyType = ['create_company', 'update_company']
+
+// Actions that render the Utilities section.
+export const hasUtilities = [...new Set([...needsGender, ...needsCompanyType])]
