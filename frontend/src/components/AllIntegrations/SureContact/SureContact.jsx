@@ -81,7 +81,7 @@ function SureContact({ formFields, setFlow, flow, allIntegURL }) {
       {/* STEP 2 */}
       <div
         className="btcd-stp-page"
-        style={{ ...(step === 2 && { height: 'auto', overflow: 'visible', width: 900 }) }}>
+        style={{ ...(step === 2 && { height: 500, overflow: 'visible', width: 900 }) }}>
         <SureContactIntegLayout
           formFields={formFields}
           sureContactConf={sureContactConf}
