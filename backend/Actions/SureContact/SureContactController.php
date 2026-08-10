@@ -160,7 +160,8 @@ class SureContactController
             wp_send_json_error(__('Select a connection with an API Key first', 'bit-integrations'), 400);
         }
 
-        $response = $client->get($path, ['per_page' => 100]);
+        // A GET payload is sent as a body, not a query string, so the limit goes on the url.
+        $response = $client->get($path . '?per_page=100');
         $failure = self::failureReason($response);
 
         if ($failure !== null) {
