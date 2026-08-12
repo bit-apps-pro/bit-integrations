@@ -8,3 +8,7 @@ node_modules
 .php-cs-fixer.cache
 build/
 .port
+.env
+# Claude Code machine-local state
+.claude/settings.local.json
+.claude/scheduled_tasks.lock

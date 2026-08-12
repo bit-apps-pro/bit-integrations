@@ -126,7 +126,28 @@ Save/update calls use `saveActionConf()` from `IntegrationHelpers.js` → `bitsF
 **Pro plugin:**
 - Free plugin detects Pro via `class_exists('BitApps\\IntegrationsPro\\...')`
 - `Flow::isActionExists()` checks free namespace first, then two Pro namespaces
-- `backend/Triggers/AllTriggersName.php` lists Pro triggers with `isPro: true` for upsell UI
+- `backend/Core/Util/AllTriggersName.php` lists Pro triggers with `isPro: true` for upsell UI
 
 **i18n:**
 - JS uses `__()` from `frontend/src/Utils/i18nwrap.js` (checks `APP_CONFIG.translations` first, falls back to `@wordpress/i18n`)
+
+## User Guide Docs
+
+Two repo skills generate draft Users Guide docs on `bit-integrations.com` (EazyDocs):
+
+| Skill | Invocation | Publishes under |
+|---|---|---|
+| `.claude/skills/create-trigger-doc/` | `/create-trigger-doc <Platform>` | `/wp-docs/trigger/` (parent post `2652`) |
+| `.claude/skills/create-action-doc/` | `/create-action-doc <Platform>` | `/wp-docs/actions/` (parent post `2654`) |
+
+Both mine the free + Pro plugin source for their content: triggers from
+`backend/Core/Util/AllTriggersName.php` + `{Name}Controller::info()` + `Hooks.php`;
+actions from `SelectAction.jsx`'s `integs` array + `AllIntegrations/{Name}/staticData.js`
++ `{Name}Authorization.jsx`. Both create **drafts** with placeholder screenshots and
+require approval on the public title before publishing.
+
+Credentials and media IDs come from `.env` (gitignored) — see `.env.example`.
+
+Doc slug/title conventions (titles keep the full phrase; only the trigger slug is short):
+- Trigger: `<Platform> Integration as a Trigger` / `<platform-slug>-integration`
+- Action: `<Platform> Integration as an Action` / `<platform-slug>-integration-as-an-action`
