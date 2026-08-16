@@ -50,8 +50,10 @@ final class SmartTags
         }
 
         $smartTags = [
-            '_bi_current_time' => gmdate('Y-m-d H:i:s'),
-            '_bi_admin_email'  => get_bloginfo('admin_email'),
+            '_bi_current_time'  => gmdate('Y-m-d H:i:s'),
+            '_bi_admin_email'   => get_bloginfo('admin_email'),
+            '_bi_boolean_true'  => true,
+            '_bi_boolean_false' => false,
             // date_i18n() (since WP 0.71) used instead of wp_date() (WP 5.3) for WP 5.1 compatibility
             '_bi_date_default' => date_i18n(get_option('date_format')),
             '_bi_date.m/d/y'   => date_i18n('m/d/y'),
@@ -60,10 +62,10 @@ final class SmartTags
             '_bi_time'         => date_i18n(get_option('time_format')),
             '_bi_weekday'      => date_i18n('l'),
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized with sanitize_text_field
-            '_bi_http_referer_url'   => isset($_SERVER['HTTP_REFERER']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER'])) : '',
-            '_bi_ip_address'         => IpTool::getIP(),
-            '_bi_browser_name'       => isset($browser) ? $browser : '',
-            '_bi_operating_system'   => isset($operating) ? $operating : '',
+            '_bi_http_referer_url' => isset($_SERVER['HTTP_REFERER']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER'])) : '',
+            '_bi_ip_address'       => IpTool::getIP(),
+            '_bi_browser_name'     => isset($browser) ? $browser : '',
+            '_bi_operating_system' => isset($operating) ? $operating : '',
             // Was time(): fully predictable despite the name, which is a hazard when the tag
             // is mapped into a token, coupon or reference field. Use _bi_current_time for a
             // timestamp.

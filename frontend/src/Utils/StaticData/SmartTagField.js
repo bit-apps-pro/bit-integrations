@@ -11,6 +11,14 @@ export const SmartTagField = [
     label: __('Administrator Email', 'bit-integrations')
   },
   {
+    name: '_bi_boolean_true',
+    label: __('Boolean True', 'bit-integrations')
+  },
+  {
+    name: '_bi_boolean_false',
+    label: __('Boolean False', 'bit-integrations')
+  },
+  {
     name: '_bi_date_default',
     label: __('Date (default format)', 'bit-integrations')
   },
