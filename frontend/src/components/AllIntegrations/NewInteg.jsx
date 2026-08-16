@@ -178,6 +178,7 @@ const WishlistMember = lazy(() => import('./WishlistMember/WishlistMember'))
 const CreatorLms = lazy(() => import('./CreatorLms/CreatorLms'))
 const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateAffiliatePro'))
 const Bookly = lazy(() => import('./Bookly/Bookly'))
+const Directorist = lazy(() => import('./Directorist/Directorist'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
@@ -1735,6 +1736,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'Bookly':
       return (
         <Bookly
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Directorist':
+      return (
+        <Directorist
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

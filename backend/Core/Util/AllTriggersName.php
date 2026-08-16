@@ -39,6 +39,7 @@ final class AllTriggersName
             'Coblocks'                       => ['name' => 'CoBlocks Form',  'isPro' => true, 'is_active' => false],
             'ContactFormEmail'               => ['name' => 'Contact Form Email',  'isPro' => true, 'is_active' => false],
             'ConvertPro'                     => ['name' => 'Convert Pro',  'isPro' => true, 'is_active' => false],
+            'Directorist'                    => ['name' => 'Directorist',  'isPro' => true, 'is_active' => false],
             'Divi'                           => ['name' => 'Divi',  'isPro' => true, 'is_active' => false],
             'DiviFormBuilder'                => ['name' => 'Divi Form by Divi Engine',  'isPro' => true, 'is_active' => false],
             'Dokan'                          => ['name' => 'Dokan',  'isPro' => true, 'is_active' => false],

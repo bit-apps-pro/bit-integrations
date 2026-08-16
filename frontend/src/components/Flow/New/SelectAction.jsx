@@ -184,6 +184,7 @@ export default function SelectAction() {
     { type: 'MailerPress', is_pro: false },
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
+    { type: 'Directorist', is_pro: true },
     { type: 'FluentCart', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
     { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
