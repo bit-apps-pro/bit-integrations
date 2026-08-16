@@ -60,6 +60,13 @@ Documentation errors cost more than SEO errors.
 - State a Pro-only or plan-gated requirement at the point where it matters, not
   only in Before You Start. This includes third-party plan limits, such as an
   API that is unavailable on the platform's free tier.
+- **Never append a `(PRO)` marker** to an event label, feature name or table row.
+  A marker on every row carries no information; a marker on some rows reads as an
+  upsell inside a reference table. State plan gating once, in prose, where it
+  changes what the reader does.
+- Never describe an outcome the code cannot produce. Before writing any example
+  or use case, read what the helper actually writes — see
+  **Use-case realism** below.
 - If the platform's API cannot do what the keyword implies, say so plainly and
   early, then document the supported path.
 - Platform-side navigation to a credential screen is the most error-prone part
@@ -123,8 +130,18 @@ Documentation errors cost more than SEO errors.
 - Name the hub or parent page that will link **in** to this doc in the approval
   preview. For action docs that is the `Actions` section
   (`DOC_ACTION_PARENT_POST_ID`), so no doc ships orphaned.
-- Every image needs descriptive alt text containing the platform name, stating
-  what the shot shows and where it is. No empty alts, no filename alts.
+- Every image needs descriptive alt text stating what the shot shows and where
+  it is. No empty alts, no filename alts.
+- **The alt must describe what is actually in the frame.** Name the platform
+  when the platform is visible; when the screenshot is a generic Bit Integrations
+  screen that does not contain it, describe that screen honestly and add the
+  platform only as context ("…, the first step of the `<Platform>` action
+  setup"). Never write an alt claiming a screenshot shows something it does not —
+  including a state that is not captured, such as "with a plugin chosen" on a
+  shot where nothing is selected.
+- Open every screenshot before writing its alt or placing it. The file name and
+  the attachment title are not reliable descriptions, and an image placed under
+  the wrong sentence is worse than a placeholder.
 - Put the primary keyword in exactly one alt, and only where it reads
   accurately. Do not repeat it across every alt.
 - Never let a step exist only inside a screenshot. The instruction must be in
@@ -241,7 +258,9 @@ paragraphs. It is the block a reader in a hurry acts on, and the block answer
 engines quote, so it carries the whole procedure in compressed form.
 
 ```html
-<!-- wp:paragraph --><p class="wp-block-paragraph"><strong>TL;DR:</strong> To set up the &lt;Platform&gt; integration as an action, &lt;shortest accurate path in one sentence, naming the real button and event labels&gt;. You need &lt;credential&gt; from &lt;where it is created&gt;. The whole setup takes about &lt;N&gt; minutes.</p><!-- /wp:paragraph -->
+<!-- wp:group {"style":{"color":{"background":"#fff5ef"},"spacing":{"padding":{"top":"18px","right":"20px","bottom":"18px","left":"20px"},"margin":{"bottom":"28px"}},"border":{"radius":"3px","left":{"color":"#f3a77f","width":"4px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-background" style="border-radius:3px;border-left-color:#f3a77f;border-left-width:4px;background-color:#fff5ef;margin-bottom:28px;padding:18px 20px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0"><strong>TL;DR:</strong> To set up the &lt;Platform&gt; integration as an action, &lt;shortest accurate path in one sentence, naming the real button and event labels&gt;. You need &lt;credential&gt; from &lt;where it is created&gt;. The whole setup takes about &lt;N&gt; minutes.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 ```
 
 Rules:
@@ -272,8 +291,20 @@ Rules:
 ```text
 <Paragraph 1: what the platform manages or does, then one line: with Bit Integrations you can automatically send data from your WordPress website to <Platform>.>
 
-For example, when someone submits a form, places an order, registers for an event, or completes another action on your site, Bit Integrations can <do the platform's main operation, using a real event label from staticData.js> without any manual data entry.
+For example, when <one concrete actor does one concrete thing>, Bit Integrations can <real event label from staticData.js> in <Platform> <with the static config that event needs>. When <a second, different concrete scenario>, it can <a second real event label>. <One line on what nobody has to do by hand any more.>
 ```
+
+The example paragraph is subject to **Use-case realism** below — the same rules
+that govern the ideas section. In particular:
+
+- **Never write "when someone submits a form, places an order, or registers as a
+  user".** That sentence fits every platform, which is exactly why it is worthless
+  — it describes no real workflow and pairs generic triggers with whatever events
+  happen to exist.
+- Pick the two scenarios by reading the required fields of the events you name.
+  An event taking `user_id` and `course_id` gets an LMS scenario, not a contact
+  form one.
+- Name a role, not "someone": a contributor, an editor, a student, a customer.
 
 Human-written, simple, customer-friendly. No stiff marketing copy, no developer
 jargon.
@@ -285,11 +316,16 @@ One paragraph, a two-item list, then one closing paragraph:
 ```text
 Every integration in Bit Integrations has two halves. The trigger is what starts the workflow. The action is what happens as a result. When <Platform> is the action, <plain-language statement of where the platform sits — e.g. "your CRM sits at the receiving end">.
 
-- Trigger: an event in another app, such as a Contact Form 7 submission, a WooCommerce order, or a new user registration.
+- Trigger: an event in another app, such as <3 trigger events that genuinely suit this platform, each naming its plugin>.
 - Action: a <Platform> operation, such as <3-4 real event labels from staticData.js>.
 
 Bit Integrations catches the incoming data; you decide which incoming field belongs in which <Platform> field, and from that point on, the record is created for you every single time. <For same-site WordPress plugins, add: Everything runs on your own WordPress install.>
 ```
+
+The three trigger examples in that list must suit **this** platform — a video
+plugin gets a video submission, an LMS lesson completion and an opt-in; a CRM
+gets a checkout, a signup and a support request. Do not reuse one generic trio
+across docs.
 
 ### Before You Start
 
@@ -298,7 +334,7 @@ A short bullet list of real prerequisites only:
 ```text
 - Bit Integrations is installed and activated on your WordPress site.
 - <Platform> is installed and activated on the same site.   <- only for AUTH_TYPES.WP_PLUGIN_CHECK integrations; use the exact sentence from noteDetails.note when present
-- The trigger plugin you want to use, for example, Contact Form 7 or WooCommerce, is installed and has at least one form or product ready.
+- The trigger plugin you want to use, for example, <two plugins that genuinely suit this platform>, is installed and has at least one <form / course / product> ready.
 - A <Platform> account with <the credential the connection needs, named with the UI label>.   <- for API/OAuth integrations
 - Bit Integrations Pro is active.   <- only when any staticData.js event is is_pro: true
 ```
@@ -335,13 +371,38 @@ sub-steps.
 
 ### Step 1: Create the Integration and Set Up Your Trigger
 
+This step uses **two fixed screenshots**, not placeholders. Both are the same on
+every action doc, so they come from `.env` and are embedded as real images:
+
+| Position | `.env` key | What it shows |
+|---|---|---|
+| after paragraph 1 | `DOC_CREATE_INTEGRATION_ATTACHMENT_POST_ID` | the welcome screen with the **Create Integration** button highlighted |
+| after paragraph 2 | `DOC_TRIGGER_LIST_ATTACHMENT_POST_ID` | the **Please select a Trigger** screen with the trigger plugin grid |
+
+Split the prose so each image sits under the sentence it illustrates. Do not
+put both images at the end of the step, and do not use
+`{{PLACEHOLDER:select-trigger}}` here — that slot no longer exists.
+
 ```text
-From your WordPress dashboard, open Bit Integrations and click Create Integration. On the trigger selection screen, search for the plugin you want to pull data from and select it. Contact Form 7 is a good first choice for a test run.
+From your WordPress dashboard, open Bit Integrations and click Create Integration.
+
+<DOC_CREATE_INTEGRATION_ATTACHMENT_POST_ID image>
+
+On the Please select a Trigger screen, type the plugin you want to pull data from into the Search Trigger... box and click its card. Contact Form 7 is a good first choice for a test run.
+
+<DOC_TRIGGER_LIST_ATTACHMENT_POST_ID image>
 
 Complete the trigger setup for that plugin, which usually means picking the specific form and running a test submission so Bit Integrations can read the field structure. Once that is done, you land on the action selection screen.
 ```
 
-Then `{{PLACEHOLDER:select-trigger}}`.
+`Please select a Trigger` and `Search Trigger...` are the real strings
+(`frontend/src/components/Flow/New/SelectTrigger.jsx`), matching the
+`Please select an Action` label used in Step 2.
+
+Resolve both IDs through `GET $DOC_SITE_URL/wp-json/wp/v2/media/<id>` and embed
+`source_url` with the real-image block. Alt text must describe what is actually
+in the frame — neither screenshot contains the platform, so do not write an alt
+claiming it does.
 
 ### Step 2: Search and Select `<Platform>` as the Action
 
@@ -453,7 +514,7 @@ two-column table:
 
 | Column | Content |
 |---|---|
-| `Action Event` | The exact `label` string from `staticData.js`, bolded. Append ` (PRO)` when `is_pro: true` |
+| `Action Event` | The exact `label` string from `staticData.js`, bolded. Nothing appended |
 | `What It Does` | One or two sentences, grounded in `RecordApiHelper.php` — which endpoint it hits and what it needs mapped |
 
 Example row from the canonical doc:
@@ -464,6 +525,13 @@ Example row from the canonical doc:
 Never reword an event label. When the integration has fewer than about eight
 events, one ungrouped table without H4s is fine — the published Sender doc does
 that.
+
+**Never append a `(PRO)` marker to an event label**, in this table or anywhere
+else in the doc. A marker repeated on every row carries no information, and a
+marker on some rows reads as an upsell in the middle of a reference table.
+State plan gating once, in prose, where it changes what the reader does:
+`Bit Integrations Pro` in `Before You Start`, and a third-party plan
+requirement as its own sentence at the step where the reader picks the event.
 
 ### Step 5: Configure the Action Fields
 
@@ -530,8 +598,64 @@ Then the body of the block:
 ```
 
 Use four or five ideas. Trigger plugin names must come from
-`backend/Core/Util/AllTriggersName.php`; the operations named must come from
-`staticData.js`.
+`backend/Core/Util/AllTriggersName.php` or a free trigger's
+`{Name}Controller::info()`; the operations named must come from `staticData.js`.
+
+### Use-case realism — hard rules
+
+Every idea must be an automation a real site owner would actually build. This is
+the section most likely to go wrong, because generic pairings read fine and are
+completely wrong.
+
+**Derive the pairing from the action's field signature, not from a generic
+trigger list.** Read the required fields in `staticData.js` and the guard clauses
+in the Pro helper *before* choosing a trigger. The fields name the caller:
+
+| Required fields on the event | What that implies |
+|---|---|
+| `user_id`, `course_id`, `step_id` | an LMS trigger — a lesson or course event |
+| an email plus a record identifier | an opt-in or registration form |
+| a record ID the reader must already know | a form where a human types that ID, or an edit/admin flow |
+| only free text | an intake form, submitted by a person |
+
+**Never claim an outcome the code cannot produce.** Check what the helper writes,
+then describe exactly that and nothing more. Recurring traps:
+
+- Adding a record to a container is **not** granting a person access to it.
+  A playlist, list, group or category is content grouping. Unless the helper
+  writes an entitlement, permission or membership row, never write a use case
+  about a buyer "getting", "receiving" or "unlocking" anything.
+- Writing a row to an email table is **not** sending an email.
+- Recording analytics is **not** changing what a visitor sees.
+- Creating a draft is **not** publishing.
+
+**Every field the action needs must be obtainable from that trigger.** If the
+event requires a record ID and the trigger is a public form, the use case has to
+say the submitter supplies that ID — or pick a different trigger. Never leave a
+required field unaccounted for.
+
+**Banned opener.** Do not write "when someone submits a form, places an order, or
+registers as a user" — or any variant that lists generic triggers and staples
+them to whatever events exist. Name one concrete actor doing one concrete thing:
+a contributor, an editor, a student, a customer.
+
+**State the manual work removed.** One clause naming what the reader stops doing
+by hand is what makes a use case useful rather than decorative.
+
+**Name the real gotcha** when the event has one — a plan requirement, a field
+that must already exist, an irreversible write. A use case that hides the
+condition sends the reader into a failed run.
+
+Worked example of the failure this rule exists to prevent:
+
+> ✗ "A customer completes an order in WooCommerce → **Add Media to Playlist** →
+> the buyer gets the content the moment the order completes."
+> The helper appends media IDs to a playlist's settings array. There is no
+> per-user playlist and no entitlement. The automation described does not exist.
+>
+> ✓ "A student completes a lesson in LearnDash LMS → **Record Watch
+> Progression**." The event takes `user_id`, `watched_duration`, `course_id` and
+> `step_id`, so an LMS is what it was shaped for.
 
 ### Use-case title link
 
@@ -589,6 +713,107 @@ Close with one wrap-up paragraph:
 ```text
 These <N> barely scratch the surface. Bit Integrations connects 378+ apps to <Platform>, including <6-8 real trigger plugin names>. The setup process is the same every time.
 ```
+
+## Block vocabulary — visual hierarchy
+
+Three styled block types, and no others. Every doc uses the same three so the
+Users Guide reads as one system. All colours are **inline**, because EazyDocs has
+no theme CSS behind custom classes; inline styles on `wp:group` survive the REST
+sanitiser, custom class names do not.
+
+The rule that governs all three: **how loud a block may be depends on how many
+times the reader meets it.** A block seen once can shout. A block that repeats
+five times must whisper, or it becomes noise and drowns the one that matters.
+
+| Tier | Block | Times per doc | Left bar | Fill | Border |
+|---|---|---|---|---|---|
+| 1 | TL;DR | exactly 1 | `#f3a77f` 4px | `#fff5ef` | — |
+| 2 | Warning | 2-4 | `#d97757` 4px | `#fdf3f0` | — |
+| 3 | Use-case card | 4-5 | — | `#fdfcfb` | 1px `#e8e2dd` |
+
+Same shape, different colour, is what makes the vocabulary learnable. Do not
+invent a fourth style, and do not box anything outside these three.
+
+**Leave plain:** overview paragraphs, step bodies, tables and the event
+accordion. Tables already carry their own structure and steps are already
+delimited by their H3s, so boxing them tips the page into a wall of panels.
+
+### Inner margins — required on every styled block
+
+A styled group sets its own padding, and the theme also puts a bottom margin on
+the last `<p>` or `<ul>` inside it. The two stack, so the block renders with a
+visibly larger gap at the bottom than the top. Most themes use
+`margin: 0 0 1em`, which is why the defect shows up only at the bottom.
+
+Zero the inner margins explicitly — the group's padding is then the only
+spacing, and the box is symmetric:
+
+| Group contains | Fix |
+|---|---|
+| one paragraph (TL;DR, warning) | `margin-top:0;margin-bottom:0` on that paragraph |
+| several blocks (use-case card) | `margin-top:0` on the first block, `margin-bottom:0` on the last |
+
+Set it in **both** places, the block comment attribute and the inline `style`,
+or the editor and the front end disagree:
+
+```html
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0">TEXT</p><!-- /wp:paragraph -->
+
+<!-- wp:list {"style":{"spacing":{"margin":{"bottom":"0"}}}} --><ul class="wp-block-list" style="margin-bottom:0"><li>ITEM</li></ul><!-- /wp:list -->
+```
+
+Never fix this by shrinking the group's bottom padding — that depends on the
+theme's font size and breaks the moment the theme changes.
+
+### Tier 2 — warning callout
+
+For the conditions that cost the reader a failed run. Place each one **before**
+the action it protects. Quote the exact error string from the helper when there
+is one — a reader who has already hit it will search for that text.
+
+Earns a warning:
+
+- a plan gate, on either side (`Bit Integrations Pro`, the platform's own Pro
+  tier, a third-party API tier)
+- an irreversible write — permanent delete, overwrite, "cannot be undone"
+- a precondition that makes the action fail — a record that must already exist,
+  a field that must already be populated
+
+Does not earn one: anything already obvious from the field table, or a mere
+preference.
+
+```html
+<!-- wp:group {"style":{"color":{"background":"#fdf3f0"},"spacing":{"padding":{"top":"14px","right":"18px","bottom":"14px","left":"18px"},"margin":{"top":"18px","bottom":"18px"}},"border":{"radius":"3px","left":{"color":"#d97757","width":"4px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-background" style="border-radius:3px;border-left-color:#d97757;border-left-width:4px;background-color:#fdf3f0;margin-top:18px;margin-bottom:18px;padding:14px 18px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0"><strong>LEAD CONDITION.</strong> WHAT HAPPENS AND WHAT TO DO INSTEAD.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+```
+
+State a gate **once**. If a warning callout covers a requirement, delete the
+duplicate sentences elsewhere — repeating the same fact three times reads as
+padding and pushes the real content down.
+
+### Tier 3 — use-case card
+
+Wraps each block in the use-case section: the linked bold title, the rationale
+paragraph, and the Trigger/Action list. Quietest treatment of the three, because
+it repeats.
+
+```html
+<!-- wp:group {"style":{"color":{"background":"#fdfcfb"},"spacing":{"padding":{"top":"20px","right":"22px","bottom":"20px","left":"22px"},"margin":{"top":"16px","bottom":"16px"}},"border":{"radius":"4px","color":"#e8e2dd","width":"1px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-background" style="border-color:#e8e2dd;border-width:1px;border-radius:4px;background-color:#fdfcfb;margin-top:16px;margin-bottom:16px;padding:20px 22px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0">LINKED BOLD TITLE</p><!-- /wp:paragraph --><!-- wp:paragraph --><p class="wp-block-paragraph">RATIONALE</p><!-- /wp:paragraph --><!-- wp:list {"style":{"spacing":{"margin":{"bottom":"0"}}}} --><ul class="wp-block-list" style="margin-bottom:0"><li><strong>Trigger:</strong> …</li><li><strong>Action:</strong> …</li></ul><!-- /wp:list --></div>
+<!-- /wp:group -->
+```
+
+### The existing note callout
+
+The site's `note_col` block still exists and renders an info icon above the
+literal word **Note**. Use it only for genuine asides. Never use it for the
+TL;DR — it would label the primary path as an aside — and never for a warning,
+which needs its own colour.
+
+After setting content, verify the blocks survived by refetching with
+`context=edit` and confirming each fill and bar colour is still present in
+`content.raw`.
 
 ## Gutenberg snippets
 
@@ -660,9 +885,11 @@ must follow the site's style — a plain sentence describing the shot. The alts
 below are the ones used in the canonical Bit CRM doc, with the platform
 substituted.
 
+Step 1 has no placeholder slot — it uses the two fixed screenshots from `.env`
+described in the Step 1 section above.
+
 | Slot | Alt text |
 |---|---|
-| `select-trigger` | `Choose a trigger plugin` |
 | `select-action-app` | `Search and select <Platform> as an action` |
 | `add-connection-form` | `Add a <Platform> connection in Bit Integrations` |
 | `credential-source` | `<Platform> settings page where the credential is copied from` |
@@ -681,7 +908,9 @@ upload or cache these images.
 
 Read credentials, the parent section post ID, and media IDs from `.env`:
 `DOC_SITE_URL`, `DOC_SITE_USERNAME`, `DOC_SITE_PASSWORD`,
-`DOC_ACTION_PARENT_POST_ID`, `DOC_PLACEHOLDER_ATTACHMENT_POST_ID`.
+`DOC_ACTION_PARENT_POST_ID`, `DOC_PLACEHOLDER_ATTACHMENT_POST_ID`,
+`DOC_CREATE_INTEGRATION_ATTACHMENT_POST_ID`,
+`DOC_TRIGGER_LIST_ATTACHMENT_POST_ID`.
 `DOC_SITE_PASSWORD` must be a WordPress Application Password. Never print it.
 
 Resolve an attachment:

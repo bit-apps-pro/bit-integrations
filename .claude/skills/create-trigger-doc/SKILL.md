@@ -94,6 +94,10 @@ Verify first. Abort with the exact fix if missing.
    `frontend/src/components/Flow/New/SelectAction.jsx`. Use six recognizable
    `type` values verbatim. Never name an action integration that is not in that
    array.
+   Choose each destination by what the trigger event's payload actually
+   carries — an event with no email address cannot feed an email marketing app.
+   See "Use-case realism" in [reference.md](reference.md) before writing the
+   overview or any use case.
 6. **Author the Gutenberg doc** from [reference.md](reference.md): post title,
    secondary/sidebar title, in-content H1, the mandatory TL;DR paragraph,
    three overview paragraphs, the
@@ -120,10 +124,16 @@ Verify first. Abort with the exact fix if missing.
    soft-404s and a `200` alone does not prove a page exists. See the
    "Use-case title link" section of `reference.md`.
    Include an **SEO/readability self-check** in the preview, confirming against
-   the standards in `reference.md`. Report it in four groups:
+   the standards in `reference.md`. Report it in six groups:
    - *Accuracy* — every event label, field label and button text traced to a
      source file; no behavior borrowed from another platform; every
-     `[VERIFY: …]` flag listed; Pro/version gating stated where it matters.
+     `[VERIFY: …]` flag listed; Pro/version gating stated where it matters; no
+     `(PRO)` marker anywhere.
+   - *Use-case realism* — for **each** use case and each overview example,
+     one line naming the trigger event's payload and confirming the destination
+     app can actually consume it; no generic "submits a form, places an order,
+     or registers" opener; no claimed outcome neither side produces. See
+     "Use-case realism" in `reference.md`.
    - *SEO* — primary keyword in the H1, the first 100 words, an H2, the slug,
      the meta description and exactly one image alt; one H1, no skipped heading
      levels; link count; no duplicated content with the platform's action doc.
@@ -131,8 +141,12 @@ Verify first. Abort with the exact fix if missing.
      sentences; no orphan pronouns; platform name repeated in each major
      section; specifics in tables not prose; no hedging words.
    - *Readability* — paragraph and sentence length, active voice, second person,
-     every image alt filled, no banned words (`simply`, `just`, `easy`,
-     `seamlessly`, …), every step imperative with an observable result.
+     every image alt filled and honest about what the shot contains, no banned
+     words (`simply`, `just`, `easy`, `seamlessly`, …), every step imperative
+     with an observable result.
+   - *Block vocabulary* — the TL;DR group box, the warning callouts (list what
+     each one warns about) and the use-case cards, with counts. No fourth block
+     style, nothing boxed outside those three.
    The whole doc is public-facing; get explicit approval on the title and the
    self-check before creating anything.
 10. **Create a draft child doc** through EazyDocs using the full public title and

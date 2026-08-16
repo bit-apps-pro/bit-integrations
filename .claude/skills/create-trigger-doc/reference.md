@@ -55,6 +55,10 @@ Documentation errors cost more than SEO errors.
 - Never mix platforms. A FluentPlayer doc contains only FluentPlayer behavior.
 - State a Pro-only or version-gated requirement at the point where it matters,
   not only in Before You Start.
+- **Never append a `(PRO)` marker** to an event label, feature name or table row.
+  A marker on every row carries no information; a marker on some rows reads as an
+  upsell inside a reference table. State plan gating once, in prose, where it
+  changes what the reader does.
 - If the platform cannot do what the keyword implies, say so plainly and early,
   then document the supported path.
 - Anything you could not verify from source becomes an inline
@@ -116,8 +120,18 @@ Documentation errors cost more than SEO errors.
 - Name the hub or parent page that will link **in** to this doc in the approval
   preview. For trigger docs that is the `Trigger` section
   (`DOC_TRIGGER_PARENT_POST_ID`), so no doc ships orphaned.
-- Every image needs descriptive alt text containing the platform name, stating
-  what the shot shows and where it is. No empty alts, no filename alts.
+- Every image needs descriptive alt text stating what the shot shows and where
+  it is. No empty alts, no filename alts.
+- **The alt must describe what is actually in the frame.** Name the platform
+  when the platform is visible; when the screenshot is a generic Bit Integrations
+  screen that does not contain it, describe that screen honestly and add the
+  platform only as context ("…, the first step of the `<Platform>` trigger
+  setup"). Never write an alt claiming a screenshot shows something it does not —
+  including a state that is not captured, such as "with a plugin chosen" on a
+  shot where nothing is selected.
+- Open every screenshot before writing its alt or placing it. The file name and
+  the attachment title are not reliable descriptions, and an image placed under
+  the wrong sentence is worse than a placeholder.
 - Put the primary keyword in exactly one alt, and only where it reads
   accurately. Do not repeat it across every alt.
 - Never let a step exist only inside a screenshot. The instruction must be in
@@ -234,7 +248,9 @@ paragraphs. It is the block a reader in a hurry acts on, and the block answer
 engines quote, so it carries the whole procedure in compressed form.
 
 ```html
-<!-- wp:paragraph --><p class="wp-block-paragraph"><strong>TL;DR:</strong> To set up the &lt;Platform&gt; integration as a trigger, &lt;shortest accurate path in one sentence, naming the real button and event labels&gt;. You need &lt;prerequisites&gt;. The whole setup takes about &lt;N&gt; minutes.</p><!-- /wp:paragraph -->
+<!-- wp:group {"style":{"color":{"background":"#fff5ef"},"spacing":{"padding":{"top":"18px","right":"20px","bottom":"18px","left":"20px"},"margin":{"bottom":"28px"}},"border":{"radius":"3px","left":{"color":"#f3a77f","width":"4px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-background" style="border-radius:3px;border-left-color:#f3a77f;border-left-width:4px;background-color:#fff5ef;margin-bottom:28px;padding:18px 20px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0"><strong>TL;DR:</strong> To set up the &lt;Platform&gt; integration as a trigger, &lt;shortest accurate path in one sentence, naming the real button and event labels&gt;. You need &lt;prerequisites&gt;. The whole setup takes about &lt;N&gt; minutes.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 ```
 
 Rules:
@@ -261,7 +277,7 @@ Rules:
 ```text
 <Paragraph 1: what the platform stores or does, in plain language, and one line saying Bit Integrations is what makes that data travel.>
 
-<Paragraph 2: once the two are connected, anything that happens in <Platform> can automatically start an action somewhere else — then name 4-5 concrete destinations, e.g. a WhatsApp message, a new row in Google Sheets, a Slack alert, a subscriber added to your email list.>
+<Paragraph 2: once the two are connected, anything that happens in <Platform> can automatically start an action somewhere else — then name 4-5 concrete destinations the platform's own payload can actually feed, e.g. a WhatsApp message, a new row in Google Sheets, a Slack alert, a subscriber added to your email list.>
 
 This guide walks through the full <Platform> trigger setup in Bit Integrations, lists every supported trigger event, and shows <N> practical automations you can build in a few minutes.
 ```
@@ -270,6 +286,12 @@ Human-written, simple, customer-friendly. No stiff marketing copy, no developer
 jargon. Every destination named in paragraph 2 must exist in the `integs` array
 in `frontend/src/components/Flow/New/SelectAction.jsx` — never invent an action
 integration.
+
+Paragraph 2 is subject to **Use-case realism** below. Each destination must be
+one the trigger's payload can genuinely feed: do not promise "a subscriber added
+to your email list" for an event that carries no email address. Read the event
+payload before naming destinations, and never open with "when someone submits a
+form, places an order, or registers as a user".
 
 ### How the `<Platform>` Trigger Works
 
@@ -481,6 +503,53 @@ Use four or five use cases. Every destination app must exist in the `integs`
 array in `SelectAction.jsx`; every trigger event must exist in the controller's
 list endpoint.
 
+### Use-case realism — hard rules
+
+Every use case must be an automation a real site owner would actually build.
+This is the section most likely to go wrong, because a generic pairing reads
+fine and is completely wrong.
+
+**Derive the pairing from the data the trigger event actually carries.** Read
+the event's payload (`getTestData()` / the controller's field list) *before*
+choosing a destination app. The payload decides what is possible:
+
+| What the event carries | Sensible destination |
+|---|---|
+| an email address and a name | an email marketing or CRM app |
+| an order or payment record | a spreadsheet, accounting or CRM app |
+| a support or form message | a chat app, helpdesk or notification channel |
+| only an internal record ID | another app on the same site, or nothing — pick a different event |
+
+If the destination needs a field the trigger never sends, the use case is
+invalid. Never assume a payload contains an email, a phone number or a total.
+
+**Never claim an outcome neither side can produce.** Describe exactly what the
+action app does with the data and nothing more. Recurring traps:
+
+- Adding a contact to a list is **not** sending them a message.
+- Writing a spreadsheet row is **not** generating a report.
+- Creating a record is **not** notifying a human, unless the action is a
+  notification.
+
+**Banned opener.** Do not write "when someone submits a form, places an order, or
+registers as a user" — or any variant that lists generic events and staples them
+to whatever destinations exist. Name one concrete actor doing one concrete
+thing: a customer, a student, a subscriber, a team member.
+
+**State the manual work removed.** One clause naming what the reader stops doing
+by hand is what makes a use case useful rather than decorative.
+
+**Name the real gotcha** when the pairing has one — a Pro requirement, a field
+the reader must map manually, a plan tier on the destination app's side.
+
+Worked example of the failure this rule exists to prevent:
+
+> ✗ "When a visitor views a page, send them a welcome email through Mailchimp."
+> A page-view event carries no email address, so the automation cannot run.
+>
+> ✓ "When a customer completes checkout, add them to a Mailchimp audience."
+> The checkout payload carries the email and name the audience needs.
+
 ### Use-case title link
 
 Each title links to the marketing-site connect page for that exact pairing:
@@ -534,6 +603,107 @@ Close with one wrap-up paragraph:
 ```text
 These <N> are only the starting point. Bit Integrations connects <Platform> to 378+ apps, including <6-8 real platform names>. The setup process is the same every time.
 ```
+
+## Block vocabulary — visual hierarchy
+
+Three styled block types, and no others. Every doc uses the same three so the
+Users Guide reads as one system. All colours are **inline**, because EazyDocs has
+no theme CSS behind custom classes; inline styles on `wp:group` survive the REST
+sanitiser, custom class names do not.
+
+The rule that governs all three: **how loud a block may be depends on how many
+times the reader meets it.** A block seen once can shout. A block that repeats
+five times must whisper, or it becomes noise and drowns the one that matters.
+
+| Tier | Block | Times per doc | Left bar | Fill | Border |
+|---|---|---|---|---|---|
+| 1 | TL;DR | exactly 1 | `#f3a77f` 4px | `#fff5ef` | — |
+| 2 | Warning | 2-4 | `#d97757` 4px | `#fdf3f0` | — |
+| 3 | Use-case card | 4-5 | — | `#fdfcfb` | 1px `#e8e2dd` |
+
+Same shape, different colour, is what makes the vocabulary learnable. Do not
+invent a fourth style, and do not box anything outside these three.
+
+**Leave plain:** overview paragraphs, step bodies, tables and the event
+accordion. Tables already carry their own structure and steps are already
+delimited by their H3s, so boxing them tips the page into a wall of panels.
+
+### Inner margins — required on every styled block
+
+A styled group sets its own padding, and the theme also puts a bottom margin on
+the last `<p>` or `<ul>` inside it. The two stack, so the block renders with a
+visibly larger gap at the bottom than the top. Most themes use
+`margin: 0 0 1em`, which is why the defect shows up only at the bottom.
+
+Zero the inner margins explicitly — the group's padding is then the only
+spacing, and the box is symmetric:
+
+| Group contains | Fix |
+|---|---|
+| one paragraph (TL;DR, warning) | `margin-top:0;margin-bottom:0` on that paragraph |
+| several blocks (use-case card) | `margin-top:0` on the first block, `margin-bottom:0` on the last |
+
+Set it in **both** places, the block comment attribute and the inline `style`,
+or the editor and the front end disagree:
+
+```html
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0">TEXT</p><!-- /wp:paragraph -->
+
+<!-- wp:list {"style":{"spacing":{"margin":{"bottom":"0"}}}} --><ul class="wp-block-list" style="margin-bottom:0"><li>ITEM</li></ul><!-- /wp:list -->
+```
+
+Never fix this by shrinking the group's bottom padding — that depends on the
+theme's font size and breaks the moment the theme changes.
+
+### Tier 2 — warning callout
+
+For the conditions that cost the reader a failed run. Place each one **before**
+the action it protects. Quote the exact error string from the helper when there
+is one — a reader who has already hit it will search for that text.
+
+Earns a warning:
+
+- a plan gate, on either side (`Bit Integrations Pro`, the platform's own Pro
+  tier, a third-party API tier)
+- an irreversible write — permanent delete, overwrite, "cannot be undone"
+- a precondition that makes the action fail — a record that must already exist,
+  a field that must already be populated
+
+Does not earn one: anything already obvious from the field table, or a mere
+preference.
+
+```html
+<!-- wp:group {"style":{"color":{"background":"#fdf3f0"},"spacing":{"padding":{"top":"14px","right":"18px","bottom":"14px","left":"18px"},"margin":{"top":"18px","bottom":"18px"}},"border":{"radius":"3px","left":{"color":"#d97757","width":"4px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-background" style="border-radius:3px;border-left-color:#d97757;border-left-width:4px;background-color:#fdf3f0;margin-top:18px;margin-bottom:18px;padding:14px 18px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0"><strong>LEAD CONDITION.</strong> WHAT HAPPENS AND WHAT TO DO INSTEAD.</p><!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+```
+
+State a gate **once**. If a warning callout covers a requirement, delete the
+duplicate sentences elsewhere — repeating the same fact three times reads as
+padding and pushes the real content down.
+
+### Tier 3 — use-case card
+
+Wraps each block in the use-case section: the linked bold title, the rationale
+paragraph, and the Trigger/Action list. Quietest treatment of the three, because
+it repeats.
+
+```html
+<!-- wp:group {"style":{"color":{"background":"#fdfcfb"},"spacing":{"padding":{"top":"20px","right":"22px","bottom":"20px","left":"22px"},"margin":{"top":"16px","bottom":"16px"}},"border":{"radius":"4px","color":"#e8e2dd","width":"1px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-background" style="border-color:#e8e2dd;border-width:1px;border-radius:4px;background-color:#fdfcfb;margin-top:16px;margin-bottom:16px;padding:20px 22px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0">LINKED BOLD TITLE</p><!-- /wp:paragraph --><!-- wp:paragraph --><p class="wp-block-paragraph">RATIONALE</p><!-- /wp:paragraph --><!-- wp:list {"style":{"spacing":{"margin":{"bottom":"0"}}}} --><ul class="wp-block-list" style="margin-bottom:0"><li><strong>Trigger:</strong> …</li><li><strong>Action:</strong> …</li></ul><!-- /wp:list --></div>
+<!-- /wp:group -->
+```
+
+### The existing note callout
+
+The site's `note_col` block still exists and renders an info icon above the
+literal word **Note**. Use it only for genuine asides. Never use it for the
+TL;DR — it would label the primary path as an aside — and never for a warning,
+which needs its own colour.
+
+After setting content, verify the blocks survived by refetching with
+`context=edit` and confirming each fill and bar colour is still present in
+`content.raw`.
 
 ## Gutenberg snippets
 

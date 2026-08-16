@@ -42,8 +42,10 @@ parent section post ID; read it from `DOC_ACTION_PARENT_POST_ID` in `.env`.
 Verify first. Abort with the exact fix if missing.
 
 1. `.env` at the plugin root contains `DOC_SITE_URL`, `DOC_SITE_USERNAME`,
-   `DOC_SITE_PASSWORD`, `DOC_ACTION_PARENT_POST_ID`, and
-   `DOC_PLACEHOLDER_ATTACHMENT_POST_ID`. Copy `.env.example` to `.env` and fill
+   `DOC_SITE_PASSWORD`, `DOC_ACTION_PARENT_POST_ID`,
+   `DOC_PLACEHOLDER_ATTACHMENT_POST_ID`,
+   `DOC_CREATE_INTEGRATION_ATTACHMENT_POST_ID`, and
+   `DOC_TRIGGER_LIST_ATTACHMENT_POST_ID`. Copy `.env.example` to `.env` and fill
    it if absent. Never print `DOC_SITE_PASSWORD`; HTTPS only.
 2. `DOC_SITE_PASSWORD` must be a WordPress **Application Password**, not the
    wp-admin login password.
@@ -72,8 +74,9 @@ Verify first. Abort with the exact fix if missing.
    `frontend/src/components/AllIntegrations/<Name>/staticData.js` (or
    `<Name>Actions.jsx` / `options.js` in older integrations) — entries are
    `{ name, label, is_pro }`. The `label` strings are the exact event names;
-   never invent or reword them. Note every `is_pro: true` event: it must be
-   marked `(PRO)` in the doc.
+   never invent or reword them. Note every `is_pro: true` event, but **never
+   append a `(PRO)` marker to an event label** — state the Pro requirement once
+   in prose, at the point where it matters.
 4. **Derive the authorization flow.** Read
    `frontend/src/components/AllIntegrations/<Name>/<Name>Authorization.jsx`:
    - Modern integrations render the shared
@@ -103,9 +106,14 @@ Verify first. Abort with the exact fix if missing.
    the **Conditional Logics** checkbox, the `Successfully Integrated` heading and
    the **Finish & Save ✔** button.
 7. **Collect trigger plugins for the use-case section** from the trigger
-   registry `backend/Core/Util/AllTriggersName.php` — use real `name` values
-   only (Bit Form, Contact Form 7, Gravity Forms, WPForms, Fluent Forms,
-   Elementor, WooCommerce, …).
+   registry `backend/Core/Util/AllTriggersName.php` (Pro triggers) and the free
+   triggers' own `{Key}Controller::info()` under `backend/Triggers/` — use real
+   `name` values only (Bit Form, Contact Form 7, Gravity Forms, WPForms, Fluent
+   Forms, Elementor, WooCommerce, LearnDash LMS, …).
+   Choose each plugin by what the action event actually needs, not by
+   popularity — an event requiring `user_id` and `course_id` pairs with an LMS,
+   not a contact form. See "Use-case realism" in [reference.md](reference.md)
+   before writing any of them.
 8. **Author the Gutenberg doc** from [reference.md](reference.md): post title,
    secondary/sidebar title, in-content H1, the mandatory TL;DR paragraph,
    overview paragraphs, the
@@ -135,11 +143,17 @@ Verify first. Abort with the exact fix if missing.
     soft-404s and a `200` alone does not prove a page exists. See the
     "Use-case title link" section of `reference.md`.
     Include an **SEO/readability self-check** in the preview, confirming against
-    the standards in `reference.md`. Report it in four groups:
+    the standards in `reference.md`. Report it in six groups:
     - *Accuracy* — every action-event label, credential field and button text
       traced to a source file; no behavior borrowed from another platform;
       every `[VERIFY: …]` flag listed, especially platform-side navigation;
-      Pro/plan gating stated where it matters.
+      Pro/plan gating stated where it matters; no `(PRO)` marker anywhere.
+    - *Use-case realism* — for **each** idea and each overview example, one line
+      naming the event's required fields and confirming the chosen trigger
+      plugin can supply every one of them; no generic "submits a form, places an
+      order, or registers" opener; no claimed outcome the helper does not
+      produce (access granted, email sent, visitor experience changed). See
+      "Use-case realism" in `reference.md`.
     - *SEO* — primary keyword in the H1, the first 100 words, an H2, the slug,
       the meta description and exactly one image alt; one H1, no skipped heading
       levels; link count; no duplicated content with the platform's trigger doc.
@@ -147,8 +161,12 @@ Verify first. Abort with the exact fix if missing.
       sentences; no orphan pronouns; platform name repeated in each major
       section; specifics in tables not prose; no hedging words.
     - *Readability* — paragraph and sentence length, active voice, second
-      person, every image alt filled, no banned words (`simply`, `just`,
-      `easy`, `seamlessly`, …), every step imperative with an observable result.
+      person, every image alt filled and honest about what the shot contains, no
+      banned words (`simply`, `just`, `easy`, `seamlessly`, …), every step
+      imperative with an observable result.
+    - *Block vocabulary* — the TL;DR group box, the warning callouts (list what
+      each one warns about) and the use-case cards, with counts. No fourth block
+      style, nothing boxed outside those three.
     The whole doc is public-facing; get explicit approval on the title and the
     self-check before creating anything.
 12. **Create a draft child doc** through EazyDocs using the full public title and
