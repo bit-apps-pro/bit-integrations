@@ -148,6 +148,12 @@ require approval on the public title before publishing.
 
 Credentials and media IDs come from `.env` (gitignored) — see `.env.example`.
 
-Doc slug/title conventions (titles keep the full phrase; only the trigger slug is short):
-- Trigger: `<Platform> Integration as a Trigger` / `<platform-slug>-integration`
+Doc slug/title conventions:
+- Trigger: `<Platform> Integration` / `<platform-slug>-integration` — the phrase
+  `as a Trigger` must not appear anywhere in a trigger doc
 - Action: `<Platform> Integration as an Action` / `<platform-slug>-integration-as-an-action`
+
+Both doc types style their TL;DR, warning and use-case blocks with the shared
+`bi-tldr` / `bi-warn` / `bi-card` classes plus one `<style>` block at the top of
+the content — never inline colours, which cannot express the site's dark mode.
+See the **Block vocabulary** section of either skill's `reference.md`.

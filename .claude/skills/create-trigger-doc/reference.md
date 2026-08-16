@@ -152,13 +152,23 @@ sidebar.
 **WordPress/EazyDocs post title:**
 
 ```text
-<Platform> Integration as a Trigger
+<Platform> Integration
 ```
 
-Examples: `Bit CRM Integration as a Trigger`,
-`NextCRM Integration as a Trigger`. Use the exact `name` value from
-`backend/Core/Util/AllTriggersName.php`. Use singular `Integration`, never
-`Integrations`.
+Examples: `Bit CRM Integration`, `NextCRM Integration`. Use the exact `name`
+value from `backend/Core/Util/AllTriggersName.php`. Use singular `Integration`,
+never `Integrations`.
+
+> **Never write the phrase `as a Trigger` anywhere in a trigger doc** — not in
+> the post title, an H1, an H2/H3 heading, image alt text or body prose. Trigger
+> docs own the plain `<Platform> Integration` title and the plain
+> `<platform-slug>-integration` slug; the doc type is already clear from the
+> `Trigger` section it lives in. Where a heading has to name the wizard screen,
+> use the real screen name instead: `Search and Select <Platform> on the Trigger
+> Screen`, because `Please select a Trigger` is what the reader actually sees.
+> Grep the finished Gutenberg HTML for `as (a|the|your) trigger`
+> case-insensitively before the approval preview; the count must be `0`.
+> Action docs are unaffected — they keep `<Platform> Integration as an Action`.
 
 > **Note:** The post title must be SEO-friendly and user-friendly. Include the
 > exact platform name, use natural language, and avoid keyword stuffing, vague
@@ -184,8 +194,8 @@ Examples: `bit-crm-integration`, `nextcrm-integration`,
 `fluentplayer-integration`. Always singular `-integration`, and **no**
 `-as-a-trigger` suffix — the trigger doc owns the short, canonical slug.
 
-The post title still reads `<Platform> Integration as a Trigger`; only the slug
-drops the suffix. Action docs keep the full
+The post title and the slug now agree: `<Platform> Integration` and
+`<platform-slug>-integration`. Action docs keep the full
 `<platform-slug>-integration-as-an-action`, so the two doc types never collide.
 
 | Doc type | Slug |
@@ -222,21 +232,21 @@ Step headings use **Title Case** and no leading zero: `Step 1: Click the Fetch
 Button`, not `Step 01: click the fetch button`.
 
 ```text
-<h1>  <Platform> Integration as a Trigger
+<h1>  <Platform> Integration
       <TL;DR paragraph>
       <3 overview paragraphs>
 <h2>  How the <Platform> Trigger Works
 <h2>  Before You Start
-<h2>  How to Set Up <Platform> Integration as a Trigger in Bit Integrations
+<h2>  How to Set Up the <Platform> Integration in Bit Integrations
       <one paragraph: how many steps and which one needs care>
 <h3>    Step 1: Open Bit Integrations and Click Create Integration
-<h3>    Step 2: Search and Select <Platform> as the Trigger
+<h3>    Step 2: Search and Select <Platform> on the Trigger Screen
 <h3>    Step 3: Choose Your Trigger Event
 <h3>    Step 4: Click the Fetch Button
 <h3>    Step 5: Create a Test Record Within the 3 Minute Window
 <h3>    Step 6: Review the Fetched Data and Click Set Action
       <closing paragraph>
-<h2>  Explore <N> Useful <Platform> Integration as a Trigger Use Cases
+<h2>  Explore <N> Useful <Platform> Integration Use Cases
 ```
 
 Do not add an Action walkthrough, a step summary, or a roadmap list.
@@ -248,8 +258,8 @@ paragraphs. It is the block a reader in a hurry acts on, and the block answer
 engines quote, so it carries the whole procedure in compressed form.
 
 ```html
-<!-- wp:group {"style":{"color":{"background":"#fff5ef"},"spacing":{"padding":{"top":"18px","right":"20px","bottom":"18px","left":"20px"},"margin":{"bottom":"28px"}},"border":{"radius":"3px","left":{"color":"#f3a77f","width":"4px"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="border-radius:3px;border-left-color:#f3a77f;border-left-width:4px;background-color:#fff5ef;margin-bottom:28px;padding:18px 20px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0"><strong>TL;DR:</strong> To set up the &lt;Platform&gt; integration as a trigger, &lt;shortest accurate path in one sentence, naming the real button and event labels&gt;. You need &lt;prerequisites&gt;. The whole setup takes about &lt;N&gt; minutes.</p><!-- /wp:paragraph --></div>
+<!-- wp:group {"className":"bi-tldr","layout":{"type":"constrained"}} -->
+<div class="wp-block-group bi-tldr"><!-- wp:paragraph --><p class="wp-block-paragraph"><strong>TL;DR:</strong> To set up the &lt;Platform&gt; integration in Bit Integrations, &lt;shortest accurate path in one sentence, naming the real button and event labels&gt;. You need &lt;prerequisites&gt;. The whole setup takes about &lt;N&gt; minutes.</p><!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 ```
 
@@ -374,10 +384,10 @@ From your WordPress dashboard, go to Bit Integrations. On the welcome screen or 
 Then the fixed screenshot `{{SHOT:create-integration}}` using
 `DOC_CREATE_INTEGRATION_ATTACHMENT_POST_ID`.
 
-### Step 2: Search and Select `<Platform>` as the Trigger
+### Step 2: Search and Select `<Platform>` on the Trigger Screen
 
 ```text
-You will land on the trigger selection screen. Type <Platform> into the search box and click the <Platform> card when it appears.
+You land on the Please select a Trigger screen. Type <Platform> into the Search Trigger... box and click the <Platform> card when it appears.
 ```
 
 The real screen heading is `Please select a Trigger`
@@ -472,7 +482,7 @@ Skip the accordion entirely when the trigger has no fixed event set.
 
 ## Use-case section
 
-`<h2>` `Explore <N> Useful <Platform> Integration as a Trigger Use Cases`, then:
+`<h2>` `Explore <N> Useful <Platform> Integration Use Cases`, then:
 
 ```text
 Here are <N> automations that solve real problems for small teams. Each one uses the same <N>-step setup described above, with a different action app at the end.
@@ -607,19 +617,17 @@ These <N> are only the starting point. Bit Integrations connects <Platform> to 3
 ## Block vocabulary — visual hierarchy
 
 Three styled block types, and no others. Every doc uses the same three so the
-Users Guide reads as one system. All colours are **inline**, because EazyDocs has
-no theme CSS behind custom classes; inline styles on `wp:group` survive the REST
-sanitiser, custom class names do not.
+Users Guide reads as one system.
 
 The rule that governs all three: **how loud a block may be depends on how many
 times the reader meets it.** A block seen once can shout. A block that repeats
 five times must whisper, or it becomes noise and drowns the one that matters.
 
-| Tier | Block | Times per doc | Left bar | Fill | Border |
-|---|---|---|---|---|---|
-| 1 | TL;DR | exactly 1 | `#f3a77f` 4px | `#fff5ef` | — |
-| 2 | Warning | 2-4 | `#d97757` 4px | `#fdf3f0` | — |
-| 3 | Use-case card | 4-5 | — | `#fdfcfb` | 1px `#e8e2dd` |
+| Tier | Block | Class | Times per doc |
+|---|---|---|---|
+| 1 | TL;DR | `bi-tldr` | exactly 1 |
+| 2 | Warning | `bi-warn` | 2-4 |
+| 3 | Use-case card | `bi-card` | 4-5 |
 
 Same shape, different colour, is what makes the vocabulary learnable. Do not
 invent a fourth style, and do not box anything outside these three.
@@ -628,72 +636,93 @@ invent a fourth style, and do not box anything outside these three.
 accordion. Tables already carry their own structure and steps are already
 delimited by their H3s, so boxing them tips the page into a wall of panels.
 
-### Inner margins — required on every styled block
+### Colours live in one `<style>` block, never in inline styles
 
-A styled group sets its own padding, and the theme also puts a bottom margin on
-the last `<p>` or `<ul>` inside it. The two stack, so the block renders with a
-visibly larger gap at the bottom than the top. Most themes use
-`margin: 0 0 1em`, which is why the defect shows up only at the bottom.
+The docs site has a **dark mode** (an `ezd_dark_switch` toggle that puts
+`body_dark` on `<body>`). An inline `style="background:#fff5ef"` cannot say
+"…and something else in dark mode", so a block styled inline becomes a glaring
+light slab on a near-black page — or, worse, keeps the theme's light text and
+turns invisible.
 
-Zero the inner margins explicitly — the group's padding is then the only
-spacing, and the box is symmetric:
+Inline styles also lose outright to the theme's `!important` rules:
 
-| Group contains | Fix |
-|---|---|
-| one paragraph (TL;DR, warning) | `margin-top:0;margin-bottom:0` on that paragraph |
-| several blocks (use-case card) | `margin-top:0` on the first block, `margin-bottom:0` on the last |
-
-Set it in **both** places, the block comment attribute and the inline `style`,
-or the editor and the front end disagree:
-
-```html
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0">TEXT</p><!-- /wp:paragraph -->
-
-<!-- wp:list {"style":{"spacing":{"margin":{"bottom":"0"}}}} --><ul class="wp-block-list" style="margin-bottom:0"><li>ITEM</li></ul><!-- /wp:list -->
+```css
+body.body_dark.single-docs #post p       { color:#eaeaea !important }   /* (1,2,2) */
+.doc-middle-content tr:nth-child(2n)     { color:#000    !important }   /* (0,2,1) */
+.body_dark.single-docs .wp-block-esab-accordion-child > .esab__active.esab__body
+                                         { background:#494949 !important } /* (0,5,0) */
 ```
 
-Never fix this by shrinking the group's bottom padding — that depends on the
-theme's font size and breaks the moment the theme changes.
+So: **put the class on the block, and put every colour in one `wp:html`
+`<style>` block at the top of the content.** A `<style>` block survives the REST
+write intact, `body_dark` selectors included, which is the only way to express a
+real dark variant. Verify with `context=edit` after writing.
 
-### Tier 2 — warning callout
-
-For the conditions that cost the reader a failed run. Place each one **before**
-the action it protects. Quote the exact error string from the helper when there
-is one — a reader who has already hit it will search for that text.
-
-Earns a warning:
-
-- a plan gate, on either side (`Bit Integrations Pro`, the platform's own Pro
-  tier, a third-party API tier)
-- an irreversible write — permanent delete, overwrite, "cannot be undone"
-- a precondition that makes the action fail — a record that must already exist,
-  a field that must already be populated
-
-Does not earn one: anything already obvious from the field table, or a mere
-preference.
+Emit the group with a `className` and **no** `style` attribute:
 
 ```html
-<!-- wp:group {"style":{"color":{"background":"#fdf3f0"},"spacing":{"padding":{"top":"14px","right":"18px","bottom":"14px","left":"18px"},"margin":{"top":"18px","bottom":"18px"}},"border":{"radius":"3px","left":{"color":"#d97757","width":"4px"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="border-radius:3px;border-left-color:#d97757;border-left-width:4px;background-color:#fdf3f0;margin-top:18px;margin-bottom:18px;padding:14px 18px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0;margin-bottom:0"><strong>LEAD CONDITION.</strong> WHAT HAPPENS AND WHAT TO DO INSTEAD.</p><!-- /wp:paragraph --></div>
+<!-- wp:group {"className":"bi-tldr","layout":{"type":"constrained"}} -->
+<div class="wp-block-group bi-tldr"><!-- wp:paragraph --><p class="wp-block-paragraph"><strong>TL;DR:</strong> …</p><!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 ```
 
-State a gate **once**. If a warning callout covers a requirement, delete the
-duplicate sentences elsewhere — repeating the same fact three times reads as
-padding and pushes the real content down.
+Warnings use `bi-warn`, use-case cards use `bi-card`, with the card's linked
+bold title, rationale paragraph and Trigger/Action list inside. Padding and
+margins come from the stylesheet, so drop the old `margin-top:0`/`margin-bottom:0`
+zeroing attributes — they exist only to patch inline padding.
 
-### Tier 3 — use-case card
+### The stylesheet — paste verbatim as the first block of every doc
 
-Wraps each block in the use-case section: the linked bold title, the rationale
-paragraph, and the Trigger/Action list. Quietest treatment of the three, because
-it repeats.
+Selectors that must beat a theme `!important` rule carry the
+`body.body_dark.single-docs #post` prefix to clear its specificity. Do not
+shorten them.
 
 ```html
-<!-- wp:group {"style":{"color":{"background":"#fdfcfb"},"spacing":{"padding":{"top":"20px","right":"22px","bottom":"20px","left":"22px"},"margin":{"top":"16px","bottom":"16px"}},"border":{"radius":"4px","color":"#e8e2dd","width":"1px"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="border-color:#e8e2dd;border-width:1px;border-radius:4px;background-color:#fdfcfb;margin-top:16px;margin-bottom:16px;padding:20px 22px"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}}}} --><p class="wp-block-paragraph" style="margin-top:0">LINKED BOLD TITLE</p><!-- /wp:paragraph --><!-- wp:paragraph --><p class="wp-block-paragraph">RATIONALE</p><!-- /wp:paragraph --><!-- wp:list {"style":{"spacing":{"margin":{"bottom":"0"}}}} --><ul class="wp-block-list" style="margin-bottom:0"><li><strong>Trigger:</strong> …</li><li><strong>Action:</strong> …</li></ul><!-- /wp:list --></div>
-<!-- /wp:group -->
+<!-- wp:html --><style>
+/* ---- Bit Integrations doc blocks ---- */
+.bi-tldr{background:#fff5ef;color:#2b2119;border-left:4px solid #f3a77f;border-radius:3px;padding:18px 20px;margin:0 0 28px}
+.bi-warn{background:#fdf3f0;color:#2b2119;border-left:4px solid #d97757;border-radius:3px;padding:14px 18px;margin:18px 0}
+.bi-card{background:#fdfcfb;color:#2b2119;border:1px solid #e8e2dd;border-radius:4px;padding:20px 22px;margin:16px 0}
+.single-docs #post .bi-tldr p,.single-docs #post .bi-warn p,.single-docs #post .bi-card p,.single-docs #post .bi-card li{color:inherit!important}
+.single-docs #post .bi-card a{color:#6b21a8!important}
+body.body_dark .bi-tldr{background:#241c17;color:#f1e6dd;border-left-color:#f3a77f}
+body.body_dark .bi-warn{background:#2b1e19;color:#f7e0d6;border-left-color:#d97757}
+body.body_dark .bi-card{background:#1b1c21;color:#e7e2dd;border-color:#34363d}
+body.body_dark.single-docs #post .bi-tldr p,body.body_dark.single-docs #post .bi-warn p,body.body_dark.single-docs #post .bi-card p,body.body_dark.single-docs #post .bi-card li{color:inherit!important}
+body.body_dark.single-docs #post .bi-card a{color:#cbaef7!important}
+/* ---- tables follow the theme; only the hardcoded zebra fill is neutralised ---- */
+#post .wp-block-table table{background:transparent!important;border-color:rgba(127,127,127,.32)!important}
+#post .wp-block-table th{background:rgba(127,127,127,.13)!important;border-color:rgba(127,127,127,.32)!important}
+#post .wp-block-table td{background:transparent!important;border-color:rgba(127,127,127,.32)!important}
+#post .wp-block-table tbody tr:nth-child(odd){background:transparent!important}
+#post .wp-block-table tbody tr:nth-child(even){background:rgba(127,127,127,.07)!important}
+/* the theme pairs its stripe with a forced black text colour; drop that too */
+#post .wp-block-table tbody tr:nth-child(even),#post .wp-block-table tbody tr:nth-child(even) td,#post .wp-block-table tbody tr:nth-child(even) th{color:inherit!important}
+/* the theme's brand link colour drops to 2:1 on the dark page */
+body.body_dark.single-docs #post p a,body.body_dark.single-docs #post li a{color:#cbaef7!important}
+/* ---- accordion ----
+   The head keeps the esab plugin's own purple: it ships that with !important at
+   a specificity we would have to fight, it is readable in both modes, and every
+   other doc on the site already looks that way. Only the body is ours. */
+.wp-block-esab-accordion .wp-block-esab-accordion-child{border:1px solid rgba(127,127,127,.3);border-radius:3px;overflow:hidden}
+body.single-docs .wp-block-esab-accordion .wp-block-esab-accordion-child>.esab__body,body.single-docs .wp-block-esab-accordion .wp-block-esab-accordion-child>.esab__active.esab__body{background:#fbfaf9!important;border-top:1px solid rgba(127,127,127,.28);padding:16px}
+body.body_dark.single-docs .wp-block-esab-accordion .wp-block-esab-accordion-child>.esab__body,body.body_dark.single-docs .wp-block-esab-accordion .wp-block-esab-accordion-child>.esab__active.esab__body{background:#1b1c21!important;border-top-color:rgba(127,127,127,.22)}
+</style><!-- /wp:html -->
 ```
 
+Why each table rule exists: the theme stripes even rows `#f7f7f7` **and** forces
+`color:#000` on them. Neutralising only the background leaves black text on a
+dark row; neutralising only the colour leaves a light row on a dark page. Both
+have to go, and the replacement stripe is a translucent grey so it reads
+correctly in either mode.
+
+### The accordion `blockStyle` attribute is decorative — never rely on it
+
+The esab accordion's `blockStyle` attribute is **not applied on the front end**
+of this site. A doc that puts its colours there ships unstyled: the head renders
+the plugin's default purple and the body takes the theme's dark `#494949`. Keep
+whatever `blockStyle` the snippet already carries, but never put a colour you
+depend on in it — those rules belong in the `<style>` block above.
 ### The existing note callout
 
 The site's `note_col` block still exists and renders an info icon above the
@@ -772,7 +801,7 @@ substituted.
 
 | Slot | Alt text |
 |---|---|
-| `select-trigger-app` | `search and select <Platform> as a trigger` |
+| `select-trigger-app` | `search and select <Platform> on the Please select a Trigger screen` |
 | `select-trigger-event` | `choose specific <Platform> trigger events` |
 | `fetch-button` | `Click on <Platform> fetch button` |
 | `waiting-for-submission` | `Waiting for form submission` |
@@ -831,7 +860,7 @@ curl -s -u "$DOC_SITE_USERNAME:$DOC_SITE_PASSWORD" \
 ```json
 {
   "slug": "<platform-slug>-integration",
-  "title": "<Platform> Integration as a Trigger",
+  "title": "<Platform> Integration",
   "ezd_doc_secondary_title": "<Platform>",
   "content": "<gutenberg html beginning with the h1>"
 }

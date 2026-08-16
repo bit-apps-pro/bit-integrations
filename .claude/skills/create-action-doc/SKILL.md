@@ -166,7 +166,15 @@ Verify first. Abort with the exact fix if missing.
       imperative with an observable result.
     - *Block vocabulary* — the TL;DR group box, the warning callouts (list what
       each one warns about) and the use-case cards, with counts. No fourth block
-      style, nothing boxed outside those three.
+      style, nothing boxed outside those three. Confirm each one carries its
+      `bi-tldr`/`bi-warn`/`bi-card` class and **no inline colour**, and that the
+      `<style>` block is present as the first block of the content — inline
+      colours cannot express the site's dark mode.
+    - *Dark mode* — confirm the doc renders in **both** modes. After publishing,
+      load the page, toggle `body_dark`, and check the computed contrast of every
+      `td/th/p/li/a/h1-h4` against its composited background; report the count of
+      pairs under 4.5:1 in each mode. Markup alone does not prove this — a theme
+      `!important` rule can beat a correct-looking declaration.
     The whole doc is public-facing; get explicit approval on the title and the
     self-check before creating anything.
 12. **Create a draft child doc** through EazyDocs using the full public title and
