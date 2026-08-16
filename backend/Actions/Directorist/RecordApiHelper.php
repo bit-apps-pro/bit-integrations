@@ -37,16 +37,20 @@ class RecordApiHelper
      */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
+        $mainAction = $this->_integrationDetails->mainAction ?? 'create_listing';
+
         if (!\defined('ATBDP_VERSION')) {
-            return [
+            $response = [
                 'success' => false,
                 'message' => __('Directorist is not installed or activated', 'bit-integrations')
             ];
+
+            LogHandler::save($this->_integrationID, ['type' => 'Directorist', 'type_name' => $mainAction], 'error', $response);
+
+            return $response;
         }
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-
-        $mainAction = $this->_integrationDetails->mainAction ?? 'create_listing';
 
         $defaultResponse = [
             'success' => false,
