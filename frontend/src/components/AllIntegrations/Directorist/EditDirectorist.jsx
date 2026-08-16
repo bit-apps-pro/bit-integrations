@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './DirectoristCommonFunc'
+import { checkMappedFields, checkRequiredOptions, handleInput } from './DirectoristCommonFunc'
 import DirectoristIntegLayout from './DirectoristIntegLayout'
 
 export default function EditDirectorist({ allIntegURL }) {
@@ -64,7 +64,7 @@ export default function EditDirectorist({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={!checkMappedFields(directoristConf)}
+        disabled={!checkMappedFields(directoristConf) || Boolean(checkRequiredOptions(directoristConf))}
         isLoading={isLoading}
         dataConf={directoristConf}
         setDataConf={setDirectoristConf}

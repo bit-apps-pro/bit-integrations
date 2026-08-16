@@ -2,6 +2,7 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
+import { needsDirectory, needsFeatured, needsListingStatus, needsOrderStatus } from './staticData'
 
 export const handleInput = (e, directoristConf, setDirectoristConf) => {
   const { name, value } = e.target
@@ -119,6 +120,26 @@ export const checkMappedFields = directoristConf => {
     : []
 
   return mappedFields.length === 0
+}
+
+// The options that live outside the field map still gate the next step.
+export const checkRequiredOptions = directoristConf => {
+  const { mainAction } = directoristConf
+
+  if (needsDirectory.includes(mainAction) && !directoristConf?.selectedDirectory) {
+    return __('Please select a directory to continue.', 'bit-integrations')
+  }
+  if (needsListingStatus.includes(mainAction) && !directoristConf?.selectedListingStatus) {
+    return __('Please select a listing status to continue.', 'bit-integrations')
+  }
+  if (needsFeatured.includes(mainAction) && !directoristConf?.selectedFeatured) {
+    return __('Please select the featured state to continue.', 'bit-integrations')
+  }
+  if (needsOrderStatus.includes(mainAction) && !directoristConf?.selectedOrderStatus) {
+    return __('Please select a payment status to continue.', 'bit-integrations')
+  }
+
+  return ''
 }
 
 export const generateMappedField = fields => {

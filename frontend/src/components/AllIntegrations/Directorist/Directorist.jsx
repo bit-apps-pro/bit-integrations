@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import DirectoristAuthorization from './DirectoristAuthorization'
-import { checkMappedFields } from './DirectoristCommonFunc'
+import { checkMappedFields, checkRequiredOptions } from './DirectoristCommonFunc'
 import DirectoristIntegLayout from './DirectoristIntegLayout'
 
 export default function Directorist({ formFields, setFlow, flow, allIntegURL }) {
@@ -30,6 +30,13 @@ export default function Directorist({ formFields, setFlow, flow, allIntegURL }) 
     }, 300)
 
     if (val === 3) {
+      const missingOption = checkRequiredOptions(directoristConf)
+
+      if (missingOption) {
+        setSnackbar({ show: true, msg: missingOption })
+        return
+      }
+
       if (!checkMappedFields(directoristConf)) {
         setSnackbar({
           show: true,
