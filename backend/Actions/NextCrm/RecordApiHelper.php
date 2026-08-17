@@ -67,12 +67,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'create_or_update_contact':
-                $response = Hooks::apply(Config::withPrefix('next_crm_create_or_update_contact'), $defaultResponse, $fieldData, $utilities);
-                $type = 'contact';
-
-                break;
-
             case 'delete_contact':
                 $response = Hooks::apply(Config::withPrefix('next_crm_delete_contact'), $defaultResponse, $fieldData);
                 $type = 'contact';
@@ -87,18 +81,6 @@ class RecordApiHelper
 
             case 'update_contact_field':
                 $response = Hooks::apply(Config::withPrefix('next_crm_update_contact_field'), $defaultResponse, $fieldData, $this->_integrationDetails);
-                $type = 'contact';
-
-                break;
-
-            case 'set_contact_meta':
-                $response = Hooks::apply(Config::withPrefix('next_crm_set_contact_meta'), $defaultResponse, $fieldData);
-                $type = 'contact';
-
-                break;
-
-            case 'delete_contact_meta':
-                $response = Hooks::apply(Config::withPrefix('next_crm_delete_contact_meta'), $defaultResponse, $fieldData);
                 $type = 'contact';
 
                 break;

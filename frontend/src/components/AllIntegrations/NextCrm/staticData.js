@@ -3,11 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 export const modules = [
   { name: 'create_contact', label: __('Create Contact', 'bit-integrations'), is_pro: true },
   { name: 'update_contact', label: __('Update Contact', 'bit-integrations'), is_pro: true },
-  {
-    name: 'create_or_update_contact',
-    label: __('Create or Update Contact', 'bit-integrations'),
-    is_pro: true
-  },
   { name: 'delete_contact', label: __('Delete Contact', 'bit-integrations'), is_pro: true },
   {
     name: 'change_contact_status',
@@ -17,12 +12,6 @@ export const modules = [
   {
     name: 'update_contact_field',
     label: __('Update Contact Field', 'bit-integrations'),
-    is_pro: true
-  },
-  { name: 'set_contact_meta', label: __('Set Contact Meta', 'bit-integrations'), is_pro: true },
-  {
-    name: 'delete_contact_meta',
-    label: __('Delete Contact Meta', 'bit-integrations'),
     is_pro: true
   },
   {
@@ -99,17 +88,6 @@ export const UpdateContactFieldFields = [
   { key: 'value', label: __('Value', 'bit-integrations'), required: true }
 ]
 
-export const SetContactMetaFields = [
-  ContactEmailField,
-  { key: 'meta_key', label: __('Meta Key', 'bit-integrations'), required: true },
-  { key: 'meta_value', label: __('Meta Value', 'bit-integrations'), required: true }
-]
-
-export const DeleteContactMetaFields = [
-  ContactEmailField,
-  { key: 'meta_key', label: __('Meta Key', 'bit-integrations'), required: true }
-]
-
 export const ContactActivityFields = [
   ContactEmailField,
   { key: 'title', label: __('Title', 'bit-integrations'), required: true },
@@ -130,13 +108,10 @@ export const CampaignEmailFields = [
 
 export const nextCrmStaticData = {
   create_contact: CreateContactFields,
-  create_or_update_contact: CreateContactFields,
   update_contact: UpdateContactFields,
   delete_contact: ContactEmailOnlyFields,
   change_contact_status: ContactEmailOnlyFields,
   update_contact_field: UpdateContactFieldFields,
-  set_contact_meta: SetContactMetaFields,
-  delete_contact_meta: DeleteContactMetaFields,
   add_contact_activity: ContactActivityFields,
   create_tag: TaxonomyFields,
   create_list: TaxonomyFields,
@@ -170,7 +145,6 @@ export const needsCampaign = ['send_campaign_email']
 export const hasUtilities = [
   'create_contact',
   'update_contact',
-  'create_or_update_contact',
   'add_contact_activity',
   'send_campaign_email'
 ]

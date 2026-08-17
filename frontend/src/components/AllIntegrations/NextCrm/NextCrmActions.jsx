@@ -20,7 +20,7 @@ export default function NextCrmActions({ nextCrmConf, setNextCrmConf }) {
   const [isLoading, setIsLoading] = useState(false)
   const [actionMdl, setActionMdl] = useState({ show: false })
   const action = nextCrmConf?.mainAction
-  const isContactSave = ['create_contact', 'update_contact', 'create_or_update_contact'].includes(action)
+  const isContactSave = ['create_contact', 'update_contact'].includes(action)
 
   const actionHandler = type => {
     setActionMdl({ show: type })
