@@ -1,6 +1,13 @@
 import bitsFetch from '../../../Utils/bitsFetch'
-import { deepCopy } from '../../../Utils/Helpers'
 import { sprintf, __ } from '../../../Utils/i18nwrap'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        accessToken: conf.accessToken
+      }
 
 export const handleInput = (e, trelloConf, setTrelloConf, setIsLoading, setSnackbar) => {
   const newConf = { ...trelloConf }
@@ -18,13 +25,9 @@ export const handleInput = (e, trelloConf, setTrelloConf, setIsLoading, setSnack
   setTrelloConf({ ...newConf })
 }
 
-export const fetchAllBoard = (formID, trelloConf, setTrelloConf, setIsLoading, setSnackbar) => {
+export const fetchAllBoard = (trelloConf, setTrelloConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const fetchBoardModulesRequestParams = {
-    formID,
-    clientId: trelloConf.clientId,
-    accessToken: trelloConf.accessToken
-  }
+  const fetchBoardModulesRequestParams = buildAuthRequestParams(trelloConf)
   bitsFetch(fetchBoardModulesRequestParams, 'trello_fetch_all_board')
     .then(result => {
       if (result && result.success) {
@@ -65,9 +68,8 @@ export const fetchAllBoard = (formID, trelloConf, setTrelloConf, setIsLoading, s
 export const fetchAllList = (trelloConf, setTrelloConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const fetchListModulesRequestParams = {
-    clientId: trelloConf.clientId,
-    boardId: trelloConf.boardId,
-    accessToken: trelloConf.accessToken
+    ...buildAuthRequestParams(trelloConf),
+    boardId: trelloConf.boardId
   }
 
   bitsFetch(fetchListModulesRequestParams, 'trello_fetch_all_list_Individual_board')
@@ -107,9 +109,8 @@ export const fetchAllList = (trelloConf, setTrelloConf, setIsLoading, setSnackba
 export const fetchAllCustomFields = (trelloConf, setTrelloConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    clientId: trelloConf.clientId,
-    boardId: trelloConf.boardId,
-    accessToken: trelloConf.accessToken
+    ...buildAuthRequestParams(trelloConf),
+    boardId: trelloConf.boardId
   }
 
   bitsFetch(requestParams, 'trello_fetch_all_custom_fields')
@@ -143,88 +144,6 @@ export const fetchAllCustomFields = (trelloConf, setTrelloConf, setIsLoading, se
     .catch(() => setIsLoading(false))
 }
 
-export const setGrantTokenResponse = integ => {
-  const grantTokenResponse = {}
-  const authWindowLocation = window.location.href
-  const queryParams = authWindowLocation.replace(`${window.opener.location.href}`, '').split('&')
-  if (queryParams) {
-    queryParams.forEach(element => {
-      const gtKeyValue = element.split('=')
-      if (gtKeyValue[1]) {
-        // eslint-disable-next-line prefer-destructuring
-        grantTokenResponse[gtKeyValue[0]] = gtKeyValue[1]
-      }
-    })
-  }
-  localStorage.setItem(`__${integ}`, JSON.stringify(grantTokenResponse))
-  window.close()
-}
-
-export const handleTrelloAuthorize = (
-  integ,
-  ajaxInteg,
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.clientId) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setIsLoading(true)
-
-  const apiEndpoint = `https://trello.com/1/authorize?expiration=never&name=MyPersonalToken&scope=read,write&response_type=token&key=${
-    confTmp.clientId
-  }&return_url=${encodeURIComponent(window.location.href)}/&response_type=token`
-
-  const authWindow = window.open(apiEndpoint, integ, 'width=400,height=609,toolbar=off')
-  const popupURLCheckTimer = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(popupURLCheckTimer)
-      let grantTokenResponse = {}
-      let isauthRedirectLocation = false
-      const bitsTrello = localStorage.getItem(`__${integ}`)
-
-      if (bitsTrello) {
-        isauthRedirectLocation = true
-        grantTokenResponse = JSON.parse(bitsTrello)
-        localStorage.removeItem(`__${integ}`)
-
-        if (grantTokenResponse.token) {
-          grantTokenResponse.code = grantTokenResponse.token
-        }
-      }
-      if (
-        !grantTokenResponse.code ||
-        grantTokenResponse.error ||
-        !grantTokenResponse ||
-        !isauthRedirectLocation
-      ) {
-        const errorCause = grantTokenResponse.error ? `Cause: ${grantTokenResponse.error}` : ''
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization Failed', 'bit-integrations')} ${errorCause}. ${__(
-            'please try again',
-            'bit-integrations'
-          )}`
-        })
-        setIsLoading(false)
-      } else {
-        const newConf = { ...confTmp }
-        newConf.accessToken = grantTokenResponse.code
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      }
-    }
-    setIsLoading(false)
-  }, 500)
-}
 export const generateMappedField = cardFields => {
   const requiredFlds = cardFields.filter(fld => fld.required === true)
 

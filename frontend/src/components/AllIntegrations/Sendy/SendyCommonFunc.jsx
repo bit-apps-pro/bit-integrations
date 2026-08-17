@@ -1,7 +1,15 @@
 /* eslint-disable no-else-return */
 import toast from 'react-hot-toast'
-import { __, sprintf } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        api_key: conf.api_key,
+        sendy_url: conf.sendy_url
+      }
 
 export const handleInput = (
   e,
@@ -25,10 +33,8 @@ export const handleInput = (
 
 export const getAllBrand = (sendyConf, setSendyConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const queryParams = {
-    api_key: sendyConf.api_key,
-    sendy_url: sendyConf.sendy_url
-  }
+  const queryParams = buildAuthRequestParams(sendyConf)
+
   const loadPostTypes = bitsFetch(queryParams, 'get_all_brands').then(result => {
     if (result && result.success) {
       const newConf = { ...sendyConf }
@@ -49,16 +55,15 @@ export const getAllBrand = (sendyConf, setSendyConf, setIsLoading, setSnackbar) 
     error: __('Error Occurred', 'bit-integrations'),
     loading: __('Loading Brand...')
   })
-  // .catch(() => setIsLoading(false))
 }
 
 export const getAllList = (sendyConf, setSendyConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const queryParams = {
-    api_key: sendyConf.api_key,
-    sendy_url: sendyConf.sendy_url,
+    ...buildAuthRequestParams(sendyConf),
     brand_id: sendyConf.brand_id
   }
+
   const loadPostTypes = bitsFetch(queryParams, 'get_all_lists_from_sendy').then(result => {
     if (result && result.success) {
       const newConf = { ...sendyConf }
@@ -79,7 +84,6 @@ export const getAllList = (sendyConf, setSendyConf, setIsLoading, setSnackbar) =
     error: __('Error Occurred', 'bit-integrations'),
     loading: __('Loading Lists...')
   })
-  // .catch(() => setIsLoading(false))
 }
 
 export const generateMappedField = sendyConf => {

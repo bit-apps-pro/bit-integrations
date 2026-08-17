@@ -52,16 +52,7 @@ export default function Wsms({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
 
       {/* STEP 1 */}
-      <WsmsAuthorization
-        formID={formID}
-        wsmsConf={wsmsConf}
-        setWsmsConf={setWsmsConf}
-        step={step}
-        nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
-      />
+      <WsmsAuthorization wsmsConf={wsmsConf} setWsmsConf={setWsmsConf} step={step} nextPage={nextPage} />
 
       {/* STEP 2 */}
       <div

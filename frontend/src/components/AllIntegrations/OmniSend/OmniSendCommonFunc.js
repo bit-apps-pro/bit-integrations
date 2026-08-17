@@ -1,7 +1,5 @@
 /* eslint-disable no-else-return */
-import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
-import bitsFetch from '../../../Utils/bitsFetch'
 
 export const handleInput = (
   e,
@@ -46,37 +44,4 @@ export const checkMappedFields = omniSendConf => {
     return false
   }
   return true
-}
-export const handleOmniSendAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = { api_key: confTmp.api_key }
-
-  bitsFetch(requestParams, 'Omnisend_authorization').then(result => {
-    if (result && result.success) {
-      const newConf = { ...confTmp }
-      setConf(newConf)
-      setisAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
 }

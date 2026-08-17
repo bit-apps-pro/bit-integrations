@@ -17,12 +17,6 @@ class WpErpController
         }
     }
 
-    public static function wpErpAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshContactGroups()
     {
         self::isExists();

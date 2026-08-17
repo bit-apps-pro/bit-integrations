@@ -24,14 +24,14 @@ class RecordApiHelper
     public function __construct($tokenDetails, $integId)
     {
         $this->_defaultHeader['Authorization'] = "Zoho-oauthtoken {$tokenDetails->access_token}";
-        $this->_apiDomain = urldecode($tokenDetails->api_domain);
+        $this->_apiDomain = urldecode($tokenDetails->api_domain ?? '');
         $this->_tokenDetails = $tokenDetails;
         $this->_integrationID = $integId;
     }
 
     public function insertRecord($list, $dataCenter, $data)
     {
-        $insertRecordEndpoint = "https://marketinghub.zoho.{$dataCenter}/api/v1/json/listsubscribe?resfmt=JSON&listkey={$list}&leadinfo=" . urlencode($data);
+        $insertRecordEndpoint = "https://marketinghub.zoho.{$dataCenter}/api/v1/json/listsubscribe?resfmt=JSON&listkey={$list}&leadinfo=" . rawurlencode($data);
 
         return HttpHelper::post($insertRecordEndpoint, null, $this->_defaultHeader);
     }

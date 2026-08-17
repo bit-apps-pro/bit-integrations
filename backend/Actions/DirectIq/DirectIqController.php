@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\DirectIq;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,15 @@ use WP_Error;
  */
 class DirectIqController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'directiq',
+        'fields'   => [
+            'client_id'     => 'username',
+            'client_secret' => 'password',
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -24,41 +34,6 @@ class DirectIqController
     public static function _apiEndpoint($method)
     {
         return "https://clientapi.benchmarkemail.com/{$method}";
-    }
-
-    /**
-     * Process ajax request
-     *
-     * @param $requestsParams Params to authorize
-     *
-     * @return JSON DirectIQ api response and status
-     */
-    public static function directIqAuthorize($requestsParams)
-    {
-        if (
-            empty($requestsParams->client_id) || empty($requestsParams->client_secret)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $endpoint = 'https://rest.directiq.com/subscription/authorize';
-        $header = ['Authorization' => 'Basic ' . base64_encode("{$requestsParams->client_id}:{$requestsParams->client_secret}")];
-        HttpHelper::get($endpoint, null, $header);
-
-        if (HttpHelper::$responseCode !== 200) {
-            wp_send_json_error(
-                empty($apiResponse) ? 'Unknown' : $apiResponse,
-                400
-            );
-        }
-
-        wp_send_json_success(true);
     }
 
     /**

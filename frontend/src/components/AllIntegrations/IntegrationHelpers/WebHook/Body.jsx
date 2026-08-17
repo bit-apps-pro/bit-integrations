@@ -25,7 +25,7 @@ function Body({ webHooks, setWebHooks, isInfo, setTab }) {
       }`
       setWebHooks(tmpConf)
     }
-    setTab(3)
+    setTab(4)
   }, [])
 
   const addParam = () => {

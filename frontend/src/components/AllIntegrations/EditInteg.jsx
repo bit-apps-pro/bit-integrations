@@ -183,6 +183,8 @@ const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditCartAbandonmentRecovery = lazy(
   () => import('./CartAbandonmentRecovery/EditCartAbandonmentRecovery')
 )
+const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
+const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
 const EditWebbaBooking = lazy(() => import('./WebbaBooking/EditWebbaBooking'))
 const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
@@ -268,7 +270,7 @@ export default function EditInteg({ allIntegURL }) {
           &nbsp;{__('Back', 'bit-integrations')}
         </Link>
         <div className="w-10 txt-center" style={{ marginRight: '73px' }}>
-          <b className="f-lg mb-2">{flow.flow_details?.type}</b>
+          <b className="f-lg mb-2">{flow.flow_details?.name}</b>
           <div>{__('Integration Settings', 'bit-integrations')}</div>
         </div>
       </div>
@@ -634,6 +636,10 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'Cart Abandonment Recovery':
       return <EditCartAbandonmentRecovery allIntegURL={allIntegURL} />
+    case 'FluentPlayer':
+      return <EditFluentPlayer allIntegURL={allIntegURL} />
+    case 'BitCrm':
+      return <EditBitCrm allIntegURL={allIntegURL} />
     case 'Wsms':
       return <EditWsms allIntegURL={allIntegURL} />
     case 'WebbaBooking':

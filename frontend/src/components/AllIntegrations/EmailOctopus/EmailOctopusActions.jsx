@@ -20,7 +20,7 @@ export default function EmailOctopusActions({
     const newConf = { ...emailOctopusConf }
     if (type === 'tag') {
       if (e.target?.checked) {
-        getAllTags(emailOctopusConf, setEmailOctopusConf, setLoading)
+        getAllTags(emailOctopusConf, setEmailOctopusConf, loading, setLoading)
         newConf.actions.tags = true
       } else {
         setActionMdl({ show: false })
@@ -38,8 +38,17 @@ export default function EmailOctopusActions({
     if (type === 'status') {
       if (e.target.checked) {
         newConf.actions.status = true
+        delete newConf.actions.pending
       } else {
         delete newConf.actions.status
+      }
+    }
+    if (type === 'pending') {
+      if (e.target.checked) {
+        newConf.actions.pending = true
+        delete newConf.actions.status
+      } else {
+        delete newConf.actions.pending
       }
     }
     setEmailOctopusConf({ ...newConf })
@@ -81,6 +90,14 @@ export default function EmailOctopusActions({
         title={__('Unsubscribe contact', 'bit-integrations')}
         subTitle={__('Set the contact status to "unsubscribed".', 'bit-integrations')}
       />
+      <TableCheckBox
+        checked={emailOctopusConf.actions?.pending || false}
+        onChange={e => actionHandler(e, 'pending')}
+        className="wdt-200 mt-4 mr-2"
+        value="pending_status"
+        title={__('Pending contact', 'bit-integrations')}
+        subTitle={__('Set the contact status to "pending".', 'bit-integrations')}
+      />
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -111,7 +128,7 @@ export default function EmailOctopusActions({
               onChange={val => setChanges(val)}
             />
             <button
-              onClick={() => getAllTags(emailOctopusConf, setEmailOctopusConf, setLoading)}
+              onClick={() => getAllTags(emailOctopusConf, setEmailOctopusConf, loading, setLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `${__('Refresh Groups', 'bit-integrations')}'` }}
               type="button">

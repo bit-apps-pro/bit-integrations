@@ -44,37 +44,17 @@ export const checkMappedFields = salesflareConf => {
   return true
 }
 
-export const salesflareAuthentication = (confTmp, setError, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    api_key: confTmp.api_key
-  }
-
-  bitsFetch(requestParams, 'salesflare_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed, Please enter valid API Key', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        api_key: confTmp.api_key
+      }
 
 export const salesflareFields = (salesflareConf, setSalesflareConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    api_key: salesflareConf.api_key,
+    ...buildAuthRequestParams(salesflareConf),
     action_name: salesflareConf.actionName
   }
 
@@ -108,9 +88,7 @@ export const salesflareFields = (salesflareConf, setSalesflareConf, setIsLoading
 
 export const getAllTags = (salesflareConf, setSalesflareConf, setLoading) => {
   setLoading({ ...setLoading, tags: true })
-  const requestParams = {
-    api_key: salesflareConf.api_key
-  }
+  const requestParams = buildAuthRequestParams(salesflareConf)
 
   bitsFetch(requestParams, 'Salesflare_fetch_all_tags').then(result => {
     if (result && result.success) {
@@ -131,9 +109,7 @@ export const getAllTags = (salesflareConf, setSalesflareConf, setLoading) => {
 
 export const getallAccounts = (salesflareConf, setSalesflareConf, loading, setLoading) => {
   setLoading({ ...loading, account: true })
-  const requestParams = {
-    api_key: salesflareConf.api_key
-  }
+  const requestParams = buildAuthRequestParams(salesflareConf)
 
   bitsFetch(requestParams, 'Salesflare_fetch_all_account').then(result => {
     if (result && result.success) {
@@ -153,9 +129,7 @@ export const getallAccounts = (salesflareConf, setSalesflareConf, loading, setLo
 }
 export const getallPipelines = (salesflareConf, setSalesflareConf, loading, setLoading) => {
   setLoading({ ...loading, pipeline: true })
-  const requestParams = {
-    api_key: salesflareConf.api_key
-  }
+  const requestParams = buildAuthRequestParams(salesflareConf)
 
   bitsFetch(requestParams, 'Salesflare_fetch_all_pipelines').then(result => {
     if (result && result.success) {

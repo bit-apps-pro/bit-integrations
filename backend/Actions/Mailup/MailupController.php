@@ -2,44 +2,28 @@
 
 namespace BitApps\Integrations\Actions\Mailup;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
 class MailupController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'mailup',
+        'fields'   => [
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on']],
+        ],
+    ];
+
     private $integrationID;
 
     public function __construct($integrationID)
     {
         $this->integrationID = $integrationID;
-    }
-
-    public static function authorization($requestParams)
-    {
-        if (empty($requestParams->clientId) || empty($requestParams->clientSecret) || empty($requestParams->code)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $authCode = explode('-', $requestParams->code)[0];
-
-        $body = [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $requestParams->clientId,
-            'client_secret' => $requestParams->clientSecret,
-            'code'          => $authCode
-        ];
-
-        $apiEndpoint = 'https://services.mailup.com/Authorization/OAuth/Token';
-        $header['Content-Type'] = 'application/x-www-form-urlencoded';
-        $header['Authorization'] = 'Basic ' . base64_encode("{$requestParams->clientId}:{$requestParams->clientSecret}");
-        $apiResponse = HttpHelper::post($apiEndpoint, $body, $header);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(empty($apiResponse->error_description) ? 'Unknown' : $apiResponse->error_description, 400);
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
     }
 
     public static function getAllField($requestParams)
@@ -176,15 +160,21 @@ class MailupController
             return false;
         }
 
-        if ((\intval($token->generates_on) + (55 * 60)) < time()) {
+        $generatedOn = !empty($token->generates_on)
+            ? \intval($token->generates_on)
+            : \intval($token->generated_at ?? 0);
+
+        if (($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
             if (is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
 
             $token->access_token = $refreshToken->access_token;
+            $token->refresh_token = $refreshToken->refresh_token ?? $token->refresh_token;
             $token->expires_in = $refreshToken->expires_in;
             $token->generates_on = $refreshToken->generates_on;
+            $token->generated_at = $refreshToken->generated_at;
         }
 
         return $token;
@@ -206,6 +196,7 @@ class MailupController
         }
         $token = $apiResponse;
         $token->generates_on = time();
+        $token->generated_at = $token->generates_on;
 
         return $token;
     }

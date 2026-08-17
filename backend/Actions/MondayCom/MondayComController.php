@@ -6,30 +6,23 @@
 
 namespace BitApps\Integrations\Actions\MondayCom;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
 class MondayComController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'mondaycom',
+        'fields'   => [
+            'apiToken' => 'value',
+        ],
+    ];
+
     private const API_URL = 'https://api.monday.com/v2';
 
     private const API_VERSION = '2023-10';
-
-    public static function authentication($requestParams)
-    {
-        if (empty($requestParams->apiToken)) {
-            wp_send_json_error(__('API Token is empty', 'bit-integrations'), 400);
-        }
-
-        $query = 'query { me { id name email } }';
-        $response = self::request($requestParams->apiToken, $query);
-
-        if (!self::hasErrors($response) && isset($response->data->me->id)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        }
-
-        wp_send_json_error(self::errorMessage($response, __('Authentication failed', 'bit-integrations')), 400);
-    }
 
     public function getBoards($requestParams)
     {

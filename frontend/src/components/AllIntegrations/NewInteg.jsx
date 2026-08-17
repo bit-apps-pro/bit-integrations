@@ -182,6 +182,8 @@ const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const CartAbandonmentRecovery = lazy(
   () => import('./CartAbandonmentRecovery/CartAbandonmentRecovery')
 )
+const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
+const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
@@ -1760,6 +1762,24 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'FluentPlayer':
+      return (
+        <FluentPlayer
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'BitCrm':
+      return (
+        <BitCrm
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'Wsms':
       return (
         <Wsms
@@ -1978,6 +1998,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'SureTriggers':
       integrationName = 'OttoKit (SureTriggers)'
+      break
+    case 'BitCrm':
+      integrationName = 'Bit CRM'
       break
 
     default:

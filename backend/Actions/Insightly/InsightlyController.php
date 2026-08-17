@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Insightly;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,29 +15,16 @@ use WP_Error;
  */
 class InsightlyController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'insightly',
+        'fields'   => [
+            'api_key' => 'username',
+            'api_url' => 'api_url',
+        ],
+    ];
+
     protected $_defaultHeader;
-
-    public function authentication($fieldsRequestParams)
-    {
-        if (empty($fieldsRequestParams->api_key) || empty($fieldsRequestParams->api_url)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiUrl = $fieldsRequestParams->api_url;
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEndpoint = 'https://api.' . $apiUrl . '/v3.1/Users';
-        $headers = [
-            'Authorization' => 'Basic ' . base64_encode("{$apiKey}:"),
-        ];
-
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (\is_array($response) && isset($response[0]->USER_ID)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API URL & API key', 'bit-integrations'), 400);
-        }
-    }
 
     public function getAllOrganisations($fieldsRequestParams)
     {

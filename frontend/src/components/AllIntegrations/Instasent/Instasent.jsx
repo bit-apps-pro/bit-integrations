@@ -28,7 +28,6 @@ function Instasent({ formFields, setFlow, flow, allIntegURL }) {
   const [instasentConf, setInstasentConf] = useState({
     name: 'Instasent',
     type: 'Instasent',
-    auth_token: '',
     action: '',
     projectId: '',
     datasourceId: '',
@@ -86,9 +85,6 @@ function Instasent({ formFields, setFlow, flow, allIntegURL }) {
         setInstasentConf={setInstasentConf}
         step={step}
         setstep={setstep}
-        loading={loading}
-        setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

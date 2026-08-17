@@ -16,12 +16,6 @@ class B2BKingController
         }
     }
 
-    public static function b2bKingAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshGroups()
     {
         self::isExists();

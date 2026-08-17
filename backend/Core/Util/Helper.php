@@ -102,7 +102,7 @@ final class Helper
                 if ($safeFilePath === '') {
                     continue;
                 }
-                $fileContent = file_get_contents($safeFilePath);
+                $fileContent = FileSystem::read($safeFilePath);
             }
 
             // prepare upload image to WordPress Media Library
@@ -138,12 +138,16 @@ final class Helper
     {
         require_once ABSPATH . 'wp-load.php';
 
-        $filePath = Common::filePath($filePath);
+        $filePath = Common::safeUploadFilePath($filePath);
 
-        if (file_exists($filePath)) {
+        if ($filePath !== '') {
             $imgFileName = basename($filePath);
             // prepare upload image to WordPress Media Library
-            $upload = wp_upload_bits($imgFileName, null, file_get_contents($filePath, FILE_USE_INCLUDE_PATH));
+            $upload = wp_upload_bits($imgFileName, null, FileSystem::read($filePath));
+
+            if (!empty($upload['error']) || empty($upload['file'])) {
+                return;
+            }
 
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
@@ -157,6 +161,10 @@ final class Helper
             ];
             // insert and return attachment id
             $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
+            if (is_wp_error($attachmentId)) {
+                return;
+            }
+
             require_once ABSPATH . 'wp-admin/includes/image.php';
             // insert and return attachment metadata
             $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
@@ -172,14 +180,17 @@ final class Helper
         $attachMentId = [];
         require_once ABSPATH . 'wp-admin/includes/image.php';
         foreach ($files as $file) {
-            $file = Common::filePath($file);
-            if (file_exists($file)) {
+            $file = Common::safeUploadFilePath($file);
+            if ($file !== '') {
                 $imgFileName = basename($file);
                 // prepare upload image to WordPress Media Library
-                $upload = wp_upload_bits($imgFileName, null, file_get_contents($file, FILE_USE_INCLUDE_PATH));
+                $upload = wp_upload_bits($imgFileName, null, FileSystem::read($file));
+
+                if (!empty($upload['error']) || empty($upload['file'])) {
+                    continue;
+                }
 
                 $imageFile = $upload['file'];
-                // echo $imageFile;
                 $wpFileType = wp_check_filetype($imageFile, null);
                 // Attachment attributes for file
                 $attachment = [
@@ -191,6 +202,9 @@ final class Helper
                 ];
                 // insert and return attachment id
                 $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
+                if (is_wp_error($attachmentId)) {
+                    continue;
+                }
                 // $attachMentId[]=$attachmentId;
                 $attachMentId[] = $attachmentId;
 
@@ -246,7 +260,6 @@ final class Helper
 
         if (\is_array($data)) {
             if (!isset($data[$currentPart])) {
-                // wp_send_json_error(new WP_Error($triggerEntity, __('Index out of bounds or invalid', 'bit-integrations')));
                 return;
             }
 
@@ -255,14 +268,12 @@ final class Helper
 
         if (\is_object($data)) {
             if (!property_exists($data, $currentPart)) {
-                // wp_send_json_error(new WP_Error($triggerEntity, __('Invalid path', 'bit-integrations')));
                 return;
             }
 
             return self::extractValueFromPath($data->{$currentPart}, $parts, $triggerEntity);
         }
 
-        // wp_send_json_error(new WP_Error($triggerEntity, __('Invalid path', 'bit-integrations')));
     }
 
     public static function parseFlowDetails($flowDetails)
@@ -304,7 +315,7 @@ final class Helper
 
         foreach ($acfFieldGroups as $group) {
             foreach (acf_get_fields($group['ID']) as $field) {
-                $data[$field['_name']] = get_post_meta($postId, $field['_name'])[0];
+                $data[$field['_name']] = get_post_meta($postId, $field['_name'])[0] ?? null;
             }
         }
 
@@ -408,7 +419,7 @@ final class Helper
         }
     }
 
-    public static function prepareFetchFormatFields(array $data, $path = '', $formattedData = [])
+    public static function prepareFetchFormatFields(array $data, $path = '', $formattedData = [], $labelPath = [])
     {
         foreach ($data as $key => $value) {
             if (\is_string($key) && ctype_upper($key)) {
@@ -422,7 +433,8 @@ final class Helper
                 continue;
             }
 
-            $label = ucwords(str_replace('_', ' ', $path ? $currentPath : $key));
+            $currentLabelPath = static::appendLabelSegment($labelPath, $path ? $currentKey : $key);
+            $label = static::shortenLabel($currentLabelPath);
 
             if (\is_string($value) && static::isJson($value)) {
                 $value = json_decode($value, true);
@@ -436,21 +448,80 @@ final class Helper
                     'value' => $value,
                 ];
 
-                $formattedData = static::prepareFetchFormatFields((array) $value, $currentPath, $formattedData);
+                $formattedData = static::prepareFetchFormatFields((array) $value, $currentPath, $formattedData, $currentLabelPath);
             } else {
                 $labelValue = \is_string($value) && \strlen($value) > 20 ? substr($value, 0, 20) . '...' : $value;
-                $label = preg_replace("/\b(\w+)\s+\\1\b/i", '$1', $label) . ' (' . $labelValue . ')';
 
                 $formattedData[$currentPath] = [
                     'name'  => $currentPath . '.value',
                     'type'  => static::getVariableType($value),
-                    'label' => $label,
+                    'label' => $label . ' (' . $labelValue . ')',
                     'value' => $value,
                 ];
             }
         }
 
         return $formattedData;
+    }
+
+    /**
+     * Append one key to the readable label path. List indexes stay glued to the
+     * key they belong to ("Items 0") instead of eating a whole segment, and a
+     * key repeating its parent is dropped.
+     *
+     * @param array      $labelPath
+     * @param int|string $key
+     *
+     * @return array
+     */
+    private static function appendLabelSegment($labelPath, $key)
+    {
+        $segment = trim(ucwords(str_replace('_', ' ', (string) $key)));
+
+        if ($segment === '') {
+            return $labelPath;
+        }
+
+        if (ctype_digit($segment) && !empty($labelPath)) {
+            $labelPath[\count($labelPath) - 1] .= ' ' . $segment;
+
+            return $labelPath;
+        }
+
+        if (end($labelPath) !== $segment) {
+            $labelPath[] = $segment;
+        }
+
+        return $labelPath;
+    }
+
+    /**
+     * Collapse a deep label path so a nested field stays identifiable without
+     * printing every ancestor: root + "..." + the last segments.
+     *
+     * @param array $labelPath
+     * @param int   $maxSegments
+     * @param int   $maxLength
+     *
+     * @return string
+     */
+    private static function shortenLabel($labelPath, $maxSegments = 3, $maxLength = 55)
+    {
+        if (\count($labelPath) > $maxSegments) {
+            $labelPath = array_merge([$labelPath[0], '...'], \array_slice($labelPath, -($maxSegments - 1)));
+        }
+
+        $label = preg_replace("/\b(\w+)\s+\\1\b/i", '$1', implode(' ', $labelPath));
+
+        if (mb_strlen($label) <= $maxLength) {
+            return $label;
+        }
+
+        // keep the tail (the field itself) and never cut mid word
+        $tail = mb_substr($label, -($maxLength - 3));
+        $spaceAt = mb_strpos($tail, ' ');
+
+        return '...' . ($spaceAt === false ? $tail : mb_substr($tail, $spaceAt + 1));
     }
 
     public static function flattenNestedData($resultArray, $parentKey, $nestedData)
@@ -514,7 +585,7 @@ final class Helper
 
     public static function jsonEncodeDecode($data)
     {
-        return json_decode(json_encode($data), true);
+        return json_decode(wp_json_encode($data), true);
     }
 
     public static function getPostIdFromReferer($referer)

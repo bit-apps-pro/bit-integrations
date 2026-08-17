@@ -22,9 +22,7 @@ function ZendeskSupport({ formFields, setFlow, flow, allIntegURL }) {
   const [zendeskSupportConf, setZendeskSupportConf] = useState({
     name: 'Zendesk Support',
     type: 'ZendeskSupport',
-    subdomain: '',
-    email: '',
-    apiToken: '',
+    app_slug: 'ZendeskSupport',
     field_map: [{ formField: '', zendeskSupportField: '' }],
     actionName: '',
     utilities: {}
@@ -78,9 +76,6 @@ function ZendeskSupport({ formFields, setFlow, flow, allIntegURL }) {
         setZendeskSupportConf={setZendeskSupportConf}
         step={step}
         setStep={setStep}
-        loading={loading}
-        setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

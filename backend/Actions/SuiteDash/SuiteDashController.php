@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SuiteDash;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,15 @@ use WP_Error;
  */
 class SuiteDashController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'suitedash',
+        'fields'   => [
+            'public_id'  => 'value',
+            'secret_key' => 'secret_key',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -21,20 +31,6 @@ class SuiteDashController
     public function __construct()
     {
         $this->_apiEndpoint = 'https://app.suitedash.com/secure-api';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->public_id, $fieldsRequestParams->secret_key);
-        $apiEndpoint = $this->_apiEndpoint . '/contacts';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (isset($response->success) && $response->success) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid Session Token or Link Name', 'bit-integrations'), 400);
-        }
     }
 
     public function getAllFields($fieldsRequestParams)

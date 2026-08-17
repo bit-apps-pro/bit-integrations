@@ -9,12 +9,6 @@ use WP_Error;
  */
 class UserRegistrationMembershipController
 {
-    public static function userRegistrationAuthorize()
-    {
-        self::checkPluginExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshForms()
     {
         self::checkPluginExists();

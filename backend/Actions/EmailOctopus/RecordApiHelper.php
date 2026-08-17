@@ -60,6 +60,8 @@ class RecordApiHelper
 
         if (!empty($this->_integrationDetails->actions->status)) {
             $data['status'] = 'UNSUBSCRIBED';
+        } elseif (!empty($this->_integrationDetails->actions->pending)) {
+            $data['status'] = 'PENDING';
         } else {
             $data['status'] = 'SUBSCRIBED';
         }
