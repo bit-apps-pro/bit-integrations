@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\Dropbox;
 
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
@@ -33,7 +34,7 @@ class RecordApiHelper
             return new WP_Error(423, __('Can\'t open file!', 'bit-integrations'));
         }
 
-        $body = file_get_contents($safeFilePath);
+        $body = FileSystem::read($safeFilePath);
 
         if (!$body) {
             return new WP_Error(423, __('Can\'t open file!', 'bit-integrations'));

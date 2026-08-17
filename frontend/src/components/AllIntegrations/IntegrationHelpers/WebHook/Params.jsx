@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
-import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../../Utils/i18nwrap'
 import CloseIcn from '../../../../Icons/CloseIcn'
 import TrashIcn from '../../../../Icons/TrashIcn'
 import Button from '../../../Utilities/Button'
+import FlowFormFieldsOptions from '../FlowFormFieldsOptions'
+import SmartTagOptions from '../SmartTagOptions'
 
-function Params({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
+function Params({ webHooks, setWebHooks, isInfo, setTab }) {
   useEffect(() => {
     setTab(1)
   }, [])
@@ -49,7 +50,7 @@ function Params({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
   }
   return (
     <div className="mt-2">
-      <div className="f-m">{__('Add Url Parameter: (optional)', 'bit-integrations')}</div>
+      <div className="f-m">{__('Url Query Parameters: (optional)', 'bit-integrations')}</div>
       <div className="btcd-param-t-wrp mt-1">
         <div className="btcd-param-t">
           <div className="tr">
@@ -82,13 +83,15 @@ function Params({ formFields, webHooks, setWebHooks, isInfo, setTab }) {
                     <Button onClick={() => delParam(itm, webHooks, setWebHooks)} icn>
                       <TrashIcn size={16} />
                     </Button>
-                    <MultiSelect
-                      options={formFields.map(f => ({ label: f.label, value: `\${${f.name}}` }))}
-                      className="btcd-paper-drpdwn wdt-200 ml-2"
-                      singleSelect
-                      onChange={val => setFromField(val, itm, webHooks, setWebHooks)}
-                      defaultValue={itm.split('=')[1]}
-                    />
+                    <select
+                      className="btcd-paper-inp mr-2"
+                      name="formField"
+                      value={itm.split('=')[1] || ''}
+                      onChange={ev => setFromField(ev.target.value, itm)}>
+                      <option value="">{__('Select Field', 'bit-integrations')}</option>
+                      <FlowFormFieldsOptions />
+                      <SmartTagOptions />
+                    </select>
                   </div>
                 )}
               </div>

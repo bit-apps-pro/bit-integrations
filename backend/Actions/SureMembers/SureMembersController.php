@@ -14,21 +14,6 @@ use WP_Error;
  */
 class SureMembersController
 {
-    public function authentication()
-    {
-        if (self::checkedSureMembersExists()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install SureMembers',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public static function checkedSureMembersExists()
     {
         if (!is_plugin_active('suremembers/suremembers.php')) {

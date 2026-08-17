@@ -7,5 +7,4 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\WPCourseware\WPCoursewareController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('wpCourseware_authorize', [WPCoursewareController::class, 'wpCoursewareAuthorize']);
 Route::post('wpCourseware_courses', [WPCoursewareController::class, 'WPCWCourses']);

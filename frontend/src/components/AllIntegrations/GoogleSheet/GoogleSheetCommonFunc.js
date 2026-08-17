@@ -1,8 +1,6 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
-import { handleAuthData } from '../GlobalIntegrationHelper'
-import { create } from 'mutative'
 
 export const handleInput = (
   e,
@@ -70,10 +68,8 @@ export const refreshSpreadsheets = (formID, sheetConf, setSheetConf, setIsLoadin
   const refreshModulesRequestParams = {
     formID,
     id: sheetConf.id,
-    clientId: sheetConf.clientId,
-    clientSecret: sheetConf.clientSecret,
-    tokenDetails: sheetConf.tokenDetails,
-    ownerEmail: sheetConf.ownerEmail
+    ownerEmail: sheetConf.ownerEmail,
+    ...buildAuthRequestParams(sheetConf)
   }
 
   setIsLoading(true)
@@ -123,7 +119,7 @@ export const refreshWorksheets = (formID, sheetConf, setSheetConf, setIsLoading,
   const refreshSpreadsheetsRequestParams = {
     formID,
     spreadsheetId,
-    tokenDetails: sheetConf.tokenDetails
+    ...buildAuthRequestParams(sheetConf)
   }
   bitsFetch(refreshSpreadsheetsRequestParams, 'gsheet_refresh_worksheets')
     .then(result => {
@@ -165,9 +161,7 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
     worksheetName,
     header,
     headerRow,
-    clientId: sheetConf.clientId,
-    clientSecret: sheetConf.clientSecret,
-    tokenDetails: sheetConf.tokenDetails
+    ...buildAuthRequestParams(sheetConf)
   }
 
   bitsFetch(refreshWorksheetHeadersRequestParams, 'gsheet_refresh_worksheet_headers')
@@ -215,98 +209,6 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
     .catch(() => setIsLoading(false))
 }
 
-export const handleAuthorize = (confTmp, selectedAuthType, setError, setIsLoading, btcbi) => {
-  if (!confTmp.clientId || !confTmp.clientSecret) {
-    setError({
-      clientId: !confTmp.clientId ? __("Client Id can't be empty", 'bit-integrations') : '',
-      clientSecret: !confTmp.clientSecret ? __("Secret key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  const clientId = confTmp.clientId
-
-  setIsLoading(true)
-
-  const scopes = 'https://www.googleapis.com/auth/drive'
-  // eslint-disable-next-line no-undef
-  const finalRedirectUri = `${btcbi.api}/redirect`
-
-  const { href, hash } = window.location
-  const stateUrl = hash ? href.replace(hash, '#/auth-response/') : `${href}#/auth-response/`
-
-  const apiEndpoint = `https://accounts.google.com/o/oauth2/v2/auth?scope=${scopes}&access_type=offline&prompt=consent&response_type=code&state=${encodeURIComponent(
-    stateUrl
-  )}&redirect_uri=${encodeURIComponent(finalRedirectUri)}&client_id=${clientId}`
-  const authWindow = window.open(apiEndpoint, 'googleSheet', 'width=400,height=609,toolbar=off')
-  if (selectedAuthType === 'Custom Authorization') {
-    const popupURLCheckTimer = setInterval(() => {
-      if (authWindow.closed) {
-        clearInterval(popupURLCheckTimer)
-        setIsLoading(false)
-      }
-    }, 500)
-  }
-}
-
-export const tokenHelper = async (
-  authInfo,
-  confTmp,
-  setConf,
-  setIsAuthorized,
-  selectedAuthType,
-  authData,
-  setAuthData,
-  setIsLoading,
-  setSnackbar,
-  btcbi
-) => {
-  if (!selectedAuthType) {
-    return
-  }
-  const tokenRequestParams = {}
-  tokenRequestParams.code = authInfo.code || ''
-  tokenRequestParams.clientId = confTmp.clientId
-  tokenRequestParams.clientSecret = confTmp.clientSecret
-  // eslint-disable-next-line no-undef
-  tokenRequestParams.redirectURI = `${btcbi.api}/redirect`
-
-  setIsLoading(true)
-  await bitsFetch(tokenRequestParams, 'gsheet_generate_token')
-    .then(result => result)
-    .then(async result => {
-      if (result && result.success) {
-        setConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf.tokenDetails = result.data
-          })
-        )
-
-        setIsAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Authorized Successfully', 'bit-integrations')
-        })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
-}
-
 export const checkMappedFields = sheetconf => {
   const mappedFleld = sheetconf.field_map
     ? sheetconf.field_map.filter(mapped => !mapped.formField && !mapped.googleSheetField)
@@ -317,18 +219,11 @@ export const checkMappedFields = sheetconf => {
   return true
 }
 
-async function fetchUserInfo(tokenResponse) {
-  const accessToken = tokenResponse.access_token
-
-  try {
-    const userInfoResponse = await fetch('https://www.googleapis.com/drive/v3/about?fields=user', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        clientId: conf.clientId,
+        clientSecret: conf.clientSecret,
+        tokenDetails: conf.tokenDetails
       }
-    })
-    const userInfo = await userInfoResponse.json()
-    return userInfo
-  } catch (error) {
-    console.error('Error fetching user info:', error)
-  }
-}

@@ -113,7 +113,7 @@ class RecordApiHelper
 
     private function isExist($email)
     {
-        $encodedEmail = urlencode($email);
+        $encodedEmail = rawurlencode($email);
         $apiEndpoint = 'https://api.mailjet.com/v3/REST/contact/' . $encodedEmail;
         $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
 

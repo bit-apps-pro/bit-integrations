@@ -101,9 +101,6 @@ function Salesmate({ formFields, setFlow, flow, allIntegURL }) {
         setSalesmateConf={setSalesmateConf}
         step={step}
         setStep={setStep}
-        loading={loading}
-        setLoading={setLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

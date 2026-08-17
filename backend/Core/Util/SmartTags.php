@@ -64,7 +64,10 @@ final class SmartTags
             '_bi_ip_address'         => IpTool::getIP(),
             '_bi_browser_name'       => isset($browser) ? $browser : '',
             '_bi_operating_system'   => isset($operating) ? $operating : '',
-            '_bi_random_digit_num'   => time(),
+            // Was time(): fully predictable despite the name, which is a hazard when the tag
+            // is mapped into a token, coupon or reference field. Use _bi_current_time for a
+            // timestamp.
+            '_bi_random_digit_num'   => wp_rand(1000000000, 9999999999),
             '_bi_user_id'            => (isset($data['user']->ID) ? $data['user']->ID : ' '),
             '_bi_user_first_name'    => (isset($data['user']->first_name) ? $data['user']->first_name : ' '),
             '_bi_user_last_name'     => (isset($data['user']->last_name) ? $data['user']->last_name : ' '),

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
@@ -8,12 +8,7 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import MailChimpAuthorization from './MailChimpAuthorization'
-import {
-  checkAddressFieldMapRequired,
-  handleInput,
-  setGrantTokenResponse,
-  checkMappedFields
-} from './MailChimpCommonFunc'
+import { checkAddressFieldMapRequired, handleInput, checkMappedFields } from './MailChimpCommonFunc'
 import MailChimpIntegLayout from './MailChimpIntegLayout'
 
 function MailChimp({ formFields, setFlow, flow, allIntegURL }) {
@@ -37,10 +32,6 @@ function MailChimp({ formFields, setFlow, flow, allIntegURL }) {
     actions: {},
     moduleLists: []
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('mailChimp')
-  }, [])
 
   const nextPage = () => {
     setTimeout(() => {

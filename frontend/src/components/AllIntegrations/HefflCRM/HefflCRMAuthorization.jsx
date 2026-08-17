@@ -1,96 +1,26 @@
-import { useState } from 'react'
-import BackIcn from '../../../Icons/BackIcn'
+import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import LoaderSm from '../../Loaders/LoaderSm'
-import Note from '../../Utilities/Note'
-import { handleAuthorize } from './HefflCRMCommonFunc'
+import Authorization from '../../Connections/Authorization'
 
-export default function HefflCRMAuthorization({
-  hefflCRMConf,
-  setHefflCRMConf,
-  step,
-  setStep,
-  isLoading,
-  setIsLoading,
-  isInfo
-}) {
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [error, setError] = useState({ name: '', api_key: '' })
-
-  const nextPage = () => {
-    setTimeout(() => {
-      document.getElementById('btcd-settings-wrp').scrollTop = 0
-    }, 300)
-    setStep(2)
-  }
-
-  const handleInput = e => {
-    const newConf = { ...hefflCRMConf }
-    const rmError = { ...error }
-    rmError[e.target.name] = ''
-    newConf[e.target.name] = e.target.value
-    setError(rmError)
-    setHefflCRMConf(newConf)
-  }
-
+export default function HefflCRMAuthorization({ hefflCRMConf, setHefflCRMConf, step, setStep, isInfo }) {
   return (
-    <div
-      className="btcd-stp-page"
-      style={{
-        ...{ width: step === 1 && 900 },
-        ...{ height: step === 1 && 'auto' }
-      }}>
-      <div className="mt-3">
-        <b>{__('Integration Name:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="name"
-        value={hefflCRMConf.name}
-        type="text"
-        placeholder={__('Integration Name...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-
-      <div className="mt-3">
-        <b>{__('API Key:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleInput}
-        name="api_key"
-        value={hefflCRMConf.api_key || ''}
-        type="text"
-        placeholder={__('Heffl CRM API Key...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={{ color: 'red', fontSize: '15px' }}>{error.api_key}</div>
-
-      <br />
-      {!isInfo && (
-        <div>
-          <button
-            onClick={() => handleAuthorize(hefflCRMConf, setError, setIsAuthorized, setIsLoading)}
-            className="btn btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={isAuthorized || isLoading}>
-            {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
-            {isLoading && <LoaderSm size="20" clr="#022217" className="ml-2" />}
-          </button>
-          <br />
-          <button
-            onClick={nextPage}
-            className="btn f-right btcd-btn-lg purple sh-sm flx"
-            type="button"
-            disabled={!isAuthorized}>
-            {__('Next', 'bit-integrations')}
-            <BackIcn className="ml-1 rev-icn" />
-          </button>
-        </div>
-      )}
-      <Note note={note} />
-    </div>
+    <Authorization
+      config={hefflCRMConf}
+      setConfig={setHefflCRMConf}
+      step={step}
+      setStep={setStep}
+      isInfo={isInfo}
+      tutorialLinkKey="hefflCRM"
+      authDetails={{
+        authType: AUTH_TYPES.API_KEY,
+        apiEndpoint: 'https://api.heffl.com/api/v1/leads?limit=1',
+        method: 'GET',
+        key: 'x-api-key',
+        addTo: 'header',
+        headers: { Accept: 'application/json' }
+      }}
+      noteDetails={{ note }}
+    />
   )
 }
 

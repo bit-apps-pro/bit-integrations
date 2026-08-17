@@ -17,6 +17,17 @@ final class Route
 
     private static $_sanitize_post_content = false;
 
+    /**
+     * Baseline authorization applied to routes registered from here on.
+     * 'any'   — any Bit Integrations capability (core app routes; their controllers
+     *           then apply the precise per-endpoint check).
+     * 'write' — a capability that implies authority to change something. Used for
+     *           integration-owned routes, which carry no check of their own.
+     *
+     * @var string
+     */
+    private static $_default_access = 'any';
+
     public static function get($hook, $invokeable)
     {
         return static::request('GET', $hook, $invokeable);
@@ -74,11 +85,15 @@ final class Route
         }
 
         static::$_invokeable[Config::VAR_PREFIX . $hook][$method] = $invokeable;
+        static::$_invokeable[Config::VAR_PREFIX . $hook][$method . '_access'] = static::$_default_access;
 
         Hooks::add('wp_ajax_' . Config::VAR_PREFIX . $hook, [__CLASS__, 'action']);
 
         if (static::$_no_auth) {
             static::$_no_auth = false;
+
+            // Explicitly public route: exempt from the capability gate in action().
+            static::$_invokeable[Config::VAR_PREFIX . $hook][$method . '_public'] = true;
 
             Hooks::add('wp_ajax_nopriv_' . Config::VAR_PREFIX . $hook, [__CLASS__, 'action']);
         }
@@ -108,6 +123,25 @@ final class Route
         ) {
             $invokeable = static::$_invokeable[$action][$requestMethod];
             unset($_POST['_ajax_nonce'], $_POST['action'], $_GET['_ajax_nonce'], $_GET['action']);
+
+            // A valid nonce proves the request origin, not the caller's authority.
+            // Every route except those explicitly registered as public (no_auth())
+            // requires the caller to hold a Bit Integrations capability, so a leaked or
+            // shared nonce can never by itself reach an action or trigger handler.
+            // Integration-owned routes are registered under the stricter 'write' baseline
+            // (see HookService) because they carry no capability check of their own.
+            $isPublicRoute = !empty(static::$_invokeable[$action][$requestMethod . '_public']);
+            $requiresWrite = (static::$_invokeable[$action][$requestMethod . '_access'] ?? 'any') === 'write';
+            $isAuthorized = $requiresWrite
+                ? Capabilities::hasIntegrationWriteAccess()
+                : Capabilities::hasIntegrationAccess();
+
+            if (!$isPublicRoute && !$isAuthorized) {
+                wp_send_json_error(
+                    __('You do not have permission to perform this action.', 'bit-integrations'),
+                    403
+                );
+            }
 
             if (method_exists($invokeable[0], $invokeable[1])) {
                 $noSanitize = isset(static::$_invokeable[$action][$requestMethod . '_no_sanitize'])
@@ -144,6 +178,15 @@ final class Route
                         : (object) map_deep(wp_unslash($_GET), [__CLASS__, 'sanitizeValue']); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 }
 
+                if (\is_object($data)) {
+                    // $invokeable[0] may be a class-name string OR an object instance
+                    // (both are valid callables); inject() needs the class name to read
+                    // its static $authConfig. inject() is total — credential-resolution
+                    // failures are handled inside it, so it never surfaces a fatal here.
+                    $controllerClass = \is_object($invokeable[0]) ? \get_class($invokeable[0]) : $invokeable[0];
+                    CredentialInjector::inject($data, $controllerClass);
+                }
+
                 $reflectionMethod = new ReflectionMethod($invokeable[0], $invokeable[1]);
                 $response = $reflectionMethod->invoke($reflectionMethod->isStatic() ? null : new $invokeable[0](), $data);
 
@@ -164,6 +207,19 @@ final class Route
                 401
             );
         }
+    }
+
+    /**
+     * Set the baseline authorization for routes registered after this call.
+     * Call with 'any' to restore the default once the group has been registered.
+     *
+     * @param string $access 'any'|'write'
+     *
+     * @return void
+     */
+    public static function defaultAccess($access)
+    {
+        self::$_default_access = $access === 'write' ? 'write' : 'any';
     }
 
     public static function no_auth()

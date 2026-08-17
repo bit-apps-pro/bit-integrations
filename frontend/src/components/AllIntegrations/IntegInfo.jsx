@@ -2,13 +2,16 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-undef */
-import { lazy, memo, Suspense, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router'
+import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
+import { Link, useNavigate, useParams } from 'react-router'
 import useFetch from '../../hooks/useFetch'
+import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
+import { getRedirectUri } from '../../Utils/oauthHelper'
+import Note from '../Utilities/Note'
 import SnackMsg from '../Utilities/SnackMsg'
-import { useRecoilValue } from 'recoil'
-import { $appConfigState } from '../../GlobalStates'
+import { ConnectionSwitchProvider } from '../Connections/ConnectionSwitchContext'
 
 const Loader = lazy(() => import('../Loaders/Loader'))
 const PaidMembershipProAuthorization = lazy(
@@ -183,6 +186,8 @@ const UltimateAffiliateProAuthorization = lazy(
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const LatePointAuthorization = lazy(() => import('./LatePoint/LatePointAuthorization'))
+const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
+const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
@@ -213,8 +218,42 @@ const B2BKingAuthorization = lazy(() => import('./B2BKing/B2BKingAuthorization')
 const UserRegistrationMembershipAuthorization = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembershipAuthorization')
 )
+const TutorLmsAuthorization = lazy(() => import('./TutorLms/TutorLmsAuthorization'))
+const LearnDashAuthorization = lazy(() => import('./LearnDash/LearnDashAuthorization'))
+const LifterLmsAuthorization = lazy(() => import('./LifterLms/LifterLmsAuthorization'))
+const GamiPressAuthorization = lazy(() => import('./GamiPress/GamiPressAuthorization'))
+const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthorization'))
+const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
+const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
+const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
 
-const IntegrationInfo = memo(({ integrationConf, location }) => {
+const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
+  <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
+    <div className="mt-3">
+      <b>{__('Integration Name:', 'bit-integrations')}</b>
+    </div>
+    <input
+      className="btcd-paper-inp w-6 mt-1"
+      value={integrationConf?.name || ''}
+      type="text"
+      disabled
+    />
+
+    <Note
+      note={__(
+        'There are no connection details to show for this action. Open the integration settings to review or change how it is configured.',
+        'bit-integrations'
+      )}
+    />
+
+    <Link to={editUrl} className="btn btcd-btn-lg purple sh-sm">
+      {__('Integration Settings', 'bit-integrations')}
+      <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
+    </Link>
+  </div>
+)
+
+const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
   switch (integrationConf.type) {
     case 'Zoho CRM':
       return (
@@ -342,6 +381,7 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
     case 'KonnectzIT':
       return <KonnectzITAuthorization webHooks={integrationConf} step={1} isInfo />
     case 'Ants & Apps':
+    case 'Ant Apps':
       return <AntAppsAuthorization webHooks={integrationConf} step={1} isInfo />
     case 'Zoho Flow':
       return (
@@ -350,6 +390,7 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
     case 'Telegram':
       return <TelegramAuthorization telegramConf={integrationConf} step={1} isInfo />
     case 'Fluent CRM':
+    case 'Fluent Crm':
       return <FluentCrmAuthorization fluentCrmConf={integrationConf} step={1} isInfo />
     case 'Encharge':
       return <EnchargeAuthorization enchargeConf={integrationConf} step={1} isInfo />
@@ -618,6 +659,7 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
     case 'ACPT':
       return <ACPTAuthorization acptConf={integrationConf} step={1} isInfo />
     case 'WishlistMember':
+    case 'Wishlist Member':
       return <WishlistMemberAuthorization wishlistMemberConf={integrationConf} step={1} isInfo />
     case 'CreatorLms':
       return <CreatorLmsAuthorization creatorLmsConf={integrationConf} step={1} isInfo />
@@ -631,6 +673,10 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'LatePoint':
       return <LatePointAuthorization latePointConf={integrationConf} step={1} isInfo />
+    case 'FluentPlayer':
+      return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
+    case 'BitCrm':
+      return <BitCrmAuthorization bitCrmConf={integrationConf} step={1} isInfo />
     case 'Wsms':
       return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
     case 'WebbaBooking':
@@ -679,25 +725,62 @@ const IntegrationInfo = memo(({ integrationConf, location }) => {
       return <AsgarosForumAuthorization asgarosForumConf={integrationConf} step={1} isInfo />
     case 'B2BKing':
       return <B2BKingAuthorization b2bKingConf={integrationConf} step={1} isInfo />
+    case 'Tutor Lms':
+      return <TutorLmsAuthorization tutorlmsConf={integrationConf} step={1} isInfo />
+    case 'LearnDash':
+      return <LearnDashAuthorization learnDashConf={integrationConf} step={1} isInfo />
+    case 'LifterLms':
+      return <LifterLmsAuthorization lifterLmsConf={integrationConf} step={1} isInfo />
+    case 'GamiPress':
+      return <GamiPressAuthorization gamiPressConf={integrationConf} step={1} isInfo />
+    case 'Affiliate':
+      return <AffiliateAuthorization affiliateConf={integrationConf} step={1} isInfo />
+    case 'BuddyBoss':
+      return <BuddyBossAuthorization buddyBossConf={integrationConf} step={1} isInfo />
+    case 'SliceWp':
+      return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
+    case 'CustomApi':
+      return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
     default:
-      return <></>
+      // Actions with no authorization UI of their own (site-local ones like Mail
+      // or Post Creation, and anything this build has no component for) used to
+      // render an empty page here.
+      return <IntegrationInfoFallback integrationConf={integrationConf} editUrl={editUrl} />
   }
 })
 
+// Same route split saveActionConf() uses: the plain flow/update route runs every
+// value through sanitize_text_field(), which would strip the HTML message bodies
+// of these actions on save.
+const RICH_CONTENT_TYPES = ['Mail', 'Telegram', 'WhatsApp']
+
+const getUpdateAction = confType => {
+  if (confType === 'CustomAction') return 'flow/custom-action/update'
+  if (RICH_CONTENT_TYPES.includes(confType)) return 'flow/sanitize_post_content/update'
+
+  return 'flow/update'
+}
+
 export default function IntegInfo() {
   const { id, type } = useParams()
-  const btcbi = useRecoilValue($appConfigState)
   const [snack, setSnackbar] = useState({ show: false })
   const [integrationConf, setIntegrationConf] = useState({})
-  const { data, isLoading, isError } = useFetch({
+  const [integration, setIntegration] = useState(null)
+  const [isSwitching, setIsSwitching] = useState(false)
+  const [switchedConnection, setSwitchedConnection] = useState(false)
+  const navigate = useNavigate()
+  // Keyed by id (like EditInteg) so one flow's cached response can't be shown —
+  // or written back — while another flow's info page is open.
+  const { data, isLoading, isError, mutate } = useFetch({
     payload: { id },
-    action: 'flow/get',
+    action: ['flow/get', id],
     method: 'post'
   })
 
   useEffect(() => {
     if (!isError && !isLoading) {
       if (data?.success) {
+        setIntegration(data?.data?.integration)
         setIntegrationConf(data?.data?.integration.flow_details)
       } else {
         setSnackbar({
@@ -710,11 +793,72 @@ export default function IntegInfo() {
     }
   }, [data])
 
-  // route is info/:id but for redirect uri need to make new/:type
-  // let location = window.location.toString()
-  // const toReplaceInd = location.indexOf('/info')
-  // location = window.encodeURI(`${location.slice(0, toReplaceInd)}/new/${type}`)
-  let location = `${btcbi.api}/redirect`
+  const switchConnection = useCallback(
+    async (connectionId, extraConf = {}) => {
+      if (!integration?.id || !connectionId) return
+
+      const nextConf = { ...integrationConf, ...extraConf, connection_id: connectionId }
+      setIsSwitching(true)
+
+      try {
+        const res = await bitsFetch(
+          {
+            id: integration.id,
+            name: integration.name,
+            trigger: integration.triggered_entity,
+            triggered_entity_id: integration.triggered_entity_id,
+            flow_details: nextConf
+          },
+          getUpdateAction(nextConf?.type)
+        )
+
+        if (res?.success) {
+          setIntegrationConf(nextConf)
+          setSwitchedConnection(true)
+          // EditInteg shares this cache entry — refresh it so the edit wizard
+          // opens on the switched connection instead of the stale response.
+          mutate()
+          toast.success(__('Connection switched successfully', 'bit-integrations'))
+          return
+        }
+
+        toast.error(
+          `${__('Failed to switch connection Cause:', 'bit-integrations')} ${res?.data?.data || res?.data || ''}`
+        )
+      } catch (error) {
+        toast.error(
+          `${__('Failed to switch connection Cause:', 'bit-integrations')} ${error?.message || 'Unknown error'}`
+        )
+      } finally {
+        setIsSwitching(false)
+      }
+    },
+    [integration, integrationConf, mutate]
+  )
+
+  const editUrl = `/flow/action/edit/${id}`
+  const goToEditIntegration = useCallback(() => navigate(editUrl), [navigate, editUrl])
+
+  // Only connection-based integrations carry a connection_id; the legacy ones
+  // keep credentials inline in flow_details and stay read-only here.
+  const connectionSwitch = useMemo(
+    () => ({
+      enabled: Boolean(integrationConf?.connection_id),
+      isSwitching,
+      switched: switchedConnection,
+      onSwitch: switchConnection,
+      onNext: goToEditIntegration
+    }),
+    [
+      integrationConf?.connection_id,
+      isSwitching,
+      switchedConnection,
+      switchConnection,
+      goToEditIntegration
+    ]
+  )
+
+  const location = getRedirectUri()
   return (
     <>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
@@ -729,9 +873,11 @@ export default function IntegInfo() {
         </div>
       </div>
 
-      <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
-        <IntegrationInfo integrationConf={integrationConf} location={location} />
-      </Suspense>
+      <ConnectionSwitchProvider value={connectionSwitch}>
+        <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
+          <IntegrationInfo integrationConf={integrationConf} location={location} editUrl={editUrl} />
+        </Suspense>
+      </ConnectionSwitchProvider>
     </>
   )
 }

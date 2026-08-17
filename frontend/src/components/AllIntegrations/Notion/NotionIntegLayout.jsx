@@ -45,7 +45,7 @@ function NotionIntegLayout({ notionConf, setNotionConf, formFields, loading, set
 
   return (
     <div className="mt-2">
-      {!loading.page && notionConf?.default?.databaseLists && (
+      {!loading.page && (
         <div className="flx mt-2">
           <b className="wdt-200 d-in-b ">{__('Database List:', 'bit-integrations')}</b>
           <select

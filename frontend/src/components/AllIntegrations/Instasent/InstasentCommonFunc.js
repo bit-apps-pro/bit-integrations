@@ -112,34 +112,6 @@ export const checkMappedFields = instasentConf => {
   return true
 }
 
-export const authorization = (confTmp, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.auth_token) {
-    toast.error(__("API Token can't be empty", 'bit-integrations'))
-
-    return
-  }
-
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    auth_token: confTmp.auth_token
-  }
-
-  bitsFetch(requestParams, 'instasent_authorize').then(result => {
-    setLoading({ ...loading, auth: false })
-
-    if (result && result.success) {
-      setIsAuthorized(true)
-
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-
-      return
-    }
-
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
-}
-
 export const instasentRefreshFields = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, field: true })
 
@@ -158,8 +130,8 @@ export const instasentRefreshFields = (confTmp, setConf, loading, setLoading) =>
 }
 
 export const refreshDatasources = (confTmp, setConf, loading, setLoading) => {
-  if (!confTmp.auth_token) {
-    toast.error(__("API Token can't be empty", 'bit-integrations'))
+  if (!confTmp.connection_id && !confTmp.auth_token) {
+    toast.error(__('Authorization info is missing. Please authorize again.', 'bit-integrations'))
 
     return
   }
@@ -172,10 +144,9 @@ export const refreshDatasources = (confTmp, setConf, loading, setLoading) => {
 
   setLoading({ ...loading, datasource: true })
 
-  const requestParams = {
-    auth_token: confTmp.auth_token,
-    projectId: confTmp.projectId
-  }
+  const requestParams = confTmp.connection_id
+    ? { connection_id: confTmp.connection_id, projectId: confTmp.projectId }
+    : { auth_token: confTmp.auth_token, projectId: confTmp.projectId }
 
   bitsFetch(requestParams, 'refresh_instasent_datasources').then(result => {
     setLoading({ ...loading, datasource: false })
