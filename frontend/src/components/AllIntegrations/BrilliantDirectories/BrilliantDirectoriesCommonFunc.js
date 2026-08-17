@@ -27,9 +27,14 @@ const fetchList = (
 ) => {
   setIsLoading(true)
 
-  const request = bitsFetch(buildAuthRequestParams(conf), route).then(result => {
-    setIsLoading(false)
-    if (result && result.success) {
+  const request = bitsFetch(buildAuthRequestParams(conf), route)
+    .then(result => {
+      if (!result?.success) {
+        // bitsFetch resolves on wp_send_json_error too, so the failure has to be
+        // thrown or toast.promise would render it as a success.
+        throw new Error(typeof result?.data === 'string' && result.data ? result.data : failed)
+      }
+
       // Merge off the latest state, not the captured snapshot — two lists can be
       // fetched concurrently and a snapshot merge makes the slower one win.
       setConf(prev => ({
@@ -38,14 +43,12 @@ const fetchList = (
       }))
 
       return success
-    }
-
-    return failed
-  })
+    })
+    .finally(() => setIsLoading(false))
 
   toast.promise(request, {
     success: data => data,
-    error: __('Error Occurred', 'bit-integrations'),
+    error: err => err?.message || failed,
     loading
   })
 }
