@@ -39,7 +39,6 @@ export const UpdateBookingFields = [
   { key: 'start_date', label: __('Start Date (Y-m-d)', 'bit-integrations'), required: false },
   { key: 'start_time', label: __('Start Time (HH:MM)', 'bit-integrations'), required: false },
   { key: 'end_time', label: __('End Time (HH:MM)', 'bit-integrations'), required: false },
-  { key: 'customer_comment', label: __('Customer Comment', 'bit-integrations'), required: false },
   { key: 'total_attendees', label: __('Total Attendees', 'bit-integrations'), required: false },
   { key: 'buffer_before', label: __('Buffer Before (minutes)', 'bit-integrations'), required: false },
   { key: 'buffer_after', label: __('Buffer After (minutes)', 'bit-integrations'), required: false }
