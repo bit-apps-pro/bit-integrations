@@ -114,7 +114,7 @@ export const modules = [
  */
 export const fieldsByAction = {
   add_contacts_to_list: [
-    { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
+    { key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_emails',
       label: __('Contact Emails (comma separated)', 'bit-integrations'),
@@ -127,7 +127,7 @@ export const fieldsByAction = {
     }
   ],
   add_contacts_to_tag: [
-    { key: 'tag_uuid', label: __('Tag', 'bit-integrations'), required: true },
+    { key: 'tag_uuid', label: __('Tag UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_emails',
       label: __('Contact Emails (comma separated)', 'bit-integrations'),
@@ -140,7 +140,7 @@ export const fieldsByAction = {
     }
   ],
   attach_contacts_to_task: [
-    { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
+    { key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_emails',
       label: __('Contact Emails (comma separated)', 'bit-integrations'),
@@ -186,9 +186,11 @@ export const fieldsByAction = {
       required: true
     }
   ],
-  cancel_purchase: [{ key: 'purchase_uuid', label: __('Purchase', 'bit-integrations'), required: true }],
+  cancel_purchase: [
+    { key: 'purchase_uuid', label: __('Purchase UUID', 'bit-integrations'), required: true }
+  ],
   copy_list: [
-    { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
+    { key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('New List Name', 'bit-integrations'), required: true }
   ],
   create_campaign: [
@@ -209,12 +211,20 @@ export const fieldsByAction = {
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'company', label: __('Company', 'bit-integrations'), required: false },
     { key: 'job_title', label: __('Job Title', 'bit-integrations'), required: false },
-    { key: 'birthdate', label: __('Birthdate', 'bit-integrations'), required: false },
-    { key: 'anniversary', label: __('Anniversary', 'bit-integrations'), required: false },
+    { key: 'birthdate', label: __('Birthdate (MM-DD)', 'bit-integrations'), required: false },
+    { key: 'anniversary', label: __('Anniversary (MM-DD)', 'bit-integrations'), required: false },
     { key: 'prefix', label: __('Prefix', 'bit-integrations'), required: false },
     { key: 'suffix', label: __('Suffix', 'bit-integrations'), required: false },
-    { key: 'timezone', label: __('Timezone', 'bit-integrations'), required: false },
-    { key: 'language', label: __('Language', 'bit-integrations'), required: false }
+    {
+      key: 'timezone',
+      label: __('Timezone (IANA, e.g. Europe/London)', 'bit-integrations'),
+      required: false
+    },
+    {
+      key: 'language',
+      label: __('Language (2-letter ISO 639-1, e.g. en)', 'bit-integrations'),
+      required: false
+    }
   ],
   create_contact_activity: [
     {
@@ -291,7 +301,9 @@ export const fieldsByAction = {
     { key: 'priority', label: __('Priority', 'bit-integrations'), required: false },
     { key: 'assignee_uuid', label: __('Assignee UUID', 'bit-integrations'), required: false }
   ],
-  delete_campaign: [{ key: 'campaign_uuid', label: __('Campaign', 'bit-integrations'), required: true }],
+  delete_campaign: [
+    { key: 'campaign_uuid', label: __('Campaign UUID', 'bit-integrations'), required: true }
+  ],
   delete_contact: [
     {
       key: 'contact_email',
@@ -304,13 +316,15 @@ export const fieldsByAction = {
       required: false
     }
   ],
-  delete_list: [{ key: 'list_uuid', label: __('List', 'bit-integrations'), required: true }],
+  delete_list: [{ key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true }],
   delete_note: [{ key: 'note_uuid', label: __('Note UUID', 'bit-integrations'), required: true }],
-  delete_page: [{ key: 'page_uuid', label: __('Landing Page', 'bit-integrations'), required: true }],
-  delete_tag: [{ key: 'tag_uuid', label: __('Tag', 'bit-integrations'), required: true }],
-  delete_task: [{ key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true }],
+  delete_page: [
+    { key: 'page_uuid', label: __('Landing Page UUID', 'bit-integrations'), required: true }
+  ],
+  delete_tag: [{ key: 'tag_uuid', label: __('Tag UUID', 'bit-integrations'), required: true }],
+  delete_task: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
   detach_contacts_from_task: [
-    { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
+    { key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_emails',
       label: __('Contact Emails (comma separated)', 'bit-integrations'),
@@ -349,10 +363,10 @@ export const fieldsByAction = {
     { key: 'tag_uuids', label: __('Tag UUIDs (comma separated)', 'bit-integrations'), required: true }
   ],
   duplicate_campaign: [
-    { key: 'campaign_uuid', label: __('Campaign', 'bit-integrations'), required: true }
+    { key: 'campaign_uuid', label: __('Campaign UUID', 'bit-integrations'), required: true }
   ],
   enroll_contact_in_sequence: [
-    { key: 'automation_uuid', label: __('Sequence', 'bit-integrations'), required: true },
+    { key: 'automation_uuid', label: __('Sequence UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_email',
       label: __('Contact Email (identifies the contact)', 'bit-integrations'),
@@ -364,12 +378,14 @@ export const fieldsByAction = {
       required: false
     }
   ],
-  mark_task_done: [{ key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true }],
-  mark_task_undone: [{ key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true }],
-  refresh_list: [{ key: 'list_uuid', label: __('List', 'bit-integrations'), required: true }],
-  refund_purchase: [{ key: 'purchase_uuid', label: __('Purchase', 'bit-integrations'), required: true }],
+  mark_task_done: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
+  mark_task_undone: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
+  refresh_list: [{ key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true }],
+  refund_purchase: [
+    { key: 'purchase_uuid', label: __('Purchase UUID', 'bit-integrations'), required: true }
+  ],
   remove_contacts_from_list: [
-    { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
+    { key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_emails',
       label: __('Contact Emails (comma separated)', 'bit-integrations'),
@@ -382,7 +398,7 @@ export const fieldsByAction = {
     }
   ],
   remove_contacts_from_tag: [
-    { key: 'tag_uuid', label: __('Tag', 'bit-integrations'), required: true },
+    { key: 'tag_uuid', label: __('Tag UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_emails',
       label: __('Contact Emails (comma separated)', 'bit-integrations'),
@@ -437,10 +453,10 @@ export const fieldsByAction = {
       label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
       required: false
     },
-    { key: 'automation_uuid', label: __('Automation', 'bit-integrations'), required: true }
+    { key: 'automation_uuid', label: __('Automation UUID', 'bit-integrations'), required: true }
   ],
   unenroll_contact_from_sequence: [
-    { key: 'automation_uuid', label: __('Sequence', 'bit-integrations'), required: true },
+    { key: 'automation_uuid', label: __('Sequence UUID', 'bit-integrations'), required: true },
     {
       key: 'contact_email',
       label: __('Contact Email (identifies the contact)', 'bit-integrations'),
@@ -453,7 +469,7 @@ export const fieldsByAction = {
     }
   ],
   update_campaign: [
-    { key: 'campaign_uuid', label: __('Campaign', 'bit-integrations'), required: true },
+    { key: 'campaign_uuid', label: __('Campaign UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('Campaign Name', 'bit-integrations'), required: false },
     { key: 'subject', label: __('Subject', 'bit-integrations'), required: false },
     { key: 'preview_text', label: __('Preview Text', 'bit-integrations'), required: false },
@@ -481,12 +497,20 @@ export const fieldsByAction = {
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'company', label: __('Company', 'bit-integrations'), required: false },
     { key: 'job_title', label: __('Job Title', 'bit-integrations'), required: false },
-    { key: 'birthdate', label: __('Birthdate', 'bit-integrations'), required: false },
-    { key: 'anniversary', label: __('Anniversary', 'bit-integrations'), required: false },
+    { key: 'birthdate', label: __('Birthdate (MM-DD)', 'bit-integrations'), required: false },
+    { key: 'anniversary', label: __('Anniversary (MM-DD)', 'bit-integrations'), required: false },
     { key: 'prefix', label: __('Prefix', 'bit-integrations'), required: false },
     { key: 'suffix', label: __('Suffix', 'bit-integrations'), required: false },
-    { key: 'timezone', label: __('Timezone', 'bit-integrations'), required: false },
-    { key: 'language', label: __('Language', 'bit-integrations'), required: false }
+    {
+      key: 'timezone',
+      label: __('Timezone (IANA, e.g. Europe/London)', 'bit-integrations'),
+      required: false
+    },
+    {
+      key: 'language',
+      label: __('Language (2-letter ISO 639-1, e.g. en)', 'bit-integrations'),
+      required: false
+    }
   ],
   update_contact_status: [
     {
@@ -501,7 +525,7 @@ export const fieldsByAction = {
     }
   ],
   update_list: [
-    { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
+    { key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('List Name', 'bit-integrations'), required: false },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false }
   ],
@@ -510,18 +534,18 @@ export const fieldsByAction = {
     { key: 'content', label: __('Content', 'bit-integrations'), required: true }
   ],
   update_page: [
-    { key: 'page_uuid', label: __('Landing Page', 'bit-integrations'), required: true },
+    { key: 'page_uuid', label: __('Landing Page UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('Page Name', 'bit-integrations'), required: false },
     { key: 'slug', label: __('Slug', 'bit-integrations'), required: false },
     { key: 'status', label: __('Status', 'bit-integrations'), required: false },
     { key: 'design_json', label: __('Design JSON', 'bit-integrations'), required: false }
   ],
   update_tag: [
-    { key: 'tag_uuid', label: __('Tag', 'bit-integrations'), required: true },
+    { key: 'tag_uuid', label: __('Tag UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('Tag Name', 'bit-integrations'), required: true }
   ],
   update_task: [
-    { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
+    { key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true },
     { key: 'title', label: __('Title', 'bit-integrations'), required: false },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false },
     { key: 'due_date', label: __('Due Date', 'bit-integrations'), required: false },
@@ -535,12 +559,20 @@ export const fieldsByAction = {
     { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
     { key: 'company', label: __('Company', 'bit-integrations'), required: false },
     { key: 'job_title', label: __('Job Title', 'bit-integrations'), required: false },
-    { key: 'birthdate', label: __('Birthdate', 'bit-integrations'), required: false },
-    { key: 'anniversary', label: __('Anniversary', 'bit-integrations'), required: false },
+    { key: 'birthdate', label: __('Birthdate (MM-DD)', 'bit-integrations'), required: false },
+    { key: 'anniversary', label: __('Anniversary (MM-DD)', 'bit-integrations'), required: false },
     { key: 'prefix', label: __('Prefix', 'bit-integrations'), required: false },
     { key: 'suffix', label: __('Suffix', 'bit-integrations'), required: false },
-    { key: 'timezone', label: __('Timezone', 'bit-integrations'), required: false },
-    { key: 'language', label: __('Language', 'bit-integrations'), required: false }
+    {
+      key: 'timezone',
+      label: __('Timezone (IANA, e.g. Europe/London)', 'bit-integrations'),
+      required: false
+    },
+    {
+      key: 'language',
+      label: __('Language (2-letter ISO 639-1, e.g. en)', 'bit-integrations'),
+      required: false
+    }
   ]
 }
 
