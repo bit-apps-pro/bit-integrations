@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\CustomApi;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
@@ -22,7 +23,13 @@ class CustomApiController
         $type = $details->type;
         $integId = isset($integrationDetails->id) ? $integrationDetails->id : '';
         $method = isset($details->actionMethod) ? $details->actionMethod : 'get';
-        $url = isset($details->url) ? self::urlParserWrapper($details->url, $fieldValues) : false;
+        $pathParams = isset($details->pathParams) ? $details->pathParams : [];
+        $url = isset($details->url) ? self::urlParserWrapper($details->url, $fieldValues, $pathParams) : false;
+        if (is_wp_error($url)) {
+            LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'error', $url);
+
+            return $url;
+        }
         $payload = self::processPayload($details, $fieldValues);
         $headers = self::processHeaders($details, $fieldValues);
 
@@ -61,14 +68,23 @@ class CustomApiController
         if (is_wp_error($response) || !empty($response->error)) {
             LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'error', $response);
         } else {
-            // file_put_contents(__DIR__ . '/bit-integrations-webhook-response.json', wp_json_encode($response));
             LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'success', !empty($response) ? wp_json_encode($response) : 'Successfully executed webhook');
         }
 
         return $response;
     }
 
-    private static function urlParserWrapper($url, $fieldValues = [])
+    /**
+     * Rebuilds the api endpoint, resolving smart tags in the query string and in
+     * the url path (dynamic route parameters).
+     *
+     * @param string       $url
+     * @param array        $fieldValues Trigger data
+     * @param array|object $pathParams  Placeholder => value map, e.g. [{key: 'id', value: '${post_id}'}]
+     *
+     * @return string|WP_Error
+     */
+    private static function urlParserWrapper($url, $fieldValues = [], $pathParams = [])
     {
         if (empty($url)) {
             return $url;
@@ -83,6 +99,12 @@ class CustomApiController
         $Path = isset($parsedURL['path']) ? $parsedURL['path'] : null;
         $Query = isset($parsedURL['query']) ? $parsedURL['query'] : null;
         $Pass = ($Pass || $Usr) ? "{$Pass}@" : null;
+
+        // resolved after parsing, so a dynamic value can never rewrite scheme/host/port
+        $Path = self::resolvePathParams($Path, $pathParams, $fieldValues);
+        if (is_wp_error($Path)) {
+            return $Path;
+        }
 
         $cleanURL = "{$Scheme}{$Usr}{$Pass}{$Host}{$Port}{$Path}";
         $params = [];
@@ -117,6 +139,83 @@ class CustomApiController
         }
 
         return $cleanURL;
+    }
+
+    /**
+     * Replaces dynamic route parameters in the url path.
+     *
+     * Two notations are supported:
+     * - `{name}`     mapped to a value through the `pathParams` config
+     * - `${field}`   smart tag written inline in the path
+     *
+     * Resolved values are raw url encoded, so they always stay inside the single
+     * path segment they were written in.
+     *
+     * @param null|string  $path
+     * @param array|object $pathParams
+     * @param array        $fieldValues
+     *
+     * @return null|string|WP_Error
+     */
+    private static function resolvePathParams($path, $pathParams, $fieldValues)
+    {
+        if (empty($path) || false === strpos($path, '{')) {
+            return $path;
+        }
+
+        $mapping = [];
+        foreach ((array) $pathParams as $param) {
+            $param = (object) $param;
+            if (!isset($param->key) || '' === trim((string) $param->key)) {
+                continue;
+            }
+            $mapping[trim((string) $param->key)] = isset($param->value) ? $param->value : '';
+        }
+
+        $emptyTokens = [];
+        $resolvedPath = preg_replace_callback(
+            '/\$\{\w[^ ${}]*\}|\{[^{}\s\/?#]+\}/',
+            function ($matches) use ($mapping, $fieldValues, &$emptyTokens) {
+                $token = $matches[0];
+
+                if (0 === strpos($token, '${')) {
+                    $value = Common::replaceFieldWithValue($token, $fieldValues);
+                } else {
+                    $name = substr($token, 1, -1);
+                    if (!\array_key_exists($name, $mapping)) {
+                        return $token; // not mapped, keep the literal placeholder
+                    }
+                    $value = Common::replaceFieldWithValue($mapping[$name], $fieldValues);
+                }
+
+                if (\is_array($value) || \is_object($value)) {
+                    $value = wp_json_encode($value);
+                }
+                $value = trim((string) $value);
+
+                if ('' === $value) {
+                    $emptyTokens[$token] = true;
+
+                    return $token;
+                }
+
+                return rawurlencode($value);
+            },
+            $path
+        );
+
+        if (!empty($emptyTokens)) {
+            return new \WP_Error(
+                Config::withPrefix('custom-api-path-param'),
+                \sprintf(
+                    // translators: %s: comma separated url path variables, e.g. {id}, {slug}
+                    __('Url path variable %s has no value, api request skipped', 'bit-integrations'),
+                    implode(', ', array_keys($emptyTokens))
+                )
+            );
+        }
+
+        return null === $resolvedPath ? $path : $resolvedPath;
     }
 
     private static function processHeaders($details, $fieldValues)
