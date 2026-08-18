@@ -53,34 +53,6 @@ class SureContactController
         wp_send_json_success($tags, 200);
     }
 
-    public function getPipelines($queryParams)
-    {
-        $pipelines = [];
-
-        foreach (self::fetchList($queryParams, 'pipelines') as $pipeline) {
-            $pipelines[] = (object) [
-                'pipelineId'   => ApiResponse::getValue($pipeline, 'uuid') ?? '',
-                'pipelineName' => ApiResponse::getValue($pipeline, 'name') ?? '',
-            ];
-        }
-
-        wp_send_json_success($pipelines, 200);
-    }
-
-    public function getPipelineStages($queryParams)
-    {
-        $stages = [];
-
-        foreach (self::fetchList($queryParams, 'pipelines/stages') as $stage) {
-            $stages[] = (object) [
-                'stageId'   => ApiResponse::getValue($stage, 'uuid') ?? '',
-                'stageName' => ApiResponse::getValue($stage, 'name') ?? '',
-            ];
-        }
-
-        wp_send_json_success($stages, 200);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

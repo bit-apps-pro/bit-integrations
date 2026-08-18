@@ -53,31 +53,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'archive_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_archive_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'attach_companies_to_contact':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_attach_companies_to_contact'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'attach_companies_to_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_attach_companies_to_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'attach_companies_to_task':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_attach_companies_to_task'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'attach_contacts_to_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_attach_contacts_to_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'attach_contacts_to_task':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_attach_contacts_to_task'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -90,11 +65,6 @@ class RecordApiHelper
 
             case 'attach_tags_to_contact':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_attach_tags_to_contact'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'bulk_attach_contacts_to_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_bulk_attach_contacts_to_company'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -118,16 +88,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'create_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_create_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'create_company_note':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_create_company_note'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'create_contact':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_create_contact'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -143,16 +103,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'create_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_create_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'create_deal_note':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_create_deal_note'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'create_list':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_create_list'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -160,16 +110,6 @@ class RecordApiHelper
 
             case 'create_page':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_create_page'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'create_pipeline':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_create_pipeline'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'create_pipeline_stage':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_create_pipeline_stage'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -193,28 +133,8 @@ class RecordApiHelper
 
                 break;
 
-            case 'delete_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_delete_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'delete_company_note':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_delete_company_note'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'delete_contact':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_delete_contact'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'delete_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_delete_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'delete_deal_note':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_delete_deal_note'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -233,16 +153,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'delete_pipeline':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_delete_pipeline'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'delete_pipeline_stage':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_delete_pipeline_stage'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'delete_tag':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_delete_tag'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -250,21 +160,6 @@ class RecordApiHelper
 
             case 'delete_task':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_delete_task'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'detach_companies_from_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_detach_companies_from_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'detach_companies_from_task':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_detach_companies_from_task'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'detach_contacts_from_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_detach_contacts_from_deal'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -293,21 +188,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'link_contact_to_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_link_contact_to_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'mark_deal_lost':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_mark_deal_lost'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'mark_deal_won':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_mark_deal_won'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'mark_task_done':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_mark_task_done'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -315,11 +195,6 @@ class RecordApiHelper
 
             case 'mark_task_undone':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_mark_task_undone'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'move_deal_to_stage':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_move_deal_to_stage'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -343,16 +218,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'reopen_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_reopen_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'reorder_pipeline_stages':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_reorder_pipeline_stages'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'resend_double_opt_in':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_resend_double_opt_in'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -363,18 +228,8 @@ class RecordApiHelper
 
                 break;
 
-            case 'set_primary_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_set_primary_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'start_automation_for_contact':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_start_automation_for_contact'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'unarchive_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_unarchive_company'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -383,23 +238,8 @@ class RecordApiHelper
 
                 break;
 
-            case 'unlink_contact_from_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_unlink_contact_from_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'update_campaign':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_update_campaign'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'update_company':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_update_company'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'update_company_note':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_update_company_note'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -410,16 +250,6 @@ class RecordApiHelper
 
             case 'update_contact_status':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_update_contact_status'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'update_deal':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_update_deal'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'update_deal_note':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_update_deal_note'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -435,16 +265,6 @@ class RecordApiHelper
 
             case 'update_page':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_update_page'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'update_pipeline':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_update_pipeline'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'update_pipeline_stage':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_update_pipeline_stage'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
@@ -511,10 +331,8 @@ class RecordApiHelper
         return array_merge(
             (array) ($details->utilities ?? []),
             [
-                'list_uuids'    => $details->list_uuids ?? [],
-                'tag_uuids'     => $details->tag_uuids ?? [],
-                'pipeline_uuid' => $details->pipeline_uuid ?? '',
-                'stage_uuid'     => $details->stage_uuid ?? '',
+                'list_uuids'     => $details->list_uuids ?? [],
+                'tag_uuids'      => $details->tag_uuids ?? [],
                 'contact_status' => $details->contact_status ?? '',
                 'activity_type'  => $details->activity_type ?? '',
             ]
