@@ -81,7 +81,6 @@ export const modules = [
     is_pro: true
   },
   { name: 'resend_double_opt_in', label: __('Resend Double Opt-In', 'bit-integrations'), is_pro: true },
-  { name: 'send_email', label: __('Send Email', 'bit-integrations'), is_pro: true },
   {
     name: 'start_automation_for_contact',
     label: __('Start Automation For Contact', 'bit-integrations'),
@@ -424,24 +423,6 @@ export const fieldsByAction = {
   ],
   // The endpoint addresses a SureContact contact, not a raw address, and keys the html
   // as `body` — a `to`/`html` payload is rejected outright.
-  send_email: [
-    {
-      key: 'contact_email',
-      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
-      required: true
-    },
-    {
-      key: 'contact_uuid',
-      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
-      required: false
-    },
-    { key: 'subject', label: __('Subject', 'bit-integrations'), required: true },
-    { key: 'body', label: __('HTML Body', 'bit-integrations'), required: true },
-    { key: 'text', label: __('Text Body', 'bit-integrations'), required: false },
-    { key: 'from_name', label: __('From Name', 'bit-integrations'), required: false },
-    { key: 'from_email', label: __('From Email', 'bit-integrations'), required: false },
-    { key: 'reply_to', label: __('Reply To', 'bit-integrations'), required: false }
-  ],
   start_automation_for_contact: [
     {
       key: 'contact_email',

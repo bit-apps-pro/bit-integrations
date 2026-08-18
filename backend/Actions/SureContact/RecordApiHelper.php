@@ -223,11 +223,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'send_email':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_send_email'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'start_automation_for_contact':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_start_automation_for_contact'), $default, $fieldData, $this->apiClient, $settings);
 
