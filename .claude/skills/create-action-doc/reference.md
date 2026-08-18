@@ -6,10 +6,10 @@ known.
 **Canonical published example:**
 `https://bit-integrations.com/wp-docs/actions/bit-crm-integration-as-an-action/`
 (post ID `124666`). When this reference and that doc disagree, the published doc
-wins — fetch it with
+wins - fetch it with
 `curl -s "$DOC_SITE_URL/wp-json/wp/v2/docs/124666?_fields=content"` and match it.
 
-## Writing standards — SEO and readability
+## Writing standards - SEO and readability
 
 These apply to the **entire document**, not just the title. Check them before
 sending the doc for approval.
@@ -32,16 +32,16 @@ sending the doc for approval.
 **Structure**
 
 - Exactly one H1. Never skip heading levels (H1 → H2 → H3 → H4).
-- Every heading is descriptive and front-loaded with the meaningful word — a
+- Every heading is descriptive and front-loaded with the meaningful word - a
   reader scanning only the headings must be able to follow the whole setup.
 - Answer-first: the first one or two sentences under **every** heading fully
   answer that heading. No warm-up, no "in this section we will look at".
 - Use tables and bulleted lists instead of walls of text; the event accordion,
-  the Step 5 field table, and the use-case bullets exist for this reason.
+  the Step 05 field table, and the use-case bullets exist for this reason.
 - This page is a **task doc**, not a tutorial or a concept page. It does not
   teach what an API key or OAuth is. Link out to the doc that does.
 
-**Accuracy — hard rules**
+**Accuracy - hard rules**
 
 Documentation errors cost more than SEO errors.
 
@@ -65,7 +65,7 @@ Documentation errors cost more than SEO errors.
   upsell inside a reference table. State plan gating once, in prose, where it
   changes what the reader does.
 - Never describe an outcome the code cannot produce. Before writing any example
-  or use case, read what the helper actually writes — see
+  or use case, read what the helper actually writes - see
   **Use-case realism** below.
 - If the platform's API cannot do what the keyword implies, say so plainly and
   early, then document the supported path.
@@ -73,10 +73,10 @@ Documentation errors cost more than SEO errors.
   of an action doc. Anything not read from source becomes an inline
   `[VERIFY: exact path to the API key screen in <Platform>]` flag in the draft
   **and** a line in the approval preview. Never quietly guess.
-  Every `[VERIFY: …]` must be resolved and removed before publishing — grep the
+  Every `[VERIFY: …]` must be resolved and removed before publishing - grep the
   content for `[VERIFY` as a release gate.
 
-**Extractability — how LLMs and answer engines read the page**
+**Extractability - how LLMs and answer engines read the page**
 
 - Every paragraph must survive being lifted out on its own. No orphan pronouns:
   "This mapping lets you…", not "This lets you…".
@@ -94,7 +94,7 @@ Documentation errors cost more than SEO errors.
 
 **Readability**
 
-- Second person, active voice, present tense. Short sentences — average under
+- Second person, active voice, present tense. Short sentences - average under
   20 words, split anything longer.
 - Paragraphs of three to four sentences at most.
 - Around a grade-8 reading level. Expand an acronym on first use.
@@ -108,7 +108,7 @@ Documentation errors cost more than SEO errors.
 **Banned language**
 
 - Never `simply`, `just`, `easy`, `obviously`, `of course`. They shame a reader
-  who is already stuck — and an action doc's reader is usually stuck on
+  who is already stuck - and an action doc's reader is usually stuck on
   credentials.
 - Never `seamlessly`, `effortlessly`, `revolutionary`, `game-changing`,
   `the possibilities are endless`, `let's dive in`, `in today's fast-paced
@@ -116,12 +116,25 @@ Documentation errors cost more than SEO errors.
 - Never promise a ranking, an AI citation or a rich snippet anywhere in the doc
   or in the report about it.
 
+**Punctuation**
+
+- **Never use an em dash (`-`) anywhere in the doc.** Not in prose, headings,
+  table cells, image alt text, the TL;DR, the meta description or a use-case
+  card. Rewrite instead: split the sentence at a full stop, use a colon before
+  an explanation, use a comma for an aside, or use brackets. Two short sentences
+  almost always beat one dash-joined sentence.
+- The en dash (`-`) is out too. Use a plain hyphen for ranges and compounds
+  (`150-160 characters`, `two-part model`).
+- Grep the finished Gutenberg HTML for the em dash and the en dash before the
+  approval preview; both counts must be `0`, including inside the `<style>`
+  block and any CSS comment that ships with it.
+
 **Links and images**
 
 - Two to four internal links to related docs on `bit-integrations.com`: the
   matching trigger doc for the same platform when it exists, the conditional
   logic doc, and one or two trigger-plugin docs named in the use-case section.
-  Anchor text must be descriptive and carry the destination's own keyword —
+  Anchor text must be descriptive and carry the destination's own keyword -
   never `click here`, never a bare URL.
 - Link once per destination per page. A second identical link adds nothing.
 - Link back to prerequisites and concepts, forward to the logical next task.
@@ -136,7 +149,7 @@ Documentation errors cost more than SEO errors.
   when the platform is visible; when the screenshot is a generic Bit Integrations
   screen that does not contain it, describe that screen honestly and add the
   platform only as context ("…, the first step of the `<Platform>` action
-  setup"). Never write an alt claiming a screenshot shows something it does not —
+  setup"). Never write an alt claiming a screenshot shows something it does not -
   including a state that is not captured, such as "with a plugin chosen" on a
   shot where nothing is selected.
 - Open every screenshot before writing its alt or placing it. The file name and
@@ -209,23 +222,26 @@ exists before creating a new one:
 curl -s "$DOC_SITE_URL/wp-json/wp/v2/docs?parent=$DOC_ACTION_PARENT_POST_ID&search=<Platform>&_fields=id,slug,title"
 ```
 
-Also check the exact slug is free (`wp/v2/docs?slug=...`) — WordPress silently
+Also check the exact slug is free (`wp/v2/docs?slug=...`) - WordPress silently
 renames a duplicate to `...-2`. If it is taken, stop and confirm with the user.
 
 When posting the title to the EazyDocs `create-child` endpoint, replace `&` with
 `ezd_ampersand`, `#` with `ezd_hash`, and `+` with `ezd_plus`; that endpoint
 decodes them back via `decode_special_chars`. Send the title/slug **raw**
-(unencoded) to the core `wp/v2/docs/<id>` endpoint — it does not decode these
+(unencoded) to the core `wp/v2/docs/<id>` endpoint - it does not decode these
 tokens, so an encoded title would be stored literally.
 
 ## Document structure
 
-The content opens with an H1 that repeats the post title — published action docs
+The content opens with an H1 that repeats the post title - published action docs
 on this site keep the H1 inside the content, so match that. H2 for sections, H3
 for steps, H4 for event categories inside the accordion.
 
-Step headings use **Title Case** and no leading zero: `Step 3: Authorize Zoho
-CRM`, not `Step 03: authorize zoho crm`.
+Step headings use **Title Case** and a **two-digit number**, zero-padded:
+`Step 01: Authorize Zoho CRM`, not `Step 01: Authorize Zoho CRM` and not `Step 01: authorize zoho crm`.
+Pad every step from `01` to `09`; `10` and beyond are already two digits.
+Numbered sub-steps inside a step follow the same rule (`01.`, `02.`), and
+prose that refers to a range uses the padded form too (`Steps 01-03`).
 
 ```text
 <h1>  <Platform> Integration as an Action
@@ -235,23 +251,23 @@ CRM`, not `Step 03: authorize zoho crm`.
 <h2>  Before You Start
 <h2>  How to Set Up <Platform> Integration as an Action in Bit Integrations
       <one paragraph: how many steps, work through them in order>
-<h3>    Step 1: Create the Integration and Set Up Your Trigger
-<h3>    Step 2: Search and Select <Platform> as the Action
-<h3>    Step 3: Authorize <Platform>
-<h3>    Step 4: Choose Your <Platform> Action Event
-<h3>    Step 5: Configure the Action Fields
-<h3>    Step 6: Map Your Fields and Finish
+<h3>    Step 01: Create the Integration and Set Up Your Trigger
+<h3>    Step 02: Search and Select <Platform> as the Action
+<h3>    Step 03: Authorize <Platform>
+<h3>    Step 04: Choose Your <Platform> Action Event
+<h3>    Step 05: Configure the Action Fields
+<h3>    Step 06: Map Your Fields and Finish
 <h2>  Explore <N> Useful <Platform> Integration as an Action Ideas
 ```
 
 When the platform needs credentials created on its own site and that takes more
 than two clicks, promote it to its own step placed before `Authorize`:
-`Step 2: Create Your <Platform> API Token`, with numbered H3 sub-steps
+`Step 02: Create Your <Platform> API Token`, with numbered H3 sub-steps
 (`1. Open Account Settings`, `2. Open API Access Tokens`, …), then renumber the
 remaining steps. This matches the published Sender doc
 (`sender-integration-as-an-action`).
 
-### TL;DR — mandatory, always first
+### TL;DR - mandatory, always first
 
 One paragraph, placed immediately after the H1 and before the overview
 paragraphs. It is the block a reader in a hurry acts on, and the block answer
@@ -267,15 +283,15 @@ Rules:
 
 - Two to four sentences. Never more.
 - It must work **alone**. An experienced reader acts on the TL;DR and never
-  scrolls further, so a path that only makes sense after reading Step 3 has
+  scrolls further, so a path that only makes sense after reading Step 03 has
   failed.
 - Name the real UI labels and a real action-event label, bolded, under the same
-  accuracy rules as the rest of the page — **Create Integration**,
+  accuracy rules as the rest of the page - **Create Integration**,
   **Authorize**, **Finish & Save**, and one event copied verbatim from
   `staticData.js`.
 - **Name the credential the reader must fetch, and where it comes from.** This
   is the single thing an action-doc reader most needs up front, and the reason
-  they bounce when it is buried in Step 3.
+  they bounce when it is buried in Step 03.
 - Contain the primary keyword naturally. This is inside the first 100 words, so
   it satisfies that placement requirement.
 - State the prerequisites in the same breath, including
@@ -286,7 +302,7 @@ Rules:
 - Adjust the path per auth type: an OAuth platform's TL;DR says click
   **Authorize** and approve access, an API-key platform's says paste the key.
 
-### Overview — 2-3 paragraphs
+### Overview - 2-3 paragraphs
 
 ```text
 <Paragraph 1: what the platform manages or does, then one line: with Bit Integrations you can automatically send data from your WordPress website to <Platform>.>
@@ -294,12 +310,12 @@ Rules:
 For example, when <one concrete actor does one concrete thing>, Bit Integrations can <real event label from staticData.js> in <Platform> <with the static config that event needs>. When <a second, different concrete scenario>, it can <a second real event label>. <One line on what nobody has to do by hand any more.>
 ```
 
-The example paragraph is subject to **Use-case realism** below — the same rules
+The example paragraph is subject to **Use-case realism** below - the same rules
 that govern the ideas section. In particular:
 
 - **Never write "when someone submits a form, places an order, or registers as a
   user".** That sentence fits every platform, which is exactly why it is worthless
-  — it describes no real workflow and pairs generic triggers with whatever events
+  because it describes no real workflow and pairs generic triggers with whatever events
   happen to exist.
 - Pick the two scenarios by reading the required fields of the events you name.
   An event taking `user_id` and `course_id` gets an LMS scenario, not a contact
@@ -314,7 +330,7 @@ jargon.
 One paragraph, a two-item list, then one closing paragraph:
 
 ```text
-Every integration in Bit Integrations has two halves. The trigger is what starts the workflow. The action is what happens as a result. When <Platform> is the action, <plain-language statement of where the platform sits — e.g. "your CRM sits at the receiving end">.
+Every integration in Bit Integrations has two halves. The trigger is what starts the workflow. The action is what happens as a result. When <Platform> is the action, <plain-language statement of where the platform sits - e.g. "your CRM sits at the receiving end">.
 
 - Trigger: an event in another app, such as <3 trigger events that genuinely suit this platform, each naming its plugin>.
 - Action: a <Platform> operation, such as <3-4 real event labels from staticData.js>.
@@ -322,7 +338,7 @@ Every integration in Bit Integrations has two halves. The trigger is what starts
 Bit Integrations catches the incoming data; you decide which incoming field belongs in which <Platform> field, and from that point on, the record is created for you every single time. <For same-site WordPress plugins, add: Everything runs on your own WordPress install.>
 ```
 
-The three trigger examples in that list must suit **this** platform — a video
+The three trigger examples in that list must suit **this** platform - a video
 plugin gets a video submission, an LMS lesson completion and an opt-in; a CRM
 gets a checkout, a signup and a support request. Do not reuse one generic trio
 across docs.
@@ -352,24 +368,24 @@ sub-steps.
 
 - **One action per step.** If the body needs "and then", it is two steps.
 - Open each step with an imperative verb the reader can act on: Click, Open,
-  Select, Enter, Enable, Copy, Paste. Never "Configure as needed" — a step you
+  Select, Enter, Enable, Copy, Paste. Never "Configure as needed" - a step you
   cannot describe concretely is not a step.
 - Name the exact UI element and its exact label, in the real path form:
   **Bit Integrations → Create Integration**. For platform-side navigation, give
   the real menu path on the platform's own site.
 - **State the observable result**, so the reader can confirm they are on track:
   "The connection is saved and the action event list loads." Never end a step on
-  a click. This matters most after **Authorize** — say what a successful
+  a click. This matters most after **Authorize**: say what a successful
   connection looks like, and what an expired or read-only credential looks like.
 - Put a warning **before** the action it protects, never after.
 - When a step branches by auth type or plan tier, give each branch its own
   labelled sentence or bullet rather than nested "if … otherwise" prose.
 - The closing paragraph must contain a concrete success check the reader can
-  see — run the trigger once, then which screen in the platform to open and what
-  record should appear there — not just "you are done".
+  see - run the trigger once, then which screen in the platform to open and what
+  record should appear there - not just "you are done".
 - Keep the count realistic. Past about ten steps, group them into phases.
 
-### Step 1: Create the Integration and Set Up Your Trigger
+### Step 01: Create the Integration and Set Up Your Trigger
 
 This step uses **two fixed screenshots**, not placeholders. Both are the same on
 every action doc, so they come from `.env` and are embedded as real images:
@@ -381,7 +397,7 @@ every action doc, so they come from `.env` and are embedded as real images:
 
 Split the prose so each image sits under the sentence it illustrates. Do not
 put both images at the end of the step, and do not use
-`{{PLACEHOLDER:select-trigger}}` here — that slot no longer exists.
+`{{PLACEHOLDER:select-trigger}}` here - that slot no longer exists.
 
 ```text
 From your WordPress dashboard, open Bit Integrations and click Create Integration.
@@ -397,14 +413,14 @@ Complete the trigger setup for that plugin, which usually means picking the spec
 
 `Please select a Trigger` and `Search Trigger...` are the real strings
 (`frontend/src/components/Flow/New/SelectTrigger.jsx`), matching the
-`Please select an Action` label used in Step 2.
+`Please select an Action` label used in Step 02.
 
 Resolve both IDs through `GET $DOC_SITE_URL/wp-json/wp/v2/media/<id>` and embed
 `source_url` with the real-image block. Alt text must describe what is actually
-in the frame — neither screenshot contains the platform, so do not write an alt
+in the frame - neither screenshot contains the platform, so do not write an alt
 claiming it does.
 
-### Step 2: Search and Select `<Platform>` as the Action
+### Step 02: Search and Select `<Platform>` as the Action
 
 ```text
 On the "Please select an Action" screen, type <Platform> into the search box and click the <Platform> card when it appears.
@@ -415,7 +431,7 @@ On the "Please select an Action" screen, type <Platform> into the search box and
 
 Then `{{PLACEHOLDER:select-action-app}}`.
 
-### Step 3: Authorize `<Platform>`
+### Step 03: Authorize `<Platform>`
 
 Open with the integration-name sentence, which is the same for every platform:
 
@@ -428,9 +444,9 @@ Give the integration a name so you can recognise it later in your integrations l
 
 Then, depending on `authDetails.authType`:
 
-- **`wp_plugin_check`** — no connection form. Use the canonical wording:
+- **`wp_plugin_check`**: no connection form. Use the canonical wording:
   `Bit Integrations detects the active <Platform> plugin and authorizes it instantly. There is nothing to copy, paste, or configure. Once the authorization succeeds, click Next.`
-- **everything else** — in this order:
+- **everything else**: in this order:
   1. Explain the **Connections** dropdown: reuse an existing connection, or click
      **+ Add new connection**. Reusing saves time and avoids duplicates.
   2. The auth-type **Add Connection** sentence from the table below.
@@ -452,10 +468,10 @@ real UI strings from `frontend/src/components/Connections/`.
 | `api_key` | `Click + Add new connection. You will be asked for a Connection Name and your <Platform> API Key.` | `Once your <Platform> API Key is entered, click Authorize. The button turns into Authorized ✔ when the credentials check out.` |
 | `bearer_token` | `Click + Add new connection. You will be asked for a Connection Name and your <Platform> Bearer Token.` | `Once your <Platform> Bearer Token is entered, click Authorize. The button turns into Authorized ✔ when the credentials check out.` |
 | `basic_auth` | `Click + Add new connection. You will be asked for a Connection Name plus the Username and Password of your <Platform> account.` | `Once your <Platform> Username and Password are entered, click Authorize. The button turns into Authorized ✔ when the credentials check out.` |
-| `oauth2` | `Click + Add new connection. You will be asked for a Connection Name, your Client ID, and your Client Secret. Copy the Callback / Redirect URL shown in the form and paste it into your <Platform> app before you save it there.` | `Click Authorize — a <Platform> window opens asking you to approve access. Approve it, and you are returned to Bit Integrations with the connection marked Authorized ✔.` |
-| `oauth1` | `Click + Add new connection. You will be asked for a Connection Name, your Consumer Key, and your Consumer Secret. Copy the Callback / Return URL shown in the form and paste it into your <Platform> app before you save it there.` | `Click Authorize — a <Platform> window opens asking you to approve access. Approve it, and you are returned to Bit Integrations with the connection marked Authorized ✔.` |
-| `wp_plugin_check` | *(no connection form — see Step 3 above)* | `If the check passes, click Next to continue. If it fails, install or activate <Platform> and try again.` |
-| `custom` | Derive from the bespoke fields in `<Name>Authorization.jsx` — list every input label in the order it appears. | `Once every field above is filled in, click Authorize to continue.` |
+| `oauth2` | `Click + Add new connection. You will be asked for a Connection Name, your Client ID, and your Client Secret. Copy the Callback / Redirect URL shown in the form and paste it into your <Platform> app before you save it there.` | `Click Authorize - a <Platform> window opens asking you to approve access. Approve it, and you are returned to Bit Integrations with the connection marked Authorized ✔.` |
+| `oauth1` | `Click + Add new connection. You will be asked for a Connection Name, your Consumer Key, and your Consumer Secret. Copy the Callback / Return URL shown in the form and paste it into your <Platform> app before you save it there.` | `Click Authorize - a <Platform> window opens asking you to approve access. Approve it, and you are returned to Bit Integrations with the connection marked Authorized ✔.` |
+| `wp_plugin_check` | *(no connection form - see Step 03 above)* | `If the check passes, click Next to continue. If it fails, install or activate <Platform> and try again.` |
+| `custom` | Derive from the bespoke fields in `<Name>Authorization.jsx`: list every input label in the order it appears. | `Once every field above is filled in, click Authorize to continue.` |
 
 For `oauth2` / `oauth1`, this app model is self-service: the user registers their
 own app on the platform and pastes the client/consumer credentials.
@@ -479,16 +495,16 @@ Source priority:
    contradicted.
 2. General knowledge fills gaps with plausible settings-navigation steps.
 
-**Flag these steps in the approval preview** — platform UIs change and the
+**Flag these steps in the approval preview**: platform UIs change and the
 source text is usually thin.
 
-### Step 4: Choose Your `<Platform>` Action Event
+### Step 04: Choose Your `<Platform>` Action Event
 
 ```text
 Open the Action dropdown and pick the operation you want <Platform> to perform. All <N> supported actions are in this list, grouped by module.
 ```
 
-`<N>` is the event count computed from `staticData.js` — never a guessed number.
+`<N>` is the event count computed from `staticData.js`: never a guessed number.
 
 Then the event accordion (below), then:
 
@@ -515,7 +531,7 @@ two-column table:
 | Column | Content |
 |---|---|
 | `Action Event` | The exact `label` string from `staticData.js`, bolded. Nothing appended |
-| `What It Does` | One or two sentences, grounded in `RecordApiHelper.php` — which endpoint it hits and what it needs mapped |
+| `What It Does` | One or two sentences, grounded in `RecordApiHelper.php`: which endpoint it hits and what it needs mapped |
 
 Example row from the canonical doc:
 
@@ -523,7 +539,7 @@ Example row from the canonical doc:
 > from your trigger app.
 
 Never reword an event label. When the integration has fewer than about eight
-events, one ungrouped table without H4s is fine — the published Sender doc does
+events, one ungrouped table without H4s is fine - the published Sender doc does
 that.
 
 **Never append a `(PRO)` marker to an event label**, in this table or anywhere
@@ -533,7 +549,7 @@ State plan gating once, in prose, where it changes what the reader does:
 `Bit Integrations Pro` in `Before You Start`, and a third-party plan
 requirement as its own sentence at the step where the reader picks the event.
 
-### Step 5: Configure the Action Fields
+### Step 05: Configure the Action Fields
 
 ```text
 Now set the static values that apply to every record this integration creates. Using <First Event Label> as the example, you will see the following options.
@@ -549,14 +565,14 @@ in render order:
 
 Mark required fields as required. Then `{{PLACEHOLDER:configure-action}}`.
 
-### Step 6: Map Your Fields and Finish
+### Step 06: Map Your Fields and Finish
 
 ```text
 This is the step that does the real work. The Field Map screen shows two columns. On the left are the fields coming from your trigger plugin, with sample values from your test submission shown in brackets. On the right are the <Platform> fields.
 
 Pair them up. <Real field name> goes to <Real field name>, and so on. Use the plus button to add another mapping row and the trash icon to remove one you do not need. Use Custom Value when you want to send a fixed value instead of a trigger field.
 
-Turn on Conditional Logics at the bottom of the screen if you only want this action to run some of the time — for example, only create a record when a specific field meets your condition.
+Turn on Conditional Logics at the bottom of the screen if you only want this action to run some of the time - for example, only create a record when a specific field meets your condition.
 
 When the mapping looks right, click Next, then Finish & Save ✔ to save the integration. Bit Integrations confirms with Successfully Integrated. Run the trigger once for real and check <Platform> to confirm the record appeared exactly as you expected.
 ```
@@ -564,7 +580,7 @@ When the mapping looks right, click Next, then Finish & Save ✔ to save the int
 `Map Fields`, `Conditional Logics`, `Next`, `Finish & Save ✔` and
 `Successfully Integrated` are the real UI strings
 (`IntegrationHelpers/IntegrationStepThree.jsx`). The published Bit CRM doc says
-"click Next to finish and save" — use the real button name instead.
+"click Next to finish and save" - use the real button name instead.
 
 Then `{{PLACEHOLDER:map-fields}}`. Add `{{PLACEHOLDER:integration-log}}` and one
 sentence about the integration timeline when the doc should cover logs.
@@ -577,7 +593,7 @@ sentence about the integration timeline when the doc should cover logs.
 Each of these uses the same <N>-step setup described above, with a different trigger plugin at the front.
 ```
 
-Then one block per idea — the title is a **bold linked paragraph**, not a
+Then one block per idea - the title is a **bold linked paragraph**, not a
 heading:
 
 ```text
@@ -601,7 +617,7 @@ Use four or five ideas. Trigger plugin names must come from
 `backend/Core/Util/AllTriggersName.php` or a free trigger's
 `{Name}Controller::info()`; the operations named must come from `staticData.js`.
 
-### Use-case realism — hard rules
+### Use-case realism - hard rules
 
 Every idea must be an automation a real site owner would actually build. This is
 the section most likely to go wrong, because generic pairings read fine and are
@@ -613,7 +629,7 @@ in the Pro helper *before* choosing a trigger. The fields name the caller:
 
 | Required fields on the event | What that implies |
 |---|---|
-| `user_id`, `course_id`, `step_id` | an LMS trigger — a lesson or course event |
+| `user_id`, `course_id`, `step_id` | an LMS trigger - a lesson or course event |
 | an email plus a record identifier | an opt-in or registration form |
 | a record ID the reader must already know | a form where a human types that ID, or an edit/admin flow |
 | only free text | an intake form, submitted by a person |
@@ -631,18 +647,18 @@ then describe exactly that and nothing more. Recurring traps:
 
 **Every field the action needs must be obtainable from that trigger.** If the
 event requires a record ID and the trigger is a public form, the use case has to
-say the submitter supplies that ID — or pick a different trigger. Never leave a
+say the submitter supplies that ID - or pick a different trigger. Never leave a
 required field unaccounted for.
 
 **Banned opener.** Do not write "when someone submits a form, places an order, or
-registers as a user" — or any variant that lists generic triggers and staples
+registers as a user" - or any variant that lists generic triggers and staples
 them to whatever events exist. Name one concrete actor doing one concrete thing:
 a contributor, an editor, a student, a customer.
 
 **State the manual work removed.** One clause naming what the reader stops doing
 by hand is what makes a use case useful rather than decorative.
 
-**Name the real gotcha** when the event has one — a plan requirement, a field
+**Name the real gotcha** when the event has one - a plan requirement, a field
 that must already exist, an irreversible write. A use case that hides the
 condition sends the reader into a failed run.
 
@@ -669,12 +685,12 @@ Example: `https://bit-integrations.com/triggers/gravity-forms/connect/sender/`
 
 **The trigger plugin is always the first slot and this platform is always the
 second**, even though this is an action doc. The connect pages only exist under
-`/triggers/…/connect/…`. There is no `/actions/<platform>/connect/<x>/` route —
+`/triggers/…/connect/…`. There is no `/actions/<platform>/connect/<x>/` route -
 it soft-404s. `/actions/<platform>/` and `/integrations/<platform>/` also
 resolve but serve an unrelated page, so never link to either.
 
 Both slugs belong to the marketing site and are **not derived** from anything in
-this repo — not the doc slug, not the `AllTriggersName.php` key, not the
+this repo - not the doc slug, not the `AllTriggersName.php` key, not the
 `integs` `type` value. Observed mismatches:
 
 | Source value | Connect slug |
@@ -692,7 +708,7 @@ this repo — not the doc slug, not the `AllTriggersName.php` key, not the
 
 Verify **positively**. A live connect page's title matches
 `<Platform> Integration with <Trigger Plugin> - Automate Your Tasks`. Do not
-test for a specific 404 string — the site serves at least two of them
+test for a specific 404 string - the site serves at least two of them
 (`Page not found` and `Page Not Found - Bit Integrations`), so a match against
 one of those will pass a dead URL through.
 
@@ -714,7 +730,7 @@ Close with one wrap-up paragraph:
 These <N> barely scratch the surface. Bit Integrations connects 378+ apps to <Platform>, including <6-8 real trigger plugin names>. The setup process is the same every time.
 ```
 
-## Block vocabulary — visual hierarchy
+## Block vocabulary - visual hierarchy
 
 Three styled block types, and no others. Every doc uses the same three so the
 Users Guide reads as one system.
@@ -741,7 +757,7 @@ delimited by their H3s, so boxing them tips the page into a wall of panels.
 The docs site has a **dark mode** (an `ezd_dark_switch` toggle that puts
 `body_dark` on `<body>`). An inline `style="background:#fff5ef"` cannot say
 "…and something else in dark mode", so a block styled inline becomes a glaring
-light slab on a near-black page — or, worse, keeps the theme's light text and
+light slab on a near-black page - or, worse, keeps the theme's light text and
 turns invisible.
 
 Inline styles also lose outright to the theme's `!important` rules:
@@ -769,9 +785,9 @@ Emit the group with a `className` and **no** `style` attribute:
 Warnings use `bi-warn`, use-case cards use `bi-card`, with the card's linked
 bold title, rationale paragraph and Trigger/Action list inside. Padding and
 margins come from the stylesheet, so drop the old `margin-top:0`/`margin-bottom:0`
-zeroing attributes — they exist only to patch inline padding.
+zeroing attributes - they exist only to patch inline padding.
 
-### The stylesheet — paste verbatim as the first block of every doc
+### The stylesheet - paste verbatim as the first block of every doc
 
 Selectors that must beat a theme `!important` rule carry the
 `body.body_dark.single-docs #post` prefix to clear its specificity. Do not
@@ -816,18 +832,18 @@ dark row; neutralising only the colour leaves a light row on a dark page. Both
 have to go, and the replacement stripe is a translucent grey so it reads
 correctly in either mode.
 
-### The accordion `blockStyle` attribute is decorative — never rely on it
+### The accordion `blockStyle` attribute is decorative - never rely on it
 
 The esab accordion's `blockStyle` attribute is **not applied on the front end**
 of this site. A doc that puts its colours there ships unstyled: the head renders
 the plugin's default purple and the body takes the theme's dark `#494949`. Keep
 whatever `blockStyle` the snippet already carries, but never put a colour you
-depend on in it — those rules belong in the `<style>` block above.
+depend on in it - those rules belong in the `<style>` block above.
 ### The existing note callout
 
 The site's `note_col` block still exists and renders an info icon above the
 literal word **Note**. Use it only for genuine asides. Never use it for the
-TL;DR — it would label the primary path as an aside — and never for a warning,
+TL;DR - it would label the primary path as an aside - and never for a warning,
 which needs its own colour.
 
 After setting content, verify the blocks survived by refetching with
@@ -900,12 +916,12 @@ names.
 
 Every `{{PLACEHOLDER:<slot>}}` resolves from
 `DOC_PLACEHOLDER_ATTACHMENT_POST_ID`; only alt text and caption change. Alt text
-must follow the site's style — a plain sentence describing the shot. The alts
+must follow the site's style - a plain sentence describing the shot. The alts
 below are the ones used in the canonical Bit CRM doc, with the platform
 substituted.
 
-Step 1 has no placeholder slot — it uses the two fixed screenshots from `.env`
-described in the Step 1 section above.
+Step 01 has no placeholder slot - it uses the two fixed screenshots from `.env`
+described in the Step 01 section above.
 
 | Slot | Alt text |
 |---|---|
@@ -973,7 +989,7 @@ curl -s -u "$DOC_SITE_USERNAME:$DOC_SITE_PASSWORD" \
 ```
 
 `ezd_doc_secondary_title` is exposed as a REST **field** on the `docs` post type
-(via `register_rest_field`) by a site-specific code snippet — EazyDocs Pro's own
+(via `register_rest_field`) by a site-specific code snippet - EazyDocs Pro's own
 build does not register it; the `docs` CPT's `supports` array omits
 `custom-fields`, so a plain `register_post_meta()` would silently fail to surface
 at all. Send it as a **top-level** key, not nested under `meta`; a

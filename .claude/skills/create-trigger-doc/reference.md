@@ -5,10 +5,10 @@ Load only after the platform and its trigger `type` are known.
 **Canonical published example:**
 `https://bit-integrations.com/wp-docs/trigger/bit-crm-integration-as-a-trigger/`
 (post ID `124651`). When this reference and that doc disagree, the published doc
-wins — fetch it with
+wins - fetch it with
 `curl -s "$DOC_SITE_URL/wp-json/wp/v2/docs/124651?_fields=content"` and match it.
 
-## Writing standards — SEO and readability
+## Writing standards - SEO and readability
 
 These apply to the **entire document**, not just the title. Check them before
 sending the doc for approval.
@@ -32,7 +32,7 @@ sending the doc for approval.
 **Structure**
 
 - Exactly one H1. Never skip heading levels (H1 → H2 → H3 → H4).
-- Every heading is descriptive and front-loaded with the meaningful word — a
+- Every heading is descriptive and front-loaded with the meaningful word - a
   reader scanning only the headings must be able to follow the whole setup.
 - Answer-first: the first one or two sentences under **every** heading fully
   answer that heading. No warm-up, no "in this section we will look at".
@@ -41,7 +41,7 @@ sending the doc for approval.
 - This page is a **task doc**, not a tutorial or a concept page. It does not
   teach what a webhook or a CRM is. Link out to the doc that does.
 
-**Accuracy — hard rules**
+**Accuracy - hard rules**
 
 Documentation errors cost more than SEO errors.
 
@@ -65,9 +65,9 @@ Documentation errors cost more than SEO errors.
   `[VERIFY: exact wording of the API key screen in <Platform>]` flag in the
   draft **and** a line in the approval preview. Never quietly guess.
   Every `[VERIFY: …]` must be resolved and removed before the draft is
-  published — grep the content for `[VERIFY` as a release gate.
+  published - grep the content for `[VERIFY` as a release gate.
 
-**Extractability — how LLMs and answer engines read the page**
+**Extractability - how LLMs and answer engines read the page**
 
 - Every paragraph must survive being lifted out on its own. No orphan pronouns:
   "This mapping lets you…", not "This lets you…".
@@ -85,7 +85,7 @@ Documentation errors cost more than SEO errors.
 
 **Readability**
 
-- Second person, active voice, present tense. Short sentences — average under
+- Second person, active voice, present tense. Short sentences - average under
   20 words, split anything longer.
 - Paragraphs of three to four sentences at most.
 - Around a grade-8 reading level. Expand an acronym on first use.
@@ -106,12 +106,25 @@ Documentation errors cost more than SEO errors.
 - Never promise a ranking, an AI citation or a rich snippet anywhere in the doc
   or in the report about it.
 
+**Punctuation**
+
+- **Never use an em dash (`-`) anywhere in the doc.** Not in prose, headings,
+  table cells, image alt text, the TL;DR, the meta description or a use-case
+  card. Rewrite instead: split the sentence at a full stop, use a colon before
+  an explanation, use a comma for an aside, or use brackets. Two short sentences
+  almost always beat one dash-joined sentence.
+- The en dash (`-`) is out too. Use a plain hyphen for ranges and compounds
+  (`150-160 characters`, `two-part model`).
+- Grep the finished Gutenberg HTML for the em dash and the en dash before the
+  approval preview; both counts must be `0`, including inside the `<style>`
+  block and any CSS comment that ships with it.
+
 **Links and images**
 
 - Two to four internal links to related docs on `bit-integrations.com`: the
   matching action doc for the same platform when it exists, the conditional
   logic doc, and one or two related trigger docs. Anchor text must be
-  descriptive and carry the destination's own keyword — never `click here`,
+  descriptive and carry the destination's own keyword - never `click here`,
   never a bare URL.
 - Link once per destination per page. A second identical link adds nothing.
 - Link back to prerequisites and concepts, forward to the logical next task.
@@ -126,7 +139,7 @@ Documentation errors cost more than SEO errors.
   when the platform is visible; when the screenshot is a generic Bit Integrations
   screen that does not contain it, describe that screen honestly and add the
   platform only as context ("…, the first step of the `<Platform>` trigger
-  setup"). Never write an alt claiming a screenshot shows something it does not —
+  setup"). Never write an alt claiming a screenshot shows something it does not -
   including a state that is not captured, such as "with a plugin chosen" on a
   shot where nothing is selected.
 - Open every screenshot before writing its alt or placing it. The file name and
@@ -159,7 +172,7 @@ Examples: `Bit CRM Integration`, `NextCRM Integration`. Use the exact `name`
 value from `backend/Core/Util/AllTriggersName.php`. Use singular `Integration`,
 never `Integrations`.
 
-> **Never write the phrase `as a Trigger` anywhere in a trigger doc** — not in
+> **Never write the phrase `as a Trigger` anywhere in a trigger doc**: not in
 > the post title, an H1, an H2/H3 heading, image alt text or body prose. Trigger
 > docs own the plain `<Platform> Integration` title and the plain
 > `<platform-slug>-integration` slug; the doc type is already clear from the
@@ -168,7 +181,7 @@ never `Integrations`.
 > Screen`, because `Please select a Trigger` is what the reader actually sees.
 > Grep the finished Gutenberg HTML for `as (a|the|your) trigger`
 > case-insensitively before the approval preview; the count must be `0`.
-> Action docs are unaffected — they keep `<Platform> Integration as an Action`.
+> Action docs are unaffected - they keep `<Platform> Integration as an Action`.
 
 > **Note:** The post title must be SEO-friendly and user-friendly. Include the
 > exact platform name, use natural language, and avoid keyword stuffing, vague
@@ -192,7 +205,7 @@ to `post_title` only when empty.
 
 Examples: `bit-crm-integration`, `nextcrm-integration`,
 `fluentplayer-integration`. Always singular `-integration`, and **no**
-`-as-a-trigger` suffix — the trigger doc owns the short, canonical slug.
+`-as-a-trigger` suffix - the trigger doc owns the short, canonical slug.
 
 The post title and the slug now agree: `<Platform> Integration` and
 `<platform-slug>-integration`. Action docs keep the full
@@ -213,23 +226,26 @@ new one:
 curl -s "$DOC_SITE_URL/wp-json/wp/v2/docs?parent=$DOC_TRIGGER_PARENT_POST_ID&search=<Platform>&_fields=id,slug,title"
 ```
 
-Also check the exact slug is free (`wp/v2/docs?slug=...`) — WordPress silently
+Also check the exact slug is free (`wp/v2/docs?slug=...`) - WordPress silently
 renames a duplicate to `...-2`. If it is taken, stop and confirm with the user.
 
 When posting the title to the EazyDocs `create-child` endpoint, replace `&` with
 `ezd_ampersand`, `#` with `ezd_hash`, and `+` with `ezd_plus`; that endpoint
 decodes them back via `decode_special_chars`. Send the title/slug **raw**
-(unencoded) to the core `wp/v2/docs/<id>` endpoint — it does not decode these
+(unencoded) to the core `wp/v2/docs/<id>` endpoint - it does not decode these
 tokens, so an encoded title would be stored literally.
 
 ## Document structure
 
-The content opens with an H1 that repeats the post title — published trigger docs
+The content opens with an H1 that repeats the post title - published trigger docs
 on this site keep the H1 inside the content, so match that. H2 for sections, H3
 for steps, H4 for event categories inside the accordion.
 
-Step headings use **Title Case** and no leading zero: `Step 1: Click the Fetch
-Button`, not `Step 01: click the fetch button`.
+Step headings use **Title Case** and a **two-digit number**, zero-padded:
+`Step 01: Click the Fetch Button`, not `Step 01: Click the Fetch Button` and not `Step 01: click the fetch button`.
+Pad every step from `01` to `09`; `10` and beyond are already two digits.
+Numbered sub-steps inside a step follow the same rule (`01.`, `02.`), and
+prose that refers to a range uses the padded form too (`Steps 01-03`).
 
 ```text
 <h1>  <Platform> Integration
@@ -239,19 +255,19 @@ Button`, not `Step 01: click the fetch button`.
 <h2>  Before You Start
 <h2>  How to Set Up the <Platform> Integration in Bit Integrations
       <one paragraph: how many steps and which one needs care>
-<h3>    Step 1: Open Bit Integrations and Click Create Integration
-<h3>    Step 2: Search and Select <Platform> on the Trigger Screen
-<h3>    Step 3: Choose Your Trigger Event
-<h3>    Step 4: Click the Fetch Button
-<h3>    Step 5: Create a Test Record Within the 3 Minute Window
-<h3>    Step 6: Review the Fetched Data and Click Set Action
+<h3>    Step 01: Open Bit Integrations and Click Create Integration
+<h3>    Step 02: Search and Select <Platform> on the Trigger Screen
+<h3>    Step 03: Choose Your Trigger Event
+<h3>    Step 04: Click the Fetch Button
+<h3>    Step 05: Create a Test Record Within the 3 Minute Window
+<h3>    Step 06: Review the Fetched Data and Click Set Action
       <closing paragraph>
 <h2>  Explore <N> Useful <Platform> Integration Use Cases
 ```
 
 Do not add an Action walkthrough, a step summary, or a roadmap list.
 
-### TL;DR — mandatory, always first
+### TL;DR - mandatory, always first
 
 One paragraph, placed immediately after the H1 and before the overview
 paragraphs. It is the block a reader in a hurry acts on, and the block answer
@@ -267,10 +283,10 @@ Rules:
 
 - Two to four sentences. Never more.
 - It must work **alone**. An experienced reader acts on the TL;DR and never
-  scrolls further, so a path that only makes sense after reading Step 3 has
+  scrolls further, so a path that only makes sense after reading Step 03 has
   failed.
 - Name the real UI labels and a real event label, bolded, under the same
-  accuracy rules as the rest of the page — **Create Integration**, **Fetch**,
+  accuracy rules as the rest of the page - **Create Integration**, **Fetch**,
   **Set Action**, and one event copied verbatim from the controller.
 - Contain the primary keyword naturally. This is inside the first 100 words, so
   it satisfies that placement requirement.
@@ -282,19 +298,19 @@ Rules:
 - Adjust the path per branch: a `webhook` trigger's TL;DR names copying the
   webhook URL, not clicking Fetch.
 
-### Overview — 3 paragraphs
+### Overview - 3 paragraphs
 
 ```text
 <Paragraph 1: what the platform stores or does, in plain language, and one line saying Bit Integrations is what makes that data travel.>
 
-<Paragraph 2: once the two are connected, anything that happens in <Platform> can automatically start an action somewhere else — then name 4-5 concrete destinations the platform's own payload can actually feed, e.g. a WhatsApp message, a new row in Google Sheets, a Slack alert, a subscriber added to your email list.>
+<Paragraph 2: once the two are connected, anything that happens in <Platform> can automatically start an action somewhere else - then name 4-5 concrete destinations the platform's own payload can actually feed, e.g. a WhatsApp message, a new row in Google Sheets, a Slack alert, a subscriber added to your email list.>
 
 This guide walks through the full <Platform> trigger setup in Bit Integrations, lists every supported trigger event, and shows <N> practical automations you can build in a few minutes.
 ```
 
 Human-written, simple, customer-friendly. No stiff marketing copy, no developer
 jargon. Every destination named in paragraph 2 must exist in the `integs` array
-in `frontend/src/components/Flow/New/SelectAction.jsx` — never invent an action
+in `frontend/src/components/Flow/New/SelectAction.jsx`: never invent an action
 integration.
 
 Paragraph 2 is subject to **Use-case realism** below. Each destination must be
@@ -339,7 +355,7 @@ platform requires.
 The whole setup takes <N> steps. Follow them in order, because the fetch step in the middle depends on a live test record.
 ```
 
-Adjust for the branch — a `form`-listing trigger has no fetch step, so say what
+Adjust for the branch - a `form`-listing trigger has no fetch step, so say what
 its fiddly step is instead.
 
 ### Branch table
@@ -348,11 +364,11 @@ The step sequence depends on `info()['type']`:
 
 | `type` | UI component | Step sequence |
 |---|---|---|
-| `custom_form_submission` | `CustomFormSubmission.jsx` | The 6-step Fetch flow below — this is the canonical shape |
-| `form` with a fixed event list (controller `getAll()` returns constant-backed titles) | `FormPlugin.jsx` | Steps 1-3 identical; there is no Fetch button, so Steps 4-6 collapse into `Step 4: Select Your Options and Click Next` |
-| `form` listing the site's own forms/posts | `FormPlugin.jsx` | Steps 1-2 identical; `Step 3: Choose Your Form` replaces the event step and there is no accordion; then `Step 4: Click Next` |
-| `webhook` | `Webhook.jsx` | Steps 1-2 identical; `Step 3: Copy the Webhook URL`, `Step 4: Paste the URL into <Platform>`, `Step 5: Send One Test Payload`, `Step 6: Review the Fetched Data and Click Set Action` |
-| `action_hook` / `custom_trigger` | `ActionHook.jsx` / `CustomTrigger.jsx` | Steps 1-2 identical; `Step 3: Register the Hook Name`, `Step 4: Fire the Hook Once`, `Step 5: Review the Fetched Data and Click Set Action` |
+| `custom_form_submission` | `CustomFormSubmission.jsx` | The 6-step Fetch flow below - this is the canonical shape |
+| `form` with a fixed event list (controller `getAll()` returns constant-backed titles) | `FormPlugin.jsx` | Steps 01-03 identical; there is no Fetch button, so Steps 04-06 collapse into `Step 04: Select Your Options and Click Next` |
+| `form` listing the site's own forms/posts | `FormPlugin.jsx` | Steps 01-02 identical; `Step 03: Choose Your Form` replaces the event step and there is no accordion; then `Step 04: Click Next` |
+| `webhook` | `Webhook.jsx` | Steps 01-02 identical; `Step 03: Copy the Webhook URL`, `Step 04: Paste the URL into <Platform>`, `Step 05: Send One Test Payload`, `Step 06: Review the Fetched Data and Click Set Action` |
+| `action_hook` / `custom_trigger` | `ActionHook.jsx` / `CustomTrigger.jsx` | Steps 01-02 identical; `Step 03: Register the Hook Name`, `Step 04: Fire the Hook Once`, `Step 05: Review the Fetched Data and Click Set Action` |
 
 ### Step craft rules
 
@@ -360,7 +376,7 @@ These apply to every `Step N:` heading, in every branch.
 
 - **One action per step.** If the body needs "and then", it is two steps.
 - Open each step with an imperative verb the reader can act on: Click, Open,
-  Select, Enter, Enable, Copy. Never "Configure as needed" — a step you cannot
+  Select, Enter, Enable, Copy. Never "Configure as needed" - a step you cannot
   describe concretely is not a step.
 - Name the exact UI element and its exact label, in the real path form:
   **Bit Integrations → Create Integration**.
@@ -371,11 +387,11 @@ These apply to every `Step N:` heading, in every branch.
 - When a step branches, give each branch its own labelled sentence or bullet
   rather than nested "if … otherwise" prose.
 - The closing paragraph must contain a concrete success check the reader can
-  see — which screen to open and what should appear there — not just "you are
+  see - which screen to open and what should appear there - not just "you are
   done".
 - Keep the count realistic. Past about ten steps, group them into phases.
 
-### Step 1: Open Bit Integrations and Click Create Integration
+### Step 01: Open Bit Integrations and Click Create Integration
 
 ```text
 From your WordPress dashboard, go to Bit Integrations. On the welcome screen or the integrations list, click the Create Integration button. This opens a trigger selection page.
@@ -384,7 +400,7 @@ From your WordPress dashboard, go to Bit Integrations. On the welcome screen or 
 Then the fixed screenshot `{{SHOT:create-integration}}` using
 `DOC_CREATE_INTEGRATION_ATTACHMENT_POST_ID`.
 
-### Step 2: Search and Select `<Platform>` on the Trigger Screen
+### Step 02: Search and Select `<Platform>` on the Trigger Screen
 
 ```text
 You land on the Please select a Trigger screen. Type <Platform> into the Search Trigger... box and click the <Platform> card when it appears.
@@ -395,13 +411,13 @@ The real screen heading is `Please select a Trigger`
 
 Then `{{PLACEHOLDER:select-trigger-app}}`.
 
-### Step 3: Choose Your Trigger Event
+### Step 03: Choose Your Trigger Event
 
 ```text
 Open the Select a Form/Task Name dropdown and pick the trigger event you want to listen for. The dropdown holds every supported <Platform> event, so pick the one that matches the exact moment you want your automation to start.
 ```
 
-`Select a Form/Task Name` is the real dropdown label — do not reword it.
+`Select a Form/Task Name` is the real dropdown label - do not reword it.
 
 Then the **event accordion** (below), then:
 
@@ -417,7 +433,7 @@ Use three to five events, labels copied verbatim from the controller.
 
 Then `{{PLACEHOLDER:select-trigger-event}}`.
 
-### Step 4: Click the Fetch Button
+### Step 04: Click the Fetch Button
 
 ```text
 After you select an event, a Fetch button appears. Click it. Bit Integrations now starts listening for a real record so it can learn the field structure of that event.
@@ -425,21 +441,21 @@ After you select an event, a Fetch button appears. Click it. Bit Integrations no
 
 Then `{{PLACEHOLDER:fetch-button}}`.
 
-### Step 5: Create a Test Record Within the 3 Minute Window
+### Step 05: Create a Test Record Within the 3 Minute Window
 
 ```text
-The Fetch button changes to a spinning "Waiting for form submission" state with a three-minute countdown. During that window, go and perform the exact action you selected in Step 3.
+The Fetch button changes to a spinning "Waiting for form submission" state with a three-minute countdown. During that window, go and perform the exact action you selected in Step 03.
 
 The test record must match the trigger event you chose. If you selected <Event A>, <do X in the platform>. If you selected <Event B>, <do Y>. If you selected <Event C>, <do Z>.
 ```
 
 `Waiting for form submission...` is the real button state
 (`CustomFormSubmission.jsx`). If the countdown ends before the test lands,
-nothing is broken — say so, and say to click Fetch again.
+nothing is broken - say so, and say to click Fetch again.
 
 Then `{{PLACEHOLDER:waiting-for-submission}}`.
 
-### Step 6: Review the Fetched Data and Click Set Action
+### Step 06: Review the Fetched Data and Click Set Action
 
 ```text
 As soon as the test record is captured, the button turns into "Fetched" and a field table appears. Every field from that record is listed with its detected data type, and the sample values from your test record are shown alongside. Check that the fields you care about are there, for example <3-4 real field labels>, and adjust any data type from its dropdown if the detected type is not what you want.
@@ -474,7 +490,7 @@ Example row from the canonical doc:
 > was typed in manually, imported, or captured by a connected form.
 
 Never reword an event label. If a controller constant has no matching entry in
-the list endpoint, it is dead or deprecated — leave it out and mention it in the
+the list endpoint, it is dead or deprecated - leave it out and mention it in the
 approval preview. When the trigger has fewer than about eight events, one
 ungrouped table without H4s is fine.
 
@@ -488,7 +504,7 @@ Skip the accordion entirely when the trigger has no fixed event set.
 Here are <N> automations that solve real problems for small teams. Each one uses the same <N>-step setup described above, with a different action app at the end.
 ```
 
-Then one block per use case — the title is a **bold linked paragraph**, not a
+Then one block per use case - the title is a **bold linked paragraph**, not a
 heading:
 
 ```text
@@ -513,7 +529,7 @@ Use four or five use cases. Every destination app must exist in the `integs`
 array in `SelectAction.jsx`; every trigger event must exist in the controller's
 list endpoint.
 
-### Use-case realism — hard rules
+### Use-case realism - hard rules
 
 Every use case must be an automation a real site owner would actually build.
 This is the section most likely to go wrong, because a generic pairing reads
@@ -528,7 +544,7 @@ choosing a destination app. The payload decides what is possible:
 | an email address and a name | an email marketing or CRM app |
 | an order or payment record | a spreadsheet, accounting or CRM app |
 | a support or form message | a chat app, helpdesk or notification channel |
-| only an internal record ID | another app on the same site, or nothing — pick a different event |
+| only an internal record ID | another app on the same site, or nothing - pick a different event |
 
 If the destination needs a field the trigger never sends, the use case is
 invalid. Never assume a payload contains an email, a phone number or a total.
@@ -542,14 +558,14 @@ action app does with the data and nothing more. Recurring traps:
   notification.
 
 **Banned opener.** Do not write "when someone submits a form, places an order, or
-registers as a user" — or any variant that lists generic events and staples them
+registers as a user" - or any variant that lists generic events and staples them
 to whatever destinations exist. Name one concrete actor doing one concrete
 thing: a customer, a student, a subscriber, a team member.
 
 **State the manual work removed.** One clause naming what the reader stops doing
 by hand is what makes a use case useful rather than decorative.
 
-**Name the real gotcha** when the pairing has one — a Pro requirement, a field
+**Name the real gotcha** when the pairing has one - a Pro requirement, a field
 the reader must map manually, a plan tier on the destination app's side.
 
 Worked example of the failure this rule exists to prevent:
@@ -571,7 +587,7 @@ https://bit-integrations.com/triggers/<platform-connect-slug>/connect/<destinati
 Example: `https://bit-integrations.com/triggers/fluent-player/connect/google-sheets/`
 
 Both slugs belong to the marketing site and are **not derived** from anything in
-this repo — not the doc slug, not the `AllTriggersName.php` key, not the
+this repo - not the doc slug, not the `AllTriggersName.php` key, not the
 `integs` `type` value. Observed mismatches:
 
 | Source value | Connect slug |
@@ -588,7 +604,7 @@ this repo — not the doc slug, not the `AllTriggersName.php` key, not the
 
 Verify **positively**. A live connect page's title matches
 `<Destination> Integration with <Platform> - Automate Your Tasks`. Do not test
-for a specific 404 string — the site serves at least two of them
+for a specific 404 string - the site serves at least two of them
 (`Page not found` and `Page Not Found - Bit Integrations`), so a match against
 one of those will pass a dead URL through.
 
@@ -599,7 +615,7 @@ curl -sL "https://bit-integrations.com/triggers/<platform>/connect/<app>/" \
 ```
 
 The pairing always lives under `/triggers/…/connect/…`, whichever side the doc
-is about. There is no `/actions/<app>/connect/<x>/` route — that path soft-404s.
+is about. There is no `/actions/<app>/connect/<x>/` route - that path soft-404s.
 `/actions/<app>/` and `/integrations/<app>/` also resolve but serve an unrelated
 page, so never link to either.
 
@@ -614,7 +630,7 @@ Close with one wrap-up paragraph:
 These <N> are only the starting point. Bit Integrations connects <Platform> to 378+ apps, including <6-8 real platform names>. The setup process is the same every time.
 ```
 
-## Block vocabulary — visual hierarchy
+## Block vocabulary - visual hierarchy
 
 Three styled block types, and no others. Every doc uses the same three so the
 Users Guide reads as one system.
@@ -641,7 +657,7 @@ delimited by their H3s, so boxing them tips the page into a wall of panels.
 The docs site has a **dark mode** (an `ezd_dark_switch` toggle that puts
 `body_dark` on `<body>`). An inline `style="background:#fff5ef"` cannot say
 "…and something else in dark mode", so a block styled inline becomes a glaring
-light slab on a near-black page — or, worse, keeps the theme's light text and
+light slab on a near-black page - or, worse, keeps the theme's light text and
 turns invisible.
 
 Inline styles also lose outright to the theme's `!important` rules:
@@ -669,9 +685,9 @@ Emit the group with a `className` and **no** `style` attribute:
 Warnings use `bi-warn`, use-case cards use `bi-card`, with the card's linked
 bold title, rationale paragraph and Trigger/Action list inside. Padding and
 margins come from the stylesheet, so drop the old `margin-top:0`/`margin-bottom:0`
-zeroing attributes — they exist only to patch inline padding.
+zeroing attributes - they exist only to patch inline padding.
 
-### The stylesheet — paste verbatim as the first block of every doc
+### The stylesheet - paste verbatim as the first block of every doc
 
 Selectors that must beat a theme `!important` rule carry the
 `body.body_dark.single-docs #post` prefix to clear its specificity. Do not
@@ -716,18 +732,18 @@ dark row; neutralising only the colour leaves a light row on a dark page. Both
 have to go, and the replacement stripe is a translucent grey so it reads
 correctly in either mode.
 
-### The accordion `blockStyle` attribute is decorative — never rely on it
+### The accordion `blockStyle` attribute is decorative - never rely on it
 
 The esab accordion's `blockStyle` attribute is **not applied on the front end**
 of this site. A doc that puts its colours there ships unstyled: the head renders
 the plugin's default purple and the body takes the theme's dark `#494949`. Keep
 whatever `blockStyle` the snippet already carries, but never put a colour you
-depend on in it — those rules belong in the `<style>` block above.
+depend on in it - those rules belong in the `<style>` block above.
 ### The existing note callout
 
 The site's `note_col` block still exists and renders an info icon above the
 literal word **Note**. Use it only for genuine asides. Never use it for the
-TL;DR — it would label the primary path as an aside — and never for a warning,
+TL;DR - it would label the primary path as an aside - and never for a warning,
 which needs its own colour.
 
 After setting content, verify the blocks survived by refetching with
@@ -795,7 +811,7 @@ names.
 
 Every `{{PLACEHOLDER:<slot>}}` resolves from
 `DOC_PLACEHOLDER_ATTACHMENT_POST_ID`; only alt text and caption change. Alt text
-must follow the site's style — a plain sentence describing the shot. The alts
+must follow the site's style - a plain sentence describing the shot. The alts
 below are the ones used in the canonical Bit CRM doc, with the platform
 substituted.
 
@@ -867,7 +883,7 @@ curl -s -u "$DOC_SITE_USERNAME:$DOC_SITE_PASSWORD" \
 ```
 
 `ezd_doc_secondary_title` is exposed as a REST **field** on the `docs` post type
-(via `register_rest_field`) by a site-specific code snippet — EazyDocs Pro's own
+(via `register_rest_field`) by a site-specific code snippet - EazyDocs Pro's own
 build does not register it; the `docs` CPT's `supports` array omits
 `custom-fields`, so a plain `register_post_meta()` would silently fail to surface
 at all. Send it as a **top-level** key, not nested under `meta`; a
