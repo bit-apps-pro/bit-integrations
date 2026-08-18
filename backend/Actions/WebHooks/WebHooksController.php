@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WebHooks;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
@@ -30,8 +31,8 @@ class WebHooksController
 
         if (self::hasFailed($response, $responseCode)) {
             wp_send_json_error(
-                sprintf(
-                    /* translators: %s: http status code returned by the webhook url */
+                \sprintf(
+                    // translators: %s: http status code returned by the webhook url
                     __('Webhook responded with status %s', 'bit-integrations'),
                     $responseCode
                 ),
@@ -42,8 +43,8 @@ class WebHooksController
         wp_send_json_success(
             empty($responseCode)
                 ? __('Test webhook executed successfully', 'bit-integrations')
-                : sprintf(
-                    /* translators: %s: http status code returned by the webhook url */
+                : \sprintf(
+                    // translators: %s: http status code returned by the webhook url
                     __('Test webhook executed successfully (status %s)', 'bit-integrations'),
                     $responseCode
                 ),
@@ -261,9 +262,9 @@ class WebHooksController
 
         if (!empty($emptyTokens)) {
             return new \WP_Error(
-                'bit-integrations-webhook-path-param',
-                sprintf(
-                    /* translators: %s: comma separated url path variables, e.g. {id}, {slug} */
+                Config::withPrefix('webhook-path-param'),
+                \sprintf(
+                    // translators: %s: comma separated url path variables, e.g. {id}, {slug}
                     __('Url path variable %s has no value, webhook request skipped', 'bit-integrations'),
                     implode(', ', array_keys($emptyTokens))
                 )
