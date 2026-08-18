@@ -74,11 +74,6 @@ export const modules = [
     label: __('Remove Contacts From Tag', 'bit-integrations'),
     is_pro: true
   },
-  {
-    name: 'unenroll_contact_from_sequence',
-    label: __('Unenroll Contact From Sequence', 'bit-integrations'),
-    is_pro: true
-  },
   { name: 'update_campaign', label: __('Update Campaign', 'bit-integrations'), is_pro: true },
   { name: 'update_contact', label: __('Update Contact', 'bit-integrations'), is_pro: true },
   {
@@ -91,7 +86,7 @@ export const modules = [
   { name: 'update_page', label: __('Update Landing Page', 'bit-integrations'), is_pro: true },
   { name: 'update_tag', label: __('Update Tag', 'bit-integrations'), is_pro: true },
   { name: 'update_task', label: __('Update Task', 'bit-integrations'), is_pro: true },
-  { name: 'upsert_contact', label: __('Create Or Update Contact', 'bit-integrations'), is_pro: true }
+  { name: 'upsert_contact', label: __('Upsert Contact', 'bit-integrations'), is_pro: true }
 ]
 
 /**
@@ -385,19 +380,6 @@ export const fieldsByAction = {
   ],
   // The endpoint addresses a SureContact contact, not a raw address, and keys the html
   // as `body` — a `to`/`html` payload is rejected outright.
-  unenroll_contact_from_sequence: [
-    { key: 'automation_uuid', label: __('Sequence UUID', 'bit-integrations'), required: true },
-    {
-      key: 'contact_email',
-      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
-      required: true
-    },
-    {
-      key: 'contact_uuid',
-      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
-      required: false
-    }
-  ],
   update_campaign: [
     { key: 'campaign_uuid', label: __('Campaign UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('Campaign Name', 'bit-integrations'), required: false },

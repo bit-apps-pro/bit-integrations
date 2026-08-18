@@ -208,11 +208,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'unenroll_contact_from_sequence':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_unenroll_contact_from_sequence'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'update_campaign':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_update_campaign'), $default, $fieldData, $this->apiClient, $settings);
 
