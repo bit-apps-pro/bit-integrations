@@ -25,6 +25,10 @@ class CustomApiController
         $method = isset($details->actionMethod) ? $details->actionMethod : 'get';
         $pathParams = isset($details->pathParams) ? $details->pathParams : [];
         $url = isset($details->url) ? self::urlParserWrapper($details->url, $fieldValues, $pathParams) : false;
+        if (empty($url)) {
+            $url = new \WP_Error(Config::withPrefix('custom-api-url'), __('Api endpoint is empty', 'bit-integrations'));
+        }
+
         if (is_wp_error($url)) {
             LogHandler::save($integId, wp_json_encode(['type' => $type, 'type_name' => $type]), 'error', $url);
 
