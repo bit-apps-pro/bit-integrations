@@ -131,7 +131,6 @@ export const fieldsByAction = {
   ],
   attach_contacts_to_task: [
     { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
-    { key: 'contacts', label: __('Contacts', 'bit-integrations'), required: true },
     {
       key: 'contact_uuids',
       label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
@@ -164,9 +163,10 @@ export const fieldsByAction = {
     },
     { key: 'tag_uuids', label: __('Tag UUIDs (comma separated)', 'bit-integrations'), required: true }
   ],
+  // The bulk endpoint keys the list as `uuids`, not `campaign_uuids` like the rest.
   bulk_delete_campaigns: [
     {
-      key: 'campaign_uuids',
+      key: 'uuids',
       label: __('Campaign UUIDs (comma separated)', 'bit-integrations'),
       required: true
     }
@@ -212,7 +212,7 @@ export const fieldsByAction = {
       label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
       required: false
     },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
+    { key: 'description', label: __('Description', 'bit-integrations'), required: true }
   ],
   create_contact_note: [
     {
@@ -237,13 +237,23 @@ export const fieldsByAction = {
     { key: 'status', label: __('Status', 'bit-integrations'), required: false },
     { key: 'design_json', label: __('Design JSON', 'bit-integrations'), required: false }
   ],
+  // A purchase has to name a contact — the API rejects it with "Either contact_email or
+  // contact_uuid is required."
   create_purchase: [
+    {
+      key: 'contact_email',
+      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
+      required: true
+    },
+    {
+      key: 'contact_uuid',
+      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
+      required: false
+    },
     { key: 'order_id', label: __('Order ID', 'bit-integrations'), required: true },
     { key: 'total_amount', label: __('Total Amount', 'bit-integrations'), required: true },
     { key: 'currency', label: __('Currency', 'bit-integrations'), required: false },
     { key: 'products', label: __('Products (JSON array)', 'bit-integrations'), required: false },
-    { key: 'contact_uuid', label: __('Contact', 'bit-integrations'), required: false },
-    { key: 'contact_email', label: __('Contact Email', 'bit-integrations'), required: false },
     { key: 'purchased_at', label: __('Purchased At', 'bit-integrations'), required: false },
     { key: 'coupon_code', label: __('Coupon Code', 'bit-integrations'), required: false },
     { key: 'shipping_amount', label: __('Shipping Amount', 'bit-integrations'), required: false }
@@ -281,7 +291,6 @@ export const fieldsByAction = {
   delete_task: [{ key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true }],
   detach_contacts_from_task: [
     { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
-    { key: 'contacts', label: __('Contacts', 'bit-integrations'), required: true },
     {
       key: 'contact_uuids',
       label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
@@ -362,10 +371,21 @@ export const fieldsByAction = {
       required: false
     }
   ],
+  // The endpoint addresses a SureContact contact, not a raw address, and keys the html
+  // as `body` — a `to`/`html` payload is rejected outright.
   send_email: [
-    { key: 'to', label: __('To', 'bit-integrations'), required: true },
+    {
+      key: 'contact_email',
+      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
+      required: true
+    },
+    {
+      key: 'contact_uuid',
+      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
+      required: false
+    },
     { key: 'subject', label: __('Subject', 'bit-integrations'), required: true },
-    { key: 'html', label: __('HTML Body', 'bit-integrations'), required: true },
+    { key: 'body', label: __('HTML Body', 'bit-integrations'), required: true },
     { key: 'text', label: __('Text Body', 'bit-integrations'), required: false },
     { key: 'from_name', label: __('From Name', 'bit-integrations'), required: false },
     { key: 'from_email', label: __('From Email', 'bit-integrations'), required: false },
