@@ -163,7 +163,7 @@ class BrilliantDirectoriesController
         if ($failure !== null) {
             wp_send_json_error($failure, 400);
         }
-        error_log('BrilliantDirectoriesController::fetchList response: ' . print_r($response->getBody(), true));
+
         $rows = $response->getBodyValue('message');
 
         return \is_array($rows) ? $rows : [];
