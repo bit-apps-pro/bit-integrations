@@ -116,25 +116,40 @@ export const fieldsByAction = {
   add_contacts_to_list: [
     { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     }
   ],
   add_contacts_to_tag: [
     { key: 'tag_uuid', label: __('Tag', 'bit-integrations'), required: true },
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     }
   ],
   attach_contacts_to_task: [
     { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     }
   ],
   attach_lists_to_contact: [
@@ -261,9 +276,14 @@ export const fieldsByAction = {
   create_tag: [{ key: 'name', label: __('Tag Name', 'bit-integrations'), required: true }],
   create_task: [
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated, links the task)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated, links the task)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     },
     { key: 'title', label: __('Title', 'bit-integrations'), required: true },
     { key: 'description', label: __('Description', 'bit-integrations'), required: false },
@@ -292,9 +312,14 @@ export const fieldsByAction = {
   detach_contacts_from_task: [
     { key: 'task_uuid', label: __('Task', 'bit-integrations'), required: true },
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     }
   ],
   detach_lists_from_contact: [
@@ -346,17 +371,27 @@ export const fieldsByAction = {
   remove_contacts_from_list: [
     { key: 'list_uuid', label: __('List', 'bit-integrations'), required: true },
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     }
   ],
   remove_contacts_from_tag: [
     { key: 'tag_uuid', label: __('Tag', 'bit-integrations'), required: true },
     {
-      key: 'contact_uuids',
-      label: __('Contact UUIDs (comma separated)', 'bit-integrations'),
+      key: 'contact_emails',
+      label: __('Contact Emails (comma separated)', 'bit-integrations'),
       required: true
+    },
+    {
+      key: 'contact_uuids',
+      label: __('Contact UUIDs (optional, overrides emails)', 'bit-integrations'),
+      required: false
     }
   ],
   resend_double_opt_in: [
