@@ -68,7 +68,6 @@ export const modules = [
   },
   { name: 'mark_task_done', label: __('Mark Task Done', 'bit-integrations'), is_pro: true },
   { name: 'mark_task_undone', label: __('Mark Task Undone', 'bit-integrations'), is_pro: true },
-  { name: 'refresh_list', label: __('Refresh Dynamic List', 'bit-integrations'), is_pro: true },
   { name: 'refund_purchase', label: __('Refund Purchase', 'bit-integrations'), is_pro: true },
   {
     name: 'remove_contacts_from_list',
@@ -78,12 +77,6 @@ export const modules = [
   {
     name: 'remove_contacts_from_tag',
     label: __('Remove Contacts From Tag', 'bit-integrations'),
-    is_pro: true
-  },
-  { name: 'resend_double_opt_in', label: __('Resend Double Opt-In', 'bit-integrations'), is_pro: true },
-  {
-    name: 'start_automation_for_contact',
-    label: __('Start Automation For Contact', 'bit-integrations'),
     is_pro: true
   },
   {
@@ -379,7 +372,6 @@ export const fieldsByAction = {
   ],
   mark_task_done: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
   mark_task_undone: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
-  refresh_list: [{ key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true }],
   refund_purchase: [
     { key: 'purchase_uuid', label: __('Purchase UUID', 'bit-integrations'), required: true }
   ],
@@ -409,33 +401,8 @@ export const fieldsByAction = {
       required: false
     }
   ],
-  resend_double_opt_in: [
-    {
-      key: 'contact_email',
-      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
-      required: true
-    },
-    {
-      key: 'contact_uuid',
-      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
-      required: false
-    }
-  ],
   // The endpoint addresses a SureContact contact, not a raw address, and keys the html
   // as `body` — a `to`/`html` payload is rejected outright.
-  start_automation_for_contact: [
-    {
-      key: 'contact_email',
-      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
-      required: true
-    },
-    {
-      key: 'contact_uuid',
-      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
-      required: false
-    },
-    { key: 'automation_uuid', label: __('Automation UUID', 'bit-integrations'), required: true }
-  ],
   unenroll_contact_from_sequence: [
     { key: 'automation_uuid', label: __('Sequence UUID', 'bit-integrations'), required: true },
     {

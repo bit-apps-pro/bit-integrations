@@ -198,11 +198,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'refresh_list':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_refresh_list'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'refund_purchase':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_refund_purchase'), $default, $fieldData, $this->apiClient, $settings);
 
@@ -215,16 +210,6 @@ class RecordApiHelper
 
             case 'remove_contacts_from_tag':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_remove_contacts_from_tag'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'resend_double_opt_in':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_resend_double_opt_in'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
-            case 'start_automation_for_contact':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_start_automation_for_contact'), $default, $fieldData, $this->apiClient, $settings);
 
                 break;
 
