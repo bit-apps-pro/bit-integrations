@@ -183,11 +183,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'enroll_contact_in_sequence':
-                $response = Hooks::apply(Config::withPrefix('sure_contact_enroll_contact_in_sequence'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'mark_task_done':
                 $response = Hooks::apply(Config::withPrefix('sure_contact_mark_task_done'), $default, $fieldData, $this->apiClient, $settings);
 

@@ -61,11 +61,6 @@ export const modules = [
     is_pro: true
   },
   { name: 'duplicate_campaign', label: __('Duplicate Campaign', 'bit-integrations'), is_pro: true },
-  {
-    name: 'enroll_contact_in_sequence',
-    label: __('Enroll Contact In Sequence', 'bit-integrations'),
-    is_pro: true
-  },
   { name: 'mark_task_done', label: __('Mark Task Done', 'bit-integrations'), is_pro: true },
   { name: 'mark_task_undone', label: __('Mark Task Undone', 'bit-integrations'), is_pro: true },
   { name: 'refund_purchase', label: __('Refund Purchase', 'bit-integrations'), is_pro: true },
@@ -356,19 +351,6 @@ export const fieldsByAction = {
   ],
   duplicate_campaign: [
     { key: 'campaign_uuid', label: __('Campaign UUID', 'bit-integrations'), required: true }
-  ],
-  enroll_contact_in_sequence: [
-    { key: 'automation_uuid', label: __('Sequence UUID', 'bit-integrations'), required: true },
-    {
-      key: 'contact_email',
-      label: __('Contact Email (identifies the contact)', 'bit-integrations'),
-      required: true
-    },
-    {
-      key: 'contact_uuid',
-      label: __('Contact UUID (optional, overrides email)', 'bit-integrations'),
-      required: false
-    }
   ],
   mark_task_done: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
   mark_task_undone: [{ key: 'task_uuid', label: __('Task UUID', 'bit-integrations'), required: true }],
