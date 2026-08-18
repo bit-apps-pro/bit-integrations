@@ -400,6 +400,7 @@ final class Flow
             $conditions,
             [
                 'id',
+                'name',
                 'triggered_entity_id',
                 'flow_details',
             ]
@@ -451,6 +452,17 @@ final class Flow
                 if (\is_string($flowData->flow_details)) {
                     $flowData->flow_details = json_decode($flowData->flow_details);
                 }
+
+                // Lets the _bi_flow_* / _bi_trigger_* smart tags identify the running flow
+                // in the outgoing payload (webhook dedup, CRM source columns, log joins).
+                SmartTags::setFlowMeta(
+                    [
+                        'flow_id'           => isset($flowData->id) ? $flowData->id : '',
+                        'flow_name'         => isset($flowData->name) ? $flowData->name : '',
+                        'trigger_name'      => $triggered_entity,
+                        'trigger_entity_id' => $triggered_entity_id,
+                    ]
+                );
 
                 if (
                     property_exists($flowData->flow_details, 'condition')
