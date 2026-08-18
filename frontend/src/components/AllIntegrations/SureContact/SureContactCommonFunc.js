@@ -56,20 +56,6 @@ export const getTags = (conf, setConf, setIsLoading) =>
     success: __('Tags refreshed successfully', 'bit-integrations')
   })
 
-export const getPipelines = (conf, setConf, setIsLoading) =>
-  fetchList(conf, setConf, setIsLoading, 'sure_contact_get_pipelines', 'pipelines', {
-    failed: __('Pipeline refresh failed. please try again', 'bit-integrations'),
-    loading: __('Loading pipelines...', 'bit-integrations'),
-    success: __('Pipelines refreshed successfully', 'bit-integrations')
-  })
-
-export const getPipelineStages = (conf, setConf, setIsLoading) =>
-  fetchList(conf, setConf, setIsLoading, 'sure_contact_get_pipeline_stages', 'stages', {
-    failed: __('Stage refresh failed. please try again', 'bit-integrations'),
-    loading: __('Loading stages...', 'bit-integrations'),
-    success: __('Stages refreshed successfully', 'bit-integrations')
-  })
-
 export const generateMappedField = sureContactConf => {
   const fields = sureContactConf?.sureContactFields || []
   const requiredFlds = fields.filter(fld => fld.required === true)

@@ -4,13 +4,7 @@ import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import ConfirmModal from '../../Utilities/ConfirmModal'
 import TableCheckBox from '../../Utilities/TableCheckBox'
-import {
-  companyTypeOptions,
-  employeeRangeOptions,
-  genderOptions,
-  needsCompanyType,
-  needsGender
-} from './staticData'
+import { genderOptions, needsGender } from './staticData'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 
 export default function SureContactActions({ sureContactConf, setSureContactConf }) {
@@ -92,42 +86,6 @@ export default function SureContactActions({ sureContactConf, setSureContactConf
             __('Select Gender', 'bit-integrations'),
             genderOptions,
             'selected_gender'
-          )}
-        </>
-      )}
-
-      {needsCompanyType.includes(action) && (
-        <>
-          <TableCheckBox
-            checked={sureContactConf?.utilities?.selected_company_type || false}
-            onChange={e => actionHandler(e, 'company_type', 'selected_company_type')}
-            className="wdt-200 mt-4 mr-2"
-            value="company_type"
-            title={__('Company Type', 'bit-integrations')}
-            subTitle={__('Set the relationship with this company', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'company_type',
-            __('Company Type', 'bit-integrations'),
-            __('Select Company Type', 'bit-integrations'),
-            companyTypeOptions,
-            'selected_company_type'
-          )}
-
-          <TableCheckBox
-            checked={sureContactConf?.utilities?.selected_employee_range || false}
-            onChange={e => actionHandler(e, 'employee_range', 'selected_employee_range')}
-            className="wdt-200 mt-4 mr-2"
-            value="employee_range"
-            title={__('Employee Range', 'bit-integrations')}
-            subTitle={__('Set the company size bracket', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'employee_range',
-            __('Employee Range', 'bit-integrations'),
-            __('Select Employee Range', 'bit-integrations'),
-            employeeRangeOptions,
-            'selected_employee_range'
           )}
         </>
       )}

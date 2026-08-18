@@ -7,13 +7,7 @@ import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../GlobalIntegrationHelper'
 import SureContactActions from './SureContactActions'
-import {
-  generateMappedField,
-  getLists,
-  getPipelines,
-  getPipelineStages,
-  getTags
-} from './SureContactCommonFunc'
+import { generateMappedField, getLists, getTags } from './SureContactCommonFunc'
 import SureContactFieldMap from './SureContactFieldMap'
 import {
   activityTypeOptions,
@@ -24,8 +18,6 @@ import {
   needsActivityType,
   needsContactStatus,
   needsList,
-  needsPipeline,
-  needsStage,
   needsTag
 } from './staticData'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
@@ -54,8 +46,6 @@ export default function SureContactIntegLayout({
 
     if (needsList.includes(value)) getLists(nextConf, setSureContactConf, setIsLoading)
     if (needsTag.includes(value)) getTags(nextConf, setSureContactConf, setIsLoading)
-    if (needsPipeline.includes(value)) getPipelines(nextConf, setSureContactConf, setIsLoading)
-    if (needsStage.includes(value)) getPipelineStages(nextConf, setSureContactConf, setIsLoading)
   }
 
   const setField = (name, value) =>
@@ -159,26 +149,6 @@ export default function SureContactIntegLayout({
           __('Refresh Tags', 'bit-integrations'),
           ({ tagId, tagName }) => ({ label: tagName, value: String(tagId) }),
           true
-        )}
-
-      {needsPipeline.includes(action) &&
-        renderFetchedSelect(
-          __('Pipeline:', 'bit-integrations'),
-          'pipeline_uuid',
-          'pipelines',
-          getPipelines,
-          __('Refresh Pipelines', 'bit-integrations'),
-          ({ pipelineId, pipelineName }) => ({ label: pipelineName, value: String(pipelineId) })
-        )}
-
-      {needsStage.includes(action) &&
-        renderFetchedSelect(
-          __('Stage:', 'bit-integrations'),
-          'stage_uuid',
-          'stages',
-          getPipelineStages,
-          __('Refresh Stages', 'bit-integrations'),
-          ({ stageId, stageName }) => ({ label: stageName, value: String(stageId) })
         )}
 
       {isLoading && (
