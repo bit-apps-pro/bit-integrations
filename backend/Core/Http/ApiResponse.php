@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Core\Util\HttpHelper;
+
 /**
  * Normalized outcome of one request. Captures the HTTP status per call so consumers
  * never read the process-global HttpHelper::$responseCode, which is clobbered by any
@@ -46,6 +48,36 @@ final class ApiResponse
     public static function fail(int $status, ?string $error, $body = null): self
     {
         return new self(false, $status, $body, $error);
+    }
+
+    /**
+     * Build the outcome of the request that just completed.
+     *
+     * MUST be called immediately after the request returns. The status is read from
+     * HttpHelper::$responseCode, a process-global that the next request anywhere in
+     * the process overwrites — a nested call, a related action — so anything sending
+     * a request between the two loses this one's status.
+     *
+     * A WP_Error means no HTTP exchange completed, so it carries status 0 and the
+     * transport's own message; otherwise the status alone decides success. The raw
+     * value is kept as the body either way — providers report failures inside a 2xx
+     * body, and callers need to read it on both outcomes.
+     *
+     * @param mixed $raw decoded JSON (object/array/scalar), raw body string, or WP_Error
+     */
+    public static function from($raw): self
+    {
+        if (is_wp_error($raw)) {
+            return self::fail(0, $raw->get_error_message(), $raw);
+        }
+
+        $status = isset(HttpHelper::$responseCode) ? (int) HttpHelper::$responseCode : 0;
+
+        if ($status >= 200 && $status < 300) {
+            return self::ok($status, $raw);
+        }
+
+        return self::fail($status, null, $raw);
     }
 
     /**

@@ -60,7 +60,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
             // Carry the handler's array through untouched: the credential-test path
             // returns it verbatim, and handlers disagree on its exact keys.
             //
-            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: ApiClient::send() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: ApiClient::request() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
             throw AuthorizationException::fromErrorArray($authConfig, (string) ($authConfig['message'] ?? __('Authorization failed', 'bit-integrations')));
         }
 
