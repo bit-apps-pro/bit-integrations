@@ -10,6 +10,7 @@ use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\Exception\AuthorizationException;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Core\Database\ConnectionModel;
+use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use Throwable;
@@ -40,7 +41,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      * into an AuthorizationException.
      *
      * Adapting rather than reimplementing keeps one copy of each auth type's
-     * logic, so every handler works with BaseApi without being rewritten and
+     * logic, so every handler works with ApiClient without being rewritten and
      * the two paths cannot drift.
      *
      * Called once per request and never memoized — handlers may compute
@@ -48,9 +49,9 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      *
      * @throws AuthorizationException
      */
-    public function credential(?RequestContext $context = null): AuthCredential
+    public function credential(): AuthCredential
     {
-        $authConfig = $this->authConfigFor($context);
+        $authConfig = $this->getAuthHeadersOrParams();
 
         if (!\is_array($authConfig)) {
             throw new AuthorizationException(esc_html__('Invalid authorization config', 'bit-integrations'));
@@ -60,7 +61,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
             // Carry the handler's array through untouched: the credential-test path
             // returns it verbatim, and handlers disagree on its exact keys.
             //
-            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: BaseApi::request() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Never reaches output: ApiClient::request() catches AuthorizationException and CredentialInjector::inject() catches Throwable. $authConfig is a structured payload, not a string, and the message is the handler's own text which ConnectionTestApi returns verbatim for byte-compatibility — escaping it here would corrupt that response.
             throw AuthorizationException::fromErrorArray($authConfig, (string) ($authConfig['message'] ?? __('Authorization failed', 'bit-integrations')));
         }
 
@@ -72,11 +73,52 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
     }
 
     /**
-     * Extra WP HTTP API options applied to every BaseApi request.
+     * Extra WP HTTP API options applied to every ApiClient request.
      */
     public function requestOptions(): array
     {
         return $this->buildRequestOptionsFromAuthDetails();
+    }
+
+    /**
+     * Authenticate one request: build its credential and write it onto $client.
+     *
+     * The credential is built from the method and URL the request will actually use: an
+     * OAuth1 signature is computed over them, so one produced for anything else signs a
+     * request that is not the one being sent. Only array payloads are passed — those are
+     * the ones sent form-encoded, and an OAuth1 signature covers form body params but
+     * never a JSON or multipart body.
+     *
+     * Where it lands depends on the transport as much as the credential: HttpHelper::get()
+     * emits the payload as the query string, so a query credential on GET merges into the
+     * payload to keep one deduplicated query, and on any other method is appended to the
+     * URL.
+     *
+     * @throws AuthorizationException when no credential can be produced
+     */
+    public function applyCredential(ApiClient $client): void
+    {
+        $method = $client->getRequestMethod();
+        $url = $client->getRequestUrl();
+        $payload = $client->getRequestPayload();
+
+        $credential = $this->credential();
+
+        if (!$credential->isQuery()) {
+            $client->setRequestHeaders(array_merge($client->getRequestHeaders(), $credential->data()));
+
+            return;
+        }
+
+        if ($method === 'GET') {
+            // Caller keys win on collision (matches the legacy authorize() behavior).
+            $client->setRequestPayload(array_merge($credential->data(), \is_array($payload) ? $payload : []));
+
+            return;
+        }
+
+        $separator = strpos($url, '?') !== false ? '&' : '?';
+        $client->setRequestUrl($url . $separator . http_build_query($credential->data()));
     }
 
     /**
@@ -184,11 +226,11 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      * Salesforce instance_url, ActiveCampaign per-account api_url), read from
      * auth_details so region logic is not scattered across the codebase.
      *
-     * Consumed by BaseApi when a client is constructed without an explicit base
+     * Consumed by ApiClient when a client is constructed without an explicit base
      * URL. Handlers whose base is not a stored field override this — see
      * ZendeskSupportAuthorization, which composes one from the subdomain.
      * Returns null when the integration derives its base elsewhere; callers must
-     * handle that (BaseApi then only accepts absolute URLs).
+     * handle that (ApiClient then only accepts absolute URLs).
      */
     public function getEndpointBase(): ?string
     {
@@ -313,7 +355,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      * secrets alone; OAuth1 overrides this to sign over the method, URL and params.
      *
      * Both credential() and authorize() route through here so a signing strategy is
-     * driven identically whether it is called from BaseApi or the credential test.
+     * driven identically whether it is called from ApiClient or the credential test.
      *
      * @return array the handler's ['authLocation' => ..., 'data' => [...]] config, or
      *               its ['error' => true, 'message' => ...] failure array
