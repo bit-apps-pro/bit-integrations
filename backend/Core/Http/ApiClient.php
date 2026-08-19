@@ -71,22 +71,22 @@ class ApiClient
     /**
      * @var bool
      */
-    private $authResolved = false;
+    private $isAuthResolved = false;
 
     /**
      * @var null|string set by setBaseURL(), overrides the connection's endpoint base
      */
-    private $baseUrlOverride;
+    private $baseUrl;
 
     /**
      * @var null|string resolved endpoint base, cached so an OAuth2 getter runs once
      */
-    private $resolvedBase;
+    private $resolvedBaseUrl;
 
     /**
      * @var bool
      */
-    private $baseResolved = false;
+    private $isBaseUrlResolved = false;
 
     /**
      * @var null|ApiResponse the most recent response, for callers that inspect it
@@ -110,7 +110,7 @@ class ApiClient
     {
         if ($connection instanceof AuthStrategyInterface) {
             $this->auth = $connection;
-            $this->authResolved = true;
+            $this->isAuthResolved = true;
 
             return;
         }
@@ -124,12 +124,12 @@ class ApiClient
     {
         $this->connectionId = (int) $connectionId;
         $this->auth = null;
-        $this->authResolved = false;
+        $this->isAuthResolved = false;
         $this->setupError = null;
         // The old base belonged to the old connection's tenant.
-        $this->baseUrlOverride = null;
-        $this->resolvedBase = null;
-        $this->baseResolved = false;
+        $this->baseUrl = null;
+        $this->resolvedBaseUrl = null;
+        $this->isBaseUrlResolved = false;
 
         return $this;
     }
@@ -149,7 +149,7 @@ class ApiClient
     {
         $this->appSlug = $appSlug;
         $this->auth = null;
-        $this->authResolved = false;
+        $this->isAuthResolved = false;
 
         return $this;
     }
@@ -161,22 +161,22 @@ class ApiClient
      */
     public function getBaseURL(): string
     {
-        if ($this->baseUrlOverride !== null) {
-            return $this->baseUrlOverride;
+        if ($this->baseUrl !== null) {
+            return $this->baseUrl;
         }
 
-        if (!$this->baseResolved) {
-            $this->baseResolved = true;
+        if (!$this->isBaseUrlResolved) {
+            $this->isBaseUrlResolved = true;
             $auth = $this->auth();
-            $this->resolvedBase = $auth === null ? '' : rtrim((string) $auth->getEndpointBase(), '/');
+            $this->resolvedBaseUrl = $auth === null ? '' : rtrim((string) $auth->getEndpointBase(), '/');
         }
 
-        return (string) $this->resolvedBase;
+        return (string) $this->resolvedBaseUrl;
     }
 
-    public function setBaseURL(?string $baseUrl): self
+    public function setBaseURL(?string $url): self
     {
-        $this->baseUrlOverride = $baseUrl === null ? null : rtrim($baseUrl, '/');
+        $this->baseUrl = $url === null ? null : rtrim($url, '/');
 
         return $this;
     }
@@ -194,11 +194,11 @@ class ApiClient
     }
 
     /**
-     * @param array<string, string> $headers
+     * @param array<string, string> $additionalHeaders
      */
-    public function addHeaders(array $headers): self
+    public function addHeaders(array $additionalHeaders): self
     {
-        $this->defaultHeaders = array_merge($this->defaultHeaders, $headers);
+        $this->defaultHeaders = array_merge($this->defaultHeaders, $additionalHeaders);
 
         return $this;
     }
@@ -281,7 +281,9 @@ class ApiClient
         return $this->send($method, $path, $payload, $headers);
     }
 
-    /** The most recent response, for callers that judge failure from the body. */
+    /**
+     * The most recent response, for callers that judge failure from the body.
+     */
     public function getResponse(): ?ApiResponse
     {
         return $this->response;
@@ -427,11 +429,11 @@ class ApiClient
      */
     private function auth(): ?AuthStrategyInterface
     {
-        if ($this->authResolved) {
+        if ($this->isAuthResolved) {
             return $this->auth;
         }
 
-        $this->authResolved = true;
+        $this->isAuthResolved = true;
 
         if ($this->connectionId <= 0) {
             $this->setupError = __('No connection selected', 'bit-integrations');
