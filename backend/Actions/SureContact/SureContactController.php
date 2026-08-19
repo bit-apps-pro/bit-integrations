@@ -104,7 +104,7 @@ class SureContactController
 
     private static function client($connectionId): ?ApiClient
     {
-        $connection = AuthorizationFactory::getConnectionHandler($connectionId, self::$authConfig['slug']);
+        $connection = AuthorizationFactory::getConnectionHandler($connectionId);
 
         if ($connection === null) {
             return null;

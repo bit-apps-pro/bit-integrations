@@ -46,10 +46,9 @@ class AuthorizationFactory
      * null. To a caller they are one condition ("no usable connection for this app"),
      * and separating them would only leak which connection ids exist.
      *
-     * @param int|string  $connectionId
-     * @param null|string $appSlug      when set, the connection must belong to this app
+     * @param int|string $connectionId
      */
-    public static function getConnectionHandler($connectionId, ?string $appSlug = null): ?AuthStrategyInterface
+    public static function getConnectionHandler($connectionId): ?AuthStrategyInterface
     {
         $connectionId = (int) $connectionId;
 
@@ -74,10 +73,6 @@ class AuthorizationFactory
         }
 
         $storedSlug = $connection->app_slug ?? '';
-
-        if (!self::belongsToApp($storedSlug, $appSlug)) {
-            return null;
-        }
 
         try {
             return self::getAuthorizationHandler($connection->auth_type, $connectionId, $storedSlug);
@@ -127,32 +122,5 @@ class AuthorizationFactory
         }
 
         return false;
-    }
-
-    /**
-     * Whether a stored connection was created for the app asking for it.
-     *
-     * A connection_id arrives as a bare integer, so nothing about it says which app it
-     * belongs to: without this check, pointing one integration's action at another's
-     * connection_id decrypts that app's token and ships it to this app's endpoint.
-     *
-     * app_slug is stored as the integration's display name ("Zoho CRM") while callers
-     * pass a bare slug ("zohocrm"), so both sides reduce to alphanumerics before
-     * comparing. No slug passed means the caller opted out of the check.
-     *
-     * @param mixed       $storedSlug app_slug from the connection row
-     * @param null|string $appSlug    slug the caller requires
-     */
-    private static function belongsToApp($storedSlug, ?string $appSlug): bool
-    {
-        if ($appSlug === null || $appSlug === '' || empty($storedSlug)) {
-            return true;
-        }
-
-        $normalize = static function ($value) {
-            return strtolower(preg_replace('/[^a-z0-9]/i', '', (string) $value));
-        };
-
-        return $normalize($storedSlug) === $normalize($appSlug);
     }
 }

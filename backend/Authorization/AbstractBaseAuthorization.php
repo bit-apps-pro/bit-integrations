@@ -10,6 +10,7 @@ use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\Exception\AuthorizationException;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Core\Database\ConnectionModel;
+use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use Throwable;
@@ -48,9 +49,9 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
      *
      * @throws AuthorizationException
      */
-    public function credential(?RequestContext $context = null): AuthCredential
+    public function credential(): AuthCredential
     {
-        $authConfig = $this->authConfigFor($context);
+        $authConfig = $this->getAuthHeadersOrParams();
 
         if (!\is_array($authConfig)) {
             throw new AuthorizationException(esc_html__('Invalid authorization config', 'bit-integrations'));
@@ -77,6 +78,47 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
     public function requestOptions(): array
     {
         return $this->buildRequestOptionsFromAuthDetails();
+    }
+
+    /**
+     * Authenticate one request: build its credential and write it onto $client.
+     *
+     * The credential is built from the method and URL the request will actually use: an
+     * OAuth1 signature is computed over them, so one produced for anything else signs a
+     * request that is not the one being sent. Only array payloads are passed — those are
+     * the ones sent form-encoded, and an OAuth1 signature covers form body params but
+     * never a JSON or multipart body.
+     *
+     * Where it lands depends on the transport as much as the credential: HttpHelper::get()
+     * emits the payload as the query string, so a query credential on GET merges into the
+     * payload to keep one deduplicated query, and on any other method is appended to the
+     * URL.
+     *
+     * @throws AuthorizationException when no credential can be produced
+     */
+    public function applyCredential(ApiClient $client): void
+    {
+        $method = $client->getRequestMethod();
+        $url = $client->getRequestUrl();
+        $payload = $client->getRequestPayload();
+
+        $credential = $this->credential();
+
+        if (!$credential->isQuery()) {
+            $client->setRequestHeaders(array_merge($client->getRequestHeaders(), $credential->data()));
+
+            return;
+        }
+
+        if ($method === 'GET') {
+            // Caller keys win on collision (matches the legacy authorize() behavior).
+            $client->setRequestPayload(array_merge($credential->data(), \is_array($payload) ? $payload : []));
+
+            return;
+        }
+
+        $separator = strpos($url, '?') !== false ? '&' : '?';
+        $client->setRequestUrl($url . $separator . http_build_query($credential->data()));
     }
 
     /**

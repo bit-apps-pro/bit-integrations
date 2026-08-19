@@ -6,10 +6,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Authorization\AuthCredential;
 use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\Exception\AuthorizationException;
-use BitApps\Integrations\Authorization\RequestContext;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
 /**
@@ -66,6 +64,30 @@ class ApiClient
      * @var mixed payload for the next request
      */
     private $body;
+
+    /**
+     * The request currently being sent. Every one of these is ASSIGNED at the top of
+     * request(), never appended to, so nothing from one call can survive into the next
+     * — unlike $defaultHeaders, which is deliberately cumulative across calls.
+     *
+     * @var string
+     */
+    private $method = 'GET';
+
+    /**
+     * @var string
+     */
+    private $url = '';
+
+    /**
+     * @var null|array|object|string
+     */
+    private $payload;
+
+    /**
+     * @var array<string, string>
+     */
+    private $headers = [];
 
     /**
      * @var null|string set by setBaseURL(), overrides the connection's endpoint base
@@ -143,7 +165,7 @@ class ApiClient
      */
     public function addHeaders(array $additionalHeaders): self
     {
-        $this->defaultHeaders = array_unique(
+        $this->headers = array_unique(
             array_merge($this->defaultHeaders, $additionalHeaders),
             SORT_REGULAR
         );
@@ -206,8 +228,11 @@ class ApiClient
      *
      * Every exit assigns $this->response, and $this->body is cleared before the first
      * one: getResponse() must reflect THIS call, and a payload must never survive into
-     * the next request. Both invariants sit on three separate return paths, so an added
-     * early return has to carry them too.
+     * the next request. Both invariants sit on separate return paths, so an added early
+     * return has to carry them too.
+     *
+     * $method, $url, $payload and $headers are all assigned before anything reads them,
+     * which is what keeps this call's values out of the next one.
      *
      * @param null|array|object|string $payload
      */
@@ -220,25 +245,87 @@ class ApiClient
         $this->body = null;
         $this->lastAuthException = null;
 
-        $method = strtoupper(trim($method));
-        $method = $method === '' ? 'GET' : $method;
-        $url = $this->resolveUrl($path);
-        $headers = array_merge($this->defaultHeaders, $headers);
+        $this->method = strtoupper(trim($method)) ?: 'GET';
+        $this->url = $this->resolveUrl($path);
+        $this->payload = $payload;
+        $this->addHeaders($headers);
 
-        $credential = $this->getCredential($method, $url, $payload);
-        if ($credential === null) {
-            $reason = $this->lastAuthException === null
-                ? __('Authorization failed', 'bit-integrations')
-                : $this->lastAuthException->getMessage();
+        try {
+            $this->auth->applyCredential($this);
+        } catch (AuthorizationException $e) {
+            $this->lastAuthException = $e;
 
-            return $this->response = ApiResponse::fail(401, $reason);
+            return $this->response = ApiResponse::fail(401, $e->getMessage());
         }
 
-        [$url, $payload, $headers] = $this->applyCredential($credential, $method, $url, $payload, $headers);
-
-        $raw = HttpHelper::request($url, $method, $payload, $headers, $this->auth->requestOptions());
+        $raw = HttpHelper::request(
+            $this->url,
+            $this->method,
+            $this->payload,
+            $this->headers,
+            $this->auth->requestOptions()
+        );
 
         return $this->response = ApiResponse::from($raw);
+    }
+
+    /**
+     * The request being sent, read and rewritten by the auth strategy during
+     * applyCredential(). These are NOT configuration like setHeaders() or setBody():
+     * they hold one call's state and are reassigned at the top of every request(), so
+     * anything set through them outside that window is discarded by the next call.
+     */
+    public function getRequestMethod(): string
+    {
+        return $this->method;
+    }
+
+    public function getRequestUrl(): string
+    {
+        return $this->url;
+    }
+
+    public function setRequestUrl(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return null|array|object|string
+     */
+    public function getRequestPayload()
+    {
+        return $this->payload;
+    }
+
+    /**
+     * @param null|array|object|string $payload
+     */
+    public function setRequestPayload($payload): self
+    {
+        $this->payload = $payload;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getRequestHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param array<string, string> $headers
+     */
+    public function setRequestHeaders(array $headers): self
+    {
+        $this->headers = $headers;
+
+        return $this;
     }
 
     /**
@@ -275,68 +362,11 @@ class ApiClient
 
     protected function resolveUrl(string $path): string
     {
-        if ($path === '' || preg_match('#^https?://#i', $path)) {
-            return $path;
-        }
-
         $base = $this->getBaseURL();
-
-        if ($base === '') {
+        if (preg_match('#^https?://#i', $path)) {
             return $path;
         }
 
-        return $base . '/' . ltrim($path, '/');
-    }
-
-    /**
-     * The credential for one request, or null when the strategy could not produce one.
-     *
-     * A failure is recorded on $lastAuthException rather than thrown: no request is
-     * sent, and the caller reports it as a failed response like any other. Only array
-     * payloads reach the strategy — those are the ones sent form-encoded, and an OAuth1
-     * signature covers form body params but never a JSON or multipart body.
-     *
-     * @param null|array|object|string $payload
-     */
-    private function getCredential(string $method, string $url, $payload): ?AuthCredential
-    {
-        try {
-            return $this->auth->credential(
-                new RequestContext($method, $url, \is_array($payload) ? $payload : [])
-            );
-        } catch (AuthorizationException $e) {
-            $this->lastAuthException = $e;
-
-            return null;
-        }
-    }
-
-    /**
-     * Attach the credential to the request it authenticates.
-     *
-     * The credential says WHERE it belongs — header or query. How a query credential
-     * reaches the wire is the transport's business, not the credential's:
-     * HttpHelper::get() emits $payload as the query string, so on GET the params merge
-     * into the payload to keep one deduplicated query, and on every other method they
-     * are appended to the URL.
-     *
-     * @param null|array|object|string $payload
-     *
-     * @return array{string, mixed, array<string, string>} [$url, $payload, $headers]
-     */
-    private function applyCredential(AuthCredential $credential, string $method, string $url, $payload, array $headers): array
-    {
-        if (!$credential->isQuery()) {
-            return [$url, $payload, array_merge($headers, $credential->data())];
-        }
-
-        if ($method === 'GET') {
-            // Caller keys win on collision (matches the legacy authorize() behavior).
-            return [$url, array_merge($credential->data(), \is_array($payload) ? $payload : []), $headers];
-        }
-
-        $separator = strpos($url, '?') !== false ? '&' : '?';
-
-        return [$url . $separator . http_build_query($credential->data()), $payload, $headers];
+        return trim($base . '/' . $path, '/');
     }
 }
