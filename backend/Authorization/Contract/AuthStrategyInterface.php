@@ -7,10 +7,10 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\Authorization\AuthCredential;
-use BitApps\Integrations\Authorization\RequestContext;
+use BitApps\Integrations\Core\Http\ApiClient;
 
 /**
- * Strategy consumed by BaseApi to authenticate outbound requests.
+ * Strategy consumed by ApiClient to authenticate outbound requests.
  */
 interface AuthStrategyInterface
 {
@@ -19,15 +19,9 @@ interface AuthStrategyInterface
      * (e.g. KirimEmail HMAC + Timestamp), so callers must never memoize the
      * result across requests.
      *
-     * $context describes the request being authenticated. Strategies whose credential
-     * derives from stored secrets alone ignore it; OAuth 1.0a signs over the method,
-     * URL and parameters and cannot produce a valid credential without it. Callers
-     * should always pass it — it is optional only so the strategies that predate it
-     * keep their signatures.
-     *
      * @throws \BitApps\Integrations\Authorization\Exception\AuthorizationException when credentials cannot be produced
      */
-    public function credential(?RequestContext $context = null): AuthCredential;
+    public function credential(): AuthCredential;
 
     /**
      * Region/instance-resolved API base URL persisted with the connection,
@@ -39,4 +33,14 @@ interface AuthStrategyInterface
      * Extra WP HTTP API options for every request (e.g. sslverify).
      */
     public function requestOptions(): array;
+
+    /**
+     * Authenticate one request: build its credential and write it onto $client.
+     *
+     * Mutates the client's per-request state in place — the credential lands in its
+     * headers, its payload, or its URL depending on where the strategy says it goes.
+     *
+     * @throws \BitApps\Integrations\Authorization\Exception\AuthorizationException when no credential can be produced
+     */
+    public function applyCredential(ApiClient $client): void;
 }
