@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SureContact;
 
+use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Http\ApiResponse;
@@ -17,7 +18,7 @@ class SureContactController
     /**
      * Credentials are read off the connection by the client, so nothing needs
      * flattening onto flow_details or the request params. The slug is still declared —
-     * client() passes it to setAppSlug(), which rejects another app's connection_id.
+     * client() passes it to getConnectionHandler(), which rejects another app's connection_id.
      */
     public static array $authConfig = [
         'authType' => AuthorizationType::BEARER_TOKEN,
@@ -103,8 +104,13 @@ class SureContactController
 
     private static function client($connectionId): ?ApiClient
     {
-        $apiClient = new ApiClient($connectionId);
-        $apiClient->setAppSlug(self::$authConfig['slug']);
+        $connection = AuthorizationFactory::getConnectionHandler($connectionId, self::$authConfig['slug']);
+
+        if ($connection === null) {
+            return null;
+        }
+
+        $apiClient = new ApiClient($connection);
         $apiClient->setBaseURL('https://api.surecontact.com/api/v1/public');
         $apiClient->setHeaders(
             [

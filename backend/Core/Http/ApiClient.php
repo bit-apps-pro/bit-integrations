@@ -6,18 +6,21 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\Exception\AuthorizationException;
 use BitApps\Integrations\Authorization\RequestContext;
-use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use Throwable;
 
 /**
- * Authenticated HTTP client for an integration, configured from a saved connection.
+ * Authenticated HTTP client for an integration, driven by a resolved connection.
  *
- *     $api = new ApiClient($connectionId);
+ *     $connection = AuthorizationFactory::getConnectionHandler($connectionId, 'SureContact');
+ *
+ *     if ($connection === null) {
+ *         return null; // no connection, or it belongs to another app
+ *     }
+ *
+ *     $api = new ApiClient($connection);
  *     $api->setBaseURL($api->getBaseURL() . '/v1');
  *     $api->setHeaders(['Accept' => 'application/json']);
  *
@@ -25,11 +28,16 @@ use Throwable;
  *     $response = $api->post('records');
  *     $response = $api->get('records', ['limit' => 100]);
  *
- * The auth type and app slug come from the connection row, so nothing but the id is
- * needed. Credentials resolve on the first request, not on construction: building a
- * client stays free of side effects (an OAuth2 getter can trigger a token refresh).
- * A ready AuthStrategyInterface can be passed instead of an id, for callers that
- * already hold one.
+ * The client takes an AuthStrategyInterface, never a connection id: turning an id into
+ * a strategy means reading the connection row and checking it belongs to the calling
+ * app — the Authorization layer's job (AuthorizationFactory::getConnectionHandler),
+ * and it has to happen before a client is worth building. That keeps "which connection
+ * is this, and may this app use it" in one place instead of duplicated here, and leaves
+ * this class with a single concern: signing and sending requests.
+ *
+ * Building a client is still free of side effects — the strategy reads its stored
+ * secrets, and an OAuth2 getter refreshes a token, only when the first request or
+ * getBaseURL() asks for them.
  *
  * setBody() sets the payload for the NEXT request only — it is cleared once sent, so a
  * client reused across calls never leaks one request's body into the next.
@@ -44,7 +52,7 @@ use Throwable;
 class ApiClient
 {
     /**
-     * @var null|AuthStrategyInterface
+     * @var AuthStrategyInterface
      */
     protected $auth;
 
@@ -54,24 +62,9 @@ class ApiClient
     protected $defaultHeaders = [];
 
     /**
-     * @var int
-     */
-    private $connectionId = 0;
-
-    /**
-     * @var null|string when set, the connection must belong to this app
-     */
-    private $appSlug;
-
-    /**
      * @var mixed payload for the next request
      */
     private $body;
-
-    /**
-     * @var bool
-     */
-    private $isAuthResolved = false;
 
     /**
      * @var null|string set by setBaseURL(), overrides the connection's endpoint base
@@ -94,64 +87,16 @@ class ApiClient
     private $response;
 
     /**
-     * @var null|string why the client could not be prepared
-     */
-    private $setupError;
-
-    /**
      * @var null|AuthorizationException set by the last request that failed to build a credential
      */
     private $lastAuthException;
 
     /**
-     * @param AuthStrategyInterface|int $connection a connection id, or a ready handler
+     * @param AuthStrategyInterface $connection strategy for the connection to call with
      */
-    public function __construct($connection = 0)
+    public function __construct(AuthStrategyInterface $connection)
     {
-        if ($connection instanceof AuthStrategyInterface) {
-            $this->auth = $connection;
-            $this->isAuthResolved = true;
-
-            return;
-        }
-
-        if (!empty($connection)) {
-            $this->setConnectionId($connection);
-        }
-    }
-
-    public function setConnectionId($connectionId): self
-    {
-        $this->connectionId = (int) $connectionId;
-        $this->auth = null;
-        $this->isAuthResolved = false;
-        $this->setupError = null;
-        // The old base belonged to the old connection's tenant.
-        $this->baseUrl = null;
-        $this->resolvedBaseUrl = null;
-        $this->isBaseUrlResolved = false;
-
-        return $this;
-    }
-
-    public function getConnectionId(): int
-    {
-        return $this->connectionId;
-    }
-
-    /**
-     * Bind this client to the integration using it. A connection_id arrives as a bare
-     * integer, so nothing about it says which app it belongs to: without this, pointing
-     * one integration's action at another's connection_id decrypts that app's token and
-     * ships it to this app's endpoint. Mirrors CredentialInjector::belongsToIntegration().
-     */
-    public function setAppSlug(?string $appSlug): self
-    {
-        $this->appSlug = $appSlug;
-        $this->auth = null;
-        $this->isAuthResolved = false;
-
-        return $this;
+        $this->auth = $connection;
     }
 
     /**
@@ -167,8 +112,7 @@ class ApiClient
 
         if (!$this->isBaseUrlResolved) {
             $this->isBaseUrlResolved = true;
-            $auth = $this->auth();
-            $this->resolvedBaseUrl = $auth === null ? '' : rtrim((string) $auth->getEndpointBase(), '/');
+            $this->resolvedBaseUrl = rtrim((string) $this->auth->getEndpointBase(), '/');
         }
 
         return (string) $this->resolvedBaseUrl;
@@ -198,7 +142,10 @@ class ApiClient
      */
     public function addHeaders(array $additionalHeaders): self
     {
-        $this->defaultHeaders = array_merge($this->defaultHeaders, $additionalHeaders);
+        $this->defaultHeaders = array_unique(
+            array_merge($this->defaultHeaders, $additionalHeaders),
+            SORT_REGULAR
+        );
 
         return $this;
     }
@@ -264,10 +211,6 @@ class ApiClient
 
         $this->body = null;
 
-        if ($this->auth() === null) {
-            return $this->response = ApiResponse::fail(0, $this->setupError ?: __('Connection is not configured', 'bit-integrations'));
-        }
-
         return $this->response = $this->dispatch($method, $path, $payload, $headers);
     }
 
@@ -300,14 +243,6 @@ class ApiClient
     public function getResponseBody()
     {
         return $this->response === null ? null : $this->response->getBody();
-    }
-
-    /**
-     * Why the last setup or request could not run, when one failed.
-     */
-    public function getSetupError(): ?string
-    {
-        return $this->setupError;
     }
 
     /**
@@ -401,76 +336,5 @@ class ApiClient
         $status = isset(HttpHelper::$responseCode) ? (int) HttpHelper::$responseCode : 0;
 
         return $this->normalize($raw, $status);
-    }
-
-    /**
-     * app_slug is stored as the integration's display name ("Zoho CRM") while callers
-     * pass a bare slug ("zohocrm"), so both sides reduce to alphanumerics before
-     * comparing. No slug set means the caller opted out of the check.
-     *
-     * @param mixed $storedSlug
-     */
-    private function belongsToApp($storedSlug): bool
-    {
-        if ($this->appSlug === null || $this->appSlug === '' || empty($storedSlug)) {
-            return true;
-        }
-
-        $normalize = static function ($value) {
-            return strtolower(preg_replace('/[^a-z0-9]/i', '', (string) $value));
-        };
-
-        return $normalize($storedSlug) === $normalize($this->appSlug);
-    }
-
-    /**
-     * The connection row carries both the auth type and the app slug, so the handler is
-     * built from the id alone. Resolved once, on first use.
-     */
-    private function auth(): ?AuthStrategyInterface
-    {
-        if ($this->isAuthResolved) {
-            return $this->auth;
-        }
-
-        $this->isAuthResolved = true;
-
-        if ($this->connectionId <= 0) {
-            $this->setupError = __('No connection selected', 'bit-integrations');
-
-            return null;
-        }
-
-        $connection = (new ConnectionModel())->get(
-            ['id', 'app_slug', 'auth_type'],
-            ['id' => $this->connectionId],
-            1
-        );
-
-        if (is_wp_error($connection) || empty($connection[0]->auth_type)) {
-            $this->setupError = __('Connection not found', 'bit-integrations');
-
-            return null;
-        }
-
-        if (!$this->belongsToApp($connection[0]->app_slug ?? '')) {
-            $this->setupError = __('Connection belongs to a different app', 'bit-integrations');
-
-            return null;
-        }
-
-        try {
-            $this->auth = AuthorizationFactory::getAuthorizationHandler(
-                $connection[0]->auth_type,
-                $this->connectionId,
-                $connection[0]->app_slug ?? ''
-            );
-        } catch (Throwable $e) {
-            $this->setupError = $e->getMessage();
-
-            return null;
-        }
-
-        return $this->auth;
     }
 }
