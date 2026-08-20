@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '27th June 2026'
+const releaseDate = '4th August 2026'
 
 // Example for items:
 // items: [
@@ -43,22 +43,33 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Salesforce',
-        desc: 'Added record owner selection for supported record creation actions.',
+        label: 'EmailOctopus',
+        desc: 'Contacts can now be added or updated with the "Pending" status.',
         isPro: false
       },
-      {
-        label: 'MemberPress',
-        desc: 'Added Transaction expired trigger event.',
-        isPro: true
-      }
     ]
   },
   {
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'Connections',
+        desc: 'API keys, secrets and tokens are now hidden behind dots in the connection form, with an eye button to reveal them when you need to check a value.',
+        isPro: false
+      },
+      {
+        label: 'oAuth Redirect',
+        desc: 'Apps now return to a dedicated callback address on your site after you approve them. Providers that refused the old redirect URL can now be connected without any extra setup.',
+        isPro: false
+      },
+      {
+        label: 'Trigger data',
+        desc: 'Field names taken from nested data are now shorter and easier to read - long paths are trimmed, repeated words removed, and list items are shown as "Items 0" instead of a separate level.',
+        isPro: false
+      },
+    ]
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
@@ -66,9 +77,14 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'ActiveCampaign',
-        desc: 'Improved tag fetching error handling through the shared HTTP helper.',
+        label: 'Bit Form',
+        desc: 'Fixed the site address not being read from the connection, which stopped some Bit Form actions from running.',
         isPro: false
+      },
+      {
+        label: 'Amelia Booking',
+        desc: 'Appointment triggers now include the appointment location details.',
+        isPro: true
       }
     ]
   },
@@ -76,23 +92,7 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'Custom Action',
-        desc: 'Added administrator capability checks for creating, updating, duplicating, deleting and toggling custom-action flows.',
-        isPro: false
-      },
-      {
-        label: 'File Handling',
-        desc: 'Hardened attachment and upload path validation for Mail, PropovoiceCRM, SureCart and shared media upload helpers.',
-        isPro: false
-      },
-      {
-        label: 'HTTP Requests',
-        desc: 'Switched external requests to safer URL validation and WordPress safe remote request helpers.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),

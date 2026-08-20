@@ -43,37 +43,16 @@ export const checkMappedFields = mailerLiteConf => {
   return true
 }
 
-export const authorization = (confTmp, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.auth_token) {
-    toast.error(__("API Key can't be empty", 'bit-integrations'))
-
-    return
-  }
-
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    auth_token: confTmp.auth_token,
-    version: confTmp.version
-  }
-
-  bitsFetch(requestParams, 'mailerlite_authorization').then(result => {
-    setLoading({ ...loading, auth: false })
-
-    if (result && result.success) {
-      setIsAuthorized(true)
-
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-
-      return
-    }
-
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
-}
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        auth_token: confTmp.auth_token,
+        version: confTmp.version
+      }
 
 export const mailerliteRefreshFields = (confTmp, setConf, loading, setLoading) => {
-  if (!confTmp.auth_token) {
+  if (!confTmp.connection_id && !confTmp.auth_token) {
     toast.error(__("API Key can't be empty", 'bit-integrations'))
 
     return
@@ -103,10 +82,7 @@ export const mailerliteRefreshFields = (confTmp, setConf, loading, setLoading) =
     return
   }
 
-  const requestParams = {
-    auth_token: confTmp.auth_token,
-    version: confTmp.version
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'mailerlite_refresh_fields').then(result => {
     setLoading({ ...loading, field: false })
@@ -129,12 +105,9 @@ export const mailerliteRefreshFields = (confTmp, setConf, loading, setLoading) =
 }
 
 export const getAllGroups = (confTmp, setConf, loding, setLoading) => {
-  setLoading({ ...setLoading, group: true })
+  setLoading({ ...loding, group: true })
 
-  const requestParams = {
-    auth_token: confTmp.auth_token,
-    version: confTmp.version
-  }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'mailerlite_fetch_all_groups').then(result => {
     if (result && result.success) {
@@ -143,12 +116,12 @@ export const getAllGroups = (confTmp, setConf, loding, setLoading) => {
         newConf.groups = result.data
       }
       setConf(newConf)
-      setLoading({ ...setLoading, group: false })
+      setLoading({ ...loding, group: false })
 
       toast.success(__('Group fetch successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...setLoading, group: false })
+    setLoading({ ...loding, group: false })
     toast.error(__('Group fetch failed', 'bit-integrations'))
   })
 }

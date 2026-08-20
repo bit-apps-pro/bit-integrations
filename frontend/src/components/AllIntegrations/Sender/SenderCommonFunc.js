@@ -39,35 +39,19 @@ export const checkMappedFields = senderConf => {
   return mappedFields.length < 1
 }
 
-export const authorization = (confTmp, setIsAuthorized, loading, setLoading) => {
-  if (!confTmp.api_token) {
-    toast.error(__("API token can't be empty", 'bit-integrations'))
-    return
-  }
+const buildAuthRequestParams = conf =>
+  conf?.connection_id ? { connection_id: conf.connection_id } : { api_token: conf?.api_token }
 
-  setLoading({ ...loading, auth: true })
-
-  bitsFetch({ api_token: confTmp.api_token }, 'sender_authorize').then(result => {
-    setLoading({ ...loading, auth: false })
-
-    if (result && result.success) {
-      setIsAuthorized(true)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-
-    toast.error(__('Authorization failed', 'bit-integrations'))
-  })
-}
+const hasAuthParams = conf => Boolean(conf?.connection_id || conf?.api_token)
 
 export const refreshSenderGroups = (confTmp, setSenderConf, setIsLoading) => {
-  if (!confTmp.api_token) {
+  if (!hasAuthParams(confTmp)) {
     toast.error(__("API token can't be empty", 'bit-integrations'))
     return
   }
 
   setIsLoading(true)
-  bitsFetch({ api_token: confTmp.api_token }, 'refresh_sender_groups')
+  bitsFetch(buildAuthRequestParams(confTmp), 'refresh_sender_groups')
     .then(result => {
       if (result && result.success && result.data?.groups) {
         setSenderConf(prevConf =>
@@ -86,13 +70,13 @@ export const refreshSenderGroups = (confTmp, setSenderConf, setIsLoading) => {
 }
 
 export const refreshSenderFields = (confTmp, setSenderConf, setIsLoading) => {
-  if (!confTmp.api_token) {
+  if (!hasAuthParams(confTmp)) {
     toast.error(__("API token can't be empty", 'bit-integrations'))
     return
   }
 
   setIsLoading(true)
-  bitsFetch({ api_token: confTmp.api_token }, 'refresh_sender_fields')
+  bitsFetch(buildAuthRequestParams(confTmp), 'refresh_sender_fields')
     .then(result => {
       if (result && result.success && result.data?.fields) {
         setSenderConf(prevConf =>

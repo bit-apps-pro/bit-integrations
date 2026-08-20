@@ -57,14 +57,10 @@ export default function MainWP({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <MainWPAuthorization
-        formID={formID}
         mainWPConf={mainWPConf}
         setMainWPConf={setMainWPConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

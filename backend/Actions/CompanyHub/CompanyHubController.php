@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\CompanyHub;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,15 @@ use WP_Error;
  */
 class CompanyHubController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'companyhub',
+        'fields'   => [
+            'api_key'    => 'value',
+            'sub_domain' => 'sub_domain',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -21,20 +31,6 @@ class CompanyHubController
     public function __construct()
     {
         $this->_apiEndpoint = 'https://api.companyhub.com/v1';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $this->setHeaders($fieldsRequestParams->sub_domain, $fieldsRequestParams->api_key);
-        $apiEndpoint = $this->_apiEndpoint . '/me';
-        $response = HttpHelper::get($apiEndpoint, null, $this->_defaultHeader);
-
-        if (!isset($response->Success) && !$response->Success) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid Sub Domain & API Key', 'bit-integrations'), 400);
-        }
     }
 
     public function getAllCompanies($fieldsRequestParams)

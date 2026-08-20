@@ -21,7 +21,7 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
   const [selzyConf, setSelzyConf] = useState({
     name: 'Selzy',
     type: 'Selzy',
-    authKey: '',
+    api_key: '',
     field_map: [{ formFields: '', selzyFormField: '' }],
     listIds: '',
     tags: '',

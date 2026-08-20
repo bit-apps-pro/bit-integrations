@@ -22,7 +22,6 @@ function Dropbox({ formFields, setFlow, flow, allIntegURL }) {
     type: 'Dropbox',
     clientId: '',
     clientSecret: '',
-    accessCode: '',
     field_map: [{ formField: '', dropboxFormField: '' }],
     foldersList: [],
     actions: {}
@@ -49,13 +48,10 @@ function Dropbox({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <DropboxAuthorization
-        flowID={flowID}
         dropboxConf={dropboxConf}
         setDropboxConf={setDropboxConf}
         step={step}
         setStep={setStep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
       />
 
       {/* STEP 2 */}

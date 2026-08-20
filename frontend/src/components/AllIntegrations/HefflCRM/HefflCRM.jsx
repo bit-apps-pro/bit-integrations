@@ -20,7 +20,6 @@ export default function HefflCRM({ formFields, setFlow, flow, allIntegURL }) {
   const [hefflCRMConf, setHefflCRMConf] = useState({
     name: 'Heffl CRM',
     type: 'Heffl CRM',
-    api_key: '',
     field_map: [{ formField: '', hefflCRMField: '' }],
     actions: {},
     mainAction: ''
@@ -62,8 +61,6 @@ export default function HefflCRM({ formFields, setFlow, flow, allIntegURL }) {
         setHefflCRMConf={setHefflCRMConf}
         step={step}
         setStep={setStep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
 

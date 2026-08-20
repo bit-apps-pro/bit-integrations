@@ -397,7 +397,15 @@ export default function SalesforceActions({
             </div>
           </>
         )}
-        {['contact-create', 'lead-create', 'account-create', 'campaign-create', 'opportunity-create', 'event-create', 'case-create'].includes(salesforceConf.actionName) && (
+        {[
+          'contact-create',
+          'lead-create',
+          'account-create',
+          'campaign-create',
+          'opportunity-create',
+          'event-create',
+          'case-create'
+        ].includes(salesforceConf.actionName) && (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <TableCheckBox
               onChange={openUserModel}

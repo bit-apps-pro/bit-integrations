@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\KirimEmail;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,52 +15,23 @@ use WP_Error;
  */
 class KirimEmailController
 {
-    // $time = time();
-    // $generated_token = hash_hmac("sha256","YOUR USERNAME"."::"."YOUR API TOKEN"."::".$time,"YOUR API TOKEN")
-
-    public function checkAuthorization($tokenRequestParams)
-    {
-        if (
-            empty($tokenRequestParams->username)
-            || empty($tokenRequestParams->api_key)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $userName = $tokenRequestParams->username;
-        $apiKey = $tokenRequestParams->api_key;
-        $time = time();
-        $generated_token = hash_hmac('sha256', "{$userName}" . '::' . "{$apiKey}" . '::' . $time, "{$apiKey}");
-        $header = [
-            'Auth-Id'    => $userName,
-            'Auth-Token' => $generated_token,
-            'Timestamp'  => $time,
-        ];
-
-        $apiEndpoint = 'https://api.kirim.email/v3/list';
-
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
-
-        if (is_wp_error($apiResponse) || $apiResponse->code !== 200) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-
-        wp_send_json_success($apiResponse->data, 200);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::CUSTOM,
+        'slug'     => 'KirimEmail',
+        'fields'   => [
+            'api_key'  => 'api_key',
+            'userName' => 'userName',
+        ],
+    ];
 
     public function getAllList($tokenRequestParams)
     {
+        $userName = $tokenRequestParams->userName ?? $tokenRequestParams->username ?? '';
+        $apiKey = $tokenRequestParams->api_key ?? '';
+
         if (
-            empty($tokenRequestParams->username)
-            || empty($tokenRequestParams->api_key)
+            empty($userName)
+            || empty($apiKey)
         ) {
             wp_send_json_error(
                 __(
@@ -69,17 +41,9 @@ class KirimEmailController
                 400
             );
         }
-        $userName = $tokenRequestParams->username;
-        $apiKey = $tokenRequestParams->api_key;
-        $time = time();
-        $generated_token = hash_hmac('sha256', "{$userName}" . '::' . "{$apiKey}" . '::' . $time, "{$apiKey}");
-        $header = [
-            'Auth-Id'    => $userName,
-            'Auth-Token' => $generated_token,
-            'Timestamp'  => $time,
-        ];
 
         $apiEndpoint = 'https://api.kirim.email/v3/list';
+        $header = self::buildAuthHeaders($userName, $apiKey);
 
         $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
 
@@ -98,7 +62,7 @@ class KirimEmailController
         $integrationDetails = $integrationData->flow_details;
         $integrationId = $integrationData->id;
         $api_key = $integrationDetails->api_key;
-        $userName = $integrationDetails->userName;
+        $userName = $integrationDetails->userName ?? $integrationDetails->username ?? '';
         $fieldMap = $integrationDetails->field_map;
         $mainAction = $integrationDetails->mainAction;
 
@@ -110,7 +74,7 @@ class KirimEmailController
 
         ) {
             // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Freshdesk'));
+            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Kirim Email'));
         }
         $recordApiHelper = new RecordApiHelper($integrationId);
         $kirinEmailApiResponse = $recordApiHelper->execute(
@@ -127,5 +91,17 @@ class KirimEmailController
         }
 
         return $kirinEmailApiResponse;
+    }
+
+    private static function buildAuthHeaders(string $userName, string $apiKey): array
+    {
+        $time = time();
+        $generatedToken = hash_hmac('sha256', "{$userName}" . '::' . "{$apiKey}" . '::' . $time, "{$apiKey}");
+
+        return [
+            'Auth-Id'    => $userName,
+            'Auth-Token' => $generatedToken,
+            'Timestamp'  => $time,
+        ];
     }
 }
