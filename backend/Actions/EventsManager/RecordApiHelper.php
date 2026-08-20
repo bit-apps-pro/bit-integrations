@@ -36,13 +36,6 @@ class RecordApiHelper
      */
     public function execute($fieldValues, $fieldMap)
     {
-        if (!class_exists('EM_Events')) {
-            return [
-                'success' => false,
-                'message' => __('Events Manager is not installed or activated', 'bit-integrations')
-            ];
-        }
-
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $mainAction = $this->_integrationDetails->mainAction ?? '';
 
