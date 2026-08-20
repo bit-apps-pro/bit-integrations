@@ -104,6 +104,7 @@ final class AllTriggersName
             'MoreConvertWishlist'            => ['name' => 'MoreConvert Wishlist',  'isPro' => true, 'is_active' => false],
             'Newsletter'                     => ['name' => 'Newsletter',  'isPro' => true, 'is_active' => false],
             'NewUserApprove'                 => ['name' => 'New User Approve',  'isPro' => true, 'is_active' => false],
+            'NextCrm'                        => ['name' => 'NextCRM',  'isPro' => true, 'is_active' => false],
             'NexForms'                       => ['name' => 'NEX-Forms',  'isPro' => true, 'is_active' => false],
             'NF'                             => ['name' => 'Ninja Forms',  'isPro' => true, 'is_active' => false],
             'NinjaTables'                    => ['name' => 'Ninja Tables',  'isPro' => true, 'is_active' => false],
