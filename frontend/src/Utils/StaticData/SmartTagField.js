@@ -139,34 +139,6 @@ export const SmartTagField = [
     label: __('Current Page URL', 'bit-integrations')
   },
   {
-    name: '_bi_utm_source',
-    label: __('UTM Source', 'bit-integrations')
-  },
-  {
-    name: '_bi_utm_medium',
-    label: __('UTM Medium', 'bit-integrations')
-  },
-  {
-    name: '_bi_utm_campaign',
-    label: __('UTM Campaign', 'bit-integrations')
-  },
-  {
-    name: '_bi_utm_term',
-    label: __('UTM Term', 'bit-integrations')
-  },
-  {
-    name: '_bi_utm_content',
-    label: __('UTM Content', 'bit-integrations')
-  },
-  {
-    name: '_bi_gclid',
-    label: __('Google Click ID (gclid)', 'bit-integrations')
-  },
-  {
-    name: '_bi_fbclid',
-    label: __('Facebook Click ID (fbclid)', 'bit-integrations')
-  },
-  {
     name: '_bi_ip_address',
     label: __('User IP Address', 'bit-integrations')
   },
@@ -345,21 +317,5 @@ export const SmartTagField = [
   {
     name: '_bi_post_featured_image_url',
     label: __('Post Featured Image URL', 'bit-integrations')
-  },
-  {
-    name: '_bi_flow_id',
-    label: __('Flow ID', 'bit-integrations')
-  },
-  {
-    name: '_bi_flow_name',
-    label: __('Flow Name', 'bit-integrations')
-  },
-  {
-    name: '_bi_trigger_name',
-    label: __('Trigger Name', 'bit-integrations')
-  },
-  {
-    name: '_bi_trigger_entity_id',
-    label: __('Trigger Entity ID', 'bit-integrations')
   }
 ]

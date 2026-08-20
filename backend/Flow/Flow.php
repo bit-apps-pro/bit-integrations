@@ -429,15 +429,6 @@ final class Flow
                     $flowData->flow_details = json_decode($flowData->flow_details);
                 }
 
-                SmartTags::setFlowMeta(
-                    [
-                        'flow_id'           => isset($flowData->id) ? $flowData->id : '',
-                        'flow_name'         => isset($flowData->name) ? $flowData->name : '',
-                        'trigger_name'      => $triggered_entity,
-                        'trigger_entity_id' => $triggered_entity_id,
-                    ]
-                );
-
                 if (
                     property_exists($flowData->flow_details, 'condition')
                     && property_exists($flowData->flow_details->condition, 'logics')

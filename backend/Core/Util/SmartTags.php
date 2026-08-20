@@ -4,23 +4,6 @@ namespace BitApps\Integrations\Core\Util;
 
 final class SmartTags
 {
-    private static $flowMeta = [];
-
-    public static function setFlowMeta(array $flowMeta)
-    {
-        static::$flowMeta = $flowMeta;
-    }
-
-    public static function clearFlowMeta()
-    {
-        static::$flowMeta = [];
-    }
-
-    public static function getFlowMeta()
-    {
-        return static::$flowMeta;
-    }
-
     public static function getPostUserData($isReferer)
     {
         $post = [];
@@ -61,7 +44,6 @@ final class SmartTags
             $operating = $device[1];
         }
 
-        $queryParams = static::getRequestQueryParams();
         $postObject = \is_object($data['post']) ? $data['post'] : null;
         $user = isset($data['user']) ? $data['user'] : null;
 
@@ -107,13 +89,6 @@ final class SmartTags
             '_bi_device_type'      => wp_is_mobile() ? 'Mobile' : 'Desktop',
             '_bi_user_agent'       => static::getServerValue('HTTP_USER_AGENT'),
             '_bi_browser_language' => static::getBrowserLanguage(),
-            '_bi_utm_source'   => static::pluckQueryParam($queryParams, 'utm_source'),
-            '_bi_utm_medium'   => static::pluckQueryParam($queryParams, 'utm_medium'),
-            '_bi_utm_campaign' => static::pluckQueryParam($queryParams, 'utm_campaign'),
-            '_bi_utm_term'     => static::pluckQueryParam($queryParams, 'utm_term'),
-            '_bi_utm_content'  => static::pluckQueryParam($queryParams, 'utm_content'),
-            '_bi_gclid'        => static::pluckQueryParam($queryParams, 'gclid'),
-            '_bi_fbclid'       => static::pluckQueryParam($queryParams, 'fbclid'),
             '_bi_random_digit_num'  => wp_rand(1000000000, 9999999999),
             '_bi_uuid'              => wp_generate_uuid4(),
             '_bi_random_string'     => wp_generate_password(10, false, false),
@@ -153,10 +128,6 @@ final class SmartTags
             '_bi_post_categories'         => ($postObject ? static::getPostTermNames($postObject->ID, 'category') : ''),
             '_bi_post_tags'               => ($postObject ? static::getPostTermNames($postObject->ID, 'post_tag') : ''),
             '_bi_post_featured_image_url' => ($postObject ? (string) get_the_post_thumbnail_url($postObject->ID, 'full') : ''),
-            '_bi_flow_id'                 => static::getFlowMetaValue('flow_id'),
-            '_bi_flow_name'               => static::getFlowMetaValue('flow_name'),
-            '_bi_trigger_name'            => static::getFlowMetaValue('trigger_name'),
-            '_bi_trigger_entity_id'       => static::getFlowMetaValue('trigger_entity_id'),
         ];
 
         if (isset($smartTags[$key])) {
@@ -164,49 +135,6 @@ final class SmartTags
         }
 
         return '';
-    }
-
-    private static function getRequestQueryParams()
-    {
-        $params = [];
-        $referer = static::getServerValue('HTTP_REFERER');
-
-        if (!empty($referer)) {
-            $query = wp_parse_url($referer, PHP_URL_QUERY);
-
-            if (!empty($query)) {
-                wp_parse_str($query, $params);
-            }
-        }
-
-        if (empty($params)) {
-            $requestUri = static::getServerValue('REQUEST_URI');
-
-            if (!empty($requestUri)) {
-                $query = wp_parse_url($requestUri, PHP_URL_QUERY);
-
-                if (!empty($query)) {
-                    wp_parse_str($query, $params);
-                }
-            }
-        }
-
-        return \is_array($params) ? $params : [];
-    }
-
-    private static function pluckQueryParam($params, $name)
-    {
-        if (!isset($params[$name])) {
-            return '';
-        }
-
-        $value = $params[$name];
-
-        if (\is_array($value)) {
-            $value = reset($value);
-        }
-
-        return \is_scalar($value) ? sanitize_text_field((string) $value) : '';
     }
 
     private static function getCurrentUrl()
@@ -285,14 +213,5 @@ final class SmartTags
         }
 
         return implode(', ', $terms);
-    }
-
-    private static function getFlowMetaValue($name)
-    {
-        if (!isset(static::$flowMeta[$name])) {
-            return '';
-        }
-
-        return (string) static::$flowMeta[$name];
     }
 }
