@@ -195,6 +195,8 @@ export default function SelectAction() {
     },
     { type: 'FluentCart', is_pro: true },
     { type: 'ProfilePress', is_pro: true },
+    { type: 'ClickWhale', is_pro: true },
+    { type: 'BadgeOS', is_pro: true },
     { type: 'PopupMaker', name: 'Popup Maker', logo: 'popupMaker', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
     { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
