@@ -183,6 +183,7 @@ const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditLatePoint = lazy(() => import('./LatePoint/EditLatePoint'))
 const EditProfilePress = lazy(() => import('./ProfilePress/EditProfilePress'))
 const EditClickWhale = lazy(() => import('./ClickWhale/EditClickWhale'))
 const EditBadgeOS = lazy(() => import('./BadgeOS/EditBadgeOS'))
@@ -648,6 +649,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBrilliantDirectories allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'LatePoint':
+      return <EditLatePoint allIntegURL={allIntegURL} />
     case 'ProfilePress':
       return <EditProfilePress allIntegURL={allIntegURL} />
     case 'ClickWhale':

@@ -114,6 +114,7 @@ export const customFormIntegrations = [
   'WpTableBuilder',
   'GiveWp',
   'SenseiLMS',
+  'LatePoint',
   'ProfilePress',
   'ClickWhale',
   'FluentPlayer',

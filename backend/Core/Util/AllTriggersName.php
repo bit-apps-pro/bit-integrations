@@ -86,6 +86,7 @@ final class AllTriggersName
             'JetpackCRM'                     => ['name' => 'Jetpack CRM',  'isPro' => true, 'is_active' => false],
             'Kadence'                        => ['name' => 'Kadence Blocks Form',  'isPro' => true, 'is_active' => false],
             'KaliForms'                      => ['name' => 'Kali Forms',  'isPro' => true, 'is_active' => false],
+            'LatePoint'                      => ['name' => 'LatePoint',  'isPro' => true, 'is_active' => false],
             'LearnDash'                      => ['name' => 'LearnDash LMS',  'isPro' => true, 'is_active' => false],
             'LearnPress'                     => ['name' => 'LearnPress LMS',  'isPro' => true, 'is_active' => false],
             'LifterLms'                      => ['name' => 'LifterLMS',  'isPro' => true, 'is_active' => false],
