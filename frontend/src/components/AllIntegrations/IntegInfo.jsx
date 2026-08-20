@@ -192,6 +192,11 @@ const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const CartAbandonmentRecoveryAuthorization = lazy(
+  () => import('./CartAbandonmentRecovery/CartAbandonmentRecoveryAuthorization')
+)
+const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
+const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const ModernCartAuthorization = lazy(() => import('./ModernCart/ModernCartAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(
@@ -688,6 +693,18 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'Cart Abandonment Recovery':
+      return (
+        <CartAbandonmentRecoveryAuthorization
+          cartAbandonmentRecoveryConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
+    case 'FluentPlayer':
+      return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
+    case 'BitCrm':
+      return <BitCrmAuthorization bitCrmConf={integrationConf} step={1} isInfo />
     case 'ModernCart':
       return <ModernCartAuthorization modernCartConf={integrationConf} step={1} isInfo />
     case 'Wsms':

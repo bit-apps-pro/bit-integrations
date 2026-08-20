@@ -37,6 +37,7 @@ final class AllTriggersName
             'BookingPress'                   => ['name' => 'BookingPress',  'isPro' => true, 'is_active' => false],
             'CalculatedFieldsForm'           => ['name' => 'Calculated Fields Form Pro',  'isPro' => true, 'is_active' => false],
             'CartFlow'                       => ['name' => 'CartFlow',  'isPro' => true, 'is_active' => false],
+            'CartAbandonmentRecovery'        => ['name' => 'Cart Abandonment Recovery',  'isPro' => true, 'is_active' => false],
             'CustomTrigger'                  => ['name' => 'Custom Trigger',  'isPro' => true, 'is_active' => false],
             'ClickWhale'                     => ['name' => 'ClickWhale',  'isPro' => true, 'is_active' => false],
             'Coblocks'                       => ['name' => 'CoBlocks Form',  'isPro' => true, 'is_active' => false],
