@@ -122,6 +122,7 @@ final class AllTriggersName
             'PrestoPlayer'                   => ['name' => 'Presto Player',  'isPro' => true, 'is_active' => false],
             'ProfileBuilder'                 => ['name' => 'Profile Builder',  'isPro' => true, 'is_active' => false],
             'ProfileGrid'                    => ['name' => 'ProfileGrid',  'isPro' => true, 'is_active' => false],
+            'ProfilePress'                   => ['name' => 'ProfilePress',  'isPro' => true, 'is_active' => false],
             'QuillForms'                     => ['name' => 'Quill Forms',  'isPro' => true, 'is_active' => false],
             'Rafflepress'                    => ['name' => 'Rafflepress',  'isPro' => true, 'is_active' => false],
             'PeepSo'                         => ['name' => 'PeepSo',  'isPro' => true, 'is_active' => false],

@@ -182,6 +182,7 @@ const Bookly = lazy(() => import('./Bookly/Bookly'))
 const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const ProfilePress = lazy(() => import('./ProfilePress/ProfilePress'))
 const ClickWhale = lazy(() => import('./ClickWhale/ClickWhale'))
 const BadgeOS = lazy(() => import('./BadgeOS/BadgeOS'))
 const PopupMaker = lazy(() => import('./PopupMaker/PopupMaker'))
@@ -1794,10 +1795,25 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'ProfilePress':
+      return (
+        <ProfilePress
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'ClickWhale':
       return (
         <ClickWhale
-          case 'BadgeOS':
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'BadgeOS':
       return (
         <BadgeOS
           allIntegURL={allIntegURL}

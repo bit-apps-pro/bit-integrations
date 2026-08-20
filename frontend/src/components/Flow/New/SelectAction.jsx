@@ -194,6 +194,7 @@ export default function SelectAction() {
       is_pro: false
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'ProfilePress', is_pro: true },
     { type: 'ClickWhale', is_pro: true },
     { type: 'BadgeOS', is_pro: true },
     { type: 'PopupMaker', name: 'Popup Maker', logo: 'popupMaker', is_pro: true },
