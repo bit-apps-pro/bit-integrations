@@ -198,6 +198,7 @@ export default function SelectAction() {
     { type: 'WordPress', is_pro: true },
     { type: 'BookingPress', is_pro: true },
     { type: 'WpDataTables', is_pro: true },
+    { type: 'WpTableBuilder', is_pro: true },
     { type: 'FormyChat', is_pro: true },
     { type: 'IvyForms', logo: 'ivyForms', is_pro: true },
     { type: 'WP ERP', logo: 'wpErp', is_pro: true },
