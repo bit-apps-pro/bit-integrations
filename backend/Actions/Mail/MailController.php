@@ -78,33 +78,56 @@ final class MailController
         return 'text/html; charset=UTF-8';
     }
 
+    /**
+     * Resolve mapped address values and keep only the ones that are real addresses.
+     *
+     * The scalar branch used to return the interpolated value unchecked, so a submitted
+     * form field became the recipient/header verbatim. Both branches now apply the same
+     * is_email() filter, and anything that fails it is dropped rather than passed on.
+     *
+     * @param array|string $emailAddresses
+     * @param array        $fieldValues
+     *
+     * @return array
+     */
     public function validateAddresses($emailAddresses, $fieldValues)
     {
-        if (!\is_array($emailAddresses)) {
-            return [Common::replaceFieldWithValue($emailAddresses, $fieldValues)];
-        }
-        foreach ($emailAddresses as $key => $email) {
+        $candidates = \is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
+        $valid = [];
+
+        foreach ($candidates as $email) {
+            if (!\is_scalar($email)) {
+                continue;
+            }
+
+            $email = (string) $email;
+
             if (!is_email($email)) {
                 $email = Common::replaceFieldWithValue($email, $fieldValues);
             }
-            if (is_email($email)) {
-                $emailAddresses[$key] = $email;
+
+            // A single mapped field may resolve to a comma-separated list.
+            foreach (explode(',', (string) $email) as $candidate) {
+                $candidate = sanitize_email(trim($candidate));
+
+                if ($candidate !== '' && is_email($candidate)) {
+                    $valid[] = $candidate;
+                }
             }
         }
 
-        return $emailAddresses;
+        return array_values(array_unique($valid));
     }
 
     public function processHeader($type, $address, $fields)
     {
         $headers = [];
-        $addresses = $this->validateAddresses($address, $fields);
-        if (\is_array($addresses)) {
-            foreach ($addresses as $address) {
-                $headers[] = "{$type}: " . explode('@', $address)[0] . '<' . sanitize_email($address) . '>';
-            }
-        } else {
-            $headers[] = "{$type}: " . explode('@', $addresses)[0] . '<' . sanitize_email($addresses) . '>';
+
+        foreach ($this->validateAddresses($address, $fields) as $validAddress) {
+            // The local part becomes the header display name, so it must be sanitized too —
+            // it is submitter-controlled and lands in a raw header string.
+            $displayName = sanitize_text_field(explode('@', $validAddress)[0]);
+            $headers[] = "{$type}: {$displayName}<{$validAddress}>";
         }
 
         return $headers;

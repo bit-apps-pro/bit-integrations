@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\HefflCRM;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,30 +15,19 @@ use WP_Error;
  */
 class HefflCRMController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'hefflcrm',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     private const BASE_URL = 'https://api.heffl.com/api/v1';
 
     private const PAGE_LIMIT = 100;
 
     private const PAGE_SAFETY_CAP = 50;
-
-    public static function hefflCRMAuthorize($requestParams)
-    {
-        if (empty($requestParams->api_key)) {
-            wp_send_json_error(__('API key is required', 'bit-integrations'), 400);
-        }
-
-        $response = HttpHelper::get(self::BASE_URL . '/leads?limit=1', null, self::buildHeaders($requestParams->api_key));
-
-        if (is_wp_error($response)) {
-            wp_send_json_error(__('Failed to connect to Heffl CRM: ', 'bit-integrations') . $response->get_error_message(), 400);
-        }
-
-        if (HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300) {
-            wp_send_json_success(__('Authorization successful', 'bit-integrations'), 200);
-        }
-
-        wp_send_json_error(__('Invalid Heffl CRM API key', 'bit-integrations'), 400);
-    }
 
     public static function refreshLeadSources($requestParams)
     {

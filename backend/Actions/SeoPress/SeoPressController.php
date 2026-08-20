@@ -33,17 +33,6 @@ class SeoPressController
     }
 
     /**
-     * Process ajax request for authorization
-     *
-     * @return JSON response
-     */
-    public static function seoPressAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
-    /**
      * Execute action
      *
      * @param $integrationData Integration data

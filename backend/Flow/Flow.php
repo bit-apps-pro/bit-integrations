@@ -2,8 +2,11 @@
 
 namespace BitApps\Integrations\Flow;
 
+use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Integration\IntegrationHandler;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\CredentialInjector;
 use BitApps\Integrations\Core\Util\CustomFuncValidator;
 use BitApps\Integrations\Core\Util\IpTool;
 use BitApps\Integrations\Core\Util\SmartTags;
@@ -49,7 +52,7 @@ final class Flow
 
     public function flowList()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $integrationHandler = new FlowController();
@@ -80,7 +83,7 @@ final class Flow
 
     public function get($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $missing_field = null;
@@ -139,7 +142,7 @@ final class Flow
 
     public function save($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $missing_field = null;
@@ -179,7 +182,7 @@ final class Flow
 
     public function flowClone($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $missingId = null;
@@ -223,7 +226,7 @@ final class Flow
 
     public function update($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $missing_field = null;
@@ -300,7 +303,7 @@ final class Flow
 
     public function delete($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_delete_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('delete_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to Delete Integration', 'bit-integrations'));
         }
         $missing_field = null;
@@ -325,7 +328,7 @@ final class Flow
 
     public function bulkDelete($param)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_delete_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('delete_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         if (!\is_array($param->flowID) || $param->flowID === []) {
@@ -346,7 +349,7 @@ final class Flow
 
     public function toggle_status($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $missing_field = null;
@@ -458,13 +461,15 @@ final class Flow
                 ) {
                     $error = new WP_Error('Conditional Logic False', __('Conditional Logic not matched', 'bit-integrations'));
                     if (isset($flowData->id)) {
-                        LogHandler::save($flowData->id, 'Conditional Logic', 'validation', $error);
+                        LogHandler::save($flowData->id, 'Conditional Logic', 'validation', $error, $data);
                     }
 
                     continue;
                 }
 
-                $integrationName = \is_null($flowData->flow_details->type) ? null : ucfirst(str_replace(' ', '', $flowData->flow_details->type));
+                // Same normalizer the custom-action capability gate uses — the two must never
+                // diverge, or a type that skips the gate can still resolve to an action class.
+                $integrationName = \is_null($flowData->flow_details->type) ? null : self::normalizeActionType($flowData->flow_details->type);
 
                 switch ($integrationName) {
                     case 'Brevo(Sendinblue)':
@@ -506,7 +511,7 @@ final class Flow
 
                         break;
 
-                    case 'OttoKit (SureTriggers)':
+                    case 'OttoKit(SureTriggers)':
                         $integrationName = 'SureTriggers';
 
                         break;
@@ -533,13 +538,18 @@ final class Flow
                 }
 
                 if (!\is_null($integrationName) && $integration = static::isActionExists($integrationName)) {
+                    // inject() is total — it swallows credential-resolution failures
+                    // internally and skips injection, so it can never abort Flow::execute.
+                    CredentialInjector::inject($flowData->flow_details, $integration);
+
                     $handler = new $integration($flowData->id);
                     if (isset($flowData->flow_details->field_map)) {
                         $sptagData = self::specialTagMappingValue($flowData->flow_details->field_map);
                         // $data = array_merge($data, $sptagData);
                         $data = $data + $sptagData;
                     }
-                    $handler->execute($flowData, $data);
+                    // Execute through the wrapper so field data is captured for re-execution.
+                    IntegrationHandler::executeWithCapture($flowData, $data, $handler);
                 }
             }
         }
@@ -592,6 +602,23 @@ final class Flow
         }
     }
 
+    /**
+     * Stop a non-administrator from acting on a flow whose action is a custom action.
+     *
+     * Public so callers outside this class that can cause a flow to run (log re-execution)
+     * enforce the same administrator boundary as save/update/delete/toggle.
+     *
+     * @param mixed $flowDetails Raw or decoded flow_details
+     *
+     * @return void
+     */
+    public static function guardCustomActionFlowDetails($flowDetails)
+    {
+        if (self::isCustomActionFlowDetails($flowDetails)) {
+            self::requireCustomActionCapability();
+        }
+    }
+
     private static function requireCustomActionCapability()
     {
         if (!Capabilities::Check('manage_options')) {
@@ -640,6 +667,32 @@ final class Flow
             $flowDetails = json_decode($flowDetails);
         }
 
-        return \is_object($flowDetails) && !empty($flowDetails->type) && $flowDetails->type === 'CustomAction';
+        if (!\is_object($flowDetails) || empty($flowDetails->type)) {
+            return false;
+        }
+
+        return self::normalizeActionType($flowDetails->type) === 'CustomAction';
+    }
+
+    /**
+     * Canonical form of a flow's action type.
+     *
+     * This MUST stay the single normalizer used by both the capability gate
+     * (isCustomActionFlowDetails) and the dispatcher (execute). When the gate compared the
+     * raw string while execute() normalized it, "Custom Action" and "customAction" both
+     * skipped the administrator check yet still resolved to CustomActionController — which
+     * include()s a caller-supplied path.
+     *
+     * @param null|string $type
+     *
+     * @return string
+     */
+    private static function normalizeActionType($type)
+    {
+        if (\is_null($type)) {
+            return '';
+        }
+
+        return ucfirst(str_replace(' ', '', (string) $type));
     }
 }

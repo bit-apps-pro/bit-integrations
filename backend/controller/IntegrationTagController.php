@@ -38,9 +38,9 @@ final class IntegrationTagController
     private function canManageIntegrationTags()
     {
         return Capabilities::Check('manage_options')
-            || Capabilities::Check('bit_integrations_manage_integrations')
-            || Capabilities::Check('bit_integrations_create_integrations')
-            || Capabilities::Check('bit_integrations_edit_integrations');
+            || Capabilities::Check(Config::withPrefix('manage_integrations'))
+            || Capabilities::Check(Config::withPrefix('create_integrations'))
+            || Capabilities::Check(Config::withPrefix('edit_integrations'));
     }
 
     private function hasValidTagDataStructure($data)

@@ -112,7 +112,9 @@ export const customFormIntegrations = [
   'WpErp',
   'WpDataTables',
   'GiveWp',
-  'SenseiLMS'
+  'SenseiLMS',
+  'FluentPlayer',
+  'BitCrm'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

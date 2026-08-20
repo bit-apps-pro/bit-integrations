@@ -65,61 +65,61 @@ function BulkActionsMenu({
           <VerticalDotsIcn size={16} />
         </button>
 
-        {isOpen && (
-          <div className="btcd-bulk-menu-list">
-            {onBulkTagAssign && (
-              <button
-                type="button"
-                onClick={() => {
-                  runAction(onBulkTagAssign)
-                }}>
-                <span className="btcd-bulk-menu-item-icon">
-                  <TagAssignIcn size={14} />
-                </span>
-                <span>{tagAssignLabel || __('Bulk Tag Assign', 'bit-integrations')}</span>
-              </button>
-            )}
+        <div
+          className={`btcd-bulk-menu-list ${isOpen ? 'btcd-bulk-menu-list-open' : ''}`}
+          aria-hidden={!isOpen}>
+          {onBulkTagAssign && (
+            <button
+              type="button"
+              onClick={() => {
+                runAction(onBulkTagAssign)
+              }}>
+              <span className="btcd-bulk-menu-item-icon">
+                <TagAssignIcn size={14} />
+              </span>
+              <span>{tagAssignLabel || __('Bulk Tag Assign', 'bit-integrations')}</span>
+            </button>
+          )}
 
-            {onBulkDelete && (
-              <button
-                type="button"
-                onClick={() => {
-                  runAction(onBulkDelete)
-                }}>
-                <span className="btcd-bulk-menu-item-icon">
-                  <TrashIcn size={14} />
-                </span>
-                <span>{deleteLabel || __('Delete', 'bit-integrations')}</span>
-              </button>
-            )}
+          {onBulkDelete && (
+            <button
+              type="button"
+              onClick={() => {
+                runAction(onBulkDelete)
+              }}>
+              <span className="btcd-bulk-menu-item-icon">
+                <TrashIcn size={14} />
+              </span>
+              <span>{deleteLabel || __('Delete', 'bit-integrations')}</span>
+            </button>
+          )}
 
-            {onBulkStatus && (
-              <button
-                type="button"
-                onClick={() => {
-                  runAction(onBulkStatus)
-                }}>
-                <span className="btcd-bulk-menu-item-icon">
-                  <span className="btcd-icn icn-toggle_off" />
-                </span>
-                <span>{__('Change Status', 'bit-integrations')}</span>
-              </button>
-            )}
+          {onBulkStatus && (
+            <button
+              type="button"
+              onClick={() => {
+                runAction(onBulkStatus)
+              }}>
+              <span className="btcd-bulk-menu-item-icon">
+                <span className="btcd-icn icn-toggle_off" />
+              </span>
+              <span>{__('Change Status', 'bit-integrations')}</span>
+            </button>
+          )}
 
-            {onBulkDuplicate && (
-              <button
-                type="button"
-                onClick={() => {
-                  runAction(onBulkDuplicate)
-                }}>
-                <span className="btcd-bulk-menu-item-icon">
-                  <span className="btcd-icn icn-file_copy" />
-                </span>
-                <span>{__('Clone', 'bit-integrations')}</span>
-              </button>
-            )}
-          </div>
-        )}
+          {onBulkDuplicate && (
+            <button
+              type="button"
+              onClick={() => {
+                runAction(onBulkDuplicate)
+              }}>
+              <span className="btcd-bulk-menu-item-icon">
+                <span className="btcd-icn icn-file_copy" />
+              </span>
+              <span>{__('Clone', 'bit-integrations')}</span>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )

@@ -180,7 +180,13 @@ const EditWishlistMember = lazy(() => import('./WishlistMember/EditWishlistMembe
 const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
+const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
+const EditBrilliantDirectories = lazy(
+  () => import('./BrilliantDirectories/EditBrilliantDirectories')
+)
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
+const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
 const EditWebbaBooking = lazy(() => import('./WebbaBooking/EditWebbaBooking'))
 const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
@@ -266,7 +272,7 @@ export default function EditInteg({ allIntegURL }) {
           &nbsp;{__('Back', 'bit-integrations')}
         </Link>
         <div className="w-10 txt-center" style={{ marginRight: '73px' }}>
-          <b className="f-lg mb-2">{flow.flow_details?.type}</b>
+          <b className="f-lg mb-2">{flow.flow_details?.name}</b>
           <div>{__('Integration Settings', 'bit-integrations')}</div>
         </div>
       </div>
@@ -630,8 +636,16 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditUltimateAffiliatePro allIntegURL={allIntegURL} />
     case 'Bookly':
       return <EditBookly allIntegURL={allIntegURL} />
+    case 'SureContact':
+      return <EditSureContact allIntegURL={allIntegURL} />
+    case 'BrilliantDirectories':
+      return <EditBrilliantDirectories allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'FluentPlayer':
+      return <EditFluentPlayer allIntegURL={allIntegURL} />
+    case 'BitCrm':
+      return <EditBitCrm allIntegURL={allIntegURL} />
     case 'Wsms':
       return <EditWsms allIntegURL={allIntegURL} />
     case 'WebbaBooking':

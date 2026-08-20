@@ -83,15 +83,6 @@ class AutonamiController
         wp_send_json_success($response, 200);
     }
 
-    public static function autonamiAuthorize()
-    {
-        if (self::checkedExistsAutonami()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(__('Autonami Pro Plugin is not active or installed', 'bit-integrations'), 400);
-        }
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         if (!class_exists('BWFCRM_Contact')) {

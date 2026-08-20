@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\ClinchPad\ClinchPadController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('clinchPad_authentication', [ClinchPadController::class, 'authentication']);
 Route::post('clinchPad_fetch_custom_fields', [ClinchPadController::class, 'getCustomFields']);
 Route::post('clinchPad_fetch_all_leads', [ClinchPadController::class, 'getAllLeads']);
 Route::post('clinchPad_fetch_all_parentOrganizations', [ClinchPadController::class, 'getAllParentOrganizations']);

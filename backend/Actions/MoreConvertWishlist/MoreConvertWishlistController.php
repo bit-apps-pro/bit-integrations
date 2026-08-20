@@ -26,12 +26,6 @@ class MoreConvertWishlistController
         }
     }
 
-    public static function moreConvertWishlistAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshCustomers()
     {
         self::isExists();

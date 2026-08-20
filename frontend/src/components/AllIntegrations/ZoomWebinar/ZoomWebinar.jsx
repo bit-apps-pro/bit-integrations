@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
@@ -8,7 +8,6 @@ import Steps from '../../Utilities/Steps'
 import ZoomWebinarAuthorization from './ZoomWebinarAuthorization'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import { handleInput, checkMappedFields } from './ZoomCommonFunc'
-import { setGrantTokenResponse } from './ZoomCommonFunc'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import ZoomWebinarIntegLayout from './ZoomWebinarIntegLayout'
 
@@ -46,10 +45,6 @@ function ZoomWebinar({ formFields, setFlow, flow, allIntegURL }) {
     actions: {}
   })
 
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    window.opener && setGrantTokenResponse('zoom')
-  }, [])
   const nextPage = () => {
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
@@ -72,14 +67,10 @@ function ZoomWebinar({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <ZoomWebinarAuthorization
-        formID={formID}
         zoomWebinarConf={zoomWebinarConf}
         setZoomWebinarConf={setZoomWebinarConf}
         step={step}
         setStep={setStep}
-        setSnackbar={setSnackbar}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
       />
       {/* STEP 2 */}
       <div

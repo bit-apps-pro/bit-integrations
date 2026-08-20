@@ -13,7 +13,7 @@ final class TriggerController
 {
     public static function triggerList()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('view_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
         $triggers = [];
@@ -41,7 +41,7 @@ final class TriggerController
 
     public static function getTriggerField($triggerName, $data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('view_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
@@ -64,11 +64,19 @@ final class TriggerController
 
     public static function getTestData($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_view_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('view_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
-        $triggerName = $data->triggered_entity_id;
+        // Reduced to [a-z0-9_-] before it becomes an option name: this value is
+        // caller-supplied and is otherwise interpolated straight into the key that
+        // update_option()/delete_option() write.
+        $triggerName = self::sanitizeTestDataKey($data->triggered_entity_id ?? '');
+
+        if ($triggerName === '') {
+            wp_send_json_error(__('Invalid trigger id', 'bit-integrations'));
+        }
+
         $testData = get_option(Config::withPrefix("{$triggerName}_test"));
 
         if ($testData === false) {
@@ -84,11 +92,15 @@ final class TriggerController
 
     public static function removeTestData($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
-        $triggerName = $data->triggered_entity_id;
+        $triggerName = self::sanitizeTestDataKey($data->triggered_entity_id ?? '');
+
+        if ($triggerName === '') {
+            wp_send_json_error(__('Invalid trigger id', 'bit-integrations'));
+        }
 
         if (\is_object($data) && property_exists($data, 'reset') && $data->reset) {
             $testData = update_option(Config::withPrefix("{$triggerName}_test"), []);
@@ -106,7 +118,7 @@ final class TriggerController
 
     public static function saveListedTriggers($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')))) {
             wp_send_json_error(__('User doesn\'t have permission to save triggers', 'bit-integrations'));
         }
 
@@ -117,5 +129,32 @@ final class TriggerController
         Config::updateOption('selected_trigger', sanitize_text_field($data->trigger));
 
         wp_send_json_success(__('Listed trigger saved successfully', 'bit-integrations'));
+    }
+
+    /**
+     * Reduce a caller-supplied trigger/entity id to the character set that is safe to
+     * interpolate into a `bit_integrations_{id}_test` option name.
+     *
+     * Kept deliberately permissive: real trigger ids include slashes and dots
+     * (`elementor_pro/forms/new_record`), so this strips control characters, whitespace
+     * and anything else that has no business in an option name rather than allow-listing
+     * a shape that would break triggers shipped by the Pro plugin. The
+     * `bit_integrations_` prefix and `_test` suffix already confine which options can be
+     * reached; this stops the key itself from being arbitrary.
+     *
+     * @param mixed $value
+     *
+     * @return string
+     */
+    private static function sanitizeTestDataKey($value)
+    {
+        if (!\is_scalar($value)) {
+            return '';
+        }
+
+        $key = (string) preg_replace('/[^A-Za-z0-9_\-\/.:]/', '', (string) $value);
+
+        // option_name is a 191-char column; leave room for the prefix and suffix.
+        return substr($key, 0, 150);
     }
 }

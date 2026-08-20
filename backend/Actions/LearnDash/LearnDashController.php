@@ -34,17 +34,6 @@ class LearnDashController
         return false;
     }
 
-    public static function authorizeRestrictContent()
-    {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if (self::pluginActive()) {
-            wp_send_json_success(true, 200);
-        }
-        // translators: %s: Plugin name
-        // translators: %s: Placeholder value
-        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'LearnDash'));
-    }
-
     public static function getCourses()
     {
         $courses = [];

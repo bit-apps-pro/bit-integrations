@@ -7,6 +7,7 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Admin\AdminAjax;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\Request;
+use BitApps\Integrations\Core\Util\Route;
 use BitApps\Integrations\Core\Util\StoreInCache;
 
 class HookService
@@ -124,14 +125,24 @@ class HookService
     {
         $task_dir = Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Triggers';
         $dirs = new FilesystemIterator($task_dir);
-        foreach ($dirs as $dirInfo) {
-            if ($dirInfo->isDir()) {
-                $task_name = basename($dirInfo);
-                $task_path = $task_dir . DIRECTORY_SEPARATOR . $task_name . DIRECTORY_SEPARATOR;
-                if (is_readable($task_path . 'Routes.php') && Request::Check('ajax') && Request::Check('admin')) {
-                    include $task_path . 'Routes.php';
+
+        // Trigger-owned routes fetch forms/fields and write test data without checking
+        // capabilities themselves, so they get the stricter baseline. Reset afterwards so
+        // it never leaks onto routes registered later in the request.
+        Route::defaultAccess('write');
+
+        try {
+            foreach ($dirs as $dirInfo) {
+                if ($dirInfo->isDir()) {
+                    $task_name = basename($dirInfo);
+                    $task_path = $task_dir . DIRECTORY_SEPARATOR . $task_name . DIRECTORY_SEPARATOR;
+                    if (is_readable($task_path . 'Routes.php') && Request::Check('ajax') && Request::Check('admin')) {
+                        include $task_path . 'Routes.php';
+                    }
                 }
             }
+        } finally {
+            Route::defaultAccess('any');
         }
     }
 
@@ -139,17 +150,26 @@ class HookService
     {
         $task_dir = Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . $task_name;
         $dirs = new FilesystemIterator($task_dir);
-        foreach ($dirs as $dirInfo) {
-            if ($dirInfo->isDir()) {
-                $task_name = basename($dirInfo);
-                $task_path = $task_dir . DIRECTORY_SEPARATOR . $task_name . DIRECTORY_SEPARATOR;
-                if (is_readable($task_path . 'Routes.php') && Request::Check('ajax') && Request::Check('admin')) {
-                    include $task_path . 'Routes.php';
-                }
-                if (is_readable($task_path . 'Hooks.php')) {
-                    include $task_path . 'Hooks.php';
+
+        // Action-owned routes authorize credentials and call third-party APIs with no
+        // capability check of their own — a read-only role must not reach them.
+        Route::defaultAccess('write');
+
+        try {
+            foreach ($dirs as $dirInfo) {
+                if ($dirInfo->isDir()) {
+                    $task_name = basename($dirInfo);
+                    $task_path = $task_dir . DIRECTORY_SEPARATOR . $task_name . DIRECTORY_SEPARATOR;
+                    if (is_readable($task_path . 'Routes.php') && Request::Check('ajax') && Request::Check('admin')) {
+                        include $task_path . 'Routes.php';
+                    }
+                    if (is_readable($task_path . 'Hooks.php')) {
+                        include $task_path . 'Hooks.php';
+                    }
                 }
             }
+        } finally {
+            Route::defaultAccess('any');
         }
     }
 }

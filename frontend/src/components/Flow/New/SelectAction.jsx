@@ -185,7 +185,11 @@ export default function SelectAction() {
     { type: 'MailerPress', is_pro: false },
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
+    { type: 'SureContact', is_pro: false },
+    { type: 'BrilliantDirectories', name: 'Brilliant Directories', logo: 'brilliantDirectories', is_pro: false },
     { type: 'FluentCart', is_pro: true },
+    { type: 'FluentPlayer', is_pro: true },
+    { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },
     { type: 'Heffl CRM', is_pro: true },
     { type: 'Secure Custom Fields', is_pro: true },
@@ -216,7 +220,7 @@ export default function SelectAction() {
   const [showProModal, setShowProModal] = useState(false)
   const [actionName, setActionName] = useState()
 
-  const featuredProducts = ['Bit Form']
+  const featuredProducts = ['Bit Form', 'BitCrm']
 
   const sortFeaturedProducts = (list = []) => {
     const featured = featuredProducts
@@ -304,9 +308,8 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button

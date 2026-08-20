@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\WebbaBooking\WebbaBookingController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('webba_booking_authorize', [WebbaBookingController::class, 'webbaBookingAuthorize']);
 Route::post('refresh_webba_booking_services', [WebbaBookingController::class, 'refreshServices']);
 Route::post('refresh_webba_booking_staff', [WebbaBookingController::class, 'refreshStaff']);
 Route::post('refresh_webba_booking_categories', [WebbaBookingController::class, 'refreshCategories']);
