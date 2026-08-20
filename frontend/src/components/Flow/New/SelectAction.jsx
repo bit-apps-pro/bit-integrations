@@ -106,6 +106,7 @@ export default function SelectAction() {
     { type: 'CustomAction', is_pro: false },
     { type: 'PipeDrive', is_pro: false },
     { type: 'EmailOctopus', is_pro: false },
+    { type: 'EventsManager', logo: 'eventsManager', is_pro: true },
     { type: 'Smaily', is_pro: false },
     { type: 'CustomApi', is_pro: false },
     { type: 'SureCart', is_pro: false },
@@ -164,6 +165,7 @@ export default function SelectAction() {
     { type: 'ZagoMail', is_pro: false },
     { type: 'Drip', is_pro: false },
     { type: 'Newsletter', is_pro: false },
+    { type: 'NextCrm', name: 'NextCRM', is_pro: true },
     { type: 'SureDash', is_pro: true },
     { type: 'SureMembers', is_pro: false },
     { type: 'Mailster', is_pro: false },
@@ -193,6 +195,7 @@ export default function SelectAction() {
     },
     { type: 'FluentCart', is_pro: true },
     { type: 'ClickWhale', is_pro: true },
+    { type: 'PopupMaker', name: 'Popup Maker', logo: 'popupMaker', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
     { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },
@@ -201,6 +204,7 @@ export default function SelectAction() {
     { type: 'WordPress', is_pro: true },
     { type: 'BookingPress', is_pro: true },
     { type: 'WpDataTables', is_pro: true },
+    { type: 'WpTableBuilder', is_pro: true },
     { type: 'FormyChat', is_pro: true },
     { type: 'IvyForms', logo: 'ivyForms', is_pro: true },
     { type: 'WP ERP', logo: 'wpErp', is_pro: true },
@@ -313,9 +317,8 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button
