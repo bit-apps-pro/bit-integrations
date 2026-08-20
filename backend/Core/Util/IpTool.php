@@ -213,6 +213,9 @@ final class IpTool
         $ros[] = ['amiga-aweb', 'AmigaOS'];
         $ros[] = ['amiga', 'Amiga'];
         $ros[] = ['AvantGo', 'PalmOS'];
+        // $ros[] = array('(Linux)([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}(rel\.[0-9]{1,2}){0,1}-([0-9]{1,2}) i([0-9]{1})86){1}', 'Linux');
+        // $ros[] = array('(Linux)([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}(rel\.[0-9]{1,2}){0,1} i([0-9]{1}86)){1}', 'Linux');
+        // $ros[] = array('(Linux)([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}(rel\.[0-9]{1,2}){0,1})', 'Linux');
         $ros[] = ['[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3})', 'Linux'];
         $ros[] = ['(webtv)/([0-9]{1,2}\.[0-9]{1,2})', 'WebTV'];
         $ros[] = ['Dreamcast', 'Dreamcast OS'];
@@ -257,11 +260,6 @@ final class IpTool
         return trim($os);
     }
 
-    /**
-     * Set user details ip,cdevice, user_id, user's visited page, current mysql formatted time
-     *
-     * @return array of user details
-     */
     private static function _setUserDetail()
     {
         $user_details['ip'] = ip2long(IpTool::_checkIP());

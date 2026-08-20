@@ -326,6 +326,13 @@ class VoxelHelper
         return $finalWorkHours;
     }
 
+    /**
+     * @param array  $fileds    receives field key and field data key (key value pair)
+     * @param string $fieldKey
+     * @param array  $finalData
+     *
+     * @return array
+     */
     private static function getFieldData(array $fields, string $fieldKey, array $finalData)
     {
         $data = [];

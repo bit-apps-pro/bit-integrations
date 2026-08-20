@@ -83,6 +83,7 @@ class RecordApiHelper
         if ($allData->status == MeprTransaction::$complete_str) {
             MeprEvent::record('transaction-completed', $allData);
 
+            // This is a recurring payment
             if (($sub = $allData->subscription()) && $sub->txn_count > 1) {
                 MeprEvent::record(
                     'recurring-transaction-completed',

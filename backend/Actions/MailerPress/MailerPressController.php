@@ -30,11 +30,6 @@ class MailerPressController
         }
     }
 
-    /**
-     * Process ajax request for refresh lists
-     *
-     * @return JSON list data
-     */
     public function refreshLists()
     {
         self::isExists();
@@ -59,11 +54,6 @@ class MailerPressController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh tags
-     *
-     * @return JSON tag data
-     */
     public function refreshTags()
     {
         self::isExists();

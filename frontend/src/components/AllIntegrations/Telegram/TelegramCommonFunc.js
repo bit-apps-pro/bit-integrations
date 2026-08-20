@@ -43,13 +43,6 @@ export const refreshGetUpdates = (telegramConf, setTelegramConf, setIsLoading, s
       if (typeof setIsLoading === 'function') setIsLoading(false)
     })
 }
-// export const checkMappedFields = telegramConf => {
-//   const mappedFields = telegramConf?.field_map ? telegramConf.field_map.filter(mappedField => (!mappedField.formField && mappedField.mailPoetField && mappedField.required)) : []
-//   if (mappedFields.length > 0) {
-//     return false
-//   }
-//   return true
-// }
 
 export const handleInput = (e, telegramConf, setTelegramConf) => {
   setTelegramConf(prevConf =>

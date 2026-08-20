@@ -17,7 +17,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
-  // const [snack, setSnackbar] = useState({ show: false })
   const fields = [
     { key: 'Email', label: __('Email', 'bit-integrations'), required: true },
     { key: 'FirstName', label: __('FirstName', 'bit-integrations'), required: false },

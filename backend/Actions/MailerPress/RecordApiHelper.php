@@ -37,6 +37,7 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations')
         ];
 
+        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_or_update_contact':
                 $response = $this->insertRecord($fieldData, $lists, $tags);

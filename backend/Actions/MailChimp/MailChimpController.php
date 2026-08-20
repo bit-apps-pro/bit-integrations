@@ -63,13 +63,6 @@ class MailChimpController
         return $allModules;
     }
 
-    /**
-     * Process ajax request for refresh MailChimp Audience list
-     *
-     * @param $queryParams Params to refresh audience
-     *
-     * @return JSON MailChimp data
-     */
     public static function refreshAudience($queryParams)
     {
         if (empty($queryParams->tokenDetails)) {
@@ -116,13 +109,6 @@ class MailChimpController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh MailChimp Audience Fields
-     *
-     * @param $queryParams Params to refresh fields
-     *
-     * @return JSON MailChimp Audience fields
-     */
     public static function refreshAudienceFields($queryParams)
     {
         if (
@@ -176,13 +162,6 @@ class MailChimpController
         }
     }
 
-    /**
-     * Process ajax request for refresh MailChimp Tags
-     *
-     * @param $queryParams Prams to refresh tag
-     *
-     * @return JSON MailChimp Tags
-     */
     public static function refreshTags($queryParams)
     {
         if (

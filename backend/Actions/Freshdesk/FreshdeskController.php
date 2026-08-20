@@ -22,14 +22,6 @@ class FreshdeskController
         ],
     ];
 
-    /**
-     * Process ajax request for Fetch Ticket fields
-     *
-     * @param object $requestsParams     Params to authorize
-     * @param mixed  $tokenRequestParams
-     *
-     * @return JSON Freshdesk api response and status
-     */
     public function getAllTicketFields($tokenRequestParams)
     {
         if (
@@ -88,14 +80,6 @@ class FreshdeskController
         wp_send_json_success($responseData, 200);
     }
 
-    /**
-     * Process ajax request for Fetch Contact fields
-     *
-     * @param object $requestsParams     Params to authorize
-     * @param mixed  $tokenRequestParams
-     *
-     * @return JSON Freshdesk api response and status
-     */
     public function getAllContactFields($tokenRequestParams)
     {
         if (
@@ -140,15 +124,6 @@ class FreshdeskController
         wp_send_json_success($responseData, 200);
     }
 
-    /**
-     * Process ajax request for refresh telegram get Updates
-     *
-     * @param object $requestsParams  Params to get update
-     * @param mixed  $integrationData
-     * @param mixed  $fieldValues
-     *
-     * @return JSON Freshdesk get Updates data
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

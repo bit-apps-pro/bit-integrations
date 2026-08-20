@@ -84,13 +84,6 @@ class ZohoMarketingHubController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Params to refresh contact list
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)

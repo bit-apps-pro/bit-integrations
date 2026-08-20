@@ -24,13 +24,6 @@ class SendinBlueController
         ],
     ];
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $requestsParams Params to refresh list
-     *
-     * @return JSON crm module data
-     */
     public function refreshlists($requestsParams)
     {
         if (empty($requestsParams->api_key)) {

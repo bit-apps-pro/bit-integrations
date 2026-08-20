@@ -28,7 +28,6 @@ function Memberpress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
     { key: 'sub_total', label: __('Sub Total', 'bit-integrations'), required: false },
     { key: 'tax_amount', label: __('Tax Amount', 'bit-integrations'), required: false },
     { key: 'taxrate', label: __('Tax Rate', 'bit-integrations'), required: false },
-    // { key: 'status', label: __('Status', 'bit-integrations'), required: false },
     { key: 'expiration_date', label: __('Expiration Date', 'bit-integrations'), required: false }
   ]
 

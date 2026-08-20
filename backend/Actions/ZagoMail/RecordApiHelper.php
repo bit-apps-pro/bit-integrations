@@ -122,7 +122,6 @@ class RecordApiHelper
         return $recordApiResponse;
     }
 
-    // Check if a subscriber exists through email.
     private function existSubscriber($email, $listId)
     {
         $body = [

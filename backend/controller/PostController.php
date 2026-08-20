@@ -128,6 +128,9 @@ final class PostController
             $fields = rwmb_get_object_fields($postType);
             foreach ($fields as $index => $field) {
                 if (!\in_array($field['type'], $fileTypes)) {
+                    // if (!in_array($field['type'], $filterTypes)) {
+                    //     $metaboxFields[$index]['name'] = $field['name'];
+                    // }
                     $metaboxFields[$index]['name'] = $field['name'];
                     $metaboxFields[$index]['key'] = $field['id'];
                     $metaboxFields[$index]['required'] = $field['required'] == 1 ? true : false;

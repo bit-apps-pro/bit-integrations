@@ -102,6 +102,14 @@ final class FlowController
         );
     }
 
+    /**
+     * Updates Flow status to DB
+     *
+     * @param int  $id     ID of the flow to update
+     * @param bool $status Status of the flow. Disabled or Enabled.
+     *
+     * @return int|WP_Error
+     */
     public function updateStatus($id, $status)
     {
         $user_details = IpTool::getUserDetail();

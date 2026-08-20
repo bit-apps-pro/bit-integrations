@@ -71,16 +71,31 @@ class ApiClient
 
     private $headers = [];
 
+    /**
+     * @var null|string set by setBaseURL(), overrides the connection's endpoint base
+     */
     private $baseUrl;
 
+    /**
+     * @var null|string resolved endpoint base, cached so an OAuth2 getter runs once
+     */
     private $resolvedBaseUrl;
 
     private $isBaseUrlResolved = false;
 
+    /**
+     * @var null|ApiResponse the most recent response, for callers that inspect it
+     */
     private $response;
 
+    /**
+     * @var null|AuthorizationException set by the last request that failed to build a credential
+     */
     private $lastAuthException;
 
+    /**
+     * @param AuthStrategyInterface $connection strategy for the connection to call with
+     */
     public function __construct(AuthStrategyInterface $connection)
     {
         $this->auth = $connection;
@@ -141,6 +156,9 @@ class ApiClient
         return $this;
     }
 
+    /**
+     * @param null|array|object $payload overrides setBody() for this call
+     */
     public function get(string $path = '', $payload = null, array $headers = []): ApiResponse
     {
         return $this->request('GET', $path, $payload, $headers);

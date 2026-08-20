@@ -68,6 +68,7 @@ function Settings() {
       }
     })
 
+    // Execute both fetches in parallel
     Promise.all([fetchAnalytics, fetchConfig])
       .catch(() => {
         toast.error(__('Could not load settings', 'bit-integrations'))

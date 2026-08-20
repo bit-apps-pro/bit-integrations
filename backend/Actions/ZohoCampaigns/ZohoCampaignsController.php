@@ -84,13 +84,6 @@ class ZohoCampaignsController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param object $queryParams Params to fetch contact fields
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)

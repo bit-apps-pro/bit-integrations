@@ -151,6 +151,7 @@ class TutorLmsController
                 $lessonMetaIds[] = '_tutor_completed_lesson_id_' . $lesson_id;
             }
 
+            // Create placeholders for IN clause
             $placeholders = implode(', ', array_fill(0, \count($lessonMetaIds), '%s'));
             $query = \sprintf(
                 "DELETE from {$wpdb->usermeta} WHERE user_id = %%d AND meta_key IN (%s)",

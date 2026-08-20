@@ -104,6 +104,10 @@ export default function OneDriveActions({
   //     }
   //   }
   //   usersOption[1].childs = formFields.map(itm => ({ label: itm.name, value: `\${${itm.key}}` }))
+  //   setUsers(usersOption)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [oneDriveConf.team, oneDriveConf.default?.users?.[oneDriveConf.team]])
+
   return (
     <div className="pos-rel d-flx w-5">
       <div className="pos-rel d-flx flx-col w-8">

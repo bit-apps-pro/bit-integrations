@@ -84,7 +84,16 @@ export default memo(TreeViewer)
 //             children: data.map((item, key) => processData(item, key)),
 //         };
 //     }
+//     // Handle object data
+//     return {
+//         name: index + ' (object)',
+//         value: 'Object',
+//         children: Object.keys(data).map((key) => processData(data[key], key)),
+//     };
+// }
+
 const processData = (data, index = '') => {
+  // Handle non-object (including null) and non-array data
   if (typeof data !== 'object' || data === null) {
     return { name: index + ' (' + data + ')', value: data }
   }
@@ -108,13 +117,13 @@ const processData = (data, index = '') => {
     objectData.children.push(processData(data[key], key))
   })
 
+  // Optionally get own non-enumerable properties
   Object.getOwnPropertyNames(data).forEach(key => {
     if (!data.propertyIsEnumerable(key)) {
       objectData.children.push(processData(data[key], key))
     }
   })
 
-  // Get methods and properties from the prototype
   let prototype = Object.getPrototypeOf(data)
   while (prototype !== null && prototype !== Object.prototype) {
     Object.getOwnPropertyNames(prototype).forEach(key => {

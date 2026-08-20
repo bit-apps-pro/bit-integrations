@@ -22,15 +22,6 @@ final class AllFilesApiHelper
         $this->_defaultHeader['Content-Type'] = 'multipart/form-data; boundary=' . $this->_payloadBoundary;
     }
 
-    /**
-     * Helps to execute upload files api
-     *
-     * @param string $apiEndPoint Telegram API base URL
-     * @param array  $data        Data to pass to API
-     * @param mixed  $api_key
-     *
-     * @return array $uploadResponse Telegram API response
-     */
     public function allUploadFiles($apiEndPoint, $data, $api_key)
     {
         $data['attachments'] = static::setAttachment($data['attachments']);

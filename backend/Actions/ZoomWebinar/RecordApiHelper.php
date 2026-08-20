@@ -32,7 +32,6 @@ class RecordApiHelper
 
         $getRegistrants = HttpHelper::get($endPoint, null, $header);
 
-        // get registrant id using email from getRegistrants
         $registrantId = null;
         foreach ($getRegistrants->registrants as $registrant) {
             if ($registrant->email == $finalData['email']) {
@@ -41,6 +40,7 @@ class RecordApiHelper
                 break;
             }
         }
+        // delete registrant using registrant id
         if ($registrantId !== null) {
             $headerDel = [
                 'Authorization' => 'Bearer ' . $tokenDetails->access_token,

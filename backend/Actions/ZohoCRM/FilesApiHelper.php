@@ -19,6 +19,10 @@ final class FilesApiHelper
 
     private $_payloadBoundary;
 
+    /**
+     * @param object $tokenDetails Api token details
+     * @param int    $integId      ID of the flow to execute
+     */
     public function __construct($tokenDetails, $integId)
     {
         $this->_integId = $integId;
@@ -79,6 +83,13 @@ final class FilesApiHelper
         return $uploadResponse;
     }
 
+    /**
+     * Prepares payload for file upload
+     *
+     * @param $file File path
+     *
+     * @return string
+     */
     public function preparePayload($file)
     {
         $payload = '';

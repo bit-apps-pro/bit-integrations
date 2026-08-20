@@ -125,13 +125,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param $queryParams Mandatory params for refresh layout
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshLayoutsAjaxHelper($queryParams)
     {
         if (
@@ -162,6 +155,9 @@ final class ZohoCRMController
             $retriveLayoutsData = $layoutsMetaResponse->layouts;
             $layouts = [];
             foreach ($retriveLayoutsData as $layoutKey => $layoutValue) {
+                // if ($layoutValue->name !== 'Standard') {
+                //     continue;
+                // }
                 $fields = [];
                 $fileUploadFields = [];
                 $requiredFields = [];
@@ -171,6 +167,9 @@ final class ZohoCRMController
 
                 foreach ($layoutValue->sections as $sectionKey => $sectionValue) {
                     foreach ($sectionValue->fields as $fieldKey => $fieldDetails) {
+                        // if (!\in_array($fieldDetails->api_name, $fieldToShow)) {
+                        //     continue;
+                        // }
                         if (
                             empty($fieldDetails->subform)
                             && !empty($fieldDetails->api_name)
@@ -241,13 +240,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request to get assignment rules of a Zoho CRM module
-     *
-     * @param mixed $queryParams
-     *
-     * @return JSON crm assignment rules data
-     */
     public static function getAssignmentRulesAjaxHelper($queryParams)
     {
         if (
@@ -293,13 +285,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request to get realted lists of a Zoho CRM module
-     *
-     * @param $queryParams Mandatory params
-     *
-     * @return JSON crm layout data
-     */
     public static function getRelatedListsAjaxHelper($queryParams)
     {
         if (
@@ -345,13 +330,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm users
-     *
-     * @param $queryParams Mandatory params
-     *
-     * @return JSON crm users data
-     */
     public static function refreshUsersAjaxHelper($queryParams)
     {
         if (
@@ -415,13 +393,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh tags of a module
-     *
-     * @param $queryParams Mandatory params
-     *
-     * @return JSON crm Tags  for a module
-     */
     public static function refreshTagListAjaxHelper($queryParams)
     {
         if (

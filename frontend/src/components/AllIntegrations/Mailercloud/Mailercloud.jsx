@@ -15,6 +15,15 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
     auth: false,
     list: false,
     page: false
+  })
+  const [mailercloudConf, setMailercloudConf] = useState({
+    name: 'Mailercloud',
+    type: 'Mailercloud',
+    api_key: '',
+    field_map: [{ formFields: '', mailercloudFormField: '' }],
+    listId: '',
+    contactType: '',
+    actions: {}
   // mailercloudFields: [
   //   { key: 'city', label: 'City', required: false },
   //   { key: 'country', label: 'Country', required: false },
@@ -33,15 +42,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
   //   { key: 'state', label: 'State', required: false },
   //   { key: 'zip', label: 'Zip', required: false },
   // ],
-  })
-  const [mailercloudConf, setMailercloudConf] = useState({
-    name: 'Mailercloud',
-    type: 'Mailercloud',
-    api_key: '',
-    field_map: [{ formFields: '', mailercloudFormField: '' }],
-    listId: '',
-    contactType: '',
-    actions: {}
   })
   const setSavePageLoad = value => {
     setLoading({ ...loading, page: value })

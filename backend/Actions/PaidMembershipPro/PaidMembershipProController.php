@@ -46,6 +46,10 @@ class PaidMembershipProController
             }
         }
 
+        // $allLevels = array_merge($allLevels, [[
+        //     'membershipId' => 'any',
+        //     'membershipTitle' => 'Any Membership Level',
+        // ]]);
         wp_send_json_success($allLevels);
     }
 

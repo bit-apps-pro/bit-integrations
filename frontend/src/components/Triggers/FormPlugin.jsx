@@ -57,6 +57,7 @@ const FormPlugin = () => {
       setIsLoad(true)
       let queryData = { id: val }
 
+      // Page Builder triggers requires postId
       if (
         newFlow?.triggerDetail?.name === 'PiotnetAddon' ||
         newFlow?.triggerDetail?.name === 'CartFlow'

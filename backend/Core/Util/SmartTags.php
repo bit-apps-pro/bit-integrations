@@ -2,6 +2,11 @@
 
 namespace BitApps\Integrations\Core\Util;
 
+/**
+ * handling Special mail-tags
+ *
+ * @since 1.0.0
+ */
 final class SmartTags
 {
     public static function getPostUserData($isReferer)

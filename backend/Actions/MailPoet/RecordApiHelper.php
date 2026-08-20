@@ -35,7 +35,6 @@ class RecordApiHelper
             $existingSubscriber = static::$mailPoet_api->getSubscriber($subscriber['email']);
 
             if (!$existingSubscriber) {
-                // Handle the case where the subscriber doesn't exist
                 return static::addSubscriber($subscriber, $lists, $options);
             }
 
@@ -69,6 +68,7 @@ class RecordApiHelper
             }
         } catch (\MailPoet\API\MP\v1\APIException $e) {
             if ($e->getCode() == 4) {
+                // Handle the case where the subscriber doesn't exist
                 return static::addSubscriber($subscriber, $lists, $options);
             }
 

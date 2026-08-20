@@ -30,13 +30,6 @@ class MauticController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Process ajax request for refresh Mautic Audience Fields
-     *
-     * @param $queryParams Params to refresh fields
-     *
-     * @return JSON mautic contact fields
-     */
     public static function getAllFields($queryParams)
     {
         if (empty($queryParams->tokenDetails)) {

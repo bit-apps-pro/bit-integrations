@@ -242,7 +242,6 @@ export const PostTypeFeaturesFields = [
   { key: 'supports', label: __('Features (comma separated)', 'bit-integrations'), required: true }
 ]
 
-// === Tag / Taxonomy / Term Fields ===
 export const CreateTagFields = [
   { key: 'name', label: __('Tag Name', 'bit-integrations'), required: true },
   { key: 'slug', label: __('Slug', 'bit-integrations'), required: false },
@@ -348,6 +347,7 @@ export const AddCategoryToPostFields = [
   }
 ]
 
+// === WooCommerce Tag/Category/Type Fields ===
 export const CreateProductTagFields = [
   { key: 'name', label: __('Tag Name', 'bit-integrations'), required: true },
   { key: 'slug', label: __('Slug', 'bit-integrations'), required: false },

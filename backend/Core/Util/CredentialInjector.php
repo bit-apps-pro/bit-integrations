@@ -17,6 +17,10 @@ use Throwable;
  */
 class CredentialInjector
 {
+    /**
+     * @param object $target          $flowDetails or $requestParams — mutated in place
+     * @param string $controllerClass Action controller class name
+     */
     public static function inject(object $target, string $controllerClass): void
     {
         $connectionId = (int) ($target->connection_id ?? 0);

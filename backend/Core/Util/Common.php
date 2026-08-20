@@ -265,6 +265,13 @@ final class Common
         return strpos($real, $base) === 0 ? $real : '';
     }
 
+    /**
+     * Replaces dir path with url
+     *
+     * @param array|string $file Single or multiple files path
+     *
+     * @return string|array
+     */
     public static function fileUrl($file)
     {
         $upDir = wp_upload_dir();

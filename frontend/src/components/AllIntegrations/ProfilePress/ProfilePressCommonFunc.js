@@ -39,12 +39,12 @@ export const refreshProfilePressPlans = (setLists, setIsLoading) => {
         return
       }
 
-      // Without this the spinner just stops on a network failure, leaving an empty
-      // dropdown and no indication anything went wrong.
       toast.error(__('ProfilePress plans fetch failed. Please try again', 'bit-integrations'))
     })
     .catch(() => {
       setIsLoading(false)
+      // Without this the spinner just stops on a network failure, leaving an empty
+      // dropdown and no indication anything went wrong.
       toast.error(__('ProfilePress plans fetch failed. Please try again', 'bit-integrations'))
     })
 }

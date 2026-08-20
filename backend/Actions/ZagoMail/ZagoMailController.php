@@ -32,13 +32,6 @@ class ZagoMailController
         return "https://api.zagomail.com/{$method}";
     }
 
-    /**
-     * Process ajax request for refresh Lists
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON convert kit lists data
-     */
     public static function zagoMailLists($queryParams)
     {
         if (empty($queryParams->api_public_key)) {
@@ -76,13 +69,6 @@ class ZagoMailController
         }
     }
 
-    /**
-     * Process ajax request for refresh Tags
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON convert kit tags data
-     */
     public static function zagoMailTags($queryParams)
     {
         if (empty($queryParams->api_public_key)) {
@@ -119,13 +105,6 @@ class ZagoMailController
         }
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param $queryParams Params to fetch headers
-     *
-     * @return JSON crm module data
-     */
     public static function zagoMailRefreshFields($queryParams)
     {
         if (empty($queryParams->api_public_key)) {

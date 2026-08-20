@@ -33,6 +33,13 @@ class GoogleSheetController
         $this->_integrationID = $integrationID;
     }
 
+    /**
+     * Process ajax request for generate_token
+     *
+     * @param object $requestsParams
+     *
+     * @return JSON zoho crm api response and status
+     */
     public static function generateTokens($requestsParams)
     {
         if (empty($requestsParams->clientId)
@@ -71,13 +78,6 @@ class GoogleSheetController
         wp_send_json_success($apiResponse, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm module data
-     */
     public static function refreshSpreadsheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -128,13 +128,6 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshWorksheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);

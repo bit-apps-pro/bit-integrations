@@ -181,6 +181,13 @@ class LionDeskController
         return $lionDeskApiResponse;
     }
 
+    /**
+     * Helps to refresh LionDesk access_token
+     *
+     * @param object $apiData Contains required data for refresh access token
+     *
+     * @return object|false $tokenDetails API token details
+     */
     protected static function _refreshAccessToken($apiData)
     {
         if (empty($apiData->clientId)

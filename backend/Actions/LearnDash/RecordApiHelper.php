@@ -148,7 +148,6 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    // Mark the course as complete for the user function 4.
     public static function mark_quiz_complete($user_id, $course_id = null)
     {
         $quizzes = learndash_get_course_quiz_list($course_id, $user_id);
@@ -254,8 +253,6 @@ class RecordApiHelper
 
     public static function markACourseCompleteForTheUser($courseIds)
     {
-        // public function mark_not_complete_a_topic( $user_id, $action_data, $recipe_id, $args ) {
-
         $user_id = get_current_user_id();
         $course_id = $courseIds;
         self::mark_steps_done($user_id, $course_id);
@@ -263,6 +260,7 @@ class RecordApiHelper
         return learndash_process_mark_complete($user_id, $course_id);
     }
 
+    // action 6 and 1st part
     public static function courseLessonComplete(
         $courseIds,
         $lessonId
@@ -472,8 +470,6 @@ class RecordApiHelper
 
         return $apiResponse;
     }
-
-    // public function remove_from_group( $user_id, $action_data, $recipe_id, $args )
 
     public static function removeGroupLeaderAndChildren($group_id)
     {

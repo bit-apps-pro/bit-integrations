@@ -167,8 +167,6 @@ export default function Oauth2Connection({
     })
 
     if (popupResponse?.error) {
-      // The backend sends {message} on some paths and a bare string on others (e.g.
-      // $wpError->get_error_message()); reading only .message swallowed the real cause.
       throw new Error(
         popupResponse.error === 'popup_blocked'
           ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
@@ -194,6 +192,8 @@ export default function Oauth2Connection({
     })
 
     if (!tokenRes?.success) {
+      // The backend sends {message} on some paths and a bare string on others (e.g.
+      // $wpError->get_error_message()); reading only .message swallowed the real cause.
       throw new Error(
         tokenRes?.data?.message ||
           (typeof tokenRes?.data === 'string' && tokenRes.data) ||
@@ -224,6 +224,8 @@ export default function Oauth2Connection({
     })
 
     if (!tokenRes?.success) {
+      // The backend sends {message} on some paths and a bare string on others (e.g.
+      // $wpError->get_error_message()); reading only .message swallowed the real cause.
       throw new Error(
         tokenRes?.data?.message ||
           (typeof tokenRes?.data === 'string' && tokenRes.data) ||

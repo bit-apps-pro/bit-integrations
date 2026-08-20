@@ -11,6 +11,11 @@ use WP_Error;
 
 class AffiliateController
 {
+    // public function __construct($integrationID)
+    // {
+    //     $this->_integrationID = $integrationID;
+    // }
+
     public static function pluginActive($option = null)
     {
         if (is_plugin_active('affiliate-wp/affiliate-wp.php')) {

@@ -52,10 +52,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     .map(fld => fld.key)
     .join(',')
 
-  // The field map renders its required rows by position, so they have to be re-keyed
-  // when the required list changes.
-  // Create only: on an update an unset select leaves the column alone, and
-  // seeding one would start rewriting it.
   useEffect(() => {
     if (!crmModule || bitCrmConf?.crmFieldsModule === crmModule) return
 
@@ -63,6 +59,8 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [crmModule])
 
+  // The field map renders its required rows by position, so they have to be re-keyed
+  // when the required list changes.
   useEffect(() => {
     if (!action || mappableFields.length === 0) return
 
@@ -96,6 +94,8 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action])
 
+  // Create only: on an update an unset select leaves the column alone, and
+  // seeding one would start rewriting it.
   useEffect(() => {
     if (!action?.startsWith('create_')) return
 

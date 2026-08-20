@@ -42,6 +42,7 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
+        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_reservation':
                 $response = Hooks::apply(Config::withPrefix('wpcafe_create_reservation'), $defaultResponse, $fieldData);

@@ -16,6 +16,9 @@ use Exception;
  */
 class AuthorizationException extends Exception
 {
+    /**
+     * @var null|array the handler's own error array, when it produced one
+     */
     private $errorDetails;
 
     /**

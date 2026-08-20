@@ -32,13 +32,6 @@ class BenchMarkController
         return "https://clientapi.benchmarkemail.com/{$method}";
     }
 
-    /**
-     * Process ajax request for refresh Lists
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON Benchmark lists data
-     */
     public static function benchMarkLists($queryParams)
     {
         if (empty($queryParams->api_secret)
@@ -72,13 +65,6 @@ class BenchMarkController
         }
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param $queryParams Params to fetch headers
-     *
-     * @return JSON crm module data
-     */
     public static function benchMarkHeaders($queryParams)
     {
         if (empty($queryParams->api_secret)

@@ -20,6 +20,12 @@ final class FilesApiHelper
 
     private $_basepath;
 
+    /**
+     * @param object $tokenDetails Api token details
+     * @param int    $formID       ID of the form, for which integration is executing
+     * @param int    $entryID      Current submittion ID
+     * @param mixed  $orgId
+     */
     public function __construct($tokenDetails, $orgId)
     {
         $this->_payloadBoundary = wp_generate_password(24);

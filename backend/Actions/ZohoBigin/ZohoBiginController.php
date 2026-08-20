@@ -82,13 +82,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh  modules
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshPLayouts($queryParams)
     {
         if (
@@ -135,13 +128,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh related lists
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshRelatedModules($queryParams)
     {
         if (
@@ -176,6 +162,11 @@ class ZohoBiginController
                 'plural_label' => 'Calls'
             ],
         ];
+        // $modulesMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v1/settings/related_lists";
+        // $authorizationHeader["Authorization"] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
+        // $requiredParams['module'] = $queryParams->module;
+        // $modulesMetaResponse = HttpHelper::get($modulesMetaApiEndpoint, $queryParams, $authorizationHeader);
+        // wp_send_json_success($modulesMetaResponse, 200);
         foreach ($allModules as $module) {
             if ($module->api_name !== $queryParams->module) {
                 $relatedModules[$module->plural_label] = (object) [
@@ -193,13 +184,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin layouts
-     *
-     * @param object $queryParams Params to fetch fields of module
-     *
-     * @return JSON bigin layout data
-     */
     public static function getFields($queryParams)
     {
         if (
@@ -245,6 +229,15 @@ class ZohoBiginController
                     $requiredFields[] = $field->api_name;
                 }
             }
+
+            // $fields['Pipeline'] = (object) array(
+            //         'api_name' => 'Pipeline',
+            //         'display_label' => 'Pipeline',
+            //         'data_type' => 'text',
+            //         'length' => 120,
+            //         'required' => true
+            //     );
+            // $requiredFields[] = 'Pipeline';
 
             uksort($fields, 'strnatcasecmp');
             uksort($fileUploadFields, 'strnatcasecmp');

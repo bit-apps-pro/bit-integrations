@@ -25,7 +25,6 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
     { key: 'commission_date', label: __('commission_date', 'bit-integrations'), required: true },
     { key: 'reference', label: __('Reference', 'bit-integrations'), required: false },
     { key: 'amount', label: __('Amount', 'bit-integrations'), required: false }
-  // { key: '2', label: __('Remove the user from a membership','bit-integrations') },
   ]
 
   const [sliceWpConf, setSliceWpConf] = useState({

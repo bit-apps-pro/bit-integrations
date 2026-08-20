@@ -11,6 +11,11 @@ use WP_Error;
 
 class LearnDashController
 {
+    // public function __construct($integrationID)
+    // {
+    //     $this->_integrationID = $integrationID;
+    // }
+
     public static function pluginActive($option = null)
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';

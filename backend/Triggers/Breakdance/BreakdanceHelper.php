@@ -6,7 +6,6 @@ class BreakdanceHelper
 {
     public static function setFields($data, $form)
     {
-        // Create a mapping for quick access
         $formFields = array_column($form, null, 'name');
         $allFields = [
             // translators: %s: Placeholder value

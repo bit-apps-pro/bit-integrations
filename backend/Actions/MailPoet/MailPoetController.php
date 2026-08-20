@@ -29,11 +29,6 @@ class MailPoetController
         }
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @return JSON crm module data
-     */
     public function refreshNeswLetter()
     {
         self::isExists();

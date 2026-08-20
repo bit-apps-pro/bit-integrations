@@ -10,6 +10,7 @@ export default async function bitsFetch(data, action, queryParam = null, method 
     uri.searchParams.append('action', APP_CONFIG.withPrefix(action))
     uri.searchParams.append('_ajax_nonce', APP_CONFIG.nonce)
   }
+  // append query params in url
   if (queryParam) {
     for (const key in queryParam) {
       if (key) {

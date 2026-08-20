@@ -131,6 +131,11 @@ class RecordApiHelper
             'Authorization' => 'Bearer ' . $this->token,
         ];
 
+        // $dataNew = [
+        //     "photoBytes" => base64_encode(file_get_contents(json_decode($fieldData['organization'])[0])),
+        //     "personFields" => 'addresses,biographies,emailAddresses,names,phoneNumbers'
+        // ];
+
         $response = Common::safeRemoteGet($imageLocation);
         if (is_wp_error($response)) {
             return $response;

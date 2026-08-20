@@ -51,14 +51,6 @@ final class TagApiHelper
         return $tags;
     }
 
-    /**
-     * Helps to add Tags to a specific record of a module
-     *
-     * @param int    $recordID ID of record to add tags
-     * @param string $tagNames urlencoded string of tag names
-     *
-     * @return Json $addTagsResponse Tags List
-     */
     public function addTagsSingleRecord($recordID, $tagNames)
     {
         $addTagsEndpoint = "{$this->_apiDomain}/{$this->_module}/{$recordID}/actions/add_tags";

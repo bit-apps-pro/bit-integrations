@@ -76,13 +76,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param mixed $queryParams
-     *
-     * @return JSON crm module data
-     */
     public static function refreshDepartments($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -130,13 +123,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param object $queryParams Params to fetch fields
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshFields($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -212,13 +198,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Params to refresh ticket owner
-     *
-     * @return JSON crm module data
-     */
     public static function refreshTicketOwners($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -264,13 +243,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Params to refresh ticket Products
-     *
-     * @return JSON crm module data
-     */
     public static function refreshProducts($queryParams)
     {
         if (empty($queryParams->tokenDetails)

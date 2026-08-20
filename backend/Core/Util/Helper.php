@@ -10,6 +10,11 @@ use Exception;
 use stdClass;
 use WP_Error;
 
+/**
+ * bit-integration helper class
+ *
+ * @since 1.0.0
+ */
 final class Helper
 {
     /**
@@ -85,7 +90,6 @@ final class Helper
 
             $imgFileName = basename($file);
 
-            // Get file content using WordPress HTTP API for remote files
             if (filter_var($file, FILTER_VALIDATE_URL)) {
                 $response = Common::safeRemoteGet($file);
                 if (is_wp_error($response)) {
@@ -107,6 +111,7 @@ final class Helper
                 continue;
             }
 
+            // check and return file type
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
             $attachment = [
@@ -134,6 +139,7 @@ final class Helper
 
         if ($filePath !== '') {
             $imgFileName = basename($filePath);
+            // prepare upload image to WordPress Media Library
             $upload = wp_upload_bits($imgFileName, null, FileSystem::read($filePath));
 
             if (!empty($upload['error']) || empty($upload['file'])) {
@@ -155,6 +161,7 @@ final class Helper
             }
 
             require_once ABSPATH . 'wp-admin/includes/image.php';
+            // insert and return attachment metadata
             $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
             wp_update_attachment_metadata($attachmentId, $attachmentData);
 
@@ -171,6 +178,7 @@ final class Helper
             $file = Common::safeUploadFilePath($file);
             if ($file !== '') {
                 $imgFileName = basename($file);
+                // prepare upload image to WordPress Media Library
                 $upload = wp_upload_bits($imgFileName, null, FileSystem::read($file));
 
                 if (!empty($upload['error']) || empty($upload['file'])) {
@@ -192,6 +200,7 @@ final class Helper
                 }
                 $attachMentId[] = $attachmentId;
 
+                // insert and return attachment metadata
                 $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
                 wp_update_attachment_metadata($attachmentId, $attachmentData);
             }

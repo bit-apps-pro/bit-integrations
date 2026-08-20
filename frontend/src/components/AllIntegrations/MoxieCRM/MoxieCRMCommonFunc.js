@@ -59,6 +59,11 @@ const buildAuthRequestParams = confTmp =>
 
 // export const getCustomFields = (confTmp, setConf, setLoading) => {
 //   setLoading({ ...setLoading, customFields: true });
+//   const requestParams = {
+//     api_key: confTmp.api_key,
+//     api_url: confTmp.api_url,
+//     action: confTmp.actionName,
+//   };
 //   bitsFetch(requestParams, "moxiecrm_fetch_custom_fields").then((result) => {
 //     if (result && result.success) {
 //       const newConf = { ...confTmp };

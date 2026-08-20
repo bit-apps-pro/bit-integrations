@@ -31,11 +31,17 @@ final class ApiResponse
         $this->error = $error;
     }
 
+    /**
+     * @param mixed $body decoded JSON (object/array/scalar) or raw body string
+     */
     public static function ok(int $status, $body): self
     {
         return new self(true, $status, $body, null);
     }
 
+    /**
+     * @param mixed $body decoded body, WP_Error, or null when no request was sent
+     */
     public static function fail(int $status, ?string $error, $body = null): self
     {
         return new self(false, $status, $body, $error);

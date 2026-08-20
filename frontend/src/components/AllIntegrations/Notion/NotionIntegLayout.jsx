@@ -3,6 +3,7 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
+/* eslint-disable no-bitwise */
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import LoaderSm from '../../Loaders/LoaderSm'

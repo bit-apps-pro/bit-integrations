@@ -346,6 +346,9 @@ class RecordApiHelper
                 return $input;
             }
 
+            // ----------------------------
+            // PHONE NUMBER PROTECTION
+            // ----------------------------
             if (preg_match('/^\+?\d{7,15}$/', $input)) {
                 return $input;
             }
@@ -376,6 +379,9 @@ class RecordApiHelper
             // ------------------------------------------------------------
             $clean = preg_replace('/\b(\d+)(st|nd|rd|th)\b/i', '$1', $input);
 
+            // ------------------------------------------------------------
+            // 4) Japanese/Chinese/Korean locale replacements
+            // ------------------------------------------------------------
             $clean = str_replace(
                 ['年', '月', '日', '년', '월', '일'],
                 ['-', '-', '', '-', '-', ''],
@@ -426,6 +432,7 @@ class RecordApiHelper
             }
 
             if (self::validateNumericDateWithLength($clean, 6)) {
+                // DDMMYY / YYMMDD / MMDDYY
                 $yy = \intval(substr($clean, -2));
 
                 // Sliding window: interpret two-digit year as closest to current year within 50 years
@@ -466,6 +473,9 @@ class RecordApiHelper
                 return $dt->format('Y-m-d');
             }
 
+            // ------------------------------------------------------------
+            // 9) Last fallback using strtotime()
+            // ------------------------------------------------------------
             $ts = strtotime($clean);
             if ($ts) {
                 if (preg_match('/\d{1,2}:\d/', $clean)) {

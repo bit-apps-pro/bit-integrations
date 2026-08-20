@@ -23,13 +23,10 @@ class TelegramController
 
     private $_integrationID;
 
-    /**
-     * Process ajax request for refresh telegram get Updates
-     *
-     * @param object $requestsParams Params to get update
-     *
-     * @return JSON telegram get Updates data
-     */
+    // public function __construct($integrationID=0)
+    // {
+    //     $this->_integrationID = $integrationID;
+    // }
     public static function refreshGetUpdates($requestsParams)
     {
         if (empty($requestsParams->bot_api_key)) {

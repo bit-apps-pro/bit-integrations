@@ -1,4 +1,19 @@
 <?php
+/**
+ * Email Template: Integration Failure Notification
+ *
+ * Variables available from parent scope:
+ *
+ * @var int    $flowId        Integration flow ID
+ * @var string $actionName    Integration action name
+ * @var string $triggerName   Integration trigger name
+ * @var string $recordType    Record type
+ * @var string $errorMessage  Error message from failed integration
+ * @var string $siteName      Site name
+ * @var string $adminUrl      URL to edit integration
+ * @var string $logUrl        URL to view integration logs
+ * @var string $timestamp     Current timestamp
+ */
 if (! defined('ABSPATH')) {
     exit;
 }

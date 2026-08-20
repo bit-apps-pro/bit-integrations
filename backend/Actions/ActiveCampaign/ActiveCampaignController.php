@@ -33,13 +33,6 @@ class ActiveCampaignController
         return "{$api_url}/api/3/{$method}/";
     }
 
-    /**
-     * Process ajax request for refresh lists
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON active campaign list data
-     */
     public static function activeCampaignLists($queryParams)
     {
         if (
@@ -82,6 +75,13 @@ class ActiveCampaignController
 
         $lists = [];
         if (!is_wp_error($aCampaignResponse) && isset($aCampaignResponse->accounts)) {
+            // foreach ($allLists as $list) {
+            //     $lists[$list->name] = (object) [
+            //         'listId' => $list->id,
+            //         'listName' => $list->name,
+            //     ];
+            // }
+            // $response['activeCampaignLists'] = $lists;
             wp_send_json_success($aCampaignResponse->accounts);
         }
     }

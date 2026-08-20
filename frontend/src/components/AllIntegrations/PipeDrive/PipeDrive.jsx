@@ -85,9 +85,6 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
 
     if (!checkMappedFields(pipeDriveConf)) {
       setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
-      // if (pipeDriveConf.moduleData.module === 'Persons') {
-      //   setSnackbar({ show: true, msg: __('Please select a organization', 'bit-integrations') })
-      // }
       return
     }
     if (!checkRequired(pipeDriveConf)) {
@@ -97,6 +94,9 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
           msg: __('Please select a organization or a person', 'bit-integrations')
         })
       }
+      // if (pipeDriveConf.moduleData.module === 'Persons') {
+      //   setSnackbar({ show: true, msg: __('Please select a organization', 'bit-integrations') })
+      // }
       return
     }
     pipeDriveConf.moduleData.module && pipeDriveConf.field_map.length > 0 && setstep(pageNo)

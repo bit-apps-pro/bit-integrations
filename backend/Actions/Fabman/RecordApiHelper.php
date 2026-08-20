@@ -268,14 +268,6 @@ class RecordApiHelper
         return $response;
     }
 
-    /**
-     * Validates and sanitizes field values based on Fabman API field requirements
-     *
-     * @param string $fieldName The Fabman field name
-     * @param mixed  $value     The raw value to validate
-     *
-     * @return mixed|false The sanitized value or false if validation fails
-     */
     private function validateAndSanitizeField($fieldName, $value)
     {
         if ($this->isEmptyValue($value)) {

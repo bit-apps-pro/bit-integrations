@@ -468,6 +468,7 @@ export const allConfigurableKeys = [
   )
 ]
 
+// ---- Utilities: boolean options ----
 const isSharedUtil = {
   key: 'is_shared',
   label: __('Shared', 'bit-integrations'),

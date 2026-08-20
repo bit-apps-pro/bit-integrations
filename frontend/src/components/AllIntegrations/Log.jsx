@@ -283,12 +283,12 @@ function Log({ allIntegURL }) {
   }, [log, collapsed])
 
   // Debounce the search box, then let the server filter (correct counts + matches across all pages).
-  // After a refresh / re-execute, expand all groups so a newly created re-run is visible.
   useEffect(() => {
     const timer = setTimeout(() => setSearchQuery(search.trim()), 300)
     return () => clearTimeout(timer)
   }, [search])
 
+  // After a refresh / re-execute, expand all groups so a newly created re-run is visible.
   useEffect(() => {
     if (reloadIndex) setCollapsed(new Set())
   }, [reloadIndex])

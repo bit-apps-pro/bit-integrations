@@ -21,7 +21,6 @@ export const delFieldMap = (i, confTmp, setConf) => {
 
 export const handleFieldMapping = (event, index, confTmp, setConf) => {
   const newConf = create(confTmp, draft => {
-    // Initialize the field map object at index if missing
     if (!draft.field_map[index]) {
       draft.field_map[index] = {}
     }

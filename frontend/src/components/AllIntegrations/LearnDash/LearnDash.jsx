@@ -44,7 +44,6 @@ function LearnDash({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
     },
     { key: '13', label: __('Reset the users attempts for a quiz pro', 'bit-integrations') },
     { key: '14', label: __('Reset the users progress in a course pro', 'bit-integrations') },
-    // { key: '15', label: __('Send a certificate pro', 'bit-integrations')},
     { key: '16', label: __('Send an email to the users group leaders', 'bit-integrations') },
     { key: '17', label: __('Unenroll the user from a course pro', 'bit-integrations') }
   ]

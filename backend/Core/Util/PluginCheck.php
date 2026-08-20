@@ -78,6 +78,11 @@ final class PluginCheck
         'TOKEN',
     ];
 
+    /**
+     * @param array $spec accepts groups OR flat checks; nested values may be stdClass
+     *
+     * @return array{available:bool,message?:string}
+     */
     public static function evaluate(array $spec): array
     {
         $groups = self::normalizeGroups($spec);

@@ -50,9 +50,6 @@ export const handleInput = (
     } else {
       delete newConf.relatedlists[recordTab - 1][e.target.name]
     }
-  // if (pipeDriveConf.moduleData.module === 'Persons' && pipeDriveConf.moduleData.organization_id === undefined) {
-  //   return false
-  // }
   }
 
   switch (e.target.name) {
@@ -419,6 +416,9 @@ export const checkRequired = pipeDriveConf => {
     ) {
       return false
     }
+  // if (pipeDriveConf.moduleData.module === 'Persons' && pipeDriveConf.moduleData.organization_id === undefined) {
+  //   return false
+  // }
   }
   return true
 }

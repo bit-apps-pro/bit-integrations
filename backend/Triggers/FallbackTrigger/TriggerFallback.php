@@ -883,7 +883,6 @@ final class TriggerFallback
             return;
         }
 
-        // array to string conversion for radio and Select Fields
         $data = [];
         foreach ($fields as $key => $value) {
             $fieldId = str_replace('form-field-', '', $key);
@@ -1833,6 +1832,7 @@ final class TriggerFallback
             $posted_data['post_id'] = $postID;
         }
 
+        // array to string conversion for radio and Select Fields
         $data = [];
         foreach ($posted_data as $key => $value) {
             if (\is_array($value) && \count($value) == 1) {
@@ -2776,7 +2776,6 @@ final class TriggerFallback
         $filename = sanitize_file_name($title) . '.png';
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
-        // Save the image in the uploads directory.
         $upload_file = FileSystem::write($upload_path . '/' . $hashed_filename, $decoded);
         if ($upload_file) {
             return $upload_path . '/' . $hashed_filename;

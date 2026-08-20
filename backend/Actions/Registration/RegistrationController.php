@@ -229,6 +229,7 @@ final class RegistrationController
             return true;
         }
 
+        // Catches custom/multisite prefixes, e.g. wp_2_capabilities.
         return (bool) preg_match('/(^|_)(capabilities|user_level)$/', $key);
     }
 

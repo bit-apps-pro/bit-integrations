@@ -33,13 +33,6 @@ class DirectIqController
         return "https://clientapi.benchmarkemail.com/{$method}";
     }
 
-    /**
-     * Process ajax request for refresh Lists
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON DirectIQ lists data
-     */
     public static function directIqLists($queryParams)
     {
         if (
@@ -75,13 +68,6 @@ class DirectIqController
         }
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param $queryParams Params to fetch headers
-     *
-     * @return JSON crm module data
-     */
     public static function directIqHeaders($queryParams)
     {
         if (

@@ -16,14 +16,8 @@ import {
 import NinjaTablesFieldMap from './NinjaTablesFieldMap'
 import { modules } from './staticData'
 
-/**
- * Check if action requires field mapping
- */
 const requiresFieldMap = action => [ACTIONS.ADD_ROW, ACTIONS.UPDATE_ROW].includes(action)
 
-/**
- * Check if data already exists in configuration
- */
 const hasData = (conf, key) => conf?.default?.[key]?.length > 0
 
 export default function NinjaTablesIntegLayout({
@@ -46,9 +40,6 @@ export default function NinjaTablesIntegLayout({
     delete draftConf.selectedUser
   }
 
-  /**
-   * Auto-fetch required data based on action
-   */
   const autoFetchDataForAction = (action, hasDataLoaded) => {
     if (requiresFieldMap(action) && !hasDataLoaded('allTables')) {
       refreshNinjaTables(formID, setNinjaTablesConf, setIsLoading, setSnackbar)
@@ -85,10 +76,12 @@ export default function NinjaTablesIntegLayout({
 
     const action = ninjaTablesConf.mainAction
 
+    // Auto-fetch rows for update action
     if (action === ACTIONS.UPDATE_ROW) {
       refreshNinjaTablesRows(formID, value, setNinjaTablesConf, setIsLoading, setSnackbar)
     }
 
+    // Auto-fetch columns for add/update actions
     if (requiresFieldMap(action)) {
       refreshNinjaTablesColumns(formID, value, setNinjaTablesConf, setIsLoading, setSnackbar)
     }

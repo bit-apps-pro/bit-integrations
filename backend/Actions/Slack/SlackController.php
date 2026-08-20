@@ -22,6 +22,14 @@ class SlackController
         ],
     ];
 
+    /**
+     * Process ajax request for generate_token
+     *
+     * @param object $requestsParams     Params to authorize
+     * @param mixed  $tokenRequestParams
+     *
+     * @return JSON slack api response and status
+     */
     public static function fetchChannels($tokenRequestParams)
     {
         if (

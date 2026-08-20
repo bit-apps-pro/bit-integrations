@@ -30,6 +30,13 @@ export default function PropovoiceCrmIntegLayout({
     setPropovoiceCrmConf({ ...newConf })
   }
 
+  // useEffect(() => {
+  //   if (propovoiceCrmConf?.mainAction === '1') {
+  //     getAllLeadLabel(propovoiceCrmConf, setPropovoiceCrmConf, isLoading, setIsLoading)
+  //     getAllLeadTags(propovoiceCrmConf, setPropovoiceCrmConf, isLoading, setIsLoading)
+  //   }
+  // }, [propovoiceCrmConf?.mainAction === '1'])
+
   return (
     <>
       <br />

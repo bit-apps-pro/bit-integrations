@@ -304,9 +304,6 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
     public function isTokenExpired($generatedAt, $expiresIn): bool
     {
         if (empty($generatedAt) || empty($expiresIn) || (int) $expiresIn <= 0) {
-            // Hash::encrypt throws rather than store a credential it could not encrypt.
-            // Report a failed persist so callers surface it; writing the row without the
-            // encrypted values would put the secret in the database in plaintext.
             return false;
         }
 
@@ -326,6 +323,9 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         try {
             $authDetails = AuthDataCodec::encryptValues($authDetails, $encryptKeys);
         } catch (Throwable $e) {
+            // Hash::encrypt throws rather than store a credential it could not encrypt.
+            // Report a failed persist so callers surface it; writing the row without the
+            // encrypted values would put the secret in the database in plaintext.
             return false;
         }
 

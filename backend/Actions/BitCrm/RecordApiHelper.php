@@ -497,6 +497,7 @@ class RecordApiHelper
             }
         }
 
+        // Utilities (booleans) — e.g. is_shared
         if (isset($conf->utilities) && \is_object($conf->utilities)) {
             foreach (get_object_vars($conf->utilities) as $utilKey => $utilVal) {
                 $fieldData[$utilKey] = $utilVal;

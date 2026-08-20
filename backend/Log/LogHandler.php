@@ -397,8 +397,6 @@ final class LogHandler
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $condition = null;
-        // When deleting specific log rows, also remove their re-execution descendants so a collapsed
-        // group is deleted as a whole and its hidden re-runs do not reappear as orphaned top-level rows.
         if (!empty($data->id)) {
             if (\is_array($data->id)) {
                 $condition = [
@@ -418,6 +416,8 @@ final class LogHandler
         $logModel = new LogModel();
         $result = $logModel->bulkDelete($condition);
 
+        // When deleting specific log rows, also remove their re-execution descendants so a collapsed
+        // group is deleted as a whole and its hidden re-runs do not reappear as orphaned top-level rows.
         if (!empty($data->id)) {
             self::deleteDescendants(\is_array($data->id) ? $data->id : [$data->id]);
         }
@@ -590,15 +590,6 @@ final class LogHandler
         wp_send_json_success(isset($logEntry[0]->field_data) ? $logEntry[0]->field_data : '');
     }
 
-    /**
-     * Send email notification for integration failure
-     *
-     * @param int   $flow_id      Integration flow ID
-     * @param mixed $api_type     API type/integration name
-     * @param mixed $response_obj Error response object
-     *
-     * @return void
-     */
     private static function sendFailureEmail($flow_id, $api_type, $response_obj)
     {
         $integrationHandler = new FlowController();

@@ -32,6 +32,11 @@ class HookService
         (new AdminAjax())->register();
     }
 
+    /**
+     * Helps to register integration ajax
+     *
+     * @return void
+     */
     public function loadActionsHooks()
     {
         $this->_includeActionTaskHooks('Actions');
@@ -54,6 +59,11 @@ class HookService
         }
     }
 
+    /**
+     * Helps to register Triggers ajax
+     *
+     * @return null
+     */
     protected function loadTriggersHooks()
     {
         $activeTrigger = StoreInCache::getActiveFlowEntities() ?? [];
@@ -102,8 +112,6 @@ class HookService
         // Trigger-owned routes fetch forms/fields and write test data without checking
         // capabilities themselves, so they get the stricter baseline. Reset afterwards so
         // it never leaks onto routes registered later in the request.
-        // Action-owned routes authorize credentials and call third-party APIs with no
-        // capability check of their own — a read-only role must not reach them.
         Route::defaultAccess('write');
 
         try {
@@ -126,6 +134,8 @@ class HookService
         $task_dir = Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . $task_name;
         $dirs = new FilesystemIterator($task_dir);
 
+        // Action-owned routes authorize credentials and call third-party APIs with no
+        // capability check of their own — a read-only role must not reach them.
         Route::defaultAccess('write');
 
         try {
