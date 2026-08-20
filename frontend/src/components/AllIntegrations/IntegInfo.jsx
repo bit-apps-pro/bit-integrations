@@ -192,6 +192,7 @@ const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const ClickWhaleAuthorization = lazy(() => import('./ClickWhale/ClickWhaleAuthorization'))
 const BadgeOSAuthorization = lazy(() => import('./BadgeOS/BadgeOSAuthorization'))
 const PopupMakerAuthorization = lazy(() => import('./PopupMaker/PopupMakerAuthorization'))
 const NextCrmAuthorization = lazy(() => import('./NextCrm/NextCrmAuthorization'))
@@ -691,6 +692,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'ClickWhale':
+      return <ClickWhaleAuthorization clickWhaleConf={integrationConf} step={1} isInfo />
     case 'BadgeOS':
       return <BadgeOSAuthorization badgeOSConf={integrationConf} step={1} isInfo />
     case 'PopupMaker':
