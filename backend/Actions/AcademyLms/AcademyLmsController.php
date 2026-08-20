@@ -6,6 +6,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 
 class AcademyLmsController
@@ -45,7 +46,7 @@ class AcademyLmsController
             wp_send_json_error(wp_sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Academy Lms'));
         }
 
-        $courseList = get_posts([
+        $courseList = Post::all([
             'post_type'   => 'academy_courses',
             'post_status' => 'publish',
             'numberposts' => -1

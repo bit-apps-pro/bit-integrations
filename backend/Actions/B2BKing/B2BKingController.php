@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\B2BKing;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class B2BKingController
@@ -20,7 +21,7 @@ class B2BKingController
     {
         self::isExists();
 
-        $posts = get_posts(
+        $posts = Post::all(
             [
                 'post_type'   => 'b2bking_group',
                 'numberposts' => -1,

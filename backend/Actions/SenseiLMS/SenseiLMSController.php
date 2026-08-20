@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SenseiLMS;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class SenseiLMSController
@@ -64,7 +65,7 @@ class SenseiLMSController
     {
         $options = [];
 
-        $posts = get_posts(
+        $posts = Post::all(
             [
                 'post_type'   => $postType,
                 'post_status' => 'publish',

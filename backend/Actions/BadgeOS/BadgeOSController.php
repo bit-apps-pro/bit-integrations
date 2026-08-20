@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\BadgeOS;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class BadgeOSController
@@ -33,7 +34,7 @@ class BadgeOSController
             $achievementTypes = badgeos_get_achievement_types_slugs();
 
             if (!empty($achievementTypes)) {
-                $posts = get_posts(
+                $posts = Post::all(
                     [
                         'post_type'      => $achievementTypes,
                         'post_status'    => 'publish',

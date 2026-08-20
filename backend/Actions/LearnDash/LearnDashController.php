@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\LearnDash;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class LearnDashController
@@ -36,7 +37,7 @@ class LearnDashController
             'posts_per_page' => -1,
         ];
 
-        $courseList = get_posts($course_query_args);
+        $courseList = Post::all($course_query_args);
 
         foreach ($courseList as $key => $val) {
             $courses[] = [
@@ -59,7 +60,7 @@ class LearnDashController
             'posts_per_page' => -1,
         ];
 
-        $groupList = get_posts($group_query_args);
+        $groupList = Post::all($group_query_args);
 
         foreach ($groupList as $key => $val) {
             $groups[] = [
@@ -117,7 +118,7 @@ class LearnDashController
             'posts_per_page' => -1,
         ];
 
-        $quizList = get_posts($quiz_query_args);
+        $quizList = Post::all($quiz_query_args);
 
         foreach ($quizList as $key => $val) {
             $quizes[] = [
@@ -141,7 +142,7 @@ class LearnDashController
             'posts_per_page' => -1,
         ];
 
-        $courseList = get_posts($course_query_args);
+        $courseList = Post::all($course_query_args);
         $courses[] = [
             'course_id'    => 'any',
             'course_title' => 'All Course',

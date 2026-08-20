@@ -7,6 +7,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\Helper;
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Flow\Flow;
 use DateTime;
 use EDD_Payment;
@@ -234,7 +235,7 @@ final class TriggerFallback
         ];
         $result = $result_student + $result_course;
 
-        $courseInfo = get_post_meta($course_id);
+        $courseInfo = Post::getMeta($course_id);
         $course_temp = [];
         foreach ($courseInfo as $key => $val) {
             if (\is_array($val)) {
@@ -1749,7 +1750,7 @@ final class TriggerFallback
             return false;
         }
 
-        $metaData = get_post_meta($order_id);
+        $metaData = Post::getMeta($order_id);
         $chekoutPageId = (int) $metaData['_wcf_checkout_id'][0];
         $flows = Flow::exists('CartFlow', $chekoutPageId);
 
@@ -3041,7 +3042,7 @@ final class TriggerFallback
                 'ID'             => $quiz_id,
             ];
 
-            $quizList = get_posts($quiz_query_args);
+            $quizList = Post::all($quiz_query_args);
 
             $result_quiz = [
                 'quiz_id'      => $quiz_id,
@@ -3999,7 +4000,7 @@ final class TriggerFallback
             }
         }
 
-        $postFieldValues = (array) get_post($object->post_id);
+        $postFieldValues = Post::get($object->post_id);
 
         $data = array_merge($postFieldValues, $metaBoxFieldValues);
 
@@ -4981,7 +4982,7 @@ final class TriggerFallback
         ];
         $result = $result_student + $result_course;
 
-        $courseInfo = get_post_meta($course_id);
+        $courseInfo = Post::getMeta($course_id);
         $course_temp = [];
         foreach ($courseInfo as $key => $val) {
             if (\is_array($val)) {

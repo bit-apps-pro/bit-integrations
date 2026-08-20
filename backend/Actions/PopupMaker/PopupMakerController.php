@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\PopupMaker;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class PopupMakerController
@@ -61,7 +62,7 @@ class PopupMakerController
     {
         $options = [];
 
-        $posts = get_posts(
+        $posts = Post::all(
             [
                 'post_type'      => $postType,
                 'post_status'    => ['publish', 'draft', 'pending', 'private'],

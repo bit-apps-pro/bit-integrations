@@ -9,6 +9,7 @@ namespace BitApps\Integrations\Actions\JetEngine;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 use Jet_Engine\Modules\Custom_Content_Types\Module;
 
@@ -380,7 +381,7 @@ class RecordApiHelper
         if (isset($actions['delete_all_posts']) && $actions['delete_all_posts']) {
             $fromPostType = $postTypeData['general_settings']['slug'];
 
-            $posts = get_posts([
+            $posts = Post::all([
                 'post_type'      => $fromPostType,
                 'post_status'    => 'any',
                 'posts_per_page' => -1,

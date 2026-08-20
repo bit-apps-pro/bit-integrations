@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\BuddyBoss;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class BuddyBossController
@@ -70,7 +71,7 @@ class BuddyBossController
             'post_status'    => ['publish', 'private'],
         ];
 
-        $forumList = get_posts($forum_args);
+        $forumList = Post::all($forum_args);
 
         foreach ($forumList as $key => $val) {
             $forums[] = [
@@ -95,7 +96,7 @@ class BuddyBossController
             'post_status'    => 'publish',
         ];
 
-        $topic_list = get_posts($topic_args);
+        $topic_list = Post::all($topic_args);
         $topics = [];
 
         foreach ($topic_list as $key => $val) {

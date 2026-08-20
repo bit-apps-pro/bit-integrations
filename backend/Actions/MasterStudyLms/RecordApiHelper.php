@@ -5,6 +5,7 @@ namespace BitApps\Integrations\Actions\MasterStudyLms;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 use STM_LMS_Course;
 use STM_LMS_Helpers;
@@ -54,7 +55,7 @@ class RecordApiHelper
         if (!empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
 
-            $curriculum_posts = get_posts(
+            $curriculum_posts = Post::all(
                 [
                     'post__in'       => $curriculum,
                     'posts_per_page' => 999,
@@ -123,7 +124,7 @@ class RecordApiHelper
         if (!empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
 
-            $curriculum_posts = get_posts(
+            $curriculum_posts = Post::all(
                 [
                     'post__in'       => $curriculum,
                     'posts_per_page' => 999,
@@ -179,7 +180,7 @@ class RecordApiHelper
         if (!empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
 
-            $curriculum_posts = get_posts(
+            $curriculum_posts = Post::all(
                 [
                     'post__in'       => $curriculum,
                     'posts_per_page' => 999,
@@ -236,7 +237,7 @@ class RecordApiHelper
         if (!empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
 
-            $curriculum_posts = get_posts(
+            $curriculum_posts = Post::all(
                 [
                     'post__in'       => $curriculum,
                     'posts_per_page' => 999,
@@ -282,7 +283,7 @@ class RecordApiHelper
         if (! empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
 
-            $curriculum_posts = get_posts(
+            $curriculum_posts = Post::all(
                 [
                     'post__in'       => $curriculum,
                     'posts_per_page' => 999,

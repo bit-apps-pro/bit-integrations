@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WpTableBuilder;
 
+use BitApps\Integrations\Core\Util\Post;
 use DOMDocument;
 use DOMXPath;
 use WP_Error;
@@ -33,7 +34,7 @@ class WpTableBuilderController
     {
         self::isExists();
 
-        $tables = get_posts(
+        $tables = Post::all(
             [
                 'post_type'        => self::POST_TYPE,
                 'post_status'      => ['publish', 'draft', 'pending', 'private', 'future'],

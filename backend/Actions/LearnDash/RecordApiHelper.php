@@ -8,6 +8,7 @@ namespace BitApps\Integrations\Actions\LearnDash;
 
 use BitApps\Integrations\Actions\Mail\MailController;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 use LDLMS_DB;
 
@@ -522,7 +523,7 @@ class RecordApiHelper
             'post_status'    => 'publish',
             'post_parent'    => $parent_id,
         ];
-        $results = get_posts($args);
+        $results = Post::all($args);
         if ($results) {
             foreach ($results as $r) {
                 $group_id = $r->ID;
@@ -630,8 +631,9 @@ class RecordApiHelper
                 }
             }
 
-            $assignments = get_posts([
+            $assignments = Post::all([
                 'post_type'      => 'sfwd-assignment',
+                'post_status'    => 'publish',
                 'posts_per_page' => 999,
                 // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required to match LearnDash assignment meta to course/lesson/user.
                 'meta_query' => [
@@ -676,8 +678,9 @@ class RecordApiHelper
                     }
                 }
 
-                $assignments = get_posts([
+                $assignments = Post::all([
                     'post_type'      => 'sfwd-assignment',
+                    'post_status'    => 'publish',
                     'posts_per_page' => 999,
                     // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required to match LearnDash topic assignment meta to course/topic/user.
                     'meta_query' => [

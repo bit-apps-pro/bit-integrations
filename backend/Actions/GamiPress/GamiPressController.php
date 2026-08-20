@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\GamiPress;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class GamiPressController
@@ -33,7 +34,7 @@ class GamiPressController
             'posts_per_page' => -1,
         ];
 
-        $courseList = get_posts($course_query_args);
+        $courseList = Post::all($course_query_args);
 
         foreach ($courseList as $key => $val) {
             $courses[] = [

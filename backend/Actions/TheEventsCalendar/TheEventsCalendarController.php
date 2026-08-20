@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\TheEventsCalendar;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class TheEventsCalendarController
@@ -24,7 +25,7 @@ class TheEventsCalendarController
     {
         self::checkedTheEventsCalendarExists();
 
-        $events = get_posts(
+        $events = Post::all(
             [
                 'post_type'      => 'tribe_events',
                 'orderby'        => 'title',
