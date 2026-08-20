@@ -122,7 +122,7 @@ class RecordApiHelper
     public function isExist($baseUrl, $email)
     {
         $queryEndpoints = $baseUrl . 'subscribers?q%5Bemail_eq%5D=';
-        $encodedEmail = urlencode($email);
+        $encodedEmail = rawurlencode($email);
         $apiEndpoints = $queryEndpoints . $encodedEmail;
         $response = HttpHelper::get($apiEndpoints, null, $this->_defaultHeader);
 

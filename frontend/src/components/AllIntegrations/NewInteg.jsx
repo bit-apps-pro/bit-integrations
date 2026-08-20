@@ -178,8 +178,12 @@ const WishlistMember = lazy(() => import('./WishlistMember/WishlistMember'))
 const CreatorLms = lazy(() => import('./CreatorLms/CreatorLms'))
 const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateAffiliatePro'))
 const Bookly = lazy(() => import('./Bookly/Bookly'))
+const SureContact = lazy(() => import('./SureContact/SureContact'))
+const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const ClickWhale = lazy(() => import('./ClickWhale/ClickWhale'))
+const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
+const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
@@ -1740,6 +1744,24 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'SureContact':
+      return (
+        <SureContact
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'BrilliantDirectories':
+      return (
+        <BrilliantDirectories
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'FluentCart':
       return (
         <FluentCart
@@ -1752,6 +1774,24 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'ClickWhale':
       return (
         <ClickWhale
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'FluentPlayer':
+      return (
+        <FluentPlayer
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'BitCrm':
+      return (
+        <BitCrm
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -1976,6 +2016,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'SureTriggers':
       integrationName = 'OttoKit (SureTriggers)'
+      break
+    case 'BitCrm':
+      integrationName = 'Bit CRM'
       break
 
     default:

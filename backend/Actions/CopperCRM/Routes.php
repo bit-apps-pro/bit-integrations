@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\CopperCRM\CopperCRMController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('coppercrm_authentication', [CopperCRMController::class, 'authentication']);
 Route::post('coppercrm_fetch_custom_fields', [CopperCRMController::class, 'getCustomFields']);
 Route::post('coppercrm_fetch_all_opportunities', [CopperCRMController::class, 'getAllOpportunities']);
 Route::post('coppercrm_fetch_all_owners', [CopperCRMController::class, 'getAllOwners']);

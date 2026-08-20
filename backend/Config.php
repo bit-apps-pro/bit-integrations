@@ -4,7 +4,9 @@
 
 namespace BitApps\Integrations;
 
+use BitApps\Integrations\Core\Http\OauthCallbackController;
 use BitApps\Integrations\Core\Util\DateTimeHelper;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\Hooks;
 
 if (!defined('ABSPATH')) {
@@ -22,9 +24,9 @@ class Config
 
     public const VAR_PREFIX = 'bit_integrations_';
 
-    public const VERSION = '2.9.1';
+    public const VERSION = '2.10.2';
 
-    public const DB_VERSION = '1.1';
+    public const DB_VERSION = '1.2';
 
     public const REQUIRED_PHP_VERSION = '7.4';
 
@@ -42,6 +44,8 @@ class Config
      */
     public static function get($type, $default = null)
     {
+        global $wp_rewrite;
+
         switch ($type) {
             case 'MAIN_FILE':
                 return BIT_INTEGRATIONS_PLUGIN_FILE;
@@ -67,6 +71,23 @@ class Config
 
             case 'API_URL':
                 return get_rest_url(null, '/' . self::SLUG . '/v1');
+
+            case 'OAUTH_CALLBACK_URI':
+                if (get_option('permalink_structure') === '') {
+                    return home_url('/?pagename=' . OauthCallbackController::pagename());
+                }
+
+                return home_url('/' . OauthCallbackController::ROUTE . '/');
+
+            case 'REDIRECT_URI':
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is prefixed via Config::VAR_PREFIX.
+                return Hooks::apply(self::withPrefix('oauth_redirect_uri'), self::get('OAUTH_CALLBACK_URI'));
+
+            case 'WP_API_URL':
+                return [
+                    'base'      => get_rest_url(),
+                    'separator' => $wp_rewrite->permalink_structure ? '?' : '&',
+                ];
 
             case 'ROOT_URI':
                 return set_url_scheme(plugins_url('', self::get('MAIN_FILE')), wp_parse_url(home_url())['scheme']);
@@ -171,7 +192,7 @@ class Config
 
     public static function getDevPort()
     {
-        return self::isDev() ? file_get_contents(Config::get('BASEDIR') . '/.port') : null;
+        return self::isDev() ? FileSystem::read(Config::get('BASEDIR') . '/.port') : null;
     }
 
     /**
@@ -183,14 +204,16 @@ class Config
     {
         $frontendConfig = apply_filters(
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is prefixed via Config::VAR_PREFIX.
-            Config::withPrefix('localized_script'),
+            self::withPrefix('localized_script'),
             [
-                'nonce'       => wp_create_nonce(Config::withPrefix('nonce')),
-                'assetsURL'   => Config::get('ASSET_URI'),
+                'nonce'       => wp_create_nonce(self::withPrefix('nonce')),
+                'assetsURL'   => self::get('ASSET_URI'),
                 'baseURL'     => get_admin_url(null, 'admin.php?page=bit-integrations#'),
                 'siteURL'     => site_url(),
                 'ajaxURL'     => admin_url('admin-ajax.php'),
-                'api'         => Config::get('API_URL'),
+                'api'         => self::get('API_URL'),
+                'redirectURI' => self::get('REDIRECT_URI'),
+                'wp_api_url'  => self::get('WP_API_URL'),
                 'dateFormat'  => get_option('date_format'),
                 'timeFormat'  => get_option('time_format'),
                 'timeZone'    => DateTimeHelper::wp_timezone_string(),
@@ -269,69 +292,4 @@ class Config
             ],
         ];
     }
-
-    /**
-     * Provides menus for wordpress admin sidebar.
-     * should return an array of menus with the following structure:
-     * [
-     *   'type' => menu | submenu,
-     *  'name' => 'Name of menu will shown in sidebar',
-     *  'capability' => 'capability required to access menu',
-     *  'slug' => 'slug of menu after ?page=',.
-     *
-     *  'title' => 'page title will be shown in browser title if type is menu',
-     *  'callback' => 'function to call when menu is clicked',
-     *  'icon' =>   'icon to display in menu if menu type is menu',
-     *  'position' => 'position of menu in sidebar if menu type is menu',
-     *
-     * 'parent' => 'parent slug if submenu'
-     * ]
-     *
-     * @return array
-     */
-    // private static function sideBarMenu()
-    // {
-    //     $adminViews = new Layout();
-
-    //     return [
-    //         'Home' => [
-    //             'type'       => 'menu',
-    //             'title'      => __('Bit Integrations', 'bit-integrations'),
-    //             'name'       => __('Bit Integrations', 'bit-integrations'),
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG,
-    //             'callback'   => [$adminViews, 'body'],
-    //             'icon'       => 'dashicons-admin-home',
-    //             'position'   => '20',
-    //         ],
-    //         'Dashboard' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Dashboard',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/',
-    //         ],
-    //         'All Flows' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Flows',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/flows',
-    //         ],
-    //         'Connections' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Connections',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/connections',
-    //         ],
-    //         'Webhooks' => [
-    //             'parent'     => self::SLUG,
-    //             'type'       => 'submenu',
-    //             'name'       => 'Webhooks',
-    //             'capability' => 'manage_options',
-    //             'slug'       => self::SLUG . '#/webhooks',
-    //         ],
-    //     ];
-    // }
 }

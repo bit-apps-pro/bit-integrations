@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\NutshellCRM\NutshellCRMController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('nutshellcrm_authentication', [NutshellCRMController::class, 'authentication']);
 Route::post('nutshellcrm_fetch_all_contacts', [NutshellCRMController::class, 'getContacts']);
 Route::post('nutshellcrm_fetch_all_products', [NutshellCRMController::class, 'getProducts']);
 Route::post('nutshellcrm_fetch_all_sources', [NutshellCRMController::class, 'getSources']);

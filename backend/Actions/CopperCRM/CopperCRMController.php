@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\CopperCRM;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,6 +15,15 @@ use WP_Error;
  */
 class CopperCRMController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'coppercrm',
+        'fields'   => [
+            'api_key'   => 'value',
+            'api_email' => 'api_email',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -21,31 +31,6 @@ class CopperCRMController
     public function __construct()
     {
         $this->apiEndpoint = 'https://api.copper.com/developer_api/v1';
-    }
-
-    public function authentication($fieldsRequestParams)
-    {
-        if (empty($fieldsRequestParams->api_key)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEmail = $fieldsRequestParams->api_email;
-        $apiEndpoint = $this->apiEndpoint . '/account';
-        $headers = [
-            'X-PW-AccessToken' => $apiKey,
-            'X-PW-Application' => 'developer_api',
-            'X-PW-UserEmail'   => $apiEmail,
-            'Content-Type'     => 'application/json'
-        ];
-
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (!isset($response->error)) {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        } else {
-            wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);
-        }
     }
 
     public function getCustomFields($fieldsRequestParams)

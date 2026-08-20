@@ -18,12 +18,6 @@ class MainWPController
         }
     }
 
-    public static function mainWPAuthorize(): void
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshSites(): void
     {
         self::isExists();

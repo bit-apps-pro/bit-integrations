@@ -55,9 +55,6 @@ export default function SureDash({ formFields, setFlow, flow, allIntegURL }) {
         setSureDashConf={setSureDashConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

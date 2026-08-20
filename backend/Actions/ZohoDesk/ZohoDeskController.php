@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZohoDesk;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
@@ -15,56 +16,22 @@ use WP_Error;
  */
 class ZohoDeskController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::OAUTH2,
+        'slug'     => 'zohodesk',
+        'fields'   => [
+            'dataCenter'   => 'dataCenter',
+            'clientId'     => 'client_id',
+            'clientSecret' => 'client_secret',
+            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'api_domain']],
+        ],
+    ];
+
     private $_integrationID;
 
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param mixed $requestsParams
-     *
-     * @return JSON zoho crm api response and status
-     */
-    public static function generateTokens($requestsParams)
-    {
-        if (empty($requestsParams->{'accounts-server'})
-                || empty($requestsParams->dataCenter)
-                || empty($requestsParams->clientId)
-                || empty($requestsParams->clientSecret)
-                || empty($requestsParams->redirectURI)
-                || empty($requestsParams->code)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $apiEndpoint = urldecode($requestsParams->{'accounts-server'}) . '/oauth/v2/token';
-        $requestParams = [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $requestsParams->clientId,
-            'client_secret' => $requestsParams->clientSecret,
-            'redirect_uri'  => urldecode($requestsParams->redirectURI),
-            'code'          => $requestsParams->code
-        ];
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
-
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(
-                empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                400
-            );
-        }
-        $apiResponse->generates_on = time();
-        wp_send_json_success($apiResponse, 200);
     }
 
     public static function refreshOrganizations($queryParams)
@@ -92,39 +59,24 @@ class ZohoDeskController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $organizationsMetaResponse = HttpHelper::get($organizationsMetaApiEndpoint, null, $authorizationHeader);
 
-        if (!is_wp_error($organizationsMetaResponse)) {
-            $allOrganizations = [];
-            $organizations = $organizationsMetaResponse->data;
-
-            if (\count($organizations) > 0) {
-                foreach ($organizations as $organization) {
-                    $allOrganizations[$organization->companyName] = (object) [
-                        'orgId'      => $organization->id,
-                        'portalName' => $organization->companyName
-                    ];
-                }
-            }
-            uksort($allOrganizations, 'strnatcasecmp');
-            $response['organizations'] = $allOrganizations;
-        } else {
-            wp_send_json_error(
-                empty($organizationsMetaResponse->data) ? 'Unknown' : $organizationsMetaResponse->error,
-                400
-            );
+        if (self::isErrorResponse($organizationsMetaResponse)) {
+            wp_send_json_error(self::responseErrorMessage($organizationsMetaResponse), 400);
         }
+
+        $allOrganizations = [];
+        foreach (self::responseData($organizationsMetaResponse) as $organization) {
+            $allOrganizations[$organization->companyName] = (object) [
+                'orgId'      => $organization->id,
+                'portalName' => $organization->companyName
+            ];
+        }
+        uksort($allOrganizations, 'strnatcasecmp');
+        $response['organizations'] = $allOrganizations;
+
         if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            self::saveRefreshedToken($queryParams->formID, $queryParams->id, $response['tokenDetails'], $response['lists']);
+            self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
-        // } else {
-        //     wp_send_json_error(
-        //         __(
-        //             'Token expired',
-        //             'bit-integrations'
-        //         ),
-        //         401
-        //     );
-        // }
     }
 
     /**
@@ -161,28 +113,22 @@ class ZohoDeskController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $departmentsMetaResponse = HttpHelper::get($departmentsMetaApiEndpoint, null, $authorizationHeader);
 
-        if (!is_wp_error($departmentsMetaResponse)) {
-            $allDepartments = [];
-            $departments = $departmentsMetaResponse->data;
-
-            if (\count($departments) > 0) {
-                foreach ($departments as $department) {
-                    $allDepartments[$department->name] = (object) [
-                        'departmentId'   => $department->id,
-                        'departmentName' => $department->name
-                    ];
-                }
-            }
-            uksort($allDepartments, 'strnatcasecmp');
-            $response['departments'] = $allDepartments;
-        } else {
-            wp_send_json_error(
-                empty($departmentsMetaResponse->data) ? 'Unknown' : $departmentsMetaResponse->error,
-                400
-            );
+        if (self::isErrorResponse($departmentsMetaResponse)) {
+            wp_send_json_error(self::responseErrorMessage($departmentsMetaResponse), 400);
         }
+
+        $allDepartments = [];
+        foreach (self::responseData($departmentsMetaResponse) as $department) {
+            $allDepartments[$department->name] = (object) [
+                'departmentId'   => $department->id,
+                'departmentName' => $department->name
+            ];
+        }
+        uksort($allDepartments, 'strnatcasecmp');
+        $response['departments'] = $allDepartments;
+
         if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            self::saveRefreshedToken($queryParams->formID, $queryParams->id, $response['tokenDetails'], $response['lists']);
+            self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -221,50 +167,50 @@ class ZohoDeskController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $fieldsMetaResponse = HttpHelper::get($fieldsMetaApiEndpoint, null, $authorizationHeader);
 
-        if (!is_wp_error($fieldsMetaResponse)) {
-            $fields = $fieldsMetaResponse->data;
+        if (self::isErrorResponse($fieldsMetaResponse)) {
+            wp_send_json_error(self::responseErrorMessage($fieldsMetaResponse), 400);
+        }
 
-            if (\count($fields) > 0) {
-                $response['fields']['Contact Name - Last Name'] = (object) [
-                    'apiName'       => 'lastName',
-                    'displayLabel'  => __('Contact Name - Last Name', 'bit-integrations'),
-                    'isCustomField' => false,
-                    'required'      => true
-                ];
-                $response['fields']['Contact Name - First Name'] = (object) [
-                    'apiName'       => 'firstName',
-                    'displayLabel'  => __('Contact Name - First Name', 'bit-integrations'),
-                    'isCustomField' => false,
-                    'required'      => false
-                ];
-                $response['required'][] = 'lastName';
-                foreach ($fields as $field) {
-                    if ($field->apiName === 'contactId' || $field->apiName === 'assigneeId') {
-                        continue;
-                    }
-                    $response['fields'][$field->displayLabel] = (object) [
-                        'apiName'       => $field->apiName,
-                        'displayLabel'  => $field->displayLabel,
-                        'isCustomField' => $field->isCustomField,
-                        'required'      => $field->isMandatory
-                    ];
+        $fields = self::responseData($fieldsMetaResponse);
+        $response['fields'] = [];
+        $response['required'] = [];
 
-                    if ($field->isMandatory) {
-                        $response['required'][] = $field->apiName;
-                    }
+        if (\count($fields) > 0) {
+            $response['fields']['Contact Name - Last Name'] = (object) [
+                'apiName'       => 'lastName',
+                'displayLabel'  => __('Contact Name - Last Name', 'bit-integrations'),
+                'isCustomField' => false,
+                'required'      => true
+            ];
+            $response['fields']['Contact Name - First Name'] = (object) [
+                'apiName'       => 'firstName',
+                'displayLabel'  => __('Contact Name - First Name', 'bit-integrations'),
+                'isCustomField' => false,
+                'required'      => false
+            ];
+            $response['required'][] = 'lastName';
+            foreach ($fields as $field) {
+                if ($field->apiName === 'contactId' || $field->apiName === 'assigneeId') {
+                    continue;
+                }
+                $response['fields'][$field->displayLabel] = (object) [
+                    'apiName'       => $field->apiName,
+                    'displayLabel'  => $field->displayLabel,
+                    'isCustomField' => $field->isCustomField,
+                    'required'      => $field->isMandatory
+                ];
+
+                if ($field->isMandatory) {
+                    $response['required'][] = $field->apiName;
                 }
             }
-            uksort($response['fields'], 'strnatcasecmp');
-            usort($response['required'], 'strnatcasecmp');
-        } else {
-            wp_send_json_error(
-                $fieldsMetaResponse->status === 'error' ? $fieldsMetaResponse->message : 'Unknown',
-                400
-            );
         }
-        if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->id)) {
-            $response['queryModule'] = $queryParams->module;
-            self::saveRefreshedToken($queryParams->formID, $queryParams->id, $response['tokenDetails'], $response);
+        uksort($response['fields'], 'strnatcasecmp');
+        usort($response['required'], 'strnatcasecmp');
+
+        if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
+            $response['queryModule'] = $queryParams->module ?? '';
+            self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -303,25 +249,20 @@ class ZohoDeskController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $ownersMetaResponse = HttpHelper::get($ownersMetaApiEndpoint, null, $authorizationHeader);
 
-        if (!is_wp_error($ownersMetaResponse)) {
-            $owners = $ownersMetaResponse->data;
-
-            if (\count($owners) > 0) {
-                foreach ($owners as $owner) {
-                    $response['owners'][] = (object) [
-                        'ownerId'   => $owner->id,
-                        'ownerName' => $owner->name
-                    ];
-                }
-            }
-        } else {
-            wp_send_json_error(
-                empty($ownersMetaResponse->data) ? 'Unknown' : $ownersMetaResponse->error,
-                400
-            );
+        if (self::isErrorResponse($ownersMetaResponse)) {
+            wp_send_json_error(self::responseErrorMessage($ownersMetaResponse), 400);
         }
+
+        $response['owners'] = [];
+        foreach (self::responseData($ownersMetaResponse) as $owner) {
+            $response['owners'][] = (object) [
+                'ownerId'   => $owner->id,
+                'ownerName' => $owner->name
+            ];
+        }
+
         if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            self::saveRefreshedToken($queryParams->formID, $queryParams->id, $response['tokenDetails'], $response['lists']);
+            self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -362,25 +303,20 @@ class ZohoDeskController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $productsMetaResponse = HttpHelper::get($productsMetaApiEndpoint, null, $authorizationHeader);
 
-        if (!is_wp_error($productsMetaResponse)) {
-            $products = $productsMetaResponse->data;
-
-            if (\count($products) > 0) {
-                foreach ($products as $product) {
-                    $response['products'][] = (object) [
-                        'productId'   => $product->id,
-                        'productName' => $product->productName
-                    ];
-                }
-            }
-        } else {
-            wp_send_json_error(
-                empty($productsMetaResponse->data) ? 'Unknown' : $productsMetaResponse->error,
-                400
-            );
+        if (self::isErrorResponse($productsMetaResponse)) {
+            wp_send_json_error(self::responseErrorMessage($productsMetaResponse), 400);
         }
+
+        $response['products'] = [];
+        foreach (self::responseData($productsMetaResponse) as $product) {
+            $response['products'][] = (object) [
+                'productId'   => $product->id,
+                'productName' => $product->productName
+            ];
+        }
+
         if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            self::saveRefreshedToken($queryParams->formID, $queryParams->id, $response['tokenDetails'], $response['lists']);
+            self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -394,7 +330,6 @@ class ZohoDeskController
         $department = $integrationDetails->department;
         $dataCenter = $integrationDetails->dataCenter;
         $fieldMap = $integrationDetails->field_map;
-        $required = $integrationDetails->default->fields->{$orgId}->required;
         $actions = $integrationDetails->actions;
         if (empty($tokenDetails)
         || empty($orgId)
@@ -403,6 +338,8 @@ class ZohoDeskController
         ) {
             return new WP_Error('REQ_FIELD_EMPTY', __('list are required for zoho desk api', 'bit-integrations'));
         }
+
+        $required = $integrationDetails->default->fields->{$orgId}->required ?? [];
 
         if ((\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
             $requiredParams['clientId'] = $integrationDetails->clientId;
@@ -432,6 +369,62 @@ class ZohoDeskController
         }
 
         return $zdeskApiResponse;
+    }
+
+    /**
+     * Tells whether a Zoho Desk response should be treated as a failure.
+     *
+     * HttpHelper returns a WP_Error, the decoded JSON, or the raw body string. Zoho
+     * reports failures as a JSON object carrying `errorCode` and no `data` key, so a
+     * plain is_wp_error() check lets those through and the callers then read a missing
+     * `data` property.
+     *
+     * @param mixed $response
+     *
+     * @return bool
+     */
+    protected static function isErrorResponse($response)
+    {
+        return is_wp_error($response)
+            || !\is_object($response)
+            || !empty($response->errorCode)
+            || !empty($response->error);
+    }
+
+    /**
+     * @param mixed $response
+     *
+     * @return string
+     */
+    protected static function responseErrorMessage($response)
+    {
+        if (is_wp_error($response)) {
+            return $response->get_error_message();
+        }
+
+        if (\is_object($response)) {
+            foreach (['message', 'errorCode', 'error'] as $key) {
+                if (!empty($response->{$key})) {
+                    return \is_string($response->{$key}) ? $response->{$key} : wp_json_encode($response->{$key});
+                }
+            }
+        }
+
+        return __('Unknown', 'bit-integrations');
+    }
+
+    /**
+     * @param mixed $response
+     *
+     * @return array
+     */
+    protected static function responseData($response)
+    {
+        if (!\is_object($response) || empty($response->data) || !\is_array($response->data)) {
+            return [];
+        }
+
+        return $response->data;
     }
 
     /**
@@ -475,29 +468,35 @@ class ZohoDeskController
     /**
      * Save updated access_token to avoid unnecessary token generation
      *
-     * @param int        $formID        ID of Integration related form
-     * @param int        $integrationID ID of Zoho crm Integration
-     * @param Obeject    $tokenDetails  refreshed token info
+     * @param int        $integrationID ID of Zoho desk Integration
+     * @param object     $tokenDetails  refreshed token info
      * @param null|mixed $others
      *
      * @return null
      */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
-        if (empty($formID) || empty($integrationID)) {
+        if (empty($integrationID) || empty($tokenDetails)) {
             return;
         }
         $flow = new FlowController();
         $zdeskDetails = $flow->get(['id' => $integrationID]);
 
-        if (is_wp_error($zdeskDetails)) {
+        if (is_wp_error($zdeskDetails) || empty($zdeskDetails[0]->flow_details)) {
             return;
         }
         $newDetails = json_decode($zdeskDetails[0]->flow_details);
 
+        if (!\is_object($newDetails)) {
+            return;
+        }
+
         $newDetails->tokenDetails = $tokenDetails;
 
         if (!empty($others['organizations'])) {
+            if (!isset($newDetails->default) || !\is_object($newDetails->default)) {
+                $newDetails->default = (object) [];
+            }
             $newDetails->default->organizations = $others['organizations'];
         }
 

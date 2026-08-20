@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useRecoilValue } from 'recoil'
-import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { addFieldMap } from './IntegrationHelpers'
@@ -20,7 +18,6 @@ export default function LionDeskIntegLayout({
   setIsLoading,
   setSnackbar
 }) {
-  const btcbi = useRecoilValue($appConfigState)
   const handleActionInput = e => {
     const newConf = { ...lionDeskConf }
     const { name } = e.target
@@ -29,7 +26,7 @@ export default function LionDeskIntegLayout({
     if (e.target.value !== '') {
       newConf[name] = e.target.value
       if (e.target.value === 'contact') {
-        getCustomFields(newConf, setLionDeskConf, setIsLoading, btcbi)
+        getCustomFields(newConf, setLionDeskConf, setIsLoading)
       }
     } else {
       delete newConf[name]
@@ -85,7 +82,7 @@ export default function LionDeskIntegLayout({
             <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
             {lionDeskConf.actionName === 'contact' && (
               <button
-                onClick={() => getCustomFields(lionDeskConf, setLionDeskConf, setIsLoading, btcbi)}
+                onClick={() => getCustomFields(lionDeskConf, setLionDeskConf, setIsLoading)}
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{ '--tooltip-txt': `'${__('Refresh fields', 'bit-integrations')}'` }}
                 type="button"

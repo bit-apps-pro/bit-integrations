@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Vbout;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,33 +15,15 @@ use WP_Error;
  */
 class VboutController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'vbout',
+        'fields'   => [
+            'auth_token' => 'value',
+        ],
+    ];
+
     private $baseUrl = 'https://api.vbout.com/1/';
-
-    public function handleAuthorize($requestParams)
-    {
-        if (empty($requestParams->auth_token)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $apiEndpoints = $this->baseUrl . 'app/me.json?key=' . $requestParams->auth_token;
-
-        $response = HttpHelper::post($apiEndpoints, null);
-        if ($response->response->header->status !== 'ok') {
-            wp_send_json_error(
-                __(
-                    'Invalid token',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        wp_send_json_success($response, 200);
-    }
 
     public function fetchAllLists($requestParams)
     {
