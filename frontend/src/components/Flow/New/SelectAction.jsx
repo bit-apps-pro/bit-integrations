@@ -195,6 +195,7 @@ export default function SelectAction() {
       is_pro: false
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'ConvertForce', is_pro: true },
     { type: 'Cart Abandonment Recovery', is_pro: true },
     { type: 'ModernCart', name: 'Modern Cart', is_pro: true },
     { type: 'PowerCoupons', name: 'Power Coupons', is_pro: true },
