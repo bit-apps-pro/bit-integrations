@@ -161,6 +161,10 @@ class WCHelper
         $flexibleFields = Hooks::apply(Config::withPrefix('woocommerce_flexible_checkout_fields_value'), (array) $order);
 
         if (empty($flexibleFields)) {
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_woocommerce_flexible_checkout_fields_value` filter instead.
+             * @since 2.7.8
+             */
             $flexibleFields = Hooks::apply('btcbi_woocommerce_flexible_checkout_fields_value', (array) $order);
         }
 

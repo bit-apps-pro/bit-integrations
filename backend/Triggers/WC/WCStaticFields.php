@@ -312,6 +312,10 @@ class WCStaticFields
         $fields = Hooks::apply(Config::withPrefix('woocommerce_flexible_checkout_fields'), []);
 
         if (empty($fields)) {
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_woocommerce_flexible_checkout_fields` filter instead.
+             * @since 2.7.8
+             */
             $fields = Hooks::apply('btcbi_woocommerce_flexible_checkout_fields', []);
         }
 

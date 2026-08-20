@@ -122,6 +122,10 @@ export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback
     channel.onmessage = resolveMessage
 
     if (fallbackChannel) {
+      // The bare channel is shared by every concurrent attempt, so a legacy
+      // message must prove it belongs to THIS attempt (our random channelKey is
+      // echoed back via oauth_channel or the provider-echoed state) before we
+      // resolve — otherwise a sibling tab could cross-resolve on it.
       fallbackChannel.onmessage = event => {
         const data = event?.data || {}
         const messageChannel = data.oauth_channel || extractChannelFromState(data.state)

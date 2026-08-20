@@ -183,6 +183,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('fabman_update_member'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_fabman_update_member` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_fabman_update_member', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
         return $this->handleFilterResponse($response);
@@ -196,6 +200,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('fabman_delete_member'), false, $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_fabman_delete_member` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_fabman_delete_member', $response, $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
         return $this->handleFilterResponse($response);
@@ -206,6 +214,10 @@ class RecordApiHelper
         unset($data['space']);
         $response = Hooks::apply(Config::withPrefix('fabman_create_space'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_fabman_create_space` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_fabman_create_space', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
 
         return $this->handleFilterResponse($response);
@@ -225,6 +237,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('fabman_update_space'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_fabman_update_space` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_fabman_update_space', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
 
         return $this->handleFilterResponse($response);

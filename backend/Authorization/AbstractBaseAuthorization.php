@@ -34,6 +34,21 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
 
     abstract public function getAuthHeadersOrParams();
 
+    /**
+     * AuthStrategyInterface adapter over getAuthHeadersOrParams(): turns the
+     * legacy ['authLocation' => ..., 'data' => [...]] array into an
+     * AuthCredential, and its ['error' => true, 'message' => ...] failure array
+     * into an AuthorizationException.
+     *
+     * Adapting rather than reimplementing keeps one copy of each auth type's
+     * logic, so every handler works with ApiClient without being rewritten and
+     * the two paths cannot drift.
+     *
+     * Called once per request and never memoized — handlers may compute
+     * per-call values (KirimEmail signs an HMAC over the current timestamp).
+     *
+     * @throws AuthorizationException
+     */
     public function credential(): AuthCredential
     {
         $authConfig = $this->getAuthHeadersOrParams();
@@ -74,6 +89,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
         }
 
         if ($method === 'GET') {
+            // Caller keys win on collision (matches the legacy authorize() behavior).
             $client->setRequestPayload(array_merge($credential->data(), \is_array($payload) ? $payload : []));
 
             return;
@@ -358,6 +374,7 @@ abstract class AbstractBaseAuthorization implements AuthStrategyInterface
 
         return [
             'sslverify' => $sslVerify,
+            // Kept for compatibility with existing code paths using "verify"
             'verify' => $sslVerify,
         ];
     }

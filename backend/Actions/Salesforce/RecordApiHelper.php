@@ -61,6 +61,10 @@ class RecordApiHelper
 
         $filteredResult = Hooks::apply(Config::withPrefix('salesforce_update_record'), $response, $apiEndpoint, $finalData, $this->_defaultHeader);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_salesforce_update_record` filter instead.
+         * @since 2.7.8
+         */
         return Hooks::apply('btcbi_salesforce_update_record', $filteredResult, $apiEndpoint, $finalData, $this->_defaultHeader);
     }
 
@@ -83,6 +87,10 @@ class RecordApiHelper
 
         $filteredResult = Hooks::apply(Config::withPrefix('salesforce_update_record'), $response, $apiEndpoint, $finalData, $this->_defaultHeader);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_salesforce_update_record` filter instead.
+         * @since 2.7.8
+         */
         return Hooks::apply('btcbi_salesforce_update_record', $filteredResult, $apiEndpoint, $finalData, $this->_defaultHeader);
     }
 
@@ -192,6 +200,10 @@ class RecordApiHelper
 
             $finalData = Hooks::apply(Config::withPrefix('salesforce_add_lead_utilities'), $finalData, $actions);
 
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_salesforce_add_lead_utilities` filter instead.
+             * @since 2.7.8
+             */
             $finalData = Hooks::apply('btcbi_salesforce_add_lead_utilities', $finalData, $actions);
 
             $insertLeadResponse = $this->insertLead($finalData, $update);

@@ -193,6 +193,10 @@ class PipeDriveController
         if (isset($pipeDriveApiResponse->success, $pipeDriveApiResponse->data) && $pipeDriveApiResponse->success && \count($integrationDetails->relatedlists)) {
             Hooks::run(Config::withPrefix('pipedrive_store_related_list'), $pipeDriveApiResponse, $integrationDetails, $fieldValues, $module, $api_key, $integId);
 
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_pipedrive_store_related_list` action instead.
+             * @since 2.7.8
+             */
             Hooks::run('btcbi_pipedrive_store_related_list', $pipeDriveApiResponse, $integrationDetails, $fieldValues, $module, $api_key, $integId);
         }
 

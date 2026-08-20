@@ -68,6 +68,10 @@ class RecordApiHelper
     {
         $response = Hooks::apply(Config::withPrefix('smartSuite_create_table'), false, $requestParams, $this->workspaceId, $this->apiToken, $this->integrationDetails->selectedSolution);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_smartSuite_create_table` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_smartSuite_create_table', $response, $requestParams, $this->workspaceId, $this->apiToken, $this->integrationDetails->selectedSolution);
 
         return $this->handleFilterResponse($response);
@@ -77,6 +81,10 @@ class RecordApiHelper
     {
         $response = Hooks::apply(Config::withPrefix('smartSuite_create_record'), false, $requestParams, $this->integrationDetails, $this->workspaceId, $this->apiToken);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_smartSuite_create_record` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_smartSuite_create_record', $response, $requestParams, $this->integrationDetails, $this->workspaceId, $this->apiToken);
 
         return $this->handleFilterResponse($response);

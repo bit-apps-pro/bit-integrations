@@ -91,6 +91,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('lmfwc_update_licence'), false, $finalData, $this->apiUrl, $this->integrationDetails, $this->defaultHeader);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_lmfwc_update_licence` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_lmfwc_update_licence', $response, $finalData, $this->apiUrl, $this->integrationDetails, $this->defaultHeader);
         if (!$response) {
             // translators: %s: Plugin name
@@ -111,6 +115,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('lmfwc_update_generator'), false, $this->apiUrl, $finalData, $this->defaultHeader, $this->integrationDetails->selectedGenerator);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_lmfwc_update_generator` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_lmfwc_update_generator', $response, $this->apiUrl, $finalData, $this->defaultHeader, $this->integrationDetails->selectedGenerator);
         if (!$response) {
             // translators: %s: Plugin name
@@ -140,6 +148,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('lmfwc_create_generator'), false, $this->apiUrl, $finalData, $this->defaultHeader);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_lmfwc_create_generator` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_lmfwc_create_generator', $response, $this->apiUrl, $finalData, $this->defaultHeader);
         if (!$response) {
             // translators: %s: Plugin name
@@ -162,24 +174,40 @@ class RecordApiHelper
             case 'activate':
                 $response = Hooks::apply(Config::withPrefix('lmfwc_activate_licence'), false, $this->apiUrl, $finalData['license_key'], $this->defaultHeader);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_lmfwc_activate_licence` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_lmfwc_activate_licence', $response, $this->apiUrl, $finalData['license_key'], $this->defaultHeader);
 
                 break;
             case 'deactivate':
                 $response = Hooks::apply(Config::withPrefix('lmfwc_deactivate_licence'), false, $this->apiUrl, $finalData['license_key'], $this->defaultHeader, $finalData['token']);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_lmfwc_deactivate_licence` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_lmfwc_deactivate_licence', $response, $this->apiUrl, $finalData['license_key'], $this->defaultHeader, $finalData['token']);
 
                 break;
             case 'reactivate':
                 $response = Hooks::apply(Config::withPrefix('lmfwc_reactivate_licence'), false, $this->apiUrl, $finalData['license_key'], $this->defaultHeader, $finalData['token']);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_lmfwc_reactivate_licence` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_lmfwc_reactivate_licence', $response, $this->apiUrl, $finalData['license_key'], $this->defaultHeader, $finalData['token']);
 
                 break;
             case 'delete':
                 $response = Hooks::apply(Config::withPrefix('lmfwc_delete_licence'), false, $this->apiUrl, $finalData['license_key'], $this->defaultHeader);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_lmfwc_delete_licence` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_lmfwc_delete_licence', $response, $this->apiUrl, $finalData['license_key'], $this->defaultHeader);
 
                 break;

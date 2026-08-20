@@ -277,6 +277,10 @@ class ZohoBiginController
         $response['tags'] = Hooks::apply(Config::withPrefix('zbigin_get_tags'), [], $accessToken, $queryParams->dataCenter, $queryParams->module);
 
         if (empty($response['tags'])) {
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_zbigin_get_tags` filter instead.
+             * @since 2.7.8
+             */
             $response['tags'] = Hooks::apply('btcbi_zbigin_get_tags', [], $accessToken, $queryParams->dataCenter, $queryParams->module);
         }
 

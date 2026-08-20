@@ -33,6 +33,10 @@ class BentoController
                 $fields = Hooks::apply(Config::withPrefix('bento_get_user_fields'), $defaultFields, $fieldsRequestParams);
 
                 if (empty($fields)) {
+                    /**
+                     * @deprecated 2.7.8 Use `bit_integrations_bento_get_user_fields` filter instead.
+                     * @since 2.7.8
+                     */
                     $fields = Hooks::apply('btcbi_bento_get_user_fields', $defaultFields, $fieldsRequestParams);
                 }
 
@@ -41,6 +45,10 @@ class BentoController
                 $fields = Hooks::apply(Config::withPrefix('bento_get_event_fields'), []);
 
                 if (empty($fields)) {
+                    /**
+                     * @deprecated 2.7.8 Use `bit_integrations_bento_get_event_fields` filter instead.
+                     * @since 2.7.8
+                     */
                     $fields = Hooks::apply('btcbi_bento_get_event_fields', []);
                 }
 
@@ -62,6 +70,10 @@ class BentoController
         $tags = Hooks::apply(Config::withPrefix('bento_get_all_tags'), [], $fieldsRequestParams);
 
         if (empty($tags)) {
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_bento_get_all_tags` filter instead.
+             * @since 2.7.8
+             */
             $tags = Hooks::apply('btcbi_bento_get_all_tags', [], $fieldsRequestParams);
         }
 

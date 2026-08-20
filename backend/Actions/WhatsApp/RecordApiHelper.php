@@ -76,6 +76,10 @@ class RecordApiHelper
         $textBody = $this->_integrationDetails->body;
         $response = Hooks::apply(Config::withPrefix('whatsapp_send_text_messages'), $textBody, $fieldValues, $numberId, $token, $phoneNumber);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_whatsapp_send_text_messages` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_whatsapp_send_text_messages', $response, $fieldValues, $numberId, $token, $phoneNumber);
 
         return static::handleFilterResponse($response);
@@ -89,6 +93,10 @@ class RecordApiHelper
     ) {
         $response = Hooks::apply(Config::withPrefix('whatsapp_send_media_messages'), $this->_integrationDetails, $fieldValues, $numberId, $token, $phoneNumber);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_whatsapp_send_media_messages` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_whatsapp_send_media_messages', $response, $fieldValues, $numberId, $token, $phoneNumber);
 
         return static::handleFilterResponse($response);
@@ -102,6 +110,10 @@ class RecordApiHelper
     ) {
         $response = Hooks::apply(Config::withPrefix('whatsapp_send_contact_messages'), $this->_integrationDetails, $fieldValues, $numberId, $token, $phoneNumber);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_whatsapp_send_contact_messages` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_whatsapp_send_contact_messages', $response, $fieldValues, $numberId, $token, $phoneNumber);
 
         return static::handleFilterResponse($response);

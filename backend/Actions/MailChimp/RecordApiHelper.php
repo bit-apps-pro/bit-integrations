@@ -46,6 +46,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('mailchimp_add_remove_tag'), $module, $data, $endpoint, $this->_defaultHeader);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_mailchimp_add_remove_tag` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_mailchimp_add_remove_tag', $response, $data, $endpoint, $this->_defaultHeader);
 
         if (\is_string($response) && $response == $module) {
@@ -78,6 +82,10 @@ class RecordApiHelper
         if (empty($module) || $module == 'add_a_member_to_an_audience') {
             $fieldData = Hooks::apply(Config::withPrefix('mailchimp_map_language'), $fieldData, $this->_integrationDetails);
 
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_mailchimp_map_language` filter instead.
+             * @since 2.7.8
+             */
             $fieldData = Hooks::apply('btcbi_mailchimp_map_language', $fieldData, $this->_integrationDetails);
 
             $contactEmail = $fieldData['email_address'];
@@ -96,6 +104,10 @@ class RecordApiHelper
             if (isset($recordApiResponse->id, $this->_integrationDetails->selectedGDPR)) {
                 Hooks::run(Config::withPrefix('mailchimp_store_gdpr_permission'), $recordApiResponse, $this->_integrationDetails->selectedGDPR, $listId, $this->_apiEndPoint(), $this->_defaultHeader, $this->_integrationID);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_mailchimp_store_gdpr_permission` action instead.
+                 * @since 2.7.8
+                 */
                 Hooks::run('btcbi_mailchimp_store_gdpr_permission', $recordApiResponse, $this->_integrationDetails->selectedGDPR, $listId, $this->_apiEndPoint(), $this->_defaultHeader, $this->_integrationID);
             }
         } elseif ($module == 'add_tag_to_a_member' || $module == 'remove_tag_from_a_member') {

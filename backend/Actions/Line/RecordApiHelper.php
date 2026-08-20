@@ -256,6 +256,10 @@ class RecordApiHelper
     {
         $response = Hooks::apply(Config::withPrefix('line_reply_message'), false, $data, $this->setHeaders(), $this->apiEndPoint);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_line_reply_message` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_line_reply_message', $response, $data, $this->setHeaders(), $this->apiEndPoint);
 
         return static::handleFilterResponse($response);
@@ -265,6 +269,10 @@ class RecordApiHelper
     {
         $response = Hooks::apply(Config::withPrefix('line_broadcast_message'), false, $data, $this->setHeaders(), $this->apiEndPoint);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_line_broadcast_message` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_line_broadcast_message', $response, $data, $this->setHeaders(), $this->apiEndPoint);
 
         return static::handleFilterResponse($response);

@@ -324,6 +324,10 @@ final class PostCreationController
 
         Hooks::run(Config::withPrefix('add_post_tag'), $postId, $flowDetails->post_tags ?? null);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_add_post_tag` action instead.
+         * @since 2.7.8
+         */
         Hooks::run('btcbi_add_post_tag', $postId, $flowDetails->post_tags ?? null);
 
         $result = wp_update_post($updateData, true);

@@ -110,6 +110,10 @@ class RecordApiHelper
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $customProperties = Hooks::apply(Config::withPrefix('omnisend_custom_properties'), (object) [], $customFieldMap, $fieldValues);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_omnisend_custom_properties` filter instead.
+         * @since 2.7.8
+         */
         $customProperties = Hooks::apply('btcbi_omnisend_custom_properties', $customProperties, $customFieldMap, $fieldValues);
 
         $apiResponse = $this->addContact(

@@ -143,6 +143,10 @@ final class CF7Controller
     {
         $fields = Hooks::apply(Config::withPrefix('cf7_get_advance_custom_html_fields'), $form_text);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_cf7_get_advance_custom_html_fields` filter instead.
+         * @since 2.7.8
+         */
         $fields = Hooks::apply('btcbi_cf7_get_advance_custom_html_fields', $fields);
 
         return \is_array($fields) ? $fields : [];

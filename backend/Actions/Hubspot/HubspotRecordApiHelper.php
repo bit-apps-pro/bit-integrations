@@ -242,6 +242,10 @@ class HubspotRecordApiHelper
         $typeName = "{$actionName}-update";
         $response = Hooks::apply(Config::withPrefix('hubspot_update_entity'), $id, $finalData, $actionName, $this->defaultHeader);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_hubspot_update_entity` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_hubspot_update_entity', $response, $id, $finalData, $actionName, $this->defaultHeader);
 
         if (\is_string($response) && $response == $id) {

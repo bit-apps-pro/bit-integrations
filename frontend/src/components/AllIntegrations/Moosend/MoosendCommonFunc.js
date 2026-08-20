@@ -14,6 +14,8 @@ export const handleInput = (e, conf, setConf, error, setError) => {
 }
 
 export const handleAuthorize = (conf, setError, setAuthorized, loading, setLoading) => {
+  // Legacy local authorization has been replaced by shared Connection Authorization.
+  // Kept as a no-op for backward import safety in older component trees.
   setError({})
   setAuthorized(true)
   setLoading({ ...loading, auth: false })

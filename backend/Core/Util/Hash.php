@@ -11,6 +11,10 @@ use RuntimeException;
 
 class Hash
 {
+    /**
+     * Legacy cipher — retained for READING pre-existing stored values only.
+     * New writes use the authenticated GCM envelope below.
+     */
     public const CIPHER = 'aes-256-cbc';
 
     public const CIPHER_GCM = 'aes-256-gcm';
@@ -78,6 +82,7 @@ class Hash
             return $decrypted;
         }
 
+        // Legacy CBC path — reads pre-encryption plaintext and old CBC values unchanged.
         $secretKey = self::secretKey();
         $decode = urldecode($encryptedData);
         $ivLength = openssl_cipher_iv_length(self::CIPHER);

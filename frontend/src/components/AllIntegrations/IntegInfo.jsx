@@ -880,6 +880,8 @@ export default function IntegInfo() {
   const editUrl = `/flow/action/edit/${id}`
   const goToEditIntegration = useCallback(() => navigate(editUrl), [navigate, editUrl])
 
+  // Only connection-based integrations carry a connection_id; the legacy ones
+  // keep credentials inline in flow_details and stay read-only here.
   const connectionSwitch = useMemo(
     () => ({
       enabled: Boolean(integrationConf?.connection_id),

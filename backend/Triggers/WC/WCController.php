@@ -68,6 +68,7 @@ final class WCController
 
     public const ORDER_STATUS_SET_TO_CANCELLED = 33;
 
+    // Deprecated Subscriptions Events const
     public const USER_SUBSCRIBE_PRODUCT = 12;
 
     public const USER_CANCELLED_SUBSCRIPTION_PRODUCT = 13;
@@ -78,6 +79,7 @@ final class WCController
 
     public const END_SUBSCRIPTION_TRIAL_PERIOD = 16;
 
+    // Deprecated Bookings Events const
     public const BOOKING_CREATED = 18;
 
     private static $_product_update_trigger_count = 0;
@@ -113,6 +115,17 @@ final class WCController
     {
         static::isPluginActivated();
 
+        /**
+         * Deprecated Subscriptions Events
+         * ['id' => 12, 'title' => __('User-Subscribes-Product', 'bit-integrations')],
+         * ['id' => 13, 'title' => __('User-Cancel-Subscription-Product', 'bit-integrations')],
+         * ['id' => 14, 'title' => __('Expired-Subscription-Product', 'bit-integrations')],
+         * ['id' => 15, 'title' => __('Subscription-Product-Status-Change', 'bit-integrations')],
+         * ['id' => 16, 'title' => __('Subscription-Trial-Period-End', 'bit-integrations')],
+         *
+         * Deprecated Bookings Events
+         * ['id' => 18, 'title' => __('Booking-Created', 'bit-integrations')]
+         */
         $wc_action = [
             (object) ['id' => static::CUSTOMER_CREATED, 'title' => __('Customer-Create', 'bit-integrations')],
             (object) ['id' => static::CUSTOMER_UPDATED, 'title' => __('Customer-Edit', 'bit-integrations')],

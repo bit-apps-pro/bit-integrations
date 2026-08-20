@@ -81,6 +81,10 @@ class RecordApiHelper
         $filterResponse = Hooks::apply(Config::withPrefix('dokan_vendor_crud_actions'), $module, $actions);
 
         if (empty($filterResponse)) {
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_dokan_vendor_crud_actions` filter instead.
+             * @since 2.7.8
+             */
             $filterResponse = Hooks::apply('btcbi_dokan_vendor_crud_actions', $module, $actions);
         }
 

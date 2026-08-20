@@ -68,6 +68,10 @@ class RecordApiHelper
 
         Hooks::run(Config::withPrefix('bento_update_user_data'), false, $reqParams, $email, $finalData, $utilities);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_bento_update_user_data` action instead.
+         * @since 2.7.8
+         */
         Hooks::run('btcbi_bento_update_user_data', false, $reqParams, $email, $finalData, $utilities);
 
         return $response;
@@ -83,6 +87,10 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('bento_store_event'), false, $reqParams, $finalData);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_bento_store_event` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_bento_store_event', $response, $reqParams, $finalData);
 
         // translators: %s: Placeholder value

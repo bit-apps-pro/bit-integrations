@@ -29,6 +29,14 @@ class OAuth1Authorization extends AbstractBaseAuthorization
         return $authDetails['access_token'];
     }
 
+    /**
+     * The context-free credential: PARAM mode only.
+     *
+     * A signed credential cannot be built here — the signature covers the request, and
+     * this method is not told what the request is. Signing therefore happens in
+     * authConfigFor(), which receives a RequestContext. Kept faithful to PARAM mode so
+     * direct callers of the legacy entry point keep working.
+     */
     public function getAuthHeadersOrParams()
     {
         $authDetails = $this->getAuthDetails();

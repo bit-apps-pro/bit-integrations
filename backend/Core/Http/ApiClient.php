@@ -41,6 +41,11 @@ class ApiClient
         $this->auth = $connection;
     }
 
+    /**
+     * The API base saved with the connection — the account's own host for per-tenant
+     * providers, empty when the connection stores none. Empty string rather than null
+     * keeps `getBaseURL() . '/v1'` from emitting a deprecation on PHP 8.1+.
+     */
     public function getBaseURL(): string
     {
         if ($this->baseUrl !== null) {

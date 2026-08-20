@@ -76,6 +76,10 @@ class RecordApiHelper
 
         $data = Hooks::apply(Config::withPrefix('klaviyo_custom_properties'), $data, $this->_integrationDetails->custom_field_map ?? [], $fieldValues);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_klaviyo_custom_properties` filter instead.
+         * @since 2.7.8
+         */
         $data = Hooks::apply('btcbi_klaviyo_custom_properties', $data, $this->_integrationDetails->custom_field_map ?? [], $fieldValues);
 
         if (empty($this->_integrationDetails->update) || empty($id)) {
@@ -85,6 +89,10 @@ class RecordApiHelper
         $typeName = 'update-members';
         $response = Hooks::apply(Config::withPrefix('klaviyo_update_profile'), false, $id, $authKey, $data);
 
+        /**
+         * @deprecated 2.7.8 Use `bit_integrations_klaviyo_update_profile` filter instead.
+         * @since 2.7.8
+         */
         $response = Hooks::apply('btcbi_klaviyo_update_profile', $response, $id, $authKey, $data);
 
         if (!$response) {

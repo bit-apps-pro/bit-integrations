@@ -51,6 +51,10 @@ class RecordApiHelper
             case 'add_member_to_team':
                 $response = Hooks::apply(Config::withPrefix('teams_for_wc_memberships_add_member'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_teams_for_wc_memberships_add_member` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_teams_for_wc_memberships_add_member', $response, $fieldData, $this->_integrationDetails);
                 $type = 'team_member';
                 $actionType = 'add_member_to_team';
@@ -60,6 +64,10 @@ class RecordApiHelper
             case 'remove_member_from_team':
                 $response = Hooks::apply(Config::withPrefix('teams_for_wc_memberships_remove_member'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_teams_for_wc_memberships_remove_member` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_teams_for_wc_memberships_remove_member', $response, $fieldData, $this->_integrationDetails);
                 $type = 'team_member';
                 $actionType = 'remove_member_from_team';
@@ -69,6 +77,10 @@ class RecordApiHelper
             case 'invite_user_to_team':
                 $response = Hooks::apply(Config::withPrefix('teams_for_wc_memberships_invite_user'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_teams_for_wc_memberships_invite_user` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_teams_for_wc_memberships_invite_user', $response, $fieldData, $this->_integrationDetails);
                 $type = 'team_invitation';
                 $actionType = 'invite_user_to_team';
@@ -78,6 +90,10 @@ class RecordApiHelper
             case 'update_member_role':
                 $response = Hooks::apply(Config::withPrefix('teams_for_wc_memberships_update_role'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_teams_for_wc_memberships_update_role` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_teams_for_wc_memberships_update_role', $response, $fieldData, $this->_integrationDetails);
                 $type = 'team_member';
                 $actionType = 'update_member_role';

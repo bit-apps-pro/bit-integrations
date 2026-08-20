@@ -134,6 +134,10 @@ class RecordApiHelper
         if (isset($actions->selectedTags)) {
             $response = Hooks::apply(Config::withPrefix('zbigin_add_tags_to_records'), $recordID, $module, $actions->selectedTags, $this->_apiDomain, $this->_defaultHeader);
 
+            /**
+             * @deprecated 2.7.8 Use `bit_integrations_zbigin_add_tags_to_records` filter instead.
+             * @since 2.7.8
+             */
             $response = Hooks::apply('btcbi_zbigin_add_tags_to_records', $response, $module, $actions->selectedTags, $this->_apiDomain, $this->_defaultHeader);
 
             if ($response === $recordID) {

@@ -46,6 +46,10 @@ class RecordApiHelper
             case 'update_post_meta':
                 $response = Hooks::apply(Config::withPrefix('seopress_update_post_meta'), $defaultResponse, $fieldData);
 
+                /**
+                 * @deprecated 2.7.8 Use `bit_integrations_seopress_update_post_meta` filter instead.
+                 * @since 2.7.8
+                 */
                 $response = Hooks::apply('btcbi_seopress_update_post_meta', $response, $fieldData);
 
                 $actionType = 'update_post_meta';
