@@ -2,13 +2,6 @@ import { Link } from 'react-router'
 import InfoIcn from '../../Icons/InfoIcn'
 import { __ } from '../../Utils/i18nwrap'
 
-/**
- * Read-only explainer for the integration info page.
- *
- * `isLegacy` covers integrations saved before 2.10.0: they keep their credentials
- * inline in flow_details instead of pointing at a connection row, so the info page
- * has nothing to show them and no connection to switch.
- */
 export default function ConnectionNotice({ onOpenSettings }) {
   return (
     <div className={`conn-notice conn-notice-legacy w-6`} role="note">

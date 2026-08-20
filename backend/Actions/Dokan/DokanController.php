@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\Dokan;
 use WeDevs\DokanPro\Modules\Germanized\Helper;
 use WP_Error;
 
-/**
- * Provide functionality for Dokan integration
- */
 class DokanController
 {
     public static function checkedDokanExists()

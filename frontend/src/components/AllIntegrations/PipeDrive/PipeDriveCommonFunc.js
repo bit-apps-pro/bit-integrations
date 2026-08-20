@@ -417,9 +417,6 @@ export const checkRequired = pipeDriveConf => {
       return false
     }
 
-    // if (pipeDriveConf.moduleData.module === 'Persons' && pipeDriveConf.moduleData.organization_id === undefined) {
-    //   return false
-    // }
   }
   return true
 }

@@ -70,13 +70,6 @@ export default function GoogleSheetIntegLayout({
           </button>
         </>
       )}
-      {/* <br />
-      <br />
-      <b className="wdt-150 d-in-b">Header:</b>
-      <select onChange={handleInput} name="header" value={sheetConf.header} className="btcd-paper-inp w-7">
-        <option value={__('ROWS', 'bit-integrations')}>{__('Row', 'bit-integrations')}</option>
-        <option value={__('COLUMNS', 'bit-integrations')}>{__('Column', 'bit-integrations')}</option>
-      </select> */}
       <br />
       <br />
       {sheetConf.spreadsheetId && sheetConf.worksheetName && (

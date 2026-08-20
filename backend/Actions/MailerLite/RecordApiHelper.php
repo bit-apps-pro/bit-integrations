@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -168,10 +165,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('mailerlite_delete_subscriber'), false, $subscriberId, $finalData, $this->_baseUrl, $this->_defaultHeader, $forget);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_mailerlite_delete_subscriber` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_mailerlite_delete_subscriber', $response, $subscriberId, $finalData, $this->_baseUrl, $this->_defaultHeader, $forget);
 
         return $response ? $response : (object) ['success' => false, 'message' => __('Bit Integrations Pro is required.', 'bit-integrations'), 'code' => 400];

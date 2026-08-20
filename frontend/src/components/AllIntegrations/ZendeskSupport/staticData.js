@@ -1,6 +1,5 @@
 import { __ } from '../../../Utils/i18nwrap'
 
-// Fixed-option (enum) lists rendered as single-select dropdowns in Utilities.
 export const ZendeskSupportOptions = {
   priority: [
     { label: __('Urgent', 'bit-integrations'), value: 'urgent' },
@@ -37,8 +36,6 @@ export const ZendeskSupportOptions = {
   ]
 }
 
-// Utility dropdown definitions. `kind: 'static'` reads ZendeskSupportOptions;
-// `kind: 'fetch'` loads conf[listKey] from the matching refresh route.
 const staticUtil = (key, label, optionsKey) => ({ key, label, kind: 'static', optionsKey })
 const fetchUtil = (key, label, listKey, route) => ({ key, label, kind: 'fetch', listKey, route })
 

@@ -55,8 +55,6 @@ export const modules = [
   { name: 'create_note', label: __('Create Note', 'bit-integrations'), is_pro: false },
   { name: 'update_note', label: __('Update Note', 'bit-integrations'), is_pro: false },
   { name: 'delete_note', label: __('Delete Note', 'bit-integrations'), is_pro: false },
-  // Bit CRM keeps tasks, meetings and calls in one activities table and tells
-  // them apart by type, so each gets its own action instead of a type dropdown.
   { name: 'create_task', label: __('Create Task', 'bit-integrations'), is_pro: false },
   { name: 'update_task', label: __('Update Task', 'bit-integrations'), is_pro: false },
   { name: 'update_task_status', label: __('Update Task Status', 'bit-integrations'), is_pro: false },
@@ -95,10 +93,6 @@ export const modules = [
   { name: 'revoke_portal_access', label: __('Revoke Portal Access', 'bit-integrations'), is_pro: false }
 ]
 
-// Task, meeting and call are the same activities table with a different `type`,
-// so their four actions share one shape. `activity_id` is the target identifier
-// and stays in the field map; the label just names the type. The record the
-// activity hangs off is picked from the list the module select feeds.
 const activityLabels = {
   call: __('Call Id', 'bit-integrations'),
   meeting: __('Meeting Id', 'bit-integrations'),
@@ -125,9 +119,6 @@ function activityFieldMaps(type) {
   }
 }
 
-// ---- Field maps: ONLY the target's required identifier + free-text fields ----
-// An action in actionFieldModules carries nothing here but the record id, which
-// is this integration's own input rather than a Bit CRM field.
 export const bitCrmStaticData = {
   update_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
   delete_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
@@ -217,8 +208,6 @@ export const bitCrmStaticData = {
   ],
   delete_invoice: [{ key: 'invoice_id', label: __('Invoice Id', 'bit-integrations'), required: true }],
 
-  // Portal access is keyed to the contact email, so the contact is the target
-  // identifier for every portal action.
   grant_portal_access: [
     { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }
   ],
@@ -234,7 +223,6 @@ export const bitCrmStaticData = {
   ]
 }
 
-// ---- Fetched dropdowns: reusable descriptors (key = conf storage key) ----
 const currency = {
   key: 'selectedCurrency',
   label: __('Currency', 'bit-integrations'),
@@ -283,8 +271,6 @@ const companyTags = tags('refresh_bitcrm_company_tags')
 const dealTags = tags('refresh_bitcrm_deal_tags')
 const productTags = tags('refresh_bitcrm_product_tags')
 
-// Joins the field map only for a stage that closes the deal, where Bit CRM
-// requires it.
 export const closingDateField = {
   key: 'closed_at',
   label: __('Closing Date (YYYY-MM-DD HH:MM:SS)', 'bit-integrations'),
@@ -293,12 +279,8 @@ export const closingDateField = {
 
 export const CLOSING_STAGE_CATEGORIES = ['closed_won', 'closed_lost']
 
-// Rows the field map only sometimes carries, so a stale one can be dropped when
-// the configuration that asked for it changes.
 export const conditionalFieldKeys = [closingDateField.key]
 
-// Bit CRM names a lookup's module, not where to read its records from. Keyed by
-// `related_module`; a field pointing anywhere else is skipped.
 export const lookupSources = {
   user: { route: 'refresh_bitcrm_users', listKey: 'allUsers' },
   contact: { route: 'refresh_bitcrm_contacts', listKey: 'allContacts' },
@@ -347,11 +329,9 @@ export const actionDropdowns = {
   ],
 
   create_invoice: [termKey, { ...currency, required: true }],
-  // Everything is optional on update — an unset select leaves the column alone.
   update_invoice: [{ ...termKey, required: false }, currency]
 }
 
-// ---- Fixed enum selects: reusable descriptors (key = conf storage key) ----
 const moduleSel = {
   key: 'module',
   label: __('Module', 'bit-integrations'),
@@ -378,7 +358,6 @@ const moduleOptionalSel = {
   label: __('Module', 'bit-integrations'),
   options: moduleOptions
 }
-// Bit CRM only asks for a priority on tasks, never on meetings or calls.
 const prioritySel = {
   key: 'priority',
   label: __('Priority', 'bit-integrations'),
@@ -444,8 +423,6 @@ export const actionSelects = {
   update_portal_access: [portalCapabilitiesSel]
 }
 
-// An action listed here builds its selects, record pickers and field map from
-// what Bit CRM reports for the module instead of from this file.
 export const actionFieldModules = {
   create_lead: 'lead',
   update_lead: 'lead',
@@ -459,16 +436,12 @@ export const actionFieldModules = {
   update_product: 'product'
 }
 
-// Every conf key a select or dropdown can write, so switching action can clear
-// the ones the new action does not use. Several keys share a Bit CRM field
-// (status, type, lead source), and a leftover value would otherwise win.
 export const allConfigurableKeys = [
   ...new Set(
     [...Object.values(actionSelects), ...Object.values(actionDropdowns)].flat().map(item => item.key)
   )
 ]
 
-// ---- Utilities: boolean options ----
 const isSharedUtil = {
   key: 'is_shared',
   label: __('Shared', 'bit-integrations'),

@@ -183,10 +183,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('fabman_update_member'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_fabman_update_member` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_fabman_update_member', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
         return $this->handleFilterResponse($response);
@@ -200,10 +196,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('fabman_delete_member'), false, $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_fabman_delete_member` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_fabman_delete_member', $response, $this->setHeaders(), self::API_ENDPOINT, $this->memberId);
 
         return $this->handleFilterResponse($response);
@@ -214,10 +206,6 @@ class RecordApiHelper
         unset($data['space']);
         $response = Hooks::apply(Config::withPrefix('fabman_create_space'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_fabman_create_space` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_fabman_create_space', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT);
 
         return $this->handleFilterResponse($response);
@@ -229,7 +217,6 @@ class RecordApiHelper
             return new WP_Error('MISSING_SPACE_ID', __('Please select a space to update.', 'bit-integrations'));
         }
 
-        // lockVersion is required for update operations
         if (empty($this->lockVersion) || !is_numeric($this->lockVersion)) {
             return new WP_Error('MISSING_LOCK_VERSION', __('Lock version is required for updating space.', 'bit-integrations'));
         }
@@ -238,10 +225,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('fabman_update_space'), false, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_fabman_update_space` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_fabman_update_space', $response, wp_json_encode($data), $this->setHeaders(), self::API_ENDPOINT, $this->workspaceId);
 
         return $this->handleFilterResponse($response);
@@ -268,14 +251,6 @@ class RecordApiHelper
         return $response;
     }
 
-    /**
-     * Validates and sanitizes field values based on Fabman API field requirements
-     *
-     * @param string $fieldName The Fabman field name
-     * @param mixed  $value     The raw value to validate
-     *
-     * @return mixed|false The sanitized value or false if validation fails
-     */
     private function validateAndSanitizeField($fieldName, $value)
     {
         if ($this->isEmptyValue($value)) {

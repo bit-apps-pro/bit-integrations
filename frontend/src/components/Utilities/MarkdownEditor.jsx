@@ -26,7 +26,6 @@ export default function MarkdownEditor({
 
   if (!show) return null
 
-  // pushes the new text up and remembers where the caret should land once it is rendered
   const commit = (nextValue, start, end) => {
     onChange(nextValue)
     setPendingSelection({ start, end })

@@ -55,7 +55,6 @@ function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <ZohoMarketingHubAuthorization
         formID={formID}
         marketingHubConf={marketingHubConf}
@@ -67,7 +66,6 @@ function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <ZohoMarketingHubIntegLayout
           formID={formID}
@@ -96,7 +94,6 @@ function ZohoMarketingHub({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

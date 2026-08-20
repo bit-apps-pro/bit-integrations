@@ -59,11 +59,6 @@ export const getCustomFields = (confTmp, setConf, setLoading) => {
 
   bitsFetch(requestParams, 'asana_fetch_custom_fields').then(result => {
     if (result && result.success) {
-      // const newConf = { ...confTmp };
-      // if (result.data) {
-      //   newConf.customFields = result.data;
-      // }
-      // setConf(newConf);
       setConf(oldConf => {
         const newConf = { ...oldConf }
         if (!newConf.default) {
@@ -126,11 +121,6 @@ export const getAllSections = (confTmp, setConf, setLoading) => {
 
   bitsFetch(requestParams, 'asana_fetch_all_Sections').then(result => {
     if (result && result.success) {
-      // const newConf = { ...confTmp };
-      // if (result.data) {
-      //   newConf.Sections = result.data;
-      // }
-      // setConf(newConf);
 
       setConf(oldConf => {
         const newConf = { ...oldConf }

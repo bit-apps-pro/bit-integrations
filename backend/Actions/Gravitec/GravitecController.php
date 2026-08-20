@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\Gravitec;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-/**
- * Provide functionality for Gravitec integration
- */
 class GravitecController
 {
     public static array $authConfig = [

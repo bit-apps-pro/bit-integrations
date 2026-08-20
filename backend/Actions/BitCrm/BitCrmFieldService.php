@@ -8,11 +8,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Reads the field list of a module from Bit CRM itself. `{Module}Service::fields()`
- * hands back the shipped fields, the site's label and required overrides, and the
- * custom fields a Bit CRM Pro site defines, already merged.
- */
 final class BitCrmFieldService
 {
     public const TYPE_LOOKUP = 'lookup';
@@ -31,9 +26,6 @@ final class BitCrmFieldService
 
     private const GROUP_FIELDS_KEY = 'group_fields';
 
-    /**
-     * @return array<int, array>
-     */
     public static function fields(string $module)
     {
         if (!isset(self::SERVICES[$module]) || !class_exists(self::SERVICES[$module])) {
@@ -51,9 +43,6 @@ final class BitCrmFieldService
         return \is_array($fields) ? self::normalizeAll($fields) : [];
     }
 
-    /**
-     * @return array<int, array>
-     */
     private static function normalizeAll(array $fields)
     {
         $normalized = [];
@@ -81,9 +70,6 @@ final class BitCrmFieldService
         return $normalized;
     }
 
-    /**
-     * @return null|array
-     */
     private static function normalize(array $field)
     {
         $key = (string) ($field['field_key'] ?? '');
@@ -103,8 +89,6 @@ final class BitCrmFieldService
         ];
 
         if (!empty($field['is_custom'])) {
-            // A custom field carries per-record data, so it stays a field map row
-            // even when it has options of its own.
             if (empty($field['status'])) {
                 return;
             }
@@ -138,9 +122,6 @@ final class BitCrmFieldService
         return $row;
     }
 
-    /**
-     * @return array<int, array>
-     */
     private static function options(array $field)
     {
         if (empty($field['options']) || !\is_array($field['options'])) {
@@ -168,14 +149,6 @@ final class BitCrmFieldService
         return $options;
     }
 
-    /**
-     * Bit CRM casts with boolval(), and boolval('false') is true, so a boolean
-     * option value has to travel as '1'/'0'.
-     *
-     * @param mixed $value
-     *
-     * @return string
-     */
     private static function toOptionValue($value)
     {
         if (\is_bool($value)) {

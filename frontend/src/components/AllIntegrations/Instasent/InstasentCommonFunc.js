@@ -4,8 +4,6 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
-// Actions that need a Project / Data Source. These ids are selected at config time
-// (Project Id as text, Data Source as a fetched dropdown) instead of in the field map.
 export const ACTIONS_WITH_PROJECT = [
   'create_datasource',
   'create_or_update_contact',
@@ -19,11 +17,8 @@ export const ACTIONS_WITH_DATASOURCE = [
   'create_contact_event'
 ]
 
-// Actions whose field map may carry arbitrary keys (contact custom attributes /
-// event parameters), entered via the "Custom Field..." option in the field map.
 export const ACTIONS_WITH_CUSTOM_FIELDS = ['create_or_update_contact', 'create_contact_event']
 
-// Sentinel chosen in the Instasent-field select to switch a row to a free-text key.
 export const CUSTOM_FIELD_KEY = '__custom_field__'
 
 export const InstasentStaticData = {
@@ -62,7 +57,6 @@ export const handleInput = (e, instasentConf, setInstasentConf, loading, setLoad
   const updatedConf = create(instasentConf, draftConf => {
     draftConf[name] = value
 
-    // Changing the project invalidates the fetched data sources + the selection.
     if (name === 'projectId') {
       draftConf.datasourceId = ''
       if (draftConf.default) {

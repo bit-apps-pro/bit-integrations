@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ActiveCampaignController
 {
     public static array $authConfig = [
@@ -36,13 +33,6 @@ class ActiveCampaignController
         return "{$api_url}/api/3/{$method}/";
     }
 
-    /**
-     * Process ajax request for refresh lists
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON active campaign list data
-     */
     public static function activeCampaignLists($queryParams)
     {
         if (
@@ -64,13 +54,6 @@ class ActiveCampaignController
         wp_send_json_success($response);
     }
 
-    /**
-     * Process ajax request for refresh lists
-     *
-     * @param $queryParams Params to fetch list
-     *
-     * @return JSON active campaign list data
-     */
     public static function activeCampaignAccounts($queryParams)
     {
         if (
@@ -92,15 +75,6 @@ class ActiveCampaignController
 
         $lists = [];
         if (!is_wp_error($aCampaignResponse) && isset($aCampaignResponse->accounts)) {
-            // $allLists = $aCampaignResponse->lists;
-
-            // foreach ($allLists as $list) {
-            //     $lists[$list->name] = (object) [
-            //         'listId' => $list->id,
-            //         'listName' => $list->name,
-            //     ];
-            // }
-            // $response['activeCampaignLists'] = $lists;
             wp_send_json_success($aCampaignResponse->accounts);
         }
     }
@@ -176,7 +150,6 @@ class ActiveCampaignController
             );
         }
 
-        // $apiEndpoint = "{$queryParams->api_url}/api/3/fields";
         $apiEndpoint = self::_apiEndpoint($queryParams->api_url, 'fields');
         $authorizationHeader['Api-Token'] = $queryParams->api_key;
         $requestParams = [
@@ -267,39 +240,3 @@ class ActiveCampaignController
     }
 }
 
-// public static function activeCampaignTags($queryParams)
-// {
-//     if (empty($queryParams->api_key)
-//         || empty($queryParams->api_url)
-//     ) {
-//         wp_send_json_error(
-//             __(
-//                 'Requested parameter is empty',
-//                 'bit-integrations'
-//             ),
-//             400
-//         );
-//     }
-
-//     $apiEndpoint = self::_apiEndpoint($queryParams->api_url, 'tags');
-//     $authorizationHeader['Api-Token'] = $queryParams->api_key;
-//     $requestParams = [
-//         'limit' => 1000,
-//     ];
-//     $aCampaignResponse = HttpHelper::get($apiEndpoint, $requestParams, $authorizationHeader);
-
-//     $tags = [];
-//     if (!is_wp_error($aCampaignResponse)) {
-//         $allTags = $aCampaignResponse->tags;
-
-//         foreach ($allTags as $tag) {
-//             $tags[$tag->tag] = (object) [
-//                 'tagId' => $tag->id,
-//                 'tagName' => $tag->tag,
-//             ];
-//         }
-//         var_dump($tags,'tags');die;
-//         $response['activeCampaignTags'] = $tags;
-//         wp_send_json_success($response);
-//     }
-// }

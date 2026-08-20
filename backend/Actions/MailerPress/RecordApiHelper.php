@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -23,17 +20,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $lists       Lists to subscribe
-     * @param array $tags        Tags to add
-     * @param mixed $mainAction
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $lists, $tags, $mainAction)
     {
         if (!class_exists('\MailerPress\Core\Kernel')) {
@@ -51,7 +37,6 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_or_update_contact':
                 $response = $this->insertRecord($fieldData, $lists, $tags);
@@ -62,10 +47,6 @@ class RecordApiHelper
             case 'delete_contact':
                 $response = Hooks::apply(Config::withPrefix('mailerpress_delete_contact'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_mailerpress_delete_contact` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_mailerpress_delete_contact', $response, $fieldData);
                 $actionType = 'delete';
 
@@ -74,10 +55,6 @@ class RecordApiHelper
             case 'add_tags':
                 $response = Hooks::apply(Config::withPrefix('mailerpress_add_tags'), $defaultResponse, $fieldData, $tags);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_mailerpress_add_tags` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_mailerpress_add_tags', $response, $fieldData, $tags);
                 $actionType = 'add_tags';
 
@@ -86,10 +63,6 @@ class RecordApiHelper
             case 'remove_tags':
                 $response = Hooks::apply(Config::withPrefix('mailerpress_remove_tags'), $defaultResponse, $fieldData, $tags);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_mailerpress_remove_tags` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_mailerpress_remove_tags', $response, $fieldData, $tags);
                 $actionType = 'remove_tags';
 
@@ -98,10 +71,6 @@ class RecordApiHelper
             case 'add_to_lists':
                 $response = Hooks::apply(Config::withPrefix('mailerpress_add_to_lists'), $defaultResponse, $fieldData, $lists);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_mailerpress_add_to_lists` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_mailerpress_add_to_lists', $response, $fieldData, $lists);
                 $actionType = 'add_to_lists';
 
@@ -110,10 +79,6 @@ class RecordApiHelper
             case 'remove_from_lists':
                 $response = Hooks::apply(Config::withPrefix('mailerpress_remove_from_lists'), $defaultResponse, $fieldData, $lists);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_mailerpress_remove_from_lists` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_mailerpress_remove_from_lists', $response, $fieldData, $lists);
                 $actionType = 'remove_from_lists';
 
@@ -138,15 +103,6 @@ class RecordApiHelper
         return $response;
     }
 
-    /**
-     * Insert or update contact record
-     *
-     * @param array $contactData Contact data
-     * @param array $lists       Lists to subscribe
-     * @param array $tags        Tags to add
-     *
-     * @return array
-     */
     private function insertRecord($contactData, $lists, $tags)
     {
         $email = key_exists('email', $contactData) ? sanitize_email($contactData['email']) : null;
@@ -214,14 +170,6 @@ class RecordApiHelper
         ];
     }
 
-    /**
-     * Map form fields to MailerPress fields
-     *
-     * @param array $fieldMap    Field mapping
-     * @param array $fieldValues Field values
-     *
-     * @return array
-     */
     private static function setFieldMap($fieldMap, $fieldValues)
     {
         $fieldData = [];

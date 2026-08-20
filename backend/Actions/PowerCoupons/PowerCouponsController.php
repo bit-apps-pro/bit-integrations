@@ -12,9 +12,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Provide functionality for Power Coupons action integration.
- */
 class PowerCouponsController
 {
     public static function isExists()

@@ -30,9 +30,6 @@ export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (val === 3) {
-      // Dropdown ids and the customer fields whose necessity depends on customerType
-      // are invisible to checkMappedFields; validateLatePointConf covers both, and the
-      // edit screen runs the same check.
       const selectionError = validateLatePointConf(latePointConf)
 
       if (selectionError) {
@@ -61,7 +58,6 @@ export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <LatePointAuthorization
         formID={formID}
         latePointConf={latePointConf}
@@ -73,7 +69,6 @@ export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -103,7 +98,6 @@ export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

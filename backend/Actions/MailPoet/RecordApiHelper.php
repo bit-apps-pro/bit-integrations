@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use Exception;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -34,7 +31,6 @@ class RecordApiHelper
     public function insertRecord($subscriber, $lists, $actions, $options = [])
     {
         try {
-            // try to find if user is already a subscriber
             $existingSubscriber = static::$mailPoet_api->getSubscriber($subscriber['email']);
 
             if (!$existingSubscriber) {
@@ -44,10 +40,6 @@ class RecordApiHelper
             if (!empty($actions->update)) {
                 $response = Hooks::apply(Config::withPrefix('mailpoet_update_subscriber'), $existingSubscriber['id'], $subscriber);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_mailpoet_update_subscriber` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_mailpoet_update_subscriber', $response, $subscriber);
 
                 if ($response === $existingSubscriber['id']) {
@@ -71,7 +63,6 @@ class RecordApiHelper
             }
         } catch (\MailPoet\API\MP\v1\APIException $e) {
             if ($e->getCode() == 4) {
-                // Handle the case where the subscriber doesn't exist
                 return static::addSubscriber($subscriber, $lists, $options);
             }
 
@@ -81,7 +72,6 @@ class RecordApiHelper
                 'message' => $e->getMessage()
             ];
         } catch (Exception $e) {
-            // Handle other unexpected exceptions
             return [
                 'success' => false,
                 'code'    => $e->getCode(),

@@ -55,7 +55,6 @@ function Freshdesk({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <FreshdeskAuthorization
         formID={formID}
         freshdeskConf={freshdeskConf}
@@ -67,7 +66,6 @@ function Freshdesk({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
 
       <div
         className="btcd-stp-page"
@@ -103,7 +101,6 @@ function Freshdesk({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

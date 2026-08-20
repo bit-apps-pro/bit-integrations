@@ -17,7 +17,6 @@ export default function ClinchPadFieldMap({ i, formFields, field, clinchPadConf,
   } else if (clinchPadConf.actionName === 'lead') {
     allFields = clinchPadConf?.leadFields
   }
-  // newFields = [...allFields, ...clinchPadConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = [...nonRequiredFields, ...(clinchPadConf?.customFields || [])]

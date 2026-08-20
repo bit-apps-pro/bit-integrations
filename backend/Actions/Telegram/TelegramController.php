@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for Telegram integration
- */
 class TelegramController
 {
     public const APIENDPOINT = 'https://api.telegram.org/bot';
@@ -26,18 +23,6 @@ class TelegramController
 
     private $_integrationID;
 
-    // public function __construct($integrationID=0)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
-    /**
-     * Process ajax request for refresh telegram get Updates
-     *
-     * @param object $requestsParams Params to get update
-     *
-     * @return JSON telegram get Updates data
-     */
     public static function refreshGetUpdates($requestsParams)
     {
         if (empty($requestsParams->bot_api_key)) {

@@ -6,9 +6,6 @@
 
 namespace BitApps\Integrations\Actions\ModernCart;
 
-/**
- * Provide functionality for ModernCart integration
- */
 class ModernCartController
 {
     public static function isExists()

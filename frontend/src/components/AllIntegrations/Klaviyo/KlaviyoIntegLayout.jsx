@@ -57,7 +57,6 @@ function KlaviyoIntegLayout({ klaviyoConf, setKlaviyoConf, formFields, loading, 
         &#x21BB;
       </button>
 
-      {/* When user refresh the List then loader call */}
 
       {loading.list && (
         <Loader

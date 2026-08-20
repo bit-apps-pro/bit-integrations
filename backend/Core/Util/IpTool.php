@@ -8,31 +8,16 @@ namespace BitApps\Integrations\Core\Util;
 
 final class IpTool
 {
-    /**
-     * Provide user details
-     *
-     * @return _setUserDetail user details array
-     */
     public static function getUserDetail()
     {
         return IpTool::_setUserDetail();
     }
 
-    /**
-     * Provide user IP address
-     *
-     * @return ip
-     */
     public static function getIP()
     {
         return IpTool::_checkIP();
     }
 
-    /**
-     * Check ip address
-     *
-     * @return string IP address of current visitor
-     */
     private static function _checkIP()
     {
         if (getenv('HTTP_CLIENT_IP')) {
@@ -54,11 +39,6 @@ final class IpTool
         return $ip;
     }
 
-    /**
-     * Check device info
-     *
-     * @return void
-     */
     private static function _checkDevice()
     {
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized on next line
@@ -72,26 +52,12 @@ final class IpTool
         return IpTool::_getBrowserName($user_agent) . '|' . IpTool::_getOS($user_agent);
     }
 
-    /**
-     * Get browser name
-     *
-     * @param string $user_agent $_SERVER['HTTP_USER_AGENT']
-     *
-     * @return void
-     *
-     * @link https://stackoverflow.com/questions/18070154/get-operating-system-info
-     */
     private static function _getBrowserName($user_agent)
     {
-        // Make case insensitive.
         $t = strtolower($user_agent);
 
-        // If the string *starts* with the string, strpos returns 0 (i.e., FALSE). Do a ghetto hack and start with a space.
-        // "[strpos()] may return Boolean FALSE, but may also return a non-Boolean value which evaluates to FALSE."
-        //     http://php.net/manual/en/function.strpos.php
         $t = ' ' . $t;
 
-        // Humans / Regular Users
         if (strpos($t, 'opera') || strpos($t, 'opr/')) {
             return 'Opera';
         } elseif (strpos($t, 'edge')) {
@@ -126,7 +92,6 @@ final class IpTool
             return 'MSN';
         }
 
-        // Common Tools and Bots
         elseif (strpos($t, 'mj12bot')) {
             return 'Majestic';
         } elseif (strpos($t, 'ahrefs')) {
@@ -153,15 +118,6 @@ final class IpTool
         return 'Other (Unknown)';
     }
 
-    /**
-     * Provide Operating System Information of User
-     *
-     * @link https://stackoverflow.com/questions/18070154/get-operating-system-info
-     *
-     * @param mixed $user_agent
-     *
-     * @return void
-     */
     private static function _getOS($user_agent)
     {
         $ros[] = ['Windows XP', 'Windows XP'];
@@ -180,9 +136,6 @@ final class IpTool
         $ros[] = ['(win)([0-9]{1,2}\.[0-9x]{1,2})', 'Windows'];
         $ros[] = ['(win)([0-9]{2})', 'Windows'];
         $ros[] = ['(windows)([0-9x]{2})', 'Windows'];
-        // Doesn't seem like these are necessary...not totally sure though..
-        // $ros[] = array('(winnt)([0-9]{1,2}\.[0-9]{1,2}){0,1}', 'Windows NT');
-        // $ros[] = array('(windows nt)(([0-9]{1,2}\.[0-9]{1,2}){0,1})', 'Windows NT'); // fix by bg
         $ros[] = ['Windows ME', 'Windows ME'];
         $ros[] = ['Win 9x 4.90', 'Windows ME'];
         $ros[] = ['Windows 98|Win98', 'Windows 98'];
@@ -193,7 +146,6 @@ final class IpTool
         $ros[] = ['(Solaris)([0-9]{1,2}\.[0-9x]{1,2}){0,1}', 'Solaris'];
         $ros[] = ['dos x86', 'DOS'];
         $ros[] = ['unix', 'Unix'];
-        // Android
         $ros[] = ['SM', 'Samsung'];
         $ros[] = ['HTC', 'HTC'];
         $ros[] = ['LG', 'LG'];
@@ -204,7 +156,6 @@ final class IpTool
         $ros[] = ['Android', 'Android'];
         $ros[] = ['android', 'Android'];
 
-        // iPhone
         $ros[] = ['iPhone', 'iPhone'];
 
         $ros[] = ['Mac OS X', 'Mac OS X'];
@@ -239,17 +190,11 @@ final class IpTool
         $ros[] = ['(Dropline)', 'Linux - Slackware (Dropline GNOME)'];
         $ros[] = ['(ASPLinux)', 'Linux - ASPLinux'];
         $ros[] = ['(Red Hat)', 'Linux - Red Hat'];
-        // Loads of Linux machines will be detected as unix.
-        // Actually, all of the linux machines I've checked have the 'X11' in the User Agent.
-        // $ros[] = array('X11', 'Unix');
         $ros[] = ['(linux)', 'Linux'];
         $ros[] = ['(amigaos)([0-9]{1,2}\.[0-9]{1,2})', 'AmigaOS'];
         $ros[] = ['amiga-aweb', 'AmigaOS'];
         $ros[] = ['amiga', 'Amiga'];
         $ros[] = ['AvantGo', 'PalmOS'];
-        // $ros[] = array('(Linux)([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}(rel\.[0-9]{1,2}){0,1}-([0-9]{1,2}) i([0-9]{1})86){1}', 'Linux');
-        // $ros[] = array('(Linux)([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}(rel\.[0-9]{1,2}){0,1} i([0-9]{1}86)){1}', 'Linux');
-        // $ros[] = array('(Linux)([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3}(rel\.[0-9]{1,2}){0,1})', 'Linux');
         $ros[] = ['[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,3})', 'Linux'];
         $ros[] = ['(webtv)/([0-9]{1,2}\.[0-9]{1,2})', 'WebTV'];
         $ros[] = ['Dreamcast', 'Dreamcast OS'];
@@ -272,8 +217,6 @@ final class IpTool
         $ros[] = ['wget', 'Windows'];
         $ros[] = ['Java', 'Unknown'];
         $ros[] = ['flashget', 'Windows'];
-        // delete next line if the script show not the right OS
-        // $ros[] = array('(PHP)/([0-9]{1,2}.[0-9]{1,2})', 'PHP');
         $ros[] = ['MS FrontPage', 'Windows'];
         $ros[] = ['(msproxy)/([0-9]{1,2}.[0-9]{1,2})', 'Windows'];
         $ros[] = ['(msie)([0-9]{1,2}.[0-9]{1,2})', 'Windows'];
@@ -294,11 +237,6 @@ final class IpTool
         return trim($os);
     }
 
-    /**
-     * Set user details ip,cdevice, user_id, user's visited page, current mysql formatted time
-     *
-     * @return array of user details
-     */
     private static function _setUserDetail()
     {
         $user_details['ip'] = ip2long(IpTool::_checkIP());

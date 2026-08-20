@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $integrationDetails;
@@ -79,10 +76,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_update_cpt'), false, $apiEndpoint, $this->apikey, $finalData);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_update_cpt` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_update_cpt', $response, $apiEndpoint, $this->apikey, $finalData);
 
         return ACPTHelper::validateResponse($response);
@@ -102,10 +95,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_delete_cpt'), false, $apiEndpoint, $this->apikey);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_delete_cpt` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_delete_cpt', $response, $apiEndpoint, $this->apikey);
 
         return ACPTHelper::validateResponse($response);
@@ -128,18 +117,10 @@ class RecordApiHelper
         if ($isUpdate) {
             $response = Hooks::apply(Config::withPrefix('acpt_update_taxonomy'), false, $apiEndpoint, $this->apikey, $finalData);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_acpt_update_taxonomy` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_acpt_update_taxonomy', $response, $apiEndpoint, $this->apikey, $finalData);
         } else {
             $response = Hooks::apply(Config::withPrefix('acpt_create_taxonomy'), false, $apiEndpoint, $this->apikey, $finalData);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_acpt_create_taxonomy` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_acpt_create_taxonomy', $response, $apiEndpoint, $this->apikey, $finalData);
         }
 
@@ -162,10 +143,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_delete_taxonomy'), false, $apiEndpoint, $this->apikey);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_delete_taxonomy` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_delete_taxonomy', $response, $apiEndpoint, $this->apikey);
 
         return ACPTHelper::validateResponse($response);
@@ -195,10 +172,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_associate_taxonomy_to_cpt'), false, $apiEndpoint, $this->apikey);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_associate_taxonomy_to_cpt` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_associate_taxonomy_to_cpt', $response, $apiEndpoint, $this->apikey);
 
         return ACPTHelper::validateResponse($response);
@@ -238,18 +211,10 @@ class RecordApiHelper
         if ($isUpdate) {
             $response = Hooks::apply(Config::withPrefix('acpt_update_option_page'), false, $apiEndpoint, $this->apikey, wp_json_encode($finalData));
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_acpt_update_option_page` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_acpt_update_option_page', $response, $apiEndpoint, $this->apikey, wp_json_encode($finalData));
         } else {
             $response = Hooks::apply(Config::withPrefix('acpt_create_option_page'), false, $apiEndpoint, $this->apikey, wp_json_encode($finalData));
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_acpt_create_option_page` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_acpt_create_option_page', $response, $apiEndpoint, $this->apikey, wp_json_encode($finalData));
         }
 
@@ -272,10 +237,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_delete_option_page'), false, $apiEndpoint, $this->apikey);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_delete_option_page` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_delete_option_page', $response, $apiEndpoint, $this->apikey);
 
         return ACPTHelper::validateResponse($response);
@@ -295,10 +256,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_delete_meta_group'), false, $apiEndpoint, $this->apikey);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_delete_meta_group` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_delete_meta_group', $response, $apiEndpoint, $this->apikey);
 
         return ACPTHelper::validateResponse($response);
@@ -327,10 +284,6 @@ class RecordApiHelper
 
         $response = Hooks::apply(Config::withPrefix('acpt_delete_dynamic_block'), false, $apiEndpoint, $this->apikey);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_acpt_delete_dynamic_block` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_acpt_delete_dynamic_block', $response, $apiEndpoint, $this->apikey);
 
         return ACPTHelper::validateResponse($response);

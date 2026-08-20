@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\Voxel;
 use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for Voxel integration
- */
 class VoxelController
 {
     public static function checkIfVoxelExists()

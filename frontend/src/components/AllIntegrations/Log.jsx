@@ -39,12 +39,10 @@ function Log({ allIntegURL }) {
     setPreviewTab('output')
     setPreviewInput(null)
     setResponse(row)
-    // Bump the token for every open so any in-flight field-data fetch from a prior row is ignored.
     const token = (previewReqRef.current += 1)
     if (row?.has_field_data && row?.id) {
       bitsFetch({ log_id: row.id }, 'log/field-data')
         .then(res => {
-          // Ignore a stale response if the user has since opened a different row's preview.
           if (token !== previewReqRef.current) return
           setPreviewInput(res?.success ? (res.data ?? '') : '')
         })
@@ -217,8 +215,6 @@ function Log({ allIntegURL }) {
     setCols(newCols)
   }, [])
 
-  // Sorting is disabled: rows arrive in server order (originals then their nested re-runs), which a
-  // client-side sort would scramble, detaching re-runs from their parent.
   const tableCols = useMemo(() => cols.map(col => ({ ...col, disableSortBy: true })), [cols])
 
   const setBulkDelete = useCallback((rows, action) => {
@@ -232,7 +228,6 @@ function Log({ allIntegURL }) {
     }
     bitsFetch({ id: entries }, 'log/delete').then(res => {
       if (res.success) {
-        // setReloadIndex triggers a single refetch (via fetchData deps) and resets collapse state.
         setReloadIndex(i => i + 1)
         setSnackbar({ show: true, msg: __('Log deleted successfully', 'bit-integrations') })
       }
@@ -250,7 +245,6 @@ function Log({ allIntegURL }) {
         { id, offset: startRow, pageSize, status: statusFilter, search: searchQuery },
         'log/get'
       ).then(res => {
-        // Ignore out-of-order responses: only the most recent request may commit state.
         if (fetchId !== fetchIdRef.current) return
         if (res?.success) {
           setPageCount(Math.ceil(res.data.count / pageSize))
@@ -264,7 +258,6 @@ function Log({ allIntegURL }) {
     [id, reloadIndex, statusFilter, searchQuery]
   )
 
-  // Depth-ordered rows from the server (each original followed by its re-runs), with collapse applied.
   const displayRows = useMemo(() => {
     const rows = []
     let hideDeeperThan = null
@@ -282,13 +275,11 @@ function Log({ allIntegURL }) {
     return rows
   }, [log, collapsed])
 
-  // Debounce the search box, then let the server filter (correct counts + matches across all pages).
   useEffect(() => {
     const timer = setTimeout(() => setSearchQuery(search.trim()), 300)
     return () => clearTimeout(timer)
   }, [search])
 
-  // After a refresh / re-execute, expand all groups so a newly created re-run is visible.
   useEffect(() => {
     if (reloadIndex) setCollapsed(new Set())
   }, [reloadIndex])
@@ -471,7 +462,6 @@ function Log({ allIntegURL }) {
 
 export default memo(Log)
 
-// Map a stored response_type to a visual status key.
 const statusKey = st => {
   const s = String(st || '').toLowerCase()
   if (s === 'success') return 'success'
@@ -488,7 +478,6 @@ const jsonPrint = data => {
   }
 }
 
-// Human-readable label for the record type column (stored as JSON string).
 const recordTypeLabel = raw => {
   if (!raw) return ''
   try {
@@ -499,7 +488,6 @@ const recordTypeLabel = raw => {
   }
 }
 
-// Lightweight JSON syntax highlighter → HTML with token classes.
 const syntaxHighlight = data => {
   const json = jsonPrint(data).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 

@@ -8,24 +8,8 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
 
-/**
- * Credential-test client for the connections/authorize endpoint. Runs one
- * authenticated request through ApiClient and returns the legacy result array
- * byte-compatible with AbstractBaseAuthorization::authorize():
- *
- *   success: ['success' => true, 'response' => mixed]
- *   error:   ['error' => true, 'message' => string, 'response' => mixed]
- *            (credential/config failures omit 'response', as before)
- *
- * The handler's validateAuthResponse() hook runs on 2xx responses so
- * integrations like ZendeskSupport can reject a 200 that lacks the expected
- * payload (wrong subdomain still returns 200 from Zendesk).
- */
 class ConnectionTestApi extends ApiClient
 {
-    /**
-     * @var AbstractBaseAuthorization
-     */
     private $handler;
 
     public function __construct(AbstractBaseAuthorization $handler)
@@ -34,9 +18,6 @@ class ConnectionTestApi extends ApiClient
         $this->handler = $handler;
     }
 
-    /**
-     * @param null|mixed $payload
-     */
     public function test(string $apiEndpoint, string $method = 'GET', $payload = null, array $headers = []): array
     {
         $apiEndpoint = trim($apiEndpoint);
@@ -52,10 +33,6 @@ class ConnectionTestApi extends ApiClient
         $response = $result->getBody();
         $authException = $this->lastAuthException();
 
-        // The strategy could not produce a credential, so no request was sent.
-        // Return the handler's own error array untouched — legacy handed it straight
-        // back, and its keys vary by handler (those built via errorResult() also
-        // carry 'response').
         if ($authException !== null) {
             $details = $authException->errorDetails();
 
@@ -69,7 +46,6 @@ class ConnectionTestApi extends ApiClient
             return $this->errorShape((string) $result->getError(), $response);
         }
 
-        // Body-level error key wins over the status code (legacy order).
         if ((\is_object($response) && !empty($response->error)) || (\is_array($response) && !empty($response['error']))) {
             $fallback = __('Authorization failed', 'bit-integrations');
 
@@ -95,10 +71,6 @@ class ConnectionTestApi extends ApiClient
         ];
     }
 
-    /**
-     * @param mixed $message  legacy path passes body error values through untouched
-     * @param mixed $response
-     */
     private function errorShape($message, $response): array
     {
         return [

@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -110,35 +107,32 @@ class RecordApiHelper
 
     private static function htmlToMarkdown($html)
     {
-        // Regular expressions for matching HTML elements and attributes
         $patterns = [
-            '/<b>(.*?)<\/b>/s'                                                    => '*$1*', // Bold
-            '/<strong>(.*?)<\/strong>/s'                                          => '*$1*', // Bold
-            '/<i>(.*?)<\/i>/s'                                                    => '_$1_', // Italic
-            '/<ul>(.*?)<\/ul>/s'                                                  => "\n $1\n", // Unordered list
-            '/<ol>(.*?)<\/ol>/s'                                                  => "\n $1\n", // Ordered list
-            '/<li>(.*?)<\/li>/s'                                                  => "• $1\n", // List item
-            '/<a title="(.*)" href="(.*?)" target="(.*)" rel="(.*)">(.*?)<\/a>/s' => '[$1]($2)', // Links
-            '/<a(.*)href="(.*?)"(.*)>(.*?)<\/a>/s'                                => '[$1]($2)', // Links
-            '/<img(.*)src="(.*?)"(.*)alt="(.*?)"(.*)>/s'                          => '$2', // Images
-            '/<code>(.*?)<\/code>/s'                                              => "```\n$1\n```", // Code blocks
-            '/<pre>(.*?)<\/pre>/s'                                                => "```\n$1\n```", // Preformatted text
-            '/<h1>(.*?)<\/h1>/s'                                                  => "$1\n", // Heading 1
-            '/<h2>(.*?)<\/h2>/s'                                                  => "$1\n", // Heading 2
-            '/<h3>(.*?)<\/h3>/s'                                                  => "$1\n", // Heading 3
-            '/<h4>(.*?)<\/h4>/s'                                                  => "$1\n", // Heading 4
-            '/<h5>(.*?)<\/h5>/s'                                                  => "$1\n", // Heading 5
-            '/<h6>(.*?)<\/h6>/s'                                                  => "$1\n", // Heading 6
-            '/<p>(.*?)<\/p>/s'                                                    => "$1\n", // Paragraphs
-            '/<br>(.*?)<\/br>/s'                                                  => "\n", // Line breaks
-            '/<del>(.*?)<\/del>/s'                                                => '~$1~', // Strikethrough
-            '/<s>(.*?)<\/s>/s'                                                    => '~$1~', // Strikethrough
+            '/<b>(.*?)<\/b>/s'                                                    => '*$1*',
+            '/<strong>(.*?)<\/strong>/s'                                          => '*$1*',
+            '/<i>(.*?)<\/i>/s'                                                    => '_$1_',
+            '/<ul>(.*?)<\/ul>/s'                                                  => "\n $1\n",
+            '/<ol>(.*?)<\/ol>/s'                                                  => "\n $1\n",
+            '/<li>(.*?)<\/li>/s'                                                  => "• $1\n",
+            '/<a title="(.*)" href="(.*?)" target="(.*)" rel="(.*)">(.*?)<\/a>/s' => '[$1]($2)',
+            '/<a(.*)href="(.*?)"(.*)>(.*?)<\/a>/s'                                => '[$1]($2)',
+            '/<img(.*)src="(.*?)"(.*)alt="(.*?)"(.*)>/s'                          => '$2',
+            '/<code>(.*?)<\/code>/s'                                              => "```\n$1\n```",
+            '/<pre>(.*?)<\/pre>/s'                                                => "```\n$1\n```",
+            '/<h1>(.*?)<\/h1>/s'                                                  => "$1\n",
+            '/<h2>(.*?)<\/h2>/s'                                                  => "$1\n",
+            '/<h3>(.*?)<\/h3>/s'                                                  => "$1\n",
+            '/<h4>(.*?)<\/h4>/s'                                                  => "$1\n",
+            '/<h5>(.*?)<\/h5>/s'                                                  => "$1\n",
+            '/<h6>(.*?)<\/h6>/s'                                                  => "$1\n",
+            '/<p>(.*?)<\/p>/s'                                                    => "$1\n",
+            '/<br>(.*?)<\/br>/s'                                                  => "\n",
+            '/<del>(.*?)<\/del>/s'                                                => '~$1~',
+            '/<s>(.*?)<\/s>/s'                                                    => '~$1~',
         ];
 
-        // Replace HTML elements with their Markdown equivalents
         $markdown = preg_replace(array_keys($patterns), array_values($patterns), $html);
 
-        // Handle special characters
         return str_replace(['**', '\*', '\_', '\|', '\~'], ['*', '*', '_', '|', '~'], $markdown);
     }
 

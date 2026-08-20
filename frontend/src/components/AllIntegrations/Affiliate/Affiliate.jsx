@@ -82,7 +82,6 @@ function Affiliate({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <AffiliateAuthorization
         formID={formID}
         affiliateConf={affiliateConf}
@@ -94,7 +93,6 @@ function Affiliate({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
 
       <div
         className="btcd-stp-page"
@@ -125,7 +123,6 @@ function Affiliate({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}

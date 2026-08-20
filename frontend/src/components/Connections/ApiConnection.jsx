@@ -22,8 +22,6 @@ const getAuthPayload = ({ authType, apiEndpoint, method, authData, authDetails, 
   const additionalHeaders = resolveHeaderTemplates(normalizeAdditionalHeaders(resolvedHeaders), authData)
   const sslVerify = authDetails?.ssl_verify !== false
 
-  // Extra fields captured first; standard auth keys below always win on collision.
-  // Reserved auth_details keys: value, token, key, addTo, username, password, ssl_verify
   const extraAuthDetails = (authDetails?.extraFields || []).reduce((acc, { name }) => {
     if (authData[name] != null) acc[name] = authData[name]
     return acc

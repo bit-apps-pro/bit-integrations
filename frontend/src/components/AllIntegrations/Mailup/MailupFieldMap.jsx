@@ -9,12 +9,6 @@ import TagifyInput from '../../Utilities/TagifyInput'
 import { handleCustomValue } from '../IntegrationHelpers/IntegrationHelpers'
 
 export default function MailupFieldMap({ i, formFields, field, mailupConf, setMailupConf }) {
-  // if (mailupConf?.field_map?.length === 1 && field.mailupFormField === '') {
-  //   const newConf = { ...mailupConf }
-  //   const tmp = generateMappedField(newConf)
-  //   newConf.field_map = tmp
-  //   setMailupConf(newConf)
-  // }
 
   const requiredFlds = mailupConf?.staticFields.filter(fld => fld.required === true) || []
   const nonRequiredFlds = mailupConf?.staticFields.filter(fld => fld.required === false) || []

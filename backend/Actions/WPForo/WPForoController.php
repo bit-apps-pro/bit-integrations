@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\WPForo;
 
 use WP_Error;
 
-/**
- * Provide functionality for WPForo integration
- */
 class WPForoController
 {
     public static function checkedWPForoExists()

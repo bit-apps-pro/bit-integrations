@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for ClickWhale link writes
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from trigger
-     * @param array $fieldMap    Field mapping
-     * @param array $utilities   Optional actions
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
         if (!\defined('CLICKWHALE_VERSION')) {
@@ -46,8 +34,6 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        // No fallback action: every action writes, so a flow that lost its mainAction
-        // should fail through the default branch rather than pick one.
         $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         $defaultResponse = [
@@ -58,8 +44,6 @@ class RecordApiHelper
 
         switch ($mainAction) {
             case 'create_link':
-                // Also passes the config: the link owner is a per-flow dropdown choice
-                // (selectedAuthor), not a field-map row.
                 $response = Hooks::apply(Config::withPrefix('clickwhale_create_link'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'link';
                 $actionType = 'create_link';

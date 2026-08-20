@@ -87,7 +87,6 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <WooCommerceAuthorization
         formID={formID}
         wcConf={wcConf}
@@ -98,7 +97,6 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 1000, height: step === 2 && 'auto' }}>
         <WooCommerceIntegLayout
           wcConf={wcConf}
@@ -111,7 +109,6 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
 
         <button
           onClick={nextPage}
-          // disabled={wcConf.workspace === '' || wcConf.table === '' || wcConf.field_map.length < 1}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}
@@ -119,7 +116,6 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

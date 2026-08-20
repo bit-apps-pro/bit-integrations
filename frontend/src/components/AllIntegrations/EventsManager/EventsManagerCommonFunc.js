@@ -31,5 +31,3 @@ export const checkMappedFields = eventsManagerConf => {
   )
 }
 
-// No refresh fetchers: the only action targets a booking identified by event id and
-// user email, both mapped from trigger data, so there is no list to fetch.

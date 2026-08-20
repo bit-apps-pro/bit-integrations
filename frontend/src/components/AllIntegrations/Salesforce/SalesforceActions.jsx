@@ -419,7 +419,6 @@ export default function SalesforceActions({
         )}
       </div>
 
-      {/* campaign */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -468,7 +467,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* account */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -517,7 +515,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* opportunity stage */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -555,7 +552,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* opportunity type */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -593,7 +589,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* opportunity Lead Source */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -631,7 +626,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* contact */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -680,7 +674,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* event subject */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -718,7 +711,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* case status */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -766,7 +758,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* case origin */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -814,7 +805,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* case priority */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -862,7 +852,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* case potentialLiability */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -916,7 +905,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* case slaViolation */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -964,7 +952,6 @@ export default function SalesforceActions({
         )}
       </ConfirmModal>
 
-      {/* Account Module */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -1343,7 +1330,6 @@ export default function SalesforceActions({
         </>
       )}
 
-      {/* record owner */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"

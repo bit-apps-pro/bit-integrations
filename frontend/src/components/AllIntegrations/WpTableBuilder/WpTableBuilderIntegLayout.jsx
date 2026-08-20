@@ -24,7 +24,6 @@ const fieldsByAction = {
   create_table: CreateTableFields,
   update_table: UpdateTableFields,
   delete_table: DeleteTableFields,
-  // Populated from the selected table, not from a static list.
   add_row: []
 }
 
@@ -67,8 +66,6 @@ export default function WpTableBuilderIntegLayout({
     refreshColumns(wpTableBuilderConf, setWpTableBuilderConf, setIsLoading, value)
   }
 
-  // Editing an existing flow starts with no table list — it is not persisted — so the
-  // dropdown would render empty until the user hit refresh.
   useEffect(() => {
     if (needsColumns && !wpTableBuilderConf?.tables?.length) {
       refreshTables(wpTableBuilderConf, setWpTableBuilderConf, setIsLoading)
@@ -112,12 +109,6 @@ export default function WpTableBuilderIntegLayout({
           <div className="flx">
             <b className="wdt-200 d-in-b">{__('Table:', 'bit-integrations')}</b>
             <MultiSelect
-              /**
-               * react-multiple-select-dropdown-lite matches defaultValue against its
-               * options in an effect keyed on defaultValue alone, never on the options.
-               * Options arrive from a fetch after first paint, so without remounting on
-               * the option count the saved table never shows as selected.
-               */
               key={`selectedTable-${wpTableBuilderConf?.tables?.length ?? 0}`}
               title="selectedTable"
               defaultValue={wpTableBuilderConf?.selectedTable ?? null}
@@ -169,8 +160,6 @@ export default function WpTableBuilderIntegLayout({
               setWpTableBuilderConf={setWpTableBuilderConf}
             />
           ))}
-          {/* Add Row's columns come from the table, so an extra map row has no column
-              left to point at. */}
           {needsColumns && (
             <div className="txt-center btcbi-field-map-button mt-2">
               <button

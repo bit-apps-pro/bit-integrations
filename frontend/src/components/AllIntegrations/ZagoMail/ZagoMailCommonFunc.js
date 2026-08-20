@@ -50,7 +50,6 @@ export const refreshZagoMailList = (zagoMailConf, setZagoMailConf, setIsLoading,
       if (typeof setIsLoading === 'function') setIsLoading(false)
     })
 }
-// refreshZagoMailTags
 export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading, setSnackbar) => {
   if (typeof setIsLoading === 'function') setIsLoading({ tags: true })
   const refreshListsRequestParams = buildAuthRequestParams(zagoMailConf)
@@ -78,7 +77,6 @@ export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading,
           })
         }
 
-        // console.log('newConf', newConf)
       } else {
         setSnackbar?.({
           show: true,
@@ -91,14 +89,12 @@ export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading,
       if (typeof setIsLoading === 'function') setIsLoading(false)
     })
 }
-// refreshMappedFields
 export const refreshZagoMailFields = (zagoMailConf, setZagoMailConf, setIsLoading, setSnackbar) => {
   if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = {
     ...buildAuthRequestParams(zagoMailConf),
     listId: zagoMailConf.listId
   }
-  // console.log('zagoMailConf', zagoMailConf)
   bitsFetch(refreshListsRequestParams, 'zagoMail_refresh_fields')
     .then(result => {
       if (result && result.success) {

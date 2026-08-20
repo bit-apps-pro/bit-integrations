@@ -1,10 +1,5 @@
 import bitsFetch from './bitsFetch'
 
-/**
- * List saved connections for an app (decrypted server-side).
- *
- * @param {string} appSlug
- */
 export const listConnections = (appSlug, options = {}) => {
   const query = { app_slug: appSlug }
 

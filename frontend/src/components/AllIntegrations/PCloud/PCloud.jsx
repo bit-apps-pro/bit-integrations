@@ -47,7 +47,6 @@ function PCloud({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <PCloudAuthorization
         pCloudConf={pCloudConf}
         setPCloudConf={setPCloudConf}
@@ -55,7 +54,6 @@ function PCloud({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -80,7 +78,6 @@ function PCloud({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

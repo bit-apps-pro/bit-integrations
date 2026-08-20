@@ -25,7 +25,6 @@ export default function BookingCalendarAuthorization({
       tutorialLinks={tutorialLinks?.bookingCalendar || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        // Free and pro builds expose different markers, so any one of these is enough.
         pluginCheck: {
           checks: [
             { type: 'constant', value: 'WP_BK_VERSION_NUM' },

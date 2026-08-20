@@ -13,9 +13,6 @@ use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoCampaignsController
 {
     public static array $authConfig = [
@@ -34,7 +31,6 @@ class ZohoCampaignsController
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-        // $this->_logResponse = new UtilApiResponse();
     }
 
     public static function refreshLists($queryParams)
@@ -88,13 +84,6 @@ class ZohoCampaignsController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param object $queryParams Params to fetch contact fields
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)
@@ -179,7 +168,6 @@ class ZohoCampaignsController
             }
         }
 
-        // $actions = $integrationDetails->actions;
         $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
 
         $zcampaignsApiResponse = $recordApiHelper->execute(
@@ -197,13 +185,6 @@ class ZohoCampaignsController
         return $zcampaignsApiResponse;
     }
 
-    /**
-     * Helps to refresh zoho crm access_token
-     *
-     * @param object $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->dataCenter)
@@ -234,15 +215,6 @@ class ZohoCampaignsController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param int        $integrationID ID of Zoho crm Integration
-     * @param Obeject    $tokenDetails  refreshed token info
-     * @param null|mixed $others
-     *
-     * @return null
-     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

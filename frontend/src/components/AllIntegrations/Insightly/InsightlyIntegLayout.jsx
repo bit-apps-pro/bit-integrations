@@ -64,7 +64,6 @@ export default function InsightlyIntegLayout({
         <option value="organisation">{__('Create Organization', 'bit-integrations')}</option>
         <option value="contact">{__('Create Contact', 'bit-integrations')}</option>
         <option value="opportunity">{__('Create Opportunity', 'bit-integrations')}</option>
-        {/* <option value="project">{__('Create Project', 'bit-integrations')}</option> */}
         <option value="task">{__('Create Task', 'bit-integrations')}</option>
         <option value="lead">{__('Create Lead', 'bit-integrations')}</option>
       </select>

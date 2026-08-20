@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\PopupMaker;
 
 use WP_Error;
 
-/**
- * Provide functionality for Popup Maker integration
- */
 class PopupMakerController
 {
     public static function isExists()

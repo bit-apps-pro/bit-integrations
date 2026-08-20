@@ -52,7 +52,6 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
 
-      {/* STEP 1 */}
       <FormyChatAuthorization
         formyChatConf={formyChatConf}
         setFormyChatConf={setFormyChatConf}
@@ -60,7 +59,6 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
         nextPage={nextPage}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -90,7 +88,6 @@ export default function FormyChat({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

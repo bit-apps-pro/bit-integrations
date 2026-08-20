@@ -15,9 +15,6 @@ export default function NinjaTablesFieldMap({
 }) {
   const { isPro } = useRecoilValue($appConfigState)
 
-  /**
-   * Update field mapping configuration
-   */
   const updateFieldMap = (index, updates) => {
     setNinjaTablesConf(prevConf =>
       create(prevConf, draftConf => {
@@ -29,9 +26,6 @@ export default function NinjaTablesFieldMap({
     )
   }
 
-  /**
-   * Handle form field selection
-   */
   const handleFormFieldChange = (event, index) => {
     const value = event.target.value
     const updates = { formField: value }
@@ -51,9 +45,6 @@ export default function NinjaTablesFieldMap({
     updateFieldMap(index, updates)
   }
 
-  /**
-   * Handle column name selection
-   */
   const handleColumnChange = (event, index) => {
     const value = event.target.value
     const updates = { columnName: value }
@@ -73,9 +64,6 @@ export default function NinjaTablesFieldMap({
     updateFieldMap(index, updates)
   }
 
-  /**
-   * Handle field mapping change - unified handler
-   */
   const handleFieldMapping = (event, index, fieldType) => {
     if (fieldType === 'formField') {
       handleFormFieldChange(event, index)
@@ -86,16 +74,10 @@ export default function NinjaTablesFieldMap({
     }
   }
 
-  /**
-   * Handle custom value change
-   */
   const handleCustomValue = (event, index) => {
     updateFieldMap(index, { customValue: event.target.value })
   }
 
-  /**
-   * Remove field mapping row
-   */
   const handleRemoveField = index => {
     setNinjaTablesConf(prevConf =>
       create(prevConf, draftConf => {
@@ -106,9 +88,6 @@ export default function NinjaTablesFieldMap({
     )
   }
 
-  /**
-   * Get column options for dropdown
-   */
   const getColumnOptions = () => {
     const columns = ninjaTablesConf?.default?.allColumns
     if (!Array.isArray(columns)) return []
@@ -124,7 +103,6 @@ export default function NinjaTablesFieldMap({
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
       <div className="flx integ-fld-wrp">
-        {/* Form Field Selector */}
         <select
           className="btcd-paper-inp mr-2"
           name="formField"
@@ -150,7 +128,6 @@ export default function NinjaTablesFieldMap({
           </optgroup>
         </select>
 
-        {/* Custom Value Input */}
         {field.formField === 'custom' && (
           <TagifyInput
             onChange={e => handleCustomValue(e, i)}
@@ -163,7 +140,6 @@ export default function NinjaTablesFieldMap({
           />
         )}
 
-        {/* Column Name Selector */}
         <select
           className="btcd-paper-inp mr-2"
           name="columnName"
@@ -178,7 +154,6 @@ export default function NinjaTablesFieldMap({
         </select>
       </div>
 
-      {/* Remove Button */}
       <button
         onClick={() => handleRemoveField(i)}
         className="icn-btn sh-sm ml-2"

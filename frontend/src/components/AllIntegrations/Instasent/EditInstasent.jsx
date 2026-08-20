@@ -50,8 +50,6 @@ function EditInstasent({ allIntegURL }) {
       create(prev, draftConf => {
         const action = draftConf.action || 'send_sms'
         draftConf.action = action
-        // instasentFields isn't persisted; rebuild it from the saved action so the
-        // field map can render its options on edit (without touching the saved field_map).
         draftConf.instasentFields = InstasentStaticData[action] || []
       })
     )

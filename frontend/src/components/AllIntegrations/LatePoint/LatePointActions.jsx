@@ -12,10 +12,6 @@ import {
   paymentStatusOptions
 } from './staticData'
 
-/**
- * Optional status enums. These all have sensible LatePoint defaults, so they are
- * opt-in here rather than always-visible selects in the integration layout.
- */
 export default function LatePointActions({ latePointConf, setLatePointConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false })
 

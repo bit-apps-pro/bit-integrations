@@ -53,7 +53,6 @@ class ElementorHelper
             ['name' => 'edit_post_id', 'type' => 'text', 'label' => wp_sprintf(__('Edit Post Id (%s)', 'bit-integrations'), $formData['edit_post_id']), 'value' => $formData['edit_post_id']],
         ];
 
-        // Process fields data
         foreach ($formData['fields'] as $key => $field) {
             if ($field['type'] != 'upload') {
                 $value = $field['type'] == 'checkbox' && \is_array($field['raw_value']) && \count($field['raw_value']) == 1 ? $field['raw_value'][0] : $field['raw_value'];
@@ -68,7 +67,6 @@ class ElementorHelper
             }
         }
 
-        // Process files data
         foreach ($formData['files'] as $key => $file) {
             if (!empty($file)) {
                 $fieldTitle = !empty($formData['fields'][$key]['title']) ? $formData['fields'][$key]['title'] : 'Files';

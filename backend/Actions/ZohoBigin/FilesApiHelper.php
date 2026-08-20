@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;
@@ -21,11 +18,6 @@ final class FilesApiHelper
 
     private $_payloadBoundary;
 
-    /**
-     * Constructor for File API helper. Sets api token details
-     *
-     * @param object $tokenDetails Api token details
-     */
     public function __construct($tokenDetails)
     {
         $this->_payloadBoundary = wp_generate_password(24);
@@ -34,17 +26,6 @@ final class FilesApiHelper
         $this->_apiDomain = urldecode($tokenDetails->api_domain);
     }
 
-    /**
-     * Helps to execute upload files api
-     *
-     * @param mixed      $files     Files path
-     * @param mixed      $recordID  Record id
-     * @param string     $zohoField zoho bigin upload fieldname
-     * @param mixed      $module
-     * @param null|mixed $isPhoto
-     *
-     * @return array $uploadedFiles ID's of uploaded file in Zoho Bigin
-     */
     public function uploadFiles($files, $module, $recordID, $isPhoto = null)
     {
         $uploadFileEndpoint = '';

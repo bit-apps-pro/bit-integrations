@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\LatePoint;
 
 use WP_Error;
 
-/**
- * Provide functionality for LatePoint integration
- */
 class LatePointController
 {
     public static function isExists()
@@ -124,21 +121,6 @@ class LatePointController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
-    /**
-     * Read id/label pairs from a LatePoint table.
-     *
-     * LatePoint's Os*Model classes are only loaded on LatePoint's own screens, so the
-     * dropdown lists are read straight from the tables instead.
-     *
-     * @param string   $constant Name of LatePoint's own table constant, preferred so a
-     *                           future rename or re-prefix is picked up automatically
-     * @param string   $fallback Unprefixed table name, used when LatePoint has not
-     *                           defined the constant yet
-     * @param array    $columns  Columns to select — hardcoded literals, never user input
-     * @param callable $mapper   Maps one row to a {value,label} object
-     *
-     * @return array
-     */
     private static function fetchRows($constant, $fallback, array $columns, $mapper)
     {
         global $wpdb;

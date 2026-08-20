@@ -107,7 +107,6 @@ function EditDokan({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!dokanConf?.selectedLists}
         isLoading={isLoading}
         dataConf={dokanConf}
         setDataConf={setDokanConf}

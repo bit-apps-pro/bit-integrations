@@ -45,7 +45,6 @@ class RecordApiHelper
         }
 
         switch ($mainAction) {
-            // === Post Types ===
             case 'registerPostType':
                 $response = Hooks::apply(Config::withPrefix('wordpress_registerPostType'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -61,7 +60,6 @@ class RecordApiHelper
 
                 break;
 
-            // === Post Tags ===
             case 'createPostTag':
                 $response = Hooks::apply(Config::withPrefix('wordpress_createPostTag'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -96,7 +94,6 @@ class RecordApiHelper
 
                 break;
 
-            // === Media ===
             case 'addNewImage':
                 $response = Hooks::apply(Config::withPrefix('wordpress_addNewImage'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -111,7 +108,6 @@ class RecordApiHelper
                 $response = Hooks::apply(Config::withPrefix('wordpress_renameMedia'), $defaultResponse, $fieldData, $integrationDetails);
 
                 break;
-            // === Taxonomies ===
             case 'registerTaxonomy':
                 $response = Hooks::apply(Config::withPrefix('wordpress_registerTaxonomy'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -122,7 +118,6 @@ class RecordApiHelper
 
                 break;
 
-            // === Terms ===
             case 'createNewTerm':
                 $response = Hooks::apply(Config::withPrefix('wordpress_createNewTerm'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -138,7 +133,6 @@ class RecordApiHelper
 
                 break;
 
-            // === Categories ===
             case 'createCategory':
                 $response = Hooks::apply(Config::withPrefix('wordpress_createCategory'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -158,7 +152,6 @@ class RecordApiHelper
                 $response = Hooks::apply(Config::withPrefix('wordpress_addCategoryToPost'), $defaultResponse, $fieldData, $integrationDetails);
 
                 break;
-            // === Product Tags (WooCommerce) ===
             case 'createProductTag':
                 $response = Hooks::apply(Config::withPrefix('wordpress_createProductTag'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -173,7 +166,6 @@ class RecordApiHelper
                 $response = Hooks::apply(Config::withPrefix('wordpress_deleteProductTag'), $defaultResponse, $fieldData, $integrationDetails);
 
                 break;
-            // === Product Categories (WooCommerce) ===
             case 'createProductCategory':
                 $response = Hooks::apply(Config::withPrefix('wordpress_createProductCategory'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -188,7 +180,6 @@ class RecordApiHelper
                 $response = Hooks::apply(Config::withPrefix('wordpress_deleteProductCategory'), $defaultResponse, $fieldData, $integrationDetails);
 
                 break;
-            // === Product Types (WooCommerce) ===
             case 'createProductType':
                 $response = Hooks::apply(Config::withPrefix('wordpress_createProductType'), $defaultResponse, $fieldData, $integrationDetails);
 
@@ -203,7 +194,6 @@ class RecordApiHelper
                 $response = Hooks::apply(Config::withPrefix('wordpress_deleteProductType'), $defaultResponse, $fieldData, $integrationDetails);
 
                 break;
-            // === Plugin Management ===
             case 'checkPluginActivationStatus':
                 $response = Hooks::apply(Config::withPrefix('wordpress_checkPluginActivationStatus'), $defaultResponse, $fieldData, $integrationDetails);
 

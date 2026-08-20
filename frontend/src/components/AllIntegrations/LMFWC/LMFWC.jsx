@@ -127,7 +127,6 @@ function LMFWC({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <LMFWCAuthorization
         licenseManagerConf={licenseManagerConf}
         setLicenseManagerConf={setLicenseManagerConf}
@@ -138,7 +137,6 @@ function LMFWC({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -167,7 +165,6 @@ function LMFWC({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {licenseManagerConf?.module && (
         <IntegrationStepThree
           step={step}

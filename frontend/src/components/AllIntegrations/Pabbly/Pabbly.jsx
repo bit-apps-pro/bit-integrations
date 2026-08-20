@@ -30,7 +30,6 @@ function Pabbly({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={2} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <div
         className="btcd-stp-page"
         style={{ ...{ width: step === 1 && 1100 }, ...{ height: step === 1 && 'auto' } }}>
@@ -48,7 +47,6 @@ function Pabbly({ formFields, setFlow, flow, allIntegURL }) {
         />
       </div>
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ width: step === 2 && `${100}%`, height: step === 2 && 'auto' }}>

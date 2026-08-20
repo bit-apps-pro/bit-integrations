@@ -10,24 +10,11 @@ final class FlowController
 {
     private static $_integrationModel;
 
-    /**
-     * Constructor of FlowController
-     *
-     * @return void
-     */
     public function __construct()
     {
         static::$_integrationModel = new FlowModel();
     }
 
-    /**
-     * Retrieved flows from DB based on conditions
-     *
-     * @param array $conditions Conditions to retrieve flows
-     * @param array $columns    Columns to select
-     *
-     * @return array|WP_Error
-     */
     public function get($conditions = [], $columns = [])
     {
         if (empty($columns)) {
@@ -56,17 +43,6 @@ final class FlowController
         );
     }
 
-    /**
-     * Save Flows to DB
-     *
-     * @param string $name                Name of the flow
-     * @param string $triggered_entity    Triggered form name
-     * @param int    $triggered_entity_id ID of the triggered form
-     * @param object $flow_details        Path of the flow it will go through after triggered
-     * @param bool   $status              Status of the flow. Disabled or Enabled.
-     *
-     * @return int|WP_Error
-     */
     public function save($name, $triggered_entity, $triggered_entity_id, $flow_details, $status = null)
     {
         if ($status == null) {
@@ -89,14 +65,6 @@ final class FlowController
         );
     }
 
-    /**
-     * Update Flows to DB
-     *
-     * @param int   $id   ID of the flow to update
-     * @param array $data Data to update
-     *
-     * @return int|WP_Error
-     */
     public function update(
         $id,
         $data
@@ -126,14 +94,6 @@ final class FlowController
         );
     }
 
-    /**
-     * Updates Flow status to DB
-     *
-     * @param int  $id     ID of the flow to update
-     * @param bool $status Status of the flow. Disabled or Enabled.
-     *
-     * @return int|WP_Error
-     */
     public function updateStatus($id, $status)
     {
         $user_details = IpTool::getUserDetail();
@@ -151,13 +111,6 @@ final class FlowController
         );
     }
 
-    /**
-     * Deletes Flow from DB
-     *
-     * @param int $flowID ID of the flow to delete.
-     *
-     * @return bool|WP_Error
-     */
     public function delete($flowID)
     {
         $delStatus = static::$_integrationModel->delete(

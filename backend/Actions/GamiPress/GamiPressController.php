@@ -9,18 +9,8 @@ namespace BitApps\Integrations\Actions\GamiPress;
 use BitApps\Integrations\Config;
 use WP_Error;
 
-/**
- * Provide functionality for LearnDesh integration
- */
 class GamiPressController
 {
-    // private $_integrationID;
-
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -175,7 +165,6 @@ class GamiPressController
         $integId = $integrationData->id;
         $mainAction = $integrationDetails->mainAction;
         $fieldMap = $integrationDetails->field_map;
-        // $defaultDataConf = $integrationDetails->default;
         if (
             empty($integId)
             || empty($mainAction)

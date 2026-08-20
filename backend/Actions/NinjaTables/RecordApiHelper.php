@@ -10,9 +10,6 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update, delete
- */
 class RecordApiHelper
 {
     private const ACTION_ADD_ROW = 'add_row_in_table';
@@ -33,26 +30,12 @@ class RecordApiHelper
 
     private $_integrationDetails;
 
-    /**
-     * Constructor
-     *
-     * @param object $integrationDetails Integration configuration details
-     * @param int    $integId            Integration ID
-     */
     public function __construct($integrationDetails, $integId)
     {
         $this->_integrationDetails = $integrationDetails;
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         if (!$this->validateNinjaTables()) {
@@ -68,21 +51,11 @@ class RecordApiHelper
         return $response;
     }
 
-    /**
-     * Validate if Ninja Tables is installed and activated
-     *
-     * @return bool
-     */
     private function validateNinjaTables()
     {
         return \defined('NINJA_TABLES_VERSION');
     }
 
-    /**
-     * Get plugin not installed response
-     *
-     * @return array
-     */
     private function getPluginNotInstalledResponse()
     {
         return [
@@ -91,14 +64,6 @@ class RecordApiHelper
         ];
     }
 
-    /**
-     * Prepare field data for processing
-     *
-     * @param array $fieldMap    Field mapping
-     * @param array $fieldValues Field values
-     *
-     * @return array
-     */
     private function prepareFieldData($fieldMap, $fieldValues)
     {
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
@@ -109,13 +74,6 @@ class RecordApiHelper
         return $fieldData;
     }
 
-    /**
-     * Add dropdown selections to field data
-     *
-     * @param array &$fieldData Field data reference
-     *
-     * @return void
-     */
     private function addDropdownSelections(&$fieldData)
     {
         $fieldData['table_id'] = $this->_integrationDetails->selectedTable ?? '';
@@ -123,15 +81,6 @@ class RecordApiHelper
         $fieldData['owner_id'] = $this->_integrationDetails->selectedUser ?? '';
     }
 
-    /**
-     * Add row fields to field data
-     *
-     * @param array &$fieldData  Field data reference
-     * @param array $fieldMap    Field mapping
-     * @param array $fieldValues Field values
-     *
-     * @return void
-     */
     private function addRowFields(&$fieldData, $fieldMap, $fieldValues)
     {
         if (empty($fieldMap) || !\is_array($fieldMap)) {
@@ -145,14 +94,6 @@ class RecordApiHelper
         }
     }
 
-    /**
-     * Process row fields from field map
-     *
-     * @param array $fieldMap    Field mapping
-     * @param array $fieldValues Field values
-     *
-     * @return array
-     */
     private function processRowFields($fieldMap, $fieldValues)
     {
         $rowFields = [];
@@ -169,14 +110,6 @@ class RecordApiHelper
         return $rowFields;
     }
 
-    /**
-     * Get column value from field item
-     *
-     * @param object $item        Field map item
-     * @param array  $fieldValues Field values
-     *
-     * @return string
-     */
     private function getColumnValue($item, $fieldValues)
     {
         if (!isset($item->formField)) {
@@ -190,49 +123,21 @@ class RecordApiHelper
         return $fieldValues[$item->formField] ?? '';
     }
 
-    /**
-     * Check if field is a custom field
-     *
-     * @param object $item Field map item
-     *
-     * @return bool
-     */
     private function isCustomField($item)
     {
         return $item->formField === 'custom' && isset($item->customValue);
     }
 
-    /**
-     * Get custom field value
-     *
-     * @param object $item        Field map item
-     * @param array  $fieldValues Field values
-     *
-     * @return string
-     */
     private function getCustomFieldValue($item, $fieldValues)
     {
         return Common::replaceFieldWithValue($item->customValue, $fieldValues);
     }
 
-    /**
-     * Get main action from integration details
-     *
-     * @return string
-     */
     private function getMainAction()
     {
         return $this->_integrationDetails->mainAction ?? self::ACTION_ADD_ROW;
     }
 
-    /**
-     * Execute the specified action
-     *
-     * @param string $action    Action to execute
-     * @param array  $fieldData Field data
-     *
-     * @return array
-     */
     private function executeAction($action, $fieldData)
     {
         $defaultResponse = $this->getDefaultResponse();
@@ -249,11 +154,6 @@ class RecordApiHelper
         }
     }
 
-    /**
-     * Get default response for filters
-     *
-     * @return array
-     */
     private function getDefaultResponse()
     {
         return [
@@ -263,14 +163,6 @@ class RecordApiHelper
         ];
     }
 
-    /**
-     * Execute add row action
-     *
-     * @param array $defaultResponse Default response
-     * @param array $fieldData       Field data
-     *
-     * @return array
-     */
     private function executeAddRow($defaultResponse, $fieldData)
     {
         return apply_filters(
@@ -281,14 +173,6 @@ class RecordApiHelper
         );
     }
 
-    /**
-     * Execute update row action
-     *
-     * @param array $defaultResponse Default response
-     * @param array $fieldData       Field data
-     *
-     * @return array
-     */
     private function executeUpdateRow($defaultResponse, $fieldData)
     {
         return apply_filters(
@@ -299,11 +183,6 @@ class RecordApiHelper
         );
     }
 
-    /**
-     * Get invalid action response
-     *
-     * @return array
-     */
     private function getInvalidActionResponse()
     {
         return [
@@ -312,14 +191,6 @@ class RecordApiHelper
         ];
     }
 
-    /**
-     * Log the response
-     *
-     * @param string $action   Action executed
-     * @param array  $response Response data
-     *
-     * @return void
-     */
     private function logResponse($action, $response)
     {
         $logData = $this->getLogData($action);
@@ -328,13 +199,6 @@ class RecordApiHelper
         LogHandler::save($this->_integrationID, $logData, $responseType, $response);
     }
 
-    /**
-     * Get log data based on action
-     *
-     * @param string $action Action name
-     *
-     * @return array
-     */
     private function getLogData($action)
     {
         $type = $this->isValidAction($action) ? self::LOG_TYPE_ROW : self::LOG_TYPE_NINJA_TABLES;
@@ -346,13 +210,6 @@ class RecordApiHelper
         ];
     }
 
-    /**
-     * Check if action is valid
-     *
-     * @param string $action Action name
-     *
-     * @return bool
-     */
     private function isValidAction($action)
     {
         return \in_array(
@@ -365,26 +222,11 @@ class RecordApiHelper
         );
     }
 
-    /**
-     * Get response type for logging
-     *
-     * @param array $response Response data
-     *
-     * @return string
-     */
     private function getResponseType($response)
     {
         return isset($response['success']) && $response['success'] ? 'success' : 'error';
     }
 
-    /**
-     * Generate request data from field map
-     *
-     * @param array $fieldMap    Field mapping
-     * @param array $fieldValues Field values
-     *
-     * @return array
-     */
     private static function generateReqDataFromFieldMap($fieldMap, $fieldValues)
     {
         $dataFinal = [];

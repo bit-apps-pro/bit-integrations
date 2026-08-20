@@ -24,7 +24,6 @@ const CustomApiIntegrationLayout = ({
   setStep
 }) => {
   const [tab, setTab] = useState(1)
-  // runs here, not in <PathParams />, so the mapping exists even if that tab is never opened
   usePathParamsSync(customApiConf, setCustomApiConf, !isInfo)
   const actionMethods = [
     { value: 'GET', label: __('GET', 'bit-integrations') },
@@ -34,12 +33,6 @@ const CustomApiIntegrationLayout = ({
     { value: 'PATCH', label: __('PATCH', 'bit-integrations') }
   ]
 
-  // const contentTypes = [
-  //     { value: 'application/json', label: 'application/json' },
-  //     { value: 'application/x-www-form-urlencoded', label: 'application/x-www-form-urlencoded' },
-  //     { value: 'multipart/form-data', label: 'multipart/form-data' },
-  //     { value: 'text/plain', label: 'text/plain'}
-  // ]
   const setValue = (val, name) => {
     const newConf = deepCopy(customApiConf)
     if (val) {
@@ -75,17 +68,6 @@ const CustomApiIntegrationLayout = ({
           onChange={val => setValue(val, 'actionMethod')}
         />
       </div>
-      {/* <br /> */}
-      {/* <div className="d-flx">
-            <b className="wdt-200 d-in-b mt-3">{__('Select Content Type:', 'bit-integrations')}</b>
-            <MultiSelect
-              defaultValue={customApiConf.contentType}
-              className="btcd-paper-drpdwn w-5"
-              singleSelect
-              options={contentTypes}
-              onChange={val => setValue(val, 'contentType')}
-            />
-        </div> */}
       <br />
       <div className="d-flx">
         <div className="wdt-200 d-in-b mt-3">
@@ -163,12 +145,6 @@ const CustomApiIntegrationLayout = ({
         </Panel>
       </Tabs>
 
-      {/* {create && (
-        <button onClick={() => nextPage()} className="btn btcd-btn-lg purple sh-sm flx" type="button">
-          {__('Next', 'bit-integrations')}
-          <BackIcn className="ml-1 rev-icn" />
-        </button>
-      )} */}
     </>
   )
 }

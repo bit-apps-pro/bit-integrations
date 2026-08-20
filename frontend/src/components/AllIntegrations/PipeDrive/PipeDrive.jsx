@@ -94,9 +94,6 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
           msg: __('Please select a organization or a person', 'bit-integrations')
         })
       }
-      // if (pipeDriveConf.moduleData.module === 'Persons') {
-      //   setSnackbar({ show: true, msg: __('Please select a organization', 'bit-integrations') })
-      // }
       return
     }
     pipeDriveConf.moduleData.module && pipeDriveConf.field_map.length > 0 && setstep(pageNo)
@@ -109,7 +106,6 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <PipeDriveAuthorization
         formID={formID}
         pipeDriveConf={pipeDriveConf}
@@ -121,7 +117,6 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -150,7 +145,6 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

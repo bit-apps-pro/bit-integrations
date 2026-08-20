@@ -25,8 +25,6 @@ export const DeleteLinkFields = [
   { key: 'link_id', label: __('Link ID', 'bit-integrations'), required: true }
 ]
 
-// Fixed option sets — rendered as selects, never field mapped.
-// Values mirror ClickWhale's own Links_Helper::get_redirections().
 export const redirectionOptions = [
   { label: __('301: Moved permanently', 'bit-integrations'), value: '301' },
   { label: __('302: Found / Moved temporarily', 'bit-integrations'), value: '302' },
@@ -40,11 +38,6 @@ export const yesNoOptions = [
   { label: __('No', 'bit-integrations'), value: 'no' }
 ]
 
-// The link owner is a per-flow config choice backed by a fetchable list, so it is a
-// dropdown rather than a field-map row.
 export const needsAuthor = ['create_link']
 
-// Actions exposing optional link settings under Utilities. All three have working
-// defaults — redirection falls back to 301, and the flags are left untouched — so
-// they are opt-in rather than always-visible selects.
 export const hasUtilities = ['create_link', 'update_link']

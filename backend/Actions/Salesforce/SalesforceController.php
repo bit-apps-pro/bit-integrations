@@ -376,10 +376,6 @@ class SalesforceController
     {
         $response = Hooks::apply(Config::withPrefix('salesforce_get_lead_utilities'), [], $params, 'LeadSource');
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_salesforce_get_lead_utilities` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_salesforce_get_lead_utilities', $response, $params, 'LeadSource');
 
         return self::getFilterHookResponse($response);
@@ -389,10 +385,6 @@ class SalesforceController
     {
         $response = Hooks::apply(Config::withPrefix('salesforce_get_lead_utilities'), [], $params, 'Status');
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_salesforce_get_lead_utilities` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_salesforce_get_lead_utilities', $response, $params, 'Status');
 
         return self::getFilterHookResponse($response);
@@ -402,10 +394,6 @@ class SalesforceController
     {
         $response = Hooks::apply(Config::withPrefix('salesforce_get_lead_utilities'), [], $params, 'Rating');
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_salesforce_get_lead_utilities` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_salesforce_get_lead_utilities', $response, $params, 'Rating');
 
         return self::getFilterHookResponse($response);
@@ -415,10 +403,6 @@ class SalesforceController
     {
         $response = Hooks::apply(Config::withPrefix('salesforce_get_lead_utilities'), [], $params, 'Industry');
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_salesforce_get_lead_utilities` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_salesforce_get_lead_utilities', $response, $params, 'Industry');
 
         return self::getFilterHookResponse($response);

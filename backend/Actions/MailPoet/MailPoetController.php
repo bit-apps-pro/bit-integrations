@@ -8,19 +8,8 @@ namespace BitApps\Integrations\Actions\MailPoet;
 
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class MailPoetController
 {
-    // BitApps\Integrations\Actions\MailPoet\MailPoetController
-
-    /**
-     * Validate if Mail Poet plugin exists or not. If not exits then terminate
-     * request and send an error response.
-     *
-     * @return void
-     */
     public static function isExists()
     {
         if (!class_exists(\MailPoet\API\API::class)) {
@@ -34,11 +23,6 @@ class MailPoetController
         }
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @return JSON crm module data
-     */
     public function refreshNeswLetter()
     {
         self::isExists();

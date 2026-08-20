@@ -67,7 +67,6 @@ function BrilliantDirectories({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <BrilliantDirectoriesAuthorization
         brilliantDirectoriesConf={brilliantDirectoriesConf}
         setBrilliantDirectoriesConf={setBrilliantDirectoriesConf}
@@ -78,7 +77,6 @@ function BrilliantDirectories({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { height: 'auto', overflow: 'visible', width: 900 }) }}>
@@ -100,7 +98,6 @@ function BrilliantDirectories({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

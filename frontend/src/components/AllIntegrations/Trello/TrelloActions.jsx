@@ -27,7 +27,6 @@ export default function TrelloActions({ trelloConf, setTrelloConf, formFields })
       newConf.actions = { ...newConf.actions }
       if (e.target?.checked) {
         newConf.actions.richTextDesc = true
-        // description is handled by the rich text editor, drop it from the field map
         const restFieldMap = (newConf.field_map || []).filter(fld => fld?.trelloFormField !== 'desc')
         newConf.field_map = restFieldMap.length ? restFieldMap : [{ formField: '', trelloFormField: '' }]
       } else {

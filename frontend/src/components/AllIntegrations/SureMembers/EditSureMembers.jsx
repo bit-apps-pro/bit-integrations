@@ -84,7 +84,6 @@ function EditSureMembers({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!sureMembersConf?.selectedLists}
         isLoading={isLoading}
         dataConf={sureMembersConf}
         setDataConf={setSureMembersConf}

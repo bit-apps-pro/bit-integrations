@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record Subscribe , Unsubscribe, Unsubscribe from list
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -44,10 +41,6 @@ class RecordApiHelper
 
         $filtered = Hooks::apply(Config::withPrefix('moosend_map_custom_fields'), $dataFinal, $data, $field_map);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_moosend_map_custom_fields` filter instead.
-         * @since 2.7.8
-         */
         $filtered = Hooks::apply('btcbi_moosend_map_custom_fields', $filtered, $data, $field_map);
 
         return $filtered;

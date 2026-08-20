@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\UltimateAffiliatePro;
 
 use WP_Error;
 
-/**
- * Provide functionality for Ultimate Affiliate Pro integration.
- */
 class UltimateAffiliateProController
 {
     public static function pluginActive()

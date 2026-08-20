@@ -81,7 +81,6 @@ export const senseiLMSStaticData = {
   ]
 }
 
-// action -> which resource dropdown it needs
 export const courseActions = [
   'enroll_user_in_course',
   'withdraw_user_from_course',
@@ -94,7 +93,6 @@ export const courseActions = [
 export const lessonActions = ['start_lesson_for_user', 'update_lesson_status', 'reset_lesson_for_user']
 export const quizActions = ['grade_quiz']
 
-// actions whose static choices are shown as Utilities dropdowns (not field-map rows)
 export const statusActions = ['create_course', 'create_lesson']
 export const markCompleteActions = ['start_lesson_for_user']
 export const gradeTypeActions = ['grade_quiz']

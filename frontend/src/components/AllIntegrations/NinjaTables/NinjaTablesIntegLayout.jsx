@@ -16,14 +16,8 @@ import {
 import NinjaTablesFieldMap from './NinjaTablesFieldMap'
 import { modules } from './staticData'
 
-/**
- * Check if action requires field mapping
- */
 const requiresFieldMap = action => [ACTIONS.ADD_ROW, ACTIONS.UPDATE_ROW].includes(action)
 
-/**
- * Check if data already exists in configuration
- */
 const hasData = (conf, key) => conf?.default?.[key]?.length > 0
 
 export default function NinjaTablesIntegLayout({
@@ -37,18 +31,12 @@ export default function NinjaTablesIntegLayout({
 }) {
   const { isPro } = useRecoilValue($appConfigState)
 
-  /**
-   * Reset configuration fields when action changes
-   */
   const resetConfigFields = draftConf => {
     delete draftConf.selectedTable
     delete draftConf.selectedRow
     delete draftConf.selectedUser
   }
 
-  /**
-   * Auto-fetch required data based on action
-   */
   const autoFetchDataForAction = (action, hasDataLoaded) => {
     if (requiresFieldMap(action) && !hasDataLoaded('allTables')) {
       refreshNinjaTables(formID, setNinjaTablesConf, setIsLoading, setSnackbar)
@@ -58,9 +46,6 @@ export default function NinjaTablesIntegLayout({
     }
   }
 
-  /**
-   * Handle main action change
-   */
   const handleMainAction = value => {
     const previousAction = ninjaTablesConf.mainAction
     if (previousAction === value) return
@@ -73,14 +58,10 @@ export default function NinjaTablesIntegLayout({
       })
     )
 
-    // Auto-fetch data only if action changed
     const hasDataLoaded = key => hasData(ninjaTablesConf, key)
     autoFetchDataForAction(value, hasDataLoaded)
   }
 
-  /**
-   * Handle table selection change
-   */
   const handleTableChange = value => {
     setNinjaTablesConf(prevConf =>
       create(prevConf, draftConf => {
@@ -91,20 +72,15 @@ export default function NinjaTablesIntegLayout({
 
     const action = ninjaTablesConf.mainAction
 
-    // Auto-fetch rows for update action
     if (action === ACTIONS.UPDATE_ROW) {
       refreshNinjaTablesRows(formID, value, setNinjaTablesConf, setIsLoading, setSnackbar)
     }
 
-    // Auto-fetch columns for add/update actions
     if (requiresFieldMap(action)) {
       refreshNinjaTablesColumns(formID, value, setNinjaTablesConf, setIsLoading, setSnackbar)
     }
   }
 
-  /**
-   * Update configuration value
-   */
   const updateConfig = (key, value) => {
     setNinjaTablesConf(prevConf =>
       create(prevConf, draftConf => {
@@ -113,9 +89,6 @@ export default function NinjaTablesIntegLayout({
     )
   }
 
-  /**
-   * Render refresh button
-   */
   const renderRefreshButton = ({ onClick, tooltip, disabled = false }) => (
     <button
       onClick={onClick}
@@ -127,9 +100,6 @@ export default function NinjaTablesIntegLayout({
     </button>
   )
 
-  /**
-   * Format options for dropdowns
-   */
   const formatOptions = (items, labelKey, valueKey, labelFormatter) => {
     if (!Array.isArray(items)) return []
     return items.map(item => ({
@@ -145,7 +115,6 @@ export default function NinjaTablesIntegLayout({
   return (
     <>
       <br />
-      {/* Action Selector */}
       <div className="flx">
         <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
         <MultiSelect
@@ -163,7 +132,6 @@ export default function NinjaTablesIntegLayout({
         />
       </div>
 
-      {/* Table Selector */}
       {showTableSelector && (
         <>
           <br />
@@ -191,7 +159,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* User/Owner Selector - for add_row */}
       {showUserSelector && (
         <>
           <br />
@@ -215,7 +182,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* Row Selector - for update_row */}
       {showRowSelector && (
         <>
           <br />
@@ -247,7 +213,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* Optional Owner for update_row */}
       {showRowSelector && (
         <>
           <br />
@@ -271,7 +236,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* Field Mapping */}
       {showTableSelector && (
         <>
           <br />

@@ -4,9 +4,6 @@ namespace BitApps\Integrations\Actions\WeDocs;
 
 use WP_Post;
 
-/**
- * Provide functionality for weDocs integration.
- */
 class WeDocsController
 {
     private const DOC_POST_TYPE = 'docs';

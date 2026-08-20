@@ -16,5 +16,4 @@ export const AwardAchievementFields = [
   }
 ]
 
-// Actions that need the achievement dropdown rendered in the integration layout
 export const needsAchievement = ['award_achievement_to_user']

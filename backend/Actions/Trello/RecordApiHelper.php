@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -71,19 +68,12 @@ class RecordApiHelper
         if (!empty($apiResponse->id) && !empty($customFieldMap)) {
             Hooks::run(Config::withPrefix('trello_store_custom_fields'), $apiResponse->id, $customFieldMap, $fieldValues, $this->_integrationID, $this->_integrationDetails);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_trello_store_custom_fields` action instead.
-             * @since 2.7.8
-             */
             Hooks::run('btcbi_trello_store_custom_fields', $apiResponse->id, $customFieldMap, $fieldValues, $this->_integrationID, $this->_integrationDetails);
         }
 
         return $apiResponse;
     }
 
-    /**
-     * @return bool
-     */
     private function isRichTextDescEnabled()
     {
         $actions = $this->_integrationDetails->actions ?? null;

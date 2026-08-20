@@ -8,18 +8,8 @@ namespace BitApps\Integrations\Actions\LearnDash;
 
 use WP_Error;
 
-/**
- * Provide functionality for LearnDesh integration
- */
 class LearnDashController
 {
-    // private $_integrationID;
-
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -177,8 +167,6 @@ class LearnDashController
             $mainAction = $mainActionGroupLeaderMail;
         }
 
-        // $fieldMap = $integrationDetails->field_map;
-        // $defaultDataConf = $integrationDetails->default;
         if (
             empty($integId)
             || empty($mainAction)

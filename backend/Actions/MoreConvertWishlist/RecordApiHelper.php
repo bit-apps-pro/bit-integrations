@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $utilities   Actions to perform
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
         if (!class_exists('WLFMC') || !class_exists('WLFMC_Wishlist_Factory')) {
@@ -54,7 +42,6 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_wishlist':
                 $response = Hooks::apply(Config::withPrefix('more_convert_wishlist_create_wishlist'), $defaultResponse, $fieldData, $utilities);

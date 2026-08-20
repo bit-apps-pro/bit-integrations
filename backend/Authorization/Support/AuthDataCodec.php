@@ -8,10 +8,6 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Core\Util\Hash;
 
-/**
- * Shared encode/decode/normalize helpers for the connection authorization layer.
- * Single source for nested-path access, encrypt-key handling, and SSL verify coercion.
- */
 class AuthDataCodec
 {
     public static function normalizeSslVerify($value): ?bool
@@ -94,13 +90,6 @@ class AuthDataCodec
         $cursor[$last] = $value;
     }
 
-    /**
-     * Remove the value at a dot-path, if present.
-     *
-     * Mirrors setNested so a key that encryptValues() wrote to a nested path is
-     * removed from that same path — a flat unset() would miss it and leak the
-     * credential back to the client.
-     */
     public static function unsetNested(array &$data, string $path): void
     {
         if ($path === '') {

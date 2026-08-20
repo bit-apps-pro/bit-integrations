@@ -9,18 +9,8 @@ namespace BitApps\Integrations\Actions\Affiliate;
 use BitApps\Integrations\Config;
 use WP_Error;
 
-/**
- * Provide functionality for Affiliate integration
- */
 class AffiliateController
 {
-    // private $_integrationID;
-
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         if (is_plugin_active('affiliate-wp/affiliate-wp.php')) {

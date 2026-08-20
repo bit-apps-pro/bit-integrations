@@ -56,7 +56,6 @@ function KlaviyoFieldMap({ i, field, formFields, klaviyoConf, setKlaviyoConf, ty
             </optgroup>
           </select>
 
-          {/* When user select custom field */}
 
           {field.formField === 'custom' && (
             <TagifyInput

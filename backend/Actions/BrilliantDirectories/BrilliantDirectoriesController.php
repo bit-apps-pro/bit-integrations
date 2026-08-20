@@ -15,11 +15,6 @@ use WP_Error;
 
 class BrilliantDirectoriesController
 {
-    /**
-     * Credentials are read off the connection by the client, so nothing needs
-     * flattening onto flow_details or the request params. The slug is still declared —
-     * client() passes it to getConnectionHandler(), which rejects another app's connection_id.
-     */
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'BrilliantDirectories',
@@ -84,17 +79,9 @@ class BrilliantDirectoriesController
         return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
     }
 
-    /**
-     * BD answers HTTP 200 with `{"status":"error"}` on validation failures, so a 2xx
-     * alone does not mean the call did anything. Null when the response is good.
-     *
-     * @param mixed $response
-     */
     public static function failureReason($response): ?string
     {
         if (!$response->success()) {
-            // ApiClient leaves the error null on a non-2xx, so the reason BD sent in the
-            // body is the only one there is.
             return $response->getError()
                 ?: self::bodyMessage($response)
                 ?: __('Could not reach Brilliant Directories', 'bit-integrations');
@@ -107,12 +94,6 @@ class BrilliantDirectoriesController
         return self::bodyMessage($response) ?: __('Brilliant Directories rejected the request', 'bit-integrations');
     }
 
-    /**
-     * `message` carries the rows on a good list call and the reason on a bad one, so
-     * only a string is a reason.
-     *
-     * @param mixed $response
-     */
     private static function bodyMessage($response): ?string
     {
         $message = $response->getBodyValue('message');
@@ -147,14 +128,6 @@ class BrilliantDirectoriesController
         return $apiClient;
     }
 
-    /**
-     * Rows live in `message` on every list endpoint, never in `data`.
-     *
-     * @param mixed $queryParams
-     * @param mixed $path
-     *
-     * @return array<int, mixed>
-     */
     private static function fetchList($queryParams, $path)
     {
         $client = self::client($queryParams->connection_id ?? 0);

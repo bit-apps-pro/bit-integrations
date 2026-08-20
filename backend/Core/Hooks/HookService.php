@@ -22,31 +22,16 @@ class HookService
         Hooks::add('rest_api_init', [$this, 'loadApi']);
     }
 
-    /**
-     * Helps to register admin side ajax
-     *
-     * @return null
-     */
     public function loadAdminAjax()
     {
         (new AdminAjax())->register();
     }
 
-    /**
-     * Helps to register integration ajax
-     *
-     * @return void
-     */
     public function loadActionsHooks()
     {
         $this->_includeActionTaskHooks('Actions');
     }
 
-    /**
-     * Loads API routes
-     *
-     * @return null
-     */
     public function loadApi()
     {
         if (is_readable(Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . 'api.php')) {
@@ -54,11 +39,6 @@ class HookService
         }
     }
 
-    /**
-     * Helps to register App hooks
-     *
-     * @return null
-     */
     protected function loadAppHooks()
     {
         if (Request::Check('ajax') && is_readable(Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . 'ajax.php')) {
@@ -69,11 +49,6 @@ class HookService
         }
     }
 
-    /**
-     * Helps to register Triggers ajax
-     *
-     * @return null
-     */
     protected function loadTriggersHooks()
     {
         $activeTrigger = StoreInCache::getActiveFlowEntities() ?? [];
@@ -101,13 +76,6 @@ class HookService
         }
     }
 
-    /**
-     * Includes Routes and Hooks
-     *
-     * @param string $task_name Triggers|Actions
-     *
-     * @return void
-     */
     private function _includeTriggerTaskHooks($task_name)
     {
         if (!\is_string($task_name) || empty($task_name)) {
@@ -126,9 +94,6 @@ class HookService
         $task_dir = Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Triggers';
         $dirs = new FilesystemIterator($task_dir);
 
-        // Trigger-owned routes fetch forms/fields and write test data without checking
-        // capabilities themselves, so they get the stricter baseline. Reset afterwards so
-        // it never leaks onto routes registered later in the request.
         Route::defaultAccess('write');
 
         try {
@@ -151,8 +116,6 @@ class HookService
         $task_dir = Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . $task_name;
         $dirs = new FilesystemIterator($task_dir);
 
-        // Action-owned routes authorize credentials and call third-party APIs with no
-        // capability check of their own — a read-only role must not reach them.
         Route::defaultAccess('write');
 
         try {

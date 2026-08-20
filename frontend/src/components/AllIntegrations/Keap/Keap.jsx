@@ -51,7 +51,6 @@ function Keap({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <KeapAuthorization
         formID={formID}
         keapConf={keapConf}
@@ -62,7 +61,6 @@ function Keap({ formFields, setFlow, flow, allIntegURL }) {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <KeapIntegLayout
           formID={formID}
@@ -84,7 +82,6 @@ function Keap({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

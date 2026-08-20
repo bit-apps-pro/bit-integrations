@@ -1,7 +1,6 @@
 import { __ } from '../../../Utils/i18nwrap'
 
 export const modules = [
-  // CRM
   { name: 'createContact', label: __('Create Contact', 'bit-integrations'), is_pro: true, group: 'CRM' },
   { name: 'updateContact', label: __('Update Contact', 'bit-integrations'), is_pro: true, group: 'CRM' },
   { name: 'createCompany', label: __('Create Company', 'bit-integrations'), is_pro: true, group: 'CRM' },
@@ -26,7 +25,6 @@ export const modules = [
   },
   { name: 'addNote', label: __('Add Note To Contact', 'bit-integrations'), is_pro: true, group: 'CRM' },
   { name: 'createTask', label: __('Create Task', 'bit-integrations'), is_pro: true, group: 'CRM' },
-  // HRM
   {
     name: 'createDepartment',
     label: __('Create Department', 'bit-integrations'),
@@ -40,7 +38,6 @@ export const modules = [
     group: 'HRM'
   },
   { name: 'createHoliday', label: __('Create Holiday', 'bit-integrations'), is_pro: true, group: 'HRM' },
-  // Accounting
   {
     name: 'createExpense',
     label: __('Create Expense', 'bit-integrations'),

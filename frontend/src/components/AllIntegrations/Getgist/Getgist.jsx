@@ -17,7 +17,6 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
-  // const [snack, setSnackbar] = useState({ show: false })
   const fields = [
     { key: 'name', label: __('Name', 'bit-integrations'), required: false },
     { key: 'email', label: __('Email', 'bit-integrations'), required: true },
@@ -59,7 +58,6 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (!checkMappedFields(getgistConf)) {
-      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
     }
@@ -68,12 +66,10 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
 
   return (
     <div>
-      {/* <SnackMsg snack={snack} setSnackbar={setSnackbar} /> */}
       <div className="txt-center mt-2">
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
 
       <GetgistAuthorization
         getgistConf={getgistConf}
@@ -84,7 +80,6 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -106,7 +101,6 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

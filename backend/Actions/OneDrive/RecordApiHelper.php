@@ -23,7 +23,6 @@ class RecordApiHelper
     public function uploadFile($folder, $file, $folderId, $parentId)
     {
         if (\is_null($parentId)) {
-            // $parentId = 'root';
             $parentId = $folderId;
         }
         $ids = explode('!', $folderId);
@@ -94,7 +93,6 @@ class RecordApiHelper
             foreach ($actionsAttachments as $actionAttachment) {
                 if (\is_array($fieldValues[$actionAttachment])) {
                     foreach ($fieldValues[$actionAttachment] as $value) {
-                        // key need correction
                         $folderWithFile = ["{$actionsAttachments}" => $value];
                     }
                     $this->handleAllFiles($folderWithFile, $actions, $folderId, $parentId);

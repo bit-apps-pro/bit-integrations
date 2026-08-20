@@ -38,11 +38,9 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
     const resp = saveIntegConfig(flow, setFlow, allIntegURL, sendyConf, navigate, '', '', setIsLoading)
     resp.then(res => {
       if (res.success) {
-        // setSnackbar({ show: true, msg: res.data?.msg })
         toast.success(res.data?.msg)
         navigate(allIntegURL)
       } else {
-        // setSnackbar({ show: true, msg: res.data || res })
         toast.error(res.data || res)
       }
     })
@@ -53,7 +51,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (!checkMappedFields(sendyConf)) {
-      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
     }
@@ -67,7 +64,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
 
       <SendyAuthorization
         sendyConf={sendyConf}
@@ -79,7 +75,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -95,7 +90,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
-          // disabled={!sendyConf?.recipient_id}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')} &nbsp;
@@ -103,7 +97,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

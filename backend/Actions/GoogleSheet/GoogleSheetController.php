@@ -14,9 +14,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class GoogleSheetController
 {
     public static array $authConfig = [
@@ -36,13 +33,6 @@ class GoogleSheetController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams
-     *
-     * @return JSON zoho crm api response and status
-     */
     public static function generateTokens($requestsParams)
     {
         if (empty($requestsParams->clientId)
@@ -81,13 +71,6 @@ class GoogleSheetController
         wp_send_json_success($apiResponse, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm module data
-     */
     public static function refreshSpreadsheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -138,13 +121,6 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshWorksheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -177,7 +153,6 @@ class GoogleSheetController
         if (!is_wp_error($worksheetsMetaResponse)) {
             $worksheets = $worksheetsMetaResponse->sheets;
             $response['worksheets'] = $worksheets;
-            // wp_send_json_success($response, 200);
         } else {
             wp_send_json_error(
                 $worksheetsMetaResponse->status === 'error' ? $worksheetsMetaResponse->message : 'Unknown',
@@ -191,13 +166,6 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshWorksheetHeadersAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -263,8 +231,6 @@ class GoogleSheetController
     {
         $integrationDetails = $integrationData->flow_details;
 
-        //    wp_send_json_success($integrationDetails);
-
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
         $isConnectionAuth = !empty($integrationDetails->connection_id);
         $spreadsheetId = $integrationDetails->spreadsheetId;
@@ -274,7 +240,6 @@ class GoogleSheetController
         $fieldMap = $integrationDetails->field_map;
         $actions = $integrationDetails->actions;
         $defaultDataConf = $integrationDetails->default;
-        // wp_send_json_success($fieldMap);
         if (empty($tokenDetails)
             || empty($spreadsheetId)
             || empty($worksheetName)
@@ -295,7 +260,6 @@ class GoogleSheetController
             }
         }
 
-        // $actions = $integrationDetails->actions;
         $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
 
         $gsheetApiResponse = $recordApiHelper->execute(
@@ -316,13 +280,6 @@ class GoogleSheetController
         return $gsheetApiResponse;
     }
 
-    /**
-     * Helps to refresh zoho crm access_token
-     *
-     * @param array $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->clientId)
@@ -352,15 +309,6 @@ class GoogleSheetController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param int        $integrationID ID of Google Sheet Integration
-     * @param Obeject    $tokenDetails  refreshed token info
-     * @param null|mixed $others
-     *
-     * @return null
-     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

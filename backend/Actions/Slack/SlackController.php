@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for slack integration
- */
 class SlackController
 {
     public const APIENDPOINT = 'https://slack.com/api';
@@ -25,14 +22,6 @@ class SlackController
         ],
     ];
 
-    /**
-     * Process ajax request for generate_token
-     *
-     * @param object $requestsParams     Params to authorize
-     * @param mixed  $tokenRequestParams
-     *
-     * @return JSON slack api response and status
-     */
     public static function fetchChannels($tokenRequestParams)
     {
         if (

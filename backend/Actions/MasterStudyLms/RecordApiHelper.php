@@ -257,7 +257,6 @@ class RecordApiHelper
                     $item_type = get_post_type($item_id);
 
                     if ($item_type === 'stm-lessons') {
-                        // self::complete_lesson($student_id, $course_id, $item_id);
                         STM_LMS_User_Manager_Course_User::reset_lesson($user_id, $course_id, $item_id);
                     } elseif ($item_type === 'stm-assignments') {
                         STM_LMS_User_Manager_Course_User::reset_assignment($user_id, $course_id, $item_id);

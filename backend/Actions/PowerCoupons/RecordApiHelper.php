@@ -15,9 +15,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Provide functionality for Power Coupons record create, update, delete.
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -30,14 +27,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration.
-     *
-     * @param array $fieldValues Field values from trigger
-     * @param array $fieldMap    Field mapping
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         if (!PowerCouponsController::isPluginInstalled()) {

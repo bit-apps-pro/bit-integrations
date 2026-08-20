@@ -6,9 +6,6 @@
 
 namespace BitApps\Integrations\Core\Database;
 
-/**
- * Undocumented class
- */
 class LogModel extends Model
 {
     protected static $table = 'btcbi_log';

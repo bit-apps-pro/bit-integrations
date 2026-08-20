@@ -24,10 +24,6 @@ function EditRestrictContent({ allIntegURL }) {
   const formField = useRecoilValue($formFields)
 
   const saveConfig = () => {
-    // if (!checkMappedFields(restrictConf)) {
-    //   setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
-    //   return
-    // }
     saveActionConf({
       flow,
       allIntegURL,

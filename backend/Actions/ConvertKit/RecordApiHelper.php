@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,update, exist
- */
 class RecordApiHelper
 {
     private $_integrationDetails;
@@ -31,7 +28,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    // for adding a subscriber
     public function storeOrModifyRecord($method, $formId, $data)
     {
         $queries = $this->httpBuildQuery($data);
@@ -40,7 +36,6 @@ class RecordApiHelper
         return HttpHelper::post($insertRecordEndpoint, null);
     }
 
-    // for updating subscribers data through email id.
     public function updateRecord($id, $data)
     {
         $queries = $this->httpBuildQuery($data);

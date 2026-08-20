@@ -4,9 +4,6 @@ namespace BitApps\Integrations\Actions\UserRegistrationMembership;
 
 use WP_Error;
 
-/**
- * Provide functionality for User Registration and Membership integration.
- */
 class UserRegistrationMembershipController
 {
     public static function refreshForms()

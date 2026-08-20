@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\EventsManager;
 
 use WP_Error;
 
-/**
- * Provide functionality for Events Manager integration
- */
 class EventsManagerController
 {
     public static function isExists()

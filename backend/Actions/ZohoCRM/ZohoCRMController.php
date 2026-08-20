@@ -13,9 +13,6 @@ use BitApps\Integrations\Log\LogHandler;
 use stdClass;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 final class ZohoCRMController
 {
     public static array $authConfig = [
@@ -128,13 +125,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param $queryParams Mandatory params for refresh layout
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshLayoutsAjaxHelper($queryParams)
     {
         if (
@@ -165,9 +155,6 @@ final class ZohoCRMController
             $retriveLayoutsData = $layoutsMetaResponse->layouts;
             $layouts = [];
             foreach ($retriveLayoutsData as $layoutKey => $layoutValue) {
-                // if ($layoutValue->name !== 'Standard') {
-                //     continue;
-                // }
                 $fields = [];
                 $fileUploadFields = [];
                 $requiredFields = [];
@@ -177,9 +164,6 @@ final class ZohoCRMController
 
                 foreach ($layoutValue->sections as $sectionKey => $sectionValue) {
                     foreach ($sectionValue->fields as $fieldKey => $fieldDetails) {
-                        // if (!\in_array($fieldDetails->api_name, $fieldToShow)) {
-                        //     continue;
-                        // }
                         if (
                             empty($fieldDetails->subform)
                             && !empty($fieldDetails->api_name)
@@ -250,13 +234,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request to get assignment rules of a Zoho CRM module
-     *
-     * @param mixed $queryParams
-     *
-     * @return JSON crm assignment rules data
-     */
     public static function getAssignmentRulesAjaxHelper($queryParams)
     {
         if (
@@ -302,13 +279,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request to get realted lists of a Zoho CRM module
-     *
-     * @param $queryParams Mandatory params
-     *
-     * @return JSON crm layout data
-     */
     public static function getRelatedListsAjaxHelper($queryParams)
     {
         if (
@@ -354,13 +324,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm users
-     *
-     * @param $queryParams Mandatory params
-     *
-     * @return JSON crm users data
-     */
     public static function refreshUsersAjaxHelper($queryParams)
     {
         if (
@@ -424,13 +387,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh tags of a module
-     *
-     * @param $queryParams Mandatory params
-     *
-     * @return JSON crm Tags  for a module
-     */
     public static function refreshTagListAjaxHelper($queryParams)
     {
         if (
@@ -473,7 +429,6 @@ final class ZohoCRMController
     public static function addRelatedList($zcrmApiResponse, $integID, $fieldValues, $integrationDetails, RecordApiHelper $recordApiHelper)
     {
         foreach ($integrationDetails->relatedlists as $relatedlist) {
-            // Related List apis..
             $relatedListModule = !empty($relatedlist->module) ? $relatedlist->module : '';
             $relatedListLayout = !empty($relatedlist->layout) ? $relatedlist->layout : '';
             $defaultDataConf = $integrationDetails->default;
@@ -622,13 +577,6 @@ final class ZohoCRMController
         return $zcrmApiResponse;
     }
 
-    /**
-     * Helps to refresh zoho crm access_token
-     *
-     * @param object $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
     protected static function _refreshAccessToken($apiData)
     {
         if (
@@ -660,15 +608,6 @@ final class ZohoCRMController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param int        $integrationID ID of Zoho crm Integration
-     * @param object     $tokenDetails  refreshed token info
-     * @param null|mixed $others
-     *
-     * @return null
-     */
     private static function _saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

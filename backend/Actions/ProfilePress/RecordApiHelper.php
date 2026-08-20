@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for ProfilePress order and customer writes
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from trigger
-     * @param array $fieldMap    Field mapping
-     * @param array $utilities   Optional actions
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
         if (!\defined('PPRESS_VERSION_NUMBER')) {
@@ -46,9 +34,6 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        // No fallback action: both actions write, and add_or_update_customer provisions
-        // WordPress accounts. A flow that lost its mainAction should fail loudly through
-        // the default branch rather than silently create users.
         $mainAction = $this->_integrationDetails->mainAction ?? '';
         $integrationDetails = $this->_integrationDetails;
 

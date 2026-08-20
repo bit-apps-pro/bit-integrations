@@ -30,8 +30,6 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
     }, 300)
 
     if (val === 3) {
-      // The plan dropdown is invisible to checkMappedFields; the edit screen runs
-      // the same check.
       const selectionError = validateProfilePressConf(profilePressConf)
 
       if (selectionError) {
@@ -60,7 +58,6 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <ProfilePressAuthorization
         formID={formID}
         profilePressConf={profilePressConf}
@@ -72,7 +69,6 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -102,7 +98,6 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

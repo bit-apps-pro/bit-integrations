@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for keap integration
- */
 class KeapController
 {
     public static array $authConfig = [
@@ -151,8 +148,6 @@ class KeapController
         $tokenDetails->generates_on = time();
         $tokenDetails->access_token = $apiResponse->access_token;
 
-        // Keap rotates refresh_token on every refresh, but a response that omits it must
-        // not wipe the stored one — that leaves nothing to refresh with next time.
         if (!empty($apiResponse->refresh_token)) {
             $tokenDetails->refresh_token = $apiResponse->refresh_token;
         }
@@ -160,23 +155,12 @@ class KeapController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param object $integrationData Details of flow
-     * @param array  $fieldValues     Data to send Mail Chimp
-     *
-     * @return null
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
         $tokenDetails = $integrationDetails->tokenDetails;
-        // $listId = $integrationDetails->listId;
-        // $tags = $integrationDetails->tags;
         $fieldMap = $integrationDetails->field_map;
         $actions = $integrationDetails->actions;
-        // $addressFields = $integrationDetails->address_field;
 
         if (
             empty($tokenDetails)
@@ -194,13 +178,6 @@ class KeapController
             $tokenDetails = $newTokenDetails;
             self::saveRefreshedToken($this->_integrationID, $tokenDetails);
         }
-
-        // $requiredParams['clientId'] = $integrationDetails->clientId;
-        // $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
-        // $requiredParams['tokenDetails'] = $tokenDetails;
-        // $newTokenDetails = static::refreshAccessToken((object)$requiredParams);
-        // $tokenDetails = $newTokenDetails;
-        // self::saveRefreshedToken($this->_integrationID, $tokenDetails);
 
         $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
         $keapApiResponse = $recordApiHelper->execute(

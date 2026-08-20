@@ -63,8 +63,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [crmModule])
 
-  // The field map renders its required rows by position, so they have to be re-keyed
-  // when the required list changes.
   useEffect(() => {
     if (!action || mappableFields.length === 0) return
 
@@ -98,8 +96,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action])
 
-  // Create only: on an update an unset select leaves the column alone, and
-  // seeding one would start rewriting it.
   useEffect(() => {
     if (!action?.startsWith('create_')) return
 
@@ -125,7 +121,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       create(prevConf, draftConf => {
         draftConf[key] = val
 
-          // A dependent list belongs to the value just replaced.
           ;[...selects, ...dropdowns]
             .filter(item => item.dependsOn === key)
             .forEach(item => {
@@ -143,9 +138,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       })
     )
 
-  // A locked option can still be removed by its chip's delete button or by clear.
-  // Remount on a rejected delete: the dropdown re-reads the prop only when the
-  // string changes, and putting the value back leaves it unchanged.
   const handleSelectChange = (sel, val) => {
     if (!sel.lockedValues) {
       setField(sel.key, val)
@@ -177,8 +169,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       })
     )
 
-  // Selects are stored flat on conf and several write the same Bit CRM field, so
-  // whatever the previous action left behind has to be dropped.
   const handleMainAction = value => {
     const keepKeys = new Set(
       [...(actionSelects[value] ?? []), ...(actionDropdowns[value] ?? [])].map(item => item.key)

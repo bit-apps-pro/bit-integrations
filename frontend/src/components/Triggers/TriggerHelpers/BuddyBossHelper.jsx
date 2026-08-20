@@ -12,7 +12,6 @@ const BuddyBossHelper = ({ flow, setFlowData, edit = false }) => {
   const [newFlow, setNewFlow] = useRecoilState($newFlow)
   const triggerData = !edit ? newFlow?.triggerData : flow.flow_details
 
-  // rubel vai code
   const setFlowDataDepend = (val, type, isLoad = true) => {
     const tmpFlow = create(flow, draftChangeData => {
       if (!edit) {
@@ -27,20 +26,6 @@ const BuddyBossHelper = ({ flow, setFlowData, edit = false }) => {
       setNewFlow(tmpFlow)
     }
   }
-
-  // const setFlowDataDepend = (val, type, isLoad = true) => {
-  //   const tmpFlow = { ...flow }
-  //   if (!edit) {
-  //     tmpFlow.triggerData[type] = val
-  //   } else {
-  //     tmpFlow.flow_details[type] = val
-  //   }
-  //   if (type === 'selectedForum' && id === '4') {
-  //     getTopicByForum(val, tmpFlow, setNewFlow, edit)
-  //   } else {
-  //     setNewFlow({ ...tmpFlow })
-  //   }
-  // }
 
   return (
     <>

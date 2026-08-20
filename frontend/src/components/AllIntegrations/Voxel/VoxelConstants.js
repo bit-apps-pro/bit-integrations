@@ -34,7 +34,5 @@ export const POST_TYPE_TASK_ARRAY = [
   TASKS.UPDATE_COLLECTION_POST
 ]
 
-// constants for static post type
-
 export const COLLECTION_POST_TYPE = 'collection'
 export const PROFILE_POST_TYPE = 'profile'

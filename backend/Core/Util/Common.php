@@ -29,25 +29,11 @@ final class Common
         return $dataToReplaceField;
     }
 
-    /**
-     * isEmpty function check ('0', 0, 0.0) is exists
-     *
-     * @param string $val
-     *
-     * @return bool
-     */
     public static function isEmpty($val)
     {
         return (bool) (empty($val) && !\in_array($val, ['0', 0, 0.0], true));
     }
 
-    /**
-     * Replaces file url with dir path
-     *
-     * @param array|string $file Single or multiple files URL
-     *
-     * @return string|array
-     */
     public static function filePath($file)
     {
         $upDir = wp_upload_dir();
@@ -65,21 +51,6 @@ final class Common
         return $path;
     }
 
-    /**
-     * SSRF-safe outbound GET (CWE-918).
-     *
-     * Validates the URL with wp_http_validate_url() (http/https scheme only,
-     * blocks most private ranges) and additionally blocks link-local / reserved
-     * ranges that WordPress misses (e.g. 169.254.0.0/16 cloud metadata, IPv6
-     * loopback/ULA) for external hosts. The site's own host is always allowed so
-     * legitimate fetches of the site's own uploads URL keep working. Returns a
-     * WP_Error for disallowed URLs so existing is_wp_error() callers short-circuit.
-     *
-     * @param string $url
-     * @param array  $args
-     *
-     * @return array|WP_Error
-     */
     public static function safeRemoteGet($url, $args = [])
     {
         if (!self::isSafeRemoteUrl($url)) {
@@ -89,15 +60,6 @@ final class Common
         return wp_safe_remote_get($url, $args);
     }
 
-    /**
-     * Whether $url is a public http/https URL safe to fetch server-side.
-     *
-     * @param string $url
-     * @param bool   $allowHomeHost Whether to allow this site's own host even if it
-     *                              resolves to a private/loopback address.
-     *
-     * @return bool
-     */
     public static function isSafeRemoteUrl($url, $allowHomeHost = true)
     {
         if (!\is_string($url) || $url === '' || !wp_http_validate_url($url)) {
@@ -109,9 +71,6 @@ final class Common
             return false;
         }
 
-        // Always allow the site's own host (mirrors wp_http_validate_url's home-host
-        // allowance) so fetching the site's own uploads URL is not blocked on
-        // installs whose host resolves to a private/loopback IP (local/staging).
         $homeHost = wp_parse_url(home_url(), PHP_URL_HOST);
         if ($allowHomeHost && !empty($homeHost) && strtolower($host) === strtolower($homeHost)) {
             return true;
@@ -140,18 +99,11 @@ final class Common
             }
         }
 
-        // Deny unresolvable hostnames — allowing them through would let a DNS failure
-        // bypass all IP range checks (the foreach below would iterate zero times).
-        // Note: DNS-rebinding (TOCTOU) between this check and wp_safe_remote_get's
-        // own resolution is an inherent limitation of server-side DNS validation.
         if (empty($ips)) {
             return false;
         }
 
         foreach ($ips as $ip) {
-            // Reject private (10/8, 172.16/12, 192.168/16, fc00::/7, fe80::/10) and
-            // reserved (0/8, 127/8, 169.254/16, ::1, ...) ranges -> blocks loopback
-            // and cloud-metadata SSRF targets.
             if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
                 return false;
             }
@@ -160,29 +112,12 @@ final class Common
         return true;
     }
 
-    /**
-     * Whether $url is a public https endpoint safe to send credentials to.
-     *
-     * isSafeRemoteUrl() screens the resolved IP but accepts http://, so it cannot be
-     * the only gate on a URL that carries a client_secret or returns an access_token —
-     * cleartext would expose the credential to any on-path observer. This adds the
-     * scheme requirement and a literal-IP/loopback host screen on top.
-     *
-     * Shared by the connection endpoints and the OAuth2 refresh path so both apply the
-     * same rule; a site owner fronting an on-prem provider opts out per-URL via the
-     * filter.
-     *
-     * @param string $url
-     */
     public static function isPublicHttpsUrl($url): bool
     {
         if (!\is_string($url) || $url === '') {
             return false;
         }
 
-        // Opt-in escape hatch for self-hosted / on-prem integrations reachable only over
-        // HTTP or on a private/LAN IP. The default keeps the SSRF-hardened public-HTTPS
-        // rule; a site owner accepts the risk per-URL by returning true from this filter.
         if (Hooks::apply('bit_integrations_allow_internal_connection_url', false, $url)) {
             return true;
         }
@@ -214,29 +149,14 @@ final class Common
         return true;
     }
 
-    /**
-     * Resolve a mapped file value to a local path contained within the WordPress
-     * uploads directory (LFI / path-traversal guard, CWE-22). A same-site uploads
-     * URL is first converted to its local path; any value carrying a URL scheme
-     * (remote URL / php:// / file:// wrappers) or resolving outside the uploads
-     * directory is rejected.
-     *
-     * @param string      $file
-     * @param string|null $baseDir Directory the resolved path must stay within.
-     *                             Defaults to the WordPress uploads base dir.
-     *
-     * @return string Contained absolute path, or '' if not allowed
-     */
     public static function safeUploadFilePath($file, $baseDir = null)
     {
         if (!\is_string($file) || $file === '') {
             return '';
         }
 
-        // Convert a same-site uploads URL to its local filesystem path.
         $file = self::filePath($file);
 
-        // Reject anything still carrying a scheme (external URL or stream wrapper).
         if (wp_parse_url($file, PHP_URL_SCHEME) !== null) {
             return '';
         }
@@ -265,13 +185,6 @@ final class Common
         return strpos($real, $base) === 0 ? $real : '';
     }
 
-    /**
-     * Replaces dir path with url
-     *
-     * @param array|string $file Single or multiple files path
-     *
-     * @return string|array
-     */
     public static function fileUrl($file)
     {
         $upDir = wp_upload_dir();
@@ -289,14 +202,6 @@ final class Common
         return $url;
     }
 
-    /**
-     * Helps to verify condition
-     *
-     * @param array $condition Conditional logic
-     * @param array $data      Trigger data
-     *
-     * @return bool
-     */
     public static function checkCondition($condition, $data)
     {
         if (\is_array($condition)) {

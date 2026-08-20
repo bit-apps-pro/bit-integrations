@@ -31,8 +31,6 @@ const isRowFilled = mappedField =>
 export const checkMappedFields = wpTableBuilderConf => {
   const fieldMap = wpTableBuilderConf?.field_map || []
 
-  // Add Row pins one map row per column, and a row with some cells left blank is a
-  // legitimate table row — so it only needs a table and at least one filled cell.
   if (wpTableBuilderConf?.mainAction === 'add_row') {
     if (!wpTableBuilderConf?.selectedTable) {
       return false
@@ -42,10 +40,6 @@ export const checkMappedFields = wpTableBuilderConf => {
 
   return !fieldMap.some(mappedField => !isRowFilled(mappedField))
 }
-
-// Create/Update/Delete need no fetchers — their only identifier is table_id, which the
-// field map supplies per run. Add Row is the exception: it has to know the target
-// table's columns while the flow is being configured.
 
 export const refreshTables = (wpTableBuilderConf, setWpTableBuilderConf, setIsLoading) => {
   setIsLoading(true)
@@ -95,9 +89,6 @@ export const refreshColumns = (
 
         setWpTableBuilderConf(prevConf =>
           create(prevConf, draftConf => {
-            // Columns are the field list for this action, so the map has to be rebuilt
-            // alongside them — a map left over from another table points at columns
-            // that may no longer exist.
             draftConf.wpTableBuilderFields = columns
             draftConf.field_map = generateMappedField(columns)
           })

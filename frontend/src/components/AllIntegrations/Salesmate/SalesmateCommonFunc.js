@@ -20,7 +20,6 @@ const buildAuthRequestParams = confTmp =>
     ? { connection_id: confTmp.connection_id }
     : { session_token: confTmp.session_token, link_name: confTmp.link_name }
 
-// refreshMappedFields
 export const refreshSalesmateFields = (salesmateConf, setSalesmateConf, setIsLoading, setSnackbar) => {
   const requestParams = { ...buildAuthRequestParams(salesmateConf), action_id: salesmateConf.actionId }
 

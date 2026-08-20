@@ -38,9 +38,6 @@ export const fetchAllBoard = (trelloConf, setTrelloConf, setIsLoading, setSnackb
         if (result.data.allBoardlist) {
           newConf.default.allBoardlist = result.data.allBoardlist
         }
-        // if (result.data.tokenDetails) {
-        //   newConf.tokenDetails = result.data.tokenDetails
-        // }
         setSnackbar({ show: true, msg: __('Board list refreshed', 'bit-integrations') })
         setTrelloConf({ ...newConf })
       } else if (

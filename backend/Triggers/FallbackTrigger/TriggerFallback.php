@@ -133,7 +133,6 @@ final class TriggerFallback
                 continue;
             }
             if (\in_array($val->field_key, $visistedKey)) {
-                // continue;
             }
             $field[] = (object) [
                 'name'  => $val->field_key,
@@ -739,7 +738,6 @@ final class TriggerFallback
         if (\array_key_exists('form_random_key', $posted_data) === false) {
             return;
         }
-        // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
         $form_id = strpos($posted_data['form_random_key'], '101') === 0;
         if (!$form_id) {
             return;
@@ -1832,7 +1830,6 @@ final class TriggerFallback
             $posted_data['post_id'] = $postID;
         }
 
-        // array to string conversion for radio and Select Fields
         $data = [];
         foreach ($posted_data as $key => $value) {
             if (\is_array($value) && \count($value) == 1) {
@@ -2756,7 +2753,6 @@ final class TriggerFallback
 
     public static function happySaveImage($base64_img, $title)
     {
-        // Upload dir.
         $upload = wp_upload_dir();
         $upload_dir = $upload['basedir'];
         $upload_dir = $upload_dir . '/bihappy';
@@ -2769,7 +2765,6 @@ final class TriggerFallback
         $img = str_replace(' ', '+', $img);
         $decoded = base64_decode($img);
 
-        // Reject content that isn't a valid PNG (magic bytes \x89PNG).
         if (substr($decoded, 0, 4) !== "\x89PNG") {
             return $base64_img;
         }
@@ -2777,7 +2772,6 @@ final class TriggerFallback
         $filename = sanitize_file_name($title) . '.png';
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
-        // Save the image in the uploads directory.
         $upload_file = FileSystem::write($upload_path . '/' . $hashed_filename, $decoded);
         if ($upload_file) {
             return $upload_path . '/' . $hashed_filename;
@@ -2813,7 +2807,6 @@ final class TriggerFallback
             $form_data = $submission;
 
             foreach ($form_data as $key => $val) {
-                // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
                 if (strpos($key, 'signature') !== false) {
                     $decodedSignature = self::safeMaybeUnserialize($val);
                     $baseUrl = \is_array($decodedSignature) ? ($decodedSignature['signature_raster_data'] ?? '') : '';
@@ -3245,8 +3238,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'LearnDash', 'triggered_entity_id' => 11, 'data' => $assignmentDataFinal, 'flows' => $flows];
     }
 
-    // lifterLms
-
     public static function lifterLmsGetUserInfo($user_id)
     {
         $userInfo = get_userdata($user_id);
@@ -3529,8 +3520,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'LifterLms', 'triggered_entity_id' => 8, 'data' => $finalData, 'flows' => $flows];
     }
 
-    // mail poet
-
     public static function mailPoetHandleDateField($item)
     {
         if (
@@ -3596,8 +3585,6 @@ final class TriggerFallback
             return ['triggered_entity' => 'MailPoet', 'triggered_entity_id' => $form_id, 'data' => $formData, 'flows' => $flows];
         }
     }
-
-    // masterStudy Lms
 
     public static function masterStudyLmsGetUserInfo($user_id)
     {
@@ -3819,8 +3806,6 @@ final class TriggerFallback
         }
     }
 
-    // Memberpress
-
     public static function MemberpressGetUserInfo($user_id)
     {
         $userInfo = get_userdata($user_id);
@@ -3955,8 +3940,6 @@ final class TriggerFallback
             return ['triggered_entity' => 'Memberpress', 'triggered_entity_id' => 4, 'data' => $finalData, 'flows' => $flows];
         }
     }
-
-    // metform
 
     public static function handleMetformProSubmit($form_setting, $form_data, $email_name)
     {
@@ -4128,7 +4111,6 @@ final class TriggerFallback
         }
     }
 
-    // PiotnetAddon all functions
     public static function handlePiotnetAddonSubmit($form_submission)
     {
         $form_id = $form_submission['form']['id'];
@@ -4147,7 +4129,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'PiotnetAddon', 'triggered_entity_id' => $form_id, 'data' => $data, 'flows' => $flows];
     }
 
-    // PiotnetAddonForm all functions
     public static function handlePiotnetAddonFormSubmit($form_submission)
     {
         $form_id = $form_submission['form']['id'];
@@ -4166,7 +4147,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'PiotnetAddonForm', 'triggered_entity_id' => $form_id, 'data' => $data, 'flows' => $flows];
     }
 
-    // PiotnetForms all functions
     public static function handlePiotnetSubmit($fields)
     {
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Third-party form submission
@@ -4194,8 +4174,6 @@ final class TriggerFallback
 
         return ['triggered_entity' => 'PiotnetAddonForm', 'triggered_entity_id' => $post_id, 'data' => $data, 'flows' => $flows];
     }
-
-    // Wp Post All Functions
 
     public static function createPost($postId, $newPostData, $update, $beforePostData)
     {
@@ -4388,8 +4366,6 @@ final class TriggerFallback
         }
     }
 
-    // Wp Registration All Functions
-
     public static function userCreate()
     {
         $newUserData = \func_get_args()[1];
@@ -4471,7 +4447,6 @@ final class TriggerFallback
         }
     }
 
-    // RestrictContent all functions
     public static function rcpPurchasesMembershipLevel($membership_id, RCP_Membership $RCP_Membership)
     {
         $flows = Flow::exists('RestrictContent', 1);
@@ -4580,7 +4555,6 @@ final class TriggerFallback
         }
     }
 
-    // SliceWp all functions
     public static function newAffiliateCreated($affiliate_id, $affiliate_data)
     {
         $userData = self::sliceWpgetUserInfo($affiliate_data['user_id']);
@@ -4633,7 +4607,6 @@ final class TriggerFallback
         return $user;
     }
 
-    // NewSolidAffiliate all functions
     public static function newSolidAffiliateCreated($affiliate)
     {
         $attributes = $affiliate->__get('attributes');
@@ -4657,7 +4630,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'SolidAffiliate', 'triggered_entity_id' => 2, 'data' => $affiliateReferralData, 'flows' => $flows];
     }
 
-    // Spectra all functions
     public static function spectraHandler(...$args)
     {
         if (Config::getOption('test_uagb_form_success') !== false) {
@@ -4893,7 +4865,6 @@ final class TriggerFallback
         }
     }
 
-    // main function was empty in the orginal file
     public static function handleThemifySubmit()
     {
     }
@@ -4926,7 +4897,6 @@ final class TriggerFallback
         }
     }
 
-    // main function was unavailable in the orginal file
     public static function thriveApprenticeHandleLessonComplete()
     {
     }
@@ -5728,8 +5698,6 @@ final class TriggerFallback
         return $filteredFlows;
     }
 
-    // LearnDash
-
     protected static function flowFilter($flows, $key, $value)
     {
         $filteredFlows = [];
@@ -5775,16 +5743,6 @@ final class TriggerFallback
         return $filteredFlows;
     }
 
-    /**
-     * Decode a HappyForms field value without instantiating PHP objects.
-     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
-     * by passing allowed_classes => false to unserialize(). Legitimate
-     * signature/attachment payloads are plain arrays and decode unchanged.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
     private static function safeMaybeUnserialize($value)
     {
         if (\is_string($value) && is_serialized($value)) {

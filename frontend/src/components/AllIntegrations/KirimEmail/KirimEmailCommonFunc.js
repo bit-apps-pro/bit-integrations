@@ -56,14 +56,6 @@ export const checkMappedFields = fieldsMapped => {
   return true
 }
 
-// export const checkMappedFields = (kirimEmailConf) => {
-//   const mappedFleld = kirimEmailConf.field_map ? kirimEmailConf.field_map.filter(mapped => (!mapped.formField && !mapped.kirimEmailFormField)) : []
-//   if (mappedFleld.length > 0) {
-//     return false
-//   }
-//   return true
-// }
-
 export const generateMappedField = kirimEmailConf => {
   const requiredFlds = kirimEmailConf?.subscriberFields.filter(fld => fld.required === true)
   return requiredFlds.length > 0

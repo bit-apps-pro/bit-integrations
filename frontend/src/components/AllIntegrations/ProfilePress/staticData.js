@@ -9,8 +9,6 @@ export const modules = [
   }
 ]
 
-// The plan is chosen per flow via a fetched dropdown, so it is deliberately absent
-// from the field map below.
 export const AddNewOrderFields = [
   { key: 'customer_email', label: __('Customer Email', 'bit-integrations'), required: true },
   { key: 'amount', label: __('Amount', 'bit-integrations'), required: false },
@@ -51,7 +49,6 @@ export const AddOrUpdateCustomerFields = [
   { key: 'ppress_billing_phone', label: __('Billing Phone', 'bit-integrations'), required: false }
 ]
 
-// Fixed option sets — rendered as selects, never field mapped.
 export const orderStatusOptions = [
   { label: __('Pending', 'bit-integrations'), value: 'pending' },
   { label: __('Complete', 'bit-integrations'), value: 'complete' },
@@ -65,9 +62,6 @@ export const sendReceiptOptions = [
   { label: __('No', 'bit-integrations'), value: 'no' }
 ]
 
-// Which actions render which control in the integration layout.
 export const needsPlan = ['add_new_order']
 
-// Actions exposing optional settings under Utilities. Both have working defaults
-// (order status falls back to pending, receipt to not sent), so they are opt-in.
 export const hasUtilities = ['add_new_order']

@@ -95,63 +95,6 @@ export default function RestrictContentIntegLayout({
       <br />
       <br />
       <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
-      {/* {restrictConf?.actionName && restrictConf.actionName === 'add-member-level'
-        && (
-          <>
-            <b className="wdt-200 d-in-b">{__('Members:', 'bit-integrations')}</b>
-            <select onChange={handleInput} name="member_id" value={restrictConf.member_id} className="btcd-paper-inp w-5">
-              <option value="">{__('Select Member', 'bit-integrations')}</option>
-              {restrictConf?.default?.memberlists && restrictConf.default.memberlists.map(({ id, name }) => (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <button onClick={() => getAllMembers(restrictConf, setRestrictConf, setIsLoading)} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': `'${__('Fetch All Members', 'bit-integrations')}'` }} type="button" disabled={isLoading}>&#x21BB;</button>
-          </>
-        )} */}
-      {/* <br />
-            {restrictConf.actionName === 'add-member-level' &&
-                <>
-                    <div className="mt-5">
-                        <b className="wdt-100">{__("Field Map", "bit-integrations")}</b>
-                    </div>
-                    <div className="btcd-hr mt-1" />
-                    <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
-                        <div className="txt-dp">
-                            <b>{__("Form Fields", "bit-integrations")}</b>
-                        </div>
-                        <div className="txt-dp">
-                            <b>{__("Restrict Content Fields", "bit-integrations")}</b>
-                        </div>
-                    </div>
-                </>
-            }
-
-            {restrictConf?.level_id &&
-                restrictConf.actionName === "add-member-level" &&
-                restrictConf?.field_map.map((itm, i) => (
-                    <RestrictContentFieldMap
-                        key={`rp-m-${i + 9}`}
-                        i={i}
-                        field={itm}
-                        restrictConf={restrictConf}
-                        formFields={formFields}
-                        setRestrictConf={setRestrictConf}
-                        setSnackbar={setSnackbar}
-                    />
-                ))}
-            {restrictConf?.actionName === "add-member-level" && <div className="txt-center btcbi-field-map-button mt-2">
-                <button
-                    onClick={() => addFieldMap(restrictConf.field_map.length, restrictConf, setRestrictConf, false)}
-                    className="icn-btn sh-sm"
-                    type="button"
-                >
-                    +
-                </button>
-            </div>}
-            <br />
-            <br /> */}
     </>
   )
 }

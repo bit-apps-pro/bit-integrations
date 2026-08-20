@@ -160,7 +160,6 @@ export default function FabmanIntegLayout({
         </select>
       </div>
       <br />
-      {/* Show workspace selector for create_member, update_member, and update_spaces */}
       {fabmanConf.actionName &&
         fabmanConf.actionName !== 'delete_member' &&
         fabmanConf.actionName !== 'create_spaces' && (
@@ -237,7 +236,6 @@ export default function FabmanIntegLayout({
         </>
       )}
 
-      {/* Show field map for all actions except delete_member, with workspace check for space actions */}
       {fabmanConf.actionName &&
         fabmanConf.actionName !== 'delete_member' &&
         (fabmanConf.actionName === 'create_member' ||

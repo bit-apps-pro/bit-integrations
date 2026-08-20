@@ -53,10 +53,6 @@ class SendPulseController
 
         $response['sendPulseField'] = Hooks::apply(Config::withPrefix('sendPulse_refresh_fields'), $fields, $apiEndpoint, $token->access_token);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_sendPulse_refresh_fields` filter instead.
-         * @since 2.7.8
-         */
         $response['sendPulseField'] = Hooks::apply('btcbi_sendPulse_refresh_fields', $response['sendPulseField'], $apiEndpoint, $token->access_token);
 
         wp_send_json_success($response);

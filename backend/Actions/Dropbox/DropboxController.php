@@ -148,9 +148,6 @@ class DropboxController
 
         if (($generatedOn + $token->expires_in - 30) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
-            // refreshToken() returns false on failure. is_wp_error(false) is false and
-            // false->error reads as null, so this guard used to pass with a bool and every
-            // assignment below nulled the whole token.
             if (!\is_object($refreshToken) || is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
@@ -161,9 +158,6 @@ class DropboxController
                 $token->generates_on = $refreshToken->generates_on;
                 $token->generated_at = $refreshToken->generated_at;
 
-                // Dropbox omits refresh_token on a refresh_token grant — only the initial
-                // authorization_code exchange returns one. Overwriting unconditionally
-                // stored null and the next refresh had nothing to send.
                 if (!empty($refreshToken->refresh_token)) {
                     $token->refresh_token = $refreshToken->refresh_token;
                 }

@@ -78,9 +78,6 @@ function Pods({ formFields, setFlow, flow, allIntegURL }) {
       setUsers(data.users)
     })
 
-    // const newConf = { ...podsConf }
-    // newConf.post_map = postFields.filter(fld => fld.required).map(fl => ({ formField: '', postFormField: fl.key, required: fl.required }))
-    // setPodsConf(newConf)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -76,13 +73,13 @@ class RecordApiHelper
 
         $requestParams['xmlData'] = $xmlData;
         if (!empty($actions->workflow)) {
-            $requestParams['wfTrigger'] = 'true'; // api accept string true | false
+            $requestParams['wfTrigger'] = 'true';
         }
         if (!empty($actions->upsert)) {
             $requestParams['duplicateCheck'] = 2;
         }
         if (!empty($actions->approval)) {
-            $requestParams['isApproval'] = 'true'; // api accept string true | false
+            $requestParams['isApproval'] = 'true';
         }
 
         $recordApiResponse = $this->insertRecord($module, $requestParams);

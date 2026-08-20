@@ -17,7 +17,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
-  // const [snack, setSnackbar] = useState({ show: false })
   const fields = [
     { key: 'Email', label: __('Email', 'bit-integrations'), required: true },
     { key: 'FirstName', label: __('FirstName', 'bit-integrations'), required: false },
@@ -50,7 +49,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (!checkMappedFields(elasticEmailConf)) {
-      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
     }
@@ -59,12 +57,10 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
 
   return (
     <div>
-      {/* <SnackMsg snack={snack} setSnackbar={setSnackbar} /> */}
       <div className="txt-center mt-2">
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
 
       <ElasticEmailAuthorization
         elasticEmailConf={elasticEmailConf}
@@ -75,7 +71,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -90,7 +85,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
-          // disabled={!getgistConf?.recipient_id}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')} &nbsp;
@@ -98,7 +92,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

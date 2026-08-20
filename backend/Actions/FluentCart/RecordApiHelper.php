@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $utilities   Actions to perform
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
         if (!\defined('FLUENTCART_PLUGIN_PATH')) {
@@ -54,15 +42,10 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_order':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_create_order'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_create_order` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_create_order', $response, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'order';
                 $actionType = 'create_order';
@@ -72,10 +55,6 @@ class RecordApiHelper
             case 'delete_order':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_delete_order'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_delete_order` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_delete_order', $response, $fieldData);
                 $type = 'order';
                 $actionType = 'delete_order';
@@ -85,10 +64,6 @@ class RecordApiHelper
             case 'update_order_status':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_update_order_status'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_update_order_status` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_update_order_status', $response, $fieldData);
                 $type = 'order';
                 $actionType = 'update_order_status';
@@ -98,10 +73,6 @@ class RecordApiHelper
             case 'update_payment_status':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_update_payment_status'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_update_payment_status` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_update_payment_status', $response, $fieldData);
                 $type = 'order';
                 $actionType = 'update_payment_status';
@@ -111,10 +82,6 @@ class RecordApiHelper
             case 'update_shipping_status':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_update_shipping_status'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_update_shipping_status` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_update_shipping_status', $response, $fieldData);
                 $type = 'order';
                 $actionType = 'update_shipping_status';
@@ -124,10 +91,6 @@ class RecordApiHelper
             case 'create_customer':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_create_customer'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_create_customer` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_create_customer', $response, $fieldData);
                 $type = 'customer';
                 $actionType = 'create_customer';
@@ -137,10 +100,6 @@ class RecordApiHelper
             case 'update_customer':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_update_customer'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_update_customer` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_update_customer', $response, $fieldData);
                 $type = 'customer';
                 $actionType = 'update_customer';
@@ -150,10 +109,6 @@ class RecordApiHelper
             case 'delete_customer':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_delete_customer'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_delete_customer` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_delete_customer', $response, $fieldData);
                 $type = 'customer';
                 $actionType = 'delete_customer';
@@ -163,10 +118,6 @@ class RecordApiHelper
             case 'create_product':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_create_product'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_create_product` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_create_product', $response, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'product';
                 $actionType = 'create_product';
@@ -176,10 +127,6 @@ class RecordApiHelper
             case 'delete_product':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_delete_product'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_delete_product` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_delete_product', $response, $fieldData);
                 $type = 'product';
                 $actionType = 'delete_product';
@@ -189,10 +136,6 @@ class RecordApiHelper
             case 'create_coupon':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_create_coupon'), $defaultResponse, $fieldData, $this->_integrationDetails);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_create_coupon` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_create_coupon', $response, $fieldData, $this->_integrationDetails);
                 $type = 'coupon';
                 $actionType = 'create_coupon';
@@ -202,10 +145,6 @@ class RecordApiHelper
             case 'delete_coupon':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_delete_coupon'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_fluentcart_delete_coupon` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_fluentcart_delete_coupon', $response, $fieldData);
                 $type = 'coupon';
                 $actionType = 'delete_coupon';

@@ -14,9 +14,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -103,7 +100,6 @@ class RecordApiHelper
             }
         }
 
-        // Attachments
         if (isset($actions->attachments)) {
             $filesApiHelper = new FilesApiHelper($this->_tokenDetails);
             $attachments = explode(',', $actions->attachments);
@@ -138,10 +134,6 @@ class RecordApiHelper
         if (isset($actions->selectedTags)) {
             $response = Hooks::apply(Config::withPrefix('zbigin_add_tags_to_records'), $recordID, $module, $actions->selectedTags, $this->_apiDomain, $this->_defaultHeader);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_zbigin_add_tags_to_records` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_zbigin_add_tags_to_records', $response, $module, $actions->selectedTags, $this->_apiDomain, $this->_defaultHeader);
 
             if ($response === $recordID) {

@@ -66,7 +66,6 @@ class FormyChatController
             $fields = [];
         }
 
-        // Insert custom dropdown if configured on this widget
         $dropdown = [];
         if (isset($widget->config['form']['custom_dropdown']) && \is_array($widget->config['form']['custom_dropdown'])) {
             $dropdown = $widget->config['form']['custom_dropdown'];

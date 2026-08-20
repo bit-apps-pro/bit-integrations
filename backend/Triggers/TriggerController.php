@@ -68,9 +68,6 @@ final class TriggerController
             wp_send_json_error(__("User don't have permission to access this page", 'bit-integrations'));
         }
 
-        // Reduced to [a-z0-9_-] before it becomes an option name: this value is
-        // caller-supplied and is otherwise interpolated straight into the key that
-        // update_option()/delete_option() write.
         $triggerName = self::sanitizeTestDataKey($data->triggered_entity_id ?? '');
 
         if ($triggerName === '') {
@@ -131,21 +128,6 @@ final class TriggerController
         wp_send_json_success(__('Listed trigger saved successfully', 'bit-integrations'));
     }
 
-    /**
-     * Reduce a caller-supplied trigger/entity id to the character set that is safe to
-     * interpolate into a `bit_integrations_{id}_test` option name.
-     *
-     * Kept deliberately permissive: real trigger ids include slashes and dots
-     * (`elementor_pro/forms/new_record`), so this strips control characters, whitespace
-     * and anything else that has no business in an option name rather than allow-listing
-     * a shape that would break triggers shipped by the Pro plugin. The
-     * `bit_integrations_` prefix and `_test` suffix already confine which options can be
-     * reached; this stops the key itself from being arbitrary.
-     *
-     * @param mixed $value
-     *
-     * @return string
-     */
     private static function sanitizeTestDataKey($value)
     {
         if (!\is_scalar($value)) {
@@ -154,7 +136,6 @@ final class TriggerController
 
         $key = (string) preg_replace('/[^A-Za-z0-9_\-\/.:]/', '', (string) $value);
 
-        // option_name is a 191-char column; leave room for the prefix and suffix.
         return substr($key, 0, 150);
     }
 }

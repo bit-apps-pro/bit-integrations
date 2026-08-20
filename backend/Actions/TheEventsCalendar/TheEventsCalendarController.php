@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\TheEventsCalendar;
 
 use WP_Error;
 
-/**
- * Provide functionality for TheEventsCalendar integration
- */
 class TheEventsCalendarController
 {
     public static function checkedTheEventsCalendarExists()

@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $utilities   Actions to perform
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         if (!class_exists('WpCafe\Init')) {
@@ -54,15 +42,10 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_reservation':
                 $response = Hooks::apply(Config::withPrefix('wpcafe_create_reservation'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_wpcafe_create_reservation` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_wpcafe_create_reservation', $response, $fieldData);
                 $type = 'reservation';
                 $actionType = 'create_reservation';
@@ -72,10 +55,6 @@ class RecordApiHelper
             case 'update_reservation':
                 $response = Hooks::apply(Config::withPrefix('wpcafe_update_reservation'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_wpcafe_update_reservation` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_wpcafe_update_reservation', $response, $fieldData);
                 $type = 'reservation';
                 $actionType = 'update_reservation';
@@ -85,10 +64,6 @@ class RecordApiHelper
             case 'delete_reservation':
                 $response = Hooks::apply(Config::withPrefix('wpcafe_delete_reservation'), $defaultResponse, $fieldData['reservation_id'] ?? 0);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_wpcafe_delete_reservation` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_wpcafe_delete_reservation', $response, $fieldData['reservation_id'] ?? 0);
                 $type = 'reservation';
                 $actionType = 'delete_reservation';

@@ -12,7 +12,6 @@ import {
   lookupSources
 } from './staticData'
 
-// The two kinds that get their own control; everything else is a field map row.
 const SELECT_TYPE = 'select'
 const LOOKUP_TYPE = 'lookup'
 
@@ -26,7 +25,6 @@ export const handleInput = (e, bitCrmConf, setBitCrmConf) => {
   )
 }
 
-// `payload` carries what a dependent list needs, e.g. the module a record belongs to.
 export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading, payload = null) => {
   setIsLoading(listKey)
   bitsFetch(payload, route)
@@ -46,15 +44,8 @@ export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading, p
     .catch(() => setIsLoading(false))
 }
 
-// Shares the loading state with the fetched dropdowns, which key it by list.
 export const CRM_FIELDS_KEY = 'crmFields'
 
-/**
- * Fills the selects, record pickers and field map of every action in
- * actionFieldModules. Stored on the conf next to the fetched dropdown lists, and
- * stamped with the module it describes so the previous module's rows cannot
- * survive the render between switching action and the new list arriving.
- */
 export const fetchBitCrmFields = (module, setBitCrmConf, setIsLoading, notify = false) => {
   if (!module) return
 
@@ -91,7 +82,6 @@ export const fetchBitCrmFields = (module, setBitCrmConf, setIsLoading, notify = 
     })
 }
 
-// Only while the stored fields still describe the module the action writes to.
 export const crmFieldsOf = bitCrmConf => {
   const module = actionFieldModules[bitCrmConf?.mainAction]
 
@@ -100,8 +90,6 @@ export const crmFieldsOf = bitCrmConf => {
   return Array.isArray(bitCrmConf?.crmFields) ? bitCrmConf.crmFields : []
 }
 
-// An unmapped field leaves the column it would have written alone, so nothing
-// but the record id is required on an update.
 const relaxOnUpdate = (fields, action) =>
   action?.startsWith('update_') ? fields.map(fld => ({ ...fld, required: false })) : fields
 
@@ -125,13 +113,6 @@ export const crmLookupFields = bitCrmConf =>
     bitCrmConf?.mainAction
   ).map(fld => ({ ...fld, ...lookupSources[fld.relatedModule] }))
 
-/**
- * The rows a field map only carries in some configurations. A closing date
- * belongs to a stage that closes the deal and to no other.
- *
- * A stage list cached before stages carried a category cannot answer that, and
- * the action fails at run time without the row, so an unknown category offers it.
- */
 export const conditionalFields = bitCrmConf => {
   if (bitCrmConf?.mainAction !== 'update_deal_stage') return []
   if (isEmptyValue(bitCrmConf?.selectedStage)) return []
@@ -169,8 +150,6 @@ export const missingRequiredSelect = bitCrmConf => {
     .find(field => isEmptyValue(bitCrmConf?.[field.key]))
 
   if (missing) {
-    // A dependent list cannot be filled before the field it hangs off, so blame
-    // that one instead of the empty list it leaves behind.
     if (missing.dependsOn && isEmptyValue(bitCrmConf?.[missing.dependsOn])) {
       const dependency = fields.find(field => field.key === missing.dependsOn)
       return dependency?.label ?? missing.label
@@ -189,8 +168,6 @@ export const missingRequiredSelect = bitCrmConf => {
 export const isBitCrmConfValid = bitCrmConf =>
   checkMappedFields(bitCrmConf) && !missingRequiredSelect(bitCrmConf)
 
-// A conditional row outlives the configuration that asked for it, so it is
-// dropped once the current field list no longer offers it.
 export const dropStaleConditionalRows = (fieldMap = [], fields = []) => {
   const offered = new Set(fields.map(fld => fld.key))
   const pruned = fieldMap.filter(
@@ -200,8 +177,6 @@ export const dropStaleConditionalRows = (fieldMap = [], fields = []) => {
   return pruned.length === fieldMap.length ? fieldMap : pruned
 }
 
-// The field map renders its required rows positionally, so the leading rows are
-// re-keyed onto the current required list and the rest pushed below.
 export const syncRequiredFieldMap = (fieldMap = [], fields = []) => {
   const requiredKeys = fields.filter(fld => fld.required === true).map(fld => fld.key)
   if (requiredKeys.length === 0) return fieldMap

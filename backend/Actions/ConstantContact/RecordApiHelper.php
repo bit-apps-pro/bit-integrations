@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationDetails;
@@ -178,7 +175,6 @@ class RecordApiHelper
         $customFields = [];
         foreach ($data as $key => $value) {
             if ($key !== 'email_address') {
-                // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
                 if (strpos($key, 'custom-') !== false) {
                     $customFields[] = [
                         'custom_field_id' => str_replace('custom-', '', $key),

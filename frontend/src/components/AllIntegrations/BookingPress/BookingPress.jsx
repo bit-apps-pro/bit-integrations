@@ -49,7 +49,6 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <BookingPressAuthorization
         bookingPressConf={bookingPressConf}
         setBookingPressConf={setBookingPressConf}
@@ -57,7 +56,6 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
         nextPage={nextPage}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -86,7 +84,6 @@ export default function BookingPress({ formFields, setFlow, flow, allIntegURL })
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

@@ -7,11 +7,6 @@ import TableCheckBox from '../../Utilities/TableCheckBox'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { orderStatusOptions, sendReceiptOptions } from './staticData'
 
-/**
- * Optional order settings. Both have working ProfilePress defaults — status falls
- * back to pending and no receipt is sent — so they are opt-in here rather than
- * always-visible selects in the integration layout.
- */
 export default function ProfilePressActions({ profilePressConf, setProfilePressConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false })
 

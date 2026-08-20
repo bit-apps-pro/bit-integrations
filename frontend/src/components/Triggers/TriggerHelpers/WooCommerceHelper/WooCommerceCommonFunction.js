@@ -59,7 +59,6 @@ export const getVariationsByProduct = (val, tmpNewFlow, setNewFlow, edit = false
   const loadPostTypes = bitsFetch(null, 'get_all_variation_by_product', queryParams, 'GET').then(
     result => {
       if (result && result.success) {
-        // rubel vai code with immer js
         setNewFlow(
           create(tmpNewFlow, draftConf => {
             if (!edit) {

@@ -36,7 +36,7 @@ export function delItem(el) {
 }
 
 function fade(element) {
-  let op = 1 // initial opacity
+  let op = 1
   const timer = setInterval(() => {
     if (op <= 0.1) {
       clearInterval(timer)
@@ -49,7 +49,7 @@ function fade(element) {
 }
 
 function unfade(element) {
-  let op = 0.01 // initial opacity
+  let op = 0.01
   element.style.opacity = op
   element.style.display = 'flex'
   const timer = setInterval(() => {
@@ -61,25 +61,6 @@ function unfade(element) {
     op += op * 0.1
   }, 13)
 }
-
-/* function get_browser() {
-  const ua = navigator.userAgent; let tem; let
-    M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-  if (/trident/i.test(M[1])) {
-    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-    return { name: 'IE', version: (tem[1] || '') };
-  }
-  if (M[1] === 'Chrome') {
-    tem = ua.match(/\bOPR|Edge\/(\d+)/)
-    if (tem != null) { return { name: 'Opera', version: tem[1] }; }
-  }
-  M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-  if ((tem = ua.match(/version\/(\d+)/i)) != null) { M.splice(1, 1, tem[1]); }
-  return {
-    name: M[0],
-    version: M[1],
-  };
-} */
 
 export function setPrevData(e) {
   if (e.target.hasAttribute('multiple') && fName !== e.target.name) {
@@ -105,7 +86,6 @@ export function handleFile(e) {
     fileList.files.push(e.target.files[0])
   }
 
-  // type validate
   if (e.target.hasAttribute('accept')) {
     const tmpf = []
     const type = new RegExp(`${e.target.getAttribute('accept').split(',').join('$|')}$`, 'gi')
@@ -119,7 +99,6 @@ export function handleFile(e) {
     fileList.files = tmpf
   }
 
-  // size validate
   if (mxSiz > 0) {
     const tmpf = []
     for (let i = 0; i < fileList.files.length; i += 1) {
@@ -140,7 +119,6 @@ export function handleFile(e) {
     fileList = { files: [] }
   }
 
-  // set File list view
   if (e.target.files.length > 0) {
     e.target.parentNode.querySelector('.btcd-f-title').innerHTML =
       `${e.target.files.length} File Selected`
@@ -168,7 +146,6 @@ export function handleFile(e) {
     }
   }
 
-  // set eror
   if (err.length > 0) {
     for (let i = 0; i < err.length; i += 1) {
       e.target.parentNode.parentNode.querySelector('.btcd-files').insertAdjacentHTML(

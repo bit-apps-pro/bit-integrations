@@ -29,10 +29,6 @@ export const checkMappedFields = clickWhaleConf => {
   return true
 }
 
-/**
- * Authors are held in component state rather than on conf, so they are not
- * serialized into flow_details on every save.
- */
 export const refreshClickWhaleAuthors = (setLists, setIsLoading) => {
   setIsLoading(true)
 
@@ -60,18 +56,7 @@ export const refreshClickWhaleAuthors = (setLists, setIsLoading) => {
     })
 }
 
-/**
- * Which lists a given action's dropdowns need.
- *
- * @param {string} action mainAction slug
- *
- * @returns {string[]}
- */
 export const listsForAction = action => (needsAuthor.includes(action) ? ['authors'] : [])
-
-// No validateClickWhaleConf: the author dropdown is optional — it falls back to the
-// current user — so there is nothing the field map cannot already express. An unset
-// action leaves the seeded blank row, which checkMappedFields already blocks.
 
 export const generateMappedField = fields => {
   const requiredFlds = fields.filter(fld => fld.required === true)

@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -35,7 +32,6 @@ class RecordApiHelper
 
         $getRegistrants = HttpHelper::get($endPoint, null, $header);
 
-        // get registrant id using email from getRegistrants
         $registrantId = null;
         foreach ($getRegistrants->registrants as $registrant) {
             if ($registrant->email == $finalData['email']) {
@@ -44,7 +40,6 @@ class RecordApiHelper
                 break;
             }
         }
-        // delete registrant using registrant id
         if ($registrantId !== null) {
             $headerDel = [
                 'Authorization' => 'Bearer ' . $tokenDetails->access_token,
@@ -72,7 +67,6 @@ class RecordApiHelper
             $triggerValue = $value->formField;
             $actionValue = $value->zoomField;
 
-            // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
             if (strpos($actionValue, 'custom_questions_') === 0 && $triggerValue === 'custom') {
                 $dataFinal['custom_questions'][] = self::setCustomFieldMap(str_replace('custom_questions_', '', $value->zoomField), Common::replaceFieldWithValue($value->customValue, $data));
             } elseif (strpos($actionValue, 'custom_questions_') === 0) {
@@ -151,18 +145,15 @@ class RecordApiHelper
             $apiResponse = __('User deleted successfully', 'bit-integrations');
         }
 
-        // Delete registrant if email is present in the form
         if ($selectedAction === 'Delete Attendee') {
             $this->deleteMeetingRegistrant($meetingId, $finalData, $tokenDetails);
             $apiResponse = __('Attendee deleted successfully', 'bit-integrations');
         }
 
-        // Create user
         if ($selectedAction === 'Create User') {
             $apiResponse = $this->createUser($meetingId, $finalData, $tokenDetails);
         }
 
-        // api response show but it was shown when registance created
         if ($selectedAction === 'Create Attendee') {
             $apiResponse = $this->createMeetingRegistrant($meetingId, $finalData, $tokenDetails);
         }

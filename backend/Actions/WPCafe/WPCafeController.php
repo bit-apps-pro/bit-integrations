@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\WPCafe;
 
 use WP_Error;
 
-/**
- * Provide functionality for WPCafe integration.
- */
 class WPCafeController
 {
     public static function isExists()

@@ -8,24 +8,13 @@ namespace BitApps\Integrations\Actions\WishlistMember;
 
 use WP_Error;
 
-/**
- * Provide functionality for Wishlist Member integration
- */
 class WishlistMemberController
 {
-    /**
-     * Check if WishlistMember is installed.
-     *
-     * @return bool
-     */
     public static function isPluginInstalled()
     {
         return class_exists('WLMAPI') || class_exists('WishListMember');
     }
 
-    /**
-     * Get wishlist levels
-     */
     public function getLevels()
     {
         $allLevels = [];

@@ -14,9 +14,6 @@ use FluentSupport\App\Models\Customer;
 use FluentSupport\App\Models\Ticket;
 use FluentSupport\App\Services\Helper;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -36,7 +33,6 @@ class RecordApiHelper
 
             $value = $triggerValue === 'custom' && isset($value->customValue) ? Common::replaceFieldWithValue($value->customValue, $data) : $data[$triggerValue] ?? null;
 
-            // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
             if (strpos($actionValue, 'cf_') === 0) {
                 $dataFinal['custom_fields'][$actionValue] = $value;
             } elseif (!\is_null($data[$triggerValue])) {
@@ -157,10 +153,6 @@ class RecordApiHelper
     {
         Hooks::run(Config::withPrefix('fluent_support_upload_ticket_attachments'), $finalData, $attachments, $ticket, $customer, $flowId);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_fluent_support_upload_ticket_attachments` action instead.
-         * @since 2.7.8
-         */
         Hooks::run('btcbi_fluent_support_upload_ticket_attachments', $finalData, $attachments, $ticket, $customer, $flowId);
 
         // translators: %s: Placeholder value

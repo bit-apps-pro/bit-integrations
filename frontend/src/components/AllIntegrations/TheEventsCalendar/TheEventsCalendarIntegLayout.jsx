@@ -141,20 +141,6 @@ export default function TheEventsCalendarIntegLayout({
           </div>
         )}
 
-        {/* <div>
-          <br />
-          <br />
-          <div className="mt-4">
-            <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
-          </div>
-          <div className="btcd-hr mt-1" />
-          <TheEventsCalendarActions
-            theEventsCalendarConf={theEventsCalendarConf}
-            setTheEventsCalendarConf={setTheEventsCalendarConf}
-            loading={loading}
-            setLoading={setLoading}
-          />
-        </div> */}
       </div>
     </>
   )

@@ -6,12 +6,10 @@ import Note from '../../../Utilities/Note'
 import FlowFormFieldsOptions from '../FlowFormFieldsOptions'
 import SmartTagOptions from '../SmartTagOptions'
 
-// matches `{id}` placeholders but keeps `${field}` smart tags out of the way
 const PLACEHOLDER_PATTERN = '(\\$?)\\{([^{}\\s/?#]+)\\}'
 
 export const getPathPlaceholders = url => {
   if (!url) return []
-  // only the path is resolved server side, so scheme/host placeholders are ignored here too
   const withoutQuery = String(url).split('#')[0].split('?')[0]
   const withoutScheme = withoutQuery.replace(/^[a-z][a-z0-9+.-]*:\/\//i, '')
   const slashIndex = withoutScheme.indexOf('/')
@@ -27,13 +25,6 @@ export const getPathPlaceholders = url => {
   return names
 }
 
-/**
- * Keeps `pathParams` in sync with the variables currently written in the url.
- *
- * Lives outside the component on purpose: the tab panel holding <PathParams /> is
- * unmounted while another tab is open, so syncing from there would leave the
- * variables unmapped whenever the tab is never visited.
- */
 export const usePathParamsSync = (webHooks, setWebHooks, enabled = true) => {
   const placeholders = useMemo(() => getPathPlaceholders(webHooks?.url), [webHooks?.url])
 

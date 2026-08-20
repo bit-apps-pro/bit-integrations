@@ -8,48 +8,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Evaluates a caller-supplied spec describing how to detect whether a
- * WordPress plugin (Plugin) is available. Used by the shared Plugin-check
- * authorization step for integrations that target a WP plugin and need no
- * external API credentials.
- *
- * Owns all spec sanitization + validation — controllers pass the raw request
- * shape through and let this class normalize it.
- *
- * Spec shape (groups — supports nested AND/OR):
- *   [
- *     'logic'  => 'AND' | 'OR', // outer combiner across groups (default AND)
- *     'groups' => [
- *       [
- *         'logic'  => 'AND' | 'OR', // combines this group's checks (default AND)
- *         'checks' => [
- *           ['type' => 'class',       'value' => 'Foo'],
- *           ['type' => 'function',    'value' => 'foo_init'],
- *           ['type' => 'constant',    'value' => 'FOO_FILE', 'expected' => 'foo/foo.php'],
- *         ],
- *       ],
- *     ],
- *   ]
- *
- * Flat shape (single implicit group):
- *   ['checks' => [...], 'logic' => 'AND' | 'OR']
- */
 final class PluginCheck
 {
     private const ALLOWED_TYPES = ['class', 'function', 'constant', 'plugin_file'];
 
     private const ALLOWED_LOGIC = ['AND', 'OR'];
 
-    /**
-     * Constants whose VALUE must never be comparable through a check.
-     *
-     * The 'constant' check reports whether constant(X) === expected for a caller-supplied
-     * X, which is an equality oracle: repeated calls can confirm a guessed DB_PASSWORD or
-     * AUTH_KEY one candidate at a time. Existence (defined()) leaks nothing and stays
-     * allowed — only the comparison is refused, and it is refused rather than answered so
-     * a denied probe is indistinguishable from a wrong guess.
-     */
     private const VALUE_COMPARISON_DENIED = [
         'DB_NAME',
         'DB_USER',
@@ -65,11 +29,6 @@ final class PluginCheck
         'NONCE_SALT',
     ];
 
-    /**
-     * Name fragments marking a constant as secret-bearing, so plugin-defined credentials
-     * (ACME_API_SECRET, FOO_PRIVATE_KEY) are covered without enumerating them. A legitimate
-     * activation check asserts on a path or version, never on a value named like this.
-     */
     private const VALUE_COMPARISON_DENIED_PATTERNS = [
         'PASSWORD',
         'SECRET',
@@ -78,11 +37,6 @@ final class PluginCheck
         'TOKEN',
     ];
 
-    /**
-     * @param array $spec accepts groups OR flat checks; nested values may be stdClass
-     *
-     * @return array{available:bool,message?:string}
-     */
     public static function evaluate(array $spec): array
     {
         $groups = self::normalizeGroups($spec);
@@ -144,12 +98,6 @@ final class PluginCheck
         ];
     }
 
-    /**
-     * Normalize spec into a list of groups. A flat `checks` array is treated as
-     * a single implicit group so callers keep working.
-     *
-     * @return array<int,array{logic:string,checks:array}>
-     */
     private static function normalizeGroups(array $spec): array
     {
         $rawGroups = AuthDataCodec::toArray($spec['groups'] ?? null);
@@ -197,9 +145,6 @@ final class PluginCheck
         return \in_array($normalized, self::ALLOWED_LOGIC, true) ? $normalized : 'AND';
     }
 
-    /**
-     * @param array<int,bool> $results
-     */
     private static function combine(array $results, string $logic): bool
     {
         return $logic === 'OR'
@@ -207,9 +152,6 @@ final class PluginCheck
             : !\in_array(false, $results, true);
     }
 
-    /**
-     * Whether comparing this constant's value would expose a secret.
-     */
     private static function isValueComparisonDenied(string $name): bool
     {
         $name = strtoupper($name);
@@ -227,9 +169,6 @@ final class PluginCheck
         return false;
     }
 
-    /**
-     * @param null|bool|float|int|string $expected
-     */
     private static function matches(string $type, string $value, bool $hasExpected = false, $expected = null): bool
     {
         switch ($type) {

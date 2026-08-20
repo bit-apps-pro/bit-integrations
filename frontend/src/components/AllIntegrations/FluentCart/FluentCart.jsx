@@ -57,9 +57,8 @@ export default function FluentCart({ formFields, setFlow, flow, allIntegURL }) {
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-      <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
+      <div className="txt-center mt-2"></div>
 
-      {/* STEP 1 */}
       <FluentCartAuthorization
         formID={formID}
         fluentCartConf={fluentCartConf}
@@ -71,7 +70,6 @@ export default function FluentCart({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -101,7 +99,6 @@ export default function FluentCart({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

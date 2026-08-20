@@ -20,9 +20,6 @@ export default function LionDeskFieldMap({ i, formFields, field, lionDeskConf, s
   const allNonRequiredFields = [...nonRequiredFields, ...(lionDeskConf?.customFields || [])]
 
   if (lionDeskConf?.field_map?.length === 1 && field.lionDeskFormField === '') {
-    // const newConf = { ...lionDeskConf }
-    // const tmp = generateMappedField(newConf)
-    // newConf.field_map = tmp
     setLionDeskConf(prevConf => {
       prevConf.field_map = generateMappedField(prevConf)
       return prevConf

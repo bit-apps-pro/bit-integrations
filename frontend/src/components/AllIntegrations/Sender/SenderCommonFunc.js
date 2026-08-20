@@ -23,7 +23,6 @@ export const generateMappedField = fields => {
 }
 
 export const checkMappedFields = senderConf => {
-  // Group-target actions require a selected group id, which lives outside the field map.
   if (singleGroupActions.includes(senderConf?.mainAction) && !senderConf?.groupId) {
     return false
   }

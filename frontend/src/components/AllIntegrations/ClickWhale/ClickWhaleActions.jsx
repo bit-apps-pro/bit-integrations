@@ -7,11 +7,6 @@ import TableCheckBox from '../../Utilities/TableCheckBox'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { redirectionOptions, yesNoOptions } from './staticData'
 
-/**
- * Optional link settings. Redirection falls back to 301 and the flags are left
- * untouched when unset, so all three are opt-in here rather than always-visible
- * selects in the integration layout.
- */
 export default function ClickWhaleActions({ clickWhaleConf, setClickWhaleConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false })
 

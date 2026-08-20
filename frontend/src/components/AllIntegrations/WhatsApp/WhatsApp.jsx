@@ -7,8 +7,6 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-// import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
-// import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WhatsAppAuthorization from './WhatsAppAuthorization'
 import { generateMappedField, checkDisabledButton } from './WhatsAppCommonFunc'
 import WhatsAppIntegLayout from './WhatsAppIntegLayout'
@@ -97,7 +95,6 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
         setstep={setstep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -119,7 +116,6 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

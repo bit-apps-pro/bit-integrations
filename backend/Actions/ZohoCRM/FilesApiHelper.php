@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;
@@ -22,10 +19,6 @@ final class FilesApiHelper
 
     private $_payloadBoundary;
 
-    /**
-     * @param object $tokenDetails Api token details
-     * @param int    $integId      ID of the flow to execute
-     */
     public function __construct($tokenDetails, $integId)
     {
         $this->_integId = $integId;
@@ -35,18 +28,6 @@ final class FilesApiHelper
         $this->_apiDomain = urldecode($tokenDetails->api_domain);
     }
 
-    /**
-     * Helps to execute upload files api
-     *
-     * @param mixed  $files        Files path
-     * @param string $uploadType   Type of upload field. CRM has two type of
-     *                             upload field: fileupload | imageupload
-     * @param bool   $isAttachment Check upload type
-     * @param mixed  $module       Attachment Module name
-     * @param mixed  $recordID     Record id
-     *
-     * @return array $uploadedFiles ID's of uploaded file in Zoho CRM
-     */
     public function uploadFiles($files, $uploadType, $isAttachment = false, $module = '', $recordID = 0)
     {
         $uploadFileEndpoint = $isAttachment
@@ -86,13 +67,6 @@ final class FilesApiHelper
         return $uploadResponse;
     }
 
-    /**
-     * Prepares payload for file upload
-     *
-     * @param $file File path
-     *
-     * @return string
-     */
     public function preparePayload($file)
     {
         $payload = '';
@@ -123,15 +97,6 @@ final class FilesApiHelper
         return $payload;
     }
 
-    /**
-     * Sets file id by file upload type
-     *
-     * @param string $id         ID received from Files API
-     * @param string $uploadType Type of upload field. CRM has two type of
-     *                           upload field: fileupload | imageupload
-     *
-     * @return object
-     */
     public function setIdByUploadType($id, $uploadType)
     {
         if ($uploadType === 'imageupload') {

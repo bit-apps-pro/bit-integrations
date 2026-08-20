@@ -19,7 +19,6 @@ export default function ZendeskFieldMap({ i, formFields, field, zendeskConf, set
   } else if (zendeskConf.actionName === 'deal') {
     allFields = zendeskConf?.dealFields
   }
-  // newFields = [...allFields, ...zendeskConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = [...nonRequiredFields, ...(zendeskConf?.customFields || [])]

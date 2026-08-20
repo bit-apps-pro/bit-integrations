@@ -24,7 +24,6 @@ class WCHelper
             'product_id'   => $productData['id'],
             'product_name' => $productData['name'],
             'product_slug' => $productData['slug'],
-            // 'product_type' => $productData['type'],
             'product_status'            => $productData['status'],
             'product_featured'          => $productData['featured'],
             'product_description'       => $productData['description'],
@@ -33,11 +32,9 @@ class WCHelper
             'product_regular_price'     => $productData['regular_price'],
             'product_sale_price'        => $productData['sale_price'],
             'total_sales'               => $productData['total_sales'],
-            // 'product_quantity' => $productData['quantity'],
             'product_sku'          => $productData['sku'],
             'product_category_ids' => $productData['category_ids'],
             'stock_status'         => $productData['stock_status'],
-            // 'product_tags' => $productData['tags'],
             'image_url'           => wp_get_attachment_image_url((int) $productData['image_id'], 'full'),
             'cost'                => $productData['cost'],
             'display_cost'        => $productData['display_cost'],
@@ -164,10 +161,6 @@ class WCHelper
         $flexibleFields = Hooks::apply(Config::withPrefix('woocommerce_flexible_checkout_fields_value'), (array) $order);
 
         if (empty($flexibleFields)) {
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_woocommerce_flexible_checkout_fields_value` filter instead.
-             * @since 2.7.8
-             */
             $flexibleFields = Hooks::apply('btcbi_woocommerce_flexible_checkout_fields_value', (array) $order);
         }
 

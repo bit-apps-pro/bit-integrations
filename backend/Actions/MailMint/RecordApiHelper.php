@@ -29,7 +29,6 @@ class RecordApiHelper
             $triggerValue = $value->formField;
             $actionValue = $value->mailMintFormField;
             $isDataTriggerValueSet = isset($data[$triggerValue]);
-            // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
             $containsCustomMetaField = strpos($actionValue, 'custom_meta_field_') !== false;
 
             if ($containsCustomMetaField) {

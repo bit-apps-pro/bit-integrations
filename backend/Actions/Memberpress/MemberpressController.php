@@ -7,13 +7,6 @@ use WP_Error;
 
 class MemberpressController
 {
-    // private $_integrationID;
-
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         if (is_plugin_active('memberpress/memberpress.php')) {

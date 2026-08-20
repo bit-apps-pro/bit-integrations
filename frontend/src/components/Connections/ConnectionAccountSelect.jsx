@@ -43,8 +43,6 @@ export default function ConnectionAccountSelect({
 }) {
   const { integUrlName } = useParams()
   const connectionSwitch = useConnectionSwitch()
-  // On the info page the whole form is read-only, but the connection itself
-  // stays swappable — the provider persists the pick straight to the flow.
   const canSwitch = Boolean(isInfo && connectionSwitch?.enabled)
   const isSwitching = Boolean(connectionSwitch?.isSwitching)
   const dropdownValue = getConnectionOptionById(connections, config?.connection_id)
@@ -62,7 +60,6 @@ export default function ConnectionAccountSelect({
       if (canSwitch) {
         if (!value) return
 
-        // The form below handles creation; the flow is switched once it saves.
         if (value === NEW_VALUE) {
           setShowNewConnection(true)
           return

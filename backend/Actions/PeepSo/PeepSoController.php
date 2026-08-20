@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\PeepSo;
 
 use WP_Error;
 
-/**
- * Provide functionality for PeepSo integration
- */
 class PeepSoController
 {
     public static function isExists()

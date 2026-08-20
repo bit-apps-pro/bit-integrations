@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for MoxieCRM integration
- */
 class MoxieCRMController
 {
     public static array $authConfig = [
@@ -27,43 +24,6 @@ class MoxieCRMController
     protected $_defaultHeader;
 
     protected $apiEndpoint;
-
-    // public function __construct()
-    // {
-    //     $this->apiEndpoint = "https://api.moxie.com/developer_api/v1";
-    // }
-
-    // public function getCustomFields($fieldsRequestParams)
-    // {
-    //     if (empty($fieldsRequestParams->api_key)) {
-    //         wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-    //     }
-
-    //     $apiKey      = $fieldsRequestParams->api_key;
-    //     $action      = $fieldsRequestParams->action;
-    //     $apiUrl    = $fieldsRequestParams->api_url;
-
-    //     $apiEndpoint = $this->apiEndpoint . "/custom_field_definitions";
-    //     $headers = [
-    //         "X-API-KEY"  => $apiKey,
-    //         "Content-Type"      => "application/json"
-    //     ];
-
-    //     $response = HttpHelper::get($apiEndpoint, null, $headers);
-    //     if (isset($response)) {
-    //         foreach ($response as $customField) {
-    //             if (in_array($action, $customField->available_on)) {
-    //                 $customFields[] = [
-    //                     'key' => $customField->id,
-    //                     'label' => $customField->name,
-    //                 ];
-    //             }
-    //         }
-    //         wp_send_json_success($customFields, 200);
-    //     } else {
-    //         wp_send_json_error(__('Custom field fetching failed', 'bit-integrations'), 400);
-    //     }
-    // }
 
     public function getAllOpportunities($fieldsRequestParams)
     {

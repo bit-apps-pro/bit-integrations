@@ -123,10 +123,6 @@ const CoblocksHelper = () => {
     )
   }
   useEffect(() => {
-    // if (newFlow.triggerDetail?.data?.length > 0 && newFlow.triggerDetail?.hook_id !== '') {
-    //   setHookID(newFlow.triggerDetail?.hook_id)
-    //   window.hook_id = newFlow.triggerDetail?.hook_id
-    // }
 
     return () => {
       setFields()

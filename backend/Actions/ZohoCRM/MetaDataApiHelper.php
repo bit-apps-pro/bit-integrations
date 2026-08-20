@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-/**
- * Provide functionality for Tags in Zoho CRM
- */
 final class MetaDataApiHelper
 {
     private $_defaultHeader;
@@ -19,25 +16,12 @@ final class MetaDataApiHelper
 
     private $_module;
 
-    /**
-     * Constructor function
-     *
-     * @param object $tokenDetails Api token details
-     * @param mixed  $minorV
-     */
     public function __construct($tokenDetails, $minorV = false)
     {
         $this->_defaultHeader['Authorization'] = "Zoho-oauthtoken {$tokenDetails->access_token}";
         $this->_apiDomain = urldecode($tokenDetails->api_domain) . '/crm/v2.1/settings';
     }
 
-    /**
-     * Helps to get Assignment rules of a Zoho CRM module
-     *
-     * @param $module Name of the module for which Assignment rules needs to retrive
-     *
-     * @return object $relatedLists Assignment rules
-     */
     public function getAssignmentRules($module)
     {
         $getAssignmentRulesEndpoint = "{$this->_apiDomain}/automation/assignment_rules";
@@ -57,13 +41,6 @@ final class MetaDataApiHelper
         return (object) $assignment_rules;
     }
 
-    /**
-     * Helps to get Related Lists of a Zoho CRM module
-     *
-     * @param $module Name of the module for which related lists needs to retrive
-     *
-     * @return array $relatedLists Related Lists
-     */
     public function getRelatedLists($module)
     {
         $getRelatedListsEndpoint = "{$this->_apiDomain}/related_lists";

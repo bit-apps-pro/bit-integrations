@@ -18,8 +18,6 @@ export const activityStatusOptions = [
   { label: __('Completed', 'bit-integrations'), value: 'completed' }
 ]
 
-// Bit CRM locks a paid invoice and only allows the moves in
-// Invoice::ALLOWED_STATUS_TRANSITIONS, so an illegal pick is rejected server-side.
 export const invoiceStatusOptions = [
   { label: __('Draft', 'bit-integrations'), value: 'draft' },
   { label: __('Sent', 'bit-integrations'), value: 'sent' },
@@ -27,8 +25,6 @@ export const invoiceStatusOptions = [
   { label: __('Paid', 'bit-integrations'), value: 'paid' }
 ]
 
-// Dashboard is omitted: Bit CRM force-grants it to every portal user. Selecting
-// none makes Bit CRM apply the portal defaults from its own settings.
 export const portalCapabilityOptions = [
   { label: __('Contact', 'bit-integrations'), value: 'contact' },
   { label: __('Deals', 'bit-integrations'), value: 'deal' },

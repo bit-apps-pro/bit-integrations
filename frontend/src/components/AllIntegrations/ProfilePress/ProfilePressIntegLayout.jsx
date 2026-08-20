@@ -36,14 +36,10 @@ export default function ProfilePressIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  // Plans live here rather than on conf so they are not persisted into
-  // flow_details every time the flow is saved.
   const [lists, setLists] = useState({})
 
   const mainAction = profilePressConf?.mainAction
 
-  // Populate the dropdown for whatever action is already selected. Matters most on
-  // the edit screen, where handleMainAction never runs.
   useEffect(() => {
     if (listsForAction(mainAction).length > 0) {
       refreshProfilePressPlans(setLists, setIsLoading)
@@ -66,7 +62,6 @@ export default function ProfilePressIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.profilePressFields)
       })
     )
-    // The effect above fetches the lists this action needs.
   }
 
   return (

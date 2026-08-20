@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\FluentPlayer;
 
 use WP_Error;
 
-/**
- * Provide functionality for FluentPlayer integration
- */
 class FluentPlayerController
 {
     public static function isExists()

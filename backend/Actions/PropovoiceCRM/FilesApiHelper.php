@@ -5,9 +5,6 @@ namespace BitApps\Integrations\Actions\PropovoiceCRM;
 use BitApps\Integrations\Core\Util\Common;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 final class FilesApiHelper
 {
     public function uploadFile($file_data)
@@ -65,7 +62,6 @@ final class FilesApiHelper
 
                     $file_info = [];
                     if (!is_wp_error($attach_id)) {
-                        // wp_update_attachment_metadata($attach_id, wp_generate_attachment_metadata($attach_id, $filename));
                         update_post_meta(
                             $attach_id,
                             'ws_id',

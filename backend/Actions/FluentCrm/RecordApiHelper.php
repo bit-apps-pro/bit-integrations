@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use FluentCrm\App\Models\Subscriber;
 
-/**
- * Provide functionality for Record insert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -25,7 +22,6 @@ class RecordApiHelper
 
     public function insertRecord($data, $actions)
     {
-        // for exsist user
         $subscriber = Subscriber::where('email', $data['email'])->first();
 
         if ($subscriber && isset($actions->skip_if_exists) && $actions->skip_if_exists) {
@@ -34,7 +30,6 @@ class RecordApiHelper
                 'messages' => __('Contact already exists!', 'bit-integrations')
             ];
         } else {
-            // for subscirber
             if (!$subscriber) {
                 if (isset($actions->double_opt_in) && $actions->double_opt_in) {
                     $data['status'] = 'pending';
@@ -139,10 +134,6 @@ class RecordApiHelper
         $fieldData = Hooks::apply(Config::withPrefix('fluent_crm_assign_company'), [], (array) $actions);
 
         if (empty($fieldData)) {
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_fluent_crm_assign_company` filter instead.
-             * @since 2.7.8
-             */
             $fieldData = Hooks::apply('btcbi_fluent_crm_assign_company', [], (array) $actions);
         }
 

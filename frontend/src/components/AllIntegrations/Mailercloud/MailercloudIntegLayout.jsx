@@ -94,7 +94,6 @@ function MailercloudIntegLayout({
       </div>
       <div className="btcd-hr mt-2 mb-4" />
 
-      {/* --- PAGE Loader --- */}
 
       {(loading.page || loading.field) && (
         <Loader

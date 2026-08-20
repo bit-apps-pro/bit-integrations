@@ -15,7 +15,6 @@ export default function ClickupFieldMap({ i, formFields, field, clickupConf, set
   if (clickupConf.actionName === 'task') {
     allFields = clickupConf?.taskFields
   }
-  // newFields = [...allFields, ...clickupConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = [...nonRequiredFields, ...(clickupConf?.customFields || [])]

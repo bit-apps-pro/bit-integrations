@@ -65,7 +65,6 @@ function Twilio({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
 
       <TwilioAuthorization
         twilioConf={twilioConf}
@@ -74,7 +73,6 @@ function Twilio({ formFields, setFlow, flow, allIntegURL }) {
         setstep={setstep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -103,7 +101,6 @@ function Twilio({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

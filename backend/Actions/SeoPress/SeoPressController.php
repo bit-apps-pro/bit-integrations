@@ -8,17 +8,8 @@ namespace BitApps\Integrations\Actions\SeoPress;
 
 use WP_Error;
 
-/**
- * Provide functionality for SEOPress integration
- */
 class SeoPressController
 {
-    /**
-     * Validate if SEOPress plugin exists or not. If not exists then terminate
-     * request and send an error response.
-     *
-     * @return void
-     */
     public static function isExists()
     {
         if (!\defined('SEOPRESS_VERSION')) {
@@ -32,14 +23,6 @@ class SeoPressController
         }
     }
 
-    /**
-     * Execute action
-     *
-     * @param $integrationData Integration data
-     * @param $fieldValues     Field values
-     *
-     * @return bool
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

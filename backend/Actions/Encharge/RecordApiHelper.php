@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -29,13 +26,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * serd data to api
-     *
-     * @param mixed $data
-     *
-     * @return json response
-     */
     public function insertRecord($data)
     {
         return HttpHelper::post($this->_endpoint, $data, $this->_defaultHeader);

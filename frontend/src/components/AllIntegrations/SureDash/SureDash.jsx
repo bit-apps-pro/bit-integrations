@@ -49,7 +49,6 @@ export default function SureDash({ formFields, setFlow, flow, allIntegURL }) {
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
 
-      {/* STEP 1 */}
       <SureDashAuthorization
         sureDashConf={sureDashConf}
         setSureDashConf={setSureDashConf}
@@ -57,7 +56,6 @@ export default function SureDash({ formFields, setFlow, flow, allIntegURL }) {
         nextPage={nextPage}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -87,7 +85,6 @@ export default function SureDash({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

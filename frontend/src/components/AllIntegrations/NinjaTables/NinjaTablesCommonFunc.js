@@ -1,7 +1,6 @@
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
-// Constants
 const API_ENDPOINTS = {
   REFRESH_TABLES: 'refresh_ninja_tables',
   REFRESH_ROWS: 'refresh_ninja_tables_rows',
@@ -20,9 +19,6 @@ const ERROR_MESSAGES = {
   FETCH_FAILED: __('Failed to fetch data', 'bit-integrations')
 }
 
-/**
- * Handle input change for configuration
- */
 export const handleInput = (e, ninjaTablesConf, setNinjaTablesConf) => {
   const { name, value } = e.target
   setNinjaTablesConf(prevConf => ({
@@ -31,9 +27,6 @@ export const handleInput = (e, ninjaTablesConf, setNinjaTablesConf) => {
   }))
 }
 
-/**
- * Generic fetch handler to reduce code duplication
- */
 const handleFetch = async ({
   endpoint,
   params,
@@ -75,9 +68,6 @@ const handleFetch = async ({
   }
 }
 
-/**
- * Refresh Ninja Tables list
- */
 export const refreshNinjaTables = (formID, setNinjaTablesConf, setIsLoading, setSnackbar) => {
   handleFetch({
     endpoint: API_ENDPOINTS.REFRESH_TABLES,
@@ -89,7 +79,6 @@ export const refreshNinjaTables = (formID, setNinjaTablesConf, setIsLoading, set
     setIsLoading,
     setSnackbar
   }).then(() => {
-    // Update allTables key for backwards compatibility
     setNinjaTablesConf(prevConf => {
       if (prevConf.default?.tables) {
         return {
@@ -105,9 +94,6 @@ export const refreshNinjaTables = (formID, setNinjaTablesConf, setIsLoading, set
   })
 }
 
-/**
- * Validate table ID before making API calls
- */
 const validateTableId = (tableId, setSnackbar) => {
   if (!tableId) {
     setSnackbar({
@@ -119,9 +105,6 @@ const validateTableId = (tableId, setSnackbar) => {
   return true
 }
 
-/**
- * Refresh table rows
- */
 export const refreshNinjaTablesRows = (
   formID,
   tableId,
@@ -141,7 +124,6 @@ export const refreshNinjaTablesRows = (
     setIsLoading,
     setSnackbar
   }).then(() => {
-    // Update allRows key for backwards compatibility
     setNinjaTablesConf(prevConf => {
       if (prevConf.default?.rows) {
         return {
@@ -157,9 +139,6 @@ export const refreshNinjaTablesRows = (
   })
 }
 
-/**
- * Refresh WordPress users
- */
 export const refreshNinjaTablesUsers = (formID, setNinjaTablesConf, setIsLoading, setSnackbar) => {
   handleFetch({
     endpoint: API_ENDPOINTS.REFRESH_USERS,
@@ -171,7 +150,6 @@ export const refreshNinjaTablesUsers = (formID, setNinjaTablesConf, setIsLoading
     setIsLoading,
     setSnackbar
   }).then(() => {
-    // Update allUsers key for backwards compatibility
     setNinjaTablesConf(prevConf => {
       if (prevConf.default?.users) {
         return {
@@ -187,9 +165,6 @@ export const refreshNinjaTablesUsers = (formID, setNinjaTablesConf, setIsLoading
   })
 }
 
-/**
- * Refresh table columns
- */
 export const refreshNinjaTablesColumns = (
   formID,
   tableId,
@@ -209,7 +184,6 @@ export const refreshNinjaTablesColumns = (
     setIsLoading,
     setSnackbar
   }).then(() => {
-    // Update allColumns key for backwards compatibility
     setNinjaTablesConf(prevConf => {
       if (prevConf.default?.columns) {
         return {
@@ -225,9 +199,6 @@ export const refreshNinjaTablesColumns = (
   })
 }
 
-/**
- * Check if field mapping is valid
- */
 const isFieldMapValid = fieldMap => {
   if (!fieldMap?.length) return false
 
@@ -240,9 +211,6 @@ const isFieldMapValid = fieldMap => {
   })
 }
 
-/**
- * Validate required fields based on action type
- */
 const validateRequiredFields = (action, config) => {
   const validators = {
     [ACTIONS.ADD_ROW]: () =>
@@ -255,9 +223,6 @@ const validateRequiredFields = (action, config) => {
   return validators[action]?.()
 }
 
-/**
- * Check if all mapped fields are valid
- */
 export const checkMappedFields = ninjaTablesConf => {
   const { mainAction } = ninjaTablesConf
   if (!mainAction) return false
@@ -265,15 +230,9 @@ export const checkMappedFields = ninjaTablesConf => {
   return validateRequiredFields(mainAction, ninjaTablesConf) || false
 }
 
-/**
- * Generate initial field mapping based on action
- */
 export const generateMappedField = mainAction => {
   const actionsNeedingFieldMap = [ACTIONS.ADD_ROW, ACTIONS.UPDATE_ROW]
   return actionsNeedingFieldMap.includes(mainAction) ? [{ formField: '', columnName: '' }] : []
 }
 
-/**
- * Export constants for use in other components
- */
 export { ACTIONS, API_ENDPOINTS }

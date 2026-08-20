@@ -587,18 +587,6 @@ final class BitCrmController
         return self::flowExecute('bit_crm/invoices_trashed', ['ids' => implode(',', (array) $ids)]);
     }
 
-    /**
-     * Bit CRM fires one hook for tasks, meetings and calls alike, because they
-     * share the activities table and differ only by `type`. Dispatch the
-     * type-specific event that hook belongs to.
-     *
-     * The typed ids (`bit_crm/task_created`, …) are flow keys, not WordPress
-     * hooks — no such hook exists.
-     *
-     * @param string $event    one of created|updated|status_updated
-     * @param mixed  $activity
-     * @param array  $extra
-     */
     private static function activityEvent($event, $activity, $extra = [])
     {
         $data = array_merge(self::normalize($activity), $extra);
@@ -611,15 +599,6 @@ final class BitCrmController
         return self::flowExecute("bit_crm/{$type}_{$event}", $data);
     }
 
-    /**
-     * Dispatch a client portal event as the contact's fields plus the portal
-     * email. Revoking can start from a WordPress user that has no CRM contact,
-     * so the contact may be null and the email is the only certainty.
-     *
-     * @param string $triggered_entity_id
-     * @param mixed  $contact
-     * @param mixed  $email
-     */
     private static function portalEvent($triggered_entity_id, $contact, $email)
     {
         $data = empty($contact) ? [] : self::normalize($contact);
@@ -712,8 +691,6 @@ final class BitCrmController
             ['form_name' => __('Note Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/note_created', 'skipPrimaryKey' => true],
             ['form_name' => __('Note Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/note_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Note Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/note_deleted', 'skipPrimaryKey' => true],
-            // Bit CRM fires one hook per activity event; these are dispatched from it,
-            // filtered by the activity type.
             ['form_name' => __('Task Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_created', 'skipPrimaryKey' => true],
             ['form_name' => __('Task Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Task Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/task_status_updated', 'skipPrimaryKey' => true],
@@ -735,7 +712,6 @@ final class BitCrmController
             ['form_name' => __('Invoice Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Status Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoice_status_updated', 'skipPrimaryKey' => true],
             ['form_name' => __('Invoice Trashed', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/invoices_trashed', 'skipPrimaryKey' => true],
-            // Bit CRM Pro owns the client portal, so these stay silent without it.
             ['form_name' => __('Client Portal Access Granted', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/client_portal_access_granted', 'skipPrimaryKey' => true],
             ['form_name' => __('Client Portal Access Revoked', 'bit-integrations'), 'triggered_entity_id' => 'bit_crm/client_portal_access_revoked', 'skipPrimaryKey' => true]
         ];

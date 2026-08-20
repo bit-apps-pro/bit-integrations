@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\FluentCart;
 
 use WP_Error;
 
-/**
- * Provide functionality for FluentCart integration
- */
 class FluentCartController
 {
     public static function isExists()

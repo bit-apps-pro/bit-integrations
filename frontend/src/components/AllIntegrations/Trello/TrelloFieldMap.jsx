@@ -22,7 +22,6 @@ export default function TrelloFieldMap({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
   const requiredFlds = trelloConf[fieldKey]?.filter(fld => fld.required === true) || []
-  // description moves to the rich text editor when that utility is enabled
   const hideDesc = fieldKey === 'cardFields' && Boolean(trelloConf?.actions?.richTextDesc)
   const nonRequiredFlds =
     trelloConf[fieldKey]?.filter(

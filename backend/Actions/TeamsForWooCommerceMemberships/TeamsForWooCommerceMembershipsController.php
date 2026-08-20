@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\TeamsForWooCommerceMemberships;
 
 use WP_Error;
 
-/**
- * Provide functionality for Teams for WooCommerce Memberships integration.
- */
 class TeamsForWooCommerceMembershipsController
 {
     public static function isExists()

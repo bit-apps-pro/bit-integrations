@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\ClickWhale;
 
 use WP_Error;
 
-/**
- * Provide functionality for ClickWhale integration
- */
 class ClickWhaleController
 {
     public static function isExists()
@@ -32,14 +29,6 @@ class ClickWhaleController
         wp_send_json_success(true);
     }
 
-    /**
-     * Users that can own a link.
-     *
-     * Not filtered by capability: ClickWhale registers its own admin menus under
-     * 'read', so any logged-in user is a legitimate link owner and narrowing this
-     * would hide valid choices. Only the three display fields are selected, so the
-     * payload stays small even on a site with many users.
-     */
     public function refreshAuthors()
     {
         self::isExists();

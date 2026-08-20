@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -80,10 +77,6 @@ class RecordApiHelper
         if (isset($this->_integrationDetails->dayOfCycle)) {
             $requestParams = Hooks::apply(Config::withPrefix('getresponse_autoresponder_day'), $requestParams, $this->_integrationDetails->dayOfCycle);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_getresponse_autoresponder_day` filter instead.
-             * @since 2.7.8
-             */
             $requestParams = Hooks::apply('btcbi_getresponse_autoresponder_day', $requestParams, $this->_integrationDetails->dayOfCycle);
         }
 

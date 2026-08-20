@@ -12,9 +12,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -64,10 +61,6 @@ class RecordApiHelper
 
         $filteredResult = Hooks::apply(Config::withPrefix('salesforce_update_record'), $response, $apiEndpoint, $finalData, $this->_defaultHeader);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_salesforce_update_record` filter instead.
-         * @since 2.7.8
-         */
         return Hooks::apply('btcbi_salesforce_update_record', $filteredResult, $apiEndpoint, $finalData, $this->_defaultHeader);
     }
 
@@ -90,10 +83,6 @@ class RecordApiHelper
 
         $filteredResult = Hooks::apply(Config::withPrefix('salesforce_update_record'), $response, $apiEndpoint, $finalData, $this->_defaultHeader);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_salesforce_update_record` filter instead.
-         * @since 2.7.8
-         */
         return Hooks::apply('btcbi_salesforce_update_record', $filteredResult, $apiEndpoint, $finalData, $this->_defaultHeader);
     }
 
@@ -203,10 +192,6 @@ class RecordApiHelper
 
             $finalData = Hooks::apply(Config::withPrefix('salesforce_add_lead_utilities'), $finalData, $actions);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_salesforce_add_lead_utilities` filter instead.
-             * @since 2.7.8
-             */
             $finalData = Hooks::apply('btcbi_salesforce_add_lead_utilities', $finalData, $actions);
 
             $insertLeadResponse = $this->insertLead($finalData, $update);
@@ -349,16 +334,10 @@ class RecordApiHelper
                 return $input;
             }
 
-            // ----------------------------
-            // PHONE NUMBER PROTECTION
-            // ----------------------------
             if (preg_match('/^\+?\d{7,15}$/', $input)) {
                 return $input;
             }
 
-            // ------------------------------------------------------------
-            // 1) Handle UNIX timestamps (10 or 13 digits)
-            // ------------------------------------------------------------
             if (self::validateNumericDateWithLength($input, 10)) {
                 return gmdate('Y-m-d\TH:i:s\Z', (int) $input);
             }
@@ -366,10 +345,6 @@ class RecordApiHelper
                 return gmdate('Y-m-d\TH:i:s\Z', (int) ($input / 1000));
             }
 
-            // ------------------------------------------------------------
-            // 2) Natural-language dates ("today", "tomorrow", "next Monday", etc.)
-            // ------------------------------------------------------------
-            // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
             if (preg_match('/^[a-zA-Z ]+$/', $input) || strpos($input, 'ago') !== false) {
                 $ts = strtotime($input);
                 if ($ts) {
@@ -377,23 +352,14 @@ class RecordApiHelper
                 }
             }
 
-            // ------------------------------------------------------------
-            // 3) Clean ordinals: 1st, 2nd, 3rd, 21st, 31st...
-            // ------------------------------------------------------------
             $clean = preg_replace('/\b(\d+)(st|nd|rd|th)\b/i', '$1', $input);
 
-            // ------------------------------------------------------------
-            // 4) Japanese/Chinese/Korean locale replacements
-            // ------------------------------------------------------------
             $clean = str_replace(
                 ['年', '月', '日', '년', '월', '일'],
                 ['-', '-', '', '-', '-', ''],
                 $clean
             );
 
-            // ------------------------------------------------------------
-            // 5) Week-based formats (2025-W05 or 2025-W05-6)
-            // ------------------------------------------------------------
             if (preg_match('/^(\d{4})-?W(\d{2})(?:-?(\d))?$/i', $clean, $m)) {
                 $year = $m[1];
                 $week = $m[2];
@@ -407,25 +373,18 @@ class RecordApiHelper
                 }
             }
 
-            // ------------------------------------------------------------
-            // 6) Quarter formats (Q1 2025, 2025 Q1, 1st Quarter 2025)
-            // ------------------------------------------------------------
             if (preg_match('/(Q[1-4]|[1-4]st Quarter)\s*[, ]*\s*(\d{4})/i', $clean, $m)) {
-                $q = preg_replace('/\D/', '', $m[1]); // Extract 1–4
+                $q = preg_replace('/\D/', '', $m[1]);
                 $year = $m[2];
                 $month = (($q - 1) * 3) + 1;
 
                 return "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
             }
 
-            // ------------------------------------------------------------
-            // 7) Compact numeric formats (01022025, 20250201, 250201, 010225)
-            // ------------------------------------------------------------
             if (self::validateNumericDateWithLength($clean, 8)) {
-                // YYYYMMDD or DDMMYYYY or MMDDYYYY → try multiple interpretations
                 $candidates = [
-                    substr($clean, 0, 4) . '-' . substr($clean, 4, 2) . '-' . substr($clean, 6, 2), // YMD
-                    substr($clean, 4, 4) . '-' . substr($clean, 2, 2) . '-' . substr($clean, 0, 2), // DMY
+                    substr($clean, 0, 4) . '-' . substr($clean, 4, 2) . '-' . substr($clean, 6, 2),
+                    substr($clean, 4, 4) . '-' . substr($clean, 2, 2) . '-' . substr($clean, 0, 2),
                 ];
                 foreach ($candidates as $c) {
                     if (strtotime($c)) {
@@ -435,10 +394,8 @@ class RecordApiHelper
             }
 
             if (self::validateNumericDateWithLength($clean, 6)) {
-                // DDMMYY / YYMMDD / MMDDYY
                 $yy = \intval(substr($clean, -2));
 
-                // Sliding window: interpret two-digit year as closest to current year within 50 years
                 $currentYear = \intval(gmdate('Y'));
                 $century = \intval($currentYear / 100) * 100;
                 $fullYear = $century + $yy;
@@ -461,13 +418,9 @@ class RecordApiHelper
                 }
             }
 
-            // ------------------------------------------------------------
-            // 8) Try direct DateTime parsing for most formats
-            // ------------------------------------------------------------
             $dt = self::tryParseDateTimeImmutable($clean);
 
             if ($dt instanceof DateTimeImmutable) {
-                // Detect if datetime or pure date
                 if (preg_match('/\d{1,2}:\d/', $clean)) {
                     return $dt->setTimezone(new DateTimeZone('UTC'))
                         ->format('Y-m-d\TH:i:s\Z');
@@ -476,12 +429,8 @@ class RecordApiHelper
                 return $dt->format('Y-m-d');
             }
 
-            // ------------------------------------------------------------
-            // 9) Last fallback using strtotime()
-            // ------------------------------------------------------------
             $ts = strtotime($clean);
             if ($ts) {
-                // Detect datetime or date-only
                 if (preg_match('/\d{1,2}:\d/', $clean)) {
                     return gmdate('Y-m-d\TH:i:s\Z', $ts);
                 }
@@ -489,9 +438,6 @@ class RecordApiHelper
                 return gmdate('Y-m-d', $ts);
             }
 
-            // ------------------------------------------------------------
-            // 10) No match → return original
-            // ------------------------------------------------------------
             return $input;
         } catch (Throwable $th) {
             return $input;

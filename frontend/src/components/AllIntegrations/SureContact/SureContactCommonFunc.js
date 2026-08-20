@@ -2,7 +2,6 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
-// The backend reads credentials off the connection itself, so the id is all it needs.
 const buildAuthRequestParams = conf => ({ connection_id: conf?.connection_id })
 
 export const handleInput = (e, sureContactConf, setSureContactConf) => {
@@ -22,8 +21,6 @@ const fetchList = (conf, setConf, setIsLoading, route, defaultKey, { loading, su
   const request = bitsFetch(buildAuthRequestParams(conf), route).then(result => {
     setIsLoading(false)
     if (result && result.success) {
-      // Merge off the latest state, not the captured snapshot — two lists can be
-      // fetched concurrently and a snapshot merge makes the slower one win.
       setConf(prev => ({
         ...prev,
         default: { ...(prev.default || {}), [defaultKey]: result.data || [] }

@@ -118,21 +118,12 @@ export const ReviewIdField = [
   { key: 'review_id', label: __('Review ID', 'bit-integrations'), required: true }
 ]
 
-/** `1` is not a valid BD review status. */
 export const reviewStatusOptions = [
   { label: __('Pending', 'bit-integrations'), value: '0' },
   { label: __('Accepted', 'bit-integrations'), value: '2' },
   { label: __('Declined', 'bit-integrations'), value: '3' },
   { label: __('Waiting for Admin', 'bit-integrations'), value: '4' }
 ]
-
-/**
- * BD write endpoints address records by numeric id only, so flows identify the target
- * by email and the backend resolves it into the real id via `GET /user/get` or
- * `GET /leads/get` before the call. The lookup keys stay distinct from BD's settable
- * `email` / `lead_email` columns so finding a record can never be confused with
- * rewriting its address.
- */
 
 export const needsMembershipPlan = ['create_member']
 export const needsTopCategory = ['create_lead']

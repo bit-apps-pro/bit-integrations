@@ -112,7 +112,6 @@ class FabmanController
             $lockVersion = $memberData['lockVersion'];
         }
 
-        // Fetch lockVersion for update_spaces if not provided
         if ($actionName === 'update_spaces' && (empty($lockVersion) || !is_numeric($lockVersion)) && !empty($selectedWorkspace)) {
             $spaceData = self::fetchSpaceById($apiKey, $selectedWorkspace);
             if ($spaceData && isset($spaceData['lockVersion'])) {

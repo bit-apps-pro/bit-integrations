@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoRecruitController
 {
     public static array $authConfig = [
@@ -126,8 +123,6 @@ class ZohoRecruitController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $notesMetaResponse = HttpHelper::get($notesMetaApiEndpoint, null, $authorizationHeader);
 
-        // wp_send_json_success($notesMetaResponse, 200);
-
         if (!is_wp_error($notesMetaResponse) && (empty($notesMetaResponse->status) || (!empty($notesMetaResponse->status) && $notesMetaResponse->status !== 'error'))) {
             $retriveModuleData = $notesMetaResponse->response->result->Notes->row;
             $allNoteTypes = [];
@@ -151,13 +146,6 @@ class ZohoRecruitController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh recruit modules
-     *
-     * @param mixed $queryParams
-     *
-     * @return JSON recruit module data
-     */
     public static function refreshRelatedModules($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -189,10 +177,6 @@ class ZohoRecruitController
                 'aMod' => 'Calls',
                 'pl'   => 'Calls'
             ],
-            // 'Notes' => (object) array(
-            //     'aMod' => 'Notes',
-            //     'pl' => 'Notes'
-            // ),
         ];
         foreach ($allModules as $module) {
             if ($module->aMod !== $queryParams->module) {
@@ -211,13 +195,6 @@ class ZohoRecruitController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh recruit layouts
-     *
-     * @param mixed $queryParams
-     *
-     * @return JSON recruit layout data
-     */
     public static function getFields($queryParams)
     {
         if (empty($queryParams->module)
@@ -354,15 +331,6 @@ class ZohoRecruitController
             self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
-        // } else {
-        //     wp_send_json_error(
-        //         __(
-        //             'Token expired',
-        //             'bit-integrations'
-        //         ),
-        //         401
-        //     );
-        // }
     }
 
     public function execute($integrationData, $fieldValues)
@@ -467,13 +435,6 @@ class ZohoRecruitController
         return $zRecruitApiResponse;
     }
 
-    /**
-     * Helps to refresh zoho recruit access_token
-     *
-     * @param object $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->dataCenter)
@@ -504,15 +465,6 @@ class ZohoRecruitController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param int        $integrationID ID of Zoho recruit Integration
-     * @param object     $tokenDetails  refreshed token info
-     * @param null|mixed $others
-     *
-     * @return null
-     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

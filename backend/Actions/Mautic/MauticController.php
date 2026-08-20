@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for MailChimp integration
- */
 class MauticController
 {
     public static array $authConfig = [
@@ -33,13 +30,6 @@ class MauticController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Process ajax request for refresh Mautic Audience Fields
-     *
-     * @param $queryParams Params to refresh fields
-     *
-     * @return JSON mautic contact fields
-     */
     public static function getAllFields($queryParams)
     {
         if (empty($queryParams->tokenDetails)) {
@@ -58,7 +48,7 @@ class MauticController
         }
         $tokenDetails = empty($response['tokenDetails']) ? $queryParams->tokenDetails : $response['tokenDetails'];
 
-        $apiEndpoint = "{$mauticUrl}/api/contacts/list/fields"; // "/api/fields/contact" this endpoint did not contain all of fields
+        $apiEndpoint = "{$mauticUrl}/api/contacts/list/fields";
         $authorizationHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
         $apiResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
         $response = [];
@@ -143,14 +133,6 @@ class MauticController
         wp_send_json_success($response);
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param object $integrationData Details of flow
-     * @param array  $fieldValues     Data to send Mail Chimp
-     *
-     * @return null
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

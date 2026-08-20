@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class SendinBlueController
 {
     public const APIENDPOINT = 'https://api.sendinblue.com/v3';
@@ -20,20 +17,12 @@ class SendinBlueController
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'sendinblue',
-        // Connections store the UI's display name, which carries the Brevo rebrand.
         'aliases'  => ['Brevo(Sendinblue)'],
         'fields'   => [
             'api_key' => 'value',
         ],
     ];
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $requestsParams Params to refresh list
-     *
-     * @return JSON crm module data
-     */
     public function refreshlists($requestsParams)
     {
         if (empty($requestsParams->api_key)) {
@@ -44,7 +33,7 @@ class SendinBlueController
         }
 
         $allList = [];
-        $limit = 50; // Maximum limit allowed by the API
+        $limit = 50;
         $offset = 0;
         $hasMore = true;
 

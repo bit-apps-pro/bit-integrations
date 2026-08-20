@@ -80,16 +80,6 @@ function Mail({ allIntegURL, isInfo, edit, isLearnDash = false, learnDashConf })
     setConf(tmpConf)
   }
 
-  /*  if (bits.userMail && Array.isArray(bits.userMail)) {
-           mail.push({ title: 'WP Emails', type: 'group', childs: bits.userMail })
-       } */
-
-  // const getValueFromArr = (key, subkey) => {
-  //   const value = workFlows[lgcGrpInd].successAction.find(val => val.type === key)
-  //   if (value !== undefined) { return value.details[subkey] }
-  //   return ''
-  // }
-
   const setEmailSetting = (typ, e) => {
     const tmpConf = { ...conf }
     if (typ === 'to') {
@@ -158,14 +148,7 @@ function Mail({ allIntegURL, isInfo, edit, isLearnDash = false, learnDashConf })
 
   const onChangeHandler = val => {
     setConf(prv => ({ ...prv, body: val }))
-    // setEmailSetting('body', val)
   }
-
-  // const getValueFromArr = (key, subkey, lgcGrpInd) => {
-  //   const value = fileInFormField?.filter(val => val.type === key)
-  //   if (value !== undefined) { return value.details[subkey] }
-  //   return ''
-  // }
 
   return (
     <div>
@@ -265,8 +248,6 @@ function Mail({ allIntegURL, isInfo, edit, isLearnDash = false, learnDashConf })
           value={conf.subject}
         />
         <select onChange={addFieldToSubject} className="btcd-paper-inp ml-2" style={{ width: '20%' }}>
-          {/* <option value="">{__('Add form field', 'bit-integrations')}</option>
-          {formFields !== null && formFields.map(f => !f.type.match(/^(file|recaptcha)$/) && <option key={f.name} value={`\${${f.name}}`}>{f.label}</option>)} */}
           <option value="">{__('Add field', 'bit-integrations')}</option>
           <optgroup label={__('Form Fields', 'bit-integrations')}>
             {formFields !== null &&

@@ -63,7 +63,6 @@ function CampaignMonitor({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <CampaignMonitorAuthorization
         formID={formID}
         campaignMonitorConf={campaignMonitorConf}
@@ -74,7 +73,6 @@ function CampaignMonitor({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <CampaignMonitorIntegLayout
           formID={formID}
@@ -95,7 +93,6 @@ function CampaignMonitor({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

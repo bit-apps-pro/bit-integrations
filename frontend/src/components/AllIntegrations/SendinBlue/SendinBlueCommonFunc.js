@@ -48,7 +48,6 @@ export const refreshLists = (sendinBlueConf, setSendinBlueConf, setIsLoading, se
 }
 
 export const refreshTemplate = (sendinBlueConf, setSendinBlueConf, setSnackbar) => {
-  // setIsLoading(true)
   const refreshListsRequestParams = buildAuthRequestParams(sendinBlueConf)
   bitsFetch(refreshListsRequestParams, 'sblue_refresh_template').then(result => {
     if (result && result.success) {
@@ -75,9 +74,7 @@ export const refreshTemplate = (sendinBlueConf, setSendinBlueConf, setSnackbar) 
     } else {
       setSnackbar?.({ show: true, msg: __('Templates failed. please try again', 'bit-integrations') })
     }
-    // setIsLoading(false)
   })
-  // .catch(() => setIsLoading(false))
 }
 
 export const refreshSendinBlueHeader = (

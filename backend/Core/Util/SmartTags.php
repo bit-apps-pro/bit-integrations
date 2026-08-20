@@ -2,26 +2,10 @@
 
 namespace BitApps\Integrations\Core\Util;
 
-/**
- * handling Special mail-tags
- *
- * @since 1.0.0
- */
 final class SmartTags
 {
-    /**
-     * Details of the flow currently being executed.
-     *
-     * Populated by Flow::execute() so flow/trigger identifiers can be mapped
-     * into outgoing payloads (webhook dedup, CRM source columns, log joins).
-     *
-     * @var array
-     */
     private static $flowMeta = [];
 
-    /**
-     * @param array $flowMeta ['flow_id', 'flow_name', 'trigger_name', 'trigger_entity_id']
-     */
     public static function setFlowMeta(array $flowMeta)
     {
         static::$flowMeta = $flowMeta;
@@ -32,12 +16,6 @@ final class SmartTags
         static::$flowMeta = [];
     }
 
-    /**
-     * The Pro plugin ships its own SmartTags copy but no flow engine, so it reads the
-     * details set here rather than keeping a second, always-empty one.
-     *
-     * @return array
-     */
     public static function getFlowMeta()
     {
         return static::$flowMeta;
@@ -92,22 +70,17 @@ final class SmartTags
             '_bi_admin_email'   => get_bloginfo('admin_email'),
             '_bi_boolean_true'  => true,
             '_bi_boolean_false' => false,
-            // date_i18n() (since WP 0.71) used instead of wp_date() (WP 5.3) for WP 5.1 compatibility
             '_bi_date_default' => date_i18n(get_option('date_format')),
             '_bi_date.m/d/y'   => date_i18n('m/d/y'),
             '_bi_date.d/m/y'   => date_i18n('d/m/y'),
             '_bi_date.y/m/d'   => date_i18n('y/m/d'),
             '_bi_time'         => date_i18n(get_option('time_format')),
             '_bi_weekday'      => date_i18n('l'),
-            // _bi_current_time is gmdate(), i.e. UTC. These give the operator the site-local
-            // clock and the two machine formats remote APIs actually accept.
             '_bi_current_time_site' => current_time('mysql'),
             '_bi_timestamp'         => (string) time(),
             '_bi_date_iso8601'      => gmdate('c'),
             '_bi_date_ymd'          => date_i18n('Y-m-d'),
             '_bi_site_timezone'     => static::getSiteTimezone(),
-            // Clock/calendar components. Many CRMs and spreadsheets expose split date or
-            // time columns, and no combination of the whole-date tags can fill those.
             '_bi_date_time_default' => date_i18n(get_option('date_format') . ' ' . get_option('time_format')),
             '_bi_time_24h'          => date_i18n('H:i'),
             '_bi_time_24h_seconds'  => date_i18n('H:i:s'),
@@ -134,8 +107,6 @@ final class SmartTags
             '_bi_device_type'      => wp_is_mobile() ? 'Mobile' : 'Desktop',
             '_bi_user_agent'       => static::getServerValue('HTTP_USER_AGENT'),
             '_bi_browser_language' => static::getBrowserLanguage(),
-            // Campaign attribution. Read off the referring page's query string, so the tags
-            // resolve only when the form/page URL itself carried the parameters.
             '_bi_utm_source'   => static::pluckQueryParam($queryParams, 'utm_source'),
             '_bi_utm_medium'   => static::pluckQueryParam($queryParams, 'utm_medium'),
             '_bi_utm_campaign' => static::pluckQueryParam($queryParams, 'utm_campaign'),
@@ -143,9 +114,6 @@ final class SmartTags
             '_bi_utm_content'  => static::pluckQueryParam($queryParams, 'utm_content'),
             '_bi_gclid'        => static::pluckQueryParam($queryParams, 'gclid'),
             '_bi_fbclid'       => static::pluckQueryParam($queryParams, 'fbclid'),
-            // Was time(): fully predictable despite the name, which is a hazard when the tag
-            // is mapped into a token, coupon or reference field. Use _bi_current_time for a
-            // timestamp.
             '_bi_random_digit_num'  => wp_rand(1000000000, 9999999999),
             '_bi_uuid'              => wp_generate_uuid4(),
             '_bi_random_string'     => wp_generate_password(10, false, false),
@@ -158,8 +126,6 @@ final class SmartTags
             '_bi_user_email'        => (isset($data['user']->user_email) ? $data['user']->user_email : ' '),
             '_bi_user_url'          => (isset($data['user']->user_url) ? $data['user']->user_url : ' '),
             '_bi_current_user_role' => (isset($data['user']->current_user_role) ? $data['user']->current_user_role : ' '),
-            // Most CRMs expose a single Name column; concatenating two tags leaves a stray
-            // space whenever one half is blank.
             '_bi_user_full_name'          => static::getUserFullName($user),
             '_bi_user_roles_all'          => (isset($user->roles) && \is_array($user->roles) ? implode(', ', $user->roles) : ''),
             '_bi_user_registered_date'    => (isset($user->user_registered) ? $user->user_registered : ''),
@@ -200,15 +166,6 @@ final class SmartTags
         return '';
     }
 
-    /**
-     * Query string of the page the request originated from.
-     *
-     * Falls back to the current REQUEST_URI because an AJAX submission carries the
-     * campaign parameters on the referring page, while a plain page load carries them
-     * on the request itself.
-     *
-     * @return array
-     */
     private static function getRequestQueryParams()
     {
         $params = [];

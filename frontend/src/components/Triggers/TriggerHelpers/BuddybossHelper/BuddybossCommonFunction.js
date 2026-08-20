@@ -6,33 +6,7 @@ export const getTopicByForum = (val, tmpNewFlow, setNewFlow, edit = false) => {
   const queryParams = { forum_id: val }
   const loadPostTypes = bitsFetch(null, 'get_all_topic_by_forum', queryParams, 'GET').then(result => {
     if (result && result.success) {
-      // const newConf = { ...tmpNewFlow }
-      // if (!edit) {
-      //   newConf.triggerData.topics = result.data
-      // } else {
-      //   if (newConf.flow_details === undefined) {
-      //     newConf.flow_details = {}
-      //   }
-      //   newConf.flow_details.topics = result.data
-      // }
-      // setNewFlow({ ...newConf })
 
-      // rubel vai code with prev state
-      // setNewFlow(prevConf => {
-      //   const newConf = { ...prevConf }
-      //   if (!edit) {
-      //     newConf.triggerData.topics = result.data
-      //   } else {
-      //     if (newConf.flow_details === undefined) {
-      //       newConf.flow_details = {}
-      //     }
-      //     newConf.flow_details.topics = result.data
-      //   }
-
-      //   return newConf
-      // })
-
-      // rubel vai code with immer js
       setNewFlow(
         create(tmpNewFlow, draftConf => {
           if (!edit) {

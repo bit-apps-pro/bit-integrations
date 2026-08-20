@@ -67,10 +67,6 @@ export default function CustomFieldMap({
           <option value="">{__('Select Field', 'bit-integrations')}</option>
           {fieldType === 'fields' ? (
             <>
-              {/*
-              { formFields?.map(f => (
-                <option key={`ff-zhcrm-${f.name}`} value={f.name}>{f.label}</option>
-              ))} */}
               <optgroup label={__('Form Fields', 'bit-integrations')}>
                 {formFields?.map(
                   f =>

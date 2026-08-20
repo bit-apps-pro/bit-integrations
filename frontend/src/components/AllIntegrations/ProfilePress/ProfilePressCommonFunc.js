@@ -14,10 +14,6 @@ export const handleInput = (e, profilePressConf, setProfilePressConf) => {
   )
 }
 
-/**
- * Plans are held in component state rather than on conf, so they are not
- * serialized into flow_details on every save.
- */
 export const refreshProfilePressPlans = (setLists, setIsLoading) => {
   setIsLoading(true)
 
@@ -28,8 +24,6 @@ export const refreshProfilePressPlans = (setLists, setIsLoading) => {
       if (result?.success && Array.isArray(result?.data?.plans)) {
         setLists(prev => ({ ...prev, plans: result.data.plans }))
 
-        // An empty array is truthy, so without this a site with no plans would get a
-        // success toast beside an empty dropdown and no idea why it could not save.
         if (result.data.plans.length === 0) {
           toast.error(__('No ProfilePress plans found. Create a plan first.', 'bit-integrations'))
           return
@@ -43,19 +37,10 @@ export const refreshProfilePressPlans = (setLists, setIsLoading) => {
     })
     .catch(() => {
       setIsLoading(false)
-      // Without this the spinner just stops on a network failure, leaving an empty
-      // dropdown and no indication anything went wrong.
       toast.error(__('ProfilePress plans fetch failed. Please try again', 'bit-integrations'))
     })
 }
 
-/**
- * Which lists a given action's dropdowns need.
- *
- * @param {string} action mainAction slug
- *
- * @returns {string[]}
- */
 export const listsForAction = action => (needsPlan.includes(action) ? ['plans'] : [])
 
 export const checkMappedFields = profilePressConf => {
@@ -73,16 +58,6 @@ export const checkMappedFields = profilePressConf => {
   return true
 }
 
-/**
- * Validate the selections the field map cannot express.
- *
- * Shared by the create wizard and the edit screen so both paths reject the same
- * configurations.
- *
- * @param {object} profilePressConf
- *
- * @returns {string} error message, or '' when the config is valid
- */
 export const validateProfilePressConf = profilePressConf => {
   const action = profilePressConf?.mainAction
 

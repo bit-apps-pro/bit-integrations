@@ -18,20 +18,6 @@ export default function SalesforceFieldMap({
   actionName,
   selesforceFields
 }) {
-  // if (salesforceConf?.field_map?.length === 1 && field.selesforceField === '') {
-  //   const newConf = { ...salesforceConf }
-  //   const tmp = generateMappedField(newConf, actionName)
-  //   newConf.field_map = tmp
-  //   setSalesforceConf(newConf)
-  // }
-  // useEffect(() => {
-  //   if (salesforceConf?.field_map?.length === 1 && field.selesforceField === '') {
-  //     const newConf = { ...salesforceConf }
-  //     const tmp = generateMappedField(newConf, actionName)
-  //     newConf.field_map = tmp
-  //     setSalesforceConf(newConf)
-  //   }
-  // }, [])
 
   const requiredFlds = (selesforceFields && selesforceFields.filter(fld => fld.required === true)) || []
   const nonRequiredFlds =

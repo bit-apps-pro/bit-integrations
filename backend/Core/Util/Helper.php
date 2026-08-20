@@ -10,18 +10,8 @@ use Exception;
 use stdClass;
 use WP_Error;
 
-/**
- * bit-integration helper class
- *
- * @since 1.0.0
- */
 final class Helper
 {
-    /**
-     * string to array convert with separator
-     *
-     * @param mixed $data
-     */
     public static function splitStringToarray($data)
     {
         $params = new stdClass();
@@ -59,7 +49,7 @@ final class Helper
                 $date = new DateTime($dateString, $timezoneObj);
             }
 
-            return $date->format(DateTime::ATOM); // DateTime::ATOM is the ISO-8601 format
+            return $date->format(DateTime::ATOM);
         } catch (Exception $e) {
             return $dateString;
         }
@@ -90,7 +80,6 @@ final class Helper
 
             $imgFileName = basename($file);
 
-            // Get file content using WordPress HTTP API for remote files
             if (filter_var($file, FILTER_VALIDATE_URL)) {
                 $response = Common::safeRemoteGet($file);
                 if (is_wp_error($response)) {
@@ -105,25 +94,21 @@ final class Helper
                 $fileContent = FileSystem::read($safeFilePath);
             }
 
-            // prepare upload image to WordPress Media Library
             $upload = wp_upload_bits($imgFileName, null, $fileContent);
 
             if (!empty($upload['error']) || !isset($upload['file'])) {
                 continue;
             }
 
-            // check and return file type
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
-            // Attachment attributes for file
             $attachment = [
                 'post_mime_type' => $wpFileType['type'],
-                'post_title'     => sanitize_file_name($imgFileName), // sanitize and use image name as file name
+                'post_title'     => sanitize_file_name($imgFileName),
                 'post_content'   => '',
                 'post_status'    => 'inherit',
             ];
 
-            // insert and return attachment id
             $attachmentId = wp_insert_attachment($attachment, $imageFile, $postID);
 
             if (!is_wp_error($attachmentId)) {
@@ -142,7 +127,6 @@ final class Helper
 
         if ($filePath !== '') {
             $imgFileName = basename($filePath);
-            // prepare upload image to WordPress Media Library
             $upload = wp_upload_bits($imgFileName, null, FileSystem::read($filePath));
 
             if (!empty($upload['error']) || empty($upload['file'])) {
@@ -151,22 +135,19 @@ final class Helper
 
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
-            // Attachment attributes for file
             $attachment = [
                 'post_mime_type' => $wpFileType['type'],
-                'post_title'     => sanitize_file_name($imgFileName), // sanitize and use image name as file name
+                'post_title'     => sanitize_file_name($imgFileName),
                 'post_content'   => '',
                 'post_status'    => 'inherit',
                 'post_parent'    => $postId,
             ];
-            // insert and return attachment id
             $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
             if (is_wp_error($attachmentId)) {
                 return;
             }
 
             require_once ABSPATH . 'wp-admin/includes/image.php';
-            // insert and return attachment metadata
             $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
             wp_update_attachment_metadata($attachmentId, $attachmentData);
 
@@ -183,7 +164,6 @@ final class Helper
             $file = Common::safeUploadFilePath($file);
             if ($file !== '') {
                 $imgFileName = basename($file);
-                // prepare upload image to WordPress Media Library
                 $upload = wp_upload_bits($imgFileName, null, FileSystem::read($file));
 
                 if (!empty($upload['error']) || empty($upload['file'])) {
@@ -192,25 +172,20 @@ final class Helper
 
                 $imageFile = $upload['file'];
                 $wpFileType = wp_check_filetype($imageFile, null);
-                // Attachment attributes for file
                 $attachment = [
                     'post_mime_type' => $wpFileType['type'],
-                    'post_title'     => sanitize_file_name($imgFileName), // sanitize and use image name as file name
+                    'post_title'     => sanitize_file_name($imgFileName),
                     'post_content'   => '',
                     'post_status'    => 'inherit',
                     'post_parent'    => $postId,
                 ];
-                // insert and return attachment id
                 $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
                 if (is_wp_error($attachmentId)) {
                     continue;
                 }
-                // $attachMentId[]=$attachmentId;
                 $attachMentId[] = $attachmentId;
 
-                // insert and return attachment metadata
                 $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
-                // update and return attachment metadata
                 wp_update_attachment_metadata($attachmentId, $attachmentData);
             }
         }
@@ -223,10 +198,6 @@ final class Helper
         $config = Hooks::apply(Config::withPrefix('localized_script'), []);
 
         if (empty($config)) {
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_localized_script` filter instead.
-             * @since 2.7.8
-             */
             $config = Hooks::apply('btcbi_localized_script', $config);
         }
 
@@ -273,7 +244,6 @@ final class Helper
 
             return self::extractValueFromPath($data->{$currentPart}, $parts, $triggerEntity);
         }
-
     }
 
     public static function parseFlowDetails($flowDetails)
@@ -343,7 +313,6 @@ final class Helper
                 $fieldName = $field['name'] ?? $fieldKey;
                 $metaKey = null;
 
-                // if field matches booster for woocommerce plugin custom key format
                 if (strpos($fieldKey, "{$groupKey}_wcj_checkout_field_") !== false) {
                     if ($isOrderObject) {
                         if ($order->meta_exists($fieldName)) {
@@ -464,16 +433,6 @@ final class Helper
         return $formattedData;
     }
 
-    /**
-     * Append one key to the readable label path. List indexes stay glued to the
-     * key they belong to ("Items 0") instead of eating a whole segment, and a
-     * key repeating its parent is dropped.
-     *
-     * @param array      $labelPath
-     * @param int|string $key
-     *
-     * @return array
-     */
     private static function appendLabelSegment($labelPath, $key)
     {
         $segment = trim(ucwords(str_replace('_', ' ', (string) $key)));
@@ -495,16 +454,6 @@ final class Helper
         return $labelPath;
     }
 
-    /**
-     * Collapse a deep label path so a nested field stays identifiable without
-     * printing every ancestor: root + "..." + the last segments.
-     *
-     * @param array $labelPath
-     * @param int   $maxSegments
-     * @param int   $maxLength
-     *
-     * @return string
-     */
     private static function shortenLabel($labelPath, $maxSegments = 3, $maxLength = 55)
     {
         if (\count($labelPath) > $maxSegments) {
@@ -517,7 +466,6 @@ final class Helper
             return $label;
         }
 
-        // keep the tail (the field itself) and never cut mid word
         $tail = mb_substr($label, -($maxLength - 3));
         $spaceAt = mb_strpos($tail, ' ');
 
@@ -562,14 +510,6 @@ final class Helper
         return static::decodeSingleEntity($input);
     }
 
-    /**
-     * Convert string to array.
-     *
-     * @param null|array|string $data
-     * @param string            $separator
-     *
-     * @return array
-     */
     public static function convertStringToArray($data, $separator = ',')
     {
         if (empty($data)) {
@@ -628,26 +568,11 @@ final class Helper
         return html_entity_decode($string);
     }
 
-    /**
-     * Sanitize the key by removing unwanted characters.
-     *
-     * @param string $parentKey The parent key to prepend.
-     * @param string $itemKey   The current key.
-     *
-     * @return string The sanitized and combined key.
-     */
     private static function sanitizeKey($parentKey, $itemKey)
     {
         return $parentKey . '_' . str_replace(['*', \chr(0)], '', $itemKey);
     }
 
-    /**
-     * Sanitize the value by trimming spaces and handling empty values.
-     *
-     * @param mixed $value The value to sanitize.
-     *
-     * @return mixed The sanitized value.
-     */
     private static function sanitizeValue($value)
     {
         return $value ? trim($value) : $value;

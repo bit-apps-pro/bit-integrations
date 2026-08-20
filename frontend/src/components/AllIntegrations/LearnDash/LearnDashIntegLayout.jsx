@@ -285,7 +285,6 @@ export default function LearnDeshIntegLayout({
                   value: item.lesson_id.toString()
                 }))
               }
-              // onChange={(val) => courseByLessonChangeHandler(val)}
               onChange={val => changeHandler(val, 'lessonId')}
               singleSelect
             />
@@ -316,7 +315,6 @@ export default function LearnDeshIntegLayout({
                   value: item.course_id.toString()
                 }))
               }
-              // onChange={(val) => courseChangeHandler7(val)}
               onChange={val => changeHandler(val, 'courseId')}
               singleSelect
             />
@@ -342,7 +340,6 @@ export default function LearnDeshIntegLayout({
                   value: item.lesson_id.toString()
                 }))
               }
-              // onChange={(val) => courseByLessonChangeHandler7(val)}
               onChange={val => changeHandler(val, 'lessonId')}
               singleSelect
             />
@@ -373,7 +370,6 @@ export default function LearnDeshIntegLayout({
                   value: item.course_id.toString()
                 }))
               }
-              // onChange={(val) => courseChangeHandler(val)}
               onChange={val => changeHandler(val, 'courseId')}
               singleSelect
             />
@@ -399,7 +395,6 @@ export default function LearnDeshIntegLayout({
                   value: item.lesson_id.toString()
                 }))
               }
-              // onChange={(val) => courseByLessonChangeHandler(val)}
               onChange={val => changeHandler(val, 'lessonId')}
               singleSelect
             />
@@ -427,7 +422,6 @@ export default function LearnDeshIntegLayout({
                   value: item.topic_id.toString()
                 }))
               }
-              // onChange={(val) => topicChangeHandler(val)}
               onChange={val => changeHandler(val, 'topicId')}
               singleSelect
             />
@@ -459,7 +453,6 @@ export default function LearnDeshIntegLayout({
                   value: item.course_id.toString()
                 }))
               }
-              // onChange={(val) => courseChangeHandler9(val)}
               onChange={val => changeHandler(val, 'courseId')}
               singleSelect
             />
@@ -485,7 +478,6 @@ export default function LearnDeshIntegLayout({
                   value: item.lesson_id.toString()
                 }))
               }
-              // onChange={(val) => courseByLessonChangeHandler9(val)}
               onChange={val => changeHandler(val, 'lessonId')}
               singleSelect
             />
@@ -513,7 +505,6 @@ export default function LearnDeshIntegLayout({
                   value: item.topic_id.toString()
                 }))
               }
-              // onChange={(val) => topicChangeHandler9(val)}
               onChange={val => changeHandler(val, 'topicId')}
               singleSelect
             />
@@ -628,7 +619,6 @@ export default function LearnDeshIntegLayout({
                 value: item.quiz_id.toString()
               }))
             }
-            // onChange={(val) => quizChangeHandler13(val)}
             onChange={val => changeHandler(val, 'quizId')}
             singleSelect
           />
@@ -669,7 +659,6 @@ export default function LearnDeshIntegLayout({
         </div>
       )}
 
-      {/* { learnDashConf.mainAction === '15' && <Mail allIntegURL={allIntegURL} isInfo={isInfo} edit={edit} isLearnDash learnDashConf={learnDashConf} /> } */}
 
       {learnDashConf.mainAction === '16' && (
         <Mail
@@ -694,7 +683,6 @@ export default function LearnDeshIntegLayout({
                 value: item.course_id.toString()
               }))
             }
-            // onChange={(val) => courseChangeHandler17(val)}
             onChange={val => changeHandler(val, 'courseId')}
             singleSelect
           />

@@ -5,9 +5,6 @@ namespace BitApps\Integrations\Actions\PropovoiceCRM;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -56,10 +53,6 @@ class RecordApiHelper
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $apiResponse = null;
         if ($mainAction == '1') {
-            // $tags = is_array($integrationDetails->tags) ? $integrationDetails->tags : explode(',', $integrationDetails->tags);
-            // $label = $integrationDetails->label;
-            // $finalData['tags'] = $tags;
-            // $finalData['level_id'] = $label;
             $apiResponse = $this->createLead($finalData);
 
             if (!$apiResponse) {

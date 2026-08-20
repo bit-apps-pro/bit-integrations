@@ -387,7 +387,6 @@ export default function FluentCartActions({
   )
 }
 
-// Payment Status Options
 const paymentStatusOptions = [
   { label: __('Pending', 'bit-integrations'), value: 'pending' },
   { label: __('Paid', 'bit-integrations'), value: 'paid' },
@@ -398,7 +397,6 @@ const paymentStatusOptions = [
   { label: __('Failed', 'bit-integrations'), value: 'failed' }
 ]
 
-// Shipping Status Options
 const shippingStatusOptions = [
   { label: __('Unshipped', 'bit-integrations'), value: 'unshipped' },
   { label: __('Shipped', 'bit-integrations'), value: 'shipped' },
@@ -406,13 +404,11 @@ const shippingStatusOptions = [
   { label: __('Unshippable', 'bit-integrations'), value: 'unshippable' }
 ]
 
-// Fulfillment Type Options
 const fulfillmentTypeOptions = [
   { label: __('Physical', 'bit-integrations'), value: 'physical' },
   { label: __('Digital', 'bit-integrations'), value: 'digital' }
 ]
 
-// Product Type Options
 const productTypeOptions = [
   { label: __('Simple', 'bit-integrations'), value: 'simple' },
   { label: __('Variable', 'bit-integrations'), value: 'variable' },
@@ -420,28 +416,24 @@ const productTypeOptions = [
   { label: __('Bundle', 'bit-integrations'), value: 'bundle' }
 ]
 
-// Product Status Options
 const productStatusOptions = [
   { label: __('Active', 'bit-integrations'), value: 'active' },
   { label: __('Draft', 'bit-integrations'), value: 'draft' },
   { label: __('Archived', 'bit-integrations'), value: 'archived' }
 ]
 
-// Stock Status Options
 const stockStatusOptions = [
   { label: __('In Stock', 'bit-integrations'), value: 'in_stock' },
   { label: __('Out of Stock', 'bit-integrations'), value: 'out_of_stock' },
   { label: __('On Backorder', 'bit-integrations'), value: 'on_backorder' }
 ]
 
-// Customer Status Options
 const customerStatusOptions = [
   { label: __('Active', 'bit-integrations'), value: 'active' },
   { label: __('Inactive', 'bit-integrations'), value: 'inactive' },
   { label: __('Pending', 'bit-integrations'), value: 'pending' }
 ]
 
-// Coupon Type Options
 const couponTypeOptions = [
   { label: __('Percentage', 'bit-integrations'), value: 'percentage' },
   { label: __('Fixed Amount', 'bit-integrations'), value: 'fixed_amount' },

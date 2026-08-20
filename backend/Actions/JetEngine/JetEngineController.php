@@ -11,9 +11,6 @@ use Jet_Engine_CPT;
 use Jet_Engine_Tools;
 use WP_Error;
 
-/**
- * Provide functionality for JetEngine integration
- */
 class JetEngineController
 {
     public static function checkedJetEngineExists()

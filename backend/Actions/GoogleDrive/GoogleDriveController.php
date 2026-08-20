@@ -86,7 +86,6 @@ class GoogleDriveController
             'Content-Type'  => 'application/json;',
             'Authorization' => 'Bearer ' . $token,
         ];
-        // for only root folder: and 'root' in parents
         $apiEndpoint = "https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,parents)";
         $apiResponse = HttpHelper::get($apiEndpoint, [], $headers);
         if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
@@ -186,8 +185,6 @@ class GoogleDriveController
 
         if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
-            // refreshToken() returns false on failure, and is_wp_error(false) is false while
-            // false->error reads as null — so a bool used to pass this guard.
             if (!\is_object($refreshToken) || is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
@@ -198,9 +195,6 @@ class GoogleDriveController
                 $token->generates_on = $refreshToken->generates_on;
                 $token->generated_at = $refreshToken->generated_at;
 
-                // Google returns refresh_token ONLY on the initial authorization_code
-                // exchange, never on a refresh_token grant — overwriting it unconditionally
-                // wiped the stored one and the next refresh had nothing to send.
                 if (!empty($refreshToken->refresh_token)) {
                     $token->refresh_token = $refreshToken->refresh_token;
                 }

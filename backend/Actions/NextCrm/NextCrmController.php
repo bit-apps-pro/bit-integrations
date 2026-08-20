@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\NextCrm;
 
 use WP_Error;
 
-/**
- * Provide functionality for NextCrm integration
- */
 class NextCrmController
 {
     public static function isExists()
@@ -90,13 +87,6 @@ class NextCrmController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
-    /**
-     * NextCRM returns its dropdown sources as `[value => label]` maps.
-     *
-     * @param array $map
-     *
-     * @return array
-     */
     private static function toOptions($map)
     {
         $options = [];

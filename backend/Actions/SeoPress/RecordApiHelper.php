@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $actions     Actions to perform
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         if (!\defined('SEOPRESS_VERSION')) {
@@ -58,10 +46,6 @@ class RecordApiHelper
             case 'update_post_meta':
                 $response = Hooks::apply(Config::withPrefix('seopress_update_post_meta'), $defaultResponse, $fieldData);
 
-                /**
-                 * @deprecated 2.7.8 Use `bit_integrations_seopress_update_post_meta` filter instead.
-                 * @since 2.7.8
-                 */
                 $response = Hooks::apply('btcbi_seopress_update_post_meta', $response, $fieldData);
 
                 $actionType = 'update_post_meta';
@@ -85,14 +69,6 @@ class RecordApiHelper
         return $response;
     }
 
-    /**
-     * Prepare field data from field map
-     *
-     * @param array $fieldMap    Field mapping
-     * @param array $fieldValues Field values
-     *
-     * @return array
-     */
     private static function setFieldMap($fieldMap, $fieldValues)
     {
         $fieldData = [];

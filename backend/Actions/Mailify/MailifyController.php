@@ -11,7 +11,6 @@ class MailifyController
     public static array $authConfig = [
         'authType' => AuthorizationType::BASIC_AUTH,
         'slug'     => 'mailify',
-        // Connections store the UI's display name, which carries the Sarbacane rebrand.
         'aliases'  => ['Sarbacane(Mailify)'],
         'fields'   => [
             'account_id' => 'username',

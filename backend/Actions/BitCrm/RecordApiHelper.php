@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\BitCrm;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -438,22 +435,10 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    /**
-     * Merge the selects and pickers the layout renders, plus the Utilities
-     * (conf.utilities.*), into the field-map data, keyed by the CRM field the
-     * action handler reads. Only non-empty values overwrite, so an unset select
-     * never clobbers a mapping.
-     *
-     * @param array  $fieldData
-     * @param string $mainAction
-     *
-     * @return array
-     */
     private function mergeConfiguredValues($fieldData, $mainAction)
     {
         $conf = $this->_integrationDetails;
 
-        // conf select/dropdown key => CRM field key
         $map = [
             'selectedCurrency'  => 'currency',
             'selectedStage'     => 'stage',
@@ -471,9 +456,6 @@ class RecordApiHelper
             'capabilities'      => 'capabilities',
         ];
 
-        // Both of these write `status`, so only the key the chosen action renders
-        // may do it — a leftover `activityStatus` would otherwise win over
-        // `invoiceStatus` on a later save, because it is merged first.
         $exclusive = [
             'activityStatus' => ['update_task_status', 'update_meeting_status', 'update_call_status'],
             'invoiceStatus'  => ['update_invoice', 'update_invoice_status'],
@@ -489,7 +471,6 @@ class RecordApiHelper
             }
         }
 
-        // Fields built from Bit CRM's own definition already carry its field key.
         if (isset($conf->fieldValues)) {
             foreach ((array) $conf->fieldValues as $crmKey => $value) {
                 if ($value === '' || $value === null || $value === []) {
@@ -500,7 +481,6 @@ class RecordApiHelper
             }
         }
 
-        // Utilities (booleans) — e.g. is_shared
         if (isset($conf->utilities) && \is_object($conf->utilities)) {
             foreach (get_object_vars($conf->utilities) as $utilKey => $utilVal) {
                 $fieldData[$utilKey] = $utilVal;

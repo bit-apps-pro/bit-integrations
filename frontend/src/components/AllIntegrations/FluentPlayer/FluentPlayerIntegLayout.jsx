@@ -65,9 +65,6 @@ export default function FluentPlayerIntegLayout({
     }
   }
 
-  // On edit the action is already chosen but the option lists have not been
-  // fetched this session, so rebuild them once on mount. The saved field map is
-  // deliberately left untouched.
   useEffect(() => {
     fetchListsFor(action)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,7 +82,6 @@ export default function FluentPlayerIntegLayout({
     fetchListsFor(value)
   }
 
-  // Fixed option set.
   const renderOptionSelect = (label, confKey, options) => (
     <>
       <br />
@@ -104,8 +100,6 @@ export default function FluentPlayerIntegLayout({
     </>
   )
 
-  // Fetched list the user picks from. Required identifiers are never rendered
-  // here — those live in the field map so they can be mapped from trigger data.
   const renderFetchedSelect = (label, confKey, listKey, onRefresh, multiple = false) => (
     <>
       <br />

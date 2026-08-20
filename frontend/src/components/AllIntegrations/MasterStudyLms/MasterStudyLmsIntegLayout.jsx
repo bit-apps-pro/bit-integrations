@@ -83,7 +83,6 @@ export default function MasterStudyLmsIntegLayout({
     const newConf = { ...msLmsConf, mainAction: val }
     const hasEmailRow = newConf.field_map?.some(f => f.msLmsFormField === 'user_email')
     if (emailActions.includes(val)) {
-      // Keep an existing user_email mapping when switching between email actions.
       if (!hasEmailRow) newConf.field_map = generateMappedField(msLmsUserFields)
     } else {
       newConf.field_map = [{ formField: '', msLmsFormField: '' }]

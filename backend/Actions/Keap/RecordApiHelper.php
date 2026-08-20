@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -73,7 +70,6 @@ class RecordApiHelper
             $triggerValue = $value->formField;
             $actionValue = $value->keapField;
 
-            // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
             if ($triggerValue === 'custom' && strpos($actionValue, 'custom_fields_') === 0) {
                 $customFields[] = (object) [
                     'id'      => str_replace('custom_fields_', '', $actionValue),

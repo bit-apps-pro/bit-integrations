@@ -54,9 +54,4 @@ export const handleMetaCustomValue = (event, index, conftTmp, setConf) => {
   newConf.field_map_meta[index].customMetaFormValue = event
   setConf({ ...newConf })
 }
-// export const handleMetaCustomFieldValue = (event, index, conftTmp, setConf) => {
-//   const newConf = { ...conftTmp }
 
-//   newConf.field_map_meta[index].customMetaGroundValue = event.target.value
-//   setConf({ ...newConf })
-// }

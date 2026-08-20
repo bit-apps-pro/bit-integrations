@@ -9,7 +9,6 @@ final class PostController
 {
     public function __construct()
     {
-        //
     }
 
     public function getPostTypes()
@@ -129,9 +128,6 @@ final class PostController
             $fields = rwmb_get_object_fields($postType);
             foreach ($fields as $index => $field) {
                 if (!\in_array($field['type'], $fileTypes)) {
-                    // if (!in_array($field['type'], $filterTypes)) {
-                    //     $metaboxFields[$index]['name'] = $field['name'];
-                    // }
                     $metaboxFields[$index]['name'] = $field['name'];
                     $metaboxFields[$index]['key'] = $field['id'];
                     $metaboxFields[$index]['required'] = $field['required'] == 1 ? true : false;
@@ -276,7 +272,6 @@ final class PostController
                 }
             }
         }
-        // echo wp_json_encode(array_values($pods->fields) );
         wp_send_json_success(['podFields' => $podField, 'podFiles' => $podFile], 200);
     }
 }

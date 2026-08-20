@@ -24,7 +24,6 @@ export default function Modal({
   }
 
   return (
-    // timeout property is required for CSSTransition. Do not remove it.
     <CSSTransition
       in={show}
       classNames="btc-mdl-trn"
@@ -66,7 +65,6 @@ export default function Modal({
               ''
             )}
             <small className="btcd-mdl-subtitle">{subTitle}</small>
-            {/* {!sm && <div className="btcd-mdl-div" />} */}
             {children}
           </div>
         </div>

@@ -26,8 +26,6 @@ export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL,
 
   const nextPage = val => {
     setTimeout(() => {
-      // Guarded because this fires 300ms later — navigating away in that window
-      // unmounts the wrapper and the stray timer would throw on a null deref.
       const settingsWrp = document.getElementById('btcd-settings-wrp')
 
       if (settingsWrp) {
@@ -57,7 +55,6 @@ export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL,
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <WpTableBuilderAuthorization
         wpTableBuilderConf={wpTableBuilderConf}
         setWpTableBuilderConf={setWpTableBuilderConf}
@@ -66,7 +63,6 @@ export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL,
         isInfo={isInfo}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -96,7 +92,6 @@ export default function WpTableBuilder({ formFields, setFlow, flow, allIntegURL,
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

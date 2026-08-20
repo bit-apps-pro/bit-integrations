@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\Wsms;
 
 use WP_Error;
 
-/**
- * Provide functionality for WSMS (WP SMS) integration
- */
 class WsmsController
 {
     public static function isExists()

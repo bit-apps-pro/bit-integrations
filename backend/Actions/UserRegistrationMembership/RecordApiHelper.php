@@ -6,9 +6,6 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for User Registration and Membership integration.
- */
 class RecordApiHelper
 {
     private $_integrationID;

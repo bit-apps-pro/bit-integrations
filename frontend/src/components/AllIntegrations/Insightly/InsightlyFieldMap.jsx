@@ -98,8 +98,6 @@ export default function InsightlyFieldMap({ i, formFields, field, insightlyConf,
                 </option>
               ))
             )}
-            {/* {(insightlyConf.actionName === 'organisation' || insightlyConf.actionName === 'contact' || insightlyConf.actionName === 'opportunity' || insightlyConf.actionName === 'task' || insightlyConf.actionName === 'lead')
-              && <option value="customFieldKey">{__('Custom Field', 'bit-integrations')}</option>} */}
           </select>
           {field.insightlyFormField === 'customFieldKey' && (
             <CustomField

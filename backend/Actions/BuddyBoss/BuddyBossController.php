@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\BuddyBoss;
 use BitApps\Integrations\Config;
 use WP_Error;
 
-/**
- * Provide functionality for BuddyBoss integration
- */
 class BuddyBossController
 {
     public static function pluginActive($option = null)
@@ -111,8 +108,6 @@ class BuddyBossController
         wp_send_json_success($topics);
     }
 
-    // for action 11 - BuddyBoss update started
-
     public static function registerComponents($component_names, $active_components)
     {
         $component_names = ! \is_array($component_names) ? [] : $component_names;
@@ -139,8 +134,6 @@ class BuddyBossController
 
         return $content;
     }
-
-    // end action 11
 
     public function execute($integrationData, $fieldValues)
     {

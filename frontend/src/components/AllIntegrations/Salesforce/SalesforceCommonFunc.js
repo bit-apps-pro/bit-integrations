@@ -33,42 +33,6 @@ export const handleInput = (
   setSalesforceConf({ ...newConf })
 }
 
-// export const getAllCampaignList = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
-//   setIsLoading(true)
-//   const campaignRequestParams = {
-//     formID,
-//     clientId: salesforceConf.clientId,
-//     clientSecret: salesforceConf.clientSecret,
-//     tokenDetails: salesforceConf.tokenDetails,
-//   }
-//   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_campaign_list')
-//     .then(result => {
-//       if (result && result.success) {
-//         const newConf = { ...salesforceConf }
-//         if (!newConf.default) newConf.default = {}
-//         if (!newConf.default?.campaignLists) {
-//           newConf.default.campaignLists = {}
-//         }
-//         if (result.data.allCampaignLists) {
-//           newConf.default.campaignLists = result.data.allCampaignLists
-//         }
-//         if (result.data.tokenDetails) {
-//           newConf.tokenDetails = result.data.tokenDetails
-//         }
-//         setSalesforceConf({ ...newConf })
-//         setIsLoading(false)
-//         return __('Campaign list refreshed','bit-integrations')
-//       }
-//       setIsLoading(false)
-//       return __('Campaign list refresh failed. please try again','bit-integrations')
-//     })
-//   toast.promise(loadPostTypes, {
-//     success: data => data,
-//     error: __('Error Occurred', 'bit-integrations'),
-//     loading: __('Loading Campaign list...'),
-//   })
-// }
-
 export const getAllCampaignList = (
   formID,
   salesforceConf,
@@ -570,42 +534,6 @@ export const getAllCustomActionModules = (
     )
   })
 }
-
-// export const getAllAccountList = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
-//   setIsLoading(true)
-//   const campaignRequestParams = {
-//     formID,
-//     clientId: salesforceConf.clientId,
-//     clientSecret: salesforceConf.clientSecret,
-//     tokenDetails: salesforceConf.tokenDetails,
-//   }
-//   const loadPostTypes = bitsFetch(campaignRequestParams, 'selesforce_account_list')
-//     .then(result => {
-//       if (result && result.success) {
-//         const newConf = { ...salesforceConf }
-//         if (!newConf.default) newConf.default = {}
-//         if (!newConf.default?.accountLists) {
-//           newConf.default.accountLists = {}
-//         }
-//         if (result.data.accountLists) {
-//           newConf.default.accountLists = result.data.accountLists
-//         }
-//         if (result.data.tokenDetails) {
-//           newConf.tokenDetails = result.data.tokenDetails
-//         }
-//         setSalesforceConf({ ...newConf })
-//         setIsLoading(false)
-//         return __('Account list refreshed','bit-integrations')
-//       }
-//       setIsLoading(false)
-//       return __('Account list refresh failed. please try again','bit-integrations')
-//     })
-//   toast.promise(loadPostTypes, {
-//     success: data => data,
-//     error: __('Error Occurred', 'bit-integrations'),
-//     loading: __('Loading Account list...'),
-//   })
-// }
 
 export const getAllUserList = (formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)

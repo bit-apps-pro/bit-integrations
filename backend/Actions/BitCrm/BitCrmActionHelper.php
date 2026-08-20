@@ -462,12 +462,6 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Product not found.', 'bit-integrations')];
         }
 
-        /*
-         * Bit CRM's product update request builds its unique-code rule from a
-         * Request instance, so the product cannot be excluded from that check
-         * when the payload is a plain array. Write the product here instead and
-         * run the same uniqueness check ourselves.
-         */
         if (!empty($systemValues['code']) && $systemValues['code'] !== $product->code) {
             $duplicate = \BitApps\CrmPro\Model\Product::findOne(['code' => $systemValues['code'], 'is_trash' => 0]);
 
@@ -482,8 +476,6 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Failed to update product.', 'bit-integrations')];
         }
 
-        // Writing the model directly skips the service that would normally store
-        // these, so they are saved here instead.
         BitCrmCustomField::save('product', $productId, BitCrmCustomField::values($fieldData, 'product'));
 
         do_action('bit_crm/product_updated', $product);
@@ -574,15 +566,10 @@ final class BitCrmActionHelper
 
         $update = ['stage' => $fieldData['stage'], 'updated_by' => get_current_user_id()];
 
-        // Bit CRM rewrites the probability on every stage change; leaving it would
-        // keep the odds of the stage before.
         if (isset($definition['probability'])) {
             $update['probability'] = $definition['probability'];
         }
 
-        // Required on a stage that closes the deal, asked for on no other. When the
-        // stages cannot be read $definition is null and the category reads as '', so
-        // this is skipped along with the stage check above.
         if (\in_array($definition['deal_category'] ?? '', ['closed_won', 'closed_lost'], true)) {
             $closedAt = self::dealClosingDate($fieldData['closed_at'] ?? '');
 
@@ -616,8 +603,6 @@ final class BitCrmActionHelper
 
         $leadId = (int) $fieldData['lead_id'];
 
-        // LeadConvertService always creates the contact and the company; only the
-        // deal is gated on convertTo. Older flows could store either one out.
         $convertTo = array_values(array_unique(array_merge(
             ['contact', 'company'],
             self::csvList($fieldData['convert_to'])
@@ -645,8 +630,6 @@ final class BitCrmActionHelper
 
             $service->convertToDeals($convertedContacts);
 
-            // Without this the lead stays listed as unconverted and every later
-            // run creates another contact, company and deal from it.
             \BitApps\Crm\Model\Lead::where('id', $leadId)->update(['is_converted' => 1]);
 
             \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::commit();
@@ -720,7 +703,6 @@ final class BitCrmActionHelper
 
         $updateData = ['updated_by' => get_current_user_id()];
 
-        // Bit CRM regenerates the slug from the title on every tag update.
         if (!empty($fieldData['title'])) {
             $updateData['title'] = $fieldData['title'];
             $updateData['slug'] = \BitApps\Crm\Deps\BitApps\WPKit\Helpers\Slug::generate($fieldData['title']);
@@ -762,7 +744,6 @@ final class BitCrmActionHelper
 
         try {
             $tags->delete();
-            // The tags are gone, so drop their entity relations too, as Bit CRM does.
             \BitApps\Crm\Model\TagEntity::whereIn('tag_id', $tagIds)->delete();
         } catch (Throwable $th) {
             return ['success' => false, 'message' => $th->getMessage()];
@@ -790,8 +771,6 @@ final class BitCrmActionHelper
 
         $isShared = !empty($fieldData['is_shared']);
 
-        // Sharing needs the linked contact to hold a portal account with notes
-        // enabled, so let Bit CRM run that check rather than duplicating it.
         if ($isShared && class_exists('BitApps\Crm\Services\NoteService')) {
             $validation = (new \BitApps\Crm\Services\NoteService())->validateSharedNote((int) $note->entity_id);
 
@@ -957,7 +936,6 @@ final class BitCrmActionHelper
             return $error;
         }
 
-        // Bit CRM locks paid invoices; respect that instead of writing behind its back.
         if ($invoice->status === \BitApps\Crm\Model\Invoice::STATUS_PAID) {
             return ['success' => false, 'message' => __('Cannot update a paid invoice.', 'bit-integrations')];
         }
@@ -1054,7 +1032,6 @@ final class BitCrmActionHelper
         \BitApps\Crm\Deps\BitApps\WPDatabase\Connection::startTransaction();
 
         try {
-            // Bit CRM soft-deletes invoices: flag the row and mirror it into the trash bin.
             \BitApps\Crm\Model\Invoice::whereIn('id', [$invoiceId])->update(['is_trash' => true]);
 
             \BitApps\Crm\Model\Trash::insert([
@@ -1091,8 +1068,6 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('This contact already has client portal access.', 'bit-integrations')];
         }
 
-        // Creates the WordPress user when the email is new, and queues Bit CRM's
-        // access email with the generated password.
         $result = $portalService->upsertPortalUser($contact, self::portalCapabilities($fieldData));
 
         if (is_wp_error($result)) {
@@ -1169,7 +1144,6 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('This contact does not have client portal access.', 'bit-integrations')];
         }
 
-        // Strips the portal capabilities only; the WordPress account survives.
         if (!$portalService->revokePortalAccess((int) $user->ID)) {
             return ['success' => false, 'message' => __('Failed to revoke client portal access.', 'bit-integrations')];
         }
@@ -1187,7 +1161,6 @@ final class BitCrmActionHelper
         }
 
         $required = ['title', 'entity_id', 'module', 'assigned_to'];
-        // Bit CRM itself only requires a priority on tasks.
         if ($type === 'task') {
             $required[] = 'priority';
         }
@@ -1211,8 +1184,6 @@ final class BitCrmActionHelper
         if (!empty($fieldData['priority'])) {
             $payload['priority'] = $fieldData['priority'];
         }
-        // Only set due_date when supplied — the column is nullable and an empty
-        // string is rejected by MySQL strict mode as an invalid datetime.
         if (!empty($fieldData['due_date'])) {
             $payload['due_date'] = $fieldData['due_date'];
         }
@@ -1229,13 +1200,6 @@ final class BitCrmActionHelper
         return self::success(\sprintf(__('%s created successfully.', 'bit-integrations'), ucfirst($type)), $activity);
     }
 
-    /**
-     * Apply the supplied fields to an existing activity. Only fields carrying a
-     * value are written, so a flow can change one column without blanking the rest.
-     *
-     * @param string $type      one of task|meeting|call
-     * @param array  $fieldData
-     */
     private static function modifyActivity($type, $fieldData)
     {
         [$activity, $error] = self::resolveActivity($type, $fieldData);
@@ -1323,15 +1287,6 @@ final class BitCrmActionHelper
         return self::success(\sprintf(__('%s deleted successfully.', 'bit-integrations'), ucfirst($type)), $deletedActivity);
     }
 
-    /**
-     * Load the configured activity and confirm it is of the expected type, so a
-     * Delete Task never touches a meeting that happens to share the id space.
-     *
-     * @param string $type      one of task|meeting|call
-     * @param array  $fieldData
-     *
-     * @return array{0: mixed, 1: null|array}
-     */
     private static function resolveActivity($type, $fieldData)
     {
         if (!class_exists('BitApps\Crm\Model\Activity')) {
@@ -1352,11 +1307,6 @@ final class BitCrmActionHelper
         return [$activity, null];
     }
 
-    /**
-     * @param mixed $fieldData
-     *
-     * @return array{0: mixed, 1: null|array}
-     */
     private static function resolveInvoice($fieldData)
     {
         if (!class_exists('BitApps\Crm\Model\Invoice')) {
@@ -1376,15 +1326,6 @@ final class BitCrmActionHelper
         return [$invoice, null];
     }
 
-    /**
-     * Load the contact and the WordPress user behind its email. The user is null
-     * when no account exists yet, which is valid for granting access and an error
-     * for everything else.
-     *
-     * @param array $fieldData
-     *
-     * @return array{0: mixed, 1: mixed, 2: string, 3: null|array}
-     */
     private static function resolvePortalContact($fieldData)
     {
         foreach (['BitApps\CrmPro\Services\ClientPortalService', 'BitApps\Crm\Model\Contact'] as $class) {
@@ -1414,14 +1355,6 @@ final class BitCrmActionHelper
         return [$contact, $user ?: null, $email, null];
     }
 
-    /**
-     * Turn the selected capability list into the `[shortName => true]` map Bit CRM
-     * expects. An empty selection makes Bit CRM apply its own portal defaults.
-     *
-     * @param array $fieldData
-     *
-     * @return array<string, bool>
-     */
     private static function portalCapabilities($fieldData)
     {
         $capabilities = [];
@@ -1445,18 +1378,6 @@ final class BitCrmActionHelper
         return ['success' => false, 'message' => \sprintf(__('The field "%s" is required.', 'bit-integrations'), $field)];
     }
 
-    /**
-     * Whether Bit CRM currently offers this stage, so a typo cannot be written
-     * into the column.
-     *
-     * @param string $stage
-     *
-     * @return bool
-     */
-    /**
-     * The site's deal stages keyed by stage key. Empty when they cannot be read,
-     * which leaves the stage unvalidated rather than rejected.
-     */
     private static function dealStages()
     {
         if (!class_exists('BitApps\Crm\Services\DealStageService')) {
@@ -1477,13 +1398,6 @@ final class BitCrmActionHelper
         return $stages;
     }
 
-    /**
-     * Every branch returns a bare site-local `Y-m-d H:i:s`, the shape Bit CRM's
-     * own stage modal submits. Formatting one input as local and another as UTC
-     * would store the same instant two ways. Null when nothing usable was mapped.
-     *
-     * @param mixed $value
-     */
     private static function dealClosingDate($value)
     {
         $value = trim((string) $value);
@@ -1510,10 +1424,6 @@ final class BitCrmActionHelper
             return;
         }
 
-        // WordPress pins PHP's default timezone to UTC, so a string without one of
-        // its own parses to a UTC instant here. get_date_from_gmt() carries it back
-        // to site-local through the site's timezone, which follows daylight saving;
-        // the raw gmt_offset option does not.
         return get_date_from_gmt(gmdate('Y-m-d H:i:s', $timestamp), 'Y-m-d H:i:s');
     }
 
@@ -1543,8 +1453,6 @@ final class BitCrmActionHelper
     {
         $values = array_diff_key((array) $fieldData, array_flip($drop));
 
-        // Custom fields travel in their own payload key, so they must not reach
-        // the entity's own columns.
         $values = BitCrmCustomField::withoutCustomKeys($values);
 
         return array_filter($values, static function ($v) {
@@ -1563,7 +1471,6 @@ final class BitCrmActionHelper
             $errors = \is_array($result) ? ($result['errors'] ?? null) : null;
 
             if (\is_array($errors)) {
-                // Validation errors arrive keyed by field, each holding its own list.
                 $flattened = [];
                 array_walk_recursive($errors, static function ($message) use (&$flattened) {
                     $flattened[] = $message;

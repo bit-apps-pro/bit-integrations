@@ -1,11 +1,4 @@
-// Shared template/placeholder resolution helpers for connection auth components.
-// Extracted verbatim from ApiConnection / Oauth1Connection / Oauth2Connection so
-// the behavior stays byte-for-byte identical across every connection type.
 
-// Resolves {fieldName} placeholders in URL templates using auth/form data values.
-// Strips trailing slashes from substituted string values to avoid double-slash in
-// paths. Unknown tokens are replaced with '' (empty required fields are caught by
-// validation).
 export const resolveTemplate = (template, data) => {
   if (!template) return ''
   return template.replace(/\{(\w+)\}/g, (_, key) => {

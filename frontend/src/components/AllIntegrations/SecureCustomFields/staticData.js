@@ -45,8 +45,6 @@ export const OptionFields = [
   { key: 'field_value', label: __('Field Value', 'bit-integrations'), required: true }
 ]
 
-// Actions that use dynamic sub-field mapping (config inputs + repeatable sub-field rows)
-// instead of a fixed field list.
 export const dynamicActions = ['update_group_field_value', 'update_repeater_field_value']
 
 export const emptySubFieldMap = () => [

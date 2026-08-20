@@ -89,11 +89,6 @@ export const modules = [
   { name: 'upsert_contact', label: __('Upsert Contact', 'bit-integrations'), is_pro: true }
 ]
 
-/**
- * Field map per action. Holds the required identifier of the record the action targets —
- * so it stays mappable from trigger data — plus free text. Fetchable config values are
- * dropdowns instead (see the needs* lists below).
- */
 export const fieldsByAction = {
   add_contacts_to_list: [
     { key: 'list_uuid', label: __('List UUID', 'bit-integrations'), required: true },
@@ -160,7 +155,6 @@ export const fieldsByAction = {
     },
     { key: 'tag_uuids', label: __('Tag UUIDs (comma separated)', 'bit-integrations'), required: true }
   ],
-  // The bulk endpoint keys the list as `uuids`, not `campaign_uuids` like the rest.
   bulk_delete_campaigns: [
     {
       key: 'uuids',
@@ -244,8 +238,6 @@ export const fieldsByAction = {
     { key: 'status', label: __('Status', 'bit-integrations'), required: false },
     { key: 'design_json', label: __('Design JSON', 'bit-integrations'), required: false }
   ],
-  // A purchase has to name a contact — the API rejects it with "Either contact_email or
-  // contact_uuid is required."
   create_purchase: [
     {
       key: 'contact_email',
@@ -378,8 +370,6 @@ export const fieldsByAction = {
       required: false
     }
   ],
-  // The endpoint addresses a SureContact contact, not a raw address, and keys the html
-  // as `body` — a `to`/`html` payload is rejected outright.
   update_campaign: [
     { key: 'campaign_uuid', label: __('Campaign UUID', 'bit-integrations'), required: true },
     { key: 'name', label: __('Campaign Name', 'bit-integrations'), required: false },
@@ -488,11 +478,9 @@ export const fieldsByAction = {
   ]
 }
 
-// Fetchable config choices, not target identifiers — rendered as dropdowns.
 export const needsList = ['create_contact', 'upsert_contact']
 export const needsTag = ['create_contact', 'upsert_contact']
 
-// Fixed option sets — rendered as selects, never mapped (skill Rule 16).
 export const genderOptions = [
   { label: __('Male', 'bit-integrations'), value: 'male' },
   { label: __('Female', 'bit-integrations'), value: 'female' },
@@ -502,10 +490,8 @@ export const genderOptions = [
 
 export const needsGender = ['create_contact', 'upsert_contact', 'update_contact']
 
-// Actions that render the Utilities section.
 export const hasUtilities = needsGender
 
-// Verified against the API: PATCH /contacts/{uuid}/status rejects anything else.
 export const contactStatusOptions = [
   { label: __('Active', 'bit-integrations'), value: 'active' },
   { label: __('Unsubscribed', 'bit-integrations'), value: 'unsubscribed' },
@@ -514,8 +500,6 @@ export const contactStatusOptions = [
   { label: __('Complained', 'bit-integrations'), value: 'complained' }
 ]
 
-// The activity feed uses the platform's own event vocabulary; anything else is
-// rejected with "Invalid activity type".
 export const activityTypeOptions = [
   'contact_created',
   'contact_updated',

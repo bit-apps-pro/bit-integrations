@@ -170,7 +170,6 @@ function EditJetEngine({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!jetEngineConf?.selectedLists}
         isLoading={isLoading}
         dataConf={jetEngineConf}
         setDataConf={setJetEngineConf}

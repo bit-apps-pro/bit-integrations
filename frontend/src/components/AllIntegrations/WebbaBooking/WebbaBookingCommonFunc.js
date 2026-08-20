@@ -122,8 +122,6 @@ export const refreshWebbaCoupons = (setWebbaBookingConf, setIsLoading) =>
 export const checkMappedFields = webbaBookingConf => {
   const fieldMap = webbaBookingConf?.field_map || []
 
-  // A partially-filled row is always invalid: one side set without the other,
-  // or a custom value left blank.
   const hasIncompleteRow = fieldMap.some(
     mappedField =>
       (mappedField.formField && !mappedField.webbaBookingField) ||
@@ -134,8 +132,6 @@ export const checkMappedFields = webbaBookingConf => {
     return false
   }
 
-  // Every required Webba field must be mapped. Fully-empty rows are allowed so
-  // that actions whose fields are all optional (e.g. cancel_booking) can be saved.
   const requiredKeys = (webbaBookingConf?.webbaBookingFields || [])
     .filter(fld => fld.required === true)
     .map(fld => fld.key)

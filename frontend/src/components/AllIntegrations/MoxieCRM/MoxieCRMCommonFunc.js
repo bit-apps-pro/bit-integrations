@@ -57,37 +57,6 @@ const buildAuthRequestParams = confTmp =>
         api_url: confTmp.api_url
       }
 
-// export const getCustomFields = (confTmp, setConf, setLoading) => {
-//   setLoading({ ...setLoading, customFields: true });
-
-//   const requestParams = {
-//     api_key: confTmp.api_key,
-//     api_url: confTmp.api_url,
-//     action: confTmp.actionName,
-//   };
-
-//   bitsFetch(requestParams, "moxiecrm_fetch_custom_fields").then((result) => {
-//     if (result && result.success) {
-//       const newConf = { ...confTmp };
-//       if (result.data) {
-//         newConf.customFields = result.data;
-//       }
-//       setConf(newConf);
-//       setLoading({ ...setLoading, customFields: false });
-//       if (!result.data) {
-//         toast.error(__("No custom fields found", "bit-integrations"));
-//       } else {
-//         toast.success(
-//           __("Custom fields also fetched successfully", "bit-integrations")
-//         );
-//       }
-//       return;
-//     }
-//     setLoading({ ...setLoading, customFields: false });
-//     toast.error(__("Custom fields fetching failed", "bit-integrations"));
-//   });
-// };
-
 export const getAllClients = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, clients: true })
 

@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\BadgeOS;
 
 use WP_Error;
 
-/**
- * Provide functionality for BadgeOS integration
- */
 class BadgeOSController
 {
     public static function isExists()

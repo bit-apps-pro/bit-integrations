@@ -116,7 +116,6 @@ function NotionIntegLayout({ notionConf, setNotionConf, formFields, loading, set
         </div>
       )}
 
-      {/* --- PAGE Loader --- */}
 
       {(loading.page || loading.field) && (
         <Loader

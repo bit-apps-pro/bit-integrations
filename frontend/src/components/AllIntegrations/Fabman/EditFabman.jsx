@@ -42,10 +42,6 @@ function EditFabman({ allIntegURL }) {
       const customValue = (emailRow.customValue || '').trim()
       return !customValue || !checkValidEmail(customValue)
     }
-    // Non-custom: a form field is selected. Consider valid if:
-    // - field type is email, OR
-    // - type is missing/unknown, OR
-    // - field name/label includes "email"
     const selectedField = (formField || []).find(f => f.name === emailRow.formField)
 
     if (!selectedField) return true

@@ -123,8 +123,6 @@ class ZoomWebinarController
 
         if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
-            // refreshToken() returns false on failure, and is_wp_error(false) is false while
-            // false->error reads as null — so a bool used to pass this guard.
             if (!\is_object($refreshToken) || is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
@@ -135,8 +133,6 @@ class ZoomWebinarController
                 $token->generates_on = $refreshToken->generates_on;
                 $token->generated_at = $refreshToken->generated_at;
 
-                // Zoom rotates refresh_token on every refresh, but a response that omits it
-                // must not wipe the stored one — that leaves nothing to refresh with.
                 if (!empty($refreshToken->refresh_token)) {
                     $token->refresh_token = $refreshToken->refresh_token;
                 }

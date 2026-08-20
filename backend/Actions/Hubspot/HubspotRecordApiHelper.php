@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class HubspotRecordApiHelper
 {
     private $defaultHeader;
@@ -245,10 +242,6 @@ class HubspotRecordApiHelper
         $typeName = "{$actionName}-update";
         $response = Hooks::apply(Config::withPrefix('hubspot_update_entity'), $id, $finalData, $actionName, $this->defaultHeader);
 
-        /**
-         * @deprecated 2.7.8 Use `bit_integrations_hubspot_update_entity` filter instead.
-         * @since 2.7.8
-         */
         $response = Hooks::apply('btcbi_hubspot_update_entity', $response, $id, $finalData, $actionName, $this->defaultHeader);
 
         if (\is_string($response) && $response == $id) {

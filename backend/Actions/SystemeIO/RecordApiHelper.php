@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\SystemeIO;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $integrationDetails;

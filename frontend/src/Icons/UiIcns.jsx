@@ -1,9 +1,3 @@
-/**
- * Icon set for the settings rows and the documentation cards. Kept in one file
- * so the whole set shares a grid, stroke weight and cap style — mixing the
- * existing per-file icons here reads as several different sets stacked on top
- * of each other.
- */
 
 function Frame({ size, className, children }) {
   return (

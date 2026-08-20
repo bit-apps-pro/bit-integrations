@@ -14,9 +14,6 @@ use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoBiginController
 {
     public static array $authConfig = [
@@ -60,7 +57,6 @@ class ZohoBiginController
         $modulesMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v1/settings/modules";
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $modulesMetaResponse = HttpHelper::get($modulesMetaApiEndpoint, null, $authorizationHeader);
-        // wp_send_json_success($modulesMetaResponse, 200);
         if (!is_wp_error($modulesMetaResponse) && (empty($modulesMetaResponse->status) || (!empty($modulesMetaResponse->status) && $modulesMetaResponse->status !== 'error'))) {
             $retriveModuleData = $modulesMetaResponse->modules;
             $allModules = [];
@@ -86,13 +82,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh  modules
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshPLayouts($queryParams)
     {
         if (
@@ -116,7 +105,6 @@ class ZohoBiginController
         $layoutsMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v2/settings/layouts?module=Deals";
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $layoutsMetaResponse = HttpHelper::get($layoutsMetaApiEndpoint, null, $authorizationHeader);
-        // wp_send_json_success($layoutsMetaResponse, 200);
         if (!is_wp_error($layoutsMetaResponse) && (empty($layoutsMetaResponse->status) || (!empty($layoutsMetaResponse->status) && $layoutsMetaResponse->status !== 'error'))) {
             $retriveLayoutsData = $layoutsMetaResponse->layouts;
             $allLayouts = [];
@@ -140,13 +128,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh related lists
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshRelatedModules($queryParams)
     {
         if (
@@ -181,11 +162,6 @@ class ZohoBiginController
                 'plural_label' => 'Calls'
             ],
         ];
-        // $modulesMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v1/settings/related_lists";
-        // $authorizationHeader["Authorization"] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
-        // $requiredParams['module'] = $queryParams->module;
-        // $modulesMetaResponse = HttpHelper::get($modulesMetaApiEndpoint, $queryParams, $authorizationHeader);
-        // wp_send_json_success($modulesMetaResponse, 200);
         foreach ($allModules as $module) {
             if ($module->api_name !== $queryParams->module) {
                 $relatedModules[$module->plural_label] = (object) [
@@ -203,13 +179,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin layouts
-     *
-     * @param object $queryParams Params to fetch fields of module
-     *
-     * @return JSON bigin layout data
-     */
     public static function getFields($queryParams)
     {
         if (
@@ -255,15 +224,6 @@ class ZohoBiginController
                     $requiredFields[] = $field->api_name;
                 }
             }
-
-            // $fields['Pipeline'] = (object) array(
-            //         'api_name' => 'Pipeline',
-            //         'display_label' => 'Pipeline',
-            //         'data_type' => 'text',
-            //         'length' => 120,
-            //         'required' => true
-            //     );
-            // $requiredFields[] = 'Pipeline';
 
             uksort($fields, 'strnatcasecmp');
             uksort($fileUploadFields, 'strnatcasecmp');
@@ -317,10 +277,6 @@ class ZohoBiginController
         $response['tags'] = Hooks::apply(Config::withPrefix('zbigin_get_tags'), [], $accessToken, $queryParams->dataCenter, $queryParams->module);
 
         if (empty($response['tags'])) {
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_zbigin_get_tags` filter instead.
-             * @since 2.7.8
-             */
             $response['tags'] = Hooks::apply('btcbi_zbigin_get_tags', [], $accessToken, $queryParams->dataCenter, $queryParams->module);
         }
 
@@ -428,7 +384,6 @@ class ZohoBiginController
             $fieldMap,
             $actions,
             $required,
-            // $fileMap,
             $integrationDetails
         );
         if (is_wp_error($zBiginApiResponse)) {
@@ -485,13 +440,6 @@ class ZohoBiginController
         return $zBiginApiResponse;
     }
 
-    /**
-     * Helps to refresh zoho bigin access_token
-     *
-     * @param array $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
     protected static function _refreshAccessToken($apiData)
     {
         if (
@@ -524,15 +472,6 @@ class ZohoBiginController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param int        $integrationID ID of Zoho bigin Integration
-     * @param Obeject    $tokenDetails  refreshed token info
-     * @param null|mixed $others
-     *
-     * @return null
-     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

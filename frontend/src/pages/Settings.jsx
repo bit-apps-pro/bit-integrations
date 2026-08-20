@@ -57,19 +57,16 @@ function Settings() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch analytics/check — route exists only when pro plugin active
     const fetchAnalytics = bitsFetch({}, 'analytics/check', '', 'GET').then(res => {
       if (res?.success) setShowAnalyticsOptin(res.data)
     })
 
-    // Fetch get/config
     const fetchConfig = bitsFetch({}, 'get/config', null, 'GET').then(res => {
       if ('success' in res && res.success) {
         setAppConf(res.data)
       }
     })
 
-    // Execute both fetches in parallel
     Promise.all([fetchAnalytics, fetchConfig])
       .catch(() => {
         toast.error(__('Could not load settings', 'bit-integrations'))

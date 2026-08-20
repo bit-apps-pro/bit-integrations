@@ -40,12 +40,7 @@ export default function Authorization({
   const [isPendingPostAuth, setIsPendingPostAuth] = useState(false)
 
   const connectionSwitch = useConnectionSwitch()
-  // Read-only page, but the connection stays changeable — including creating a
-  // new one and pointing the saved flow at it.
   const canSwitch = Boolean(isInfo && connectionSwitch?.enabled)
-  // The info page holds no integration setter, so the sub-form's config writes
-  // (extra auth fields some actions persist beside connection_id) are collected
-  // here and handed to the flow update instead of being dropped.
   const pendingConfig = useRef({})
 
   const captureConfig = useCallback(
@@ -86,8 +81,6 @@ export default function Authorization({
       const savedConnections = res?.success && Array.isArray(res?.data?.data) ? res.data.data : []
 
       setConnections(savedConnections)
-      // An empty list opens the create form on the wizard steps, but the info
-      // page must stay quiet until the user asks for a new connection.
       setShowNewConnection(current => current || (savedConnections.length === 0 && !isInfo))
       return savedConnections
     } catch {
@@ -293,8 +286,6 @@ export default function Authorization({
         </button>
       )}
 
-      {/* Switched connection: the field mapping still targets the old account,
-      so hand the user off to the edit wizard to review it. */}
       {canSwitch && connectionSwitch.switched && (
         <button
           onClick={connectionSwitch.onNext}

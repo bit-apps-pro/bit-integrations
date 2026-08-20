@@ -41,7 +41,6 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
     actions: {},
     selzyFields: [
       { key: 'email', label: 'Email', required: true },
-      // { key: 'name', label: 'Name', required: false },
       { key: 'phone', label: 'Phone Number', required: false }
     ]
   })
@@ -56,7 +55,6 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* --- STEP 1 --- */}
 
       <SelzyAuthorization
         selzyConf={selzyConf}
@@ -67,7 +65,6 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-      {/* --- STEP 2 --- */}
 
       <StepPage step={step} stepNo={2} style={{ width: 900, height: 'auto', overflow: 'visible' }}>
         <SelzyIntegLayout
@@ -91,7 +88,6 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </StepPage>
 
-      {/* --- STEP 3 --- */}
       {selzyConf.listIds && (
         <IntegrationStepThree
           step={step}

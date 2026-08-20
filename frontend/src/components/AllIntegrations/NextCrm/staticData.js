@@ -122,7 +122,6 @@ export const nextCrmStaticData = {
   send_campaign_email: CampaignEmailFields
 }
 
-// Fixed option sets — rendered as selects, never mapped.
 export const activityStatusOptions = [
   { label: __('Active', 'bit-integrations'), value: 'active' },
   { label: __('Deactive', 'bit-integrations'), value: 'deactive' },
@@ -134,14 +133,12 @@ export const yesNoOptions = [
   { label: __('Yes', 'bit-integrations'), value: 'yes' }
 ]
 
-// Required config selects → IntegLayout.
 export const needsStatus = ['change_contact_status']
 export const needsContactField = ['update_contact_field']
 export const needsTag = ['add_tag_to_contact', 'remove_tag_from_contact']
 export const needsList = ['add_contact_to_list', 'remove_contact_from_list']
 export const needsCampaign = ['send_campaign_email']
 
-// Optional config selects → Utilities.
 export const hasUtilities = [
   'create_contact',
   'update_contact',

@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,update, exist
- */
 class RecordApiHelper
 {
     private const V2_HEADER_VERSION = '2021-07-28';
@@ -64,10 +61,6 @@ class RecordApiHelper
         if ($this->version === 'v2' && $this->locationId !== '') {
             $response = Hooks::apply(Config::withPrefix('high_level_v2_create_contact'), $this->v2DefaultResponse, $apiRequestData, $this->apiKey, $this->locationId);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_v2_create_contact` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_high_level_v2_create_contact', $response, $apiRequestData, $this->apiKey, $this->locationId);
 
             return $response;
@@ -101,10 +94,6 @@ class RecordApiHelper
         if ($this->version === 'v2') {
             $response = Hooks::apply(Config::withPrefix('high_level_v2_update_contact'), $this->v2DefaultResponse, $apiRequestData, $this->apiKey, $id);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_v2_update_contact` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_high_level_v2_update_contact', $response, $apiRequestData, $this->apiKey, $id);
 
             return $response;
@@ -146,10 +135,6 @@ class RecordApiHelper
         if ($this->version === 'v2') {
             $response = Hooks::apply(Config::withPrefix('high_level_v2_create_task'), $this->v2DefaultResponse, $apiRequestData, $this->apiKey, $contactId);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_v2_create_task` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_high_level_v2_create_task', $response, $apiRequestData, $this->apiKey, $contactId);
 
             return $response;
@@ -201,10 +186,6 @@ class RecordApiHelper
         if ($this->version === 'v2') {
             $response = Hooks::apply(Config::withPrefix('high_level_v2_update_task'), $this->v2DefaultResponse, $apiRequestData, $this->apiKey, $contactId, $taskId);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_v2_update_task` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_high_level_v2_update_task', $response, $apiRequestData, $this->apiKey, $contactId, $taskId);
 
             return $response;
@@ -242,10 +223,6 @@ class RecordApiHelper
         if ($this->version === 'v2' && $this->locationId !== '') {
             $response = Hooks::apply(Config::withPrefix('high_level_v2_create_opportunity'), $this->v2DefaultResponse, $apiRequestData, $this->apiKey, $this->locationId, $selectedOptions['selectedPipeline']);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_v2_create_opportunity` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_high_level_v2_create_opportunity', $response, $apiRequestData, $this->apiKey, $this->locationId, $selectedOptions['selectedPipeline']);
 
             return $response;
@@ -293,10 +270,6 @@ class RecordApiHelper
         if ($this->version === 'v2' && $this->locationId !== '') {
             $response = Hooks::apply(Config::withPrefix('high_level_v2_update_opportunity'), $this->v2DefaultResponse, $apiRequestData, $this->apiKey, $opportunityId, $selectedOptions['selectedPipeline']);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_v2_update_opportunity` filter instead.
-             * @since 2.7.8
-             */
             $response = Hooks::apply('btcbi_high_level_v2_update_opportunity', $response, $apiRequestData, $this->apiKey, $opportunityId, $selectedOptions['selectedPipeline']);
 
             return $response;
@@ -402,10 +375,6 @@ class RecordApiHelper
         if ((isset($selectedOptions['selectedTags']) && !empty($selectedOptions['selectedTags'])) || !empty($actions)) {
             $filterResponse = Hooks::apply(Config::withPrefix('high_level_contact_utilities'), $module, $selectedOptions, $actions);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_contact_utilities` filter instead.
-             * @since 2.7.8
-             */
             $filterResponse = Hooks::apply('btcbi_high_level_contact_utilities', $filterResponse, $selectedOptions, $actions);
 
             if ($filterResponse !== $module && !empty($filterResponse)) {
@@ -432,10 +401,6 @@ class RecordApiHelper
         if (!empty($selectedOptions['selectedTags'])) {
             $filterResponse = Hooks::apply(Config::withPrefix('high_level_opportunity_utilities'), $module, $selectedOptions, $actions);
 
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_high_level_opportunity_utilities` filter instead.
-             * @since 2.7.8
-             */
             $filterResponse = Hooks::apply('btcbi_high_level_opportunity_utilities', $filterResponse, $selectedOptions, $actions);
 
             if ($filterResponse !== $module && !empty($filterResponse)) {

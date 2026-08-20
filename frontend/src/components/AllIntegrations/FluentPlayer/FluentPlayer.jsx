@@ -51,7 +51,6 @@ export default function FluentPlayer({ formFields, setFlow, flow, allIntegURL })
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <FluentPlayerAuthorization
         formID={formID}
         fluentPlayerConf={fluentPlayerConf}
@@ -63,7 +62,6 @@ export default function FluentPlayer({ formFields, setFlow, flow, allIntegURL })
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -92,7 +90,6 @@ export default function FluentPlayer({ formFields, setFlow, flow, allIntegURL })
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

@@ -55,9 +55,6 @@ export const zoomAllWebinar = (
         if (result.data.allWebinar) {
           newConf.default.allWebinar = result.data.allWebinar
         }
-        // if (result.data.tokenDetails) {
-        //   newConf.tokenDetails = result.data.tokenDetails
-        // }
         setSnackbar({ show: true, msg: __('Webinar list refreshed', 'bit-integrations') })
         setZoomWebinarConf({ ...newConf })
       } else if (

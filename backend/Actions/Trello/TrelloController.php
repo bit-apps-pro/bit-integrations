@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for Trello integration
- */
 class TrelloController
 {
     public static array $authConfig = [
@@ -125,23 +122,11 @@ class TrelloController
         $allFields = Hooks::apply(Config::withPrefix('trello_get_all_custom_fields'), [], $queryParams->boardId, $queryParams->clientId, $queryParams->accessToken);
 
         if (empty($allFields)) {
-            /**
-             * @deprecated 2.7.8 Use `bit_integrations_trello_get_all_custom_fields` filter instead.
-             * @since 2.7.8
-             */
             $allFields = Hooks::apply('btcbi_trello_get_all_custom_fields', [], $queryParams->boardId, $queryParams->clientId, $queryParams->accessToken);
         }
         wp_send_json_success($allFields, 200);
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param object $integrationData Details of flow
-     * @param array  $fieldValues     Data to send Mail Chimp
-     *
-     * @return null
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

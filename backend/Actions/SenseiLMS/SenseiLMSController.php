@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\SenseiLMS;
 
 use WP_Error;
 
-/**
- * Provide functionality for Sensei LMS integration
- */
 class SenseiLMSController
 {
     public static function isExists()

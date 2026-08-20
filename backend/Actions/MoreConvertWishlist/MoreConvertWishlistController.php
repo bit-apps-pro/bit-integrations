@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\MoreConvertWishlist;
 
 use WP_Error;
 
-/**
- * Provide functionality for MoreConvert Wishlist integration
- */
 class MoreConvertWishlistController
 {
     public static function isExists()

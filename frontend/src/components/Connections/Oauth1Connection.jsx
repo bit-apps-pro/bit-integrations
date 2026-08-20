@@ -179,9 +179,6 @@ export default function Oauth1Connection({
       authExtraParams[consumerKeyParam] = formData.clientId
     }
 
-    // Round-trip the channel key on the callback URL so providers that redirect to
-    // return_url without echoing `state` (e.g. Trello token flow) still broadcast on
-    // our channel — otherwise the popup response is dropped and authorization hangs.
     if (callbackUrlParam && !queryParams[callbackUrlParam]) {
       authExtraParams[callbackUrlParam] = appendOauthChannel(callbackUrl, oauthChannelKey)
     }

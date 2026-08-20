@@ -60,7 +60,6 @@ export default function KeapActions({ keapConf, setKeapConf, loading, setLoading
         title={__('Add Tags', 'bit - integrations')}
         subTitle={__('Add Tags')}
       />
-      {/* <TableCheckBox checked={keapConf.actions?.update || false} onChange={(e) => actionHandler(e, 'update')} className="wdt-200 mt-4 mr-2" value="update_subscriber" title={__('Update subscriber', 'bit-integrations')} subTitle={__('Override the existing subscriber info by responses.', 'bit-integrations')} /> */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
