@@ -59,14 +59,10 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
       <div className="txt-center mt-2" />
 
       <ProfilePressAuthorization
-        formID={formID}
         profilePressConf={profilePressConf}
         setProfilePressConf={setProfilePressConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

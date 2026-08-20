@@ -56,14 +56,10 @@ export default function ClickWhale({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2" />
 
       <ClickWhaleAuthorization
-        formID={formID}
         clickWhaleConf={clickWhaleConf}
         setClickWhaleConf={setClickWhaleConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

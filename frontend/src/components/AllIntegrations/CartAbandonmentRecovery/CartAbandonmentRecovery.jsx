@@ -54,9 +54,6 @@ export default function CartAbandonmentRecovery({ formFields, setFlow, flow, all
         setCartAbandonmentRecoveryConf={setCartAbandonmentRecoveryConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

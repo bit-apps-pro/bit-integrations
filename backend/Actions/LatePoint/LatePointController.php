@@ -23,12 +23,6 @@ class LatePointController
         }
     }
 
-    public static function latePointAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshAgents()
     {
         self::isExists();

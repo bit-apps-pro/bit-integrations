@@ -61,14 +61,10 @@ export default function BadgeOS({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2" />
 
       <BadgeOSAuthorization
-        formID={formID}
         badgeOSConf={badgeOSConf}
         setBadgeOSConf={setBadgeOSConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

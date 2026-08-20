@@ -15,17 +15,6 @@ class ModernCartController
         }
     }
 
-    public static function modernCartAuthorize()
-    {
-        self::isExists();
-
-        if (!self::isWooCommerceAvailable()) {
-            wp_send_json_error(__('WooCommerce cart is not available', 'bit-integrations'), 400);
-        }
-
-        wp_send_json_success(true);
-    }
-
     public static function refreshProducts()
     {
         self::isExists();

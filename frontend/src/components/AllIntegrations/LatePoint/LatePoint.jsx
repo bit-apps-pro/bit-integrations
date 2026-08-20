@@ -59,14 +59,10 @@ export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2" />
 
       <LatePointAuthorization
-        formID={formID}
         latePointConf={latePointConf}
         setLatePointConf={setLatePointConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

@@ -20,12 +20,6 @@ class FluentPlayerController
         }
     }
 
-    public static function fluentPlayerAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshMedia()
     {
         self::isExists();

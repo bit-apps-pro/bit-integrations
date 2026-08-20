@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
@@ -12,7 +12,6 @@ import EventsManagerIntegLayout from './EventsManagerIntegLayout'
 
 export default function EventsManager({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -56,14 +55,10 @@ export default function EventsManager({ formFields, setFlow, flow, allIntegURL }
       <div className="txt-center mt-2" />
 
       <EventsManagerAuthorization
-        formID={formID}
         eventsManagerConf={eventsManagerConf}
         setEventsManagerConf={setEventsManagerConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

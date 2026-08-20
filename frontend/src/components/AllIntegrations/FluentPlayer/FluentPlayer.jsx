@@ -52,14 +52,10 @@ export default function FluentPlayer({ formFields, setFlow, flow, allIntegURL })
       <div className="txt-center mt-2" />
 
       <FluentPlayerAuthorization
-        formID={formID}
         fluentPlayerConf={fluentPlayerConf}
         setFluentPlayerConf={setFluentPlayerConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

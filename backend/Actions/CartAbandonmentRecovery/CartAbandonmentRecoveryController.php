@@ -11,12 +11,6 @@ class CartAbandonmentRecoveryController
         }
     }
 
-    public static function cartAbandonmentRecoveryAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshCarts()
     {
         self::isExists();
@@ -68,5 +62,4 @@ class CartAbandonmentRecoveryController
             $carts ?: []
         );
     }
-
 }

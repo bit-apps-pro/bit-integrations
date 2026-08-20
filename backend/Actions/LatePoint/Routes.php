@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\LatePoint\LatePointController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('latepoint_authorize', [LatePointController::class, 'latePointAuthorize']);
 Route::post('refresh_latepoint_agents', [LatePointController::class, 'refreshAgents']);
 Route::post('refresh_latepoint_services', [LatePointController::class, 'refreshServices']);
 Route::post('refresh_latepoint_locations', [LatePointController::class, 'refreshLocations']);

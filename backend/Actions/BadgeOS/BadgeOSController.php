@@ -23,12 +23,6 @@ class BadgeOSController
         }
     }
 
-    public static function badgeOSAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshAchievements()
     {
         self::isExists();

@@ -23,12 +23,6 @@ class ProfilePressController
         }
     }
 
-    public static function profilePressAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshPlans()
     {
         self::isExists();

@@ -52,14 +52,10 @@ export default function ModernCart({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2"></div>
 
       <ModernCartAuthorization
-        formID={formID}
         modernCartConf={modernCartConf}
         setModernCartConf={setModernCartConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

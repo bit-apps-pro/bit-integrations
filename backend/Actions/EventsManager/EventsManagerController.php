@@ -10,25 +10,6 @@ use WP_Error;
 
 class EventsManagerController
 {
-    public static function isExists()
-    {
-        if (!class_exists('EM_Events')) {
-            wp_send_json_error(
-                __(
-                    'Events Manager is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
-    public static function eventsManagerAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

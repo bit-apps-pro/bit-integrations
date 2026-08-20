@@ -98,14 +98,10 @@ export default function PowerCoupons({ formFields, setFlow, flow, allIntegURL })
       <div className="txt-center mt-2" />
 
       <PowerCouponsAuthorization
-        formID={formID}
         powerCouponsConf={powerCouponsConf}
         setPowerCouponsConf={setPowerCouponsConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div

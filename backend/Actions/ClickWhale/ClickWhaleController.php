@@ -23,12 +23,6 @@ class ClickWhaleController
         }
     }
 
-    public static function clickWhaleAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function refreshAuthors()
     {
         self::isExists();
