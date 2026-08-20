@@ -419,7 +419,7 @@ final class Helper
         }
     }
 
-    public static function prepareFetchFormatFields(array $data, $path = '', $formattedData = [])
+    public static function prepareFetchFormatFields(array $data, $path = '', $formattedData = [], $labelPath = [])
     {
         foreach ($data as $key => $value) {
             if (\is_string($key) && ctype_upper($key)) {
@@ -433,7 +433,8 @@ final class Helper
                 continue;
             }
 
-            $label = ucwords(str_replace('_', ' ', $path ? $currentPath : $key));
+            $currentLabelPath = static::appendLabelSegment($labelPath, $path ? $currentKey : $key);
+            $label = static::shortenLabel($currentLabelPath);
 
             if (\is_string($value) && static::isJson($value)) {
                 $value = json_decode($value, true);
@@ -447,21 +448,80 @@ final class Helper
                     'value' => $value,
                 ];
 
-                $formattedData = static::prepareFetchFormatFields((array) $value, $currentPath, $formattedData);
+                $formattedData = static::prepareFetchFormatFields((array) $value, $currentPath, $formattedData, $currentLabelPath);
             } else {
                 $labelValue = \is_string($value) && \strlen($value) > 20 ? substr($value, 0, 20) . '...' : $value;
-                $label = preg_replace("/\b(\w+)\s+\\1\b/i", '$1', $label) . ' (' . $labelValue . ')';
 
                 $formattedData[$currentPath] = [
                     'name'  => $currentPath . '.value',
                     'type'  => static::getVariableType($value),
-                    'label' => $label,
+                    'label' => $label . ' (' . $labelValue . ')',
                     'value' => $value,
                 ];
             }
         }
 
         return $formattedData;
+    }
+
+    /**
+     * Append one key to the readable label path. List indexes stay glued to the
+     * key they belong to ("Items 0") instead of eating a whole segment, and a
+     * key repeating its parent is dropped.
+     *
+     * @param array      $labelPath
+     * @param int|string $key
+     *
+     * @return array
+     */
+    private static function appendLabelSegment($labelPath, $key)
+    {
+        $segment = trim(ucwords(str_replace('_', ' ', (string) $key)));
+
+        if ($segment === '') {
+            return $labelPath;
+        }
+
+        if (ctype_digit($segment) && !empty($labelPath)) {
+            $labelPath[\count($labelPath) - 1] .= ' ' . $segment;
+
+            return $labelPath;
+        }
+
+        if (end($labelPath) !== $segment) {
+            $labelPath[] = $segment;
+        }
+
+        return $labelPath;
+    }
+
+    /**
+     * Collapse a deep label path so a nested field stays identifiable without
+     * printing every ancestor: root + "..." + the last segments.
+     *
+     * @param array $labelPath
+     * @param int   $maxSegments
+     * @param int   $maxLength
+     *
+     * @return string
+     */
+    private static function shortenLabel($labelPath, $maxSegments = 3, $maxLength = 55)
+    {
+        if (\count($labelPath) > $maxSegments) {
+            $labelPath = array_merge([$labelPath[0], '...'], \array_slice($labelPath, -($maxSegments - 1)));
+        }
+
+        $label = preg_replace("/\b(\w+)\s+\\1\b/i", '$1', implode(' ', $labelPath));
+
+        if (mb_strlen($label) <= $maxLength) {
+            return $label;
+        }
+
+        // keep the tail (the field itself) and never cut mid word
+        $tail = mb_substr($label, -($maxLength - 3));
+        $spaceAt = mb_strpos($tail, ' ');
+
+        return '...' . ($spaceAt === false ? $tail : mb_substr($tail, $spaceAt + 1));
     }
 
     public static function flattenNestedData($resultArray, $parentKey, $nestedData)

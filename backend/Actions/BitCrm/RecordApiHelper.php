@@ -14,12 +14,6 @@ use BitApps\Integrations\Log\LogHandler;
  */
 class RecordApiHelper
 {
-    /**
-     * Scratch key holding emails that matched no WordPress user. Stripped from
-     * the payload before any action sees it.
-     */
-    private const UNRESOLVED_USERS_KEY = '__unresolved_users';
-
     private $_integrationID;
 
     private $_integrationDetails;
@@ -30,7 +24,7 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    public function execute($fieldValues, $fieldMap, $utilities)
+    public function execute($fieldValues, $fieldMap)
     {
         if (!class_exists('BitApps\Crm\Config')) {
             return ['success' => false, 'message' => __('Bit CRM is not installed or activated', 'bit-integrations')];
@@ -39,22 +33,6 @@ class RecordApiHelper
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_lead';
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $fieldData = $this->mergeConfiguredValues($fieldData, $mainAction);
-
-        // A mapped email that matches no WordPress user leaves the id unset, which
-        // would surface downstream as a bare "assigned_to is required". Name the
-        // real problem instead.
-        if (!empty($fieldData[self::UNRESOLVED_USERS_KEY])) {
-            $unresolved = $fieldData[self::UNRESOLVED_USERS_KEY];
-
-            return [
-                'success' => false,
-                'message' => \sprintf(
-                    // translators: %s: comma separated list of email addresses
-                    __('No WordPress user found for: %s. Bit CRM needs a user account to own or be assigned a record.', 'bit-integrations'),
-                    implode(', ', $unresolved)
-                ),
-            ];
-        }
 
         switch ($mainAction) {
             case 'create_lead':
@@ -461,9 +439,10 @@ class RecordApiHelper
     }
 
     /**
-     * Merge the dropdown/enum selects (conf.selected*) and Utilities (conf.utilities.*)
-     * into the field-map data, keyed by the CRM field the action handler reads.
-     * Only non-empty values overwrite, so an unset select never clobbers a mapping.
+     * Merge the selects and pickers the layout renders, plus the Utilities
+     * (conf.utilities.*), into the field-map data, keyed by the CRM field the
+     * action handler reads. Only non-empty values overwrite, so an unset select
+     * never clobbers a mapping.
      *
      * @param array  $fieldData
      * @param string $mainAction
@@ -479,20 +458,9 @@ class RecordApiHelper
             'selectedCurrency'  => 'currency',
             'selectedStage'     => 'stage',
             'selectedTermKey'   => 'term_key',
-            'selectedContact'   => 'contact_id',
             'selectedEntity'    => 'entity_id',
             'selectedAssignee'  => 'assigned_to',
-            'selectedOwner'     => 'owner_id',
-            'selectedCompany'   => 'company_id',
-            'selectedParent'    => 'parent_id',
             'selectedTags'      => 'tag_ids',
-            'title'             => 'title',
-            'leadSource'        => 'lead_source',
-            'leadStatus'        => 'lead_status',
-            'dealType'          => 'type',
-            'dealLeadSource'    => 'lead_source',
-            'productType'       => 'type',
-            'productStatus'     => 'status',
             'module'            => 'module',
             'convertTo'         => 'convert_to',
             'moveRelatedDataTo' => 'move_related_data_to',
@@ -503,17 +471,10 @@ class RecordApiHelper
             'capabilities'      => 'capabilities',
         ];
 
-        // Several conf keys share a CRM field, and switching the action does not
-        // erase the value the previous one stored. Without this guard a leftover
-        // `activityStatus` would win over `productStatus` on a later save, because
-        // it is merged last. Only the key the chosen action actually renders may
-        // write its CRM field.
+        // Both of these write `status`, so only the key the chosen action renders
+        // may do it — a leftover `activityStatus` would otherwise win over
+        // `invoiceStatus` on a later save, because it is merged first.
         $exclusive = [
-            'dealType'       => ['create_deal', 'update_deal'],
-            'productType'    => ['create_product', 'update_product'],
-            'leadSource'     => ['create_lead', 'update_lead', 'create_contact', 'update_contact'],
-            'dealLeadSource' => ['create_deal', 'update_deal'],
-            'productStatus'  => ['create_product', 'update_product'],
             'activityStatus' => ['update_task_status', 'update_meeting_status', 'update_call_status'],
             'invoiceStatus'  => ['update_invoice', 'update_invoice_status'],
         ];
@@ -528,56 +489,22 @@ class RecordApiHelper
             }
         }
 
+        // Fields built from Bit CRM's own definition already carry its field key.
+        if (isset($conf->fieldValues)) {
+            foreach ((array) $conf->fieldValues as $crmKey => $value) {
+                if ($value === '' || $value === null || $value === []) {
+                    continue;
+                }
+
+                $fieldData[$crmKey] = $value;
+            }
+        }
+
         // Utilities (booleans) — e.g. is_shared
         if (isset($conf->utilities) && \is_object($conf->utilities)) {
             foreach (get_object_vars($conf->utilities) as $utilKey => $utilVal) {
                 $fieldData[$utilKey] = $utilVal;
             }
-        }
-
-        return static::resolveUserFields($fieldData);
-    }
-
-    /**
-     * Resolve user-identifier fields supplied as an email into the numeric user id
-     * the CRM expects. The owner and assignee are picked from a list now, so this
-     * only serves flows saved before those pickers existed and still mapping
-     * `owner_email` / `assigned_to_email`.
-     *
-     * @param array $fieldData
-     *
-     * @return array
-     */
-    private static function resolveUserFields($fieldData)
-    {
-        $emailToId = [
-            'owner_email'       => 'owner_id',
-            'assigned_to_email' => 'assigned_to',
-        ];
-
-        $unresolved = [];
-
-        foreach ($emailToId as $emailKey => $idKey) {
-            if (empty($fieldData[$emailKey])) {
-                unset($fieldData[$emailKey]);
-
-                continue;
-            }
-
-            $email = $fieldData[$emailKey];
-            $user = get_user_by('email', $email);
-
-            if ($user) {
-                $fieldData[$idKey] = $user->ID;
-            } else {
-                $unresolved[] = $email;
-            }
-
-            unset($fieldData[$emailKey]);
-        }
-
-        if (!empty($unresolved)) {
-            $fieldData[self::UNRESOLVED_USERS_KEY] = $unresolved;
         }
 
         return $fieldData;

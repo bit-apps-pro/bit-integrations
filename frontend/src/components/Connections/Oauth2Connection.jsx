@@ -16,6 +16,7 @@ import {
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
+import SecretInput from '../Utilities/SecretInput'
 import { APP_CONFIG } from '../../config/app'
 
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
@@ -349,6 +350,15 @@ export default function Oauth2Connection({
                 </option>
               ))}
             </select>
+          ) : field.type === 'password' ? (
+            <SecretInput
+              className="w-6 mt-1"
+              onChange={handleChange}
+              name={field.name}
+              value={formData[field.name] || ''}
+              placeholder={field.placeholder || `${field.label}...`}
+              disabled={isInfo}
+            />
           ) : (
             <input
               className="btcd-paper-inp w-6 mt-1"
@@ -400,12 +410,11 @@ export default function Oauth2Connection({
       <div className="mt-3">
         <b>{__('Client Secret:', 'bit-integrations')}</b>
       </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
+      <SecretInput
+        className="w-6 mt-1"
         onChange={handleChange}
         name="clientSecret"
         value={formData.clientSecret || ''}
-        type="password"
         placeholder={__('Client Secret...', 'bit-integrations')}
         disabled={isInfo}
       />

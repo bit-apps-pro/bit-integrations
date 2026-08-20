@@ -32,6 +32,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'lead'),
             'tagIds'                    => self::toIntArray($fieldData['tag_ids'] ?? []),
         ];
 
@@ -53,6 +54,7 @@ final class BitCrmActionHelper
         $payload = [
             'id'                        => (int) $fieldData['lead_id'],
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'lead'),
         ];
 
         return self::result((new \BitApps\Crm\Services\LeadService())->update($payload), __('Lead updated successfully.', 'bit-integrations'));
@@ -131,6 +133,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'contact'),
             'tagIds'                    => self::toIntArray($fieldData['tag_ids'] ?? []),
         ];
 
@@ -152,6 +155,7 @@ final class BitCrmActionHelper
         $payload = [
             'id'                        => (int) $fieldData['contact_id'],
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'contact'),
         ];
 
         return self::result((new \BitApps\Crm\Services\ContactService())->update($payload), __('Contact updated successfully.', 'bit-integrations'));
@@ -230,6 +234,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'company'),
             'tagIds'                    => self::toIntArray($fieldData['tag_ids'] ?? []),
         ];
 
@@ -251,6 +256,7 @@ final class BitCrmActionHelper
         $payload = [
             'id'                        => (int) $fieldData['company_id'],
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'company'),
         ];
 
         return self::result((new \BitApps\Crm\Services\CompanyService())->update($payload), __('Company updated successfully.', 'bit-integrations'));
@@ -329,6 +335,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'deal'),
             'tagIds'                    => self::toIntArray($fieldData['tag_ids'] ?? []),
         ];
 
@@ -350,6 +357,7 @@ final class BitCrmActionHelper
         $payload = [
             'id'                        => (int) $fieldData['deal_id'],
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'deal'),
         ];
 
         return self::result((new \BitApps\Crm\Services\DealService())->update($payload), __('Deal updated successfully.', 'bit-integrations'));
@@ -428,6 +436,7 @@ final class BitCrmActionHelper
 
         $payload = [
             'systemDefinedFieldsValues' => $systemValues,
+            'customFieldsValues'        => BitCrmCustomField::values($fieldData, 'product'),
             'tagIds'                    => self::toIntArray($fieldData['tag_ids'] ?? []),
         ];
 
@@ -472,6 +481,10 @@ final class BitCrmActionHelper
         if (!$product->update($systemValues)) {
             return ['success' => false, 'message' => __('Failed to update product.', 'bit-integrations')];
         }
+
+        // Writing the model directly skips the service that would normally store
+        // these, so they are saved here instead.
+        BitCrmCustomField::save('product', $productId, BitCrmCustomField::values($fieldData, 'product'));
 
         do_action('bit_crm/product_updated', $product);
 
@@ -552,11 +565,35 @@ final class BitCrmActionHelper
             return ['success' => false, 'message' => __('Deal not found!', 'bit-integrations')];
         }
 
-        if (!self::isKnownDealStage($fieldData['stage'])) {
+        $stages = self::dealStages();
+        $definition = $stages[$fieldData['stage']] ?? null;
+
+        if (!empty($stages) && $definition === null) {
             return ['success' => false, 'message' => __('This deal stage does not exist in Bit CRM.', 'bit-integrations')];
         }
 
-        if (!$deal->update(['stage' => $fieldData['stage'], 'updated_by' => get_current_user_id()])) {
+        $update = ['stage' => $fieldData['stage'], 'updated_by' => get_current_user_id()];
+
+        // Bit CRM rewrites the probability on every stage change; leaving it would
+        // keep the odds of the stage before.
+        if (isset($definition['probability'])) {
+            $update['probability'] = $definition['probability'];
+        }
+
+        // Required on a stage that closes the deal, asked for on no other. When the
+        // stages cannot be read $definition is null and the category reads as '', so
+        // this is skipped along with the stage check above.
+        if (\in_array($definition['deal_category'] ?? '', ['closed_won', 'closed_lost'], true)) {
+            $closedAt = self::dealClosingDate($fieldData['closed_at'] ?? '');
+
+            if ($closedAt === null) {
+                return ['success' => false, 'message' => __('A closing date is required to move a deal to a won or lost stage.', 'bit-integrations')];
+            }
+
+            $update['closed_at'] = $closedAt;
+        }
+
+        if (!$deal->update($update)) {
             return ['success' => false, 'message' => __('Failed to update deal stage.', 'bit-integrations')];
         }
 
@@ -578,7 +615,13 @@ final class BitCrmActionHelper
         }
 
         $leadId = (int) $fieldData['lead_id'];
-        $convertTo = self::csvList($fieldData['convert_to']);
+
+        // LeadConvertService always creates the contact and the company; only the
+        // deal is gated on convertTo. Older flows could store either one out.
+        $convertTo = array_values(array_unique(array_merge(
+            ['contact', 'company'],
+            self::csvList($fieldData['convert_to'])
+        )));
         $options = [
             'convertTo'         => $convertTo,
             'moveRelatedDataTo' => $fieldData['move_related_data_to'],
@@ -1410,23 +1453,68 @@ final class BitCrmActionHelper
      *
      * @return bool
      */
-    private static function isKnownDealStage($stage)
+    /**
+     * The site's deal stages keyed by stage key. Empty when they cannot be read,
+     * which leaves the stage unvalidated rather than rejected.
+     */
+    private static function dealStages()
     {
         if (!class_exists('BitApps\Crm\Services\DealStageService')) {
-            return true;
+            return [];
         }
 
-        $stages = (new \BitApps\Crm\Services\DealStageService())->getStagesAsOptions();
+        $stages = [];
 
-        foreach ((array) $stages as $option) {
-            $option = (array) $option;
+        foreach ((array) (new \BitApps\Crm\Services\DealStageService())->getAllStages() as $stage) {
+            $stage = (array) $stage;
+            $key = (string) ($stage['key'] ?? '');
 
-            if ((string) ($option['value'] ?? '') === (string) $stage) {
-                return true;
+            if ($key !== '') {
+                $stages[$key] = $stage;
             }
         }
 
-        return false;
+        return $stages;
+    }
+
+    /**
+     * Every branch returns a bare site-local `Y-m-d H:i:s`, the shape Bit CRM's
+     * own stage modal submits. Formatting one input as local and another as UTC
+     * would store the same instant two ways. Null when nothing usable was mapped.
+     *
+     * @param mixed $value
+     */
+    private static function dealClosingDate($value)
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return;
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+            return $value . ' 00:00:00';
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $value)) {
+            return $value . ':00';
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $value)) {
+            return $value;
+        }
+
+        $timestamp = strtotime($value);
+
+        if ($timestamp === false) {
+            return;
+        }
+
+        // WordPress pins PHP's default timezone to UTC, so a string without one of
+        // its own parses to a UTC instant here. get_date_from_gmt() carries it back
+        // to site-local through the site's timezone, which follows daylight saving;
+        // the raw gmt_offset option does not.
+        return get_date_from_gmt(gmdate('Y-m-d H:i:s', $timestamp), 'Y-m-d H:i:s');
     }
 
     private static function csvList($value)
@@ -1454,6 +1542,10 @@ final class BitCrmActionHelper
     private static function systemValues($fieldData, array $drop)
     {
         $values = array_diff_key((array) $fieldData, array_flip($drop));
+
+        // Custom fields travel in their own payload key, so they must not reach
+        // the entity's own columns.
+        $values = BitCrmCustomField::withoutCustomKeys($values);
 
         return array_filter($values, static function ($v) {
             return $v !== null && $v !== '' && $v !== [];

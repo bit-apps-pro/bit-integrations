@@ -179,6 +179,10 @@ const EditWishlistMember = lazy(() => import('./WishlistMember/EditWishlistMembe
 const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
+const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
+const EditBrilliantDirectories = lazy(
+  () => import('./BrilliantDirectories/EditBrilliantDirectories')
+)
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditPopupMaker = lazy(() => import('./PopupMaker/EditPopupMaker'))
 const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
@@ -630,6 +634,10 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditUltimateAffiliatePro allIntegURL={allIntegURL} />
     case 'Bookly':
       return <EditBookly allIntegURL={allIntegURL} />
+    case 'SureContact':
+      return <EditSureContact allIntegURL={allIntegURL} />
+    case 'BrilliantDirectories':
+      return <EditBrilliantDirectories allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'PopupMaker':
