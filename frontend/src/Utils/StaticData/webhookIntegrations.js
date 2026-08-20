@@ -115,6 +115,8 @@ export const customFormIntegrations = [
   'GiveWp',
   'SenseiLMS',
   'LatePoint',
+  'ProfilePress',
+  'ClickWhale',
   'FluentPlayer',
   'BitCrm',
   'NextCrm'

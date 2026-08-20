@@ -183,6 +183,9 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const LatePoint = lazy(() => import('./LatePoint/LatePoint'))
+const ProfilePress = lazy(() => import('./ProfilePress/ProfilePress'))
+const ClickWhale = lazy(() => import('./ClickWhale/ClickWhale'))
+const BadgeOS = lazy(() => import('./BadgeOS/BadgeOS'))
 const PopupMaker = lazy(() => import('./PopupMaker/PopupMaker'))
 const NextCrm = lazy(() => import('./NextCrm/NextCrm'))
 const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
@@ -1796,6 +1799,33 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'LatePoint':
       return (
         <LatePoint
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'ProfilePress':
+      return (
+        <ProfilePress
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'ClickWhale':
+      return (
+        <ClickWhale
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'BadgeOS':
+      return (
+        <BadgeOS
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
