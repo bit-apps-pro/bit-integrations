@@ -104,6 +104,7 @@ final class AllTriggersName
             'MemberPressCourse'              => ['name' => 'MemberPress Courses',  'isPro' => true, 'is_active' => false],
             'Met'                            => ['name' => 'Met Form',  'isPro' => true, 'is_active' => false],
             'MetaBox'                        => ['name' => 'MB Frontend Submission',  'isPro' => true, 'is_active' => false],
+            'ModernCart'                     => ['name' => 'Modern Cart',  'isPro' => true, 'is_active' => false],
             'ModernEventsCalendar'           => ['name' => 'Modern Events Calendar',  'isPro' => true, 'is_active' => false],
             'MoreConvertWishlist'            => ['name' => 'MoreConvert Wishlist',  'isPro' => true, 'is_active' => false],
             'Newsletter'                     => ['name' => 'Newsletter',  'isPro' => true, 'is_active' => false],
