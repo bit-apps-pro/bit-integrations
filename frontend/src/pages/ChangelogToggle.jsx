@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '25th July 2026'
+const releaseDate = '4th August 2026'
 
 // Example for items:
 // items: [
@@ -23,52 +23,19 @@ const changeLog = [
     label: __('Note', 'bit-integrations'),
     headClass: 'new-note',
     itemClass: '',
-    items: [
-      {
-        label: 'Since 2.10.0, credentials live in reusable Connections. Integrations you set up before that still keep their own credentials, so we call them legacy - their info page shows a short explainer instead of a connection to view or switch.',
-        desc: '',
-        isPro: false
-      },
-      {
-        label: 'They keep working exactly as before, and credentials stay safe on your server (never sent to your browser, which is why the fields look empty). To move one over, just open its settings and authorize the app once.',
-        desc: '',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Bit CRM',
-        desc: '66 new events added',
-        isPro: false
-      },
-      {
-        label: 'Fluent Player',
-        desc: '12 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Bit CRM',
-        desc: '50 new events added',
-        isPro: false
-      },
-      {
-        label: 'Fluent Player',
-        desc: '26 new events added',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -76,27 +43,33 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Webhook (Action)',
-        desc: 'Dynamic URL path variables added to outgoing webhooks, mappable from trigger data.',
+        label: 'EmailOctopus',
+        desc: 'Contacts can now be added or updated with the "Pending" status.',
         isPro: false
       },
-      {
-        label: 'Webhook (Action)',
-        desc: 'Smart codes are now available in query parameters, request headers and path variables.',
-        isPro: true
-      },
-      {
-        label: 'Connections',
-        desc: "An action's connection can now be switched from its info page.",
-        isPro: false
-      }
     ]
   },
   {
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: []
+    items: [
+      {
+        label: 'Connections',
+        desc: 'API keys, secrets and tokens are now hidden behind dots in the connection form, with an eye button to reveal them when you need to check a value.',
+        isPro: false
+      },
+      {
+        label: 'oAuth Redirect',
+        desc: 'Apps now return to a dedicated callback address on your site after you approve them. Providers that refused the old redirect URL can now be connected without any extra setup.',
+        isPro: false
+      },
+      {
+        label: 'Trigger data',
+        desc: 'Field names taken from nested data are now shorter and easier to read - long paths are trimmed, repeated words removed, and list items are shown as "Items 0" instead of a separate level.',
+        isPro: false
+      },
+    ]
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
@@ -104,28 +77,13 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Connections',
-        desc: 'Fixed credentials not resolving for renamed integrations.',
+        label: 'Bit Form',
+        desc: 'Fixed the site address not being read from the connection, which stopped some Bit Form actions from running.',
         isPro: false
       },
       {
-        label: 'Integration Info',
-        desc: 'Fixed legacy actions rendering a blank info page.',
-        isPro: false
-      },
-      {
-        label: 'Webhook (Action)',
-        desc: 'Run status is now judged by the response HTTP status code, and path variables sync even when their tab is never opened.',
-        isPro: false
-      },
-      {
-        label: 'ACF',
-        desc: 'Fixed field reading when the meta value is missing',
-        isPro: true
-      },
-      {
-        label: 'WP Post',
-        desc: 'Fixed trashed and internal posts firing the post created/inserted triggers',
+        label: 'Amelia Booking',
+        desc: 'Appointment triggers now include the appointment location details.',
         isPro: true
       }
     ]
@@ -134,23 +92,7 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'Custom Action',
-        desc: "Closed an administrator gate bypass and confined the custom function file to the plugin's custom-function directory.",
-        isPro: false
-      },
-      {
-        label: 'Timeline',
-        desc: 'Log re-execution now applies the same administrator check as custom action save, update and delete.',
-        isPro: false
-      },
-      {
-        label: 'Mail',
-        desc: 'Recipient addresses and headers are validated in all cases, and header display names are sanitized.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),

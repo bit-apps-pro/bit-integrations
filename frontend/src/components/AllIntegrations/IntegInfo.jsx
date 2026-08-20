@@ -8,10 +8,9 @@ import { Link, useNavigate, useParams } from 'react-router'
 import useFetch from '../../hooks/useFetch'
 import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
+import { getRedirectUri } from '../../Utils/oauthHelper'
 import Note from '../Utilities/Note'
 import SnackMsg from '../Utilities/SnackMsg'
-import { useRecoilValue } from 'recoil'
-import { $appConfigState } from '../../GlobalStates'
 import { ConnectionSwitchProvider } from '../Connections/ConnectionSwitchContext'
 
 const Loader = lazy(() => import('../Loaders/Loader'))
@@ -97,6 +96,9 @@ const SendGridAuthorization = lazy(() => import('./SendGrid/SendGridAuthorizatio
 const FabmanAuthorization = lazy(() => import('./Fabman/FabmanAuthorization'))
 const PCloudAuthorization = lazy(() => import('./PCloud/PCloudAuthorization'))
 const EmailOctopusAuthorization = lazy(() => import('./EmailOctopus/EmailOctopusAuthorization'))
+const EventsManagerAuthorization = lazy(
+  () => import('./EventsManager/EventsManagerAuthorization')
+)
 const CustomAction = lazy(() => import('./CustomAction/CustomFuncEditor'))
 const SmailyAuthentication = lazy(() => import('./Smaily/SmailyAuthorization'))
 const SureCartAuthorization = lazy(() => import('./SureCart/SureCartAuthorization'))
@@ -185,10 +187,19 @@ const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
+const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAuthorization'))
+const BrilliantDirectoriesAuthorization = lazy(
+  () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
+)
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
+const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
+const CartAbandonmentRecoveryAuthorization = lazy(
+  () => import('./CartAbandonmentRecovery/CartAbandonmentRecoveryAuthorization')
+)
 const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
 const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
+const ModernCartAuthorization = lazy(() => import('./ModernCart/ModernCartAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
@@ -200,7 +211,11 @@ const SecureCustomFieldsAuthorization = lazy(
 )
 const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
+const BookingCalendarAuthorization = lazy(() => import('./BookingCalendar/BookingCalendarAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
+const WpTableBuilderAuthorization = lazy(
+  () => import('./WpTableBuilder/WpTableBuilderAuthorization')
+)
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const IvyFormsAuthorization = lazy(() => import('./IvyForms/IvyFormsAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
@@ -492,6 +507,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <PCloudAuthorization pCloudConf={integrationConf} step={1} isInfo />
     case 'EmailOctopus':
       return <EmailOctopusAuthorization emailOctopusConf={integrationConf} step={1} isInfo />
+    case 'EventsManager':
+      return <EventsManagerAuthorization eventsManagerConf={integrationConf} step={1} isInfo />
     case 'CustomAction':
       return <CustomAction customActionConf={integrationConf} step={1} isInfo />
     case 'PipeDrive':
@@ -670,14 +687,32 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'Bookly':
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
+    case 'SureContact':
+      return <SureContactAuthorization sureContactConf={integrationConf} step={1} isInfo />
+    case 'BrilliantDirectories':
+      return (
+        <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
+      )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':
       return <SenseiLMSAuthorization senseiLMSConf={integrationConf} step={1} isInfo />
+    case 'ConvertForce':
+      return <ConvertForceAuthorization convertForceConf={integrationConf} step={1} isInfo />
+    case 'Cart Abandonment Recovery':
+      return (
+        <CartAbandonmentRecoveryAuthorization
+          cartAbandonmentRecoveryConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'FluentPlayer':
       return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
     case 'BitCrm':
       return <BitCrmAuthorization bitCrmConf={integrationConf} step={1} isInfo />
+    case 'ModernCart':
+      return <ModernCartAuthorization modernCartConf={integrationConf} step={1} isInfo />
     case 'Wsms':
       return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
     case 'WebbaBooking':
@@ -694,8 +729,18 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <WordPressAuthorization wordPressConf={integrationConf} step={1} isInfo />
     case 'BookingPress':
       return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
+    case 'BookingCalendar':
+      return (
+        <BookingCalendarAuthorization
+          bookingCalendarConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'WpDataTables':
       return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
+    case 'WpTableBuilder':
+      return <WpTableBuilderAuthorization wpTableBuilderConf={integrationConf} step={1} isInfo />
     case 'FormyChat':
       return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
     case 'IvyForms':
@@ -764,7 +809,6 @@ const getUpdateAction = confType => {
 
 export default function IntegInfo() {
   const { id, type } = useParams()
-  const btcbi = useRecoilValue($appConfigState)
   const [snack, setSnackbar] = useState({ show: false })
   const [integrationConf, setIntegrationConf] = useState({})
   const [integration, setIntegration] = useState(null)
@@ -860,11 +904,7 @@ export default function IntegInfo() {
     ]
   )
 
-  // route is info/:id but for redirect uri need to make new/:type
-  // let location = window.location.toString()
-  // const toReplaceInd = location.indexOf('/info')
-  // location = window.encodeURI(`${location.slice(0, toReplaceInd)}/new/${type}`)
-  let location = `${btcbi.api}/redirect`
+  const location = getRedirectUri()
   return (
     <>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />

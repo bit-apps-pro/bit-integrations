@@ -4,6 +4,7 @@
 
 namespace BitApps\Integrations;
 
+use BitApps\Integrations\Core\Http\OauthCallbackController;
 use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\Hooks;
@@ -23,7 +24,7 @@ class Config
 
     public const VAR_PREFIX = 'bit_integrations_';
 
-    public const VERSION = '2.10.1';
+    public const VERSION = '2.10.2';
 
     public const DB_VERSION = '1.2';
 
@@ -70,6 +71,17 @@ class Config
 
             case 'API_URL':
                 return get_rest_url(null, '/' . self::SLUG . '/v1');
+
+            case 'OAUTH_CALLBACK_URI':
+                if (get_option('permalink_structure') === '') {
+                    return home_url('/?pagename=' . OauthCallbackController::pagename());
+                }
+
+                return home_url('/' . OauthCallbackController::ROUTE . '/');
+
+            case 'REDIRECT_URI':
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- hook is prefixed via Config::VAR_PREFIX.
+                return Hooks::apply(self::withPrefix('oauth_redirect_uri'), self::get('OAUTH_CALLBACK_URI'));
 
             case 'WP_API_URL':
                 return [
@@ -200,6 +212,7 @@ class Config
                 'siteURL'     => site_url(),
                 'ajaxURL'     => admin_url('admin-ajax.php'),
                 'api'         => self::get('API_URL'),
+                'redirectURI' => self::get('REDIRECT_URI'),
                 'wp_api_url'  => self::get('WP_API_URL'),
                 'dateFormat'  => get_option('date_format'),
                 'timeFormat'  => get_option('time_format'),

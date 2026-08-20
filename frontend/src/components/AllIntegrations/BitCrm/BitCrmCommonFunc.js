@@ -2,7 +2,19 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import { actionDropdowns, actionSelects } from './staticData'
+import {
+  actionDropdowns,
+  actionFieldModules,
+  actionSelects,
+  CLOSING_STAGE_CATEGORIES,
+  closingDateField,
+  conditionalFieldKeys,
+  lookupSources
+} from './staticData'
+
+// The two kinds that get their own control; everything else is a field map row.
+const SELECT_TYPE = 'select'
+const LOOKUP_TYPE = 'lookup'
 
 export const handleInput = (e, bitCrmConf, setBitCrmConf) => {
   const { name, value } = e.target
@@ -34,6 +46,106 @@ export const refreshBitCrmList = (route, listKey, setBitCrmConf, setIsLoading, p
     .catch(() => setIsLoading(false))
 }
 
+// Shares the loading state with the fetched dropdowns, which key it by list.
+export const CRM_FIELDS_KEY = 'crmFields'
+
+/**
+ * Fills the selects, record pickers and field map of every action in
+ * actionFieldModules. Stored on the conf next to the fetched dropdown lists, and
+ * stamped with the module it describes so the previous module's rows cannot
+ * survive the render between switching action and the new list arriving.
+ */
+export const fetchBitCrmFields = (module, setBitCrmConf, setIsLoading, notify = false) => {
+  if (!module) return
+
+  setIsLoading(CRM_FIELDS_KEY)
+
+  bitsFetch({ module }, 'refresh_bitcrm_fields')
+    .then(result => {
+      const fetched = result?.success && Array.isArray(result?.data?.fields) ? result.data.fields : []
+
+      setBitCrmConf(prevConf =>
+        create(prevConf, draftConf => {
+          draftConf.crmFields = fetched
+          draftConf.crmFieldsModule = module
+        })
+      )
+      setIsLoading(false)
+
+      if (!notify) return
+
+      if (result?.success) {
+        toast.success(__('Fields refreshed successfully', 'bit-integrations'))
+      } else {
+        toast.error(__('Bit CRM field fetch failed. Please try again', 'bit-integrations'))
+      }
+    })
+    .catch(() => {
+      setBitCrmConf(prevConf =>
+        create(prevConf, draftConf => {
+          draftConf.crmFields = []
+          draftConf.crmFieldsModule = module
+        })
+      )
+      setIsLoading(false)
+    })
+}
+
+// Only while the stored fields still describe the module the action writes to.
+export const crmFieldsOf = bitCrmConf => {
+  const module = actionFieldModules[bitCrmConf?.mainAction]
+
+  if (!module || bitCrmConf?.crmFieldsModule !== module) return []
+
+  return Array.isArray(bitCrmConf?.crmFields) ? bitCrmConf.crmFields : []
+}
+
+// An unmapped field leaves the column it would have written alone, so nothing
+// but the record id is required on an update.
+const relaxOnUpdate = (fields, action) =>
+  action?.startsWith('update_') ? fields.map(fld => ({ ...fld, required: false })) : fields
+
+export const crmMapFields = bitCrmConf =>
+  relaxOnUpdate(
+    crmFieldsOf(bitCrmConf).filter(
+      fld => fld.isCustom || (fld.type !== SELECT_TYPE && fld.type !== LOOKUP_TYPE)
+    ),
+    bitCrmConf?.mainAction
+  )
+
+export const crmSelectFields = bitCrmConf =>
+  relaxOnUpdate(
+    crmFieldsOf(bitCrmConf).filter(fld => fld.type === SELECT_TYPE),
+    bitCrmConf?.mainAction
+  )
+
+export const crmLookupFields = bitCrmConf =>
+  relaxOnUpdate(
+    crmFieldsOf(bitCrmConf).filter(fld => fld.type === LOOKUP_TYPE && lookupSources[fld.relatedModule]),
+    bitCrmConf?.mainAction
+  ).map(fld => ({ ...fld, ...lookupSources[fld.relatedModule] }))
+
+/**
+ * The rows a field map only carries in some configurations. A closing date
+ * belongs to a stage that closes the deal and to no other.
+ *
+ * A stage list cached before stages carried a category cannot answer that, and
+ * the action fails at run time without the row, so an unknown category offers it.
+ */
+export const conditionalFields = bitCrmConf => {
+  if (bitCrmConf?.mainAction !== 'update_deal_stage') return []
+  if (isEmptyValue(bitCrmConf?.selectedStage)) return []
+
+  const stage = (bitCrmConf?.allStages ?? []).find(
+    option => String(option.value) === String(bitCrmConf.selectedStage)
+  )
+
+  const isClosing =
+    stage?.category === undefined ? true : CLOSING_STAGE_CATEGORIES.includes(stage.category)
+
+  return isClosing ? [closingDateField] : []
+}
+
 export const checkMappedFields = bitCrmConf => {
   const mappedFields = bitCrmConf?.field_map
     ? bitCrmConf.field_map.filter(
@@ -46,7 +158,7 @@ export const checkMappedFields = bitCrmConf => {
   return mappedFields.length === 0
 }
 
-const isEmptyValue = value =>
+export const isEmptyValue = value =>
   value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0)
 
 export const missingRequiredSelect = bitCrmConf => {
@@ -56,27 +168,40 @@ export const missingRequiredSelect = bitCrmConf => {
     .filter(field => field.required)
     .find(field => isEmptyValue(bitCrmConf?.[field.key]))
 
-  if (!missing) return null
+  if (missing) {
+    // A dependent list cannot be filled before the field it hangs off, so blame
+    // that one instead of the empty list it leaves behind.
+    if (missing.dependsOn && isEmptyValue(bitCrmConf?.[missing.dependsOn])) {
+      const dependency = fields.find(field => field.key === missing.dependsOn)
+      return dependency?.label ?? missing.label
+    }
 
-  // A dependent list cannot be filled before the field it hangs off, so blame
-  // that one instead of the empty list it leaves behind.
-  if (missing.dependsOn && isEmptyValue(bitCrmConf?.[missing.dependsOn])) {
-    const dependency = fields.find(field => field.key === missing.dependsOn)
-    return dependency?.label ?? missing.label
+    return missing.label
   }
 
-  return missing.label
+  const missingCrmField = [...crmSelectFields(bitCrmConf), ...crmLookupFields(bitCrmConf)]
+    .filter(field => field.required)
+    .find(field => isEmptyValue(bitCrmConf?.fieldValues?.[field.key]))
+
+  return missingCrmField ? missingCrmField.label : null
 }
 
 export const isBitCrmConfValid = bitCrmConf =>
   checkMappedFields(bitCrmConf) && !missingRequiredSelect(bitCrmConf)
 
-/**
- * The field map renders its required rows positionally, so a config saved before
- * a field became required would show one Bit CRM field while holding another.
- * Re-key the leading rows onto the current required list, keeping the form field
- * each Bit CRM field was already mapped to, and push the rest below.
- */
+// A conditional row outlives the configuration that asked for it, so it is
+// dropped once the current field list no longer offers it.
+export const dropStaleConditionalRows = (fieldMap = [], fields = []) => {
+  const offered = new Set(fields.map(fld => fld.key))
+  const pruned = fieldMap.filter(
+    row => !conditionalFieldKeys.includes(row.bitCrmField) || offered.has(row.bitCrmField)
+  )
+
+  return pruned.length === fieldMap.length ? fieldMap : pruned
+}
+
+// The field map renders its required rows positionally, so the leading rows are
+// re-keyed onto the current required list and the rest pushed below.
 export const syncRequiredFieldMap = (fieldMap = [], fields = []) => {
   const requiredKeys = fields.filter(fld => fld.required === true).map(fld => fld.key)
   if (requiredKeys.length === 0) return fieldMap

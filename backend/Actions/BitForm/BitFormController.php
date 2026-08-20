@@ -20,7 +20,7 @@ class BitFormController
         'slug'     => 'bitform',
         'fields'   => [
             'api_key'    => 'value',
-            'domainName' => 'domainName',
+            'app_domain' => 'domainName',
         ],
     ];
 

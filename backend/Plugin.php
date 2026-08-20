@@ -11,11 +11,13 @@ namespace BitApps\Integrations;
 use BitApps\Integrations\Admin\Admin_Bar;
 use BitApps\Integrations\Core\Database\DB;
 use BitApps\Integrations\Core\Hooks\HookService;
+use BitApps\Integrations\Core\Http\OauthCallbackController;
 use BitApps\Integrations\Core\Util\Activation;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Deactivation;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\Request;
+use BitApps\Integrations\Core\Util\RewriteRuleProvider;
 use BitApps\Integrations\Core\Util\UnInstallation;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -39,6 +41,8 @@ final class Plugin
     {
         Hooks::add('plugins_loaded', [$this, 'init_plugin'], 12);
 
+        $this->registerOauthCallbackRoute();
+
         (new Activation())->activate();
         (new Deactivation())->register();
         (new UnInstallation())->register();
@@ -54,6 +58,24 @@ final class Plugin
         new HookService();
 
         $this->deleteLogScheduler();
+    }
+
+    /**
+     * @return void
+     */
+    public function registerOauthCallbackRoute()
+    {
+        if (Request::Check('ajax') || Request::Check('cron') || Request::isRest()) {
+            return;
+        }
+
+        Hooks::add('parse_request', [new OauthCallbackController(), 'handle']);
+
+        if (get_option('permalink_structure') === '') {
+            return;
+        }
+
+        (new RewriteRuleProvider(OauthCallbackController::ROUTE))->register();
     }
 
     public function every_week_time_cron($schedules)

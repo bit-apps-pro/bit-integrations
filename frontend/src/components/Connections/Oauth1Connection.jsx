@@ -20,6 +20,7 @@ import { __ } from '../../Utils/i18nwrap'
 import { APP_CONFIG } from '../../config/app'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
+import SecretInput from '../Utilities/SecretInput'
 
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
 
@@ -379,12 +380,11 @@ export default function Oauth1Connection({
           <div className="mt-3">
             <b>{authDetails?.clientSecretLabel || __('Client Secret:', 'bit-integrations')}</b>
           </div>
-          <input
-            className="btcd-paper-inp w-6 mt-1"
+          <SecretInput
+            className="w-6 mt-1"
             onChange={handleChange}
             name="clientSecret"
             value={formData.clientSecret || ''}
-            type="password"
             placeholder={__('Client Secret...', 'bit-integrations')}
             disabled={isInfo}
           />
