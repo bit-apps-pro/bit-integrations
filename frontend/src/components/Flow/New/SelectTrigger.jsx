@@ -123,10 +123,7 @@ export default function SelectTrigger() {
       {newFlow.triggered_entity ? (
         <>
           <div role="button" className="btcd-inte-card flx flx-center flx-wrp mt-3" tabIndex="0">
-            <GetLogo
-              name={newFlow.triggered_entity}
-              extension='webp'
-            />
+            <GetLogo name={newFlow.triggered_entity} extension="webp" />
             <div className="txt-center">{allTriggers.data[newFlow.triggered_entity]?.name}</div>
             <button
               onClick={removeTrigger}
@@ -180,8 +177,9 @@ export default function SelectTrigger() {
                     }
                     role="button"
                     tabIndex="0"
-                    className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !allTriggers?.data[inte]?.isPro) && 'btcd-inte-dis'
-                      } ${allTriggers?.data[inte]?.isPro && !isPro && 'btcd-inte-pro'}`}>
+                    className={`btcd-inte-card inte-sm mr-4 mt-3 ${
+                      inte.disable && (isPro || !allTriggers?.data[inte]?.isPro) && 'btcd-inte-dis'
+                    } ${allTriggers?.data[inte]?.isPro && !isPro && 'btcd-inte-pro'}`}>
                     {allTriggers?.data[inte]?.isPro && !isPro && (
                       <>
                         <div className="pro-filter">
@@ -194,7 +192,7 @@ export default function SelectTrigger() {
                         </div>
                       </>
                     )}
-                    <GetLogo name={inte} extension='webp' />
+                    <GetLogo name={inte} extension="webp" />
                     <div className="txt-center">{allTriggers?.data[inte]?.name}</div>
                   </div>
                 ))}

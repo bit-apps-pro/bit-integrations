@@ -18,7 +18,6 @@ export default function SalesforceFieldMap({
   actionName,
   selesforceFields
 }) {
-
   const requiredFlds = (selesforceFields && selesforceFields.filter(fld => fld.required === true)) || []
   const nonRequiredFlds =
     (selesforceFields && selesforceFields.filter(fld => fld.required === false)) || []

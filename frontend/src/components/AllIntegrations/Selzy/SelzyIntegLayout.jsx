@@ -190,7 +190,6 @@ function SelzyIntegLayout({ selzyConf, setSelzyConf, formFields, loading, setLoa
         </div>
       )}
 
-
       {loading.page && (
         <Loader
           style={{

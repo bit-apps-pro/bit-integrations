@@ -94,7 +94,6 @@ function MailerLite({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <MailerLiteAuthorization
         mailerLiteConf={mailerLiteConf}
         setMailerLiteConf={setMailerLiteConf}

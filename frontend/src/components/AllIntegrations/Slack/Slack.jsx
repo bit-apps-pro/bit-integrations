@@ -54,7 +54,6 @@ function Slack({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
       />
 
-
       <div
         className="btcd-stp-page"
         style={{

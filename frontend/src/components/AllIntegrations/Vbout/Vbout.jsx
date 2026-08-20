@@ -64,7 +64,6 @@ function Vbout({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <VboutAuthorization
         vboutConf={vboutConf}
         setVboutConf={setVboutConf}

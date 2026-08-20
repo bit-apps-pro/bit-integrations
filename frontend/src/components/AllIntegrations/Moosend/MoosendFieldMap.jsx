@@ -49,7 +49,6 @@ function MoosendFieldMap({ i, field, formFields, moosendConf, setMoosendConf }) 
             </optgroup>
           </select>
 
-
           {field.formFields === 'custom' && (
             <TagifyInput
               onChange={e => handleCustomValue(e, i, moosendConf, setMoosendConf)}

@@ -57,7 +57,6 @@ function MailercloudFieldMap({ i, field, formFields, mailercloudConf, setMailerc
             </optgroup>
           </select>
 
-
           {field.formField === 'custom' && (
             <TagifyInput
               onChange={e => handleCustomValue(e, i, mailercloudConf, setMailercloudConf)}

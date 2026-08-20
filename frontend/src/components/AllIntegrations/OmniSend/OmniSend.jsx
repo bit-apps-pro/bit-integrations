@@ -140,7 +140,6 @@ function OmniSend({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <OmniSendAuthorization
         omniSendConf={omniSendConf}
         setOmniSendConf={setOmniSendConf}

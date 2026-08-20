@@ -61,7 +61,6 @@ function ElasticEmail({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <ElasticEmailAuthorization
         elasticEmailConf={elasticEmailConf}
         setElasticEmailConf={setElasticEmailConf}

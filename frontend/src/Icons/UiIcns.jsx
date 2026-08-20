@@ -1,4 +1,3 @@
-
 function Frame({ size, className, children }) {
   return (
     <svg

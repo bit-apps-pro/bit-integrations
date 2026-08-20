@@ -65,7 +65,6 @@ function Twilio({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <TwilioAuthorization
         twilioConf={twilioConf}
         setTwilioConf={setTwilioConf}

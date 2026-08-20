@@ -55,7 +55,6 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <SelzyAuthorization
         selzyConf={selzyConf}
         setSelzyConf={setSelzyConf}
@@ -64,7 +63,6 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
         step={step}
         setStep={setStep}
       />
-
 
       <StepPage step={step} stepNo={2} style={{ width: 900, height: 'auto', overflow: 'visible' }}>
         <SelzyIntegLayout

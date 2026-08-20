@@ -52,7 +52,6 @@ function AcademyLms({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <AcademyLmsAuthorization
         academyLmsConf={academyLmsConf}
         setAcademyLmsConf={setAcademyLmsConf}

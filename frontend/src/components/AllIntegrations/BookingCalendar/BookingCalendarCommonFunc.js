@@ -51,10 +51,7 @@ export const getBookingCalendarValidationMsg = bookingCalendarConf => {
   }
 
   const unmapped = bookingCalendarConf?.field_map?.filter(
-    f =>
-      !f.formField ||
-      !f.bookingCalendarField ||
-      (f.formField === 'custom' && !f.customValue)
+    f => !f.formField || !f.bookingCalendarField || (f.formField === 'custom' && !f.customValue)
   )
 
   if (unmapped?.length > 0) {

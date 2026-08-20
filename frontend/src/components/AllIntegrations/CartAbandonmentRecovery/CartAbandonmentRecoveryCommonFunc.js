@@ -3,21 +3,14 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 
-const SESSION_ACTIONS = [
-  'delete_abandoned_cart',
-  'reschedule_recovery_emails',
-  'update_cart_status'
-]
+const SESSION_ACTIONS = ['delete_abandoned_cart', 'reschedule_recovery_emails', 'update_cart_status']
 
 const isSessionIdMapped = cartAbandonmentRecoveryConf => {
   const sessionField = cartAbandonmentRecoveryConf?.field_map?.find(
     field => field.cartAbandonmentRecoveryField === 'session_id'
   )
 
-  return !!(
-    sessionField?.formField &&
-    (sessionField.formField !== 'custom' || sessionField.customValue)
-  )
+  return !!(sessionField?.formField && (sessionField.formField !== 'custom' || sessionField.customValue))
 }
 
 export const handleInput = (e, cartAbandonmentRecoveryConf, setCartAbandonmentRecoveryConf) => {

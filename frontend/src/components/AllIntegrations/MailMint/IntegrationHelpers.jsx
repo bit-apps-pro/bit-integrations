@@ -18,7 +18,6 @@ export const delFieldMap = (i, confTmp, setConf) => {
 }
 
 export const handleFieldMapping = (event, index, conftTmp, setConf) => {
-
   setConf(prevConf =>
     create(prevConf, draftconf => {
       draftconf.field_map[index][event.target.name] = event.target.value

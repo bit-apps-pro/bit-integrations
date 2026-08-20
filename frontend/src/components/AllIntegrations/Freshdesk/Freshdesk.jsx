@@ -66,7 +66,6 @@ function Freshdesk({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-
       <div
         className="btcd-stp-page"
         style={{

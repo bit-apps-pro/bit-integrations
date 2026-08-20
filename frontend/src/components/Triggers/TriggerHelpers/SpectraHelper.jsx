@@ -123,7 +123,6 @@ const SpectraHelper = () => {
     )
   }
   useEffect(() => {
-
     return () => {
       setFields()
       bitsFetch({ hook_id: window.hook_id }, 'spectra/test/remove').then(resp => {

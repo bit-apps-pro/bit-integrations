@@ -38,8 +38,7 @@ function FreshSales({ formFields, setFlow, flow, allIntegURL }) {
           requiredFields: []
         },
         Product: {
-          requiredFields: [
-          ]
+          requiredFields: []
         }
       }
     },

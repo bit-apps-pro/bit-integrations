@@ -19,9 +19,7 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const allActions = [
-    { key: '1', label: __("Add commission to user's affiliate", 'bit-integrations') }
-  ]
+  const allActions = [{ key: '1', label: __("Add commission to user's affiliate", 'bit-integrations') }]
 
   const sliceWpFields = [
     { key: 'commission_date', label: __('commission_date', 'bit-integrations'), required: true },

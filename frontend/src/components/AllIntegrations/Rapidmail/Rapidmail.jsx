@@ -90,7 +90,6 @@ function Rapidmail({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <RapidmailAuthorization
         rapidmailConf={rapidmailConf}
         setRapidmailConf={setRapidmailConf}

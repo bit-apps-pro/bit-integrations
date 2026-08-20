@@ -78,7 +78,6 @@ function Instasent({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <InstasentAuthorization
         instasentConf={instasentConf}
         setInstasentConf={setInstasentConf}

@@ -96,9 +96,7 @@ const SendGridAuthorization = lazy(() => import('./SendGrid/SendGridAuthorizatio
 const FabmanAuthorization = lazy(() => import('./Fabman/FabmanAuthorization'))
 const PCloudAuthorization = lazy(() => import('./PCloud/PCloudAuthorization'))
 const EmailOctopusAuthorization = lazy(() => import('./EmailOctopus/EmailOctopusAuthorization'))
-const EventsManagerAuthorization = lazy(
-  () => import('./EventsManager/EventsManagerAuthorization')
-)
+const EventsManagerAuthorization = lazy(() => import('./EventsManager/EventsManagerAuthorization'))
 const CustomAction = lazy(() => import('./CustomAction/CustomFuncEditor'))
 const SmailyAuthentication = lazy(() => import('./Smaily/SmailyAuthorization'))
 const SureCartAuthorization = lazy(() => import('./SureCart/SureCartAuthorization'))
@@ -218,9 +216,7 @@ const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthoriza
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
 const BookingCalendarAuthorization = lazy(() => import('./BookingCalendar/BookingCalendarAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
-const WpTableBuilderAuthorization = lazy(
-  () => import('./WpTableBuilder/WpTableBuilderAuthorization')
-)
+const WpTableBuilderAuthorization = lazy(() => import('./WpTableBuilder/WpTableBuilderAuthorization'))
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const IvyFormsAuthorization = lazy(() => import('./IvyForms/IvyFormsAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
@@ -745,13 +741,7 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
     case 'BookingPress':
       return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
     case 'BookingCalendar':
-      return (
-        <BookingCalendarAuthorization
-          bookingCalendarConf={integrationConf}
-          step={1}
-          isInfo
-        />
-      )
+      return <BookingCalendarAuthorization bookingCalendarConf={integrationConf} step={1} isInfo />
     case 'WpDataTables':
       return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
     case 'WpTableBuilder':

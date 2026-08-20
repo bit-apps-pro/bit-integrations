@@ -375,7 +375,6 @@ export default function CopperCRMActions({ copperCRMConf, setCopperCRMConf, load
         )}
       </ConfirmModal>
 
-
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"

@@ -57,7 +57,6 @@ function KlaviyoIntegLayout({ klaviyoConf, setKlaviyoConf, formFields, loading, 
         &#x21BB;
       </button>
 
-
       {loading.list && (
         <Loader
           style={{

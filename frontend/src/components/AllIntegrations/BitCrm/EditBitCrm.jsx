@@ -39,11 +39,7 @@ export default function EditBitCrm({ allIntegURL }) {
 
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
-      <BitCrmIntegLayout
-        formFields={formFields}
-        bitCrmConf={bitCrmConf}
-        setBitCrmConf={setBitCrmConf}
-      />
+      <BitCrmIntegLayout formFields={formFields} bitCrmConf={bitCrmConf} setBitCrmConf={setBitCrmConf} />
 
       <IntegrationStepThree
         edit

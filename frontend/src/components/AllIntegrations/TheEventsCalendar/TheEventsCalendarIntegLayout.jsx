@@ -140,7 +140,6 @@ export default function TheEventsCalendarIntegLayout({
             </button>
           </div>
         )}
-
       </div>
     </>
   )

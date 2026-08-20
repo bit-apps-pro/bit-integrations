@@ -97,8 +97,6 @@ export default function BuddyBossActions({ buddyBossConf, setBuddyBossConf, form
           </div>
         )}
       </ConfirmModal>
-
-
     </div>
   )
 }

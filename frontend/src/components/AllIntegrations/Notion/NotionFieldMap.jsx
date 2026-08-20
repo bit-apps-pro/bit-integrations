@@ -57,7 +57,6 @@ function NotionFieldMap({ i, field, formFields, notionConf, setNotionConf }) {
             </optgroup>
           </select>
 
-
           {field.formFields === 'custom' && (
             <TagifyInput
               onChange={e => handleCustomValue(e, i, notionConf, setNotionConf)}

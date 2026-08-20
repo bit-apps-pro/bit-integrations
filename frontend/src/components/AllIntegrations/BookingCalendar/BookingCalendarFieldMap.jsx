@@ -73,9 +73,7 @@ export default function BookingCalendarFieldMap({
             disabled={i < requiredFlds.length}
             name="bookingCalendarField"
             value={
-              i < requiredFlds.length
-                ? requiredFlds[i].key || ''
-                : field.bookingCalendarField || ''
+              i < requiredFlds.length ? requiredFlds[i].key || '' : field.bookingCalendarField || ''
             }
             onChange={ev => handleFieldMapping(ev, i, bookingCalendarConf, setBookingCalendarConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>

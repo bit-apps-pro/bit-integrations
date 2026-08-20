@@ -45,11 +45,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
 
   const crmSelects = crmSelectFields(bitCrmConf)
   const crmLookups = crmLookupFields(bitCrmConf)
-  const mappableFields = [
-    ...staticFields,
-    ...conditionalFields(bitCrmConf),
-    ...crmMapFields(bitCrmConf)
-  ]
+  const mappableFields = [...staticFields, ...conditionalFields(bitCrmConf), ...crmMapFields(bitCrmConf)]
 
   const requiredKeys = mappableFields
     .filter(fld => fld.required === true)
@@ -120,13 +116,12 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
     setBitCrmConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf[key] = val
-
-          ;[...selects, ...dropdowns]
-            .filter(item => item.dependsOn === key)
-            .forEach(item => {
-              delete draftConf[item.key]
-              delete draftConf[item.listKey]
-            })
+        ;[...selects, ...dropdowns]
+          .filter(item => item.dependsOn === key)
+          .forEach(item => {
+            delete draftConf[item.key]
+            delete draftConf[item.listKey]
+          })
       })
     )
 
@@ -184,9 +179,9 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
         allConfigurableKeys.forEach(key => {
           if (!keepKeys.has(key)) delete draftConf[key]
         })
-          ; (actionSelects[value] ?? []).forEach(sel => {
-            if (sel.defaultValue !== undefined) draftConf[sel.key] = sel.defaultValue
-          })
+        ;(actionSelects[value] ?? []).forEach(sel => {
+          if (sel.defaultValue !== undefined) draftConf[sel.key] = sel.defaultValue
+        })
       })
     )
   }
@@ -278,9 +273,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
             closeOnSelect
           />
           <button
-            onClick={() =>
-              refreshBitCrmList(lookup.route, lookup.listKey, setBitCrmConf, setIsLoading)
-            }
+            onClick={() => refreshBitCrmList(lookup.route, lookup.listKey, setBitCrmConf, setIsLoading)}
             className="icn-btn sh-sm ml-2 mr-2 tooltip"
             style={{ '--tooltip-txt': `'${__('Refresh', 'bit-integrations')}'` }}
             type="button"

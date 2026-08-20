@@ -309,7 +309,6 @@ export default function CapsuleCRMActions({ capsulecrmConf, setCapsuleCRMConf, l
         )}
       </ConfirmModal>
 
-
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"

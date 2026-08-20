@@ -76,7 +76,6 @@ export const refreshZagoMailTags = (zagoMailConf, setZagoMailConf, setIsLoading,
             )
           })
         }
-
       } else {
         setSnackbar?.({
           show: true,

@@ -107,9 +107,9 @@ export default function LatePointIntegLayout({
           options={
             Array.isArray(lists?.[listKey])
               ? lists[listKey].map(item => ({
-                label: item.label,
-                value: item.value?.toString()
-              }))
+                  label: item.label,
+                  value: item.value?.toString()
+                }))
               : []
           }
           onChange={val => setField(confKey, val)}

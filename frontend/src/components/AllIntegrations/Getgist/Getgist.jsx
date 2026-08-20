@@ -70,7 +70,6 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <GetgistAuthorization
         getgistConf={getgistConf}
         setGetgistConf={setGetgistConf}

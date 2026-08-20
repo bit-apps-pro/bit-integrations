@@ -345,7 +345,7 @@ const convertToSel = {
   multi: true,
   required: true,
   lockedValues: ['contact', 'company'],
-  defaultValue: 'contact,company',
+  defaultValue: 'contact,company'
 }
 const moveRelatedSel = {
   key: 'moveRelatedDataTo',

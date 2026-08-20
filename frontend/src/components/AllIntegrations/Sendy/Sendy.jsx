@@ -64,7 +64,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <SendyAuthorization
         sendyConf={sendyConf}
         setSendyConf={setSendyConf}

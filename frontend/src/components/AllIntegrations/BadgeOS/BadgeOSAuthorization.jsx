@@ -2,13 +2,7 @@ import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
 
-export default function BadgeOSAuthorization({
-  badgeOSConf,
-  setBadgeOSConf,
-  step,
-  nextPage,
-  isInfo
-}) {
+export default function BadgeOSAuthorization({ badgeOSConf, setBadgeOSConf, step, nextPage, isInfo }) {
   return (
     <Authorization
       config={badgeOSConf}

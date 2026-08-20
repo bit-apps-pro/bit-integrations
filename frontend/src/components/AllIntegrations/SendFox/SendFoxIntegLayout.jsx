@@ -181,7 +181,6 @@ export default function SendFoxIntegLayout({
         </>
       )}
 
-
       {sendFoxConf.mainAction === '3' && (
         <>
           <div className="mt-5">

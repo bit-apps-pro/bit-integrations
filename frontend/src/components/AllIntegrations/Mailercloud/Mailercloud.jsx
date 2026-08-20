@@ -34,7 +34,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <MailercloudAuthorization
         mailercloudConf={mailercloudConf}
         setMailercloudConf={setMailercloudConf}
@@ -43,7 +42,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
         step={step}
         setStep={setStep}
       />
-
 
       <StepPage step={step} stepNo={2} style={{ width: 900, height: 'auto', overflow: 'visible' }}>
         <MailercloudIntegLayout
@@ -65,7 +63,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
           </button>
         )}
       </StepPage>
-
 
       {mailercloudConf.listId && (
         <IntegrationStepThree

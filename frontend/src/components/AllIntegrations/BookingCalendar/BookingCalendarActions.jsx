@@ -6,7 +6,10 @@ const bookingCalendarUtilities = [
   {
     key: 'is_send_emails',
     title: __('Send Emails', 'bit-integrations'),
-    subTitle: __('Send Booking Calendar email notifications after the booking is saved.', 'bit-integrations')
+    subTitle: __(
+      'Send Booking Calendar email notifications after the booking is saved.',
+      'bit-integrations'
+    )
   },
   {
     key: 'is_show_payment_form',

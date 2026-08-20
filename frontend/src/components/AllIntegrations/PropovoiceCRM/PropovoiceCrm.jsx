@@ -74,7 +74,6 @@ function PropovoiceCrm({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-
       <div
         className="btcd-stp-page"
         style={{
@@ -104,7 +103,6 @@ function PropovoiceCrm({ formFields, setFlow, flow, allIntegURL }) {
           <BackIcn className="ml-1 rev-icn" />
         </button>
       </div>
-
 
       <IntegrationStepThree
         step={step}

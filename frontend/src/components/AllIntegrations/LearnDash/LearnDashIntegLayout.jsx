@@ -659,7 +659,6 @@ export default function LearnDeshIntegLayout({
         </div>
       )}
 
-
       {learnDashConf.mainAction === '16' && (
         <Mail
           allIntegURL={allIntegURL}

@@ -6,7 +6,6 @@ export const getTopicByForum = (val, tmpNewFlow, setNewFlow, edit = false) => {
   const queryParams = { forum_id: val }
   const loadPostTypes = bitsFetch(null, 'get_all_topic_by_forum', queryParams, 'GET').then(result => {
     if (result && result.success) {
-
       setNewFlow(
         create(tmpNewFlow, draftConf => {
           if (!edit) {

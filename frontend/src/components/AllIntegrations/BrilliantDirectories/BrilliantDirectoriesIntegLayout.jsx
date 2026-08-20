@@ -81,9 +81,7 @@ export default function BrilliantDirectoriesIntegLayout({
           closeOnSelect
         />
         <button
-          onClick={() =>
-            refresh(brilliantDirectoriesConf, setBrilliantDirectoriesConf, setIsLoading)
-          }
+          onClick={() => refresh(brilliantDirectoriesConf, setBrilliantDirectoriesConf, setIsLoading)}
           className="icn-btn sh-sm ml-2 mr-2 tooltip"
           style={{ '--tooltip-txt': `'${tooltip}'` }}
           type="button"

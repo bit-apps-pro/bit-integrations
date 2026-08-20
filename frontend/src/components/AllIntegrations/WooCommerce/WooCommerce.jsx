@@ -107,10 +107,7 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
           setIsLoading={setIsLoading}
         />
 
-        <button
-          onClick={nextPage}
-          className="btn f-right btcd-btn-lg purple sh-sm flx"
-          type="button">
+        <button onClick={nextPage} className="btn f-right btcd-btn-lg purple sh-sm flx" type="button">
           {__('Next', 'bit-integrations')}
           <BackIcn className="ml-1 rev-icn" />
         </button>

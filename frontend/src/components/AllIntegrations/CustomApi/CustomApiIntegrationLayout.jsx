@@ -144,7 +144,6 @@ const CustomApiIntegrationLayout = ({
           />
         </Panel>
       </Tabs>
-
     </>
   )
 }

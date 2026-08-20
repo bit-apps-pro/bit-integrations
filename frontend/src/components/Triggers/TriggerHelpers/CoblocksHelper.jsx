@@ -123,7 +123,6 @@ const CoblocksHelper = () => {
     )
   }
   useEffect(() => {
-
     return () => {
       setFields()
       bitsFetch({ hook_id: window.hook_id }, 'coblocks/test/remove').then(resp => {

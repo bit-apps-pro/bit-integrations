@@ -70,7 +70,6 @@ function SureCart({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-
       <div
         className="btcd-stp-page"
         style={{
@@ -98,7 +97,6 @@ function SureCart({ formFields, setFlow, flow, allIntegURL }) {
           <BackIcn className="ml-1 rev-icn" />
         </button>
       </div>
-
 
       <IntegrationStepThree
         step={step}

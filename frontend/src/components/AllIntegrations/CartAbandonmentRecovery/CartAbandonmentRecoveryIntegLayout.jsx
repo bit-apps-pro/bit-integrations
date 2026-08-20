@@ -9,11 +9,7 @@ import { refreshCartAbandonmentRecoveryCarts } from './CartAbandonmentRecoveryCo
 import CartAbandonmentRecoveryFieldMap from './CartAbandonmentRecoveryFieldMap'
 import { cartStatusOptions, modules } from './staticData'
 
-const SESSION_ACTIONS = [
-  'delete_abandoned_cart',
-  'reschedule_recovery_emails',
-  'update_cart_status'
-]
+const SESSION_ACTIONS = ['delete_abandoned_cart', 'reschedule_recovery_emails', 'update_cart_status']
 
 const SESSION_ID_FIELD = {
   formField: '',

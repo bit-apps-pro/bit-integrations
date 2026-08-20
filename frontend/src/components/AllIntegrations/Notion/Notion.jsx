@@ -45,7 +45,6 @@ function Notion({ formFields, setFlow, flow, allIntegURL }) {
         setNotionConf={setNotionConf}
       />
 
-
       <StepPage step={step} stepNo={2} style={{ width: 900, height: 'auto', overflow: 'visible' }}>
         <NotionIntegLayout
           notionConf={notionConf}

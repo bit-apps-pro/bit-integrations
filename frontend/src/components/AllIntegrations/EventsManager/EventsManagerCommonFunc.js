@@ -30,4 +30,3 @@ export const checkMappedFields = eventsManagerConf => {
       (mappedField.formField === 'custom' && !mappedField.customValue)
   )
 }
-

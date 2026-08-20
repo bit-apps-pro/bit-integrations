@@ -126,7 +126,6 @@ export default function GetgistFieldMap({ i, formFields, field, getgistConf, set
             </button>
           </>
         )}
-
       </div>
     </div>
   )

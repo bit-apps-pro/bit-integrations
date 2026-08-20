@@ -71,7 +71,6 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <RestrictContentAuthorization
         restrictConf={restrictConf}
         setRestrictConf={setRestrictConf}

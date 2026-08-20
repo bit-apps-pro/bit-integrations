@@ -1,4 +1,3 @@
-
 export const resolveTemplate = (template, data) => {
   if (!template) return ''
   return template.replace(/\{(\w+)\}/g, (_, key) => {

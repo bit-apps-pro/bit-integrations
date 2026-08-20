@@ -121,7 +121,6 @@ export const getAllSections = (confTmp, setConf, setLoading) => {
 
   bitsFetch(requestParams, 'asana_fetch_all_Sections').then(result => {
     if (result && result.success) {
-
       setConf(oldConf => {
         const newConf = { ...oldConf }
         if (!newConf.default) {

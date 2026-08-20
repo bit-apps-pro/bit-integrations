@@ -148,7 +148,6 @@ function MoosendIntegLayout({ moosendConf, setMoosendConf, formFields, loading, 
 
       {!isPro && <Note note={note} />}
 
-
       {loading.page && (
         <Loader
           style={{

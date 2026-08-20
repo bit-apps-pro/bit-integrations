@@ -65,7 +65,6 @@ export default function GroundhoggMetaFieldMap({
             </optgroup>
           </select>
 
-
           {field.formField === 'custom' && (
             <TagifyInput
               onChange={e => handleMetaCustomValue(e, i, groundhoggConf, setGroundhoggConf)}

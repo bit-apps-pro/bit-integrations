@@ -339,7 +339,6 @@ export default function ZendeskActions({ zendeskConf, setZendeskConf, loading, s
         )}
       </ConfirmModal>
 
-
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"

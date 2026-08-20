@@ -416,7 +416,6 @@ export const checkRequired = pipeDriveConf => {
     ) {
       return false
     }
-
   }
   return true
 }

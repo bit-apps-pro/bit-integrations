@@ -56,7 +56,6 @@ function KlaviyoFieldMap({ i, field, formFields, klaviyoConf, setKlaviyoConf, ty
             </optgroup>
           </select>
 
-
           {field.formField === 'custom' && (
             <TagifyInput
               onChange={e => handleCustomValue(e, i)}

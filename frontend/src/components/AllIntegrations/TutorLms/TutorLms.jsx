@@ -53,7 +53,6 @@ function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-
       <TutorLmsAuthorization
         tutorlmsConf={tutorlmsConf}
         setTutorlmsConf={setTutorlmsConf}
