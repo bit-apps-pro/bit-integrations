@@ -23,11 +23,31 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\CurrencyService())->getOtherCurrenciesAsOptions())]);
     }
 
+    // Read whole rather than as bare options: the layout decides a closing date
+    // by the stage's category.
     public static function refreshDealStages()
     {
         self::ensureClass('BitApps\Crm\Services\DealStageService');
-        $stages = (new \BitApps\Crm\Services\DealStageService())->getStagesAsOptions(\BitApps\Crm\Services\DealStageService::STATUS_ACTIVE);
-        wp_send_json_success(['options' => self::normalize($stages)]);
+
+        $stages = (new \BitApps\Crm\Services\DealStageService())->getAllStages(\BitApps\Crm\Services\DealStageService::STATUS_ACTIVE);
+        $options = [];
+
+        foreach ((array) $stages as $stage) {
+            $stage = (array) $stage;
+            $value = (string) ($stage['key'] ?? '');
+
+            if ($value === '') {
+                continue;
+            }
+
+            $options[] = [
+                'label'    => (string) ($stage['name'] ?? $value),
+                'value'    => $value,
+                'category' => (string) ($stage['deal_category'] ?? ''),
+            ];
+        }
+
+        wp_send_json_success(['options' => $options]);
     }
 
     public static function refreshInvoiceTerms()
@@ -48,17 +68,17 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\CompanyService())->getEntitiesAsOptions())]);
     }
 
-    /**
-     * Records of one module, for the pickers that follow a module select.
-     *
-     * @param object $data
-     */
     public static function refreshUsers()
     {
         self::ensureClass('BitApps\Crm\Services\UserService');
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\UserService())->getUsersAsOptions())]);
     }
 
+    /**
+     * Records of one module, for the pickers that follow a module select.
+     *
+     * @param object $data
+     */
     public static function refreshEntities($data)
     {
         self::isExists();
@@ -79,6 +99,18 @@ class BitCrmController
         $service = $serviceByModule[$module];
 
         wp_send_json_success(['options' => self::normalize((new $service())->getEntitiesAsOptions())]);
+    }
+
+    /**
+     * @param object $data
+     */
+    public static function refreshFields($data)
+    {
+        self::isExists();
+
+        $module = isset($data->module) ? sanitize_text_field($data->module) : '';
+
+        wp_send_json_success(['fields' => BitCrmFieldService::fields($module)]);
     }
 
     public static function refreshLeadTags()
@@ -111,13 +143,12 @@ class BitCrmController
         $integrationDetails = $integrationData->flow_details;
         $integId            = $integrationData->id;
         $fieldMap           = $integrationDetails->field_map;
-        $utilities          = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
         if (empty($fieldMap)) {
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap, $utilities);
+        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
     }
 
     private static function ensureClass($class)

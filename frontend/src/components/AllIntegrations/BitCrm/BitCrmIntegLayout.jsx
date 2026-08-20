@@ -7,10 +7,23 @@ import { __ } from '../../../Utils/i18nwrap'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
-import { generateMappedField, refreshBitCrmList, syncRequiredFieldMap } from './BitCrmCommonFunc'
+import {
+  conditionalFields,
+  CRM_FIELDS_KEY,
+  crmLookupFields,
+  crmMapFields,
+  crmSelectFields,
+  dropStaleConditionalRows,
+  fetchBitCrmFields,
+  generateMappedField,
+  isEmptyValue,
+  refreshBitCrmList,
+  syncRequiredFieldMap
+} from './BitCrmCommonFunc'
 import BitCrmFieldMap from './BitCrmFieldMap'
 import {
   actionDropdowns,
+  actionFieldModules,
   actionSelects,
   actionUtilities,
   allConfigurableKeys,
@@ -21,19 +34,42 @@ import {
 export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmConf }) {
   const { isPro } = useRecoilValue($appConfigState)
   const [isLoading, setIsLoading] = useState(false)
+  const [lockedSelectKey, setLockedSelectKey] = useState(0)
 
   const action = bitCrmConf?.mainAction
-  const bitCrmFields = bitCrmStaticData[action] ?? []
+  const staticFields = bitCrmStaticData[action] ?? []
   const dropdowns = actionDropdowns[action] ?? []
   const selects = actionSelects[action] ?? []
   const utilities = actionUtilities[action] ?? []
+  const crmModule = actionFieldModules[action]
 
-  // A config saved before a field became required still lists the old rows, and
-  // the field map renders its required rows by position.
+  const crmSelects = crmSelectFields(bitCrmConf)
+  const crmLookups = crmLookupFields(bitCrmConf)
+  const mappableFields = [
+    ...staticFields,
+    ...conditionalFields(bitCrmConf),
+    ...crmMapFields(bitCrmConf)
+  ]
+
+  const requiredKeys = mappableFields
+    .filter(fld => fld.required === true)
+    .map(fld => fld.key)
+    .join(',')
+
   useEffect(() => {
-    if (!action || bitCrmFields.length === 0) return
+    if (!crmModule || bitCrmConf?.crmFieldsModule === crmModule) return
 
-    const synced = syncRequiredFieldMap(bitCrmConf?.field_map ?? [], bitCrmFields)
+    fetchBitCrmFields(crmModule, setBitCrmConf, setIsLoading)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [crmModule])
+
+  // The field map renders its required rows by position, so they have to be re-keyed
+  // when the required list changes.
+  useEffect(() => {
+    if (!action || mappableFields.length === 0) return
+
+    const pruned = dropStaleConditionalRows(bitCrmConf?.field_map ?? [], mappableFields)
+    const synced = syncRequiredFieldMap(pruned, mappableFields)
     if (synced === bitCrmConf?.field_map) return
 
     setBitCrmConf(prevConf =>
@@ -42,23 +78,96 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       })
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action, requiredKeys])
+
+  useEffect(() => {
+    if (!action) return
+
+    const unseeded = selects.filter(
+      sel => sel.defaultValue !== undefined && isEmptyValue(bitCrmConf?.[sel.key])
+    )
+    if (unseeded.length === 0) return
+
+    setBitCrmConf(prevConf =>
+      create(prevConf, draftConf => {
+        unseeded.forEach(sel => {
+          draftConf[sel.key] = sel.defaultValue
+        })
+      })
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action])
+
+  // Create only: on an update an unset select leaves the column alone, and
+  // seeding one would start rewriting it.
+  useEffect(() => {
+    if (!action?.startsWith('create_')) return
+
+    const unseeded = crmSelects.filter(
+      sel => sel.defaultValue !== undefined && isEmptyValue(bitCrmConf?.fieldValues?.[sel.key])
+    )
+    if (unseeded.length === 0) return
+
+    setBitCrmConf(prevConf =>
+      create(prevConf, draftConf => {
+        if (!draftConf.fieldValues) draftConf.fieldValues = {}
+
+        unseeded.forEach(sel => {
+          draftConf.fieldValues[sel.key] = sel.defaultValue
+        })
+      })
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action, crmSelects.map(sel => sel.key).join(',')])
 
   const setField = (key, val) =>
     setBitCrmConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf[key] = val
 
-        // A dependent list belongs to the value just replaced, so drop it along
-        // with the selection made from it.
-        ;[...selects, ...dropdowns]
-          .filter(item => item.dependsOn === key)
-          .forEach(item => {
-            delete draftConf[item.key]
-            delete draftConf[item.listKey]
-          })
+          // A dependent list belongs to the value just replaced.
+          ;[...selects, ...dropdowns]
+            .filter(item => item.dependsOn === key)
+            .forEach(item => {
+              delete draftConf[item.key]
+              delete draftConf[item.listKey]
+            })
       })
     )
+
+  const setCrmField = (key, val) =>
+    setBitCrmConf(prevConf =>
+      create(prevConf, draftConf => {
+        if (!draftConf.fieldValues) draftConf.fieldValues = {}
+        draftConf.fieldValues[key] = val
+      })
+    )
+
+  // A locked option can still be removed by its chip's delete button or by clear.
+  // Remount on a rejected delete: the dropdown re-reads the prop only when the
+  // string changes, and putting the value back leaves it unchanged.
+  const handleSelectChange = (sel, val) => {
+    if (!sel.lockedValues) {
+      setField(sel.key, val)
+      return
+    }
+
+    const picked = String(val ?? '')
+      .split(',')
+      .filter(Boolean)
+    const locked = [
+      ...sel.lockedValues,
+      ...picked.filter(item => !sel.lockedValues.includes(item))
+    ].join(',')
+
+    if (locked !== val) setLockedSelectKey(prevKey => prevKey + 1)
+    setField(sel.key, locked)
+  }
+
+  const selectOptions = sel =>
+    sel.lockedValues
+      ? sel.options.map(opt => (sel.lockedValues.includes(opt.value) ? { ...opt, disabled: true } : opt))
+      : sel.options
 
   const toggleUtility = key =>
     setBitCrmConf(prevConf =>
@@ -68,9 +177,8 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
       })
     )
 
-  // Selects are stored flat on conf, and several of them write the same Bit CRM
-  // field (status, type, lead source). Drop whatever the previous action left
-  // behind, so a stale value can never be sent with the new action.
+  // Selects are stored flat on conf and several write the same Bit CRM field, so
+  // whatever the previous action left behind has to be dropped.
   const handleMainAction = value => {
     const keepKeys = new Set(
       [...(actionSelects[value] ?? []), ...(actionDropdowns[value] ?? [])].map(item => item.key)
@@ -81,10 +189,14 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
         draftConf.mainAction = value
         draftConf.field_map = generateMappedField(bitCrmStaticData[value] ?? [])
         draftConf.utilities = {}
+        draftConf.fieldValues = {}
 
         allConfigurableKeys.forEach(key => {
           if (!keepKeys.has(key)) delete draftConf[key]
         })
+          ; (actionSelects[value] ?? []).forEach(sel => {
+            if (sel.defaultValue !== undefined) draftConf[sel.key] = sel.defaultValue
+          })
       })
     )
   }
@@ -97,7 +209,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
         <MultiSelect
           title="mainAction"
           defaultValue={action ?? null}
-          className="mt-2 w-5"
+          className="w-5"
           onChange={handleMainAction}
           options={modules?.map(mod => ({
             label: checkIsPro(isPro, mod.is_pro) ? mod.label : getProLabel(mod.label),
@@ -107,11 +219,22 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
           singleSelect
           closeOnSelect
         />
+        {crmModule && (
+          <button
+            onClick={() => fetchBitCrmFields(crmModule, setBitCrmConf, setIsLoading, true)}
+            className="icn-btn sh-sm ml-2 tooltip"
+            style={{ '--tooltip-txt': `'${__('Refetch Bit CRM Fields', 'bit-integrations')}'` }}
+            type="button"
+            disabled={isLoading === CRM_FIELDS_KEY}>
+            &#x21BB;
+          </button>
+        )}
       </div>
 
-      {/* Fixed enum selects */}
       {selects.map(sel => (
-        <div className="flx mt-3" key={`bit-crm-sel-${sel.key}`}>
+        <div
+          className="flx mt-3"
+          key={`bit-crm-sel-${sel.key}${sel.lockedValues ? `-${lockedSelectKey}` : ''}`}>
           <b className="wdt-200 d-in-b">
             {sel.label}
             {sel.required && <span className="required-icn">*</span>}:
@@ -120,16 +243,63 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
             title={sel.key}
             defaultValue={bitCrmConf?.[sel.key] ?? null}
             className="btcd-paper-drpdwn w-5"
-            options={sel.options}
-            onChange={val => setField(sel.key, val)}
+            options={selectOptions(sel)}
+            onChange={val => handleSelectChange(sel, val)}
             singleSelect={!sel.multi}
             closeOnSelect={!sel.multi}
           />
-          {sel.helperText && <small className="ml-2 txt-dp">{sel.helperText}</small>}
         </div>
       ))}
 
-      {/* Fetched dropdowns */}
+      {crmSelects.map(sel => (
+        <div className="flx mt-3" key={`bit-crm-crm-sel-${sel.key}`}>
+          <b className="wdt-200 d-in-b">
+            {sel.label}
+            {sel.required && <span className="required-icn">*</span>}:
+          </b>
+          <MultiSelect
+            title={sel.key}
+            defaultValue={bitCrmConf?.fieldValues?.[sel.key] ?? null}
+            className="btcd-paper-drpdwn w-5"
+            options={sel.options}
+            onChange={val => setCrmField(sel.key, val)}
+            singleSelect
+            closeOnSelect
+          />
+        </div>
+      ))}
+
+      {crmLookups.map(lookup => (
+        <div className="flx mt-3" key={`bit-crm-lookup-${lookup.key}`}>
+          <b className="wdt-200 d-in-b">
+            {lookup.label}
+            {lookup.required && <span className="required-icn">*</span>}:
+          </b>
+          <MultiSelect
+            title={lookup.key}
+            defaultValue={bitCrmConf?.fieldValues?.[lookup.key] ?? null}
+            className="btcd-paper-drpdwn w-5"
+            options={(bitCrmConf?.[lookup.listKey] ?? []).map(opt => ({
+              label: opt.label,
+              value: String(opt.value)
+            }))}
+            onChange={val => setCrmField(lookup.key, val)}
+            singleSelect
+            closeOnSelect
+          />
+          <button
+            onClick={() =>
+              refreshBitCrmList(lookup.route, lookup.listKey, setBitCrmConf, setIsLoading)
+            }
+            className="icn-btn sh-sm ml-2 mr-2 tooltip"
+            style={{ '--tooltip-txt': `'${__('Refresh', 'bit-integrations')}'` }}
+            type="button"
+            disabled={isLoading === lookup.listKey}>
+            &#x21BB;
+          </button>
+        </div>
+      ))}
+
       {dropdowns.map(dd => (
         <div className="flx mt-3" key={`bit-crm-dd-${dd.key}-${dd.route}`}>
           <b className="wdt-200 d-in-b">
@@ -170,10 +340,9 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
         </div>
       ))}
 
-      {/* Field map (map dynamic form fields onto free-text / identifier fields) */}
-      {action && bitCrmFields.length > 0 && (
+      {action && mappableFields.length > 0 && (
         <div className="mt-4">
-          <div className="mt-5">
+          <div className="flx mt-5">
             <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
           </div>
 
@@ -194,7 +363,7 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
               i={i}
               field={field}
               formFields={formFields}
-              bitCrmFields={bitCrmFields}
+              bitCrmFields={mappableFields}
               bitCrmConf={bitCrmConf}
               setBitCrmConf={setBitCrmConf}
             />
@@ -211,7 +380,6 @@ export default function BitCrmIntegLayout({ formFields, bitCrmConf, setBitCrmCon
         </div>
       )}
 
-      {/* Utilities (booleans) */}
       {utilities.length > 0 && (
         <div className="mt-4">
           <div className="mt-4">

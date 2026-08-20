@@ -125,7 +125,10 @@ export default function SelectTrigger() {
       {newFlow.triggered_entity ? (
         <>
           <div role="button" className="btcd-inte-card flx flx-center flx-wrp mt-3" tabIndex="0">
-            <GetLogo name={newFlow.triggered_entity} extension="webp" />
+            <GetLogo
+              name={newFlow.triggered_entity}
+              extension='webp'
+            />
             <div className="txt-center">{allTriggers.data[newFlow.triggered_entity]?.name}</div>
             <button
               onClick={removeTrigger}
@@ -193,7 +196,7 @@ export default function SelectTrigger() {
                         </div>
                       </>
                     )}
-                    <GetLogo name={inte} extension="webp" />
+                    <GetLogo name={inte} extension='webp' />
                     <div className="txt-center">{allTriggers?.data[inte]?.name}</div>
                   </div>
                 ))}

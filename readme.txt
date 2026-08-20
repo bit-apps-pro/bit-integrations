@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.10.1
+Stable tag: 2.10.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,21 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.2 =
+_Release Date - 4th August 2026_
+
+- **New Feature**
+ - EmailOctopus: Contacts can now be added or updated with the "Pending" status.
+
+- **Improvements**
+ - Connections: API keys, secrets and tokens are now hidden behind dots in the connection form, with an eye button to reveal them when you need to check a value.
+ - Authorization: Apps now return to a dedicated callback address on your site after you approve them. Providers that refused the old redirect URL can now be connected without any extra setup.
+ - Trigger data: Field names taken from nested data are now shorter and easier to read - long paths are trimmed, repeated words removed, and list items are shown as "Items 0" instead of a separate level.
+
+- **Bug Fixes**
+ - Bit Form: Fixed the site address not being read from the connection, which stopped some Bit Form actions from running.
+ - Amelia Booking: Appointment triggers now include the appointment location details (Pro).
 
 = 2.10.1 =
 _Release Date - 30th July 2026_

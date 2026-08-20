@@ -2,18 +2,11 @@ import { __ } from '../../../Utils/i18nwrap'
 import {
   activityStatusOptions,
   convertToOptions,
-  dealLeadSourceOptions,
-  dealTypeOptions,
   invoiceStatusOptions,
-  leadSourceOptions,
-  leadStatusOptions,
   moduleOptions,
   portalCapabilityOptions,
   priorityOptions,
-  productStatusOptions,
-  productTypeOptions,
-  taxOptions,
-  titleOptions
+  taxOptions
 } from './options'
 
 export const modules = [
@@ -133,26 +126,10 @@ function activityFieldMaps(type) {
 }
 
 // ---- Field maps: ONLY the target's required identifier + free-text fields ----
+// An action in actionFieldModules carries nothing here but the record id, which
+// is this integration's own input rather than a Bit CRM field.
 export const bitCrmStaticData = {
-  create_lead: [
-    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
-    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
-    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
-    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
-  update_lead: [
-    { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
-    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
-    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
-    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'company_name', label: __('Company Name', 'bit-integrations'), required: false },
-    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
+  update_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
   delete_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
   add_tag_to_lead: [
     { key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true },
@@ -161,21 +138,7 @@ export const bitCrmStaticData = {
   remove_tag_from_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
   convert_lead: [{ key: 'lead_id', label: __('Lead Id', 'bit-integrations'), required: true }],
 
-  create_contact: [
-    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: true },
-    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
-    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
-  update_contact: [
-    { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true },
-    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
-    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
-    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
+  update_contact: [{ key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }],
   delete_contact: [{ key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }],
   add_tag_to_contact: [
     { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true },
@@ -185,19 +148,7 @@ export const bitCrmStaticData = {
     { key: 'contact_id', label: __('Contact Id', 'bit-integrations'), required: true }
   ],
 
-  create_company: [
-    { key: 'name', label: __('Company Name', 'bit-integrations'), required: true },
-    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
-  update_company: [
-    { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Company Name', 'bit-integrations'), required: false },
-    { key: 'phone', label: __('Phone', 'bit-integrations'), required: false },
-    { key: 'website', label: __('Website', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
+  update_company: [{ key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true }],
   delete_company: [{ key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true }],
   add_tag_to_company: [
     { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true },
@@ -207,15 +158,7 @@ export const bitCrmStaticData = {
     { key: 'company_id', label: __('Company Id', 'bit-integrations'), required: true }
   ],
 
-  create_deal: [
-    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: true },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false }
-  ],
-  update_deal: [
-    { key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Deal Name', 'bit-integrations'), required: false },
-    { key: 'email', label: __('Email', 'bit-integrations'), required: false }
-  ],
+  update_deal: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
   delete_deal: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
   update_deal_stage: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
   add_tag_to_deal: [
@@ -224,21 +167,7 @@ export const bitCrmStaticData = {
   ],
   remove_tag_from_deal: [{ key: 'deal_id', label: __('Deal Id', 'bit-integrations'), required: true }],
 
-  create_product: [
-    { key: 'name', label: __('Product Name', 'bit-integrations'), required: true },
-    { key: 'code', label: __('Product Code', 'bit-integrations'), required: true },
-    { key: 'price', label: __('Unit Price', 'bit-integrations'), required: false },
-    { key: 'brand', label: __('Brand', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
-  update_product: [
-    { key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Product Name', 'bit-integrations'), required: false },
-    { key: 'code', label: __('Product Code', 'bit-integrations'), required: false },
-    { key: 'price', label: __('Unit Price', 'bit-integrations'), required: false },
-    { key: 'brand', label: __('Brand', 'bit-integrations'), required: false },
-    { key: 'description', label: __('Description', 'bit-integrations'), required: false }
-  ],
+  update_product: [{ key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true }],
   delete_product: [{ key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true }],
   add_tag_to_product: [
     { key: 'product_id', label: __('Product Id', 'bit-integrations'), required: true },
@@ -326,37 +255,6 @@ const termKey = {
   listKey: 'allTerms',
   required: true
 }
-const contact = {
-  key: 'selectedContact',
-  label: __('Contact', 'bit-integrations'),
-  route: 'refresh_bitcrm_contacts',
-  listKey: 'allContacts',
-  required: true
-}
-const company = {
-  key: 'selectedCompany',
-  label: __('Company', 'bit-integrations'),
-  route: 'refresh_bitcrm_companies',
-  listKey: 'allCompanies'
-}
-const parentContact = {
-  key: 'selectedParent',
-  label: __('Parent Contact', 'bit-integrations'),
-  route: 'refresh_bitcrm_contacts',
-  listKey: 'allContacts'
-}
-const parentCompany = {
-  key: 'selectedParent',
-  label: __('Parent Company', 'bit-integrations'),
-  route: 'refresh_bitcrm_companies',
-  listKey: 'allCompanies'
-}
-const owner = {
-  key: 'selectedOwner',
-  label: __('Owner', 'bit-integrations'),
-  route: 'refresh_bitcrm_users',
-  listKey: 'allUsers'
-}
 const assignee = {
   key: 'selectedAssignee',
   label: __('Assigned To', 'bit-integrations'),
@@ -385,31 +283,42 @@ const companyTags = tags('refresh_bitcrm_company_tags')
 const dealTags = tags('refresh_bitcrm_deal_tags')
 const productTags = tags('refresh_bitcrm_product_tags')
 
+// Joins the field map only for a stage that closes the deal, where Bit CRM
+// requires it.
+export const closingDateField = {
+  key: 'closed_at',
+  label: __('Closing Date (YYYY-MM-DD HH:MM:SS)', 'bit-integrations'),
+  required: true
+}
+
+export const CLOSING_STAGE_CATEGORIES = ['closed_won', 'closed_lost']
+
+// Rows the field map only sometimes carries, so a stale one can be dropped when
+// the configuration that asked for it changes.
+export const conditionalFieldKeys = [closingDateField.key]
+
+// Bit CRM names a lookup's module, not where to read its records from. Keyed by
+// `related_module`; a field pointing anywhere else is skipped.
+export const lookupSources = {
+  user: { route: 'refresh_bitcrm_users', listKey: 'allUsers' },
+  contact: { route: 'refresh_bitcrm_contacts', listKey: 'allContacts' },
+  company: { route: 'refresh_bitcrm_companies', listKey: 'allCompanies' }
+}
+
 export const actionDropdowns = {
-  create_lead: [currency, leadTags, owner],
-  update_lead: [currency, owner],
+  create_lead: [leadTags],
   add_tag_to_lead: [leadTags],
   remove_tag_from_lead: [leadTags],
-  convert_lead: [],
 
-  create_contact: [company, parentContact, currency, contactTags, owner],
-  update_contact: [company, parentContact, currency, owner],
+  create_contact: [contactTags],
   add_tag_to_contact: [contactTags],
   remove_tag_from_contact: [contactTags],
 
-  create_company: [parentCompany, currency, companyTags, owner],
-  update_company: [parentCompany, currency, owner],
+  create_company: [companyTags],
   add_tag_to_company: [companyTags],
   remove_tag_from_company: [companyTags],
 
-  create_deal: [stage, contact, company, currency, dealTags, owner],
-  update_deal: [
-    { ...stage, required: false },
-    { ...contact, required: false },
-    company,
-    currency,
-    owner
-  ],
+  create_deal: [dealTags],
   update_deal_stage: [stage],
   add_tag_to_deal: [dealTags],
   remove_tag_from_deal: [dealTags],
@@ -443,37 +352,6 @@ export const actionDropdowns = {
 }
 
 // ---- Fixed enum selects: reusable descriptors (key = conf storage key) ----
-const titleSel = { key: 'title', label: __('Title', 'bit-integrations'), options: titleOptions }
-const leadSourceSel = {
-  key: 'leadSource',
-  label: __('Lead Source', 'bit-integrations'),
-  options: leadSourceOptions
-}
-const leadStatusSel = {
-  key: 'leadStatus',
-  label: __('Lead Status', 'bit-integrations'),
-  options: leadStatusOptions
-}
-const dealTypeSel = {
-  key: 'dealType',
-  label: __('Deal Type', 'bit-integrations'),
-  options: dealTypeOptions
-}
-const dealLeadSourceSel = {
-  key: 'dealLeadSource',
-  label: __('Lead Source', 'bit-integrations'),
-  options: dealLeadSourceOptions
-}
-const productTypeSel = {
-  key: 'productType',
-  label: __('Product Type', 'bit-integrations'),
-  options: productTypeOptions
-}
-const productStatusSel = {
-  key: 'productStatus',
-  label: __('Status', 'bit-integrations'),
-  options: productStatusOptions
-}
 const moduleSel = {
   key: 'module',
   label: __('Module', 'bit-integrations'),
@@ -485,7 +363,9 @@ const convertToSel = {
   label: __('Convert To', 'bit-integrations'),
   options: convertToOptions,
   multi: true,
-  required: true
+  required: true,
+  lockedValues: ['contact', 'company'],
+  defaultValue: 'contact,company',
 }
 const moveRelatedSel = {
   key: 'moveRelatedDataTo',
@@ -531,14 +411,6 @@ const portalCapabilitiesSel = {
 }
 
 export const actionSelects = {
-  create_lead: [titleSel, leadSourceSel, leadStatusSel],
-  update_lead: [titleSel, leadSourceSel, leadStatusSel],
-  create_contact: [titleSel, leadSourceSel],
-  update_contact: [titleSel, leadSourceSel],
-  create_deal: [dealTypeSel, dealLeadSourceSel],
-  update_deal: [dealTypeSel, dealLeadSourceSel],
-  create_product: [productTypeSel, productStatusSel],
-  update_product: [productTypeSel, productStatusSel],
   convert_lead: [convertToSel, moveRelatedSel],
   create_tag: [moduleSel],
   update_tag: [moduleOptionalSel],
@@ -570,6 +442,21 @@ export const actionSelects = {
 
   grant_portal_access: [portalCapabilitiesSel],
   update_portal_access: [portalCapabilitiesSel]
+}
+
+// An action listed here builds its selects, record pickers and field map from
+// what Bit CRM reports for the module instead of from this file.
+export const actionFieldModules = {
+  create_lead: 'lead',
+  update_lead: 'lead',
+  create_contact: 'contact',
+  update_contact: 'contact',
+  create_company: 'company',
+  update_company: 'company',
+  create_deal: 'deal',
+  update_deal: 'deal',
+  create_product: 'product',
+  update_product: 'product'
 }
 
 // Every conf key a select or dropdown can write, so switching action can clear
