@@ -125,6 +125,7 @@ class LatePointController
 
         $tableName = \defined($constant) ? \constant($constant) : $wpdb->prefix . $fallback;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Schema probe for an optional third party table.
         $exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $tableName));
 
         if ($exists !== $tableName) {

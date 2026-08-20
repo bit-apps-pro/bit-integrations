@@ -36,23 +36,22 @@ class WpTableBuilderController
 
         $tables = Post::all(
             [
-                'post_type'        => self::POST_TYPE,
-                'post_status'      => ['publish', 'draft', 'pending', 'private', 'future'],
-                'numberposts'      => -1,
-                'orderby'          => 'title',
-                'order'            => 'ASC',
-                'suppress_filters' => true,
+                'post_type'   => self::POST_TYPE,
+                'post_status' => ['publish', 'draft', 'pending', 'private', 'future'],
+                'numberposts' => -1,
+                'orderby'     => 'title',
+                'order'       => 'ASC',
             ]
         );
 
         $response['tables'] = array_map(
             function ($table) {
+                // translators: %d is the table's post ID.
+                $fallbackTitle = wp_sprintf(__('Table #%d', 'bit-integrations'), $table->ID);
+
                 return [
                     'value' => (string) $table->ID,
-                    'label' => $table->post_title === ''
-                        // Translators: %d is the table's post ID. WP Table Builder tables are a custom post type, and the title is optional.
-                        ? wp_sprintf(__('Table #%d', 'bit-integrations'), $table->ID)
-                        : $table->post_title,
+                    'label' => $table->post_title === '' ? $fallbackTitle : $table->post_title,
                 ];
             },
             $tables
@@ -130,11 +129,12 @@ class WpTableBuilderController
         foreach ($xpath->query('.//th|.//td', $firstRow) as $index => $cell) {
             $label = trim($cell->textContent);
 
+            // translators: %d is the column number.
+            $fallbackLabel = wp_sprintf(__('Column %d', 'bit-integrations'), $index + 1);
+
             $columns[] = [
-                'key'   => 'cell_' . $index,
-                'label' => $label === ''
-                    ? wp_sprintf(__('Column %d', 'bit-integrations'), $index + 1)
-                    : $label,
+                'key'      => 'cell_' . $index,
+                'label'    => $label === '' ? $fallbackLabel : $label,
                 'required' => false,
             ];
         }
