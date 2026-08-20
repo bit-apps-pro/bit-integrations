@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Instasent;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -16,42 +17,13 @@ class InstasentController
 {
     private static $_baseUrl = 'https://api.instasent.com';
 
-    public function authorize($refreshFieldsRequestParams)
-    {
-        if (empty($refreshFieldsRequestParams) || empty($refreshFieldsRequestParams->auth_token)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-
-        $endpoint = self::$_baseUrl . '/organization/account';
-        $header = [
-            'Authorization' => 'Bearer ' . $refreshFieldsRequestParams->auth_token,
-            'Content-Type'  => 'application/json',
-            'Accept'        => 'application/json',
-        ];
-
-        $response = HttpHelper::get($endpoint, null, $header);
-
-        if (is_wp_error($response)) {
-            wp_send_json_error($response->get_error_message(), 400);
-        }
-
-        if (HttpHelper::$responseCode == 200) {
-            wp_send_json_success('Authorization Successful', 200);
-
-            return;
-        }
-
-        wp_send_json_error(
-            $response->message ?? $response ?? 'Authorization Failed',
-            400
-        );
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'instasent',
+        'fields'   => [
+            'auth_token' => 'token',
+        ],
+    ];
 
     public function refreshDatasources($refreshFieldsRequestParams)
     {

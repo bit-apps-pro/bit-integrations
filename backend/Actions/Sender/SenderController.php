@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Sender;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,31 +15,15 @@ use WP_Error;
  */
 class SenderController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'sender',
+        'fields'   => [
+            'api_token' => 'token',
+        ],
+    ];
+
     private static $baseUrl = 'https://api.sender.net/v2';
-
-    /**
-     * Verify the supplied API access token by hitting the groups endpoint.
-     *
-     * @param object $requestParams
-     */
-    public static function senderAuthorize($requestParams)
-    {
-        if (empty($requestParams->api_token)) {
-            wp_send_json_error(__('API token is required', 'bit-integrations'), 400);
-        }
-
-        $response = HttpHelper::get(self::$baseUrl . '/groups', null, self::authHeader($requestParams->api_token));
-
-        if (is_wp_error($response)) {
-            wp_send_json_error($response->get_error_message(), 400);
-        }
-
-        if (HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300) {
-            wp_send_json_success(__('Authorized Successfully', 'bit-integrations'), 200);
-        }
-
-        wp_send_json_error(__('Invalid API token', 'bit-integrations'), 400);
-    }
 
     /**
      * Fetch the account groups for the group dropdowns.

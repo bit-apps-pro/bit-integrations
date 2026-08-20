@@ -207,7 +207,7 @@ export default function GroundhoggIntegLayout({
             customValue
           />
           <button
-            onClick={() => fetchAllTags(null, groundhoggConf, setGroundhoggConf, setIsLoading, null)}
+            onClick={() => fetchAllTags(groundhoggConf, setGroundhoggConf, setIsLoading, null)}
             className="icn-btn sh-sm ml-2 mr-2 tooltip"
             style={{ '--tooltip-txt': `'${__('Refresh Groundhogg Tags', 'bit-integrations')}'` }}
             type="button"

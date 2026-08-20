@@ -2,32 +2,26 @@
 
 namespace BitApps\Integrations\Actions\CampaignMonitor;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
 class CampaignMonitorController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'campaignmonitor',
+        'fields'   => [
+            'api_key'   => 'username',
+            'client_id' => 'client_id',
+        ],
+    ];
+
     private $baseUrl;
 
     public function __construct()
     {
         $this->baseUrl = 'https://api.createsend.com/api/v3.3';
-    }
-
-    public function authorization($requestParams)
-    {
-        $this->checkValidation($requestParams->api_key, $requestParams->client_id);
-        $apiEndpoint = $this->baseUrl . "/clients/{$requestParams->client_id}.json";
-        $headers = $this->setHeader($requestParams->api_key);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (!isset($response->ApiKey)) {
-            wp_send_json_error(
-                empty($response) ? 'Unknown' : $response,
-                400
-            );
-        }
-        wp_send_json_success(true);
     }
 
     public function getAllLists($requestParams)

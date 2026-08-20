@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import MailRelayActions from './MailRelayActions'
-import { mailRelayAuthentication } from './MailRelayCommonFunc'
+import { refreshCustomFields } from './MailRelayCommonFunc'
 import MailRelayFieldMap from './MailRelayFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 import Note from '../../Utilities/Note'
@@ -16,9 +15,6 @@ export default function MailRelayIntegLayout({
   setLoading,
   setSnackbar
 }) {
-  const [error, setError] = useState({ name: '', auth_token: '' })
-  const [isAuthorized, setIsAuthorized] = useState(false)
-
   const info = `<h4>${__(
     'Phone numbers from the following countries will work only in the Mailrelay SMS Phone number field:',
     'bit-integrations'
@@ -64,15 +60,7 @@ export default function MailRelayIntegLayout({
               {__('Field Map', 'bit-integrations')}
               <button
                 onClick={() =>
-                  mailRelayAuthentication(
-                    mailRelayConf,
-                    setMailRelayConf,
-                    setError,
-                    setIsAuthorized,
-                    loading,
-                    setLoading,
-                    'refreshCustomFields'
-                  )
+                  refreshCustomFields(mailRelayConf, setMailRelayConf, loading, setLoading, setSnackbar)
                 }
                 className="icn-btn sh-sm ml-2 mr-2 tooltip"
                 style={{
@@ -128,6 +116,7 @@ export default function MailRelayIntegLayout({
             formFields={formFields}
             loading={loading}
             setLoading={setLoading}
+            setSnackbar={setSnackbar}
           />
         </div>
       )}

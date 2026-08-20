@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import SendGridActions from './SendGridActions'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { sendGridAuthentication } from './SendGridCommonFunc'
+import { fetchSendGridCustomFields } from './SendGridCommonFunc'
 import SendGridFieldMap from './SendGridFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 
@@ -18,9 +17,6 @@ export default function SendGridIntegLayout({
   setLoading,
   setSnackbar
 }) {
-  const [error, setError] = useState({ name: '', auth_token: '' })
-  const [isAuthorized, setIsAuthorized] = useState(false)
-
   const setChanges = val => {
     const newConf = { ...sendGridConf }
     newConf.selectedLists = val
@@ -33,17 +29,7 @@ export default function SendGridIntegLayout({
         <b className="wdt-100">
           {__('Field Map', 'bit-integrations')}
           <button
-            onClick={() =>
-              sendGridAuthentication(
-                sendGridConf,
-                setSendGridConf,
-                setError,
-                setIsAuthorized,
-                loading,
-                setLoading,
-                'refreshLists'
-              )
-            }
+            onClick={() => fetchSendGridCustomFields(sendGridConf, setSendGridConf, loading, setLoading)}
             className="icn-btn sh-sm ml-2 mr-2 tooltip"
             style={{ '--tooltip-txt': `'${__('Refresh custom fields', 'bit-integrations')}'` }}
             type="button"

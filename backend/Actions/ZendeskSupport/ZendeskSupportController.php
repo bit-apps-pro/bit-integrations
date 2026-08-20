@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ZendeskSupport;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,27 +15,15 @@ use WP_Error;
  */
 class ZendeskSupportController
 {
-    public function authorize($requestParams)
-    {
-        if (empty($requestParams->subdomain) || empty($requestParams->email) || empty($requestParams->apiToken)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $baseUrl = 'https://' . $requestParams->subdomain . '.zendesk.com/api/v2';
-        $headers = [
-            'Content-Type'  => 'application/json',
-            'Accept'        => 'application/json',
-            'Authorization' => 'Basic ' . base64_encode($requestParams->email . '/token:' . $requestParams->apiToken),
-        ];
-
-        $response = HttpHelper::get($baseUrl . '/users/me.json', null, $headers);
-
-        if (!is_wp_error($response) && isset($response->user) && !empty($response->user->id)) {
-            wp_send_json_success(__('Authorization successful', 'bit-integrations'), 200);
-        }
-
-        wp_send_json_error(__('Invalid Zendesk subdomain, email, or API token', 'bit-integrations'), 400);
-    }
+    public static array $authConfig = [
+        'authType' => AuthorizationType::CUSTOM,
+        'slug'     => 'ZendeskSupport',
+        'fields'   => [
+            'subdomain' => 'subdomain',
+            'email'     => 'email',
+            'apiToken'  => 'apiToken',
+        ],
+    ];
 
     public function refreshGroups($requestParams)
     {
@@ -68,7 +57,13 @@ class ZendeskSupportController
         $fieldMap = $integrationDetails->field_map;
         $actionName = $integrationDetails->actionName;
 
-        if (empty($fieldMap) || empty($actionName) || empty($integrationDetails->subdomain) || empty($integrationDetails->apiToken)) {
+        if (
+            empty($fieldMap)
+            || empty($actionName)
+            || empty($integrationDetails->subdomain)
+            || empty($integrationDetails->email)
+            || empty($integrationDetails->apiToken)
+        ) {
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Zendesk Support'));
         }

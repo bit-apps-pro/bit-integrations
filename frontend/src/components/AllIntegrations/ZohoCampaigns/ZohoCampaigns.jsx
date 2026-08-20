@@ -5,7 +5,7 @@ import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
-import { saveIntegConfig, setGrantTokenResponse } from '../IntegrationHelpers/IntegrationHelpers'
+import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoCampaignsAuthorization from './ZohoCampaignsAuthorization'
 import { checkMappedFields, handleInput } from './ZohoCampaignsCommonFunc'
@@ -25,10 +25,6 @@ function ZohoCampaigns({ formFields, setFlow, flow, allIntegURL }) {
     list: '',
     field_map: [{ formField: '', zohoFormField: '' }]
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoCampaigns')
-  }, [])
 
   const nextPage = () => {
     setTimeout(() => {

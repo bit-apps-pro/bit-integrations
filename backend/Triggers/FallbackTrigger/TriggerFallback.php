@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Triggers\FallbackTrigger;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Flow\Flow;
@@ -238,7 +239,7 @@ final class TriggerFallback
         $course_temp = [];
         foreach ($courseInfo as $key => $val) {
             if (\is_array($val)) {
-                $val = maybe_unserialize($val[0]);
+                $val = self::safeMaybeUnserialize($val[0]);
             }
             $course_temp[$key] = $val;
         }
@@ -270,9 +271,9 @@ final class TriggerFallback
         $attempt_details = [];
         foreach ($attempt as $key => $val) {
             if (\is_array($val)) {
-                $val = maybe_unserialize($val[0]);
+                $val = self::safeMaybeUnserialize($val[0]);
             }
-            $attempt_details[$key] = maybe_unserialize($val);
+            $attempt_details[$key] = self::safeMaybeUnserialize($val);
         }
 
         return ['triggered_entity' => 'AcademyLms', 'triggered_entity_id' => 2, 'data' => $attempt_details, 'flows' => $flows];
@@ -299,9 +300,9 @@ final class TriggerFallback
         $attempt_details = [];
         foreach ($attempt as $key => $val) {
             if (\is_array($val)) {
-                $val = maybe_unserialize($val[0]);
+                $val = self::safeMaybeUnserialize($val[0]);
             }
-            $attempt_details[$key] = maybe_unserialize($val);
+            $attempt_details[$key] = self::safeMaybeUnserialize($val);
         }
         foreach ($flows as $flow) {
             $flow_details = $flow->flow_details;
@@ -2435,7 +2436,6 @@ final class TriggerFallback
             'post_url'       => get_permalink($achievement_id),
             'post_type'      => $postData->post_type,
             'post_author_id' => $postData->post_author,
-            // 'post_author_email' => $postData->post_author_email,
             'post_content'   => $postData->post_content,
             'post_parent_id' => $postData->post_parent,
         ];
@@ -2456,7 +2456,6 @@ final class TriggerFallback
             'post_url'       => get_permalink($achievement_id),
             'post_type'      => isset($expectedData->post_type),
             'post_author_id' => isset($expectedData->post_author),
-            // 'post_author_email' => $postData->post_author_email,
             'post_content'   => isset($expectedData->post_content),
             'post_parent_id' => isset($expectedData->post_parent),
         ];
@@ -2563,7 +2562,7 @@ final class TriggerFallback
             return;
         }
 
-        $finalData = json_decode(wp_json_encode($payment), true);
+        $finalData = Helper::jsonEncodeDecode($payment);
 
         $donarUserInfo = give_get_payment_meta_user_info($payment_id);
         if ($donarUserInfo) {
@@ -2779,31 +2778,12 @@ final class TriggerFallback
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
         // Save the image in the uploads directory.
-        $upload_file = file_put_contents($upload_path . '/' . $hashed_filename, $decoded);
+        $upload_file = FileSystem::write($upload_path . '/' . $hashed_filename, $decoded);
         if ($upload_file) {
             return $upload_path . '/' . $hashed_filename;
         }
 
         return $base64_img;
-    }
-
-    /**
-     * Decode a HappyForms field value without instantiating PHP objects.
-     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
-     * by passing allowed_classes => false to unserialize(). Legitimate
-     * signature/attachment payloads are plain arrays and decode unchanged.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    private static function safeMaybeUnserialize($value)
-    {
-        if (\is_string($value) && is_serialized($value)) {
-            return unserialize($value, ['allowed_classes' => false]);
-        }
-
-        return $value;
     }
 
     public static function happyGetPath($val)
@@ -5035,7 +5015,7 @@ final class TriggerFallback
         $course_temp = [];
         foreach ($courseInfo as $key => $val) {
             if (\is_array($val)) {
-                $val = maybe_unserialize($val[0]);
+                $val = self::safeMaybeUnserialize($val[0]);
             }
             $course_temp[$key] = $val;
         }
@@ -5072,9 +5052,9 @@ final class TriggerFallback
 
         foreach ($attempt as $key => $val) {
             if (\is_array($val)) {
-                $val = maybe_unserialize($val[0]);
+                $val = self::safeMaybeUnserialize($val[0]);
             }
-            $attempt_details[$key] = maybe_unserialize($val);
+            $attempt_details[$key] = self::safeMaybeUnserialize($val);
         }
 
         if (\array_key_exists('attempt_info', $attempt_details)) {
@@ -5082,7 +5062,7 @@ final class TriggerFallback
             unset($attempt_details['attempt_info']);
 
             foreach ($attempt_info_tmp as $key => $val) {
-                $attempt_info[$key] = maybe_unserialize($val);
+                $attempt_info[$key] = self::safeMaybeUnserialize($val);
             }
 
             $attempt_details['passing_grade'] = $attempt_info['passing_grade'];
@@ -5211,9 +5191,9 @@ final class TriggerFallback
 
         foreach ($attempt as $key => $val) {
             if (\is_array($val)) {
-                $val = maybe_unserialize($val[0]);
+                $val = self::safeMaybeUnserialize($val[0]);
             }
-            $attempt_details[$key] = maybe_unserialize($val);
+            $attempt_details[$key] = self::safeMaybeUnserialize($val);
         }
 
         if (\array_key_exists('attempt_info', $attempt_details)) {
@@ -5221,7 +5201,7 @@ final class TriggerFallback
             unset($attempt_details['attempt_info']);
 
             foreach ($attempt_info_tmp as $key => $val) {
-                $attempt_info[$key] = maybe_unserialize($val);
+                $attempt_info[$key] = self::safeMaybeUnserialize($val);
             }
 
             $attempt_details['passing_grade'] = $attempt_info['passing_grade'];
@@ -5793,6 +5773,25 @@ final class TriggerFallback
         }
 
         return $filteredFlows;
+    }
+
+    /**
+     * Decode a HappyForms field value without instantiating PHP objects.
+     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
+     * by passing allowed_classes => false to unserialize(). Legitimate
+     * signature/attachment payloads are plain arrays and decode unchanged.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private static function safeMaybeUnserialize($value)
+    {
+        if (\is_string($value) && is_serialized($value)) {
+            return unserialize($value, ['allowed_classes' => false]);
+        }
+
+        return $value;
     }
 
     private static function evfFieldType($type)

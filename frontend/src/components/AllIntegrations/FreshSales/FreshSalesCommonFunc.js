@@ -1,9 +1,16 @@
 /* eslint-disable radix */
 /* eslint-disable no-unused-expressions */
-import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
-import { __, sprintf } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
+
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        api_key: conf.api_key,
+        bundle_alias: conf.bundle_alias
+      }
 
 export const handleInput = (
   e,
@@ -113,8 +120,7 @@ const contactViewChange = (
 
 const refreshFields = (module, freshSalesConf, setFreshSalesConf, setIsLoading, setSnackbar) => {
   const requestParams = {
-    api_key: freshSalesConf.api_key,
-    bundle_alias: freshSalesConf.bundle_alias,
+    ...buildAuthRequestParams(freshSalesConf),
     module
   }
 
@@ -147,8 +153,7 @@ const refreshFields = (module, freshSalesConf, setFreshSalesConf, setIsLoading, 
 
 export const accountRefreshViews = (freshSalesConf, setFreshSalesConf, setIsLoading, setSnackbar) => {
   const requestParams = {
-    api_key: freshSalesConf.api_key,
-    bundle_alias: freshSalesConf.bundle_alias,
+    ...buildAuthRequestParams(freshSalesConf),
     module: 'filters',
     type: 'sales_accounts'
   }
@@ -177,8 +182,7 @@ export const accountRefreshViews = (freshSalesConf, setFreshSalesConf, setIsLoad
 
 export const contactRefreshViews = (freshSalesConf, setFreshSalesConf, setIsLoading, setSnackbar) => {
   const requestParams = {
-    api_key: freshSalesConf.api_key,
-    bundle_alias: freshSalesConf.bundle_alias,
+    ...buildAuthRequestParams(freshSalesConf),
     module: 'filters',
     type: 'contacts'
   }
@@ -213,8 +217,7 @@ export const refreshAccounts = (
   setSnackbar
 ) => {
   const requestParams = {
-    api_key: freshSalesConf.api_key,
-    bundle_alias: freshSalesConf.bundle_alias,
+    ...buildAuthRequestParams(freshSalesConf),
     account_view_id: accountViewId,
     contact_view_id: freshSalesConf.moduleData.contact_view_id,
     module: 'sales_accounts'
@@ -250,8 +253,7 @@ export const refreshContacts = (
   setSnackbar
 ) => {
   const requestParams = {
-    api_key: freshSalesConf.api_key,
-    bundle_alias: freshSalesConf.bundle_alias,
+    ...buildAuthRequestParams(freshSalesConf),
     contact_view_id: contactViewId,
     account_view_id: freshSalesConf.moduleData.account_view_id,
     module: 'contacts'
@@ -332,34 +334,4 @@ export const checkRequired = freshSalesConf => {
     }
   }
   return true
-}
-
-export const handleAuthorize = (confTmp, setError, setisAuthorized, setIsLoading) => {
-  if (!confTmp.bundle_alias || !confTmp.api_key) {
-    setError({
-      bundle_alias: !confTmp.bundle_alias
-        ? __("Bundle Alias (Account URL) can't be empty", 'bit-integrations')
-        : '',
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-  setError({})
-  setIsLoading(true)
-  const requestParams = {
-    api_key: confTmp.api_key,
-    bundle_alias: confTmp.bundle_alias,
-    module: 'filters'
-  }
-
-  bitsFetch(requestParams, 'FreshSales_authorization').then(result => {
-    if (result && result.success) {
-      setisAuthorized(true)
-      setIsLoading(false)
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setIsLoading(false)
-    toast.error(__('Authorized failed', 'bit-integrations'))
-  })
 }

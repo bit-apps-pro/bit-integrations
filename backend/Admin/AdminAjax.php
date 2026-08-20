@@ -17,7 +17,7 @@ class AdminAjax
 
     public function updatedAppConfig($data)
     {
-        $this->ensurePermission(['manage_options', 'bit_integrations_manage_integrations']);
+        $this->ensurePermission(['manage_options', Config::withPrefix('manage_integrations')]);
 
         if (!property_exists($data, 'data')) {
             wp_send_json_error(__('Data can\'t be empty', 'bit-integrations'));
@@ -29,7 +29,7 @@ class AdminAjax
 
     public function getAppConfig()
     {
-        $this->ensurePermission(['manage_options', 'bit_integrations_manage_integrations', 'bit_integrations_view_integrations', 'bit_integrations_create_integrations', 'bit_integrations_edit_integrations']);
+        $this->ensurePermission(['manage_options', Config::withPrefix('manage_integrations'), Config::withPrefix('view_integrations'), Config::withPrefix('create_integrations'), Config::withPrefix('edit_integrations')]);
 
         // Deprecated: 'btcbi_app_conf'. Use 'bit_integrations_app_conf' instead.
         $data = Config::getOption('app_conf', []);
@@ -42,7 +42,7 @@ class AdminAjax
 
     public function setChangelogVersion()
     {
-        $this->ensurePermission(['manage_options', 'bit_integrations_manage_integrations']);
+        $this->ensurePermission(['manage_options', Config::withPrefix('manage_integrations')]);
 
         if (empty($_REQUEST['_ajax_nonce'])) {
             wp_send_json_error(

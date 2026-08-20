@@ -13,31 +13,14 @@ export const handleInput = (e, conf, setConf, error, setError) => {
   setConf(newConf)
 }
 
-export const handleAuthorize = (conf, setError, setAuthorized, loading, setLoading) => {
-  if (!conf.authKey) {
-    setError({ authKey: !conf.authKey ? __("API Key can't be empty") : '' })
-    return
-  }
-  setError({})
-  setLoading({ ...loading, auth: true })
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : { api_key: conf?.api_key || conf?.authKey }
 
-  const requestParams = { authKey: conf.authKey }
-
-  bitsFetch(requestParams, 'mailercloud_handle_authorize').then(result => {
-    if (!result.data.errors) {
-      setAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed'))
-  })
-}
-
-export const getAllLists = async (conf, setConf, loading, setLoading) => {
+export const getAllLists = async (conf, setConf, loading, setLoading, setSnackbar = null) => {
   setLoading && setLoading({ ...loading, list: true })
-  const requestParams = { authKey: conf.authKey }
+  const requestParams = buildAuthRequestParams(conf)
   const result = await bitsFetch(requestParams, 'mailercloud_get_all_lists')
   if (result.success) {
     const { data } = result.data
@@ -51,6 +34,9 @@ export const getAllLists = async (conf, setConf, loading, setLoading) => {
       if (setLoading) {
         setLoading({ ...loading, list: false })
         toast.success(__('Tag refresh successfully'))
+        if (typeof setSnackbar === 'function') {
+          setSnackbar({ show: true, msg: __('Tag refresh successfully') })
+        }
       }
     }
     return true
@@ -58,13 +44,16 @@ export const getAllLists = async (conf, setConf, loading, setLoading) => {
   if (setLoading) {
     setLoading({ ...loading, list: false })
     toast.success(__('Tag refresh failed'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Tag refresh failed') })
+    }
   }
   return false
 }
 
-export const getAllFields = async (conf, setConf, loading, setLoading) => {
+export const getAllFields = async (conf, setConf, loading, setLoading, setSnackbar = null) => {
   setLoading && setLoading({ ...loading, field: true })
-  const requestParams = { authKey: conf.authKey }
+  const requestParams = buildAuthRequestParams(conf)
   const result = await bitsFetch(requestParams, 'mailercloud_get_all_fields')
   if (result.success) {
     const { data } = result
@@ -78,6 +67,9 @@ export const getAllFields = async (conf, setConf, loading, setLoading) => {
       if (setLoading) {
         setLoading({ ...loading, field: false })
         toast.success(__('Tag refresh successfully'))
+        if (typeof setSnackbar === 'function') {
+          setSnackbar({ show: true, msg: __('Tag refresh successfully') })
+        }
       }
     }
     return true
@@ -85,6 +77,9 @@ export const getAllFields = async (conf, setConf, loading, setLoading) => {
   if (setLoading) {
     setLoading({ ...loading, field: false })
     toast.success(__('Tag refresh failed'))
+    if (typeof setSnackbar === 'function') {
+      setSnackbar({ show: true, msg: __('Tag refresh failed') })
+    }
   }
   return false
 }

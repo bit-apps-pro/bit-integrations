@@ -45,57 +45,65 @@ export const checkMappedFields = getResponseConf => {
   return true
 }
 
-export const getresponseAuthentication = (
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { auth_token: confTmp.auth_token }
+
+export const fetchCampaigns = (
   confTmp,
   setConf,
   setError,
   setisAuthorized,
   loading,
   setLoading,
-  type
+  type = 'authentication'
 ) => {
-  if (!confTmp.auth_token) {
-    setError({
+  if (!confTmp.connection_id && !confTmp.auth_token) {
+    setError?.({
       auth_token: !confTmp.auth_token ? __("Api Key can't be empty", 'bit-integrations') : ''
     })
     return
   }
 
-  setError({})
+  setError?.({})
+
   if (type === 'authentication') {
     setLoading({ ...loading, auth: true })
   }
+
   if (type === 'refreshCampaigns') {
     setLoading({ ...loading, customFields: true })
   }
-  const requestParams = { auth_token: confTmp.auth_token }
 
-  bitsFetch(requestParams, 'getresponse_authentication').then(result => {
+  const requestParams = buildAuthRequestParams(confTmp)
+
+  bitsFetch(requestParams, 'getresponse_fetch_all_list').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
       if (result.data) {
         newConf.campaigns = result.data
       }
       setConf(newConf)
-      setisAuthorized(true)
+      setisAuthorized?.(true)
+
       if (type === 'authentication') {
         setLoading({ ...loading, auth: false })
         toast.success(__('Authorized Successfully', 'bit-integrations'))
       } else if (type === 'refreshCampaigns') {
         setLoading({ ...loading, customFields: false })
-        toast.success(__('Campaigns fectched successfully', 'bit-integrations'))
+        toast.success(__('Campaigns fetched successfully', 'bit-integrations'))
       }
       return
     }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed', 'bit-integrations'))
+
+    setLoading({ ...loading, auth: false, customFields: false })
+    toast.error(__('Campaigns fetching failed', 'bit-integrations'))
   })
 }
 
 export const getAllTags = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, tags: true })
 
-  const requestParams = { auth_token: confTmp.auth_token }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'getresponse_fetch_all_tags').then(result => {
     if (result && result.success) {
@@ -119,7 +127,7 @@ export const fetchCustomFields = (confTmp, setConf, setLoading, type) => {
     setLoading({ ...setLoading, field: true })
   }
 
-  const requestParams = { auth_token: confTmp.auth_token }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'getresponse_fetch_custom_fields').then(result => {
     if (result && result.success) {

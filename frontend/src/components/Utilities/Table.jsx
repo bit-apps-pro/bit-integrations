@@ -247,6 +247,8 @@ function Table(props) {
             />
           )}
 
+          {props.topRightContent || null}
+
           {props.columnHidable && (
             <ColumnHide
               cols={props.columns}
