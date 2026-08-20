@@ -192,6 +192,7 @@ const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
 const CartAbandonmentRecoveryAuthorization = lazy(
   () => import('./CartAbandonmentRecovery/CartAbandonmentRecoveryAuthorization')
@@ -694,6 +695,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'SenseiLMS':
+      return <SenseiLMSAuthorization senseiLMSConf={integrationConf} step={1} isInfo />
     case 'ConvertForce':
       return <ConvertForceAuthorization convertForceConf={integrationConf} step={1} isInfo />
     case 'Cart Abandonment Recovery':
