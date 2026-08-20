@@ -183,6 +183,7 @@ const Bookly = lazy(() => import('./Bookly/Bookly'))
 const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const PowerCoupons = lazy(() => import('./PowerCoupons/PowerCoupons'))
 const LatePoint = lazy(() => import('./LatePoint/LatePoint'))
 const ProfilePress = lazy(() => import('./ProfilePress/ProfilePress'))
 const ClickWhale = lazy(() => import('./ClickWhale/ClickWhale'))
@@ -1800,6 +1801,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'FluentCart':
       return (
         <FluentCart
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'PowerCoupons':
+      return (
+        <PowerCoupons
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

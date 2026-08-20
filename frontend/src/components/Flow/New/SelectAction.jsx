@@ -195,6 +195,7 @@ export default function SelectAction() {
       is_pro: false
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'PowerCoupons', name: 'Power Coupons', is_pro: true },
     { type: 'LatePoint', is_pro: true },
     { type: 'ProfilePress', is_pro: true },
     { type: 'ClickWhale', is_pro: true },
