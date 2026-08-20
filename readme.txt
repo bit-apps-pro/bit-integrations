@@ -2,19 +2,19 @@
 Contributors: bitpressadmin
 Tags: automation, automator, google sheets integration, form integration, WooCommerce Integration
 Requires at least: 5.1
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.2
+Stable tag: 2.10.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 360+ platforms
+Contact Form, Google Sheet, MailChimp, Brevo, Webhook, Zoho CRM Automation and Integration plugin that Connect 390+ platforms
 
 == Description ==
 
 **Bit Integrations is a Easy Automation & Integration Plugin for WordPress**
 
-**Bit Integrations** help WordPress users integrate WordPress and plugin data to 360+ platforms.
+**Bit Integrations** help WordPress users integrate WordPress and plugin data to 390+ platforms.
 
 ### 🎯 Why Bit Integrations?
 
@@ -468,6 +468,54 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.3 =
+_Release Date - 20th August 2026_
+
+- **New Triggers**
+ - NextCRM: 19 new events added (Pro).
+ - Sensei LMS: 11 new events added (Pro).
+ - Events Manager: 10 new events added (Pro).
+ - LatePoint: 5 new events added (Pro).
+ - Cart Abandonment Recovery: 5 new events added (Pro).
+ - ClickWhale: 4 new events added (Pro).
+ - ConvertForce Popup Builder: 4 new events added (Pro).
+ - Power Coupons for WooCommerce: 4 new events added (Pro).
+ - WP Table Builder: 4 new events added (Pro).
+ - Booking Calendar: 2 new events added (Pro).
+ - ProfilePress: 2 new events added (Pro).
+ - Modern Cart: 1 new event added (Pro).
+ - Popup Maker: 1 new event added (Pro).
+ 
+- **New Actions**
+ - SureContact: 42 new events added (Pro).
+ - NextCRM: 13 new events added (Pro).
+ - Sensei LMS: 12 new events added (Pro).
+ - Brilliant Directories: 11 new events added (Pro).
+ - Popup Maker: 9 new events added (Pro).
+ - LatePoint: 8 new events added (Pro).
+ - Power Coupons for WooCommerce: 5 new events added (Pro).
+ - ConvertForce Popup Builder: 4 new events added (Pro).
+ - WP Table Builder: 4 new events added (Pro).
+ - Cart Abandonment Recovery: 3 new events added (Pro).
+ - ClickWhale: 3 new events added (Pro).
+ - Modern Cart: 3 new events added (Pro).
+ - Booking Calendar: 2 new events added (Pro).
+ - ProfilePress: 2 new events added (Pro).
+ - BadgeOS: 1 new event added (Pro).
+ - Events Manager: 1 new event added (Pro).
+
+- **New Features**
+ - Trello: Card descriptions now use a rich text editor.
+ - Custom API: URL path variables added. Fill them from trigger data in the new Path Variables tab.
+ - Smart Tags: new tags added - date and time, logged-in user, post and post author, site info, visitor info, and true / false values.
+
+- **Improvements**
+ - Connections: A new connection gets a default name, so you do not have to type one.
+ - Bit CRM: Lead dates now follow your site timezone.
+
+- **Bug Fixes**
+ - Custom API: An empty API endpoint is now logged as an error.
 
 = 2.10.2 =
 _Release Date - 4th August 2026_
