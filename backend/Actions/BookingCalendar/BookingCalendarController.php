@@ -20,13 +20,14 @@ class BookingCalendarController
         global $wpdb;
 
         $bookings = [];
+        $table = self::resolveTable('booking');
 
-        if (!self::tableExists('booking')) {
+        if (empty($table)) {
             wp_send_json_success(['bookings' => $bookings], 200);
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $rows = $wpdb->get_results("SELECT booking_id, form FROM {$wpdb->prefix}booking ORDER BY booking_id DESC LIMIT 500", ARRAY_A);
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name comes from the resolveTable() allowlist.
+        $rows = $wpdb->get_results("SELECT booking_id, form FROM {$table} ORDER BY booking_id DESC LIMIT 500", ARRAY_A);
 
         foreach ((array) $rows as $row) {
             $bookingId = (int) ($row['booking_id'] ?? 0);
@@ -105,9 +106,11 @@ class BookingCalendarController
             }
         }
 
-        if (self::tableExists('bookingtypes')) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $rows = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bookingtypes ORDER BY title ASC, booking_type_id ASC", ARRAY_A);
+        $table = self::resolveTable('bookingtypes');
+
+        if (!empty($table)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name comes from the resolveTable() allowlist.
+            $rows = $wpdb->get_results("SELECT * FROM {$table} ORDER BY title ASC, booking_type_id ASC", ARRAY_A);
 
             if (!empty($rows)) {
                 return array_values($rows);
@@ -147,7 +150,7 @@ class BookingCalendarController
         return $fields;
     }
 
-    private static function tableExists($suffix)
+    private static function resolveTable($suffix)
     {
         global $wpdb;
 
@@ -157,7 +160,7 @@ class BookingCalendarController
         ];
 
         if (!isset($tables[(string) $suffix])) {
-            return false;
+            return;
         }
 
         $table = $wpdb->prefix . $tables[(string) $suffix];
@@ -165,6 +168,10 @@ class BookingCalendarController
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $found = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table)));
 
-        return $found === $table;
+        if ($found !== $table) {
+            return;
+        }
+
+        return $table;
     }
 }

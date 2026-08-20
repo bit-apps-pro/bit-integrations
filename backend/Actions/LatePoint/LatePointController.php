@@ -28,7 +28,9 @@ class LatePointController
         self::isExists();
 
         $response['agents'] = self::fetchRows(
+            'LATEPOINT_TABLE_AGENTS',
             'latepoint_agents',
+            ['id', 'first_name', 'last_name', 'email'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -45,7 +47,9 @@ class LatePointController
         self::isExists();
 
         $response['services'] = self::fetchRows(
+            'LATEPOINT_TABLE_SERVICES',
             'latepoint_services',
+            ['id', 'name'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -62,7 +66,9 @@ class LatePointController
         self::isExists();
 
         $response['locations'] = self::fetchRows(
+            'LATEPOINT_TABLE_LOCATIONS',
             'latepoint_locations',
+            ['id', 'name'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -79,7 +85,9 @@ class LatePointController
         self::isExists();
 
         $response['bundles'] = self::fetchRows(
+            'LATEPOINT_TABLE_BUNDLES',
             'latepoint_bundles',
+            ['id', 'name'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -107,59 +115,32 @@ class LatePointController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
-    private static function fetchRows($table, $mapper)
+    private static function fetchRows($constant, $fallback, array $columns, $mapper)
     {
         global $wpdb;
 
-        if (!$wpdb || !self::tableExists($table)) {
+        if (!$wpdb) {
             return [];
         }
 
-        switch ($table) {
-            case 'latepoint_agents':
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $rows = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}latepoint_agents", ARRAY_A);
+        $tableName = \defined($constant) ? \constant($constant) : $wpdb->prefix . $fallback;
 
-                break;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Schema probe for an optional third party table.
+        $exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $tableName));
 
-            case 'latepoint_services':
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $rows = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}latepoint_services", ARRAY_A);
-
-                break;
-
-            case 'latepoint_locations':
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $rows = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}latepoint_locations", ARRAY_A);
-
-                break;
-
-            case 'latepoint_bundles':
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $rows = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}latepoint_bundles", ARRAY_A);
-
-                break;
-
-            default:
-                return [];
+        if ($exists !== $tableName) {
+            return [];
         }
+
+        $columnList = implode(', ', array_map('sanitize_key', $columns));
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is verified above, columns are sanitized literals.
+        $rows = $wpdb->get_results("SELECT {$columnList} FROM {$tableName}", ARRAY_A);
 
         if (empty($rows)) {
             return [];
         }
 
         return array_map($mapper, $rows);
-    }
-
-    private static function tableExists($table)
-    {
-        global $wpdb;
-
-        $tableName = $wpdb->prefix . $table;
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $found = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($tableName)));
-
-        return $found === $tableName;
     }
 }
