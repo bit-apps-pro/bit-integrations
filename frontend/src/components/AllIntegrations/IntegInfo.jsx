@@ -184,14 +184,13 @@ const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
-const SureContactAuthorization = lazy(
-  () => import('./SureContact/SureContactAuthorization')
-)
+const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAuthorization'))
 const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const PopupMakerAuthorization = lazy(() => import('./PopupMaker/PopupMakerAuthorization'))
+const NextCrmAuthorization = lazy(() => import('./NextCrm/NextCrmAuthorization'))
 const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
 const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
@@ -679,16 +678,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <SureContactAuthorization sureContactConf={integrationConf} step={1} isInfo />
     case 'BrilliantDirectories':
       return (
-        <BrilliantDirectoriesAuthorization
-          brilliantDirectoriesConf={integrationConf}
-          step={1}
-          isInfo
-        />
+        <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
       )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'PopupMaker':
       return <PopupMakerAuthorization popupMakerConf={integrationConf} step={1} isInfo />
+    case 'NextCrm':
+      return <NextCrmAuthorization nextCrmConf={integrationConf} step={1} isInfo />
     case 'FluentPlayer':
       return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
     case 'BitCrm':
