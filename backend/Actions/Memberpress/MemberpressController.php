@@ -2,13 +2,12 @@
 
 namespace BitApps\Integrations\Actions\Memberpress;
 
+use BitApps\Integrations\Core\Util\Post;
 use MeprOptions;
 use WP_Error;
 
 class MemberpressController
 {
-    // private $_integrationID;
-
     // public function __construct($integrationID)
     // {
     //     $this->_integrationID = $integrationID;
@@ -27,7 +26,7 @@ class MemberpressController
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';
         if (self::pluginActive()) {
-            $posts = get_posts([
+            $posts = Post::all([
                 'post_type'      => 'memberpressproduct',
                 'posts_per_page' => 999,
                 'post_status'    => 'publish',

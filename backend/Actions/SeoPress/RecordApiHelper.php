@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $actions     Actions to perform
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         if (!\defined('SEOPRESS_VERSION')) {

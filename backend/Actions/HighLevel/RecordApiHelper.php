@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,update, exist
- */
 class RecordApiHelper
 {
     private const V2_HEADER_VERSION = '2021-07-28';

@@ -50,7 +50,6 @@ export default function MoreConvertWishlist({ formFields, setFlow, flow, allInte
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <MoreConvertWishlistAuthorization
         moreConvertWishlistConf={moreConvertWishlistConf}
         setMoreConvertWishlistConf={setMoreConvertWishlistConf}
@@ -58,7 +57,6 @@ export default function MoreConvertWishlist({ formFields, setFlow, flow, allInte
         nextPage={nextPage}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -84,7 +82,6 @@ export default function MoreConvertWishlist({ formFields, setFlow, flow, allInte
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

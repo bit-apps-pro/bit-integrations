@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for Instasent integration
- */
 class InstasentController
 {
     private static $_baseUrl = 'https://api.instasent.com';

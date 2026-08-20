@@ -375,46 +375,6 @@ export default function CopperCRMActions({ copperCRMConf, setCopperCRMConf, load
         )}
       </ConfirmModal>
 
-      {/* <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-v"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'status'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Status', 'bit-integrations')}
-      >
-        <div className="btcd-hr mt-2 mb-2" />
-        <div className="mt-2">
-          {__('Select Status', 'bit-integrations')}
-        </div>
-        {
-          loading.statuses ? (
-            <Loader style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 45,
-              transform: 'scale(0.5)',
-            }}
-            />
-          )
-            : (
-              <div className="flx flx-between mt-2">
-                <MultiSelect
-                  options={copperCRMConf?.statuses?.map(status => ({ label: status.name, value: status.id }))}
-                  className="msl-wrp-options"
-                  defaultValue={copperCRMConf?.selectedStatus}
-                  onChange={val => setChanges(val, 'selectedStatus')}
-                  singleSelect
-                />
-                <button onClick={() => getAllStatuses(copperCRMConf, setCopperCRMConf, setLoading)} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': `${__('Refresh statuses', 'bit-integrations')}'` }} type="button">&#x21BB;</button>
-              </div>
-            )
-        }
-      </ConfirmModal> */}
-
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"

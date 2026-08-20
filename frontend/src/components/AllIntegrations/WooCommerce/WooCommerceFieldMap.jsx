@@ -18,7 +18,6 @@ export default function WooCommerceFieldMap({
   const isRequired = field.required === true
 
   const addFieldMap = indx => {
-    // const newConf = deepCopy(wcConf)
     const newConf = { ...wcConf }
     uploadFields
       ? newConf[module].upload_field_map.splice(indx, 0, {})

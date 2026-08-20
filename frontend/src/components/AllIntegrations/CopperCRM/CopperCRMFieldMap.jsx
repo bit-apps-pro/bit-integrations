@@ -20,7 +20,6 @@ export default function CopperCRMFieldMap({ i, formFields, field, copperCRMConf,
   } else if (copperCRMConf.actionName === 'task') {
     allFields = copperCRMConf?.taskFields
   }
-  // newFields = [...allFields, ...copperCRMConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = copperCRMConf.customFields

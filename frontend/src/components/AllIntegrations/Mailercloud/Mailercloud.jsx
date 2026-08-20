@@ -24,24 +24,24 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
     listId: '',
     contactType: '',
     actions: {}
-    // mailercloudFields: [
-    //   { key: 'city', label: 'City', required: false },
-    //   { key: 'country', label: 'Country', required: false },
-    //   { key: 'department', label: 'Department', required: false },
-    //   { key: 'dob', label: 'Dob', required: false },
-    //   { key: 'email', label: 'Email', required: true },
-    //   { key: 'industry', label: 'Industry', required: false },
-    //   { key: 'job_title', label: 'Job Title', required: false },
-    //   { key: 'last_name', label: 'Last Name', required: false },
-    //   { key: 'lead_source', label: 'Lead Source', required: false },
-    //   { key: 'middle_name', label: 'Middle Name', required: false },
-    //   { key: 'name', label: 'Name', required: false },
-    //   { key: 'organization', label: 'Organization', required: false },
-    //   { key: 'phone', label: 'Phone', required: false },
-    //   { key: 'salary', label: 'Salary', required: false },
-    //   { key: 'state', label: 'State', required: false },
-    //   { key: 'zip', label: 'Zip', required: false },
-    // ],
+  // mailercloudFields: [
+  //   { key: 'city', label: 'City', required: false },
+  //   { key: 'country', label: 'Country', required: false },
+  //   { key: 'department', label: 'Department', required: false },
+  //   { key: 'dob', label: 'Dob', required: false },
+  //   { key: 'email', label: 'Email', required: true },
+  //   { key: 'industry', label: 'Industry', required: false },
+  //   { key: 'job_title', label: 'Job Title', required: false },
+  //   { key: 'last_name', label: 'Last Name', required: false },
+  //   { key: 'lead_source', label: 'Lead Source', required: false },
+  //   { key: 'middle_name', label: 'Middle Name', required: false },
+  //   { key: 'name', label: 'Name', required: false },
+  //   { key: 'organization', label: 'Organization', required: false },
+  //   { key: 'phone', label: 'Phone', required: false },
+  //   { key: 'salary', label: 'Salary', required: false },
+  //   { key: 'state', label: 'State', required: false },
+  //   { key: 'zip', label: 'Zip', required: false },
+  // ],
   })
   const setSavePageLoad = value => {
     setLoading({ ...loading, page: value })
@@ -52,8 +52,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* --- STEP 1 --- */}
-
       <MailercloudAuthorization
         mailercloudConf={mailercloudConf}
         setMailercloudConf={setMailercloudConf}
@@ -62,8 +60,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
         step={step}
         setStep={setStep}
       />
-
-      {/* --- STEP 2 --- */}
 
       <StepPage step={step} stepNo={2} style={{ width: 900, height: 'auto', overflow: 'visible' }}>
         <MailercloudIntegLayout
@@ -85,8 +81,6 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
           </button>
         )}
       </StepPage>
-
-      {/* --- STEP 3 --- */}
 
       {mailercloudConf.listId && (
         <IntegrationStepThree

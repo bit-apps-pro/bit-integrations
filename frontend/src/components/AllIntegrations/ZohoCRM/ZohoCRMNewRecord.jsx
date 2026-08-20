@@ -125,7 +125,6 @@ export default function ZohoCRMNewRecord({
                   setCrmConf={setCrmConf}
                   tab={tab}
                   setSnackbar={setSnackbar}
-                  // type="upload_field_map"
                 />
               ))}
               <div className="txt-center btcbi-field-map-button mt-2">

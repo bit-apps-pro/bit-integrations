@@ -23,9 +23,6 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
  */
 class ConnectionTestApi extends ApiClient
 {
-    /**
-     * @var AbstractBaseAuthorization
-     */
     private $handler;
 
     public function __construct(AbstractBaseAuthorization $handler)
@@ -34,9 +31,6 @@ class ConnectionTestApi extends ApiClient
         $this->handler = $handler;
     }
 
-    /**
-     * @param null|mixed $payload
-     */
     public function test(string $apiEndpoint, string $method = 'GET', $payload = null, array $headers = []): array
     {
         $apiEndpoint = trim($apiEndpoint);

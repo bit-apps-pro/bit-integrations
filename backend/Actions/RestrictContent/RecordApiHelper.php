@@ -10,9 +10,6 @@ use BitApps\Integrations\Log\LogHandler;
 use RCP_Payments;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     protected $action;

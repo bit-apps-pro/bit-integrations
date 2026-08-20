@@ -101,7 +101,6 @@ function ACPT({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <ACPTAuthorization
         acptConf={acptConf}
         setAcptConf={setAcptConf}
@@ -111,7 +110,6 @@ function ACPT({ formFields, setFlow, flow, allIntegURL }) {
         setLoading={setLoading}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -140,7 +138,6 @@ function ACPT({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {acptConf?.module && (
         <IntegrationStepThree
           step={step}

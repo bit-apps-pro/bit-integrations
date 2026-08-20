@@ -26,7 +26,7 @@ class BookingCalendarController
             wp_send_json_success(['bookings' => $bookings], 200);
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name comes from the resolveTable() allowlist.
         $rows = $wpdb->get_results("SELECT booking_id, form FROM {$table} ORDER BY booking_id DESC LIMIT 500", ARRAY_A);
 
         foreach ((array) $rows as $row) {
@@ -109,7 +109,7 @@ class BookingCalendarController
         $table = self::resolveTable('bookingtypes');
 
         if (!empty($table)) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name comes from the resolveTable() allowlist.
             $rows = $wpdb->get_results("SELECT * FROM {$table} ORDER BY title ASC, booking_type_id ASC", ARRAY_A);
 
             if (!empty($rows)) {

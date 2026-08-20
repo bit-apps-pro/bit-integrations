@@ -102,6 +102,5 @@ function EditGoogleSheet({ allIntegURL }) {
     </div>
   )
 }
-// }
 
 export default EditGoogleSheet

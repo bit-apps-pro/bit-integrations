@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\NextCrm;
 
 use WP_Error;
 
-/**
- * Provide functionality for NextCrm integration
- */
 class NextCrmController
 {
     public static function isExists()

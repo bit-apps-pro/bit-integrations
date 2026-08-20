@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\ZohoCRM;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for Tags in Zoho CRM
- */
 final class TagApiHelper
 {
     private $_defaultHeader;
@@ -20,12 +17,6 @@ final class TagApiHelper
 
     private $_module;
 
-    /**
-     * Constructor function
-     *
-     * @param object $tokenDetails Api token details
-     * @param string $module       Module Name
-     */
     public function __construct($tokenDetails, $module)
     {
         $this->_defaultHeader['Authorization'] = "Zoho-oauthtoken {$tokenDetails->access_token}";
@@ -60,14 +51,6 @@ final class TagApiHelper
         return $tags;
     }
 
-    /**
-     * Helps to add Tags to a specific record of a module
-     *
-     * @param int    $recordID ID of record to add tags
-     * @param string $tagNames urlencoded string of tag names
-     *
-     * @return Json $addTagsResponse Tags List
-     */
     public function addTagsSingleRecord($recordID, $tagNames)
     {
         $addTagsEndpoint = "{$this->_apiDomain}/{$this->_module}/{$recordID}/actions/add_tags";

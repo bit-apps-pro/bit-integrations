@@ -50,19 +50,10 @@ use BitApps\Integrations\Core\Util\HttpHelper;
  */
 class ApiClient
 {
-    /**
-     * @var AuthStrategyInterface
-     */
     protected $auth;
 
-    /**
-     * @var array<string, string>
-     */
     protected $defaultHeaders = [];
 
-    /**
-     * @var mixed payload for the next request
-     */
     private $body;
 
     /**
@@ -74,19 +65,10 @@ class ApiClient
      */
     private $method = 'GET';
 
-    /**
-     * @var string
-     */
     private $url = '';
 
-    /**
-     * @var null|array|object|string
-     */
     private $payload;
 
-    /**
-     * @var array<string, string>
-     */
     private $headers = [];
 
     /**
@@ -99,9 +81,6 @@ class ApiClient
      */
     private $resolvedBaseUrl;
 
-    /**
-     * @var bool
-     */
     private $isBaseUrlResolved = false;
 
     /**
@@ -160,9 +139,6 @@ class ApiClient
         return $this;
     }
 
-    /**
-     * @param array<string, string> $additionalHeaders
-     */
     public function addHeaders(array $additionalHeaders): self
     {
         $this->headers = array_unique(
@@ -173,9 +149,6 @@ class ApiClient
         return $this;
     }
 
-    /**
-     * @param mixed $body
-     */
     public function setBody($body): self
     {
         $this->body = $body;
@@ -191,33 +164,21 @@ class ApiClient
         return $this->request('GET', $path, $payload, $headers);
     }
 
-    /**
-     * @param null|array|object|string $payload
-     */
     public function post(string $path = '', $payload = null, array $headers = []): ApiResponse
     {
         return $this->request('POST', $path, $payload, $headers);
     }
 
-    /**
-     * @param null|array|object|string $payload
-     */
     public function put(string $path = '', $payload = null, array $headers = []): ApiResponse
     {
         return $this->request('PUT', $path, $payload, $headers);
     }
 
-    /**
-     * @param null|array|object|string $payload
-     */
     public function patch(string $path = '', $payload = null, array $headers = []): ApiResponse
     {
         return $this->request('PATCH', $path, $payload, $headers);
     }
 
-    /**
-     * @param null|array|object|string $payload
-     */
     public function delete(string $path = '', $payload = null, array $headers = []): ApiResponse
     {
         return $this->request('DELETE', $path, $payload, $headers);
@@ -292,17 +253,11 @@ class ApiClient
         return $this;
     }
 
-    /**
-     * @return null|array|object|string
-     */
     public function getRequestPayload()
     {
         return $this->payload;
     }
 
-    /**
-     * @param null|array|object|string $payload
-     */
     public function setRequestPayload($payload): self
     {
         $this->payload = $payload;
@@ -310,17 +265,11 @@ class ApiClient
         return $this;
     }
 
-    /**
-     * @return array<string, string>
-     */
     public function getRequestHeaders(): array
     {
         return $this->headers;
     }
 
-    /**
-     * @param array<string, string> $headers
-     */
     public function setRequestHeaders(array $headers): self
     {
         $this->headers = $headers;
@@ -341,9 +290,6 @@ class ApiClient
         return $this->response === null ? 0 : $this->response->getStatus();
     }
 
-    /**
-     * @return mixed
-     */
     public function getResponseBody()
     {
         return $this->response === null ? null : $this->response->getBody();

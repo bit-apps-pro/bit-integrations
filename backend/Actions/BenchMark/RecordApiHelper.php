@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\BenchMark;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,update, exist
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -106,7 +103,6 @@ class RecordApiHelper
         return $recordApiResponse;
     }
 
-    // Check if a contact exists through email.
     private function existContact($email)
     {
         $queries = http_build_query([

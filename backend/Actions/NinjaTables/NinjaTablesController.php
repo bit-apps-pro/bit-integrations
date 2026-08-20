@@ -10,9 +10,6 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for NinjaTables integration
- */
 class NinjaTablesController
 {
     private const POST_TYPE = 'ninja-table';
@@ -25,11 +22,6 @@ class NinjaTablesController
 
     private const CACHE_GROUP = Config::VAR_PREFIX;
 
-    /**
-     * Check if Ninja Tables plugin is installed and activated
-     *
-     * @return bool
-     */
     public static function isExists()
     {
         if (!\defined('NINJA_TABLES_VERSION')) {
@@ -42,11 +34,6 @@ class NinjaTablesController
         return true;
     }
 
-    /**
-     * Get all published Ninja Tables
-     *
-     * @return void
-     */
     public function refreshTables()
     {
         self::isExists();
@@ -57,13 +44,6 @@ class NinjaTablesController
         wp_send_json_success(['tables' => $formattedTables], 200);
     }
 
-    /**
-     * Get rows for a specific table
-     *
-     * @param object $requestParams Request parameters
-     *
-     * @return void
-     */
     public function refreshRows($requestParams)
     {
         self::isExists();
@@ -75,11 +55,6 @@ class NinjaTablesController
         wp_send_json_success(['rows' => $formattedRows], 200);
     }
 
-    /**
-     * Get all WordPress users
-     *
-     * @return void
-     */
     public function refreshUsers()
     {
         self::isExists();
@@ -90,13 +65,6 @@ class NinjaTablesController
         wp_send_json_success(['users' => $formattedUsers], 200);
     }
 
-    /**
-     * Get columns for a specific table
-     *
-     * @param object $requestParams Request parameters
-     *
-     * @return void
-     */
     public function refreshColumns($requestParams)
     {
         self::isExists();
@@ -108,14 +76,6 @@ class NinjaTablesController
         wp_send_json_success(['columns' => $formattedColumns], 200);
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param object $integrationData Integration data
-     * @param array  $fieldValues     Field values
-     *
-     * @return mixed
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
@@ -130,11 +90,6 @@ class NinjaTablesController
         return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
-    /**
-     * Fetch all Ninja Tables from database
-     *
-     * @return array
-     */
     private function fetchAllTables()
     {
         $cache_key = Config::withPrefix('ninjatables_tables');
@@ -169,13 +124,6 @@ class NinjaTablesController
         return array_map([$this, 'formatTableItem'], $tables);
     }
 
-    /**
-     * Format single table item
-     *
-     * @param object|array $table Table data
-     *
-     * @return object
-     */
     private function formatTableItem($table)
     {
         $table_id = \is_object($table) ? ($table->ID ?? '') : ($table['ID'] ?? '');
@@ -187,13 +135,6 @@ class NinjaTablesController
         ];
     }
 
-    /**
-     * Validate request parameters and get table ID
-     *
-     * @param object $requestParams Request parameters
-     *
-     * @return int
-     */
     private function validateAndGetTableId($requestParams)
     {
         if (empty($requestParams->table_id)) {
@@ -209,13 +150,6 @@ class NinjaTablesController
         return $tableId;
     }
 
-    /**
-     * Fetch rows for a specific table
-     *
-     * @param int $tableId Table ID
-     *
-     * @return array
-     */
     private function fetchTableRows($tableId)
     {
         global $wpdb;
@@ -251,13 +185,6 @@ class NinjaTablesController
         return array_map([$this, 'formatRowItem'], $rows);
     }
 
-    /**
-     * Format single row item
-     *
-     * @param array $row Row data
-     *
-     * @return object
-     */
     private function formatRowItem(array $row)
     {
         return (object) [
@@ -266,11 +193,6 @@ class NinjaTablesController
         ];
     }
 
-    /**
-     * Fetch WordPress users
-     *
-     * @return array
-     */
     private function fetchUsers()
     {
         return get_users(['fields' => ['ID', 'display_name', 'user_email']]) ?? [];
@@ -288,13 +210,6 @@ class NinjaTablesController
         return array_map([$this, 'formatUserItem'], $users);
     }
 
-    /**
-     * Format single user item
-     *
-     * @param object $user User data
-     *
-     * @return object
-     */
     private function formatUserItem($user)
     {
         return (object) [
@@ -303,13 +218,6 @@ class NinjaTablesController
         ];
     }
 
-    /**
-     * Fetch columns for a specific table
-     *
-     * @param int $tableId Table ID
-     *
-     * @return array
-     */
     private function fetchTableColumns($tableId)
     {
         $cache_key = Config::withPrefix('ninjatables_columns_' . $tableId);
@@ -344,13 +252,6 @@ class NinjaTablesController
         return array_map([$this, 'formatColumnItem'], $columns);
     }
 
-    /**
-     * Format single column item
-     *
-     * @param array $column Column data
-     *
-     * @return object
-     */
     private function formatColumnItem(array $column)
     {
         return (object) [

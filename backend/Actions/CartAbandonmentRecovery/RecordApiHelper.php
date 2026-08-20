@@ -30,9 +30,12 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $mainAction = $this->_integrationDetails->mainAction ?? 'delete_abandoned_cart';
+        // translators: %s is the plugin name.
+        $proMissingMessage = wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro');
+
         $defaultResponse = [
             'success' => false,
-            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => $proMissingMessage
         ];
 
         switch ($mainAction) {

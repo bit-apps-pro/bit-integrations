@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -149,7 +146,6 @@ class RecordApiHelper
         $doubleOptIn = !empty($actions->double_opt_in) && $actions->double_opt_in ? true : false;
 
         $fieldData['merge_fields'] = (object) $mergeFields;
-        // $fieldData['email_type']    = 'text';
         $fieldData['tags'] = !empty($tags) ? $tags : [];
         $fieldData['status'] = $doubleOptIn ? 'pending' : 'subscribed';
         $fieldData['double_optin'] = $doubleOptIn;

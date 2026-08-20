@@ -68,8 +68,6 @@ export default function ClinchPadActions({ clinchPadConf, setClinchPadConf, load
           subTitle={__('Add an parentOrganization')}
         />
       )}
-      {/* {(clinchPadConf.actionName === 'deal') && <TableCheckBox checked={clinchPadConf?.selectedTeam?.length || false} onChange={(e) => actionHandler(e, 'team')} className="wdt-200 mt-4 mr-2" value="team" title={__('Add Team', 'bit - integrations')} subTitle={__('Add an team')} />} */}
-      {/* {(clinchPadConf.actionName === 'lead') && <TableCheckBox checked={clinchPadConf?.selectedCurrency?.length || false} onChange={(e) => actionHandler(e, 'currency')} className="wdt-200 mt-4 mr-2" value="currency" title={__('Add Currency', 'bit - integrations')} subTitle={__('Add a currency')} />} */}
       {clinchPadConf.actionName === 'lead' && (
         <TableCheckBox
           checked={clinchPadConf?.selectedContact?.length || false}

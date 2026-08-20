@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\Bento;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class BentoHelper
 {
     public static function checkResponseCode()

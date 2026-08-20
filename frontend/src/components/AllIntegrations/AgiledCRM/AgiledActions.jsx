@@ -123,10 +123,6 @@ export default function AgiledActions({ agiledConf, setAgiledConf, loading, setL
           subTitle={__('Add an account')}
         />
       )}
-      {/* {agiledConf.actionName === 'contact' && <TableCheckBox checked={agiledConf?.selectedSource?.length || false} onChange={(e) => actionHandler(e, 'source')} className="wdt-200 mt-4 mr-2" value="source" title={__('Add Source', 'bit - integrations')} subTitle={__('Add a source')} />} */}
-      {/* {agiledConf.actionName === 'contact' && <TableCheckBox checked={agiledConf?.selectedStatus?.length || false} onChange={(e) => actionHandler(e, 'status')} className="wdt-200 mt-4 mr-2" value="status" title={__('Add Status', 'bit - integrations')} subTitle={__('Add a status')} />} */}
-      {/* {agiledConf.actionName === 'contact' && <TableCheckBox checked={agiledConf?.selectedFollowUp?.length || false} onChange={(e) => actionHandler(e, 'followUp')} className="wdt-200 mt-4 mr-2" value="followUp" title={__('Add Follow Up', 'bit - integrations')} subTitle={__('Select follow up')} />} */}
-      {/* {agiledConf.actionName === 'contact' && <TableCheckBox checked={agiledConf?.selectedLifeCycleStage?.length || false} onChange={(e) => actionHandler(e, 'lifeCycleStage')} className="wdt-200 mt-4 mr-2" value="lifeCycleStage" title={__('Add Life Cycle Stage', 'bit - integrations')} subTitle={__('Add a life cycle stage')} />} */}
       {agiledConf.actionName === 'deal' && (
         <TableCheckBox
           checked={agiledConf?.selectedDealType?.length || false}

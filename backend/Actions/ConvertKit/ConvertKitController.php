@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ConvertKitController
 {
     public static array $authConfig = [
@@ -37,13 +34,6 @@ class ConvertKitController
         return "https://api.convertkit.com/v3/{$method}?api_secret={$apiSecret}";
     }
 
-    /**
-     * Process ajax request for refresh Forms
-     *
-     * @param $queryParams Params to fetch form
-     *
-     * @return JSON convert kit forms data
-     */
     public static function convertKitForms($queryParams)
     {
         if (empty($queryParams->api_secret)) {
@@ -74,13 +64,6 @@ class ConvertKitController
         }
     }
 
-    /**
-     * Process ajax request for refresh Tags
-     *
-     * @param $queryParams Params to fetch form
-     *
-     * @return JSON convert kit tags data
-     */
     public static function convertKitTags($queryParams)
     {
         if (empty($queryParams->api_secret)) {
@@ -113,13 +96,6 @@ class ConvertKitController
         }
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param $queryParams Params to fetch headers
-     *
-     * @return JSON crm module data
-     */
     public static function convertKitHeaders($queryParams)
     {
         if (empty($queryParams->api_secret)) {

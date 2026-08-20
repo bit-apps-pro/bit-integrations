@@ -12,30 +12,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Provide functionality for Power Coupons action integration.
- */
 class PowerCouponsController
 {
-    public static function isExists()
-    {
-        if (!self::isPluginInstalled()) {
-            wp_send_json_error(
-                __(
-                    'Power Coupons for WooCommerce is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
-    public static function powerCouponsAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

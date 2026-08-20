@@ -9,7 +9,6 @@ final class PostController
 {
     public function __construct()
     {
-        //
     }
 
     public function getPostTypes()
@@ -276,7 +275,6 @@ final class PostController
                 }
             }
         }
-        // echo wp_json_encode(array_values($pods->fields) );
         wp_send_json_success(['podFields' => $podField, 'podFiles' => $podFile], 200);
     }
 }

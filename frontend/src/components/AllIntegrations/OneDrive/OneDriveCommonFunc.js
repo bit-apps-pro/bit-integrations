@@ -20,7 +20,6 @@ export const handleInput = (
   } else {
     delete newConf[name]
   }
-  // new
 
   newConf[e.target.name] = e.target.value
   switch (e.target.name) {
@@ -31,7 +30,6 @@ export const handleInput = (
     default:
       break
   }
-  // end
   setOneDriveConf({ ...newConf })
 }
 

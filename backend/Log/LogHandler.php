@@ -16,7 +16,6 @@ final class LogHandler
 {
     public function __construct()
     {
-        //
     }
 
     public function get($data)
@@ -148,6 +147,7 @@ final class LogHandler
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list, $table from $wpdb->prefix; the extra %d placeholders live inside $rootWhere and are all bound via prepare()
         $tops = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE {$rootWhere} ORDER BY id DESC LIMIT %d OFFSET %d", $flowId, $flowId, (int) $limit, (int) $offset));
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list and $table from $wpdb->prefix (no input); the %d value is bound via prepare()
         // Re-executions are rare, so fetch them all for this flow (without the LONGTEXT payload) and nest.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list and $table from $wpdb->prefix (no input); the %d value is bound via prepare()
         $descendants = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE flow_id = %d AND parent_id IS NOT NULL ORDER BY id DESC", $flowId));
@@ -590,15 +590,6 @@ final class LogHandler
         wp_send_json_success(isset($logEntry[0]->field_data) ? $logEntry[0]->field_data : '');
     }
 
-    /**
-     * Send email notification for integration failure
-     *
-     * @param int   $flow_id      Integration flow ID
-     * @param mixed $api_type     API type/integration name
-     * @param mixed $response_obj Error response object
-     *
-     * @return void
-     */
     private static function sendFailureEmail($flow_id, $api_type, $response_obj)
     {
         $integrationHandler = new FlowController();
@@ -620,7 +611,6 @@ final class LogHandler
             $trigger_name = $integrations[0]->triggered_entity;
         }
 
-        // Get error message
         $error_message = 'An error occurred during integration execution.';
 
         if (\is_string($response_obj)) {
@@ -637,13 +627,11 @@ final class LogHandler
             }
         }
 
-        // Truncate long error messages
         $maxLength = 500;
         if (\strlen($error_message) > $maxLength) {
             $error_message = \substr($error_message, 0, $maxLength) . '...';
         }
 
-        // Send the email notification
         EmailNotification::sendFailureNotification($flow_id, $action_name, $trigger_name, $record_type, $error_message);
     }
 }

@@ -32,11 +32,11 @@ export default function VboutIntegLayout({
       label: __('Active', 'bit-integrations'),
       value: 'active'
     },
+
     // {
     //     label: __('Unsubscribed','bit-integrations'),
     //     value: 'unsubscribed'
     // },
-
     // {
     //     label: __('Bounced Email','bit-integrations'),
     //     value: 'bounced'

@@ -6,11 +6,9 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Tutor LMS integration
- */
 class TutorLmsController
 {
     private $_integrationID;
@@ -29,7 +27,7 @@ class TutorLmsController
 
         $lessons = [];
 
-        $lessonList = get_posts([
+        $lessonList = Post::all([
             'post_type'   => 'lesson',
             'post_status' => 'publish',
             'numberposts' => -1
@@ -52,7 +50,7 @@ class TutorLmsController
             wp_send_json_error(wp_sprintf(__('%s is not installed or activated.', 'bit-integrations'), 'Tutor LMS'));
         }
 
-        $courseList = get_posts([
+        $courseList = Post::all([
             'post_type'   => 'courses',
             'post_status' => 'publish',
             'numberposts' => -1

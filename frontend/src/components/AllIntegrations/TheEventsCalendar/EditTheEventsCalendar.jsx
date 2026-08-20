@@ -90,7 +90,6 @@ function EditTheEventsCalendar({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!theEventsCalendarConf?.selectedLists}
         isLoading={isLoading}
         dataConf={theEventsCalendarConf}
         setDataConf={setTheEventsCalendarConf}

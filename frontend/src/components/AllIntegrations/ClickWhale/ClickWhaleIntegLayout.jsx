@@ -68,7 +68,7 @@ export default function ClickWhaleIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.clickWhaleFields)
       })
     )
-    // The effect above fetches the lists this action needs.
+  // The effect above fetches the lists this action needs.
   }
 
   return (

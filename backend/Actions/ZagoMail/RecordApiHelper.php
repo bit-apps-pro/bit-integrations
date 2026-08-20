@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\ZagoMail;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,update, exist
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -30,7 +27,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    // for adding a subscriber
     public function storeOrModifyRecord($listId, $data)
     {
         $requestParams['publicKey'] = $this->_apiPublicKey;
@@ -58,7 +54,6 @@ class RecordApiHelper
         return HttpHelper::post($insertRecordEndpoint, wp_json_encode($requestParams), $this->_defaultHeader);
     }
 
-    // add tag to a subscriber
     public function addTagToSubscriber($subscriberId, $listId, $tags)
     {
         $requestParams['publicKey'] = $this->_apiPublicKey;
@@ -127,7 +122,6 @@ class RecordApiHelper
         return $recordApiResponse;
     }
 
-    // Check if a subscriber exists through email.
     private function existSubscriber($email, $listId)
     {
         $body = [

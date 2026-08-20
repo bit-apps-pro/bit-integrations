@@ -142,7 +142,6 @@ export default function SalesforceIntegLayout({
       </div>
       <br />
 
-      {/* Campaign */}
       {['add-campaign-member'].includes(salesforceConf.actionName) && (
         <>
           <div className="flx mt-4">
@@ -178,7 +177,6 @@ export default function SalesforceIntegLayout({
         </>
       )}
 
-      {/* Lead */}
       {['add-campaign-member'].includes(salesforceConf.actionName) && (
         <div className="flx mt-4">
           <b className="wdt-200 d-in-b">{__('Select Lead:', 'bit-integrations')}</b>
@@ -205,7 +203,6 @@ export default function SalesforceIntegLayout({
         </div>
       )}
 
-      {/* Contact */}
       {['add-campaign-member', 'task-create'].includes(salesforceConf.actionName) && (
         <div className="flx mt-4">
           <b className="wdt-200 d-in-b">{__('Select Contact:', 'bit-integrations')}</b>
@@ -235,7 +232,6 @@ export default function SalesforceIntegLayout({
         </div>
       )}
 
-      {/* Account */}
       {['add-campaign-member', 'task-create'].includes(salesforceConf.actionName) && (
         <div className="flx mt-4">
           <b className="wdt-200 d-in-b">{__('Select Account:', 'bit-integrations')}</b>

@@ -6,11 +6,9 @@
 
 namespace BitApps\Integrations\Actions\TheEventsCalendar;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for TheEventsCalendar integration
- */
 class TheEventsCalendarController
 {
     public static function checkedTheEventsCalendarExists()
@@ -27,7 +25,7 @@ class TheEventsCalendarController
     {
         self::checkedTheEventsCalendarExists();
 
-        $events = get_posts(
+        $events = Post::all(
             [
                 'post_type'      => 'tribe_events',
                 'orderby'        => 'title',

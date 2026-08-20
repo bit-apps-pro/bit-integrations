@@ -12,7 +12,6 @@ const BuddyBossHelper = ({ flow, setFlowData, edit = false }) => {
   const [newFlow, setNewFlow] = useRecoilState($newFlow)
   const triggerData = !edit ? newFlow?.triggerData : flow.flow_details
 
-  // rubel vai code
   const setFlowDataDepend = (val, type, isLoad = true) => {
     const tmpFlow = create(flow, draftChangeData => {
       if (!edit) {

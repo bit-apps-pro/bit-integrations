@@ -62,7 +62,6 @@ function Settings() {
       if (res?.success) setShowAnalyticsOptin(res.data)
     })
 
-    // Fetch get/config
     const fetchConfig = bitsFetch({}, 'get/config', null, 'GET').then(res => {
       if ('success' in res && res.success) {
         setAppConf(res.data)

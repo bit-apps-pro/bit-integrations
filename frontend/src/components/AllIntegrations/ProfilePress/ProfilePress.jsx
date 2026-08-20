@@ -60,19 +60,13 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <ProfilePressAuthorization
-        formID={formID}
         profilePressConf={profilePressConf}
         setProfilePressConf={setProfilePressConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -102,7 +96,6 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

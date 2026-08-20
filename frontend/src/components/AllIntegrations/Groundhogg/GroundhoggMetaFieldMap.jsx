@@ -65,8 +65,6 @@ export default function GroundhoggMetaFieldMap({
             </optgroup>
           </select>
 
-          {/* {field.formField === 'custom' && <MtInput onChange={e => handleMetaCustomValue(e, i, groundhoggConf, setGroundhoggConf)} label={__('Custom Value', 'bit-integrations')} className="mr-2" type="text" value={field.customMetaFormValue} placeholder={__('Custom Value', 'bit-integrations')} />} */}
-
           {field.formField === 'custom' && (
             <TagifyInput
               onChange={e => handleMetaCustomValue(e, i, groundhoggConf, setGroundhoggConf)}
@@ -100,7 +98,6 @@ export default function GroundhoggMetaFieldMap({
               ))
             )}
           </select>
-          {/* {field.GroundhoggMetaMapField === 'custom' && <MtInput onChange={e => handleMetaCustomFieldValue(e, i, groundhoggConf, setGroundhoggConf)} label={__('Custom Value', 'bit-integrations')} className="mr-2" type="text" value={field.customMetaGroundValue} placeholder={__('Custom Value', 'bit-integrations')} />} */}
         </div>
         {i >= requiredFlds.length && (
           <>

@@ -6,4 +6,3 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Triggers\Breakdance\BreakdanceController;
 
-// BreakdanceController::addAction();

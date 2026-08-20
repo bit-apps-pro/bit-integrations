@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use BP_Suspend_Member;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private const CREATE_GROUP_PRO = 1;
@@ -172,7 +169,6 @@ class RecordApiHelper
         LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'friend', 'type_name' => 'follow-user']), 'error', wp_json_encode(wp_sprintf(__('The user was already following a member ID - %s', 'bit-integrations'), $friendId)));
     }
 
-    // for action 5
     public static function posTopicForum($forum_id, $finalData)
     {
         $user_id = get_current_user_id();
@@ -305,8 +301,6 @@ class RecordApiHelper
             bbp_notify_forum_subscribers($topic_id, $forum_id, null, $user_id);
         }
     }
-
-    // action 6 start
 
     public static function removeUserFromGroup($group_id)
     {

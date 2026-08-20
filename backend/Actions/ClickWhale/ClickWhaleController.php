@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\ClickWhale;
 
 use WP_Error;
 
-/**
- * Provide functionality for ClickWhale integration
- */
 class ClickWhaleController
 {
     public static function isExists()
@@ -24,12 +21,6 @@ class ClickWhaleController
                 400
             );
         }
-    }
-
-    public static function clickWhaleAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
     }
 
     /**

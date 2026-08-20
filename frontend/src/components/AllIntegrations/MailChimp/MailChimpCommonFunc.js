@@ -75,7 +75,6 @@ export const refreshModules = (setMailChimpConf, setIsLoading, setSnackbar) => {
           show: true,
           msg: __('Module list refreshed', 'bit-integrations')
         })
-        // setMailChimpConf({ ...newConf });
       } else {
         setSnackbar({
           show: true,

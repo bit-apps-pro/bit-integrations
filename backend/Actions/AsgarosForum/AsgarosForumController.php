@@ -2,9 +2,6 @@
 
 namespace BitApps\Integrations\Actions\AsgarosForum;
 
-/**
- * Provide functionality for Asgaros Forum integration.
- */
 class AsgarosForumController
 {
     public function execute($integrationData, $fieldValues)

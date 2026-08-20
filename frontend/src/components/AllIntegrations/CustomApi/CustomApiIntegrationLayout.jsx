@@ -9,6 +9,7 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import Button from '../../Utilities/Button'
 import LoaderSm from '../../Loaders/LoaderSm'
 import Params from '../IntegrationHelpers/WebHook/Params'
+import PathParams, { usePathParamsSync } from '../IntegrationHelpers/WebHook/PathParams'
 import RequestHeaders from '../IntegrationHelpers/WebHook/RequestHeaders'
 import Body from '../IntegrationHelpers/WebHook/Body'
 
@@ -23,6 +24,8 @@ const CustomApiIntegrationLayout = ({
   setStep
 }) => {
   const [tab, setTab] = useState(1)
+  // runs here, not in <PathParams />, so the mapping exists even if that tab is never opened
+  usePathParamsSync(customApiConf, setCustomApiConf, !isInfo)
   const actionMethods = [
     { value: 'GET', label: __('GET', 'bit-integrations') },
     { value: 'POST', label: __('POST', 'bit-integrations') },
@@ -72,17 +75,6 @@ const CustomApiIntegrationLayout = ({
           onChange={val => setValue(val, 'actionMethod')}
         />
       </div>
-      {/* <br /> */}
-      {/* <div className="d-flx">
-            <b className="wdt-200 d-in-b mt-3">{__('Select Content Type:', 'bit-integrations')}</b>
-            <MultiSelect
-              defaultValue={customApiConf.contentType}
-              className="btcd-paper-drpdwn w-5"
-              singleSelect
-              options={contentTypes}
-              onChange={val => setValue(val, 'contentType')}
-            />
-        </div> */}
       <br />
       <div className="d-flx">
         <div className="wdt-200 d-in-b mt-3">
@@ -108,11 +100,16 @@ const CustomApiIntegrationLayout = ({
           </Tab>
           <Tab>
             <button className={`btcd-s-tab-link ${tab === 2 && 's-t-l-active'}`} type="button">
-              {__('Headers', 'bit-integrations')}
+              {__('Path Variables', 'bit-integrations')}
             </button>
           </Tab>
           <Tab>
             <button className={`btcd-s-tab-link ${tab === 3 && 's-t-l-active'}`} type="button">
+              {__('Headers', 'bit-integrations')}
+            </button>
+          </Tab>
+          <Tab>
+            <button className={`btcd-s-tab-link ${tab === 4 && 's-t-l-active'}`} type="button">
               {__('Body', 'bit-integrations')}
             </button>
           </Tab>
@@ -123,6 +120,14 @@ const CustomApiIntegrationLayout = ({
             webHooks={customApiConf}
             setWebHooks={setCustomApiConf}
             formFields={formFields}
+            isInfo={isInfo}
+            setTab={setTab}
+          />
+        </Panel>
+        <Panel>
+          <PathParams
+            webHooks={customApiConf}
+            setWebHooks={setCustomApiConf}
             isInfo={isInfo}
             setTab={setTab}
           />
@@ -146,13 +151,6 @@ const CustomApiIntegrationLayout = ({
           />
         </Panel>
       </Tabs>
-
-      {/* {create && (
-        <button onClick={() => nextPage()} className="btn btcd-btn-lg purple sh-sm flx" type="button">
-          {__('Next', 'bit-integrations')}
-          <BackIcn className="ml-1 rev-icn" />
-        </button>
-      )} */}
     </>
   )
 }

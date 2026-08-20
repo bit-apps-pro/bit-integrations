@@ -17,13 +17,41 @@ export const modules = [
   { name: 'update_playlist', label: __('Update Playlist', 'bit-integrations'), is_pro: true },
   { name: 'trash_playlist', label: __('Trash Playlist', 'bit-integrations'), is_pro: true },
   { name: 'restore_playlist', label: __('Restore Playlist', 'bit-integrations'), is_pro: true },
-  { name: 'delete_playlist', label: __('Delete Playlist (Permanently)', 'bit-integrations'), is_pro: true },
-  { name: 'change_playlist_status', label: __('Change Playlist Status', 'bit-integrations'), is_pro: true },
-  { name: 'add_media_to_playlist', label: __('Add Media to Playlist', 'bit-integrations'), is_pro: true },
-  { name: 'remove_media_from_playlist', label: __('Remove Media from Playlist', 'bit-integrations'), is_pro: true },
-  { name: 'create_email_submission', label: __('Create Email Submission', 'bit-integrations'), is_pro: true },
-  { name: 'subscribe_email_to_providers', label: __('Subscribe Email to Providers', 'bit-integrations'), is_pro: true },
-  { name: 'record_watch_progression', label: __('Record Watch Progression', 'bit-integrations'), is_pro: true },
+  {
+    name: 'delete_playlist',
+    label: __('Delete Playlist (Permanently)', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'change_playlist_status',
+    label: __('Change Playlist Status', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'add_media_to_playlist',
+    label: __('Add Media to Playlist', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'remove_media_from_playlist',
+    label: __('Remove Media from Playlist', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'create_email_submission',
+    label: __('Create Email Submission', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'subscribe_email_to_providers',
+    label: __('Subscribe Email to Providers', 'bit-integrations'),
+    is_pro: true
+  },
+  {
+    name: 'record_watch_progression',
+    label: __('Record Watch Progression', 'bit-integrations'),
+    is_pro: true
+  },
   { name: 'record_visit', label: __('Record Visit', 'bit-integrations'), is_pro: true },
   { name: 'save_preset', label: __('Save Preset', 'bit-integrations'), is_pro: true },
   { name: 'delete_preset', label: __('Delete Preset', 'bit-integrations'), is_pro: true }
@@ -96,7 +124,11 @@ export const FluentPlayerStaticData = {
   record_watch_progression: [
     mediaId,
     { key: 'user_id', label: __('User Id', 'bit-integrations'), required: true },
-    { key: 'watched_duration', label: __('Watched Duration (seconds)', 'bit-integrations'), required: true },
+    {
+      key: 'watched_duration',
+      label: __('Watched Duration (seconds)', 'bit-integrations'),
+      required: true
+    },
     { key: 'course_id', label: __('LMS Course Id', 'bit-integrations'), required: false },
     { key: 'step_id', label: __('LMS Step Id', 'bit-integrations'), required: false }
   ],
@@ -148,15 +180,24 @@ export const endedOptions = [
 
 // ---- Fetched dropdowns (user picks; never an action's required identifier) ----
 export const needsPreset = [
-  'create_media', 'update_media', 'create_email_submission', 'subscribe_email_to_providers', 'delete_preset'
+  'create_media',
+  'update_media',
+  'create_email_submission',
+  'subscribe_email_to_providers',
+  'delete_preset'
 ]
-export const needsTags = ['create_media', 'update_media', 'set_media_tags', 'add_media_tags', 'remove_media_tags']
+export const needsTags = [
+  'create_media',
+  'update_media',
+  'set_media_tags',
+  'add_media_tags',
+  'remove_media_tags'
+]
 export const needsAttachment = ['create_media']
 export const needsOptionalMedia = ['create_email_submission', 'subscribe_email_to_providers']
 export const needsOptionalMediaIds = ['create_playlist', 'update_playlist']
 export const needsOptionalUser = ['create_email_submission', 'record_visit']
 
-// ---- Option selects ----
 export const needsProvider = ['create_media', 'update_media']
 export const needsPostStatus = ['change_media_status', 'change_playlist_status']
 

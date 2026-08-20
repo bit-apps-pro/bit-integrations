@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for ClickWhale link writes
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,15 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from trigger
-     * @param array $fieldMap    Field mapping
-     * @param array $utilities   Optional actions
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
         if (!\defined('CLICKWHALE_VERSION')) {

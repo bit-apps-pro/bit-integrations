@@ -62,7 +62,6 @@ function Bento({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <BentoAuthorization
         bentoConf={bentoConf}
         setBentoConf={setBentoConf}
@@ -73,7 +72,6 @@ function Bento({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -100,7 +98,6 @@ function Bento({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {bentoConf?.action && (
         <IntegrationStepThree
           step={step}

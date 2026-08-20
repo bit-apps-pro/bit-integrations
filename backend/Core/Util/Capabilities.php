@@ -70,11 +70,6 @@ final class Capabilities
         return static::holdsAnyOf(self::INTEGRATION_WRITE_CAPABILITIES);
     }
 
-    /**
-     * @param string[] $capabilities Unprefixed plugin capabilities
-     *
-     * @return bool
-     */
     private static function holdsAnyOf(array $capabilities)
     {
         if (static::Check('manage_options')) {

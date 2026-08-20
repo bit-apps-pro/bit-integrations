@@ -126,22 +126,6 @@ export default function GetgistFieldMap({ i, formFields, field, getgistConf, set
             </button>
           </>
         )}
-
-        {/* {!isRequired
-        && (
-          <>
-            <button
-              onClick={() => addFieldMap(i)}
-              className="icn-btn sh-sm ml-2"
-              type="button"
-            >
-              +
-            </button>
-            <button onClick={() => delFieldMap(i)} className="icn-btn sh-sm ml-2" type="button" aria-label="btn">
-              <TrashIcn />
-            </button>
-          </>
-        )} */}
       </div>
     </div>
   )

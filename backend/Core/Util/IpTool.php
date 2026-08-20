@@ -8,31 +8,16 @@ namespace BitApps\Integrations\Core\Util;
 
 final class IpTool
 {
-    /**
-     * Provide user details
-     *
-     * @return _setUserDetail user details array
-     */
     public static function getUserDetail()
     {
         return IpTool::_setUserDetail();
     }
 
-    /**
-     * Provide user IP address
-     *
-     * @return ip
-     */
     public static function getIP()
     {
         return IpTool::_checkIP();
     }
 
-    /**
-     * Check ip address
-     *
-     * @return string IP address of current visitor
-     */
     private static function _checkIP()
     {
         if (getenv('HTTP_CLIENT_IP')) {
@@ -54,11 +39,6 @@ final class IpTool
         return $ip;
     }
 
-    /**
-     * Check device info
-     *
-     * @return void
-     */
     private static function _checkDevice()
     {
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized on next line
@@ -72,18 +52,8 @@ final class IpTool
         return IpTool::_getBrowserName($user_agent) . '|' . IpTool::_getOS($user_agent);
     }
 
-    /**
-     * Get browser name
-     *
-     * @param string $user_agent $_SERVER['HTTP_USER_AGENT']
-     *
-     * @return void
-     *
-     * @link https://stackoverflow.com/questions/18070154/get-operating-system-info
-     */
     private static function _getBrowserName($user_agent)
     {
-        // Make case insensitive.
         $t = strtolower($user_agent);
 
         // If the string *starts* with the string, strpos returns 0 (i.e., FALSE). Do a ghetto hack and start with a space.
@@ -91,7 +61,6 @@ final class IpTool
         //     http://php.net/manual/en/function.strpos.php
         $t = ' ' . $t;
 
-        // Humans / Regular Users
         if (strpos($t, 'opera') || strpos($t, 'opr/')) {
             return 'Opera';
         } elseif (strpos($t, 'edge')) {
@@ -126,7 +95,6 @@ final class IpTool
             return 'MSN';
         }
 
-        // Common Tools and Bots
         elseif (strpos($t, 'mj12bot')) {
             return 'Majestic';
         } elseif (strpos($t, 'ahrefs')) {
@@ -193,7 +161,6 @@ final class IpTool
         $ros[] = ['(Solaris)([0-9]{1,2}\.[0-9x]{1,2}){0,1}', 'Solaris'];
         $ros[] = ['dos x86', 'DOS'];
         $ros[] = ['unix', 'Unix'];
-        // Android
         $ros[] = ['SM', 'Samsung'];
         $ros[] = ['HTC', 'HTC'];
         $ros[] = ['LG', 'LG'];
@@ -204,7 +171,6 @@ final class IpTool
         $ros[] = ['Android', 'Android'];
         $ros[] = ['android', 'Android'];
 
-        // iPhone
         $ros[] = ['iPhone', 'iPhone'];
 
         $ros[] = ['Mac OS X', 'Mac OS X'];
@@ -294,11 +260,6 @@ final class IpTool
         return trim($os);
     }
 
-    /**
-     * Set user details ip,cdevice, user_id, user's visited page, current mysql formatted time
-     *
-     * @return array of user details
-     */
     private static function _setUserDetail()
     {
         $user_details['ip'] = ip2long(IpTool::_checkIP());

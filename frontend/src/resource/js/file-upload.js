@@ -36,7 +36,7 @@ export function delItem(el) {
 }
 
 function fade(element) {
-  let op = 1 // initial opacity
+  let op = 1
   const timer = setInterval(() => {
     if (op <= 0.1) {
       clearInterval(timer)
@@ -49,7 +49,7 @@ function fade(element) {
 }
 
 function unfade(element) {
-  let op = 0.01 // initial opacity
+  let op = 0.01
   element.style.opacity = op
   element.style.display = 'flex'
   const timer = setInterval(() => {
@@ -105,7 +105,6 @@ export function handleFile(e) {
     fileList.files.push(e.target.files[0])
   }
 
-  // type validate
   if (e.target.hasAttribute('accept')) {
     const tmpf = []
     const type = new RegExp(`${e.target.getAttribute('accept').split(',').join('$|')}$`, 'gi')
@@ -119,7 +118,6 @@ export function handleFile(e) {
     fileList.files = tmpf
   }
 
-  // size validate
   if (mxSiz > 0) {
     const tmpf = []
     for (let i = 0; i < fileList.files.length; i += 1) {
@@ -140,7 +138,6 @@ export function handleFile(e) {
     fileList = { files: [] }
   }
 
-  // set File list view
   if (e.target.files.length > 0) {
     e.target.parentNode.querySelector('.btcd-f-title').innerHTML =
       `${e.target.files.length} File Selected`
@@ -168,7 +165,6 @@ export function handleFile(e) {
     }
   }
 
-  // set eror
   if (err.length > 0) {
     for (let i = 0; i < err.length; i += 1) {
       e.target.parentNode.parentNode.querySelector('.btcd-files').insertAdjacentHTML(

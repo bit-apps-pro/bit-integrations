@@ -62,7 +62,6 @@ function SendinBlue({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <SendinBlueAuthorization
         formID={formID}
         sendinBlueConf={sendinBlueConf}
@@ -73,7 +72,6 @@ function SendinBlue({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <SendinBlueIntegLayout
           formID={formID}
@@ -96,7 +94,6 @@ function SendinBlue({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

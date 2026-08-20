@@ -48,9 +48,8 @@ export default function UserRegistrationMembership({ formFields, setFlow, flow, 
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-      <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
+      <div className="txt-center mt-2"></div>
 
-      {/* STEP 1 */}
       <UserRegistrationMembershipAuthorization
         userRegistrationConf={userRegistrationConf}
         setUserRegistrationConf={setUserRegistrationConf}
@@ -61,7 +60,6 @@ export default function UserRegistrationMembership({ formFields, setFlow, flow, 
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -90,7 +88,6 @@ export default function UserRegistrationMembership({ formFields, setFlow, flow, 
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

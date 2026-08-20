@@ -1352,11 +1352,6 @@ final class BitCrmActionHelper
         return [$activity, null];
     }
 
-    /**
-     * @param mixed $fieldData
-     *
-     * @return array{0: mixed, 1: null|array}
-     */
     private static function resolveInvoice($fieldData)
     {
         if (!class_exists('BitApps\Crm\Model\Invoice')) {

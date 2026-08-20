@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\ActiveCampaign;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,update, exist
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -22,13 +19,11 @@ class RecordApiHelper
 
     public function __construct($api_key, $api_url, $integId)
     {
-        // wp_send_json_success($tokenDetails);
         $this->_defaultHeader['Api-Token'] = $api_key;
         $this->_apiEndpoint = $api_url . '/api/3';
         $this->_integrationID = $integId;
     }
 
-    // for insert data
     public function storeOrModifyRecord($method, $data)
     {
         $insertRecordEndpoint = "{$this->_apiEndpoint}/{$method}";
@@ -55,7 +50,6 @@ class RecordApiHelper
         $fieldData = [];
         $customFields = [];
 
-        // Efficient field mapping
         foreach ($fieldMap as $fieldPair) {
             if (empty($fieldPair->activeCampaignField)) {
                 continue;
@@ -151,7 +145,6 @@ class RecordApiHelper
                 }
             }
 
-            // Add new tags
             $result['tags_added'] = array_map(
                 function ($tag) use ($contactId) {
                     $data = [

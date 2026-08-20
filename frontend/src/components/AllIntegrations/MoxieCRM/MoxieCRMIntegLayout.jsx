@@ -23,7 +23,6 @@ export default function MoxieCRMIntegLayout({
     const { name } = e.target
     if (e.target.value !== '') {
       newConf[name] = e.target.value
-      // getCustomFields(newConf, setMoxieCRMConf, setLoading)
     } else {
       delete newConf[name]
     }
@@ -87,15 +86,6 @@ export default function MoxieCRMIntegLayout({
           <br />
           <div className="mt-5">
             <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
-            {/* <button
-              onClick={() => getCustomFields(moxiecrmConf, setMoxieCRMConf, setLoading)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh fields', 'bit-integrations')}'` }}
-              type="button"
-              disabled={loading.CRMPipelines}
-            >
-              &#x21BB;
-            </button> */}
           </div>
 
           <br />

@@ -16,7 +16,6 @@ export const getTopicByForum = (val, tmpNewFlow, setNewFlow, edit = false) => {
       //   newConf.flow_details.topics = result.data
       // }
       // setNewFlow({ ...newConf })
-
       // rubel vai code with prev state
       // setNewFlow(prevConf => {
       //   const newConf = { ...prevConf }
@@ -28,10 +27,6 @@ export const getTopicByForum = (val, tmpNewFlow, setNewFlow, edit = false) => {
       //     }
       //     newConf.flow_details.topics = result.data
       //   }
-
-      //   return newConf
-      // })
-
       // rubel vai code with immer js
       setNewFlow(
         create(tmpNewFlow, draftConf => {

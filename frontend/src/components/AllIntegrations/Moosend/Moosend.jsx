@@ -42,8 +42,6 @@ function Moosend({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* --- STEP 1 --- */}
-
       <MoosendAuthorization
         moosendConf={moosendConf}
         setMoosendConf={setMoosendConf}
@@ -52,8 +50,6 @@ function Moosend({ formFields, setFlow, flow, allIntegURL }) {
         step={step}
         setStep={setStep}
       />
-
-      {/* --- STEP 2 --- */}
 
       <StepPage step={step} stepNo={2} style={{ width: 900, height: 'auto', overflow: 'visible' }}>
         <MoosendIntegLayout
@@ -75,8 +71,6 @@ function Moosend({ formFields, setFlow, flow, allIntegURL }) {
           </button>
         )}
       </StepPage>
-
-      {/* --- STEP 3 --- */}
 
       {moosendConf.method && (
         <IntegrationStepThree

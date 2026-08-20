@@ -6,10 +6,6 @@
 
 namespace BitApps\Integrations\Core\Database;
 
-/**
- * Undocumented class
- */
-
 use WP_Error;
 
 class Model
@@ -24,9 +20,6 @@ class Model
 
     protected $db_response;
 
-    /**
-     * Undocumented function
-     */
     public function __construct()
     {
         global $wpdb;
@@ -34,13 +27,6 @@ class Model
         $this->table_name = $wpdb->prefix . static::$table;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param mixed $data
-     *
-     * @return void
-     */
     public function insert($data = [])
     {
         if (\is_null($data)) {
@@ -54,18 +40,6 @@ class Model
         return $this->getResult($result);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string     $item
-     * @param array      $condition
-     * @param null|mixed $limit
-     * @param null|mixed $offset
-     * @param null|mixed $order_by
-     * @param null|mixed $order_follow
-     *
-     * @return array
-     */
     public function get($item = '*', $condition = [], $limit = null, $offset = null, $order_by = null, $order_follow = null)
     {
         if (\is_array($item)) {
@@ -110,14 +84,6 @@ class Model
         return $this->execute($sql, $all_values)->getResult();
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string $item
-     * @param array  $condition
-     *
-     * @return void
-     */
     public function count($condition = null)
     {
         $checkCondition = $this->checkCondition($condition);
@@ -161,14 +127,6 @@ class Model
         return $this->app_db->last_result;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param array $data_to_update
-     * @param array $condition
-     *
-     * @return void
-     */
     public function update(array $data, array $condition)
     {
         if (
@@ -194,14 +152,6 @@ class Model
         return $this->getResult($result);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param array $data_to_update
-     * @param array $condition
-     *
-     * @return void
-     */
     public function bulkUpdate(array $data = null, array $condition = null)
     {
         if (
@@ -248,14 +198,6 @@ class Model
         return $this->getResult($result);
     }
 
-    /**
-     * Duplicate's row
-     *
-     * @param array $data_to_update
-     * @param array $condition
-     *
-     * @return void
-     */
     public function duplicate(array $columns, array $duplicate, array $condition)
     {
         if (!(!\is_null($columns)

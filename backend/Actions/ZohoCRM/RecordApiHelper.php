@@ -13,9 +13,6 @@ use BitApps\Integrations\Log\LogHandler;
 use stdClass;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;

@@ -6,9 +6,6 @@
 
 namespace BitApps\Integrations\Actions\ModernCart;
 
-/**
- * Provide functionality for ModernCart integration
- */
 class ModernCartController
 {
     public static function isExists()
@@ -16,17 +13,6 @@ class ModernCartController
         if (!\defined('MODERNCART_VER') && !class_exists('\ModernCart\Plugin_Loader')) {
             wp_send_json_error(__('Modern Cart is not activated or not installed', 'bit-integrations'), 400);
         }
-    }
-
-    public static function modernCartAuthorize()
-    {
-        self::isExists();
-
-        if (!self::isWooCommerceAvailable()) {
-            wp_send_json_error(__('WooCommerce cart is not available', 'bit-integrations'), 400);
-        }
-
-        wp_send_json_success(true);
     }
 
     public static function refreshProducts()

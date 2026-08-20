@@ -7,10 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import {
-  checkMappedFields,
-  handleInput
-} from './CartAbandonmentRecoveryCommonFunc'
+import { checkMappedFields, handleInput } from './CartAbandonmentRecoveryCommonFunc'
 import CartAbandonmentRecoveryIntegLayout from './CartAbandonmentRecoveryIntegLayout'
 
 export default function EditCartAbandonmentRecovery({ allIntegURL }) {
@@ -30,9 +27,7 @@ export default function EditCartAbandonmentRecovery({ allIntegURL }) {
         <b className="wdt-200 d-in-b">{__('Integration Name:', 'bit-integrations')}</b>
         <input
           className="btcd-paper-inp w-5"
-          onChange={e =>
-            handleInput(e, cartAbandonmentRecoveryConf, setCartAbandonmentRecoveryConf)
-          }
+          onChange={e => handleInput(e, cartAbandonmentRecoveryConf, setCartAbandonmentRecoveryConf)}
           name="name"
           value={cartAbandonmentRecoveryConf.name}
           type="text"

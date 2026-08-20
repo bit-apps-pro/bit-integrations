@@ -17,14 +17,7 @@ export const handleInput = (e, brilliantDirectoriesConf, setBrilliantDirectories
   setBrilliantDirectoriesConf({ ...newConf })
 }
 
-const fetchList = (
-  conf,
-  setConf,
-  setIsLoading,
-  route,
-  defaultKey,
-  { loading, success, failed }
-) => {
+const fetchList = (conf, setConf, setIsLoading, route, defaultKey, { loading, success, failed }) => {
   setIsLoading(true)
 
   const request = bitsFetch(buildAuthRequestParams(conf), route)

@@ -14,9 +14,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class GoogleSheetController
 {
     public static array $authConfig = [
@@ -81,13 +78,6 @@ class GoogleSheetController
         wp_send_json_success($apiResponse, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm module data
-     */
     public static function refreshSpreadsheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -138,13 +128,6 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshWorksheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -177,7 +160,6 @@ class GoogleSheetController
         if (!is_wp_error($worksheetsMetaResponse)) {
             $worksheets = $worksheetsMetaResponse->sheets;
             $response['worksheets'] = $worksheets;
-            // wp_send_json_success($response, 200);
         } else {
             wp_send_json_error(
                 $worksheetsMetaResponse->status === 'error' ? $worksheetsMetaResponse->message : 'Unknown',
@@ -191,13 +173,6 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Request Params
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshWorksheetHeadersAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -263,8 +238,6 @@ class GoogleSheetController
     {
         $integrationDetails = $integrationData->flow_details;
 
-        //    wp_send_json_success($integrationDetails);
-
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
         $isConnectionAuth = !empty($integrationDetails->connection_id);
         $spreadsheetId = $integrationDetails->spreadsheetId;
@@ -274,7 +247,6 @@ class GoogleSheetController
         $fieldMap = $integrationDetails->field_map;
         $actions = $integrationDetails->actions;
         $defaultDataConf = $integrationDetails->default;
-        // wp_send_json_success($fieldMap);
         if (empty($tokenDetails)
             || empty($spreadsheetId)
             || empty($worksheetName)
@@ -295,7 +267,6 @@ class GoogleSheetController
             }
         }
 
-        // $actions = $integrationDetails->actions;
         $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
 
         $gsheetApiResponse = $recordApiHelper->execute(

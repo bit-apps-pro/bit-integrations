@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\SureDash;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class SureDashController
@@ -20,7 +21,7 @@ class SureDashController
     {
         self::isExists();
 
-        $posts = get_posts(
+        $posts = Post::all(
             [
                 'post_type'      => SUREDASHBOARD_POST_TYPE,
                 'post_status'    => 'publish',
@@ -49,7 +50,7 @@ class SureDashController
             wp_send_json_error(__('SureDash is not activated or not installed', 'bit-integrations'), 400);
         }
 
-        $posts = get_posts(
+        $posts = Post::all(
             [
                 'post_type'      => SUREDASHBOARD_FEED_POST_TYPE,
                 'post_status'    => 'publish',

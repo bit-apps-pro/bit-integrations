@@ -19,21 +19,11 @@ if (class_exists('Breakdance\Forms\Actions\Action')) {
             return 'Bit Integrations';
         }
 
-        /**
-         * @return string
-         */
         public static function slug()
         {
             return 'bit-integrations-pro';
         }
 
-        /**
-         * @param FormData     $form
-         * @param FormSettings $settings
-         * @param FormExtra    $extra
-         *
-         * @return ActionSuccess|ActionError|array<array-key, ActionSuccess|ActionError>
-         */
         public function run($form, $settings, $extra)
         {
             if (\function_exists('btcbi_pro_activate_plugin')) {

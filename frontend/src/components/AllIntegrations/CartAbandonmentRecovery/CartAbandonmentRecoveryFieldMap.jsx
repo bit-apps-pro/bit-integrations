@@ -23,7 +23,9 @@ export default function CartAbandonmentRecoveryFieldMap({
 
     setCartAbandonmentRecoveryConf(prevConf =>
       create(prevConf, draftConf => {
-        draftConf.field_map = draftConf.field_map?.length ? draftConf.field_map : [{ ...SESSION_ID_FIELD }]
+        draftConf.field_map = draftConf.field_map?.length
+          ? draftConf.field_map
+          : [{ ...SESSION_ID_FIELD }]
         draftConf.field_map[0].cartAbandonmentRecoveryField = 'session_id'
         draftConf.field_map[0][name] = value
 
@@ -37,7 +39,9 @@ export default function CartAbandonmentRecoveryFieldMap({
   const handleCustomValue = event => {
     setCartAbandonmentRecoveryConf(prevConf =>
       create(prevConf, draftConf => {
-        draftConf.field_map = draftConf.field_map?.length ? draftConf.field_map : [{ ...SESSION_ID_FIELD }]
+        draftConf.field_map = draftConf.field_map?.length
+          ? draftConf.field_map
+          : [{ ...SESSION_ID_FIELD }]
         draftConf.field_map[0].customValue = event?.target?.value || event
       })
     )

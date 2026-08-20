@@ -28,7 +28,6 @@ function DirectIq({ formFields, setFlow, flow, allIntegURL }) {
   })
 
   const nextPage = val => {
-    // setIsLoading(true)
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
@@ -56,7 +55,6 @@ function DirectIq({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <DirectIqAuthorization
         formID={formID}
         directIqConf={directIqConf}
@@ -67,7 +65,6 @@ function DirectIq({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <DirectIqIntegLayout
           formID={formID}
@@ -88,7 +85,6 @@ function DirectIq({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

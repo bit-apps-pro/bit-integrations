@@ -148,10 +148,8 @@ function Line({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <LineAuthorization lineConf={lineConf} setLineConf={setLineConf} step={step} setstep={setstep} />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -180,7 +178,6 @@ function Line({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

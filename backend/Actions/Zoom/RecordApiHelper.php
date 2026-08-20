@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -35,7 +32,6 @@ class RecordApiHelper
 
         $getRegistrants = HttpHelper::get($endPoint, null, $header);
 
-        // get registrant id using email from getRegistrants
         $registrantId = null;
         foreach ($getRegistrants->registrants as $registrant) {
             if ($registrant->email == $finalData['email']) {
@@ -157,7 +153,6 @@ class RecordApiHelper
             $apiResponse = __('Attendee deleted successfully', 'bit-integrations');
         }
 
-        // Create user
         if ($selectedAction === 'Create User') {
             $apiResponse = $this->createUser($meetingId, $finalData, $tokenDetails);
         }

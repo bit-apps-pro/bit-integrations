@@ -31,9 +31,6 @@ final class BitCrmFieldService
 
     private const GROUP_FIELDS_KEY = 'group_fields';
 
-    /**
-     * @return array<int, array>
-     */
     public static function fields(string $module)
     {
         if (!isset(self::SERVICES[$module]) || !class_exists(self::SERVICES[$module])) {
@@ -51,9 +48,6 @@ final class BitCrmFieldService
         return \is_array($fields) ? self::normalizeAll($fields) : [];
     }
 
-    /**
-     * @return array<int, array>
-     */
     private static function normalizeAll(array $fields)
     {
         $normalized = [];
@@ -81,9 +75,6 @@ final class BitCrmFieldService
         return $normalized;
     }
 
-    /**
-     * @return null|array
-     */
     private static function normalize(array $field)
     {
         $key = (string) ($field['field_key'] ?? '');
@@ -138,9 +129,6 @@ final class BitCrmFieldService
         return $row;
     }
 
-    /**
-     * @return array<int, array>
-     */
     private static function options(array $field)
     {
         if (empty($field['options']) || !\is_array($field['options'])) {

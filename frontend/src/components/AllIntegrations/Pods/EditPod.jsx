@@ -183,7 +183,6 @@ function EditPod({ allIntegURL }) {
             {user.display_name}
           </option>
         ))}
-        {/* <div style={{ color: 'red' }}>{error.clientSecret}</div> */}
       </select>
 
       <div>

@@ -71,7 +71,6 @@ function EditNewsletter({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!newsletterConf?.selectedLists}
         isLoading={isLoading}
         dataConf={newsletterConf}
         setDataConf={setNewsletterConf}

@@ -56,10 +56,13 @@ export default function FluentPlayerIntegLayout({
   const fetchListsFor = selectedAction => {
     if (!selectedAction) return
 
-    if (needsPreset.includes(selectedAction)) refreshFluentPlayerPresets(setFluentPlayerConf, setIsLoading)
+    if (needsPreset.includes(selectedAction))
+      refreshFluentPlayerPresets(setFluentPlayerConf, setIsLoading)
     if (needsTags.includes(selectedAction)) refreshFluentPlayerTags(setFluentPlayerConf, setIsLoading)
-    if (needsAttachment.includes(selectedAction)) refreshFluentPlayerAttachments(setFluentPlayerConf, setIsLoading)
-    if (needsOptionalUser.includes(selectedAction)) refreshFluentPlayerUsers(setFluentPlayerConf, setIsLoading)
+    if (needsAttachment.includes(selectedAction))
+      refreshFluentPlayerAttachments(setFluentPlayerConf, setIsLoading)
+    if (needsOptionalUser.includes(selectedAction))
+      refreshFluentPlayerUsers(setFluentPlayerConf, setIsLoading)
     if (needsOptionalMedia.includes(selectedAction) || needsOptionalMediaIds.includes(selectedAction)) {
       refreshFluentPlayerMedia(setFluentPlayerConf, setIsLoading)
     }
@@ -85,7 +88,6 @@ export default function FluentPlayerIntegLayout({
     fetchListsFor(value)
   }
 
-  // Fixed option set.
   const renderOptionSelect = (label, confKey, options) => (
     <>
       <br />

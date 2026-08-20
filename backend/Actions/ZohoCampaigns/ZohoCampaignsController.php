@@ -13,9 +13,6 @@ use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoCampaignsController
 {
     public static array $authConfig = [
@@ -34,7 +31,6 @@ class ZohoCampaignsController
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-        // $this->_logResponse = new UtilApiResponse();
     }
 
     public static function refreshLists($queryParams)
@@ -88,13 +84,6 @@ class ZohoCampaignsController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param object $queryParams Params to fetch contact fields
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)
@@ -179,7 +168,6 @@ class ZohoCampaignsController
             }
         }
 
-        // $actions = $integrationDetails->actions;
         $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
 
         $zcampaignsApiResponse = $recordApiHelper->execute(

@@ -89,7 +89,6 @@ export default function CapsuleCRMActions({ capsulecrmConf, setCapsuleCRMConf, l
 
   return (
     <div className="pos-rel d-flx flx-wrp">
-      {/* {(capsulecrmConf.actionName === 'person') && <TableCheckBox checked={capsulecrmConf?.selectedOrganisation?.length || false} onChange={(e) => actionHandler(e, 'organisation')} className="wdt-200 mt-4 mr-2" value="organisation" title={__('Add Organisation', 'bit - integrations')} subTitle={__('Add an organisation')} />} */}
       {(capsulecrmConf.actionName === 'person' ||
         capsulecrmConf.actionName === 'organisation' ||
         capsulecrmConf.actionName === 'opportunity' ||
@@ -309,46 +308,6 @@ export default function CapsuleCRMActions({ capsulecrmConf, setCapsuleCRMConf, l
           </div>
         )}
       </ConfirmModal>
-
-      {/* <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-v"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'status'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Status', 'bit-integrations')}
-      >
-        <div className="btcd-hr mt-2 mb-2" />
-        <div className="mt-2">
-          {__('Select Status', 'bit-integrations')}
-        </div>
-        {
-          loading.statuses ? (
-            <Loader style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 45,
-              transform: 'scale(0.5)',
-            }}
-            />
-          )
-            : (
-              <div className="flx flx-between mt-2">
-                <MultiSelect
-                  options={capsulecrmConf?.statuses?.map(status => ({ label: status.name, value: status.id }))}
-                  className="msl-wrp-options"
-                  defaultValue={capsulecrmConf?.selectedStatus}
-                  onChange={val => setChanges(val, 'selectedStatus')}
-                  singleSelect
-                />
-                <button onClick={() => getAllStatuses(capsulecrmConf, setCapsuleCRMConf, setLoading)} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': `${__('Refresh statuses', 'bit-integrations')}'` }} type="button">&#x21BB;</button>
-              </div>
-            )
-        }
-      </ConfirmModal> */}
 
       <ConfirmModal
         className="custom-conf-mdl"

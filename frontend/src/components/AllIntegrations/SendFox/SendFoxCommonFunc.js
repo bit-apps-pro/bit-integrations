@@ -77,8 +77,6 @@ export const checkMappedFields = sendFoxConf => {
   return true
 }
 
-// another
-
 export const generateListMappedField = sendFoxConf => {
   const requiredFlds = listFields.filter(fld => fld.required === true)
   return requiredFlds.length > 0

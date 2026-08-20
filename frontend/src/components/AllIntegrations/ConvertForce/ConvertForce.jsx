@@ -56,7 +56,7 @@ export default function ConvertForce({ formFields, setFlow, flow, allIntegURL, i
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-      <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
+      <div className="txt-center mt-2"></div>
 
       <ConvertForceAuthorization
         convertForceConf={convertForceConf}

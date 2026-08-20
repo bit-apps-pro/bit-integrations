@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Webba Booking record create, update, delete
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -26,14 +23,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration.
-     *
-     * @param array $fieldValues Field values from trigger
-     * @param array $fieldMap    Field mapping
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         if (!class_exists('\WBK_Booking_Factory')) {

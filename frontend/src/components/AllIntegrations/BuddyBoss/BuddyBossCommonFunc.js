@@ -34,7 +34,6 @@ export const handleInput = (e, buddyBossConf, setBuddyBossConf, setIsLoading, se
 
 export const getAllBuddyBossGroup = (buddyBossConf, setBuddyBossConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  // const requestParams = {  }
   bitsFetch(null, 'fetch_all_group')
     .then(result => {
       if (result && result.success) {

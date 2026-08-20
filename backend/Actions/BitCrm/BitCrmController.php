@@ -101,9 +101,6 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new $service())->getEntitiesAsOptions())]);
     }
 
-    /**
-     * @param object $data
-     */
     public static function refreshFields($data)
     {
         self::isExists();

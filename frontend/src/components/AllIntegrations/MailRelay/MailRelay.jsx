@@ -93,7 +93,6 @@ function MailRelay({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <MailRelayAuthorization
         mailRelayConf={mailRelayConf}
         setMailRelayConf={setMailRelayConf}
@@ -104,7 +103,6 @@ function MailRelay({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -136,7 +134,6 @@ function MailRelay({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {mailRelayConf?.status && (
         <IntegrationStepThree
           step={step}

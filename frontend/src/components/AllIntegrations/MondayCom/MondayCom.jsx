@@ -88,7 +88,6 @@ function MondayCom({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <MondayComAuthorization
         mondayComConf={mondayComConf}
         setMondayComConf={setMondayComConf}
@@ -97,7 +96,6 @@ function MondayCom({ formFields, setFlow, flow, allIntegURL }) {
         setLoading={setLoading}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, minHeight: 500, overflow: 'visible' }) }}>
@@ -122,7 +120,6 @@ function MondayCom({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {mondayComConf?.mainAction && (
         <IntegrationStepThree
           step={step}

@@ -118,11 +118,9 @@ export default function SendFoxIntegLayout({
               setSnackbar={setSnackbar}
             />
           ))}
-          {/* <div className="txt-center btcbi-field-map-button mt-2"><button onClick={() => addFieldMap(sendFoxConf.field_map.length, sendFoxConf, setSendFoxConf, false)} className="icn-btn sh-sm" type="button">+</button></div> */}
         </>
       )}
 
-      {/* create Conatact */}
       {sendFoxConf.mainAction === '2' && (
         <>
           <div className="d-flx">
@@ -183,8 +181,6 @@ export default function SendFoxIntegLayout({
         </>
       )}
 
-      {/* unsubscribe */}
-
       {sendFoxConf.mainAction === '3' && (
         <>
           <div className="mt-5">
@@ -211,7 +207,6 @@ export default function SendFoxIntegLayout({
               setSnackbar={setSnackbar}
             />
           ))}
-          {/* <div className="txt-center btcbi-field-map-button mt-2"><button onClick={() => addFieldMap(sendFoxConf.field_map.length, sendFoxConf, setSendFoxConf, false)} className="icn-btn sh-sm" type="button">+</button></div> */}
         </>
       )}
 

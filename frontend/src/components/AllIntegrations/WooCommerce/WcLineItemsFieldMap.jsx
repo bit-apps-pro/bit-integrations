@@ -9,7 +9,6 @@ export default function WcLineItemsFieldMap({ i, formFields, field, wcConf, setW
   const isRequired = field.required === true
 
   const addFieldMap = indx => {
-    // const newConf = deepCopy(wcConf)
     const newConf = { ...wcConf }
     newConf.line_item.field_map.splice(indx, 0, {})
     setWcConf(newConf)

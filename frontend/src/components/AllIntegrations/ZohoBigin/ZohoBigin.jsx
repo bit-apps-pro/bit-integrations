@@ -61,7 +61,6 @@ function ZohoBigin({ allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <ZohoBiginAuthorization
         formID={formID}
         biginConf={biginConf}
@@ -73,7 +72,6 @@ function ZohoBigin({ allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <ZohoBiginIntegLayout
           tab={tab}
@@ -97,7 +95,6 @@ function ZohoBigin({ allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

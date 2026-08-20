@@ -18,7 +18,6 @@ export const handleInput = (e, affiliateConf, setAffiliateConf, setIsLoading, se
 
 export const getAllAffiliate = (affiliateConf, setAffiliateConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  // const requestParams = {  }
   bitsFetch(null, 'affiliate_fetch_all_affiliate')
     .then(result => {
       if (result && result.success) {

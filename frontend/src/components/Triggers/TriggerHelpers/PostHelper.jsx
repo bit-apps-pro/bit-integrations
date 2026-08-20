@@ -6,7 +6,6 @@ import { $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 
 const PostHelper = ({ flow, setFlowData, edit = false }) => {
-  // const id = Number(flow?.triggerData?.formID)
   const id = !edit ? Number(flow?.triggerData?.formID) : Number(flow.triggered_entity_id)
 
   const [newFlow, setNewFlow] = useRecoilState($newFlow)

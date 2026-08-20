@@ -11,12 +11,6 @@ class CartAbandonmentRecoveryController
         }
     }
 
-    public static function cartAbandonmentRecoveryAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshCarts()
     {
         self::isExists();
@@ -42,8 +36,8 @@ class CartAbandonmentRecoveryController
         global $wpdb;
         $tableName = $wpdb->prefix . CARTFLOWS_CA_CART_ABANDONMENT_TABLE;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Abandoned carts are volatile, caching would serve stale rows.
         $carts = $wpdb->get_results(
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
             $wpdb->prepare(
                 // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is sourced from the WCAR plugin constant.
                 "SELECT session_id, email, cart_total, order_status, time FROM {$tableName} WHERE order_status = %s ORDER BY time DESC",
@@ -68,5 +62,4 @@ class CartAbandonmentRecoveryController
             $carts ?: []
         );
     }
-
 }

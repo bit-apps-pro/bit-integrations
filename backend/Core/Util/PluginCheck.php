@@ -197,9 +197,6 @@ final class PluginCheck
         return \in_array($normalized, self::ALLOWED_LOGIC, true) ? $normalized : 'AND';
     }
 
-    /**
-     * @param array<int,bool> $results
-     */
     private static function combine(array $results, string $logic): bool
     {
         return $logic === 'OR'
@@ -227,9 +224,6 @@ final class PluginCheck
         return false;
     }
 
-    /**
-     * @param null|bool|float|int|string $expected
-     */
     private static function matches(string $type, string $value, bool $hasExpected = false, $expected = null): bool
     {
         switch ($type) {

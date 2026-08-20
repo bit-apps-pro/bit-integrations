@@ -11,9 +11,6 @@ use FluentSupport\App\Models\MailBox;
 
 use WP_Error;
 
-/**
- * Provide functionality for Fluent Support integration
- */
 class FluentSupportController
 {
     public function getCustomFields()

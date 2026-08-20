@@ -15,7 +15,6 @@ export default function AsanaFieldMap({ i, formFields, field, asanaConf, setAsan
   if (asanaConf.actionName === 'task') {
     allFields = asanaConf?.taskFields
   }
-  // newFields = [...allFields, ...asanaConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = [...nonRequiredFields, ...(asanaConf?.customFields || [])]

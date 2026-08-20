@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record Subscribe , Unsubscribe, Unsubscribe from list
- */
 class RecordApiHelper
 {
     private $_integrationID;

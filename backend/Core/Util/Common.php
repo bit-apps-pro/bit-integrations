@@ -289,14 +289,6 @@ final class Common
         return $url;
     }
 
-    /**
-     * Helps to verify condition
-     *
-     * @param array $condition Conditional logic
-     * @param array $data      Trigger data
-     *
-     * @return bool
-     */
     public static function checkCondition($condition, $data)
     {
         if (\is_array($condition)) {

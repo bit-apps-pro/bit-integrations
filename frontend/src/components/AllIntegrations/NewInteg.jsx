@@ -185,9 +185,7 @@ const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/Brilliant
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
 const ConvertForce = lazy(() => import('./ConvertForce/ConvertForce'))
-const CartAbandonmentRecovery = lazy(
-  () => import('./CartAbandonmentRecovery/CartAbandonmentRecovery')
-)
+const CartAbandonmentRecovery = lazy(() => import('./CartAbandonmentRecovery/CartAbandonmentRecovery'))
 const ModernCart = lazy(() => import('./ModernCart/ModernCart'))
 const PowerCoupons = lazy(() => import('./PowerCoupons/PowerCoupons'))
 const LatePoint = lazy(() => import('./LatePoint/LatePoint'))

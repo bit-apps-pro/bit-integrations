@@ -29,14 +29,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap)
     {
         $mainAction = $this->_integrationDetails->mainAction ?? '';

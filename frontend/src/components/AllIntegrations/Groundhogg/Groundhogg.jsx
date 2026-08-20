@@ -102,7 +102,6 @@ function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <GroundhoggAuthorization
         groundhoggConf={groundhoggConf}
         setGroundhoggConf={setGroundhoggConf}
@@ -111,7 +110,6 @@ function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -138,7 +136,6 @@ function Groundhogg({ formFields, setFlow, flow, allIntegURL }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

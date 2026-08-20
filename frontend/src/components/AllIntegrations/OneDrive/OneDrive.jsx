@@ -7,7 +7,6 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import OneDriveAuthorization from './OneDriveAuthorization'
-// import { handleInput } from './OneDriveCommonFunc'
 import OneDriveIntegLayout from './OneDriveIntegLayout'
 
 function OneDrive({ formFields, setFlow, flow, allIntegURL }) {
@@ -48,7 +47,6 @@ function OneDrive({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <OneDriveAuthorization
         oneDriveConf={oneDriveConf}
         setOneDriveConf={setOneDriveConf}

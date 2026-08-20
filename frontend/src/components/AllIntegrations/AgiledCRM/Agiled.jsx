@@ -114,7 +114,6 @@ function Agiled({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <AgiledAuthorization
         agiledConf={agiledConf}
         setAgiledConf={setAgiledConf}
@@ -122,7 +121,6 @@ function Agiled({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -148,7 +146,6 @@ function Agiled({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {agiledConf?.actionName && (
         <IntegrationStepThree
           step={step}

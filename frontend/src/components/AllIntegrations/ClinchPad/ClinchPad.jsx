@@ -103,7 +103,6 @@ function ClinchPad({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <ClinchPadAuthorization
         clinchPadConf={clinchPadConf}
         setClinchPadConf={setClinchPadConf}
@@ -114,7 +113,6 @@ function ClinchPad({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -140,7 +138,6 @@ function ClinchPad({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {clinchPadConf?.actionName && (
         <IntegrationStepThree
           step={step}

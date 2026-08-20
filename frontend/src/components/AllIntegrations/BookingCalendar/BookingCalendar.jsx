@@ -50,7 +50,7 @@ export default function BookingCalendar({ formFields, setFlow, flow, allIntegURL
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-      <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
+      <div className="txt-center mt-2"></div>
 
       <BookingCalendarAuthorization
         bookingCalendarConf={bookingCalendarConf}

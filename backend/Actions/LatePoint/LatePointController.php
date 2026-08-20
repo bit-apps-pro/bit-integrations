@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\LatePoint;
 
 use WP_Error;
 
-/**
- * Provide functionality for LatePoint integration
- */
 class LatePointController
 {
     public static function isExists()
@@ -24,12 +21,6 @@ class LatePointController
                 400
             );
         }
-    }
-
-    public static function latePointAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
     }
 
     public function refreshAgents()
@@ -149,6 +140,7 @@ class LatePointController
 
         $tableName = \defined($constant) ? \constant($constant) : $wpdb->prefix . $fallback;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Schema probe for an optional third party table.
         $exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $tableName));
 
         if ($exists !== $tableName) {
@@ -157,6 +149,7 @@ class LatePointController
 
         $columnList = implode(', ', array_map('sanitize_key', $columns));
 
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is verified above, columns are sanitized literals.
         // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery -- table and column names are hardcoded literals verified above
         $rows = $wpdb->get_results("SELECT {$columnList} FROM {$tableName}", ARRAY_A);
 

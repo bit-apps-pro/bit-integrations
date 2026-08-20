@@ -16,14 +16,8 @@ import {
 import NinjaTablesFieldMap from './NinjaTablesFieldMap'
 import { modules } from './staticData'
 
-/**
- * Check if action requires field mapping
- */
 const requiresFieldMap = action => [ACTIONS.ADD_ROW, ACTIONS.UPDATE_ROW].includes(action)
 
-/**
- * Check if data already exists in configuration
- */
 const hasData = (conf, key) => conf?.default?.[key]?.length > 0
 
 export default function NinjaTablesIntegLayout({
@@ -46,9 +40,6 @@ export default function NinjaTablesIntegLayout({
     delete draftConf.selectedUser
   }
 
-  /**
-   * Auto-fetch required data based on action
-   */
   const autoFetchDataForAction = (action, hasDataLoaded) => {
     if (requiresFieldMap(action) && !hasDataLoaded('allTables')) {
       refreshNinjaTables(formID, setNinjaTablesConf, setIsLoading, setSnackbar)
@@ -58,9 +49,6 @@ export default function NinjaTablesIntegLayout({
     }
   }
 
-  /**
-   * Handle main action change
-   */
   const handleMainAction = value => {
     const previousAction = ninjaTablesConf.mainAction
     if (previousAction === value) return
@@ -78,9 +66,6 @@ export default function NinjaTablesIntegLayout({
     autoFetchDataForAction(value, hasDataLoaded)
   }
 
-  /**
-   * Handle table selection change
-   */
   const handleTableChange = value => {
     setNinjaTablesConf(prevConf =>
       create(prevConf, draftConf => {
@@ -102,9 +87,6 @@ export default function NinjaTablesIntegLayout({
     }
   }
 
-  /**
-   * Update configuration value
-   */
   const updateConfig = (key, value) => {
     setNinjaTablesConf(prevConf =>
       create(prevConf, draftConf => {
@@ -113,9 +95,6 @@ export default function NinjaTablesIntegLayout({
     )
   }
 
-  /**
-   * Render refresh button
-   */
   const renderRefreshButton = ({ onClick, tooltip, disabled = false }) => (
     <button
       onClick={onClick}
@@ -127,9 +106,6 @@ export default function NinjaTablesIntegLayout({
     </button>
   )
 
-  /**
-   * Format options for dropdowns
-   */
   const formatOptions = (items, labelKey, valueKey, labelFormatter) => {
     if (!Array.isArray(items)) return []
     return items.map(item => ({
@@ -145,7 +121,6 @@ export default function NinjaTablesIntegLayout({
   return (
     <>
       <br />
-      {/* Action Selector */}
       <div className="flx">
         <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
         <MultiSelect
@@ -163,7 +138,6 @@ export default function NinjaTablesIntegLayout({
         />
       </div>
 
-      {/* Table Selector */}
       {showTableSelector && (
         <>
           <br />
@@ -191,7 +165,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* User/Owner Selector - for add_row */}
       {showUserSelector && (
         <>
           <br />
@@ -215,7 +188,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* Row Selector - for update_row */}
       {showRowSelector && (
         <>
           <br />
@@ -247,7 +219,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* Optional Owner for update_row */}
       {showRowSelector && (
         <>
           <br />
@@ -271,7 +242,6 @@ export default function NinjaTablesIntegLayout({
         </>
       )}
 
-      {/* Field Mapping */}
       {showTableSelector && (
         <>
           <br />

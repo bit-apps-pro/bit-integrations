@@ -8,12 +8,10 @@ namespace BitApps\Integrations\Actions\LearnDash;
 
 use BitApps\Integrations\Actions\Mail\MailController;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 use LDLMS_DB;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private static $integrationID;
@@ -150,7 +148,6 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    // Mark the course as complete for the user function 4.
     public static function mark_quiz_complete($user_id, $course_id = null)
     {
         $quizzes = learndash_get_course_quiz_list($course_id, $user_id);
@@ -219,7 +216,6 @@ class RecordApiHelper
         }
     }
 
-    //  function 3.
     public static function mark_topics_done($user_id, $lesson_id, $course_id)
     {
         $topic_list = learndash_get_topic_list($lesson_id, $course_id);
@@ -236,7 +232,6 @@ class RecordApiHelper
         }
     }
 
-    //  user function 2.
     public static function mark_steps_done($user_id, $course_id)
     {
         $lessons = learndash_get_lesson_list($course_id, ['num' => 0]);
@@ -256,7 +251,6 @@ class RecordApiHelper
         self::mark_quiz_complete($user_id, $course_id);
     }
 
-    //  user function 1.
     public static function markACourseCompleteForTheUser($courseIds)
     {
         $user_id = get_current_user_id();
@@ -337,7 +331,6 @@ class RecordApiHelper
         return ld_update_group_access($user_id, $group_id);
     }
 
-    // action 7 starts here
     public function courseLessonNotComplete(
         $course_id,
         $lesson_id
@@ -382,19 +375,12 @@ class RecordApiHelper
             }
         }
     }
-    // action 7 ends here
-
-    // action 9 starts here
 
     public static function topicNotComplete(
         $course_id,
         $lessonId,
         $topic_id
     ) {
-        // }
-
-        // public function mark_not_complete_a_topic( $user_id, $action_data, $recipe_id, $args ) {
-
         $user_id = get_current_user_id();
 
         $topic_quiz_list = learndash_get_lesson_quiz_list($topic_id, $user_id, $course_id);
@@ -408,10 +394,6 @@ class RecordApiHelper
 
         return learndash_process_mark_incomplete($user_id, $course_id, $topic_id, false);
     }
-
-    // action 9 ends here
-
-    // action 11 starts here
 
     public static function removeUserToGroup($group_id)
     {
@@ -427,10 +409,6 @@ class RecordApiHelper
 
         return $apiResponse;
     }
-
-    // action 11 ends here
-
-    // action 13 starts here
 
     public function resetQuiz($quiz_id)
     {
@@ -477,10 +455,6 @@ class RecordApiHelper
         return false;
     }
 
-    // action 13 ends here
-
-    // action 17 starts here
-
     public function UnenrollUserFromCourse($course_id)
     {
         $user_id = 5;
@@ -496,12 +470,6 @@ class RecordApiHelper
 
         return $apiResponse;
     }
-
-    // action 17 ends here
-
-    // action 10 starts here
-
-    // public function remove_from_group( $user_id, $action_data, $recipe_id, $args )
 
     public static function removeGroupLeaderAndChildren($group_id)
     {
@@ -556,7 +524,7 @@ class RecordApiHelper
             'post_status'    => 'publish',
             'post_parent'    => $parent_id,
         ];
-        $results = get_posts($args);
+        $results = Post::all($args);
         if ($results) {
             foreach ($results as $r) {
                 $group_id = $r->ID;
@@ -574,9 +542,6 @@ class RecordApiHelper
         return array_unique(array_merge($groups, $ld_children));
     }
 
-    // action 10 ends here
-
-    // action 12 starts here
     public static function removeUserAndChildrenFromGroup($group_id)
     {
         $user_id = get_current_user_id();
@@ -604,10 +569,6 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    // action 12 ends here
-
-    // action 14 starts here
-
     public static function resetUserProgressInCourse($course_id)
     {
         $user_id = get_current_user_id();
@@ -619,7 +580,6 @@ class RecordApiHelper
                 self::reset_quiz_progress($user_id, $course_id);
                 self::delete_assignments();
             }
-            // }
             $apiResponse = self::reset_quiz_progress($user_id, $course_id);
         }
 
@@ -672,8 +632,9 @@ class RecordApiHelper
                 }
             }
 
-            $assignments = get_posts([
+            $assignments = Post::all([
                 'post_type'      => 'sfwd-assignment',
+                'post_status'    => 'publish',
                 'posts_per_page' => 999,
                 // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required to match LearnDash assignment meta to course/lesson/user.
                 'meta_query' => [
@@ -718,8 +679,9 @@ class RecordApiHelper
                     }
                 }
 
-                $assignments = get_posts([
+                $assignments = Post::all([
                     'post_type'      => 'sfwd-assignment',
+                    'post_status'    => 'publish',
                     'posts_per_page' => 999,
                     // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required to match LearnDash topic assignment meta to course/topic/user.
                     'meta_query' => [
@@ -765,18 +727,12 @@ class RecordApiHelper
         }
     }
 
-    // action 14 ends here
-
-    // action 16 starts here
-
     public function sendMailToGroupLeader($integrationData, $fieldValues)
     {
         $mailInstance = new MailController();
 
         return $mailInstance->execute($integrationData, $fieldValues);
     }
-
-    // action 16 ends here
 
     public function execute(
         $mainAction,
@@ -829,7 +785,6 @@ class RecordApiHelper
         if ($mainAction === '4') {
             $leaderRole = $integrationDetails->leaderRole;
             $leaderOfGroup = $integrationDetails->leaderOfGroup;
-            // $user
             $apiResponse = self::makeThUserTheLeaderOfGroup($leaderRole, $leaderOfGroup);
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();

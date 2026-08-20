@@ -97,7 +97,7 @@ export default function LatePointIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.latePointFields)
       })
     )
-    // The effect above fetches the lists this action needs.
+  // The effect above fetches the lists this action needs.
   }
 
   const renderFetchedSelect = (label, confKey, listKey, refresher, tooltip, multi = false) => (
@@ -112,9 +112,9 @@ export default function LatePointIntegLayout({
           options={
             Array.isArray(lists?.[listKey])
               ? lists[listKey].map(item => ({
-                label: item.label,
-                value: item.value?.toString()
-              }))
+                  label: item.label,
+                  value: item.value?.toString()
+                }))
               : []
           }
           onChange={val => setField(confKey, val)}

@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\Affiliate;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private static $integrationID;

@@ -16,9 +16,6 @@ final class RewriteRuleProvider
 {
     public const FLUSH_LOCK = 'rewrite_flush_lock';
 
-    /**
-     * @var string
-     */
     private $route;
 
     public function __construct($route)
@@ -26,11 +23,6 @@ final class RewriteRuleProvider
         $this->route = trim($route, '/');
     }
 
-    /**
-     * @param string $route
-     *
-     * @return string
-     */
     public static function pagenameFor($route)
     {
         return str_replace('/', '-', trim($route, '/'));

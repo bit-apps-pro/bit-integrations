@@ -19,12 +19,8 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const allActions = [
-    { key: '1', label: __("Add commission to user's affiliate", 'bit-integrations') }
-    // { key: '2', label: __('Remove the user from a membership','bit-integrations') },
-  ]
+  const allActions = [{ key: '1', label: __("Add commission to user's affiliate", 'bit-integrations') }]
 
-  // for action 1
   const sliceWpFields = [
     { key: 'commission_date', label: __('commission_date', 'bit-integrations'), required: true },
     { key: 'reference', label: __('Reference', 'bit-integrations'), required: false },
@@ -61,7 +57,6 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <SliceWpAuthorization
         formID={formID}
         sliceWpConf={sliceWpConf}
@@ -73,7 +68,6 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -102,7 +96,6 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}

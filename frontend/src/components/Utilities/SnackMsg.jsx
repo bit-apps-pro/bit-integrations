@@ -15,8 +15,6 @@ function SnackMsg({ snack, setSnackbar }) {
       }
       unmountOnExit>
       <div>
-        {/* Rendered as text: snackbar messages can carry third-party API strings,
-            so they must never be interpreted as HTML. */}
         <span>{msg}</span>
         <button
           onClick={() => setSnackbar({ show: false, msg })}

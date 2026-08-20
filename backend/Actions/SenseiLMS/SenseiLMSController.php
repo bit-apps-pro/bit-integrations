@@ -6,11 +6,9 @@
 
 namespace BitApps\Integrations\Actions\SenseiLMS;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for Sensei LMS integration
- */
 class SenseiLMSController
 {
     public static function isExists()
@@ -67,7 +65,7 @@ class SenseiLMSController
     {
         $options = [];
 
-        $posts = get_posts(
+        $posts = Post::all(
             [
                 'post_type'   => $postType,
                 'post_status' => 'publish',

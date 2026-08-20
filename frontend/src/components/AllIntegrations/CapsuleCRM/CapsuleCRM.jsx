@@ -139,7 +139,6 @@ function CapsuleCRM({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <CapsuleCRMAuthorization
         capsulecrmConf={capsulecrmConf}
         setCapsuleCRMConf={setCapsuleCRMConf}
@@ -150,7 +149,6 @@ function CapsuleCRM({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -176,7 +174,6 @@ function CapsuleCRM({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {capsulecrmConf?.actionName && (
         <IntegrationStepThree
           step={step}

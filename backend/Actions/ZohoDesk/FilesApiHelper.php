@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;

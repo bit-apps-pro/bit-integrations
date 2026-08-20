@@ -48,7 +48,6 @@ function Discord({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <DiscordAuthorization
         discordConf={discordConf}
         setDiscordConf={setDiscordConf}
@@ -56,8 +55,6 @@ function Discord({ formFields, setFlow, flow, allIntegURL }) {
         setstep={setstep}
         setIsLoading={setIsLoading}
       />
-
-      {/* STEP 2 */}
 
       <div
         className="btcd-stp-page"
@@ -88,7 +85,6 @@ function Discord({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

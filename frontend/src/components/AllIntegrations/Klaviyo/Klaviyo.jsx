@@ -39,8 +39,6 @@ function Klaviyo({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* --- STEP 1 --- */}
-
       <KlaviyoAuthorization
         klaviyoConf={klaviyoConf}
         setKlaviyoConf={setKlaviyoConf}
@@ -49,8 +47,6 @@ function Klaviyo({ formFields, setFlow, flow, allIntegURL }) {
         step={step}
         setStep={setStep}
       />
-
-      {/* --- STEP 2 --- */}
 
       <div
         className="btcd-stp-page"

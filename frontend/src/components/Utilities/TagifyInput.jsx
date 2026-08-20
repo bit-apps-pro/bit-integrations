@@ -109,7 +109,6 @@ function TagifyInput({ label, onChange, value, disabled, type, textarea, classNa
   return (
     <div>
       <input name="tagify-inp" type={type === undefined ? 'text' : type} ref={targetRef} />
-      {/* <span>{ddiv}</span> */}
     </div>
   )
 }

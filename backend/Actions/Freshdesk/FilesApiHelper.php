@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;
@@ -25,15 +22,6 @@ final class FilesApiHelper
         $this->_defaultHeader['Content-Type'] = 'multipart/form-data; boundary=' . $this->_payloadBoundary;
     }
 
-    /**
-     * Helps to execute upload files api
-     *
-     * @param string $apiEndPoint FreshDesk API base URL
-     * @param array  $data        Data to pass to API
-     * @param mixed  $api_key
-     *
-     * @return array|bool $uploadResponse FreshDesk API response
-     */
     public function uploadFiles($apiEndPoint, $data, $api_key)
     {
         $safePath = Common::safeUploadFilePath($data['avatar']);

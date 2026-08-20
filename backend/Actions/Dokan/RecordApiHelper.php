@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use WeDevs\DokanPro\Refund\Validator;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;

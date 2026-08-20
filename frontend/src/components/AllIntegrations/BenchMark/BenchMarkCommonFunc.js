@@ -11,7 +11,6 @@ export const handleInput = (e, benchMarkConf, setBenchMarkConf) => {
 const buildAuthRequestParams = conf =>
   conf.connection_id ? { connection_id: conf.connection_id } : { api_secret: conf.api_secret }
 
-// refreshMappedLists
 export const refreshBenchMarkList = (benchMarkConf, setBenchMarkConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
     ...buildAuthRequestParams(benchMarkConf)
@@ -50,7 +49,6 @@ export const refreshBenchMarkList = (benchMarkConf, setBenchMarkConf, setIsLoadi
     })
     .catch(() => setIsLoading(false))
 }
-// refreshMappedFields
 export const refreshBenchMarkHeader = (benchMarkConf, setBenchMarkConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
     ...buildAuthRequestParams(benchMarkConf),

@@ -23,9 +23,6 @@ final class ApiResponse
 
     private $error;
 
-    /**
-     * @param mixed $body
-     */
     private function __construct(bool $success, int $status, $body, ?string $error)
     {
         $this->success = $success;
@@ -94,17 +91,11 @@ final class ApiResponse
         return $this->status;
     }
 
-    /**
-     * @return mixed
-     */
     public function getBody()
     {
         return $this->body;
     }
 
-    /**
-     * @param mixed $body
-     */
     public function setBody($body): self
     {
         $this->body = $body;
@@ -124,9 +115,6 @@ final class ApiResponse
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getBodyValue(string $key)
     {
         return self::getValue($this->body, $key);

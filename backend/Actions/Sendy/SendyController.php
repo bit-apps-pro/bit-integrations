@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Sendy integration.
- */
 class SendyController
 {
     public static array $authConfig = [
@@ -47,7 +44,6 @@ class SendyController
         $requestsParams = [
             'api_key' => $apiKey
         ];
-        // $authorizationHeader["api-key"] = $queryParams->api_key;
         $apiResponse = HttpHelper::post($apiEndpoint, $requestsParams, $authorizationHeader);
         $response = [];
         foreach ($apiResponse as $list) {
@@ -79,7 +75,6 @@ class SendyController
         $brand_id = $queryParams->brand_id;
         $apiEndpoint = "{$sendy_url}/api/lists/get-lists.php";
         $authorizationHeader['Accept'] = 'application/json';
-        // $authorizationHeader["api-key"] = $queryParams->api_key;
         $requestsParams = [
             'api_key'  => $apiKey,
             'brand_id' => $brand_id

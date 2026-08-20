@@ -19,7 +19,6 @@ export default function CapsuleCRMFieldMap({ i, formFields, field, capsulecrmCon
   } else if (capsulecrmConf.actionName === 'project') {
     allFields = capsulecrmConf?.projectFields
   }
-  // newFields = [...allFields, ...capsulecrmConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = capsulecrmConf.customFields

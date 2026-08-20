@@ -59,7 +59,7 @@ final class Helper
                 $date = new DateTime($dateString, $timezoneObj);
             }
 
-            return $date->format(DateTime::ATOM); // DateTime::ATOM is the ISO-8601 format
+            return $date->format(DateTime::ATOM);
         } catch (Exception $e) {
             return $dateString;
         }
@@ -90,7 +90,6 @@ final class Helper
 
             $imgFileName = basename($file);
 
-            // Get file content using WordPress HTTP API for remote files
             if (filter_var($file, FILTER_VALIDATE_URL)) {
                 $response = Common::safeRemoteGet($file);
                 if (is_wp_error($response)) {
@@ -115,15 +114,13 @@ final class Helper
             // check and return file type
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
-            // Attachment attributes for file
             $attachment = [
                 'post_mime_type' => $wpFileType['type'],
-                'post_title'     => sanitize_file_name($imgFileName), // sanitize and use image name as file name
+                'post_title'     => sanitize_file_name($imgFileName),
                 'post_content'   => '',
                 'post_status'    => 'inherit',
             ];
 
-            // insert and return attachment id
             $attachmentId = wp_insert_attachment($attachment, $imageFile, $postID);
 
             if (!is_wp_error($attachmentId)) {
@@ -151,15 +148,13 @@ final class Helper
 
             $imageFile = $upload['file'];
             $wpFileType = wp_check_filetype($imageFile, null);
-            // Attachment attributes for file
             $attachment = [
                 'post_mime_type' => $wpFileType['type'],
-                'post_title'     => sanitize_file_name($imgFileName), // sanitize and use image name as file name
+                'post_title'     => sanitize_file_name($imgFileName),
                 'post_content'   => '',
                 'post_status'    => 'inherit',
                 'post_parent'    => $postId,
             ];
-            // insert and return attachment id
             $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
             if (is_wp_error($attachmentId)) {
                 return;
@@ -192,25 +187,21 @@ final class Helper
 
                 $imageFile = $upload['file'];
                 $wpFileType = wp_check_filetype($imageFile, null);
-                // Attachment attributes for file
                 $attachment = [
                     'post_mime_type' => $wpFileType['type'],
-                    'post_title'     => sanitize_file_name($imgFileName), // sanitize and use image name as file name
+                    'post_title'     => sanitize_file_name($imgFileName),
                     'post_content'   => '',
                     'post_status'    => 'inherit',
                     'post_parent'    => $postId,
                 ];
-                // insert and return attachment id
                 $attachmentId = wp_insert_attachment($attachment, $imageFile, $postId);
                 if (is_wp_error($attachmentId)) {
                     continue;
                 }
-                // $attachMentId[]=$attachmentId;
                 $attachMentId[] = $attachmentId;
 
                 // insert and return attachment metadata
                 $attachmentData = wp_generate_attachment_metadata($attachmentId, $imageFile);
-                // update and return attachment metadata
                 wp_update_attachment_metadata($attachmentId, $attachmentData);
             }
         }
@@ -273,7 +264,6 @@ final class Helper
 
             return self::extractValueFromPath($data->{$currentPart}, $parts, $triggerEntity);
         }
-
     }
 
     public static function parseFlowDetails($flowDetails)
@@ -562,14 +552,6 @@ final class Helper
         return static::decodeSingleEntity($input);
     }
 
-    /**
-     * Convert string to array.
-     *
-     * @param null|array|string $data
-     * @param string            $separator
-     *
-     * @return array
-     */
     public static function convertStringToArray($data, $separator = ',')
     {
         if (empty($data)) {

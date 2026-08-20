@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;
@@ -21,11 +18,6 @@ final class FilesApiHelper
 
     private $_payloadBoundary;
 
-    /**
-     * Constructor for File API helper. Sets api token details
-     *
-     * @param object $tokenDetails Api token details
-     */
     public function __construct($tokenDetails)
     {
         $this->_payloadBoundary = wp_generate_password(24);

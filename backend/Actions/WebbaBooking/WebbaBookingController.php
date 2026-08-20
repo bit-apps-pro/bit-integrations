@@ -13,9 +13,6 @@ use WBK_Service;
 use WBK_Staff_Member;
 use WP_Error;
 
-/**
- * Provide functionality for Webba Booking integration
- */
 class WebbaBookingController
 {
     public static function isExists()

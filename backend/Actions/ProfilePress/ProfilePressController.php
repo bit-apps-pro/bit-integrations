@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\ProfilePress;
 
 use WP_Error;
 
-/**
- * Provide functionality for ProfilePress integration
- */
 class ProfilePressController
 {
     public static function isExists()
@@ -24,12 +21,6 @@ class ProfilePressController
                 400
             );
         }
-    }
-
-    public static function profilePressAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
     }
 
     public function refreshPlans()

@@ -65,14 +65,12 @@ function ZoomWebinar({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <ZoomWebinarAuthorization
         zoomWebinarConf={zoomWebinarConf}
         setZoomWebinarConf={setZoomWebinarConf}
         step={step}
         setStep={setStep}
       />
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ width: step === 2 && 900, height: step === 2 && `${100}%` }}>
@@ -105,7 +103,6 @@ function ZoomWebinar({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

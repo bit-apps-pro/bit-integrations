@@ -21,12 +21,10 @@ export const delFieldMap = (i, confTmp, setConf) => {
 
 export const handleFieldMapping = (event, index, confTmp, setConf) => {
   const newConf = create(confTmp, draft => {
-    // Initialize the field map object at index if missing
     if (!draft.field_map[index]) {
       draft.field_map[index] = {}
     }
 
-    // Directly mutate the draft
     draft.field_map[index][event.target.name] = event.target.value
 
     if (event.target.value === 'custom') {

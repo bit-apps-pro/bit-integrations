@@ -10,9 +10,6 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;

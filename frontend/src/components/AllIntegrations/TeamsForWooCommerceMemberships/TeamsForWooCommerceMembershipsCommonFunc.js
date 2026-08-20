@@ -58,12 +58,10 @@ export const refreshTeamsForWcMemberRoles = (setTeamsForWcConf, setIsLoading) =>
 }
 
 export const checkMappedFields = teamsForWcConf => {
-  // Check if team is selected
   if (!teamsForWcConf?.selectedTeam) {
     return false
   }
 
-  // Check if member role is selected for actions that require it
   if (
     ['add_member_to_team', 'invite_user_to_team', 'update_member_role'].includes(
       teamsForWcConf?.mainAction
@@ -73,7 +71,6 @@ export const checkMappedFields = teamsForWcConf => {
     return false
   }
 
-  // Check field mappings
   const mappedFields = teamsForWcConf?.field_map
     ? teamsForWcConf.field_map.filter(
         mappedField =>

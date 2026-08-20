@@ -225,7 +225,6 @@ export default function Fabman({ formFields, setFlow, flow, allIntegURL }) {
       <div className="mt-3 txt-center">
         <Steps step={3} active={step} />
       </div>
-      {/* STEP 1 */}
       <FabmanAuthorization
         fabmanConf={fabmanConf}
         setFabmanConf={setFabmanConf}
@@ -234,7 +233,6 @@ export default function Fabman({ formFields, setFlow, flow, allIntegURL }) {
         loading={loading}
         setLoading={setLoading}
       />
-      {/* STEP 2 */}
       {step === 2 && (
         <div
           className="btcd-stp-page"
@@ -257,7 +255,6 @@ export default function Fabman({ formFields, setFlow, flow, allIntegURL }) {
           </button>
         </div>
       )}
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={saveConfig}

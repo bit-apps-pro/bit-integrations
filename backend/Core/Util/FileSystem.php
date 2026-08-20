@@ -11,14 +11,8 @@ use WP_Filesystem_Direct;
 
 final class FileSystem
 {
-    /**
-     * @var WP_Filesystem_Base|null
-     */
     private static $filesystem;
 
-    /**
-     * @return WP_Filesystem_Base
-     */
     public static function instance()
     {
         if (self::$filesystem instanceof WP_Filesystem_Base) {
@@ -47,52 +41,26 @@ final class FileSystem
         return self::$filesystem;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string|false
-     */
     public static function read($path)
     {
         return self::instance()->get_contents($path);
     }
 
-    /**
-     * @param string $path
-     * @param string $contents
-     *
-     * @return bool
-     */
     public static function write($path, $contents)
     {
         return self::instance()->put_contents($path, $contents, FS_CHMOD_FILE);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
     public static function exists($path)
     {
         return self::instance()->exists($path);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
     public static function isDir($path)
     {
         return self::instance()->is_dir($path);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
     public static function delete($path)
     {
         return self::instance()->delete($path);

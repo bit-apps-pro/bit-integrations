@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoDeskController
 {
     public static array $authConfig = [
@@ -79,13 +76,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param mixed $queryParams
-     *
-     * @return JSON crm module data
-     */
     public static function refreshDepartments($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -133,13 +123,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm layouts
-     *
-     * @param object $queryParams Params to fetch fields
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshFields($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -215,13 +198,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Params to refresh ticket owner
-     *
-     * @return JSON crm module data
-     */
     public static function refreshTicketOwners($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -267,13 +243,6 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param object $queryParams Params to refresh ticket Products
-     *
-     * @return JSON crm module data
-     */
     public static function refreshProducts($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -352,7 +321,6 @@ class ZohoDeskController
                 $tokenDetails = $newTokenDetails;
             }
         }
-        // $actions = $integrationDetails->actions;
         $recordApiHelper = new RecordApiHelper($tokenDetails, $orgId, $this->_integrationID);
 
         $zdeskApiResponse = $recordApiHelper->execute(
@@ -391,11 +359,6 @@ class ZohoDeskController
             || !empty($response->error);
     }
 
-    /**
-     * @param mixed $response
-     *
-     * @return string
-     */
     protected static function responseErrorMessage($response)
     {
         if (is_wp_error($response)) {
@@ -413,11 +376,6 @@ class ZohoDeskController
         return __('Unknown', 'bit-integrations');
     }
 
-    /**
-     * @param mixed $response
-     *
-     * @return array
-     */
     protected static function responseData($response)
     {
         if (!\is_object($response) || empty($response->data) || !\is_array($response->data)) {

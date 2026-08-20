@@ -74,7 +74,6 @@ export default function PropovoiceCrmActions({
         subTitle={__('label add lead', 'bit-integrations')}
       />
 
-      {/* tags */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"
@@ -124,7 +123,6 @@ export default function PropovoiceCrmActions({
         )}
       </ConfirmModal>
 
-      {/* label */}
       <ConfirmModal
         className="custom-conf-mdl"
         mainMdlCls="o-v"

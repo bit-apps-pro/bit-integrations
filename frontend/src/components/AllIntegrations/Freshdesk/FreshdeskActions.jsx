@@ -239,7 +239,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
         </ConfirmModal>
       </div>
 
-      {/* Ticket Type */}
       <div className="pos-rel d-flx">
         <div className="d-flx flx-wrp">
           <TableCheckBox
@@ -303,7 +302,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
           )}
         </ConfirmModal>
       </div>
-      {/* Ticket Source */}
       <div className="pos-rel d-flx w-8l">
         <div className="d-flx flx-wrp">
           <TableCheckBox
@@ -368,7 +366,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
           )}
         </ConfirmModal>
       </div>
-      {/* Ticket Groups */}
       <div className="pos-rel d-flx w-8l">
         <div className="d-flx flx-wrp">
           <TableCheckBox
@@ -433,7 +430,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
           )}
         </ConfirmModal>
       </div>
-      {/* Ticket Products */}
       <div className="pos-rel d-flx w-8l">
         <div className="d-flx flx-wrp">
           <TableCheckBox
@@ -498,7 +494,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
           )}
         </ConfirmModal>
       </div>
-      {/* Ticket agent */}
       <div className="pos-rel d-flx w-8l">
         <div className="d-flx flx-wrp">
           <TableCheckBox
@@ -603,7 +598,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
           </select>
         </ConfirmModal>
       </div>
-      {/* file */}
       <div className="pos-rel d-flx">
         <div className="d-flx flx-wrp">
           <TableCheckBox

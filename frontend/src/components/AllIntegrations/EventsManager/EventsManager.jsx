@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
@@ -12,7 +12,6 @@ import EventsManagerIntegLayout from './EventsManagerIntegLayout'
 
 export default function EventsManager({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -57,19 +56,13 @@ export default function EventsManager({ formFields, setFlow, flow, allIntegURL }
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <EventsManagerAuthorization
-        formID={formID}
         eventsManagerConf={eventsManagerConf}
         setEventsManagerConf={setEventsManagerConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -95,7 +88,6 @@ export default function EventsManager({ formFields, setFlow, flow, allIntegURL }
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

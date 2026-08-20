@@ -113,8 +113,6 @@ export default function ZendeskActions({ zendeskConf, setZendeskConf, loading, s
           subTitle={__('Add an parentOrganization')}
         />
       )}
-      {/* {(zendeskConf.actionName === 'deal') && <TableCheckBox checked={zendeskConf?.selectedTeam?.length || false} onChange={(e) => actionHandler(e, 'team')} className="wdt-200 mt-4 mr-2" value="team" title={__('Add Team', 'bit - integrations')} subTitle={__('Add an team')} />} */}
-      {/* {(zendeskConf.actionName === 'lead') && <TableCheckBox checked={zendeskConf?.selectedCurrency?.length || false} onChange={(e) => actionHandler(e, 'currency')} className="wdt-200 mt-4 mr-2" value="currency" title={__('Add Currency', 'bit - integrations')} subTitle={__('Add a currency')} />} */}
       {zendeskConf.actionName === 'deal' && (
         <TableCheckBox
           checked={zendeskConf?.selectedStage?.length || false}
@@ -340,46 +338,6 @@ export default function ZendeskActions({ zendeskConf, setZendeskConf, loading, s
           </div>
         )}
       </ConfirmModal>
-
-      {/* <ConfirmModal
-        className="custom-conf-mdl"
-        mainMdlCls="o-v"
-        btnClass="purple"
-        btnTxt={__('Ok', 'bit-integrations')}
-        show={actionMdl.show === 'status'}
-        close={clsActionMdl}
-        action={clsActionMdl}
-        title={__('Status', 'bit-integrations')}
-      >
-        <div className="btcd-hr mt-2 mb-2" />
-        <div className="mt-2">
-          {__('Select Status', 'bit-integrations')}
-        </div>
-        {
-          loading.statuses ? (
-            <Loader style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 45,
-              transform: 'scale(0.5)',
-            }}
-            />
-          )
-            : (
-              <div className="flx flx-between mt-2">
-                <MultiSelect
-                  options={zendeskConf?.statuses?.map(status => ({ label: status.name, value: status.id }))}
-                  className="msl-wrp-options"
-                  defaultValue={zendeskConf?.selectedStatus}
-                  onChange={val => setChanges(val, 'selectedStatus')}
-                  singleSelect
-                />
-                <button onClick={() => getAllStatuses(zendeskConf, setZendeskConf, setLoading)} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': `${__('Refresh statuses', 'bit-integrations')}'` }} type="button">&#x21BB;</button>
-              </div>
-            )
-        }
-      </ConfirmModal> */}
 
       <ConfirmModal
         className="custom-conf-mdl"

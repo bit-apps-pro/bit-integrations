@@ -66,7 +66,7 @@ export default function ProfilePressIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.profilePressFields)
       })
     )
-    // The effect above fetches the lists this action needs.
+  // The effect above fetches the lists this action needs.
   }
 
   return (

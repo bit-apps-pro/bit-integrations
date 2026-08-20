@@ -11,9 +11,6 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
 use WP_Error;
 
-/**
- * Provide functionality for Bento integration
- */
 class BentoController
 {
     public static array $authConfig = [

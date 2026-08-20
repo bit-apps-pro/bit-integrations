@@ -14,9 +14,6 @@ use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoBiginController
 {
     public static array $authConfig = [
@@ -60,7 +57,6 @@ class ZohoBiginController
         $modulesMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v1/settings/modules";
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $modulesMetaResponse = HttpHelper::get($modulesMetaApiEndpoint, null, $authorizationHeader);
-        // wp_send_json_success($modulesMetaResponse, 200);
         if (!is_wp_error($modulesMetaResponse) && (empty($modulesMetaResponse->status) || (!empty($modulesMetaResponse->status) && $modulesMetaResponse->status !== 'error'))) {
             $retriveModuleData = $modulesMetaResponse->modules;
             $allModules = [];
@@ -86,13 +82,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh  modules
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshPLayouts($queryParams)
     {
         if (
@@ -116,7 +105,6 @@ class ZohoBiginController
         $layoutsMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v2/settings/layouts?module=Deals";
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $layoutsMetaResponse = HttpHelper::get($layoutsMetaApiEndpoint, null, $authorizationHeader);
-        // wp_send_json_success($layoutsMetaResponse, 200);
         if (!is_wp_error($layoutsMetaResponse) && (empty($layoutsMetaResponse->status) || (!empty($layoutsMetaResponse->status) && $layoutsMetaResponse->status !== 'error'))) {
             $retriveLayoutsData = $layoutsMetaResponse->layouts;
             $allLayouts = [];
@@ -140,13 +128,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin modules
-     *
-     * @param object $queryParams Params to refresh related lists
-     *
-     * @return JSON bigin module data
-     */
     public static function refreshRelatedModules($queryParams)
     {
         if (
@@ -203,13 +184,6 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh bigin layouts
-     *
-     * @param object $queryParams Params to fetch fields of module
-     *
-     * @return JSON bigin layout data
-     */
     public static function getFields($queryParams)
     {
         if (
@@ -428,7 +402,6 @@ class ZohoBiginController
             $fieldMap,
             $actions,
             $required,
-            // $fileMap,
             $integrationDetails
         );
         if (is_wp_error($zBiginApiResponse)) {

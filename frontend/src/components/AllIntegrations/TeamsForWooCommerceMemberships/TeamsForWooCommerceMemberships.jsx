@@ -48,9 +48,8 @@ export default function TeamsForWooCommerceMemberships({ formFields, setFlow, fl
   return (
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
-      <div className="txt-center mt-2">{/* <Steps step={3} active={step} /> */}</div>
+      <div className="txt-center mt-2"></div>
 
-      {/* STEP 1 */}
       <TeamsForWooCommerceMembershipsAuthorization
         formID={formID}
         teamsForWcConf={teamsForWcConf}
@@ -62,7 +61,6 @@ export default function TeamsForWooCommerceMemberships({ formFields, setFlow, fl
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -92,7 +90,6 @@ export default function TeamsForWooCommerceMemberships({ formFields, setFlow, fl
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\ConvertForce;
 
 use WP_Error;
 
-/**
- * Provide functionality for ConvertForce integration
- */
 class ConvertForceController
 {
     public function execute($integrationData, $fieldValues)

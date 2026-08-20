@@ -230,7 +230,7 @@ export const saveIntegConfig = async (
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
 
-  if (['Mail', 'Telegram', 'WhatsApp'].includes(confTmp?.type)) {
+  if (['Mail', 'Telegram', 'WhatsApp', 'Trello'].includes(confTmp?.type)) {
     action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 
@@ -238,7 +238,6 @@ export const saveIntegConfig = async (
     const res = await bitsFetch(data, action)
     if (!edit && res.success) {
       navigate(allIntegURL)
-      // getRecoil, setRecoil, resetRecoil
       resetRecoil($newFlow)
       resetRecoil($flowStep)
       resetRecoil($actionConf)
@@ -423,7 +422,7 @@ export const saveActionConf = async ({
     action = edit ? 'flow/custom-action/update' : 'flow/custom-action/save'
   }
 
-  if (['Mail', 'Telegram', 'WhatsApp'].includes(conf?.type)) {
+  if (['Mail', 'Telegram', 'WhatsApp', 'Trello'].includes(conf?.type)) {
     action = edit ? 'flow/sanitize_post_content/update' : 'flow/sanitize_post_content/save'
   }
 

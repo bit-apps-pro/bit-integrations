@@ -2,18 +2,16 @@
 
 namespace BitApps\Integrations\Actions\UserRegistrationMembership;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for User Registration and Membership integration.
- */
 class UserRegistrationMembershipController
 {
     public static function refreshForms()
     {
         self::checkPluginExists();
 
-        $allForms = get_posts([
+        $allForms = Post::all([
             'post_type'     => 'user_registration',
             'post_status'   => 'publish',
             'orderby'       => 'ID',

@@ -11,9 +11,6 @@ use MailsterLists;
 use MailsterTags;
 use WP_Error;
 
-/**
- * Provide functionality for Mailster integration
- */
 class MailsterController
 {
     public static function checkedMailsterExists()

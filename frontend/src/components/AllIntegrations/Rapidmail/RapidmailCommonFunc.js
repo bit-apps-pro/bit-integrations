@@ -53,7 +53,6 @@ export const getAllRecipient = (rapidmailConf, setRapidmailConf, setIsLoading, s
     error: __('Error Occurred', 'bit-integrations'),
     loading: __('Loading Recipientslist...')
   })
-  // .catch(() => setIsLoading(false))
 }
 
 export const generateMappedField = rapidmailConf => {

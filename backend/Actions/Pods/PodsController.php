@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for POD integration
- */
 final class PodsController
 {
     public function execute($integrationData, $fieldValues)

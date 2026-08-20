@@ -181,7 +181,6 @@ export const refreshActiveCampaingAccounts = (
     })
     .catch(() => setIsLoading(false))
 }
-// refreshActiveCampaingTags
 export const refreshActiveCampaingTags = (
   activeCampaingConf,
   setActiveCampaingConf,

@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\ACPT;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-/**
- * Provide functionality for ACPT integration
- */
 class ACPTController
 {
     public static array $authConfig = [

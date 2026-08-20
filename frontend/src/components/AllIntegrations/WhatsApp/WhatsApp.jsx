@@ -97,7 +97,6 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
         setstep={setstep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -119,7 +118,6 @@ function WhatsApp({ formFields, setFlow, flow, allIntegURL }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

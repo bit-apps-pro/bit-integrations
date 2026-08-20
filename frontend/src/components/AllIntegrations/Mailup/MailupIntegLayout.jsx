@@ -16,6 +16,9 @@ export default function MailupIntegLayout({
   setIsLoading,
   setSnackbar
 }) {
+  //   // eslint-disable-next-line no-unused-expressions
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+
   // useEffect(() => {
   //   // eslint-disable-next-line no-unused-expressions
   //   mailupConf?.listId && fetchAllGroup(mailupConf, setMailupConf, setIsLoading, setSnackbar)

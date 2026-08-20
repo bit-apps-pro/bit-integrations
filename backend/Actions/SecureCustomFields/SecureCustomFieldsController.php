@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\SecureCustomFields;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Secure Custom Fields integration
- */
 class SecureCustomFieldsController
 {
     /**

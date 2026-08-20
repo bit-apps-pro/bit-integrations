@@ -47,7 +47,6 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <PaidMembershipProAuthorization
         formID={formID}
         paidMembershipProConf={paidMembershipProConf}
@@ -59,7 +58,6 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, minHeight: '350px', overflow: 'visible' }) }}>
@@ -99,7 +97,6 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}

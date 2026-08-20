@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { authorizeConnection, saveConnection } from '../../Utils/connectionApi'
-import { AUTH_TYPES, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import { AUTH_TYPES, buildDefaultConnectionName, defaultEncryptKeys } from '../../Utils/connectionAuth'
 import {
   normalizeAdditionalHeaders,
   resolveConfigValue,
@@ -117,11 +117,14 @@ export default function ApiConnection({
   authDetails,
   config,
   setConfig,
+  connections,
   isInfo = false,
   customAuthFields,
   onConnectionSaved
 }) {
-  const [authData, setAuthData] = useState({})
+  const [authData, setAuthData] = useState(() => ({
+    connectionName: buildDefaultConnectionName(config?.type || config?.app_slug, connections)
+  }))
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})

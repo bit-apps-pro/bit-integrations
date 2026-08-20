@@ -153,15 +153,6 @@ export default function AirtableIntegLayout({
             </div>
             <br />
             <br />
-            {/* <div className="mt-4"><b className="wdt-100">{__('Utilities', 'bit-integrations')}</b></div>
-            <div className="btcd-hr mt-1" />
-            <AirtableActions
-              airtableConf={airtableConf}
-              setAirtableConf={setAirtableConf}
-              formFields={formFields}
-              loading={loading}
-              setLoading={setLoading}
-            /> */}
           </div>
         )}
       </div>
