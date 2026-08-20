@@ -188,6 +188,7 @@ export default function SelectAction() {
     { type: 'SureContact', is_pro: false },
     { type: 'BrilliantDirectories', name: 'Brilliant Directories', logo: 'brilliantDirectories', is_pro: false },
     { type: 'FluentCart', is_pro: true },
+    { type: 'PopupMaker', name: 'Popup Maker', logo: 'popupMaker', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
     { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },

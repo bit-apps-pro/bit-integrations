@@ -181,6 +181,7 @@ const Bookly = lazy(() => import('./Bookly/Bookly'))
 const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const PopupMaker = lazy(() => import('./PopupMaker/PopupMaker'))
 const NextCrm = lazy(() => import('./NextCrm/NextCrm'))
 const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
@@ -1774,6 +1775,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'FluentCart':
       return (
         <FluentCart
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'PopupMaker':
+      return (
+        <PopupMaker
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
