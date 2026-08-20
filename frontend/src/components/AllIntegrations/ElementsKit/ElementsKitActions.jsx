@@ -26,9 +26,7 @@ const CONDITION_ACTIONS = ['create_template', 'update_template']
 const DELETE_ACTIONS = ['delete_template', 'delete_widget', 'delete_content']
 
 export default function ElementsKitActions({ elementsKitConf, setElementsKitConf }) {
-  const [actionMdl, setActionMdl] = useState({ show: false, action: () => {} })
-
-  const actionHandler = type => setActionMdl({ show: type })
+  const [actionMdl, setActionMdl] = useState({ show: false })
 
   const clsActionMdl = () => setActionMdl({ show: false })
 
@@ -43,7 +41,18 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
     )
   }
 
-  const renderActionModal = (type, title, options, valueName) => (
+  // Ticking opens the picker; unticking clears the override, so a utility set by
+  // mistake can be undone instead of being stuck on.
+  const actionHandler = (type, valueName) => {
+    if (elementsKitConf?.utilities?.[valueName]) {
+      setAction('', valueName)
+      return
+    }
+
+    setActionMdl({ show: type })
+  }
+
+  const renderActionModal = (type, title, label, options, valueName) => (
     <ConfirmModal
       className="custom-conf-mdl"
       mainMdlCls="o-v"
@@ -54,7 +63,7 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
       action={clsActionMdl}
       title={title}>
       <div className="btcd-hr mt-2 mb-2" />
-      <div className="mt-2">{title}</div>
+      <div className="mt-2">{label}</div>
       <div className="flx flx-between mt-2">
         <MultiSelect
           options={options}
@@ -74,7 +83,7 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
         <>
           <TableCheckBox
             checked={elementsKitConf?.utilities?.selected_status || false}
-            onChange={() => actionHandler('status')}
+            onChange={() => actionHandler('status', 'selected_status')}
             className="wdt-200 mt-4 mr-2"
             value="status"
             title={__('Status', 'bit-integrations')}
@@ -82,7 +91,8 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
           />
           {renderActionModal(
             'status',
-            __('Select Status', 'bit-integrations'),
+            __('Status', 'bit-integrations'),
+            __('Select the post status this action should apply.', 'bit-integrations'),
             statusOptions,
             'selected_status'
           )}
@@ -93,7 +103,7 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
         <>
           <TableCheckBox
             checked={elementsKitConf?.utilities?.selected_type || false}
-            onChange={() => actionHandler('type')}
+            onChange={() => actionHandler('type', 'selected_type')}
             className="wdt-200 mt-4 mr-2"
             value="type"
             title={__('Template Type', 'bit-integrations')}
@@ -101,7 +111,8 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
           />
           {renderActionModal(
             'type',
-            __('Select Template Type', 'bit-integrations'),
+            __('Template Type', 'bit-integrations'),
+            __('Select the template type to change to.', 'bit-integrations'),
             templateTypeOptions,
             'selected_type'
           )}
@@ -112,7 +123,7 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
         <>
           <TableCheckBox
             checked={elementsKitConf?.utilities?.selected_activation || false}
-            onChange={() => actionHandler('activation')}
+            onChange={() => actionHandler('activation', 'selected_activation')}
             className="wdt-200 mt-4 mr-2"
             value="activation"
             title={__('Activation', 'bit-integrations')}
@@ -120,14 +131,15 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
           />
           {renderActionModal(
             'activation',
-            __('Select Activation', 'bit-integrations'),
+            __('Activation', 'bit-integrations'),
+            __('Choose whether the header or footer renders on the site.', 'bit-integrations'),
             activationOptions,
             'selected_activation'
           )}
 
           <TableCheckBox
             checked={elementsKitConf?.utilities?.selected_condition || false}
-            onChange={() => actionHandler('condition')}
+            onChange={() => actionHandler('condition', 'selected_condition')}
             className="wdt-200 mt-4 mr-2"
             value="condition"
             title={__('Display Condition', 'bit-integrations')}
@@ -135,14 +147,15 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
           />
           {renderActionModal(
             'condition',
-            __('Select Display Condition', 'bit-integrations'),
+            __('Display Condition', 'bit-integrations'),
+            __('Choose where the template renders.', 'bit-integrations'),
             conditionOptions,
             'selected_condition'
           )}
 
           <TableCheckBox
             checked={elementsKitConf?.utilities?.selected_condition_singular || false}
-            onChange={() => actionHandler('condition_singular')}
+            onChange={() => actionHandler('condition_singular', 'selected_condition_singular')}
             className="wdt-200 mt-4 mr-2"
             value="condition_singular"
             title={__('Singular Condition', 'bit-integrations')}
@@ -150,7 +163,8 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
           />
           {renderActionModal(
             'condition_singular',
-            __('Select Singular Condition', 'bit-integrations'),
+            __('Singular Condition', 'bit-integrations'),
+            __('Narrow a singular display condition.', 'bit-integrations'),
             singularConditionOptions,
             'selected_condition_singular'
           )}
@@ -161,7 +175,7 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
         <>
           <TableCheckBox
             checked={elementsKitConf?.utilities?.selected_force_delete || false}
-            onChange={() => actionHandler('force_delete')}
+            onChange={() => actionHandler('force_delete', 'selected_force_delete')}
             className="wdt-200 mt-4 mr-2"
             value="force_delete"
             title={__('Delete Mode', 'bit-integrations')}
@@ -169,7 +183,8 @@ export default function ElementsKitActions({ elementsKitConf, setElementsKitConf
           />
           {renderActionModal(
             'force_delete',
-            __('Select Delete Mode', 'bit-integrations'),
+            __('Delete Mode', 'bit-integrations'),
+            __('Choose whether the record is trashed or deleted permanently.', 'bit-integrations'),
             forceDeleteOptions,
             'selected_force_delete'
           )}

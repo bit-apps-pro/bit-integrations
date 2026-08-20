@@ -173,14 +173,15 @@ export default function ElementsKitIntegLayout({
               title="selectedParent"
               defaultValue={elementsKitConf?.selectedParent ?? null}
               className="btcd-paper-drpdwn w-5"
-              options={
-                elementsKitConf?.allContents &&
-                Array.isArray(elementsKitConf.allContents) &&
-                elementsKitConf.allContents.map(content => ({
-                  label: content.content_title,
-                  value: content.content_id.toString()
-                }))
-              }
+              options={[
+                { label: __('No Parent', 'bit-integrations'), value: '0' },
+                ...(Array.isArray(elementsKitConf?.allContents)
+                  ? elementsKitConf.allContents.map(content => ({
+                      label: content.content_title,
+                      value: content.content_id.toString()
+                    }))
+                  : [])
+              ]}
               onChange={val => setField('selectedParent', val)}
               singleSelect
               closeOnSelect
