@@ -8,10 +8,9 @@ import { Link, useNavigate, useParams } from 'react-router'
 import useFetch from '../../hooks/useFetch'
 import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
+import { getRedirectUri } from '../../Utils/oauthHelper'
 import Note from '../Utilities/Note'
 import SnackMsg from '../Utilities/SnackMsg'
-import { useRecoilValue } from 'recoil'
-import { $appConfigState } from '../../GlobalStates'
 import { ConnectionSwitchProvider } from '../Connections/ConnectionSwitchContext'
 
 const Loader = lazy(() => import('../Loaders/Loader'))
@@ -97,6 +96,9 @@ const SendGridAuthorization = lazy(() => import('./SendGrid/SendGridAuthorizatio
 const FabmanAuthorization = lazy(() => import('./Fabman/FabmanAuthorization'))
 const PCloudAuthorization = lazy(() => import('./PCloud/PCloudAuthorization'))
 const EmailOctopusAuthorization = lazy(() => import('./EmailOctopus/EmailOctopusAuthorization'))
+const EventsManagerAuthorization = lazy(
+  () => import('./EventsManager/EventsManagerAuthorization')
+)
 const CustomAction = lazy(() => import('./CustomAction/CustomFuncEditor'))
 const SmailyAuthentication = lazy(() => import('./Smaily/SmailyAuthorization'))
 const SureCartAuthorization = lazy(() => import('./SureCart/SureCartAuthorization'))
@@ -185,7 +187,17 @@ const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
+const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAuthorization'))
+const BrilliantDirectoriesAuthorization = lazy(
+  () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
+)
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const LatePointAuthorization = lazy(() => import('./LatePoint/LatePointAuthorization'))
+const ProfilePressAuthorization = lazy(() => import('./ProfilePress/ProfilePressAuthorization'))
+const ClickWhaleAuthorization = lazy(() => import('./ClickWhale/ClickWhaleAuthorization'))
+const BadgeOSAuthorization = lazy(() => import('./BadgeOS/BadgeOSAuthorization'))
+const PopupMakerAuthorization = lazy(() => import('./PopupMaker/PopupMakerAuthorization'))
+const NextCrmAuthorization = lazy(() => import('./NextCrm/NextCrmAuthorization'))
 const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
 const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
@@ -201,6 +213,9 @@ const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthoriza
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
 const BookingCalendarAuthorization = lazy(() => import('./BookingCalendar/BookingCalendarAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
+const WpTableBuilderAuthorization = lazy(
+  () => import('./WpTableBuilder/WpTableBuilderAuthorization')
+)
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const IvyFormsAuthorization = lazy(() => import('./IvyForms/IvyFormsAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
@@ -492,6 +507,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <PCloudAuthorization pCloudConf={integrationConf} step={1} isInfo />
     case 'EmailOctopus':
       return <EmailOctopusAuthorization emailOctopusConf={integrationConf} step={1} isInfo />
+    case 'EventsManager':
+      return <EventsManagerAuthorization eventsManagerConf={integrationConf} step={1} isInfo />
     case 'CustomAction':
       return <CustomAction customActionConf={integrationConf} step={1} isInfo />
     case 'PipeDrive':
@@ -670,8 +687,26 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'Bookly':
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
+    case 'SureContact':
+      return <SureContactAuthorization sureContactConf={integrationConf} step={1} isInfo />
+    case 'BrilliantDirectories':
+      return (
+        <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
+      )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'LatePoint':
+      return <LatePointAuthorization latePointConf={integrationConf} step={1} isInfo />
+    case 'ProfilePress':
+      return <ProfilePressAuthorization profilePressConf={integrationConf} step={1} isInfo />
+    case 'ClickWhale':
+      return <ClickWhaleAuthorization clickWhaleConf={integrationConf} step={1} isInfo />
+    case 'BadgeOS':
+      return <BadgeOSAuthorization badgeOSConf={integrationConf} step={1} isInfo />
+    case 'PopupMaker':
+      return <PopupMakerAuthorization popupMakerConf={integrationConf} step={1} isInfo />
+    case 'NextCrm':
+      return <NextCrmAuthorization nextCrmConf={integrationConf} step={1} isInfo />
     case 'FluentPlayer':
       return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
     case 'BitCrm':
@@ -702,6 +737,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'WpDataTables':
       return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
+    case 'WpTableBuilder':
+      return <WpTableBuilderAuthorization wpTableBuilderConf={integrationConf} step={1} isInfo />
     case 'FormyChat':
       return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
     case 'IvyForms':
@@ -770,7 +807,6 @@ const getUpdateAction = confType => {
 
 export default function IntegInfo() {
   const { id, type } = useParams()
-  const btcbi = useRecoilValue($appConfigState)
   const [snack, setSnackbar] = useState({ show: false })
   const [integrationConf, setIntegrationConf] = useState({})
   const [integration, setIntegration] = useState(null)
@@ -866,11 +902,7 @@ export default function IntegInfo() {
     ]
   )
 
-  // route is info/:id but for redirect uri need to make new/:type
-  // let location = window.location.toString()
-  // const toReplaceInd = location.indexOf('/info')
-  // location = window.encodeURI(`${location.slice(0, toReplaceInd)}/new/${type}`)
-  let location = `${btcbi.api}/redirect`
+  const location = getRedirectUri()
   return (
     <>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />

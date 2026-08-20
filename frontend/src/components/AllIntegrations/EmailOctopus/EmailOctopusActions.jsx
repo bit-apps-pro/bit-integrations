@@ -38,8 +38,17 @@ export default function EmailOctopusActions({
     if (type === 'status') {
       if (e.target.checked) {
         newConf.actions.status = true
+        delete newConf.actions.pending
       } else {
         delete newConf.actions.status
+      }
+    }
+    if (type === 'pending') {
+      if (e.target.checked) {
+        newConf.actions.pending = true
+        delete newConf.actions.status
+      } else {
+        delete newConf.actions.pending
       }
     }
     setEmailOctopusConf({ ...newConf })
@@ -80,6 +89,14 @@ export default function EmailOctopusActions({
         value="subscriber_status"
         title={__('Unsubscribe contact', 'bit-integrations')}
         subTitle={__('Set the contact status to "unsubscribed".', 'bit-integrations')}
+      />
+      <TableCheckBox
+        checked={emailOctopusConf.actions?.pending || false}
+        onChange={e => actionHandler(e, 'pending')}
+        className="wdt-200 mt-4 mr-2"
+        value="pending_status"
+        title={__('Pending contact', 'bit-integrations')}
+        subTitle={__('Set the contact status to "pending".', 'bit-integrations')}
       />
       <ConfirmModal
         className="custom-conf-mdl"

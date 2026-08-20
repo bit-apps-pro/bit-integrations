@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
@@ -12,7 +12,6 @@ import BitCrmIntegLayout from './BitCrmIntegLayout'
 
 export default function BitCrm({ formFields, setFlow, flow, allIntegURL, isInfo }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -82,13 +81,9 @@ export default function BitCrm({ formFields, setFlow, flow, allIntegURL, isInfo 
           minHeight: step === 2 && '500px'
         }}>
         <BitCrmIntegLayout
-          formID={formID}
           formFields={formFields}
           bitCrmConf={bitCrmConf}
           setBitCrmConf={setBitCrmConf}
-          setSnackbar={setSnackbar}
-          setIsLoading={setIsLoading}
-          isLoading={isLoading}
         />
         <br />
         <br />

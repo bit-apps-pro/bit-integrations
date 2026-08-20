@@ -12,7 +12,7 @@ import BitCrmIntegLayout from './BitCrmIntegLayout'
 
 export default function EditBitCrm({ allIntegURL }) {
   const navigate = useNavigate()
-  const { id, formID } = useParams()
+  const { id } = useParams()
 
   const [bitCrmConf, setBitCrmConf] = useRecoilState($actionConf)
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -40,13 +40,9 @@ export default function EditBitCrm({ allIntegURL }) {
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
       <BitCrmIntegLayout
-        formID={formID}
         formFields={formFields}
         bitCrmConf={bitCrmConf}
         setBitCrmConf={setBitCrmConf}
-        setSnackbar={setSnackbar}
-        setIsLoading={setIsLoading}
-        isLoading={isLoading}
       />
 
       <IntegrationStepThree
