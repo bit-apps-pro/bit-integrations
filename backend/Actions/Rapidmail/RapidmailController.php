@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Rapidmail;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Actions\Rapidmail\RecordApiHelper as RapidmailRecordApiHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
@@ -15,6 +16,15 @@ final class RapidmailController
 {
     public static $apiBaseUri = 'https://apiv3.emailsys.net/v1';
 
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BASIC_AUTH,
+        'slug'     => 'rapidmail',
+        'fields'   => [
+            'username' => 'username',
+            'password' => 'password',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     private $_integrationID;
@@ -22,40 +32,6 @@ final class RapidmailController
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    public static function checkAuthorization($tokenRequestParams)
-    {
-        if (
-            empty($tokenRequestParams->username)
-            || empty($tokenRequestParams->password)
-        ) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $header = [
-            'Authorization' => 'Basic ' . base64_encode("{$tokenRequestParams->username}:{$tokenRequestParams->password}"),
-            'Accept'        => '*/*',
-            'verify'        => false
-        ];
-        $apiEndpoint = self::$apiBaseUri . '/apiusers';
-
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
-        if (!(property_exists($apiResponse, '_embedded') && property_exists($apiResponse->_embedded, 'apiusers'))) {
-            wp_send_json_error(
-                // empty($apiResponse->error) ? 'Unknown' : $apiResponse->error,
-                'Unauthorize',
-                400
-            );
-        } else {
-            $apiResponse->generates_on = time();
-            wp_send_json_success($apiResponse, 200);
-        }
     }
 
     /**

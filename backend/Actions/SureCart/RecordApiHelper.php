@@ -31,11 +31,11 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public function createCustomer($finalData, $api_key)
+    public function createCustomer($finalData, $token)
     {
         $requestData = [
             'headers' => [
-                'Authorization' => 'Bearer ' . $api_key,
+                'Authorization' => 'Bearer ' . $token,
                 'User-Agent'    => 'bit-integrations',
                 'Content-Type'  => 'application/json',
             ],
@@ -54,7 +54,7 @@ class RecordApiHelper
             ),
         ];
 
-        $request = wp_remote_post('https://api.surecart.com/v1/customers', $requestData);
+        $request = wp_safe_remote_post('https://api.surecart.com/v1/customers', $requestData);
         $response_code = wp_remote_retrieve_response_code($request);
         $response_body = wp_remote_retrieve_body($request);
 
@@ -62,7 +62,7 @@ class RecordApiHelper
     }
 
     public function execute(
-        $api_key,
+        $token,
         $fieldValues,
         $fieldMap,
         $integrationDetails,
@@ -71,7 +71,7 @@ class RecordApiHelper
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
 
         if ($mainAction == '1') {
-            $apiResponse = $this->createCustomer($finalData, $api_key);
+            $apiResponse = $this->createCustomer($finalData, $token);
             if ($apiResponse[1] === 200) {
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'create', 'type_name' => 'create-customer']), 'success', $apiResponse[0]);
             } else {

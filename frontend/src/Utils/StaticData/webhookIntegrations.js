@@ -29,6 +29,7 @@ export const customFormIntegrations = [
   'NinjaTables',
   'AdvancedAds',
   'AdvancedCoupons',
+  'PowerCoupons',
   'AppointmentHourBooking',
   'BetterMessages',
   'ConvertPro',
@@ -111,9 +112,16 @@ export const customFormIntegrations = [
   'SureDash',
   'WpErp',
   'WpDataTables',
+  'WpTableBuilder',
   'GiveWp',
   'SenseiLMS',
-  'ModernCart'
+  'ModernCart',
+  'LatePoint',
+  'ProfilePress',
+  'ClickWhale',
+  'FluentPlayer',
+  'BitCrm',
+  'NextCrm'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

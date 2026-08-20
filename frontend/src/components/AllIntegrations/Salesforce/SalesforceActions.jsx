@@ -20,7 +20,8 @@ import {
   getAllLeadSource,
   getAllLeadRatings,
   getAllLeadStatus,
-  getAllLeadIndustries
+  getAllLeadIndustries,
+  getAllUserList
 } from './SalesforceCommonFunc'
 import {
   eventSubject,
@@ -72,6 +73,13 @@ export default function SalesforceActions({
       getAllContactList(formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar)
     }
     setActionMdl({ show: 'contact' })
+  }
+
+  const openUserModel = () => {
+    if (!salesforceConf?.default?.userLists) {
+      getAllUserList(formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar)
+    }
+    setActionMdl({ show: 'owner' })
   }
 
   const openActionMdl = modelName => {
@@ -388,6 +396,26 @@ export default function SalesforceActions({
               />
             </div>
           </>
+        )}
+        {[
+          'contact-create',
+          'lead-create',
+          'account-create',
+          'campaign-create',
+          'opportunity-create',
+          'event-create',
+          'case-create'
+        ].includes(salesforceConf.actionName) && (
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <TableCheckBox
+              onChange={openUserModel}
+              checked={'ownerId' in salesforceConf.actions}
+              className="wdt-200 mt-4 mr-2"
+              value="ownerId"
+              title={__('Record Owner', 'bit-integrations')}
+              subTitle={__('Assign owner for the record.', 'bit-integrations')}
+            />
+          </div>
         )}
       </div>
 
@@ -1314,6 +1342,55 @@ export default function SalesforceActions({
           </ConfirmModal>
         </>
       )}
+
+      {/* record owner */}
+      <ConfirmModal
+        className="custom-conf-mdl"
+        mainMdlCls="o-v"
+        btnClass="purple"
+        btnTxt={__('Ok', 'bit-integrations')}
+        show={actionMdl.show === 'owner'}
+        close={clsActionMdl}
+        action={clsActionMdl}
+        title={__('Record Owner', 'bit-integrations')}>
+        <div className="btcd-hr mt-2" />
+        {isLoading ? (
+          <Loader
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 45,
+              transform: 'scale(0.5)'
+            }}
+          />
+        ) : (
+          <div className="flx flx-between mt-2">
+            <select
+              value={salesforceConf.actions.ownerId}
+              className="btcd-paper-inp"
+              onChange={e => actionHandler(e.target.value, 'ownerId')}>
+              <option value="">{__('Select Owner', 'bit-integrations')}</option>
+              {salesforceConf?.default?.userLists &&
+                salesforceConf.default.userLists.map(item => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+            </select>
+            <button
+              onClick={() =>
+                getAllUserList(formID, salesforceConf, setSalesforceConf, setIsLoading, setSnackbar)
+              }
+              className="icn-btn sh-sm ml-2 mr-2 tooltip"
+              style={{ '--tooltip-txt': '"Refresh Owner List"' }}
+              type="button"
+              disabled={isLoading}>
+              &#x21BB;
+            </button>
+          </div>
+        )}
+      </ConfirmModal>
     </div>
   )
 }

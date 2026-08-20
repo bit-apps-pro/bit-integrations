@@ -2,85 +2,38 @@
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
-export const handleInput = (e, slackConf, setSlackConf) => {
-  const newConf = { ...slackConf }
+const buildAuthRequestParams = conf =>
+  conf?.connection_id
+    ? { connection_id: conf.connection_id }
+    : {
+        app_domain: conf.app_domain,
+        api_key: conf.api_key
+      }
+
+const hasAuthParams = conf => Boolean(conf?.connection_id || (conf?.app_domain && conf?.api_key))
+
+export const handleInput = (e, freshdeskConf, setFreshdeskConf) => {
+  const newConf = { ...freshdeskConf }
   const { name } = e.target
   if (e.target.value !== '') {
     newConf[name] = e.target.value
   } else {
     delete newConf[name]
   }
-  setSlackConf({ ...newConf })
-}
-
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  const tokenRequestParams = {
-    app_domain: confTmp.app_domain,
-    api_key: confTmp.api_key
-  }
-
-  bitsFetch(tokenRequestParams, 'freshdesk_authorization_and_fetch_tickets')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({
-          show: true,
-          msg: __('Authorized Successfully', 'bit-integrations')
-        })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
+  setFreshdeskConf({ ...newConf })
 }
 
 export const getAllTicketFields = (confTmp, setConf, setIsLoading, setSnackbar) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
+  if (!hasAuthParams(confTmp)) {
+    setSnackbar({
+      show: true,
+      msg: __('Authorization info is missing. please authorize again', 'bit-integrations')
     })
     return
   }
 
   setIsLoading(true)
-  const tokenRequestParams = {
-    app_domain: confTmp.app_domain,
-    api_key: confTmp.api_key
-  }
+  const tokenRequestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(tokenRequestParams, 'freshdesk_fetch_ticket_fields')
     .then(result => result)
@@ -110,18 +63,16 @@ export const getAllTicketFields = (confTmp, setConf, setIsLoading, setSnackbar) 
 }
 
 export const getAllContactFields = (confTmp, setConf, setIsLoading, setSnackbar) => {
-  if (!confTmp.api_key) {
-    setError({
-      api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
+  if (!hasAuthParams(confTmp)) {
+    setSnackbar({
+      show: true,
+      msg: __('Authorization info is missing. please authorize again', 'bit-integrations')
     })
     return
   }
 
   setIsLoading(true)
-  const tokenRequestParams = {
-    app_domain: confTmp.app_domain,
-    api_key: confTmp.api_key
-  }
+  const tokenRequestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(tokenRequestParams, 'freshdesk_fetch_Contact_fields')
     .then(result => result)

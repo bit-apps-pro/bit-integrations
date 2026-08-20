@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Woodpecker;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,26 +15,19 @@ use WP_Error;
  */
 class WoodpeckerController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'woodpecker',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
     protected $_defaultHeader;
 
     protected $apiEndpoint;
 
     protected $domain;
-
-    public function authentication($fieldsRequestParams)
-    {
-        $this->checkValidation($fieldsRequestParams);
-        $apiKey = $fieldsRequestParams->api_key;
-        $apiEndpoint = $this->setApiEndpoint() . '/campaign_list';
-        $headers = $this->setHeaders(base64_encode($apiKey));
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (isset($response->status) && $response->status->status === 'ERROR') {
-            wp_send_json_error(__('Please enter valid API key', 'bit-integrations'), 400);
-        } else {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        }
-    }
 
     public function getAllCampagns($fieldsRequestParams)
     {

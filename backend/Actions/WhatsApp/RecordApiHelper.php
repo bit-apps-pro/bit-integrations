@@ -8,8 +8,8 @@ namespace BitApps\Integrations\Actions\WhatsApp;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
+use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
 /**
@@ -34,24 +34,37 @@ class RecordApiHelper
         $businessAccountID,
         $token,
         $data,
-        $phoneNumber
+        $phoneNumber,
+        $templatePlaceholders = []
     ) {
         $templateName = $this->_integrationDetails->templateName;
         $apiEndPoint = "{$this->_baseUrl}{$businessAccountID}/message_templates?fields=language&name={$templateName}";
         $response = HttpHelper::get($apiEndPoint, null, static::setHeaders($token));
-        $language = $response->data[0]->language ?? 'en_US';
+        $language = isset($response->data[0]->language) ? $response->data[0]->language : 'en_US';
 
         $apiEndPoint = "{$this->_baseUrl}{$numberId}/messages";
+        $template = [
+            'name'     => $templateName,
+            'language' => [
+                'code' => $language
+            ]
+        ];
+
+        $components = Hooks::apply(Config::withPrefix('whatsapp_template_components'), [], $templatePlaceholders);
+
+        if (!\is_array($components)) {
+            $components = [];
+        }
+
+        if (!empty($components)) {
+            $template['components'] = $components;
+        }
+
         $data = [
             'messaging_product' => 'whatsapp',
             'to'                => "{$phoneNumber}",
             'type'              => 'template',
-            'template'          => [
-                'name'     => $templateName,
-                'language' => [
-                    'code' => $language
-                ]
-            ]
+            'template'          => $template
         ];
 
         return HttpHelper::post($apiEndPoint, $data, static::setHeaders($token));
@@ -137,7 +150,10 @@ class RecordApiHelper
         $token = $this->_integrationDetails->token;
 
         if ($messageType === 'template' || $messageType === '2') {
-            $apiResponse = $this->sendMessageWithTemplate($numberId, $businessAccountID, $token, $finalData, $phoneNumber);
+            $templateFieldMap = $this->_integrationDetails->template_field_map ?? [];
+            $templatePlaceholders = $this->generateReqDataFromFieldMap($fieldValues, $templateFieldMap);
+
+            $apiResponse = $this->sendMessageWithTemplate($numberId, $businessAccountID, $token, $finalData, $phoneNumber, $templatePlaceholders);
             $typeName = 'Template Message';
         } elseif ($messageType === 'text') {
             $apiResponse = $this->sendMessageWithText($numberId, $fieldValues, $token, $phoneNumber);

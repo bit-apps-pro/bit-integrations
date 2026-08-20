@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Actions\HighLevel\HighLevelController;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('highLevel_authorization', [HighLevelController::class, 'highLevelAuthorization']);
 Route::post('get_highLevel_contact_custom_fields', [HighLevelController::class, 'getCustomFields']);
 Route::post('high_level_contact_tags', [HighLevelController::class, 'getAllTags']);
 Route::post('get_highLevel_contacts', [HighLevelController::class, 'getContacts']);

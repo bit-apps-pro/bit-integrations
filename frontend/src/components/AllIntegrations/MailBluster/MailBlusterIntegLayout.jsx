@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import MailBlusterActions from './MailBlusterActions'
-import { mailBlusterAuthentication } from './MailBlusterCommonFunc'
+import { fetchCustomFields } from './MailBlusterCommonFunc'
 import MailBlusterFieldMap from './MailBlusterFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 
@@ -15,9 +14,6 @@ export default function MailBlusterIntegLayout({
   setLoading,
   setSnackbar
 }) {
-  const [error, setError] = useState({ name: '', auth_token: '' })
-  const [isAuthorized, setIsAuthorized] = useState(false)
-
   return (
     <>
       <br />
@@ -51,11 +47,11 @@ export default function MailBlusterIntegLayout({
               {__('Field Map', 'bit-integrations')}
               <button
                 onClick={() =>
-                  mailBlusterAuthentication(
+                  fetchCustomFields(
                     mailBlusterConf,
                     setMailBlusterConf,
-                    setError,
-                    setIsAuthorized,
+                    undefined,
+                    undefined,
                     loading,
                     setLoading,
                     'refreshCustomFields'

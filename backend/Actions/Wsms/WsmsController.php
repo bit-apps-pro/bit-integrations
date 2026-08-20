@@ -26,12 +26,6 @@ class WsmsController
         }
     }
 
-    public static function wsmsAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public static function refreshGroups()
     {
         self::isExists();

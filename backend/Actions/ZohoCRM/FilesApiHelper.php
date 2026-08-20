@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -113,7 +114,7 @@ final class FilesApiHelper
                 if ($safeFilePath === '') {
                     return '';
                 }
-                $payload .= file_get_contents($safeFilePath);
+                $payload .= FileSystem::read($safeFilePath);
             }
 
             $payload .= "\r\n";

@@ -14,7 +14,7 @@ function EditMailercloud({ allIntegURL }) {
   const [snack, setSnackbar] = useState({ show: false })
   const flow = useRecoilValue($newFlow)
   const [mailercloudConf, setMailercloudConf] = useRecoilState($actionConf)
-  const [error, setError] = useState({ name: '', authKey: '' })
+  const [error, setError] = useState({ name: '' })
   const formFields = useRecoilValue($formFields)
   const [loading, setLoading] = useState({
     auth: false,

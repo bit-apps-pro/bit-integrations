@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Selzy;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -16,9 +17,19 @@ class SelzyController
 {
     private $baseUrl = 'https://api.selzy.com/en/api/';
 
-    public function handleAuthorize($requestParams)
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'selzy',
+        'fields'   => [
+            'authKey' => 'value',
+            'api_key' => 'value',
+        ],
+    ];
+
+    public function getAllLists($requestParams)
     {
-        if (empty($requestParams->authKey)) {
+        $apiKey = $this->resolveApiKey($requestParams);
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -27,7 +38,7 @@ class SelzyController
                 400
             );
         }
-        $apiEndpoints = $this->baseUrl . 'getLists?format=json&api_key=' . $requestParams->authKey;
+        $apiEndpoints = $this->baseUrl . 'getLists?format=json&api_key=' . $apiKey;
         $response = HttpHelper::get($apiEndpoints, null);
         if ($response->code === 'invalid_api_key') {
             wp_send_json_error(
@@ -43,7 +54,8 @@ class SelzyController
 
     public function getAllTags($requestParams)
     {
-        if (empty($requestParams->authKey)) {
+        $apiKey = $this->resolveApiKey($requestParams);
+        if (empty($apiKey)) {
             wp_send_json_error(
                 __(
                     'Requested parameter is empty',
@@ -52,7 +64,7 @@ class SelzyController
                 400
             );
         }
-        $apiEndpoints = $this->baseUrl . 'getTags?format=json&api_key=' . $requestParams->authKey;
+        $apiEndpoints = $this->baseUrl . 'getTags?format=json&api_key=' . $apiKey;
         $response = HttpHelper::get($apiEndpoints, null);
         if ($response->code === 'invalid_api_key') {
             wp_send_json_error(
@@ -68,11 +80,12 @@ class SelzyController
 
     public function getAllCustomFields($requestParams)
     {
-        if (empty($requestParams->authKey)) {
+        $apiKey = $this->resolveApiKey($requestParams);
+        if (empty($apiKey)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $apiEndpoint = "https://api.selzy.com/en/api/getFields?format=json&api_key={$requestParams->authKey}";
+        $apiEndpoint = "https://api.selzy.com/en/api/getFields?format=json&api_key={$apiKey}";
 
         $response = HttpHelper::get($apiEndpoint, null);
 
@@ -96,7 +109,7 @@ class SelzyController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $authKey = $integrationDetails->authKey;
+        $authKey = $integrationDetails->authKey ?: ($integrationDetails->api_key ?: ($integrationDetails->value ?? ''));
         $listIds = $integrationDetails->listIds;
         $tags = $integrationDetails->tags;
         $method = $integrationDetails->method;
@@ -136,5 +149,10 @@ class SelzyController
         }
 
         return $selzyApiResponse;
+    }
+
+    private function resolveApiKey($requestParams)
+    {
+        return $requestParams->authKey ?: ($requestParams->api_key ?: ($requestParams->value ?? ''));
     }
 }

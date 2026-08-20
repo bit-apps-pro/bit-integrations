@@ -15,13 +15,14 @@ export const handleInput = (e, salesmateConf, setSalesmateConf) => {
   setSalesmateConf({ ...newConf })
 }
 
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : { session_token: confTmp.session_token, link_name: confTmp.link_name }
+
 // refreshMappedFields
 export const refreshSalesmateFields = (salesmateConf, setSalesmateConf, setIsLoading, setSnackbar) => {
-  const requestParams = {
-    session_token: salesmateConf.session_token,
-    link_name: salesmateConf.link_name,
-    action_id: salesmateConf.actionId
-  }
+  const requestParams = { ...buildAuthRequestParams(salesmateConf), action_id: salesmateConf.actionId }
 
   bitsFetch(requestParams, 'Salesmate_fields')
     .then(result => {
@@ -81,55 +82,10 @@ export const checkMappedFields = salesmateConf => {
   return true
 }
 
-export const salesmateAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading
-) => {
-  if (!confTmp.session_token || !confTmp.link_name) {
-    setError({
-      session_token: !confTmp.session_token
-        ? __("Session Token can't be empty", 'bit-integrations')
-        : '',
-      link_name: !confTmp.link_name ? __("Link Name can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setLoading({ ...loading, auth: true })
-
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
-
-  bitsFetch(requestParams, 'salesmate_authentication').then(result => {
-    if (result && result.success) {
-      setIsAuthorized(true)
-      setLoading({ ...loading, auth: false })
-      toast.success(__('Authorized Successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, auth: false })
-    toast.error(
-      __('Authorized failed, Please enter valid Session Token or Link Name', 'bit-integrations')
-    )
-  })
-}
-
 export const getAllTags = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, tags: true })
 
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
-
-  bitsFetch(requestParams, 'salesmate_fetch_all_tags').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'salesmate_fetch_all_tags').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
       if (result.data) {
@@ -217,12 +173,8 @@ export const getAllCRMPriority = setConf => {
 
 export const getAllCRMCurrency = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMCurrency: true })
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
 
-  bitsFetch(requestParams, 'salesmate_fetch_all_currencies').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'salesmate_fetch_all_currencies').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
       if (result.data) {
@@ -241,12 +193,8 @@ export const getAllCRMCurrency = (confTmp, setConf, setLoading) => {
 
 export const getAllCRMCompany = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, CRMCompany: true })
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
 
-  bitsFetch(requestParams, 'salesmate_fetch_all_CRMCompanies').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'salesmate_fetch_all_CRMCompanies').then(result => {
     if (result && result.success) {
       if (!result.data) {
         setLoading({ ...setLoading, CRMCompany: false })
@@ -273,12 +221,8 @@ export const getAllCRMCompany = (confTmp, setConf, setLoading) => {
 
 export const getAllCRMPipelines = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, CRMPipelines: true })
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
 
-  bitsFetch(requestParams, 'salesmate_fetch_all_CRMPipelines').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'salesmate_fetch_all_CRMPipelines').then(result => {
     setLoading({ ...loading, CRMPipelines: false })
     if (result && result.success) {
       setConf(prevConf => {
@@ -297,12 +241,8 @@ export const getAllCRMPipelines = (confTmp, setConf, loading, setLoading) => {
 }
 export const getAllCRMPrimaryContact = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, CRMContacts: true })
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
 
-  bitsFetch(requestParams, 'salesmate_fetch_all_CRMContacts').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'salesmate_fetch_all_CRMContacts').then(result => {
     setLoading({ ...loading, CRMContacts: false })
     if (result && result.success) {
       if (!result.data) {
@@ -327,12 +267,8 @@ export const getAllCRMPrimaryContact = (confTmp, setConf, loading, setLoading) =
 
 export const getAllCRMOwner = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, CRMOwners: true })
-  const requestParams = {
-    session_token: confTmp.session_token,
-    link_name: confTmp.link_name
-  }
 
-  bitsFetch(requestParams, 'salesmate_fetch_all_CRMOwners').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'salesmate_fetch_all_CRMOwners').then(result => {
     setLoading({ ...loading, CRMOwners: false })
     if (result && result.success) {
       setConf(prevConf => {

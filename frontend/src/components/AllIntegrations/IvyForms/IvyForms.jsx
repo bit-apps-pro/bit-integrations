@@ -53,14 +53,10 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <IvyFormsAuthorization
-        formID={formID}
         ivyFormsConf={ivyFormsConf}
         setIvyFormsConf={setIvyFormsConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

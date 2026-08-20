@@ -37,25 +37,6 @@ class SecureCustomFieldsController
         return \function_exists('is_plugin_active') && is_plugin_active('secure-custom-fields/secure-custom-fields.php');
     }
 
-    public static function isExists()
-    {
-        if (!self::isPluginActive()) {
-            wp_send_json_error(
-                __(
-                    'Secure Custom Fields is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
-    public static function secureCustomFieldsAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         if (empty($integrationData) || empty($integrationData->flow_details)) {

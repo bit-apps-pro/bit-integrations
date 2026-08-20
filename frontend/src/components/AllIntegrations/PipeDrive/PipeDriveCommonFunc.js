@@ -4,6 +4,9 @@ import toast from 'react-hot-toast'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
+const buildAuthRequestParams = confTmp =>
+  confTmp?.connection_id ? { connection_id: confTmp.connection_id } : { api_key: confTmp?.api_key }
+
 export const handleInput = (
   e,
   recordTab,
@@ -105,7 +108,7 @@ const moduleChange = (recordTab, formID, pipeDriveConf, setPipeDriveConf, setIsL
 }
 
 const refreshFields = (module, pipeDriveConf, setPipeDriveConf, recordTab) => {
-  const requestParams = { api_key: pipeDriveConf.api_key, module }
+  const requestParams = { ...buildAuthRequestParams(pipeDriveConf), module }
 
   bitsFetch(requestParams, 'PipeDrive_refresh_fields').then(result => {
     if (result && result.success) {
@@ -132,7 +135,7 @@ const refreshFields = (module, pipeDriveConf, setPipeDriveConf, recordTab) => {
 export const refreshOrganizations = (pipeDriveConf, setPipeDriveConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {
-    api_key: pipeDriveConf.api_key,
+    ...buildAuthRequestParams(pipeDriveConf),
     type: 'organizations'
   }
 
@@ -173,7 +176,7 @@ export const refreshOrganizations = (pipeDriveConf, setPipeDriveConf, setIsLoadi
 
 export const refreshPersons = (pipeDriveConf, setPipeDriveConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { api_key: pipeDriveConf.api_key, type: 'persons' }
+  const requestParams = { ...buildAuthRequestParams(pipeDriveConf), type: 'persons' }
 
   bitsFetch(requestParams, 'PipeDrive_fetch_meta_data')
     .then(result => {
@@ -212,7 +215,7 @@ export const refreshPersons = (pipeDriveConf, setPipeDriveConf, setIsLoading, se
 
 export const getAllOwners = (pipeDriveConf, setPipeDriveConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { api_key: pipeDriveConf.api_key, type: 'users' }
+  const requestParams = { ...buildAuthRequestParams(pipeDriveConf), type: 'users' }
 
   bitsFetch(requestParams, 'PipeDrive_fetch_meta_data')
     .then(result => {
@@ -251,7 +254,7 @@ export const getAllOwners = (pipeDriveConf, setPipeDriveConf, setIsLoading, setS
 
 export const getAllLeadLabels = (pipeDriveConf, setPipeDriveConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { api_key: pipeDriveConf.api_key, type: 'leadLabels' }
+  const requestParams = { ...buildAuthRequestParams(pipeDriveConf), type: 'leadLabels' }
 
   bitsFetch(requestParams, 'PipeDrive_fetch_meta_data')
     .then(result => {
@@ -289,7 +292,7 @@ export const getAllLeadLabels = (pipeDriveConf, setPipeDriveConf, setIsLoading, 
 }
 export const getAllCurrencies = (pipeDriveConf, setPipeDriveConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { api_key: pipeDriveConf.api_key, type: 'currencies' }
+  const requestParams = { ...buildAuthRequestParams(pipeDriveConf), type: 'currencies' }
 
   bitsFetch(requestParams, 'PipeDrive_fetch_meta_data')
     .then(result => {
@@ -328,7 +331,7 @@ export const getAllCurrencies = (pipeDriveConf, setPipeDriveConf, setIsLoading, 
 
 export const getDealStages = (pipeDriveConf, setPipeDriveConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const requestParams = { api_key: pipeDriveConf.api_key, type: 'stages' }
+  const requestParams = { ...buildAuthRequestParams(pipeDriveConf), type: 'stages' }
 
   bitsFetch(requestParams, 'PipeDrive_fetch_meta_data')
     .then(result => {
@@ -422,7 +425,7 @@ export const checkRequired = pipeDriveConf => {
 }
 
 export const handleAuthorize = (confTmp, setError, setisAuthorized, setIsLoading) => {
-  if (!confTmp.api_key) {
+  if (!confTmp.connection_id && !confTmp.api_key) {
     setError({
       api_key: !confTmp.api_key ? __("API Key can't be empty", 'bit-integrations') : ''
     })
@@ -430,7 +433,7 @@ export const handleAuthorize = (confTmp, setError, setisAuthorized, setIsLoading
   }
   setError({})
   setIsLoading(true)
-  const requestParams = { api_key: confTmp.api_key, type: 'persons' }
+  const requestParams = { ...buildAuthRequestParams(confTmp), type: 'persons' }
 
   bitsFetch(requestParams, 'PipeDrive_fetch_meta_data').then(result => {
     if (result && result.success) {

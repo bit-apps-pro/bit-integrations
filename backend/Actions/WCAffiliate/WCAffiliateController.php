@@ -13,18 +13,6 @@ use WP_Error;
  */
 class WCAffiliateController
 {
-    public static function authorize()
-    {
-        if (!self::isPluginReady()) {
-            wp_send_json_error(
-                __('WC Affiliate is not activated or not installed', 'bit-integrations'),
-                400
-            );
-        }
-
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
@@ -44,12 +32,5 @@ class WCAffiliateController
         }
 
         return $wcAffiliateResponse;
-    }
-
-    private static function isPluginReady()
-    {
-        return class_exists('\WC_Affiliate\Models\Affiliate')
-            && class_exists('\WC_Affiliate\Models\Referral')
-            && class_exists('\WC_Affiliate\Models\Transaction');
     }
 }

@@ -37,56 +37,53 @@ export const checkMappedFields = mailBlusterConf => {
   return true
 }
 
-export const mailBlusterAuthentication = (
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id ? { connection_id: confTmp.connection_id } : { auth_token: confTmp.auth_token }
+
+export const fetchCustomFields = (
   confTmp,
   setConf,
   setError,
   setIsAuthorized,
   loading,
   setLoading,
-  type
+  type = 'authentication'
 ) => {
-  if (!confTmp.auth_token) {
-    setError({
+  if (!confTmp.connection_id && !confTmp.auth_token) {
+    setError?.({
       auth_token: !confTmp.auth_token ? __("Api Key can't be empty", 'bit-integrations') : ''
     })
     return
   }
 
-  setError({})
+  setError?.({})
 
   if (type === 'authentication') {
     setLoading({ ...loading, auth: true })
   }
+
   if (type === 'refreshCustomFields') {
     setLoading({ ...loading, customFields: true })
   }
-  const requestParams = { auth_token: confTmp.auth_token }
 
-  bitsFetch(requestParams, 'mailBluster_authentication').then(result => {
+  bitsFetch(buildAuthRequestParams(confTmp), 'mailBluster_fetch_custom_fields').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
-      if (result.data) {
-        newConf.campaigns = result.data
-      }
+      newConf.customFields = result.data || []
       setConf(newConf)
-      setIsAuthorized(true)
+      setIsAuthorized?.(true)
+
       if (type === 'authentication') {
-        if (result.data) {
-          newConf.customFields = result.data
-        }
         setLoading({ ...loading, auth: false })
         toast.success(__('Authorized Successfully', 'bit-integrations'))
       } else if (type === 'refreshCustomFields') {
-        if (result.data) {
-          newConf.customFields = result.data
-        }
         setLoading({ ...loading, customFields: false })
-        toast.success(__('Custom fields fectched successfully', 'bit-integrations'))
+        toast.success(__('Custom fields fetched successfully', 'bit-integrations'))
       }
       return
     }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorized failed', 'bit-integrations'))
+
+    setLoading({ ...loading, auth: false, customFields: false })
+    toast.error(__('Authorization failed', 'bit-integrations'))
   })
 }

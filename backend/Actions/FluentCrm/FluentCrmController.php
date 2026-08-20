@@ -147,24 +147,6 @@ class FluentCrmController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * @return true Fluent crm are exists
-     */
-    public static function fluentCrmAuthorize()
-    {
-        if (self::checkedExistsFluentCRM()) {
-            wp_send_json_success(true);
-        } else {
-            wp_send_json_error(
-                __(
-                    'Please! Install Fluent CRM',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

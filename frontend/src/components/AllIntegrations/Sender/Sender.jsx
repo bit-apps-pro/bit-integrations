@@ -15,14 +15,12 @@ import { singleGroupActions } from './staticData'
 function Sender({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-  const [loading, setLoading] = useState({ field: false, auth: false, group: false })
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
   const [senderConf, setSenderConf] = useState({
     name: 'Sender',
     type: 'Sender',
-    api_token: '',
     field_map: [{ formField: '', senderField: '' }],
     mainAction: '',
     senderFields: [],
@@ -88,8 +86,6 @@ function Sender({ formFields, setFlow, flow, allIntegURL }) {
         setSenderConf={setSenderConf}
         step={step}
         setstep={setstep}
-        loading={loading}
-        setLoading={setLoading}
         setSnackbar={setSnackbar}
       />
 
