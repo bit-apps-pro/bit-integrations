@@ -25,6 +25,12 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
+    /**
+     * Email template must be activate as double optin, button link = {{ params.DOIur }}
+     *
+     * @param mixed $data
+     * @param mixed $integrationDetails
+     */
     public function insertRecordDoubleOpt($data, $integrationDetails)
     {
         $templateId = $integrationDetails->templateId;

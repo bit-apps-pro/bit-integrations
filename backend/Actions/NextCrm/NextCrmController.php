@@ -87,6 +87,13 @@ class NextCrmController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
+    /**
+     * NextCRM returns its dropdown sources as `[value => label]` maps.
+     *
+     * @param array $map
+     *
+     * @return array
+     */
     private static function toOptions($map)
     {
         $options = [];

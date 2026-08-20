@@ -84,6 +84,13 @@ class ZohoCampaignsController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh crm layouts
+     *
+     * @param object $queryParams Params to fetch contact fields
+     *
+     * @return JSON crm layout data
+     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)
@@ -185,6 +192,13 @@ class ZohoCampaignsController
         return $zcampaignsApiResponse;
     }
 
+    /**
+     * Helps to refresh zoho crm access_token
+     *
+     * @param object $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->dataCenter)
@@ -215,6 +229,15 @@ class ZohoCampaignsController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Zoho crm Integration
+     * @param Obeject    $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

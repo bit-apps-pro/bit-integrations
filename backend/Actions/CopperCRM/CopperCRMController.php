@@ -40,6 +40,14 @@ class CopperCRMController
         $action = $fieldsRequestParams->action;
         $apiEmail = $fieldsRequestParams->api_email;
 
+        // if ($action == 'person' || $action == 'company') {
+        //     $apiEndpoint = $this->apiEndpoint."/peoples/fields/definitions";
+        // } elseif ($action == 'opportunity') {
+        //     $apiEndpoint = $this->apiEndpoint."/opportunities/fields/definitions";
+        // } elseif ($action == 'task') {
+        //     $apiEndpoint = $this->apiEndpoint."/kases/fields/definitions";
+        // }
+
         $apiEndpoint = $this->apiEndpoint . '/custom_field_definitions';
         $headers = [
             'X-PW-AccessToken' => $apiKey,

@@ -229,6 +229,7 @@ class RecordApiHelper
             return new WP_Error('MISSING_SPACE_ID', __('Please select a space to update.', 'bit-integrations'));
         }
 
+        // lockVersion is required for update operations
         if (empty($this->lockVersion) || !is_numeric($this->lockVersion)) {
             return new WP_Error('MISSING_LOCK_VERSION', __('Lock version is required for updating space.', 'bit-integrations'));
         }
@@ -267,6 +268,14 @@ class RecordApiHelper
         return $response;
     }
 
+    /**
+     * Validates and sanitizes field values based on Fabman API field requirements
+     *
+     * @param string $fieldName The Fabman field name
+     * @param mixed  $value     The raw value to validate
+     *
+     * @return mixed|false The sanitized value or false if validation fails
+     */
     private function validateAndSanitizeField($fieldName, $value)
     {
         if ($this->isEmptyValue($value)) {

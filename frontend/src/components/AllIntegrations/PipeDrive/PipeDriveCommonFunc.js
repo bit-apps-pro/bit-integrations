@@ -50,6 +50,9 @@ export const handleInput = (
     } else {
       delete newConf.relatedlists[recordTab - 1][e.target.name]
     }
+  // if (pipeDriveConf.moduleData.module === 'Persons' && pipeDriveConf.moduleData.organization_id === undefined) {
+  //   return false
+  // }
   }
 
   switch (e.target.name) {

@@ -30,6 +30,9 @@ export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (val === 3) {
+      // Dropdown ids and the customer fields whose necessity depends on customerType
+      // are invisible to checkMappedFields; validateLatePointConf covers both, and the
+      // edit screen runs the same check.
       const selectionError = validateLatePointConf(latePointConf)
 
       if (selectionError) {

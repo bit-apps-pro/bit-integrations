@@ -76,6 +76,13 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh crm modules
+     *
+     * @param mixed $queryParams
+     *
+     * @return JSON crm module data
+     */
     public static function refreshDepartments($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -123,6 +130,13 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh crm layouts
+     *
+     * @param object $queryParams Params to fetch fields
+     *
+     * @return JSON crm layout data
+     */
     public static function refreshFields($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -198,6 +212,13 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh crm modules
+     *
+     * @param object $queryParams Params to refresh ticket owner
+     *
+     * @return JSON crm module data
+     */
     public static function refreshTicketOwners($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -243,6 +264,13 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh crm modules
+     *
+     * @param object $queryParams Params to refresh ticket Products
+     *
+     * @return JSON crm module data
+     */
     public static function refreshProducts($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -339,6 +367,18 @@ class ZohoDeskController
         return $zdeskApiResponse;
     }
 
+    /**
+     * Tells whether a Zoho Desk response should be treated as a failure.
+     *
+     * HttpHelper returns a WP_Error, the decoded JSON, or the raw body string. Zoho
+     * reports failures as a JSON object carrying `errorCode` and no `data` key, so a
+     * plain is_wp_error() check lets those through and the callers then read a missing
+     * `data` property.
+     *
+     * @param mixed $response
+     *
+     * @return bool
+     */
     protected static function isErrorResponse($response)
     {
         return is_wp_error($response)
@@ -373,6 +413,13 @@ class ZohoDeskController
         return $response->data;
     }
 
+    /**
+     * Helps to refresh zoho crm access_token
+     *
+     * @param array $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
     protected static function refreshAccessToken($apiData)
     {
         if (!\is_object($apiData)
@@ -404,6 +451,15 @@ class ZohoDeskController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Zoho desk Integration
+     * @param object     $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID) || empty($tokenDetails)) {

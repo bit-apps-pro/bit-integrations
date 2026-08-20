@@ -9,6 +9,8 @@ const CONNECTION_REGISTRY = {
 }
 
 export default function AddNewConnection(props) {
+  // Falls back to ApiConnection for CUSTOM / non-OAuth auth types
+  // (e.g. KirimEmail, ZendeskSupport).
   const Component = CONNECTION_REGISTRY[props?.authDetails?.authType] ?? ApiConnection
 
   return <Component {...props} />

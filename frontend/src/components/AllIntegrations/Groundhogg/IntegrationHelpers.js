@@ -6,6 +6,8 @@ export const addFieldMap = (i, confTmp, setConf) => {
   newConf.field_map.splice(i, 0, {})
   setConf({ ...newConf })
 }
+// export const handleMetaCustomFieldValue = (event, index, conftTmp, setConf) => {
+//   const newConf = { ...conftTmp }
 
 export const delFieldMap = (i, confTmp, setConf) => {
   const newConf = { ...confTmp }

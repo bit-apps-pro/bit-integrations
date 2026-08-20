@@ -190,6 +190,14 @@ class RecordApiHelper
         ];
     }
 
+    /**
+     * Map form fields to MailerPress fields
+     *
+     * @param array $fieldMap    Field mapping
+     * @param array $fieldValues Field values
+     *
+     * @return array
+     */
     private static function setFieldMap($fieldMap, $fieldValues)
     {
         $fieldData = [];

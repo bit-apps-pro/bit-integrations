@@ -122,6 +122,7 @@ export const nextCrmStaticData = {
   send_campaign_email: CampaignEmailFields
 }
 
+// Fixed option sets — rendered as selects, never mapped.
 export const activityStatusOptions = [
   { label: __('Active', 'bit-integrations'), value: 'active' },
   { label: __('Deactive', 'bit-integrations'), value: 'deactive' },

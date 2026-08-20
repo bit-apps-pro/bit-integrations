@@ -73,6 +73,14 @@ class RecordApiHelper
         return $response;
     }
 
+    /**
+     * Prepare field data from field map
+     *
+     * @param array $fieldMap    Field mapping
+     * @param array $fieldValues Field values
+     *
+     * @return array
+     */
     private static function setFieldMap($fieldMap, $fieldValues)
     {
         $fieldData = [];

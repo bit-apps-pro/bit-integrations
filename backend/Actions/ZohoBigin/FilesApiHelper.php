@@ -26,6 +26,17 @@ final class FilesApiHelper
         $this->_apiDomain = urldecode($tokenDetails->api_domain);
     }
 
+    /**
+     * Helps to execute upload files api
+     *
+     * @param mixed      $files     Files path
+     * @param mixed      $recordID  Record id
+     * @param string     $zohoField zoho bigin upload fieldname
+     * @param mixed      $module
+     * @param null|mixed $isPhoto
+     *
+     * @return array $uploadedFiles ID's of uploaded file in Zoho Bigin
+     */
     public function uploadFiles($files, $module, $recordID, $isPhoto = null)
     {
         $uploadFileEndpoint = '';

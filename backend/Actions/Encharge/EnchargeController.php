@@ -29,6 +29,13 @@ class EnchargeController
         $this->_integrationID = $integrationID;
     }
 
+    /**
+     * Process ajax request for refresh crm modules
+     *
+     * @param $queryParams Params for fetch headers
+     *
+     * @return JSON Encharge field
+     */
     public static function enchargeHeaders($queryParams)
     {
         if (empty($queryParams->api_key)) {

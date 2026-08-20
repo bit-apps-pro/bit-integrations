@@ -177,6 +177,9 @@ class OneDriveController
 
         if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
+            // refreshToken() returns false on failure. is_wp_error(false) is false and
+            // false->error reads as null, so this guard used to pass with a bool and every
+            // assignment below nulled the whole token.
             if (!\is_object($refreshToken) || is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
@@ -187,6 +190,8 @@ class OneDriveController
                 $token->generates_on = $refreshToken->generates_on;
                 $token->generated_at = $refreshToken->generated_at;
 
+                // Microsoft only returns refresh_token when offline_access is granted;
+                // without this guard a response that omits it wiped the stored one.
                 if (!empty($refreshToken->refresh_token)) {
                     $token->refresh_token = $refreshToken->refresh_token;
                 }

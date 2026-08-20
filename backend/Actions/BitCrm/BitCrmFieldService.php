@@ -8,6 +8,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Reads the field list of a module from Bit CRM itself. `{Module}Service::fields()`
+ * hands back the shipped fields, the site's label and required overrides, and the
+ * custom fields a Bit CRM Pro site defines, already merged.
+ */
 final class BitCrmFieldService
 {
     public const TYPE_LOOKUP = 'lookup';
@@ -89,6 +94,8 @@ final class BitCrmFieldService
         ];
 
         if (!empty($field['is_custom'])) {
+            // A custom field carries per-record data, so it stays a field map row
+            // even when it has options of its own.
             if (empty($field['status'])) {
                 return;
             }
@@ -149,6 +156,14 @@ final class BitCrmFieldService
         return $options;
     }
 
+    /**
+     * Bit CRM casts with boolval(), and boolval('false') is true, so a boolean
+     * option value has to travel as '1'/'0'.
+     *
+     * @param mixed $value
+     *
+     * @return string
+     */
     private static function toOptionValue($value)
     {
         if (\is_bool($value)) {

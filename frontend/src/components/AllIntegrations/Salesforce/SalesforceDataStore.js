@@ -48,6 +48,23 @@ export const eventSubject = [
   { label: __('Other', 'bit-integrations'), value: 'Other' }
 ]
 
+// export const casePriority = [
+//   { label: __('None', 'bit-integrations'), value: 'None' },
+//   { label: __('Low', 'bit-integrations'), value: 'Low' },
+//   { label: __('Medium', 'bit-integrations'), value: 'Medium' },
+//   { label: __('High', 'bit-integrations'), value: 'High' }
+// ]
+// export const potentialLiability = [
+//   { label: __('None', 'bit-integrations'), value: 'None' },
+//   { label: __('No', 'bit-integrations'), value: 'No' },
+//   { label: __('Yes', 'bit-integrations'), value: 'Yes' }
+// ]
+// export const slaViolation = [
+//   { label: __('None', 'bit-integrations'), value: 'None' },
+//   { label: __('No', 'bit-integrations'), value: 'No' },
+//   { label: __('Yes', 'bit-integrations'), value: 'Yes' }
+// ]
+
 export const taskSubject = [
   { label: __('Call', 'bit-integrations'), value: 'Call' },
   { label: __('Email', 'bit-integrations'), value: 'Email' },

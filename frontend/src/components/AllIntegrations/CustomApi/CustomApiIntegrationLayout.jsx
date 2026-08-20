@@ -24,6 +24,7 @@ const CustomApiIntegrationLayout = ({
   setStep
 }) => {
   const [tab, setTab] = useState(1)
+  // runs here, not in <PathParams />, so the mapping exists even if that tab is never opened
   usePathParamsSync(customApiConf, setCustomApiConf, !isInfo)
   const actionMethods = [
     { value: 'GET', label: __('GET', 'bit-integrations') },
@@ -33,6 +34,12 @@ const CustomApiIntegrationLayout = ({
     { value: 'PATCH', label: __('PATCH', 'bit-integrations') }
   ]
 
+  // const contentTypes = [
+  //     { value: 'application/json', label: 'application/json' },
+  //     { value: 'application/x-www-form-urlencoded', label: 'application/x-www-form-urlencoded' },
+  //     { value: 'multipart/form-data', label: 'multipart/form-data' },
+  //     { value: 'text/plain', label: 'text/plain'}
+  // ]
   const setValue = (val, name) => {
     const newConf = deepCopy(customApiConf)
     if (val) {

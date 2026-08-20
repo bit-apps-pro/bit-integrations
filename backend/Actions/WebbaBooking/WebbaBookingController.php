@@ -200,6 +200,13 @@ class WebbaBookingController
         return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
+    /**
+     * Resolve a Webba table name by suffix and confirm it exists.
+     *
+     * @param string $suffix table suffix, e.g. 'wbk_appointments'
+     *
+     * @return null|string full table name when the table exists, null otherwise
+     */
     private static function resolveTable($suffix)
     {
         $cacheKey = Config::withPrefix('webba_table_' . $suffix);

@@ -48,6 +48,14 @@ class CustomFuncValidator
         $data->flow_details->funcFileLocation = $fileWriteResult['fileLocation'];
     }
 
+    /**
+     * Handles the loopback scrape request for a custom action file.
+     * Registers its own shutdown function to output result markers so we are
+     * not dependent on WP's wp_start_scraping_edited_file_errors(), which only
+     * runs during full admin page loads and never for admin-ajax.php requests.
+     *
+     * @param object $data Sanitized GET params (bit_integrations_scrape_key).
+     */
     public static function scrapeCustomActionFile($data)
     {
         if (empty($data->bit_integrations_scrape_key)) {
@@ -61,6 +69,9 @@ class CustomFuncValidator
             wp_die(0);
         }
 
+        // This route is no_auth()/ignore_token() by necessity (the loopback is an
+        // unauthenticated self-request), so confine the include here too rather than
+        // trusting the transient alone.
         $fileLocation = self::resolveCustomFunctionFile($fileLocation);
 
         if ($fileLocation === '') {
@@ -78,8 +89,12 @@ class CustomFuncValidator
             echo "\n{$needleStart}\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
             if (!empty($error) && \in_array($error['type'], $fatalTypes, true)) {
+                // Take the first line only — PHP 8 uncaught errors include a multi-line
+                // stack trace with absolute file paths on every line.
                 $message = strtok($error['message'], "\n");
 
+                // Strip the trailing " in /path/file.php on line N" (PHP 7/8 parse/fatal)
+                // or " in /path/file.php:N" (PHP 8 uncaught Error short format).
                 $message = (string) preg_replace('/ in .+\.php(:\d+| on line \d+)$/', '', (string) $message);
 
                 echo wp_json_encode([ // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -100,6 +115,15 @@ class CustomFuncValidator
         wp_die();
     }
 
+    /**
+     * Validates PHP code via the loopback check without saving a permanent file.
+     * Writes a temporary file, runs the loopback, then deletes the temp file.
+     * Calls wp_send_json_error() and returns false on any PHP fatal; returns true on success.
+     *
+     * @param string $fileContent PHP code to validate.
+     *
+     * @return bool
+     */
     public static function loopbackValidateContent($fileContent)
     {
         if (self::fileModsDisabled()) {
@@ -127,6 +151,7 @@ class CustomFuncValidator
             return false;
         }
 
+        // previousContent is null so loopbackCheck deletes the temp file on failure.
         $passed = self::loopbackCheck($tmpFile, null, $wp_filesystem);
 
         if ($passed) {
@@ -136,36 +161,73 @@ class CustomFuncValidator
         return $passed;
     }
 
+    /**
+     * Whether $fileContent opens with a real "not loaded by WordPress -> stop" guard.
+     *
+     * The previous check only looked for the substring "defined('ABSPATH')" anywhere in the
+     * file, which a comment satisfied. This matters beyond tidiness: the custom-function
+     * directory is protected by .htaccess (Apache) and web.config (IIS), and neither applies
+     * on nginx, where /wp-content/uploads/**\/*.php is normally handed to PHP-FPM. The guard
+     * in the file itself is the only portable defence, so it has to actually be there.
+     *
+     * @param string $fileContent
+     *
+     * @return bool
+     */
     private static function hasAbspathGuard($fileContent)
     {
         if (!\is_string($fileContent) || $fileContent === '') {
             return false;
         }
 
+        // if ( ! defined( 'ABSPATH' ) ) { exit; }  — tolerant of spacing, quote style,
+        // braces, and exit/die/return, but the terminator must follow the condition.
         $pattern = '/if\s*\(\s*!\s*(?:\\\\)?defined\s*\(\s*[\'"]ABSPATH[\'"]\s*\)\s*\)\s*\{?\s*(?:exit|die|return)\b/i';
 
         if (!preg_match($pattern, $fileContent, $matches, PREG_OFFSET_CAPTURE)) {
             return false;
         }
 
+        // Must guard the whole file, not sit halfway down it: nothing executable may
+        // precede it. Allow the opening tag, whitespace, comments and declare().
         $prefix = substr($fileContent, 0, $matches[0][1]);
         $prefix = preg_replace('/<\?php|<\?=|\/\*.*?\*\/|\/\/[^\r\n]*|#[^\r\n]*|declare\s*\([^)]*\)\s*;?/s', '', $prefix);
 
         return trim((string) $prefix) === '';
     }
 
+    /**
+     * Whether file modifications are disabled for this site.
+     * Custom actions write and include PHP on disk, so they must honour the
+     * standard WordPress lockdown constants.
+     *
+     * @return bool
+     */
     private static function fileModsDisabled()
     {
         return (\defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)
             || (\defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT);
     }
 
+    /**
+     * Resolve a stored custom-action file path to a real file inside the custom-function
+     * directory, or '' when it points anywhere else.
+     *
+     * funcFileLocation travels in flow_details, which is caller-supplied JSON. Everything
+     * that include()s it must confine it first: an absolute path that merely exists is not
+     * proof the plugin wrote it.
+     *
+     * @param string $fileLocation
+     *
+     * @return string Absolute path inside the custom-function directory, or ''.
+     */
     public static function resolveCustomFunctionFile($fileLocation)
     {
         if (!\is_string($fileLocation) || $fileLocation === '') {
             return '';
         }
 
+        // Reject stream wrappers (phar://, http://) before touching the filesystem.
         if (wp_parse_url($fileLocation, PHP_URL_SCHEME) !== null) {
             return '';
         }
@@ -194,6 +256,20 @@ class CustomFuncValidator
         return strpos($real, $base) === 0 ? $real : '';
     }
 
+    /**
+     * Resolve (and, on first use, create + lock down) the directory that holds
+     * custom-action PHP files.
+     *
+     * These files are executable PHP that gets include()d on every flow run, so
+     * they must never live at the uploads root where the web server would serve
+     * them directly. The directory is dropped under uploads with index.php +
+     * .htaccess + web.config guards so it is not web-reachable; include() from
+     * disk (the loopback + Flow engine) is unaffected by those guards.
+     *
+     * @param WP_Filesystem_Base $wp_filesystem
+     *
+     * @return string Absolute directory path, or '' on failure.
+     */
     private static function customFunctionDir($wp_filesystem)
     {
         $uploadDir = wp_upload_dir();
@@ -207,6 +283,7 @@ class CustomFuncValidator
             return '';
         }
 
+        // Deny direct web access. Written once; harmless to re-assert.
         $guards = [
             'index.php'  => "<?php\n// Silence is golden.\n",
             '.htaccess'  => "# Bit Integrations custom functions — deny direct access\n<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nOrder allow,deny\nDeny from all\n</IfModule>\n",
@@ -223,6 +300,14 @@ class CustomFuncValidator
         return $dir;
     }
 
+    /**
+     * Initialize filesystem, resolve file path, and write custom function content.
+     *
+     * @param string $fileName
+     * @param string $fileContent
+     *
+     * @return array{filesystem: WP_Filesystem_Base, fileLocation: string, previousContent: string|null}|false
+     */
     private static function writeCustomFunctionFile($fileName, $fileContent)
     {
         $wp_filesystem = FileSystem::instance();
@@ -257,8 +342,24 @@ class CustomFuncValidator
         ];
     }
 
+    /**
+     * Mirrors wp_edit_theme_plugin_file()'s loopback check.
+     * Sets up wp_scrape_key/wp_scrape_nonce transients so WP's built-in
+     * wp_start_scraping_edited_file_errors() registers the shutdown handler,
+     * makes a loopback request to include the written file, parses the result
+     * markers, and rolls back the file on any PHP fatal.
+     *
+     * @param string             $fileLocation    Absolute path to the written file.
+     * @param string|null        $previousContent Previous file content for rollback, or null if new.
+     * @param WP_Filesystem_Base $wp_filesystem
+     *
+     * @return bool True on success, false if a fatal was detected (error already sent).
+     */
     private static function loopbackCheck($fileLocation, $previousContent, $wp_filesystem)
     {
+        // Not md5(wp_rand()): wp_rand() returns an int below mt_getrandmax(), so hashing it
+        // leaves only ~2^31 possible keys — enumerable inside the 60s window by anyone, since
+        // the scrape route is unauthenticated. random_bytes() gives a real 128-bit key.
         $scrapeKey = bin2hex(random_bytes(16));
 
         set_transient(Config::withPrefix('scrape_file_') . $scrapeKey, $fileLocation, 60);
@@ -272,6 +373,7 @@ class CustomFuncValidator
 
         $headers = ['Cache-Control' => 'no-cache'];
 
+        /** This filter is documented in wp-includes/class-wp-http-streams.php */
         $sslverify = apply_filters('https_local_ssl_verify', false); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
         if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
@@ -333,6 +435,14 @@ class CustomFuncValidator
         return true;
     }
 
+    /**
+     * Converts a raw loopback scrape result into a safe, user-readable message.
+     * Strips server file paths from PHP error strings before sending to the frontend.
+     *
+     * @param array $result Decoded scrape result.
+     *
+     * @return string
+     */
     private static function formatLoopbackError($result)
     {
         if (isset($result['code']) && $result['code'] === 'loopback_request_failed') {

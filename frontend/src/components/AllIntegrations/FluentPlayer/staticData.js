@@ -57,6 +57,10 @@ export const modules = [
   { name: 'delete_preset', label: __('Delete Preset', 'bit-integrations'), is_pro: true }
 ]
 
+// The field map carries free text plus the REQUIRED identifier of the record the
+// action targets (media id, playlist id, tag name…) so it can be mapped from
+// trigger data. Optional or non-identifying values that can be fetched — preset,
+// tags, attachment, an optional media/user — are dropdowns the user picks.
 const mediaId = { key: 'media_id', label: __('Media Id', 'bit-integrations'), required: true }
 const playlistId = { key: 'playlist_id', label: __('Playlist Id', 'bit-integrations'), required: true }
 
@@ -144,6 +148,7 @@ export const FluentPlayerStaticData = {
   delete_preset: []
 }
 
+// ---- Fixed option sets (selects, never mapped) ----
 export const providerOptions = [
   { label: __('WordPress Media', 'bit-integrations'), value: 'wordpress' },
   { label: __('YouTube', 'bit-integrations'), value: 'youtube' },
@@ -173,6 +178,7 @@ export const endedOptions = [
   { label: __('No', 'bit-integrations'), value: '0' }
 ]
 
+// ---- Fetched dropdowns (user picks; never an action's required identifier) ----
 export const needsPreset = [
   'create_media',
   'update_media',
@@ -195,4 +201,5 @@ export const needsOptionalUser = ['create_email_submission', 'record_visit']
 export const needsProvider = ['create_media', 'update_media']
 export const needsPostStatus = ['change_media_status', 'change_playlist_status']
 
+// ---- Optional option selects in the Utilities section ----
 export const hasUtilities = ['create_media', 'update_media', 'record_watch_progression']

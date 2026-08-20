@@ -57,6 +57,7 @@ function Settings() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Fetch analytics/check — route exists only when pro plugin active
     const fetchAnalytics = bitsFetch({}, 'analytics/check', '', 'GET').then(res => {
       if (res?.success) setShowAnalyticsOptin(res.data)
     })

@@ -34,6 +34,9 @@ class CustomActionController
     {
         $integId = $integrationData->id;
 
+        // funcFileLocation arrives inside flow_details (caller-supplied JSON), so file_exists()
+        // alone would include any readable PHP on the box. Only ever run a file the plugin
+        // itself wrote into the custom-function directory.
         $funcFileLocation = CustomFuncValidator::resolveCustomFunctionFile(
             $integrationData->flow_details->funcFileLocation ?? ''
         );

@@ -8,6 +8,12 @@ if (!defined('ABSPATH')) {
 
 use Exception;
 
+/**
+ * Thrown by auth strategies when credentials cannot be produced (missing
+ * fields, decrypt failure, invalid handler config). Must never escape the
+ * Flow engine: ApiClient::request() converts it to ApiResponse::failure(),
+ * and CredentialInjector::inject() catches all Throwables.
+ */
 class AuthorizationException extends Exception
 {
     private $errorDetails;

@@ -17,6 +17,7 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
+  // const [snack, setSnackbar] = useState({ show: false })
   const fields = [
     { key: 'name', label: __('Name', 'bit-integrations'), required: false },
     { key: 'email', label: __('Email', 'bit-integrations'), required: true },
@@ -58,6 +59,7 @@ function Getgist({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (!checkMappedFields(getgistConf)) {
+      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
     }

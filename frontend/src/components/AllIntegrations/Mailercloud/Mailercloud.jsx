@@ -15,6 +15,24 @@ function Mailercloud({ formFields, setFlow, flow, allIntegURL }) {
     auth: false,
     list: false,
     page: false
+  // mailercloudFields: [
+  //   { key: 'city', label: 'City', required: false },
+  //   { key: 'country', label: 'Country', required: false },
+  //   { key: 'department', label: 'Department', required: false },
+  //   { key: 'dob', label: 'Dob', required: false },
+  //   { key: 'email', label: 'Email', required: true },
+  //   { key: 'industry', label: 'Industry', required: false },
+  //   { key: 'job_title', label: 'Job Title', required: false },
+  //   { key: 'last_name', label: 'Last Name', required: false },
+  //   { key: 'lead_source', label: 'Lead Source', required: false },
+  //   { key: 'middle_name', label: 'Middle Name', required: false },
+  //   { key: 'name', label: 'Name', required: false },
+  //   { key: 'organization', label: 'Organization', required: false },
+  //   { key: 'phone', label: 'Phone', required: false },
+  //   { key: 'salary', label: 'Salary', required: false },
+  //   { key: 'state', label: 'State', required: false },
+  //   { key: 'zip', label: 'Zip', required: false },
+  // ],
   })
   const [mailercloudConf, setMailercloudConf] = useState({
     name: 'Mailercloud',

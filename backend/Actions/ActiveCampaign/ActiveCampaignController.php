@@ -33,6 +33,13 @@ class ActiveCampaignController
         return "{$api_url}/api/3/{$method}/";
     }
 
+    /**
+     * Process ajax request for refresh lists
+     *
+     * @param $queryParams Params to fetch list
+     *
+     * @return JSON active campaign list data
+     */
     public static function activeCampaignLists($queryParams)
     {
         if (

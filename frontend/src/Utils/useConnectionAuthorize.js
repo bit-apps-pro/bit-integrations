@@ -3,6 +3,21 @@ import toast from 'react-hot-toast'
 import { saveConnection } from './connectionApi'
 import { __ } from './i18nwrap'
 
+// Shared "authorize -> save -> toast -> setConfig" tail plus the
+// isLoading / isAuthorized / errors state used by the OAuth connection
+// components. Each component supplies:
+//   - validate:          () => errorsObject  (empty object === valid)
+//   - flowFn:            async () => authResult  (its distinct network flow;
+//                        may throw to surface a failure through the shared catch)
+//   - buildSavePayload:  (authResult) => the saveConnection() payload (distinct
+//                        per component: auth_type, auth_details shape, encrypt_keys)
+//   - buildConfigUpdate: (connection) => extra fields merged into setConfig
+//                        alongside connection_id (optional; defaults to {})
+//   - onConnectionSaved / setConfig: passed straight through from props.
+//
+// The shared save-failure / success / catch toast text and the
+// setIsAuthorized(true) tail are owned here so they stay identical across the
+// OAuth flows.
 export default function useConnectionAuthorize({
   validate,
   flowFn,
@@ -29,6 +44,8 @@ export default function useConnectionAuthorize({
       const saveRes = await saveConnection(buildSavePayload(authResult))
 
       if (!saveRes?.success) {
+        // A prior attempt may have set isAuthorized; a failed re-auth must clear it
+        // so the button/step doesn't stay in the "Authorized" state on stale creds.
         setIsAuthorized(false)
         const reason = saveRes?.data?.data || saveRes?.data || ''
         toast.error(`${__('Failed to save connection Cause:', 'bit-integrations')}${reason}`)

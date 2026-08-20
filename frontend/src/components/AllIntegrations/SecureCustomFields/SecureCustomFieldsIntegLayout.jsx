@@ -64,6 +64,7 @@ export default function SecureCustomFieldsIntegLayout({
         }
 
         draftConf.field_map = generateMappedField(draftConf.secureCustomFieldsFields)
+        // Clear dynamic-only config so it doesn't persist into a non-dynamic save.
         draftConf.postId = ''
         draftConf.groupName = ''
         draftConf.repeaterName = ''

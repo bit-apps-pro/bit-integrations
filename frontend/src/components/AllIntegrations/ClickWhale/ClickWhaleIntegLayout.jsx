@@ -38,10 +38,14 @@ export default function ClickWhaleIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  // Authors live here rather than on conf so they are not persisted into
+  // flow_details every time the flow is saved.
   const [lists, setLists] = useState({})
 
   const mainAction = clickWhaleConf?.mainAction
 
+  // Populate the dropdown for whatever action is already selected. Matters most on
+  // the edit screen, where handleMainAction never runs.
   useEffect(() => {
     if (listsForAction(mainAction).length > 0) {
       refreshClickWhaleAuthors(setLists, setIsLoading)
@@ -64,6 +68,7 @@ export default function ClickWhaleIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.clickWhaleFields)
       })
     )
+  // The effect above fetches the lists this action needs.
   }
 
   return (
@@ -92,6 +97,10 @@ export default function ClickWhaleIntegLayout({
           <div className="flx">
             <b className="wdt-200 d-in-b">{__('Author:', 'bit-integrations')}</b>
             <MultiSelect
+              // MultiSelect matches defaultValue against its options in an effect keyed
+              // on defaultValue alone, never on the options. Authors are fetched after
+              // mount, so without remounting once they land, a saved author would match
+              // nothing and render blank while conf still held the id.
               key={`selectedAuthor-${lists?.authors?.length ?? 0}`}
               title="selectedAuthor"
               defaultValue={clickWhaleConf?.selectedAuthor ?? null}

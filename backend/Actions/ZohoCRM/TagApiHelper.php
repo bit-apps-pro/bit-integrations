@@ -24,6 +24,11 @@ final class TagApiHelper
         $this->_module = $module;
     }
 
+    /**
+     * Helps to get Tags List of zcrm module
+     *
+     * @return array|object|WP_Error $tags Tags List
+     */
     public function getTagList()
     {
         $getTagsEndpoint = "{$this->_apiDomain}/settings/tags";
@@ -46,6 +51,14 @@ final class TagApiHelper
         return $tags;
     }
 
+    /**
+     * Helps to add Tags to a specific record of a module
+     *
+     * @param int    $recordID ID of record to add tags
+     * @param string $tagNames urlencoded string of tag names
+     *
+     * @return Json $addTagsResponse Tags List
+     */
     public function addTagsSingleRecord($recordID, $tagNames)
     {
         $addTagsEndpoint = "{$this->_apiDomain}/{$this->_module}/{$recordID}/actions/add_tags";

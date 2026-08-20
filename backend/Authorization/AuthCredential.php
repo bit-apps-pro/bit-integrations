@@ -6,6 +6,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Immutable value object describing where and how a request is authenticated:
+ * either headers to merge into the request, or parameters to append to the
+ * query string.
+ */
 final class AuthCredential
 {
     public const LOCATION_HEADER = 'header';

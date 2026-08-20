@@ -148,6 +148,8 @@ class KeapController
         $tokenDetails->generates_on = time();
         $tokenDetails->access_token = $apiResponse->access_token;
 
+        // Keap rotates refresh_token on every refresh, but a response that omits it must
+        // not wipe the stored one — that leaves nothing to refresh with next time.
         if (!empty($apiResponse->refresh_token)) {
             $tokenDetails->refresh_token = $apiResponse->refresh_token;
         }
@@ -155,6 +157,14 @@ class KeapController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param object $integrationData Details of flow
+     * @param array  $fieldValues     Data to send Mail Chimp
+     *
+     * @return null
+     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

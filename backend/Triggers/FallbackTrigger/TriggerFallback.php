@@ -739,6 +739,7 @@ final class TriggerFallback
         if (\array_key_exists('form_random_key', $posted_data) === false) {
             return;
         }
+        // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
         $form_id = strpos($posted_data['form_random_key'], '101') === 0;
         if (!$form_id) {
             return;
@@ -882,6 +883,7 @@ final class TriggerFallback
             return;
         }
 
+        // array to string conversion for radio and Select Fields
         $data = [];
         foreach ($fields as $key => $value) {
             $fieldId = str_replace('form-field-', '', $key);
@@ -2766,6 +2768,7 @@ final class TriggerFallback
         $img = str_replace(' ', '+', $img);
         $decoded = base64_decode($img);
 
+        // Reject content that isn't a valid PNG (magic bytes \x89PNG).
         if (substr($decoded, 0, 4) !== "\x89PNG") {
             return $base64_img;
         }
@@ -2773,6 +2776,7 @@ final class TriggerFallback
         $filename = sanitize_file_name($title) . '.png';
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
+        // Save the image in the uploads directory.
         $upload_file = FileSystem::write($upload_path . '/' . $hashed_filename, $decoded);
         if ($upload_file) {
             return $upload_path . '/' . $hashed_filename;
@@ -2808,6 +2812,7 @@ final class TriggerFallback
             $form_data = $submission;
 
             foreach ($form_data as $key => $val) {
+                // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
                 if (strpos($key, 'signature') !== false) {
                     $decodedSignature = self::safeMaybeUnserialize($val);
                     $baseUrl = \is_array($decodedSignature) ? ($decodedSignature['signature_raster_data'] ?? '') : '';
@@ -4866,6 +4871,7 @@ final class TriggerFallback
         }
     }
 
+    // main function was empty in the orginal file
     public static function handleThemifySubmit()
     {
     }
@@ -4898,6 +4904,7 @@ final class TriggerFallback
         }
     }
 
+    // main function was unavailable in the orginal file
     public static function thriveApprenticeHandleLessonComplete()
     {
     }
@@ -5744,6 +5751,16 @@ final class TriggerFallback
         return $filteredFlows;
     }
 
+    /**
+     * Decode a HappyForms field value without instantiating PHP objects.
+     * Mirrors maybe_unserialize() but blocks PHP object injection (CWE-502)
+     * by passing allowed_classes => false to unserialize(). Legitimate
+     * signature/attachment payloads are plain arrays and decode unchanged.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
     private static function safeMaybeUnserialize($value)
     {
         if (\is_string($value) && is_serialized($value)) {

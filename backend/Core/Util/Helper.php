@@ -12,6 +12,11 @@ use WP_Error;
 
 final class Helper
 {
+    /**
+     * string to array convert with separator
+     *
+     * @param mixed $data
+     */
     public static function splitStringToarray($data)
     {
         $params = new stdClass();
@@ -80,6 +85,7 @@ final class Helper
 
             $imgFileName = basename($file);
 
+            // Get file content using WordPress HTTP API for remote files
             if (filter_var($file, FILTER_VALIDATE_URL)) {
                 $response = Common::safeRemoteGet($file);
                 if (is_wp_error($response)) {
@@ -94,6 +100,7 @@ final class Helper
                 $fileContent = FileSystem::read($safeFilePath);
             }
 
+            // prepare upload image to WordPress Media Library
             $upload = wp_upload_bits($imgFileName, null, $fileContent);
 
             if (!empty($upload['error']) || !isset($upload['file'])) {
@@ -317,6 +324,7 @@ final class Helper
                 $fieldName = $field['name'] ?? $fieldKey;
                 $metaKey = null;
 
+                // if field matches booster for woocommerce plugin custom key format
                 if (strpos($fieldKey, "{$groupKey}_wcj_checkout_field_") !== false) {
                     if ($isOrderObject) {
                         if ($order->meta_exists($fieldName)) {
@@ -437,6 +445,16 @@ final class Helper
         return $formattedData;
     }
 
+    /**
+     * Append one key to the readable label path. List indexes stay glued to the
+     * key they belong to ("Items 0") instead of eating a whole segment, and a
+     * key repeating its parent is dropped.
+     *
+     * @param array      $labelPath
+     * @param int|string $key
+     *
+     * @return array
+     */
     private static function appendLabelSegment($labelPath, $key)
     {
         $segment = trim(ucwords(str_replace('_', ' ', (string) $key)));
@@ -458,6 +476,16 @@ final class Helper
         return $labelPath;
     }
 
+    /**
+     * Collapse a deep label path so a nested field stays identifiable without
+     * printing every ancestor: root + "..." + the last segments.
+     *
+     * @param array $labelPath
+     * @param int   $maxSegments
+     * @param int   $maxLength
+     *
+     * @return string
+     */
     private static function shortenLabel($labelPath, $maxSegments = 3, $maxLength = 55)
     {
         if (\count($labelPath) > $maxSegments) {
@@ -470,6 +498,7 @@ final class Helper
             return $label;
         }
 
+        // keep the tail (the field itself) and never cut mid word
         $tail = mb_substr($label, -($maxLength - 3));
         $spaceAt = mb_strpos($tail, ' ');
 
@@ -572,11 +601,26 @@ final class Helper
         return html_entity_decode($string);
     }
 
+    /**
+     * Sanitize the key by removing unwanted characters.
+     *
+     * @param string $parentKey The parent key to prepend.
+     * @param string $itemKey   The current key.
+     *
+     * @return string The sanitized and combined key.
+     */
     private static function sanitizeKey($parentKey, $itemKey)
     {
         return $parentKey . '_' . str_replace(['*', \chr(0)], '', $itemKey);
     }
 
+    /**
+     * Sanitize the value by trimming spaces and handling empty values.
+     *
+     * @param mixed $value The value to sanitize.
+     *
+     * @return mixed The sanitized value.
+     */
     private static function sanitizeValue($value)
     {
         return $value ? trim($value) : $value;

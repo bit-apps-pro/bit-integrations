@@ -1,5 +1,9 @@
 import { __, sprintf } from '../../Utils/i18nwrap'
 
+// `note` is expected to be trusted, developer-authored markup (formatting like
+// <ul>/<li>/<b>). As defence-in-depth against a caller ever passing dynamic or
+// remote text, strip the active-content vectors before rendering: <script>/<style>/
+// <iframe>-style blocks, inline event handlers, and javascript:/data: URLs.
 const sanitizeNoteHtml = html => {
   if (typeof html !== 'string') return ''
   return html

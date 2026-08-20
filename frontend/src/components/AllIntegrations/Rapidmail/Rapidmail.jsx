@@ -64,9 +64,11 @@ function Rapidmail({ formFields, setFlow, flow, allIntegURL }) {
     )
     resp.then(res => {
       if (res.success) {
+        // setSnackbar({ show: true, msg: res.data?.msg })
         toast.success(res.data?.msg)
         navigate(allIntegURL)
       } else {
+        // setSnackbar({ show: true, msg: res.data || res })
         toast.error(res.data || res)
       }
     })
@@ -77,6 +79,7 @@ function Rapidmail({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (!checkMappedFields(rapidmailConf)) {
+      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
     }

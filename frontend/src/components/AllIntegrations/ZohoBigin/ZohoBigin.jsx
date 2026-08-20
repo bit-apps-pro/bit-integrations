@@ -87,6 +87,7 @@ function ZohoBigin({ allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
+          // disabled={biginConf.module === '' || biginConf.field_map.length < 1}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}

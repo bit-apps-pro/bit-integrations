@@ -11,6 +11,12 @@ use WP_Error;
 
 class MailerPressController
 {
+    /**
+     * Validate if MailerPress plugin exists or not. If not exists then terminate
+     * request and send an error response.
+     *
+     * @return void
+     */
     public static function isExists()
     {
         if (!class_exists('\MailerPress\Core\Kernel')) {
@@ -24,6 +30,11 @@ class MailerPressController
         }
     }
 
+    /**
+     * Process ajax request for refresh lists
+     *
+     * @return JSON list data
+     */
     public function refreshLists()
     {
         self::isExists();
@@ -48,6 +59,11 @@ class MailerPressController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh tags
+     *
+     * @return JSON tag data
+     */
     public function refreshTags()
     {
         self::isExists();

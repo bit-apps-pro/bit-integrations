@@ -49,6 +49,17 @@ final class ConnectionController
         'updated_at',
     ];
 
+    /**
+     * Credentials that must be encrypted at rest for a given auth type, regardless
+     * of what the client asked for.
+     *
+     * encrypt_keys arrives from the client, so without a server-side floor a caller
+     * (or an integration that simply forgets to declare its keys) can have secrets
+     * written to the database in plaintext. Mirrors defaultEncryptKeys in
+     * frontend/src/Utils/connectionAuth.js.
+     *
+     * @var array<string, string[]>
+     */
     private const ENCRYPT_KEY_FLOOR = [
         AuthorizationType::API_KEY      => ['value'],
         AuthorizationType::BASIC_AUTH   => ['username', 'password'],
@@ -57,6 +68,14 @@ final class ConnectionController
         AuthorizationType::OAUTH1       => ['consumer_secret', 'access_token', 'access_token_secret'],
     ];
 
+    /**
+     * Auth types with no fixed credential shape, so no floor can be derived for them.
+     *
+     * These must declare their own encrypt_keys; a save that omits them is rejected
+     * rather than stored. Defaulting to [] instead would mean "encrypt nothing" —
+     * the secrets would be written to the database in plaintext AND handed back in
+     * full by getById/save, which is the opposite of a safe default.
+     */
     private const ENCRYPT_KEYS_REQUIRED_TYPES = [
         AuthorizationType::CUSTOM,
     ];
@@ -131,6 +150,15 @@ final class ConnectionController
             wp_send_json_error($payload->get_error_message());
         }
 
+        // Upsert policy: same (app_slug, auth_type, account_name) is treated as the same
+        // connection and gets refreshed. Prevents accidental duplicates when
+        // re-authorizing the same account from a flow builder.
+        //
+        // Requires a caller-supplied account_name. A backfilled one is derived from the
+        // app slug, so matching on it would make every nameless connection for an app
+        // collide and overwrite the previous one's credentials. Without a real account
+        // name a new row is the only safe outcome: a duplicate is recoverable, a
+        // clobbered credential is not.
         $existingId = empty($payload['account_name_provided'])
             ? 0
             : $this->findExistingIdForAccount(
@@ -224,6 +252,10 @@ final class ConnectionController
             wp_send_json_error($existing->get_error_message());
         }
 
+        // Inherit the row's existing encrypt_keys when the request omits them, on top of
+        // the floor for its auth type. Re-resolving from the request alone would let a
+        // reauthorize that simply does not send the field rewrite encrypt_keys to '' and
+        // store the new credentials in plaintext.
         $payload = [
             'app_slug'        => $existing->app_slug,
             'auth_type'       => (string) $existing->auth_type,
@@ -300,6 +332,8 @@ final class ConnectionController
         }
 
         try {
+            // connectionId 0 + an override is the inline-credential seam: nothing is
+            // persisted yet, so the handler reads the posted details directly.
             $handler = AuthorizationFactory::getAuthorizationHandler($authType, 0, $appSlug);
             $handler->setAuthDetailsOverride($authDetails);
             $result = (new ConnectionTestApi($handler))->test($apiEndpoint, $method, $payload, $headers);
@@ -330,6 +364,9 @@ final class ConnectionController
     {
         $this->guard();
 
+        // Deleting a connection requires a delete-scoped capability (mirrors flow
+        // deletion, Flow::deleteFlow) — the generic manage/create/edit guard above
+        // is not sufficient for a destructive action.
         if (
             !Capabilities::Check('manage_options')
             && !Capabilities::Check(Config::withPrefix('manage_integrations'))
@@ -375,6 +412,16 @@ final class ConnectionController
         wp_send_json_success(['id' => $id]);
     }
 
+    /**
+     * Confirm a WordPress-plugin Plugin is installed/active. No DB persistence —
+     * caller supplies a check spec (class/function/constant/plugin_file) with
+     * AND/OR logic (optionally grouped) and PluginCheck evaluates it.
+     *
+     * Spec sanitization lives in PluginCheck so this controller stays a thin
+     * adapter from the request shape to the evaluator.
+     *
+     * @param mixed $request
+     */
     public function verifyPluginActivation($request)
     {
         $this->guard();
@@ -399,6 +446,12 @@ final class ConnectionController
         wp_send_json_success(['available' => true]);
     }
 
+    /**
+     * Server-side OAuth2 token exchange (auth_code, pkce, client_credentials, refresh_token).
+     * Browsers cannot reach token endpoints (no CORS) and must not hold client_secret.
+     *
+     * @param mixed $request
+     */
     public function oauth2Exchange($request)
     {
         $this->guard();
@@ -422,6 +475,11 @@ final class ConnectionController
 
         $options = [];
 
+        // TLS verification is deliberately not negotiable from the request. This exchange
+        // sends client_secret and receives access_token, so honouring a client-supplied
+        // ssl_verify=false would hand an attacker a MITM on the credential itself. The URL
+        // is already pinned to public HTTPS, where a valid certificate is the norm; a site
+        // owner fronting an on-prem provider with a self-signed cert opts out per-URL here.
         if (!Hooks::apply('bit_integrations_connection_ssl_verify', true, $url)) {
             $options['sslverify'] = false;
             $options['verify'] = false;
@@ -429,6 +487,7 @@ final class ConnectionController
 
         $contentType = strtolower($headers['Content-Type'] ?? ($headers['content-type'] ?? ''));
         $isJson = strpos($contentType, 'application/json') !== false;
+        // form-urlencoded: pass array, WP will http_build_query. JSON: encode. Default array.
         $payload = $isJson ? wp_json_encode($bodyParams) : $bodyParams;
 
         $response = $method === 'GET'
@@ -497,12 +556,18 @@ final class ConnectionController
         $accountName = $this->sanitizeScalar($request->account_name ?? '');
         $connectionName = $this->sanitizeScalar($request->connection_name ?? '');
 
+        // Only a caller-supplied account_name identifies a real account, and only that
+        // may key the upsert. A synthesized one must never match an existing row: with
+        // both names omitted the backfill below collapses to $appSlug for every account,
+        // so a second connection would silently overwrite the first one's credentials.
         $accountNameProvided = $accountName !== '';
 
         if ($connectionName === '') {
             $connectionName = $accountName !== '' ? $accountName : $appSlug;
         }
 
+        // Backfill account_name so the column is never empty — otherwise re-authorize
+        // creates duplicate rows for the same logical account.
         if ($accountName === '') {
             $accountName = $connectionName;
         }
@@ -523,6 +588,12 @@ final class ConnectionController
         ];
     }
 
+    /**
+     * Map an incoming status value to the allowed set, falling back to $default
+     * when the value is not a recognised connection status.
+     *
+     * @param mixed $value
+     */
     private function sanitizeStatus($value, int $default): int
     {
         $status = absint($value);
@@ -548,6 +619,11 @@ final class ConnectionController
         try {
             $authDetails = AuthDataCodec::encryptValues($authDetails, $encryptKeys);
         } catch (Throwable $e) {
+            // Hash::encrypt throws rather than hand back an envelope it could not fill.
+            // Refuse the save: storing the row anyway would write the credential to the
+            // database in plaintext, which is the one outcome encrypt_keys exists to
+            // prevent. The message is generic — the exception carries OpenSSL detail
+            // that does not belong in an HTTP response.
             wp_send_json_error(__('Connection credentials could not be encrypted.', 'bit-integrations'), 500);
         }
 
@@ -588,8 +664,20 @@ final class ConnectionController
         return $this->findById((int) $insertId);
     }
 
+    /**
+     * Reject non-https URLs and hosts that resolve to private / loopback / reserved ranges.
+     * Token endpoints are always public https in practice; this closes SSRF surface for
+     * the server-side token exchange.
+     *
+     * Known-partial: literal IPs are filtered, but hostnames are NOT DNS-resolved here —
+     * a public hostname A-recording to a private IP would pass. Acceptable because the
+     * caller is an authenticated admin and the URL is supplied per-flow (not user-input
+     * from the public web). Add gethostbyname() screening if that threat model changes.
+     */
     private function isPublicHttpsUrl(string $url): bool
     {
+        // Shared with the OAuth2 refresh path so a URL rejected here cannot be reached
+        // by a later refresh under a looser rule.
         return Common::isPublicHttpsUrl($url);
     }
 
@@ -604,6 +692,13 @@ final class ConnectionController
         return $rows[0];
     }
 
+    /**
+     * The id of the existing connection this save should refresh, or 0 to create a new one.
+     *
+     * auth_type is part of the key: the same account can legitimately be connected two
+     * ways (an API key and an OAuth2 grant), and those rows hold different credential
+     * shapes. Matching on (app_slug, account_name) alone would let one overwrite the other.
+     */
     private function findExistingIdForAccount(string $appSlug, string $accountName, string $authType = ''): int
     {
         if ($appSlug === '' || $accountName === '' || $authType === '') {
@@ -652,6 +747,11 @@ final class ConnectionController
         ];
     }
 
+    /**
+     * List responses should not expose decrypted credential payloads.
+     *
+     * @param mixed $row
+     */
     private function formatListRow($row, ?array $linkedIntegrations = null): array
     {
         $payload = [
@@ -674,6 +774,20 @@ final class ConnectionController
         return $payload;
     }
 
+    /**
+     * Strip every credential the connection encrypts at rest.
+     *
+     * Responses carrying a connection must never hand back the secrets themselves.
+     * Anything named in encrypt_keys is a credential by the connection's own
+     * declaration, so it is dropped rather than decrypted; the remaining keys are
+     * non-secret configuration (version, location_id, dataCenter, api_url, ...)
+     * that the UI legitimately reads back. Callers needing to know a secret exists
+     * can test encrypt_keys, which is still returned.
+     *
+     * Keys are dot-paths, resolved the same way AuthDataCodec encrypts them. A flat
+     * unset() here would leave a nested credential (`tokenDetails.access_token`)
+     * encrypted at rest but still present in the response.
+     */
     private function withoutSecrets(array $authDetails, array $encryptKeys): array
     {
         foreach ($encryptKeys as $key) {
@@ -683,6 +797,17 @@ final class ConnectionController
         return $authDetails;
     }
 
+    /**
+     * Union the client's encrypt_keys with the server-side floor for this auth type.
+     * A client may add keys but never drop one, and omitting the field entirely no
+     * longer means "store everything in plaintext".
+     *
+     * Types with no derivable floor (CUSTOM) must declare their own keys: the request
+     * is rejected instead of falling through to an empty set, which would store the
+     * credentials in plaintext and return them verbatim to the browser.
+     *
+     * @param mixed $request
+     */
     private function resolveEncryptKeys($request, string $authType = ''): array
     {
         $keys = $this->resolveRequestedEncryptKeys($request);

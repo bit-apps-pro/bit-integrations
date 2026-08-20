@@ -27,6 +27,20 @@ const BuddyBossHelper = ({ flow, setFlowData, edit = false }) => {
     }
   }
 
+  // const setFlowDataDepend = (val, type, isLoad = true) => {
+  //   const tmpFlow = { ...flow }
+  //   if (!edit) {
+  //     tmpFlow.triggerData[type] = val
+  //   } else {
+  //     tmpFlow.flow_details[type] = val
+  //   }
+  //   if (type === 'selectedForum' && id === '4') {
+  //     getTopicByForum(val, tmpFlow, setNewFlow, edit)
+  //   } else {
+  //     setNewFlow({ ...tmpFlow })
+  //   }
+  // }
+
   return (
     <>
       {(id === '3' || id === '4') && (

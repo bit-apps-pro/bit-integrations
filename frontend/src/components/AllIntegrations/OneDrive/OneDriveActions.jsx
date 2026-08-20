@@ -88,6 +88,22 @@ export default function OneDriveActions({
 
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  // useEffect(() => {
+  //   const usersOption = [
+  //     { title: 'Zoho Workdrive Users', type: 'group', childs: [] },
+  //     { title: 'Form Fields', type: 'group', childs: [] },
+  //   ]
+  //   if (oneDriveConf.team && !oneDriveConf.default?.users?.[oneDriveConf.team]) {
+  //     refreshUsers(formID, oneDriveConf, setOneDriveConf, setIsLoading, setSnackbar)
+  //   }
+  //   if (oneDriveConf.default?.users?.[oneDriveConf.team]) {
+  //     usersOption[0].childs[0] = { label: 'All Users', value: 'all_users' }
+  //     const teamUsers = Object.values(oneDriveConf.default.users[oneDriveConf.team])
+  //     for (let i = 0; i < teamUsers.length; i += 1) {
+  //       usersOption[0].childs[i + 1] = { label: teamUsers[i].userName, value: teamUsers[i].userId }
+  //     }
+  //   }
+  //   usersOption[1].childs = formFields.map(itm => ({ label: itm.name, value: `\${${itm.key}}` }))
   return (
     <div className="pos-rel d-flx w-5">
       <div className="pos-rel d-flx flx-col w-8">

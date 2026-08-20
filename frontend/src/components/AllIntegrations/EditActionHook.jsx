@@ -131,6 +131,7 @@ function EditActionHook() {
 
   const setSelectedFieldsData = (value = null, remove = false, index = null) => {
     if (remove) {
+      // index = index ? index : flow.flow_details.fields.findIndex(field => field.name === value)
       index = index ? index : flow.flow_details.fields.findIndex(field => field.name === value)
 
       if (index !== -1) {

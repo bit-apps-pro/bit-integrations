@@ -41,6 +41,12 @@ class ZendeskSupportAuthorization extends AbstractBaseAuthorization
         ];
     }
 
+    /**
+     * Zendesk answers 200 for a well-formed request against a wrong subdomain,
+     * so the credential test must assert on the payload, not the status code.
+     *
+     * @param mixed $response
+     */
     public function validateAuthResponse($response): ?string
     {
         $user = \is_object($response) ? ($response->user ?? null) : (\is_array($response) ? ($response['user'] ?? null) : null);

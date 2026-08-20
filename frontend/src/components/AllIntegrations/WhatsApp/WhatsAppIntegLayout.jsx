@@ -39,6 +39,7 @@ export default function WhatsAppIntegLayout({
   }
 
   const allTemplates = normalizeTemplates(whatsAppConf?.allTemplates)
+  // Flows saved before placeholder mapping hold template names only, refetch them once to get components
   useEffect(() => {
     if (
       whatsAppConf?.messageType === 'template' &&

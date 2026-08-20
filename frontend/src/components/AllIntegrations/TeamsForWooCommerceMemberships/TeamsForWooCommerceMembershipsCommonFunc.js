@@ -62,6 +62,7 @@ export const checkMappedFields = teamsForWcConf => {
     return false
   }
 
+  // Check if member role is selected for actions that require it
   if (
     ['add_member_to_team', 'invite_user_to_team', 'update_member_role'].includes(
       teamsForWcConf?.mainAction

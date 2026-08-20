@@ -146,6 +146,13 @@ class ZohoRecruitController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh recruit modules
+     *
+     * @param mixed $queryParams
+     *
+     * @return JSON recruit module data
+     */
     public static function refreshRelatedModules($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -195,6 +202,13 @@ class ZohoRecruitController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refesh recruit layouts
+     *
+     * @param mixed $queryParams
+     *
+     * @return JSON recruit layout data
+     */
     public static function getFields($queryParams)
     {
         if (empty($queryParams->module)
@@ -435,6 +449,13 @@ class ZohoRecruitController
         return $zRecruitApiResponse;
     }
 
+    /**
+     * Helps to refresh zoho recruit access_token
+     *
+     * @param object $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->dataCenter)
@@ -465,6 +486,15 @@ class ZohoRecruitController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Zoho recruit Integration
+     * @param object     $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

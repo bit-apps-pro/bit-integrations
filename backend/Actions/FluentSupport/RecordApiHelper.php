@@ -33,6 +33,7 @@ class RecordApiHelper
 
             $value = $triggerValue === 'custom' && isset($value->customValue) ? Common::replaceFieldWithValue($value->customValue, $data) : $data[$triggerValue] ?? null;
 
+            // WP 5.1 compat: strpos() === 0 in place of str_starts_with() (WP 5.9)
             if (strpos($actionValue, 'cf_') === 0) {
                 $dataFinal['custom_fields'][$actionValue] = $value;
             } elseif (!\is_null($data[$triggerValue])) {

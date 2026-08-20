@@ -3,6 +3,7 @@ import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import { fieldsByAction } from './staticData'
 
+// The backend reads credentials off the connection itself, so the id is all it needs.
 const buildAuthRequestParams = conf => ({ connection_id: conf?.connection_id })
 
 export const handleInput = (e, brilliantDirectoriesConf, setBrilliantDirectoriesConf) => {
@@ -22,9 +23,13 @@ const fetchList = (conf, setConf, setIsLoading, route, defaultKey, { loading, su
   const request = bitsFetch(buildAuthRequestParams(conf), route)
     .then(result => {
       if (!result?.success) {
+        // bitsFetch resolves on wp_send_json_error too, so the failure has to be
+        // thrown or toast.promise would render it as a success.
         throw new Error(typeof result?.data === 'string' && result.data ? result.data : failed)
       }
 
+      // Merge off the latest state, not the captured snapshot — two lists can be
+      // fetched concurrently and a snapshot merge makes the slower one win.
       setConf(prev => ({
         ...prev,
         default: { ...(prev.default || {}), [defaultKey]: result.data || [] }

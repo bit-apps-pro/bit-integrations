@@ -131,6 +131,14 @@ class TrelloController
         wp_send_json_success($allFields, 200);
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param object $integrationData Details of flow
+     * @param array  $fieldValues     Data to send Mail Chimp
+     *
+     * @return null
+     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

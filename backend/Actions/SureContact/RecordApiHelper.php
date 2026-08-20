@@ -12,6 +12,10 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
+/**
+ * Every SureContact action is Pro — this class only builds the payload and fires the
+ * matching hook. All API traffic happens in Bit Integrations Pro.
+ */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -284,6 +288,13 @@ class RecordApiHelper
         return $data;
     }
 
+    /**
+     * Everything the node saved that is not a mapped field: the dropdown selections and
+     * the Utilities toggles, flattened into one array. Utilities keys are prefixed
+     * `selected_`, so they cannot collide with a dropdown key.
+     *
+     * @return array<string, mixed>
+     */
     private function settings()
     {
         $details = $this->_integrationDetails;

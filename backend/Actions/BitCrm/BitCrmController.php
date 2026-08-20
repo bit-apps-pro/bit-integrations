@@ -23,6 +23,8 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\CurrencyService())->getOtherCurrenciesAsOptions())]);
     }
 
+    // Read whole rather than as bare options: the layout decides a closing date
+    // by the stage's category.
     public static function refreshDealStages()
     {
         self::ensureClass('BitApps\Crm\Services\DealStageService');
@@ -72,6 +74,11 @@ class BitCrmController
         wp_send_json_success(['options' => self::normalize((new \BitApps\Crm\Services\UserService())->getUsersAsOptions())]);
     }
 
+    /**
+     * Records of one module, for the pickers that follow a module select.
+     *
+     * @param object $data
+     */
     public static function refreshEntities($data)
     {
         self::isExists();

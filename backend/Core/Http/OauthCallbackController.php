@@ -10,10 +10,23 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\RewriteRuleProvider;
 use WP;
 
+/**
+ * Serves `/{slug}/oauth-callback/`, forwarding an OAuth provider callback to the
+ * admin URL carried in `state`. Providers reject a `redirect_uri` containing a
+ * fragment, which the hash-routed admin app needs.
+ */
 final class OauthCallbackController
 {
     public const ROUTE = Config::SLUG . '/oauth-callback';
 
+    /**
+     * `parse_request` runs before the main query and before `redirect_canonical`,
+     * which could otherwise rewrite the URL through 404 handling.
+     *
+     * @param WP $wp
+     *
+     * @return void
+     */
     public function handle($wp)
     {
         $pagename = isset($wp->query_vars['pagename']) ? $wp->query_vars['pagename'] : '';
@@ -40,6 +53,15 @@ final class OauthCallbackController
         return RewriteRuleProvider::pagenameFor(self::ROUTE);
     }
 
+    /**
+     * Redirects to $state with $params appended. Exits the request on success.
+     * Rejecting off-site $state keeps this from becoming an open redirect.
+     *
+     * @param mixed $state
+     * @param array $params
+     *
+     * @return bool
+     */
     public static function redirectToState($state, array $params)
     {
         if (!\is_string($state) || $state === '') {

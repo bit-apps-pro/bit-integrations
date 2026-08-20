@@ -1,6 +1,10 @@
 import { __ } from '../../../Utils/i18nwrap'
 
 export const modules = [
+  // User/Post actions moved to dedicated actions:
+  // - WP User Registration
+  // - WP Post Creation
+  // Post Types
   { name: 'registerPostType', label: __('Register Post Type', 'bit-integrations'), is_pro: true },
   { name: 'unregisterPostType', label: __('Unregister Post Type', 'bit-integrations'), is_pro: true },
   { name: 'addPostTypeFeatures', label: __('Add Post Type Features', 'bit-integrations'), is_pro: true },
@@ -238,6 +242,7 @@ export const PostTypeFeaturesFields = [
   { key: 'supports', label: __('Features (comma separated)', 'bit-integrations'), required: true }
 ]
 
+// === Tag / Taxonomy / Term Fields ===
 export const CreateTagFields = [
   { key: 'name', label: __('Tag Name', 'bit-integrations'), required: true },
   { key: 'slug', label: __('Slug', 'bit-integrations'), required: false },

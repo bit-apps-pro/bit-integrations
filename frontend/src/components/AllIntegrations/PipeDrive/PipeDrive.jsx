@@ -85,6 +85,9 @@ function PipeDrive({ formFields, setFlow, flow, allIntegURL }) {
 
     if (!checkMappedFields(pipeDriveConf)) {
       setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
+      // if (pipeDriveConf.moduleData.module === 'Persons') {
+      //   setSnackbar({ show: true, msg: __('Please select a organization', 'bit-integrations') })
+      // }
       return
     }
     if (!checkRequired(pipeDriveConf)) {

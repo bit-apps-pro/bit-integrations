@@ -11,6 +11,9 @@ export const modules = [
   { name: 'update_coupon', label: __('Update Coupon', 'bit-integrations'), is_pro: true }
 ]
 
+// Agent, service, location and bundle are chosen per flow via fetched dropdowns,
+// so they are deliberately absent from every field map below.
+
 export const CreateBookingFields = [
   { key: 'start_date', label: __('Start Date (Y-m-d)', 'bit-integrations'), required: true },
   { key: 'start_time', label: __('Start Time (HH:MM)', 'bit-integrations'), required: true },
@@ -110,6 +113,7 @@ export const UpdateCouponFields = [
   { key: 'service_ids', label: __('Service IDs (comma separated)', 'bit-integrations'), required: false }
 ]
 
+// Fixed option sets — rendered as selects, never field mapped.
 export const customerTypeOptions = [
   { label: __('Create or match by email', 'bit-integrations'), value: 'new' },
   { label: __('Use existing customer ID', 'bit-integrations'), value: 'existing' }
@@ -152,6 +156,7 @@ export const fulfillmentStatusOptions = [
   { label: __('Fulfilled', 'bit-integrations'), value: 'fulfilled' }
 ]
 
+// Which actions render which control in the integration layout.
 export const needsService = ['create_booking', 'update_booking']
 export const needsAgentAndLocation = ['create_booking', 'update_booking']
 export const needsCustomerType = ['create_booking', 'create_order']
@@ -160,4 +165,5 @@ export const needsDiscountType = ['create_coupon', 'update_coupon']
 export const needsCouponStatus = ['create_coupon', 'update_coupon']
 export const needsAgentServices = ['create_agent']
 
+// Actions exposing optional status enums under Utilities.
 export const hasUtilities = ['create_booking', 'update_booking', 'create_order']

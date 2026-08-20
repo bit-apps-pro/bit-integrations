@@ -297,11 +297,13 @@ class VoxelHelper
     {
         $finalWorkHours = [];
 
+        // receive work days as string e.g. sat, sun, mon; and convert it to array
         if (!empty($finalData[$fieldKey . '_work_days'])) {
             $days = preg_split('/, ?/', $finalData[$fieldKey . '_work_days']);
             $finalWorkHours['days'] = $days;
         }
 
+        // receive work hours as string e.g. 09:00-12:00 or 09:00-11:00, 12:00-14:00; and convert it to array (with multi hours also)
         if (!empty($finalData[$fieldKey . '_work_hours'])) {
             $multiHours = preg_split('/, ?/', $finalData[$fieldKey . '_work_hours']);
             $formattedHours = [];

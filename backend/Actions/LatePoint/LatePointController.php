@@ -115,6 +115,21 @@ class LatePointController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
+    /**
+     * Read id/label pairs from a LatePoint table.
+     *
+     * LatePoint's Os*Model classes are only loaded on LatePoint's own screens, so the
+     * dropdown lists are read straight from the tables instead.
+     *
+     * @param string   $constant Name of LatePoint's own table constant, preferred so a
+     *                           future rename or re-prefix is picked up automatically
+     * @param string   $fallback Unprefixed table name, used when LatePoint has not
+     *                           defined the constant yet
+     * @param array    $columns  Columns to select — hardcoded literals, never user input
+     * @param callable $mapper   Maps one row to a {value,label} object
+     *
+     * @return array
+     */
     private static function fetchRows($constant, $fallback, array $columns, $mapper)
     {
         global $wpdb;
@@ -135,6 +150,7 @@ class LatePointController
         $columnList = implode(', ', array_map('sanitize_key', $columns));
 
         // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is verified above, columns are sanitized literals.
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery -- table and column names are hardcoded literals verified above
         $rows = $wpdb->get_results("SELECT {$columnList} FROM {$tableName}", ARRAY_A);
 
         if (empty($rows)) {

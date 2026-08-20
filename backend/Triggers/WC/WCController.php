@@ -109,6 +109,16 @@ final class WCController
             ],
             'isPro' => false
         ];
+    // $flowDetails = json_decode($flows[0]->flow_details);
+    // $selectedVariableProduct = !empty($flowDetails->selectedVariableProduct) ? $flowDetails->selectedVariableProduct : [];
+    // $selectedVariation = !empty($flowDetails->selectedVariation) ? $flowDetails->selectedVariation : [];
+    // foreach ($data['line_items'] as $item) {
+    //     if ($item->product_id == $selectedVariableProduct || $selectedVariableProduct === 'any') {
+    //         if ($item->variation_id == $selectedVariation || $selectedVariation === 'any') {
+    //             Flow::execute('WC', 20, $data, $flows);
+    //         }
+    //     }
+    // }
     }
 
     public function getAll()

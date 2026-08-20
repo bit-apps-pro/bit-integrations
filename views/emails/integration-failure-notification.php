@@ -4,6 +4,11 @@ if (! defined('ABSPATH')) {
 }
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+// Template locals, not true globals - the file has no function scope, so PHPCS
+// reads them as global. They already carry the plugin slug as their prefix;
+// Plugin Check infers prefixes from hook names rather than the slug, and this
+// plugin fires third-party hooks, so `bit_integrations` never makes its list.
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $bit_integrations_title = esc_html__('Integration Failure Alert', 'bit-integrations');
 $bit_integrations_greeting = sprintf(
     // translators: %s: Placeholder value

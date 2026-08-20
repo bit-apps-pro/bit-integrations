@@ -24,6 +24,12 @@ final class Request
         }
     }
 
+    /**
+     * Detects a REST request before `REST_REQUEST` is defined, which core only
+     * does once `parse_request` runs.
+     *
+     * @return bool
+     */
     public static function isRest()
     {
         if (\defined('REST_REQUEST')) {
@@ -37,6 +43,7 @@ final class Request
 
         $requestUri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
 
+        // Not anchored: subdirectory installs serve REST under the site path.
         return strpos($requestUri, '/' . rest_get_url_prefix() . '/') !== false;
     }
 }

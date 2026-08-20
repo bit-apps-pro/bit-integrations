@@ -20,6 +20,12 @@ class AuthorizationFactory
 {
     public const ACTION_NAMESPACE = 'BitApps\\Integrations\\Actions\\';
 
+    /**
+     * Maps a built-in AuthorizationType to its handler class. CUSTOM (and any
+     * unmapped type) is dispatched via the authorizationClassExists() probe.
+     *
+     * @var array<string, class-string>
+     */
     private static $handlerMap = [
         AuthorizationType::BASIC_AUTH   => BasicAuthorization::class,
         AuthorizationType::API_KEY      => ApiKeyAuthorization::class,
@@ -28,6 +34,20 @@ class AuthorizationFactory
         AuthorizationType::OAUTH1       => OAuth1Authorization::class,
     ];
 
+    /**
+     * The auth strategy for a saved connection, or null when none can be built.
+     *
+     * The connection row carries both the auth type and the app slug, so the id alone
+     * identifies the handler — which is why callers only ever pass an id around.
+     * Building the handler stays free of side effects: it stores the id, and the row,
+     * the stored secrets and any OAuth2 refresh are read on first use.
+     *
+     * Every failure — no id, missing row, wrong app, unknown auth type — collapses to
+     * null. To a caller they are one condition ("no usable connection for this app"),
+     * and separating them would only leak which connection ids exist.
+     *
+     * @param int|string $connectionId
+     */
     public static function getConnectionHandler($connectionId): ?AuthStrategyInterface
     {
         $connectionId = (int) $connectionId;
@@ -86,6 +106,10 @@ class AuthorizationFactory
     {
         $appSlug = (string) $appSlug;
 
+        // $appSlug reaches here from request data (ConnectionController::authorize).
+        // class_exists() triggers the PSR-4 autoloader, which maps namespace separators
+        // onto the filesystem, so a slug containing a backslash or dot would be resolved
+        // as a path. Only a plain class-name segment is ever legitimate.
         if (!preg_match('/^[A-Za-z0-9_]+$/', $appSlug)) {
             return false;
         }

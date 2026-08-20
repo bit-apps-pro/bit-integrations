@@ -47,6 +47,9 @@ export default function FluentCrm({ formFields, setFlow, flow, allIntegURL }) {
       }
     } else {
       setStep(val)
+    // if (val === 2 && fluentCrmConf.name) {
+    //   refreshCrmList(formID, fluentCrmConf, setFluentCrmConf, setIsLoading, setSnackbar)
+    // }
     }
   }
 

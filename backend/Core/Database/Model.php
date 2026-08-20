@@ -399,6 +399,7 @@ class Model
         } else {
             $preparedQuery = $this->app_db->prepare($sql, $values);
         }
+        // echo " Q S " . $preparedQuery . " Q  EE";
         if (empty($preparedQuery)) {
             $this->db_response = new WP_Error('null_query', __('prepared query is empty', 'bit-integrations'));
         } else {

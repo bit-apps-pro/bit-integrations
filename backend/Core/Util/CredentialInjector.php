@@ -10,6 +10,11 @@ use BitApps\Integrations\Authorization\AuthorizationFactory;
 use stdClass;
 use Throwable;
 
+/**
+ * Injects resolved connection credentials into flow_details or request params
+ * before action code runs. Only fires when connection_id is present (new flows).
+ * Old flows (inline credentials, no connection_id) are never touched.
+ */
 class CredentialInjector
 {
     public static function inject(object $target, string $controllerClass): void
@@ -33,6 +38,11 @@ class CredentialInjector
                 $config['slug']
             );
 
+            // connection_id arrives from the request/flow and is only ever an integer,
+            // so nothing about it says which app it belongs to. Bind it to the
+            // controller asking for it: otherwise pointing a MailChimp action at a
+            // Salesforce connection_id would decrypt Salesforce's token and ship it to
+            // MailChimp's endpoint.
             if (!self::belongsToIntegration($handler->getConnection(), $config)) {
                 self::debug($controllerClass, "connection {$connectionId} belongs to a different app");
 
@@ -41,12 +51,20 @@ class CredentialInjector
 
             $authDetails = $handler->getAuthDetails();
         } catch (Throwable $e) {
+            // Unknown auth type or a decrypt error can throw here. Skip injection so
+            // the action runs with its own (un-injected) fields and fails its own
+            // validation — this keeps the "no exception escapes Flow::execute" invariant.
             self::debug($controllerClass, $e->getMessage());
 
             return;
         }
 
+        // A missing connection or a decrypt failure otherwise surfaces as null or an
+        // empty set. Skip injection rather than flattening empty strings onto every
+        // field — which would silently ship blank credentials to the action.
         if (!\is_array($authDetails) || $authDetails === []) {
+            // getLastError() carries the real reason (expired refresh, decrypt failure);
+            // without it the action only reports "missing parameters".
             $reason = method_exists($handler, 'getLastError') ? $handler->getLastError() : null;
             self::debug($controllerClass, $reason['message'] ?? 'no auth details resolved');
 
@@ -55,6 +73,7 @@ class CredentialInjector
 
         foreach ($config['fields'] as $oldField => $authKey) {
             if ($oldField === '__object') {
+                // Nested object injection: $authKey = [$targetProp, [$key1, $key2, ...]]
                 [$targetProp, $keys] = $authKey;
                 $obj = new stdClass();
                 foreach ($keys as $key) {
@@ -79,6 +98,21 @@ class CredentialInjector
         }
     }
 
+    /**
+     * Whether $connection was created for the integration declaring $config.
+     *
+     * app_slug is stored as the integration's display name ("Zoho CRM") while
+     * $authConfig carries a bare slug ("zohocrm"), so both sides are reduced to
+     * alphanumerics before comparing. Names that carry a second brand word
+     * ("Brevo(Sendinblue)" for slug "sendinblue") cannot reduce to the slug at all,
+     * so those integrations declare the stored names in $authConfig['aliases'] —
+     * an explicit list rather than a substring match, which would let a "Zoho"
+     * connection satisfy every zoho* controller. A connection that cannot be
+     * loaded at all is left to the caller's own null handling.
+     *
+     * @param mixed                $connection
+     * @param array<string, mixed> $config     Controller's $authConfig
+     */
     private static function belongsToIntegration($connection, array $config): bool
     {
         if (empty($connection) || empty($connection->app_slug)) {
@@ -94,6 +128,11 @@ class CredentialInjector
         return \in_array($normalize($connection->app_slug), $accepted, true);
     }
 
+    /**
+     * Credential resolution fails silently by design — the flow must not fatal — but
+     * silence made a broken connection indistinguishable from a missing field. Log the
+     * reason under WP_DEBUG only, and never the credentials themselves.
+     */
     private static function debug(string $controllerClass, string $reason): void
     {
         if (!\defined('WP_DEBUG') || !WP_DEBUG) {

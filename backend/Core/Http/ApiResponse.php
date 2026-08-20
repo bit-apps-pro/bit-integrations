@@ -8,6 +8,11 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Core\Util\HttpHelper;
 
+/**
+ * Normalized outcome of one request. Captures the HTTP status per call so consumers
+ * never read the process-global HttpHelper::$responseCode, which is clobbered by any
+ * nested request.
+ */
 final class ApiResponse
 {
     private $success;
@@ -36,6 +41,21 @@ final class ApiResponse
         return new self(false, $status, $body, $error);
     }
 
+    /**
+     * Build the outcome of the request that just completed.
+     *
+     * MUST be called immediately after the request returns. The status is read from
+     * HttpHelper::$responseCode, a process-global that the next request anywhere in
+     * the process overwrites — a nested call, a related action — so anything sending
+     * a request between the two loses this one's status.
+     *
+     * A WP_Error means no HTTP exchange completed, so it carries status 0 and the
+     * transport's own message; otherwise the status alone decides success. The raw
+     * value is kept as the body either way — providers report failures inside a 2xx
+     * body, and callers need to read it on both outcomes.
+     *
+     * @param mixed $raw decoded JSON (object/array/scalar), raw body string, or WP_Error
+     */
     public static function from($raw): self
     {
         if (is_wp_error($raw)) {
@@ -51,6 +71,10 @@ final class ApiResponse
         return self::fail($status, null, $raw);
     }
 
+    /**
+     * Whether the transport succeeded. Providers that report failures inside a 2xx
+     * body are the caller's business — check getBody() or getBodyValue() for those.
+     */
     public function success(): bool
     {
         return $this->success;
@@ -90,6 +114,15 @@ final class ApiResponse
         return self::getValue($this->body, $key);
     }
 
+    /**
+     * Read a key off any decoded value — a body, or one row out of a list. WPKit
+     * decodes JSON to stdClass by default, but arrays turn up too, so every caller
+     * would otherwise repeat this check.
+     *
+     * @param mixed $data
+     *
+     * @return mixed
+     */
     public static function getValue($data, string $key)
     {
         if (\is_array($data)) {

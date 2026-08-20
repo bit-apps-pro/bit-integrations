@@ -22,6 +22,19 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
+    /**
+     * Execute the integration.
+     *
+     * Each action is handed only the arguments it actually consumes: the mapped
+     * field data always, the Utilities selections when it has any, and the
+     * integration config when it renders record/option dropdowns.
+     *
+     * @param array $fieldValues Field values from form
+     * @param array $fieldMap    Field mapping
+     * @param array $utilities   Optional option selects
+     *
+     * @return array
+     */
     public function execute($fieldValues, $fieldMap, $utilities)
     {
         if (!\defined('FLUENT_PLAYER')) {

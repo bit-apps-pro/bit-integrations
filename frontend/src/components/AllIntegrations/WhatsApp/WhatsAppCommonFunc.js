@@ -50,6 +50,10 @@ export const getallTemplates = (confTmp, setConf, setIsLoading, setSnackbar) => 
   })
 }
 
+/**
+ * Templates were stored as plain names before placeholder mapping existed,
+ * so old configurations are upgraded to the object shape on the fly.
+ */
 export const normalizeTemplates = templates =>
   (templates || []).map(template =>
     typeof template === 'string' ? { name: template, language: '', components: [] } : template
@@ -79,6 +83,10 @@ const placeholderLabel = placeholder => {
   } {{${rest[0]}}}`
 }
 
+/**
+ * Collects every dynamic placeholder of a template
+ * from its header text, body text and dynamic url buttons.
+ */
 export const extractTemplatePlaceholders = template => {
   const placeholders = []
 

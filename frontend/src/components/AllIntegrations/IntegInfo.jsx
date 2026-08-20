@@ -793,10 +793,16 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
     case 'CustomApi':
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
     default:
+      // Actions with no authorization UI of their own (site-local ones like Mail
+      // or Post Creation, and anything this build has no component for) used to
+      // render an empty page here.
       return <IntegrationInfoFallback integrationConf={integrationConf} editUrl={editUrl} />
   }
 })
 
+// Same route split saveActionConf() uses: the plain flow/update route runs every
+// value through sanitize_text_field(), which would strip the HTML message bodies
+// of these actions on save.
 const RICH_CONTENT_TYPES = ['Mail', 'Telegram', 'WhatsApp']
 
 const getUpdateAction = confType => {
@@ -814,6 +820,8 @@ export default function IntegInfo() {
   const [isSwitching, setIsSwitching] = useState(false)
   const [switchedConnection, setSwitchedConnection] = useState(false)
   const navigate = useNavigate()
+  // Keyed by id (like EditInteg) so one flow's cached response can't be shown —
+  // or written back — while another flow's info page is open.
   const { data, isLoading, isError, mutate } = useFetch({
     payload: { id },
     action: ['flow/get', id],
@@ -858,6 +866,8 @@ export default function IntegInfo() {
         if (res?.success) {
           setIntegrationConf(nextConf)
           setSwitchedConnection(true)
+          // EditInteg shares this cache entry — refresh it so the edit wizard
+          // opens on the switched connection instead of the stale response.
           mutate()
           toast.success(__('Connection switched successfully', 'bit-integrations'))
           return

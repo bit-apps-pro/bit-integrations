@@ -128,6 +128,7 @@ class RecordApiHelper
         }
 
         if (!empty($tags)) {
+            // Remove existing tags if tag update is enabled
             if ($integrationDetails->actions->tagUpdate) {
                 $contactTagsResponse = HttpHelper::get("{$this->_apiEndpoint}/contacts/{$contactId}/contactTags", null, $this->_defaultHeader);
                 $contactTags = $contactTagsResponse->contactTags ?? [];

@@ -22,6 +22,11 @@ class NinjaTablesController
 
     private const CACHE_GROUP = Config::VAR_PREFIX;
 
+    /**
+     * Check if Ninja Tables plugin is installed and activated
+     *
+     * @return bool
+     */
     public static function isExists()
     {
         if (!\defined('NINJA_TABLES_VERSION')) {
@@ -44,6 +49,13 @@ class NinjaTablesController
         wp_send_json_success(['tables' => $formattedTables], 200);
     }
 
+    /**
+     * Get rows for a specific table
+     *
+     * @param object $requestParams Request parameters
+     *
+     * @return void
+     */
     public function refreshRows($requestParams)
     {
         self::isExists();
@@ -65,6 +77,13 @@ class NinjaTablesController
         wp_send_json_success(['users' => $formattedUsers], 200);
     }
 
+    /**
+     * Get columns for a specific table
+     *
+     * @param object $requestParams Request parameters
+     *
+     * @return void
+     */
     public function refreshColumns($requestParams)
     {
         self::isExists();
@@ -90,6 +109,11 @@ class NinjaTablesController
         return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
+    /**
+     * Fetch all Ninja Tables from database
+     *
+     * @return array
+     */
     private function fetchAllTables()
     {
         $cache_key = Config::withPrefix('ninjatables_tables');
@@ -128,6 +152,13 @@ class NinjaTablesController
         ];
     }
 
+    /**
+     * Validate request parameters and get table ID
+     *
+     * @param object $requestParams Request parameters
+     *
+     * @return int
+     */
     private function validateAndGetTableId($requestParams)
     {
         if (empty($requestParams->table_id)) {
@@ -143,6 +174,13 @@ class NinjaTablesController
         return $tableId;
     }
 
+    /**
+     * Fetch rows for a specific table
+     *
+     * @param int $tableId Table ID
+     *
+     * @return array
+     */
     private function fetchTableRows($tableId)
     {
         global $wpdb;
@@ -197,6 +235,13 @@ class NinjaTablesController
         ];
     }
 
+    /**
+     * Fetch columns for a specific table
+     *
+     * @param int $tableId Table ID
+     *
+     * @return array
+     */
     private function fetchTableColumns($tableId)
     {
         $cache_key = Config::withPrefix('ninjatables_columns_' . $tableId);

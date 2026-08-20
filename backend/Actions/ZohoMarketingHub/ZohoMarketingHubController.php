@@ -16,6 +16,7 @@ class ZohoMarketingHubController
     public static array $authConfig = [
         'authType' => AuthorizationType::OAUTH2,
         'slug'     => 'zohomarketinghub',
+        // Connections store the UI's display name, which carries the Zoho rename.
         'aliases'  => ['Zoho Marketing Automation(Zoho Marketing Hub)'],
         'fields'   => [
             'dataCenter'   => 'dataCenter',
@@ -83,6 +84,13 @@ class ZohoMarketingHubController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refesh crm layouts
+     *
+     * @param object $queryParams Params to refresh contact list
+     *
+     * @return JSON crm layout data
+     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)
@@ -181,6 +189,13 @@ class ZohoMarketingHubController
         return $zmarketingHubApiResponse;
     }
 
+    /**
+     * Helps to refresh zoho crm access_token
+     *
+     * @param object $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->dataCenter)
@@ -211,6 +226,15 @@ class ZohoMarketingHubController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Zoho crm Integration
+     * @param object     $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($formID) || empty($integrationID)) {

@@ -7,6 +7,7 @@ export const modules = [
   { name: 'add_row', label: __('Add Row to Table', 'bit-integrations'), is_pro: true }
 ]
 
+// Add Row has no static field list — its columns are read from the selected table.
 export const fetchesColumns = ['add_row']
 
 export const CreateTableFields = [
@@ -24,4 +25,5 @@ export const DeleteTableFields = [
   { key: 'table_id', label: __('Table ID', 'bit-integrations'), required: true }
 ]
 
+// Delete trashes by default, so permanent deletion is opt-in under Utilities.
 export const hasUtilities = ['delete_table']

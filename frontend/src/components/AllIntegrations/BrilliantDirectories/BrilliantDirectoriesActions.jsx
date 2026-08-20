@@ -18,6 +18,8 @@ export default function BrilliantDirectoriesActions({
   }
 
   const actionHandler = (e, type, valueName) => {
+    // Unchecking has to clear the stored value, otherwise the utility stays applied
+    // with the checkbox showing off.
     if (brilliantDirectoriesConf?.utilities?.[valueName]) {
       setBrilliantDirectoriesConf(prevConf =>
         create(prevConf, draftConf => {

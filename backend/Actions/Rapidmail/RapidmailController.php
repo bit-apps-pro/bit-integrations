@@ -34,6 +34,13 @@ final class RapidmailController
         $this->_integrationID = $integrationID;
     }
 
+    /**
+     * Process request for getting recipientlists from rapidmail
+     *
+     * @param $queryParams Mandatory params to get recipients
+     *
+     * @return JSON rapidmailmail recipientlists data
+     */
     public static function getAllRecipients($queryParams)
     {
         if (

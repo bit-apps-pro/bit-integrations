@@ -15,6 +15,7 @@ class LMFWCController
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'lmfwc',
+        // Connections store the UI's display name, which spells the plugin out.
         'aliases'  => ['License Manager For WooCommerce'],
         'fields'   => [
             'api_key'    => 'value',

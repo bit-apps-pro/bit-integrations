@@ -22,6 +22,16 @@ final class FilesApiHelper
         $this->_defaultHeader['Content-Type'] = 'multipart/form-data; boundary=' . $this->_payloadBoundary;
     }
 
+    /**
+     * Helps to execute upload files api
+     *
+     * @param string $apiEndPoint  discord API base URL
+     * @param array  $data         Data to pass to API
+     * @param mixed  $_accessToken
+     * @param mixed  $channel_id
+     *
+     * @return array $uploadResponse discord API response
+     */
     public function uploadFiles($apiEndPoint, $data, $_accessToken, $channel_id)
     {
         $uploadFileEndpoint = $apiEndPoint . '/channels/' . $channel_id . '/messages';

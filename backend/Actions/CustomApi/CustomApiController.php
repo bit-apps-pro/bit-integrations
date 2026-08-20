@@ -75,6 +75,16 @@ class CustomApiController
         return $response;
     }
 
+    /**
+     * Rebuilds the api endpoint, resolving smart tags in the query string and in
+     * the url path (dynamic route parameters).
+     *
+     * @param string       $url
+     * @param array        $fieldValues Trigger data
+     * @param array|object $pathParams  Placeholder => value map, e.g. [{key: 'id', value: '${post_id}'}]
+     *
+     * @return string|WP_Error
+     */
     private static function urlParserWrapper($url, $fieldValues = [], $pathParams = [])
     {
         if (empty($url)) {
@@ -91,6 +101,7 @@ class CustomApiController
         $Query = isset($parsedURL['query']) ? $parsedURL['query'] : null;
         $Pass = ($Pass || $Usr) ? "{$Pass}@" : null;
 
+        // resolved after parsing, so a dynamic value can never rewrite scheme/host/port
         $Path = self::resolvePathParams($Path, $pathParams, $fieldValues);
         if (is_wp_error($Path)) {
             return $Path;
@@ -131,6 +142,22 @@ class CustomApiController
         return $cleanURL;
     }
 
+    /**
+     * Replaces dynamic route parameters in the url path.
+     *
+     * Two notations are supported:
+     * - `{name}`     mapped to a value through the `pathParams` config
+     * - `${field}`   smart tag written inline in the path
+     *
+     * Resolved values are raw url encoded, so they always stay inside the single
+     * path segment they were written in.
+     *
+     * @param null|string  $path
+     * @param array|object $pathParams
+     * @param array        $fieldValues
+     *
+     * @return null|string|WP_Error
+     */
     private static function resolvePathParams($path, $pathParams, $fieldValues)
     {
         if (empty($path) || false === strpos($path, '{')) {

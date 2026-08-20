@@ -15,6 +15,14 @@ final class FlowController
         static::$_integrationModel = new FlowModel();
     }
 
+    /**
+     * Retrieved flows from DB based on conditions
+     *
+     * @param array $conditions Conditions to retrieve flows
+     * @param array $columns    Columns to select
+     *
+     * @return array|WP_Error
+     */
     public function get($conditions = [], $columns = [])
     {
         if (empty($columns)) {

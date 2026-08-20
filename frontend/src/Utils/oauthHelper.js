@@ -12,6 +12,7 @@ const base64UrlEncode = bytes => {
 
 export const generateCodeVerifier = (length = 64) => {
   const charsetLen = PKCE_CHARSET.length
+  // Reject bytes >= max to avoid modulo bias (RFC 7636 wants uniform).
   const max = 256 - (256 % charsetLen)
   const buf = new Uint8Array(1)
   let result = ''
@@ -28,6 +29,7 @@ export const generateCodeChallengeS256 = async codeVerifier => {
   return base64UrlEncode(new Uint8Array(digest))
 }
 
+// PHP picks the active endpoint; the fallback covers configs localized before it existed.
 export const getRedirectUri = () => {
   if (APP_CONFIG?.redirectURI) return APP_CONFIG.redirectURI
   const api = (APP_CONFIG?.api || '').replace(/\/+$/, '')
@@ -54,6 +56,9 @@ export const buildCallbackState = channelKey => {
   return channelKey ? `${baseState}&oauth_channel=${encodeURIComponent(channelKey)}` : baseState
 }
 
+// Carry the channel key on a redirect/return URL for providers that do NOT echo `state`
+// (e.g. Trello's token flow returns to return_url#token=… with no state), so the popup
+// still broadcasts on our keyed channel instead of only the shared fallback one.
 export const appendOauthChannel = (url, channelKey) => {
   if (!url || !channelKey) return url
   const separator = url.includes('?') ? '&' : '?'
@@ -88,6 +93,12 @@ const extractChannelFromState = stateValue => {
   }
 }
 
+// The popup's window name must never come from user input. A connection named `_top`,
+// `_self` or `_parent` is a reserved browsing-context name: the admin tab itself would
+// navigate to the provider instead of a popup opening, and the promise would never
+// settle because `popup.closed` stays false. Two connections sharing a name also reuse
+// the same window, so one flow hijacks the other's. channelKey is random and unique per
+// attempt, which is exactly the property the window name needs.
 const getPopupName = channelKey => `bit_oauth_${channelKey || randomToken(8)}`
 
 export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback = false } = {}) =>
@@ -155,6 +166,7 @@ export const readAuthResponseFromUrl = () => {
   const search = new URLSearchParams(window.location.search)
   for (const [key, value] of search) if (value) response[key] = value
 
+  // backend redirect appends "&code=...&state=..." after the hash route
   const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''))
   for (const [key, value] of hashParams) if (value) response[key] = value
 
@@ -210,6 +222,8 @@ export const exchangeAuthCodeForToken = ({
   sslVerify = true
 }) => {
   const grantParams = {
+    // `code` is already percent-decoded once by URLSearchParams in
+    // readAuthResponseFromUrl; decoding again corrupts codes containing '%'.
     grant_type: 'authorization_code',
     code,
     redirect_uri: redirectUri

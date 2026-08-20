@@ -8,6 +8,7 @@ const FluentCrmHelper = ({ flow, setFlowData, edit = false }) => {
   const id = !edit ? flow?.triggerData?.formID : flow.triggered_entity_id
 
   const [newFlow, setNewFlow] = useRecoilState($newFlow)
+  // const courses = !edit ? newFlow?.triggerData?.courses: flow.flow_details.courses
   const triggerData = !edit ? newFlow?.triggerData : flow.flow_details
   return (
     <div>

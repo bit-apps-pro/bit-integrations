@@ -109,6 +109,8 @@ class BuddyBossController
         wp_send_json_success($topics);
     }
 
+    // for action 11 - BuddyBoss update started
+
     public static function registerComponents($component_names, $active_components)
     {
         $component_names = ! \is_array($component_names) ? [] : $component_names;

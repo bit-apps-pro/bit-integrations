@@ -64,6 +64,9 @@ export default function NinjaTablesFieldMap({
     updateFieldMap(index, updates)
   }
 
+  /**
+   * Handle field mapping change - unified handler
+   */
   const handleFieldMapping = (event, index, fieldType) => {
     if (fieldType === 'formField') {
       handleFormFieldChange(event, index)

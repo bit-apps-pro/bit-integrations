@@ -18,6 +18,7 @@ const AffiliateHelper = ({ flow, setFlowData, edit = false }) => {
 
     setNewFlow({ ...tmpFlow })
   }
+  // const courses = !edit ? newFlow?.triggerData?.courses: flow.flow_details.courses
   const triggerData = !edit ? newFlow?.triggerData : flow.flow_details
   return (
     <div>

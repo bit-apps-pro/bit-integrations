@@ -27,6 +27,15 @@ final class FilesApiHelper
         $this->_defaultHeader['content-type'] = 'multipart/form; boundary=' . $this->_payloadBoundary;
     }
 
+    /**
+     * Helps to execute upload files api
+     *
+     * @param mixed  $files     Files path
+     * @param mixed  $recordID  Record id
+     * @param string $zohoField zoho recruit upload fieldname
+     *
+     * @return object $uploadedFiles ID's of uploaded file in Zoho Recruit
+     */
     public function uploadFiles($files, $recordID, $zohoField)
     {
         $uploadFileEndpoint = '';

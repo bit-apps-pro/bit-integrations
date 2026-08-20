@@ -26,6 +26,7 @@ export default function WebHooksIntegration({
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const [tab, setTab] = useState(1)
+  // runs here, not in <PathParams />, so the mapping exists even if that tab is never opened
   usePathParamsSync(webHooks, setWebHooks, !isInfo)
   const method = ['GET', 'POST', 'PUT', 'PATCH', 'OPTION', 'DELETE', 'TRACE', 'CONNECT']
   const handleInput = e => {

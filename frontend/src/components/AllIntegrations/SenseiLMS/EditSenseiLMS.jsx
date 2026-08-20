@@ -28,6 +28,8 @@ export default function EditSenseiLMS({ allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [snack, setSnackbar] = useState({ show: false })
 
+  // On edit, rebuild the non-persisted field definitions from the saved action and
+  // repopulate the resource dropdown options. The saved field_map mapping is untouched.
   useEffect(() => {
     const action = senseiLMSConf?.mainAction
     if (!action) {

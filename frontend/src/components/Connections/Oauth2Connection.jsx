@@ -45,6 +45,10 @@ const buildSavedAuthDetails = ({
     grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE ? GRANT_TYPES.AUTHORIZATION_CODE : grantType
 
   const base = {
+    // Extra form fields first (e.g. baseUrl for a self-hosted Mautic). They are raw
+    // user input, so the standard credential keys below must always win on collision —
+    // merging them afterwards would let an extraField named client_secret or
+    // access_token overwrite the real one.
     ...extraFormData,
     access_token: tokenResponse?.access_token || '',
     refresh_token: tokenResponse?.refresh_token || '',
@@ -60,6 +64,8 @@ const buildSavedAuthDetails = ({
     ssl_verify: sslVerify !== false
   }
 
+  // Capture provider-specific extra fields from token response (e.g., instance_url for
+  // Salesforce, api_domain for Zoho) — these come from the provider, not the form.
   extraTokenFields.forEach(field => {
     if (tokenResponse?.[field] != null) base[field] = tokenResponse[field]
   })
@@ -94,6 +100,7 @@ export default function Oauth2Connection({
 
   const redirectUri = useMemo(() => getRedirectUri(), [])
 
+  // Resolve {fieldName} templates in endpoint URLs using current form values (e.g., Mautic baseUrl)
   const resolvedAuthCodeEndpoint = useMemo(() => {
     if (!authCodeEndpoint) return null
     return { ...authCodeEndpoint, url: resolveTemplate(authCodeEndpoint.url, formData) }
@@ -104,6 +111,9 @@ export default function Oauth2Connection({
     return { ...tokenEndpoint, url: resolveTemplate(tokenEndpoint.url, formData) }
   }, [tokenEndpoint, formData])
 
+  // The refresh URL is persisted into auth_details and replayed by the backend long
+  // after this form is gone, so it must be resolved here too. Leaving it templated
+  // stores a literal '{dataCenter}'/'{baseUrl}' host that fails every later refresh.
   const resolvedRefreshTokenUrl = useMemo(
     () => resolveTemplate(refreshTokenUrl, formData),
     [refreshTokenUrl, formData]
@@ -143,6 +153,8 @@ export default function Oauth2Connection({
       extraParams.code_challenge_method = 'S256'
     }
 
+    // Drop integration-declared client_id placeholder; URL.searchParams.append does not dedupe,
+    // so a placeholder + extraParams.client_id would emit two client_id entries.
     const { client_id: _ignored, ...queryParams } = declaredQueryParams
     const populatedAuthCodeEndpoint = { ...resolvedAuthCodeEndpoint, queryParams }
 
@@ -155,6 +167,8 @@ export default function Oauth2Connection({
     })
 
     if (popupResponse?.error) {
+      // The backend sends {message} on some paths and a bare string on others (e.g.
+      // $wpError->get_error_message()); reading only .message swallowed the real cause.
       throw new Error(
         popupResponse.error === 'popup_blocked'
           ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
@@ -262,6 +276,9 @@ export default function Oauth2Connection({
         connection_name: formData.connectionName,
         account_name: formData.connectionName,
         auth_details: savedAuthDetails,
+        // Honor a per-integration override, as ApiConnection and Oauth1Connection do.
+        // Hardcoding the default silently dropped the encryptKeys of any OAuth2
+        // integration declaring a sensitive extraField.
         encrypt_keys: authDetails?.encryptKeys || defaultEncryptKeys[AUTH_TYPES.OAUTH2] || []
       }
     },

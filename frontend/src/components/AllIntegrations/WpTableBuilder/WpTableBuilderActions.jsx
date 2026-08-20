@@ -2,6 +2,10 @@ import { create } from 'mutative'
 import { __ } from '../../../Utils/i18nwrap'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 
+/**
+ * Delete moves the table to the trash by default, so permanent deletion is opt-in
+ * here rather than an always-visible select in the integration layout.
+ */
 export default function WpTableBuilderActions({ wpTableBuilderConf, setWpTableBuilderConf }) {
   const forceDelete = wpTableBuilderConf?.utilities?.forceDelete || false
 

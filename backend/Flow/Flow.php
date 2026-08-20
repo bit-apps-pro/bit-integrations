@@ -15,6 +15,10 @@ use BitApps\Integrations\Log\LogHandler;
 use BitApps\Integrations\Triggers\TriggerController;
 use WP_Error;
 
+/**
+ * Provides details of available integration and helps to
+ * execute available flows
+ */
 final class Flow
 {
     public function triggers()
@@ -370,6 +374,14 @@ final class Flow
         wp_send_json_success(__('Status changed successfully', 'bit-integrations'));
     }
 
+    /**
+     * This function helps to execute Integration
+     *
+     * @param string $triggered_entity    Trigger name.
+     * @param string $triggered_entity_id Entity(form) ID of Triggered app.
+     *
+     * @return bool|array Returns existings flows or false
+     */
     public static function exists($triggered_entity, $triggered_entity_id = '')
     {
         $flowController = new FlowController();
@@ -399,6 +411,17 @@ final class Flow
         return $flows;
     }
 
+    /**
+     * This function helps to execute Integration
+     *
+     * @param string $triggered_entity    Trigger name.
+     * @param string $triggered_entity_id Entity(form) ID of Triggered app.
+     * @param array  $data                Values of submitted fields
+     * @param array  $flows               Existing Flows
+     * @param mixed  $fieldMap
+     *
+     * @return array Nothing to return
+     */
     public static function specialTagMappingValue($fieldMap)
     {
         $specialTagFieldValue = [];
@@ -444,6 +467,8 @@ final class Flow
                     continue;
                 }
 
+                // Same normalizer the custom-action capability gate uses — the two must never
+                // diverge, or a type that skips the gate can still resolve to an action class.
                 $integrationName = \is_null($flowData->flow_details->type) ? null : self::normalizeActionType($flowData->flow_details->type);
 
                 switch ($integrationName) {
@@ -513,6 +538,8 @@ final class Flow
                 }
 
                 if (!\is_null($integrationName) && $integration = static::isActionExists($integrationName)) {
+                    // inject() is total — it swallows credential-resolution failures
+                    // internally and skips injection, so it can never abort Flow::execute.
                     CredentialInjector::inject($flowData->flow_details, $integration);
 
                     $handler = new $integration($flowData->id);
@@ -520,12 +547,20 @@ final class Flow
                         $sptagData = self::specialTagMappingValue($flowData->flow_details->field_map);
                         $data = $data + $sptagData;
                     }
+                    // Execute through the wrapper so field data is captured for re-execution.
                     IntegrationHandler::executeWithCapture($flowData, $data, $handler);
                 }
             }
         }
     }
 
+    /**
+     * Checks a Integration Action Exists or not
+     *
+     * @param string $name Name of Action
+     *
+     * @return bool
+     */
     protected static function isActionExists($name)
     {
         if (class_exists("BitApps\\Integrations\\Actions\\{$name}\\{$name}Controller")) {
@@ -539,6 +574,13 @@ final class Flow
         return false;
     }
 
+    /**
+     * Checks a Integration Trigger Exists or not
+     *
+     * @param string $name Name of Trigger
+     *
+     * @return bool
+     */
     protected static function isTriggerExists($name)
     {
         if (class_exists("BitApps\\Integrations\\Triggers\\{$name}\\{$name}Controller")) {
@@ -559,6 +601,16 @@ final class Flow
         }
     }
 
+    /**
+     * Stop a non-administrator from acting on a flow whose action is a custom action.
+     *
+     * Public so callers outside this class that can cause a flow to run (log re-execution)
+     * enforce the same administrator boundary as save/update/delete/toggle.
+     *
+     * @param mixed $flowDetails Raw or decoded flow_details
+     *
+     * @return void
+     */
     public static function guardCustomActionFlowDetails($flowDetails)
     {
         if (self::isCustomActionFlowDetails($flowDetails)) {
@@ -621,6 +673,19 @@ final class Flow
         return self::normalizeActionType($flowDetails->type) === 'CustomAction';
     }
 
+    /**
+     * Canonical form of a flow's action type.
+     *
+     * This MUST stay the single normalizer used by both the capability gate
+     * (isCustomActionFlowDetails) and the dispatcher (execute). When the gate compared the
+     * raw string while execute() normalized it, "Custom Action" and "customAction" both
+     * skipped the administrator check yet still resolved to CustomActionController — which
+     * include()s a caller-supplied path.
+     *
+     * @param null|string $type
+     *
+     * @return string
+     */
     private static function normalizeActionType($type)
     {
         if (\is_null($type)) {

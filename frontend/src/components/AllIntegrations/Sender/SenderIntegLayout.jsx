@@ -42,6 +42,7 @@ export default function SenderIntegLayout({
         draftConf.mainAction = value
         draftConf.senderFields = fields
         draftConf.field_map = fields.length ? generateMappedField(fields) : []
+        // Clear per-action utilities/group selections so they never leak across an action switch.
         draftConf.actions = {}
         draftConf.groupId = ''
         draftConf.groups = []

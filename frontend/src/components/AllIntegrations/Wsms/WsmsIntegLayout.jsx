@@ -31,6 +31,7 @@ export default function WsmsIntegLayout({
         draftConf.mainAction = value
         draftConf.wsmsFields = WsmsStaticData[value] || []
         draftConf.field_map = generateMappedField(draftConf.wsmsFields)
+        // Clear identifiers from the previous action so they do not leak into the new one.
         delete draftConf.groupId
         delete draftConf.status
       })

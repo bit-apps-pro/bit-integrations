@@ -155,6 +155,10 @@ export default function Fabman({ formFields, setFlow, flow, allIntegURL }) {
     field_map: [{ formField: '', fabmanFormField: '' }],
     customFields: [],
     actions: {},
+    // Conditional logic configuration for executing actions based on field values
+    // action_behavior: determines when to run integration (e.g., on specific conditions)
+    // actions: array of field-action pairs for conditional execution
+    // logics: array of conditional logic rules (field, comparison operator, value) joined by 'or'/'and'
     condition: {
       action_behavior: '',
       actions: [{ field: '', action: 'value' }],

@@ -157,6 +157,8 @@ class GoogleCalendarController
 
         if ($generatedOn > 0 && ($generatedOn + (55 * 60)) < time()) {
             $refreshToken = self::refreshToken($token->refresh_token, $clientId, $clientSecret);
+            // refreshToken() returns false on failure, and is_wp_error(false) is false while
+            // false->error reads as null — so a bool used to pass this guard.
             if (!\is_object($refreshToken) || is_wp_error($refreshToken) || !empty($refreshToken->error)) {
                 return false;
             }
@@ -167,6 +169,10 @@ class GoogleCalendarController
                 $token->generates_on = $refreshToken->generates_on;
                 $token->generated_at = $refreshToken->generated_at;
 
+                // Google returns refresh_token ONLY on the initial authorization_code
+                // exchange, never on a refresh_token grant. Assigning it unconditionally
+                // stored null, saveRefreshedToken() persisted that, and the next refresh
+                // posted an empty refresh_token — a 400 that killed the connection for good.
                 if (!empty($refreshToken->refresh_token)) {
                     $token->refresh_token = $refreshToken->refresh_token;
                 }

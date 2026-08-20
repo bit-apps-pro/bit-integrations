@@ -20,6 +20,13 @@ class AttachmentHandler
         return get_post($attachmentId) ?: null;
     }
 
+    /**
+     * Format the attachment details into an array.
+     *
+     * @param WP_Post $attachmentPost The attachment post object.
+     *
+     * @return array The formatted attachment details.
+     */
     private static function formatAttachmentDetails($attachmentPost)
     {
         return [
@@ -32,6 +39,13 @@ class AttachmentHandler
         ];
     }
 
+    /**
+     * Retrieve the alt text for the attachment.
+     *
+     * @param int $attachmentId The attachment post ID.
+     *
+     * @return string The alt text for the attachment.
+     */
     private static function getAltText($attachmentId)
     {
         return get_post_meta($attachmentId, '_wp_attachment_image_alt', true) ?: '';

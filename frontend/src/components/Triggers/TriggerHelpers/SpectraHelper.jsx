@@ -123,6 +123,11 @@ const SpectraHelper = () => {
     )
   }
   useEffect(() => {
+    // if (newFlow.triggerDetail?.data?.length > 0 && newFlow.triggerDetail?.hook_id !== '') {
+    //   setHookID(newFlow.triggerDetail?.hook_id)
+    //   window.hook_id = newFlow.triggerDetail?.hook_id
+    // }
+
     return () => {
       setFields()
       bitsFetch({ hook_id: window.hook_id }, 'spectra/test/remove').then(resp => {

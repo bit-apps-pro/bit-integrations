@@ -13,6 +13,10 @@ use WP_Error;
 
 class WpTableBuilderController
 {
+    /**
+     * Tables are a custom post type, and the table body lives in a single post meta.
+     * Mirrors WP Table Builder's Cpt::POST_TYPE.
+     */
     public const POST_TYPE = 'wptb-tables';
 
     public const CONTENT_META_KEY = '_wptb_content_';
@@ -30,6 +34,12 @@ class WpTableBuilderController
         }
     }
 
+    /**
+     * List the tables an Add Row flow can append to.
+     *
+     * Trashed tables are excluded — appending to one would silently write into a table
+     * nobody can see.
+     */
     public static function refreshTables()
     {
         self::isExists();
@@ -60,6 +70,12 @@ class WpTableBuilderController
         wp_send_json_success($response);
     }
 
+    /**
+     * Read a table's column labels from its header row so the field map can be built
+     * with real names instead of positional placeholders.
+     *
+     * @param mixed $requestParams
+     */
     public static function refreshColumns($requestParams)
     {
         self::isExists();
@@ -102,6 +118,16 @@ class WpTableBuilderController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
+    /**
+     * Extract one entry per column from the first row of the stored table markup.
+     *
+     * The stored value is rendered HTML, so the header labels are read from the DOM
+     * rather than from any structured source — WP Table Builder does not keep one.
+     *
+     * @param string $content
+     *
+     * @return array
+     */
     private static function readColumnLabels($content)
     {
         if (empty($content) || !\class_exists('DOMDocument')) {
@@ -110,6 +136,8 @@ class WpTableBuilderController
 
         $dom = new DOMDocument();
         $previous = libxml_use_internal_errors(true);
+        // The stored markup is a fragment, and it is authored content that routinely
+        // trips libxml — parse errors here are expected and must not surface.
         $dom->loadHTML(
             '<?xml encoding="utf-8" ?>' . $content,
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD

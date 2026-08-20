@@ -22,6 +22,11 @@ class HookService
         Hooks::add('rest_api_init', [$this, 'loadApi']);
     }
 
+    /**
+     * Helps to register admin side ajax
+     *
+     * @return null
+     */
     public function loadAdminAjax()
     {
         (new AdminAjax())->register();
@@ -94,6 +99,11 @@ class HookService
         $task_dir = Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Triggers';
         $dirs = new FilesystemIterator($task_dir);
 
+        // Trigger-owned routes fetch forms/fields and write test data without checking
+        // capabilities themselves, so they get the stricter baseline. Reset afterwards so
+        // it never leaks onto routes registered later in the request.
+        // Action-owned routes authorize credentials and call third-party APIs with no
+        // capability check of their own — a read-only role must not reach them.
         Route::defaultAccess('write');
 
         try {

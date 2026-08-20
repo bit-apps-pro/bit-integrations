@@ -20,6 +20,10 @@ export const handleInput = (e, latePointConf, setLatePointConf) => {
   )
 }
 
+/**
+ * Option lists are held in component state rather than on conf, so they are not
+ * serialized into flow_details on every save.
+ */
 const FETCHERS = {
   agents: { route: 'refresh_latepoint_agents', dataKey: 'agents' },
   services: { route: 'refresh_latepoint_services', dataKey: 'services' },
@@ -47,6 +51,15 @@ const fetchList = (key, setLists) => {
   })
 }
 
+/**
+ * Fetch several lists at once and clear the loading flag only after every request
+ * has settled — a single shared flag cleared by the first responder would re-enable
+ * the refresh buttons while other dropdowns were still empty.
+ *
+ * @param {Function} setLists     state setter for the lists map
+ * @param {Function} setIsLoading shared loading flag
+ * @param {string[]} keys         which lists to fetch
+ */
 export const refreshLatePointLists = (setLists, setIsLoading, keys) => {
   const wanted = keys.filter(key => FETCHERS[key])
 
@@ -86,6 +99,13 @@ export const refreshLatePointLocations = (setLists, setIsLoading) =>
 export const refreshLatePointBundles = (setLists, setIsLoading) =>
   refreshLatePointLists(setLists, setIsLoading, ['bundles'])
 
+/**
+ * Which lists a given action's dropdowns need.
+ *
+ * @param {string} action mainAction slug
+ *
+ * @returns {string[]}
+ */
 export const listsForAction = action => {
   const keys = []
 
@@ -125,6 +145,17 @@ const isMapped = (latePointConf, key) =>
     row => row.latePointField === key && row.formField && (row.formField !== 'custom' || row.customValue)
   )
 
+/**
+ * Validate the selections the field map cannot express.
+ *
+ * Shared by the create wizard and the edit screen so both paths reject the same
+ * configurations — the required dropdown ids, plus the customer fields whose
+ * necessity depends on the chosen customer option rather than on staticData.
+ *
+ * @param {object} latePointConf
+ *
+ * @returns {string} error message, or '' when the config is valid
+ */
 export const validateLatePointConf = latePointConf => {
   const action = latePointConf?.mainAction
 
@@ -158,6 +189,8 @@ export const validateLatePointConf = latePointConf => {
       return __('Please select a customer option to continue.', 'bit-integrations')
     }
 
+    // These are required by the action only for the chosen customer option, which
+    // is why they cannot simply be marked required in staticData.
     if (latePointConf.customerType === 'existing') {
       if (!isMapped(latePointConf, 'customer_id')) {
         return __('Please map Customer ID to use an existing customer.', 'bit-integrations')

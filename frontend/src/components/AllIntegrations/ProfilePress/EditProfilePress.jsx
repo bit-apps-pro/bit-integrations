@@ -21,6 +21,8 @@ export default function EditProfilePress({ allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [snack, setSnackbar] = useState({ show: false })
 
+  // Same gate the create wizard applies, so an edited flow cannot be saved in a
+  // state that would fail on every run.
   const selectionError = validateProfilePressConf(profilePressConf)
 
   return (

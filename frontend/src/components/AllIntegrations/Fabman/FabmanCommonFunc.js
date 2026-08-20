@@ -65,6 +65,7 @@ export const fetchFabmanWorkspaces = (confTmp, setConf, loading, setLoading, typ
       setLoading({ ...loading, workspaces: false })
 
       if (result && result.success) {
+        // Use mutative's produce for state update
         const newConf = create(confTmp, draft => {
           if (result.data && result.data.workspaces && Array.isArray(result.data.workspaces)) {
             draft.workspaces = result.data.workspaces

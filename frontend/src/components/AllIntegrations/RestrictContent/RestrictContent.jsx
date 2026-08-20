@@ -33,6 +33,8 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
     { key: 'country', label: __('Country', 'bit-integrations'), required: false }
   ]
 
+  // const levelFields = [{ key: 'exp_date', label: 'Expiry Date', required: true }]
+
   const actionLists = [
     { key: 'add-member-level', label: __('Add the user to a level', 'bit-integrations') },
     { key: 'remove-member-level', label: __('Remove the user to a level', 'bit-integrations') }

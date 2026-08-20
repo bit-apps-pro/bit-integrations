@@ -17,12 +17,20 @@ class SendinBlueController
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'sendinblue',
+        // Connections store the UI's display name, which carries the Brevo rebrand.
         'aliases'  => ['Brevo(Sendinblue)'],
         'fields'   => [
             'api_key' => 'value',
         ],
     ];
 
+    /**
+     * Process ajax request for refresh crm modules
+     *
+     * @param object $requestsParams Params to refresh list
+     *
+     * @return JSON crm module data
+     */
     public function refreshlists($requestsParams)
     {
         if (empty($requestsParams->api_key)) {

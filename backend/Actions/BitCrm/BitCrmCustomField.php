@@ -20,12 +20,21 @@ if (!defined('ABSPATH')) {
  */
 final class BitCrmCustomField
 {
+    /**
+     * Marks a field map row as targeting a custom field rather than a column on
+     * the entity itself. Bit CRM takes the two through different payload keys.
+     */
     public const PREFIX = 'cf::';
 
     public const MODULES = ['lead', 'contact', 'company', 'deal', 'product'];
 
     private const SAVE_HOOK = 'bit_crm_update_custom_fields_values';
 
+    /**
+     * Active custom field definitions for a module.
+     *
+     * @return array<int, array>
+     */
     public static function all(string $module)
     {
         if (!\in_array($module, self::MODULES, true) || !class_exists('BitApps\CrmPro\Model\CustomField')) {
@@ -54,6 +63,13 @@ final class BitCrmCustomField
         return $active;
     }
 
+    /**
+     * The mapped custom field rows, keyed the way Bit CRM's entity services
+     * expect: [field_key => ['field_id' => int, 'field_value' => string]].
+     *
+     * Rows whose field no longer exists on the module are dropped, so deleting a
+     * custom field in Bit CRM cannot break a flow that still maps it.
+     */
     public static function values(array $fieldData, string $module)
     {
         $definitions = self::all($module);
@@ -85,6 +101,10 @@ final class BitCrmCustomField
         return $values;
     }
 
+    /**
+     * Drop the custom field rows from a field map, so they never reach the
+     * entity's own columns.
+     */
     public static function withoutCustomKeys(array $values)
     {
         return array_filter(
@@ -96,6 +116,11 @@ final class BitCrmCustomField
         );
     }
 
+    /**
+     * Write custom field values the same way Bit CRM's own entity services do.
+     * Only needed where a record is written directly instead of through the
+     * service that fires this action itself.
+     */
     public static function save(string $module, int $entityId, array $values)
     {
         if (empty($values) || empty($entityId)) {
@@ -106,6 +131,13 @@ final class BitCrmCustomField
         do_action(self::SAVE_HOOK, $module, $entityId, $values);
     }
 
+    /**
+     * Multi-value custom fields are stored as a JSON list; everything else is a
+     * plain string. A mapped value arrives comma separated when it comes from a
+     * trigger token rather than a real array.
+     *
+     * @param mixed $value
+     */
     private static function formatValue($value, string $type)
     {
         $multiValueTypes = class_exists('BitApps\CrmPro\Model\CustomField')

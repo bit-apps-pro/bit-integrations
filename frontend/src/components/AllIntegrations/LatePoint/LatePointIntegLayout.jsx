@@ -65,10 +65,14 @@ export default function LatePointIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  // Option lists live here rather than on conf so they are not persisted into
+  // flow_details every time the flow is saved.
   const [lists, setLists] = useState({})
 
   const mainAction = latePointConf?.mainAction
 
+  // Populate the dropdowns for whatever action is already selected. Matters most on
+  // the edit screen, where handleMainAction never runs.
   useEffect(() => {
     const keys = listsForAction(mainAction)
 
@@ -93,6 +97,7 @@ export default function LatePointIntegLayout({
         draftConf.field_map = generateMappedField(draftConf.latePointFields)
       })
     )
+  // The effect above fetches the lists this action needs.
   }
 
   const renderFetchedSelect = (label, confKey, listKey, refresher, tooltip, multi = false) => (

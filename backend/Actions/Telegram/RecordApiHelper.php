@@ -107,6 +107,7 @@ class RecordApiHelper
 
     private static function htmlToMarkdown($html)
     {
+        // Regular expressions for matching HTML elements and attributes
         $patterns = [
             '/<b>(.*?)<\/b>/s'                                                    => '*$1*',
             '/<strong>(.*?)<\/strong>/s'                                          => '*$1*',
@@ -131,6 +132,7 @@ class RecordApiHelper
             '/<s>(.*?)<\/s>/s'                                                    => '~$1~',
         ];
 
+        // Replace HTML elements with their Markdown equivalents
         $markdown = preg_replace(array_keys($patterns), array_values($patterns), $html);
 
         return str_replace(['**', '\*', '\_', '\|', '\~'], ['*', '*', '_', '|', '~'], $markdown);

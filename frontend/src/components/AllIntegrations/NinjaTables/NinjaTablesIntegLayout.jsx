@@ -16,8 +16,14 @@ import {
 import NinjaTablesFieldMap from './NinjaTablesFieldMap'
 import { modules } from './staticData'
 
+/**
+ * Check if action requires field mapping
+ */
 const requiresFieldMap = action => [ACTIONS.ADD_ROW, ACTIONS.UPDATE_ROW].includes(action)
 
+/**
+ * Check if data already exists in configuration
+ */
 const hasData = (conf, key) => conf?.default?.[key]?.length > 0
 
 export default function NinjaTablesIntegLayout({
@@ -31,12 +37,18 @@ export default function NinjaTablesIntegLayout({
 }) {
   const { isPro } = useRecoilValue($appConfigState)
 
+  /**
+   * Reset configuration fields when action changes
+   */
   const resetConfigFields = draftConf => {
     delete draftConf.selectedTable
     delete draftConf.selectedRow
     delete draftConf.selectedUser
   }
 
+  /**
+   * Auto-fetch required data based on action
+   */
   const autoFetchDataForAction = (action, hasDataLoaded) => {
     if (requiresFieldMap(action) && !hasDataLoaded('allTables')) {
       refreshNinjaTables(formID, setNinjaTablesConf, setIsLoading, setSnackbar)
@@ -58,6 +70,7 @@ export default function NinjaTablesIntegLayout({
       })
     )
 
+    // Auto-fetch data only if action changed
     const hasDataLoaded = key => hasData(ninjaTablesConf, key)
     autoFetchDataForAction(value, hasDataLoaded)
   }

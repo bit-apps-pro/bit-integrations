@@ -30,6 +30,7 @@ function TreeViewer({ data = [], onChange }) {
         propagateSelect
         propagateSelectUpwards
         togglableSelect
+        // onSelect={(props) => console.log('onSelect callback: ', props)}
         onNodeSelect={setChange}
         nodeRenderer={({
           element,
@@ -70,6 +71,19 @@ function TreeViewer({ data = [], onChange }) {
 
 export default memo(TreeViewer)
 
+// const processData = (data, index = "") => {
+//     // Handle non-object (including null) and non-array data
+//     if (typeof data !== "object" || data === null) {
+//         return { name: index + ' (' + data + ')', value: data };
+//     }
+//     // Handle array data
+//     if (Array.isArray(data)) {
+//         return {
+//             name: index + ' (array)',
+//             value: 'Array',
+//             children: data.map((item, key) => processData(item, key)),
+//         };
+//     }
 const processData = (data, index = '') => {
   if (typeof data !== 'object' || data === null) {
     return { name: index + ' (' + data + ')', value: data }
@@ -83,6 +97,7 @@ const processData = (data, index = '') => {
     }
   }
 
+  // Handle object data (including class instances)
   const objectData = {
     name: index + ' (Object)',
     value: 'Object',
@@ -99,6 +114,7 @@ const processData = (data, index = '') => {
     }
   })
 
+  // Get methods and properties from the prototype
   let prototype = Object.getPrototypeOf(data)
   while (prototype !== null && prototype !== Object.prototype) {
     Object.getOwnPropertyNames(prototype).forEach(key => {

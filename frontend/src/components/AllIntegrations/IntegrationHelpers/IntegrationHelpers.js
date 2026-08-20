@@ -75,6 +75,13 @@ export const saveIntegConfig = async (
     }
   }
 
+  /**
+   * TODO
+   *
+   * This is a temporary fix
+   * Have to move this to a better place
+   */
+
   if (flow.triggered_entity === 'CartFlow') {
     if (edit) {
       tmpConf.postId = flow?.flow_details?.postId ?? null

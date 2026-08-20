@@ -31,9 +31,11 @@ class RecordApiHelper
     public function insertRecord($subscriber, $lists, $actions, $options = [])
     {
         try {
+            // try to find if user is already a subscriber
             $existingSubscriber = static::$mailPoet_api->getSubscriber($subscriber['email']);
 
             if (!$existingSubscriber) {
+                // Handle the case where the subscriber doesn't exist
                 return static::addSubscriber($subscriber, $lists, $options);
             }
 

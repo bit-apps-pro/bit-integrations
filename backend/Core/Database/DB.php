@@ -81,10 +81,13 @@ final class DB
             dbDelta($table);
         }
 
+        // Ensure re-execution columns/index exist on already-installed sites (dbDelta may skip these).
         self::addFieldDataColumn();
         self::addParentIdColumn();
         self::addParentIdIndex();
 
+        // Mark the re-execution columns ready so the log list avoids a per-request INFORMATION_SCHEMA
+        // check (kept in sync with LogHandler::ensureLogColumns()'s '2' version stamp).
         if (self::logColumnsExist()) {
             Config::updateOption('log_columns_ready', '2');
         }
@@ -95,16 +98,33 @@ final class DB
         );
     }
 
+    /**
+     * Add the `field_data` column to btcbi_log if it does not exist.
+     * Stores the trigger field values per execution so a log entry can be re-executed.
+     *
+     * @return void
+     */
     public static function addFieldDataColumn()
     {
         self::addLogColumnIfMissing('field_data');
     }
 
+    /**
+     * Add the `parent_id` column to btcbi_log if it does not exist.
+     * Links a re-executed log entry (child) back to the log entry it was re-run from (parent).
+     *
+     * @return void
+     */
     public static function addParentIdColumn()
     {
         self::addLogColumnIfMissing('parent_id');
     }
 
+    /**
+     * Add an index on btcbi_log.parent_id if missing, so the grouped-log anti-join stays fast.
+     *
+     * @return void
+     */
     public static function addParentIdIndex()
     {
         global $wpdb;
@@ -120,12 +140,18 @@ final class DB
             )
         );
 
+        // Only proceed once the column itself exists (index add would otherwise fail).
         if (empty($index_exists) && self::logColumnHasParentId()) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- One-time schema migration; $table_name from $wpdb->prefix, index/column names are constants (no user input)
             $wpdb->query("ALTER TABLE `{$table_name}` ADD INDEX `parent_id` (`parent_id`)");
         }
     }
 
+    /**
+     * Whether btcbi_log has the parent_id column.
+     *
+     * @return bool
+     */
     private static function logColumnHasParentId()
     {
         global $wpdb;
@@ -143,8 +169,19 @@ final class DB
         return !empty($exists);
     }
 
+    /**
+     * Add a column to btcbi_log only when it is missing (idempotent).
+     * The column's definition and position come from an internal allow-list keyed by $column,
+     * never from caller input.
+     *
+     * @param string $column Column name (must be a key in the internal allow-list)
+     *
+     * @return void
+     */
     private static function addLogColumnIfMissing($column)
     {
+        // The entire DDL (name, definition, position) comes from this hard-coded allow-list — never
+        // from caller input — so the interpolated ALTER can never carry untrusted values.
         $allowed = [
             'field_data' => ['definition' => 'LONGTEXT DEFAULT NULL', 'after' => 'response_obj'],
             'parent_id'  => ['definition' => 'bigint(20) DEFAULT NULL', 'after' => 'field_data'],
@@ -176,6 +213,12 @@ final class DB
         }
     }
 
+    /**
+     * Verify that both re-execution columns actually exist on btcbi_log.
+     * Used to avoid caching a "ready" flag when an ALTER silently failed.
+     *
+     * @return bool
+     */
     public static function logColumnsExist()
     {
         global $wpdb;

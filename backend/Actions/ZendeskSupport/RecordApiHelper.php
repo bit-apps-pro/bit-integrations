@@ -11,8 +11,18 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
+/**
+ * Provide functionality for Zendesk Support record actions.
+ *
+ * Free side never calls the Zendesk API. It only builds the mapped field
+ * data and fires a hook that the Pro plugin handles.
+ */
 class RecordApiHelper
 {
+    /**
+     * Maps each action slug to its dedicated hook name. Each event uses a
+     * separate hook so the Pro side can register one handler per action.
+     */
     private static $hookMap = [
         'createTicket'         => 'zendesk_support_create_ticket',
         'updateTicket'         => 'zendesk_support_update_ticket',

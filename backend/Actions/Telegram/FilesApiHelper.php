@@ -22,6 +22,14 @@ final class FilesApiHelper
         $this->_defaultHeader['Content-Type'] = 'multipart/form-data; boundary=' . $this->_payloadBoundary;
     }
 
+    /**
+     * Helps to execute upload files api
+     *
+     * @param string $apiEndPoint Telegram API base URL
+     * @param array  $data        Data to pass to API
+     *
+     * @return array $uploadResponse Telegram API response
+     */
     public function uploadFiles($apiEndPoint, $data)
     {
         $safePath = Common::safeUploadFilePath($data['photo']);

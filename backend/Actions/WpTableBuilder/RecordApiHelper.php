@@ -34,6 +34,8 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
+        // No fallback action: every action writes, and delete_table removes a table, so
+        // a flow that lost its mainAction should fail through the default branch.
         $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         $defaultResponse = [
@@ -92,6 +94,8 @@ class RecordApiHelper
     {
         $dataFinal = [];
         foreach ($fieldMap as $item) {
+            // Direct property reads, so unlike isset()/empty() these do warn when a
+            // stored field-map row is missing a key.
             $triggerValue = $item->formField ?? '';
             $actionValue = $item->wpTableBuilderField ?? '';
 

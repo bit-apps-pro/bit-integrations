@@ -21,6 +21,7 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
+    // for adding a contact to a list.
     public function storeOrModifyRecord($method, $listId, $data)
     {
         $apiEndpoint = "https://rest.directiq.com/contacts/lists/importcontacts/{$listId}";

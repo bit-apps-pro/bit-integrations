@@ -82,6 +82,13 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh bigin modules
+     *
+     * @param object $queryParams Params to refresh  modules
+     *
+     * @return JSON bigin module data
+     */
     public static function refreshPLayouts($queryParams)
     {
         if (
@@ -128,6 +135,13 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh bigin modules
+     *
+     * @param object $queryParams Params to refresh related lists
+     *
+     * @return JSON bigin module data
+     */
     public static function refreshRelatedModules($queryParams)
     {
         if (
@@ -179,6 +193,13 @@ class ZohoBiginController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refresh bigin layouts
+     *
+     * @param object $queryParams Params to fetch fields of module
+     *
+     * @return JSON bigin layout data
+     */
     public static function getFields($queryParams)
     {
         if (
@@ -444,6 +465,13 @@ class ZohoBiginController
         return $zBiginApiResponse;
     }
 
+    /**
+     * Helps to refresh zoho bigin access_token
+     *
+     * @param array $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
     protected static function _refreshAccessToken($apiData)
     {
         if (
@@ -476,6 +504,15 @@ class ZohoBiginController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Zoho bigin Integration
+     * @param Obeject    $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

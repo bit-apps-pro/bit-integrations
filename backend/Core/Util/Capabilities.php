@@ -6,6 +6,12 @@ use BitApps\Integrations\Config;
 
 final class Capabilities
 {
+    /**
+     * Plugin-specific capabilities. Holding any one of these (or `manage_options`)
+     * grants access to the plugin's admin AJAX surface.
+     *
+     * @var string[]
+     */
     private const INTEGRATION_CAPABILITIES = [
         'manage_integrations',
         'view_integrations',
@@ -14,6 +20,11 @@ final class Capabilities
         'delete_integrations',
     ];
 
+    /**
+     * The subset of the above that implies authority to change something.
+     *
+     * @var string[]
+     */
     private const INTEGRATION_WRITE_CAPABILITIES = [
         'manage_integrations',
         'create_integrations',
@@ -31,11 +42,29 @@ final class Capabilities
         return static::Check(Hooks::apply($cap, $default));
     }
 
+    /**
+     * Whether the current user holds any Bit Integrations capability (or is an
+     * administrator). Used as the baseline authorization gate for every
+     * authenticated AJAX route so that a valid nonce alone is never sufficient to
+     * reach a handler.
+     *
+     * @return bool
+     */
     public static function hasIntegrationAccess()
     {
         return static::holdsAnyOf(self::INTEGRATION_CAPABILITIES);
     }
 
+    /**
+     * Whether the current user may change integration state, as opposed to only viewing it.
+     *
+     * `view_integrations` is deliberately absent. Integration-owned AJAX routes (per-action
+     * and per-trigger `Routes.php`) authorize credentials, hit third-party APIs and mutate
+     * connection config, and those controllers add no capability check of their own — so a
+     * read-only role must not reach them just by holding one plugin capability.
+     *
+     * @return bool
+     */
     public static function hasIntegrationWriteAccess()
     {
         return static::holdsAnyOf(self::INTEGRATION_WRITE_CAPABILITIES);

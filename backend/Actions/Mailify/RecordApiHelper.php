@@ -23,6 +23,7 @@ class RecordApiHelper
         ];
     }
 
+    // for updating contact data through email id.
     public function updateContact($id, $data, $existContact, $selectedList)
     {
         $contactData = $data;
@@ -93,6 +94,7 @@ class RecordApiHelper
         return $apiResponse;
     }
 
+    // Check if a contact exists through email.
     private function existContact($selectedList, $email)
     {
         $apiEndpoints = "https://mailifyapis.com/v1/lists/{$selectedList}/contacts?email={$email}";

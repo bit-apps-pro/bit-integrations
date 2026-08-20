@@ -10,6 +10,13 @@ use BitApps\Integrations\Log\LogHandler;
 
 final class RegistrationController
 {
+    /**
+     * wp_insert_user / wp_update_user fields a form submission is allowed to set.
+     * Deliberately excludes `role` (handled separately, admin-static only) and any
+     * capability/level field, so a mapped form value can never grant privileges.
+     *
+     * @var string[]
+     */
     private const ALLOWED_USER_FIELDS = [
         'user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email',
         'display_name', 'nickname', 'first_name', 'last_name', 'description',
@@ -133,6 +140,9 @@ final class RegistrationController
             $userField = $fieldPair->userField;
             $isStatic  = ($fieldPair->formField === 'custom' && isset($fieldPair->customValue));
 
+            // Role is a privilege boundary: only honour it as a static admin literal
+            // naming a real role — never a form-field value or an interpolated token,
+            // which would let a submitter pick their own role.
             if ($this->isRoleField($userField)) {
                 $role = $isStatic ? $this->resolveStaticRole($fieldPair->customValue) : '';
                 if ($role !== '') {
@@ -142,6 +152,8 @@ final class RegistrationController
                 continue;
             }
 
+            // Drop anything outside the safe wp_insert_user field set (blocks
+            // wp_capabilities, user_level, and similar capability-granting keys).
             if (!\in_array($userField, self::ALLOWED_USER_FIELDS, true)) {
                 continue;
             }
@@ -174,6 +186,14 @@ final class RegistrationController
         return \in_array(strtolower((string) $field), ['role', 'roles'], true);
     }
 
+    /**
+     * Accept a role only when it is a plain static literal (no `${...}` form token)
+     * that names a currently-registered role. Returns '' otherwise.
+     *
+     * @param mixed $customValue
+     *
+     * @return string
+     */
     private function resolveStaticRole($customValue)
     {
         if (!\is_string($customValue) || $customValue === '' || strpos($customValue, '${') !== false) {
@@ -186,6 +206,14 @@ final class RegistrationController
         return ($roles && $roles->is_role($role)) ? $role : '';
     }
 
+    /**
+     * Whether a user-meta key would grant capabilities or a user level, in which
+     * case a form-mapped value must never be written to it.
+     *
+     * @param string $metaKey
+     *
+     * @return bool
+     */
     private function isProtectedMetaKey($metaKey)
     {
         global $wpdb;
@@ -241,6 +269,7 @@ final class RegistrationController
             foreach ($metaFields as $meta) {
                 if (isset($meta['name']) && (isset($meta['value']))) {
                     $metaKey = $meta['name'];
+                    // Never let a form-mapped meta value grant capabilities or a level.
                     if ($this->isProtectedMetaKey($metaKey)) {
                         continue;
                     }

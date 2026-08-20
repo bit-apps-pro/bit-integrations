@@ -71,6 +71,13 @@ class GoogleSheetController
         wp_send_json_success($apiResponse, 200);
     }
 
+    /**
+     * Process ajax request for refresh crm modules
+     *
+     * @param object $queryParams Request Params
+     *
+     * @return JSON crm module data
+     */
     public static function refreshSpreadsheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -121,6 +128,13 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Process ajax request for refesh crm layouts
+     *
+     * @param object $queryParams Request Params
+     *
+     * @return JSON crm layout data
+     */
     public static function refreshWorksheetsAjaxHelper($queryParams)
     {
         $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
@@ -280,6 +294,13 @@ class GoogleSheetController
         return $gsheetApiResponse;
     }
 
+    /**
+     * Helps to refresh zoho crm access_token
+     *
+     * @param array $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->clientId)
@@ -309,6 +330,15 @@ class GoogleSheetController
         return $tokenDetails;
     }
 
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Google Sheet Integration
+     * @param Obeject    $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
     protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {

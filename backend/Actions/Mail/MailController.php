@@ -11,6 +11,14 @@ use BitApps\Integrations\Log\LogHandler;
 
 final class MailController
 {
+    /**
+     * Helps to execute integration flow for Mail action
+     *
+     * @param object $integrationData Details of flow
+     * @param array  $fieldValues     Data to use in send mail
+     *
+     * @return null
+     */
     public function execute($integrationData, $fieldValues)
     {
         $flow = $integrationData->flow_details;
@@ -70,6 +78,18 @@ final class MailController
         return 'text/html; charset=UTF-8';
     }
 
+    /**
+     * Resolve mapped address values and keep only the ones that are real addresses.
+     *
+     * The scalar branch used to return the interpolated value unchecked, so a submitted
+     * form field became the recipient/header verbatim. Both branches now apply the same
+     * is_email() filter, and anything that fails it is dropped rather than passed on.
+     *
+     * @param array|string $emailAddresses
+     * @param array        $fieldValues
+     *
+     * @return array
+     */
     public function validateAddresses($emailAddresses, $fieldValues)
     {
         $candidates = \is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
@@ -86,6 +106,7 @@ final class MailController
                 $email = Common::replaceFieldWithValue($email, $fieldValues);
             }
 
+            // A single mapped field may resolve to a comma-separated list.
             foreach (explode(',', (string) $email) as $candidate) {
                 $candidate = sanitize_email(trim($candidate));
 
@@ -103,6 +124,8 @@ final class MailController
         $headers = [];
 
         foreach ($this->validateAddresses($address, $fields) as $validAddress) {
+            // The local part becomes the header display name, so it must be sanitized too —
+            // it is submitter-controlled and lands in a raw header string.
             $displayName = sanitize_text_field(explode('@', $validAddress)[0]);
             $headers[] = "{$type}: {$displayName}<{$validAddress}>";
         }

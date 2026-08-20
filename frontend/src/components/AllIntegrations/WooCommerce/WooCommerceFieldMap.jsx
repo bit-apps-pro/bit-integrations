@@ -52,6 +52,13 @@ export default function WooCommerceFieldMap({
     setWcConf(newConf)
   }
 
+  // const handleCustomValue = (event, indx) => {
+  //   const newConf = deepCopy(wcConf)
+  //   if (uploadFields) newConf[module].upload_field_map[indx].customValue = event.target.value
+  //   else newConf[module].field_map[indx].customValue = event.target.value
+  //   setWcConf(newConf)
+  // }
+
   const handleCustomValue = (event, index) => {
     setWcConf(prevConf =>
       create(prevConf, draftConf => {

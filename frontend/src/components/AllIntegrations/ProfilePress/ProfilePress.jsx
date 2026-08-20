@@ -30,6 +30,8 @@ export default function ProfilePress({ formFields, setFlow, flow, allIntegURL })
     }, 300)
 
     if (val === 3) {
+      // The plan dropdown is invisible to checkMappedFields; the edit screen runs
+      // the same check.
       const selectionError = validateProfilePressConf(profilePressConf)
 
       if (selectionError) {

@@ -63,6 +63,7 @@ class RecordApiHelper
         if (! empty($user_rank_id) && $rank_id == $user_rank_id) {
             return gamipress_revoke_rank_to_user(absint($user_id), $user_rank_id, 0, ['admin_id' => absint($user_id)]);
 
+            // if still rank is assigned to user
             $user_rank_id = gamipress_get_user_rank_id(absint($user_id), $rank->post_type);
             if (! empty($user_rank_id) && $rank_id == $user_rank_id) {
                 $meta = "_gamipress_{$rank->post_type}_rank";

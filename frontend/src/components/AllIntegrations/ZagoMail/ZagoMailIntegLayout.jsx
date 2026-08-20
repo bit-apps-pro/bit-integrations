@@ -42,6 +42,11 @@ export default function ZagoMailIntegLayout({
 
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  // useEffect(() => {
+  //   zagoMailLists && refreshZagoMailTags(zagoMailConf, setZagoMailConf, setIsLoading, setSnackbar)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [zagoMailLists])
+
   return (
     <>
       <br />

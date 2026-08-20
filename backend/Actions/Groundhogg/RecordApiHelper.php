@@ -172,6 +172,7 @@ class RecordApiHelper
         $mainAction = $integrationDetails->mainAction;
         $fieldData = [];
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+        // 1 = create contact with tag
         if ($mainAction === '1') {
             if ($integrationDetails->showMeta) {
                 $fieldMapMeta = $integrationDetails->field_map_meta;
@@ -194,6 +195,7 @@ class RecordApiHelper
             }
             $apiResponseContact = $this->createContact($finalData, $integrationDetails);
         }
+        // 2 = add tag to contact
         if ($mainAction === '2') {
             $addTagsToUser = [];
             $addTagToEmails = [];

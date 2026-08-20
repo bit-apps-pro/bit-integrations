@@ -25,6 +25,27 @@ class MoxieCRMController
 
     protected $apiEndpoint;
 
+    // public function getCustomFields($fieldsRequestParams)
+    // {
+    //     if (empty($fieldsRequestParams->api_key)) {
+    //         wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+    //     }
+    //     $response = HttpHelper::get($apiEndpoint, null, $headers);
+    //     if (isset($response)) {
+    //         foreach ($response as $customField) {
+    //             if (in_array($action, $customField->available_on)) {
+    //                 $customFields[] = [
+    //                     'key' => $customField->id,
+    //                     'label' => $customField->name,
+    //                 ];
+    //             }
+    //         }
+    //         wp_send_json_success($customFields, 200);
+    //     } else {
+    //         wp_send_json_error(__('Custom field fetching failed', 'bit-integrations'), 400);
+    //     }
+    // }
+
     public function getAllOpportunities($fieldsRequestParams)
     {
         if (empty($fieldsRequestParams->api_key)) {

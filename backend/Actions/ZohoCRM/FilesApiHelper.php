@@ -28,6 +28,18 @@ final class FilesApiHelper
         $this->_apiDomain = urldecode($tokenDetails->api_domain);
     }
 
+    /**
+     * Helps to execute upload files api
+     *
+     * @param mixed  $files        Files path
+     * @param string $uploadType   Type of upload field. CRM has two type of
+     *                             upload field: fileupload | imageupload
+     * @param bool   $isAttachment Check upload type
+     * @param mixed  $module       Attachment Module name
+     * @param mixed  $recordID     Record id
+     *
+     * @return array $uploadedFiles ID's of uploaded file in Zoho CRM
+     */
     public function uploadFiles($files, $uploadType, $isAttachment = false, $module = '', $recordID = 0)
     {
         $uploadFileEndpoint = $isAttachment
@@ -97,6 +109,15 @@ final class FilesApiHelper
         return $payload;
     }
 
+    /**
+     * Sets file id by file upload type
+     *
+     * @param string $id         ID received from Files API
+     * @param string $uploadType Type of upload field. CRM has two type of
+     *                           upload field: fileupload | imageupload
+     *
+     * @return object
+     */
     public function setIdByUploadType($id, $uploadType)
     {
         if ($uploadType === 'imageupload') {

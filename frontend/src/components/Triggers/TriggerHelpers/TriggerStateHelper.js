@@ -1,6 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 
+// suffix IH = call from IntegrationHelpers
+// suffix FP = call from FormPlugin
+
 export const FormPluginStateHelper = (val, tmpNewFlow, resp, setNewFlow) => {
   if (tmpNewFlow?.triggered_entity === 'TutorLms') {
     tutorlmsStateFP(val, tmpNewFlow, resp, setNewFlow)

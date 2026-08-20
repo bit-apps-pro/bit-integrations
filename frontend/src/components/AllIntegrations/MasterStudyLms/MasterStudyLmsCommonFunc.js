@@ -15,6 +15,7 @@ export const MS_LMS_ACTIONS = {
   MARK_LESSON_COMPLETE: '9'
 }
 
+// Field-map definition for the email-based (Pro) actions.
 export const msLmsUserFields = [
   { key: 'user_email', label: __('User Email', 'bit-integrations'), required: true }
 ]
@@ -61,6 +62,7 @@ export const allActions = [
   }
 ]
 
+// Per-action required-field validation shared by the New wizard and Edit screen.
 export const isActionConfigIncomplete = conf => {
   switch (conf?.mainAction) {
     case MS_LMS_ACTIONS.COMPLETE_COURSE:

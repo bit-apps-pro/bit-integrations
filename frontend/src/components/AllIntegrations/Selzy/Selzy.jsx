@@ -41,6 +41,7 @@ function Selzy({ formFields, setFlow, flow, allIntegURL }) {
     actions: {},
     selzyFields: [
       { key: 'email', label: 'Email', required: true },
+      // { key: 'name', label: 'Name', required: false },
       { key: 'phone', label: 'Phone Number', required: false }
     ]
   })

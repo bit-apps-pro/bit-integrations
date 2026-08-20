@@ -98,6 +98,18 @@ class WebHooksController
         return $response;
     }
 
+    /**
+     * Decides whether a webhook run failed.
+     *
+     * A remote that answers 404 or 500 still returns a decoded body, so the status
+     * code is the only reliable signal. An unknown code (transport level failure
+     * already covered by is_wp_error) is not treated as a failure on its own.
+     *
+     * @param mixed    $response
+     * @param null|int $responseCode
+     *
+     * @return bool
+     */
     private static function hasFailed($response, $responseCode)
     {
         if (is_wp_error($response)) {
@@ -115,6 +127,17 @@ class WebHooksController
         return $responseCode < 200 || $responseCode >= 300;
     }
 
+    /**
+     * Rebuilds the webhook url, resolving smart tags in the query string and in
+     * the url path (dynamic route parameters).
+     *
+     * @param string       $url
+     * @param array        $fieldValues Trigger data
+     * @param array|object $pathParams  Placeholder => value map, e.g. [{key: 'id', value: '${post_id}'}]
+     * @param bool         $isTest      Test Webhook run, no trigger data available
+     *
+     * @return string|WP_Error
+     */
     private static function urlParserWrapper($url, $fieldValues = [], $pathParams = [], $isTest = false)
     {
         if (empty($url)) {
@@ -131,6 +154,7 @@ class WebHooksController
         $Query = isset($parsedURL['query']) ? $parsedURL['query'] : null;
         $Pass = ($Pass || $Usr) ? "{$Pass}@" : null;
 
+        // resolved after parsing, so a dynamic value can never rewrite scheme/host/port
         $Path = self::resolvePathParams($Path, $pathParams, $fieldValues, $isTest);
         if (is_wp_error($Path)) {
             return $Path;
@@ -166,6 +190,23 @@ class WebHooksController
         return $cleanURL;
     }
 
+    /**
+     * Replaces dynamic route parameters in the url path.
+     *
+     * Two notations are supported:
+     * - `{name}`     mapped to a value through the `pathParams` config
+     * - `${field}`   smart tag written inline in the path
+     *
+     * Resolved values are raw url encoded, so they always stay inside the single
+     * path segment they were written in.
+     *
+     * @param null|string  $path
+     * @param array|object $pathParams
+     * @param array        $fieldValues
+     * @param bool         $isTest
+     *
+     * @return null|string|WP_Error
+     */
     private static function resolvePathParams($path, $pathParams, $fieldValues, $isTest = false)
     {
         if (empty($path) || false === strpos($path, '{')) {

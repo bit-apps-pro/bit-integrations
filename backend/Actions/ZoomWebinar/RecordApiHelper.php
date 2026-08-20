@@ -32,6 +32,7 @@ class RecordApiHelper
 
         $getRegistrants = HttpHelper::get($endPoint, null, $header);
 
+        // get registrant id using email from getRegistrants
         $registrantId = null;
         foreach ($getRegistrants->registrants as $registrant) {
             if ($registrant->email == $finalData['email']) {
@@ -141,6 +142,7 @@ class RecordApiHelper
             $apiResponse = __('User deleted successfully', 'bit-integrations');
         }
 
+        // Delete registrant if email is present in the form
         if ($selectedAction === 'Delete Attendee') {
             $this->deleteWebinarRegistrant($webinarId, $finalData, $tokenDetails);
             $apiResponse = __('Attendee deleted successfully', 'bit-integrations');
@@ -150,6 +152,7 @@ class RecordApiHelper
             $apiResponse = $this->createUser($webinarId, $finalData, $tokenDetails);
         }
 
+        // api response show but it was shown when registance created
         if ($selectedAction === 'Create Attendee') {
             $apiResponse = $this->createWebinarRegistrant($webinarId, $finalData, $tokenDetails);
         }

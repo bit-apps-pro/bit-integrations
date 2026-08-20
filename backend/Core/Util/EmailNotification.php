@@ -4,8 +4,23 @@ namespace BitApps\Integrations\Core\Util;
 
 use BitApps\Integrations\Config;
 
+/**
+ * Email Notification Handler for Integration Failures
+ */
 final class EmailNotification
 {
+    /**
+     * Send email notification to admin when integration fails
+     *
+     * @param int    $flowId       The integration flow ID
+     * @param string $actionName   Name of the integration
+     * @param string $errorMessage Error message from the failed integration
+     * @param mixed  $actionName
+     * @param mixed  $triggerName
+     * @param mixed  $recordType
+     *
+     * @return bool Whether the email was sent successfully
+     */
     public static function sendFailureNotification($flowId, $actionName, $triggerName, $recordType, $errorMessage)
     {
         $adminEmail = get_option('admin_email');

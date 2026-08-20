@@ -47,6 +47,7 @@ export default function FluentCartIntegLayout({
       create(prevConf, draftConf => {
         draftConf.mainAction = value
 
+        // Set fields based on action type
         switch (value) {
           case 'create_order':
             draftConf.fluentCartFields = OrderFields

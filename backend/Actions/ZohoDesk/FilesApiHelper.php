@@ -29,6 +29,18 @@ final class FilesApiHelper
         $this->_apiDomain = urldecode($tokenDetails->api_domain ?? '');
     }
 
+    /**
+     * Helps to execute upload files api
+     *
+     * @param mixed $files        Files path
+     * @param bool  $isAttachment Check upload type
+     * @param mixed $module       Attachment Module name
+     * @param mixed $recordID     Record id
+     * @param mixed $ticketId
+     * @param mixed $dataCenter
+     *
+     * @return array $uploadedFiles ID's of uploaded file in Zoho Desk
+     */
     public function uploadFiles($files, $ticketId, $dataCenter)
     {
         $uploadFileEndpoint = "https://desk.zoho.{$dataCenter}/api/v1/tickets/{$ticketId}/attachments";

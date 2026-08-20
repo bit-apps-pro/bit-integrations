@@ -38,9 +38,11 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
     const resp = saveIntegConfig(flow, setFlow, allIntegURL, sendyConf, navigate, '', '', setIsLoading)
     resp.then(res => {
       if (res.success) {
+        // setSnackbar({ show: true, msg: res.data?.msg })
         toast.success(res.data?.msg)
         navigate(allIntegURL)
       } else {
+        // setSnackbar({ show: true, msg: res.data || res })
         toast.error(res.data || res)
       }
     })
@@ -51,6 +53,7 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
     }, 300)
 
     if (!checkMappedFields(sendyConf)) {
+      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
       toast.error(__('Please map mandatory fields', 'bit-integrations'))
       return
     }

@@ -10,6 +10,11 @@ export const AUTH_TYPES = Object.freeze({
   CUSTOM: 'custom'
 })
 
+// Credentials encrypted at rest per auth type. The backend applies the same set as a
+// floor (ConnectionController::ENCRYPT_KEY_FLOOR) and unions it with whatever is sent,
+// so an integration can add keys here but never silently store less than this.
+// CUSTOM has no standard key shape — such integrations must declare their own
+// `encryptKeys`, and the empty default is what makes forgetting it obvious.
 export const defaultEncryptKeys = {
   [AUTH_TYPES.API_KEY]: ['value'],
   [AUTH_TYPES.BASIC_AUTH]: ['username', 'password'],
@@ -21,6 +26,8 @@ export const defaultEncryptKeys = {
 
 export const isWpPluginCheckType = authType => authType === AUTH_TYPES.WP_PLUGIN_CHECK
 
+// Pre-fills the required connection name so the user never has to invent one.
+// Suffixes a counter when the plain "{App} Connection" label is already taken.
 export const buildDefaultConnectionName = (appName, connections = []) => {
   const app = String(appName || '').trim()
   const base = app

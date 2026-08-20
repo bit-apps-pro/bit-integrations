@@ -77,6 +77,7 @@ export default function SelectTrigger() {
     const filtered = Object.entries(data.data)
       .filter(integ => integ[1].name.toLowerCase().includes(value.toLowerCase()))
       .reduce((prev, [key, values]) => ({ ...prev, [key]: values }), {})
+    // const organizeData = filtered?.reduce((prev, [key, values]) => ({ ...prev, [key]: values }), {})
     setAllTriggers({ success: true, data: sortFeaturedProducts(filtered) })
   }
 

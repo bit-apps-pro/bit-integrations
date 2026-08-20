@@ -103,6 +103,7 @@ class RecordApiHelper
         return $recordApiResponse;
     }
 
+    // Check if a contact exists through email.
     private function existContact($email)
     {
         $queries = http_build_query([

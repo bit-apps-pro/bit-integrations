@@ -11,6 +11,12 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
+/**
+ * Provide functionality for Secure Custom Fields field update actions.
+ *
+ * Free only dispatches the action through a filter; the actual work is done in
+ * Bit Integrations Pro (SecureCustomFieldsRecordHelper).
+ */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -98,6 +104,14 @@ class RecordApiHelper
         return $dataFinal;
     }
 
+    /**
+     * Build the group payload: every mapped sub-field name => resolved value, plus the
+     * group's post id and field name. Lets one action set many sub-fields of a group.
+     *
+     * @param array $fieldValues
+     *
+     * @return array{post_id: string, group_name: string, fields: array}
+     */
     private function buildGroupPayload($fieldValues)
     {
         $details = $this->_integrationDetails;
@@ -120,6 +134,14 @@ class RecordApiHelper
         ];
     }
 
+    /**
+     * Build the repeater payload: mapped sub-fields grouped by row index, plus the
+     * repeater's post id and field name. Lets one action set many rows / sub-fields.
+     *
+     * @param array $fieldValues
+     *
+     * @return array{post_id: string, repeater_name: string, rows: array}
+     */
     private function buildRepeaterPayload($fieldValues)
     {
         $details = $this->_integrationDetails;
@@ -134,12 +156,16 @@ class RecordApiHelper
 
             $rawRowIndex = isset($item->rowIndex) ? trim((string) $item->rowIndex) : '';
 
+            // Skip a sub-field with no row index rather than silently writing it to row 0,
+            // which would collapse distinct rows onto each other.
             if ($rawRowIndex === '') {
                 continue;
             }
 
             $resolvedRowIndex = Common::replaceFieldWithValue($rawRowIndex, $fieldValues);
 
+            // A smart tag that resolves to a non-numeric/empty value would cast to row 0
+            // and silently collide with a real row 0; skip it instead of merging rows.
             if (!is_numeric($resolvedRowIndex)) {
                 continue;
             }
@@ -156,6 +182,14 @@ class RecordApiHelper
         ];
     }
 
+    /**
+     * Resolve a single field-map row to its value (custom smart-tag value or form field value).
+     *
+     * @param object $item
+     * @param array  $fieldValues
+     *
+     * @return mixed
+     */
     private static function resolveMappedValue($item, $fieldValues)
     {
         $triggerValue = $item->formField ?? '';

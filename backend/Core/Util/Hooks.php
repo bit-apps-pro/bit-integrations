@@ -6,8 +6,20 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * A wrapper class for actions and filters.
+ */
 final class Hooks
 {
+    /**
+     * A wrapper for do_action()
+     *
+     * @param string $tag    The name of the action to be executed.
+     * @param mixed  ...$arg Optional.
+     *                       Additional arguments which are passed on to the functions hooked to the action. Default empty.
+     *
+     * @return mixed
+     */
     public static function run($tag, ...$arg)
     {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- General-purpose wrapper accepting any hook name

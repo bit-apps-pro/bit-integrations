@@ -25,6 +25,8 @@ export default function EventsManager({ formFields, setFlow, flow, allIntegURL }
 
   const nextPage = val => {
     setTimeout(() => {
+      // Guarded because this fires 300ms later — navigating away in that window
+      // unmounts the wrapper and the stray timer would throw on a null deref.
       const settingsWrp = document.getElementById('btcd-settings-wrp')
 
       if (settingsWrp) {

@@ -29,6 +29,9 @@ final class FileSystem
         if ($wp_filesystem instanceof WP_Filesystem_Base) {
             self::$filesystem = $wp_filesystem;
         } elseif (!class_exists('WP_Filesystem_Direct')) {
+            // WP_Filesystem() fails when the site is set to FTP/SSH with no stored credentials.
+            // Every path handled here is local, so fall back to Direct rather than returning
+            // false and letting callers upload an empty file.
             require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
             require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
 

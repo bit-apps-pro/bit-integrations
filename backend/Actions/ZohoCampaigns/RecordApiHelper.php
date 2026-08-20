@@ -49,6 +49,8 @@ class RecordApiHelper
                 // translators: %s: Placeholder value
                 $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%s is required for zoho campaigns', 'bit-integrations'), $fieldPair->zohoFormField));
 
+                // $this->_logResponse->apiResponse($this->_logID, $this->_integrationID, ['type' => 'record', 'type_name' => 'field'], 'validation', $error);
+
                 LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'record', 'type_name' => 'field']), 'error', wp_json_encode($error));
 
                 return $error;

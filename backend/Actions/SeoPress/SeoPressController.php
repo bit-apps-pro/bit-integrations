@@ -10,6 +10,12 @@ use WP_Error;
 
 class SeoPressController
 {
+    /**
+     * Validate if SEOPress plugin exists or not. If not exists then terminate
+     * request and send an error response.
+     *
+     * @return void
+     */
     public static function isExists()
     {
         if (!\defined('SEOPRESS_VERSION')) {

@@ -38,6 +38,7 @@ export default function OneHashCRMAuthorization({
         method: 'GET',
         key: 'X-BI-Auth',
         addTo: 'header',
+        // api_secret is half of `token {api_key}:{api_secret}`; without this it is stored plaintext.
         encryptKeys: ['value', 'api_secret'],
         headers: {
           Authorization: 'token {api_key}:{api_secret}',

@@ -11,6 +11,9 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
+/**
+ * Build the request data from the field map and route each action to Bit Integrations Pro.
+ */
 class RecordApiHelper
 {
     private $_integrationID;

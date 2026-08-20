@@ -79,6 +79,10 @@ function Pods({ formFields, setFlow, flow, allIntegURL }) {
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  // const newConf = { ...podsConf }
+  // newConf.post_map = postFields.filter(fld => fld.required).map(fl => ({ formField: '', postFormField: fl.key, required: fl.required }))
+  // setPodsConf(newConf)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const checkedCondition = (val, checked) => {
