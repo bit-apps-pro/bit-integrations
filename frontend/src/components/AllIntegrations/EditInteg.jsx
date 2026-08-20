@@ -99,6 +99,7 @@ const EditSendGrid = lazy(() => import('./SendGrid/EditSendGrid'))
 const EditFabman = lazy(() => import('./Fabman/EditFabman'))
 const EditPCloud = lazy(() => import('./PCloud/EditPCloud'))
 const EditEmailOctopus = lazy(() => import('./EmailOctopus/EditEmailOctopus'))
+const EditEventsManager = lazy(() => import('./EventsManager/EditEventsManager'))
 const EditCustomAction = lazy(() => import('./CustomAction/EditCustomAction'))
 const EditSmaily = lazy(() => import('./Smaily/EditSmaily'))
 const EditSureCart = lazy(() => import('./SureCart/EditSureCart'))
@@ -472,6 +473,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditPCloud allIntegURL={allIntegURL} />
     case 'EmailOctopus':
       return <EditEmailOctopus allIntegURL={allIntegURL} />
+    case 'EventsManager':
+      return <EditEventsManager allIntegURL={allIntegURL} />
     case 'CustomAction':
       return <EditCustomAction allIntegURL={allIntegURL} />
     case 'Smaily':

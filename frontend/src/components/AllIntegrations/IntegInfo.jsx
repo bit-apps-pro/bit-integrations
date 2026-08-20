@@ -96,6 +96,9 @@ const SendGridAuthorization = lazy(() => import('./SendGrid/SendGridAuthorizatio
 const FabmanAuthorization = lazy(() => import('./Fabman/FabmanAuthorization'))
 const PCloudAuthorization = lazy(() => import('./PCloud/PCloudAuthorization'))
 const EmailOctopusAuthorization = lazy(() => import('./EmailOctopus/EmailOctopusAuthorization'))
+const EventsManagerAuthorization = lazy(
+  () => import('./EventsManager/EventsManagerAuthorization')
+)
 const CustomAction = lazy(() => import('./CustomAction/CustomFuncEditor'))
 const SmailyAuthentication = lazy(() => import('./Smaily/SmailyAuthorization'))
 const SureCartAuthorization = lazy(() => import('./SureCart/SureCartAuthorization'))
@@ -496,6 +499,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <PCloudAuthorization pCloudConf={integrationConf} step={1} isInfo />
     case 'EmailOctopus':
       return <EmailOctopusAuthorization emailOctopusConf={integrationConf} step={1} isInfo />
+    case 'EventsManager':
+      return <EventsManagerAuthorization eventsManagerConf={integrationConf} step={1} isInfo />
     case 'CustomAction':
       return <CustomAction customActionConf={integrationConf} step={1} isInfo />
     case 'PipeDrive':

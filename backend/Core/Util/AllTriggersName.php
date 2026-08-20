@@ -47,6 +47,7 @@ final class AllTriggersName
             'EssentialAddonsElementor'       => ['name' => 'Essential Addons For Elementor',  'isPro' => true, 'is_active' => false],
             'EssentialBlocks'                => ['name' => 'Essential Blocks',  'isPro' => true, 'is_active' => false],
             'Eventin'                        => ['name' => 'Eventin',  'isPro' => true, 'is_active' => false],
+            'EventsManager'                  => ['name' => 'Events Manager',  'isPro' => true, 'is_active' => false],
             'EVF'                            => ['name' => 'Everest Forms',  'isPro' => true, 'is_active' => false],
             'FormGent'                       => ['name' => 'FormGent',  'isPro' => true, 'is_active' => false],
             'FormyChat'                      => ['name' => 'FormyChat',  'isPro' => true, 'is_active' => false],
