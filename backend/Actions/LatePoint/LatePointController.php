@@ -30,7 +30,6 @@ class LatePointController
         $response['agents'] = self::fetchRows(
             'LATEPOINT_TABLE_AGENTS',
             'latepoint_agents',
-            ['id', 'first_name', 'last_name', 'email'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -49,7 +48,6 @@ class LatePointController
         $response['services'] = self::fetchRows(
             'LATEPOINT_TABLE_SERVICES',
             'latepoint_services',
-            ['id', 'name'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -68,7 +66,6 @@ class LatePointController
         $response['locations'] = self::fetchRows(
             'LATEPOINT_TABLE_LOCATIONS',
             'latepoint_locations',
-            ['id', 'name'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -87,7 +84,6 @@ class LatePointController
         $response['bundles'] = self::fetchRows(
             'LATEPOINT_TABLE_BUNDLES',
             'latepoint_bundles',
-            ['id', 'name'],
             function ($row) {
                 return (object) [
                     'value' => $row['id'],
@@ -115,7 +111,7 @@ class LatePointController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
-    private static function fetchRows($constant, $fallback, array $columns, $mapper)
+    private static function fetchRows($constant, $fallback, $mapper)
     {
         global $wpdb;
 
@@ -132,10 +128,8 @@ class LatePointController
             return [];
         }
 
-        $columnList = implode(', ', array_map('sanitize_key', $columns));
-
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery -- table and column names are hardcoded literals verified above
-        $rows = $wpdb->get_results("SELECT {$columnList} FROM {$tableName}", ARRAY_A);
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery -- Table name is verified above.
+        $rows = $wpdb->get_results("SELECT * FROM {$tableName}", ARRAY_A);
 
         if (empty($rows)) {
             return [];
