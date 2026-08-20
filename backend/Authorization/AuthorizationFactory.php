@@ -9,9 +9,12 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\Authorization\ApiKey\ApiKeyAuthorization;
 use BitApps\Integrations\Authorization\Basic\BasicAuthorization;
 use BitApps\Integrations\Authorization\Bearer\BearerTokenAuthorization;
+use BitApps\Integrations\Authorization\Contract\AuthStrategyInterface;
 use BitApps\Integrations\Authorization\OAuth1\OAuth1Authorization;
 use BitApps\Integrations\Authorization\OAuth2\OAuth2Authorization;
+use BitApps\Integrations\Core\Database\ConnectionModel;
 use Exception;
+use Throwable;
 
 class AuthorizationFactory
 {
@@ -30,6 +33,53 @@ class AuthorizationFactory
         AuthorizationType::OAUTH2       => OAuth2Authorization::class,
         AuthorizationType::OAUTH1       => OAuth1Authorization::class,
     ];
+
+    /**
+     * The auth strategy for a saved connection, or null when none can be built.
+     *
+     * The connection row carries both the auth type and the app slug, so the id alone
+     * identifies the handler — which is why callers only ever pass an id around.
+     * Building the handler stays free of side effects: it stores the id, and the row,
+     * the stored secrets and any OAuth2 refresh are read on first use.
+     *
+     * Every failure — no id, missing row, wrong app, unknown auth type — collapses to
+     * null. To a caller they are one condition ("no usable connection for this app"),
+     * and separating them would only leak which connection ids exist.
+     *
+     * @param int|string $connectionId
+     */
+    public static function getConnectionHandler($connectionId): ?AuthStrategyInterface
+    {
+        $connectionId = (int) $connectionId;
+
+        if ($connectionId <= 0) {
+            return null;
+        }
+
+        $result = (new ConnectionModel())->get(
+            ['id', 'app_slug', 'auth_type'],
+            ['id' => $connectionId],
+            1
+        );
+
+        if (is_wp_error($result) || empty($result[0])) {
+            return null;
+        }
+
+        $connection = $result[0];
+
+        if (empty($connection->auth_type)) {
+            return null;
+        }
+
+        $storedSlug = $connection->app_slug ?? '';
+
+        try {
+            return self::getAuthorizationHandler($connection->auth_type, $connectionId, $storedSlug);
+        } catch (Throwable $e) {
+            return null;
+        }
+    }
 
     public static function getAuthorizationHandler($type, $connectionId, $appSlug = '')
     {
