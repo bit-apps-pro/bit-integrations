@@ -115,7 +115,8 @@ export const customFormIntegrations = [
   'GiveWp',
   'SenseiLMS',
   'FluentPlayer',
-  'BitCrm'
+  'BitCrm',
+  'NextCrm'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

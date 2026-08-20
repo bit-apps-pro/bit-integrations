@@ -99,6 +99,7 @@ const EditSendGrid = lazy(() => import('./SendGrid/EditSendGrid'))
 const EditFabman = lazy(() => import('./Fabman/EditFabman'))
 const EditPCloud = lazy(() => import('./PCloud/EditPCloud'))
 const EditEmailOctopus = lazy(() => import('./EmailOctopus/EditEmailOctopus'))
+const EditEventsManager = lazy(() => import('./EventsManager/EditEventsManager'))
 const EditCustomAction = lazy(() => import('./CustomAction/EditCustomAction'))
 const EditSmaily = lazy(() => import('./Smaily/EditSmaily'))
 const EditSureCart = lazy(() => import('./SureCart/EditSureCart'))
@@ -180,10 +181,10 @@ const EditCreatorLms = lazy(() => import('./CreatorLms/EditCreatorLms'))
 const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditUltimateAffiliatePro'))
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
-const EditBrilliantDirectories = lazy(
-  () => import('./BrilliantDirectories/EditBrilliantDirectories')
-)
+const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditPopupMaker = lazy(() => import('./PopupMaker/EditPopupMaker'))
+const EditNextCrm = lazy(() => import('./NextCrm/EditNextCrm'))
 const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
 const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
@@ -473,6 +474,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditPCloud allIntegURL={allIntegURL} />
     case 'EmailOctopus':
       return <EditEmailOctopus allIntegURL={allIntegURL} />
+    case 'EventsManager':
+      return <EditEventsManager allIntegURL={allIntegURL} />
     case 'CustomAction':
       return <EditCustomAction allIntegURL={allIntegURL} />
     case 'Smaily':
@@ -634,12 +637,16 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditUltimateAffiliatePro allIntegURL={allIntegURL} />
     case 'Bookly':
       return <EditBookly allIntegURL={allIntegURL} />
+    case 'NextCrm':
+      return <EditNextCrm allIntegURL={allIntegURL} />
     case 'SureContact':
       return <EditSureContact allIntegURL={allIntegURL} />
     case 'BrilliantDirectories':
       return <EditBrilliantDirectories allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'PopupMaker':
+      return <EditPopupMaker allIntegURL={allIntegURL} />
     case 'FluentPlayer':
       return <EditFluentPlayer allIntegURL={allIntegURL} />
     case 'BitCrm':
