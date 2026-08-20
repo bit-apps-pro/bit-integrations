@@ -106,6 +106,7 @@ export default function SelectAction() {
     { type: 'CustomAction', is_pro: false },
     { type: 'PipeDrive', is_pro: false },
     { type: 'EmailOctopus', is_pro: false },
+    { type: 'EventsManager', logo: 'eventsManager', is_pro: true },
     { type: 'Smaily', is_pro: false },
     { type: 'CustomApi', is_pro: false },
     { type: 'SureCart', is_pro: false },
@@ -164,6 +165,7 @@ export default function SelectAction() {
     { type: 'ZagoMail', is_pro: false },
     { type: 'Drip', is_pro: false },
     { type: 'Newsletter', is_pro: false },
+    { type: 'NextCrm', name: 'NextCRM', is_pro: true },
     { type: 'SureDash', is_pro: true },
     { type: 'SureMembers', is_pro: false },
     { type: 'Mailster', is_pro: false },
@@ -184,8 +186,23 @@ export default function SelectAction() {
     { type: 'MailerPress', is_pro: false },
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
+    { type: 'BookingCalendar', is_pro: true },
+    { type: 'SureContact', is_pro: false },
+    {
+      type: 'BrilliantDirectories',
+      name: 'Brilliant Directories',
+      logo: 'brilliantDirectories',
+      is_pro: false
+    },
     { type: 'FluentCart', is_pro: true },
     { type: 'Cart Abandonment Recovery', is_pro: true },
+    { type: 'ModernCart', name: 'Modern Cart', is_pro: true },
+    { type: 'PowerCoupons', name: 'Power Coupons', is_pro: true },
+    { type: 'LatePoint', is_pro: true },
+    { type: 'ProfilePress', is_pro: true },
+    { type: 'ClickWhale', is_pro: true },
+    { type: 'BadgeOS', is_pro: true },
+    { type: 'PopupMaker', name: 'Popup Maker', logo: 'popupMaker', is_pro: true },
     { type: 'FluentPlayer', is_pro: true },
     { type: 'BitCrm', name: 'Bit CRM', logo: 'bitCrm', is_pro: false },
     { type: 'MoreConvert Wishlist', logo: 'moreConvertWishlist', is_pro: true },
@@ -194,6 +211,7 @@ export default function SelectAction() {
     { type: 'WordPress', is_pro: true },
     { type: 'BookingPress', is_pro: true },
     { type: 'WpDataTables', is_pro: true },
+    { type: 'WpTableBuilder', is_pro: true },
     { type: 'FormyChat', is_pro: true },
     { type: 'IvyForms', logo: 'ivyForms', is_pro: true },
     { type: 'WP ERP', logo: 'wpErp', is_pro: true },
@@ -319,7 +337,7 @@ export default function SelectAction() {
                 </div>
               )}
 
-              <GetLogo name={inte?.logo || inte.type} extension="webp" />
+              <GetLogo name={inte?.logo || inte.type} extension='webp' />
               <div className="txt-center">{inte.name || inte.type}</div>
             </div>
           ))}
