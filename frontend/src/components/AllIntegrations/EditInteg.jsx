@@ -99,6 +99,7 @@ const EditSendGrid = lazy(() => import('./SendGrid/EditSendGrid'))
 const EditFabman = lazy(() => import('./Fabman/EditFabman'))
 const EditPCloud = lazy(() => import('./PCloud/EditPCloud'))
 const EditEmailOctopus = lazy(() => import('./EmailOctopus/EditEmailOctopus'))
+const EditEventsManager = lazy(() => import('./EventsManager/EditEventsManager'))
 const EditCustomAction = lazy(() => import('./CustomAction/EditCustomAction'))
 const EditSmaily = lazy(() => import('./Smaily/EditSmaily'))
 const EditSureCart = lazy(() => import('./SureCart/EditSureCart'))
@@ -183,6 +184,8 @@ const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditProfilePress = lazy(() => import('./ProfilePress/EditProfilePress'))
+const EditPopupMaker = lazy(() => import('./PopupMaker/EditPopupMaker'))
+const EditNextCrm = lazy(() => import('./NextCrm/EditNextCrm'))
 const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
 const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
@@ -192,6 +195,7 @@ const EditHefflCRM = lazy(() => import('./HefflCRM/EditHefflCRM'))
 const EditSecureCustomFields = lazy(() => import('./SecureCustomFields/EditSecureCustomFields'))
 const EditWordPress = lazy(() => import('./WordPress/EditWordPress'))
 const EditWpDataTables = lazy(() => import('./WpDataTables/EditWpDataTables'))
+const EditWpTableBuilder = lazy(() => import('./WpTableBuilder/EditWpTableBuilder'))
 const EditFormyChat = lazy(() => import('./FormyChat/EditFormyChat'))
 const EditIvyForms = lazy(() => import('./IvyForms/EditIvyForms'))
 const EditWpErp = lazy(() => import('./WpErp/EditWpErp'))
@@ -471,6 +475,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditPCloud allIntegURL={allIntegURL} />
     case 'EmailOctopus':
       return <EditEmailOctopus allIntegURL={allIntegURL} />
+    case 'EventsManager':
+      return <EditEventsManager allIntegURL={allIntegURL} />
     case 'CustomAction':
       return <EditCustomAction allIntegURL={allIntegURL} />
     case 'Smaily':
@@ -632,6 +638,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditUltimateAffiliatePro allIntegURL={allIntegURL} />
     case 'Bookly':
       return <EditBookly allIntegURL={allIntegURL} />
+    case 'NextCrm':
+      return <EditNextCrm allIntegURL={allIntegURL} />
     case 'SureContact':
       return <EditSureContact allIntegURL={allIntegURL} />
     case 'BrilliantDirectories':
@@ -640,6 +648,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'ProfilePress':
       return <EditProfilePress allIntegURL={allIntegURL} />
+    case 'PopupMaker':
+      return <EditPopupMaker allIntegURL={allIntegURL} />
     case 'FluentPlayer':
       return <EditFluentPlayer allIntegURL={allIntegURL} />
     case 'BitCrm':
@@ -658,6 +668,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditWordPress allIntegURL={allIntegURL} />
     case 'WpDataTables':
       return <EditWpDataTables allIntegURL={allIntegURL} />
+    case 'WpTableBuilder':
+      return <EditWpTableBuilder allIntegURL={allIntegURL} />
     case 'FormyChat':
       return <EditFormyChat allIntegURL={allIntegURL} />
     case 'IvyForms':

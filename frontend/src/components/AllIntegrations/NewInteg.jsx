@@ -100,6 +100,7 @@ const SendGrid = lazy(() => import('./SendGrid/SendGrid'))
 const Fabman = lazy(() => import('./Fabman/Fabman'))
 const PCloud = lazy(() => import('./PCloud/PCloud'))
 const EmailOctopus = lazy(() => import('./EmailOctopus/EmailOctopus'))
+const EventsManager = lazy(() => import('./EventsManager/EventsManager'))
 const Smaily = lazy(() => import('./Smaily/Smaily'))
 const CustomApi = lazy(() => import('./CustomApi/CustomApi'))
 const SureCart = lazy(() => import('./SureCart/SureCart'))
@@ -182,6 +183,8 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const ProfilePress = lazy(() => import('./ProfilePress/ProfilePress'))
+const PopupMaker = lazy(() => import('./PopupMaker/PopupMaker'))
+const NextCrm = lazy(() => import('./NextCrm/NextCrm'))
 const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
@@ -191,6 +194,7 @@ const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
 const WordPress = lazy(() => import('./WordPress/WordPress'))
 const WpDataTables = lazy(() => import('./WpDataTables/WpDataTables'))
+const WpTableBuilder = lazy(() => import('./WpTableBuilder/WpTableBuilder'))
 const FormyChat = lazy(() => import('./FormyChat/FormyChat'))
 const IvyForms = lazy(() => import('./IvyForms/IvyForms'))
 const WpErp = lazy(() => import('./WpErp/WpErp'))
@@ -1013,6 +1017,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'EventsManager':
+      return (
+        <EventsManager
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'CustomAction':
       return (
         <CustomAction
@@ -1744,6 +1757,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'NextCrm':
+      return (
+        <NextCrm
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'SureContact':
       return (
         <SureContact
@@ -1774,6 +1796,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'ProfilePress':
       return (
         <ProfilePress
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'PopupMaker':
+      return (
+        <PopupMaker
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -1855,6 +1886,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WpDataTables':
       return (
         <WpDataTables
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpTableBuilder':
+      return (
+        <WpTableBuilder
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
