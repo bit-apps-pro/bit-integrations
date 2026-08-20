@@ -112,8 +112,15 @@ export const customFormIntegrations = [
   'SureDash',
   'WpErp',
   'WpDataTables',
+  'WpTableBuilder',
   'GiveWp',
-  'SenseiLMS'
+  'SenseiLMS',
+  'LatePoint',
+  'ProfilePress',
+  'ClickWhale',
+  'FluentPlayer',
+  'BitCrm',
+  'NextCrm'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

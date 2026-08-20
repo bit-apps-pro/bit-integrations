@@ -37,60 +37,38 @@ export const checkMappedFields = sendGridConf => {
   return true
 }
 
-export const sendGridAuthentication = (
-  confTmp,
-  setConf,
-  setError,
-  setIsAuthorized,
-  loading,
-  setLoading,
-  type
-) => {
-  if (!confTmp.apiKey) {
-    setError({ apiKey: !confTmp.apiKey ? __("API key can't be empty", 'bit-integrations') : '' })
-    return
-  }
+const buildAuthRequestParams = confTmp =>
+  confTmp.connection_id
+    ? { connection_id: confTmp.connection_id }
+    : {
+        apiKey: confTmp.apiKey
+      }
 
-  setError({})
+export const fetchSendGridCustomFields = (confTmp, setConf, loading, setLoading) => {
+  const requestParams = buildAuthRequestParams(confTmp)
+  setLoading({ ...loading, customFields: true })
 
-  if (type === 'authentication') {
-    setLoading({ ...loading, auth: true })
-  }
-  if (type === 'refreshLists') {
-    setLoading({ ...loading, customFields: true })
-  }
-  const requestParams = { apiKey: confTmp.apiKey }
-
-  bitsFetch(requestParams, 'sendGrid_authentication').then(result => {
+  bitsFetch(requestParams, 'sendGrid_fetch_custom_fields').then(result => {
     if (result && result.success) {
       const newConf = { ...confTmp }
-      setIsAuthorized(true)
-      if (type === 'authentication') {
-        if (result.data) {
-          newConf.customFields = result.data
-        }
+
+      if (result.data) {
+        newConf.customFields = result.data
         setConf(newConf)
-        setLoading({ ...loading, auth: false })
-        toast.success(__('Authorized Successfully', 'bit-integrations'))
-      } else if (type === 'refreshLists') {
-        if (result.data) {
-          newConf.customFields = result.data
-          setConf(newConf)
-        }
-        setLoading({ ...loading, customFields: false })
-        toast.success(__('Custom fields fetched successfully', 'bit-integrations'))
       }
+      setLoading({ ...loading, customFields: false })
+      toast.success(__('Custom fields fetched successfully', 'bit-integrations'))
       return
     }
-    setLoading({ ...loading, auth: false })
-    toast.error(__('Authorization Failed', 'bit-integrations'))
+    setLoading({ ...loading, customFields: false })
+    toast.error(__('Custom fields fetching failed', 'bit-integrations'))
   })
 }
 
 export const getLists = (confTmp, setConf, setLoading) => {
   setLoading({ ...setLoading, lists: true })
 
-  const requestParams = { apiKey: confTmp.apiKey }
+  const requestParams = buildAuthRequestParams(confTmp)
 
   bitsFetch(requestParams, 'sendGrid_fetch_all_lists').then(result => {
     if (result && result.success) {

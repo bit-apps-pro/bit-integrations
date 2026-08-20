@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
+import { $actionConf, $appConfigState, $formFields, $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import EditFormInteg from '../EditFormInteg'
@@ -22,6 +22,7 @@ function EditWhatsApp({ allIntegURL }) {
   const formFields = useRecoilValue($formFields)
   const [isLoading, setIsLoading] = useState(false)
   const [snack, setSnackbar] = useState({ show: false })
+  const { isPro } = useRecoilValue($appConfigState)
 
   return (
     <div style={{ width: 900 }}>
@@ -66,7 +67,7 @@ function EditWhatsApp({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={checkDisabledButton(whatsAppConf) || isLoading}
+        disabled={checkDisabledButton(whatsAppConf, isPro) || isLoading}
         isLoading={isLoading}
         dataConf={whatsAppConf}
         setDataConf={setWhatsAppConf}

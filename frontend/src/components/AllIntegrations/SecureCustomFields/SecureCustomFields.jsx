@@ -64,9 +64,6 @@ export default function SecureCustomFields({ formFields, setFlow, flow, allInteg
         setSecureCustomFieldsConf={setSecureCustomFieldsConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

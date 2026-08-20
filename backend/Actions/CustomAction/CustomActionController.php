@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\CustomAction;
 
+use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\CustomFuncValidator;
 use BitApps\Integrations\Log\LogHandler;
 use Throwable;
@@ -10,6 +11,12 @@ class CustomActionController
 {
     public static function functionValidateHandler($data)
     {
+        if (!Capabilities::Check('manage_options')) {
+            wp_send_json_error(__('Custom actions require administrator permissions.', 'bit-integrations'));
+
+            return;
+        }
+
         if (empty($data)) {
             wp_send_json_error(__('No function content provided.', 'bit-integrations'));
 
@@ -25,9 +32,15 @@ class CustomActionController
 
     public function execute($integrationData, $fieldValues)
     {
-        $funcFileLocation = $integrationData->flow_details->funcFileLocation;
         $integId = $integrationData->id;
-        $isExits = file_exists($funcFileLocation);
+
+        // funcFileLocation arrives inside flow_details (caller-supplied JSON), so file_exists()
+        // alone would include any readable PHP on the box. Only ever run a file the plugin
+        // itself wrote into the custom-function directory.
+        $funcFileLocation = CustomFuncValidator::resolveCustomFunctionFile(
+            $integrationData->flow_details->funcFileLocation ?? ''
+        );
+        $isExits = $funcFileLocation !== '';
         $isSuccessfullyRun = true;
         $additionalData = null;
 

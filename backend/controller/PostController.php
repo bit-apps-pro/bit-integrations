@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\controller;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Capabilities;
 
 final class PostController
@@ -13,7 +14,7 @@ final class PostController
 
     public function getPostTypes()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $cptArguments = [
@@ -34,7 +35,7 @@ final class PostController
 
     public function getPostCategories($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User doesn\'t have permission to access this page', 'bit-integrations'));
         }
 
@@ -199,7 +200,7 @@ final class PostController
 
     public function getCustomFields($data)
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
 
@@ -221,7 +222,7 @@ final class PostController
 
     public function getPages()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $pages = get_pages(['post_status' => 'publish', 'sort_column' => 'post_date', 'sort_order' => 'desc']);
@@ -236,7 +237,7 @@ final class PostController
 
     public function getPodsPostType()
     {
-        if (!(Capabilities::Check('manage_options') || Capabilities::Check('bit_integrations_manage_integrations') || Capabilities::Check('bit_integrations_create_integrations') || Capabilities::Check('bit_integrations_edit_integrations'))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
         $users = get_users(['fields' => ['ID', 'display_name']]);

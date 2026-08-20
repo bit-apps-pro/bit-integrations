@@ -2,6 +2,8 @@
 
 namespace BitApps\Integrations\Core\Util;
 
+use WP_Error;
+
 final class Common
 {
     public static function replaceFieldWithValue($dataToReplaceField, $fieldValues)
@@ -76,12 +78,12 @@ final class Common
      * @param string $url
      * @param array  $args
      *
-     * @return array|\WP_Error
+     * @return array|WP_Error
      */
     public static function safeRemoteGet($url, $args = [])
     {
         if (!self::isSafeRemoteUrl($url)) {
-            return new \WP_Error('bit_integrations_blocked_url', __('The requested URL is not allowed.', 'bit-integrations'));
+            return new WP_Error('bit_integrations_blocked_url', __('The requested URL is not allowed.', 'bit-integrations'));
         }
 
         return wp_safe_remote_get($url, $args);
@@ -91,10 +93,12 @@ final class Common
      * Whether $url is a public http/https URL safe to fetch server-side.
      *
      * @param string $url
+     * @param bool   $allowHomeHost Whether to allow this site's own host even if it
+     *                              resolves to a private/loopback address.
      *
      * @return bool
      */
-    public static function isSafeRemoteUrl($url)
+    public static function isSafeRemoteUrl($url, $allowHomeHost = true)
     {
         if (!\is_string($url) || $url === '' || !wp_http_validate_url($url)) {
             return false;
@@ -109,7 +113,7 @@ final class Common
         // allowance) so fetching the site's own uploads URL is not blocked on
         // installs whose host resolves to a private/loopback IP (local/staging).
         $homeHost = wp_parse_url(home_url(), PHP_URL_HOST);
-        if (!empty($homeHost) && strtolower($host) === strtolower($homeHost)) {
+        if ($allowHomeHost && !empty($homeHost) && strtolower($host) === strtolower($homeHost)) {
             return true;
         }
 
@@ -151,6 +155,60 @@ final class Common
             if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    /**
+     * Whether $url is a public https endpoint safe to send credentials to.
+     *
+     * isSafeRemoteUrl() screens the resolved IP but accepts http://, so it cannot be
+     * the only gate on a URL that carries a client_secret or returns an access_token —
+     * cleartext would expose the credential to any on-path observer. This adds the
+     * scheme requirement and a literal-IP/loopback host screen on top.
+     *
+     * Shared by the connection endpoints and the OAuth2 refresh path so both apply the
+     * same rule; a site owner fronting an on-prem provider opts out per-URL via the
+     * filter.
+     *
+     * @param string $url
+     */
+    public static function isPublicHttpsUrl($url): bool
+    {
+        if (!\is_string($url) || $url === '') {
+            return false;
+        }
+
+        // Opt-in escape hatch for self-hosted / on-prem integrations reachable only over
+        // HTTP or on a private/LAN IP. The default keeps the SSRF-hardened public-HTTPS
+        // rule; a site owner accepts the risk per-URL by returning true from this filter.
+        if (Hooks::apply('bit_integrations_allow_internal_connection_url', false, $url)) {
+            return true;
+        }
+
+        $parts = wp_parse_url($url);
+
+        if (!$parts || empty($parts['scheme']) || empty($parts['host'])) {
+            return false;
+        }
+
+        if (strtolower($parts['scheme']) !== 'https') {
+            return false;
+        }
+
+        $host = strtolower($parts['host']);
+
+        if (\in_array($host, ['localhost', 'localhost.localdomain', 'ip6-localhost', 'ip6-loopback'], true)) {
+            return false;
+        }
+
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            return (bool) filter_var(
+                $host,
+                FILTER_VALIDATE_IP,
+                FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+            );
         }
 
         return true;

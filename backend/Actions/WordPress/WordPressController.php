@@ -4,11 +4,6 @@ namespace BitApps\Integrations\Actions\WordPress;
 
 class WordPressController
 {
-    public static function wordPressAuthorize()
-    {
-        wp_send_json_success(true);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

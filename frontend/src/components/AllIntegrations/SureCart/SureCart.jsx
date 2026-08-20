@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
@@ -14,7 +14,6 @@ import SureCartIntegLayout from './SureCartIntegLayout'
 
 function SureCart({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -40,7 +39,6 @@ function SureCart({ formFields, setFlow, flow, allIntegURL }) {
     name: 'SureCart',
     type: 'SureCart',
     mainAction: '',
-    api_key: '',
     field_map: [{ formField: '', SureCartFormField: '' }],
     customerFields,
     allActions,
@@ -67,14 +65,10 @@ function SureCart({ formFields, setFlow, flow, allIntegURL }) {
 
       {/* STEP 1 */}
       <SureCartAuthorization
-        formID={formID}
         sureCartConf={sureCartConf}
         setSureCartConf={setSureCartConf}
         step={step}
         setStep={setStep}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

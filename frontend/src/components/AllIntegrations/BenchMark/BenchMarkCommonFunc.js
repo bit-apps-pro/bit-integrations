@@ -7,10 +7,14 @@ export const handleInput = (e, benchMarkConf, setBenchMarkConf) => {
   newConf.name = e.target.value
   setBenchMarkConf({ ...newConf })
 }
+
+const buildAuthRequestParams = conf =>
+  conf.connection_id ? { connection_id: conf.connection_id } : { api_secret: conf.api_secret }
+
 // refreshMappedLists
 export const refreshBenchMarkList = (benchMarkConf, setBenchMarkConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
-    api_secret: benchMarkConf.api_secret
+    ...buildAuthRequestParams(benchMarkConf)
   }
   bitsFetch(refreshListsRequestParams, 'benchMark_lists')
     .then(result => {
@@ -49,7 +53,7 @@ export const refreshBenchMarkList = (benchMarkConf, setBenchMarkConf, setIsLoadi
 // refreshMappedFields
 export const refreshBenchMarkHeader = (benchMarkConf, setBenchMarkConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
-    api_secret: benchMarkConf.api_secret,
+    ...buildAuthRequestParams(benchMarkConf),
     list_id: benchMarkConf.listId
   }
   bitsFetch(refreshListsRequestParams, 'benchMark_headers')

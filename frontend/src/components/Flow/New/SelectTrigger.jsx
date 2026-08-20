@@ -69,7 +69,7 @@ export default function SelectTrigger() {
     }
   }, [data])
 
-  const featuredProducts = ['BitAssist', 'BitForm', 'BitSocial']
+  const featuredProducts = ['BitAssist', 'BitForm', 'BitCrm', 'BitSocial']
 
   const searchInteg = e => {
     const { value } = e.target

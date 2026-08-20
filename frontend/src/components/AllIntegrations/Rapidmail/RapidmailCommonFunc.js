@@ -25,10 +25,12 @@ export const handleInput = (
 
 export const getAllRecipient = (rapidmailConf, setRapidmailConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
-  const queryParams = {
-    username: rapidmailConf.username,
-    password: rapidmailConf.password
-  }
+  const queryParams = rapidmailConf?.connection_id
+    ? { connection_id: rapidmailConf.connection_id }
+    : {
+        username: rapidmailConf.username,
+        password: rapidmailConf.password
+      }
   const loadPostTypes = bitsFetch(null, 'rapidmail_get_all_recipients', queryParams, 'GET').then(
     result => {
       if (result && result.success) {
@@ -74,56 +76,4 @@ export const checkMappedFields = rapidmailConf => {
     return false
   }
   return true
-}
-export const handleAuthorize = (
-  confTmp,
-  setConf,
-  setError,
-  setisAuthorized,
-  setIsLoading,
-  setSnackbar
-) => {
-  if (!confTmp.username || !confTmp.password) {
-    setError({
-      username: !confTmp.username ? __("Username can't be empty", 'bit-integrations') : '',
-      password: !confTmp.password ? __("Password can't be empty", 'bit-integrations') : ''
-    })
-    return
-  }
-
-  setError({})
-  setIsLoading(true)
-
-  const tokenRequestParams = {
-    username: confTmp.username,
-    password: confTmp.password
-  }
-
-  bitsFetch(tokenRequestParams, 'rapidmail_authorization')
-    .then(result => result)
-    .then(result => {
-      if (result && result.success) {
-        const newConf = { ...confTmp }
-        newConf.tokenDetails = result.data
-        setConf(newConf)
-        setisAuthorized(true)
-        setSnackbar({ show: true, msg: __('Authorized Successfully', 'bit-integrations') })
-      } else if (
-        (result && result.data && result.data.data) ||
-        (!result.success && typeof result.data === 'string')
-      ) {
-        setSnackbar({
-          show: true,
-          msg: `${__('Authorization failed Cause:', 'bit-integrations')}${
-            result.data.data || result.data
-          }. ${__('please try again', 'bit-integrations')}`
-        })
-      } else {
-        setSnackbar({
-          show: true,
-          msg: __('Authorization failed. please try again', 'bit-integrations')
-        })
-      }
-      setIsLoading(false)
-    })
 }

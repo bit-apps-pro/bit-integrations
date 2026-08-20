@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WhatsApp;
 
+use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
@@ -14,28 +15,23 @@ use WP_Error;
  */
 class WhatsAppController
 {
+    public static array $authConfig = [
+        'authType' => AuthorizationType::BEARER_TOKEN,
+        'slug'     => 'whatsapp',
+        'fields'   => [
+            'token'             => 'token',
+            'numberID'          => 'numberID',
+            'businessAccountID' => 'businessAccountID',
+        ],
+    ];
+
     private $baseUrl = 'https://graph.facebook.com/v20.0/';
-
-    public function authorization($requestParams)
-    {
-        static::checkValidation($requestParams);
-
-        $headers = static::setHeaders($requestParams->token);
-        $apiEndpoint = "{$this->baseUrl}{$requestParams->businessAccountID}";
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
-
-        if (is_wp_error($response) || !isset($response->id)) {
-            wp_send_json_error(isset($response->error->message) ? $response->error->message : 'Authentication failed', 400);
-        } else {
-            wp_send_json_success(__('Authentication successful', 'bit-integrations'), 200);
-        }
-    }
 
     public function getAllTemplate($requestParams)
     {
         static::checkValidation($requestParams);
 
-        $apiEndpoint = "{$this->baseUrl}{$requestParams->businessAccountID}/message_templates?fields=name";
+        $apiEndpoint = "{$this->baseUrl}{$requestParams->businessAccountID}/message_templates?fields=name,language,components";
         $allTemplates = static::getTemplate($apiEndpoint, $requestParams->token);
 
         if (is_wp_error($allTemplates)) {
@@ -88,7 +84,11 @@ class WhatsAppController
         }
 
         foreach ($response->data as $template) {
-            $allTemplates[] = $template->name;
+            $allTemplates[] = [
+                'name'       => $template->name,
+                'language'   => isset($template->language) ? $template->language : 'en_US',
+                'components' => isset($template->components) ? $template->components : [],
+            ];
         }
 
         if (isset($response->paging->next)) {
@@ -101,7 +101,7 @@ class WhatsAppController
 
     private static function checkValidation($requestParams)
     {
-        if (empty($requestParams->numberID) || empty($requestParams->businessAccountID || empty($requestParams->token))) {
+        if (empty($requestParams->numberID) || empty($requestParams->businessAccountID) || empty($requestParams->token)) {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
     }

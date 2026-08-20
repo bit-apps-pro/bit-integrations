@@ -107,14 +107,10 @@ export default function WebbaBooking({ formFields, setFlow, flow, allIntegURL })
 
       {/* STEP 1 */}
       <WebbaBookingAuthorization
-        formID={formID}
         webbaBookingConf={webbaBookingConf}
         setWebbaBookingConf={setWebbaBookingConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       {/* STEP 2 */}

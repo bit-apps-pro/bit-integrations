@@ -213,14 +213,16 @@ export default function CustomApiAuthorization({
       )}
       <br />
       <div style={{ ...(step === 1 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
-        <button
-          onClick={() => setStep(2)}
-          disabled={isDisabled(customApiConf.authType) || isLoading}
-          className="btn btcd-btn-lg purple sh-sm "
-          type="button">
-          {__('Next', 'bit-integrations')}
-          <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
-        </button>
+        {!isInfo && (
+          <button
+            onClick={() => setStep(2)}
+            disabled={isDisabled(customApiConf.authType) || isLoading}
+            className="btn btcd-btn-lg purple sh-sm "
+            type="button">
+            {__('Next', 'bit-integrations')}
+            <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
+          </button>
+        )}
       </div>
     </div>
   )

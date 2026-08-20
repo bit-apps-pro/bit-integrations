@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
@@ -9,7 +9,7 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import ZohoSheetAuthorization from './ZohoSheetAuthorization'
-import { checkMappedFields, setGrantTokenResponse } from './ZohoSheetCommonFunc'
+import { checkMappedFields } from './ZohoSheetCommonFunc'
 import ZohoSheetIntegLayout from './ZohoSheetIntegLayout'
 
 function ZohoSheet({ formFields, setFlow, flow, allIntegURL }) {
@@ -40,10 +40,6 @@ function ZohoSheet({ formFields, setFlow, flow, allIntegURL }) {
     headerRow: 1,
     actions: {}
   })
-
-  useEffect(() => {
-    window.opener && setGrantTokenResponse('zohoSheet')
-  }, [])
 
   const saveConfig = () => {
     setIsLoading(true)
