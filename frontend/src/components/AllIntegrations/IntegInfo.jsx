@@ -96,6 +96,9 @@ const SendGridAuthorization = lazy(() => import('./SendGrid/SendGridAuthorizatio
 const FabmanAuthorization = lazy(() => import('./Fabman/FabmanAuthorization'))
 const PCloudAuthorization = lazy(() => import('./PCloud/PCloudAuthorization'))
 const EmailOctopusAuthorization = lazy(() => import('./EmailOctopus/EmailOctopusAuthorization'))
+const EventsManagerAuthorization = lazy(
+  () => import('./EventsManager/EventsManagerAuthorization')
+)
 const CustomAction = lazy(() => import('./CustomAction/CustomFuncEditor'))
 const SmailyAuthentication = lazy(() => import('./Smaily/SmailyAuthorization'))
 const SureCartAuthorization = lazy(() => import('./SureCart/SureCartAuthorization'))
@@ -184,8 +187,14 @@ const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
+const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAuthorization'))
+const BrilliantDirectoriesAuthorization = lazy(
+  () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
+)
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const LatePointAuthorization = lazy(() => import('./LatePoint/LatePointAuthorization'))
+const PopupMakerAuthorization = lazy(() => import('./PopupMaker/PopupMakerAuthorization'))
+const NextCrmAuthorization = lazy(() => import('./NextCrm/NextCrmAuthorization'))
 const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
 const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
 const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
@@ -200,6 +209,9 @@ const SecureCustomFieldsAuthorization = lazy(
 const WordPressAuthorization = lazy(() => import('./WordPress/WordPressAuthorization'))
 const BookingPressAuthorization = lazy(() => import('./BookingPress/BookingPressAuthorization'))
 const WpDataTablesAuthorization = lazy(() => import('./WpDataTables/WpDataTablesAuthorization'))
+const WpTableBuilderAuthorization = lazy(
+  () => import('./WpTableBuilder/WpTableBuilderAuthorization')
+)
 const FormyChatAuthorization = lazy(() => import('./FormyChat/FormyChatAuthorization'))
 const IvyFormsAuthorization = lazy(() => import('./IvyForms/IvyFormsAuthorization'))
 const WpErpAuthorization = lazy(() => import('./WpErp/WpErpAuthorization'))
@@ -491,6 +503,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <PCloudAuthorization pCloudConf={integrationConf} step={1} isInfo />
     case 'EmailOctopus':
       return <EmailOctopusAuthorization emailOctopusConf={integrationConf} step={1} isInfo />
+    case 'EventsManager':
+      return <EventsManagerAuthorization eventsManagerConf={integrationConf} step={1} isInfo />
     case 'CustomAction':
       return <CustomAction customActionConf={integrationConf} step={1} isInfo />
     case 'PipeDrive':
@@ -669,10 +683,20 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'Bookly':
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
+    case 'SureContact':
+      return <SureContactAuthorization sureContactConf={integrationConf} step={1} isInfo />
+    case 'BrilliantDirectories':
+      return (
+        <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
+      )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'LatePoint':
       return <LatePointAuthorization latePointConf={integrationConf} step={1} isInfo />
+    case 'PopupMaker':
+      return <PopupMakerAuthorization popupMakerConf={integrationConf} step={1} isInfo />
+    case 'NextCrm':
+      return <NextCrmAuthorization nextCrmConf={integrationConf} step={1} isInfo />
     case 'FluentPlayer':
       return <FluentPlayerAuthorization fluentPlayerConf={integrationConf} step={1} isInfo />
     case 'BitCrm':
@@ -695,6 +719,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <BookingPressAuthorization bookingPressConf={integrationConf} step={1} isInfo />
     case 'WpDataTables':
       return <WpDataTablesAuthorization wpDataTablesConf={integrationConf} step={1} isInfo />
+    case 'WpTableBuilder':
+      return <WpTableBuilderAuthorization wpTableBuilderConf={integrationConf} step={1} isInfo />
     case 'FormyChat':
       return <FormyChatAuthorization formyChatConf={integrationConf} step={1} isInfo />
     case 'IvyForms':
