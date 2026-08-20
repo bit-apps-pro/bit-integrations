@@ -77,6 +77,7 @@ const EditRestrictContent = lazy(() => import('./RestrictContent/EditRestrictCon
 const EditAffiliate = lazy(() => import('./Affiliate/EditAffiliate'))
 const EditBuddyBoss = lazy(() => import('./BuddyBoss/EditBuddyBoss'))
 const EditBookingPress = lazy(() => import('./BookingPress/EditBookingPress'))
+const EditBookingCalendar = lazy(() => import('./BookingCalendar/EditBookingCalendar'))
 const EditGoogleContacts = lazy(() => import('./GoogleContacts/EditGoogleContacts'))
 const EditKirimEmail = lazy(() => import('./KirimEmail/EditKirimEmail'))
 const EditGamiPress = lazy(() => import('./GamiPress/EditGamiPress'))
@@ -432,6 +433,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBuddyBoss allIntegURL={allIntegURL} />
     case 'BookingPress':
       return <EditBookingPress allIntegURL={allIntegURL} />
+    case 'BookingCalendar':
+      return <EditBookingCalendar allIntegURL={allIntegURL} />
     case 'GamiPress':
       return <EditGamiPress allIntegURL={allIntegURL} />
     case 'Google Contacts':

@@ -186,6 +186,7 @@ export default function SelectAction() {
     { type: 'MailerPress', is_pro: false },
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
+    { type: 'BookingCalendar', is_pro: true },
     { type: 'SureContact', is_pro: false },
     {
       type: 'BrilliantDirectories',
@@ -333,7 +334,7 @@ export default function SelectAction() {
                 </div>
               )}
 
-              <GetLogo name={inte?.logo || inte.type} extension="webp" />
+              <GetLogo name={inte?.logo || inte.type} extension='webp' />
               <div className="txt-center">{inte.name || inte.type}</div>
             </div>
           ))}

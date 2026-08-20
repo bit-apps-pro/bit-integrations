@@ -78,6 +78,7 @@ const LearnDesh = lazy(() => import('./LearnDash/LearnDash'))
 const Affiliate = lazy(() => import('./Affiliate/Affiliate'))
 const BuddyBoss = lazy(() => import('./BuddyBoss/BuddyBoss'))
 const BookingPress = lazy(() => import('./BookingPress/BookingPress'))
+const BookingCalendar = lazy(() => import('./BookingCalendar/BookingCalendar'))
 const GoogleContacts = lazy(() => import('./GoogleContacts/GoogleContacts'))
 const KirimEmail = lazy(() => import('./KirimEmail/KirimEmail'))
 const Salesforce = lazy(() => import('./Salesforce/Salesforce'))
@@ -807,6 +808,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'BookingPress':
       return (
         <BookingPress
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'BookingCalendar':
+      return (
+        <BookingCalendar
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
