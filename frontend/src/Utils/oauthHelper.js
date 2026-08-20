@@ -29,7 +29,9 @@ export const generateCodeChallengeS256 = async codeVerifier => {
   return base64UrlEncode(new Uint8Array(digest))
 }
 
+// PHP picks the active endpoint; the fallback covers configs localized before it existed.
 export const getRedirectUri = () => {
+  if (APP_CONFIG?.redirectURI) return APP_CONFIG.redirectURI
   const api = (APP_CONFIG?.api || '').replace(/\/+$/, '')
   return `${api}/redirect`
 }

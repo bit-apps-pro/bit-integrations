@@ -11,6 +11,7 @@ import {
 } from '../../Utils/connectionTemplates'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
+import SecretInput from '../Utilities/SecretInput'
 
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
 
@@ -324,12 +325,11 @@ export default function ApiConnection({
               <div className="mt-3">
                 <b>{__('Password:', 'bit-integrations')}</b>
               </div>
-              <input
-                className="btcd-paper-inp w-6 mt-1"
+              <SecretInput
+                className="w-6 mt-1"
                 onChange={handleChange}
                 name="password"
                 value={authData.password || ''}
-                type="password"
                 placeholder={__('Password...', 'bit-integrations')}
                 disabled={isInfo}
               />

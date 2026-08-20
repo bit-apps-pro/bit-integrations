@@ -8,10 +8,9 @@ import { Link, useNavigate, useParams } from 'react-router'
 import useFetch from '../../hooks/useFetch'
 import bitsFetch from '../../Utils/bitsFetch'
 import { __ } from '../../Utils/i18nwrap'
+import { getRedirectUri } from '../../Utils/oauthHelper'
 import Note from '../Utilities/Note'
 import SnackMsg from '../Utilities/SnackMsg'
-import { useRecoilValue } from 'recoil'
-import { $appConfigState } from '../../GlobalStates'
 import { ConnectionSwitchProvider } from '../Connections/ConnectionSwitchContext'
 
 const Loader = lazy(() => import('../Loaders/Loader'))
@@ -185,6 +184,12 @@ const UltimateAffiliateProAuthorization = lazy(
   () => import('./UltimateAffiliatePro/UltimateAffiliateProAuthorization')
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
+const SureContactAuthorization = lazy(
+  () => import('./SureContact/SureContactAuthorization')
+)
+const BrilliantDirectoriesAuthorization = lazy(
+  () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
+)
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const FluentPlayerAuthorization = lazy(() => import('./FluentPlayer/FluentPlayerAuthorization'))
 const BitCrmAuthorization = lazy(() => import('./BitCrm/BitCrmAuthorization'))
@@ -672,6 +677,16 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'Bookly':
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
+    case 'SureContact':
+      return <SureContactAuthorization sureContactConf={integrationConf} step={1} isInfo />
+    case 'BrilliantDirectories':
+      return (
+        <BrilliantDirectoriesAuthorization
+          brilliantDirectoriesConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'FluentPlayer':
@@ -766,7 +781,6 @@ const getUpdateAction = confType => {
 
 export default function IntegInfo() {
   const { id, type } = useParams()
-  const btcbi = useRecoilValue($appConfigState)
   const [snack, setSnackbar] = useState({ show: false })
   const [integrationConf, setIntegrationConf] = useState({})
   const [integration, setIntegration] = useState(null)
@@ -862,11 +876,7 @@ export default function IntegInfo() {
     ]
   )
 
-  // route is info/:id but for redirect uri need to make new/:type
-  // let location = window.location.toString()
-  // const toReplaceInd = location.indexOf('/info')
-  // location = window.encodeURI(`${location.slice(0, toReplaceInd)}/new/${type}`)
-  let location = `${btcbi.api}/redirect`
+  const location = getRedirectUri()
   return (
     <>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
