@@ -21,7 +21,6 @@ import {
   needsActivation,
   needsParentContent,
   needsTemplateType,
-  SettingFields,
   TemplateCreateFields,
   TemplateIdField,
   TemplateUpdateFields,
@@ -91,9 +90,6 @@ export default function ElementsKitIntegLayout({
             break
           case 'delete_content':
             draftConf.elementsKitFields = ContentIdField
-            break
-          case 'update_setting':
-            draftConf.elementsKitFields = SettingFields
             break
           default:
             draftConf.elementsKitFields = []

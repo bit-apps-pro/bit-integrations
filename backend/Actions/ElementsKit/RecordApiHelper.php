@@ -113,13 +113,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'update_setting':
-                $response = Hooks::apply(Config::withPrefix('elements_kit_update_setting'), $defaultResponse, $fieldData);
-                $type = 'setting';
-                $actionType = 'update_setting';
-
-                break;
-
             default:
                 $response = [
                     'success' => false,

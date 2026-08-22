@@ -26,8 +26,7 @@ export const modules = [
     name: 'delete_content',
     label: __('Delete Dynamic Content', 'bit-integrations'),
     is_pro: true
-  },
-  { name: 'update_setting', label: __('Update Setting', 'bit-integrations'), is_pro: true }
+  }
 ]
 
 // Field maps hold only the required identifier of the record being acted on plus free
@@ -83,11 +82,6 @@ export const ContentUpdateFields = [
 
 export const ContentIdField = [
   { key: 'content_id', label: __('Content ID', 'bit-integrations'), required: true }
-]
-
-export const SettingFields = [
-  { key: 'setting_key', label: __('Setting Key', 'bit-integrations'), required: true },
-  { key: 'setting_value', label: __('Setting Value', 'bit-integrations'), required: true }
 ]
 
 // Fixed option sets — rendered as selects, never mapped.
