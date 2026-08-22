@@ -56,13 +56,23 @@ export const TemplateIdField = [
 
 export const WidgetCreateFields = [
   { key: 'title', label: __('Title', 'bit-integrations'), required: true },
-  { key: 'widget_data', label: __('Widget Data (JSON)', 'bit-integrations'), required: false }
+  { key: 'icon', label: __('Icon', 'bit-integrations'), required: false },
+  { key: 'categories', label: __('Categories', 'bit-integrations'), required: false },
+  { key: 'markup', label: __('Markup', 'bit-integrations'), required: false },
+  { key: 'css', label: __('CSS', 'bit-integrations'), required: false },
+  { key: 'js', label: __('JavaScript', 'bit-integrations'), required: false },
+  { key: 'widget_data', label: __('Widget Controls (JSON)', 'bit-integrations'), required: false }
 ]
 
 export const WidgetUpdateFields = [
   { key: 'widget_id', label: __('Widget ID', 'bit-integrations'), required: true },
   { key: 'title', label: __('Title', 'bit-integrations'), required: false },
-  { key: 'widget_data', label: __('Widget Data (JSON)', 'bit-integrations'), required: false }
+  { key: 'icon', label: __('Icon', 'bit-integrations'), required: false },
+  { key: 'categories', label: __('Categories', 'bit-integrations'), required: false },
+  { key: 'markup', label: __('Markup', 'bit-integrations'), required: false },
+  { key: 'css', label: __('CSS', 'bit-integrations'), required: false },
+  { key: 'js', label: __('JavaScript', 'bit-integrations'), required: false },
+  { key: 'widget_data', label: __('Widget Controls (JSON)', 'bit-integrations'), required: false }
 ]
 
 export const WidgetIdField = [

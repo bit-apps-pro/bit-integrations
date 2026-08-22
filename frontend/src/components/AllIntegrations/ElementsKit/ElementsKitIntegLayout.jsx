@@ -246,7 +246,7 @@ export default function ElementsKitIntegLayout({
       {['create_widget', 'update_widget'].includes(elementsKitConf?.mainAction) && (
         <Note
           note={__(
-            'Widget Data expects a Widget Builder definition as JSON. Missing keys fall back to defaults, and saving it regenerates the widget file.',
+            'Icon, Categories, Markup, CSS and JavaScript map straight onto the widget. Widget Controls takes JSON for the Elementor controls, which are too deeply nested to map, and the fields above override anything set in it. Saving regenerates the widget file.',
             'bit-integrations'
           )}
         />
