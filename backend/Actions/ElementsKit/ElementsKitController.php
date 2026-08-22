@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ElementsKit Integration
- */
-
 namespace BitApps\Integrations\Actions\ElementsKit;
 
 use WP_Error;

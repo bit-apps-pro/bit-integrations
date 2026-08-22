@@ -94,7 +94,6 @@ export const ContentIdField = [
   { key: 'content_id', label: __('Content ID', 'bit-integrations'), required: true }
 ]
 
-// Fixed option sets — rendered as selects, never mapped.
 export const templateTypeOptions = [
   { label: __('Header', 'bit-integrations'), value: 'header' },
   { label: __('Footer', 'bit-integrations'), value: 'footer' },

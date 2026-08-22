@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ElementsKit Record Api
- */
-
 namespace BitApps\Integrations\Actions\ElementsKit;
 
 use BitApps\Integrations\Config;
