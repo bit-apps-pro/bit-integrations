@@ -13,7 +13,6 @@ const buildAuthRequestParams = conf =>
     ? { connection_id: conf.connection_id }
     : { account_id: conf.account_id, api_key: conf.api_key }
 
-// refreshMappedLists
 export const refreshMailifyList = (mailifyConf, setMailifyConf, setIsLoading, setSnackbar) => {
   if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = buildAuthRequestParams(mailifyConf)
@@ -52,7 +51,6 @@ export const refreshMailifyList = (mailifyConf, setMailifyConf, setIsLoading, se
     .catch(() => setIsLoading(false))
 }
 
-// refreshMappedFields
 export const refreshMailifyHeader = (mailifyConf, setMailifyConf, setIsLoading, setSnackbar) => {
   if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = {

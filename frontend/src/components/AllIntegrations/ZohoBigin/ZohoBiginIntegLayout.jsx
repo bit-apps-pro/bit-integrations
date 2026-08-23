@@ -87,18 +87,6 @@ export default function ZohoBiginIntegLayout({
           <Tab className="btcd-s-tab-link mb-0">{__('New Record', 'bit-integrations')}</Tab>
         </TabList>
 
-        {/* {biginConf?.relatedlists && biginConf.relatedlists.map((_, indx) => (
-            <>
-              <Tab key={`rel-${indx + 64}`}>
-                <button className={`btcd-s-tab-link ${tab === indx + 1 && 's-t-l-active'}`} type="button">
-                  Related List #
-                  {indx + 1}
-                </button>
-              </Tab>
-              <button onClick={() => removeRelatedTab(indx)} className="icn-btn" aria-label="delete-relatedlist" type="button"><CloseIcn size="14" /></button>
-            </>
-          ))}
-          {biginConf.relatedlists.length < 3 && <button onClick={addNewRelatedTab} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': '"Add More Related List"' }} type="button">+</button>} */}
         <div className="btcd-hr" />
 
         <TabPanel>
@@ -111,25 +99,6 @@ export default function ZohoBiginIntegLayout({
             setSnackbar={setSnackbar}
           />
         </TabPanel>
-        {/* {
-          biginConf?.relatedlists && biginConf.relatedlists.map((_, indx) => (
-            <TabPanel key={`rlt-${indx + 89}`}>
-              <ZohoBiginRelatedRecord
-                indx={indx}
-                tab={tab}
-                settab={settab}
-                formID={formID}
-                formFields={formFields}
-                biginConf={biginConf}
-                setBiginConf={setBiginConf}
-                handleInput={handleInput}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                setSnackbar={setSnackbar}
-              />
-            </TabPanel>
-          ))
-        } */}
       </Tabs>
     </>
   )

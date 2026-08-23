@@ -67,8 +67,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
-
       <SendyAuthorization
         sendyConf={sendyConf}
         setSendyConf={setSendyConf}
@@ -79,7 +77,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -95,7 +92,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
-          // disabled={!sendyConf?.recipient_id}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')} &nbsp;
@@ -103,7 +99,6 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

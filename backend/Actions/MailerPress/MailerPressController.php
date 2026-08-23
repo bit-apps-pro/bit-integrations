@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\MailerPress;
 use BitApps\Integrations\Core\Util\Helper;
 use WP_Error;
 
-/**
- * Provide functionality for MailerPress integration
- */
 class MailerPressController
 {
     /**
@@ -33,11 +30,6 @@ class MailerPressController
         }
     }
 
-    /**
-     * Process ajax request for refresh lists
-     *
-     * @return JSON list data
-     */
     public function refreshLists()
     {
         self::isExists();
@@ -62,11 +54,6 @@ class MailerPressController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh tags
-     *
-     * @return JSON tag data
-     */
     public function refreshTags()
     {
         self::isExists();
@@ -91,14 +78,6 @@ class MailerPressController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Execute integration
-     *
-     * @param object $integrationData Integration data
-     * @param array  $fieldValues     Field values
-     *
-     * @return mixed
-     */
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

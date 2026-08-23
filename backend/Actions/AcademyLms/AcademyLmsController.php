@@ -6,11 +6,9 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Academy Lms integration
- */
 class AcademyLmsController
 {
     private $_integrationID;
@@ -48,7 +46,7 @@ class AcademyLmsController
             wp_send_json_error(wp_sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Academy Lms'));
         }
 
-        $courseList = get_posts([
+        $courseList = Post::all([
             'post_type'   => 'academy_courses',
             'post_status' => 'publish',
             'numberposts' => -1
@@ -140,7 +138,6 @@ class AcademyLmsController
         do_action('academy/admin/course_complete_before', $course_id);
         $date = gmdate('Y-m-d H:i:s', \Academy\Helper::get_time());
 
-        // hash is unique.
         do {
             $hash = substr(md5(wp_generate_password(32) . $date . $course_id . $user_id), 0, 16);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query needed for hash validation

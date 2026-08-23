@@ -300,14 +300,6 @@ class CustomFuncValidator
         return $dir;
     }
 
-    /**
-     * Initialize filesystem, resolve file path, and write custom function content.
-     *
-     * @param string $fileName
-     * @param string $fileContent
-     *
-     * @return array{filesystem: WP_Filesystem_Base, fileLocation: string, previousContent: string|null}|false
-     */
     private static function writeCustomFunctionFile($fileName, $fileContent)
     {
         $wp_filesystem = FileSystem::instance();

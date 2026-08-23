@@ -6,9 +6,6 @@
 
 namespace BitApps\Integrations\Actions\Moosend;
 
-/**
- * Provide functionality for Record Subscribe , Unsubscribe, Unsubscribe from list
- */
 class MoosendHelper
 {
     public static function formatPhoneNumber($field)

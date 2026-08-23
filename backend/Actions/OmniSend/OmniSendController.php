@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for OmniSend integration
- */
 class OmniSendController
 {
     public static array $authConfig = [

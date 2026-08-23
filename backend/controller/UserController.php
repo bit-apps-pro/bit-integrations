@@ -9,7 +9,6 @@ final class UserController
 {
     public function __construct()
     {
-        //
     }
 
     public function getWpUsers()

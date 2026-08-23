@@ -11,9 +11,6 @@ use BitApps\Integrations\Log\LogHandler;
 use Tribe__Tickets__RSVP;
 use Tribe__Tickets__Tickets_Handler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;

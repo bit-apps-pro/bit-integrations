@@ -46,9 +46,6 @@ final class RequestContext
         return $this->url;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function params(): array
     {
         return $this->params;

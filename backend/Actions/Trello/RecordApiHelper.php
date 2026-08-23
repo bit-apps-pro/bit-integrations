@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -55,6 +52,11 @@ class RecordApiHelper
     {
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $finalData['pos'] = $this->_integrationDetails->pos;
+
+        if ($this->isRichTextDescEnabled() && !empty($this->_integrationDetails->descRichText)) {
+            $finalData['desc'] = Common::replaceFieldWithValue($this->_integrationDetails->descRichText, $fieldValues);
+        }
+
         $apiResponse = $this->insertCard($finalData);
 
         if (property_exists($apiResponse, 'errors')) {
@@ -74,5 +76,20 @@ class RecordApiHelper
         }
 
         return $apiResponse;
+    }
+
+    private function isRichTextDescEnabled()
+    {
+        $actions = $this->_integrationDetails->actions ?? null;
+
+        if (\is_object($actions)) {
+            return !empty($actions->richTextDesc);
+        }
+
+        if (\is_array($actions)) {
+            return !empty($actions['richTextDesc']);
+        }
+
+        return false;
     }
 }

@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -186,7 +183,6 @@ class RecordApiHelper
                 $finalReorganizedTags = [];
                 $tags = explode(',', $actions->tags);
                 foreach ($tags as $tag) {
-                    // TODO: Smart Tag check
                     if (isset($fieldValues[$tag])) {
                         $finalReorganizedTags[] = $fieldValues[$tag];
                     } else {
@@ -205,7 +201,6 @@ class RecordApiHelper
             $addTagToEmails = [];
             $allSelectedEmails = explode(',', $integrationDetails->emailAddress);
             foreach ($allSelectedEmails as $emailAddress) {
-                // $addTagToEmails[] = $fieldValues[$emailAddress];
                 $addTagToEmails[] = $fieldValues[$emailAddress];
             }
 

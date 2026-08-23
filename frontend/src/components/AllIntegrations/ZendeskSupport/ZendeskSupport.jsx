@@ -70,7 +70,6 @@ function ZendeskSupport({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <ZendeskSupportAuthorization
         zendeskSupportConf={zendeskSupportConf}
         setZendeskSupportConf={setZendeskSupportConf}
@@ -78,7 +77,6 @@ function ZendeskSupport({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -103,7 +101,6 @@ function ZendeskSupport({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {zendeskSupportConf?.actionName && (
         <IntegrationStepThree
           step={step}

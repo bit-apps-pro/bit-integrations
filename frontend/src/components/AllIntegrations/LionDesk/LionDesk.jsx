@@ -100,7 +100,6 @@ function LionDesk({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <LionDeskAuthorization
         lionDeskConf={lionDeskConf}
         setLionDeskConf={setLionDeskConf}
@@ -108,7 +107,6 @@ function LionDesk({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -136,7 +134,6 @@ function LionDesk({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {lionDeskConf?.actionName && (
         <IntegrationStepThree
           step={step}

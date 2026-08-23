@@ -21,7 +21,8 @@ export default function FluentPlayerFieldMap({
   const { isPro } = btcbi
 
   const requiredFlds = fluentPlayerConf?.fluentPlayerFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = fluentPlayerConf?.fluentPlayerFields?.filter(fld => fld.required === false) || []
+  const nonRequiredFlds =
+    fluentPlayerConf?.fluentPlayerFields?.filter(fld => fld.required === false) || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">

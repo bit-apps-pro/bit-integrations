@@ -19,14 +19,6 @@ final class API extends WP_REST_Controller
 
     private const VERSION = 'v1/';
 
-    /**
-     * Registers api route
-     *
-     * @param string $route api route
-     * @param array  $args  Rest route method,callback,permissions
-     *
-     * @return null
-     */
     public static function register($route, $args)
     {
         register_rest_route(
@@ -36,16 +28,6 @@ final class API extends WP_REST_Controller
         );
     }
 
-    /**
-     * Registers api route
-     *
-     * @param string       $route      api route
-     * @param array|string $callback   callback function
-     * @param array|string $permission permission callback function
-     * @param array        $validation validation
-     *
-     * @return null
-     */
     public static function get($route, $callback, $permission = null, $validation = null)
     {
         $args = [
@@ -62,16 +44,6 @@ final class API extends WP_REST_Controller
         );
     }
 
-    /**
-     * Registers api route
-     *
-     * @param string       $route      api route
-     * @param array|string $callback   callback function
-     * @param array|string $permission permission callback function
-     * @param array        $validation validation
-     *
-     * @return null
-     */
     public static function post($route, $callback, $permission = null, $validation = null)
     {
         $args = [
@@ -88,17 +60,6 @@ final class API extends WP_REST_Controller
         );
     }
 
-    /**
-     * Registers api route
-     *
-     * @param array        $method     request methods
-     * @param string       $route      api route
-     * @param array|string $callback   callback function
-     * @param array|string $permission permission callback function
-     * @param array        $validation validation
-     *
-     * @return null
-     */
     public static function match($method, $route, $callback, $permission = null, $validation = null)
     {
         $args = [];

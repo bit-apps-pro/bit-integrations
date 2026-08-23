@@ -11,7 +11,6 @@ export const handleInput = (e, lemlistConf, setLemlistConf) => {
 const buildAuthRequestParams = conf =>
   conf?.connection_id ? { connection_id: conf.connection_id } : { api_key: conf.api_key }
 
-// refreshMappedLists
 export const refreshLemlistCampaign = (lemlistConf, setLemlistConf, setIsLoading, setSnackbar) => {
   if (typeof setIsLoading === 'function') setIsLoading(true)
   const refreshListsRequestParams = buildAuthRequestParams(lemlistConf)
@@ -52,7 +51,6 @@ export const refreshLemlistCampaign = (lemlistConf, setLemlistConf, setIsLoading
     })
 }
 
-// refreshMappedFields
 export const refreshLemlistHeader = (lemlistConf, setLemlistConf, setIsLoading, setSnackbar) => {
   const leadFields = [
     { fieldValue: 'email', fieldName: __('Email', 'bit-integrations'), required: true },

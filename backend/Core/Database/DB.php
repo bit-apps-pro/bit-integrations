@@ -12,16 +12,8 @@ namespace BitApps\Integrations\Core\Database;
 
 use BitApps\Integrations\Config;
 
-/**
- * Database Migration
- */
 final class DB
 {
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
     public static function migrate()
     {
         global $wpdb;

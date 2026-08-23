@@ -18,6 +18,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 // Template locals, not true globals - the file has no function scope, so PHPCS
 // reads them as global. They already carry the plugin slug as their prefix;
 // Plugin Check infers prefixes from hook names rather than the slug, and this

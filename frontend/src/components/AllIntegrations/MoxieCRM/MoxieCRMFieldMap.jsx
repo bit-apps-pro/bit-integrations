@@ -17,7 +17,6 @@ export default function MoxieCRMFieldMap({ i, formFields, field, moxiecrmConf, s
   } else if (moxiecrmConf.actionName === 'opportunity') {
     allFields = moxiecrmConf?.opportunityFields
   }
-  // newFields = [...allFields, ...moxiecrmConf?.customFields]
   const requiredFields = allFields.filter(fld => fld.required === true) || []
   const nonRequiredFields = allFields.filter(fld => fld.required === false) || []
   const allNonRequiredFields = moxiecrmConf.customFields

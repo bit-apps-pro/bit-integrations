@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\SureMembers;
 use SureMembers\Inc\Access_Groups;
 use WP_Error;
 
-/**
- * Provide functionality for SureMembers integration
- */
 class SureMembersController
 {
     public static function checkedSureMembersExists()

@@ -1,0 +1,112 @@
+import { useState } from 'react'
+import 'react-multiple-select-dropdown-lite/dist/index.css'
+import { useNavigate, useParams } from 'react-router'
+import BackIcn from '../../../Icons/BackIcn'
+import { __ } from '../../../Utils/i18nwrap'
+import SnackMsg from '../../Utilities/SnackMsg'
+import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
+import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import LatePointAuthorization from './LatePointAuthorization'
+import { checkMappedFields, validateLatePointConf } from './LatePointCommonFunc'
+import LatePointIntegLayout from './LatePointIntegLayout'
+
+export default function LatePoint({ formFields, setFlow, flow, allIntegURL }) {
+  const navigate = useNavigate()
+  const { formID } = useParams()
+  const [isLoading, setIsLoading] = useState(false)
+  const [step, setStep] = useState(1)
+  const [snack, setSnackbar] = useState({ show: false })
+  const [latePointConf, setLatePointConf] = useState({
+    name: 'LatePoint',
+    type: 'LatePoint',
+    field_map: [{ formField: '', latePointField: '' }],
+    actions: {},
+    mainAction: ''
+  })
+
+  const nextPage = val => {
+    setTimeout(() => {
+      document.getElementById('btcd-settings-wrp').scrollTop = 0
+    }, 300)
+
+    if (val === 3) {
+      // Dropdown ids and the customer fields whose necessity depends on customerType
+      // are invisible to checkMappedFields; validateLatePointConf covers both, and the
+      // edit screen runs the same check.
+      const selectionError = validateLatePointConf(latePointConf)
+
+      if (selectionError) {
+        setSnackbar({ show: true, msg: selectionError })
+        return
+      }
+
+      if (!checkMappedFields(latePointConf)) {
+        setSnackbar({
+          show: true,
+          msg: __('Please map all required fields to continue.', 'bit-integrations')
+        })
+        return
+      }
+
+      if (latePointConf.name !== '' && latePointConf.field_map.length > 0) {
+        setStep(val)
+      }
+    } else {
+      setStep(val)
+    }
+  }
+
+  return (
+    <div>
+      <SnackMsg snack={snack} setSnackbar={setSnackbar} />
+      <div className="txt-center mt-2" />
+
+      <LatePointAuthorization
+        latePointConf={latePointConf}
+        setLatePointConf={setLatePointConf}
+        step={step}
+        nextPage={nextPage}
+      />
+
+      <div
+        className="btcd-stp-page"
+        style={{
+          width: step === 2 && 900,
+          height: step === 2 && 'auto',
+          minHeight: step === 2 && '500px'
+        }}>
+        <LatePointIntegLayout
+          formID={formID}
+          formFields={formFields}
+          latePointConf={latePointConf}
+          setLatePointConf={setLatePointConf}
+          setSnackbar={setSnackbar}
+          setIsLoading={setIsLoading}
+          isLoading={isLoading}
+        />
+        <br />
+        <br />
+        <br />
+        <button
+          onClick={() => nextPage(3)}
+          disabled={latePointConf.field_map.length < 1}
+          className="btn f-right btcd-btn-lg purple sh-sm flx"
+          type="button">
+          {__('Next', 'bit-integrations')}
+          <BackIcn className="ml-1 rev-icn" />
+        </button>
+      </div>
+
+      <IntegrationStepThree
+        step={step}
+        saveConfig={() =>
+          saveIntegConfig(flow, setFlow, allIntegURL, latePointConf, navigate, '', '', setIsLoading)
+        }
+        isLoading={isLoading}
+        dataConf={latePointConf}
+        setDataConf={setLatePointConf}
+        formFields={formFields}
+      />
+    </div>
+  )
+}

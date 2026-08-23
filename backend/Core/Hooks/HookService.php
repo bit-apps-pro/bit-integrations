@@ -42,11 +42,6 @@ class HookService
         $this->_includeActionTaskHooks('Actions');
     }
 
-    /**
-     * Loads API routes
-     *
-     * @return null
-     */
     public function loadApi()
     {
         if (is_readable(Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . 'api.php')) {
@@ -54,11 +49,6 @@ class HookService
         }
     }
 
-    /**
-     * Helps to register App hooks
-     *
-     * @return null
-     */
     protected function loadAppHooks()
     {
         if (Request::Check('ajax') && is_readable(Config::get('BACKEND_DIR') . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . 'ajax.php')) {
@@ -101,13 +91,6 @@ class HookService
         }
     }
 
-    /**
-     * Includes Routes and Hooks
-     *
-     * @param string $task_name Triggers|Actions
-     *
-     * @return void
-     */
     private function _includeTriggerTaskHooks($task_name)
     {
         if (!\is_string($task_name) || empty($task_name)) {

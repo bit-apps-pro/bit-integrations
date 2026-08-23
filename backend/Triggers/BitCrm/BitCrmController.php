@@ -15,7 +15,7 @@ final class BitCrmController
             'title'             => __('Bit CRM: Leads, Contacts, Deals & Invoices', 'bit-integrations'),
             'type'              => 'custom_form_submission',
             'is_active'         => self::isPluginInstalled(),
-            'documentation_url' => '#',
+            'documentation_url' => 'https://bit-integrations.com/wp-docs/trigger/bit-crm-integration-as-a-trigger/',
             'tutorial_url'      => '#',
             'tasks'             => [
                 'action' => 'bit-crm/get',

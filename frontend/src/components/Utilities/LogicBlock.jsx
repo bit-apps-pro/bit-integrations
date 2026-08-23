@@ -22,7 +22,6 @@ function LogicBlock({
   setValue
 }) {
   const fields = []
-  // const formFields = []
   let type = ''
   let fldType = ''
   let fieldKey = ''
@@ -88,7 +87,6 @@ function LogicBlock({
         <option value="null">{__('Is Null', 'bit-integrations')}</option>
         <option value="not_null">{__('Is Not Null', 'bit-integrations')}</option>
         <option value="contain">{__('Contain', 'bit-integrations')}</option>
-        {/* ((fldType === 'select' && fields?.[fieldKey]?.mul) || fldType === 'check') && <option value="contain_all">{__('Contain All', 'bit-integrations')}</option> */}
         <option value="not_contain">{__('Not Contain', 'bit-integrations')}</option>
         <option value="greater">{__('Greater Than (Number)', 'bit-integrations')}</option>
         <option value="less">{__('Less Than (Number)', 'bit-integrations')}</option>

@@ -42,14 +42,12 @@ export const handleInput = (e, wordPressConf, setWordPressConf) => {
 
 export const getFieldsForAction = action => {
   switch (action) {
-    // Post Types
     case 'registerPostType':
       return RegisterPostTypeFields
     case 'unregisterPostType':
       return PostTypeField
     case 'addPostTypeFeatures':
       return PostTypeFeaturesFields
-    // Post Tags
     case 'createPostTag':
       return CreateTagFields
     case 'updatePostTag':
@@ -64,26 +62,22 @@ export const getFieldsForAction = action => {
       return TagsToPostFields
     case 'removeTagsFromPost':
       return TagsToPostFields
-    // Media
     case 'addNewImage':
       return AddImageFields
     case 'deleteMedia':
       return MediaIdField
     case 'renameMedia':
       return RenameMediaFields
-    // Taxonomies
     case 'registerTaxonomy':
       return RegisterTaxonomyFields
     case 'unregisterTaxonomy':
       return TaxonomyField
-    // Terms
     case 'createNewTerm':
       return CreateTermFields
     case 'updateTerm':
       return UpdateTermFields
     case 'termDelete':
       return TermIdTaxonomyFields
-    // Categories
     case 'createCategory':
       return CreateCategoryFields
     case 'updateCategory':
@@ -92,28 +86,24 @@ export const getFieldsForAction = action => {
       return CategoryIdField
     case 'addCategoryToPost':
       return AddCategoryToPostFields
-    // WooCommerce Product Tags
     case 'createProductTag':
       return CreateProductTagFields
     case 'updateProductTag':
       return UpdateProductTagFields
     case 'deleteProductTag':
       return TagIdField
-    // WooCommerce Product Categories
     case 'createProductCategory':
       return CreateProductCategoryFields
     case 'updateProductCategory':
       return UpdateProductCategoryFields
     case 'deleteProductCategory':
       return CategoryIdField
-    // WooCommerce Product Types
     case 'createProductType':
       return CreateProductTypeFields
     case 'updateProductType':
       return UpdateProductTypeFields
     case 'deleteProductType':
       return ProductTypeIdField
-    // Plugin
     case 'checkPluginActivationStatus':
       return PluginPathField
     case 'activatePlugin':

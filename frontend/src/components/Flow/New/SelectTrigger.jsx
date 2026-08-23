@@ -100,7 +100,6 @@ export default function SelectTrigger() {
   if (isLoading) {
     return <Loader style={loaderStyle} />
   }
-  // console.log('data', data)
 
   if (data?.success === false) {
     return (
@@ -179,8 +178,9 @@ export default function SelectTrigger() {
                     }
                     role="button"
                     tabIndex="0"
-                    className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !allTriggers?.data[inte]?.isPro) && 'btcd-inte-dis'
-                      } ${allTriggers?.data[inte]?.isPro && !isPro && 'btcd-inte-pro'}`}>
+                    className={`btcd-inte-card inte-sm mr-4 mt-3 ${
+                      inte.disable && (isPro || !allTriggers?.data[inte]?.isPro) && 'btcd-inte-dis'
+                    } ${allTriggers?.data[inte]?.isPro && !isPro && 'btcd-inte-pro'}`}>
                     {allTriggers?.data[inte]?.isPro && !isPro && (
                       <>
                         <div className="pro-filter">

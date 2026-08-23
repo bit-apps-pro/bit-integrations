@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\Smaily;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-/**
- * Provide functionality for Smaily integration
- */
 class SmailyController
 {
     public static array $authConfig = [

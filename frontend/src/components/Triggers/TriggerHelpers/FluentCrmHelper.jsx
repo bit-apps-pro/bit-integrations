@@ -5,7 +5,6 @@ import { $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 
 const FluentCrmHelper = ({ flow, setFlowData, edit = false }) => {
-  // const id = flow?.triggerData?.formID
   const id = !edit ? flow?.triggerData?.formID : flow.triggered_entity_id
 
   const [newFlow, setNewFlow] = useRecoilState($newFlow)

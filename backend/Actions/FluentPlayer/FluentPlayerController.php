@@ -6,11 +6,9 @@
 
 namespace BitApps\Integrations\Actions\FluentPlayer;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for FluentPlayer integration
- */
 class FluentPlayerController
 {
     public static function isExists()
@@ -21,12 +19,6 @@ class FluentPlayerController
                 400
             );
         }
-    }
-
-    public static function fluentPlayerAuthorize()
-    {
-        self::isExists();
-        wp_send_json_success(true);
     }
 
     public static function refreshMedia()
@@ -40,7 +32,7 @@ class FluentPlayerController
                     'label' => $post->post_title !== '' ? $post->post_title : "(no title) #{$post->ID}",
                 ];
             },
-            get_posts(
+            Post::all(
                 [
                     'post_type'      => 'fluent_player_media',
                     'posts_per_page' => -1,
@@ -130,7 +122,7 @@ class FluentPlayerController
                     'label' => $attachment->post_title !== '' ? $attachment->post_title : "#{$attachment->ID}",
                 ];
             },
-            get_posts(
+            Post::all(
                 [
                     'post_type'      => 'attachment',
                     'post_status'    => 'inherit',

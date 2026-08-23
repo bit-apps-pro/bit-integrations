@@ -13,28 +13,29 @@ export const handleInput = (e, fluentPlayerConf, setFluentPlayerConf) => {
   )
 }
 
-const refreshList = (route, dataKey, confKey, successMsg, errorMsg) => (setFluentPlayerConf, setIsLoading) => {
-  setIsLoading(true)
-  bitsFetch(null, route)
-    .then(result => {
-      if (result && result?.success && result?.data?.[dataKey]) {
-        setFluentPlayerConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf[confKey] = result.data[dataKey]
-          })
-        )
+const refreshList =
+  (route, dataKey, confKey, successMsg, errorMsg) => (setFluentPlayerConf, setIsLoading) => {
+    setIsLoading(true)
+    bitsFetch(null, route)
+      .then(result => {
+        if (result && result?.success && result?.data?.[dataKey]) {
+          setFluentPlayerConf(prevConf =>
+            create(prevConf, draftConf => {
+              draftConf[confKey] = result.data[dataKey]
+            })
+          )
+          setIsLoading(false)
+          toast.success(successMsg)
+          return
+        }
         setIsLoading(false)
-        toast.success(successMsg)
-        return
-      }
-      setIsLoading(false)
-      toast.error(errorMsg)
-    })
-    .catch(() => {
-      setIsLoading(false)
-      toast.error(errorMsg)
-    })
-}
+        toast.error(errorMsg)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        toast.error(errorMsg)
+      })
+  }
 
 export const refreshFluentPlayerMedia = refreshList(
   'refresh_fluent_player_media',

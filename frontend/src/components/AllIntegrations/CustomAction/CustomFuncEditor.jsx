@@ -21,7 +21,6 @@ const CustomFuncEditor = ({ customActionConf, setCustomActionConf, formFields, i
     setCustomActionConf({ ...newConf })
   }
   const handleChange = val => {
-    // setCustomActionConf(prv => ({ ...prv, value: val }))
     setCustomActionConf(prv =>
       create(prv, draft => {
         draft.value = val

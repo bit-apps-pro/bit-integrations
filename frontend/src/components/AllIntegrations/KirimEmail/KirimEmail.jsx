@@ -55,7 +55,6 @@ function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <KirimEmailAuthorization
         kirimEmailConf={kirimEmailConf}
         setKirimEmailConf={setKirimEmailConf}
@@ -65,8 +64,6 @@ function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-
-      {/* STEP 2 */}
 
       <div
         className="btcd-stp-page"
@@ -100,8 +97,6 @@ function KirimEmail({ formFields, setFlow, flow, allIntegURL }) {
           <BackIcn className="ml-1 rev-icn" />
         </button>
       </div>
-
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}

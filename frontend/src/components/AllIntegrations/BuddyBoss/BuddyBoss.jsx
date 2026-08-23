@@ -76,7 +76,6 @@ function BuddyBoss({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <BuddyBossAuthorization
         formID={formID}
         buddyBossConf={buddyBossConf}
@@ -88,7 +87,6 @@ function BuddyBoss({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -122,7 +120,6 @@ function BuddyBoss({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}
@@ -205,18 +202,14 @@ const allActions = [
   }
 ]
 
-// for action 1
 const createGroupFields = [
   { key: 'group_name', label: __('Group Name', 'bit-integrations'), required: true }
 ]
 
-// for action 5
 const topicInForumFields = [
   { key: 'topic_content', label: __('Topic Content', 'bit-integrations'), required: true },
   { key: 'topic_title', label: __('Topic Title', 'bit-integrations'), required: false }
 ]
-
-// for action 8
 
 const sendAllUserNotificationFields = [
   {
@@ -231,20 +224,15 @@ const sendAllUserNotificationFields = [
   }
 ]
 
-// for action 9
 const sendAllGroupPrivateMessageFields = [
   { key: 'message_content', label: __('Message Content', 'bit-integrations'), required: true },
   { key: 'message_subject', label: __('Message subject', 'bit-integrations'), required: false }
 ]
 
-// for action 14
-
 const addPostToGroupFields = [
   { key: 'activity_action', label: __('activity_action', 'bit-integrations'), required: true },
   { key: 'activity_content', label: __('activity_content', 'bit-integrations'), required: true }
 ]
-
-// for action 15
 
 const addPostSiteWideActivityStreamFields = [
   { key: 'activity_action', label: __('activity_action', 'bit-integrations'), required: false },
@@ -256,7 +244,6 @@ const addPostSiteWideActivityStreamFields = [
   { key: 'activity_content', label: __('activity_content', 'bit-integrations'), required: true }
 ]
 
-// for action 17
 const postReplyTopicForumFields = [
   { key: 'reply_content', label: __('Reply Content', 'bit-integrations'), required: true }
 ]
@@ -267,7 +254,6 @@ const groupPrivacyOptions = [
   { key: '3', label: __('Hidden', 'bit-integrations') }
 ]
 
-// for action 18
 const userStatusOptions = [
   { key: '1', label: __('Active', 'bit-integrations') },
   { key: '2', label: __('Suspend', 'bit-integrations') }

@@ -12,9 +12,6 @@ use BitApps\Integrations\Log\LogHandler;
 use WC_Product_Download;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert.
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -382,7 +379,6 @@ class RecordApiHelper
         }
 
         if ($module === 'order') {
-            // Order created : https://gist.github.com/stormwild/7f914183fc18458f6ab78e055538dcf0
             $triggerEntity = $fieldValues['bit-integrator%trigger_data%']['triggered_entity'];
             $fieldMapCustomer = $integrationDetails->customer->field_map;
             $find_customer_id = $this->findCustomer($fieldMapCustomer, $required, $module, $fieldValues);

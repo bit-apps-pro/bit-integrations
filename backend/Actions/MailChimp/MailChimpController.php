@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for MailChimp integration
- */
 class MailChimpController
 {
     public static array $authConfig = [
@@ -33,21 +30,11 @@ class MailChimpController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * MailChimp API Endpoint
-     *
-     * @param mixed $dc
-     */
     public static function apiEndPoint($dc)
     {
         return "https://{$dc}.api.mailchimp.com/3.0";
     }
 
-    /**
-     * MailChimp Actions
-     *
-     * @return array $allModules
-     */
     public static function refreshModules()
     {
         $allModules = [
@@ -76,13 +63,6 @@ class MailChimpController
         return $allModules;
     }
 
-    /**
-     * Process ajax request for refresh MailChimp Audience list
-     *
-     * @param $queryParams Params to refresh audience
-     *
-     * @return JSON MailChimp data
-     */
     public static function refreshAudience($queryParams)
     {
         if (empty($queryParams->tokenDetails)) {
@@ -110,7 +90,6 @@ class MailChimpController
         $allList = [];
         if (!is_wp_error($audienceResponse) && empty($audienceResponse->response->error)) {
             $audienceLists = $audienceResponse->lists;
-            // wp_send_json_success($audienceLists);
             foreach ($audienceLists as $audienceList) {
                 $allList[$audienceList->name] = (object) [
                     'listId'   => $audienceList->id,
@@ -130,13 +109,6 @@ class MailChimpController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refresh MailChimp Audience Fields
-     *
-     * @param $queryParams Params to refresh fields
-     *
-     * @return JSON MailChimp Audience fields
-     */
     public static function refreshAudienceFields($queryParams)
     {
         if (
@@ -190,13 +162,6 @@ class MailChimpController
         }
     }
 
-    /**
-     * Process ajax request for refresh MailChimp Tags
-     *
-     * @param $queryParams Prams to refresh tag
-     *
-     * @return JSON MailChimp Tags
-     */
     public static function refreshTags($queryParams)
     {
         if (

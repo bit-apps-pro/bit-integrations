@@ -48,9 +48,6 @@ final class OauthCallbackController
         self::redirectToState($state, $params);
     }
 
-    /**
-     * @return string
-     */
     public static function pagename()
     {
         return RewriteRuleProvider::pagenameFor(self::ROUTE);
@@ -87,11 +84,6 @@ final class OauthCallbackController
         return false;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return string
-     */
     public static function hostWithPort($url)
     {
         $parsedUrl = wp_parse_url($url);

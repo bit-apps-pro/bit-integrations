@@ -111,7 +111,6 @@ function EditWPForo({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!wpforoConf?.selectedLists}
         isLoading={isLoading}
         dataConf={wpforoConf}
         setDataConf={setWPForoConf}

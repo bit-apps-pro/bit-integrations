@@ -63,7 +63,6 @@ function Drip({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <DripAuthorization
         formID={formID}
         dripConf={dripConf}
@@ -73,7 +72,6 @@ function Drip({ formFields, setFlow, flow, allIntegURL }) {
         loading={loading}
         setLoading={setLoading}
       />
-      {/* STEP 2 */}
       <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
         <DripIntegLayout
           formID={formID}
@@ -95,7 +93,6 @@ function Drip({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

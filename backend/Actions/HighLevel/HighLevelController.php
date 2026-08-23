@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for HighLevel integration
- */
 class HighLevelController
 {
     private const V2_HEADER_VERSION = '2021-07-28';

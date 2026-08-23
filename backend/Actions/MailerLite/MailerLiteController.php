@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for MailerLite integration
- */
 class MailerLiteController
 {
     public static array $authConfig = [
@@ -203,5 +200,4 @@ class MailerLiteController
 
         return $mailerliteApiResponse;
     }
-
 }

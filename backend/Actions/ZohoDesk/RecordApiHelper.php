@@ -8,9 +8,6 @@ use BitApps\Integrations\Log\LogHandler;
 use DateTime;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;

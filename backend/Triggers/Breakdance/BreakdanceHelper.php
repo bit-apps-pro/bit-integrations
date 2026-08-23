@@ -6,7 +6,6 @@ class BreakdanceHelper
 {
     public static function setFields($data, $form)
     {
-        // Create a mapping for quick access
         $formFields = array_column($form, null, 'name');
         $allFields = [
             // translators: %s: Placeholder value
@@ -15,7 +14,6 @@ class BreakdanceHelper
             ['name' => self::findKeyPath($data, 'postId'), 'type' => 'text', 'label' => wp_sprintf(__('Post Id (%s)', 'bit-integrations'), $data['postId']), 'value' => $data['postId']]
         ];
 
-        // Process fields data
         foreach ($data['fields'] as $key => $value) {
             $formKey = "fields[{$key}]";
             if (isset($formFields[$formKey]) && $formFields[$formKey]['type'] != 'file') {
@@ -34,7 +32,6 @@ class BreakdanceHelper
             }
         }
 
-        // Process files data
         foreach ($data['files'] as $key => $files) {
             $formKey = "fields[{$key}]";
             if (isset($formFields[$formKey])) {

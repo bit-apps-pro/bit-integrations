@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for Trello integration
- */
 class TrelloController
 {
     public static array $authConfig = [

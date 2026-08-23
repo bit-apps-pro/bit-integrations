@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\MasterStudyLms;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class MasterStudyLmsController
@@ -19,7 +20,7 @@ class MasterStudyLmsController
     public static function getAllCourse()
     {
         if (self::pluginActive()) {
-            $courses = get_posts([
+            $courses = Post::all([
                 'post_type'      => 'stm-courses',
                 'post_status'    => 'publish',
                 'posts_per_page' => -1,

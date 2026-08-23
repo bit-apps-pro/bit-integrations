@@ -16,7 +16,6 @@ const buildAuthRequestParams = confTmp =>
         client_secret: confTmp.client_secret
       }
 
-// refreshMappedLists
 export const refreshDirectIqList = (directIqConf, setDirectIqConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = buildAuthRequestParams(directIqConf)
   bitsFetch(refreshListsRequestParams, 'directIq_lists')
@@ -54,7 +53,6 @@ export const refreshDirectIqList = (directIqConf, setDirectIqConf, setIsLoading,
     .catch(() => setIsLoading(false))
 }
 
-// refreshMappedFields
 export const refreshDirectIqHeader = (directIqConf, setDirectIqConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
     ...buildAuthRequestParams(directIqConf),

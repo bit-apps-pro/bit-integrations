@@ -12,9 +12,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -411,7 +408,7 @@ class RecordApiHelper
             // 6) Quarter formats (Q1 2025, 2025 Q1, 1st Quarter 2025)
             // ------------------------------------------------------------
             if (preg_match('/(Q[1-4]|[1-4]st Quarter)\s*[, ]*\s*(\d{4})/i', $clean, $m)) {
-                $q = preg_replace('/\D/', '', $m[1]); // Extract 1–4
+                $q = preg_replace('/\D/', '', $m[1]);
                 $year = $m[2];
                 $month = (($q - 1) * 3) + 1;
 
@@ -424,8 +421,8 @@ class RecordApiHelper
             if (self::validateNumericDateWithLength($clean, 8)) {
                 // YYYYMMDD or DDMMYYYY or MMDDYYYY → try multiple interpretations
                 $candidates = [
-                    substr($clean, 0, 4) . '-' . substr($clean, 4, 2) . '-' . substr($clean, 6, 2), // YMD
-                    substr($clean, 4, 4) . '-' . substr($clean, 2, 2) . '-' . substr($clean, 0, 2), // DMY
+                    substr($clean, 0, 4) . '-' . substr($clean, 4, 2) . '-' . substr($clean, 6, 2),
+                    substr($clean, 4, 4) . '-' . substr($clean, 2, 2) . '-' . substr($clean, 0, 2),
                 ];
                 foreach ($candidates as $c) {
                     if (strtotime($c)) {
@@ -481,7 +478,6 @@ class RecordApiHelper
             // ------------------------------------------------------------
             $ts = strtotime($clean);
             if ($ts) {
-                // Detect datetime or date-only
                 if (preg_match('/\d{1,2}:\d/', $clean)) {
                     return gmdate('Y-m-d\TH:i:s\Z', $ts);
                 }

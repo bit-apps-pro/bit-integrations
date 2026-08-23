@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\GamiPress;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private static $integrationID;
@@ -52,7 +49,6 @@ class RecordApiHelper
         if ($mainAction === '1') {
             return gamipress_update_user_rank($user_id, (int) $selectedRank);
         }
-        // $user_id = get_current_user_id();
         $rank_types = gamipress_get_rank_types();
 
         $rank_id = (int) $selectedRank;
@@ -67,7 +63,6 @@ class RecordApiHelper
         if (! empty($user_rank_id) && $rank_id == $user_rank_id) {
             return gamipress_revoke_rank_to_user(absint($user_id), $user_rank_id, 0, ['admin_id' => absint($user_id)]);
 
-            // if still rank is assigned to user
             $user_rank_id = gamipress_get_user_rank_id(absint($user_id), $rank->post_type);
             if (! empty($user_rank_id) && $rank_id == $user_rank_id) {
                 $meta = "_gamipress_{$rank->post_type}_rank";

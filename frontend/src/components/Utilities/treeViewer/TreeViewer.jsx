@@ -26,7 +26,6 @@ function TreeViewer({ data = [], onChange }) {
         data={formatedData}
         aria-label="Checkbox tree"
         multiSelect
-        // selectedIds={selectedIds}
         defaultExpandedIds={[1]}
         propagateSelect
         propagateSelectUpwards
@@ -77,7 +76,6 @@ export default memo(TreeViewer)
 //     if (typeof data !== "object" || data === null) {
 //         return { name: index + ' (' + data + ')', value: data };
 //     }
-
 //     // Handle array data
 //     if (Array.isArray(data)) {
 //         return {
@@ -86,7 +84,6 @@ export default memo(TreeViewer)
 //             children: data.map((item, key) => processData(item, key)),
 //         };
 //     }
-
 //     // Handle object data
 //     return {
 //         name: index + ' (object)',
@@ -101,7 +98,6 @@ const processData = (data, index = '') => {
     return { name: index + ' (' + data + ')', value: data }
   }
 
-  // Handle array data
   if (Array.isArray(data)) {
     return {
       name: index + ' (Array)',
@@ -117,7 +113,6 @@ const processData = (data, index = '') => {
     children: []
   }
 
-  // Get own enumerable properties
   Object.keys(data).forEach(key => {
     objectData.children.push(processData(data[key], key))
   })
@@ -129,7 +124,6 @@ const processData = (data, index = '') => {
     }
   })
 
-  // Get methods and properties from the prototype
   let prototype = Object.getPrototypeOf(data)
   while (prototype !== null && prototype !== Object.prototype) {
     Object.getOwnPropertyNames(prototype).forEach(key => {

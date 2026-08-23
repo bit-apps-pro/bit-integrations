@@ -2,11 +2,9 @@
 
 namespace BitApps\Integrations\Actions\WeDocs;
 
+use BitApps\Integrations\Core\Util\Post;
 use WP_Post;
 
-/**
- * Provide functionality for weDocs integration.
- */
 class WeDocsController
 {
     private const DOC_POST_TYPE = 'docs';
@@ -17,7 +15,7 @@ class WeDocsController
     {
         self::checkPluginExists();
 
-        $allDocumentations = get_posts(
+        $allDocumentations = Post::all(
             [
                 'post_type'      => self::DOC_POST_TYPE,
                 'post_status'    => self::ALLOWED_POST_STATUSES,
@@ -67,7 +65,7 @@ class WeDocsController
             $queryArgs['post_parent'] = $documentationId;
         }
 
-        $sections = get_posts($queryArgs);
+        $sections = Post::all($queryArgs);
 
         if ($documentationId <= 0) {
             $sections = array_values(array_filter($sections, [__CLASS__, 'isValidSection']));

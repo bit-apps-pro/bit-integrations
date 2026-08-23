@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '4th August 2026'
+const releaseDate = '20th August 2026'
 
 // Example for items:
 // items: [
@@ -29,13 +29,44 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      { label: 'NextCRM', desc: '19 new events added.', isPro: true },
+      { label: 'Sensei LMS', desc: '11 new events added.', isPro: true },
+      { label: 'Events Manager', desc: '10 new events added.', isPro: true },
+      { label: 'LatePoint', desc: '5 new events added.', isPro: true },
+      { label: 'Cart Abandonment Recovery', desc: '5 new events added.', isPro: true },
+      { label: 'ClickWhale', desc: '4 new events added.', isPro: true },
+      { label: 'ConvertForce Popup Builder', desc: '4 new events added.', isPro: true },
+      { label: 'Power Coupons for WooCommerce', desc: '4 new events added.', isPro: true },
+      { label: 'WP Table Builder', desc: '4 new events added.', isPro: true },
+      { label: 'Booking Calendar', desc: '2 new events added.', isPro: true },
+      { label: 'ProfilePress', desc: '2 new events added.', isPro: true },
+      { label: 'Modern Cart', desc: '1 new event added.', isPro: true },
+      { label: 'Popup Maker', desc: '1 new event added.', isPro: true }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      { label: 'SureContact', desc: '42 new events added.', isPro: true },
+      { label: 'NextCRM', desc: '13 new events added.', isPro: true },
+      { label: 'Sensei LMS', desc: '12 new events added.', isPro: true },
+      { label: 'Brilliant Directories', desc: '11 new events added.', isPro: true },
+      { label: 'Popup Maker', desc: '9 new events added.', isPro: true },
+      { label: 'LatePoint', desc: '8 new events added.', isPro: true },
+      { label: 'Power Coupons for WooCommerce', desc: '5 new events added.', isPro: true },
+      { label: 'ConvertForce Popup Builder', desc: '4 new events added.', isPro: true },
+      { label: 'WP Table Builder', desc: '4 new events added.', isPro: true },
+      { label: 'Cart Abandonment Recovery', desc: '3 new events added.', isPro: true },
+      { label: 'ClickWhale', desc: '3 new events added.', isPro: true },
+      { label: 'Modern Cart', desc: '3 new events added.', isPro: true },
+      { label: 'Booking Calendar', desc: '2 new events added.', isPro: true },
+      { label: 'ProfilePress', desc: '2 new events added.', isPro: true },
+      { label: 'BadgeOS', desc: '1 new event added.', isPro: true },
+      { label: 'Events Manager', desc: '1 new event added.', isPro: true }
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -43,10 +74,20 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'EmailOctopus',
-        desc: 'Contacts can now be added or updated with the "Pending" status.',
+        label: 'Smart Tags',
+        desc: 'new tags added - date and time, logged-in user, post and post author, site info, visitor info, and true / false values.',
         isPro: false
       },
+      {
+        label: 'Custom API',
+        desc: 'URL path variables added. Fill them from trigger data in the new Path Variables tab.',
+        isPro: false
+      },
+      {
+        label: 'Trello',
+        desc: 'Card descriptions now use a rich text editor.',
+        isPro: false
+      }
     ]
   },
   {
@@ -55,20 +96,15 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
+        label: 'Bit CRM',
+        desc: 'Lead dates now follow your site timezone.',
+        isPro: false
+      },
+      {
         label: 'Connections',
-        desc: 'API keys, secrets and tokens are now hidden behind dots in the connection form, with an eye button to reveal them when you need to check a value.',
+        desc: 'A new connection gets a default name, so you do not have to type one.',
         isPro: false
-      },
-      {
-        label: 'oAuth Redirect',
-        desc: 'Apps now return to a dedicated callback address on your site after you approve them. Providers that refused the old redirect URL can now be connected without any extra setup.',
-        isPro: false
-      },
-      {
-        label: 'Trigger data',
-        desc: 'Field names taken from nested data are now shorter and easier to read - long paths are trimmed, repeated words removed, and list items are shown as "Items 0" instead of a separate level.',
-        isPro: false
-      },
+      }
     ]
   },
   {
@@ -77,14 +113,9 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Bit Form',
-        desc: 'Fixed the site address not being read from the connection, which stopped some Bit Form actions from running.',
+        label: 'Custom API',
+        desc: 'An empty API endpoint is now logged as an error.',
         isPro: false
-      },
-      {
-        label: 'Amelia Booking',
-        desc: 'Appointment triggers now include the appointment location details.',
-        isPro: true
       }
     ]
   },

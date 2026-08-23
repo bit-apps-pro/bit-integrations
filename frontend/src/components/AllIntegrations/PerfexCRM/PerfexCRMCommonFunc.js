@@ -24,7 +24,6 @@ const buildAuthRequestParams = confTmp =>
         domain: confTmp.domain
       }
 
-// refreshMappedFields
 export const refreshCustomFields = (perfexCRMConf, setPerfexCRMConf, setIsLoading, setSnackbar) => {
   setIsLoading(true)
   const requestParams = {

@@ -107,7 +107,6 @@ export default function ZohoBiginActions({
             )}
           </>
         )}
-        {/* <TableCheckBox onChange={() => setrecOwnerMdl(true)} checked={tab === 0 ? 'owner' in biginConf.actions : 'owner' in biginConf.relatedlists?.[tab - 1]?.actions} className="wdt-200 mt-4 mr-2" value="recordOwner"title={__('Record Owner', 'bit-integrations')} subTitle={__('Set owner of current record', 'bit-integrations')} /> */}
         {/* eslint-disable-next-line max-len */}
         {['Contacts', 'Accounts', 'Products'].includes(module) && (
           <TableCheckBox

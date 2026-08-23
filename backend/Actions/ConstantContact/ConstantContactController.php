@@ -12,9 +12,6 @@ use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Constant Contact integration
- */
 class ConstantContactController
 {
     public static array $authConfig = [

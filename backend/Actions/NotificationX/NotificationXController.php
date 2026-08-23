@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\NotificationX;
 
 use WP_Error;
 
-/**
- * Provide functionality for NotificationX integration.
- */
 class NotificationXController
 {
     public static function isExists()

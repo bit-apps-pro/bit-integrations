@@ -41,13 +41,6 @@ class IntegrationHandler
         return $handler->execute($flowData, $fieldValues);
     }
 
-    /**
-     * Get stored field values for a flow.
-     *
-     * @param int $flowId Flow ID
-     *
-     * @return mixed|null
-     */
     public static function getFieldValues($flowId)
     {
         if (isset(self::$fieldValues[$flowId])) {
@@ -72,13 +65,6 @@ class IntegrationHandler
         self::$reexecuteParent[$flowId] = $parentLogId;
     }
 
-    /**
-     * Get the parent log id a given flow is currently being re-executed from, if any.
-     *
-     * @param int $flowId The flow id being logged
-     *
-     * @return int|null
-     */
     public static function getReexecuteParent($flowId)
     {
         return isset(self::$reexecuteParent[$flowId]) ? self::$reexecuteParent[$flowId] : null;

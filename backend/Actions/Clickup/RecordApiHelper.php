@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use CURLFile;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $integrationDetails;

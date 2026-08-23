@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\Newsletter;
 
 use WP_Error;
 
-/**
- * Provide functionality for Newsletter integration
- */
 class NewsletterController
 {
     public static function checkedNewsletterExists()

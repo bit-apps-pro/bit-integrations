@@ -162,7 +162,6 @@ final class Flow
             wp_send_json_error(wp_sprintf(__('%s can\'t be empty', 'bit-integrations'), $missing_field));
         }
 
-        // custom action
         if (self::isCustomActionFlowDetails($data->flow_details)) {
             self::requireCustomActionCapability();
             CustomFuncValidator::functionValidateHandler($data);
@@ -400,6 +399,7 @@ final class Flow
             $conditions,
             [
                 'id',
+                'name',
                 'triggered_entity_id',
                 'flow_details',
             ]
@@ -545,7 +545,6 @@ final class Flow
                     $handler = new $integration($flowData->id);
                     if (isset($flowData->flow_details->field_map)) {
                         $sptagData = self::specialTagMappingValue($flowData->flow_details->field_map);
-                        // $data = array_merge($data, $sptagData);
                         $data = $data + $sptagData;
                     }
                     // Execute through the wrapper so field data is captured for re-execution.

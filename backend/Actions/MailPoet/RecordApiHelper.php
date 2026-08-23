@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use Exception;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -81,7 +78,6 @@ class RecordApiHelper
                 'message' => $e->getMessage()
             ];
         } catch (Exception $e) {
-            // Handle other unexpected exceptions
             return [
                 'success' => false,
                 'code'    => $e->getCode(),

@@ -1,7 +1,6 @@
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import { addFieldMap } from './IntegrationHelpers'
-// import GoogleContactsActions from './GoogleContactsActions'
 import GoogleContactsFieldMap from './GoogleContactsFieldMap'
 import GoogleContactsActions from './GoogleContactsActions'
 

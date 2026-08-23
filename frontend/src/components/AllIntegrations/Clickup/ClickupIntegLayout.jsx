@@ -46,15 +46,10 @@ export default function ClickupIntegLayout({
     if (name === 'selectedList' && val !== '' && clickupConf.actionName === 'task') {
       getCustomFields(newConf, setClickupConf, setLoading)
     } else if (name === 'selectedFolder' && val !== '' && clickupConf.actionName === 'task') {
-      // newConf.selectedSections = ''
       getAllLists(newConf, setClickupConf, setLoading)
-      // getCustomFields(newConf, setClickupConf, setLoading)
     } else if (name === 'selectedSpace' && val !== '' && clickupConf.actionName === 'task') {
-      // newConf.selectedSections = ''
       getAllFolders(newConf, setClickupConf, setLoading)
-      // getCustomFields(newConf, setClickupConf, setLoading)
     } else if (name === 'selectedTeam' && val !== '' && clickupConf.actionName === 'task') {
-      // newConf.selectedSections = ''
       getAllSpaces(newConf, setClickupConf, setLoading)
     }
 

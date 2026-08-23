@@ -15,13 +15,11 @@ export function atomWithBroadcast(key, initialValue) {
       ({ trigger, setSelf, onSet }) => {
         const listener = event => {
           if (event.data.isEvent) {
-            // console.log('event.data2', event.data, trigger)
             setSelf({ isEvent: false, value: event.data.value })
           }
         }
         listeners.add(listener)
         onSet((newValue, oldValue, isReset) => {
-          // console.log('newValue', newValue)
           if (!newValue.isEvent) {
             channel.postMessage({ isEvent: true, value: newValue.value })
           }

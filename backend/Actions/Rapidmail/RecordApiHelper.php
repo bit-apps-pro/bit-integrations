@@ -7,9 +7,6 @@ use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     public static $apiBaseUri = 'https://apiv3.emailsys.net/v1';

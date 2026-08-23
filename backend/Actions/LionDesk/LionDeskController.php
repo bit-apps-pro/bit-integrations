@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for LionDesk integration
- */
 class LionDeskController
 {
     public static array $authConfig = [

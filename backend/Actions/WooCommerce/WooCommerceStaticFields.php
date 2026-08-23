@@ -27,7 +27,6 @@ class WooCommerceStaticFields
                 'fieldKey'  => 'payment_method_title',
                 'fieldName' => __('Payment Method Title', 'bit-integrations')
             ],
-            // Fixed Cart Items Coupon
             'coupon_code' => (object) [
                 'fieldKey'  => 'coupon_code',
                 'fieldName' => __('Coupon Code', 'bit-integrations')

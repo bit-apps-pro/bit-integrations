@@ -10,7 +10,7 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
 
 /**
  * Credential-test client for the connections/authorize endpoint. Runs one
- * authenticated request through BaseApi and returns the legacy result array
+ * authenticated request through ApiClient and returns the legacy result array
  * byte-compatible with AbstractBaseAuthorization::authorize():
  *
  *   success: ['success' => true, 'response' => mixed]
@@ -21,11 +21,8 @@ use BitApps\Integrations\Authorization\AbstractBaseAuthorization;
  * integrations like ZendeskSupport can reject a 200 that lacks the expected
  * payload (wrong subdomain still returns 200 from Zendesk).
  */
-class ConnectionTestApi extends BaseApi
+class ConnectionTestApi extends ApiClient
 {
-    /**
-     * @var AbstractBaseAuthorization
-     */
     private $handler;
 
     public function __construct(AbstractBaseAuthorization $handler)
@@ -34,9 +31,6 @@ class ConnectionTestApi extends BaseApi
         $this->handler = $handler;
     }
 
-    /**
-     * @param null|mixed $payload
-     */
     public function test(string $apiEndpoint, string $method = 'GET', $payload = null, array $headers = []): array
     {
         $apiEndpoint = trim($apiEndpoint);
@@ -49,7 +43,7 @@ class ConnectionTestApi extends BaseApi
         }
 
         $result = $this->request($method, $apiEndpoint, $payload, $headers);
-        $response = $result->body();
+        $response = $result->getBody();
         $authException = $this->lastAuthException();
 
         // The strategy could not produce a credential, so no request was sent.
@@ -66,7 +60,7 @@ class ConnectionTestApi extends BaseApi
         }
 
         if (is_wp_error($response)) {
-            return $this->errorShape((string) $result->error(), $response);
+            return $this->errorShape((string) $result->getError(), $response);
         }
 
         // Body-level error key wins over the status code (legacy order).
@@ -79,7 +73,7 @@ class ConnectionTestApi extends BaseApi
             );
         }
 
-        if (!$result->ok()) {
+        if (!$result->success()) {
             return $this->errorShape(__('Authorization failed', 'bit-integrations'), $response);
         }
 

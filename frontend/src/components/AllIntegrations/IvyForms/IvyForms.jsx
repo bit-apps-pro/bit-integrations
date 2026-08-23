@@ -51,7 +51,6 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
     <div>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
 
-      {/* STEP 1 */}
       <IvyFormsAuthorization
         ivyFormsConf={ivyFormsConf}
         setIvyFormsConf={setIvyFormsConf}
@@ -59,7 +58,6 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
         nextPage={nextPage}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -89,7 +87,6 @@ export default function IvyForms({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

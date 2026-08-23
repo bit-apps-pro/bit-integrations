@@ -61,8 +61,6 @@ class SendFoxController
         $fieldMap = $integrationDetails->field_map;
 
         if (
-            // empty($listId)||
-            // empty($fieldMap)||
             empty($access_token)
         ) {
             // translators: %s: Placeholder value

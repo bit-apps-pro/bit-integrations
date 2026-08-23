@@ -53,8 +53,6 @@ function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
-
       <TutorLmsAuthorization
         tutorlmsConf={tutorlmsConf}
         setTutorlmsConf={setTutorlmsConf}
@@ -65,7 +63,6 @@ function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -88,7 +85,6 @@ function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
-          // disabled={!tutorlmsConf?.recipient_id}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')} &nbsp;
@@ -96,7 +92,6 @@ function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

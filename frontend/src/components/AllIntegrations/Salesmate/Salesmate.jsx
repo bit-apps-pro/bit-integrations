@@ -95,7 +95,6 @@ function Salesmate({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <SalesmateAuthorization
         salesmateConf={salesmateConf}
         setSalesmateConf={setSalesmateConf}
@@ -103,7 +102,6 @@ function Salesmate({ formFields, setFlow, flow, allIntegURL }) {
         setStep={setStep}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -131,7 +129,6 @@ function Salesmate({ formFields, setFlow, flow, allIntegURL }) {
         )}
       </div>
 
-      {/* STEP 3 */}
       {salesmateConf?.actionName && (
         <IntegrationStepThree
           step={step}

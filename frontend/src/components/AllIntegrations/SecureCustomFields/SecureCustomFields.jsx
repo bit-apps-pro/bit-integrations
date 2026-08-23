@@ -58,7 +58,6 @@ export default function SecureCustomFields({ formFields, setFlow, flow, allInteg
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2" />
 
-      {/* STEP 1 */}
       <SecureCustomFieldsAuthorization
         secureCustomFieldsConf={secureCustomFieldsConf}
         setSecureCustomFieldsConf={setSecureCustomFieldsConf}
@@ -66,7 +65,6 @@ export default function SecureCustomFields({ formFields, setFlow, flow, allInteg
         nextPage={nextPage}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{
@@ -93,7 +91,6 @@ export default function SecureCustomFields({ formFields, setFlow, flow, allInteg
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

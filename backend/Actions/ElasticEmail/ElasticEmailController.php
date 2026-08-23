@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ElasticEmailController
 {
     public static array $authConfig = [
@@ -51,7 +48,6 @@ class ElasticEmailController
         }
         $response['lists'] = $data;
         wp_send_json_success($response, 200);
-        // wp_send_json_success(true);
     }
 
     public function execute($integrationData, $fieldValues)
@@ -74,7 +70,6 @@ class ElasticEmailController
             $fieldValues,
             $fieldMap,
             $integrationDetails
-            // $actions
         );
 
         if (is_wp_error($elasticEmailApiResponse)) {

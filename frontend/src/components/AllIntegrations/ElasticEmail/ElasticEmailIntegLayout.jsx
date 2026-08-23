@@ -38,16 +38,6 @@ export default function ElasticEmailIntegLayout({
           onChange={val => setLists(val)}
         />
 
-        {/* <select onChange={handleInput} name="list_id" value={elasticEmailConf.list_id} className="btcd-paper-inp w-5">
-        <option value="">{__('Select List', 'bit-integrations')}</option>
-        {
-          elasticEmailConf?.default?.lists && elasticEmailConf.default.lists.map(({ listId, listName }) => (
-            <option key={listId} value={listName}>
-              {listName}
-            </option>
-          ))
-        }
-      </select> */}
         <button
           onClick={() => getAllList(elasticEmailConf, setElasticEmailConf, setIsLoading)}
           className="icn-btn sh-sm ml-2 mr-2 tooltip"

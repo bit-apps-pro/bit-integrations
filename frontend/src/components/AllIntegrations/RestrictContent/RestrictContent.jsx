@@ -33,11 +33,9 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
     { key: 'country', label: __('Country', 'bit-integrations'), required: false }
   ]
 
-  // const levelFields = [{ key: 'exp_date', label: 'Expiry Date', required: true }]
-
   const actionLists = [
-    { key: 'add-member-level', label: __('Add the user to a level', 'bit-integrations') }, // Add the user to a level
-    { key: 'remove-member-level', label: __('Remove the user to a level', 'bit-integrations') } // Remove the user to a level
+    { key: 'add-member-level', label: __('Add the user to a level', 'bit-integrations') },
+    { key: 'remove-member-level', label: __('Remove the user to a level', 'bit-integrations') }
   ]
 
   const [restrictConf, setRestrictConf] = useState({
@@ -47,7 +45,6 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
     exp_date: '',
     memberFields,
     actionLists,
-    // levelFields,
     actions: {}
   })
 
@@ -78,8 +75,6 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
-
       <RestrictContentAuthorization
         restrictConf={restrictConf}
         setRestrictConf={setRestrictConf}
@@ -90,7 +85,6 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -114,7 +108,6 @@ function RestrictContent({ formFields, setFlow, flow, allIntegURL }) {
         </button>
       </div>
 
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() => saveConfig()}

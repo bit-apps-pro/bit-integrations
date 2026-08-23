@@ -12,9 +12,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for PipeDrive integration
- */
 class PipeDriveController
 {
     public static array $authConfig = [

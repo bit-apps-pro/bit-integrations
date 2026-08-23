@@ -46,27 +46,12 @@ final class EmailNotification
         return wp_mail($adminEmail, $subject, $message, $headers);
     }
 
-    /**
-     * Build HTML email message
-     *
-     * @param int    $flowId       Integration flow ID
-     * @param string $actionName   Integration name
-     * @param string $errorMessage Error message
-     * @param string $siteName     Site name
-     * @param mixed  $actionName
-     * @param mixed  $triggerName
-     * @param mixed  $recordType
-     *
-     * @return string HTML formatted email message
-     */
     private static function buildEmailMessage($flowId, $actionName, $triggerName, $recordType, $errorMessage, $siteName)
     {
-        // Prepare data for template
         $adminUrl = admin_url('admin.php?page=bit-integrations#/flow/action/edit/' . $flowId);
         $logUrl = admin_url('admin.php?page=bit-integrations#/flow/action/log/' . $flowId . '/' . $actionName);
         $timestamp = current_time('mysql');
 
-        // Load email template
         ob_start();
 
         include Config::get('BASEDIR') . '/views/emails/integration-failure-notification.php';

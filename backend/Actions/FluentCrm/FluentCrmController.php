@@ -14,9 +14,6 @@ use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Models\Tag;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class FluentCrmController
 {
     private $_integrationID;
@@ -26,11 +23,6 @@ class FluentCrmController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Fluent crm plugin is exists
-     *
-     * @return void
-     */
     public static function checkedExistsFluentCRM()
     {
         if (!is_plugin_active('fluent-crm/fluent-crm.php')) {
@@ -41,11 +33,6 @@ class FluentCrmController
         }
     }
 
-    /**
-     * Fetch CRM lists
-     *
-     * @return Fluent CRM lists
-     */
     public static function fluentCrmLists()
     {
         self::checkedExistsFluentCRM();

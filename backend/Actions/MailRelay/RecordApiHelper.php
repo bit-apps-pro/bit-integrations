@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;

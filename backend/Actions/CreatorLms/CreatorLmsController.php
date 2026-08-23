@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\CreatorLms;
 
 use WP_Error;
 
-/**
- * Provide functionality for Creator LMS integration
- */
 class CreatorLmsController
 {
     public static function isExists()

@@ -218,7 +218,6 @@ export default function FreshdeskActions({ freshdeskConf, setFreshdeskConf, form
           </select>
         </ConfirmModal>
       </div>
-      {/* file */}
       <div className="pos-rel d-flx w-8l">
         <div className="d-flx flx-wrp">
           <TableCheckBox

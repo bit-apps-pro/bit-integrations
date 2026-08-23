@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for CopperCRM integration
- */
 class CopperCRMController
 {
     public static array $authConfig = [
@@ -42,6 +39,7 @@ class CopperCRMController
         $apiKey = $fieldsRequestParams->api_key;
         $action = $fieldsRequestParams->action;
         $apiEmail = $fieldsRequestParams->api_email;
+
         // if ($action == 'person' || $action == 'company') {
         //     $apiEndpoint = $this->apiEndpoint."/peoples/fields/definitions";
         // } elseif ($action == 'opportunity') {

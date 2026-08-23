@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;

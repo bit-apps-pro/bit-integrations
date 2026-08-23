@@ -10,9 +10,6 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-/**
- * Provide functionality for Encharge integration
- */
 class EnchargeController
 {
     public static array $authConfig = [
@@ -32,13 +29,6 @@ class EnchargeController
         $this->_integrationID = $integrationID;
     }
 
-    /**
-     * Process ajax request for refresh crm modules
-     *
-     * @param $queryParams Params for fetch headers
-     *
-     * @return JSON Encharge field
-     */
     public static function enchargeHeaders($queryParams)
     {
         if (empty($queryParams->api_key)) {
@@ -57,7 +47,6 @@ class EnchargeController
         $fields = [];
         if (!is_wp_error($enChargeResponse)) {
             $allFields = $enChargeResponse->items;
-            // wp_send_json_success($allFields);
             foreach ($allFields as $field) {
                 $required = $field->name === 'email' ? true : false;
                 $fields[$field->name] = (object) [

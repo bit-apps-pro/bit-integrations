@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-/**
- * Provide functionality for ZohoCrm integration
- */
 class ZohoMarketingHubController
 {
     public static array $authConfig = [
@@ -87,13 +84,6 @@ class ZohoMarketingHubController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Process ajax request for refesh crm layouts
-     *
-     * @param object $queryParams Params to refresh contact list
-     *
-     * @return JSON crm layout data
-     */
     public static function refreshContactFields($queryParams)
     {
         if (empty($queryParams->list)
@@ -175,7 +165,6 @@ class ZohoMarketingHubController
             }
         }
 
-        // $actions = $integrationDetails->actions;
         $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
 
         $zmarketingHubApiResponse = $recordApiHelper->execute(

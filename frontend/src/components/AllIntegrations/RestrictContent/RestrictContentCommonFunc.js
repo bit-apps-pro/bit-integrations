@@ -36,7 +36,6 @@ export const getAllLevels = (restrictConf, setRestrictConf, setIsLoading) => {
     error: __('Error Occurred', 'bit-integrations'),
     loading: __('Loading Levels...')
   })
-  // .catch(() => setIsLoading(false))
 }
 
 export const generateMappedField = restrictConf => {

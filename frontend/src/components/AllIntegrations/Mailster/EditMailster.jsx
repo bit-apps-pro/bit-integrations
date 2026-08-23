@@ -77,7 +77,6 @@ function EditMailster({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        // disabled={!mailsterConf?.selectedLists}
         isLoading={isLoading}
         dataConf={mailsterConf}
         setDataConf={setMailsterConf}

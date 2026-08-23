@@ -57,7 +57,6 @@ export const refreshConvertKitForm = (convertKitConf, setConvertKitConf, setIsLo
     })
     .catch(() => setIsLoading(false))
 }
-// refreshConvertKitTags
 export const refreshConvertKitTags = (convertKitConf, setConvertKitConf, setIsLoading, setSnackbar) => {
   const refreshFormsRequestParams = {
     ...buildAuthRequestParams(convertKitConf)
@@ -105,7 +104,6 @@ export const refreshConvertKitTags = (convertKitConf, setConvertKitConf, setIsLo
     })
     .catch(() => setIsLoading(false))
 }
-// refreshMappedFields
 export const refreshConvertKitHeader = (
   convertKitConf,
   setConvertKitConf,

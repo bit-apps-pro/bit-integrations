@@ -8,9 +8,6 @@ namespace BitApps\Integrations\Actions\WCAffiliate;
 
 use WP_Error;
 
-/**
- * Provide functionality for WC Affiliate integration.
- */
 class WCAffiliateController
 {
     public function execute($integrationData, $fieldValues)

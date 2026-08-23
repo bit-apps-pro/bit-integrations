@@ -261,6 +261,7 @@ export default function Authorization({
             <AddNewConnection
               authDetails={authDetails}
               config={config}
+              connections={connections}
               setConfig={canSwitch ? captureConfig : setConfig}
               isInfo={canSwitch ? false : isInfo}
               customAuthFields={customAuthFields}
@@ -292,8 +293,6 @@ export default function Authorization({
         </button>
       )}
 
-      {/* Switched connection: the field mapping still targets the old account,
-      so hand the user off to the edit wizard to review it. */}
       {canSwitch && connectionSwitch.switched && (
         <button
           onClick={connectionSwitch.onNext}

@@ -86,6 +86,8 @@ export default function OneDriveActions({
   const getFileUpFields = () =>
     formFields.filter(itm => itm.type === 'file').map(itm => ({ label: itm.label, value: itm.name }))
 
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+
   // useEffect(() => {
   //   const usersOption = [
   //     { title: 'Zoho Workdrive Users', type: 'group', childs: [] },
@@ -94,18 +96,14 @@ export default function OneDriveActions({
   //   if (oneDriveConf.team && !oneDriveConf.default?.users?.[oneDriveConf.team]) {
   //     refreshUsers(formID, oneDriveConf, setOneDriveConf, setIsLoading, setSnackbar)
   //   }
-
   //   if (oneDriveConf.default?.users?.[oneDriveConf.team]) {
   //     usersOption[0].childs[0] = { label: 'All Users', value: 'all_users' }
   //     const teamUsers = Object.values(oneDriveConf.default.users[oneDriveConf.team])
-
   //     for (let i = 0; i < teamUsers.length; i += 1) {
   //       usersOption[0].childs[i + 1] = { label: teamUsers[i].userName, value: teamUsers[i].userId }
   //     }
   //   }
-
   //   usersOption[1].childs = formFields.map(itm => ({ label: itm.name, value: `\${${itm.key}}` }))
-
   //   setUsers(usersOption)
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [oneDriveConf.team, oneDriveConf.default?.users?.[oneDriveConf.team]])
@@ -128,59 +126,6 @@ export default function OneDriveActions({
           {__('This Required', 'bit-integrations')}
         </small>
       </div>
-
-      {/* <Modal
-        md
-        show={actionMdl.show === 'attachments'}
-        setModal={clsActionMdl}
-        title={__('Select Attachment', 'bit-integration-pro')}
-      >
-        <div className="o-a" style={{ height: '95%' }}>
-          <div className="mt-2">{__('Select File Upload Fields', 'bit-integration-pro')}</div>
-          <MultiSelect
-            defaultValue={oneDriveConf.actions.attachments}
-            className="mt-2 w-5"
-            options={getFileUpFields()}
-            onChange={(val) => actionHandler(val, 'attachments')}
-          />
-
-          {oneDriveConf.default?.teamFolders?.[oneDriveConf.team]?.[folder]?.type === 'private'
-            && (
-              <>
-                <div className="btcd-hr mt-2" />
-                <div className="flx mt-2">
-                  <div>Share with users: (optional)</div>
-                  <button onClick={() => refreshUsers(formID, oneDriveConf, setOneDriveConf, setIsLoading, setSnackbar)} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': '"Refresh Team Users"' }} type="button" disabled={isLoading}>&#x21BB;</button>
-                </div>
-                {isLoading
-                  && (
-                    <Loader style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      height: 45,
-                      transform: 'scale(0.5)',
-                    }}
-                    />
-                  )}
-                {
-                  oneDriveConf.actions?.share?.file?.permissions?.map((permission, i) => (
-                    <div key={permission.accessLabel} className="flx flx-between mt-2">
-                      <MultiSelect
-                        defaultValue={permission.email}
-                        className="btcd-paper-drpdwn w-7 mr-2"
-                        onChange={(val) => handleShareSetting(i, 'email', val, 'file')}
-                        options={users}
-                      />
-                      <input type="text" value={permission.accessLabel} className="btcd-paper-inp w-3" readOnly />
-                    </div>
-                  ))
-                }
-                <TableCheckBox onChange={(e) => actionHandler(e, 'mail', 'file')} checked={oneDriveConf?.actions?.share?.file?.mail === 'true' || false} className="wd-100 mt-4 mr-2" value="true" title={__('Send Notification Mail', 'bit-integration-pro')} />
-              </>
-            )}
-        </div>
-      </Modal> */}
 
       <ConfirmModal
         className="custom-conf-mdl"

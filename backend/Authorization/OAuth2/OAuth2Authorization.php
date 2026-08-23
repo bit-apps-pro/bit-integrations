@@ -315,6 +315,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Reading a mutex through a cache is the bug this avoids: a cached value cannot observe another worker's write, which is the entire point of the read. Table from $wpdb->options, key bound via prepare().
         // Read the table directly: get_option() consults the `notoptions` cache before
         // the per-key cache, and wp_cache_delete() clears only the latter — so a live
         // lock written by another worker can read back as absent.

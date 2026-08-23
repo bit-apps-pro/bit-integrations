@@ -14,9 +14,6 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for Record insert,upsert
- */
 class RecordApiHelper
 {
     private $_defaultHeader;
@@ -103,7 +100,6 @@ class RecordApiHelper
             }
         }
 
-        // Attachments
         if (isset($actions->attachments)) {
             $filesApiHelper = new FilesApiHelper($this->_tokenDetails);
             $attachments = explode(',', $actions->attachments);

@@ -139,11 +139,7 @@ function DocSupport() {
               <a className="btcd-doc-btn btcd-doc-btn--solid" href="mailto:support@bitapps.pro">
                 support@bitapps.pro
               </a>
-              <a
-                className="btcd-doc-btn"
-                href={CHAT_URL}
-                target="_blank"
-                rel="noopener noreferrer">
+              <a className="btcd-doc-btn" href={CHAT_URL} target="_blank" rel="noopener noreferrer">
                 <MessagesCircle size="16" />
                 {__('Start a live chat', 'bit-integrations')}
               </a>

@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, upsert
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -31,12 +28,10 @@ class RecordApiHelper
             'Authorization' => 'Bearer ' . $tokenDetails->access_token,
             'Content-Type'  => 'application/json'
         ];
-        // $endPoint = "https://api.zoom.us/v2/webinars/{$webinarId}/registrants";
         $endPoint = "https://api.zoom.us/v2/webinars/{$webinarId}/registrants";
 
         $getRegistrants = HttpHelper::get($endPoint, null, $header);
 
-        // get registrant id using email from getRegistrants
         $registrantId = null;
         foreach ($getRegistrants->registrants as $registrant) {
             if ($registrant->email == $finalData['email']) {
@@ -51,7 +46,6 @@ class RecordApiHelper
                 'Authorization' => 'Bearer ' . $tokenDetails->access_token,
                 'Content-Type'  => 'application/json'
             ];
-            // https://api.zoom.us/v2/webinars/{webinarId}/registrants/{registrantId}
             $endPointDelete = "https://api.zoom.us/v2/webinars/{$webinarId}/registrants/{$registrantId}";
 
             HttpHelper::request($endPointDelete, 'DELETE', null, $headerDel);
@@ -63,7 +57,6 @@ class RecordApiHelper
         $data = \is_string($data) ? $data : wp_json_encode((object) $data);
         $header['Authorization'] = 'Bearer ' . $tokenDetails->access_token;
         $header['Content-Type'] = 'application/json';
-        // https://api.zoom.us/v2/webinars/{webinarId}/registrants
         $createWebinarRegistrantEndpoint = 'https://api.zoom.us/v2/webinars/' . $webinarId . '/registrants';
 
         return $res = HttpHelper::post($createWebinarRegistrantEndpoint, $data, $header);
@@ -155,7 +148,6 @@ class RecordApiHelper
             $apiResponse = __('Attendee deleted successfully', 'bit-integrations');
         }
 
-        // Create user
         if ($selectedAction === 'Create User') {
             $apiResponse = $this->createUser($webinarId, $finalData, $tokenDetails);
         }

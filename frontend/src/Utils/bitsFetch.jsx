@@ -26,9 +26,6 @@ export default async function bitsFetch(data, action, queryParam = null, method 
   }
 
   if (method.toLowerCase() === 'post') {
-    /**
-     * @type FormData
-     */
     let formData
     if (!(data instanceof FormData)) {
       formData = new FormData()

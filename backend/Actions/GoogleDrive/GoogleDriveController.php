@@ -86,7 +86,6 @@ class GoogleDriveController
             'Content-Type'  => 'application/json;',
             'Authorization' => 'Bearer ' . $token,
         ];
-        // for only root folder: and 'root' in parents
         $apiEndpoint = "https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,parents)";
         $apiResponse = HttpHelper::get($apiEndpoint, [], $headers);
         if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {

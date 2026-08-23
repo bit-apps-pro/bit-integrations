@@ -141,7 +141,6 @@ class OneDriveController
         $integrationDetails = $integrationData->flow_details;
         $actions = $integrationDetails->actions;
         $folderId = $integrationDetails->folder;
-        // $fieldMap = $integrationDetails->field_map;
         $isConnectionAuth = !empty($integrationDetails->connection_id);
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
         $oldToken = $tokenDetails->access_token ?? '';
@@ -156,7 +155,6 @@ class OneDriveController
 
             return false;
         }
-        // folderMap need check
         $parentId = $integrationData->flow_details->folderMap[1];
         $fieldMap = null;
 

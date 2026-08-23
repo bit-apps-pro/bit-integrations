@@ -104,7 +104,6 @@ export default function AirtableActions({ airtableConf, setAirtableConf, loading
               defaultValue={airtableConf?.selectedTags}
               onChange={val => setChanges(val)}
             />
-            {/* <button onClick={() => getAllTags(airtableConf, setAirtableConf, setLoading)} className="icn-btn sh-sm ml-2 mr-2 tooltip" style={{ '--tooltip-txt': `${__('Refresh Groups', 'bit-integrations')}'` }} type="button">&#x21BB;</button> */}
           </div>
         )}
       </ConfirmModal>

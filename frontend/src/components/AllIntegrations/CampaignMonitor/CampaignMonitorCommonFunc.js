@@ -13,7 +13,6 @@ const buildAuthRequestParams = conf =>
     ? { connection_id: conf.connection_id }
     : { client_id: conf.client_id, api_key: conf.api_key }
 
-// refreshMappedLists
 export const refreshCampaignMonitorLists = (
   campaignMonitorConf,
   setCampaignMonitorConf,
@@ -60,7 +59,6 @@ export const refreshCampaignMonitorLists = (
     })
 }
 
-// refreshMappedFields
 export const refreshCampaignMonitorFields = (
   campaignMonitorConf,
   setCampaignMonitorConf,

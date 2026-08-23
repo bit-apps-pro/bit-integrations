@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\LifterLms;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
 class LifterLmsController
@@ -27,7 +28,7 @@ class LifterLmsController
             'post_status'    => 'publish',
         ];
 
-        $lessonList = get_posts($lessonParams);
+        $lessonList = Post::all($lessonParams);
 
         foreach ($lessonList as $key => $val) {
             $allLesson[] = [
@@ -49,7 +50,7 @@ class LifterLmsController
             'post_status'    => 'publish',
         ];
 
-        $sectionList = get_posts($sectionParams);
+        $sectionList = Post::all($sectionParams);
 
         foreach ($sectionList as $key => $val) {
             $allSection[] = [

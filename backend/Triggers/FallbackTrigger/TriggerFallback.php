@@ -7,6 +7,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\Helper;
+use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Flow\Flow;
 use DateTime;
 use EDD_Payment;
@@ -133,7 +134,6 @@ final class TriggerFallback
                 continue;
             }
             if (\in_array($val->field_key, $visistedKey)) {
-                // continue;
             }
             $field[] = (object) [
                 'name'  => $val->field_key,
@@ -235,7 +235,7 @@ final class TriggerFallback
         ];
         $result = $result_student + $result_course;
 
-        $courseInfo = get_post_meta($course_id);
+        $courseInfo = Post::getMeta($course_id);
         $course_temp = [];
         foreach ($courseInfo as $key => $val) {
             if (\is_array($val)) {
@@ -1751,7 +1751,7 @@ final class TriggerFallback
             return false;
         }
 
-        $metaData = get_post_meta($order_id);
+        $metaData = Post::getMeta($order_id);
         $chekoutPageId = (int) $metaData['_wcf_checkout_id'][0];
         $flows = Flow::exists('CartFlow', $chekoutPageId);
 
@@ -2756,7 +2756,6 @@ final class TriggerFallback
 
     public static function happySaveImage($base64_img, $title)
     {
-        // Upload dir.
         $upload = wp_upload_dir();
         $upload_dir = $upload['basedir'];
         $upload_dir = $upload_dir . '/bihappy';
@@ -2777,7 +2776,6 @@ final class TriggerFallback
         $filename = sanitize_file_name($title) . '.png';
         $hashed_filename = md5($filename . microtime()) . '_' . $filename;
 
-        // Save the image in the uploads directory.
         $upload_file = FileSystem::write($upload_path . '/' . $hashed_filename, $decoded);
         if ($upload_file) {
             return $upload_path . '/' . $hashed_filename;
@@ -3048,7 +3046,7 @@ final class TriggerFallback
                 'ID'             => $quiz_id,
             ];
 
-            $quizList = get_posts($quiz_query_args);
+            $quizList = Post::all($quiz_query_args);
 
             $result_quiz = [
                 'quiz_id'      => $quiz_id,
@@ -3244,8 +3242,6 @@ final class TriggerFallback
 
         return ['triggered_entity' => 'LearnDash', 'triggered_entity_id' => 11, 'data' => $assignmentDataFinal, 'flows' => $flows];
     }
-
-    // lifterLms
 
     public static function lifterLmsGetUserInfo($user_id)
     {
@@ -3529,8 +3525,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'LifterLms', 'triggered_entity_id' => 8, 'data' => $finalData, 'flows' => $flows];
     }
 
-    // mail poet
-
     public static function mailPoetHandleDateField($item)
     {
         if (
@@ -3596,8 +3590,6 @@ final class TriggerFallback
             return ['triggered_entity' => 'MailPoet', 'triggered_entity_id' => $form_id, 'data' => $formData, 'flows' => $flows];
         }
     }
-
-    // masterStudy Lms
 
     public static function masterStudyLmsGetUserInfo($user_id)
     {
@@ -3819,8 +3811,6 @@ final class TriggerFallback
         }
     }
 
-    // Memberpress
-
     public static function MemberpressGetUserInfo($user_id)
     {
         $userInfo = get_userdata($user_id);
@@ -3956,8 +3946,6 @@ final class TriggerFallback
         }
     }
 
-    // metform
-
     public static function handleMetformProSubmit($form_setting, $form_data, $email_name)
     {
         self::handle_submit_data($form_data['id'], $form_data);
@@ -4016,7 +4004,7 @@ final class TriggerFallback
             }
         }
 
-        $postFieldValues = (array) get_post($object->post_id);
+        $postFieldValues = Post::get($object->post_id);
 
         $data = array_merge($postFieldValues, $metaBoxFieldValues);
 
@@ -4128,7 +4116,6 @@ final class TriggerFallback
         }
     }
 
-    // PiotnetAddon all functions
     public static function handlePiotnetAddonSubmit($form_submission)
     {
         $form_id = $form_submission['form']['id'];
@@ -4147,7 +4134,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'PiotnetAddon', 'triggered_entity_id' => $form_id, 'data' => $data, 'flows' => $flows];
     }
 
-    // PiotnetAddonForm all functions
     public static function handlePiotnetAddonFormSubmit($form_submission)
     {
         $form_id = $form_submission['form']['id'];
@@ -4166,7 +4152,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'PiotnetAddonForm', 'triggered_entity_id' => $form_id, 'data' => $data, 'flows' => $flows];
     }
 
-    // PiotnetForms all functions
     public static function handlePiotnetSubmit($fields)
     {
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Third-party form submission
@@ -4194,8 +4179,6 @@ final class TriggerFallback
 
         return ['triggered_entity' => 'PiotnetAddonForm', 'triggered_entity_id' => $post_id, 'data' => $data, 'flows' => $flows];
     }
-
-    // Wp Post All Functions
 
     public static function createPost($postId, $newPostData, $update, $beforePostData)
     {
@@ -4388,8 +4371,6 @@ final class TriggerFallback
         }
     }
 
-    // Wp Registration All Functions
-
     public static function userCreate()
     {
         $newUserData = \func_get_args()[1];
@@ -4471,7 +4452,6 @@ final class TriggerFallback
         }
     }
 
-    // RestrictContent all functions
     public static function rcpPurchasesMembershipLevel($membership_id, RCP_Membership $RCP_Membership)
     {
         $flows = Flow::exists('RestrictContent', 1);
@@ -4580,7 +4560,6 @@ final class TriggerFallback
         }
     }
 
-    // SliceWp all functions
     public static function newAffiliateCreated($affiliate_id, $affiliate_data)
     {
         $userData = self::sliceWpgetUserInfo($affiliate_data['user_id']);
@@ -4633,7 +4612,6 @@ final class TriggerFallback
         return $user;
     }
 
-    // NewSolidAffiliate all functions
     public static function newSolidAffiliateCreated($affiliate)
     {
         $attributes = $affiliate->__get('attributes');
@@ -4657,7 +4635,6 @@ final class TriggerFallback
         return ['triggered_entity' => 'SolidAffiliate', 'triggered_entity_id' => 2, 'data' => $affiliateReferralData, 'flows' => $flows];
     }
 
-    // Spectra all functions
     public static function spectraHandler(...$args)
     {
         if (Config::getOption('test_uagb_form_success') !== false) {
@@ -5011,7 +4988,7 @@ final class TriggerFallback
         ];
         $result = $result_student + $result_course;
 
-        $courseInfo = get_post_meta($course_id);
+        $courseInfo = Post::getMeta($course_id);
         $course_temp = [];
         foreach ($courseInfo as $key => $val) {
             if (\is_array($val)) {
@@ -5727,8 +5704,6 @@ final class TriggerFallback
 
         return $filteredFlows;
     }
-
-    // LearnDash
 
     protected static function flowFilter($flows, $key, $value)
     {

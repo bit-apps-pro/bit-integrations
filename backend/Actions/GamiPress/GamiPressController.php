@@ -7,15 +7,11 @@
 namespace BitApps\Integrations\Actions\GamiPress;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Post;
 use WP_Error;
 
-/**
- * Provide functionality for LearnDesh integration
- */
 class GamiPressController
 {
-    // private $_integrationID;
-
     // public function __construct($integrationID)
     // {
     //     $this->_integrationID = $integrationID;
@@ -43,7 +39,7 @@ class GamiPressController
             'posts_per_page' => -1,
         ];
 
-        $courseList = get_posts($course_query_args);
+        $courseList = Post::all($course_query_args);
 
         foreach ($courseList as $key => $val) {
             $courses[] = [
@@ -175,7 +171,6 @@ class GamiPressController
         $integId = $integrationData->id;
         $mainAction = $integrationDetails->mainAction;
         $fieldMap = $integrationDetails->field_map;
-        // $defaultDataConf = $integrationDetails->default;
         if (
             empty($integId)
             || empty($mainAction)

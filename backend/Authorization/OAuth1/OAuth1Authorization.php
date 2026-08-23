@@ -282,9 +282,6 @@ class OAuth1Authorization extends AbstractBaseAuthorization
         return $flat;
     }
 
-    /**
-     * @param mixed $value
-     */
     private function stringifyValue($value): string
     {
         if (\is_bool($value)) {

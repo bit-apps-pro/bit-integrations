@@ -63,15 +63,12 @@ function SureCart({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <SureCartAuthorization
         sureCartConf={sureCartConf}
         setSureCartConf={setSureCartConf}
         step={step}
         setStep={setStep}
       />
-
-      {/* STEP 2 */}
 
       <div
         className="btcd-stp-page"
@@ -100,8 +97,6 @@ function SureCart({ formFields, setFlow, flow, allIntegURL }) {
           <BackIcn className="ml-1 rev-icn" />
         </button>
       </div>
-
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}

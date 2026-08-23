@@ -66,7 +66,6 @@ export default function Modal({
               ''
             )}
             <small className="btcd-mdl-subtitle">{subTitle}</small>
-            {/* {!sm && <div className="btcd-mdl-div" />} */}
             {children}
           </div>
         </div>

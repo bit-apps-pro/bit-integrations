@@ -43,7 +43,6 @@ function SendFox({ formFields, setFlow, flow, allIntegURL }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <SendFoxAuthorization
         formID={formID}
         sendFoxConf={sendFoxConf}
@@ -55,7 +54,6 @@ function SendFox({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -80,7 +78,6 @@ function SendFox({ formFields, setFlow, flow, allIntegURL }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
       <IntegrationStepThree
         step={step}
         saveConfig={() =>

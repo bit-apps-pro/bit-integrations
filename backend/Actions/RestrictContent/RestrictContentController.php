@@ -9,9 +9,6 @@ namespace BitApps\Integrations\Actions\RestrictContent;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-/**
- * Provide functionality for RestricContent integration
- */
 class RestrictContentController
 {
     private $_integrationID;

@@ -10,9 +10,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-/**
- * Provide functionality for Upload files
- */
 final class FilesApiHelper
 {
     private $_defaultHeader;
@@ -21,11 +18,6 @@ final class FilesApiHelper
 
     private $_module;
 
-    /**
-     * @param string $module       zoho recruit module name
-     * @param string $dataCenter   DC for API endpoint
-     * @param object $tokenDetails Api token details
-     */
     public function __construct($module, $dataCenter, $tokenDetails)
     {
         $this->_module = $module;

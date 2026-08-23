@@ -8,7 +8,6 @@ final class WPFController
 {
     public function __construct()
     {
-        //
     }
 
     public static function info()
@@ -159,7 +158,6 @@ final class WPFController
             $fieldId = $fldDetail['id'];
             $fieldValue = str_replace('&#36;', '', $fldDetail['value']);
 
-            // Handling different field types
             switch ($fldDetail['type']) {
                 case 'name':
                     $data[$fieldId] = $fieldValue;

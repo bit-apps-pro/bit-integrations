@@ -44,7 +44,6 @@ function LearnDash({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
     },
     { key: '13', label: __('Reset the users attempts for a quiz pro', 'bit-integrations') },
     { key: '14', label: __('Reset the users progress in a course pro', 'bit-integrations') },
-    // { key: '15', label: __('Send a certificate pro', 'bit-integrations')},
     { key: '16', label: __('Send an email to the users group leaders', 'bit-integrations') },
     { key: '17', label: __('Unenroll the user from a course pro', 'bit-integrations') }
   ]
@@ -102,7 +101,6 @@ function LearnDash({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <LearnDashAuthorization
         formID={formID}
         learnDashConf={learnDashConf}
@@ -114,7 +112,6 @@ function LearnDash({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -145,7 +142,6 @@ function LearnDash({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
           </button>
         )}
       </div>
-      {/* STEP 3 */}
       {learnDashConf.mainAction !== '16' && (
         <IntegrationStepThree
           step={step}

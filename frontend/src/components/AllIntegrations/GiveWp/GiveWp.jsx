@@ -19,7 +19,6 @@ function GiveWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
 
   const allActions = [{ key: '1', label: __('Create a donar', 'bit-integrations') }]
 
-  // for action 1
   const giveWpFields = [
     { key: 'email', label: __('Email', 'bit-integrations'), required: true },
     { key: 'name', label: __('Name', 'bit-integrations'), required: false },
@@ -59,7 +58,6 @@ function GiveWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <GiveWpAuthorization
         formID={formID}
         giveWpConf={giveWpConf}
@@ -71,7 +69,6 @@ function GiveWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -98,7 +95,6 @@ function GiveWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}

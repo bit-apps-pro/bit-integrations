@@ -11,9 +11,6 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-/**
- * Provide functionality for Record insert, update
- */
 class RecordApiHelper
 {
     private $_integrationID;
@@ -23,17 +20,6 @@ class RecordApiHelper
         $this->_integrationID = $integId;
     }
 
-    /**
-     * Execute the integration
-     *
-     * @param array $fieldValues Field values from form
-     * @param array $fieldMap    Field mapping
-     * @param array $lists       Lists to subscribe
-     * @param array $tags        Tags to add
-     * @param mixed $mainAction
-     *
-     * @return array
-     */
     public function execute($fieldValues, $fieldMap, $lists, $tags, $mainAction)
     {
         if (!class_exists('\MailerPress\Core\Kernel')) {
@@ -138,15 +124,6 @@ class RecordApiHelper
         return $response;
     }
 
-    /**
-     * Insert or update contact record
-     *
-     * @param array $contactData Contact data
-     * @param array $lists       Lists to subscribe
-     * @param array $tags        Tags to add
-     *
-     * @return array
-     */
     private function insertRecord($contactData, $lists, $tags)
     {
         $email = key_exists('email', $contactData) ? sanitize_email($contactData['email']) : null;

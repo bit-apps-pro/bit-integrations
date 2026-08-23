@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { AUTH_TYPES, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import { AUTH_TYPES, buildDefaultConnectionName, defaultEncryptKeys } from '../../Utils/connectionAuth'
 import { resolveTemplate } from '../../Utils/connectionTemplates'
 import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
 import {
@@ -77,11 +77,14 @@ export default function Oauth2Connection({
   authDetails,
   config,
   setConfig,
+  connections,
   isInfo = false,
   customAuthFields,
   onConnectionSaved
 }) {
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState(() => ({
+    connectionName: buildDefaultConnectionName(config?.type || config?.app_slug, connections)
+  }))
 
   const {
     authCodeEndpoint,

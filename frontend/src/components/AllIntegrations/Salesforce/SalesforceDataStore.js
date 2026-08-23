@@ -54,13 +54,11 @@ export const eventSubject = [
 //   { label: __('Medium', 'bit-integrations'), value: 'Medium' },
 //   { label: __('High', 'bit-integrations'), value: 'High' }
 // ]
-
 // export const potentialLiability = [
 //   { label: __('None', 'bit-integrations'), value: 'None' },
 //   { label: __('No', 'bit-integrations'), value: 'No' },
 //   { label: __('Yes', 'bit-integrations'), value: 'Yes' }
 // ]
-
 // export const slaViolation = [
 //   { label: __('None', 'bit-integrations'), value: 'None' },
 //   { label: __('No', 'bit-integrations'), value: 'No' },

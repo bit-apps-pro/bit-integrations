@@ -17,7 +17,6 @@ const buildAuthRequestParams = confTmp =>
         tokenDetails: confTmp.tokenDetails
       }
 
-// refreshMappedLists
 export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = buildAuthRequestParams(sendPulseConf)
   bitsFetch(refreshListsRequestParams, 'sendPulse_lists')
@@ -55,7 +54,6 @@ export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoadi
     .catch(() => setIsLoading(false))
 }
 
-// refreshMappedFields
 export const refreshSendPulseHeader = (sendPulseConf, setSendPulseConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = {
     ...buildAuthRequestParams(sendPulseConf),

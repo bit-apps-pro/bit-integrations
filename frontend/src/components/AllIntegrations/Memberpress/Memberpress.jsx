@@ -9,7 +9,6 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import { handleInput, checkMappedFields } from './MemberpressCommonFunc'
-// import BuddyBossIntegLayout from './MemberpressIntegLayout'
 import MemberpressAuthorization from './MemberpressAuthorization'
 import MemberpressIntegLayout from './MemberpressIntegLayout'
 
@@ -25,12 +24,10 @@ function Memberpress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
     { key: '2', label: __('Remove the user from a membership', 'bit-integrations') }
   ]
 
-  // for action 1
   const memberpressFields = [
     { key: 'sub_total', label: __('Sub Total', 'bit-integrations'), required: false },
     { key: 'tax_amount', label: __('Tax Amount', 'bit-integrations'), required: false },
     { key: 'taxrate', label: __('Tax Rate', 'bit-integrations'), required: false },
-    // { key: 'status', label: __('Status', 'bit-integrations'), required: false },
     { key: 'expiration_date', label: __('Expiration Date', 'bit-integrations'), required: false }
   ]
 
@@ -72,7 +69,6 @@ function Memberpress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         <Steps step={3} active={step} />
       </div>
 
-      {/* STEP 1 */}
       <MemberpressAuthorization
         formID={formID}
         memberpressConf={memberpressConf}
@@ -84,7 +80,6 @@ function Memberpress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         setSnackbar={setSnackbar}
       />
 
-      {/* STEP 2 */}
       <div
         className="btcd-stp-page"
         style={{ ...(step === 2 && { width: 900, height: 'auto', overflow: 'visible' }) }}>
@@ -113,7 +108,6 @@ function Memberpress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
           <div className="btcd-icn icn-arrow_back rev-icn d-in-b" />
         </button>
       </div>
-      {/* STEP 3 */}
 
       <IntegrationStepThree
         step={step}
