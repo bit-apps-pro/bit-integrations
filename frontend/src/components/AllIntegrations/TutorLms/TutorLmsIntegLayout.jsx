@@ -2,10 +2,22 @@
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import { getAllCourses, getAllLesson } from './TutorLmsCommonFunc'
+import {
+  generateUserFieldMap,
+  getAllCourses,
+  getAllLesson,
+  tutorLmsUserFields
+} from './TutorLmsCommonFunc'
+import TutorLmsFieldMap from './TutorLmsFieldMap'
 import Note from '../../Utilities/Note'
 
-export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isLoading, setIsLoading }) {
+export default function TutorLmsIntegLayout({
+  formFields,
+  tutorlmsConf,
+  setTutorlmsConf,
+  isLoading,
+  setIsLoading
+}) {
   const action = [
     { value: 'enroll-course', label: __('Enroll the user in a course', 'bit-integrations') },
     { value: 'unenroll-course', label: __('Unenroll user from a course', 'bit-integrations') },
@@ -49,6 +61,14 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
     }
   }
 
+  const handleUserSource = e => {
+    const { value } = e.target
+    const newConf = { ...tutorlmsConf, userSource: value }
+    newConf.field_map =
+      value === 'email' ? generateUserFieldMap() : [{ formField: '', tutorField: '' }]
+    setTutorlmsConf(newConf)
+  }
+
   const setChanges = (val, type) => {
     const newConf = { ...tutorlmsConf }
     if (val) {
@@ -81,6 +101,23 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
         </select>
       </div>
       <br />
+
+      {tutorlmsConf?.actionName && (
+        <>
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Run Action For:', 'bit-integrations')}</b>
+            <select
+              onChange={handleUserSource}
+              name="userSource"
+              value={tutorlmsConf?.userSource || 'logged-in'}
+              className="btcd-paper-inp w-5">
+              <option value="logged-in">{__('Logged-in User', 'bit-integrations')}</option>
+              <option value="email">{__('User Matched by Email', 'bit-integrations')}</option>
+            </select>
+          </div>
+          <br />
+        </>
+      )}
 
       {(tutorlmsConf?.actionName === 'enroll-course' ||
         tutorlmsConf?.actionName === 'unenroll-course' ||
@@ -143,6 +180,32 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
         </div>
       )}
 
+      {tutorlmsConf?.actionName && tutorlmsConf?.userSource === 'email' && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Map User Email', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
+            <div className="txt-dp">
+              <b>{__('Form Fields', 'bit-integrations')}</b>
+            </div>
+            <div className="txt-dp">
+              <b>{__('Tutor LMS Fields', 'bit-integrations')}</b>
+            </div>
+          </div>
+          {tutorlmsConf?.field_map?.map((itm, idx) => (
+            <TutorLmsFieldMap
+              key={`tl-fm-${idx + 1}`}
+              i={idx}
+              field={itm}
+              tutorFields={tutorLmsUserFields}
+              tutorlmsConf={tutorlmsConf}
+              formFields={formFields}
+              setTutorlmsConf={setTutorlmsConf}
+            />
+          ))}
+        </div>
+      )}
+
       <br />
       <br />
       {isLoading && (
@@ -156,7 +219,18 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
           }}
         />
       )}
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      {tutorlmsConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note
+          note={__('This integration will only work for logged-in users.', 'bit-integrations')}
+        />
+      )}
     </>
   )
 }
