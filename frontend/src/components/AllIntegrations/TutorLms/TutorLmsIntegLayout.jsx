@@ -2,13 +2,9 @@
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import {
-  generateUserFieldMap,
-  getAllCourses,
-  getAllLesson,
-  tutorLmsUserFields
-} from './TutorLmsCommonFunc'
-import TutorLmsFieldMap from './TutorLmsFieldMap'
+import { getAllCourses, getAllLesson } from './TutorLmsCommonFunc'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 import Note from '../../Utilities/Note'
 
 export default function TutorLmsIntegLayout({
@@ -61,14 +57,6 @@ export default function TutorLmsIntegLayout({
     }
   }
 
-  const handleUserSource = e => {
-    const { value } = e.target
-    const newConf = { ...tutorlmsConf, userSource: value }
-    newConf.field_map =
-      value === 'email' ? generateUserFieldMap() : [{ formField: '', tutorField: '' }]
-    setTutorlmsConf(newConf)
-  }
-
   const setChanges = (val, type) => {
     const newConf = { ...tutorlmsConf }
     if (val) {
@@ -104,17 +92,7 @@ export default function TutorLmsIntegLayout({
 
       {tutorlmsConf?.actionName && (
         <>
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Run Action For:', 'bit-integrations')}</b>
-            <select
-              onChange={handleUserSource}
-              name="userSource"
-              value={tutorlmsConf?.userSource || 'logged-in'}
-              className="btcd-paper-inp w-5">
-              <option value="logged-in">{__('Logged-in User', 'bit-integrations')}</option>
-              <option value="email">{__('User Matched by Email', 'bit-integrations')}</option>
-            </select>
-          </div>
+          <UserSourceSelect conf={tutorlmsConf} setConf={setTutorlmsConf} mapKey="tutorField" />
           <br />
         </>
       )}
@@ -181,29 +159,13 @@ export default function TutorLmsIntegLayout({
       )}
 
       {tutorlmsConf?.actionName && tutorlmsConf?.userSource === 'email' && (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Map User Email', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
-            <div className="txt-dp">
-              <b>{__('Form Fields', 'bit-integrations')}</b>
-            </div>
-            <div className="txt-dp">
-              <b>{__('Tutor LMS Fields', 'bit-integrations')}</b>
-            </div>
-          </div>
-          {tutorlmsConf?.field_map?.map((itm, idx) => (
-            <TutorLmsFieldMap
-              key={`tl-fm-${idx + 1}`}
-              i={idx}
-              field={itm}
-              tutorFields={tutorLmsUserFields}
-              tutorlmsConf={tutorlmsConf}
-              formFields={formFields}
-              setTutorlmsConf={setTutorlmsConf}
-            />
-          ))}
-        </div>
+        <UserEmailFieldMap
+          conf={tutorlmsConf}
+          setConf={setTutorlmsConf}
+          formFields={formFields}
+          mapKey="tutorField"
+          actionLabel={__('Tutor LMS Fields', 'bit-integrations')}
+        />
       )}
 
       <br />
@@ -227,9 +189,7 @@ export default function TutorLmsIntegLayout({
           )}
         />
       ) : (
-        <Note
-          note={__('This integration will only work for logged-in users.', 'bit-integrations')}
-        />
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
       )}
     </>
   )

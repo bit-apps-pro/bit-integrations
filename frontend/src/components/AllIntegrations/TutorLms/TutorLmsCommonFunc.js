@@ -2,6 +2,7 @@ import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 
 export const handleInput = (e, tutorlmsConf, setTutorlmsConf, setIsLoading, setSnackbar) => {
   let newConf = deepCopy(tutorlmsConf)
@@ -74,24 +75,8 @@ export const getAllLesson = (tutorlmsConf, setTutorlmsConf, setIsLoading) => {
   })
 }
 
-export const tutorLmsUserFields = [
-  { key: 'user_email', label: __('User Email', 'bit-integrations'), required: true }
-]
-
-export const generateUserFieldMap = (fields = tutorLmsUserFields) =>
-  fields.filter(fld => fld.required === true).map(fld => ({ formField: '', tutorField: fld.key }))
-
-export const isUserEmailMapped = tutorlmsConf =>
-  Boolean(
-    tutorlmsConf?.field_map?.some(
-      fld =>
-        fld.tutorField === 'user_email' &&
-        (fld.formField === 'custom' ? fld.customValue : fld.formField)
-    )
-  )
-
 export const isActionConfigIncomplete = tutorlmsConf =>
-  tutorlmsConf?.userSource === 'email' && !isUserEmailMapped(tutorlmsConf)
+  isUserSourceIncomplete(tutorlmsConf, 'tutorField')
 
 const generateMappedFields = tutorlmsConf => {
   const newConf = deepCopy(tutorlmsConf)
