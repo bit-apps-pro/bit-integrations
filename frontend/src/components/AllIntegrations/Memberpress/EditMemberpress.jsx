@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import MemberpressIntegLayout from './MemberpressIntegLayout'
 import { handleInput } from './MemberpressCommonFunc'
 
@@ -79,7 +80,12 @@ function EditMemberpress({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={!memberpressConf.mainAction || isLoading || isDisabled()}
+        disabled={
+          !memberpressConf.mainAction ||
+          isLoading ||
+          isDisabled() ||
+          isUserSourceIncomplete(memberpressConf)
+        }
         isLoading={isLoading}
         dataConf={memberpressConf}
         setDataConf={setMemberpressConf}
