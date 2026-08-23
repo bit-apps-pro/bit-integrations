@@ -10,6 +10,8 @@ import {
   fetchAllSection
 } from './LifterLmsCommonFunc'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function LifterLmsIntegLayout({
   formFields,
@@ -184,7 +186,30 @@ export default function LifterLmsIntegLayout({
           }}
         />
       )}
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      {lifterLmsConf?.mainAction && lifterLmsConf.mainAction !== '7' && (
+        <>
+          <UserSourceSelect conf={lifterLmsConf} setConf={setLifterLmsConf} />
+          {lifterLmsConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={lifterLmsConf}
+              setConf={setLifterLmsConf}
+              formFields={formFields}
+              actionLabel={__('LifterLMS Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {lifterLmsConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

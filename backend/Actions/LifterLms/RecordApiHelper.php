@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\LifterLms;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Log\LogHandler;
 use LLMS_Course;
 use LLMS_Section;
@@ -19,9 +20,8 @@ class RecordApiHelper
         $this->integrationID = $integId;
     }
 
-    public function complete_lesson($lessonId)
+    public function complete_lesson($lessonId, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -32,9 +32,8 @@ class RecordApiHelper
         return llms_mark_complete($user_id, $lessonId, 'lesson');
     }
 
-    public function complete_section($sectionId)
+    public function complete_section($sectionId, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -53,9 +52,8 @@ class RecordApiHelper
         return llms_mark_complete($user_id, $sectionId, 'section');
     }
 
-    public function enrollIntoCourse($courseId)
+    public function enrollIntoCourse($courseId, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -66,9 +64,8 @@ class RecordApiHelper
         return llms_enroll_student($user_id, $courseId);
     }
 
-    public function markCompleteCourse($courseId)
+    public function markCompleteCourse($courseId, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -96,9 +93,8 @@ class RecordApiHelper
         return llms_mark_complete($user_id, $course_id, 'course');
     }
 
-    public function unEnrollUserFromCourse($courseId)
+    public function unEnrollUserFromCourse($courseId, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -109,9 +105,8 @@ class RecordApiHelper
         return llms_unenroll_student($user_id, $courseId);
     }
 
-    public function enrollIntoMembership($membershipId)
+    public function enrollIntoMembership($membershipId, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -153,9 +148,17 @@ class RecordApiHelper
         $response = [];
         $fieldData = [];
 
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'resolve-user', 'type_name' => 'resolve-user']), 'error', $userId->get_error_message());
+
+            return $userId;
+        }
+
         if ($mainAction == 1) {
             $lessonId = $integrationDetails->lessonId;
-            $response = $this->complete_lesson($lessonId);
+            $response = $this->complete_lesson($lessonId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'lesson-complete', 'type_name' => 'user-lesson-complete']), 'success', __('Lesson completed successfully', 'bit-integrations'));
             } else {
@@ -163,7 +166,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction == 2) {
             $sectionId = $integrationDetails->sectionId;
-            $response = $this->complete_section($sectionId);
+            $response = $this->complete_section($sectionId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'section-complete', 'type_name' => 'user-section-complete']), 'success', __('section completed successfully.', 'bit-integrations'));
             } else {
@@ -171,7 +174,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction == 3) {
             $courseId = $integrationDetails->courseId;
-            $response = $this->enrollIntoCourse($courseId);
+            $response = $this->enrollIntoCourse($courseId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-enroll', 'type_name' => 'user-course-enroll']), 'success', __('User enrolled into course successfully.', 'bit-integrations'));
             } else {
@@ -179,7 +182,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction == 4) {
             $membershipId = $integrationDetails->membershipId;
-            $response = $this->enrollIntoMembership($membershipId);
+            $response = $this->enrollIntoMembership($membershipId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'membership-enroll', 'type_name' => 'user-membership-enroll']), 'success', __('User enrolled into membership successfully.', 'bit-integrations'));
             } else {
@@ -187,7 +190,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction == 5) {
             $courseId = $integrationDetails->courseId;
-            $response = $this->markCompleteCourse($courseId);
+            $response = $this->markCompleteCourse($courseId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-complete', 'type_name' => 'user-course-complete']), 'success', __('User completed course successfully.', 'bit-integrations'));
             } else {
@@ -195,7 +198,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction == 6) {
             $courseId = $integrationDetails->courseId;
-            $response = $this->unEnrollUserFromCourse($courseId);
+            $response = $this->unEnrollUserFromCourse($courseId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-unenroll', 'type_name' => 'user-course-unenroll']), 'success', __('User unenrolled from course successfully.', 'bit-integrations'));
             } else {

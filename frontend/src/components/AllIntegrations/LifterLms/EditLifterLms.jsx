@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput } from './LifterLmsCommonFunc'
 import LifterLmsIntegLayout from './LifterLmsIntegLayout'
 
@@ -66,7 +67,7 @@ function EditLifterLms({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={lifterLmsConf.mainAction === '' || isLoading}
+        disabled={lifterLmsConf.mainAction === '' || isLoading || isUserSourceIncomplete(lifterLmsConf)}
         isLoading={isLoading}
         dataConf={lifterLmsConf}
         setDataConf={setLifterLmsConf}
