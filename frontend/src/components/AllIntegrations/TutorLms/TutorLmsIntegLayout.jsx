@@ -163,7 +163,6 @@ export default function TutorLmsIntegLayout({
           conf={tutorlmsConf}
           setConf={setTutorlmsConf}
           formFields={formFields}
-          mapKey="tutorField"
           actionLabel={__('Tutor LMS Fields', 'bit-integrations')}
         />
       )}

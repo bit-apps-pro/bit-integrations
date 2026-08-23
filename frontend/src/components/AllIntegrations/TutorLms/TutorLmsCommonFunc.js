@@ -75,8 +75,7 @@ export const getAllLesson = (tutorlmsConf, setTutorlmsConf, setIsLoading) => {
   })
 }
 
-export const isActionConfigIncomplete = tutorlmsConf =>
-  isUserSourceIncomplete(tutorlmsConf, 'tutorField')
+export const isActionConfigIncomplete = tutorlmsConf => isUserSourceIncomplete(tutorlmsConf)
 
 const generateMappedFields = tutorlmsConf => {
   const newConf = deepCopy(tutorlmsConf)

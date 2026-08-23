@@ -104,7 +104,7 @@ export default function WPCourseware({ formFields, setFlow, flow, allIntegURL })
           disabled={
             wpCoursewareConf.action === '' ||
             wpCoursewareConf.course.length === 0 ||
-            isUserSourceIncomplete(wpCoursewareConf, 'wpCoursewareField')
+            isUserSourceIncomplete(wpCoursewareConf)
           }
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">

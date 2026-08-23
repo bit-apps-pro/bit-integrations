@@ -229,7 +229,7 @@ class TutorLmsController
         $actionName = $integrationData->flow_details->actionName;
         $response = [];
 
-        $user_id = ActionUser::resolve($integrationData->flow_details, $fieldValues, 'tutorField');
+        $user_id = ActionUser::resolve($integrationData->flow_details, $fieldValues);
 
         if (is_wp_error($user_id)) {
             LogHandler::save($integId, wp_json_encode(['type' => $actionName, 'type_name' => $actionName]), 'error', wp_json_encode($user_id->get_error_message()));

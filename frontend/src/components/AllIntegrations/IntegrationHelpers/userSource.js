@@ -1,28 +1,27 @@
-import { __ } from '../../../Utils/i18nwrap'
-
-export const USER_EMAIL_FIELD = 'user_email'
-
-export const userEmailFields = [
-  { key: USER_EMAIL_FIELD, label: __('User Email', 'bit-integrations'), required: true }
-]
-
-export const generateUserFieldMap = mapKey => [{ formField: '', [mapKey]: USER_EMAIL_FIELD }]
-
-export const isUserEmailMapped = (conf, mapKey) =>
+export const isUserEmailMapped = conf =>
   Boolean(
-    conf?.field_map?.some(
-      fld =>
-        fld[mapKey] === USER_EMAIL_FIELD &&
-        (fld.formField === 'custom' ? fld.customValue : fld.formField)
-    )
+    conf?.userEmailField?.formField === 'custom'
+      ? conf?.userEmailField?.customValue
+      : conf?.userEmailField?.formField
   )
 
-export const isUserSourceIncomplete = (conf, mapKey) =>
-  conf?.userSource === 'email' && !isUserEmailMapped(conf, mapKey)
+export const isUserSourceIncomplete = conf => conf?.userSource === 'email' && !isUserEmailMapped(conf)
 
-export const handleUserSourceChange = (value, conf, setConf, mapKey) =>
+export const handleUserSourceChange = (value, conf, setConf) => {
+  const newConf = { ...conf, userSource: value }
+  if (value === 'email') {
+    if (!newConf.userEmailField) newConf.userEmailField = { formField: '' }
+  } else {
+    delete newConf.userEmailField
+  }
+  setConf(newConf)
+}
+
+export const handleUserEmailField = (value, conf, setConf) =>
   setConf({
     ...conf,
-    userSource: value,
-    field_map: value === 'email' ? generateUserFieldMap(mapKey) : [{ formField: '', [mapKey]: '' }]
+    userEmailField: { formField: value, ...(value === 'custom' && { customValue: '' }) }
   })
+
+export const handleUserEmailCustomValue = (value, conf, setConf) =>
+  setConf({ ...conf, userEmailField: { ...conf.userEmailField, customValue: value } })

@@ -6,25 +6,22 @@ use WP_Error;
 
 final class ActionUser
 {
-    public const EMAIL_FIELD = 'user_email';
-
     /**
      * Flows saved before the email mapping existed carry no `userSource`, so they
      * keep resolving to the logged-in user.
      *
      * @param object $flowDetails
      * @param array  $fieldValues
-     * @param string $mapKey       field_map property holding the action-side field name
      *
      * @return int|WP_Error
      */
-    public static function resolve($flowDetails, $fieldValues, $mapKey)
+    public static function resolve($flowDetails, $fieldValues)
     {
         if (empty($flowDetails->userSource) || $flowDetails->userSource !== 'email') {
             return get_current_user_id();
         }
 
-        $email = self::mappedEmail($flowDetails, $fieldValues, $mapKey);
+        $email = self::mappedEmail($flowDetails, $fieldValues);
 
         if (empty($email) || !is_email($email)) {
             // translators: %s: Mapped email value
@@ -41,28 +38,24 @@ final class ActionUser
         return $user->ID;
     }
 
-    private static function mappedEmail($flowDetails, $fieldValues, $mapKey)
+    private static function mappedEmail($flowDetails, $fieldValues)
     {
-        $fieldMap = $flowDetails->field_map ?? [];
+        $map = $flowDetails->userEmailField ?? null;
 
-        foreach ($fieldMap as $map) {
-            if (($map->{$mapKey} ?? '') !== self::EMAIL_FIELD) {
-                continue;
-            }
-
-            $formField = $map->formField ?? '';
-
-            $value = $formField === 'custom'
-                ? Common::replaceFieldWithValue($map->customValue ?? '', $fieldValues)
-                : ($fieldValues[$formField] ?? '');
-
-            if (\is_array($value)) {
-                $value = reset($value);
-            }
-
-            return trim((string) $value);
+        if (empty($map)) {
+            return '';
         }
 
-        return '';
+        $formField = $map->formField ?? '';
+
+        $value = $formField === 'custom'
+            ? Common::replaceFieldWithValue($map->customValue ?? '', $fieldValues)
+            : ($fieldValues[$formField] ?? '');
+
+        if (\is_array($value)) {
+            $value = reset($value);
+        }
+
+        return trim((string) $value);
     }
 }

@@ -58,11 +58,7 @@ export default function WPCoursewareIntegLayout({
 
       {wpCoursewareConf?.action && (
         <div className="mt-4">
-          <UserSourceSelect
-            conf={wpCoursewareConf}
-            setConf={setWPCoursewareConf}
-            mapKey="wpCoursewareField"
-          />
+          <UserSourceSelect conf={wpCoursewareConf} setConf={setWPCoursewareConf} />
         </div>
       )}
 
@@ -100,7 +96,6 @@ export default function WPCoursewareIntegLayout({
           conf={wpCoursewareConf}
           setConf={setWPCoursewareConf}
           formFields={formFields}
-          mapKey="wpCoursewareField"
           actionLabel={__('WP Courseware Fields', 'bit-integrations')}
         />
       )}

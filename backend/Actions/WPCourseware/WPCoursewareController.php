@@ -49,7 +49,7 @@ class WPCoursewareController
 
         $integrationDetails = $integrationData->flow_details;
 
-        $userId = ActionUser::resolve($integrationDetails, $fieldValues, 'wpCoursewareField');
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
 
         if (is_wp_error($userId)) {
             LogHandler::save($this->integrationID, ['type' => 'record', 'type_name' => 'insert'], 'error', $userId->get_error_message());

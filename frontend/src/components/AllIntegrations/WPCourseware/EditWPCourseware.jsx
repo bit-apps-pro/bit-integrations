@@ -72,7 +72,7 @@ function EditWPCourseware({ allIntegURL }) {
         disabled={
           wpCoursewareConf.action === '' ||
           wpCoursewareConf.course.length === 0 ||
-          isUserSourceIncomplete(wpCoursewareConf, 'wpCoursewareField')
+          isUserSourceIncomplete(wpCoursewareConf)
         }
         isLoading={isLoading}
         dataConf={wpCoursewareConf}
