@@ -450,9 +450,9 @@ class RecordApiHelper
         return false;
     }
 
-    public function UnenrollUserFromCourse($course_id)
+    public function UnenrollUserFromCourse($course_id, $user_id)
     {
-        $user_id = 5;
+        $apiResponse = false;
 
         if ('any' === $course_id) {
             $user_courses = learndash_user_get_enrolled_courses($user_id);
@@ -932,7 +932,7 @@ class RecordApiHelper
 
         if ($mainAction === '17') {
             $course_id = $integrationDetails->courseId;
-            $apiResponse = self::UnenrollUserFromCourse($course_id);
+            $apiResponse = self::UnenrollUserFromCourse($course_id, $userId);
             if ($apiResponse) {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'quiz', 'type_name' => 'users-unEnroll-course']), 'success', wp_json_encode(__('users-unenroll-course-successfully', 'bit-integrations')));
             } else {

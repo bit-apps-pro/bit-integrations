@@ -186,7 +186,7 @@ export default function LifterLmsIntegLayout({
           }}
         />
       )}
-      {lifterLmsConf?.mainAction && lifterLmsConf.mainAction !== '7' && (
+      {lifterLmsConf?.mainAction && (
         <>
           <UserSourceSelect conf={lifterLmsConf} setConf={setLifterLmsConf} />
           {lifterLmsConf?.userSource === 'email' && (

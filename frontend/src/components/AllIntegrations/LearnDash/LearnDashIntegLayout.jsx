@@ -755,7 +755,7 @@ export default function LearnDeshIntegLayout({
         </>
       )}
       <br />
-      {learnDashConf?.mainAction && !['16', '17'].includes(learnDashConf.mainAction) && (
+      {learnDashConf?.mainAction && learnDashConf.mainAction !== '16' && (
         <>
           <UserSourceSelect conf={learnDashConf} setConf={setLearnDashConf} />
           {learnDashConf?.userSource === 'email' && (

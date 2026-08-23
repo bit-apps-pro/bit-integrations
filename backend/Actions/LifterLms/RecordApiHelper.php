@@ -117,10 +117,9 @@ class RecordApiHelper
         return llms_enroll_student($user_id, $membershipId);
     }
 
-    public function unEnrollUserFromMembership($membershipId)
+    public function unEnrollUserFromMembership($membershipId, $user_id)
     {
-        $user_id = 30;
-        if (! \function_exists('llms_unenroll_student') && empty($user_id) && empty($membershipId)) {
+        if (! \function_exists('llms_unenroll_student') || empty($user_id) || empty($membershipId)) {
             return false;
         }
 
@@ -206,7 +205,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction == 7) {
             $membershipId = $integrationDetails->membershipId;
-            $response = $this->unEnrollUserFromMembership($membershipId);
+            $response = $this->unEnrollUserFromMembership($membershipId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'membership-unenroll', 'type_name' => 'user-membership-unenroll']), 'success', __('User unenrolled from membership successfully.', 'bit-integrations'));
             } else {
