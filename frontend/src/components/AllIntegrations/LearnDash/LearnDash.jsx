@@ -8,6 +8,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput, checkMappedFields } from './LearnDashCommonFunc'
 import LearnDashIntegLayout from './LearnDashIntegLayout'
 import { $appConfigState } from '../../../GlobalStates'
@@ -133,7 +134,7 @@ function LearnDash({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
         {learnDashConf.mainAction !== '16' && (
           <button
             onClick={() => nextPage(3)}
-            disabled={!learnDashConf.mainAction || isLoading}
+            disabled={!learnDashConf.mainAction || isLoading || isUserSourceIncomplete(learnDashConf)}
             className="btn f-right btcd-btn-lg purple sh-sm flx"
             type="button">
             {__('Next', 'bit-integrations')}

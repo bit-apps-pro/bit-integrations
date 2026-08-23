@@ -7,6 +7,7 @@
 namespace BitApps\Integrations\Actions\LearnDash;
 
 use BitApps\Integrations\Actions\Mail\MailController;
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
@@ -58,9 +59,9 @@ class RecordApiHelper
     public static function createGroup(
         $finalData,
         $courseIds,
-        $userRole
+        $userRole,
+        $user_id
     ) {
-        $user_id = get_current_user_id();
         $group_title = $finalData['title'];
 
         $ld_group_args = [
@@ -104,9 +105,8 @@ class RecordApiHelper
         return $group_id;
     }
 
-    public static function enrollTheUserInACourse($courseIds)
+    public static function enrollTheUserInACourse($courseIds, $user_id)
     {
-        $user_id = get_current_user_id();
 
         if (!\function_exists('ld_update_course_access')) {
             return __('The function ld_update_course_access does not exist', 'bit-integrations');
@@ -117,9 +117,8 @@ class RecordApiHelper
         return ld_update_course_access($user_id, $course_id);
     }
 
-    public static function makeThUserTheLeaderOfGroup($leaderRole, $leaderOfGroup)
+    public static function makeThUserTheLeaderOfGroup($leaderRole, $leaderOfGroup, $user_id)
     {
-        $user_id = get_current_user_id();
         $user = get_user_by('ID', $user_id);
 
         if (is_wp_error($user)) {
@@ -251,9 +250,8 @@ class RecordApiHelper
         self::mark_quiz_complete($user_id, $course_id);
     }
 
-    public static function markACourseCompleteForTheUser($courseIds)
+    public static function markACourseCompleteForTheUser($courseIds, $user_id)
     {
-        $user_id = get_current_user_id();
         $course_id = $courseIds;
         self::mark_steps_done($user_id, $course_id);
 
@@ -263,9 +261,9 @@ class RecordApiHelper
     // action 6 and 1st part
     public static function courseLessonComplete(
         $courseIds,
-        $lessonId
+        $lessonId,
+        $user_id
     ) {
-        $user_id = get_current_user_id();
 
         return self::mark_steps_done_for_six($user_id, $lessonId, $courseIds);
     }
@@ -305,9 +303,9 @@ class RecordApiHelper
     public static function topicComplete(
         $course_id,
         $lessonId,
-        $topic_id
+        $topic_id,
+        $user_id
     ) {
-        $user_id = get_current_user_id();
         $topic_quiz_list = learndash_get_lesson_quiz_list($topic_id, $user_id, $course_id);
         if ($topic_quiz_list) {
             foreach ($topic_quiz_list as $ql) {
@@ -320,9 +318,8 @@ class RecordApiHelper
         return learndash_process_mark_complete($user_id, $topic_id, false, $course_id);
     }
 
-    public static function addUserToGroup($group_id)
+    public static function addUserToGroup($group_id, $user_id)
     {
-        $user_id = get_current_user_id();
         $check_group = learndash_validate_groups([$group_id]);
         if (empty($check_group)) {
             LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'group', 'type_name' => 'Add-the-user-to-a-group']), 'error', wp_json_encode(__('Group not found', 'bit-integrations')));
@@ -333,9 +330,9 @@ class RecordApiHelper
 
     public function courseLessonNotComplete(
         $course_id,
-        $lesson_id
+        $lesson_id,
+        $user_id
     ) {
-        $user_id = get_current_user_id();
 
         $this->mark_steps_incomplete($user_id, $lesson_id, $course_id);
 
@@ -379,9 +376,9 @@ class RecordApiHelper
     public static function topicNotComplete(
         $course_id,
         $lessonId,
-        $topic_id
+        $topic_id,
+        $user_id
     ) {
-        $user_id = get_current_user_id();
 
         $topic_quiz_list = learndash_get_lesson_quiz_list($topic_id, $user_id, $course_id);
         if ($topic_quiz_list) {
@@ -395,9 +392,8 @@ class RecordApiHelper
         return learndash_process_mark_incomplete($user_id, $course_id, $topic_id, false);
     }
 
-    public static function removeUserToGroup($group_id)
+    public static function removeUserToGroup($group_id, $user_id)
     {
-        $user_id = get_current_user_id();
         if ('-1' !== $group_id) {
             $apiResponse = ld_update_group_access($user_id, $group_id, true);
         } else {
@@ -410,9 +406,8 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    public function resetQuiz($quiz_id)
+    public function resetQuiz($quiz_id, $user_id)
     {
-        $user_id = get_current_user_id();
 
         if ('-1' !== $quiz_id) {
             self::delete_quiz_progress($user_id, $quiz_id);
@@ -471,9 +466,8 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    public static function removeGroupLeaderAndChildren($group_id)
+    public static function removeGroupLeaderAndChildren($group_id, $user_id)
     {
-        $user_id = get_current_user_id();
         if (!self::is_group_hierarchy_enabled()) {
             $error_message = 'The LearnDash Group hierarchy setting is not enabled.';
             LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'group', 'type_name' => 'remove-leader-from-group']), 'error', wp_json_encode($error_message));
@@ -542,9 +536,8 @@ class RecordApiHelper
         return array_unique(array_merge($groups, $ld_children));
     }
 
-    public static function removeUserAndChildrenFromGroup($group_id)
+    public static function removeUserAndChildrenFromGroup($group_id, $user_id)
     {
-        $user_id = get_current_user_id();
 
         if (!self::is_group_hierarchy_enabled()) {
             $error_message = 'The LearnDash Group hierarchy setting is not enabled.';
@@ -569,9 +562,8 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    public static function resetUserProgressInCourse($course_id)
+    public static function resetUserProgressInCourse($course_id, $user_id)
     {
-        $user_id = get_current_user_id();
         $reset_tc_data = false;
 
         if ('-1' !== $course_id) {
@@ -741,6 +733,15 @@ class RecordApiHelper
         $integrationData
     ) {
         $fieldData = [];
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'resolve-user', 'type_name' => 'resolve-user']), 'error', wp_json_encode($userId->get_error_message()));
+
+            return $userId;
+        }
+
         if ($mainAction === '1') {
             $userRole = $integrationDetails->userRole;
             $fieldMap = $integrationDetails->field_map;
@@ -749,7 +750,8 @@ class RecordApiHelper
             $apiResponse = self::createGroup(
                 $finalData,
                 $courseIds,
-                $userRole
+                $userRole,
+                $userId
             );
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
@@ -761,7 +763,7 @@ class RecordApiHelper
 
         if ($mainAction === '2') {
             $groupId = $integrationDetails->groupId;
-            $apiResponse = self::addUserToGroup($groupId);
+            $apiResponse = self::addUserToGroup($groupId, $userId);
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'Add-the-user-to-a-group']), 'error', wp_json_encode($error_message));
@@ -773,7 +775,7 @@ class RecordApiHelper
         if ($mainAction === '3') {
             $courseIds = $integrationDetails->courseId;
 
-            $apiResponse = self::enrollTheUserInACourse($courseIds);
+            $apiResponse = self::enrollTheUserInACourse($courseIds, $userId);
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'enroll-user-in-course']), 'error', wp_json_encode($error_message));
@@ -785,7 +787,7 @@ class RecordApiHelper
         if ($mainAction === '4') {
             $leaderRole = $integrationDetails->leaderRole;
             $leaderOfGroup = $integrationDetails->leaderOfGroup;
-            $apiResponse = self::makeThUserTheLeaderOfGroup($leaderRole, $leaderOfGroup);
+            $apiResponse = self::makeThUserTheLeaderOfGroup($leaderRole, $leaderOfGroup, $userId);
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'Make-the-user-the-leader-of-group']), 'error', wp_json_encode($error_message));
@@ -795,7 +797,7 @@ class RecordApiHelper
         }
         if ($mainAction === '5') {
             $courseIds = $integrationDetails->courseId;
-            $apiResponse = self::markACourseCompleteForTheUser($courseIds);
+            $apiResponse = self::markACourseCompleteForTheUser($courseIds, $userId);
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'Mark-a-course-complete-for-the-user']), 'error', wp_json_encode($error_message));
@@ -809,7 +811,8 @@ class RecordApiHelper
             $lessonId = $integrationDetails->lessonId;
             $apiResponse = self::courseLessonComplete(
                 $courseIds,
-                $lessonId
+                $lessonId,
+                $userId
             );
 
             if (is_wp_error($apiResponse)) {
@@ -824,7 +827,8 @@ class RecordApiHelper
             $lessonId = $integrationDetails->lessonId;
             $apiResponse = self::courseLessonNotComplete(
                 $courseIds,
-                $lessonId
+                $lessonId,
+                $userId
             );
 
             if (is_wp_error($apiResponse)) {
@@ -842,7 +846,8 @@ class RecordApiHelper
             $apiResponse = self::topicComplete(
                 $courseIds,
                 $lessonId,
-                $topicId
+                $topicId,
+                $userId
             );
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
@@ -858,7 +863,8 @@ class RecordApiHelper
             $apiResponse = self::topicNotComplete(
                 $courseIds,
                 $lessonId,
-                $topicId
+                $topicId,
+                $userId
             );
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
@@ -870,7 +876,7 @@ class RecordApiHelper
 
         if ($mainAction === '10') {
             $group_id = $integrationDetails->groupId10;
-            $apiResponse = self::removeGroupLeaderAndChildren($group_id);
+            $apiResponse = self::removeGroupLeaderAndChildren($group_id, $userId);
             if ($apiResponse) {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'Remove-Leader-from-group-and-its-children']), 'success', wp_json_encode(__('Remove Leader from group and its children successfully', 'bit-integrations')));
             } else {
@@ -880,7 +886,7 @@ class RecordApiHelper
 
         if ($mainAction === '11') {
             $groupId = $integrationDetails->groupId11;
-            $apiResponse = self::removeUserToGroup($groupId);
+            $apiResponse = self::removeUserToGroup($groupId, $userId);
             if (is_wp_error($apiResponse)) {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'Remove-the-user-from-a-group']), 'error', wp_json_encode(__('Fail to remove user from group', 'bit-integrations')));
             } else {
@@ -890,7 +896,7 @@ class RecordApiHelper
 
         if ($mainAction === '12') {
             $group_id = $integrationDetails->groupId12;
-            $apiResponse = self::removeUserAndChildrenFromGroup($group_id);
+            $apiResponse = self::removeUserAndChildrenFromGroup($group_id, $userId);
             if ($apiResponse) {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'Remove-user-from-group-and-its-children']), 'error', wp_json_encode(__('Remove user from group and its children successfully', 'bit-integrations')));
             } else {
@@ -900,7 +906,7 @@ class RecordApiHelper
 
         if ($mainAction === '13') {
             $quiz_id = $integrationDetails->quizId;
-            $apiResponse = self::resetQuiz($quiz_id);
+            $apiResponse = self::resetQuiz($quiz_id, $userId);
             if (is_wp_error($apiResponse)) {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'quiz', 'type_name' => 'Reset-users-attempts-for-quiz']), 'error', wp_json_encode(__('Fail to reset quiz', 'bit-integrations')));
             } else {
@@ -911,7 +917,7 @@ class RecordApiHelper
         if ($mainAction === '14') {
             $courseIds = $integrationDetails->courseId;
 
-            $apiResponse = self::resetUserProgressInCourse($courseIds);
+            $apiResponse = self::resetUserProgressInCourse($courseIds, $userId);
             if (is_wp_error($apiResponse)) {
                 $error_message = $apiResponse->get_error_message();
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'enroll-user-in-course']), 'error', wp_json_encode($error_message));

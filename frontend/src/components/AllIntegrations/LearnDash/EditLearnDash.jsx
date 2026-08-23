@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import LearnDashIntegLayout from './LearnDashIntegLayout'
 import { handleInput } from './LearnDashCommonFunc'
 
@@ -66,7 +67,7 @@ function EditLearnDash({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={learnDashConf.mainAction === '' || isLoading}
+        disabled={learnDashConf.mainAction === '' || isLoading || isUserSourceIncomplete(learnDashConf)}
         isLoading={isLoading}
         dataConf={learnDashConf}
         setDataConf={setLearnDashConf}
