@@ -74,6 +74,25 @@ export const getAllLesson = (tutorlmsConf, setTutorlmsConf, setIsLoading) => {
   })
 }
 
+export const tutorLmsUserFields = [
+  { key: 'user_email', label: __('User Email', 'bit-integrations'), required: true }
+]
+
+export const generateUserFieldMap = (fields = tutorLmsUserFields) =>
+  fields.filter(fld => fld.required === true).map(fld => ({ formField: '', tutorField: fld.key }))
+
+export const isUserEmailMapped = tutorlmsConf =>
+  Boolean(
+    tutorlmsConf?.field_map?.some(
+      fld =>
+        fld.tutorField === 'user_email' &&
+        (fld.formField === 'custom' ? fld.customValue : fld.formField)
+    )
+  )
+
+export const isActionConfigIncomplete = tutorlmsConf =>
+  tutorlmsConf?.userSource === 'email' && !isUserEmailMapped(tutorlmsConf)
+
 const generateMappedFields = tutorlmsConf => {
   const newConf = deepCopy(tutorlmsConf)
   newConf.default.fields[newConf.module].required.forEach(reqFld => {
