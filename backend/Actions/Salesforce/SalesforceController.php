@@ -8,8 +8,8 @@ namespace BitApps\Integrations\Actions\Salesforce;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Config;
-use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
@@ -80,7 +80,7 @@ class SalesforceController
         }
 
         if (!empty($tokenDetails)) {
-            self::saveRefreshedToken($params->flowID, $tokenDetails);
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
         }
         wp_send_json_success($allCustomActions, 200);
     }
@@ -137,7 +137,7 @@ class SalesforceController
         }, array_values($customFields));
 
         if (!empty($tokenDetails)) {
-            self::saveRefreshedToken($params->flowID, $tokenDetails);
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
         }
 
         wp_send_json_success($fieldMap, 200);
@@ -173,7 +173,7 @@ class SalesforceController
         $response['allCampaignLists'] = $apiResponse->recentItems;
 
         if (!empty($tokenDetails)) {
-            self::saveRefreshedToken($params->flowID, $tokenDetails);
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
         }
 
         wp_send_json_success($response, 200);
@@ -209,7 +209,7 @@ class SalesforceController
         $response['leadLists'] = $apiResponse->recentItems;
 
         if (!empty($tokenDetails)) {
-            self::saveRefreshedToken($params->flowID, $tokenDetails);
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
         }
 
         wp_send_json_success($response, 200);
@@ -245,7 +245,7 @@ class SalesforceController
         $response['contactLists'] = $apiResponse->recentItems;
 
         if (!empty($tokenDetails)) {
-            self::saveRefreshedToken($params->flowID, $tokenDetails);
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
         }
 
         wp_send_json_success($response, 200);
@@ -324,7 +324,7 @@ class SalesforceController
         $response['users'] = $users;
 
         if (!empty($tokenDetails)) {
-            self::saveRefreshedToken($params->flowID, $tokenDetails);
+            self::saveRefreshedToken($params->flowID, $tokenDetails, $response['organizations']);
         }
 
         wp_send_json_success($response, 200);
@@ -470,11 +470,7 @@ class SalesforceController
         $response = ['tokenDetails' => $params->tokenDetails];
 
         if (self::isTokenExpired($params->tokenDetails)) {
-            $refreshed = self::refreshAccessToken($params);
-
-            if ($refreshed) {
-                $response['tokenDetails'] = $refreshed;
-            }
+            $response['tokenDetails'] = self::refreshAccessToken($params);
         }
 
         return $response;
@@ -518,16 +514,18 @@ class SalesforceController
 
         $tokenDetails = $apiData->tokenDetails;
 
-        $requestBody = [
-            'grant_type'    => 'refresh_token',
-            'client_id'     => $apiData->clientId,
-            'client_secret' => $apiData->clientSecret,
-            'refresh_token' => $tokenDetails->refresh_token
-        ];
+        $apiQuery = http_build_query(
+            [
+                'grant_type'    => 'refresh_token',
+                'client_id'     => $apiData->clientId,
+                'client_secret' => $apiData->clientSecret,
+                'refresh_token' => $tokenDetails->refresh_token
+            ]
+        );
 
-        $apiEndpoint = 'https://login.salesforce.com/services/oauth2/token';
+        $apiEndpoint = 'https://login.salesforce.com/services/oauth2/token?' . $apiQuery;
 
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestBody, ['Content-Type' => 'application/x-www-form-urlencoded']);
+        $apiResponse = HttpHelper::post($apiEndpoint, null);
 
         if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
             return false;
