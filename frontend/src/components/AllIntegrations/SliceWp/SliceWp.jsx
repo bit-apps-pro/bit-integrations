@@ -8,6 +8,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { checkMappedFields, handleInput } from './SliceWpCommonFunc'
 import SliceWpAuthorization from './SliceWpAuthorization'
 import SliceWpIntegLayout from './SliceWpIntegLayout'
@@ -43,6 +44,10 @@ function SliceWp({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
 
     if (!checkMappedFields(sliceWpConf)) {
       setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
+      return
+    }
+    if (isUserSourceIncomplete(sliceWpConf)) {
+      setSnackbar({ show: true, msg: __('Please map the user email', 'bit-integrations') })
       return
     }
     if (sliceWpConf.mainAction !== '') {
