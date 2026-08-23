@@ -5,6 +5,8 @@ import { getAllLevels } from './RestrictContentCommonFunc'
 import RestrictContentFieldMap from './RestrictContentFieldMap'
 import Cooltip from '../../Utilities/Cooltip'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function RestrictContentIntegLayout({
   formFields,
@@ -94,7 +96,27 @@ export default function RestrictContentIntegLayout({
       )}
       <br />
       <br />
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      <br />
+      <UserSourceSelect conf={restrictConf} setConf={setRestrictConf} />
+      {restrictConf?.userSource === 'email' && (
+        <UserEmailFieldMap
+          conf={restrictConf}
+          setConf={setRestrictConf}
+          formFields={formFields}
+          actionLabel={__('Restrict Content Fields', 'bit-integrations')}
+        />
+      )}
+      <br />
+      {restrictConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

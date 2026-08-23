@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\RestrictContent;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Log\LogHandler;
 use RCP_Payments;
 use WP_Error;
@@ -42,7 +43,7 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public function insertMember($data)
+    public function insertMember($data, $user_id)
     {
         $levelId = $this->integrationDetails->level_id;
         $actionName = $this->action;
@@ -61,7 +62,6 @@ class RecordApiHelper
             return $error;
         }
 
-        $user_id = get_current_user_id();
         $customer = rcp_get_customer_by_user_id($user_id);
         $newest_time = current_time('timestamp');
         $created_date = gmdate('Y-m-d H:i:s', $newest_time);
@@ -125,11 +125,10 @@ class RecordApiHelper
         return false;
     }
 
-    public function removeMember()
+    public function removeMember($user_id)
     {
         $levelId = $this->integrationDetails->level_id;
         $actionName = $this->action;
-        $user_id = get_current_user_id();
         $ans = [];
         if ($levelId == 'all') {
             $customer = rcp_get_customer_by_user_id($user_id);
@@ -164,12 +163,21 @@ class RecordApiHelper
     public function execute($fieldValues, $fieldMap, $integrationDetails)
     {
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save($this->_integrationID, wp_json_encode(['type' => $this->action, 'type_name' => 'resolve-user']), 'error', wp_json_encode($userId->get_error_message()));
+
+            return $userId;
+        }
+
         if ($this->action == 'add-member-level') {
-            $apiResponse = $this->insertMember($finalData);
+            $apiResponse = $this->insertMember($finalData, $userId);
             $type = 'add-member-level';
             $type_name = 'Add member to a Level';
         } elseif ($this->action == 'remove-member-level') {
-            $apiResponse = $this->removeMember();
+            $apiResponse = $this->removeMember($userId);
             $type = 'remove-member-level';
             $type_name = 'Remove member from a Level';
         }
