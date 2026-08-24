@@ -73,15 +73,31 @@ class SendPulseController
             'Authorization' => 'Bearer ' . $token->access_token,
         ];
         $apiEndpoint = 'https://api.sendpulse.com/addressbooks';
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $headers);
         $lists = [];
+        $limit = 100;
+        $offset = 0;
 
-        foreach ($apiResponse as $item) {
-            $lists[] = [
-                'listId'   => $item->id,
-                'listName' => $item->name
-            ];
-        }
+        do {
+            $apiResponse = HttpHelper::get(add_query_arg(['limit' => $limit, 'offset' => $offset], $apiEndpoint), null, $headers);
+
+            if (is_wp_error($apiResponse) || !\is_array($apiResponse)) {
+                break;
+            }
+
+            foreach ($apiResponse as $item) {
+                if (empty($item->id)) {
+                    continue;
+                }
+
+                $lists[] = [
+                    'listId'   => $item->id,
+                    'listName' => $item->name
+                ];
+            }
+
+            $fetched = \count($apiResponse);
+            $offset += $limit;
+        } while ($fetched === $limit);
 
         if ((\count($lists)) > 0) {
             wp_send_json_success($lists, 200);
