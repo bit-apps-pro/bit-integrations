@@ -564,7 +564,7 @@ const tutorialLinks = {
   },
   creatorLms: {
     youTubeLink: '',
-    docLink: '#'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/creator-lms-integration-as-an-action/'
   },
   woodpecker: {
     youTubeLink:
@@ -657,7 +657,7 @@ const tutorialLinks = {
   },
   teamsForWooCommerceMemberships: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/woocommerce-memberships-integrations/'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/teams-for-woocommerce-memberships-integration-as-an-action/'
   },
   wpcafe: {
     youTubeLink: '',
@@ -665,7 +665,7 @@ const tutorialLinks = {
   },
   seoPress: {
     youTubeLink: '',
-    docLink: '#'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/seopress-integration-as-an-action/'
   },
   ninjaTables: {
     youTubeLink: '',
@@ -677,7 +677,7 @@ const tutorialLinks = {
   },
   bookingPress: {
     youTubeLink: '',
-    docLink: ''
+    docLink: 'https://bit-integrations.com/wp-docs/actions/bookingpress-integration-as-an-action/'
   },
   bitCrm: {
     youTubeLink: '',
@@ -737,6 +737,50 @@ const tutorialLinks = {
   weDocs: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
+  },
+  mondayCom: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/monday-com-integration-as-an-action/'
+  },
+  peepSo: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/peepso-integration-as-an-action/'
+  },
+  b2bKing: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/b2bking-integration-as-an-action/'
+  },
+  asgarosForum: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/asgaros-forum-integration-as-an-action/'
+  },
+  wpDataTables: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/wpdatatables-integration-as-an-action/'
+  },
+  formyChat: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/formychat-integration-as-an-action/'
+  },
+  ultimateAffiliatePro: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
+  },
+  bookly: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/bookly-integration-as-an-action/'
+  },
+  fluentCart: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/fluentcart-integration-as-an-action/'
+  },
+  sureDash: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/suredash-integration-as-an-action/'
+  },
+  wpErp: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/wp-erp-integration-as-an-action/'
   }
 }
 export default tutorialLinks

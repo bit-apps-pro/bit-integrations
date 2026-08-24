@@ -1,6 +1,7 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function WpDataTablesAuthorization({
   wpDataTablesConf,
@@ -11,6 +12,8 @@ export default function WpDataTablesAuthorization({
 }) {
   return (
     <Authorization
+      tutorialTitle="wpDataTables"
+      tutorialLinks={tutorialLinks?.wpDataTables || {}}
       config={wpDataTablesConf}
       setConfig={setWpDataTablesConf}
       step={step}
