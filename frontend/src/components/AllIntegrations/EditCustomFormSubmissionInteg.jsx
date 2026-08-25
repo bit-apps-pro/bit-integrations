@@ -8,7 +8,10 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  FETCH_RETRY_DELAY,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import Loader from '../Loaders/Loader'
@@ -73,31 +76,33 @@ function EditCustomFormSubmissionInteg({ setSnackbar }) {
         return
       }
 
-      bitsFetch({ triggered_entity_id: entityId }, fetchAction, null, fetchMethod, signal).then(resp => {
-        if (!resp.success && isFetchingRef.current) {
-          fetchSequentially()
+      bitsFetch({ triggered_entity_id: entityId }, fetchAction, null, fetchMethod, signal)
+        .then(resp => {
+          if (!resp.success && !resp.aborted && isFetchingRef.current) {
+            setTimeout(fetchSequentially, FETCH_RETRY_DELAY)
 
-          return
-        }
+            return
+          }
 
-        if (resp.success) {
-          const formData = Array.isArray(resp.data?.formData)
-            ? resp.data?.formData
-            : Object.values(resp.data?.formData)
+          if (resp.success) {
+            const formData = Array.isArray(resp.data?.formData)
+              ? resp.data?.formData
+              : Object.values(resp.data?.formData)
 
-          setFlow(prevFlow =>
-            create(prevFlow, draftFlow => {
-              draftFlow.flow_details.fields = formData
-              draftFlow.flow_details.primaryKey = resp.data?.primaryKey
-              draftFlow.flow_details['trigger_type'] =
-                draftFlow.flow_details?.trigger_type || 'custom_form_submission'
-            })
-          )
-          setFormFields(formData)
-        }
+            setFlow(prevFlow =>
+              create(prevFlow, draftFlow => {
+                draftFlow.flow_details.fields = formData
+                draftFlow.flow_details.primaryKey = resp.data?.primaryKey
+                draftFlow.flow_details['trigger_type'] =
+                  draftFlow.flow_details?.trigger_type || 'custom_form_submission'
+              })
+            )
+            setFormFields(formData)
+          }
 
-        stopFetching()
-      })
+          stopFetching()
+        })
+        .catch(stopFetching)
     } catch (err) {
       console.error(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err
