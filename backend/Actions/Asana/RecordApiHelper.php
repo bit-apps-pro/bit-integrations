@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Asana;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
@@ -95,8 +96,6 @@ class RecordApiHelper
                 ? Common::replaceFieldWithValue($value->customValue, $data)
                 : $data[$triggerValue] ?? null;
 
-            // Asana rejects the whole task when a custom_fields entry is null, so a
-            // field the trigger did not send has to be left out rather than sent empty
             if (\is_null($fieldValue)) {
                 continue;
             }
@@ -113,7 +112,7 @@ class RecordApiHelper
 
         if ($actionName !== 'task') {
             // translators: %s: action name
-            return new WP_Error('BIT_INTEGRATIONS_ASANA_ACTION', wp_sprintf(__('Unknown Asana action "%s"', 'bit-integrations'), $actionName));
+            return new WP_Error(Config::withPrefix('asana_unknown_action'), wp_sprintf(__('Unknown Asana action "%s"', 'bit-integrations'), $actionName));
         }
 
         $apiResponse = $this->addTask($finalData);

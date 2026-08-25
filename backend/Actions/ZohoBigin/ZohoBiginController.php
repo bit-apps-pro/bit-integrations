@@ -114,8 +114,6 @@ class ZohoBiginController
                     'name'          => $layout->name
                 ];
             }
-            // list, not a map: uksort here compared the numeric keys and never ordered
-            // the dropdown by anything the user can see
             usort($allLayouts, function ($a, $b) {
                 return strnatcasecmp($a->display_label, $b->display_label);
             });
