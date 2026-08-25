@@ -28,13 +28,18 @@ class RecordApiHelper
         $dataFinal = [];
 
         foreach ($field_map as $key => $value) {
-            $triggerValue = $value->formFields;
-            $actionValue = $value->notionFormFields;
+            $triggerValue = $value->formFields ?? null;
+            $actionValue = $value->notionFormFields ?? null;
+
+            if (empty($actionValue)) {
+                continue;
+            }
+
             if ($triggerValue === 'custom') {
-                $dataFinal[$actionValue] = Common::replaceFieldWithValue($value->customValue, $data);
-            } elseif (!\is_null($value->customValue)) {
+                $dataFinal[$actionValue] = Common::replaceFieldWithValue($value->customValue ?? '', $data);
+            } elseif (!\is_null($value->customValue ?? null)) {
                 $dataFinal[$actionValue] = $value->customValue;
-            } elseif (!\is_null($data[$triggerValue])) {
+            } elseif (!\is_null($data[$triggerValue] ?? null)) {
                 $dataFinal[$actionValue] = $data[$triggerValue];
             }
         }
@@ -75,23 +80,23 @@ class RecordApiHelper
     {
         switch ($type) {
             case 'number':
-                return (int) $value;
-
-                break;
+                return is_numeric($value) ? $value + 0 : null;
             case 'date':
                 return ['start' => Helper::formatToISO8601($value)];
             case 'checkbox':
-                return settype($value, 'boolean');
+                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
             case 'select':
                 if (\is_array($value)) {
-                    return ['name' => $value[0]];
+                    return ['name' => reset($value)];
                 }
 
                 return ['name' => $value];
             case 'multi_select':
                 $data = [];
-                foreach ($value as $key => $value) {
-                    $data[] = ['name' => $value];
+                // a radio or single select trigger field arrives as a scalar; iterating it
+                // as an array dropped the property instead of sending the one option
+                foreach ((array) $value as $option) {
+                    $data[] = ['name' => $option];
                 }
 
                 return $data;
@@ -140,7 +145,7 @@ class RecordApiHelper
         }
 
         $apiResponse = $this->createItemInDatabase($databaseId, $tokenType, $accessToken, $result);
-        if ($apiResponse->object === 'error') {
+        if (is_wp_error($apiResponse) || (isset($apiResponse->object) && $apiResponse->object === 'error')) {
             $apiResponse = $this->response('error', 400, 'database', 'create item', $apiResponse);
         } else {
             $apiResponse = $this->response('success', 200, 'database', 'create item', $apiResponse);
