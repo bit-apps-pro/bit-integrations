@@ -5,7 +5,10 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { $appConfigState, $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  FETCH_RETRY_DELAY,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
@@ -104,8 +107,8 @@ const Webhook = () => {
       }
 
       const resp = await bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal)
-      if (!resp.success && isFetchingRef.current) {
-        fetchSequentially()
+      if (!resp.success && !resp.aborted && isFetchingRef.current) {
+        setTimeout(fetchSequentially, FETCH_RETRY_DELAY)
         return
       }
 
@@ -147,6 +150,7 @@ const Webhook = () => {
       console.log(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err
       )
+      stopFetching()
     }
   }
 
