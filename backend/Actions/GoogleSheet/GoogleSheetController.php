@@ -102,8 +102,6 @@ class GoogleSheetController
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
                 $authorizationHeader['Authorization'] = 'Bearer ' . $response['tokenDetails']->access_token;
-            } else {
-                wp_send_json_error(self::reconnectMessage(), 400);
             }
         }
         if (empty($authorizationHeader['Authorization'])) {
@@ -174,8 +172,6 @@ class GoogleSheetController
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
                 $queryParams->tokenDetails = $response['tokenDetails'];
-            } else {
-                wp_send_json_error(self::reconnectMessage(), 400);
             }
         }
 
@@ -220,8 +216,6 @@ class GoogleSheetController
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
                 $queryParams->tokenDetails = $response['tokenDetails'];
-            } else {
-                wp_send_json_error(self::reconnectMessage(), 400);
             }
         }
         $headerRow = $queryParams->headerRow;

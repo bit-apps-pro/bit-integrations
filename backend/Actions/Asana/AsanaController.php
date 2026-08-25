@@ -54,9 +54,13 @@ class AsanaController
 
         $customFields = [];
         foreach ($records as $customField) {
+            if (empty($customField->custom_field->gid)) {
+                continue;
+            }
+
             $customFields[] = [
                 'key'      => $customField->custom_field->gid,
-                'label'    => $customField->custom_field->name,
+                'label'    => $customField->custom_field->name ?? $customField->custom_field->gid,
                 'required' => false,
             ];
         }
@@ -106,9 +110,13 @@ class AsanaController
 
         $projects = [];
         foreach ($records as $project) {
+            if (empty($project->gid)) {
+                continue;
+            }
+
             $projects[] = [
                 'id'   => $project->gid,
-                'name' => $project->name
+                'name' => $project->name ?? $project->gid
             ];
         }
 
@@ -137,9 +145,13 @@ class AsanaController
 
         $sections = [];
         foreach ($records as $section) {
+            if (empty($section->gid)) {
+                continue;
+            }
+
             $sections[] = [
                 'id'   => (string) $section->gid,
-                'name' => $section->name
+                'name' => $section->name ?? $section->gid
             ];
         }
 
