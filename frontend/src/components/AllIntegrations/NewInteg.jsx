@@ -5,8 +5,9 @@ import { lazy, memo, Suspense, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState } from 'recoil'
 import { $newFlow } from '../../GlobalStates'
-import { __ } from '../../Utils/i18nwrap'
+import { __, sprintf } from '../../Utils/i18nwrap'
 import Loader from '../Loaders/Loader'
+import ErrorBoundary from '../Utilities/ErrorBoundary'
 import { getRecoil } from 'recoil-nexus'
 
 const CustomAction = lazy(() => import('./CustomAction/CustomAction'))
@@ -2111,7 +2112,18 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
         />
       )
     default:
-      return <></>
+      return (
+        <div className="txt-center" style={{ padding: '60px 20px' }}>
+          <h3 className="mt-0">{__('Action not available', 'bit-integrations')}</h3>
+          <p>
+            {sprintf(
+              // translators: %s: action name
+              __('No settings screen is registered for "%s".', 'bit-integrations'),
+              integUrlName
+            )}
+          </p>
+        </div>
+      )
   }
 })
 
@@ -2178,9 +2190,22 @@ export default function NewInteg({ allIntegURL }) {
         </div>
       </div>
 
-      <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
-        <NewIntegs integUrlName={integUrlName} allIntegURL={allIntegURL} flow={flow} setFlow={setFlow} />
-      </Suspense>
+      <ErrorBoundary
+        resetKey={integUrlName}
+        title={sprintf(
+          // translators: %s: integration name
+          __('%s settings could not be loaded', 'bit-integrations'),
+          integrationName
+        )}>
+        <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
+          <NewIntegs
+            integUrlName={integUrlName}
+            allIntegURL={allIntegURL}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   )
 }
