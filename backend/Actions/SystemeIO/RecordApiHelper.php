@@ -46,11 +46,13 @@ class RecordApiHelper
         $apiEndpoint = $this->apiUrl . '/contacts';
         $response = HttpHelper::post($apiEndpoint, wp_json_encode($finalData), $this->defaultHeader);
 
-        if (isset($this->integrationDetails->selectedTag) || !empty($this->integrationDetails->selectedTag)) {
-            $this->addTag($response->id, $this->integrationDetails->selectedTag);
-        } else {
+        if (empty($this->integrationDetails->selectedTag) || empty($response->id)) {
             return $response;
         }
+
+        $tagResponse = $this->addTag($response->id, $this->integrationDetails->selectedTag);
+
+        return empty($tagResponse) ? $response : $tagResponse;
     }
 
     public function addTag($contactId, $tag)
@@ -73,16 +75,31 @@ class RecordApiHelper
     {
         $dataFinal = [];
         foreach ($fieldMap as $value) {
-            $triggerValue = $value->formField;
-            $actionValue = $value->systemeIOFormField;
-            if ($actionValue == 'email') {
-                $dataFinal[$actionValue] = ($triggerValue === 'custom') ? $value->customValue : $data[$triggerValue];
-            } else {
-                $dataFinal['fields'][] = (object) [
-                    'slug'  => $actionValue,
-                    'value' => ($triggerValue === 'custom') ? $value->customValue : $data[$triggerValue]
-                ];
+            $triggerValue = $value->formField ?? null;
+            $actionValue = $value->systemeIOFormField ?? null;
+
+            if (empty($actionValue)) {
+                continue;
             }
+
+            $fieldValue = ($triggerValue === 'custom')
+                ? ($value->customValue ?? null)
+                : ($data[$triggerValue] ?? null);
+
+            if (\is_null($fieldValue)) {
+                continue;
+            }
+
+            if ($actionValue === 'email') {
+                $dataFinal[$actionValue] = $fieldValue;
+
+                continue;
+            }
+
+            $dataFinal['fields'][] = (object) [
+                'slug'  => $actionValue,
+                'value' => $fieldValue
+            ];
         }
 
         return $dataFinal;
@@ -93,7 +110,13 @@ class RecordApiHelper
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
         $apiResponse = $this->addContact($finalData);
 
-        if (!isset($apiResponse->errors)) {
+        if (\is_array($apiResponse) && isset($apiResponse['success']) && false === $apiResponse['success']) {
+            LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->type . ' creating']), 'error', wp_json_encode($apiResponse));
+
+            return $apiResponse;
+        }
+
+        if (!empty($apiResponse) && !isset($apiResponse->errors)) {
             $res = [$this->typeName . '  successfully'];
             LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->typeName]), 'success', wp_json_encode($res));
         } else {
