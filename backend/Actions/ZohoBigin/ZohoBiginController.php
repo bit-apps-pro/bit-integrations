@@ -106,7 +106,7 @@ class ZohoBiginController
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
         $layoutsMetaResponse = HttpHelper::get($layoutsMetaApiEndpoint, null, $authorizationHeader);
         if (!is_wp_error($layoutsMetaResponse) && (empty($layoutsMetaResponse->status) || (!empty($layoutsMetaResponse->status) && $layoutsMetaResponse->status !== 'error'))) {
-            $retriveLayoutsData = $layoutsMetaResponse->layouts;
+            $retriveLayoutsData = $layoutsMetaResponse->layouts ?? [];
             $allLayouts = [];
             foreach ($retriveLayoutsData as $layout) {
                 $allLayouts[] = (object) [
@@ -114,7 +114,11 @@ class ZohoBiginController
                     'name'          => $layout->name
                 ];
             }
-            uksort($allLayouts, 'strnatcasecmp');
+            // list, not a map: uksort here compared the numeric keys and never ordered
+            // the dropdown by anything the user can see
+            usort($allLayouts, function ($a, $b) {
+                return strnatcasecmp($a->display_label, $b->display_label);
+            });
             $response['pLayouts'] = $allLayouts;
         } else {
             wp_send_json_error(

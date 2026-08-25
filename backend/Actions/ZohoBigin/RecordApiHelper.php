@@ -57,7 +57,7 @@ class RecordApiHelper
                 }
             }
         }
-        if ($module === 'Deals') {
+        if ($module === 'Deals' && !empty($integrationDetails->pLayout)) {
             $fieldData['Pipeline'] = $integrationDetails->pLayout;
         }
 
@@ -72,7 +72,9 @@ class RecordApiHelper
         }
 
         $recordApiResponse = $this->insertRecord($module, wp_json_encode($requestParams));
-        if ((isset($recordApiResponse->status) && $recordApiResponse->status === 'error') || $recordApiResponse->data[0]->status === 'error') {
+        if ((isset($recordApiResponse->status) && $recordApiResponse->status === 'error')
+            || (isset($recordApiResponse->data[0]->status) && $recordApiResponse->data[0]->status === 'error')
+        ) {
             return LogHandler::save($this->_integID, ['type' => 'record', 'type_name' => $module], 'error', $recordApiResponse);
         }
         LogHandler::save($this->_integID, ['type' => 'record', 'type_name' => $module], 'success', $recordApiResponse);
