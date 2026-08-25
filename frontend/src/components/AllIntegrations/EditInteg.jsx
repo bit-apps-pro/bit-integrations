@@ -352,6 +352,7 @@ const IntegType = memo(({ allIntegURL, flow }) => {
     case 'SyncSpider':
       return <EditSyncSpider allIntegURL={allIntegURL} />
     case 'KonnectzIT':
+    case 'konnectzIT':
       return <EditKonnectzIT allIntegURL={allIntegURL} />
     case 'Ant Apps':
       return <EditAntApps allIntegURL={allIntegURL} />
