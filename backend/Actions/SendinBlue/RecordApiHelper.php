@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\SendinBlue;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
@@ -76,7 +77,7 @@ class RecordApiHelper
 
         if (empty($fieldData['email'])) {
             $error = new WP_Error(
-                'bit_integrations_brevo_email_empty',
+                Config::withPrefix('brevo_email_empty'),
                 __('Contact email is empty, so the request was skipped. Brevo rejects a contact without an email address.', 'bit-integrations')
             );
             LogHandler::save($this->_integrationID, ['type' => 'record', 'type_name' => 'insert'], 'validation', $error);
@@ -141,8 +142,6 @@ class RecordApiHelper
                 ? Common::replaceFieldWithValue($customValue, $fieldValues)
                 : ($fieldValues[$formField] ?? null);
 
-            // a mapped field the trigger did not send is absent, not null: Brevo rejects
-            // the whole request on a null attribute instead of ignoring it
             if (!\is_null($value)) {
                 $attributes[$sendinBlueField] = $value;
             }

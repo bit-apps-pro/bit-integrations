@@ -93,8 +93,6 @@ class RecordApiHelper
                 return ['name' => $value];
             case 'multi_select':
                 $data = [];
-                // a radio or single select trigger field arrives as a scalar; iterating it
-                // as an array dropped the property instead of sending the one option
                 foreach ((array) $value as $option) {
                     $data[] = ['name' => $option];
                 }

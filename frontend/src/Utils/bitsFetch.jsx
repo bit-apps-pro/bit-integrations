@@ -109,7 +109,6 @@ export default async function bitsFetch(data, action, queryParam = null, method 
     options.body = formData
   }
 
-  // callers only read `.success`, so a rejection must not escape as one
   let body
   try {
     const response = await fetch(uri, options)
