@@ -121,9 +121,11 @@ class FlodeskController
 
         $apiClient = new ApiClient($connection);
         $apiClient->setBaseURL('https://api.flodesk.com/v1');
+        // No Accept header here: ApiClient::addHeaders() de-duplicates by value, so a
+        // second header sharing 'application/json' silently drops Content-Type and
+        // Flodesk answers 415.
         $apiClient->setHeaders(
             [
-                'Accept'       => 'application/json',
                 'Content-Type' => 'application/json',
                 'User-Agent'   => 'Bit Integrations (https://bitapps.pro)',
             ]
@@ -149,8 +151,14 @@ class FlodeskController
 
         $body = $response->getBody();
 
-        if (\is_array($body) && isset($body['data']) && \is_array($body['data'])) {
-            return $body['data'];
+        // Paged endpoints decode to an object and wrap the rows in `data`;
+        // custom-fields/all and segments/colors answer with a bare array.
+        if (\is_object($body)) {
+            $body = (array) $body;
+        }
+
+        if (\is_array($body) && isset($body['data'])) {
+            return (array) $body['data'];
         }
 
         return \is_array($body) ? $body : [];
