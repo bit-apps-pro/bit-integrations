@@ -189,6 +189,7 @@ const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAut
 const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
+const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
@@ -694,6 +695,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return (
         <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
       )
+    case 'Flodesk':
+      return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':

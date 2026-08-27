@@ -188,6 +188,7 @@ export default function SelectAction() {
     { type: 'Bookly', is_pro: true },
     { type: 'BookingCalendar', is_pro: true },
     { type: 'SureContact', is_pro: false },
+    { type: 'Flodesk', is_pro: false },
     {
       type: 'BrilliantDirectories',
       name: 'Brilliant Directories',
