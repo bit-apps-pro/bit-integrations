@@ -162,6 +162,16 @@ export default function FlodeskIntegLayout({
       {action && (
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
+          {supportsCustomFields.includes(action) && (
+            <button
+              onClick={() => getCustomFields(flodeskConf, setFlodeskConf, setIsLoading)}
+              className="icn-btn sh-sm ml-2 tooltip"
+              style={{ '--tooltip-txt': `'${__('Refresh Custom Fields', 'bit-integrations')}'` }}
+              type="button"
+              disabled={isLoading}>
+              &#x21BB;
+            </button>
+          )}
           <div className="btcd-hr mt-1" />
           <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
             <div className="txt-dp">
@@ -169,16 +179,6 @@ export default function FlodeskIntegLayout({
             </div>
             <div className="txt-dp flx">
               <b>{__('Flodesk Fields', 'bit-integrations')}</b>
-              {supportsCustomFields.includes(action) && (
-                <button
-                  onClick={() => getCustomFields(flodeskConf, setFlodeskConf, setIsLoading)}
-                  className="icn-btn sh-sm ml-2 tooltip"
-                  style={{ '--tooltip-txt': `'${__('Refresh Custom Fields', 'bit-integrations')}'` }}
-                  type="button"
-                  disabled={isLoading}>
-                  &#x21BB;
-                </button>
-              )}
             </div>
           </div>
 
