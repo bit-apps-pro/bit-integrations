@@ -14,8 +14,9 @@ export default function FlodeskAuthorization({
   <small class="d-blk mt-5">
     ${__('Generate an API key in Flodesk:', 'bit-integrations')}
     <b>${__('Account &gt; Integrations &gt; Flodesk API', 'bit-integrations')}</b>.
-    ${__('API access requires a paid Flodesk plan.', 'bit-integrations')}
+    ${__('Copy the API key and paste it in the username field.', 'bit-integrations')}
   </small>
+  <p><b>${__('API access requires a paid Flodesk plan.', 'bit-integrations')}</b></p>
   `
 
   return (
