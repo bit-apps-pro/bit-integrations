@@ -82,13 +82,13 @@ class FlodeskController
             return self::validationError($integId, __('Field map is required for Flodesk api', 'bit-integrations'));
         }
 
-        $client = self::client($integrationDetails->connection_id ?? 0);
+        $apiClient = self::client($integrationDetails->connection_id ?? 0);
 
-        if ($client === null) {
+        if ($apiClient === null) {
             return self::validationError($integId, __('A Flodesk connection with an API Key is required', 'bit-integrations'));
         }
 
-        return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
+        return (new RecordApiHelper($integrationDetails, $integId, $apiClient))->execute($fieldValues, $fieldMap);
     }
 
     private static function client($connectionId): ?ApiClient
@@ -113,13 +113,13 @@ class FlodeskController
 
     private static function fetchList($queryParams, $path, array $payload = ['per_page' => 100])
     {
-        $client = self::client($queryParams->connection_id ?? 0);
+        $apiClient = self::client($queryParams->connection_id ?? 0);
 
-        if ($client === null) {
+        if ($apiClient === null) {
             wp_send_json_error(__('Select a connection with an API Key first', 'bit-integrations'), 400);
         }
 
-        $response = $client->get($path, $payload);
+        $response = $apiClient->get($path, $payload);
         $failure = $response->errorMessage(__('Could not reach Flodesk', 'bit-integrations'));
 
         if ($failure !== null) {
