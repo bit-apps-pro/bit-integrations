@@ -78,7 +78,7 @@ function Flodesk({ formFields, setFlow, flow, allIntegURL }) {
 
       <div
         className="btcd-stp-page"
-        style={{ ...(step === 2 && { height: 500, overflow: 'visible', width: 900 }) }}>
+        style={{ ...(step === 2 && { height: 'auto', minHeight: 500, overflow: 'visible', width: 900 }) }}>
         <FlodeskIntegLayout
           formFields={formFields}
           flodeskConf={flodeskConf}
@@ -87,6 +87,9 @@ function Flodesk({ formFields, setFlow, flow, allIntegURL }) {
           setIsLoading={setIsLoading}
           setSnackbar={setSnackbar}
         />
+        <br />
+        <br />
+        <br />
 
         <button
           onClick={() => nextPage(3)}
