@@ -14,9 +14,7 @@ class FlodeskController
     public static array $authConfig = [
         'authType' => AuthorizationType::BASIC_AUTH,
         'slug'     => 'Flodesk',
-        'fields'   => [
-            'api_key' => 'username',
-        ],
+        'fields'   => [],
     ];
 
     public function getSegments($queryParams)
