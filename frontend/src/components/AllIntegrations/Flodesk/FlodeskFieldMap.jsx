@@ -3,6 +3,7 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
+import { mappableFields } from './FlodeskCommonFunc'
 import {
   addFieldMap,
   delFieldMap,
@@ -20,7 +21,7 @@ export default function FlodeskFieldMap({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  const actionFields = flodeskConf?.flodeskFields || []
+  const actionFields = mappableFields(flodeskConf)
   const requiredFlds = actionFields.filter(fld => fld.required === true)
   const nonRequiredFlds = actionFields.filter(fld => fld.required === false)
 

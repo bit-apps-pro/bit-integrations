@@ -13,7 +13,6 @@ import {
   getSegmentColors,
   getSegments,
   getWorkflows,
-  mappableFields
 } from './FlodeskCommonFunc'
 import FlodeskFieldMap from './FlodeskFieldMap'
 import {
@@ -43,7 +42,6 @@ export default function FlodeskIntegLayout({
   const handleMainAction = value => {
     const nextConf = create(flodeskConf, draftConf => {
       draftConf.mainAction = value
-      draftConf.flodeskFields = mappableFields({ ...flodeskConf, mainAction: value })
       draftConf.field_map = [{ flodeskField: '', formField: '' }]
     })
 
@@ -161,7 +159,7 @@ export default function FlodeskIntegLayout({
         />
       )}
 
-      {action && flodeskConf?.flodeskFields && (
+      {action && (
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <div className="btcd-hr mt-1" />
@@ -169,8 +167,18 @@ export default function FlodeskIntegLayout({
             <div className="txt-dp">
               <b>{__('Form Fields', 'bit-integrations')}</b>
             </div>
-            <div className="txt-dp">
+            <div className="txt-dp flx">
               <b>{__('Flodesk Fields', 'bit-integrations')}</b>
+              {supportsCustomFields.includes(action) && (
+                <button
+                  onClick={() => getCustomFields(flodeskConf, setFlodeskConf, setIsLoading)}
+                  className="icn-btn sh-sm ml-2 tooltip"
+                  style={{ '--tooltip-txt': `'${__('Refresh Custom Fields', 'bit-integrations')}'` }}
+                  type="button"
+                  disabled={isLoading}>
+                  &#x21BB;
+                </button>
+              )}
             </div>
           </div>
 

@@ -18,7 +18,6 @@ function Flodesk({ formFields, setFlow, flow, allIntegURL }) {
   const [snack, setSnackbar] = useState({ show: false })
 
   const [flodeskConf, setFlodeskConf] = useState({
-    flodeskFields: [],
     field_map: [{ flodeskField: '', formField: '' }],
     name: 'Flodesk',
     type: 'Flodesk',
@@ -79,7 +78,7 @@ function Flodesk({ formFields, setFlow, flow, allIntegURL }) {
 
       <div
         className="btcd-stp-page"
-        style={{ ...(step === 2 && { height: 'auto', overflow: 'visible', width: 900 }) }}>
+        style={{ ...(step === 2 && { height: 500, overflow: 'visible', width: 900 }) }}>
         <FlodeskIntegLayout
           formFields={formFields}
           flodeskConf={flodeskConf}
