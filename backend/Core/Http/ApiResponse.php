@@ -121,6 +121,27 @@ final class ApiResponse
     }
 
     /**
+     * Why a request failed, in the order the reason is actually available: the
+     * transport error, then whatever the provider put in the body. ApiClient leaves
+     * the error null on a non-2xx, so the body is usually the only source.
+     *
+     * Null on a successful transport — a provider that reports failure inside a 2xx
+     * body is still the caller's business, as success() says.
+     */
+    public function errorMessage(string $fallback, string $bodyKey = 'message'): ?string
+    {
+        if ($this->success()) {
+            return null;
+        }
+
+        $message = $this->getBodyValue($bodyKey);
+
+        return $this->getError()
+            ?: (\is_string($message) && $message !== '' ? $message : null)
+            ?: $fallback;
+    }
+
+    /**
      * Read a key off any decoded value — a body, or one row out of a list. WPKit
      * decodes JSON to stdClass by default, but arrays turn up too, so every caller
      * would otherwise repeat this check.

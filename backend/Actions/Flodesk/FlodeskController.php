@@ -91,21 +91,6 @@ class FlodeskController
         return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
     }
 
-    private static function failureReason($response): ?string
-    {
-        if ($response->success()) {
-            return null;
-        }
-
-        // ApiClient leaves the error null on a non-2xx, so the reason Flodesk sent in
-        // the body is the only one there is.
-        $message = $response->getBodyValue('message');
-
-        return $response->getError()
-            ?: (\is_string($message) && $message !== '' ? $message : null)
-            ?: __('Could not reach Flodesk', 'bit-integrations');
-    }
-
     private static function client($connectionId): ?ApiClient
     {
         $connection = AuthorizationFactory::getConnectionHandler($connectionId);
@@ -135,7 +120,7 @@ class FlodeskController
         }
 
         $response = $client->get($path, $payload);
-        $failure = self::failureReason($response);
+        $failure = $response->errorMessage(__('Could not reach Flodesk', 'bit-integrations'));
 
         if ($failure !== null) {
             wp_send_json_error($failure, 400);
