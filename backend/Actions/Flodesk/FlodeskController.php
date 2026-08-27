@@ -91,22 +91,19 @@ class FlodeskController
         return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
     }
 
-    public static function failureReason($response): ?string
+    private static function failureReason($response): ?string
     {
         if ($response->success()) {
             return null;
         }
 
-        return $response->getError()
-            ?: self::bodyMessage($response)
-            ?: __('Could not reach Flodesk', 'bit-integrations');
-    }
-
-    private static function bodyMessage($response): ?string
-    {
+        // ApiClient leaves the error null on a non-2xx, so the reason Flodesk sent in
+        // the body is the only one there is.
         $message = $response->getBodyValue('message');
 
-        return \is_string($message) && $message !== '' ? $message : null;
+        return $response->getError()
+            ?: (\is_string($message) && $message !== '' ? $message : null)
+            ?: __('Could not reach Flodesk', 'bit-integrations');
     }
 
     private static function client($connectionId): ?ApiClient
@@ -119,13 +116,10 @@ class FlodeskController
 
         $apiClient = new ApiClient($connection);
         $apiClient->setBaseURL('https://api.flodesk.com/v1');
-        // No Accept header here: ApiClient::addHeaders() de-duplicates by value, so a
-        // second header sharing 'application/json' silently drops Content-Type and
-        // Flodesk answers 415.
         $apiClient->setHeaders(
             [
                 'Content-Type' => 'application/json',
-                'User-Agent'   => 'Bit Integrations (https://bitapps.pro)',
+                'User-Agent'   => 'Bit Integrations (https://bit-integrations.com)',
             ]
         );
 
@@ -149,8 +143,6 @@ class FlodeskController
 
         $body = $response->getBody();
 
-        // Paged endpoints decode to an object and wrap the rows in `data`;
-        // custom-fields/all and segments/colors answer with a bare array.
         if (\is_object($body)) {
             $body = (array) $body;
         }
