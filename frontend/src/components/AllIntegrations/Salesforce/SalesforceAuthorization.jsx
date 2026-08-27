@@ -28,9 +28,6 @@ export default function SalesforceAuthorization({
       tutorialLinks={tutorialLinks?.salesforce || {}}
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
-        // Salesforce blocks the web server flow once a Connected App enables
-        // "Require Proof Key for Code Exchange (PKCE) Extension"; apps without it ignore
-        // the challenge. Oauth2Connection still stores the grant as `authorization_code`.
         grantType: 'authorization_code_pkce',
         clientAuthentication: 'body',
         authCodeEndpoint: {
