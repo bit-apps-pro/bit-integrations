@@ -32,8 +32,6 @@ export default function FlodeskActions({ flodeskConf, setFlodeskConf, setIsLoadi
       })
     )
 
-  // Unchecking has to clear the stored value, otherwise the utility stays applied
-  // with the checkbox showing off.
   const actionHandler = (type, valueName) => {
     if (flodeskConf?.utilities?.[valueName]) {
       clearAction(valueName)

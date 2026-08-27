@@ -28,7 +28,6 @@ export default function FlodeskAuthorization({
       tutorialTitle="Flodesk"
       tutorialLinks={tutorialLinks?.flodesk || {}}
       authDetails={{
-        // Flodesk uses HTTP Basic with the API key as the username and no password.
         authType: AUTH_TYPES.BASIC_AUTH,
         apiEndpoint: 'https://api.flodesk.com/v1/segments',
         method: 'GET',

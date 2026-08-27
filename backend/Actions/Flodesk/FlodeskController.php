@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Flodesk Integration.
- */
-
 namespace BitApps\Integrations\Actions\Flodesk;
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
@@ -15,10 +11,6 @@ use WP_Error;
 
 class FlodeskController
 {
-    /**
-     * Flodesk authenticates with HTTP Basic using the API key as the username and an
-     * empty password, so the key maps onto the connection's username field.
-     */
     public static array $authConfig = [
         'authType' => AuthorizationType::BASIC_AUTH,
         'slug'     => 'Flodesk',
@@ -69,10 +61,6 @@ class FlodeskController
         wp_send_json_success($fields, 200);
     }
 
-    /**
-     * Flodesk rejects a segment without a colour and only accepts one from its own
-     * palette, so the list has to come from the API rather than a hardcoded enum.
-     */
     public function getSegmentColors($queryParams)
     {
         $colors = [];
@@ -105,9 +93,6 @@ class FlodeskController
         return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
     }
 
-    /**
-     * @param mixed $response
-     */
     public static function failureReason($response): ?string
     {
         if ($response->success()) {
@@ -119,9 +104,6 @@ class FlodeskController
             ?: __('Could not reach Flodesk', 'bit-integrations');
     }
 
-    /**
-     * @param mixed $response
-     */
     private static function bodyMessage($response): ?string
     {
         $message = $response->getBodyValue('message');
@@ -143,7 +125,6 @@ class FlodeskController
             [
                 'Accept'       => 'application/json',
                 'Content-Type' => 'application/json',
-                // Flodesk's docs list a User-Agent as required.
                 'User-Agent'   => 'Bit Integrations (https://bitapps.pro)',
             ]
         );
@@ -151,15 +132,6 @@ class FlodeskController
         return $apiClient;
     }
 
-    /**
-     * Paged endpoints wrap the rows in `data`; `custom-fields/all` and `segments/colors`
-     * answer with a bare array.
-     *
-     * @param mixed $queryParams
-     * @param mixed $path
-     *
-     * @return array<int, mixed>
-     */
     private static function fetchList($queryParams, $path, array $payload = ['per_page' => 100])
     {
         $client = self::client($queryParams->connection_id ?? 0);

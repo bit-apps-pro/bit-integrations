@@ -50,11 +50,6 @@ const subscriberIdField = {
   required: true
 }
 
-/**
- * Field maps hold only the identifier of the record an action targets and free text.
- * Segments, the segment colour and the workflow are fetched dropdowns instead, because
- * they are configuration choices rather than the target of the action.
- */
 export const fieldsByAction = {
   create_or_update_subscriber: [
     { key: 'email', label: __('Email', 'bit-integrations'), required: true },
@@ -79,10 +74,8 @@ export const fieldsByAction = {
   remove_subscriber_from_workflow: [subscriberIdField]
 }
 
-// Actions whose field map also accepts arbitrary custom-field keys fetched from Flodesk.
 export const supportsCustomFields = ['create_or_update_subscriber']
 
-// Required dropdowns -> rendered in IntegLayout, always visible.
 export const needsSegments = [
   'add_subscriber_to_segments',
   'remove_subscriber_from_segments'
@@ -90,6 +83,5 @@ export const needsSegments = [
 export const needsSegmentColor = ['create_segment']
 export const needsWorkflow = ['add_subscriber_to_workflow', 'remove_subscriber_from_workflow']
 
-// Optional dropdowns -> rendered in Utilities, opt-in behind a checkbox.
 export const optionalSegments = ['create_or_update_subscriber']
 export const hasUtilities = ['create_or_update_subscriber']
