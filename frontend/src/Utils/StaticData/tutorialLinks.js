@@ -737,6 +737,10 @@ const tutorialLinks = {
   weDocs: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
+  },
+  flodesk: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/flodesk-integration-as-an-action/'
   }
 }
 export default tutorialLinks
