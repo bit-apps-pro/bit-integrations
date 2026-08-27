@@ -7,11 +7,6 @@ export const modules = [
     is_pro: true
   },
   {
-    name: 'batch_create_or_update_subscribers',
-    label: __('Batch Create or Update Subscribers', 'bit-integrations'),
-    is_pro: true
-  },
-  {
     name: 'unsubscribe_subscriber',
     label: __('Unsubscribe Subscriber', 'bit-integrations'),
     is_pro: true
@@ -55,13 +50,6 @@ export const fieldsByAction = {
     { key: 'email', label: __('Email', 'bit-integrations'), required: true },
     { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
     { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false }
-  ],
-  batch_create_or_update_subscribers: [
-    {
-      key: 'subscribers',
-      label: __('Subscribers (JSON array)', 'bit-integrations'),
-      required: true
-    }
   ],
   unsubscribe_subscriber: [subscriberIdField],
   add_subscriber_to_segments: [subscriberIdField],

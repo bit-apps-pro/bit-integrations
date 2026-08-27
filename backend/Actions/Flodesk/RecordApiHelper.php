@@ -41,11 +41,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'batch_create_or_update_subscribers':
-                $response = Hooks::apply(Config::withPrefix('flodesk_batch_create_or_update_subscribers'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'unsubscribe_subscriber':
                 $response = Hooks::apply(Config::withPrefix('flodesk_unsubscribe_subscriber'), $default, $fieldData, $this->apiClient, $settings);
 
