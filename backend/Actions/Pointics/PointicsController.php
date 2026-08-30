@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Pointics;
 
+use Throwable;
 use WP_Error;
 
 class PointicsController
@@ -67,20 +68,6 @@ class PointicsController
         wp_send_json_success($response, 200);
     }
 
-    // Pointics autowires, but a binding may not be ready on an early request.
-    private static function resolve($className)
-    {
-        if (!\function_exists('pointics_container') || !class_exists($className)) {
-            return null;
-        }
-
-        try {
-            return pointics_container()->make($className);
-        } catch (\Throwable $exception) {
-            return null;
-        }
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integDetails = $integrationData->flow_details;
@@ -93,5 +80,18 @@ class PointicsController
         }
 
         return (new RecordApiHelper($integDetails, $integId))->execute($fieldValues, $fieldMap, $utilities);
+    }
+
+    private static function resolve($className)
+    {
+        if (!\function_exists('pointics_container') || !class_exists($className)) {
+            return;
+        }
+
+        try {
+            return pointics_container()->make($className);
+        } catch (Throwable $exception) {
+            return;
+        }
     }
 }
