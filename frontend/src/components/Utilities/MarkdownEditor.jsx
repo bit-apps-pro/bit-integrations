@@ -1,4 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
+import {
+  LuBold,
+  LuCode,
+  LuHeading1,
+  LuHeading2,
+  LuHeading3,
+  LuItalic,
+  LuLink,
+  LuList,
+  LuListOrdered,
+  LuSquareCode,
+  LuStrikethrough,
+  LuTextQuote
+} from 'react-icons/lu'
 import { __ } from '../../Utils/i18nwrap'
 
 const LINE_PREFIX_PATTERN = /^(#{1,6}\s+|[-*+]\s+|\d+\.\s+|>\s+)/
@@ -112,74 +126,69 @@ export default function MarkdownEditor({
   const tools = [
     {
       key: 'h1',
-      label: 'H1',
+      Icon: LuHeading1,
       tip: __('Heading 1', 'bit-integrations'),
       run: () => prefixLines(() => '# ')
     },
     {
       key: 'h2',
-      label: 'H2',
+      Icon: LuHeading2,
       tip: __('Heading 2', 'bit-integrations'),
       run: () => prefixLines(() => '## ')
     },
     {
       key: 'h3',
-      label: 'H3',
+      Icon: LuHeading3,
       tip: __('Heading 3', 'bit-integrations'),
       run: () => prefixLines(() => '### ')
     },
     {
       key: 'bold',
-      label: 'B',
+      Icon: LuBold,
       tip: __('Bold', 'bit-integrations'),
-      style: { fontWeight: 800 },
       run: () => wrapSelection('**', '**', __('bold text', 'bit-integrations'))
     },
     {
       key: 'italic',
-      label: 'I',
+      Icon: LuItalic,
       tip: __('Italic', 'bit-integrations'),
-      style: { fontStyle: 'italic' },
       run: () => wrapSelection('_', '_', __('italic text', 'bit-integrations'))
     },
     {
       key: 'strike',
-      label: 'S',
+      Icon: LuStrikethrough,
       tip: __('Strikethrough', 'bit-integrations'),
-      style: { textDecoration: 'line-through' },
       run: () => wrapSelection('~~', '~~', __('struck text', 'bit-integrations'))
     },
     {
       key: 'bullet',
-      label: '•',
+      Icon: LuList,
       tip: __('Bullet List', 'bit-integrations'),
       run: () => prefixLines(() => '- ')
     },
     {
       key: 'ordered',
-      label: '1.',
+      Icon: LuListOrdered,
       tip: __('Numbered List', 'bit-integrations'),
-      style: { fontSize: 11 },
       run: () => prefixLines(index => `${index + 1}. `)
     },
     {
       key: 'quote',
-      label: '❝',
+      Icon: LuTextQuote,
       tip: __('Quote', 'bit-integrations'),
       run: () => prefixLines(() => '> ')
     },
-    { key: 'link', label: '🔗', tip: __('Link', 'bit-integrations'), run: insertLink },
+    { key: 'link', Icon: LuLink, tip: __('Link', 'bit-integrations'), run: insertLink },
     {
       key: 'code',
-      label: '`',
+      Icon: LuCode,
       tip: __('Inline Code', 'bit-integrations'),
       run: () => wrapSelection('`', '`', __('code', 'bit-integrations'))
     },
     {
       key: 'codeblock',
-      label: '</>',
+      Icon: LuSquareCode,
       tip: __('Code Block', 'bit-integrations'),
-      style: { fontSize: 10 },
       run: insertCodeBlock
     }
   ]
@@ -191,16 +200,21 @@ export default function MarkdownEditor({
   return (
     <div className="btcbi-md-editor">
       <div className="flx flx-wrp mb-1">
-        {tools.map(tool => (
+        {tools.map(({ key, Icon, tip, run }) => (
           <button
-            key={tool.key}
-            onClick={tool.run}
+            key={key}
+            onClick={run}
             className="icn-btn sh-sm mr-1 tooltip"
-            style={{ '--tooltip-txt': `'${tool.tip}'`, fontSize: 12, fontWeight: 600, ...tool.style }}
+            style={{
+              '--tooltip-txt': `'${tip}'`,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
             type="button"
             disabled={disabled}
-            aria-label={tool.tip}>
-            {tool.label}
+            aria-label={tip}>
+            <Icon size={16} aria-hidden="true" />
           </button>
         ))}
 
