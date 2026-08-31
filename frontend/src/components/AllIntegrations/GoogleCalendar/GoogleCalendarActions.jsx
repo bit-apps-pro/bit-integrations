@@ -94,9 +94,9 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
         onChange={e => actionHandler(e, 'richTextDesc')}
         className={`wdt-200 mt-4 mr-2 ${isPro ? '' : 'input-disable'}`}
         value="richTextDesc"
-        title={__('Rich Text Description', 'bit-integrations')}
+        title={__('Description Editor', 'bit-integrations')}
         subTitle={__(
-          'Write formatted description with the editor instead of mapping a plain text field. Description is removed from Field Map.',
+          'Write the description in an editor with Markdown formatting and a preview, instead of mapping a plain text field. Description is removed from Field Map.',
           'bit-integrations'
         )}
       />
@@ -153,7 +153,7 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
       <ProModal
         show={showProModal}
         setShow={setShowProModal}
-        sub={__('Rich Text Description', 'bit-integrations')}
+        sub={__('Description Editor', 'bit-integrations')}
       />
     </div>
   )

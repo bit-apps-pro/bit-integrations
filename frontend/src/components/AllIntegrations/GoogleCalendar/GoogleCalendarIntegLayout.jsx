@@ -120,12 +120,12 @@ export default function GoogleCalendarIntegLayout({
           <div className="mt-2 mb-2 txt-dp">
             <small>
               {__(
-                'Uses Markdown. It is converted to the formatting Google Calendar renders in event descriptions.',
+                'Write in Markdown and check the Preview tab. It is converted to the formatting Google Calendar renders in event descriptions.',
                 'bit-integrations'
               )}
             </small>
           </div>
-          <ActionProFeatureComponent title={__('Rich Text Description', 'bit-integrations')}>
+          <ActionProFeatureComponent title={__('Description Editor', 'bit-integrations')}>
             <MarkdownEditor
               id={`google-calendar-desc-${flowID || 'new'}`}
               formFields={formFields}
