@@ -15,6 +15,15 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
     if (e.target.checked) {
       newConf.actions[type] = true
 
+      if (type === 'richTextDesc') {
+        const restFieldMap = (newConf.field_map || []).filter(
+          fld => fld?.googleCalendarFormField !== 'description'
+        )
+        newConf.field_map = restFieldMap.length
+          ? restFieldMap
+          : [{ formField: '', googleCalendarFormField: '' }]
+      }
+
       if (type === 'reminders') {
         setActionMdl({ show: 'reminders' })
       }
@@ -67,6 +76,18 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
         value="skipIfSlotNotEmpty"
         title={__('Skip If Slot Not Free', 'bit-integrations')}
         subTitle={__('If checked, Event create will skip if slot not free', 'bit-integrations')}
+      />
+
+      <TableCheckBox
+        checked={googleCalendarConf.actions?.richTextDesc || false}
+        onChange={e => actionHandler(e, 'richTextDesc')}
+        className="wdt-200 mt-4 mr-2"
+        value="richTextDesc"
+        title={__('Rich Text Description', 'bit-integrations')}
+        subTitle={__(
+          'Write formatted description with the editor instead of mapping a plain text field. Description is removed from Field Map.',
+          'bit-integrations'
+        )}
       />
 
       <TitleModal action={openReminderMdl}>
