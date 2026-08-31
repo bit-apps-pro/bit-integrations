@@ -4,6 +4,7 @@ import { $appConfigState } from '../../../GlobalStates'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import { __ } from '../../../Utils/i18nwrap'
 import MarkdownEditor from '../../Utilities/MarkdownEditor'
+import ActionProFeatureComponent from '../IntegrationHelpers/ActionProFeatureComponent'
 import { addFieldMap } from './IntegrationHelpers'
 import GoogleCalendarFieldMap from './GoogleCalendarFieldMap'
 import GoogleCalendarActions from './GoogleCalendarActions'
@@ -124,14 +125,16 @@ export default function GoogleCalendarIntegLayout({
               )}
             </small>
           </div>
-          <MarkdownEditor
-            id={`google-calendar-desc-${flowID || 'new'}`}
-            formFields={formFields}
-            smartTags={isPro ? SmartTagField : null}
-            value={googleCalendarConf?.descRichText || ''}
-            onChange={setDescRichText}
-            placeholder={__('Write the event description...', 'bit-integrations')}
-          />
+          <ActionProFeatureComponent title={__('Rich Text Description', 'bit-integrations')}>
+            <MarkdownEditor
+              id={`google-calendar-desc-${flowID || 'new'}`}
+              formFields={formFields}
+              smartTags={isPro ? SmartTagField : null}
+              value={googleCalendarConf?.descRichText || ''}
+              onChange={setDescRichText}
+              placeholder={__('Write the event description...', 'bit-integrations')}
+            />
+          </ActionProFeatureComponent>
         </>
       )}
 

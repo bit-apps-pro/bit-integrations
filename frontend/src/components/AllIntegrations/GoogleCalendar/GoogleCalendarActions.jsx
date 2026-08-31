@@ -1,8 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Modal from '../../Utilities/Modal'
+import ProModal from '../../Utilities/ProModal'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import TitleModal from '../../Utilities/TitleModal'
 import GoogleCalendarReminderFieldMap from './GoogleCalendarReminderFieldMap'
@@ -10,7 +13,15 @@ import { addReminderFieldMap } from './IntegrationHelpers'
 
 export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCalendarConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false, action: () => {} })
+  const [showProModal, setShowProModal] = useState(false)
+  const { isPro } = useRecoilValue($appConfigState)
+
   const actionHandler = (e, type) => {
+    if (type === 'richTextDesc' && !isPro) {
+      setShowProModal(true)
+
+      return
+    }
     const newConf = { ...googleCalendarConf }
     if (e.target.checked) {
       newConf.actions[type] = true
@@ -81,7 +92,7 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
       <TableCheckBox
         checked={googleCalendarConf.actions?.richTextDesc || false}
         onChange={e => actionHandler(e, 'richTextDesc')}
-        className="wdt-200 mt-4 mr-2"
+        className={`wdt-200 mt-4 mr-2 ${isPro ? '' : 'input-disable'}`}
         value="richTextDesc"
         title={__('Rich Text Description', 'bit-integrations')}
         subTitle={__(
@@ -138,6 +149,12 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
           </button>
         </div>
       </Modal>
+
+      <ProModal
+        show={showProModal}
+        setShow={setShowProModal}
+        sub={__('Rich Text Description', 'bit-integrations')}
+      />
     </div>
   )
 }
