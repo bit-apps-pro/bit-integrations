@@ -2,8 +2,10 @@
 
 namespace BitApps\Integrations\Actions\GoogleCalendar;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Helper;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use DateTime;
@@ -112,9 +114,10 @@ class RecordApiHelper
             }
         }
         if (!empty($actions->richTextDesc) && !empty($descRichText)) {
-            $fieldData['description'] = self::sanitizeDescription(
-                Common::replaceFieldWithValue(self::markdownToHtml($descRichText), $fieldValues)
-            );
+            $description = Hooks::apply(Config::withPrefix('googlecalendar_rich_description'), null, $descRichText, $fieldValues);
+            if (!\is_null($description)) {
+                $fieldData['description'] = $description;
+            }
         }
 
         $reminderFieldMap = [...array_filter($reminderFieldMap, fn ($value) => !empty($value->method) && !empty($value->minutes))];
@@ -129,155 +132,5 @@ class RecordApiHelper
         } else {
             LogHandler::save($integrationId, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'success', $apiResponse);
         }
-    }
-
-    private static function markdownToHtml($markdown)
-    {
-        $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", (string) $markdown));
-
-        $html = '';
-        $paragraph = [];
-        $listType = null;
-        $codeLines = null;
-
-        $flushParagraph = function () use (&$paragraph, &$html) {
-            if (!empty($paragraph)) {
-                $html .= '<p>' . implode('<br>', $paragraph) . '</p>';
-                $paragraph = [];
-            }
-        };
-
-        $flushList = function () use (&$listType, &$html) {
-            if (!\is_null($listType)) {
-                $html .= '</' . $listType . '>';
-                $listType = null;
-            }
-        };
-
-        foreach ($lines as $line) {
-            if (preg_match('/^\s*```/', $line)) {
-                if (\is_null($codeLines)) {
-                    $flushParagraph();
-                    $flushList();
-                    $codeLines = [];
-                } else {
-                    $html .= '<p><span>' . implode('<br>', $codeLines) . '</span></p>';
-                    $codeLines = null;
-                }
-
-                continue;
-            }
-
-            if (!\is_null($codeLines)) {
-                $codeLines[] = esc_html($line);
-
-                continue;
-            }
-
-            if (trim($line) === '') {
-                $flushParagraph();
-                $flushList();
-
-                continue;
-            }
-
-            if (preg_match('/^(#{1,6})\s+(.*)$/', $line, $heading)) {
-                $flushParagraph();
-                $flushList();
-                $html .= '<p><b>' . self::inlineMarkdownToHtml($heading[2]) . '</b></p>';
-
-                continue;
-            }
-
-            if (preg_match('/^\s*[-*+]\s+(.*)$/', $line, $bullet)) {
-                $flushParagraph();
-                if ($listType !== 'ul') {
-                    $flushList();
-                    $html .= '<ul>';
-                    $listType = 'ul';
-                }
-                $html .= '<li>' . self::inlineMarkdownToHtml($bullet[1]) . '</li>';
-
-                continue;
-            }
-
-            if (preg_match('/^\s*\d+\.\s+(.*)$/', $line, $ordered)) {
-                $flushParagraph();
-                if ($listType !== 'ol') {
-                    $flushList();
-                    $html .= '<ol>';
-                    $listType = 'ol';
-                }
-                $html .= '<li>' . self::inlineMarkdownToHtml($ordered[1]) . '</li>';
-
-                continue;
-            }
-
-            $flushList();
-
-            if (preg_match('/^\s*>\s?(.*)$/', $line, $quote)) {
-                $paragraph[] = self::inlineMarkdownToHtml($quote[1]);
-
-                continue;
-            }
-
-            $paragraph[] = self::inlineMarkdownToHtml($line);
-        }
-
-        if (!\is_null($codeLines)) {
-            $html .= '<p><span>' . implode('<br>', $codeLines) . '</span></p>';
-        }
-
-        $flushParagraph();
-        $flushList();
-
-        return $html;
-    }
-
-    private static function inlineMarkdownToHtml($text)
-    {
-        $smartTags = [];
-        $text = preg_replace_callback(
-            '/\$\{[^}]*\}/',
-            function ($matched) use (&$smartTags) {
-                $placeholder = '%%BITMD' . \count($smartTags) . '%%';
-                $smartTags[$placeholder] = $matched[0];
-
-                return $placeholder;
-            },
-            $text
-        );
-
-        $text = esc_html($text);
-        $text = preg_replace(
-            '/\[([^\]]+)\]\(((?:https?:\/\/|mailto:|tel:)[^\s)]+)\)/i',
-            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
-            $text
-        );
-        $text = preg_replace('/\*\*(.+?)\*\*/s', '<b>$1</b>', $text);
-        $text = preg_replace('/~~(.+?)~~/s', '<s>$1</s>', $text);
-        $text = preg_replace('/(?<!\w)_(.+?)_(?!\w)/s', '<i>$1</i>', $text);
-        $text = preg_replace('/`([^`]+)`/', '<span>$1</span>', $text);
-
-        return empty($smartTags) ? $text : strtr($text, $smartTags);
-    }
-
-    private static function sanitizeDescription($description)
-    {
-        return wp_kses($description, [
-            'a'      => ['href' => [], 'target' => [], 'rel' => []],
-            'b'      => [],
-            'strong' => [],
-            'i'      => [],
-            'em'     => [],
-            'u'      => [],
-            'br'     => [],
-            's'      => [],
-            'p'      => [],
-            'span'   => [],
-            'ul'     => [],
-            'ol'     => [],
-            'li'     => [],
-        ]);
     }
 }
