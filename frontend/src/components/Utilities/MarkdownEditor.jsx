@@ -15,19 +15,31 @@ export default function MarkdownEditor({
   show = true
 }) {
   const textareaRef = useRef(null)
+  const lastRangeRef = useRef(null)
+  const scrollTopRef = useRef(null)
+  const appendedAtEndRef = useRef(false)
   const [pendingSelection, setPendingSelection] = useState(null)
 
   useEffect(() => {
     if (!pendingSelection || !textareaRef.current) return
-    textareaRef.current.focus()
-    textareaRef.current.setSelectionRange(pendingSelection.start, pendingSelection.end)
+    const el = textareaRef.current
+    el.focus()
+    el.setSelectionRange(pendingSelection.start, pendingSelection.end)
+    if (scrollTopRef.current !== null) el.scrollTop = scrollTopRef.current
+    lastRangeRef.current = { start: pendingSelection.start, end: pendingSelection.end }
     setPendingSelection(null)
   }, [pendingSelection])
 
   if (!show) return null
 
+  const rememberRange = () => {
+    const el = textareaRef.current
+    if (el) lastRangeRef.current = { start: el.selectionStart, end: el.selectionEnd }
+  }
+
   // pushes the new text up and remembers where the caret should land once it is rendered
   const commit = (nextValue, start, end) => {
+    scrollTopRef.current = appendedAtEndRef.current ? null : (textareaRef.current?.scrollTop ?? 0)
     onChange(nextValue)
     setPendingSelection({ start, end })
   }
@@ -35,7 +47,15 @@ export default function MarkdownEditor({
   const getRange = () => {
     const el = textareaRef.current
     if (!el) return { start: value.length, end: value.length }
-    return { start: el.selectionStart, end: el.selectionEnd }
+    if (document.activeElement === el) {
+      appendedAtEndRef.current = false
+
+      return { start: el.selectionStart, end: el.selectionEnd }
+    }
+
+    appendedAtEndRef.current = !lastRangeRef.current
+
+    return lastRangeRef.current || { start: value.length, end: value.length }
   }
 
   const wrapSelection = (token, endToken = token, fallbackText = '') => {
@@ -227,6 +247,10 @@ export default function MarkdownEditor({
         placeholder={placeholder}
         disabled={disabled}
         onChange={ev => onChange(ev.target.value)}
+        onSelect={rememberRange}
+        onKeyUp={rememberRange}
+        onClick={rememberRange}
+        onBlur={rememberRange}
       />
     </div>
   )
