@@ -34,7 +34,9 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        $mainAction = $this->_integrationDetails->mainAction ?? 'create_customer';
+        // No default action: a missing or renamed mainAction must fall through to the
+        // switch default and report, never quietly create a customer.
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         $defaultResponse = [
             'success' => false,
