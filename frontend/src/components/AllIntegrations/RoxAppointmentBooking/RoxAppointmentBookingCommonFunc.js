@@ -13,8 +13,6 @@ export const handleInput = (e, roxAppointmentBookingConf, setRoxAppointmentBooki
   )
 }
 
-// Catalog lists behind the config dropdowns. These reference records the admin picks once
-// per flow, so they are selects — not field-map rows that vary per run.
 const refreshList = (route, dataKey, confKey, label, setRoxAppointmentBookingConf, setIsLoading) => {
   setIsLoading(true)
   bitsFetch(null, route)
@@ -122,8 +120,6 @@ export const generateMappedField = (fields, eitherGroups = []) => {
   return rows.length > 0 ? rows : [{ formField: '', roxAppointmentBookingField: '' }]
 }
 
-// Everything IntegLayout owns that the field map cannot express: the required status
-// enums, and the id/natural-key pairs where either one satisfies the requirement.
 export const checkRequiredSelect = (roxAppointmentBookingConf, requiredEitherFields) => {
   const { mainAction } = roxAppointmentBookingConf || {}
 

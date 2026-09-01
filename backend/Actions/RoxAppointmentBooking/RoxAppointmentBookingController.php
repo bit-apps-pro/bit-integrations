@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Rox Appointment Booking Integration
- */
-
 namespace BitApps\Integrations\Actions\RoxAppointmentBooking;
 
 use WP_Error;
@@ -29,10 +25,7 @@ class RoxAppointmentBookingController
         wp_send_json_success(true);
     }
 
-    /**
-     * Catalog lists that back the config dropdowns. These are read-only fetches, so they
-     * stay in Free — only write actions go through the Pro hook.
-     */
+    // Read-only catalog fetches, so they stay in Free; only write actions cross the Pro hook.
     public function refreshServices()
     {
         wp_send_json_success(['services' => self::optionsFrom('service', 'title')], 200);

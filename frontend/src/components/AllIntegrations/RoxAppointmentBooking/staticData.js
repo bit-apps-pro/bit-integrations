@@ -395,16 +395,14 @@ export const hasUtilities = [
   'create_notification'
 ]
 
-// Config dropdowns: catalog records the admin picks once per flow. Stored on
-// conf.selectedXxx, never field-mapped — they do not vary between runs. An action that
-// TARGETS one of these keeps it in the field map instead (update/delete service etc).
+// Catalog records the admin picks once per flow, so they are dropdowns on conf.selectedXxx.
+// An action that TARGETS one keeps it in the field map instead (update/delete service).
 export const needsServiceSelect = ['create_appointment']
 export const needsAgentSelect = ['create_appointment', 'update_appointment']
 export const needsCategorySelect = ['create_appointment']
 export const needsLocationSelect = ['create_appointment', 'create_agent']
 
-// Required inputs where the id and its natural key are interchangeable — the flow needs
-// one of them, not both. The backend resolves whichever arrives.
+// The id and its natural key are interchangeable: the flow needs one of them, not both.
 export const requiredEitherFields = {
   update_customer: [['customer_id', 'find_by_customer_email']],
   delete_customer: [['customer_id', 'find_by_customer_email']],

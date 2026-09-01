@@ -51,8 +51,6 @@ import {
   ServiceUpdateFields
 } from './staticData'
 
-// Catalog references the admin picks once per flow. An action that TARGETS one of these
-// keeps it in the field map instead, so it can be mapped from trigger data.
 const CATALOG_SELECTS = [
   {
     actions: needsServiceSelect,
@@ -116,7 +114,6 @@ const FIELD_SETS = {
   create_notification: NotificationFields
 }
 
-// Required enum -> conf key it is stored under, and the option set it renders.
 const REQUIRED_SELECTS = {
   update_service_status: {
     key: 'selectedServiceStatus',

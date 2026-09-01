@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Rox Appointment Booking Record Api
- */
-
 namespace BitApps\Integrations\Actions\RoxAppointmentBooking;
 
 use BitApps\Integrations\Config;
