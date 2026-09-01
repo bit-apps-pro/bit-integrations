@@ -25,7 +25,6 @@ class RoxAppointmentBookingController
         wp_send_json_success(true);
     }
 
-    // Read-only catalog fetches, so they stay in Free; only write actions cross the Pro hook.
     public function refreshServices()
     {
         wp_send_json_success(['services' => self::optionsFrom('service', 'title')], 200);
@@ -65,6 +64,22 @@ class RoxAppointmentBookingController
         wp_send_json_success(['locations' => self::optionsFrom('location', 'title')], 200);
     }
 
+    public function execute($integrationData, $fieldValues)
+    {
+        $integrationDetails = $integrationData->flow_details;
+        $integId = $integrationData->id;
+        $fieldMap = $integrationDetails->field_map;
+        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
+
+        if (empty($fieldMap)) {
+            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
+        }
+
+        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+
+        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
+    }
+
     private static function optionsFrom($tableSuffix, $labelColumn)
     {
         self::isExists();
@@ -95,21 +110,5 @@ class RoxAppointmentBookingController
         $pluginPrefix = \defined('ROX_APPOINTMENT_BOOKING_PREFIX') ? ROX_APPOINTMENT_BOOKING_PREFIX : 'rox_appointment';
 
         return $dbPrefix . $pluginPrefix . '_' . $suffix;
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 }
