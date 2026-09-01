@@ -737,6 +737,11 @@ const tutorialLinks = {
   weDocs: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
+  },
+  roxAppointmentBooking: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/rox-appointment-booking-integration-as-an-action/'
   }
 }
 export default tutorialLinks
