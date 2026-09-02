@@ -168,8 +168,8 @@ export const campaignStatusOptions = [
 ]
 
 export const yesNoOptions = [
-  { label: __('Yes', 'bit-integrations'), value: '1' },
-  { label: __('No', 'bit-integrations'), value: '0' }
+  { label: __('Yes', 'bit-integrations'), value: 'yes' },
+  { label: __('No', 'bit-integrations'), value: 'no' }
 ]
 
 export const needsCampaign = ['create_donation']
