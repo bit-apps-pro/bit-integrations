@@ -9,8 +9,6 @@ export const modules = [
     is_pro: true
   },
   { name: 'delete_template', label: __('Delete Template', 'bit-integrations'), is_pro: true },
-  { name: 'create_widget', label: __('Create Widget', 'bit-integrations'), is_pro: true },
-  { name: 'update_widget', label: __('Update Widget', 'bit-integrations'), is_pro: true },
   { name: 'delete_widget', label: __('Delete Widget', 'bit-integrations'), is_pro: true },
   {
     name: 'create_content',
@@ -52,27 +50,6 @@ export const TemplateUpdateFields = [
 
 export const TemplateIdField = [
   { key: 'template_id', label: __('Template ID', 'bit-integrations'), required: true }
-]
-
-export const WidgetCreateFields = [
-  { key: 'title', label: __('Title', 'bit-integrations'), required: true },
-  { key: 'icon', label: __('Icon', 'bit-integrations'), required: false },
-  { key: 'categories', label: __('Categories', 'bit-integrations'), required: false },
-  { key: 'markup', label: __('Markup', 'bit-integrations'), required: false },
-  { key: 'css', label: __('CSS', 'bit-integrations'), required: false },
-  { key: 'js', label: __('JavaScript', 'bit-integrations'), required: false },
-  { key: 'widget_data', label: __('Widget Controls (JSON)', 'bit-integrations'), required: false }
-]
-
-export const WidgetUpdateFields = [
-  { key: 'widget_id', label: __('Widget ID', 'bit-integrations'), required: true },
-  { key: 'title', label: __('Title', 'bit-integrations'), required: false },
-  { key: 'icon', label: __('Icon', 'bit-integrations'), required: false },
-  { key: 'categories', label: __('Categories', 'bit-integrations'), required: false },
-  { key: 'markup', label: __('Markup', 'bit-integrations'), required: false },
-  { key: 'css', label: __('CSS', 'bit-integrations'), required: false },
-  { key: 'js', label: __('JavaScript', 'bit-integrations'), required: false },
-  { key: 'widget_data', label: __('Widget Controls (JSON)', 'bit-integrations'), required: false }
 ]
 
 export const WidgetIdField = [
@@ -140,8 +117,6 @@ export const hasUtilities = [
   'create_template',
   'update_template',
   'delete_template',
-  'create_widget',
-  'update_widget',
   'delete_widget',
   'create_content',
   'update_content',

@@ -5,7 +5,6 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import Note from '../../Utilities/Note'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import ElementsKitActions from './ElementsKitActions'
@@ -25,9 +24,7 @@ import {
   TemplateIdField,
   TemplateUpdateFields,
   templateTypeOptions,
-  WidgetCreateFields,
-  WidgetIdField,
-  WidgetUpdateFields
+  WidgetIdField
 } from './staticData'
 
 export default function ElementsKitIntegLayout({
@@ -72,12 +69,6 @@ export default function ElementsKitIntegLayout({
           case 'update_template_activation':
           case 'delete_template':
             draftConf.elementsKitFields = TemplateIdField
-            break
-          case 'create_widget':
-            draftConf.elementsKitFields = WidgetCreateFields
-            break
-          case 'update_widget':
-            draftConf.elementsKitFields = WidgetUpdateFields
             break
           case 'delete_widget':
             draftConf.elementsKitFields = WidgetIdField
@@ -241,15 +232,6 @@ export default function ElementsKitIntegLayout({
           </div>
           <br />
         </div>
-      )}
-
-      {['create_widget', 'update_widget'].includes(elementsKitConf?.mainAction) && (
-        <Note
-          note={__(
-            'Icon, Categories, Markup, CSS and JavaScript map straight onto the widget. Widget Controls takes JSON for the Elementor controls, which are too deeply nested to map, and the fields above override anything set in it. Saving regenerates the widget file.',
-            'bit-integrations'
-          )}
-        />
       )}
 
       {elementsKitConf?.mainAction &&

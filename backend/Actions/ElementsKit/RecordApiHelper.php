@@ -67,20 +67,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'create_widget':
-                $response = Hooks::apply(Config::withPrefix('elements_kit_create_widget'), $defaultResponse, $fieldData, $utilities);
-                $type = 'widget';
-                $actionType = 'create_widget';
-
-                break;
-
-            case 'update_widget':
-                $response = Hooks::apply(Config::withPrefix('elements_kit_update_widget'), $defaultResponse, $fieldData, $utilities);
-                $type = 'widget';
-                $actionType = 'update_widget';
-
-                break;
-
             case 'delete_widget':
                 $response = Hooks::apply(Config::withPrefix('elements_kit_delete_widget'), $defaultResponse, $fieldData, $utilities);
                 $type = 'widget';

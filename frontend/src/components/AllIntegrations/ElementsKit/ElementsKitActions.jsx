@@ -14,14 +14,7 @@ import {
   templateTypeOptions
 } from './staticData'
 
-const STATUS_ACTIONS = [
-  'create_template',
-  'update_template',
-  'create_widget',
-  'update_widget',
-  'create_content',
-  'update_content'
-]
+const STATUS_ACTIONS = ['create_template', 'update_template', 'create_content', 'update_content']
 const CONDITION_ACTIONS = ['create_template', 'update_template']
 const DELETE_ACTIONS = ['delete_template', 'delete_widget', 'delete_content']
 
