@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Charitable Integration
- */
-
 namespace BitApps\Integrations\Actions\Charitable;
 
 use WP_Error;

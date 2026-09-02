@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Charitable Record Api
- */
-
 namespace BitApps\Integrations\Actions\Charitable;
 
 use BitApps\Integrations\Config;
