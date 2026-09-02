@@ -58,7 +58,7 @@ export default function CharitableActions({ charitableConf, setCharitableConf })
     )
   }
 
-  const renderActionModal = (type, title, options, valueName, multiple = false) => (
+  const renderActionModal = (type, title, options, valueName, multiple = false, refresh = null) => (
     <ConfirmModal
       className="custom-conf-mdl"
       mainMdlCls="o-v"
@@ -90,6 +90,16 @@ export default function CharitableActions({ charitableConf, setCharitableConf })
             defaultValue={charitableConf?.utilities?.[valueName] || undefined}
             onChange={val => setAction(val, valueName)}
           />
+          {refresh && (
+            <button
+              onClick={() => refresh(setCharitableConf, setIsLoading)}
+              className="icn-btn sh-sm ml-2 tooltip"
+              style={{ '--tooltip-txt': `'${__('Refresh', 'bit-integrations')}'` }}
+              type="button"
+              disabled={isLoading}>
+              &#x21BB;
+            </button>
+          )}
         </div>
       )}
     </ConfirmModal>
@@ -159,14 +169,25 @@ export default function CharitableActions({ charitableConf, setCharitableConf })
             'donation_status',
             __('Donation Status', 'bit-integrations'),
             donationStatusOptions,
-            'selected_donation_status'
+            'selected_donation_status',
+            false,
+            refreshCharitableDonationStatuses
           )}
-          {renderActionModal('donor', __('Donor', 'bit-integrations'), donorOptions, 'selected_donor')}
+          {renderActionModal(
+            'donor',
+            __('Donor', 'bit-integrations'),
+            donorOptions,
+            'selected_donor',
+            false,
+            refreshCharitableDonors
+          )}
           {renderActionModal(
             'user',
             __('WordPress User', 'bit-integrations'),
             userOptions,
-            'selected_user'
+            'selected_user',
+            false,
+            refreshCharitableUsers
           )}
         </>
       )}
@@ -223,16 +244,26 @@ export default function CharitableActions({ charitableConf, setCharitableConf })
             'creator',
             __('Campaign Creator', 'bit-integrations'),
             userOptions,
-            'selected_creator'
+            'selected_creator',
+            false,
+            refreshCharitableUsers
           )}
           {renderActionModal(
             'categories',
             __('Categories', 'bit-integrations'),
             categoryOptions,
             'selected_categories',
-            true
+            true,
+            refreshCharitableCampaignCategories
           )}
-          {renderActionModal('tags', __('Tags', 'bit-integrations'), tagOptions, 'selected_tags', true)}
+          {renderActionModal(
+            'tags',
+            __('Tags', 'bit-integrations'),
+            tagOptions,
+            'selected_tags',
+            true,
+            refreshCharitableCampaignTags
+          )}
           {renderActionModal(
             'allow_custom_donations',
             __('Allow Custom Donations', 'bit-integrations'),
@@ -275,7 +306,9 @@ export default function CharitableActions({ charitableConf, setCharitableConf })
             'user',
             __('WordPress User', 'bit-integrations'),
             userOptions,
-            'selected_user'
+            'selected_user',
+            false,
+            refreshCharitableUsers
           )}
         </>
       )}
@@ -309,7 +342,14 @@ export default function CharitableActions({ charitableConf, setCharitableConf })
             title={__('User Role', 'bit-integrations')}
             subTitle={__('Set the WordPress role', 'bit-integrations')}
           />
-          {renderActionModal('role', __('User Role', 'bit-integrations'), roleOptions, 'selected_role')}
+          {renderActionModal(
+            'role',
+            __('User Role', 'bit-integrations'),
+            roleOptions,
+            'selected_role',
+            false,
+            refreshCharitableUserRoles
+          )}
         </>
       )}
 
