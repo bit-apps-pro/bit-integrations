@@ -63,7 +63,9 @@ function GoogleSheet({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
       />
 
-      <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
+      <div
+        className="btcd-stp-page"
+        style={{ width: step === 2 && 900, height: step === 2 && 'auto', minHeight: step === 2 && 500 }}>
         <GoogleSheetIntegLayout
           formID={formID}
           formFields={formFields}

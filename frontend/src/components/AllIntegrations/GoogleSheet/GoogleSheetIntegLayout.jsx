@@ -13,8 +13,17 @@ import {
   refreshWorksheets
 } from './GoogleSheetCommonFunc'
 import GoogleSheetFieldMap from './GoogleSheetFieldMap'
-import GoogleSheetProLayout from './GoogleSheetProLayout'
-import { DEFAULT_ACTION, modules } from './staticData'
+import {
+  actionFields,
+  DEFAULT_ACTION,
+  hasUtilities,
+  modules,
+  needsColumnToMatch,
+  needsFieldMap,
+  needsHeaders,
+  needsSpreadsheet,
+  needsWorksheet
+} from './staticData'
 
 export default function GoogleSheetIntegLayout({
   formID,
@@ -27,7 +36,43 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
+  // A flow saved before the action select existed has no mainAction key at all and
+  // still means the row insert; an empty string means nothing is chosen yet.
   const action = sheetConf?.mainAction ?? DEFAULT_ACTION
+
+  const worksheetHeaders =
+    sheetConf?.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
+      sheetConf.headerRow
+    ] || []
+
+  const targetFields = [
+    ...(actionFields[action] || []).map(field => ({
+      value: field.key,
+      label: field.label,
+      required: field.required
+    })),
+    ...(needsHeaders.includes(action)
+      ? worksheetHeaders.map((header, indx) => ({
+          value: header,
+          label: header.replace(`_${indx}`, ''),
+          required: false
+        }))
+      : [])
+  ]
+
+  const spreadsheetReady = !needsSpreadsheet.includes(action) || !!sheetConf.spreadsheetId
+  const worksheetReady = !needsWorksheet.includes(action) || !!sheetConf.worksheetName
+  const headersReady = !needsHeaders.includes(action) || worksheetHeaders.length > 0
+
+  // Every section waits on what the chosen action actually needs, so an action with
+  // no worksheet never shows a worksheet select and a row action never offers a field
+  // map before its headers are known.
+  const showFieldMap =
+    needsFieldMap.includes(action) &&
+    targetFields.length > 0 &&
+    spreadsheetReady &&
+    worksheetReady &&
+    headersReady
 
   const handleMainAction = value => {
     if (!value || value === action) {
@@ -42,94 +87,84 @@ export default function GoogleSheetIntegLayout({
     )
   }
 
-  const actionSelect = (
-    <div className="flx">
-      <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
-      <MultiSelect
-        title="mainAction"
-        defaultValue={action}
-        className="mt-2 w-5"
-        onChange={handleMainAction}
-        options={modules.map(module => ({
-          label: checkIsPro(isPro, module.is_pro) ? module.label : getProLabel(module.label),
-          value: module.name,
-          disabled: !checkIsPro(isPro, module.is_pro)
-        }))}
-        singleSelect
-        closeOnSelect
-      />
-    </div>
-  )
-
-  if (!action) {
-    return (
-      <>
-        <br />
-        {actionSelect}
-        <br />
-      </>
+  const setConfValue = (name, value) =>
+    setSheetConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf[name] = value
+      })
     )
-  }
 
-  if (action !== DEFAULT_ACTION) {
-    return (
-      <>
-        <br />
-        {actionSelect}
-        <GoogleSheetProLayout
-          action={action}
-          formID={formID}
-          formFields={formFields}
-          handleInput={handleInput}
-          sheetConf={sheetConf}
-          setSheetConf={setSheetConf}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          setSnackbar={setSnackbar}
-        />
-      </>
+  const setUtility = (name, value) =>
+    setSheetConf(prevConf =>
+      create(prevConf, draftConf => {
+        if (!draftConf.utilities) {
+          draftConf.utilities = {}
+        }
+        draftConf.utilities[name] = value
+      })
     )
-  }
 
   return (
     <>
       <br />
-      {actionSelect}
-      <br />
-      <b className="wdt-200 d-in-b">{__('Spreadsheets:', 'bit-integrations')}</b>
-      <select
-        onChange={handleInput}
-        name="spreadsheetId"
-        value={sheetConf.spreadsheetId}
-        className="btcd-paper-inp w-5">
-        <option value="">{__('Select Spreadsheet', 'bit-integrations')}</option>
-        {sheetConf?.default?.spreadsheets &&
-          Object.keys(sheetConf.default.spreadsheets).map(spreadSheetApiName => (
-            <option
-              key={spreadSheetApiName}
-              value={sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetId}>
-              {sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetName}
-            </option>
-          ))}
-      </select>
-      <button
-        onClick={() => refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)}
-        className="icn-btn sh-sm ml-2 mr-2 tooltip"
-        style={{ '--tooltip-txt': '"Refresh Spreadsheet"' }}
-        type="button"
-        disabled={isLoading}>
-        &#x21BB;
-      </button>
-      <br />
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
+        <MultiSelect
+          title="mainAction"
+          defaultValue={action}
+          className="mt-2 w-5"
+          onChange={handleMainAction}
+          options={modules.map(module => ({
+            label: checkIsPro(isPro, module.is_pro) ? module.label : getProLabel(module.label),
+            value: module.name,
+            disabled: !checkIsPro(isPro, module.is_pro)
+          }))}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
       <br />
 
-      {sheetConf.spreadsheetId && (
+      {needsSpreadsheet.includes(action) && (
         <>
-          <b className="wdt-200 d-in-b">Worksheet:</b>
+          <b className="wdt-200 d-in-b">{__('Spreadsheets:', 'bit-integrations')}</b>
+          <select
+            onChange={handleInput}
+            name="spreadsheetId"
+            value={sheetConf.spreadsheetId || ''}
+            className="btcd-paper-inp w-5">
+            <option value="">{__('Select Spreadsheet', 'bit-integrations')}</option>
+            {sheetConf?.default?.spreadsheets &&
+              Object.keys(sheetConf.default.spreadsheets).map(spreadSheetApiName => (
+                <option
+                  key={spreadSheetApiName}
+                  value={sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetId}>
+                  {sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetName}
+                </option>
+              ))}
+          </select>
+          <button
+            onClick={() =>
+              refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
+            }
+            className="icn-btn sh-sm ml-2 mr-2 tooltip"
+            style={{ '--tooltip-txt': '"Refresh Spreadsheet"' }}
+            type="button"
+            disabled={isLoading}>
+            &#x21BB;
+          </button>
+          <br />
+          <br />
+        </>
+      )}
+
+      {needsWorksheet.includes(action) && sheetConf.spreadsheetId && (
+        <>
+          <b className="wdt-200 d-in-b">{__('Worksheet:', 'bit-integrations')}</b>
           <select
             onChange={handleInput}
             name="worksheetName"
-            value={sheetConf.worksheetName}
+            value={sheetConf.worksheetName || ''}
             className="btcd-paper-inp w-5">
             <option value="">{__('Select Worksheet', 'bit-integrations')}</option>
             {sheetConf?.default?.worksheets?.[sheetConf.spreadsheetId] &&
@@ -147,11 +182,28 @@ export default function GoogleSheetIntegLayout({
             disabled={isLoading}>
             &#x21BB;
           </button>
+          <br />
+          <br />
         </>
       )}
-      <br />
-      <br />
-      {sheetConf.spreadsheetId && sheetConf.worksheetName && (
+
+      {hasUtilities.includes(action) && spreadsheetReady && worksheetReady && (
+        <div className="flx mb-3">
+          <b className="wdt-200 d-in-b">{__('Utilities:', 'bit-integrations')}</b>
+          <label className="flx" htmlFor="gsheet-keep-headers">
+            <input
+              id="gsheet-keep-headers"
+              type="checkbox"
+              className="mr-2"
+              checked={sheetConf?.utilities?.selected_first_row_headers || false}
+              onChange={e => setUtility('selected_first_row_headers', e.target.checked)}
+            />
+            {__('Keep the first row as headers', 'bit-integrations')}
+          </label>
+        </div>
+      )}
+
+      {needsHeaders.includes(action) && spreadsheetReady && worksheetReady && (
         <>
           <b className="wdt-200 d-in-b">{__('Header Row:', 'bit-integrations')}</b>
           <input
@@ -160,7 +212,7 @@ export default function GoogleSheetIntegLayout({
             className="btcd-paper-inp w-5"
             placeholder="Header Row"
             onChange={handleInput}
-            value={sheetConf.headerRow}
+            value={sheetConf.headerRow || ''}
             name="headerRow"
           />
           <button
@@ -184,6 +236,7 @@ export default function GoogleSheetIntegLayout({
           </small>
         </>
       )}
+
       {isLoading && (
         <Loader
           style={{
@@ -195,9 +248,26 @@ export default function GoogleSheetIntegLayout({
           }}
         />
       )}
-      {sheetConf.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
-        sheetConf.headerRow
-      ] && (
+
+      {needsColumnToMatch.includes(action) && worksheetHeaders.length > 0 && (
+        <div className="flx mt-3">
+          <b className="wdt-200 d-in-b">{__('Column to Match on:', 'bit-integrations')}</b>
+          <MultiSelect
+            title="columnToMatch"
+            defaultValue={sheetConf?.columnToMatch ?? null}
+            className="btcd-paper-drpdwn w-5"
+            options={worksheetHeaders.map((header, indx) => ({
+              label: header.replace(`_${indx}`, ''),
+              value: header
+            }))}
+            onChange={val => setConfValue('columnToMatch', val)}
+            singleSelect
+            closeOnSelect
+          />
+        </div>
+      )}
+
+      {showFieldMap && (
         <>
           <div className="mt-4">
             <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
@@ -212,11 +282,12 @@ export default function GoogleSheetIntegLayout({
             </div>
           </div>
 
-          {sheetConf.field_map.map((itm, i) => (
+          {(sheetConf.field_map || []).map((itm, i) => (
             <GoogleSheetFieldMap
               key={`sheet-m-${i + 9}`}
               i={i}
               field={itm}
+              targetFields={targetFields}
               sheetConf={sheetConf}
               formFields={formFields}
               setSheetConf={setSheetConf}
@@ -224,7 +295,7 @@ export default function GoogleSheetIntegLayout({
           ))}
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
-              onClick={() => addFieldMap(sheetConf.field_map.length, sheetConf, setSheetConf)}
+              onClick={() => addFieldMap((sheetConf.field_map || []).length, sheetConf, setSheetConf)}
               className="icn-btn sh-sm"
               type="button">
               +

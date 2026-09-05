@@ -40,7 +40,7 @@ export const needsWorksheet = [
   'deleteSheet'
 ]
 
-export const needsHeaders = ['appendOrUpdateRow', 'updateRow']
+export const needsHeaders = ['insertRow', 'appendOrUpdateRow', 'updateRow']
 
 export const needsColumnToMatch = ['appendOrUpdateRow']
 
