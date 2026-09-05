@@ -41,7 +41,7 @@ export default function GoogleSheetIntegLayout({
 
   const worksheetHeaders =
     sheetConf?.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
-      sheetConf.headerRow
+    sheetConf.headerRow
     ] || []
 
   const targetFields = [
@@ -52,10 +52,10 @@ export default function GoogleSheetIntegLayout({
     })),
     ...(needsHeaders.includes(action)
       ? worksheetHeaders.map((header, indx) => ({
-          value: header,
-          label: header.replace(`_${indx}`, ''),
-          required: false
-        }))
+        value: header,
+        label: header.replace(`_${indx}`, ''),
+        required: false
+      }))
       : [])
   ]
 
@@ -180,14 +180,6 @@ export default function GoogleSheetIntegLayout({
         </>
       )}
 
-      {hasUtilities.includes(action) && (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          <GoogleSheetActions sheetConf={sheetConf} setSheetConf={setSheetConf} />
-        </div>
-      )}
-
       {needsHeaders.includes(action) && spreadsheetReady && worksheetReady && (
         <>
           <b className="wdt-200 d-in-b">{__('Header Row:', 'bit-integrations')}</b>
@@ -286,9 +278,15 @@ export default function GoogleSheetIntegLayout({
               +
             </button>
           </div>
-          <br />
-          <br />
         </>
+      )}
+
+      {hasUtilities.includes(action) && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <GoogleSheetActions sheetConf={sheetConf} setSheetConf={setSheetConf} />
+        </div>
       )}
     </>
   )
