@@ -12,6 +12,7 @@ import {
   refreshWorksheetHeaders,
   refreshWorksheets
 } from './GoogleSheetCommonFunc'
+import GoogleSheetActions from './GoogleSheetActions'
 import GoogleSheetFieldMap from './GoogleSheetFieldMap'
 import {
   actionFields,
@@ -93,16 +94,6 @@ export default function GoogleSheetIntegLayout({
     setSheetConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf[name] = value
-      })
-    )
-
-  const setUtility = (name, value) =>
-    setSheetConf(prevConf =>
-      create(prevConf, draftConf => {
-        if (!draftConf.utilities) {
-          draftConf.utilities = {}
-        }
-        draftConf.utilities[name] = value
       })
     )
 
@@ -189,19 +180,11 @@ export default function GoogleSheetIntegLayout({
         </>
       )}
 
-      {hasUtilities.includes(action) && spreadsheetReady && worksheetReady && (
-        <div className="flx mb-3">
-          <b className="wdt-200 d-in-b">{__('Utilities:', 'bit-integrations')}</b>
-          <label className="flx" htmlFor="gsheet-keep-headers">
-            <input
-              id="gsheet-keep-headers"
-              type="checkbox"
-              className="mr-2"
-              checked={sheetConf?.utilities?.selected_first_row_headers || false}
-              onChange={e => setUtility('selected_first_row_headers', e.target.checked)}
-            />
-            {__('Keep the first row as headers', 'bit-integrations')}
-          </label>
+      {hasUtilities.includes(action) && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <GoogleSheetActions sheetConf={sheetConf} setSheetConf={setSheetConf} />
         </div>
       )}
 
