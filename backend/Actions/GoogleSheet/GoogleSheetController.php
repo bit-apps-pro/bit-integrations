@@ -264,59 +264,20 @@ class GoogleSheetController
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
-        $mainAction = $integrationDetails->mainAction ?? '';
+        $mainAction = empty($integrationDetails->mainAction) ? 'insertRow' : $integrationDetails->mainAction;
 
-        if (!empty($mainAction) && $mainAction !== 'insertRow') {
-            return (new ProRecordApiHelper($integrationDetails, $this->_integrationID))->execute($fieldValues, $mainAction);
-        }
-
-        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
-        $isConnectionAuth = !empty($integrationDetails->connection_id);
-        $spreadsheetId = $integrationDetails->spreadsheetId;
-        $worksheetName = $integrationDetails->worksheetName;
-        $headerRow = $integrationDetails->headerRow;
-        $header = $integrationDetails->header;
-        $fieldMap = $integrationDetails->field_map;
-        $actions = $integrationDetails->actions;
-        $defaultDataConf = $integrationDetails->default;
-        if (empty($tokenDetails)
-            || empty($spreadsheetId)
-            || empty($worksheetName)
-            || empty($fieldMap)
+        if ($mainAction === 'insertRow'
+            && (empty($integrationDetails->spreadsheetId)
+                || empty($integrationDetails->worksheetName)
+                || empty($integrationDetails->field_map))
         ) {
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Google sheet'));
         }
 
-        if (!$isConnectionAuth && (\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $requiredParams['clientId'] = $integrationDetails->clientId;
-            $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
-            $requiredParams['tokenDetails'] = $tokenDetails;
-            $newTokenDetails = GoogleSheetController::refreshAccessToken((object) $requiredParams);
-            if ($newTokenDetails) {
-                GoogleSheetController::saveRefreshedToken($this->_integrationID, $newTokenDetails);
-                $tokenDetails = $newTokenDetails;
-            }
-        }
+        $integrationDetails->tokenDetails = self::resolveTokenDetails($integrationDetails, $this->_integrationID);
 
-        $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
-
-        $gsheetApiResponse = $recordApiHelper->execute(
-            $spreadsheetId,
-            $worksheetName,
-            $headerRow,
-            $header,
-            $actions,
-            $defaultDataConf,
-            $fieldValues,
-            $fieldMap
-        );
-
-        if (is_wp_error($gsheetApiResponse)) {
-            return $gsheetApiResponse;
-        }
-
-        return $gsheetApiResponse;
+        return (new RecordApiHelper($integrationDetails, $this->_integrationID))->execute($fieldValues, $mainAction);
     }
 
     /**
