@@ -1,6 +1,14 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
+import {
+  actionFields,
+  DEFAULT_ACTION,
+  needsColumnToMatch,
+  needsFieldMap,
+  needsSpreadsheet,
+  needsWorksheet
+} from './staticData'
 
 export const handleInput = (
   e,
@@ -37,7 +45,7 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
   const newConf = deepCopy(sheetConf)
   newConf.worksheetName = ''
   newConf.headerRow = 'A1'
-  newConf.field_map = [{ formField: '', googleSheetField: '' }]
+  newConf.field_map = generateMappedField(sheetConf.mainAction ?? DEFAULT_ACTION)
 
   if (!newConf?.default?.worksheets?.[sheetConf.spreadsheetId]) {
     refreshWorksheets(formID, newConf, setSheetConf, setIsLoading, setSnackbar)
@@ -55,7 +63,7 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
 const worksheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSnackbar) => {
   const newConf = { ...sheetConf }
   newConf.headerRow = 'A1'
-  newConf.field_map = [{ formField: '', googleSheetField: '' }]
+  newConf.field_map = generateMappedField(sheetConf.mainAction ?? DEFAULT_ACTION)
 
   if (!newConf?.default?.worksheets?.headers?.[sheetConf.worksheetName]) {
     refreshWorksheetHeaders(formID, newConf, setSheetConf, setIsLoading, setSnackbar)
@@ -126,6 +134,9 @@ export const refreshWorksheets = (formID, sheetConf, setSheetConf, setIsLoading,
       if (result && result.success) {
         const newConf = { ...sheetConf }
         if (result.data.worksheets) {
+          if (!newConf.default) {
+            newConf.default = {}
+          }
           if (!newConf.default.worksheets) {
             newConf.default.worksheets = {}
           }
@@ -150,7 +161,7 @@ export const refreshWorksheets = (formID, sheetConf, setSheetConf, setIsLoading,
 
 export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLoading, setSnackbar) => {
   const { spreadsheetId, worksheetName, header, headerRow } = sheetConf
-  if (!spreadsheetId && !worksheetName && !header && !headerRow) {
+  if (!spreadsheetId || !worksheetName || !header || !headerRow) {
     return
   }
 
@@ -169,6 +180,9 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
       if (result && result.success) {
         const newConf = { ...sheetConf }
         if (result.data.worksheet_headers?.length > 0) {
+          if (!newConf.default) {
+            newConf.default = {}
+          }
           if (!newConf.default.headers) {
             newConf.default.headers = {}
           }
@@ -209,7 +223,48 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
     .catch(() => setIsLoading(false))
 }
 
+export const generateMappedField = action => {
+  const fields = actionFields[action] || []
+
+  return fields.length > 0
+    ? fields.map(field => ({ formField: '', googleSheetField: field.key }))
+    : [{ formField: '', googleSheetField: '' }]
+}
+
+const mappedTargets = sheetConf =>
+  (sheetConf?.field_map || [])
+    .filter(mapped => mapped.googleSheetField && (mapped.formField || mapped.customValue))
+    .map(mapped => mapped.googleSheetField)
+
+export const isActionConfigured = sheetConf => {
+  const action = sheetConf?.mainAction ?? DEFAULT_ACTION
+
+  if (!action) {
+    return false
+  }
+  if (needsSpreadsheet.includes(action) && !sheetConf?.spreadsheetId) {
+    return false
+  }
+  if (needsWorksheet.includes(action) && !sheetConf?.worksheetName) {
+    return false
+  }
+  if (needsFieldMap.includes(action) && !(sheetConf?.field_map?.length > 0)) {
+    return false
+  }
+  if (needsColumnToMatch.includes(action) && !sheetConf?.columnToMatch) {
+    return false
+  }
+
+  const mapped = mappedTargets(sheetConf)
+
+  return (actionFields[action] || []).every(field => !field.required || mapped.includes(field.key))
+}
+
 export const checkMappedFields = sheetconf => {
+  const action = sheetconf?.mainAction ?? DEFAULT_ACTION
+  if (!needsFieldMap.includes(action)) {
+    return true
+  }
   const mappedFleld = sheetconf.field_map
     ? sheetconf.field_map.filter(mapped => !mapped.formField && !mapped.googleSheetField)
     : []
