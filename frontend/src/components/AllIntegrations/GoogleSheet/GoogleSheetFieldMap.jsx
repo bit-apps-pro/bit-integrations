@@ -21,6 +21,10 @@ export default function GoogleSheetFieldMap({
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
+  const isRequiredField = targetFields.some(
+    target => target.value === field.googleSheetField && target.required
+  )
+
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
       <div className="flx integ-fld-wrp">
@@ -67,13 +71,12 @@ export default function GoogleSheetFieldMap({
           className="btcd-paper-inp"
           name="googleSheetField"
           value={field.googleSheetField || ''}
+          disabled={isRequiredField}
           onChange={ev => handleFieldMapping(ev, i, sheetConf, setSheetConf)}>
           <option value="">{__('Select Field', 'bit-integrations')}</option>
           {targetFields.map(target => (
             <option key={`gsheet-${target.value}`} value={target.value}>
-              {target.required
-                ? `${target.label} (${__('required', 'bit-integrations')})`
-                : target.label}
+              {target.label}
             </option>
           ))}
         </select>
@@ -88,6 +91,7 @@ export default function GoogleSheetFieldMap({
         onClick={() => delFieldMap(i, sheetConf, setSheetConf)}
         className="icn-btn sh-sm ml-1"
         type="button"
+        disabled={isRequiredField}
         aria-label="btn">
         <TrashIcn />
       </button>
