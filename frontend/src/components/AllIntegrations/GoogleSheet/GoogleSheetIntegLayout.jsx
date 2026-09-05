@@ -36,13 +36,11 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
-  // `??` not `||`: a flow saved before this select existed has no mainAction and means
-  // the row insert, while '' means nothing is chosen yet.
   const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
   const worksheetHeaders =
     sheetConf?.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
-      sheetConf.headerRow
+    sheetConf.headerRow
     ] || []
 
   const targetFields = [
@@ -53,10 +51,10 @@ export default function GoogleSheetIntegLayout({
     })),
     ...(needsHeaders.includes(action)
       ? worksheetHeaders.map((header, indx) => ({
-          value: header,
-          label: header.replace(`_${indx}`, ''),
-          required: false
-        }))
+        value: header,
+        label: header.replace(`_${indx}`, ''),
+        required: false
+      }))
       : [])
   ]
 
