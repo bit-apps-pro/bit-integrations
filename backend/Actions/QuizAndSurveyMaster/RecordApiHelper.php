@@ -34,7 +34,7 @@ class RecordApiHelper
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
 
-        $mainAction = $this->_integrationDetails->mainAction ?? 'create_quiz';
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         $defaultResponse = [
             'success' => false,
@@ -92,7 +92,10 @@ class RecordApiHelper
                 break;
 
             default:
-                $response = $defaultResponse;
+                $response = [
+                    'success' => false,
+                    'message' => __('No Quiz And Survey Master action selected', 'bit-integrations')
+                ];
                 $type = 'quiz';
 
                 break;
