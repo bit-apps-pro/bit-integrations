@@ -40,7 +40,7 @@ export default function GoogleSheetIntegLayout({
 
   const worksheetHeaders =
     sheetConf?.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
-    sheetConf.headerRow
+      sheetConf.headerRow
     ] || []
 
   const targetFields = [
@@ -51,10 +51,10 @@ export default function GoogleSheetIntegLayout({
     })),
     ...(needsHeaders.includes(action)
       ? worksheetHeaders.map((header, indx) => ({
-        value: header,
-        label: header.replace(`_${indx}`, ''),
-        required: false
-      }))
+          value: header,
+          label: header.replace(`_${indx}`, ''),
+          required: false
+        }))
       : [])
   ]
 
@@ -73,13 +73,22 @@ export default function GoogleSheetIntegLayout({
     if (!value || value === action) {
       return
     }
-    setSheetConf(prevConf =>
-      create(prevConf, draftConf => {
-        draftConf.mainAction = value
-        draftConf.field_map = generateMappedField(value)
-        draftConf.columnToMatch = ''
-      })
-    )
+
+    // Built up front, not in a setState callback: refreshSpreadsheets writes back the
+    // conf it is handed, so a stale one would drop the action we just set.
+    const nextConf = create(sheetConf, draftConf => {
+      draftConf.mainAction = value
+      draftConf.field_map = generateMappedField(value)
+      draftConf.columnToMatch = ''
+    })
+
+    setSheetConf(nextConf)
+
+    const hasSpreadsheets = Object.keys(nextConf?.default?.spreadsheets || {}).length > 0
+
+    if (needsSpreadsheet.includes(value) && !hasSpreadsheets) {
+      refreshSpreadsheets(formID, nextConf, setSheetConf, setIsLoading, setSnackbar)
+    }
   }
 
   const setConfValue = (name, value) =>
