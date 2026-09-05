@@ -224,14 +224,6 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
-    /**
-     * Resolve a usable access token for an integration, refreshing and persisting it when expired.
-     *
-     * @param object   $integrationDetails flow_details of the integration
-     * @param null|int $integrationID      ID of Google Sheet Integration
-     *
-     * @return object token details
-     */
     public static function resolveTokenDetails($integrationDetails, $integrationID = null)
     {
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
@@ -353,8 +345,6 @@ class GoogleSheetController
         $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
     }
 
-    // Google reports failure as a top-level `error` and omits the payload key entirely,
-    // so reading `files`/`sheets` off an error body silently yields an empty dropdown.
     private static function hasApiError($response)
     {
         return is_wp_error($response) || !\is_object($response) || !empty($response->error);

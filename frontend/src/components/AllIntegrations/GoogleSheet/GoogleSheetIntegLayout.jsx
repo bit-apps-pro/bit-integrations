@@ -74,8 +74,6 @@ export default function GoogleSheetIntegLayout({
       return
     }
 
-    // Built up front, not in a setState callback: refreshSpreadsheets writes back the
-    // conf it is handed, so a stale one would drop the action we just set.
     const nextConf = create(sheetConf, draftConf => {
       draftConf.mainAction = value
       draftConf.field_map = generateMappedField(value)

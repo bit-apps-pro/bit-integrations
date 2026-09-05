@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Google Sheet Record Api
- */
-
 namespace BitApps\Integrations\Actions\GoogleSheet;
 
 use BitApps\Integrations\Config;
@@ -123,46 +119,57 @@ class RecordApiHelper
         switch ($mainAction) {
             case 'createSpreadsheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_create_spreadsheet'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             case 'deleteSpreadsheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_delete_spreadsheet'), $default, $integrationDetails);
+
                 break;
 
             case 'createSheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_create_sheet'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             case 'copySheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_copy_sheet'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             case 'deleteSheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_delete_sheet'), $default, $integrationDetails);
+
                 break;
 
             case 'clearSheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_clear_sheet'), $default, $utilities, $integrationDetails);
+
                 break;
 
             case 'appendOrUpdateRow':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_append_or_update_row'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             case 'updateRow':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_update_row'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             case 'deleteRow':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_delete_row'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             case 'createColumn':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_create_column'), $default, $fieldData, $integrationDetails);
+
                 break;
 
             default:
                 $response = $default;
+
                 break;
         }
 
@@ -229,7 +236,6 @@ class RecordApiHelper
         return array_values((array) $headers);
     }
 
-    // Unmapped headers are omitted so an update never blanks a column the user left alone.
     private function columnOffsets($mappedValues, $allHeaders)
     {
         $columns = [];
