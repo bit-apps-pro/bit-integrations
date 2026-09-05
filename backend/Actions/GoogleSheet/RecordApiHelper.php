@@ -12,8 +12,11 @@ class RecordApiHelper
 {
     private const ACTION_FIELDS = [
         'createSpreadsheet' => ['title', 'sheetTitle'],
+        'deleteSpreadsheet' => ['spreadsheetId'],
         'createSheet'       => ['title'],
         'copySheet'         => ['destinationSpreadsheetId'],
+        'clearSheet'        => ['spreadsheetId', 'worksheetName'],
+        'deleteSheet'       => ['spreadsheetId', 'worksheetName'],
         'updateRow'         => ['rowId'],
         'deleteRow'         => ['rowId'],
         'createColumn'      => ['columnName', 'columnIndex'],
@@ -123,7 +126,7 @@ class RecordApiHelper
                 break;
 
             case 'deleteSpreadsheet':
-                $response = Hooks::apply(Config::withPrefix('google_sheet_delete_spreadsheet'), $default, $integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('google_sheet_delete_spreadsheet'), $default, $fieldData, $integrationDetails);
 
                 break;
 
@@ -138,12 +141,12 @@ class RecordApiHelper
                 break;
 
             case 'deleteSheet':
-                $response = Hooks::apply(Config::withPrefix('google_sheet_delete_sheet'), $default, $integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('google_sheet_delete_sheet'), $default, $fieldData, $integrationDetails);
 
                 break;
 
             case 'clearSheet':
-                $response = Hooks::apply(Config::withPrefix('google_sheet_clear_sheet'), $default, $utilities, $integrationDetails);
+                $response = Hooks::apply(Config::withPrefix('google_sheet_clear_sheet'), $default, $fieldData, $utilities, $integrationDetails);
 
                 break;
 

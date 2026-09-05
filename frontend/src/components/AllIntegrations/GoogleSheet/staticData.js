@@ -23,10 +23,7 @@ export const needsSpreadsheet = [
   'deleteRow',
   'createColumn',
   'createSheet',
-  'copySheet',
-  'clearSheet',
-  'deleteSheet',
-  'deleteSpreadsheet'
+  'copySheet'
 ]
 
 export const needsWorksheet = [
@@ -35,9 +32,7 @@ export const needsWorksheet = [
   'updateRow',
   'deleteRow',
   'createColumn',
-  'copySheet',
-  'clearSheet',
-  'deleteSheet'
+  'copySheet'
 ]
 
 export const needsHeaders = ['insertRow', 'appendOrUpdateRow', 'updateRow']
@@ -63,6 +58,15 @@ export const CopySheetFields = [
   }
 ]
 
+export const SpreadsheetIdField = [
+  { key: 'spreadsheetId', label: __('Spreadsheet Id', 'bit-integrations'), required: true }
+]
+
+export const WorksheetTargetFields = [
+  { key: 'spreadsheetId', label: __('Spreadsheet Id', 'bit-integrations'), required: true },
+  { key: 'worksheetName', label: __('Worksheet Name', 'bit-integrations'), required: true }
+]
+
 export const RowNumberField = [
   { key: 'rowId', label: __('Row Number', 'bit-integrations'), required: true }
 ]
@@ -74,8 +78,11 @@ export const ColumnFields = [
 
 export const actionFields = {
   createSpreadsheet: SpreadsheetFields,
+  deleteSpreadsheet: SpreadsheetIdField,
   createSheet: WorksheetTitleField,
   copySheet: CopySheetFields,
+  clearSheet: WorksheetTargetFields,
+  deleteSheet: WorksheetTargetFields,
   updateRow: RowNumberField,
   deleteRow: RowNumberField,
   createColumn: ColumnFields
@@ -89,5 +96,8 @@ export const needsFieldMap = [
   'createColumn',
   'createSheet',
   'copySheet',
-  'createSpreadsheet'
+  'clearSheet',
+  'deleteSheet',
+  'createSpreadsheet',
+  'deleteSpreadsheet'
 ]
