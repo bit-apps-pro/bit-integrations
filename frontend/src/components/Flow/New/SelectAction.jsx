@@ -195,6 +195,7 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'QuizAndSurveyMaster', logo: 'quizAndSurveyMaster', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },
     { type: 'ConvertForce', is_pro: true },
     { type: 'Cart Abandonment Recovery', is_pro: true },
