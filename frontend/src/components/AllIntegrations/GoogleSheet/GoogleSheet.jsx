@@ -9,7 +9,6 @@ import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import GoogleSheetAuthorization from './GoogleSheetAuthorization'
 import { handleInput, checkMappedFields, isActionConfigured } from './GoogleSheetCommonFunc'
-import { DEFAULT_ACTION } from './staticData'
 import GoogleSheetIntegLayout from './GoogleSheetIntegLayout'
 import bitsFetch from '../../../Utils/bitsFetch'
 
@@ -22,7 +21,7 @@ function GoogleSheet({ formFields, setFlow, flow, allIntegURL }) {
   const [sheetConf, setSheetConf] = useState({
     name: 'Google Sheet',
     type: 'Google Sheet',
-    mainAction: DEFAULT_ACTION,
+    mainAction: '',
     clientId: '',
     clientSecret: '',
     spreadsheetId: '',

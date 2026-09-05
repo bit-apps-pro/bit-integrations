@@ -46,7 +46,19 @@ export default function GoogleSheetProLayout({
       : [])
   ]
 
-  const showFieldMap = needsFieldMap.includes(action) && targetFields.length > 0
+  const spreadsheetReady = !needsSpreadsheet.includes(action) || !!sheetConf.spreadsheetId
+  const worksheetReady = !needsWorksheet.includes(action) || !!sheetConf.worksheetName
+  const headersReady = !needsHeaders.includes(action) || worksheetHeaders.length > 0
+
+  // Every section waits on what the chosen action actually needs, so an action with
+  // no worksheet never shows a worksheet select and a row action never offers a field
+  // map before its headers are known.
+  const showFieldMap =
+    needsFieldMap.includes(action) &&
+    targetFields.length > 0 &&
+    spreadsheetReady &&
+    worksheetReady &&
+    headersReady
 
   const setConfValue = (name, value) =>
     setSheetConf(prevConf =>
@@ -87,7 +99,9 @@ export default function GoogleSheetProLayout({
               ))}
           </select>
           <button
-            onClick={() => refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)}
+            onClick={() =>
+              refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
+            }
             className="icn-btn sh-sm ml-2 mr-2 tooltip"
             style={{ '--tooltip-txt': '"Refresh Spreadsheet"' }}
             type="button"
@@ -127,7 +141,7 @@ export default function GoogleSheetProLayout({
         </>
       )}
 
-      {hasUtilities.includes(action) && (
+      {hasUtilities.includes(action) && spreadsheetReady && worksheetReady && (
         <div className="flx mt-3">
           <b className="wdt-200 d-in-b">{__('Utilities:', 'bit-integrations')}</b>
           <label className="flx" htmlFor="gsheet-keep-headers">
@@ -143,7 +157,7 @@ export default function GoogleSheetProLayout({
         </div>
       )}
 
-      {needsHeaders.includes(action) && sheetConf.spreadsheetId && sheetConf.worksheetName && (
+      {needsHeaders.includes(action) && spreadsheetReady && worksheetReady && (
         <>
           <br />
           <b className="wdt-200 d-in-b">{__('Header Row:', 'bit-integrations')}</b>

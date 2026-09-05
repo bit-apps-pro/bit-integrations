@@ -46,7 +46,7 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
   const newConf = deepCopy(sheetConf)
   newConf.worksheetName = ''
   newConf.headerRow = 'A1'
-  newConf.field_map = generateMappedField(sheetConf.mainAction || DEFAULT_ACTION)
+  newConf.field_map = generateMappedField(sheetConf.mainAction ?? DEFAULT_ACTION)
 
   if (!newConf?.default?.worksheets?.[sheetConf.spreadsheetId]) {
     refreshWorksheets(formID, newConf, setSheetConf, setIsLoading, setSnackbar)
@@ -64,7 +64,7 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
 const worksheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSnackbar) => {
   const newConf = { ...sheetConf }
   newConf.headerRow = 'A1'
-  newConf.field_map = generateMappedField(sheetConf.mainAction || DEFAULT_ACTION)
+  newConf.field_map = generateMappedField(sheetConf.mainAction ?? DEFAULT_ACTION)
 
   if (!newConf?.default?.worksheets?.headers?.[sheetConf.worksheetName]) {
     refreshWorksheetHeaders(formID, newConf, setSheetConf, setIsLoading, setSnackbar)
@@ -239,8 +239,11 @@ const mappedTargets = sheetConf =>
     .map(mapped => mapped.googleSheetField)
 
 export const isActionConfigured = sheetConf => {
-  const action = sheetConf?.mainAction || DEFAULT_ACTION
+  const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
+  if (!action) {
+    return false
+  }
   if (needsSpreadsheet.includes(action) && !sheetConf?.spreadsheetId) {
     return false
   }
@@ -260,7 +263,7 @@ export const isActionConfigured = sheetConf => {
 }
 
 export const checkMappedFields = sheetconf => {
-  const action = sheetconf?.mainAction || DEFAULT_ACTION
+  const action = sheetconf?.mainAction ?? DEFAULT_ACTION
   if (!needsFieldMap.includes(action)) {
     return true
   }

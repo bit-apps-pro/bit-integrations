@@ -27,7 +27,7 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
-  const action = sheetConf?.mainAction || DEFAULT_ACTION
+  const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
   const handleMainAction = value => {
     if (!value || value === action) {
@@ -60,6 +60,16 @@ export default function GoogleSheetIntegLayout({
       />
     </div>
   )
+
+  if (!action) {
+    return (
+      <>
+        <br />
+        {actionSelect}
+        <br />
+      </>
+    )
+  }
 
   if (action !== DEFAULT_ACTION) {
     return (

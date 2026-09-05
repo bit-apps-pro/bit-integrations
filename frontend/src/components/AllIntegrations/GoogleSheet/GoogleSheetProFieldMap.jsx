@@ -72,7 +72,9 @@ export default function GoogleSheetProFieldMap({
           <option value="">{__('Select Field', 'bit-integrations')}</option>
           {targetFields.map(target => (
             <option key={`gsheet-t-${target.value}`} value={target.value}>
-              {target.required ? `${target.label} (${__('required', 'bit-integrations')})` : target.label}
+              {target.required
+                ? `${target.label} (${__('required', 'bit-integrations')})`
+                : target.label}
             </option>
           ))}
         </select>
