@@ -7,7 +7,6 @@ import ConfirmModal from '../../Utilities/ConfirmModal'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { refreshQuizAndSurveyMasterThemes } from './QuizAndSurveyMasterCommonFunc'
-import { yesNoOptions } from './staticData'
 
 export default function QuizAndSurveyMasterActions({
   quizAndSurveyMasterConf,
@@ -16,64 +15,92 @@ export default function QuizAndSurveyMasterActions({
   const [isLoading, setIsLoading] = useState(false)
   const [actionMdl, setActionMdl] = useState({ show: false })
 
-  const actionHandler = (e, type) => {
-    setActionMdl({ show: type })
-
-    if (type === 'theme') {
-      refreshQuizAndSurveyMasterThemes(setQuizAndSurveyMasterConf, setIsLoading)
-    }
-  }
-
-  const clsActionMdl = () => {
-    setActionMdl({ show: false })
-  }
-
-  const setAction = (val, name) => {
+  const setUtility = (name, value) => {
     setQuizAndSurveyMasterConf(prevConf =>
       create(prevConf, draftConf => {
         if (!draftConf.utilities) {
           draftConf.utilities = {}
         }
-        draftConf.utilities[name] = val
+        draftConf.utilities[name] = value
       })
     )
   }
 
-  const renderActionModal = (type, title, options, valueName) => (
-    <ConfirmModal
-      className="custom-conf-mdl"
-      mainMdlCls="o-v"
-      btnClass="purple"
-      btnTxt={__('Ok', 'bit-integrations')}
-      show={actionMdl.show === type}
-      close={clsActionMdl}
-      action={clsActionMdl}
-      title={title}>
-      <div className="btcd-hr mt-2 mb-2" />
-      <div className="mt-2">{title}</div>
-      {isLoading ? (
-        <Loader
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 45,
-            transform: 'scale(0.5)'
-          }}
-        />
-      ) : (
-        <div className="flx flx-between mt-2">
-          <MultiSelect
-            options={options}
-            className="msl-wrp-options"
-            singleSelect
-            closeOnSelect
-            defaultValue={quizAndSurveyMasterConf?.utilities?.[valueName] || undefined}
-            onChange={val => setAction(val, valueName)}
+  const toggleUtility = (e, name) => setUtility(name, e.target.checked ? '1' : '0')
+
+  const isChecked = name => quizAndSurveyMasterConf?.utilities?.[name] === '1'
+
+  const openFetchable = (type, refresh) => {
+    setActionMdl({ show: type })
+    refresh(setQuizAndSurveyMasterConf, setIsLoading)
+  }
+
+  const clsActionMdl = () => setActionMdl({ show: false })
+
+  const renderBoolean = (name, title, subTitle) => (
+    <TableCheckBox
+      checked={isChecked(name)}
+      onChange={e => toggleUtility(e, name)}
+      className="wdt-200 mt-4 mr-2"
+      value={name}
+      title={title}
+      subTitle={subTitle}
+    />
+  )
+
+  const renderFetchable = (type, title, subTitle, valueName, options, refresh) => (
+    <>
+      <TableCheckBox
+        checked={!!quizAndSurveyMasterConf?.utilities?.[valueName]}
+        onChange={() => openFetchable(type, refresh)}
+        className="wdt-200 mt-4 mr-2"
+        value={type}
+        title={title}
+        subTitle={subTitle}
+      />
+      <ConfirmModal
+        className="custom-conf-mdl"
+        mainMdlCls="o-v"
+        btnClass="purple"
+        btnTxt={__('Ok', 'bit-integrations')}
+        show={actionMdl.show === type}
+        close={clsActionMdl}
+        action={clsActionMdl}
+        title={title}>
+        <div className="btcd-hr mt-2 mb-2" />
+        <div className="mt-2">{title}</div>
+        {isLoading ? (
+          <Loader
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 45,
+              transform: 'scale(0.5)'
+            }}
           />
-        </div>
-      )}
-    </ConfirmModal>
+        ) : (
+          <div className="flx flx-between mt-2">
+            <MultiSelect
+              options={options}
+              className="msl-wrp-options"
+              singleSelect
+              closeOnSelect
+              defaultValue={quizAndSurveyMasterConf?.utilities?.[valueName] || undefined}
+              onChange={val => setUtility(valueName, val)}
+            />
+            <button
+              onClick={() => refresh(setQuizAndSurveyMasterConf, setIsLoading)}
+              className="icn-btn sh-sm ml-2 tooltip"
+              style={{ '--tooltip-txt': `'${__('Refresh', 'bit-integrations')}'` }}
+              type="button"
+              disabled={isLoading}>
+              &#x21BB;
+            </button>
+          </div>
+        )}
+      </ConfirmModal>
+    </>
   )
 
   const themeOptions = Array.isArray(quizAndSurveyMasterConf?.allThemes)
@@ -83,117 +110,55 @@ export default function QuizAndSurveyMasterActions({
       }))
     : []
 
+  const { mainAction } = quizAndSurveyMasterConf ?? {}
+
   return (
     <div className="pos-rel d-flx flx-wrp">
-      {quizAndSurveyMasterConf?.mainAction === 'create_quiz' && (
-        <>
-          <TableCheckBox
-            checked={quizAndSurveyMasterConf?.utilities?.selected_theme || false}
-            onChange={e => actionHandler(e, 'theme')}
-            className="wdt-200 mt-4 mr-2"
-            value="theme"
-            title={__('Theme', 'bit-integrations')}
-            subTitle={__('Activate a theme on the new quiz', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'theme',
-            __('Theme', 'bit-integrations'),
-            themeOptions,
-            'selected_theme'
-          )}
-        </>
-      )}
+      {mainAction === 'create_quiz' &&
+        renderFetchable(
+          'theme',
+          __('Theme', 'bit-integrations'),
+          __('Activate a theme on the new quiz', 'bit-integrations'),
+          'selected_theme',
+          themeOptions,
+          refreshQuizAndSurveyMasterThemes
+        )}
 
-      {quizAndSurveyMasterConf?.mainAction === 'duplicate_quiz' && (
-        <>
-          <TableCheckBox
-            checked={quizAndSurveyMasterConf?.utilities?.selected_duplicate_questions || false}
-            onChange={e => actionHandler(e, 'duplicate_questions')}
-            className="wdt-200 mt-4 mr-2"
-            value="duplicate_questions"
-            title={__('Duplicate Questions', 'bit-integrations')}
-            subTitle={__('Copy the questions into the new quiz', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'duplicate_questions',
-            __('Duplicate Questions', 'bit-integrations'),
-            yesNoOptions,
-            'selected_duplicate_questions'
-          )}
-        </>
-      )}
+      {mainAction === 'duplicate_quiz' &&
+        renderBoolean(
+          'selected_duplicate_questions',
+          __('Duplicate Questions', 'bit-integrations'),
+          __('Copy the questions into the new quiz', 'bit-integrations')
+        )}
 
-      {quizAndSurveyMasterConf?.mainAction === 'delete_quiz' && (
+      {mainAction === 'delete_quiz' && (
         <>
-          <TableCheckBox
-            checked={quizAndSurveyMasterConf?.utilities?.selected_delete_permanently || false}
-            onChange={e => actionHandler(e, 'delete_permanently')}
-            className="wdt-200 mt-4 mr-2"
-            value="delete_permanently"
-            title={__('Delete Permanently', 'bit-integrations')}
-            subTitle={__('Remove the quiz instead of trashing it', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'delete_permanently',
+          {renderBoolean(
+            'selected_delete_permanently',
             __('Delete Permanently', 'bit-integrations'),
-            yesNoOptions,
-            'selected_delete_permanently'
+            __('Remove the quiz instead of trashing it', 'bit-integrations')
           )}
-
-          <TableCheckBox
-            checked={quizAndSurveyMasterConf?.utilities?.selected_delete_questions || false}
-            onChange={e => actionHandler(e, 'delete_questions')}
-            className="wdt-200 mt-4 mr-2"
-            value="delete_questions"
-            title={__('Delete Questions', 'bit-integrations')}
-            subTitle={__('Remove the quiz questions as well', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'delete_questions',
+          {renderBoolean(
+            'selected_delete_questions',
             __('Delete Questions', 'bit-integrations'),
-            yesNoOptions,
-            'selected_delete_questions'
+            __('Remove the quiz questions as well', 'bit-integrations')
           )}
         </>
       )}
 
-      {['create_question', 'update_question'].includes(quizAndSurveyMasterConf?.mainAction) && (
-        <>
-          <TableCheckBox
-            checked={quizAndSurveyMasterConf?.utilities?.selected_required || false}
-            onChange={e => actionHandler(e, 'required')}
-            className="wdt-200 mt-4 mr-2"
-            value="required"
-            title={__('Required', 'bit-integrations')}
-            subTitle={__('Make answering the question mandatory', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'required',
-            __('Required', 'bit-integrations'),
-            yesNoOptions,
-            'selected_required'
-          )}
-        </>
-      )}
+      {['create_question', 'update_question'].includes(mainAction) &&
+        renderBoolean(
+          'selected_required',
+          __('Required', 'bit-integrations'),
+          __('Make answering the question mandatory', 'bit-integrations')
+        )}
 
-      {quizAndSurveyMasterConf?.mainAction === 'delete_result' && (
-        <>
-          <TableCheckBox
-            checked={quizAndSurveyMasterConf?.utilities?.selected_delete_permanently || false}
-            onChange={e => actionHandler(e, 'delete_permanently')}
-            className="wdt-200 mt-4 mr-2"
-            value="delete_permanently"
-            title={__('Delete Permanently', 'bit-integrations')}
-            subTitle={__('Remove the result instead of trashing it', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'delete_permanently',
-            __('Delete Permanently', 'bit-integrations'),
-            yesNoOptions,
-            'selected_delete_permanently'
-          )}
-        </>
-      )}
+      {mainAction === 'delete_result' &&
+        renderBoolean(
+          'selected_delete_permanently',
+          __('Delete Permanently', 'bit-integrations'),
+          __('Remove the result instead of trashing it', 'bit-integrations')
+        )}
     </div>
   )
 }

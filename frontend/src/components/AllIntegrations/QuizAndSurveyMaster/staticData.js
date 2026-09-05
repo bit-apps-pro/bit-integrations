@@ -68,11 +68,6 @@ export const ResultIdField = [
   { key: 'result_id', label: __('Result Id', 'bit-integrations'), required: true }
 ]
 
-export const yesNoOptions = [
-  { label: __('Yes', 'bit-integrations'), value: '1' },
-  { label: __('No', 'bit-integrations'), value: '0' }
-]
-
 export const needsQuestionType = ['create_question', 'update_question']
 export const hasUtilities = [
   'create_quiz',
