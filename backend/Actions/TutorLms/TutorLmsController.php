@@ -6,6 +6,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -72,7 +73,7 @@ class TutorLmsController
         wp_send_json_success($courses, 200);
     }
 
-    public static function enrollCourse($selectedCourse, $selectedAllCourse, $type)
+    public static function enrollCourse($selectedCourse, $selectedAllCourse, $type, $user_id)
     {
         $course_ids = [];
 
@@ -86,7 +87,6 @@ class TutorLmsController
             $course_ids = $selectedCourse;
         }
 
-        $user_id = get_current_user_id();
         if (!\count($course_ids)) {
             return;
         }
@@ -107,18 +107,16 @@ class TutorLmsController
         return __('course unenrolled', 'bit-integrations');
     }
 
-    public static function completeLesson($selectedLesson)
+    public static function completeLesson($selectedLesson, $user_id)
     {
-        $user_id = get_current_user_id();
         $lesson_id = $selectedLesson[0];
         tutils()->mark_lesson_complete($lesson_id, $user_id);
 
         return __('Lesson completed', 'bit-integrations');
     }
 
-    public static function completeCourse($selectedCourse)
+    public static function completeCourse($selectedCourse, $user_id)
     {
-        $user_id = get_current_user_id();
         $course_id = $selectedCourse[0];
 
         if (!tutils()->is_completed_course($course_id, $user_id)) {
@@ -135,10 +133,9 @@ class TutorLmsController
         return __('Course Completed', 'bit-integrations');
     }
 
-    public static function resetCourse($selectedCourse)
+    public static function resetCourse($selectedCourse, $user_id)
     {
         global $wpdb;
-        $user_id = get_current_user_id();
         $course_id = $selectedCourse[0];
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query needed for TutorLMS reset lookup.
@@ -225,11 +222,21 @@ class TutorLmsController
         return true;
     }
 
+
     public function execute($integrationData, $fieldValues)
     {
         $integId = $integrationData->id;
         $actionName = $integrationData->flow_details->actionName;
         $response = [];
+
+        $user_id = ActionUser::resolve($integrationData->flow_details, $fieldValues);
+
+        if (is_wp_error($user_id)) {
+            LogHandler::save($integId, wp_json_encode(['type' => $actionName, 'type_name' => $actionName]), 'error', wp_json_encode($user_id->get_error_message()));
+
+            return $user_id;
+        }
+
         switch ($actionName) {
             case 'enroll-course':
             case 'unenroll-course':
@@ -241,17 +248,17 @@ class TutorLmsController
                     $selectedAllCourse = $integrationData->flow_details->selectedAllCourse;
                 }
                 if ($actionName === 'complete-course') {
-                    $response = self::completeCourse($selectedCourse);
+                    $response = self::completeCourse($selectedCourse, $user_id);
                 } elseif ($actionName === 'reset-course') {
-                    $response = self::resetCourse($selectedCourse);
+                    $response = self::resetCourse($selectedCourse, $user_id);
                 } else {
-                    $response = self::enrollCourse($selectedCourse, $selectedAllCourse, 'enroll');
+                    $response = self::enrollCourse($selectedCourse, $selectedAllCourse, 'enroll', $user_id);
                 }
 
                 break;
             case 'complete-lesson':
                 $selectedLesson = $integrationData->flow_details->selectedLesson;
-                $response = self::completeLesson($selectedLesson);
+                $response = self::completeLesson($selectedLesson, $user_id);
 
                 break;
         }

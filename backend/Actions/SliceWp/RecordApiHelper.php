@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\SliceWp;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -34,9 +35,8 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public function addCommissionToUser($data, $statusId, $typeId)
+    public function addCommissionToUser($data, $statusId, $typeId, $user_id)
     {
-        $user_id = get_current_user_id();
         $affiliate_id = $this->slicewp_get_user_affiliate_id($user_id);
         if (!$affiliate_id) {
             return;
@@ -76,10 +76,19 @@ class RecordApiHelper
         $fieldData = [];
         $response = null;
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add commission', 'type_name' => 'add-commission-to-user']), 'error', wp_json_encode($userId->get_error_message()));
+
+            return $userId;
+        }
+
         if ($mainAction === '1') {
             $statusId = $integrationDetails->statusId;
             $typeId = $integrationDetails->typeId;
-            $response = $this->addCommissionToUser($finalData, $statusId, $typeId);
+            $response = $this->addCommissionToUser($finalData, $statusId, $typeId, $userId);
             if ($response && \gettype($response) === 'integer') {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add commission', 'type_name' => 'add-commission-to-user']), 'success', wp_json_encode($response));
             } else {

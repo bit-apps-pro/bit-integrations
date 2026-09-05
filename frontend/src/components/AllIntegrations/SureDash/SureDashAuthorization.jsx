@@ -1,6 +1,7 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function SureDashAuthorization({
   sureDashConf,
@@ -11,6 +12,8 @@ export default function SureDashAuthorization({
 }) {
   return (
     <Authorization
+      tutorialTitle="SureDash"
+      tutorialLinks={tutorialLinks?.sureDash || {}}
       config={sureDashConf}
       setConfig={setSureDashConf}
       step={step}

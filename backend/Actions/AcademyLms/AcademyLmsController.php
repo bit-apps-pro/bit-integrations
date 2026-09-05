@@ -6,6 +6,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -68,7 +69,7 @@ class AcademyLmsController
         wp_send_json_success($courses, 200);
     }
 
-    public static function enrollCourse($selectedCourse, $selectedAllCourse, $type)
+    public static function enrollCourse($selectedCourse, $selectedAllCourse, $type, $user_id)
     {
         $course_ids = [];
 
@@ -82,7 +83,6 @@ class AcademyLmsController
             $course_ids = $selectedCourse;
         }
 
-        $user_id = get_current_user_id();
         if (!\count($course_ids)) {
             return;
         }
@@ -103,9 +103,8 @@ class AcademyLmsController
         return 'course unenrolled';
     }
 
-    public static function completeLesson($selectedCourse, $selectedLesson)
+    public static function completeLesson($selectedCourse, $selectedLesson, $user_id)
     {
-        $user_id = get_current_user_id();
         $topic_id = $selectedLesson[0];
         $course_id = $selectedCourse[0];
         $topic_type = 'lesson';
@@ -129,9 +128,8 @@ class AcademyLmsController
         return 'Lesson Completed';
     }
 
-    public static function completeCourse($selectedCourse)
+    public static function completeCourse($selectedCourse, $user_id)
     {
-        $user_id = get_current_user_id();
         $course_id = $selectedCourse[0];
 
         global $wpdb;
@@ -171,10 +169,9 @@ class AcademyLmsController
         }
     }
 
-    public static function resetCourse($selectedCourse)
+    public static function resetCourse($selectedCourse, $user_id)
     {
         global $wpdb;
-        $user_id = get_current_user_id();
         $course_id = $selectedCourse[0];
         $complete_topics = "academy_course_{$course_id}_completed_topics";
 
@@ -207,6 +204,15 @@ class AcademyLmsController
         $integId = $integrationData->id;
         $actionName = $integrationData->flow_details->actionName;
         $response = [];
+
+        $user_id = ActionUser::resolve($integrationData->flow_details, $fieldValues);
+
+        if (is_wp_error($user_id)) {
+            LogHandler::save($integId, wp_json_encode(['type' => $actionName, 'type_name' => $actionName]), 'error', wp_json_encode($user_id->get_error_message()));
+
+            return $user_id;
+        }
+
         switch ($actionName) {
             case 'enroll-course':
             case 'unenroll-course':
@@ -218,20 +224,20 @@ class AcademyLmsController
                     $selectedAllCourse = $integrationData->flow_details->selectedAllCourse;
                 }
                 if ($actionName === 'complete-course') {
-                    $response = self::completeCourse($selectedCourse);
+                    $response = self::completeCourse($selectedCourse, $user_id);
                 } elseif ($actionName === 'reset-course') {
-                    $response = self::resetCourse($selectedCourse);
+                    $response = self::resetCourse($selectedCourse, $user_id);
                 } elseif ($actionName === 'enroll-course') {
-                    $response = self::enrollCourse($selectedCourse, $selectedAllCourse, 'enroll');
+                    $response = self::enrollCourse($selectedCourse, $selectedAllCourse, 'enroll', $user_id);
                 } else {
-                    $response = self::enrollCourse($selectedCourse, $selectedAllCourse, 'unenroll');
+                    $response = self::enrollCourse($selectedCourse, $selectedAllCourse, 'unenroll', $user_id);
                 }
 
                 break;
             case 'complete-lesson':
                 $selectedCourse = $integrationData->flow_details->selectedCourse;
                 $selectedLesson = $integrationData->flow_details->selectedLesson;
-                $response = self::completeLesson($selectedCourse, $selectedLesson);
+                $response = self::completeLesson($selectedCourse, $selectedLesson, $user_id);
 
                 break;
         }

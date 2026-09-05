@@ -7,6 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput } from './PaidMembershipProCommonFunc'
 import PaidMembershipProAuthorization from './PaidMembershipProAuthorization'
 import PaidMembershipProIntegLayout from './PaidMembershipProIntegLayout'
@@ -88,7 +89,8 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
           disabled={
             !paidMembershipProConf.mainAction ||
             isLoading ||
-            paidMembershipProConf.selectedMembership === undefined
+            paidMembershipProConf.selectedMembership === undefined ||
+            isUserSourceIncomplete(paidMembershipProConf)
           }
           className="btn f-left btcd-btn-lg purple sh-sm flx"
           type="button">

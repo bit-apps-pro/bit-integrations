@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\WPCourseware;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
@@ -46,8 +47,16 @@ class WPCoursewareController
             return false;
         }
 
-        $userId = get_current_user_id();
         $integrationDetails = $integrationData->flow_details;
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save($this->integrationID, ['type' => 'record', 'type_name' => 'insert'], 'error', $userId->get_error_message());
+
+            return $userId;
+        }
+
         $action = $integrationDetails->action;
         $course = $integrationDetails->course;
         $allCourse = isset($integrationDetails->selectedAllCourse) ? $integrationDetails->selectedAllCourse : [];

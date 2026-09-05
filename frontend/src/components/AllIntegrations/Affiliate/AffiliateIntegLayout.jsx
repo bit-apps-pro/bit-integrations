@@ -7,6 +7,8 @@ import AffiliateActions from './AffiliateActions'
 import { getAllAffiliate } from './AffiliateCommonFunc'
 import AffiliateFieldMap from './AffiliateFieldMap'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function AffiliateIntegLayout({
   formFields,
@@ -140,7 +142,31 @@ export default function AffiliateIntegLayout({
         />
       </>
       <br />
-      <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      {affiliateConf?.mainAction && (
+        <>
+          <br />
+          <UserSourceSelect conf={affiliateConf} setConf={setAffiliateConf} />
+          {affiliateConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={affiliateConf}
+              setConf={setAffiliateConf}
+              formFields={formFields}
+              actionLabel={__('AffiliateWP Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {affiliateConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }
