@@ -105,23 +105,20 @@ class GoogleSheetController
         }
 
         $spreadSheetResponse = HttpHelper::get($spreadSheets, null, $authorizationHeader);
-        $allSpreadsheet = [];
-        if (!is_wp_error($spreadSheetResponse) && empty($spreadSheetResponse->response->error)) {
-            $spreadsheets = $spreadSheetResponse->files;
-            foreach ($spreadsheets as $spreadsheet) {
-                $allSpreadsheet[$spreadsheet->name] = (object) [
-                    'spreadsheetId'   => $spreadsheet->id,
-                    'spreadsheetName' => $spreadsheet->name
-                ];
-            }
-            uksort($allSpreadsheet, 'strnatcasecmp');
-            $response['spreadsheets'] = $allSpreadsheet;
-        } else {
-            wp_send_json_error(
-                $spreadSheetResponse->response->error->message,
-                400
-            );
+
+        if (self::hasApiError($spreadSheetResponse)) {
+            wp_send_json_error(self::apiErrorMessage($spreadSheetResponse), 400);
         }
+
+        $allSpreadsheet = [];
+        foreach ($spreadSheetResponse->files ?? [] as $spreadsheet) {
+            $allSpreadsheet[$spreadsheet->name] = (object) [
+                'spreadsheetId'   => $spreadsheet->id,
+                'spreadsheetName' => $spreadsheet->name
+            ];
+        }
+        uksort($allSpreadsheet, 'strnatcasecmp');
+        $response['spreadsheets'] = $allSpreadsheet;
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
@@ -157,15 +154,11 @@ class GoogleSheetController
         $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         $worksheetsMetaResponse = HttpHelper::get($worksheetsMetaApiEndpoint, null, $authorizationHeader);
 
-        if (!is_wp_error($worksheetsMetaResponse)) {
-            $worksheets = $worksheetsMetaResponse->sheets;
-            $response['worksheets'] = $worksheets;
-        } else {
-            wp_send_json_error(
-                $worksheetsMetaResponse->status === 'error' ? $worksheetsMetaResponse->message : 'Unknown',
-                400
-            );
+        if (self::hasApiError($worksheetsMetaResponse)) {
+            wp_send_json_error(self::apiErrorMessage($worksheetsMetaResponse), 400);
         }
+
+        $response['worksheets'] = $worksheetsMetaResponse->sheets ?? [];
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             $response['queryWorkbook'] = $queryParams->workbook;
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
@@ -212,11 +205,8 @@ class GoogleSheetController
         $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         $worksheetHeadersMetaResponse = HttpHelper::get($worksheetHeadersMetaApiEndpoint, null, $authorizationHeader);
 
-        if (is_wp_error($worksheetHeadersMetaResponse)) {
-            wp_send_json_error(
-                $worksheetHeadersMetaResponse->status === 'error' ? $worksheetHeadersMetaResponse->message : 'Unknown',
-                400
-            );
+        if (self::hasApiError($worksheetHeadersMetaResponse)) {
+            wp_send_json_error(self::apiErrorMessage($worksheetHeadersMetaResponse), 400);
         }
 
         $response['worksheet_headers'] = [];
@@ -358,6 +348,42 @@ class GoogleSheetController
         }
 
         $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
+    }
+
+    /**
+     * Google answers a failed call with a top-level `error` and no payload key, so a
+     * response is only usable once that is ruled out — reading `files`/`sheets` off an
+     * error body yields an empty dropdown with no reason shown.
+     *
+     * @param mixed $response
+     */
+    private static function hasApiError($response)
+    {
+        return is_wp_error($response) || !\is_object($response) || !empty($response->error);
+    }
+
+    /**
+     * @param mixed $response
+     */
+    private static function apiErrorMessage($response)
+    {
+        if (is_wp_error($response)) {
+            return $response->get_error_message();
+        }
+
+        if (\is_object($response) && !empty($response->error)) {
+            if (\is_object($response->error)) {
+                return $response->error->message ?? __('Unknown error', 'bit-integrations');
+            }
+
+            return empty($response->error_description) ? $response->error : $response->error_description;
+        }
+
+        if (\is_string($response) && $response !== '') {
+            return $response;
+        }
+
+        return __('Unknown error', 'bit-integrations');
     }
 
     private static function normalizeConnectionToken($token)
