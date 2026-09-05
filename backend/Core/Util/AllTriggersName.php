@@ -130,6 +130,7 @@ final class AllTriggersName
             'ProfileGrid'                    => ['name' => 'ProfileGrid',  'isPro' => true, 'is_active' => false],
             'ProfilePress'                   => ['name' => 'ProfilePress',  'isPro' => true, 'is_active' => false],
             'QuillForms'                     => ['name' => 'Quill Forms',  'isPro' => true, 'is_active' => false],
+            'QuizAndSurveyMaster'            => ['name' => 'Quiz And Survey Master',  'isPro' => true, 'is_active' => false],
             'Rafflepress'                    => ['name' => 'Rafflepress',  'isPro' => true, 'is_active' => false],
             'PeepSo'                         => ['name' => 'PeepSo',  'isPro' => true, 'is_active' => false],
             'Registration'                   => ['name' => 'WP User Registration',  'isPro' => true, 'is_active' => false],
