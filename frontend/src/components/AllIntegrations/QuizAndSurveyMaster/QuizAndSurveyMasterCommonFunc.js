@@ -62,33 +62,6 @@ export const refreshQuizAndSurveyMasterQuestionTypes = (
     .catch(() => setIsLoading(false))
 }
 
-export const refreshQuizAndSurveyMasterSettingKeys = (
-  section,
-  setQuizAndSurveyMasterConf,
-  setIsLoading
-) => {
-  setIsLoading(true)
-  bitsFetch({ section }, 'refresh_quiz_and_survey_master_setting_keys')
-    .then(result => {
-      if (result && result?.success && result?.data?.settingKeys) {
-        setQuizAndSurveyMasterConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf.allSettingKeys = result.data.settingKeys
-          })
-        )
-
-        setIsLoading(false)
-        toast.success(__('All setting keys fetched successfully', 'bit-integrations'))
-        return
-      }
-      setIsLoading(false)
-      toast.error(
-        __('Quiz And Survey Master setting keys fetch failed. Please try again', 'bit-integrations')
-      )
-    })
-    .catch(() => setIsLoading(false))
-}
-
 export const checkMappedFields = quizAndSurveyMasterConf => {
   const mappedFields = quizAndSurveyMasterConf?.field_map
     ? quizAndSurveyMasterConf.field_map.filter(

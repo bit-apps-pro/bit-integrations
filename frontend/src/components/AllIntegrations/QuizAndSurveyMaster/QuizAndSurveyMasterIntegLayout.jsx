@@ -9,8 +9,7 @@ import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import QuizAndSurveyMasterActions from './QuizAndSurveyMasterActions'
 import {
   generateMappedField,
-  refreshQuizAndSurveyMasterQuestionTypes,
-  refreshQuizAndSurveyMasterSettingKeys
+  refreshQuizAndSurveyMasterQuestionTypes
 } from './QuizAndSurveyMasterCommonFunc'
 import QuizAndSurveyMasterFieldMap from './QuizAndSurveyMasterFieldMap'
 import {
@@ -18,14 +17,11 @@ import {
   hasUtilities,
   modules,
   needsQuestionType,
-  needsSettingSection,
   QuestionIdField,
   QuizIdField,
   QuizIdNameFields,
   QuizNameField,
-  QuizSettingsFields,
   ResultIdField,
-  settingSections,
   UpdateQuestionFields
 } from './staticData'
 
@@ -64,9 +60,6 @@ export default function QuizAndSurveyMasterIntegLayout({
           case 'delete_quiz':
             draftConf.quizAndSurveyMasterFields = QuizIdField
             break
-          case 'update_quiz_settings':
-            draftConf.quizAndSurveyMasterFields = QuizSettingsFields
-            break
           case 'create_question':
             draftConf.quizAndSurveyMasterFields = CreateQuestionFields
             break
@@ -92,22 +85,10 @@ export default function QuizAndSurveyMasterIntegLayout({
     }
   }
 
-  const handleSection = value => {
-    setField('selectedSection', value)
-    refreshQuizAndSurveyMasterSettingKeys(value, setQuizAndSurveyMasterConf, setIsLoading)
-  }
-
   const questionTypeOptions = Array.isArray(quizAndSurveyMasterConf?.allQuestionTypes)
     ? quizAndSurveyMasterConf.allQuestionTypes.map(type => ({
         label: type.label,
         value: type.value?.toString()
-      }))
-    : []
-
-  const settingKeyOptions = Array.isArray(quizAndSurveyMasterConf?.allSettingKeys)
-    ? quizAndSurveyMasterConf.allSettingKeys.map(key => ({
-        label: key.label,
-        value: key.value?.toString()
       }))
     : []
 
@@ -130,51 +111,6 @@ export default function QuizAndSurveyMasterIntegLayout({
           closeOnSelect
         />
       </div>
-
-      {needsSettingSection.includes(quizAndSurveyMasterConf?.mainAction) && (
-        <>
-          <br />
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Settings Section:', 'bit-integrations')}</b>
-            <MultiSelect
-              title="selectedSection"
-              defaultValue={quizAndSurveyMasterConf?.selectedSection ?? null}
-              className="btcd-paper-drpdwn w-5"
-              options={settingSections}
-              onChange={val => handleSection(val)}
-              singleSelect
-              closeOnSelect
-            />
-          </div>
-          <br />
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Setting Key:', 'bit-integrations')}</b>
-            <MultiSelect
-              title="selectedSettingKey"
-              defaultValue={quizAndSurveyMasterConf?.selectedSettingKey ?? null}
-              className="btcd-paper-drpdwn w-5"
-              options={settingKeyOptions}
-              onChange={val => setField('selectedSettingKey', val)}
-              singleSelect
-              closeOnSelect
-            />
-            <button
-              onClick={() =>
-                refreshQuizAndSurveyMasterSettingKeys(
-                  quizAndSurveyMasterConf?.selectedSection,
-                  setQuizAndSurveyMasterConf,
-                  setIsLoading
-                )
-              }
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh Setting Keys', 'bit-integrations')}'` }}
-              type="button"
-              disabled={isLoading || !quizAndSurveyMasterConf?.selectedSection}>
-              &#x21BB;
-            </button>
-          </div>
-        </>
-      )}
 
       {needsQuestionType.includes(quizAndSurveyMasterConf?.mainAction) && (
         <>

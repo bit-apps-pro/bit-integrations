@@ -67,12 +67,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'update_quiz_settings':
-                $response = Hooks::apply(Config::withPrefix('quiz_and_survey_master_update_quiz_settings'), $defaultResponse, $fieldData, $this->_integrationDetails);
-                $type = 'quiz';
-
-                break;
-
             case 'create_question':
                 $response = Hooks::apply(Config::withPrefix('quiz_and_survey_master_create_question'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'question';

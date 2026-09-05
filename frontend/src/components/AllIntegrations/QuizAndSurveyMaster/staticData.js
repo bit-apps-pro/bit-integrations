@@ -5,11 +5,6 @@ export const modules = [
   { name: 'update_quiz_name', label: __('Update Quiz Name', 'bit-integrations'), is_pro: true },
   { name: 'duplicate_quiz', label: __('Duplicate Quiz', 'bit-integrations'), is_pro: true },
   { name: 'delete_quiz', label: __('Delete Quiz', 'bit-integrations'), is_pro: true },
-  {
-    name: 'update_quiz_settings',
-    label: __('Update Quiz Settings', 'bit-integrations'),
-    is_pro: true
-  },
   { name: 'create_question', label: __('Create Question', 'bit-integrations'), is_pro: true },
   { name: 'update_question', label: __('Update Question', 'bit-integrations'), is_pro: true },
   { name: 'delete_question', label: __('Delete Question', 'bit-integrations'), is_pro: true },
@@ -51,11 +46,6 @@ export const QuizIdField = [
   { key: 'quiz_id', label: __('Quiz Id', 'bit-integrations'), required: true }
 ]
 
-export const QuizSettingsFields = [
-  { key: 'quiz_id', label: __('Quiz Id', 'bit-integrations'), required: true },
-  { key: 'setting_value', label: __('Setting Value', 'bit-integrations'), required: true }
-]
-
 export const CreateQuestionFields = [
   { key: 'quiz_id', label: __('Quiz Id', 'bit-integrations'), required: true },
   { key: 'question_name', label: __('Question', 'bit-integrations'), required: true },
@@ -78,21 +68,12 @@ export const ResultIdField = [
   { key: 'result_id', label: __('Result Id', 'bit-integrations'), required: true }
 ]
 
-export const settingSections = [
-  { label: __('Quiz Options', 'bit-integrations'), value: 'quiz_options' },
-  { label: __('Quiz Text', 'bit-integrations'), value: 'quiz_text' },
-  { label: __('Quiz Style', 'bit-integrations'), value: 'quiz_style' },
-  { label: __('Display Options', 'bit-integrations'), value: 'display_options' },
-  { label: __('Certificate', 'bit-integrations'), value: 'certificate' }
-]
-
 export const yesNoOptions = [
   { label: __('Yes', 'bit-integrations'), value: '1' },
   { label: __('No', 'bit-integrations'), value: '0' }
 ]
 
 export const needsQuestionType = ['create_question', 'update_question']
-export const needsSettingSection = ['update_quiz_settings']
 export const hasUtilities = [
   'create_quiz',
   'duplicate_quiz',

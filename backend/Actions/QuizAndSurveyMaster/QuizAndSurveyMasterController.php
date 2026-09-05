@@ -69,46 +69,6 @@ class QuizAndSurveyMasterController
         wp_send_json_success(['questionTypes' => $questionTypes], 200);
     }
 
-    public function refreshSettingKeys()
-    {
-        self::isExists();
-
-        global $wpdb;
-
-        $section = isset($_POST['section']) ? sanitize_text_field(wp_unslash($_POST['section'])) : 'quiz_options';
-
-        $keys = [];
-
-        foreach ($wpdb->get_col("SELECT quiz_settings FROM {$wpdb->prefix}mlw_quizzes WHERE deleted = 0") as $serialized) {
-            $settings = maybe_unserialize($serialized);
-
-            if (!\is_array($settings) || !isset($settings[$section])) {
-                continue;
-            }
-
-            $sectionSettings = maybe_unserialize($settings[$section]);
-
-            if (\is_array($sectionSettings)) {
-                $keys = array_merge($keys, array_keys($sectionSettings));
-            }
-        }
-
-        $keys = array_values(array_unique($keys));
-        sort($keys);
-
-        $settingKeys = array_map(
-            function ($key) {
-                return (object) [
-                    'value' => $key,
-                    'label' => $key,
-                ];
-            },
-            $keys
-        );
-
-        wp_send_json_success(['settingKeys' => $settingKeys], 200);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

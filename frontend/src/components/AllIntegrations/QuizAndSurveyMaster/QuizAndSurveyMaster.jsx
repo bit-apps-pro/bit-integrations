@@ -31,17 +31,6 @@ export default function QuizAndSurveyMaster({ formFields, setFlow, flow, allInte
 
     if (val === 3) {
       if (
-        quizAndSurveyMasterConf.mainAction === 'update_quiz_settings' &&
-        (!quizAndSurveyMasterConf?.selectedSection || !quizAndSurveyMasterConf?.selectedSettingKey)
-      ) {
-        setSnackbar({
-          show: true,
-          msg: __('Please select a settings section and key to continue.', 'bit-integrations')
-        })
-        return
-      }
-
-      if (
         quizAndSurveyMasterConf.mainAction === 'create_question' &&
         !quizAndSurveyMasterConf?.selectedQuestionType
       ) {
