@@ -13,7 +13,7 @@ use BitApps\Integrations\Log\LogHandler;
 
 class ProRecordApiHelper
 {
-    private const TEXT_INPUTS = [
+    private const ACTION_FIELDS = [
         'createSpreadsheet' => ['title', 'sheetTitle'],
         'createSheet'       => ['title'],
         'copySheet'         => ['destinationSpreadsheetId'],
@@ -97,43 +97,27 @@ class ProRecordApiHelper
 
     private function generateFieldData($fieldValues, $mainAction)
     {
-        $integrationDetails = $this->_integrationDetails;
+        $mappedValues = $this->mapFieldValues($fieldValues);
         $fieldData = [];
 
-        foreach (self::TEXT_INPUTS[$mainAction] ?? [] as $key) {
-            $fieldData[$key] = Common::replaceFieldWithValue($integrationDetails->{$key} ?? '', $fieldValues);
+        foreach (self::ACTION_FIELDS[$mainAction] ?? [] as $key) {
+            $fieldData[$key] = $mappedValues[$key] ?? '';
         }
 
         if (\in_array($mainAction, self::ROW_VALUE_ACTIONS, true)) {
             $allHeaders = $this->getWorksheetHeaders();
-            $fieldData['values'] = $this->mapRowValues($fieldValues, $allHeaders);
+            $fieldData['values'] = $this->mapRowValues($mappedValues, $allHeaders);
             $fieldData['columnToMatch'] = $this->getColumnToMatchIndex($allHeaders);
         }
 
         return $fieldData;
     }
 
-    private function getWorksheetHeaders()
-    {
-        $integrationDetails = $this->_integrationDetails;
-        $spreadsheetId = $integrationDetails->spreadsheetId ?? '';
-        $worksheetName = $integrationDetails->worksheetName ?? '';
-        $headerRow = $integrationDetails->headerRow ?? '';
-
-        if (empty($spreadsheetId) || empty($worksheetName) || empty($headerRow)) {
-            return [];
-        }
-
-        $headers = $integrationDetails->default->headers->{$spreadsheetId}->{$worksheetName}->{$headerRow} ?? [];
-
-        return array_values((array) $headers);
-    }
-
     /**
-     * Map each mapped header to its 0-based offset from the header row's first column;
-     * unmapped headers are omitted so an update never blanks a column the user left alone.
+     * Resolve every field-map row to its target key. Rows naming one of the action's
+     * own fields carry that input; the rest name a worksheet header.
      */
-    private function mapRowValues($fieldValues, $allHeaders)
+    private function mapFieldValues($fieldValues)
     {
         $mappedValues = [];
 
@@ -156,7 +140,33 @@ class ProRecordApiHelper
                 : $value;
         }
 
+        return $mappedValues;
+    }
+
+    private function getWorksheetHeaders()
+    {
+        $integrationDetails = $this->_integrationDetails;
+        $spreadsheetId = $integrationDetails->spreadsheetId ?? '';
+        $worksheetName = $integrationDetails->worksheetName ?? '';
+        $headerRow = $integrationDetails->headerRow ?? '';
+
+        if (empty($spreadsheetId) || empty($worksheetName) || empty($headerRow)) {
+            return [];
+        }
+
+        $headers = $integrationDetails->default->headers->{$spreadsheetId}->{$worksheetName}->{$headerRow} ?? [];
+
+        return array_values((array) $headers);
+    }
+
+    /**
+     * Map each mapped header to its 0-based offset from the header row's first column;
+     * unmapped headers are omitted so an update never blanks a column the user left alone.
+     */
+    private function mapRowValues($mappedValues, $allHeaders)
+    {
         $columns = [];
+
         foreach ($allHeaders as $index => $header) {
             if (isset($mappedValues[$header])) {
                 $columns[$index] = $mappedValues[$header];

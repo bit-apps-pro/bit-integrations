@@ -2,12 +2,13 @@ import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
 import {
+  actionFields,
   DEFAULT_ACTION,
   needsColumnToMatch,
   needsFieldMap,
+  needsHeaders,
   needsSpreadsheet,
-  needsWorksheet,
-  textInputs
+  needsWorksheet
 } from './staticData'
 
 export const handleInput = (
@@ -45,7 +46,7 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
   const newConf = deepCopy(sheetConf)
   newConf.worksheetName = ''
   newConf.headerRow = 'A1'
-  newConf.field_map = [{ formField: '', googleSheetField: '' }]
+  newConf.field_map = generateMappedField(sheetConf.mainAction || DEFAULT_ACTION)
 
   if (!newConf?.default?.worksheets?.[sheetConf.spreadsheetId]) {
     refreshWorksheets(formID, newConf, setSheetConf, setIsLoading, setSnackbar)
@@ -63,7 +64,7 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
 const worksheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSnackbar) => {
   const newConf = { ...sheetConf }
   newConf.headerRow = 'A1'
-  newConf.field_map = [{ formField: '', googleSheetField: '' }]
+  newConf.field_map = generateMappedField(sheetConf.mainAction || DEFAULT_ACTION)
 
   if (!newConf?.default?.worksheets?.headers?.[sheetConf.worksheetName]) {
     refreshWorksheetHeaders(formID, newConf, setSheetConf, setIsLoading, setSnackbar)
@@ -217,6 +218,26 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
     .catch(() => setIsLoading(false))
 }
 
+// One row per target field an action declares, so its required inputs are mapped
+// rather than typed. Header-driven actions get a spare blank row for the values.
+export const generateMappedField = action => {
+  const rows = (actionFields[action] || []).map(field => ({
+    formField: '',
+    googleSheetField: field.key
+  }))
+
+  if (needsHeaders.includes(action) || rows.length === 0) {
+    rows.push({ formField: '', googleSheetField: '' })
+  }
+
+  return rows
+}
+
+const mappedTargets = sheetConf =>
+  (sheetConf?.field_map || [])
+    .filter(mapped => mapped.googleSheetField && (mapped.formField || mapped.customValue))
+    .map(mapped => mapped.googleSheetField)
+
 export const isActionConfigured = sheetConf => {
   const action = sheetConf?.mainAction || DEFAULT_ACTION
 
@@ -233,7 +254,9 @@ export const isActionConfigured = sheetConf => {
     return false
   }
 
-  return (textInputs[action] || []).every(field => !field.required || sheetConf?.[field.key])
+  const mapped = mappedTargets(sheetConf)
+
+  return (actionFields[action] || []).every(field => !field.required || mapped.includes(field.key))
 }
 
 export const checkMappedFields = sheetconf => {

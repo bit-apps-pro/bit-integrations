@@ -2,17 +2,17 @@ import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import TagifyInput from '../../Utilities/TagifyInput'
 import { addFieldMap } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import { refreshSpreadsheets, refreshWorksheetHeaders, refreshWorksheets } from './GoogleSheetCommonFunc'
-import GoogleSheetFieldMap from './GoogleSheetFieldMap'
+import GoogleSheetProFieldMap from './GoogleSheetProFieldMap'
 import {
+  actionFields,
   hasUtilities,
   needsColumnToMatch,
+  needsFieldMap,
   needsHeaders,
   needsSpreadsheet,
-  needsWorksheet,
-  textInputs
+  needsWorksheet
 } from './staticData'
 
 export default function GoogleSheetProLayout({
@@ -30,6 +30,23 @@ export default function GoogleSheetProLayout({
     sheetConf?.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
       sheetConf.headerRow
     ] || []
+
+  const targetFields = [
+    ...(actionFields[action] || []).map(field => ({
+      value: field.key,
+      label: field.label,
+      required: field.required
+    })),
+    ...(needsHeaders.includes(action)
+      ? worksheetHeaders.map((header, indx) => ({
+          value: header,
+          label: header.replace(`_${indx}`, ''),
+          required: false
+        }))
+      : [])
+  ]
+
+  const showFieldMap = needsFieldMap.includes(action) && targetFields.length > 0
 
   const setConfValue = (name, value) =>
     setSheetConf(prevConf =>
@@ -110,20 +127,6 @@ export default function GoogleSheetProLayout({
         </>
       )}
 
-      {(textInputs[action] || []).map(field => (
-        <div className="flx mt-3" key={`gsheet-inp-${field.key}`}>
-          <b className="wdt-200 d-in-b">{`${field.label}${field.required ? ' *' : ''}`}</b>
-          <TagifyInput
-            onChange={e => setConfValue(field.key, e.target.value)}
-            className="w-5"
-            type="text"
-            value={sheetConf?.[field.key] || ''}
-            placeholder={field.label}
-            formFields={formFields}
-          />
-        </div>
-      ))}
-
       {hasUtilities.includes(action) && (
         <div className="flx mt-3">
           <b className="wdt-200 d-in-b">{__('Utilities:', 'bit-integrations')}</b>
@@ -197,7 +200,7 @@ export default function GoogleSheetProLayout({
         </div>
       )}
 
-      {needsHeaders.includes(action) && worksheetHeaders.length > 0 && (
+      {showFieldMap && (
         <>
           <div className="mt-4">
             <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
@@ -213,10 +216,11 @@ export default function GoogleSheetProLayout({
           </div>
 
           {(sheetConf.field_map || []).map((itm, i) => (
-            <GoogleSheetFieldMap
+            <GoogleSheetProFieldMap
               key={`sheet-pro-m-${i + 9}`}
               i={i}
               field={itm}
+              targetFields={targetFields}
               sheetConf={sheetConf}
               formFields={formFields}
               setSheetConf={setSheetConf}

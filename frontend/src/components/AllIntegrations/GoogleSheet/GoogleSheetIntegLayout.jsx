@@ -6,7 +6,12 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/GoogleIntegrationHelpers'
-import { refreshSpreadsheets, refreshWorksheetHeaders, refreshWorksheets } from './GoogleSheetCommonFunc'
+import {
+  generateMappedField,
+  refreshSpreadsheets,
+  refreshWorksheetHeaders,
+  refreshWorksheets
+} from './GoogleSheetCommonFunc'
 import GoogleSheetFieldMap from './GoogleSheetFieldMap'
 import GoogleSheetProLayout from './GoogleSheetProLayout'
 import { DEFAULT_ACTION, modules } from './staticData'
@@ -31,7 +36,7 @@ export default function GoogleSheetIntegLayout({
     setSheetConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
-        draftConf.field_map = [{ formField: '', googleSheetField: '' }]
+        draftConf.field_map = generateMappedField(value)
         draftConf.columnToMatch = ''
       })
     )

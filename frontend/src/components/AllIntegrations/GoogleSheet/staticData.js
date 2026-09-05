@@ -46,25 +46,48 @@ export const needsColumnToMatch = ['appendOrUpdateRow']
 
 export const hasUtilities = ['clearSheet']
 
-export const textInputs = {
-  createSpreadsheet: [
-    { key: 'title', label: __('Spreadsheet Title', 'bit-integrations'), required: true },
-    { key: 'sheetTitle', label: __('First Worksheet Title', 'bit-integrations'), required: false }
-  ],
-  createSheet: [{ key: 'title', label: __('Worksheet Title', 'bit-integrations'), required: true }],
-  copySheet: [
-    {
-      key: 'destinationSpreadsheetId',
-      label: __('Destination Spreadsheet Id', 'bit-integrations'),
-      required: true
-    }
-  ],
-  updateRow: [{ key: 'rowId', label: __('Row Number', 'bit-integrations'), required: true }],
-  deleteRow: [{ key: 'rowId', label: __('Row Number', 'bit-integrations'), required: true }],
-  createColumn: [
-    { key: 'columnName', label: __('Column Name', 'bit-integrations'), required: true },
-    { key: 'columnIndex', label: __('Column Position', 'bit-integrations'), required: false }
-  ]
+export const SpreadsheetFields = [
+  { key: 'title', label: __('Spreadsheet Title', 'bit-integrations'), required: true },
+  { key: 'sheetTitle', label: __('First Worksheet Title', 'bit-integrations'), required: false }
+]
+
+export const WorksheetTitleField = [
+  { key: 'title', label: __('Worksheet Title', 'bit-integrations'), required: true }
+]
+
+export const CopySheetFields = [
+  {
+    key: 'destinationSpreadsheetId',
+    label: __('Destination Spreadsheet Id', 'bit-integrations'),
+    required: true
+  }
+]
+
+export const RowNumberField = [
+  { key: 'rowId', label: __('Row Number', 'bit-integrations'), required: true }
+]
+
+export const ColumnFields = [
+  { key: 'columnName', label: __('Column Name', 'bit-integrations'), required: true },
+  { key: 'columnIndex', label: __('Column Position', 'bit-integrations'), required: false }
+]
+
+export const actionFields = {
+  createSpreadsheet: SpreadsheetFields,
+  createSheet: WorksheetTitleField,
+  copySheet: CopySheetFields,
+  updateRow: RowNumberField,
+  deleteRow: RowNumberField,
+  createColumn: ColumnFields
 }
 
-export const needsFieldMap = ['insertRow', 'appendOrUpdateRow', 'updateRow']
+export const needsFieldMap = [
+  'insertRow',
+  'appendOrUpdateRow',
+  'updateRow',
+  'deleteRow',
+  'createColumn',
+  'createSheet',
+  'copySheet',
+  'createSpreadsheet'
+]
