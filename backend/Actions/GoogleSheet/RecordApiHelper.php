@@ -40,9 +40,15 @@ class RecordApiHelper
 
     public function insertRecord($spreadsheetsId, $worksheetName, $header, $headerRow, $data)
     {
-        $insertRecordEndpoint = "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetsId}/values/{$worksheetName}!{$headerRow}:append?valueInputOption=USER_ENTERED";
+        $range = rawurlencode(self::a1Sheet($worksheetName) . '!' . $headerRow);
+        $insertRecordEndpoint = "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetsId}/values/{$range}:append?valueInputOption=USER_ENTERED";
 
         return HttpHelper::post($insertRecordEndpoint, $data, $this->_defaultHeader);
+    }
+
+    public static function a1Sheet($worksheetName)
+    {
+        return "'" . str_replace("'", "''", $worksheetName) . "'";
     }
 
     public function updateRecord($spreadsheetId, $worksheetInfo, $data)
@@ -84,9 +90,9 @@ class RecordApiHelper
     private function appendRow($mappedValues)
     {
         $integrationDetails = $this->_integrationDetails;
-        $worksheetName = $integrationDetails->worksheetName;
-        $headerRow = $integrationDetails->headerRow;
-        $header = $integrationDetails->header;
+        $worksheetName = $integrationDetails->worksheetName ?? '';
+        $headerRow = empty($integrationDetails->headerRow) ? 'A1' : $integrationDetails->headerRow;
+        $header = empty($integrationDetails->header) ? 'ROWS' : $integrationDetails->header;
 
         $values = [];
         foreach ($this->worksheetHeaders() as $googleSheetHeader) {
@@ -94,7 +100,7 @@ class RecordApiHelper
         }
 
         $data = [];
-        $data['range'] = "{$worksheetName}!{$headerRow}";
+        $data['range'] = self::a1Sheet($worksheetName) . '!' . $headerRow;
         $data['majorDimension'] = "{$header}";
         $data['values'][] = $values;
 

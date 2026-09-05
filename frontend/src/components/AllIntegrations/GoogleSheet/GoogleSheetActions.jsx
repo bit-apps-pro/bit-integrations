@@ -17,6 +17,7 @@ export default function GoogleSheetActions({ sheetConf, setSheetConf }) {
   return (
     <div className="pos-rel d-flx flx-wrp">
       <TableCheckBox
+        id="gsheet-first-row-headers"
         checked={sheetConf?.utilities?.selected_first_row_headers || false}
         onChange={e => setAction(e.target.checked, 'selected_first_row_headers')}
         className="wdt-200 mt-4 mr-2"

@@ -41,7 +41,7 @@ export default function GoogleSheetIntegLayout({
 
   const worksheetHeaders =
     sheetConf?.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
-    sheetConf.headerRow
+      sheetConf.headerRow
     ] || []
 
   const targetFields = [
@@ -52,10 +52,10 @@ export default function GoogleSheetIntegLayout({
     })),
     ...(needsHeaders.includes(action)
       ? worksheetHeaders.map((header, indx) => ({
-        value: header,
-        label: header.replace(`_${indx}`, ''),
-        required: false
-      }))
+          value: header,
+          label: header.replace(`_${indx}`, ''),
+          required: false
+        }))
       : [])
   ]
 

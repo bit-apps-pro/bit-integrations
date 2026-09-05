@@ -6,7 +6,6 @@ import {
   DEFAULT_ACTION,
   needsColumnToMatch,
   needsFieldMap,
-  needsHeaders,
   needsSpreadsheet,
   needsWorksheet
 } from './staticData'
@@ -135,6 +134,9 @@ export const refreshWorksheets = (formID, sheetConf, setSheetConf, setIsLoading,
       if (result && result.success) {
         const newConf = { ...sheetConf }
         if (result.data.worksheets) {
+          if (!newConf.default) {
+            newConf.default = {}
+          }
           if (!newConf.default.worksheets) {
             newConf.default.worksheets = {}
           }
@@ -159,7 +161,7 @@ export const refreshWorksheets = (formID, sheetConf, setSheetConf, setIsLoading,
 
 export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLoading, setSnackbar) => {
   const { spreadsheetId, worksheetName, header, headerRow } = sheetConf
-  if (!spreadsheetId && !worksheetName && !header && !headerRow) {
+  if (!spreadsheetId || !worksheetName || !header || !headerRow) {
     return
   }
 
@@ -178,6 +180,9 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
       if (result && result.success) {
         const newConf = { ...sheetConf }
         if (result.data.worksheet_headers?.length > 0) {
+          if (!newConf.default) {
+            newConf.default = {}
+          }
           if (!newConf.default.headers) {
             newConf.default.headers = {}
           }
@@ -219,16 +224,11 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
 }
 
 export const generateMappedField = action => {
-  const rows = (actionFields[action] || []).map(field => ({
-    formField: '',
-    googleSheetField: field.key
-  }))
+  const fields = actionFields[action] || []
 
-  if (needsHeaders.includes(action) || rows.length === 0) {
-    rows.push({ formField: '', googleSheetField: '' })
-  }
-
-  return rows
+  return fields.length > 0
+    ? fields.map(field => ({ formField: '', googleSheetField: field.key }))
+    : [{ formField: '', googleSheetField: '' }]
 }
 
 const mappedTargets = sheetConf =>

@@ -92,7 +92,7 @@ class GoogleSheetController
                 400
             );
         }
-        $spreadSheets = "https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20'application%2Fvnd.google-apps.spreadsheet'";
+        $spreadSheets = "https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20'application%2Fvnd.google-apps.spreadsheet'%20and%20trashed%20%3D%20false&pageSize=1000&orderBy=name&fields=files(id%2Cname)";
         $response = [];
         if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
