@@ -1,6 +1,14 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
+import {
+  DEFAULT_ACTION,
+  needsColumnToMatch,
+  needsFieldMap,
+  needsSpreadsheet,
+  needsWorksheet,
+  textInputs
+} from './staticData'
 
 export const handleInput = (
   e,
@@ -209,7 +217,30 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
     .catch(() => setIsLoading(false))
 }
 
+export const isActionConfigured = sheetConf => {
+  const action = sheetConf?.mainAction || DEFAULT_ACTION
+
+  if (needsSpreadsheet.includes(action) && !sheetConf?.spreadsheetId) {
+    return false
+  }
+  if (needsWorksheet.includes(action) && !sheetConf?.worksheetName) {
+    return false
+  }
+  if (needsFieldMap.includes(action) && !(sheetConf?.field_map?.length > 0)) {
+    return false
+  }
+  if (needsColumnToMatch.includes(action) && !sheetConf?.columnToMatch) {
+    return false
+  }
+
+  return (textInputs[action] || []).every(field => !field.required || sheetConf?.[field.key])
+}
+
 export const checkMappedFields = sheetconf => {
+  const action = sheetconf?.mainAction || DEFAULT_ACTION
+  if (!needsFieldMap.includes(action)) {
+    return true
+  }
   const mappedFleld = sheetconf.field_map
     ? sheetconf.field_map.filter(mapped => !mapped.formField && !mapped.googleSheetField)
     : []

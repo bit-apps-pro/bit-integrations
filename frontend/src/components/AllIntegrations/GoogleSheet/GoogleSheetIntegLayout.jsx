@@ -1,8 +1,15 @@
+import { create } from 'mutative'
+import MultiSelect from 'react-multiple-select-dropdown-lite'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
+import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import { refreshSpreadsheets, refreshWorksheetHeaders, refreshWorksheets } from './GoogleSheetCommonFunc'
 import GoogleSheetFieldMap from './GoogleSheetFieldMap'
+import GoogleSheetProLayout from './GoogleSheetProLayout'
+import { DEFAULT_ACTION, modules } from './staticData'
 
 export default function GoogleSheetIntegLayout({
   formID,
@@ -14,8 +21,65 @@ export default function GoogleSheetIntegLayout({
   setIsLoading,
   setSnackbar
 }) {
+  const { isPro } = useRecoilValue($appConfigState)
+  const action = sheetConf?.mainAction || DEFAULT_ACTION
+
+  const handleMainAction = value => {
+    if (!value || value === action) {
+      return
+    }
+    setSheetConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.mainAction = value
+        draftConf.field_map = [{ formField: '', googleSheetField: '' }]
+        draftConf.columnToMatch = ''
+      })
+    )
+  }
+
+  const actionSelect = (
+    <div className="flx">
+      <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
+      <MultiSelect
+        title="mainAction"
+        defaultValue={action}
+        className="mt-2 w-5"
+        onChange={handleMainAction}
+        options={modules.map(module => ({
+          label: checkIsPro(isPro, module.is_pro) ? module.label : getProLabel(module.label),
+          value: module.name,
+          disabled: !checkIsPro(isPro, module.is_pro)
+        }))}
+        singleSelect
+        closeOnSelect
+      />
+    </div>
+  )
+
+  if (action !== DEFAULT_ACTION) {
+    return (
+      <>
+        <br />
+        {actionSelect}
+        <GoogleSheetProLayout
+          action={action}
+          formID={formID}
+          formFields={formFields}
+          handleInput={handleInput}
+          sheetConf={sheetConf}
+          setSheetConf={setSheetConf}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          setSnackbar={setSnackbar}
+        />
+      </>
+    )
+  }
+
   return (
     <>
+      <br />
+      {actionSelect}
       <br />
       <b className="wdt-200 d-in-b">{__('Spreadsheets:', 'bit-integrations')}</b>
       <select
