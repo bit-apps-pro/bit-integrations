@@ -224,9 +224,51 @@ class GoogleSheetController
         wp_send_json_success($response, 200);
     }
 
+    /**
+     * Resolve a usable access token for an integration, refreshing and persisting it when expired.
+     *
+     * @param object   $integrationDetails flow_details of the integration
+     * @param null|int $integrationID      ID of Google Sheet Integration
+     *
+     * @return object token details
+     */
+    public static function resolveTokenDetails($integrationDetails, $integrationID = null)
+    {
+        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
+
+        if (!empty($integrationDetails->connection_id)) {
+            return $tokenDetails;
+        }
+
+        if ((\intval($tokenDetails->generates_on) + (55 * 60)) >= time()) {
+            return $tokenDetails;
+        }
+
+        $newTokenDetails = self::refreshAccessToken((object) [
+            'clientId'     => $integrationDetails->clientId ?? '',
+            'clientSecret' => $integrationDetails->clientSecret ?? '',
+            'tokenDetails' => $tokenDetails,
+        ]);
+
+        if (!$newTokenDetails) {
+            return $tokenDetails;
+        }
+
+        if (!empty($integrationID)) {
+            self::saveRefreshedToken($integrationID, $newTokenDetails);
+        }
+
+        return $newTokenDetails;
+    }
+
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
+        $mainAction = $integrationDetails->mainAction ?? '';
+
+        if (!empty($mainAction) && $mainAction !== 'insertRow') {
+            return (new ProRecordApiHelper($integrationDetails, $this->_integrationID))->execute($fieldValues, $mainAction);
+        }
 
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
         $isConnectionAuth = !empty($integrationDetails->connection_id);
