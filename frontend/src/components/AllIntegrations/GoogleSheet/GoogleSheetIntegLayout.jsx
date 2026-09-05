@@ -36,8 +36,8 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
-  // A flow saved before the action select existed has no mainAction key at all and
-  // still means the row insert; an empty string means nothing is chosen yet.
+  // `??` not `||`: a flow saved before this select existed has no mainAction and means
+  // the row insert, while '' means nothing is chosen yet.
   const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
   const worksheetHeaders =
@@ -64,9 +64,6 @@ export default function GoogleSheetIntegLayout({
   const worksheetReady = !needsWorksheet.includes(action) || !!sheetConf.worksheetName
   const headersReady = !needsHeaders.includes(action) || worksheetHeaders.length > 0
 
-  // Every section waits on what the chosen action actually needs, so an action with
-  // no worksheet never shows a worksheet select and a row action never offers a field
-  // map before its headers are known.
   const showFieldMap =
     needsFieldMap.includes(action) &&
     targetFields.length > 0 &&

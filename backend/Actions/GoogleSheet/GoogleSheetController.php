@@ -392,21 +392,13 @@ class GoogleSheetController
         $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
     }
 
-    /**
-     * Google answers a failed call with a top-level `error` and no payload key, so a
-     * response is only usable once that is ruled out — reading `files`/`sheets` off an
-     * error body yields an empty dropdown with no reason shown.
-     *
-     * @param mixed $response
-     */
+    // Google reports failure as a top-level `error` and omits the payload key entirely,
+    // so reading `files`/`sheets` off an error body silently yields an empty dropdown.
     private static function hasApiError($response)
     {
         return is_wp_error($response) || !\is_object($response) || !empty($response->error);
     }
 
-    /**
-     * @param mixed $response
-     */
     private static function apiErrorMessage($response)
     {
         if (is_wp_error($response)) {

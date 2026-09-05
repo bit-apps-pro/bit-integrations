@@ -218,8 +218,6 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
     .catch(() => setIsLoading(false))
 }
 
-// One row per target field an action declares, so its required inputs are mapped
-// rather than typed. Header-driven actions get a spare blank row for the values.
 export const generateMappedField = action => {
   const rows = (actionFields[action] || []).map(field => ({
     formField: '',

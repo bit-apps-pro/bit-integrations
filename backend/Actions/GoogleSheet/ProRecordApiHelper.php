@@ -113,10 +113,6 @@ class ProRecordApiHelper
         return $fieldData;
     }
 
-    /**
-     * Resolve every field-map row to its target key. Rows naming one of the action's
-     * own fields carry that input; the rest name a worksheet header.
-     */
     private function mapFieldValues($fieldValues)
     {
         $mappedValues = [];
@@ -159,10 +155,7 @@ class ProRecordApiHelper
         return array_values((array) $headers);
     }
 
-    /**
-     * Map each mapped header to its 0-based offset from the header row's first column;
-     * unmapped headers are omitted so an update never blanks a column the user left alone.
-     */
+    // Unmapped headers are omitted so an update never blanks a column the user left alone.
     private function mapRowValues($mappedValues, $allHeaders)
     {
         $columns = [];
