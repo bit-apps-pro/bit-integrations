@@ -17,7 +17,7 @@ export default function QuizAndSurveyMaster({ formFields, setFlow, flow, allInte
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [quizAndSurveyMasterConf, setQuizAndSurveyMasterConf] = useState({
-    name: 'QuizAndSurveyMaster',
+    name: 'Quiz And Survey Master (QSM)',
     type: 'QuizAndSurveyMaster',
     field_map: [{ formField: '', quizAndSurveyMasterField: '' }],
     actions: {},

@@ -161,7 +161,7 @@ export default function QuizAndSurveyMasterIntegLayout({
               <b>{__('Form Fields', 'bit-integrations')}</b>
             </div>
             <div className="txt-dp">
-              <b>{__('Quiz And Survey Master Fields', 'bit-integrations')}</b>
+              <b>{__('Quiz And Survey Master (QSM) Fields', 'bit-integrations')}</b>
             </div>
           </div>
 

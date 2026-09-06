@@ -19,7 +19,7 @@ export default function QuizAndSurveyMasterAuthorization({
       step={step}
       setStep={setStep}
       isInfo={isInfo}
-      tutorialTitle="Quiz And Survey Master"
+      tutorialTitle="Quiz And Survey Master (QSM)"
       tutorialLinks={tutorialLinks?.quizAndSurveyMaster || {}}
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
