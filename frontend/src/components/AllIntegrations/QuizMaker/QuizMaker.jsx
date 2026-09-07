@@ -18,7 +18,7 @@ export default function QuizMaker({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [quizMakerConf, setQuizMakerConf] = useState({
-    name: 'QuizMaker',
+    name: 'Quiz Maker',
     type: 'QuizMaker',
     field_map: [{ formField: '', quizMakerField: '' }],
     actions: {},
