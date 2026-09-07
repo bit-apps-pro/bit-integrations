@@ -82,6 +82,7 @@ final class AllTriggersName
             'GravityKit'                     => ['name' => 'GravityKit',  'isPro' => true, 'is_active' => false],
             'GiveWp'                         => ['name' => 'GiveWp',  'isPro' => true, 'is_active' => false],
             'Groundhogg'                     => ['name' => 'Groundhogg',  'isPro' => true, 'is_active' => false],
+            'QuizMaker'                      => ['name' => 'Quiz Maker',  'isPro' => true, 'is_active' => false],
             'GutenaForms'                    => ['name' => 'Gutena Forms',  'isPro' => true, 'is_active' => false],
             'Happy'                          => ['name' => 'Happy Forms',  'isPro' => true, 'is_active' => false],
             'Hustle'                         => ['name' => 'Hustle',  'isPro' => true, 'is_active' => false],
