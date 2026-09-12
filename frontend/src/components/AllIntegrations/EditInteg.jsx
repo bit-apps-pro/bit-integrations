@@ -202,6 +202,9 @@ const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
 const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
 const EditWebbaBooking = lazy(() => import('./WebbaBooking/EditWebbaBooking'))
+const EditWpSimpleBookingCalendar = lazy(
+  () => import('./WpSimpleBookingCalendar/EditWpSimpleBookingCalendar')
+)
 const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
 const EditHefflCRM = lazy(() => import('./HefflCRM/EditHefflCRM'))
 const EditSecureCustomFields = lazy(() => import('./SecureCustomFields/EditSecureCustomFields'))
@@ -696,6 +699,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditWsms allIntegURL={allIntegURL} />
     case 'WebbaBooking':
       return <EditWebbaBooking allIntegURL={allIntegURL} />
+    case 'WpSimpleBookingCalendar':
+      return <EditWpSimpleBookingCalendar allIntegURL={allIntegURL} />
     case 'MoreConvert Wishlist':
       return <EditMoreConvertWishlist allIntegURL={allIntegURL} />
     case 'Heffl CRM':
