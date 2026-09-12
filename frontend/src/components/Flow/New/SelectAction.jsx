@@ -231,6 +231,7 @@ export default function SelectAction() {
     { type: 'B2BKing', is_pro: true },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
+    { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'Sender', is_pro: true },
     { type: 'MainWP', is_pro: true }
   ]

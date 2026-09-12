@@ -106,6 +106,7 @@ export const customFormIntegrations = [
   'SureDash',
   'Wsms',
   'WebbaBooking',
+  'WpSimpleBookingCalendar',
   'B2BKing',
   'FormyChat',
   'MainWP',
