@@ -12,12 +12,10 @@ import {
   refreshWorksheetHeaders,
   refreshWorksheets
 } from './GoogleSheetCommonFunc'
-import GoogleSheetActions from './GoogleSheetActions'
 import GoogleSheetFieldMap from './GoogleSheetFieldMap'
 import {
   actionFields,
   DEFAULT_ACTION,
-  hasUtilities,
   modules,
   needsColumnToMatch,
   needsFieldMap,
@@ -279,14 +277,6 @@ export default function GoogleSheetIntegLayout({
             </button>
           </div>
         </>
-      )}
-
-      {hasUtilities.includes(action) && (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          <GoogleSheetActions sheetConf={sheetConf} setSheetConf={setSheetConf} />
-        </div>
       )}
     </>
   )

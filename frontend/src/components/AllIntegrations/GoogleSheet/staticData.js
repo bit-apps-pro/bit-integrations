@@ -10,7 +10,6 @@ export const modules = [
   { name: 'createColumn', label: __('Create Column', 'bit-integrations'), is_pro: true },
   { name: 'createSheet', label: __('Create Worksheet', 'bit-integrations'), is_pro: true },
   { name: 'copySheet', label: __('Copy Worksheet', 'bit-integrations'), is_pro: true },
-  { name: 'clearSheet', label: __('Clear Worksheet', 'bit-integrations'), is_pro: true },
   { name: 'deleteSheet', label: __('Delete Worksheet', 'bit-integrations'), is_pro: true },
   { name: 'createSpreadsheet', label: __('Create Spreadsheet', 'bit-integrations'), is_pro: true },
   { name: 'deleteSpreadsheet', label: __('Delete Spreadsheet', 'bit-integrations'), is_pro: true }
@@ -38,8 +37,6 @@ export const needsWorksheet = [
 export const needsHeaders = ['insertRow', 'appendOrUpdateRow', 'updateRow']
 
 export const needsColumnToMatch = ['appendOrUpdateRow']
-
-export const hasUtilities = ['clearSheet']
 
 export const SpreadsheetFields = [
   { key: 'title', label: __('Spreadsheet Title', 'bit-integrations'), required: true },
@@ -81,7 +78,6 @@ export const actionFields = {
   deleteSpreadsheet: SpreadsheetIdField,
   createSheet: WorksheetTitleField,
   copySheet: CopySheetFields,
-  clearSheet: WorksheetTargetFields,
   deleteSheet: WorksheetTargetFields,
   updateRow: RowNumberField,
   deleteRow: RowNumberField,
@@ -96,7 +92,6 @@ export const needsFieldMap = [
   'createColumn',
   'createSheet',
   'copySheet',
-  'clearSheet',
   'deleteSheet',
   'createSpreadsheet',
   'deleteSpreadsheet'

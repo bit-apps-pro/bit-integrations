@@ -15,7 +15,6 @@ class RecordApiHelper
         'deleteSpreadsheet' => ['spreadsheetId'],
         'createSheet'       => ['title'],
         'copySheet'         => ['destinationSpreadsheetId'],
-        'clearSheet'        => ['spreadsheetId', 'worksheetName'],
         'deleteSheet'       => ['spreadsheetId', 'worksheetName'],
         'updateRow'         => ['rowId'],
         'deleteRow'         => ['rowId'],
@@ -122,7 +121,6 @@ class RecordApiHelper
     {
         $integrationDetails = $this->_integrationDetails;
         $fieldData = $this->proFieldData($mainAction, $mappedValues);
-        $utilities = $integrationDetails->utilities ?? [];
         $default = ['success' => false, 'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')];
 
         switch ($mainAction) {
@@ -148,11 +146,6 @@ class RecordApiHelper
 
             case 'deleteSheet':
                 $response = Hooks::apply(Config::withPrefix('google_sheet_delete_sheet'), $default, $fieldData, $integrationDetails);
-
-                break;
-
-            case 'clearSheet':
-                $response = Hooks::apply(Config::withPrefix('google_sheet_clear_sheet'), $default, $fieldData, $utilities, $integrationDetails);
 
                 break;
 
