@@ -185,6 +185,7 @@ const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
 const EditSenseiLMS = lazy(() => import('./SenseiLMS/EditSenseiLMS'))
 const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
 const EditCartAbandonmentRecovery = lazy(
@@ -668,6 +669,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBrilliantDirectories allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'QuizMaker':
+      return <EditQuizMaker allIntegURL={allIntegURL} />
     case 'SenseiLMS':
       return <EditSenseiLMS allIntegURL={allIntegURL} />
     case 'ConvertForce':
