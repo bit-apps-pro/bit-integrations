@@ -224,10 +224,10 @@ export const refreshWorksheetHeaders = (formID, sheetConf, setSheetConf, setIsLo
 }
 
 export const generateMappedField = action => {
-  const fields = actionFields[action] || []
+  const requiredFields = (actionFields[action] || []).filter(field => field.required)
 
-  return fields.length > 0
-    ? fields.map(field => ({ formField: '', googleSheetField: field.key }))
+  return requiredFields.length > 0
+    ? requiredFields.map(field => ({ formField: '', googleSheetField: field.key }))
     : [{ formField: '', googleSheetField: '' }]
 }
 

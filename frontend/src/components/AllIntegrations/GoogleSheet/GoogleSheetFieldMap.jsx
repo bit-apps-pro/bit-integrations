@@ -21,9 +21,9 @@ export default function GoogleSheetFieldMap({
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
-  const isRequiredField = targetFields.some(
-    target => target.value === field.googleSheetField && target.required
-  )
+  const requiredFields = targetFields.filter(target => target.required)
+  const nonRequiredFields = targetFields.filter(target => !target.required)
+  const requiredField = requiredFields[i]
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -70,31 +70,40 @@ export default function GoogleSheetFieldMap({
         <select
           className="btcd-paper-inp"
           name="googleSheetField"
-          value={field.googleSheetField || ''}
-          disabled={isRequiredField}
+          value={requiredField ? requiredField.value : field.googleSheetField || ''}
+          disabled={Boolean(requiredField)}
           onChange={ev => handleFieldMapping(ev, i, sheetConf, setSheetConf)}>
           <option value="">{__('Select Field', 'bit-integrations')}</option>
-          {targetFields.map(target => (
-            <option key={`gsheet-${target.value}`} value={target.value}>
-              {target.label}
+          {requiredField ? (
+            <option key={`gsheet-${requiredField.value}`} value={requiredField.value}>
+              {requiredField.label}
             </option>
-          ))}
+          ) : (
+            nonRequiredFields.map(target => (
+              <option key={`gsheet-${target.value}`} value={target.value}>
+                {target.label}
+              </option>
+            ))
+          )}
         </select>
       </div>
-      <button
-        onClick={() => addFieldMap(i, sheetConf, setSheetConf)}
-        className="icn-btn sh-sm ml-2 mr-1"
-        type="button">
-        +
-      </button>
-      <button
-        onClick={() => delFieldMap(i, sheetConf, setSheetConf)}
-        className="icn-btn sh-sm ml-1"
-        type="button"
-        disabled={isRequiredField}
-        aria-label="btn">
-        <TrashIcn />
-      </button>
+      {!requiredField && (
+        <>
+          <button
+            onClick={() => addFieldMap(i, sheetConf, setSheetConf)}
+            className="icn-btn sh-sm ml-2 mr-1"
+            type="button">
+            +
+          </button>
+          <button
+            onClick={() => delFieldMap(i, sheetConf, setSheetConf)}
+            className="icn-btn sh-sm ml-1"
+            type="button"
+            aria-label="btn">
+            <TrashIcn />
+          </button>
+        </>
+      )}
     </div>
   )
 }
