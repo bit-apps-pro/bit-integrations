@@ -93,7 +93,7 @@ export default function QuizMakerFieldMap({ i, formFields, field, quizMakerConf,
               onClick={() => delFieldMap(i, quizMakerConf, setQuizMakerConf)}
               className="icn-btn sh-sm ml-1"
               type="button"
-              aria-label="btn">
+              aria-label={__('Remove field', 'bit-integrations')}>
               <span className="btcd-icn icn-trash-2" />
             </button>
           </>
