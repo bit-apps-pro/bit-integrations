@@ -781,6 +781,10 @@ const tutorialLinks = {
   wpErp: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wp-erp-integration-as-an-action/'
+  },
+  quizMaker: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/quiz-maker-integration-as-an-action/'
   }
 }
 export default tutorialLinks
