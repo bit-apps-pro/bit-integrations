@@ -16,6 +16,10 @@ use WP_Error;
 
 class GoogleSheetController
 {
+    private const DRIVE_PAGE_SIZE = 1000;
+
+    private const MAX_PAGES = 20;
+
     public static array $authConfig = [
         'authType' => AuthorizationType::OAUTH2,
         'slug'     => 'googlesheet',
@@ -94,6 +98,7 @@ class GoogleSheetController
         }
         $spreadSheets = "https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20'application%2Fvnd.google-apps.spreadsheet'%20and%20trashed%20%3D%20false&pageSize=1000&orderBy=name&fields=files(id%2Cname)";
         $response = [];
+        $authorizationHeader = [];
         if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
@@ -153,6 +158,7 @@ class GoogleSheetController
 
         $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         $worksheetsMetaResponse = HttpHelper::get($worksheetsMetaApiEndpoint, null, $authorizationHeader);
+        $error = self::googleErrorMessage($worksheetsMetaResponse);
 
         if (self::hasApiError($worksheetsMetaResponse)) {
             wp_send_json_error(self::apiErrorMessage($worksheetsMetaResponse), 400);
@@ -272,13 +278,6 @@ class GoogleSheetController
         return (new RecordApiHelper($integrationDetails, $this->_integrationID))->execute($fieldValues, $mainAction);
     }
 
-    /**
-     * Helps to refresh zoho crm access_token
-     *
-     * @param array $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->clientId)
@@ -343,6 +342,55 @@ class GoogleSheetController
         }
 
         $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
+    }
+
+    /**
+     * Helps to refresh zoho crm access_token
+     *
+     * @param array $apiData  Contains required data for refresh access token
+     * @param mixed $response
+     *
+     * @return JSON $tokenDetails API token details
+     */
+    /**
+     * Read the message out of a Google api error.
+     *
+     * Google answers {"error":{"code":401,"message":"..."}} at the top level, but the
+     * callers tested $response->response->error, which never exists. An expired token
+     * therefore passed the success check and produced an empty list rather than a
+     * message telling the user to reconnect.
+     *
+     * @param mixed $response
+     *
+     * @return null|string message, or null when the response carries no error
+     */
+    private static function googleErrorMessage($response)
+    {
+        if (is_wp_error($response)) {
+            return $response->get_error_message();
+        }
+
+        if (!isset($response->error)) {
+            return;
+        }
+
+        if (\is_string($response->error)) {
+            return $response->error;
+        }
+
+        $message = $response->error->message ?? '';
+        $code = $response->error->code ?? 0;
+
+        if (\in_array($code, [401, 403], true)) {
+            return self::reconnectMessage() . ' ' . $message;
+        }
+
+        return $message === '' ? __('Unknown', 'bit-integrations') : $message;
+    }
+
+    private static function reconnectMessage()
+    {
+        return __('Google rejected the saved credentials. Reauthorize the Google account for this integration.', 'bit-integrations');
     }
 
     private static function hasApiError($response)

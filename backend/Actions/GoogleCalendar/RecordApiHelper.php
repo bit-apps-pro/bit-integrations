@@ -2,8 +2,10 @@
 
 namespace BitApps\Integrations\Actions\GoogleCalendar;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Helper;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use DateTime;
@@ -96,7 +98,7 @@ class RecordApiHelper
         return $this->insertEvent($data);
     }
 
-    public function executeRecordApi($integrationId, $fieldValues, $fieldMap, $reminderFieldMap, $actions)
+    public function executeRecordApi($integrationId, $fieldValues, $fieldMap, $reminderFieldMap, $actions, $descRichText = '')
     {
         $fieldData = [];
         foreach ($fieldMap as $value) {
@@ -111,6 +113,13 @@ class RecordApiHelper
                 }
             }
         }
+        if (!empty($actions->richTextDesc) && !empty($descRichText)) {
+            $description = Hooks::apply(Config::withPrefix('googlecalendar_rich_description'), null, $descRichText, $fieldValues);
+            if (!\is_null($description)) {
+                $fieldData['description'] = $description;
+            }
+        }
+
         $reminderFieldMap = [...array_filter($reminderFieldMap, fn ($value) => !empty($value->method) && !empty($value->minutes))];
 
         $apiResponse = $this->handleInsert($fieldData, $reminderFieldMap, $actions);

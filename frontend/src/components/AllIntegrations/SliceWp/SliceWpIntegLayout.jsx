@@ -7,6 +7,8 @@ import SliceWpActions from './SliceWpActions'
 import {} from './SliceWpCommonFunc'
 import SliceWpFieldMap from './SliceWpFieldMap'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function SliceWpIntegLayout({
   formFields,
@@ -101,9 +103,32 @@ export default function SliceWpIntegLayout({
             />
           </>
         )}
+        {sliceWpConf.mainAction === '1' && (
+          <>
+            <br />
+            <UserSourceSelect conf={sliceWpConf} setConf={setSliceWpConf} />
+            {sliceWpConf?.userSource === 'email' && (
+              <UserEmailFieldMap
+                conf={sliceWpConf}
+                setConf={setSliceWpConf}
+                formFields={formFields}
+                actionLabel={__('SliceWp Fields', 'bit-integrations')}
+              />
+            )}
+          </>
+        )}
       </>
       <br />
-      <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      {sliceWpConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

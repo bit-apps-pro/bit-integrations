@@ -1,11 +1,24 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { create } from 'mutative'
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 
 export const handleInput = (e, sendPulseConf, setSendPulseConf) => {
-  const newConf = { ...sendPulseConf }
-  newConf.name = e.target.value
-  setSendPulseConf({ ...newConf })
+  const { value } = e.target
+  setSendPulseConf(prevConf =>
+    create(prevConf, draftConf => {
+      draftConf.name = value
+    })
+  )
+}
+
+export const handleCustomValue = (e, index, sendPulseConf, setSendPulseConf) => {
+  const value = e?.target?.value ?? e
+  setSendPulseConf(prevConf =>
+    create(prevConf, draftConf => {
+      draftConf.field_map[index].customValue = value
+    })
+  )
 }
 
 const buildAuthRequestParams = confTmp =>
@@ -19,15 +32,22 @@ const buildAuthRequestParams = confTmp =>
 
 export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoading, setSnackbar) => {
   const refreshListsRequestParams = buildAuthRequestParams(sendPulseConf)
+
+  setIsLoading(true)
+
   bitsFetch(refreshListsRequestParams, 'sendPulse_lists')
     .then(result => {
       if (result && result.success) {
-        const newConf = { ...sendPulseConf }
         if (result.data) {
-          if (!newConf.default) {
-            newConf.default = {}
-          }
-          newConf.default.sendPulseLists = result.data
+          const lists = result.data
+          setSendPulseConf(prevConf =>
+            create(prevConf, draftConf => {
+              if (!draftConf.default) {
+                draftConf.default = {}
+              }
+              draftConf.default.sendPulseLists = lists
+            })
+          )
           setSnackbar({
             show: true,
             msg: __('SendPulse lists refreshed', 'bit-integrations')
@@ -41,8 +61,6 @@ export const refreshSendPulseList = (sendPulseConf, setSendPulseConf, setIsLoadi
             )
           })
         }
-
-        setSendPulseConf({ ...newConf })
       } else {
         setSnackbar({
           show: true,
@@ -60,23 +78,28 @@ export const refreshSendPulseHeader = (sendPulseConf, setSendPulseConf, setIsLoa
     list_id: sendPulseConf.listId
   }
 
+  setIsLoading(true)
+
   bitsFetch(refreshListsRequestParams, 'sendPulse_headers')
     .then(result => {
       if (result && result.success) {
-        const newConf = { ...sendPulseConf }
-        if (result.data.sendPulseField) {
-          if (!newConf.default) {
-            newConf.default = {}
-          }
-          newConf.default.fields = result.data.sendPulseField
-          const { fields } = newConf.default
-          newConf.field_map = Object.values(fields)
-            .filter(f => f.required)
-            .map(f => ({
-              formField: '',
-              sendPulseField: f.fieldValue,
-              required: true
-            }))
+        if (result.data?.sendPulseField) {
+          const fields = result.data.sendPulseField
+          setSendPulseConf(prevConf =>
+            create(prevConf, draftConf => {
+              if (!draftConf.default) {
+                draftConf.default = {}
+              }
+              draftConf.default.fields = fields
+              draftConf.field_map = Object.values(fields)
+                .filter(f => f.required)
+                .map(f => ({
+                  formField: '',
+                  sendPulseField: f.fieldValue,
+                  required: true
+                }))
+            })
+          )
           setSnackbar({
             show: true,
             msg: __('SendPulse fields refreshed', 'bit-integrations')
@@ -90,7 +113,6 @@ export const refreshSendPulseHeader = (sendPulseConf, setSendPulseConf, setIsLoa
             )
           })
         }
-        setSendPulseConf({ ...newConf })
       } else {
         setSnackbar({
           show: true,

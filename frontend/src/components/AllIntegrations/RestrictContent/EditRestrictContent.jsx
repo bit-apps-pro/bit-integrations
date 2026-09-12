@@ -11,6 +11,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { checkMappedFields, handleInput } from './RestrictContentCommonFunc'
 import RestrictContentIntegLayout from './RestrictContentIntegLayout'
 
@@ -71,7 +72,7 @@ function EditRestrictContent({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        disabled={restrictConf.field_map.length < 1}
+        disabled={restrictConf.field_map.length < 1 || isUserSourceIncomplete(restrictConf)}
         isLoading={isLoading}
         dataConf={restrictConf}
         setDataConf={setRestrictConf}

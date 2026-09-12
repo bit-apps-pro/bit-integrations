@@ -28,7 +28,7 @@ export default function SalesforceAuthorization({
       tutorialLinks={tutorialLinks?.salesforce || {}}
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
-        grantType: 'authorization_code',
+        grantType: 'authorization_code_pkce',
         clientAuthentication: 'body',
         authCodeEndpoint: {
           url: 'https://login.salesforce.com/services/oauth2/authorize',

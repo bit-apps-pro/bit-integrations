@@ -8,6 +8,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput, checkMappedFields } from './MemberpressCommonFunc'
 import MemberpressAuthorization from './MemberpressAuthorization'
 import MemberpressIntegLayout from './MemberpressIntegLayout'
@@ -100,7 +101,12 @@ function Memberpress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
 
         <button
           onClick={() => nextPage(3)}
-          disabled={!memberpressConf.mainAction || isLoading || isDisabled()}
+          disabled={
+            !memberpressConf.mainAction ||
+            isLoading ||
+            isDisabled() ||
+            isUserSourceIncomplete(memberpressConf)
+          }
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}

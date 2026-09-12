@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '20th August 2026'
+const releaseDate = '6th September 2026'
 
 // Example for items:
 // items: [
@@ -29,44 +29,13 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      { label: 'NextCRM', desc: '19 new events added.', isPro: true },
-      { label: 'Sensei LMS', desc: '11 new events added.', isPro: true },
-      { label: 'Events Manager', desc: '10 new events added.', isPro: true },
-      { label: 'LatePoint', desc: '5 new events added.', isPro: true },
-      { label: 'Cart Abandonment Recovery', desc: '5 new events added.', isPro: true },
-      { label: 'ClickWhale', desc: '4 new events added.', isPro: true },
-      { label: 'ConvertForce Popup Builder', desc: '4 new events added.', isPro: true },
-      { label: 'Power Coupons for WooCommerce', desc: '4 new events added.', isPro: true },
-      { label: 'WP Table Builder', desc: '4 new events added.', isPro: true },
-      { label: 'Booking Calendar', desc: '2 new events added.', isPro: true },
-      { label: 'ProfilePress', desc: '2 new events added.', isPro: true },
-      { label: 'Modern Cart', desc: '1 new event added.', isPro: true },
-      { label: 'Popup Maker', desc: '1 new event added.', isPro: true }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      { label: 'SureContact', desc: '42 new events added.', isPro: true },
-      { label: 'NextCRM', desc: '13 new events added.', isPro: true },
-      { label: 'Sensei LMS', desc: '12 new events added.', isPro: true },
-      { label: 'Brilliant Directories', desc: '11 new events added.', isPro: true },
-      { label: 'Popup Maker', desc: '9 new events added.', isPro: true },
-      { label: 'LatePoint', desc: '8 new events added.', isPro: true },
-      { label: 'Power Coupons for WooCommerce', desc: '5 new events added.', isPro: true },
-      { label: 'ConvertForce Popup Builder', desc: '4 new events added.', isPro: true },
-      { label: 'WP Table Builder', desc: '4 new events added.', isPro: true },
-      { label: 'Cart Abandonment Recovery', desc: '3 new events added.', isPro: true },
-      { label: 'ClickWhale', desc: '3 new events added.', isPro: true },
-      { label: 'Modern Cart', desc: '3 new events added.', isPro: true },
-      { label: 'Booking Calendar', desc: '2 new events added.', isPro: true },
-      { label: 'ProfilePress', desc: '2 new events added.', isPro: true },
-      { label: 'BadgeOS', desc: '1 new event added.', isPro: true },
-      { label: 'Events Manager', desc: '1 new event added.', isPro: true }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -74,19 +43,14 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Smart Tags',
-        desc: 'new tags added - date and time, logged-in user, post and post author, site info, visitor info, and true / false values.',
+        label: 'Choose who an action runs for',
+        desc: 'pick the logged-in user, or map an email field from your trigger and the action runs for that user. Available in LearnDash, LifterLMS, Tutor LMS, MasterStudy LMS, Academy LMS, WP Courseware, MemberPress, Paid Memberships Pro, Restrict Content, GamiPress, AffiliateWP and SliceWP.',
         isPro: false
       },
       {
-        label: 'Custom API',
-        desc: 'URL path variables added. Fill them from trigger data in the new Path Variables tab.',
-        isPro: false
-      },
-      {
-        label: 'Trello',
-        desc: 'Card descriptions now use a rich text editor.',
-        isPro: false
+        label: 'Google Calendar',
+        desc: 'Write your event description with headings, bold text, lists and links. A Preview tab shows how it will look before you save.',
+        isPro: true
       }
     ]
   },
@@ -96,13 +60,33 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Bit CRM',
-        desc: 'Lead dates now follow your site timezone.',
+        label: 'Asana',
+        desc: 'Your full list of projects, sections and custom fields now loads, not just the first batch.',
         isPro: false
       },
       {
-        label: 'Connections',
-        desc: 'A new connection gets a default name, so you do not have to type one.',
+        label: 'SendPulse',
+        desc: 'All address books now load, and your selected list no longer resets when its fields fail to load.',
+        isPro: false
+      },
+      {
+        label: 'Salesforce',
+        desc: 'The connection now uses a more secure sign-in flow (PKCE).',
+        isPro: false
+      },
+      {
+        label: 'Brevo',
+        desc: 'If no email reaches the action, the log now tells you that instead of showing Brevo’s unclear error.',
+        isPro: false
+      },
+      {
+        label: 'Custom API',
+        desc: 'New actions start on POST, and the edit screen now shows the request method you saved.',
+        isPro: false
+      },
+      {
+        label: 'Triggers',
+        desc: 'Waiting for test data no longer floods your site with requests, and the button always stops spinning when you press Stop.',
         isPro: false
       }
     ]
@@ -113,9 +97,64 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Custom API',
-        desc: 'An empty API endpoint is now logged as an error.',
+        label: 'LearnDash and LifterLMS',
+        desc: 'The unenroll actions removed the wrong person – they always used the same fixed user instead of the one from your flow.',
         isPro: false
+      },
+      {
+        label: 'Brevo',
+        desc: 'Contacts failed to save when some mapped fields were empty. Emails with a "+" in them created a duplicate contact on every run.',
+        isPro: false
+      },
+      {
+        label: 'Notion',
+        desc: 'Checkboxes always saved as ticked, a single-choice field sent to a multi-select property was dropped, and decimal numbers lost everything after the point.',
+        isPro: false
+      },
+      {
+        label: 'Systeme.io',
+        desc: 'Failed runs were logged as successful.',
+        isPro: false
+      },
+      {
+        label: 'Asana',
+        desc: 'Tasks were not created when some mapped fields were empty.',
+        isPro: false
+      },
+      {
+        label: 'Zoho Bigin',
+        desc: 'Failed runs and Deals actions saved without a layout no longer produce warnings, and the layout dropdown is now sorted by name.',
+        isPro: false
+      },
+      {
+        label: 'ActiveCampaign',
+        desc: 'Fixed reading your account details.',
+        isPro: false
+      },
+      {
+        label: 'Custom API',
+        desc: 'Actions sent the request as a GET with an empty body if you never opened the method dropdown.',
+        isPro: false
+      },
+      {
+        label: 'KonnectzIT',
+        desc: 'Opening a saved integration showed a spinner forever instead of its settings.',
+        isPro: false
+      },
+      {
+        label: 'MemberPress',
+        desc: 'Long membership lists were cut short, so some memberships could not be picked and the trigger kept loading.',
+        isPro: true
+      },
+      {
+        label: 'Avada Forms',
+        desc: 'Hidden, file upload and consent fields were missing from the trigger data.',
+        isPro: true
+      },
+      {
+        label: 'Popup Maker',
+        desc: 'The trigger did not show the plugin as installed.',
+        isPro: true
       }
     ]
   },

@@ -2,6 +2,7 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
 import { sprintf, __ } from '../../../Utils/i18nwrap'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 
 export const MS_LMS_ACTIONS = {
   COMPLETE_COURSE: '1',
@@ -64,6 +65,8 @@ export const allActions = [
 
 // Per-action required-field validation shared by the New wizard and Edit screen.
 export const isActionConfigIncomplete = conf => {
+  if (isUserSourceIncomplete(conf)) return true
+
   switch (conf?.mainAction) {
     case MS_LMS_ACTIONS.COMPLETE_COURSE:
     case MS_LMS_ACTIONS.RESET_COURSE:

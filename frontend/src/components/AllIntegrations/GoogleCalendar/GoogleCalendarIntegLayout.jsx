@@ -1,5 +1,10 @@
 import MultiSelect from 'react-multiple-select-dropdown-lite'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
+import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import { __ } from '../../../Utils/i18nwrap'
+import MarkdownEditor from '../../Utilities/MarkdownEditor'
+import ActionProFeatureComponent from '../IntegrationHelpers/ActionProFeatureComponent'
 import { addFieldMap } from './IntegrationHelpers'
 import GoogleCalendarFieldMap from './GoogleCalendarFieldMap'
 import GoogleCalendarActions from './GoogleCalendarActions'
@@ -13,6 +18,13 @@ export default function GoogleCalendarIntegLayout({
   googleCalendarConf,
   setGoogleCalendarConf
 }) {
+  const { isPro } = useRecoilValue($appConfigState)
+  const richTextDesc = Boolean(googleCalendarConf?.actions?.richTextDesc)
+
+  const setDescRichText = content => {
+    setGoogleCalendarConf(prevConf => ({ ...prevConf, descRichText: content }))
+  }
+
   const inputHandler = e => {
     const newConf = { ...googleCalendarConf }
     newConf.calendarId = e.target.value
@@ -99,6 +111,33 @@ export default function GoogleCalendarIntegLayout({
           +
         </button>
       </div>
+      {richTextDesc && (
+        <>
+          <div className="mt-5">
+            <b className="wdt-100">{__('Event Description', 'bit-integrations')}</b>
+          </div>
+          <div className="btcd-hr mt-1" />
+          <div className="mt-2 mb-2 txt-dp">
+            <small>
+              {__(
+                'Write in Markdown and check the Preview tab. It is converted to the formatting Google Calendar renders in event descriptions.',
+                'bit-integrations'
+              )}
+            </small>
+          </div>
+          <ActionProFeatureComponent title={__('Description Editor', 'bit-integrations')}>
+            <MarkdownEditor
+              id={`google-calendar-desc-${flowID || 'new'}`}
+              formFields={formFields}
+              smartTags={isPro ? SmartTagField : null}
+              value={googleCalendarConf?.descRichText || ''}
+              onChange={setDescRichText}
+              placeholder={__('Write the event description...', 'bit-integrations')}
+            />
+          </ActionProFeatureComponent>
+        </>
+      )}
+
       <br />
       <div className="mt-4">
         <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>

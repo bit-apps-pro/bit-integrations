@@ -19,6 +19,7 @@ function CustomApi({ formFields, setFlow, flow, allIntegURL }) {
   const [customApiConf, setCustomApiConf] = useState({
     name: 'CustomApi',
     type: 'CustomApi',
+    actionMethod: 'POST',
     url: '',
     field_map: [{ formField: '', customApiFormField: '' }],
     actions: {}

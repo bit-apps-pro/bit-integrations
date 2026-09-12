@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput } from './GamiPressCommonFunc'
 import GamiPressIntegLayout from './GamiPressIntegLayout'
 
@@ -66,7 +67,7 @@ function EditGamiPress({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={gamiPressConf.mainAction === '' || isLoading}
+        disabled={gamiPressConf.mainAction === '' || isLoading || isUserSourceIncomplete(gamiPressConf)}
         isLoading={isLoading}
         dataConf={gamiPressConf}
         setDataConf={setGamiPressConf}

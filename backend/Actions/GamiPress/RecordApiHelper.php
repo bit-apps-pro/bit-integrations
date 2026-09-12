@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\GamiPress;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -43,9 +44,8 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public static function addRankToUser($selectedRank, $mainAction)
+    public static function addRankToUser($selectedRank, $mainAction, $user_id)
     {
-        $user_id = get_current_user_id();
         if ($mainAction === '1') {
             return gamipress_update_user_rank($user_id, (int) $selectedRank);
         }
@@ -74,12 +74,11 @@ class RecordApiHelper
         }
     }
 
-    public static function addAchievementToUser($achievementId, $mainAction)
+    public static function addAchievementToUser($achievementId, $mainAction, $user_id)
     {
-        $user_id = get_current_user_id();
         if ($mainAction === '2') {
             if (!empty($achievementId) && !empty($user_id) && is_numeric((int) $achievementId)) {
-                gamipress_award_achievement_to_user(absint((int) $achievementId), absint($user_id), get_current_user_id());
+                gamipress_award_achievement_to_user(absint((int) $achievementId), absint($user_id), $user_id);
 
                 return true;
             }
@@ -95,9 +94,8 @@ class RecordApiHelper
         return false;
     }
 
-    public static function addPointToUser($pointType, $points, $mainAction)
+    public static function addPointToUser($pointType, $points, $mainAction, $user_id)
     {
-        $user_id = get_current_user_id();
         if ($mainAction === '3') {
             return gamipress_award_points_to_user(absint($user_id), absint($points), $pointType);
         }
@@ -124,8 +122,17 @@ class RecordApiHelper
         $fieldMap
     ) {
         $fieldData = [];
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'insert', 'type_name' => 'resolve-user']), 'error', wp_json_encode($userId->get_error_message()));
+
+            return $userId;
+        }
+
         if ($mainAction === '1') {
-            $apiResponse = self::addRankToUser($integrationDetails->selectedRank, $mainAction);
+            $apiResponse = self::addRankToUser($integrationDetails->selectedRank, $mainAction, $userId);
             if ($apiResponse) {
                 // translators: %s: Placeholder value
                 LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'insert', 'type_name' => 'update-rank']), 'success', wp_json_encode(wp_sprintf(__('Added successfully, post id %1$s and post title %2$s', 'bit-integrations'), $apiResponse->ID, $apiResponse->post_title)));
@@ -135,7 +142,7 @@ class RecordApiHelper
         }
 
         if ($mainAction === '2') {
-            $apiResponse = self::addAchievementToUser($integrationDetails->selectedAchievement, $mainAction);
+            $apiResponse = self::addAchievementToUser($integrationDetails->selectedAchievement, $mainAction, $userId);
             if ($apiResponse) {
                 LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'insert', 'type_name' => 'update-award']), 'success', wp_json_encode(__('Achievement added successfully', 'bit-integrations')));
             } else {
@@ -147,7 +154,7 @@ class RecordApiHelper
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
             $point = (int) $finalData['point'];
             if (!empty($point) && is_numeric($point)) {
-                $apiResponse = self::addPointToUser($integrationDetails->selectedPointType, $point, $mainAction);
+                $apiResponse = self::addPointToUser($integrationDetails->selectedPointType, $point, $mainAction, $userId);
                 if ($apiResponse) {
                     // translators: %s: Placeholder value
                     LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'insert', 'type_name' => 'update-point']), 'success', wp_json_encode(wp_sprintf(__('Point added successfully and total points are %s', 'bit-integrations'), $apiResponse)));
@@ -160,7 +167,7 @@ class RecordApiHelper
         }
 
         if ($mainAction === '4') {
-            $apiResponse = self::addRankToUser($integrationDetails->selectedRank, $mainAction);
+            $apiResponse = self::addRankToUser($integrationDetails->selectedRank, $mainAction, $userId);
             if ($apiResponse) {
                 // translators: %s: Placeholder value
                 LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'revoke', 'type_name' => 'revoke-rank']), 'success', wp_json_encode(wp_sprintf(__('Revoked rank successfully, post id %1$s and post title %2$s', 'bit-integrations'), $apiResponse->ID, $apiResponse->post_title)));
@@ -170,7 +177,7 @@ class RecordApiHelper
         }
 
         if ($mainAction === '5') {
-            $apiResponse = self::addAchievementToUser($integrationDetails->selectedAchievement, $mainAction);
+            $apiResponse = self::addAchievementToUser($integrationDetails->selectedAchievement, $mainAction, $userId);
             if ($apiResponse) {
                 LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'revoke', 'type_name' => 'revoke-achievement']), 'success', wp_json_encode(__('Achievement revoked successfully', 'bit-integrations')));
             } else {
@@ -182,7 +189,7 @@ class RecordApiHelper
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
             $point = (int) $finalData['point'];
             if (!empty($point) && is_numeric($point)) {
-                $apiResponse = self::addPointToUser($integrationDetails->selectedPointType, $point, $mainAction);
+                $apiResponse = self::addPointToUser($integrationDetails->selectedPointType, $point, $mainAction, $userId);
                 if ($apiResponse) {
                     // translators: %s: Placeholder value
                     LogHandler::save(self::getIntegrationId(), wp_json_encode(['type' => 'insert', 'type_name' => 'update-point']), 'success', wp_json_encode(wp_sprintf(__('Point revoked successfully and total points are %s', 'bit-integrations'), $apiResponse)));

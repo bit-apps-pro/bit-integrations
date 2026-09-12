@@ -2,11 +2,14 @@ import { useCallback } from 'react'
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function WpErpAuthorization({ wpErpConf, setWpErpConf, step, nextPage, isInfo }) {
   const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
     <Authorization
+      tutorialTitle="WP ERP"
+      tutorialLinks={tutorialLinks?.wpErp || {}}
       config={wpErpConf}
       setConfig={setWpErpConf}
       step={step}

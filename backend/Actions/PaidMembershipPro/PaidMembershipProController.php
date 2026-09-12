@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\PaidMembershipPro;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\ActionUser;
 use WP_Error;
 
 class PaidMembershipProController
@@ -65,10 +66,17 @@ class PaidMembershipProController
         ) {
             return new WP_Error('REQ_FIELD_EMPTY', __('module, There is an some error.', 'bit-integrations'));
         }
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            return $userId;
+        }
+
         $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
         $paidMemberpressApiResponse = $recordApiHelper->execute(
             $mainAction,
             $selectedMembership,
+            $userId
         );
 
         if (is_wp_error($paidMemberpressApiResponse)) {

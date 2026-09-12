@@ -14,6 +14,8 @@ import {
 } from './LearnDashCommonFunc'
 import LearnDashFieldMap from './LearnDashFieldMap'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function LearnDeshIntegLayout({
   formFields,
@@ -753,7 +755,30 @@ export default function LearnDeshIntegLayout({
         </>
       )}
       <br />
-      <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      {learnDashConf?.mainAction && learnDashConf.mainAction !== '16' && (
+        <>
+          <UserSourceSelect conf={learnDashConf} setConf={setLearnDashConf} />
+          {learnDashConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={learnDashConf}
+              setConf={setLearnDashConf}
+              formFields={formFields}
+              actionLabel={__('LearnDash Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {learnDashConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

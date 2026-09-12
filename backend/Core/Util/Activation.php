@@ -8,6 +8,7 @@ if (! defined('ABSPATH')) {
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Database\DB;
+use WP_Role;
 use WP_Site;
 
 /**
@@ -32,6 +33,13 @@ final class Activation
     public function add_capability_to_administrator()
     {
         $role = get_role('administrator');
+
+        // membership and role plugins can remove or rename the role, and activation
+        // is fatal here without it
+        if (!$role instanceof WP_Role) {
+            return;
+        }
+
         $role->add_cap(Config::withPrefix('manage_integrations'));
         $role->add_cap(Config::withPrefix('view_integrations'));
         $role->add_cap(Config::withPrefix('create_integrations'));

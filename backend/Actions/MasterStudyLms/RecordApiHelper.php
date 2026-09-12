@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\MasterStudyLms;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\Post;
@@ -44,9 +45,8 @@ class RecordApiHelper
         $this->integrationID = $integId;
     }
 
-    public static function complete_course($course_id)
+    public static function complete_course($course_id, $user_id)
     {
-        $user_id = get_current_user_id();
         if (empty($user_id)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('User not logged in', 'bit-integrations'));
         }
@@ -117,10 +117,9 @@ class RecordApiHelper
         return false;
     }
 
-    public static function complete_lesson($course_id, $lesson_id)
+    public static function complete_lesson($course_id, $lesson_id, $user_id)
     {
         $curriculum = get_post_meta($course_id, 'curriculum', true);
-        $user_id = get_current_user_id();
         if (!empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
 
@@ -172,9 +171,8 @@ class RecordApiHelper
         }
     }
 
-    public static function complete_quiz($course_id, $quiz_id)
+    public static function complete_quiz($course_id, $quiz_id, $user_id)
     {
-        $user_id = get_current_user_id();
         $curriculum = get_post_meta($course_id, 'curriculum', true);
 
         if (!empty($curriculum)) {
@@ -229,10 +227,9 @@ class RecordApiHelper
         }
     }
 
-    public static function reset_course($course_id)
+    public static function reset_course($course_id, $user_id)
     {
         $curriculum = get_post_meta($course_id, 'curriculum', true);
-        $user_id = get_current_user_id();
 
         if (!empty($curriculum)) {
             $curriculum = STM_LMS_Helpers::only_array_numbers(explode(',', $curriculum));
@@ -275,9 +272,8 @@ class RecordApiHelper
         return false;
     }
 
-    public static function reset_lesson($course_id, $lesson_id)
+    public static function reset_lesson($course_id, $lesson_id, $user_id)
     {
-        $user_id = get_current_user_id();
         $curriculum = get_post_meta($course_id, 'curriculum', true);
 
         if (! empty($curriculum)) {
@@ -328,6 +324,14 @@ class RecordApiHelper
         $response = [];
         $fieldData = static::generateReqDataFromFieldMap($integrationDetails->field_map ?? [], $fieldValues);
 
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'resolve-user', 'type_name' => 'resolve-user']), 'error', $userId->get_error_message());
+
+            return $userId;
+        }
+
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
@@ -336,7 +340,7 @@ class RecordApiHelper
 
         if ((int) $mainAction === self::COMPLETE_COURSE) {
             $courseId = $integrationDetails->courseId;
-            $response = self::complete_course($courseId);
+            $response = self::complete_course($courseId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-complete', 'type_name' => 'user-course-complete']), 'success', __('Course completed successfully', 'bit-integrations'));
             } else {
@@ -345,7 +349,7 @@ class RecordApiHelper
         } elseif ((int) $mainAction === self::COMPLETE_LESSON) {
             $courseId = $integrationDetails->courseId;
             $lessonId = $integrationDetails->lessonId;
-            $response = self::complete_lesson($courseId, $lessonId);
+            $response = self::complete_lesson($courseId, $lessonId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'lesson-complete', 'type_name' => 'user-lesson-complete']), 'success', __('Lesson completed successfully', 'bit-integrations'));
             } else {
@@ -354,7 +358,7 @@ class RecordApiHelper
         } elseif ((int) $mainAction === self::COMPLETE_QUIZ) {
             $courseId = $integrationDetails->courseId;
             $quizId = $integrationDetails->quizId;
-            $response = self::complete_quiz($courseId, $quizId);
+            $response = self::complete_quiz($courseId, $quizId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'quiz-complete', 'type_name' => 'user-quiz-complete']), 'success', __('quiz completed successfully', 'bit-integrations'));
             } else {
@@ -362,7 +366,7 @@ class RecordApiHelper
             }
         } elseif ((int) $mainAction === self::RESET_COURSE) {
             $courseId = $integrationDetails->courseId;
-            $response = self::reset_course($courseId);
+            $response = self::reset_course($courseId, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'course-reset', 'type_name' => 'user-course-reset']), 'success', __('Course reset successfully', 'bit-integrations'));
             } else {
@@ -371,7 +375,7 @@ class RecordApiHelper
         } elseif ((int) $mainAction === self::RESET_LESSON) {
             $course_id = $integrationDetails->courseId;
             $lesson_id = $integrationDetails->lessonId;
-            $response = self::reset_lesson($course_id, $lesson_id);
+            $response = self::reset_lesson($course_id, $lesson_id, $userId);
             if ($response) {
                 LogHandler::save($this->integrationID, wp_json_encode(['type' => 'lesson-reset', 'type_name' => 'user-lesson-reset']), 'success', __('Lesson reset successfully', 'bit-integrations'));
             } else {

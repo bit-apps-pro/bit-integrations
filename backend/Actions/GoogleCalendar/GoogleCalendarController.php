@@ -85,6 +85,7 @@ class GoogleCalendarController
         $fieldMap = $integrationDetails->field_map;
         $calendarId = $integrationDetails->calendarId;
         $reminderFieldMap = $integrationDetails->reminder_field_map;
+        $descRichText = $integrationDetails->descRichText ?? '';
         $isConnectionAuth = !empty($integrationDetails->connection_id);
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
 
@@ -123,7 +124,7 @@ class GoogleCalendarController
             return $error;
         }
 
-        (new GoogleCalendarRecordApiHelper($tokenDetails->access_token, $calendarId, $timeZone))->executeRecordApi($this->integrationID, $fieldValues, $fieldMap, $reminderFieldMap, $actions);
+        (new GoogleCalendarRecordApiHelper($tokenDetails->access_token, $calendarId, $timeZone))->executeRecordApi($this->integrationID, $fieldValues, $fieldMap, $reminderFieldMap, $actions, $descRichText);
 
         return true;
     }

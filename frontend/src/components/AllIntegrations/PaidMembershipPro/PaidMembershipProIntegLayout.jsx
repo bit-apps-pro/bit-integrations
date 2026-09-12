@@ -3,6 +3,8 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { getAllPaidMemberShipProLevel } from './PaidMembershipProCommonFunc'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function PaidMembershipProIntegLayout({
   formFields,
@@ -97,7 +99,31 @@ export default function PaidMembershipProIntegLayout({
         />
       )}
       <br />
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      {paidMembershipProConf?.mainAction && (
+        <>
+          <br />
+          <UserSourceSelect conf={paidMembershipProConf} setConf={setPaidMembershipProConf} />
+          {paidMembershipProConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={paidMembershipProConf}
+              setConf={setPaidMembershipProConf}
+              formFields={formFields}
+              actionLabel={__('Paid Memberships Pro Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {paidMembershipProConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }
