@@ -9,7 +9,13 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import QuizMakerAuthorization from './QuizMakerAuthorization'
 import { checkMappedFields } from './QuizMakerCommonFunc'
 import QuizMakerIntegLayout from './QuizMakerIntegLayout'
-import { needsQuestionStatus, needsQuestionType, needsQuizStatus, needsReviewScore } from './staticData'
+import {
+  needsQuestionCategory,
+  needsQuestionStatus,
+  needsQuestionType,
+  needsQuizStatus,
+  needsReviewScore
+} from './staticData'
 
 export default function QuizMaker({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
