@@ -10,8 +10,13 @@ export default function ActiveCampaignActions({ activeCampaingConf, setActiveCam
       newConf.actions[type] = true
       if (type === 'tagUpdate') delete newConf.actions.tagAppend
       if (type === 'tagAppend') delete newConf.actions.tagUpdate
+      if (type === 'tagUpdate' || type === 'tagAppend') newConf.actions.update = true
     } else {
       delete newConf.actions[type]
+      if (type === 'update') {
+        delete newConf.actions.tagUpdate
+        delete newConf.actions.tagAppend
+      }
     }
 
     setActiveCampaingConf({ ...newConf })
