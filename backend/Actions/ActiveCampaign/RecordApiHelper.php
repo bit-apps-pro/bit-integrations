@@ -96,7 +96,7 @@ class RecordApiHelper
         }
 
         if (!empty($recordApiResponse->contact)) {
-            $related = $this->handleRelatedActions($recordApiResponse->contact->id, $listId, $tags, $integrationDetails);
+            $related = $this->handleRelatedActions($recordApiResponse->contact->id, $listId, $tags, $integrationDetails, $type);
             $recordApiResponse = (object) array_merge((array) $recordApiResponse, $related);
         }
 
@@ -114,7 +114,7 @@ class RecordApiHelper
         return $recordApiResponse;
     }
 
-    private function handleRelatedActions($contactId, $listId, $tags, $integrationDetails)
+    private function handleRelatedActions($contactId, $listId, $tags, $integrationDetails, $type)
     {
         $data = [];
         $result = [];
@@ -127,9 +127,9 @@ class RecordApiHelper
             $result['lists'] = $this->storeOrModifyRecord('contactLists', wp_json_encode($data));
         }
 
-        if (!empty($tags)) {
+        if (!empty($tags) && $this->shouldApplyTags($integrationDetails->actions, $type)) {
             // Remove existing tags if tag update is enabled
-            if ($integrationDetails->actions->tagUpdate) {
+            if ($type === 'update' && !empty($integrationDetails->actions->tagUpdate)) {
                 $contactTagsResponse = HttpHelper::get("{$this->_apiEndpoint}/contacts/{$contactId}/contactTags", null, $this->_defaultHeader);
                 $contactTags = $contactTagsResponse->contactTags ?? [];
 
@@ -172,6 +172,15 @@ class RecordApiHelper
         }
 
         return $result;
+    }
+
+    private function shouldApplyTags($actions, $type)
+    {
+        if ($type !== 'update') {
+            return true;
+        }
+
+        return !empty($actions->tagUpdate) || !empty($actions->tagAppend);
     }
 
     private function existContact($email)
