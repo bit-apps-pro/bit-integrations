@@ -8,6 +8,8 @@ export default function ActiveCampaignActions({ activeCampaingConf, setActiveCam
     const newConf = { ...activeCampaingConf }
     if (e.target.checked) {
       newConf.actions[type] = true
+      if (type === 'tagUpdate') delete newConf.actions.tagAppend
+      if (type === 'tagAppend') delete newConf.actions.tagUpdate
     } else {
       delete newConf.actions[type]
     }
@@ -31,7 +33,15 @@ export default function ActiveCampaignActions({ activeCampaingConf, setActiveCam
         className="wdt-200 mt-4 mr-2"
         value="user_share"
         title={__('Update ActiveCampaign Tags', 'bit-integrations')}
-        subTitle={__('Update existing contact tags in ActiveCampaign?', 'bit-integrations')}
+        subTitle={__('Replace existing contact tags with the selected tags?', 'bit-integrations')}
+      />
+      <TableCheckBox
+        checked={activeCampaingConf.actions?.tagAppend || false}
+        onChange={e => actionHandler(e, 'tagAppend')}
+        className="wdt-200 mt-4 mr-2"
+        value="user_share"
+        title={__('Append ActiveCampaign Tags', 'bit-integrations')}
+        subTitle={__('Add the selected tags alongside existing contact tags?', 'bit-integrations')}
       />
     </div>
   )
