@@ -46,28 +46,6 @@ class PointicsController
         wp_send_json_success($response, 200);
     }
 
-    public function refreshRewards()
-    {
-        self::isExists();
-
-        $rewards = [];
-        $service = self::resolve('\Pointics\Rewards\Reward_Service');
-
-        if ($service) {
-            $result = $service->list(['page' => 1, 'per_page' => 100]);
-
-            foreach ($result['items'] ?? [] as $reward) {
-                $rewards[] = (object) [
-                    'reward_id'   => $reward->id,
-                    'reward_name' => $reward->name,
-                ];
-            }
-        }
-
-        $response['rewards'] = $rewards;
-        wp_send_json_success($response, 200);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integDetails = $integrationData->flow_details;

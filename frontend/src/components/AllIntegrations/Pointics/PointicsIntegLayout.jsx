@@ -7,11 +7,7 @@ import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import PointicsActions from './PointicsActions'
-import {
-  generateMappedField,
-  refreshPointicsChannels,
-  refreshPointicsRewards
-} from './PointicsCommonFunc'
+import { generateMappedField, refreshPointicsChannels } from './PointicsCommonFunc'
 import PointicsFieldMap from './PointicsFieldMap'
 import {
   AwardChannelFields,
@@ -19,9 +15,7 @@ import {
   MemberIdFields,
   modules,
   needsChannel,
-  needsReward,
   PointsAdjustFields,
-  RedeemRewardFields,
   RedemptionIdFields,
   ReferralIdFields,
   ReferralInviteFields,
@@ -52,10 +46,6 @@ export default function PointicsIntegLayout({
           case 'award_channel_points':
             draftConf.pointicsFields = AwardChannelFields
             break
-          case 'redeem_reward':
-            draftConf.pointicsFields = RedeemRewardFields
-            break
-          case 'apply_redemption':
           case 'cancel_redemption':
             draftConf.pointicsFields = RedemptionIdFields
             break
@@ -84,10 +74,6 @@ export default function PointicsIntegLayout({
 
     if (needsChannel.includes(value)) {
       refreshPointicsChannels(setPointicsConf, setIsLoading)
-    }
-
-    if (needsReward.includes(value)) {
-      refreshPointicsRewards(setPointicsConf, setIsLoading)
     }
   }
 
@@ -142,45 +128,6 @@ export default function PointicsIntegLayout({
               onClick={() => refreshPointicsChannels(setPointicsConf, setIsLoading)}
               className="icn-btn sh-sm ml-2 mr-2 tooltip"
               style={{ '--tooltip-txt': `'${__('Refresh Channels', 'bit-integrations')}'` }}
-              type="button"
-              disabled={isLoading}>
-              &#x21BB;
-            </button>
-          </div>
-        </>
-      )}
-
-      {needsReward.includes(pointicsConf?.mainAction) && (
-        <>
-          <br />
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Reward:', 'bit-integrations')}</b>
-            <MultiSelect
-              title="selectedReward"
-              defaultValue={pointicsConf?.selectedReward ?? null}
-              className="btcd-paper-drpdwn w-5"
-              options={
-                pointicsConf?.allRewards &&
-                Array.isArray(pointicsConf.allRewards) &&
-                pointicsConf.allRewards.map(reward => ({
-                  label: reward.reward_name,
-                  value: reward.reward_id?.toString()
-                }))
-              }
-              onChange={val =>
-                setPointicsConf(prevConf =>
-                  create(prevConf, draftConf => {
-                    draftConf.selectedReward = val
-                  })
-                )
-              }
-              singleSelect
-              closeOnSelect
-            />
-            <button
-              onClick={() => refreshPointicsRewards(setPointicsConf, setIsLoading)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh Rewards', 'bit-integrations')}'` }}
               type="button"
               disabled={isLoading}>
               &#x21BB;

@@ -34,27 +34,6 @@ export const refreshPointicsChannels = (setPointicsConf, setIsLoading) => {
     .catch(() => setIsLoading(false))
 }
 
-export const refreshPointicsRewards = (setPointicsConf, setIsLoading) => {
-  setIsLoading(true)
-  bitsFetch(null, 'refresh_pointics_rewards')
-    .then(result => {
-      if (result && result?.success && result?.data?.rewards) {
-        setPointicsConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf.allRewards = result.data.rewards
-          })
-        )
-
-        setIsLoading(false)
-        toast.success(__('All rewards fetched successfully', 'bit-integrations'))
-        return
-      }
-      setIsLoading(false)
-      toast.error(__('Pointics rewards fetch failed. Please try again', 'bit-integrations'))
-    })
-    .catch(() => setIsLoading(false))
-}
-
 export const checkMappedFields = pointicsConf => {
   if (!pointicsConf?.mainAction) {
     return false

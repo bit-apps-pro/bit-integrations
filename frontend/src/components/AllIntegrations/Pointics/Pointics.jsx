@@ -9,7 +9,7 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import PointicsAuthorization from './PointicsAuthorization'
 import { checkMappedFields } from './PointicsCommonFunc'
 import PointicsIntegLayout from './PointicsIntegLayout'
-import { needsChannel, needsReward } from './staticData'
+import { needsChannel } from './staticData'
 
 export default function Pointics({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
@@ -35,14 +35,6 @@ export default function Pointics({ formFields, setFlow, flow, allIntegURL }) {
         setSnackbar({
           show: true,
           msg: __('Please select a channel to continue.', 'bit-integrations')
-        })
-        return
-      }
-
-      if (needsReward.includes(pointicsConf.mainAction) && !pointicsConf?.selectedReward) {
-        setSnackbar({
-          show: true,
-          msg: __('Please select a reward to continue.', 'bit-integrations')
         })
         return
       }

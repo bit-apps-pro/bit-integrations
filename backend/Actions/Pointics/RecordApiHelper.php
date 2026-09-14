@@ -57,20 +57,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'redeem_reward':
-                $response = Hooks::apply(Config::withPrefix('pointics_redeem_reward'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
-                $type = 'redemption';
-                $actionType = 'redeem_reward';
-
-                break;
-
-            case 'apply_redemption':
-                $response = Hooks::apply(Config::withPrefix('pointics_apply_redemption'), $defaultResponse, $fieldData);
-                $type = 'redemption';
-                $actionType = 'apply_redemption';
-
-                break;
-
             case 'cancel_redemption':
                 $response = Hooks::apply(Config::withPrefix('pointics_cancel_redemption'), $defaultResponse, $fieldData);
                 $type = 'redemption';

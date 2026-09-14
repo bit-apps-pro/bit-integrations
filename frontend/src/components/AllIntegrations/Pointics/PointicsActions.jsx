@@ -52,24 +52,6 @@ export default function PointicsActions({ pointicsConf, setPointicsConf }) {
 
   return (
     <div className="mt-3">
-      {pointicsConf?.mainAction === 'redeem_reward' && (
-        <>
-          <TableCheckBox
-            checked={pointicsConf?.utilities?.selected_apply_to_cart || false}
-            onChange={() => setActionMdl({ show: 'apply_to_cart' })}
-            className="wdt-200 mt-4 mr-2"
-            value="apply_to_cart"
-            title={__('Apply To Cart', 'bit-integrations')}
-            subTitle={__('Hand the minted coupon to the current cart', 'bit-integrations')}
-          />
-          {renderActionModal(
-            'apply_to_cart',
-            __('Apply To Cart', 'bit-integrations'),
-            'selected_apply_to_cart'
-          )}
-        </>
-      )}
-
       {pointicsConf?.mainAction === 'recompute_member_tier' && (
         <>
           <TableCheckBox

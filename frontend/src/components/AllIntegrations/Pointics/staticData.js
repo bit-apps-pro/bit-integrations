@@ -7,8 +7,6 @@ export const modules = [
     label: __('Award Channel Points', 'bit-integrations'),
     is_pro: true
   },
-  { name: 'redeem_reward', label: __('Redeem Reward', 'bit-integrations'), is_pro: true },
-  { name: 'apply_redemption', label: __('Apply Redemption', 'bit-integrations'), is_pro: true },
   { name: 'cancel_redemption', label: __('Cancel Redemption', 'bit-integrations'), is_pro: true },
   {
     name: 'recompute_member_tier',
@@ -51,12 +49,6 @@ export const AwardChannelFields = [
   { key: 'amount', label: __('Amount', 'bit-integrations'), required: false }
 ]
 
-export const RedeemRewardFields = [
-  { key: 'user_email', label: __('Member Email', 'bit-integrations'), required: true },
-  { key: 'points', label: __('Points (ratio rewards only)', 'bit-integrations'), required: false },
-  { key: 'idempotency_key', label: __('Idempotency Key', 'bit-integrations'), required: false }
-]
-
 export const RedemptionIdFields = [
   { key: 'user_email', label: __('Member Email', 'bit-integrations'), required: true },
   { key: 'redemption_id', label: __('Redemption Id', 'bit-integrations'), required: true }
@@ -94,6 +86,4 @@ export const yesNoOptions = [
 
 export const needsChannel = ['award_channel_points']
 
-export const needsReward = ['redeem_reward']
-
-export const hasUtilities = ['redeem_reward', 'recompute_member_tier']
+export const hasUtilities = ['recompute_member_tier']
