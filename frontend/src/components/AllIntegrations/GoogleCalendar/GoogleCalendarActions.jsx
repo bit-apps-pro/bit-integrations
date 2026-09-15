@@ -1,8 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Modal from '../../Utilities/Modal'
+import ProModal from '../../Utilities/ProModal'
 import TableCheckBox from '../../Utilities/TableCheckBox'
 import TitleModal from '../../Utilities/TitleModal'
 import GoogleCalendarReminderFieldMap from './GoogleCalendarReminderFieldMap'
@@ -10,10 +13,27 @@ import { addReminderFieldMap } from './IntegrationHelpers'
 
 export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCalendarConf }) {
   const [actionMdl, setActionMdl] = useState({ show: false, action: () => {} })
+  const [showProModal, setShowProModal] = useState(false)
+  const { isPro } = useRecoilValue($appConfigState)
+
   const actionHandler = (e, type) => {
+    if (type === 'richTextDesc' && !isPro) {
+      setShowProModal(true)
+
+      return
+    }
     const newConf = { ...googleCalendarConf }
     if (e.target.checked) {
       newConf.actions[type] = true
+
+      if (type === 'richTextDesc') {
+        const restFieldMap = (newConf.field_map || []).filter(
+          fld => fld?.googleCalendarFormField !== 'description'
+        )
+        newConf.field_map = restFieldMap.length
+          ? restFieldMap
+          : [{ formField: '', googleCalendarFormField: '' }]
+      }
 
       if (type === 'reminders') {
         setActionMdl({ show: 'reminders' })
@@ -69,6 +89,18 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
         subTitle={__('If checked, Event create will skip if slot not free', 'bit-integrations')}
       />
 
+      <TableCheckBox
+        checked={googleCalendarConf.actions?.richTextDesc || false}
+        onChange={e => actionHandler(e, 'richTextDesc')}
+        className={`wdt-200 mt-4 mr-2 ${isPro ? '' : 'input-disable'}`}
+        value="richTextDesc"
+        title={__('Description Editor', 'bit-integrations')}
+        subTitle={__(
+          'Write the description in an editor with Markdown formatting and a preview, instead of mapping a plain text field. Description is removed from Field Map.',
+          'bit-integrations'
+        )}
+      />
+
       <TitleModal action={openReminderMdl}>
         <TableCheckBox
           checked={googleCalendarConf.actions?.reminders || false}
@@ -117,6 +149,12 @@ export default function GoogleCalendarActions({ googleCalendarConf, setGoogleCal
           </button>
         </div>
       </Modal>
+
+      <ProModal
+        show={showProModal}
+        setShow={setShowProModal}
+        sub={__('Description Editor', 'bit-integrations')}
+      />
     </div>
   )
 }

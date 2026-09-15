@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.3
+Stable tag: 2.10.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,35 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.4 =
+_Release Date - 5th September 2026_
+
+- **New Features**
+ - Choose who an action runs for: pick the logged-in user, or map an email field from your trigger and the action runs for that user. Available in LearnDash, LifterLMS, Tutor LMS, MasterStudy LMS, Academy LMS, WP Courseware, MemberPress, Paid Memberships Pro, Restrict Content, GamiPress, AffiliateWP and SliceWP.
+ - Google Calendar: Write your event description with headings, bold text, lists and links. A Preview tab shows how it will look before you save (Pro).
+
+- **Improvements**
+ - Asana: Your full list of projects, sections and custom fields now loads, not just the first batch.
+ - SendPulse: All address books now load, and your selected list no longer resets when its fields fail to load.
+ - Salesforce: The connection now uses a more secure sign-in flow (PKCE).
+ - Brevo: If no email reaches the action, the log now tells you that instead of showing Brevo's unclear error.
+ - Custom API: New actions start on POST, and the edit screen now shows the request method you saved.
+ - Triggers: Waiting for test data no longer floods your site with requests, and the button always stops spinning when you press Stop.
+
+- **Bug Fixes**
+ - LearnDash and LifterLMS: The unenroll actions removed the wrong person - they always used the same fixed user instead of the one from your flow.
+ - Brevo: Contacts failed to save when some mapped fields were empty. Emails with a "+" in them created a duplicate contact on every run.
+ - Notion: Checkboxes always saved as ticked, a single-choice field sent to a multi-select property was dropped, and decimal numbers lost everything after the point.
+ - Systeme.io: Failed runs were logged as successful.
+ - Asana: Tasks were not created when some mapped fields were empty.
+ - Zoho Bigin: Failed runs and Deals actions saved without a layout no longer produce warnings, and the layout dropdown is now sorted by name.
+ - ActiveCampaign: Fixed reading your account details.
+ - Custom API: Actions sent the request as a GET with an empty body if you never opened the method dropdown.
+ - KonnectzIT: Opening a saved integration showed a spinner forever instead of its settings.
+ - MemberPress: Long membership lists were cut short, so some memberships could not be picked and the trigger kept loading (Pro).
+ - Avada Forms: Hidden, file upload and consent fields were missing from the trigger data (Pro).
+ - Popup Maker: The trigger did not show the plugin as installed (Pro).
 
 = 2.10.3 =
 _Release Date - 20th August 2026_

@@ -10,7 +10,7 @@ import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import TutorLmsAuthorization from './TutorLmsAuthorization'
 import TutorLmsIntegLayout from './TutorLmsIntegLayout'
-import { handleInput } from './TutorLmsCommonFunc'
+import { handleInput, isActionConfigIncomplete } from './TutorLmsCommonFunc'
 
 function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
@@ -85,6 +85,7 @@ function TutorLms({ formFields, setFlow, flow, allIntegURL }) {
 
         <button
           onClick={() => nextPage(3)}
+          disabled={isLoading || isActionConfigIncomplete(tutorlmsConf)}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')} &nbsp;

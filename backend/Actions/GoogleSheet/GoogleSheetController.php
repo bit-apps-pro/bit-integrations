@@ -26,6 +26,10 @@ class GoogleSheetController
         ],
     ];
 
+    private const DRIVE_PAGE_SIZE = 1000;
+
+    private const MAX_PAGES = 20;
+
     private $_integrationID;
 
     public function __construct($integrationID)
@@ -92,8 +96,8 @@ class GoogleSheetController
                 400
             );
         }
-        $spreadSheets = "https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20'application%2Fvnd.google-apps.spreadsheet'";
         $response = [];
+        $authorizationHeader = [];
         if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
@@ -104,24 +108,43 @@ class GoogleSheetController
             $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         }
 
-        $spreadSheetResponse = HttpHelper::get($spreadSheets, null, $authorizationHeader);
         $allSpreadsheet = [];
-        if (!is_wp_error($spreadSheetResponse) && empty($spreadSheetResponse->response->error)) {
-            $spreadsheets = $spreadSheetResponse->files;
-            foreach ($spreadsheets as $spreadsheet) {
+        $pageToken = null;
+
+        for ($page = 0; $page < self::MAX_PAGES; $page++) {
+            $spreadSheets = 'https://www.googleapis.com/drive/v3/files'
+                . "?q=mimeType%20%3D%20'application%2Fvnd.google-apps.spreadsheet'"
+                . '&pageSize=' . self::DRIVE_PAGE_SIZE
+                . '&fields=' . rawurlencode('nextPageToken,files(id,name)');
+
+            if (!empty($pageToken)) {
+                $spreadSheets .= '&pageToken=' . rawurlencode($pageToken);
+            }
+
+            $spreadSheetResponse = HttpHelper::get($spreadSheets, null, $authorizationHeader);
+            $error = self::googleErrorMessage($spreadSheetResponse);
+
+            if ($error !== null) {
+                wp_send_json_error($error, 400);
+            }
+
+            foreach ($spreadSheetResponse->files ?? [] as $spreadsheet) {
                 $allSpreadsheet[$spreadsheet->name] = (object) [
                     'spreadsheetId'   => $spreadsheet->id,
                     'spreadsheetName' => $spreadsheet->name
                 ];
             }
-            uksort($allSpreadsheet, 'strnatcasecmp');
-            $response['spreadsheets'] = $allSpreadsheet;
-        } else {
-            wp_send_json_error(
-                $spreadSheetResponse->response->error->message,
-                400
-            );
+
+            $pageToken = $spreadSheetResponse->nextPageToken ?? null;
+
+            if (empty($pageToken)) {
+                break;
+            }
         }
+
+        uksort($allSpreadsheet, 'strnatcasecmp');
+        $response['spreadsheets'] = $allSpreadsheet;
+
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
@@ -156,16 +179,13 @@ class GoogleSheetController
 
         $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         $worksheetsMetaResponse = HttpHelper::get($worksheetsMetaApiEndpoint, null, $authorizationHeader);
+        $error = self::googleErrorMessage($worksheetsMetaResponse);
 
-        if (!is_wp_error($worksheetsMetaResponse)) {
-            $worksheets = $worksheetsMetaResponse->sheets;
-            $response['worksheets'] = $worksheets;
-        } else {
-            wp_send_json_error(
-                $worksheetsMetaResponse->status === 'error' ? $worksheetsMetaResponse->message : 'Unknown',
-                400
-            );
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
         }
+
+        $response['worksheets'] = $worksheetsMetaResponse->sheets ?? [];
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             $response['queryWorkbook'] = $queryParams->workbook;
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
@@ -212,11 +232,10 @@ class GoogleSheetController
         $authorizationHeader['Authorization'] = "Bearer {$queryParams->tokenDetails->access_token}";
         $worksheetHeadersMetaResponse = HttpHelper::get($worksheetHeadersMetaApiEndpoint, null, $authorizationHeader);
 
-        if (is_wp_error($worksheetHeadersMetaResponse)) {
-            wp_send_json_error(
-                $worksheetHeadersMetaResponse->status === 'error' ? $worksheetHeadersMetaResponse->message : 'Unknown',
-                400
-            );
+        $error = self::googleErrorMessage($worksheetHeadersMetaResponse);
+
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
         }
 
         $response['worksheet_headers'] = [];
@@ -294,6 +313,47 @@ class GoogleSheetController
      *
      * @return JSON $tokenDetails API token details
      */
+    /**
+     * Read the message out of a Google api error.
+     *
+     * Google answers {"error":{"code":401,"message":"..."}} at the top level, but the
+     * callers tested $response->response->error, which never exists. An expired token
+     * therefore passed the success check and produced an empty list rather than a
+     * message telling the user to reconnect.
+     *
+     * @param mixed $response
+     *
+     * @return null|string message, or null when the response carries no error
+     */
+    private static function googleErrorMessage($response)
+    {
+        if (is_wp_error($response)) {
+            return $response->get_error_message();
+        }
+
+        if (!isset($response->error)) {
+            return null;
+        }
+
+        if (\is_string($response->error)) {
+            return $response->error;
+        }
+
+        $message = $response->error->message ?? '';
+        $code = $response->error->code ?? 0;
+
+        if (\in_array($code, [401, 403], true)) {
+            return self::reconnectMessage() . ' ' . $message;
+        }
+
+        return $message === '' ? __('Unknown', 'bit-integrations') : $message;
+    }
+
+    private static function reconnectMessage()
+    {
+        return __('Google rejected the saved credentials. Reauthorize the Google account for this integration.', 'bit-integrations');
+    }
+
     protected static function refreshAccessToken($apiData)
     {
         if (empty($apiData->clientId)

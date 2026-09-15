@@ -1,10 +1,13 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function BooklyAuthorization({ booklyConf, setBooklyConf, step, nextPage, isInfo }) {
   return (
     <Authorization
+      tutorialTitle="Bookly"
+      tutorialLinks={tutorialLinks?.bookly || {}}
       config={booklyConf}
       setConfig={setBooklyConf}
       step={step}

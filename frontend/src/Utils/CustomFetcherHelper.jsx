@@ -4,6 +4,8 @@ import bitsFetch from './bitsFetch'
 
 export const FETCH_TIMEOUT = 180
 
+export const FETCH_RETRY_DELAY = 2000
+
 export function useFetchCountdown(timeoutSeconds = FETCH_TIMEOUT) {
   const [countdown, setCountdown] = useState(0)
   const intervalRef = useRef(null)

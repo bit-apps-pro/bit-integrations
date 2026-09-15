@@ -1,10 +1,13 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function B2BKingAuthorization({ b2bKingConf, setB2BKingConf, step, nextPage, isInfo }) {
   return (
     <Authorization
+      tutorialTitle="B2BKing"
+      tutorialLinks={tutorialLinks?.b2bKing || {}}
       config={b2bKingConf}
       setConfig={setB2BKingConf}
       step={step}

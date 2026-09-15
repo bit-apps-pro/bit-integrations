@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\Memberpress;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use MeprEvent;
@@ -41,11 +42,10 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public function crateMember($integrationDetails, $finalData)
+    public function crateMember($integrationDetails, $finalData, $user_id)
     {
         $statusId = $integrationDetails->statusId;
         $gateway = $integrationDetails->gatewayId;
-        $user_id = get_current_user_id();
 
         $product_id = $integrationDetails->selectedMembership;
         $allData = new MeprTransaction();
@@ -100,10 +100,9 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    public function removeUserFormMembership($integrationDetails, $finalData)
+    public function removeUserFormMembership($integrationDetails, $finalData, $user_id)
     {
         $membership = $integrationDetails->selectedMembership;
-        $user_id = get_current_user_id();
         $user_obj = get_user_by('id', $user_id);
         $table = MeprSubscription::account_subscr_table(
             'created_at',
@@ -157,9 +156,18 @@ class RecordApiHelper
     ) {
         $fieldData = [];
         $apiResponse = null;
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'membership', 'type_name' => 'resolve-user']), 'error', wp_json_encode($userId->get_error_message()));
+
+            return $userId;
+        }
+
         if ($mainAction === '1') {
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
-            $apiResponse = $this->crateMember($integrationDetails, $finalData);
+            $apiResponse = $this->crateMember($integrationDetails, $finalData, $userId);
             if (!empty($apiResponse) && \gettype($apiResponse) !== 'integer') {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership']), 'error', wp_json_encode(__('Failed to add user to membership', 'bit-integrations')));
             } else {
@@ -168,7 +176,7 @@ class RecordApiHelper
             }
         } elseif ($mainAction === '2') {
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
-            $apiResponse = $this->removeUserFormMembership($integrationDetails, $finalData);
+            $apiResponse = $this->removeUserFormMembership($integrationDetails, $finalData, $userId);
             if ($apiResponse) {
                 LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership']), 'success', wp_json_encode(__('Successfully user removed form membership', 'bit-integrations')));
             } else {

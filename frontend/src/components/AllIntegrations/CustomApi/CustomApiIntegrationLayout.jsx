@@ -68,6 +68,7 @@ const CustomApiIntegrationLayout = ({
       <div className="d-flx">
         <b className="wdt-200 d-in-b mt-3">{__('Select Method:', 'bit-integrations')}</b>
         <MultiSelect
+          key={`action-method-${customApiConf.actionMethod || 'unset'}`}
           defaultValue={customApiConf.actionMethod}
           className="btcd-paper-drpdwn w-5"
           singleSelect

@@ -403,7 +403,13 @@ final class WCController
             return false;
         }
 
-        $customer_data = (array) get_userdata($customer_id)->data;
+        $customer = get_userdata($customer_id);
+
+        if (!$customer) {
+            return false;
+        }
+
+        $customer_data = (array) $customer->data;
         $customer_metadata = self::formatUserMetaData(get_user_meta($customer_id));
         $customer_values = array_merge_recursive($customer_data, $customer_metadata);
 
@@ -443,9 +449,8 @@ final class WCController
         }
 
         $user_meta = get_userdata($customer_id);
-        $user_roles = $user_meta->roles;
 
-        if (!\in_array('customer', $user_roles)) {
+        if (!$user_meta || !\is_array($user_meta->roles) || !\in_array('customer', $user_meta->roles)) {
             return false;
         }
 
@@ -1061,8 +1066,12 @@ final class WCController
             return false;
         }
 
-        $checkout = new WC_Checkout();
-        self::handle_order_create($order->id, $checkout->get_posted_data());
+        if (!\is_object($order) || !method_exists($order, 'get_id')) {
+            return false;
+        }
+
+        $checkout = WC_Checkout::instance();
+        self::handle_order_create($order->get_id(), $checkout->get_posted_data());
     }
 
     public static function accessSubscription($subscription, $quantity)

@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function AsgarosForumAuthorization({
   asgarosForumConf,
@@ -13,6 +14,8 @@ export default function AsgarosForumAuthorization({
   const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
     <Authorization
+      tutorialTitle="Asgaros Forum"
+      tutorialLinks={tutorialLinks?.asgarosForum || {}}
       config={asgarosForumConf}
       setConfig={setAsgarosForumConf}
       step={step}

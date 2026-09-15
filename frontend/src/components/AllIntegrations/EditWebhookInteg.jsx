@@ -5,7 +5,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { $appConfigState, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  FETCH_RETRY_DELAY,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { deepCopy } from '../../Utils/Helpers'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
@@ -61,29 +64,31 @@ function EditWebhookInteg({ setSnackbar }) {
         return
       }
 
-      bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal).then(resp => {
-        if (!resp.success && isFetchingRef.current) {
-          fetchSequentially()
-          return
-        }
-
-        if (resp.success) {
-          let data = resp.data.webhook
-          if (typeof resp.data.webhook === 'object') {
-            data = Object.keys(resp.data.webhook).map(fld => ({
-              name: fld,
-              label: `${resp.data.webhook[fld]}-${fld}`,
-              type: 'text'
-            }))
+      bitsFetch({ hook_id: hookID }, 'webhook/test', null, 'post', signal)
+        .then(resp => {
+          if (!resp.success && !resp.aborted && isFetchingRef.current) {
+            setTimeout(fetchSequentially, FETCH_RETRY_DELAY)
+            return
           }
-          setFormFields(data)
-          const newConf = deepCopy(flow)
-          newConf.flow_details.fields = data
-          setFlow(newConf)
-        }
 
-        stopFetching()
-      })
+          if (resp.success) {
+            let data = resp.data.webhook
+            if (typeof resp.data.webhook === 'object') {
+              data = Object.keys(resp.data.webhook).map(fld => ({
+                name: fld,
+                label: `${resp.data.webhook[fld]}-${fld}`,
+                type: 'text'
+              }))
+            }
+            setFormFields(data)
+            const newConf = deepCopy(flow)
+            newConf.flow_details.fields = data
+            setFlow(newConf)
+          }
+
+          stopFetching()
+        })
+        .catch(stopFetching)
     } catch (err) {
       console.log(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err

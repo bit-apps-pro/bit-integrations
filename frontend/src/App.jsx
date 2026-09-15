@@ -4,7 +4,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useLocation } from 'react-router'
 import './resource/sass/app.scss'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Toaster } from 'react-hot-toast'
@@ -14,6 +14,7 @@ import logo from '../logo.svg'
 import { defaultLoaderFallback, getIntegrationsElement } from './components/AppRouteElements'
 import Loader from './components/Loaders/Loader'
 import TableLoader from './components/Loaders/TableLoader2'
+import ErrorBoundary from './components/Utilities/ErrorBoundary'
 import ProModalBtn from './components/Utilities/ProModalBtn'
 import { APP_CONFIG } from './config/app'
 import { $appConfigState } from './GlobalStates'
@@ -35,6 +36,7 @@ const authResponseElement = getIntegrationsElement(AuthResponse)
 
 function App() {
   const btcbi = useRecoilValue($appConfigState)
+  const { pathname } = useLocation()
   const loaderStyle = { height: '82vh' }
 
   // check if integrations are available
@@ -99,68 +101,70 @@ function App() {
         </div>
 
         <div className="route-wrp">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={<TableLoader />}>
-                  <AllIntegrations
-                    integrations={integrations}
-                    setIntegrations={setIntegrations}
-                    isLoading={isLoading}
-                    isValidUser={isValidUser}
-                  />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/connections"
-              element={
-                <Suspense fallback={defaultLoaderFallback}>
-                  <Connections />
-                </Suspense>
-              }
-            />
+          <ErrorBoundary resetKey={pathname}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Suspense fallback={<TableLoader />}>
+                    <AllIntegrations
+                      integrations={integrations}
+                      setIntegrations={setIntegrations}
+                      isLoading={isLoading}
+                      isValidUser={isValidUser}
+                    />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/connections"
+                element={
+                  <Suspense fallback={defaultLoaderFallback}>
+                    <Connections />
+                  </Suspense>
+                }
+              />
 
-            <Route
-              path="/app-settings"
-              element={
-                <Suspense fallback={defaultLoaderFallback}>
-                  <Settings />
-                </Suspense>
-              }
-            />
+              <Route
+                path="/app-settings"
+                element={
+                  <Suspense fallback={defaultLoaderFallback}>
+                    <Settings />
+                  </Suspense>
+                }
+              />
 
-            <Route
-              path="/doc-support"
-              element={
-                <Suspense fallback={defaultLoaderFallback}>
-                  <DocSupport />
-                </Suspense>
-              }
-            />
+              <Route
+                path="/doc-support"
+                element={
+                  <Suspense fallback={defaultLoaderFallback}>
+                    <DocSupport />
+                  </Suspense>
+                }
+              />
 
-            <Route
-              path="/flow/new"
-              element={
-                <Suspense fallback={defaultLoaderFallback}>
-                  <FlowBuilder />
-                </Suspense>
-              }
-            />
+              <Route
+                path="/flow/new"
+                element={
+                  <Suspense fallback={defaultLoaderFallback}>
+                    <FlowBuilder />
+                  </Suspense>
+                }
+              />
 
-            <Route path="/flow/action">
-              <Route index element={integrationsElement} />
-              <Route path="*" element={integrationsElement} />
-            </Route>
+              <Route path="/flow/action">
+                <Route index element={integrationsElement} />
+                <Route path="*" element={integrationsElement} />
+              </Route>
 
-            <Route path="/auth-response">
-              <Route index element={authResponseElement} />
-              <Route path="*" element={authResponseElement} />
-            </Route>
+              <Route path="/auth-response">
+                <Route index element={authResponseElement} />
+                <Route path="*" element={authResponseElement} />
+              </Route>
 
-            <Route path="*" element={<Error404 />} />
-          </Routes>
+              <Route path="*" element={<Error404 />} />
+            </Routes>
+          </ErrorBoundary>
         </div>
       </div>
     </Suspense>

@@ -11,6 +11,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput } from './WPCoursewareCommonFunc'
 import WPCoursewareIntegLayout from './WPCoursewareIntegLayout'
 
@@ -68,7 +69,11 @@ function EditWPCourseware({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        disabled={wpCoursewareConf.action === '' || wpCoursewareConf.course.length === 0}
+        disabled={
+          wpCoursewareConf.action === '' ||
+          wpCoursewareConf.course.length === 0 ||
+          isUserSourceIncomplete(wpCoursewareConf)
+        }
         isLoading={isLoading}
         dataConf={wpCoursewareConf}
         setDataConf={setWPCoursewareConf}

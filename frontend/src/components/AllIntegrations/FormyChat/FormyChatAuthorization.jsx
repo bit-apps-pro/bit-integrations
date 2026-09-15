@@ -1,6 +1,7 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function FormyChatAuthorization({
   formyChatConf,
@@ -11,6 +12,8 @@ export default function FormyChatAuthorization({
 }) {
   return (
     <Authorization
+      tutorialTitle="FormyChat"
+      tutorialLinks={tutorialLinks?.formyChat || {}}
       config={formyChatConf}
       setConfig={setFormyChatConf}
       step={step}

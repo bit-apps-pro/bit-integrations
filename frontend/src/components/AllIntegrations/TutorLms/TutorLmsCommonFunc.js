@@ -2,6 +2,7 @@ import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 
 export const handleInput = (e, tutorlmsConf, setTutorlmsConf, setIsLoading, setSnackbar) => {
   let newConf = deepCopy(tutorlmsConf)
@@ -73,6 +74,8 @@ export const getAllLesson = (tutorlmsConf, setTutorlmsConf, setIsLoading) => {
     loading: __('Loading Lessons...')
   })
 }
+
+export const isActionConfigIncomplete = tutorlmsConf => isUserSourceIncomplete(tutorlmsConf)
 
 const generateMappedFields = tutorlmsConf => {
   const newConf = deepCopy(tutorlmsConf)

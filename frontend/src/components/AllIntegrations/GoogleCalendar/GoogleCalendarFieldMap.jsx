@@ -14,8 +14,12 @@ export default function GoogleCalendarFieldMap({
   setGoogleCalendarConf
 }) {
   const isRequired = field.required
+  const hideDesc = Boolean(googleCalendarConf?.actions?.richTextDesc)
   const notRequiredField =
-    googleCalendarConf?.default && Object.values(googleCalendarConf?.default).filter(f => !f.required)
+    googleCalendarConf?.default &&
+    Object.values(googleCalendarConf?.default).filter(
+      f => !f.required && !(hideDesc && f.key === 'description')
+    )
   const { isPro } = useRecoilValue($appConfigState)
 
   const handleFieldMapping = (event, index) => {

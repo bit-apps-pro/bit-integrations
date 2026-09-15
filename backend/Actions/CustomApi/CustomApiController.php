@@ -19,7 +19,19 @@ class CustomApiController
         $details = $integrationDetails->flow_details;
         $type = $details->type;
         $integId = isset($integrationDetails->id) ? $integrationDetails->id : '';
-        $method = isset($details->actionMethod) ? $details->actionMethod : 'get';
+        $method = !empty($details->actionMethod) ? $details->actionMethod : 'get';
+
+        if (empty($details->actionMethod)) {
+            LogHandler::save(
+                $integId,
+                wp_json_encode(['type' => $type, 'type_name' => $type]),
+                'error',
+                new \WP_Error(
+                    Config::withPrefix('custom-api-method'),
+                    __('No request method is saved for this action, so it was sent as GET and any request body was dropped. Open the action and select a method.', 'bit-integrations')
+                )
+            );
+        }
         $pathParams = isset($details->pathParams) ? $details->pathParams : [];
         $url = isset($details->url) ? self::urlParserWrapper($details->url, $fieldValues, $pathParams) : false;
         if (empty($url)) {
@@ -231,7 +243,11 @@ class CustomApiController
 
     private static function processPayload($details, $fieldValues)
     {
-        if ($details->body->type === 'raw' && isset($details->body->raw)) {
+        if (!isset($details->body)) {
+            return [];
+        }
+
+        if (isset($details->body->type) && $details->body->type === 'raw' && isset($details->body->raw)) {
             return Common::replaceFieldWithValue(sanitize_text_field($details->body->raw), $fieldValues);
         }
 

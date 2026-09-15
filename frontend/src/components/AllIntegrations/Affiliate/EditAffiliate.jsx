@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import AffiliateIntegLayout from './AffiliateIntegLayout'
 import { checkMappedFields, handleInput } from './AffiliateCommonFunc'
 
@@ -70,7 +71,8 @@ function EditAffiliate({ allIntegURL }) {
           !checkMappedFields(affiliateConf) ||
           !affiliateConf.statusId ||
           !affiliateConf.referralId ||
-          isLoading
+          isLoading ||
+          isUserSourceIncomplete(affiliateConf)
         }
         isLoading={isLoading}
         dataConf={affiliateConf}
