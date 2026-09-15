@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Bit Integrations
  * Plugin URI:  https://bitapps.pro/bit-integrations
- * Description: Bit Integrations is a platform that integrates with over 300+ different platforms to help with various tasks on your WordPress site, like WooCommerce, Form builder, Page builder, LMS, Sales funnels, Bookings, CRM, Webhooks, Email marketing, Social media and Spreadsheets, etc
- * Version:     2.10.4
+ * Description: Bit Integrations is a platform that integrates with over 400+ different platforms to help with various tasks on your WordPress site, like WooCommerce, Form builder, Page builder, LMS, Sales funnels, Bookings, CRM, Webhooks, Email marketing, Social media and Spreadsheets, etc
+ * Version:     2.10.5
  * Author:      Automation & Integration Plugin - Bit Apps
  * Author URI:  https://bitapps.pro
  * Text Domain: bit-integrations
@@ -34,7 +34,7 @@ $btcbi_db_version = '1.2';
  *
  * @deprecated 2.7.8 Use Config::VERSION instead.
  */
-define('BTCBI_VERSION', '2.10.4');
+define('BTCBI_VERSION', '2.10.5');
 /**
  * deprecated since version 2.7.8.
  *
