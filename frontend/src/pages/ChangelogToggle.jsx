@@ -29,13 +29,27 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Pointics',
+        desc: '4 new events added.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      [
+        {
+          label: 'Pointics',
+          desc: '8 new events added.',
+          isPro: true
+        }
+      ]
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -43,14 +57,9 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Choose who an action runs for',
+        label: 'ActiveCampaign',
         desc: 'pick the logged-in user, or map an email field from your trigger and the action runs for that user. Available in LearnDash, LifterLMS, Tutor LMS, MasterStudy LMS, Academy LMS, WP Courseware, MemberPress, Paid Memberships Pro, Restrict Content, GamiPress, AffiliateWP and SliceWP.',
         isPro: false
-      },
-      {
-        label: 'Google Calendar',
-        desc: 'Write your event description with headings, bold text, lists and links. A Preview tab shows how it will look before you save.',
-        isPro: true
       }
     ]
   },
@@ -58,105 +67,13 @@ const changeLog = [
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'Asana',
-        desc: 'Your full list of projects, sections and custom fields now loads, not just the first batch.',
-        isPro: false
-      },
-      {
-        label: 'SendPulse',
-        desc: 'All address books now load, and your selected list no longer resets when its fields fail to load.',
-        isPro: false
-      },
-      {
-        label: 'Salesforce',
-        desc: 'The connection now uses a more secure sign-in flow (PKCE).',
-        isPro: false
-      },
-      {
-        label: 'Brevo',
-        desc: 'If no email reaches the action, the log now tells you that instead of showing Brevo’s unclear error.',
-        isPro: false
-      },
-      {
-        label: 'Custom API',
-        desc: 'New actions start on POST, and the edit screen now shows the request method you saved.',
-        isPro: false
-      },
-      {
-        label: 'Triggers',
-        desc: 'Waiting for test data no longer floods your site with requests, and the button always stops spinning when you press Stop.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'LearnDash and LifterLMS',
-        desc: 'The unenroll actions removed the wrong person – they always used the same fixed user instead of the one from your flow.',
-        isPro: false
-      },
-      {
-        label: 'Brevo',
-        desc: 'Contacts failed to save when some mapped fields were empty. Emails with a "+" in them created a duplicate contact on every run.',
-        isPro: false
-      },
-      {
-        label: 'Notion',
-        desc: 'Checkboxes always saved as ticked, a single-choice field sent to a multi-select property was dropped, and decimal numbers lost everything after the point.',
-        isPro: false
-      },
-      {
-        label: 'Systeme.io',
-        desc: 'Failed runs were logged as successful.',
-        isPro: false
-      },
-      {
-        label: 'Asana',
-        desc: 'Tasks were not created when some mapped fields were empty.',
-        isPro: false
-      },
-      {
-        label: 'Zoho Bigin',
-        desc: 'Failed runs and Deals actions saved without a layout no longer produce warnings, and the layout dropdown is now sorted by name.',
-        isPro: false
-      },
-      {
-        label: 'ActiveCampaign',
-        desc: 'Fixed reading your account details.',
-        isPro: false
-      },
-      {
-        label: 'Custom API',
-        desc: 'Actions sent the request as a GET with an empty body if you never opened the method dropdown.',
-        isPro: false
-      },
-      {
-        label: 'KonnectzIT',
-        desc: 'Opening a saved integration showed a spinner forever instead of its settings.',
-        isPro: false
-      },
-      {
-        label: 'MemberPress',
-        desc: 'Long membership lists were cut short, so some memberships could not be picked and the trigger kept loading.',
-        isPro: true
-      },
-      {
-        label: 'Avada Forms',
-        desc: 'Hidden, file upload and consent fields were missing from the trigger data.',
-        isPro: true
-      },
-      {
-        label: 'Popup Maker',
-        desc: 'The trigger did not show the plugin as installed.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('Security', 'bit-integrations'),
