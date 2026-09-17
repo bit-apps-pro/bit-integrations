@@ -700,6 +700,11 @@ const tutorialLinks = {
     docLink:
       'https://bit-integrations.com/wp-docs/actions/webba-booking-calendar-integration-as-an-action/'
   },
+  bookingsAndAppointmentsForWoocommerce: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/bookings-and-appointments-for-woocommerce-integration-as-an-action/'
+  },
   mainWP: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mainwp-integration-as-an-action/'
