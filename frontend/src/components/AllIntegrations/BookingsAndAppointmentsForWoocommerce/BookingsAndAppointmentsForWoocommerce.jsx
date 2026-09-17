@@ -22,8 +22,8 @@ export default function BookingsAndAppointmentsForWoocommerce({
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
   const [conf, setConf] = useState({
-    name: 'BookingsAndAppointmentsForWoocommerce',
-    type: 'BookingsAndAppointmentsForWoocommerce',
+    name: 'Bookings and Appointments for Woocommerce',
+    type: 'Bookings and Appointments for Woocommerce',
     field_map: [{ formField: '', bookingsAndAppointmentsForWoocommerceField: '' }],
     actions: {},
     mainAction: ''

@@ -672,7 +672,7 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBrilliantDirectories allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
-    case 'BookingsAndAppointmentsForWoocommerce':
+    case 'Bookings and Appointments for Woocommerce':
       return <EditBookingsAndAppointmentsForWoocommerce allIntegURL={allIntegURL} />
     case 'Pointics':
       return <EditPointics allIntegURL={allIntegURL} />

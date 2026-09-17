@@ -701,7 +701,7 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
-    case 'BookingsAndAppointmentsForWoocommerce':
+    case 'Bookings and Appointments for Woocommerce':
       return (
         <BookingsAndAppointmentsForWoocommerceAuthorization
           bookingsAndAppointmentsForWoocommerceConf={integrationConf}
