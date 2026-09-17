@@ -141,10 +141,7 @@ class ApiClient
 
     public function addHeaders(array $additionalHeaders): self
     {
-        $this->headers = array_unique(
-            array_merge($this->defaultHeaders, $additionalHeaders),
-            SORT_REGULAR
-        );
+        $this->headers = array_merge($this->defaultHeaders, $additionalHeaders);
 
         return $this;
     }
@@ -308,11 +305,10 @@ class ApiClient
 
     protected function resolveUrl(string $path): string
     {
-        $base = $this->getBaseURL();
         if (preg_match('#^https?://#i', $path)) {
             return $path;
         }
 
-        return trim($base . '/' . $path, '/');
+        return rtrim($this->getBaseURL(), '/') . '/' . ltrim($path, '/');
     }
 }
