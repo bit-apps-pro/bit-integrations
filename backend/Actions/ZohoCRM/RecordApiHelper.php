@@ -253,6 +253,10 @@ class RecordApiHelper
             return $value;
         }
 
+        if ($formatSpecs->data_type === 'lookup' && \is_scalar($value)) {
+            return (object) ['id' => trim((string) $value)];
+        }
+
         switch ($formatSpecs->json_type) {
             case 'jsonarray':
                 $apiFormat = 'array';
