@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use BitApps\Restructure\Cli\Application;
+
+if (PHP_VERSION_ID < 80100) {
+    fwrite(STDERR, "bi needs PHP 8.1 or newer.\n");
+
+    exit(2);
+}
+
+$toolRoot = dirname(__DIR__);
+$autoload = $toolRoot . '/vendor/autoload.php';
+
+if (!is_file($autoload)) {
+    fwrite(STDERR, "tools/restructure/vendor is missing; run: composer --working-dir=tools/restructure install\n");
+
+    exit(2);
+}
+
+require $autoload;
+
+exit((new Application($toolRoot))->run(array_slice($argv, 1)));
