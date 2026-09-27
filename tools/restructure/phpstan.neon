@@ -1,0 +1,35 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    phpVersion:
+        min: 70400
+        max: 80499
+    reportUnmatchedIgnoredErrors: false
+    parallel:
+        maximumNumberOfProcesses: 4
+
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+
+    paths:
+        - ../../backend/Actions
+        - ../../backend/Core/Integration
+        - ../../backend/Flow
+        - ../../backend/Core/Util/CredentialInjector.php
+
+    ignoreErrors:
+        - '#Call to (an undefined )?function [a-zA-Z0-9_]+\(\)#'
+        - '#Function [a-zA-Z0-9_]+ not found\.$#'
+        - '#Class (?!BitApps\\\\Integrations).* not found\.$#'
+        - '#Class (?!BitApps\\\\Integrations).* does not exist\.$#'
+        - '#Instantiated class (?!BitApps\\\\Integrations).* not found\.$#'
+        - '#Caught class (?!BitApps\\\\Integrations).* not found\.$#'
+        - '#Constant (?!BTCBI_|BIT_INTEGRATIONS_)[A-Z0-9_]+ not found\.$#'
+        - '#on an unknown class (?!BitApps\\\\Integrations).*\.$#'
+        - '#Call to an undefined method (?!BitApps\\\\Integrations).*::.*\(\)\.$#'
+        - '#Access to an undefined property (?!BitApps\\\\Integrations).*::\$.*\.$#'
+        - '#has invalid type (?!BitApps\\\\Integrations).*\.$#'
+        - '#Parameter .* has invalid type (?!BitApps\\\\Integrations).*\.$#'
+        - '#Method .* has invalid return type (?!BitApps\\\\Integrations).*\.$#'
