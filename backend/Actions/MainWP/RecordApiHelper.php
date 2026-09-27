@@ -70,7 +70,7 @@ class RecordApiHelper
                 break;
 
             case 'sync_all_sites':
-                $response = Hooks::apply(Config::withPrefix('main_wp_sync_all_sites'), $defaultResponse);
+                $response = Hooks::apply(Config::withPrefix('main_wp_sync_all_sites'), $defaultResponse, $fieldData);
                 $actionType = 'sync_all_sites';
 
                 break;
