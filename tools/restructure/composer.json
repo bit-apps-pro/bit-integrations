@@ -8,9 +8,10 @@
     "nikic/php-parser": "^5.0"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.64",
+    "php-stubs/wordpress-stubs": "^6.5",
     "phpstan/phpstan": "^2.1",
-    "szepeviktor/phpstan-wordpress": "^2.0",
-    "php-stubs/wordpress-stubs": "^6.5"
+    "szepeviktor/phpstan-wordpress": "^2.0"
   },
   "autoload": {
     "psr-4": {
