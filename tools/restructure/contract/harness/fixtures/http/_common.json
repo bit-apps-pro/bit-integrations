@@ -1,0 +1,16 @@
+[
+    {
+        "id": "oauth-refresh",
+        "method": "POST",
+        "url": "~(oauth2?|token)~i",
+        "body_contains": "refresh_token",
+        "status": 200,
+        "body": {
+            "access_token": "smoke-refreshed-access-token",
+            "api_domain": "https://www.zohoapis.com",
+            "expires_in": 3600,
+            "refresh_token": "smoke-refresh-token",
+            "token_type": "Bearer"
+        }
+    }
+]

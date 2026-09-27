@@ -1,0 +1,38 @@
+[
+    {
+        "id": "projects",
+        "method": "GET",
+        "url": "~^https://app\\.asana\\.com/api/1\\.0/+projects\\?~",
+        "body": {"data": [{"gid": "201", "name": "Smoke Project"}, {"gid": "202"}], "next_page": null}
+    },
+    {
+        "id": "sections",
+        "method": "GET",
+        "url": "~^https://app\\.asana\\.com/api/1\\.0/+projects/[^/]+/sections~",
+        "body": {"data": [{"gid": "301", "name": "Smoke Section"}], "next_page": null}
+    },
+    {
+        "id": "custom-fields",
+        "method": "GET",
+        "url": "~^https://app\\.asana\\.com/api/1\\.0/+projects/[^/]+/custom_field_settings~",
+        "body": {"data": [{"custom_field": {"gid": "401", "name": "Priority"}}, {"custom_field": {}}], "next_page": null}
+    },
+    {
+        "id": "tasks-list",
+        "method": "GET",
+        "url": "~^https://app\\.asana\\.com/api/1\\.0/+tasks~",
+        "body": {"tasks": [{"id": 11, "name": "Smoke task"}]}
+    },
+    {
+        "id": "task-create",
+        "method": "POST",
+        "url": "~^https://app\\.asana\\.com/api/1\\.0/+tasks$~",
+        "body": {"data": {"gid": "501", "name": "Smoke task"}}
+    },
+    {
+        "id": "task-to-section",
+        "method": "POST",
+        "url": "~^https://app\\.asana\\.com/api/1\\.0/+sections/[^/]+/addTask$~",
+        "body": {"data": {}}
+    }
+]

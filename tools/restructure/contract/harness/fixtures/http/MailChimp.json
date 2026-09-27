@@ -1,0 +1,45 @@
+[
+    {
+        "id": "metadata",
+        "method": "GET",
+        "url": "~^https://login\\.mailchimp\\.com/oauth2/metadata~",
+        "body": {"dc": "us1", "accountname": "Smoke"}
+    },
+    {
+        "id": "lists",
+        "method": "GET",
+        "url": "~\\.api\\.mailchimp\\.com/3\\.0/lists\\?~",
+        "body": {"lists": [{"id": "102", "name": "beta list"}, {"id": "101", "name": "Alpha List"}]}
+    },
+    {
+        "id": "merge-fields",
+        "method": "GET",
+        "url": "~\\.api\\.mailchimp\\.com/3\\.0/lists/[^/]+/merge-fields~",
+        "body": {"merge_fields": [{"tag": "FNAME", "name": "First Name", "required": false}, {"tag": "ADDRESS", "name": "Address", "required": false}, {"tag": "BIRTHDAY", "name": "Birthday", "required": true}]}
+    },
+    {
+        "id": "segments",
+        "method": "GET",
+        "url": "~\\.api\\.mailchimp\\.com/3\\.0/lists/[^/]+/segments~",
+        "body": {"segments": [{"id": 7, "name": "Smoke Tag"}, {"id": 3, "name": "another tag"}]}
+    },
+    {
+        "id": "search-members",
+        "method": "GET",
+        "url": "~\\.api\\.mailchimp\\.com/3\\.0/search-members~",
+        "body": {"exact_matches": {"members": [], "total_items": 0}}
+    },
+    {
+        "id": "add-member",
+        "method": "POST",
+        "url": "~\\.api\\.mailchimp\\.com/3\\.0/lists/[^/]+/members$~",
+        "body": {"id": "5a1f0c2a1b", "email_address": "smoke@example.com", "status": "subscribed"}
+    },
+    {
+        "id": "member-tags",
+        "method": "POST",
+        "url": "~\\.api\\.mailchimp\\.com/3\\.0/lists/[^/]+/members/[^/]+/tags$~",
+        "status": 204,
+        "body": ""
+    }
+]
