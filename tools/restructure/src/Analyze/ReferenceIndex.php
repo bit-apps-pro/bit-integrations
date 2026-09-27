@@ -254,7 +254,6 @@ final class ReferenceIndex
                 } elseif ($node instanceof String_) {
                     $this->index->recordString($this->source, $node, $this->currentClass(), $this->currentMember());
                 }
-
             }
 
             public function leaveNode(Node $node)
@@ -264,7 +263,6 @@ final class ReferenceIndex
                 } elseif ($node instanceof Stmt\ClassMethod || $node instanceof Stmt\Property || $node instanceof Stmt\ClassConst) {
                     array_pop($this->members);
                 }
-
             }
 
             private function currentClass(): ?string

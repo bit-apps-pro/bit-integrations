@@ -37,11 +37,13 @@ final class Git
      */
     public function add(array $paths): void
     {
-        if ($paths === []) {
+        $present = array_values(array_filter($paths, fn (string $path) => file_exists($this->root . '/' . $path)));
+
+        if ($present === []) {
             return;
         }
 
-        Shell::mustRun(array_merge(['git', 'add', '-A', '--'], $paths), $this->root);
+        Shell::mustRun(array_merge(['git', 'add', '-A', '--'], $present), $this->root);
     }
 
     /**

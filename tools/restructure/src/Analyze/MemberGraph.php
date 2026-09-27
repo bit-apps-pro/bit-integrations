@@ -209,7 +209,6 @@ final class MemberGraph
             public function enterNode(Node $node)
             {
                 $this->graph->visit($this->key, $node);
-
             }
         };
 
