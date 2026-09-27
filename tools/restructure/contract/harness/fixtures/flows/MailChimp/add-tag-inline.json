@@ -1,0 +1,23 @@
+{
+    "name": "MailChimp smoke: add tag (Pro hook)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mail Chimp",
+        "name": "MailChimp smoke tag",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "dc": "us1", "expires_in": 0, "generated_at": 1700000000},
+        "listId": "101",
+        "module": "add_tag_to_a_member",
+        "tags": ["Smoke Tag"],
+        "field_map": [
+            {"formField": "your-email", "mailChimpField": "email_address"}
+        ],
+        "address_field": [],
+        "actions": {},
+        "default": {"audiencelist": {"Alpha List": {"listId": "101", "listName": "Alpha List"}}},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

@@ -1,0 +1,20 @@
+{
+    "name": "FluentCRM smoke: add user with company (Pro hook)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Fluent Crm",
+        "name": "FluentCRM smoke",
+        "actionName": "add-user",
+        "list_id": "1",
+        "tags": ["1"],
+        "field_map": [
+            {"formField": "your-email", "fluentCRMField": "email"},
+            {"formField": "your-name", "fluentCRMField": "first_name"}
+        ],
+        "actions": {"company_id": "5"},
+        "default": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

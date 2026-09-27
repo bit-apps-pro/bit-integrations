@@ -1,0 +1,22 @@
+{
+    "name": "MailChimp smoke: add member through connection 1",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mail Chimp",
+        "name": "MailChimp smoke connection",
+        "connection_id": 1,
+        "listId": "101",
+        "module": "add_a_member_to_an_audience",
+        "tags": [],
+        "field_map": [
+            {"formField": "your-email", "mailChimpField": "email_address"},
+            {"formField": "your-name", "mailChimpField": "FNAME"}
+        ],
+        "address_field": [],
+        "actions": {},
+        "default": {"audiencelist": {"Alpha List": {"listId": "101", "listName": "Alpha List"}}},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

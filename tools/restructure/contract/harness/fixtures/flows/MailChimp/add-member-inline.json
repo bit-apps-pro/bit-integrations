@@ -1,0 +1,26 @@
+{
+    "name": "MailChimp smoke: add member, inline OAuth token",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mail Chimp",
+        "name": "MailChimp smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "dc": "us1", "expires_in": 0, "generated_at": 1700000000},
+        "listId": "101",
+        "module": "add_a_member_to_an_audience",
+        "tags": ["Smoke Tag"],
+        "field_map": [
+            {"formField": "your-email", "mailChimpField": "email_address"},
+            {"formField": "your-name", "mailChimpField": "FNAME"},
+            {"formField": "custom", "mailChimpField": "LNAME", "customValue": "Fixture"}
+        ],
+        "address_field": [],
+        "actions": {"update": true},
+        "default": {"audiencelist": {"Alpha List": {"listId": "101", "listName": "Alpha List"}}},
+        "selectedGDPR": [],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

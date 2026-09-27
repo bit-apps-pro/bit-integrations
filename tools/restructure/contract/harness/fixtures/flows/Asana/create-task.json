@@ -1,0 +1,20 @@
+{
+    "name": "Asana smoke: create task in a section",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Asana",
+        "name": "Asana smoke",
+        "api_key": "smoke-asana-key",
+        "actionName": "task",
+        "selectedProject": "201",
+        "selectedSections": "301",
+        "field_map": [
+            {"formField": "your-name", "asanaFormField": "name"},
+            {"formField": "custom", "asanaFormField": "notes", "customValue": "Fixture for ${your-email}"},
+            {"formField": "your-email", "asanaFormField": "fields", "customFieldKey": "401"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Task"}
+}
