@@ -52,7 +52,7 @@ class MailerLiteController
             foreach ($response->data as $value) {
                 $formattedResponse[]
                     = [
-                        'group_id' => $value->id,
+                        'group_id' => (string) $value->id,
                         'name'     => $value->name,
                     ];
             }
@@ -69,7 +69,7 @@ class MailerLiteController
             foreach ($response as $value) {
                 $formattedResponse[]
                     = [
-                        'group_id' => $value->id,
+                        'group_id' => (string) $value->id,
                         'name'     => $value->name,
                     ];
             }
