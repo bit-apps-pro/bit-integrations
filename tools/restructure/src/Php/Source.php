@@ -24,6 +24,11 @@ final class Source
     private static ?Parser $modernParser = null;
 
     /**
+     * @var array<string, self> parsed sources by path and content, so repeated scans of an unchanged tree parse nothing
+     */
+    private static array $parsed = [];
+
+    /**
      * @var list<int>|null
      */
     private ?array $lineStarts = null;
@@ -43,29 +48,9 @@ final class Source
 
     public static function fromString(string $path, string $code): self
     {
-        $modern = false;
+        $key = sha1($path . "\0" . $code);
 
-        try {
-            $parser = self::$legacyParser ??= (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));
-            $stmts = $parser->parse($code);
-        } catch (Error $e) {
-            $modern = true;
-
-            try {
-                $parser = self::$modernParser ??= (new ParserFactory())->createForNewestSupportedVersion();
-                $stmts = $parser->parse($code);
-            } catch (Error $inner) {
-                throw new RuntimeException("Cannot parse {$path}: {$inner->getMessage()}", 0, $inner);
-            }
-        }
-
-        $tokens = $parser->getTokens();
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new NameResolver(null, ['preserveOriginalNames' => false, 'replaceNodes' => false]));
-        $traverser->addVisitor(new ParentConnectingVisitor());
-        $stmts = $traverser->traverse($stmts ?? []);
-
-        return new self($path, $code, $stmts, $tokens, $modern);
+        return self::$parsed[$key] ??= self::parse($path, $code);
     }
 
     public static function fromFile(string $root, string $relativePath): self
@@ -235,6 +220,33 @@ final class Source
         }
 
         return null;
+    }
+
+    private static function parse(string $path, string $code): self
+    {
+        $modern = false;
+
+        try {
+            $parser = self::$legacyParser ??= (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));
+            $stmts = $parser->parse($code);
+        } catch (Error $e) {
+            $modern = true;
+
+            try {
+                $parser = self::$modernParser ??= (new ParserFactory())->createForNewestSupportedVersion();
+                $stmts = $parser->parse($code);
+            } catch (Error $inner) {
+                throw new RuntimeException("Cannot parse {$path}: {$inner->getMessage()}", 0, $inner);
+            }
+        }
+
+        $tokens = $parser->getTokens();
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new NameResolver(null, ['preserveOriginalNames' => false, 'replaceNodes' => false]));
+        $traverser->addVisitor(new ParentConnectingVisitor());
+        $stmts = $traverser->traverse($stmts ?? []);
+
+        return new self($path, $code, $stmts, $tokens, $modern);
     }
 
     /**

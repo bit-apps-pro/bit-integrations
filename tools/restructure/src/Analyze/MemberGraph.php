@@ -192,7 +192,7 @@ final class MemberGraph
             return;
         }
 
-        if (Names::isThis($node)) {
+        if ($node instanceof Expr\Variable && Names::isThis($node)) {
             $this->visitThis($key, $node);
         }
     }
@@ -275,7 +275,7 @@ final class MemberGraph
 
     private function visitArray(string $key, Expr\Array_ $array): void
     {
-        if (\count($array->items) !== 2 || $array->items[0] === null || $array->items[1] === null) {
+        if (\count($array->items) !== 2) {
             return;
         }
 

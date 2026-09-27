@@ -96,7 +96,7 @@ final class ProIndex
                     continue;
                 }
 
-                $fqcn = Names::resolved($node);
+                $fqcn = $node instanceof Name ? Names::resolved($node) : null;
 
                 if ($fqcn !== null && str_starts_with($fqcn, Workspace::ACTIONS_NAMESPACE . '\\')) {
                     $index->references[$fqcn][] = ['file' => $path, 'line' => $node->getStartLine(), 'kind' => 'name', 'text' => $source->nodeText($node)];

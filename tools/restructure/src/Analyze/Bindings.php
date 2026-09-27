@@ -72,6 +72,10 @@ final class Bindings
         $bindings = [];
 
         foreach ((new NodeFinder())->find($source->stmts, static fn (Node $node) => $node instanceof Expr\StaticCall || $node instanceof Expr\FuncCall) as $call) {
+            if (!$call instanceof Expr\StaticCall && !$call instanceof Expr\FuncCall) {
+                continue;
+            }
+
             $isHooksClass = $call instanceof Expr\StaticCall && $call->class instanceof Name && $call->class->getLast() === 'Hooks'
                 && $call->name instanceof Node\Identifier && \in_array($call->name->toLowerString(), ['add', 'filter', 'action'], true);
             $isFunction = $call instanceof Expr\FuncCall && $call->name instanceof Name && \in_array(strtolower($call->name->getLast()), ['add_action', 'add_filter'], true);
@@ -112,6 +116,10 @@ final class Bindings
         $fires = [];
 
         foreach ((new NodeFinder())->find($nodes, static fn (Node $node) => $node instanceof Expr\FuncCall || $node instanceof Expr\StaticCall) as $call) {
+            if (!$call instanceof Expr\StaticCall && !$call instanceof Expr\FuncCall) {
+                continue;
+            }
+
             $kind = null;
 
             if ($call instanceof Expr\FuncCall && $call->name instanceof Name && \count($call->name->getParts()) === 1 && \in_array($call->name->toLowerString(), self::HOOK_FUNCTIONS, true)) {
@@ -156,7 +164,7 @@ final class Bindings
         }
 
         foreach ($finder->find($nodes, static fn (Node $node) => $node instanceof Expr\MethodCall || $node instanceof Expr\StaticCall || $node instanceof Expr\NullsafeMethodCall) as $call) {
-            if (!$call->name instanceof Node\Identifier) {
+            if (!($call instanceof Expr\MethodCall || $call instanceof Expr\StaticCall || $call instanceof Expr\NullsafeMethodCall) || !$call->name instanceof Node\Identifier) {
                 continue;
             }
 

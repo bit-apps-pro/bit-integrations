@@ -142,7 +142,7 @@ final class ControllerSplitter
     {
         $edits = new TextEdits();
 
-        foreach ($this->plan->graph?->edges ?? [] as $edge) {
+        foreach ($this->plan->graph->edges ?? [] as $edge) {
             if ($edge->from !== $member->key || $edge->start < $from || $edge->end > $to) {
                 continue;
             }
@@ -375,6 +375,10 @@ final class ControllerSplitter
     private function createFile(array $pieces, string $side): string
     {
         $class = $this->layout->class;
+
+        if (!$class instanceof Stmt\Class_) {
+            throw new RuntimeException("{$this->plan->folder}: the Controller is not a class");
+        }
 
         if ($class->attrGroups !== []) {
             throw new RuntimeException("{$this->plan->folder}: the Controller class has attributes; the new class would not get them");

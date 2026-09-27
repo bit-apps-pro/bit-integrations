@@ -218,7 +218,7 @@ final class Canonical
         return $holders[0];
     }
 
-    private static function mapClassPart(Node $class, ?string $member, string $ownOld, string $enclosing, UnitMap $map, string $kind): Node
+    private static function mapClassPart(Expr|Name $class, ?string $member, string $ownOld, string $enclosing, UnitMap $map, string $kind): Expr|Name
     {
         $split = $map->isSplit($ownOld);
 

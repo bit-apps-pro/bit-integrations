@@ -49,7 +49,7 @@ final class Names
 
         [$first, $second] = $array->items;
 
-        if ($first === null || $second === null || $first->key !== null || $second->key !== null || $first->unpack || $second->unpack || $first->byRef || $second->byRef) {
+        if ($first->key !== null || $second->key !== null || $first->unpack || $second->unpack || $first->byRef || $second->byRef) {
             return null;
         }
 
