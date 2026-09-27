@@ -208,10 +208,13 @@ final class Snapshot
             return $entry + ['handlerLoadError' => $loadError];
         }
 
-        return $entry
-            + ClassFacts::method($class, $invokeable[1], 'handler')
-            + ClassFacts::constructor($class)
-            + ClassFacts::authConfig($class);
+        $handler = ClassFacts::method($class, $invokeable[1], 'handler');
+
+        if (($handler['handlerStatic'] ?? true) === false) {
+            $handler['ctorRequired'] = ClassFacts::constructor($class)['ctorRequired'] ?? 0;
+        }
+
+        return $entry + $handler + ClassFacts::authConfig($class);
     }
 
     /**
