@@ -217,7 +217,7 @@ class GoogleCalendarController
         return $token;
     }
 
-    protected function saveRefreshedToken($integrationID, $tokenDetails)
+    protected static function saveRefreshedToken($integrationID, $tokenDetails)
     {
         if (empty($integrationID)) {
             return;
