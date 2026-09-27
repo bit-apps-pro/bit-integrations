@@ -106,7 +106,6 @@ export default function MailerLiteActions({ mailerLiteConf, setMailerLiteConf, l
         />
         <TableCheckBox
           checked={mailerLiteConf.actions?.update || false}
-          isInfo={mailerLiteConf?.group_ids.length}
           onChange={e => actionHandler(e, 'update')}
           className="wdt-200 mt-4 mr-2"
           value="user_share"

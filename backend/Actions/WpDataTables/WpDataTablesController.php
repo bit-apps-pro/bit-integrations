@@ -48,7 +48,7 @@ class WpDataTablesController
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $table = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT content FROM {$wpdb->prefix}wpdatatables WHERE id = %d",
+                "SELECT table_type, content FROM {$wpdb->prefix}wpdatatables WHERE id = %d",
                 (int) $tableId
             ),
             ARRAY_A
@@ -56,6 +56,10 @@ class WpDataTablesController
 
         if (empty($table)) {
             wp_send_json_error(__('Table not found', 'bit-integrations'), 404);
+        }
+
+        if ($table['table_type'] === 'manual') {
+            wp_send_json_success(self::getManualTableColumns((int) $tableId));
         }
 
         $fields = [];
@@ -71,6 +75,30 @@ class WpDataTablesController
         }
 
         wp_send_json_success($fields);
+    }
+
+    private static function getManualTableColumns($tableId)
+    {
+        global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $columns = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT orig_header, display_header FROM {$wpdb->prefix}wpdatatables_columns
+                WHERE table_id = %d AND id_column = 0 AND column_type <> 'formula' AND orig_header NOT LIKE %s
+                ORDER BY pos ASC",
+                $tableId,
+                $wpdb->esc_like('wdt_') . '%'
+            ),
+            ARRAY_A
+        );
+
+        return array_map(static function ($column) {
+            return [
+                'key'      => $column['orig_header'],
+                'label'    => $column['display_header'] ?: $column['orig_header'],
+                'required' => false,
+            ];
+        }, $columns ?? []);
     }
 
     public function execute($integrationData, $fieldValues)
