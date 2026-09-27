@@ -19,7 +19,9 @@ final class Snapshot
 
     private const CONFIG = 'BitApps\\Integrations\\Config';
 
-    /** @var list<string> */
+    /**
+     * @var list<string>
+     */
     private array $errors = [];
 
     /**

@@ -132,11 +132,15 @@ final class FirePoints
      */
     private static function firesIn(array $stmts): array
     {
-        $visitor = new class (self::FUNCTIONS, self::HOOKS_METHODS) extends NodeVisitorAbstract {
-            /** @var list<array{0: string, 1: string, 2: list<Arg>}> */
+        $visitor = new class(self::FUNCTIONS, self::HOOKS_METHODS) extends NodeVisitorAbstract {
+            /**
+             * @var list<array{0: string, 1: string, 2: list<Arg>}>
+             */
             public array $fires = [];
 
-            /** @var list<string> */
+            /**
+             * @var list<string>
+             */
             private array $scope = [];
 
             public function __construct(private array $functions, private array $hooksMethods)
@@ -148,7 +152,7 @@ final class FirePoints
                 if ($node instanceof ClassMethod || $node instanceof Function_) {
                     $this->scope[] = $node->name->toString();
 
-                    return null;
+                    return;
                 }
 
                 $kind = $this->kind($node);
@@ -156,8 +160,6 @@ final class FirePoints
                 if ($kind !== null && !$node->isFirstClassCallable()) {
                     $this->fires[] = [$this->scope === [] ? '-' : $this->scope[\count($this->scope) - 1], $kind, $node->getArgs()];
                 }
-
-                return null;
             }
 
             public function leaveNode(Node $node)
@@ -165,8 +167,6 @@ final class FirePoints
                 if ($node instanceof ClassMethod || $node instanceof Function_) {
                     array_pop($this->scope);
                 }
-
-                return null;
             }
 
             private function kind(Node $node): ?string
@@ -213,7 +213,7 @@ final class FirePoints
             return $expr;
         }
 
-        $visitor = new class ($rootNamespace) extends NodeVisitorAbstract {
+        $visitor = new class($rootNamespace) extends NodeVisitorAbstract {
             public function __construct(private string $rootNamespace)
             {
             }
@@ -223,8 +223,6 @@ final class FirePoints
                 if ($node instanceof FullyQualified && str_starts_with($node->toString(), $this->rootNamespace . '\\')) {
                     return new Name(substr($node->toString(), \strlen($this->rootNamespace) + 1), $node->getAttributes());
                 }
-
-                return null;
             }
         };
 

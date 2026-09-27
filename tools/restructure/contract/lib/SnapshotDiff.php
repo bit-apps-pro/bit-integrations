@@ -8,10 +8,14 @@ final class SnapshotDiff
 {
     private const CLASS_FIELDS = ['class', 'handlerClass', 'authConfigOwner'];
 
-    /** @var list<string> */
+    /**
+     * @var list<string>
+     */
     private array $problems = [];
 
-    /** @var array<string, int> */
+    /**
+     * @var array<string, int>
+     */
     private array $acceptedRenames = [];
 
     public function __construct(private ClassRenames $renames)

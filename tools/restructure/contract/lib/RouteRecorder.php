@@ -8,10 +8,14 @@ use LogicException;
 
 final class RouteRecorder
 {
-    /** @var array<string, true> */
+    /**
+     * @var array<string, true>
+     */
     private static array $pending = [];
 
-    /** @var list<array<string, mixed>> */
+    /**
+     * @var list<array<string, mixed>>
+     */
     private static array $registrations = [];
 
     private static ?string $access = null;

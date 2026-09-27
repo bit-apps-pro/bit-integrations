@@ -69,7 +69,7 @@ final class RouteCapture
 
     private static function redirectRouteCalls(string $file): string
     {
-        $visitor = new class ($file) extends NodeVisitorAbstract {
+        $visitor = new class($file) extends NodeVisitorAbstract {
             public function __construct(private string $file)
             {
             }
@@ -87,8 +87,6 @@ final class RouteCapture
                 if ($node instanceof MagicConst\File) {
                     return new String_($this->file);
                 }
-
-                return null;
             }
         };
 
