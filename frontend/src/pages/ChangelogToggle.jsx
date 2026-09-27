@@ -68,7 +68,7 @@ const changeLog = [
         label: 'MailerLite',
         desc: 'The "Update subscriber" option was disabled when groups were selected, so existing subscribers failed with "Subscriber already exist".',
         isPro: false
-      },
+      }
     ]
   },
   {
