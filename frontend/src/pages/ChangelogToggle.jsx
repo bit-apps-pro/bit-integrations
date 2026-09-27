@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '6th September 2026'
+const releaseDate = '27th September 2026'
 
 // Example for items:
 // items: [
@@ -29,39 +29,19 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Pointics',
-        desc: '4 new events added.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      [
-        {
-          label: 'Pointics',
-          desc: '8 new events added.',
-          isPro: true
-        }
-      ]
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
     headClass: 'new-feature',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'ActiveCampaign',
-        desc: 'pick the logged-in user, or map an email field from your trigger and the action runs for that user. Available in LearnDash, LifterLMS, Tutor LMS, MasterStudy LMS, Academy LMS, WP Courseware, MemberPress, Paid Memberships Pro, Restrict Content, GamiPress, AffiliateWP and SliceWP.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Improvements', 'bit-integrations'),
@@ -73,7 +53,23 @@ const changeLog = [
     label: __('Bug Fixes', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: []
+    items: [
+      {
+        label: 'wpDataTables',
+        desc: 'Manual tables now work. Their columns load in the field map and new rows are added to the table.',
+        isPro: true
+      },
+      {
+        label: 'Zoho CRM',
+        desc: 'Records with a lookup field, such as Account Name, failed with a "MANDATORY_NOT_FOUND" error.',
+        isPro: false
+      },
+      {
+        label: 'MailerLite',
+        desc: 'The "Update subscriber" option was disabled when groups were selected, so existing subscribers failed with "Subscriber already exist".',
+        isPro: false
+      },
+    ]
   },
   {
     label: __('Security', 'bit-integrations'),

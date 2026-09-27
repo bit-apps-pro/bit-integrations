@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.5
+Stable tag: 2.10.6
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,14 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.6 =
+_Release Date - 27th September 2026_
+
+- **Bug Fixes**
+ - wpDataTables: Manual tables now work. Their columns load in the field map and new rows are added to the table (Pro).
+ - Zoho CRM: Records with a lookup field, such as Account Name, failed with a "MANDATORY_NOT_FOUND" error.
+ - MailerLite: The "Update subscriber" option was disabled when groups were selected, so existing subscribers failed with "Subscriber already exist".
 
 = 2.10.5 =
 _Release Date - 15th September 2026_
