@@ -63,9 +63,13 @@ final class FixerRunner
         }
 
         $config = tempnam(sys_get_temp_dir(), 'bi-fixer-');
-        $script = "<?php\n\n\$project = require " . var_export($projectConfig, true) . ";\n"
-            . '$rules = array_intersect_key($project->getRules(), array_flip(' . var_export(self::IMPORT_RULES, true) . "));\n"
-            . "return (new PhpCsFixer\\Config())->setRiskyAllowed(true)->setIndent(\$project->getIndent())->setLineEnding(\$project->getLineEnding())->setRules(\$rules);\n";
+        $wanted = var_export(self::IMPORT_RULES, true);
+        $script = "<?php\n\n\$rules = array_fill_keys({$wanted}, true);\n\$indent = '    ';\n\$lineEnding = \"\\n\";\n\n"
+            . "try {\n    \$project = require " . var_export($projectConfig, true) . ";\n"
+            . "    \$rules = array_intersect_key(\$project->getRules(), \$rules);\n"
+            . "    \$indent = \$project->getIndent();\n    \$lineEnding = \$project->getLineEnding();\n"
+            . "} catch (Throwable \$e) {\n}\n\n"
+            . "return (new PhpCsFixer\\Config())->setRiskyAllowed(true)->setIndent(\$indent)->setLineEnding(\$lineEnding)->setRules(\$rules);\n";
         file_put_contents($config, $script);
 
         try {

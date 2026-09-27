@@ -14,6 +14,7 @@ use BitApps\Restructure\Php\Member;
 use BitApps\Restructure\Php\Names;
 use BitApps\Restructure\Php\Source;
 use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
 use PhpParser\NodeFinder;
 use PhpParser\Token;
@@ -162,6 +163,15 @@ final class ControllerSplitter
             }
 
             $edits->add($start, $end, Naming::shortName($this->plan->sideClass($side)), 'own class name');
+        }
+
+        foreach ((new NodeFinder())->findInstanceOf([$member->stmt], String_::class) as $string) {
+            $start = $string->getStartFilePos();
+            $end = $string->getEndFilePos() + 1;
+
+            if ($start >= $from && $end <= $to && ltrim($string->value, '\\') === $this->plan->controllerFqcn && $edits->covers($start, $end) === null) {
+                $edits->add($start, $end, $this->classNameFor($this->plan->actionFqcn) . '::class', 'own class name string');
+            }
         }
 
         foreach ($this->references as $reference) {

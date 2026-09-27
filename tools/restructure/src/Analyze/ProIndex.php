@@ -15,6 +15,8 @@ use PhpParser\NodeFinder;
 
 final class ProIndex
 {
+    public const GET_CLASS_KIND = 'bit_integrations_get_class';
+
     private const FREE_ROOT_NAMESPACE = 'BitApps\\Integrations\\';
 
     /**
@@ -71,7 +73,7 @@ final class ProIndex
 
             $code = (string) $workspace->tree->read($path);
 
-            if (!str_contains($code, 'Actions\\') || (!str_contains($code, 'Integrations\\') && !str_contains($code, 'bit_integrations_get_class'))) {
+            if (!str_contains($code, 'Actions\\') || (!str_contains($code, 'Integrations\\') && !str_contains($code, self::GET_CLASS_KIND))) {
                 continue;
             }
 
@@ -86,7 +88,7 @@ final class ProIndex
                     $value = ltrim($node->value, '\\');
 
                     if (preg_match('/^Actions\\\\[A-Za-z0-9_]+\\\\[A-Za-z0-9_]+$/', $value) === 1) {
-                        $index->references[self::FREE_ROOT_NAMESPACE . $value][] = ['file' => $path, 'line' => $node->getStartLine(), 'kind' => 'bit_integrations_get_class', 'text' => $source->nodeText($node)];
+                        $index->references[self::FREE_ROOT_NAMESPACE . $value][] = ['file' => $path, 'line' => $node->getStartLine(), 'kind' => self::GET_CLASS_KIND, 'text' => $source->nodeText($node)];
                     } elseif (str_starts_with($value, Workspace::ACTIONS_NAMESPACE . '\\')) {
                         $index->references[$value][] = ['file' => $path, 'line' => $node->getStartLine(), 'kind' => 'string', 'text' => $source->nodeText($node)];
                     }

@@ -994,7 +994,7 @@ final class Planner
         if ($this->context->pro !== null) {
             foreach (array_merge([$plan->controllerFqcn], array_column($plan->services, 'fromClass')) as $fqcn) {
                 foreach ($this->context->pro->referencesTo($fqcn) as $reference) {
-                    if ($reference['kind'] === 'bit_integrations_get_class') {
+                    if ($reference['kind'] === ProIndex::GET_CLASS_KIND) {
                         $getClass[] = $reference + ['class' => $fqcn];
                     } else {
                         $proReferences[] = $reference + ['class' => $fqcn];
