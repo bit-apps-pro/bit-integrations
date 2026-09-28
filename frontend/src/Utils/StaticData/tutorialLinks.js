@@ -704,6 +704,11 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mainwp-integration-as-an-action/'
   },
+  wpSimpleBookingCalendar: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/wp-simple-booking-calendar-integration-as-an-action/'
+  },
   wsms: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wsms-integration-as-an-action/'
