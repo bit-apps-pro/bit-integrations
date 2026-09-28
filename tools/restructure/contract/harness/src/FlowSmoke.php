@@ -98,6 +98,10 @@ final class FlowSmoke
 
         $session->result($integration, 'flow-smoke', $ok && $names !== [], $names === [] ? 'no stored or fixture flow to replay' : \count($names) . " flow(s) compared with the baseline, {$states}");
 
+        if (\in_array('on', $session->proStates, true) && \in_array('off', $session->proStates, true)) {
+            $session->result($integration, 'T2', $ok && $names !== [], $names === [] ? 'no stored or fixture flow to replay under Pro on and off' : \count($names) . ' flow(s) compared with the baseline under both Pro on and Pro off');
+        }
+
         if ($session->options->flag('force-expiry')) {
             $session->result($integration, 'T1', $ok && $this->t1Passes > 0, "{$this->t1Passes} forced-expiry run(s) wrote the refreshed token back, {$states}");
         }
