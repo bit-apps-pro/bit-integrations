@@ -1,589 +1,589 @@
-# folder	method	kind	name	args	default_sha1
-ACPT	associateTaxonomyToCPT	Hooks::apply	'btcbi_acpt_associate_taxonomy_to_cpt'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	associateTaxonomyToCPT	Hooks::apply	Config::withPrefix('acpt_associate_taxonomy_to_cpt')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	createOrUpdateOptionPage	Hooks::apply	'btcbi_acpt_create_option_page'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	createOrUpdateOptionPage	Hooks::apply	'btcbi_acpt_update_option_page'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	createOrUpdateOptionPage	Hooks::apply	Config::withPrefix('acpt_create_option_page')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	createOrUpdateOptionPage	Hooks::apply	Config::withPrefix('acpt_update_option_page')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	createOrUpdateTaxonomy	Hooks::apply	'btcbi_acpt_create_taxonomy'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	createOrUpdateTaxonomy	Hooks::apply	'btcbi_acpt_update_taxonomy'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	createOrUpdateTaxonomy	Hooks::apply	Config::withPrefix('acpt_create_taxonomy')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	createOrUpdateTaxonomy	Hooks::apply	Config::withPrefix('acpt_update_taxonomy')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	deleteCPT	Hooks::apply	'btcbi_acpt_delete_cpt'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	deleteCPT	Hooks::apply	Config::withPrefix('acpt_delete_cpt')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	deleteDynamicBlock	Hooks::apply	'btcbi_acpt_delete_dynamic_block'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	deleteDynamicBlock	Hooks::apply	Config::withPrefix('acpt_delete_dynamic_block')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	deleteMetaGroup	Hooks::apply	'btcbi_acpt_delete_meta_group'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	deleteMetaGroup	Hooks::apply	Config::withPrefix('acpt_delete_meta_group')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	deleteOptionPage	Hooks::apply	'btcbi_acpt_delete_option_page'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	deleteOptionPage	Hooks::apply	Config::withPrefix('acpt_delete_option_page')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	deleteTaxonomy	Hooks::apply	'btcbi_acpt_delete_taxonomy'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	deleteTaxonomy	Hooks::apply	Config::withPrefix('acpt_delete_taxonomy')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-ACPT	updateCPT	Hooks::apply	'btcbi_acpt_update_cpt'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ACPT	updateCPT	Hooks::apply	Config::withPrefix('acpt_update_cpt')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-AcademyLms	completeCourse	do_action	'academy/admin/course_complete_after'	3	99291d570154496bfff47bad2fce3281af68d22e
-AcademyLms	completeCourse	do_action	'academy/admin/course_complete_before'	2	99291d570154496bfff47bad2fce3281af68d22e
-AcademyLms	completeLesson	do_action	'academy/frontend/after_mark_topic_complete'	5	89ea29afa8afe9f41370dca72511b81656740b66
-AcademyLms	completeLesson	do_action	'academy/frontend/before_mark_topic_complete'	5	89ea29afa8afe9f41370dca72511b81656740b66
-AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_create_forum')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_create_topic')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_post_reply_in_topic')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_subscribe_user_in_forum')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-B2BKing	execute	Hooks::apply	Config::withPrefix('b2bking_approve_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-B2BKing	execute	Hooks::apply	Config::withPrefix('b2bking_enable_b2b_for_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-B2BKing	execute	Hooks::apply	Config::withPrefix('b2bking_update_customer_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BadgeOS	execute	Hooks::apply	Config::withPrefix('badgeos_award_achievement_to_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Bento	addEvent	Hooks::apply	'btcbi_bento_store_event'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Bento	addEvent	Hooks::apply	Config::withPrefix('bento_store_event')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Bento	addPeople	Hooks::run	'btcbi_bento_update_user_data'	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Bento	addPeople	Hooks::run	Config::withPrefix('bento_update_user_data')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Bento	getAlTags	Hooks::apply	'btcbi_bento_get_all_tags'	3	97d170e1550eee4afc0af065b78cda302a97674c
-Bento	getAlTags	Hooks::apply	Config::withPrefix('bento_get_all_tags')	3	97d170e1550eee4afc0af065b78cda302a97674c
-Bento	getAllFields	Hooks::apply	'btcbi_bento_get_event_fields'	2	97d170e1550eee4afc0af065b78cda302a97674c
-Bento	getAllFields	Hooks::apply	'btcbi_bento_get_user_fields'	3	4cd0994a21d9b14f20c1ab35a75b3323a29c182a
-Bento	getAllFields	Hooks::apply	Config::withPrefix('bento_get_event_fields')	2	97d170e1550eee4afc0af065b78cda302a97674c
-Bento	getAllFields	Hooks::apply	Config::withPrefix('bento_get_user_fields')	3	4cd0994a21d9b14f20c1ab35a75b3323a29c182a
-BitCrm	addTagToCompany	do_action	'bit_crm/tags_attached_to_companies'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9
-BitCrm	addTagToContact	do_action	'bit_crm/tags_attached_to_contacts'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9
-BitCrm	addTagToDeal	do_action	'bit_crm/tags_attached_to_deals'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9
-BitCrm	addTagToLead	do_action	'bit_crm/tags_attached_to_leads'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9
-BitCrm	addTagToProduct	do_action	'bit_crm/tags_attached_to_products'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9
-BitCrm	changeActivityStatus	do_action	'bit_crm/activity_status_updated'	4	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d
-BitCrm	convertLead	do_action	'bit_crm/leads_converted_to_contact'	2	af3423ec7f99519d505b1b1a0693b96208b4dba7
-BitCrm	createInvoice	do_action	'bit_crm/invoice_created'	2	66b67efa404b52b28c03d0a8cd6c47524b8124e2
-BitCrm	deleteInvoice	do_action	'bit_crm/invoices_trashed'	2	510b46a3580ce3971862c1d0925ca7ec48bc7d47
-BitCrm	deleteNote	do_action	'bit_crm/note_deleted'	2	28a34f188d0e612e365ba69beded4938768655b7
-BitCrm	deleteTag	do_action	'bit_crm/tag_deleted'	2	0fc355871f330cfcd33a663e8d94622bc68dea11
-BitCrm	modifyActivity	do_action	'bit_crm/activity_updated'	2	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d
-BitCrm	removeActivity	do_action	'bit_crm/activity_deleted'	2	acf8bc880dcc62f8a49acbba0429b91432207d49
-BitCrm	save	do_action	self::SAVE_HOOK	4	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-BitCrm	storeActivity	do_action	'bit_crm/activity_created'	2	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d
-BitCrm	updateDealStage	do_action	'bit_crm/deal_stage_updated'	3	d7592ba19201dfa7ac2ace24c846db11a98818ed
-BitCrm	updateInvoice	do_action	'bit_crm/invoice_updated'	2	741c9767631e579a0cb288a457286b3e659cf29a
-BitCrm	updateInvoiceStatus	do_action	'bit_crm/invoice_status_updated'	2	741c9767631e579a0cb288a457286b3e659cf29a
-BitCrm	updateNote	do_action	'bit_crm/note_updated'	2	42bf5b6cbe3dece5c9f9d6349e58e5f91cc3cc6b
-BitCrm	updateProduct	do_action	'bit_crm/product_updated'	2	c8f31749f14ccdafa6abc2d9d03f2bbc99e4ea25
-BitCrm	updateTag	do_action	'bit_crm/tag_updated'	2	aedccf5f907a61edd09a98a506f0b4ee46574d13
-BookingCalendar	execute	Hooks::apply	Config::withPrefix('booking_calendar_create_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingCalendar	execute	Hooks::apply	Config::withPrefix('booking_calendar_update_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_cancel_appointment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_create_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_delete_appointment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_delete_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_update_appointment_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_update_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Bookly	execute	Hooks::apply	Config::withPrefix('bookly_create_appointment')	4	7a8efd1328c2152244072668c454a0dabc0a4f24
-Bookly	execute	Hooks::apply	Config::withPrefix('bookly_create_customer')	3	7a8efd1328c2152244072668c454a0dabc0a4f24
-Bookly	execute	Hooks::apply	Config::withPrefix('bookly_delete_appointment')	3	7a8efd1328c2152244072668c454a0dabc0a4f24
-Bookly	execute	Hooks::apply	Config::withPrefix('bookly_delete_customer')	3	7a8efd1328c2152244072668c454a0dabc0a4f24
-Bookly	execute	Hooks::apply	Config::withPrefix('bookly_update_appointment_status')	4	7a8efd1328c2152244072668c454a0dabc0a4f24
-Bookly	execute	Hooks::apply	Config::withPrefix('bookly_update_customer')	3	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_member')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_member_post')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_review')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_delete_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_delete_member')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_delete_review')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_match_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_update_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_update_member')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_update_review')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-BuddyBoss	posTopicForum	apply_filters	'bbp_new_topic_pre_insert'	2	18bcd363b9b42a46df61f0d4233aaf9ef995d395
-BuddyBoss	posTopicForum	do_action	'bbp_new_topic'	5	07c1925e6cb03748e65fd26b6e9b08b6c80bab13
-BuddyBoss	posTopicForum	do_action	'bbp_new_topic_post_extras'	2	07c1925e6cb03748e65fd26b6e9b08b6c80bab13
-BuddyBoss	postReplyTopicForum	apply_filters	'bbp_new_reply_pre_content'	2	21e9158314900094a9b2311c3cc33cd54cffbd25
-BuddyBoss	postReplyTopicForum	apply_filters	'bbp_new_reply_pre_insert'	2	67cd7ae6a6754057c51cdd6b6ec2a3a6ad39a599
-BuddyBoss	postReplyTopicForum	do_action	'bbp_new_reply'	8	49303698b773f48aad82c3a64485f5567adfa9f8
-BuddyBoss	postReplyTopicForum	do_action	'bbp_new_reply_post_extras'	2	49303698b773f48aad82c3a64485f5567adfa9f8
-BuddyBoss	subscribeForum	do_action	'buddyBoss_subscriptions_handler'	5	18f1c390a75dbb4dbce8e834ed81a0f7b1e7c8c6
-CartAbandonmentRecovery	execute	Hooks::apply	Config::withPrefix('cart_abandonment_recovery_delete_abandoned_cart')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CartAbandonmentRecovery	execute	Hooks::apply	Config::withPrefix('cart_abandonment_recovery_reschedule_recovery_emails')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CartAbandonmentRecovery	execute	Hooks::apply	Config::withPrefix('cart_abandonment_recovery_update_cart_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ClickWhale	execute	Hooks::apply	Config::withPrefix('clickwhale_create_link')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ClickWhale	execute	Hooks::apply	Config::withPrefix('clickwhale_delete_link')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ClickWhale	execute	Hooks::apply	Config::withPrefix('clickwhale_update_link')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_create_campaign')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_delete_campaign')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_update_campaign')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_update_campaign_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_create_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_create_student')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_enroll_user_in_course')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_mark_lesson_completed')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_update_student_data')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Dokan	formatVendorUpsertData	Hooks::apply	'btcbi_dokan_vendor_crud_actions'	3	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-Dokan	formatVendorUpsertData	Hooks::apply	Config::withPrefix('dokan_vendor_crud_actions')	3	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-EventsManager	execute	Hooks::apply	Config::withPrefix('eventsmanager_unregister_user_from_event')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Fabman	createSpace	Hooks::apply	'btcbi_fabman_create_space'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Fabman	createSpace	Hooks::apply	Config::withPrefix('fabman_create_space')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Fabman	deleteMember	Hooks::apply	'btcbi_fabman_delete_member'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Fabman	deleteMember	Hooks::apply	Config::withPrefix('fabman_delete_member')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Fabman	updateMember	Hooks::apply	'btcbi_fabman_update_member'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Fabman	updateMember	Hooks::apply	Config::withPrefix('fabman_update_member')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Fabman	updateSpace	Hooks::apply	'btcbi_fabman_update_space'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Fabman	updateSpace	Hooks::apply	Config::withPrefix('fabman_update_space')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_coupon'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_customer'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_order'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_product'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_coupon'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_customer'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_order'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_product'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_customer'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_order_status'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_payment_status'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_shipping_status'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_order')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_product')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_coupon')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_order')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_product')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_order_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_payment_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_shipping_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentCrm	execute	Hooks::apply	'btcbi_fluent_crm_assign_company'	3	97d170e1550eee4afc0af065b78cda302a97674c
-FluentCrm	execute	Hooks::apply	Config::withPrefix('fluent_crm_assign_company')	3	97d170e1550eee4afc0af065b78cda302a97674c
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_add_media_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_add_media_to_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_change_media_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_change_playlist_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_email_submission')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_media')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_playlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_media')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_preset')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_record_visit')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_record_watch_progression')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_remove_media_from_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_remove_media_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_rename_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_restore_media')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_restore_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_save_preset')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_set_media_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_subscribe_email_to_providers')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_trash_media')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_trash_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_update_media')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_update_playlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FluentSupport	createTicketByExistCustomer	apply_filters	'fluent_support/ticket_custom_fields'	2	97d170e1550eee4afc0af065b78cda302a97674c
-FluentSupport	uploadTicketFiles	Hooks::run	'btcbi_fluent_support_upload_ticket_attachments'	6	144fb7fd5cd2c372f6a4256d14b09371713ce914
-FluentSupport	uploadTicketFiles	Hooks::run	Config::withPrefix('fluent_support_upload_ticket_attachments')	6	144fb7fd5cd2c372f6a4256d14b09371713ce914
-FormyChat	execute	Hooks::apply	Config::withPrefix('formy_chat_create_lead')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-FreshSales	upsertRecord	Hooks::apply	'btcbi_freshsales_upsert_record'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-FreshSales	upsertRecord	Hooks::apply	Config::withPrefix('freshsales_upsert_record')	6	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-GetResponse	addContactToCampaign	Hooks::apply	'btcbi_getresponse_autoresponder_day'	3	126b68972342396fd0b113b396baa336494b19cc
-GetResponse	addContactToCampaign	Hooks::apply	Config::withPrefix('getresponse_autoresponder_day')	3	126b68972342396fd0b113b396baa336494b19cc
-GoogleCalendar	executeRecordApi	Hooks::apply	Config::withPrefix('googlecalendar_rich_description')	4	2be88ca4242c76e8253ac62474851065032d6833
-HefflCRM	execute	Hooks::apply	Config::withPrefix('heffl_crm_create_client')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-HefflCRM	execute	Hooks::apply	Config::withPrefix('heffl_crm_create_deal')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-HefflCRM	execute	Hooks::apply	Config::withPrefix('heffl_crm_create_lead')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-HighLevel	createContact	Hooks::apply	'btcbi_high_level_v2_create_contact'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-HighLevel	createContact	Hooks::apply	Config::withPrefix('high_level_v2_create_contact')	5	62ec369fa2b469514150c0120dde9320f61c1364
-HighLevel	createOpportunity	Hooks::apply	'btcbi_high_level_v2_create_opportunity'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-HighLevel	createOpportunity	Hooks::apply	Config::withPrefix('high_level_v2_create_opportunity')	6	62ec369fa2b469514150c0120dde9320f61c1364
-HighLevel	createTask	Hooks::apply	'btcbi_high_level_v2_create_task'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-HighLevel	createTask	Hooks::apply	Config::withPrefix('high_level_v2_create_task')	5	62ec369fa2b469514150c0120dde9320f61c1364
-HighLevel	formatContactData	Hooks::apply	'btcbi_high_level_contact_utilities'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-HighLevel	formatContactData	Hooks::apply	Config::withPrefix('high_level_contact_utilities')	4	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-HighLevel	formatOpportunityData	Hooks::apply	'btcbi_high_level_opportunity_utilities'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-HighLevel	formatOpportunityData	Hooks::apply	Config::withPrefix('high_level_opportunity_utilities')	4	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-HighLevel	updateContact	Hooks::apply	'btcbi_high_level_v2_update_contact'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-HighLevel	updateContact	Hooks::apply	Config::withPrefix('high_level_v2_update_contact')	5	62ec369fa2b469514150c0120dde9320f61c1364
-HighLevel	updateOpportunity	Hooks::apply	'btcbi_high_level_v2_update_opportunity'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-HighLevel	updateOpportunity	Hooks::apply	Config::withPrefix('high_level_v2_update_opportunity')	6	62ec369fa2b469514150c0120dde9320f61c1364
-HighLevel	updateTask	Hooks::apply	'btcbi_high_level_v2_update_task'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-HighLevel	updateTask	Hooks::apply	Config::withPrefix('high_level_v2_update_task')	6	62ec369fa2b469514150c0120dde9320f61c1364
-Hubspot	updateEntity	Hooks::apply	'btcbi_hubspot_update_entity'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Hubspot	updateEntity	Hooks::apply	Config::withPrefix('hubspot_update_entity')	5	ce376578098cf70af7021fca72fe4e15a4a98365
-Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_contact_event')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_datasource')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_lookup')	4	7a8efd1328c2152244072668c454a0dabc0a4f24
-Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_or_update_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-Instasent	execute	Hooks::apply	Config::withPrefix('instasent_delete_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-Instasent	execute	Hooks::apply	Config::withPrefix('instasent_send_sms')	4	7a8efd1328c2152244072668c454a0dabc0a4f24
-IvyForms	execute	Hooks::apply	Config::withPrefix('ivy_forms_create_entry')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-JetEngine	createContentType	Hooks::apply	'btcbi_jet_engine_create_content_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	createContentType	Hooks::apply	Config::withPrefix('jet_engine_create_content_type_actions')	4	a6adf8f9ea4ec2c2cf0ee72dfba3733a53b0d009
-JetEngine	createPostType	Hooks::apply	'btcbi_jet_engine_create_post_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	createPostType	Hooks::apply	Config::withPrefix('jet_engine_create_post_type_actions')	4	359574040eb13ab054953242422475668e4fa049
-JetEngine	createRelation	Hooks::apply	'btcbi_jet_engine_create_relation_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	createRelation	Hooks::apply	Config::withPrefix('jet_engine_create_relation_actions')	4	09cf701677d48f76a7ef631857abbf9afa7d9c49
-JetEngine	createTaxonomy	Hooks::apply	'btcbi_jet_engine_create_taxonomy_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	createTaxonomy	Hooks::apply	Config::withPrefix('jet_engine_create_taxonomy_actions')	4	4b5e7c993769fd671ec8c9cb3424e1b6d41b2c06
-JetEngine	updateContentType	Hooks::apply	'btcbi_jet_engine_create_content_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	updateContentType	Hooks::apply	Config::withPrefix('jet_engine_create_content_type_actions')	4	ee10491ef1c63fa886bdb4970777a6d53112a987
-JetEngine	updatePostType	Hooks::apply	'btcbi_jet_engine_create_post_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	updatePostType	Hooks::apply	Config::withPrefix('jet_engine_create_post_type_actions')	4	62ca4ee7a767824896fcb83c9359eb17c5e5098f
-JetEngine	updateRelation	Hooks::apply	'btcbi_jet_engine_create_relation_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	updateRelation	Hooks::apply	Config::withPrefix('jet_engine_create_relation_actions')	4	3657e90d700c2aaef7c7d896ff0d64457fc37031
-JetEngine	updateTaxonomy	Hooks::apply	'btcbi_jet_engine_create_taxonomy_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532
-JetEngine	updateTaxonomy	Hooks::apply	Config::withPrefix('jet_engine_create_taxonomy_actions')	4	0539bcecfa4f0de16f08cfc2d28b8de174a5d79b
-Klaviyo	handleProfile	Hooks::apply	'btcbi_klaviyo_custom_properties'	4	461e9bac5c124e13e943d74294b5b3c23e91e59a
-Klaviyo	handleProfile	Hooks::apply	'btcbi_klaviyo_update_profile'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Klaviyo	handleProfile	Hooks::apply	Config::withPrefix('klaviyo_custom_properties')	4	461e9bac5c124e13e943d74294b5b3c23e91e59a
-Klaviyo	handleProfile	Hooks::apply	Config::withPrefix('klaviyo_update_profile')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	createGenerator	Hooks::apply	'btcbi_lmfwc_create_generator'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	createGenerator	Hooks::apply	Config::withPrefix('lmfwc_create_generator')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_activate_licence'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_deactivate_licence'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_delete_licence'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_reactivate_licence'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_activate_licence')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_deactivate_licence')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_delete_licence')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_reactivate_licence')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	updateGenerator	Hooks::apply	'btcbi_lmfwc_update_generator'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	updateGenerator	Hooks::apply	Config::withPrefix('lmfwc_update_generator')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LMFWC	updateLicense	Hooks::apply	'btcbi_lmfwc_update_licence'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-LMFWC	updateLicense	Hooks::apply	Config::withPrefix('lmfwc_update_licence')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_cancel_booking')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_agent')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_order')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_update_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_update_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-LearnDash	createGroup	apply_filters	'uo_create_new_group_status'	2	d3645730e31a7e42eef544502da0f3ee3c8865fa
-Line	sendBroadcastMessage	Hooks::apply	'btcbi_line_broadcast_message'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Line	sendBroadcastMessage	Hooks::apply	Config::withPrefix('line_broadcast_message')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Line	sendReplyMessage	Hooks::apply	'btcbi_line_reply_message'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Line	sendReplyMessage	Hooks::apply	Config::withPrefix('line_reply_message')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MailChimp	addRemoveTag	Hooks::apply	'btcbi_mailchimp_add_remove_tag'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailChimp	addRemoveTag	Hooks::apply	Config::withPrefix('mailchimp_add_remove_tag')	5	2b36e81ccd76c191d64c1c7cace5bb2e249dce48
-MailChimp	execute	Hooks::apply	'btcbi_mailchimp_map_language'	3	34e10a97491b23c9aea7561ab241b7cdb26e7af7
-MailChimp	execute	Hooks::apply	Config::withPrefix('mailchimp_map_language')	3	34e10a97491b23c9aea7561ab241b7cdb26e7af7
-MailChimp	execute	Hooks::run	'btcbi_mailchimp_store_gdpr_permission'	7	2385af99e21f2988ffbb0b85d0e8a952c856ea55
-MailChimp	execute	Hooks::run	Config::withPrefix('mailchimp_store_gdpr_permission')	7	2385af99e21f2988ffbb0b85d0e8a952c856ea55
-MailPoet	insertRecord	Hooks::apply	'btcbi_mailpoet_update_subscriber'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailPoet	insertRecord	Hooks::apply	Config::withPrefix('mailpoet_update_subscriber')	3	a0baea1030a56e58d53aa0913d321b44c765e9b8
-MailerLite	deleteSubscriber	Hooks::apply	'btcbi_mailerlite_delete_subscriber'	7	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailerLite	deleteSubscriber	Hooks::apply	Config::withPrefix('mailerlite_delete_subscriber')	7	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MailerLite	unassignSubscriberFromGroup	Hooks::apply	Config::withPrefix('mailerlite_unassign_subscriber_from_group')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MailerPress	execute	Hooks::apply	'btcbi_mailerpress_add_tags'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailerPress	execute	Hooks::apply	'btcbi_mailerpress_add_to_lists'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailerPress	execute	Hooks::apply	'btcbi_mailerpress_delete_contact'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailerPress	execute	Hooks::apply	'btcbi_mailerpress_remove_from_lists'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailerPress	execute	Hooks::apply	'btcbi_mailerpress_remove_tags'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_add_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_add_to_lists')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_delete_contact')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_remove_from_lists')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_remove_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_activate_plugin')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_create_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_create_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_deactivate_plugin')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_delete_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_sync_all_sites')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_sync_site')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_update_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MasterStudyLms	complete_course	do_action	'stm_lms_lesson_passed'	3	1686487e29535c9d46ecb33998db33518cb4fd58
-MasterStudyLms	complete_course	do_action	'stm_lms_quiz_' . $status	4	1686487e29535c9d46ecb33998db33518cb4fd58
-MasterStudyLms	complete_lesson	do_action	'stm_lms_lesson_passed'	3	1686487e29535c9d46ecb33998db33518cb4fd58
-MasterStudyLms	complete_quiz	do_action	'stm_lms_quiz_' . $status	4	1686487e29535c9d46ecb33998db33518cb4fd58
-MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_enroll_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_mark_course_complete')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_mark_lesson_complete')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_unenroll_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ModernCart	execute	Hooks::apply	Config::withPrefix('modern_cart_add_product_to_cart')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ModernCart	execute	Hooks::apply	Config::withPrefix('modern_cart_remove_product_from_cart')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ModernCart	execute	Hooks::apply	Config::withPrefix('modern_cart_update_cart_quantity')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_archive_board')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_archive_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_archive_item')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_column')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_item')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_subitem')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_delete_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_delete_item')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_duplicate_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_move_item_to_group')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_update_item')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-Moosend	generateReqDataFromFieldMap	Hooks::apply	'btcbi_moosend_map_custom_fields'	4	2294e08e9e1099b00c1727d95782588b15e3ef71
-Moosend	generateReqDataFromFieldMap	Hooks::apply	Config::withPrefix('moosend_map_custom_fields')	4	bed18a324de6c63a34b3d9301187ab8118fe6fde
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_add_product_to_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_create_customer')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_create_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_delete_wishlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_remove_product_from_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_subscribe_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_unsubscribe_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_update_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_add_contact_activity')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_add_contact_to_list')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_add_tag_to_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_change_contact_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_create_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_create_list')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_create_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_delete_contact')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_remove_contact_from_list')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_remove_tag_from_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_send_campaign_email')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_update_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_update_contact_field')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NinjaTables	executeAddRow	apply_filters	Config::withPrefix(self::FILTER_ADD_ROW)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NinjaTables	executeUpdateRow	apply_filters	Config::withPrefix(self::FILTER_UPDATE_ROW)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_email_subscription')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_notification_entry')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_reviews')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_sales_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_delete_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_disable_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_enable_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-OmniSend	execute	Hooks::apply	'btcbi_omnisend_custom_properties'	4	ef8dcff538405ffd80356faf3807f126a5b18bd4
-OmniSend	execute	Hooks::apply	Config::withPrefix('omnisend_custom_properties')	4	e4c27db7efdda54de7dfc3e1656d950b81193ffd
-PeepSo	execute	Hooks::apply	Config::withPrefix('peepso_add_post_activity_stream')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PeepSo	execute	Hooks::apply	Config::withPrefix('peepso_change_user_role')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PeepSo	execute	Hooks::apply	Config::withPrefix('peepso_follow_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PipeDrive	execute	Hooks::run	'btcbi_pipedrive_store_related_list'	7	f31d95e68b76c9f1a23c7449d0d2a40bc9923e6e
-PipeDrive	execute	Hooks::run	Config::withPrefix('pipedrive_store_related_list')	7	f31d95e68b76c9f1a23c7449d0d2a40bc9923e6e
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_adjust_points')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_award_channel_points')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_cancel_redemption')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_cancel_referral_invite')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_complete_referral_purchase')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_complete_referral_registration')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_recompute_member_tier')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Pointics	execute	Hooks::apply	Config::withPrefix('pointics_send_referral_invite')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_change_popup_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_create_popup')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_create_subscriber')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_delete_popup')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_delete_subscriber')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_reset_popup_counts')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_track_popup_event')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_update_popup')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_update_subscriber')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PostCreation	execute	Hooks::run	'btcbi_add_post_tag'	3	098401b6ec54ae6a2c0b2dd2f4683d46e9d84fd5
-PostCreation	execute	Hooks::run	Config::withPrefix('add_post_tag')	3	098401b6ec54ae6a2c0b2dd2f4683d46e9d84fd5
-PostCreation	executeWordPressPostAction	Hooks::apply	Config::withPrefix($actionType)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_create_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_delete_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_toggle_auto_apply')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_toggle_show_in_slideout')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_update_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ProfilePress	execute	Hooks::apply	Config::withPrefix('profilepress_add_new_order')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ProfilePress	execute	Hooks::apply	Config::withPrefix('profilepress_add_or_update_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Registration	executeWordPressUserAction	Hooks::apply	Config::withPrefix($actionType)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Salesforce	execute	Hooks::apply	'btcbi_salesforce_add_lead_utilities'	3	144fb7fd5cd2c372f6a4256d14b09371713ce914
-Salesforce	execute	Hooks::apply	Config::withPrefix('salesforce_add_lead_utilities')	3	144fb7fd5cd2c372f6a4256d14b09371713ce914
-Salesforce	getAllLeadIndustries	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Salesforce	getAllLeadIndustries	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c
-Salesforce	getAllLeadRatings	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Salesforce	getAllLeadRatings	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c
-Salesforce	getAllLeadSources	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Salesforce	getAllLeadSources	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c
-Salesforce	getAllLeadStatus	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Salesforce	getAllLeadStatus	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c
-Salesforce	insertContact	Hooks::apply	'btcbi_salesforce_update_record'	5	ac9e1379308cebeb763aacdaf0709b7da8dca043
-Salesforce	insertContact	Hooks::apply	Config::withPrefix('salesforce_update_record')	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-Salesforce	insertLead	Hooks::apply	'btcbi_salesforce_update_record'	5	ac9e1379308cebeb763aacdaf0709b7da8dca043
-Salesforce	insertLead	Hooks::apply	Config::withPrefix('salesforce_update_record')	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_group_field_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_option_acf_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_post_acf_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_repeater_field_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_user_acf_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SendPulse	sendPulseHeaders	Hooks::apply	'btcbi_sendPulse_refresh_fields'	4	467689011f2b020b57816d6a86f2c7fead970667
-SendPulse	sendPulseHeaders	Hooks::apply	Config::withPrefix('sendPulse_refresh_fields')	4	d2389373c4d226ef389a44a6ea431427c26dd7a9
-Sender	execute	Hooks::apply	Config::withPrefix('sender_add_subscriber_to_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_create_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_create_or_update_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_delete_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_delete_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_remove_phone_from_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_remove_subscriber_from_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_update_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Sender	execute	Hooks::apply	Config::withPrefix('sender_update_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_complete_course_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_create_certificate')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_create_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_create_lesson')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_enroll_user_in_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_grade_quiz')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_reset_course_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_reset_lesson_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_start_course_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_start_lesson_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_update_lesson_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_withdraw_user_from_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SeoPress	execute	Hooks::apply	'btcbi_seopress_update_post_meta'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-SeoPress	execute	Hooks::apply	Config::withPrefix('seopress_update_post_meta')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SmartSuite	createRecord	Hooks::apply	'btcbi_smartSuite_create_record'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-SmartSuite	createRecord	Hooks::apply	Config::withPrefix('smartSuite_create_record')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-SmartSuite	createTable	Hooks::apply	'btcbi_smartSuite_create_table'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-SmartSuite	createTable	Hooks::apply	Config::withPrefix('smartSuite_create_table')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_add_contacts_to_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_add_contacts_to_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_attach_contacts_to_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_attach_lists_to_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_attach_tags_to_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_bulk_delete_campaigns')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_cancel_purchase')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_copy_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_contact_activity')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_contact_note')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_page')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_purchase')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_note')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_page')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_detach_contacts_from_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_detach_lists_from_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_detach_tags_from_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_duplicate_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_mark_task_done')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_mark_task_undone')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_refund_purchase')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_remove_contacts_from_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_remove_contacts_from_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_contact_status')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_note')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_page')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_upsert_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_bookmark_item')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_create_comment')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_create_post')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_delete_comment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_delete_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_react_to_entity')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_update_user_profile')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_add_member'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_invite_user'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_remove_member'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_update_role'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_add_member')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_invite_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_remove_member')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_update_role')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Trello	execute	Hooks::run	'btcbi_trello_store_custom_fields'	6	67df512780868f7598ea9ce5baa9f0d15cb426e0
-Trello	execute	Hooks::run	Config::withPrefix('trello_store_custom_fields')	6	67df512780868f7598ea9ce5baa9f0d15cb426e0
-Trello	fetchAllCustomFields	Hooks::apply	'btcbi_trello_get_all_custom_fields'	5	97d170e1550eee4afc0af065b78cda302a97674c
-Trello	fetchAllCustomFields	Hooks::apply	Config::withPrefix('trello_get_all_custom_fields')	5	97d170e1550eee4afc0af065b78cda302a97674c
-TutorLms	completedCourse	do_action	'tutor_course_complete_after'	2	99291d570154496bfff47bad2fce3281af68d22e
-TutorLms	completedCourse	do_action	'tutor_course_complete_before'	2	99291d570154496bfff47bad2fce3281af68d22e
-UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_change_transaction_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_create_affiliate')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_create_referral')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_insert_payment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-UserRegistrationMembership	processAction	apply_filters	Config::withPrefix('user_registration_create_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_create_affiliate')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_create_referral')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_create_transaction')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_update_affiliate_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_update_referral_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_update_transaction_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WPCafe	execute	Hooks::apply	'btcbi_wpcafe_create_reservation'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WPCafe	execute	Hooks::apply	'btcbi_wpcafe_delete_reservation'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WPCafe	execute	Hooks::apply	'btcbi_wpcafe_update_reservation'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WPCafe	execute	Hooks::apply	Config::withPrefix('wpcafe_create_reservation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WPCafe	execute	Hooks::apply	Config::withPrefix('wpcafe_delete_reservation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WPCafe	execute	Hooks::apply	Config::withPrefix('wpcafe_update_reservation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WeDocs	execute	Hooks::apply	Config::withPrefix('wedocs_create_article')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WeDocs	execute	Hooks::apply	Config::withPrefix('wedocs_create_documentation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WeDocs	execute	Hooks::apply	Config::withPrefix('wedocs_create_section')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WebbaBooking	execute	Hooks::apply	Config::withPrefix($hookMap[$mainAction])	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WhatsApp	sendMessageWithContact	Hooks::apply	'btcbi_whatsapp_send_contact_messages'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WhatsApp	sendMessageWithContact	Hooks::apply	Config::withPrefix('whatsapp_send_contact_messages')	6	ac3821e844bd73ead7dada1b0a85d3fd6f909243
-WhatsApp	sendMessageWithMedia	Hooks::apply	'btcbi_whatsapp_send_media_messages'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WhatsApp	sendMessageWithMedia	Hooks::apply	Config::withPrefix('whatsapp_send_media_messages')	6	ac3821e844bd73ead7dada1b0a85d3fd6f909243
-WhatsApp	sendMessageWithTemplate	Hooks::apply	Config::withPrefix('whatsapp_template_components')	3	97d170e1550eee4afc0af065b78cda302a97674c
-WhatsApp	sendMessageWithText	Hooks::apply	'btcbi_whatsapp_send_text_messages'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WhatsApp	sendMessageWithText	Hooks::apply	Config::withPrefix('whatsapp_send_text_messages')	6	340a6adac238ef7abcfa3bba0c9ca02233b7909d
-WishlistMember	createMember	Hooks::apply	'btcbi_wishlist_create_member'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	createMember	Hooks::apply	Config::withPrefix('wishlist_create_member')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WishlistMember	deleteLevel	Hooks::apply	'btcbi_wishlist_delete_level'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	deleteLevel	Hooks::apply	Config::withPrefix('wishlist_delete_level')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	'btcbi_wishlist_add_member_to_level'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	'btcbi_wishlist_remove_member_from_level'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	Config::withPrefix('wishlist_add_member_to_level')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	Config::withPrefix('wishlist_remove_member_from_level')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WishlistMember	handleMemberEvents	Hooks::apply	'btcbi_wishlist_delete_member'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	handleMemberEvents	Hooks::apply	'btcbi_wishlist_update_member'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	handleMemberEvents	Hooks::apply	Config::withPrefix('wishlist_delete_member')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WishlistMember	handleMemberEvents	Hooks::apply	Config::withPrefix('wishlist_update_member')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WishlistMember	updateLevel	Hooks::apply	'btcbi_wishlist_update_level'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5
-WishlistMember	updateLevel	Hooks::apply	Config::withPrefix('wishlist_update_level')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04
-WooCommerce	createCustomer	do_action	'woocommerce_update_customer'	2	1686487e29535c9d46ecb33998db33518cb4fd58
-WooCommerce	execute	do_action	'woocommerce_checkout_order_processed'	4	c21d4b614adbc9f686bd08bd8b696a5a011f32c3
-WooCommerce	execute	do_action	'woocommerce_update_customer'	2	1686487e29535c9d46ecb33998db33518cb4fd58
-WooCommerce	getFlexibleCheckoutFields	Hooks::apply	'btcbi_woocommerce_flexible_checkout_fields'	2	97d170e1550eee4afc0af065b78cda302a97674c
-WooCommerce	getFlexibleCheckoutFields	Hooks::apply	Config::withPrefix('woocommerce_flexible_checkout_fields')	2	97d170e1550eee4afc0af065b78cda302a97674c
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_activatePlugin')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addCategoryToPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addNewImage')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addPostTypeFeatures')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addTagsToPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addTaxonomyToPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_checkPluginActivationStatus')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createNewTerm')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createPostTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createProductCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createProductTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createProductType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteMedia')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deletePostTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteProductCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteProductTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteProductType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_registerPostType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_registerTaxonomy')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_removeTagsFromPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_removeTaxonomyFromPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_renameMedia')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_termDelete')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_unregisterPostType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_unregisterTaxonomy')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updatePostTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateProductCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateProductTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateProductType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateTerm')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WpDataTables	execute	Hooks::apply	Config::withPrefix('wp_data_tables_add_row')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WpErp	execute	Hooks::apply	Config::withPrefix($entry['hook'])	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_add_row')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_create_table')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_delete_table')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_update_table')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_add_group')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_add_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_delete_group')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_delete_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_send_sms')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_update_group')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-Wsms	execute	Hooks::apply	Config::withPrefix('wsms_update_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751
-ZendeskSupport	execute	Hooks::apply	Config::withPrefix(self::$hookMap[$actionName])	5	7a8efd1328c2152244072668c454a0dabc0a4f24
-ZohoBigin	execute	Hooks::apply	'btcbi_zbigin_add_tags_to_records'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5
-ZohoBigin	execute	Hooks::apply	Config::withPrefix('zbigin_add_tags_to_records')	6	fa991807313591b7a32022291a28799018c387ae
-ZohoBigin	getTagList	Hooks::apply	'btcbi_zbigin_get_tags'	5	97d170e1550eee4afc0af065b78cda302a97674c
-ZohoBigin	getTagList	Hooks::apply	Config::withPrefix('zbigin_get_tags')	5	97d170e1550eee4afc0af065b78cda302a97674c
+# folder	method	kind	name	args	default_sha1	args_sha1	name_value
+ACPT	associateTaxonomyToCPT	Hooks::apply	'btcbi_acpt_associate_taxonomy_to_cpt'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	b9f14c918e1b13a56007a24c6f499dbfd2b88e2c	-
+ACPT	associateTaxonomyToCPT	Hooks::apply	Config::withPrefix('acpt_associate_taxonomy_to_cpt')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7b8a4ecc445968d8becbba23cf57c0d4efe7d6b	-
+ACPT	createOrUpdateOptionPage	Hooks::apply	'btcbi_acpt_create_option_page'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	36f4b265e53f4a2c40c3af4b5d7123b129bbe7a7	-
+ACPT	createOrUpdateOptionPage	Hooks::apply	'btcbi_acpt_update_option_page'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	36f4b265e53f4a2c40c3af4b5d7123b129bbe7a7	-
+ACPT	createOrUpdateOptionPage	Hooks::apply	Config::withPrefix('acpt_create_option_page')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	13788956b22f85cd545821515a7357b3d6dc3712	-
+ACPT	createOrUpdateOptionPage	Hooks::apply	Config::withPrefix('acpt_update_option_page')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	13788956b22f85cd545821515a7357b3d6dc3712	-
+ACPT	createOrUpdateTaxonomy	Hooks::apply	'btcbi_acpt_create_taxonomy'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	86b24cd411e03af149e0ca2d518c1a2d832dc5a1	-
+ACPT	createOrUpdateTaxonomy	Hooks::apply	'btcbi_acpt_update_taxonomy'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	86b24cd411e03af149e0ca2d518c1a2d832dc5a1	-
+ACPT	createOrUpdateTaxonomy	Hooks::apply	Config::withPrefix('acpt_create_taxonomy')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	aa0eee37fc558b9ce3002f2ebe359b0c13d69009	-
+ACPT	createOrUpdateTaxonomy	Hooks::apply	Config::withPrefix('acpt_update_taxonomy')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	aa0eee37fc558b9ce3002f2ebe359b0c13d69009	-
+ACPT	deleteCPT	Hooks::apply	'btcbi_acpt_delete_cpt'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	b9f14c918e1b13a56007a24c6f499dbfd2b88e2c	-
+ACPT	deleteCPT	Hooks::apply	Config::withPrefix('acpt_delete_cpt')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7b8a4ecc445968d8becbba23cf57c0d4efe7d6b	-
+ACPT	deleteDynamicBlock	Hooks::apply	'btcbi_acpt_delete_dynamic_block'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	b9f14c918e1b13a56007a24c6f499dbfd2b88e2c	-
+ACPT	deleteDynamicBlock	Hooks::apply	Config::withPrefix('acpt_delete_dynamic_block')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7b8a4ecc445968d8becbba23cf57c0d4efe7d6b	-
+ACPT	deleteMetaGroup	Hooks::apply	'btcbi_acpt_delete_meta_group'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	b9f14c918e1b13a56007a24c6f499dbfd2b88e2c	-
+ACPT	deleteMetaGroup	Hooks::apply	Config::withPrefix('acpt_delete_meta_group')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7b8a4ecc445968d8becbba23cf57c0d4efe7d6b	-
+ACPT	deleteOptionPage	Hooks::apply	'btcbi_acpt_delete_option_page'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	b9f14c918e1b13a56007a24c6f499dbfd2b88e2c	-
+ACPT	deleteOptionPage	Hooks::apply	Config::withPrefix('acpt_delete_option_page')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7b8a4ecc445968d8becbba23cf57c0d4efe7d6b	-
+ACPT	deleteTaxonomy	Hooks::apply	'btcbi_acpt_delete_taxonomy'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	b9f14c918e1b13a56007a24c6f499dbfd2b88e2c	-
+ACPT	deleteTaxonomy	Hooks::apply	Config::withPrefix('acpt_delete_taxonomy')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7b8a4ecc445968d8becbba23cf57c0d4efe7d6b	-
+ACPT	updateCPT	Hooks::apply	'btcbi_acpt_update_cpt'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	86b24cd411e03af149e0ca2d518c1a2d832dc5a1	-
+ACPT	updateCPT	Hooks::apply	Config::withPrefix('acpt_update_cpt')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	aa0eee37fc558b9ce3002f2ebe359b0c13d69009	-
+AcademyLms	completeCourse	do_action	'academy/admin/course_complete_after'	3	99291d570154496bfff47bad2fce3281af68d22e	c7454f69e34241f2a5318b8af423dd74a01c295c	-
+AcademyLms	completeCourse	do_action	'academy/admin/course_complete_before'	2	99291d570154496bfff47bad2fce3281af68d22e	99291d570154496bfff47bad2fce3281af68d22e	-
+AcademyLms	completeLesson	do_action	'academy/frontend/after_mark_topic_complete'	5	89ea29afa8afe9f41370dca72511b81656740b66	18d5e400bdaf041180e480eac2131c07c74535e6	-
+AcademyLms	completeLesson	do_action	'academy/frontend/before_mark_topic_complete'	5	89ea29afa8afe9f41370dca72511b81656740b66	18d5e400bdaf041180e480eac2131c07c74535e6	-
+AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_create_forum')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_create_topic')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_post_reply_in_topic')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+AsgarosForum	execute	Hooks::apply	Config::withPrefix('asgaros_forum_subscribe_user_in_forum')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+B2BKing	execute	Hooks::apply	Config::withPrefix('b2bking_approve_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	d7941f4ce4a6eaf33f5329c2fe5ef357a1c90013	-
+B2BKing	execute	Hooks::apply	Config::withPrefix('b2bking_enable_b2b_for_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	d7941f4ce4a6eaf33f5329c2fe5ef357a1c90013	-
+B2BKing	execute	Hooks::apply	Config::withPrefix('b2bking_update_customer_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	d27d43a0e5fd6e41d161b2c45cbccfc6c367b866	-
+BadgeOS	execute	Hooks::apply	Config::withPrefix('badgeos_award_achievement_to_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Bento	addEvent	Hooks::apply	'btcbi_bento_store_event'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	e65d24263e078b1e4c27793b638e7a32cbfe174b	-
+Bento	addEvent	Hooks::apply	Config::withPrefix('bento_store_event')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8edcb4768c98b771d8b2e73146e34ee40906eee7	-
+Bento	addPeople	Hooks::run	'btcbi_bento_update_user_data'	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	a8930ddaf49fbf3830dc8580528a60e903af4eb4	-
+Bento	addPeople	Hooks::run	Config::withPrefix('bento_update_user_data')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	a8930ddaf49fbf3830dc8580528a60e903af4eb4	-
+Bento	getAlTags	Hooks::apply	'btcbi_bento_get_all_tags'	3	97d170e1550eee4afc0af065b78cda302a97674c	ff11310e5f320edafdc5a7f6f24ac3b80bbdfbfb	-
+Bento	getAlTags	Hooks::apply	Config::withPrefix('bento_get_all_tags')	3	97d170e1550eee4afc0af065b78cda302a97674c	ff11310e5f320edafdc5a7f6f24ac3b80bbdfbfb	-
+Bento	getAllFields	Hooks::apply	'btcbi_bento_get_event_fields'	2	97d170e1550eee4afc0af065b78cda302a97674c	97d170e1550eee4afc0af065b78cda302a97674c	-
+Bento	getAllFields	Hooks::apply	'btcbi_bento_get_user_fields'	3	4cd0994a21d9b14f20c1ab35a75b3323a29c182a	162dde6ab4c063b53e0bd7c3a7dac30c791f2720	-
+Bento	getAllFields	Hooks::apply	Config::withPrefix('bento_get_event_fields')	2	97d170e1550eee4afc0af065b78cda302a97674c	97d170e1550eee4afc0af065b78cda302a97674c	-
+Bento	getAllFields	Hooks::apply	Config::withPrefix('bento_get_user_fields')	3	4cd0994a21d9b14f20c1ab35a75b3323a29c182a	162dde6ab4c063b53e0bd7c3a7dac30c791f2720	-
+BitCrm	addTagToCompany	do_action	'bit_crm/tags_attached_to_companies'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9	fce2756281e186dad411190d0dc2fdd9ed49f32e	-
+BitCrm	addTagToContact	do_action	'bit_crm/tags_attached_to_contacts'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9	0d9ea19a05f3f522eaaafaae005971aa45f4cdc6	-
+BitCrm	addTagToDeal	do_action	'bit_crm/tags_attached_to_deals'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9	1e36c199249f15658ada72be11a53f8d450fbf58	-
+BitCrm	addTagToLead	do_action	'bit_crm/tags_attached_to_leads'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9	1cf758962b0004053e378edd0754412846ceb1f8	-
+BitCrm	addTagToProduct	do_action	'bit_crm/tags_attached_to_products'	3	e4fafc3b480700bc00cee087e770f7e6973b01c9	a242a8a992058da3b2031701a9791c43a59760ca	-
+BitCrm	changeActivityStatus	do_action	'bit_crm/activity_status_updated'	4	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d	5f8f33a17c3a7374124f1046114f358560759719	-
+BitCrm	convertLead	do_action	'bit_crm/leads_converted_to_contact'	2	af3423ec7f99519d505b1b1a0693b96208b4dba7	af3423ec7f99519d505b1b1a0693b96208b4dba7	-
+BitCrm	createInvoice	do_action	'bit_crm/invoice_created'	2	66b67efa404b52b28c03d0a8cd6c47524b8124e2	66b67efa404b52b28c03d0a8cd6c47524b8124e2	-
+BitCrm	deleteInvoice	do_action	'bit_crm/invoices_trashed'	2	510b46a3580ce3971862c1d0925ca7ec48bc7d47	510b46a3580ce3971862c1d0925ca7ec48bc7d47	-
+BitCrm	deleteNote	do_action	'bit_crm/note_deleted'	2	28a34f188d0e612e365ba69beded4938768655b7	28a34f188d0e612e365ba69beded4938768655b7	-
+BitCrm	deleteTag	do_action	'bit_crm/tag_deleted'	2	0fc355871f330cfcd33a663e8d94622bc68dea11	0fc355871f330cfcd33a663e8d94622bc68dea11	-
+BitCrm	modifyActivity	do_action	'bit_crm/activity_updated'	2	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d	-
+BitCrm	removeActivity	do_action	'bit_crm/activity_deleted'	2	acf8bc880dcc62f8a49acbba0429b91432207d49	acf8bc880dcc62f8a49acbba0429b91432207d49	-
+BitCrm	save	do_action	self::SAVE_HOOK	4	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	8130b7efc3d8280a4ec93bfac92a7e9e429fc6ee	'bit_crm_update_custom_fields_values'
+BitCrm	storeActivity	do_action	'bit_crm/activity_created'	2	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d	b2d4401d3e96ae4898d87b8fc3ebad7e47c6397d	-
+BitCrm	updateDealStage	do_action	'bit_crm/deal_stage_updated'	3	d7592ba19201dfa7ac2ace24c846db11a98818ed	10e87ece7d23ef1852cefad07bc6c98bc45eb5fa	-
+BitCrm	updateInvoice	do_action	'bit_crm/invoice_updated'	2	741c9767631e579a0cb288a457286b3e659cf29a	741c9767631e579a0cb288a457286b3e659cf29a	-
+BitCrm	updateInvoiceStatus	do_action	'bit_crm/invoice_status_updated'	2	741c9767631e579a0cb288a457286b3e659cf29a	741c9767631e579a0cb288a457286b3e659cf29a	-
+BitCrm	updateNote	do_action	'bit_crm/note_updated'	2	42bf5b6cbe3dece5c9f9d6349e58e5f91cc3cc6b	42bf5b6cbe3dece5c9f9d6349e58e5f91cc3cc6b	-
+BitCrm	updateProduct	do_action	'bit_crm/product_updated'	2	c8f31749f14ccdafa6abc2d9d03f2bbc99e4ea25	c8f31749f14ccdafa6abc2d9d03f2bbc99e4ea25	-
+BitCrm	updateTag	do_action	'bit_crm/tag_updated'	2	aedccf5f907a61edd09a98a506f0b4ee46574d13	aedccf5f907a61edd09a98a506f0b4ee46574d13	-
+BookingCalendar	execute	Hooks::apply	Config::withPrefix('booking_calendar_create_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+BookingCalendar	execute	Hooks::apply	Config::withPrefix('booking_calendar_update_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_cancel_appointment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_create_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_delete_appointment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_delete_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_update_appointment_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+BookingPress	execute	Hooks::apply	Config::withPrefix('bookingpress_update_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Bookly	execute	Hooks::apply	Config::withPrefix('bookly_create_appointment')	4	7a8efd1328c2152244072668c454a0dabc0a4f24	dc5c8f9a76350d62c8507208f47fd84d70a7f39f	-
+Bookly	execute	Hooks::apply	Config::withPrefix('bookly_create_customer')	3	7a8efd1328c2152244072668c454a0dabc0a4f24	101255f0cb9b2b410deccfc30b87c1a80ff81711	-
+Bookly	execute	Hooks::apply	Config::withPrefix('bookly_delete_appointment')	3	7a8efd1328c2152244072668c454a0dabc0a4f24	101255f0cb9b2b410deccfc30b87c1a80ff81711	-
+Bookly	execute	Hooks::apply	Config::withPrefix('bookly_delete_customer')	3	7a8efd1328c2152244072668c454a0dabc0a4f24	101255f0cb9b2b410deccfc30b87c1a80ff81711	-
+Bookly	execute	Hooks::apply	Config::withPrefix('bookly_update_appointment_status')	4	7a8efd1328c2152244072668c454a0dabc0a4f24	dc5c8f9a76350d62c8507208f47fd84d70a7f39f	-
+Bookly	execute	Hooks::apply	Config::withPrefix('bookly_update_customer')	3	7a8efd1328c2152244072668c454a0dabc0a4f24	101255f0cb9b2b410deccfc30b87c1a80ff81711	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_member')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_member_post')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_create_review')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_delete_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_delete_member')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_delete_review')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_match_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_update_lead')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_update_member')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BrilliantDirectories	execute	Hooks::apply	Config::withPrefix('brilliant_directories_update_review')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+BuddyBoss	posTopicForum	apply_filters	'bbp_new_topic_pre_insert'	2	18bcd363b9b42a46df61f0d4233aaf9ef995d395	18bcd363b9b42a46df61f0d4233aaf9ef995d395	-
+BuddyBoss	posTopicForum	do_action	'bbp_new_topic'	5	07c1925e6cb03748e65fd26b6e9b08b6c80bab13	84752eec60d825e5db19d295bf459bec1affd85a	-
+BuddyBoss	posTopicForum	do_action	'bbp_new_topic_post_extras'	2	07c1925e6cb03748e65fd26b6e9b08b6c80bab13	07c1925e6cb03748e65fd26b6e9b08b6c80bab13	-
+BuddyBoss	postReplyTopicForum	apply_filters	'bbp_new_reply_pre_content'	2	21e9158314900094a9b2311c3cc33cd54cffbd25	21e9158314900094a9b2311c3cc33cd54cffbd25	-
+BuddyBoss	postReplyTopicForum	apply_filters	'bbp_new_reply_pre_insert'	2	67cd7ae6a6754057c51cdd6b6ec2a3a6ad39a599	67cd7ae6a6754057c51cdd6b6ec2a3a6ad39a599	-
+BuddyBoss	postReplyTopicForum	do_action	'bbp_new_reply'	8	49303698b773f48aad82c3a64485f5567adfa9f8	c0a038ce13b2f6561871c088891dadcd1e2cc3f5	-
+BuddyBoss	postReplyTopicForum	do_action	'bbp_new_reply_post_extras'	2	49303698b773f48aad82c3a64485f5567adfa9f8	49303698b773f48aad82c3a64485f5567adfa9f8	-
+BuddyBoss	subscribeForum	do_action	'buddyBoss_subscriptions_handler'	5	18f1c390a75dbb4dbce8e834ed81a0f7b1e7c8c6	1c57631d39ff25cc32a6905e291ec899225ef974	-
+CartAbandonmentRecovery	execute	Hooks::apply	Config::withPrefix('cart_abandonment_recovery_delete_abandoned_cart')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+CartAbandonmentRecovery	execute	Hooks::apply	Config::withPrefix('cart_abandonment_recovery_reschedule_recovery_emails')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+CartAbandonmentRecovery	execute	Hooks::apply	Config::withPrefix('cart_abandonment_recovery_update_cart_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+ClickWhale	execute	Hooks::apply	Config::withPrefix('clickwhale_create_link')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+ClickWhale	execute	Hooks::apply	Config::withPrefix('clickwhale_delete_link')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+ClickWhale	execute	Hooks::apply	Config::withPrefix('clickwhale_update_link')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_create_campaign')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_delete_campaign')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_update_campaign')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+ConvertForce	execute	Hooks::apply	Config::withPrefix('convertforce_update_campaign_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_create_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_create_student')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_enroll_user_in_course')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_mark_lesson_completed')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+CreatorLms	execute	Hooks::apply	Config::withPrefix('creator_lms_update_student_data')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Dokan	formatVendorUpsertData	Hooks::apply	'btcbi_dokan_vendor_crud_actions'	3	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	b6cbca99aa1a0e47e0dfc68ca9be01266118fffe	-
+Dokan	formatVendorUpsertData	Hooks::apply	Config::withPrefix('dokan_vendor_crud_actions')	3	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	b6cbca99aa1a0e47e0dfc68ca9be01266118fffe	-
+EventsManager	execute	Hooks::apply	Config::withPrefix('eventsmanager_unregister_user_from_event')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Fabman	createSpace	Hooks::apply	'btcbi_fabman_create_space'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	ff0c3c2d46b977c93da32c5b0f29146b642abf4f	-
+Fabman	createSpace	Hooks::apply	Config::withPrefix('fabman_create_space')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	545d83b827db36622326b7e2e20d632cb8f1b660	-
+Fabman	deleteMember	Hooks::apply	'btcbi_fabman_delete_member'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	9b0b1b5f76d96dbba4cf7228f9f5b3a93a725810	-
+Fabman	deleteMember	Hooks::apply	Config::withPrefix('fabman_delete_member')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	f5d41ac4d3fc5a8a89babb1a642526e4d2a1dd8c	-
+Fabman	updateMember	Hooks::apply	'btcbi_fabman_update_member'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	9d17211c0eb02a046d803ffb515fcb76a4f75a57	-
+Fabman	updateMember	Hooks::apply	Config::withPrefix('fabman_update_member')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	83b04bac7f319c22f1858273e7cb241acfac1afd	-
+Fabman	updateSpace	Hooks::apply	'btcbi_fabman_update_space'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	04754521e30ada2f9b65ff77e88cdf5a80c2d131	-
+Fabman	updateSpace	Hooks::apply	Config::withPrefix('fabman_update_space')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	466a3d909f953cc898706376f5fecd4ca1b80239	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_coupon'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	751f6bd357686c0ecbcc694733335226a2a5beb2	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_customer'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_order'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	0ca0763126dae278aa3539caaef7e02b8e17b07f	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_create_product'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	0ca0763126dae278aa3539caaef7e02b8e17b07f	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_coupon'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_customer'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_order'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_delete_product'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_customer'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_order_status'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_payment_status'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	'btcbi_fluentcart_update_shipping_status'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_order')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_create_product')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_coupon')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_order')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_delete_product')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_order_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_payment_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCart	execute	Hooks::apply	Config::withPrefix('fluentcart_update_shipping_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentCrm	execute	Hooks::apply	'btcbi_fluent_crm_assign_company'	3	97d170e1550eee4afc0af065b78cda302a97674c	a6335ed6f3e547cd4e9f1e7aa5c365d09fa21f22	-
+FluentCrm	execute	Hooks::apply	Config::withPrefix('fluent_crm_assign_company')	3	97d170e1550eee4afc0af065b78cda302a97674c	a6335ed6f3e547cd4e9f1e7aa5c365d09fa21f22	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_add_media_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_add_media_to_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_change_media_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_change_playlist_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_email_submission')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_media')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	24eeed992526403e954e860f3d4260ec15cef87a	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_playlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_create_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_media')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_preset')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	9479dc8f55588c7016b0664e4c0e24a9dfe0bbe2	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_delete_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_record_visit')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_record_watch_progression')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_remove_media_from_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_remove_media_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_rename_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_restore_media')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_restore_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_save_preset')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_set_media_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_subscribe_email_to_providers')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_trash_media')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_trash_playlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_update_media')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	24eeed992526403e954e860f3d4260ec15cef87a	-
+FluentPlayer	execute	Hooks::apply	Config::withPrefix('fluent_player_update_playlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+FluentSupport	createTicketByExistCustomer	apply_filters	'fluent_support/ticket_custom_fields'	2	97d170e1550eee4afc0af065b78cda302a97674c	97d170e1550eee4afc0af065b78cda302a97674c	-
+FluentSupport	uploadTicketFiles	Hooks::run	'btcbi_fluent_support_upload_ticket_attachments'	6	144fb7fd5cd2c372f6a4256d14b09371713ce914	af5addd4da63a68659c03e92deb76497430d7da9	-
+FluentSupport	uploadTicketFiles	Hooks::run	Config::withPrefix('fluent_support_upload_ticket_attachments')	6	144fb7fd5cd2c372f6a4256d14b09371713ce914	af5addd4da63a68659c03e92deb76497430d7da9	-
+FormyChat	execute	Hooks::apply	Config::withPrefix('formy_chat_create_lead')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	84beec990b630194cf25d5f03225bd456e1c1534	-
+FreshSales	upsertRecord	Hooks::apply	'btcbi_freshsales_upsert_record'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	5b03ccf36f86751373ba277d052ad23234ce3c05	-
+FreshSales	upsertRecord	Hooks::apply	Config::withPrefix('freshsales_upsert_record')	6	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	de83353ce58075d255750212ce3a29eb8c511987	-
+GetResponse	addContactToCampaign	Hooks::apply	'btcbi_getresponse_autoresponder_day'	3	126b68972342396fd0b113b396baa336494b19cc	0110d81cd5d13b7903e92ecc159682fe6057652f	-
+GetResponse	addContactToCampaign	Hooks::apply	Config::withPrefix('getresponse_autoresponder_day')	3	126b68972342396fd0b113b396baa336494b19cc	0110d81cd5d13b7903e92ecc159682fe6057652f	-
+GoogleCalendar	executeRecordApi	Hooks::apply	Config::withPrefix('googlecalendar_rich_description')	4	2be88ca4242c76e8253ac62474851065032d6833	bce0606c61ae3f705566f78f8f5435e8d1600e6a	-
+HefflCRM	execute	Hooks::apply	Config::withPrefix('heffl_crm_create_client')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c6d9b9ff0412b221cb74a2b3e7bb3159cb889f65	-
+HefflCRM	execute	Hooks::apply	Config::withPrefix('heffl_crm_create_deal')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c6d9b9ff0412b221cb74a2b3e7bb3159cb889f65	-
+HefflCRM	execute	Hooks::apply	Config::withPrefix('heffl_crm_create_lead')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c6d9b9ff0412b221cb74a2b3e7bb3159cb889f65	-
+HighLevel	createContact	Hooks::apply	'btcbi_high_level_v2_create_contact'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	44ce4b64fe33e61385166691978602211587f735	-
+HighLevel	createContact	Hooks::apply	Config::withPrefix('high_level_v2_create_contact')	5	62ec369fa2b469514150c0120dde9320f61c1364	a3a6149443b59abb74a3d5f707c370e827259b49	-
+HighLevel	createOpportunity	Hooks::apply	'btcbi_high_level_v2_create_opportunity'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	320f6248c77be8f06c0458d35debc01f18ea31af	-
+HighLevel	createOpportunity	Hooks::apply	Config::withPrefix('high_level_v2_create_opportunity')	6	62ec369fa2b469514150c0120dde9320f61c1364	3ef7aa8ce9ee44cc4126192c5a522bbe86669adf	-
+HighLevel	createTask	Hooks::apply	'btcbi_high_level_v2_create_task'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	058b1f96ff7b3a09bf4e195b0eb5bb8a43160d1d	-
+HighLevel	createTask	Hooks::apply	Config::withPrefix('high_level_v2_create_task')	5	62ec369fa2b469514150c0120dde9320f61c1364	aff1e3d0e4b1304d74898d5b8d3875e1764e64a7	-
+HighLevel	formatContactData	Hooks::apply	'btcbi_high_level_contact_utilities'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	3f72e14f9f424f29a74ca1e30384b0eaa0233ea1	-
+HighLevel	formatContactData	Hooks::apply	Config::withPrefix('high_level_contact_utilities')	4	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	5dcfdf352c0f75ce245e9b363040074b298de52c	-
+HighLevel	formatOpportunityData	Hooks::apply	'btcbi_high_level_opportunity_utilities'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	3f72e14f9f424f29a74ca1e30384b0eaa0233ea1	-
+HighLevel	formatOpportunityData	Hooks::apply	Config::withPrefix('high_level_opportunity_utilities')	4	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	5dcfdf352c0f75ce245e9b363040074b298de52c	-
+HighLevel	updateContact	Hooks::apply	'btcbi_high_level_v2_update_contact'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	ad701b3b51fa2eb9de35b8989109366947d12d17	-
+HighLevel	updateContact	Hooks::apply	Config::withPrefix('high_level_v2_update_contact')	5	62ec369fa2b469514150c0120dde9320f61c1364	79b50ac4544e1ddde25850bb52471d9f9ed3f6ec	-
+HighLevel	updateOpportunity	Hooks::apply	'btcbi_high_level_v2_update_opportunity'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	f55458ed04c09a83ed969c76abd3cd8958489420	-
+HighLevel	updateOpportunity	Hooks::apply	Config::withPrefix('high_level_v2_update_opportunity')	6	62ec369fa2b469514150c0120dde9320f61c1364	6bc6c955a2b8ef508a41f7234e3f076ea1719b4a	-
+HighLevel	updateTask	Hooks::apply	'btcbi_high_level_v2_update_task'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	fb8dc8e791e0ff47778f642267f73eb581fd71ff	-
+HighLevel	updateTask	Hooks::apply	Config::withPrefix('high_level_v2_update_task')	6	62ec369fa2b469514150c0120dde9320f61c1364	1f3d4e0e01c50c12cc0b0ef4ff5fa85dceddc3ed	-
+Hubspot	updateEntity	Hooks::apply	'btcbi_hubspot_update_entity'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	3e7f0f67306b27145b16006491709bf2f0470fd5	-
+Hubspot	updateEntity	Hooks::apply	Config::withPrefix('hubspot_update_entity')	5	ce376578098cf70af7021fca72fe4e15a4a98365	72813a22971a7c0486918d20d29f40c8ba43edfc	-
+Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_contact_event')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	e2203cc1bf21906eb98eb9aa45380a95201b06f3	-
+Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_datasource')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	e2203cc1bf21906eb98eb9aa45380a95201b06f3	-
+Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_lookup')	4	7a8efd1328c2152244072668c454a0dabc0a4f24	babd813c5bf80202779b20168a567b3251640370	-
+Instasent	execute	Hooks::apply	Config::withPrefix('instasent_create_or_update_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	e2203cc1bf21906eb98eb9aa45380a95201b06f3	-
+Instasent	execute	Hooks::apply	Config::withPrefix('instasent_delete_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	e2203cc1bf21906eb98eb9aa45380a95201b06f3	-
+Instasent	execute	Hooks::apply	Config::withPrefix('instasent_send_sms')	4	7a8efd1328c2152244072668c454a0dabc0a4f24	babd813c5bf80202779b20168a567b3251640370	-
+IvyForms	execute	Hooks::apply	Config::withPrefix('ivy_forms_create_entry')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	9776e43204fd144c8b5889db03f45200790b2fe0	-
+JetEngine	createContentType	Hooks::apply	'btcbi_jet_engine_create_content_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	bd5324ba69142ac12742cc50bff7ee0921d687d4	-
+JetEngine	createContentType	Hooks::apply	Config::withPrefix('jet_engine_create_content_type_actions')	4	a6adf8f9ea4ec2c2cf0ee72dfba3733a53b0d009	34ae94890344eb9400bdf1264190880c5beeea2e	-
+JetEngine	createPostType	Hooks::apply	'btcbi_jet_engine_create_post_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	bd5324ba69142ac12742cc50bff7ee0921d687d4	-
+JetEngine	createPostType	Hooks::apply	Config::withPrefix('jet_engine_create_post_type_actions')	4	359574040eb13ab054953242422475668e4fa049	2812a53d3189a3b090fd4929ae6e47d72fc7e8ef	-
+JetEngine	createRelation	Hooks::apply	'btcbi_jet_engine_create_relation_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	00cc629aa9e4e14807995c3a7cd6293c2830f691	-
+JetEngine	createRelation	Hooks::apply	Config::withPrefix('jet_engine_create_relation_actions')	4	09cf701677d48f76a7ef631857abbf9afa7d9c49	d51ae5aab0bb61718dc166c4e9709f43505b51c7	-
+JetEngine	createTaxonomy	Hooks::apply	'btcbi_jet_engine_create_taxonomy_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	2b6c99aaf2c8fdf14849ea2120a64b897fb134b7	-
+JetEngine	createTaxonomy	Hooks::apply	Config::withPrefix('jet_engine_create_taxonomy_actions')	4	4b5e7c993769fd671ec8c9cb3424e1b6d41b2c06	bb2ee37451ebff22af37b514d2782aa11c5acc9b	-
+JetEngine	updateContentType	Hooks::apply	'btcbi_jet_engine_create_content_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	bd5324ba69142ac12742cc50bff7ee0921d687d4	-
+JetEngine	updateContentType	Hooks::apply	Config::withPrefix('jet_engine_create_content_type_actions')	4	ee10491ef1c63fa886bdb4970777a6d53112a987	0c02971da1ff3b157b8ce6dd2e5219e52e2fa216	-
+JetEngine	updatePostType	Hooks::apply	'btcbi_jet_engine_create_post_type_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	bd5324ba69142ac12742cc50bff7ee0921d687d4	-
+JetEngine	updatePostType	Hooks::apply	Config::withPrefix('jet_engine_create_post_type_actions')	4	62ca4ee7a767824896fcb83c9359eb17c5e5098f	48da14c5de087717c93c13171d4f2c18808286d9	-
+JetEngine	updateRelation	Hooks::apply	'btcbi_jet_engine_create_relation_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	00cc629aa9e4e14807995c3a7cd6293c2830f691	-
+JetEngine	updateRelation	Hooks::apply	Config::withPrefix('jet_engine_create_relation_actions')	4	3657e90d700c2aaef7c7d896ff0d64457fc37031	db75d7c55d611904d24b176a89e048a0e8433ecd	-
+JetEngine	updateTaxonomy	Hooks::apply	'btcbi_jet_engine_create_taxonomy_actions'	4	b07b2430cc16c515c808fc9e60d1c9c5a8264532	2b6c99aaf2c8fdf14849ea2120a64b897fb134b7	-
+JetEngine	updateTaxonomy	Hooks::apply	Config::withPrefix('jet_engine_create_taxonomy_actions')	4	0539bcecfa4f0de16f08cfc2d28b8de174a5d79b	ce2fab78a235bb7d57daf99bfcc659a48ca5fcd5	-
+Klaviyo	handleProfile	Hooks::apply	'btcbi_klaviyo_custom_properties'	4	461e9bac5c124e13e943d74294b5b3c23e91e59a	8f493b025e7bde337b0462970547296e871f99fa	-
+Klaviyo	handleProfile	Hooks::apply	'btcbi_klaviyo_update_profile'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	9fb9743bdb2deab4cd1d486d0ad34095de01bf92	-
+Klaviyo	handleProfile	Hooks::apply	Config::withPrefix('klaviyo_custom_properties')	4	461e9bac5c124e13e943d74294b5b3c23e91e59a	8f493b025e7bde337b0462970547296e871f99fa	-
+Klaviyo	handleProfile	Hooks::apply	Config::withPrefix('klaviyo_update_profile')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	e7e103dea11582706ccb3c577bf102b9ff3c7dfa	-
+LMFWC	createGenerator	Hooks::apply	'btcbi_lmfwc_create_generator'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	88228509a46e38273f0953b2404705147e1e1b8c	-
+LMFWC	createGenerator	Hooks::apply	Config::withPrefix('lmfwc_create_generator')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	314ec3ba4d1eda0cd0fb5edb3cf2c6d70b419639	-
+LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_activate_licence'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	9a22a59b8528e2532afec1e58199968fdfca02c9	-
+LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_deactivate_licence'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	422088e11abaa2d431dcc03d715e3a1ad6bdcbb2	-
+LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_delete_licence'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	9a22a59b8528e2532afec1e58199968fdfca02c9	-
+LMFWC	licenseRelatedAction	Hooks::apply	'btcbi_lmfwc_reactivate_licence'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	422088e11abaa2d431dcc03d715e3a1ad6bdcbb2	-
+LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_activate_licence')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	ca9483568cb7b1ab4d26d8be26156e33dca60e00	-
+LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_deactivate_licence')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	cbf00e7023da411f6c1eabe293244ce893ff765c	-
+LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_delete_licence')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	ca9483568cb7b1ab4d26d8be26156e33dca60e00	-
+LMFWC	licenseRelatedAction	Hooks::apply	Config::withPrefix('lmfwc_reactivate_licence')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	cbf00e7023da411f6c1eabe293244ce893ff765c	-
+LMFWC	updateGenerator	Hooks::apply	'btcbi_lmfwc_update_generator'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	6a9887208f9b47f883bd50a3f89d2be5e5807b35	-
+LMFWC	updateGenerator	Hooks::apply	Config::withPrefix('lmfwc_update_generator')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	bb1bc80d7832a261eae32befe077f1a62e2d887e	-
+LMFWC	updateLicense	Hooks::apply	'btcbi_lmfwc_update_licence'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	4668e592d41e5d1d9bc7b746ffdb7a5bcd398ae0	-
+LMFWC	updateLicense	Hooks::apply	Config::withPrefix('lmfwc_update_licence')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	07dfeb404d416f58a3e274f96ef45c78d15216af	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_cancel_booking')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_agent')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	24eeed992526403e954e860f3d4260ec15cef87a	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_create_order')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	24eeed992526403e954e860f3d4260ec15cef87a	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_update_booking')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	24eeed992526403e954e860f3d4260ec15cef87a	-
+LatePoint	execute	Hooks::apply	Config::withPrefix('latepoint_update_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+LearnDash	createGroup	apply_filters	'uo_create_new_group_status'	2	d3645730e31a7e42eef544502da0f3ee3c8865fa	d3645730e31a7e42eef544502da0f3ee3c8865fa	-
+Line	sendBroadcastMessage	Hooks::apply	'btcbi_line_broadcast_message'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	e63d75c9367262a7b8bbe7d963bf5493aa3ac1a4	-
+Line	sendBroadcastMessage	Hooks::apply	Config::withPrefix('line_broadcast_message')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	aaa4bc61614bbe18d8199e9abe9cb97a6ca65da9	-
+Line	sendReplyMessage	Hooks::apply	'btcbi_line_reply_message'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	e63d75c9367262a7b8bbe7d963bf5493aa3ac1a4	-
+Line	sendReplyMessage	Hooks::apply	Config::withPrefix('line_reply_message')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	aaa4bc61614bbe18d8199e9abe9cb97a6ca65da9	-
+MailChimp	addRemoveTag	Hooks::apply	'btcbi_mailchimp_add_remove_tag'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	8b7caefa9c19a4725191005a0eb8519e6c0fb5ca	-
+MailChimp	addRemoveTag	Hooks::apply	Config::withPrefix('mailchimp_add_remove_tag')	5	2b36e81ccd76c191d64c1c7cace5bb2e249dce48	c04deb2279e4d8ba60130f0405d52f19d849cf61	-
+MailChimp	execute	Hooks::apply	'btcbi_mailchimp_map_language'	3	34e10a97491b23c9aea7561ab241b7cdb26e7af7	8bf6ccc76c69656ba277581062c3ffb61e8debc9	-
+MailChimp	execute	Hooks::apply	Config::withPrefix('mailchimp_map_language')	3	34e10a97491b23c9aea7561ab241b7cdb26e7af7	8bf6ccc76c69656ba277581062c3ffb61e8debc9	-
+MailChimp	execute	Hooks::run	'btcbi_mailchimp_store_gdpr_permission'	7	2385af99e21f2988ffbb0b85d0e8a952c856ea55	bb131d20e4b386a162daba73a3f2725285d5a39e	-
+MailChimp	execute	Hooks::run	Config::withPrefix('mailchimp_store_gdpr_permission')	7	2385af99e21f2988ffbb0b85d0e8a952c856ea55	bb131d20e4b386a162daba73a3f2725285d5a39e	-
+MailPoet	insertRecord	Hooks::apply	'btcbi_mailpoet_update_subscriber'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	bb3f8f9faa809e56b3f3a720007df722469f7c85	-
+MailPoet	insertRecord	Hooks::apply	Config::withPrefix('mailpoet_update_subscriber')	3	a0baea1030a56e58d53aa0913d321b44c765e9b8	d291b8d1af180a178afd497dad0662033e34a578	-
+MailerLite	deleteSubscriber	Hooks::apply	'btcbi_mailerlite_delete_subscriber'	7	f157c97a02406cf39428a92f64581c3a2e09bdd5	e45367051836e177d3d493b2b4746b4eafaeed09	-
+MailerLite	deleteSubscriber	Hooks::apply	Config::withPrefix('mailerlite_delete_subscriber')	7	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	819d548b105c784a8045468fa1e7826b1f030663	-
+MailerLite	unassignSubscriberFromGroup	Hooks::apply	Config::withPrefix('mailerlite_unassign_subscriber_from_group')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	5e071f80a21335b39b4bbf4d165d9e4b6c8d68d4	-
+MailerPress	execute	Hooks::apply	'btcbi_mailerpress_add_tags'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	6d57fbf59d1fbce6c0414fafe7285e54445b7809	-
+MailerPress	execute	Hooks::apply	'btcbi_mailerpress_add_to_lists'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	e3c7cf5683273c013b82e76b154673d9a4768c14	-
+MailerPress	execute	Hooks::apply	'btcbi_mailerpress_delete_contact'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+MailerPress	execute	Hooks::apply	'btcbi_mailerpress_remove_from_lists'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	e3c7cf5683273c013b82e76b154673d9a4768c14	-
+MailerPress	execute	Hooks::apply	'btcbi_mailerpress_remove_tags'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	6d57fbf59d1fbce6c0414fafe7285e54445b7809	-
+MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_add_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	7b0be55114f1554e10be96c6a0b80d7019c8d572	-
+MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_add_to_lists')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	51478d5546b8605d4e2d578cae82c5c9d43a6c2d	-
+MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_delete_contact')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_remove_from_lists')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	51478d5546b8605d4e2d578cae82c5c9d43a6c2d	-
+MailerPress	execute	Hooks::apply	Config::withPrefix('mailerpress_remove_tags')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	7b0be55114f1554e10be96c6a0b80d7019c8d572	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_activate_plugin')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_create_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_create_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_deactivate_plugin')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_delete_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_sync_all_sites')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_sync_site')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MainWP	execute	Hooks::apply	Config::withPrefix('main_wp_update_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MasterStudyLms	complete_course	do_action	'stm_lms_lesson_passed'	3	1686487e29535c9d46ecb33998db33518cb4fd58	ccee0899169d968e84b53afa67764b37a45b5cdc	-
+MasterStudyLms	complete_course	do_action	'stm_lms_quiz_' . $status	4	1686487e29535c9d46ecb33998db33518cb4fd58	6ca7841e5247435b486a261dfad50fa4685943b7	-
+MasterStudyLms	complete_lesson	do_action	'stm_lms_lesson_passed'	3	1686487e29535c9d46ecb33998db33518cb4fd58	ccee0899169d968e84b53afa67764b37a45b5cdc	-
+MasterStudyLms	complete_quiz	do_action	'stm_lms_quiz_' . $status	4	1686487e29535c9d46ecb33998db33518cb4fd58	6ca7841e5247435b486a261dfad50fa4685943b7	-
+MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_enroll_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	7c95bd42dc1122ba51f939485f804919bd4c466b	-
+MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_mark_course_complete')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	7c95bd42dc1122ba51f939485f804919bd4c466b	-
+MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_mark_lesson_complete')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	f2bc78671699a049fb2d1c566db86a03052b094d	-
+MasterStudyLms	execute	Hooks::apply	Config::withPrefix('master_study_lms_unenroll_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	7c95bd42dc1122ba51f939485f804919bd4c466b	-
+ModernCart	execute	Hooks::apply	Config::withPrefix('modern_cart_add_product_to_cart')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+ModernCart	execute	Hooks::apply	Config::withPrefix('modern_cart_remove_product_from_cart')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+ModernCart	execute	Hooks::apply	Config::withPrefix('modern_cart_update_cart_quantity')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_archive_board')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	b8d5839bb98fadf361073716095c3864a6ba5022	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_archive_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_archive_item')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	b8d5839bb98fadf361073716095c3864a6ba5022	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_column')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_item')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_create_subitem')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_delete_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_delete_item')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	b8d5839bb98fadf361073716095c3864a6ba5022	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_duplicate_group')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_move_item_to_group')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	b8d5839bb98fadf361073716095c3864a6ba5022	-
+MondayCom	execute	Hooks::apply	Config::withPrefix('mondayCom_update_item')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	8b691ec939137bd127c5411eabd2e7c944ef0887	-
+Moosend	generateReqDataFromFieldMap	Hooks::apply	'btcbi_moosend_map_custom_fields'	4	2294e08e9e1099b00c1727d95782588b15e3ef71	1f40ff10fc89ddbd85f7f2b2a0f0e9e252fea4a7	-
+Moosend	generateReqDataFromFieldMap	Hooks::apply	Config::withPrefix('moosend_map_custom_fields')	4	bed18a324de6c63a34b3d9301187ab8118fe6fde	1c936dd62a6cf980e582e6ef867e431b4115f939	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_add_product_to_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_create_customer')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_create_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_delete_wishlist')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_remove_product_from_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_subscribe_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_unsubscribe_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+MoreConvertWishlist	execute	Hooks::apply	Config::withPrefix('more_convert_wishlist_update_wishlist')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_add_contact_activity')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_add_contact_to_list')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_add_tag_to_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_change_contact_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_create_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_create_list')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_create_tag')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_delete_contact')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_remove_contact_from_list')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_remove_tag_from_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_send_campaign_email')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_update_contact')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+NextCrm	execute	Hooks::apply	Config::withPrefix('next_crm_update_contact_field')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+NinjaTables	executeAddRow	apply_filters	Config::withPrefix(self::FILTER_ADD_ROW)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	Config::withPrefix('ninjatables_add_row')
+NinjaTables	executeUpdateRow	apply_filters	Config::withPrefix(self::FILTER_UPDATE_ROW)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	Config::withPrefix('ninjatables_update_row')
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_email_subscription')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_notification_entry')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_reviews')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_add_sales_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_delete_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	697ffad99c16a7bdf46befd9447ff957b07abc9d	-
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_disable_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	697ffad99c16a7bdf46befd9447ff957b07abc9d	-
+NotificationX	execute	Hooks::apply	Config::withPrefix('notificationx_enable_notification')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	697ffad99c16a7bdf46befd9447ff957b07abc9d	-
+OmniSend	execute	Hooks::apply	'btcbi_omnisend_custom_properties'	4	ef8dcff538405ffd80356faf3807f126a5b18bd4	4854d796de8529c4f56d4a29f69568fd1af1b4d2	-
+OmniSend	execute	Hooks::apply	Config::withPrefix('omnisend_custom_properties')	4	e4c27db7efdda54de7dfc3e1656d950b81193ffd	f457b0085022a60c21adf4b072ff675c5430804b	-
+PeepSo	execute	Hooks::apply	Config::withPrefix('peepso_add_post_activity_stream')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+PeepSo	execute	Hooks::apply	Config::withPrefix('peepso_change_user_role')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+PeepSo	execute	Hooks::apply	Config::withPrefix('peepso_follow_user')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+PipeDrive	execute	Hooks::run	'btcbi_pipedrive_store_related_list'	7	f31d95e68b76c9f1a23c7449d0d2a40bc9923e6e	c25274dc58447e1e135ad77f4e9a520b89a1c11a	-
+PipeDrive	execute	Hooks::run	Config::withPrefix('pipedrive_store_related_list')	7	f31d95e68b76c9f1a23c7449d0d2a40bc9923e6e	c25274dc58447e1e135ad77f4e9a520b89a1c11a	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_adjust_points')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_award_channel_points')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_cancel_redemption')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_cancel_referral_invite')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_complete_referral_purchase')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_complete_referral_registration')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_recompute_member_tier')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+Pointics	execute	Hooks::apply	Config::withPrefix('pointics_send_referral_invite')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_change_popup_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_create_popup')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_create_subscriber')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_delete_popup')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_delete_subscriber')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_reset_popup_counts')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_track_popup_event')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_update_popup')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+PopupMaker	execute	Hooks::apply	Config::withPrefix('popup_maker_update_subscriber')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	80b5c338c875bbdd174f245fe6cad114a5911a07	-
+PostCreation	execute	Hooks::run	'btcbi_add_post_tag'	3	098401b6ec54ae6a2c0b2dd2f4683d46e9d84fd5	a4b0e747298f2d59bd6aa316def1ff6fccd5a54e	-
+PostCreation	execute	Hooks::run	Config::withPrefix('add_post_tag')	3	098401b6ec54ae6a2c0b2dd2f4683d46e9d84fd5	a4b0e747298f2d59bd6aa316def1ff6fccd5a54e	-
+PostCreation	executeWordPressPostAction	Hooks::apply	Config::withPrefix($actionType)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	99d65d879468c6f7446abebefc0e64d8165ea278	-
+PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_create_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_delete_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_toggle_auto_apply')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_toggle_show_in_slideout')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+PowerCoupons	execute	Hooks::apply	Config::withPrefix('power_coupons_update_coupon')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+ProfilePress	execute	Hooks::apply	Config::withPrefix('profilepress_add_new_order')	5	0de1e79adeb75cb2d3ae1371567cbbae0df08751	24eeed992526403e954e860f3d4260ec15cef87a	-
+ProfilePress	execute	Hooks::apply	Config::withPrefix('profilepress_add_or_update_customer')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Registration	executeWordPressUserAction	Hooks::apply	Config::withPrefix($actionType)	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	589703596433e69af951ee478b929b91b2fbf7bd	-
+Salesforce	execute	Hooks::apply	'btcbi_salesforce_add_lead_utilities'	3	144fb7fd5cd2c372f6a4256d14b09371713ce914	063e9a43e6fcfc32b18b95a0cda3dc9c48e70bd7	-
+Salesforce	execute	Hooks::apply	Config::withPrefix('salesforce_add_lead_utilities')	3	144fb7fd5cd2c372f6a4256d14b09371713ce914	063e9a43e6fcfc32b18b95a0cda3dc9c48e70bd7	-
+Salesforce	getAllLeadIndustries	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	758682cd823b05096e60095f1e8549abc9297fb1	-
+Salesforce	getAllLeadIndustries	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c	26dbd1d1845f11fe6464eb1e5316d9604aadf352	-
+Salesforce	getAllLeadRatings	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	7914882bfc303ccbfd49f2a9294768550f4a2470	-
+Salesforce	getAllLeadRatings	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c	7fffd25c74162dfca43b5b5a1cea867a9e43e9b9	-
+Salesforce	getAllLeadSources	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	a25d3b24980017e86371542a8a5dc46be853ba66	-
+Salesforce	getAllLeadSources	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c	200dac2fff4d0427066af11be72f0200d4d1fdc1	-
+Salesforce	getAllLeadStatus	Hooks::apply	'btcbi_salesforce_get_lead_utilities'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	ccb38df4709056d41a8892c93f8aa2365fa9a824	-
+Salesforce	getAllLeadStatus	Hooks::apply	Config::withPrefix('salesforce_get_lead_utilities')	4	97d170e1550eee4afc0af065b78cda302a97674c	f4131fee36a7f87f0799d0daf7667f878a19287b	-
+Salesforce	insertContact	Hooks::apply	'btcbi_salesforce_update_record'	5	ac9e1379308cebeb763aacdaf0709b7da8dca043	33e3f997baca63e94ba87237ff90b3395b561cc7	-
+Salesforce	insertContact	Hooks::apply	Config::withPrefix('salesforce_update_record')	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	320e688aa4b0c97de2cb2d5e3cf85a72291f1e1a	-
+Salesforce	insertLead	Hooks::apply	'btcbi_salesforce_update_record'	5	ac9e1379308cebeb763aacdaf0709b7da8dca043	33e3f997baca63e94ba87237ff90b3395b561cc7	-
+Salesforce	insertLead	Hooks::apply	Config::withPrefix('salesforce_update_record')	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	320e688aa4b0c97de2cb2d5e3cf85a72291f1e1a	-
+SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_group_field_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	a224bc069401770aa89620cb92c029fcf56a13e7	-
+SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_option_acf_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	19511ae7742e188a799c9766a13e909972b55750	-
+SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_post_acf_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	19511ae7742e188a799c9766a13e909972b55750	-
+SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_repeater_field_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	7aaaad555551514e84698701e51019ffde169f68	-
+SecureCustomFields	execute	Hooks::apply	Config::withPrefix('secure_custom_fields_update_user_acf_value')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	19511ae7742e188a799c9766a13e909972b55750	-
+SendPulse	sendPulseHeaders	Hooks::apply	'btcbi_sendPulse_refresh_fields'	4	467689011f2b020b57816d6a86f2c7fead970667	ff89b5ce3a7dd4b300a2b070ddf75043812ec79a	-
+SendPulse	sendPulseHeaders	Hooks::apply	Config::withPrefix('sendPulse_refresh_fields')	4	d2389373c4d226ef389a44a6ea431427c26dd7a9	330c214d73c790111ae57f4af03895b692a7595a	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_add_subscriber_to_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_create_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_create_or_update_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_delete_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_delete_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_remove_phone_from_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_remove_subscriber_from_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_update_group')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Sender	execute	Hooks::apply	Config::withPrefix('sender_update_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_complete_course_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_create_certificate')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_create_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_create_lesson')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_enroll_user_in_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_grade_quiz')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_reset_course_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_reset_lesson_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_start_course_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_start_lesson_for_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_update_lesson_status')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SenseiLMS	execute	Hooks::apply	Config::withPrefix('sensei_lms_withdraw_user_from_course')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SeoPress	execute	Hooks::apply	'btcbi_seopress_update_post_meta'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+SeoPress	execute	Hooks::apply	Config::withPrefix('seopress_update_post_meta')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+SmartSuite	createRecord	Hooks::apply	'btcbi_smartSuite_create_record'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	0fa427e051c8f8a511c638302c0b74388f198d41	-
+SmartSuite	createRecord	Hooks::apply	Config::withPrefix('smartSuite_create_record')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	1d10580e02e3a51a0b6b72a221512807d2e778ad	-
+SmartSuite	createTable	Hooks::apply	'btcbi_smartSuite_create_table'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	f6d541f1ee1a657b1c0a3d9ca8f62666baa51533	-
+SmartSuite	createTable	Hooks::apply	Config::withPrefix('smartSuite_create_table')	6	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	2a56a102a942868e4db17fb9cbb838339e28b2be	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_add_contacts_to_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_add_contacts_to_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_attach_contacts_to_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_attach_lists_to_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_attach_tags_to_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_bulk_delete_campaigns')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_cancel_purchase')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_copy_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_contact_activity')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_contact_note')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_page')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_purchase')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_create_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_note')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_page')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_delete_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_detach_contacts_from_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_detach_lists_from_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_detach_tags_from_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_duplicate_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_mark_task_done')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_mark_task_undone')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_refund_purchase')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_remove_contacts_from_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_remove_contacts_from_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_campaign')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_contact_status')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_list')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_note')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_page')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_tag')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_update_task')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureContact	execute	Hooks::apply	Config::withPrefix('sure_contact_upsert_contact')	5	7a8efd1328c2152244072668c454a0dabc0a4f24	85a7ff95f14dfa465df26ea73929f62117098efd	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_bookmark_item')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_create_comment')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_create_post')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_delete_comment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_delete_post')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_react_to_entity')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+SureDash	execute	Hooks::apply	Config::withPrefix('sure_dash_update_user_profile')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_add_member'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	751f6bd357686c0ecbcc694733335226a2a5beb2	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_invite_user'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	751f6bd357686c0ecbcc694733335226a2a5beb2	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_remove_member'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	751f6bd357686c0ecbcc694733335226a2a5beb2	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	'btcbi_teams_for_wc_memberships_update_role'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	751f6bd357686c0ecbcc694733335226a2a5beb2	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_add_member')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_invite_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_remove_member')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+TeamsForWooCommerceMemberships	execute	Hooks::apply	Config::withPrefix('teams_for_wc_memberships_update_role')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Trello	execute	Hooks::run	'btcbi_trello_store_custom_fields'	6	67df512780868f7598ea9ce5baa9f0d15cb426e0	c6fb30e8dbdd70937e97284dccb4b2015c254153	-
+Trello	execute	Hooks::run	Config::withPrefix('trello_store_custom_fields')	6	67df512780868f7598ea9ce5baa9f0d15cb426e0	c6fb30e8dbdd70937e97284dccb4b2015c254153	-
+Trello	fetchAllCustomFields	Hooks::apply	'btcbi_trello_get_all_custom_fields'	5	97d170e1550eee4afc0af065b78cda302a97674c	7c52994e46ef272b874b69fe5662b2014b24fca6	-
+Trello	fetchAllCustomFields	Hooks::apply	Config::withPrefix('trello_get_all_custom_fields')	5	97d170e1550eee4afc0af065b78cda302a97674c	7c52994e46ef272b874b69fe5662b2014b24fca6	-
+TutorLms	completedCourse	do_action	'tutor_course_complete_after'	2	99291d570154496bfff47bad2fce3281af68d22e	99291d570154496bfff47bad2fce3281af68d22e	-
+TutorLms	completedCourse	do_action	'tutor_course_complete_before'	2	99291d570154496bfff47bad2fce3281af68d22e	99291d570154496bfff47bad2fce3281af68d22e	-
+UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_change_transaction_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_create_affiliate')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_create_referral')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+UltimateAffiliatePro	execute	Hooks::apply	Config::withPrefix('ultimateaffiliatepro_insert_payment')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+UserRegistrationMembership	processAction	apply_filters	Config::withPrefix('user_registration_create_user')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_create_affiliate')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_create_referral')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_create_transaction')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_update_affiliate_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_update_referral_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WCAffiliate	execute	Hooks::apply	Config::withPrefix('wcaffiliate_update_transaction_status')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WPCafe	execute	Hooks::apply	'btcbi_wpcafe_create_reservation'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+WPCafe	execute	Hooks::apply	'btcbi_wpcafe_delete_reservation'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	8b57cdbadb52198ea9a5345b668eaa8d85954c65	-
+WPCafe	execute	Hooks::apply	'btcbi_wpcafe_update_reservation'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	d0643c8f5a3f873bea78f49f8023692d36a58c18	-
+WPCafe	execute	Hooks::apply	Config::withPrefix('wpcafe_create_reservation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WPCafe	execute	Hooks::apply	Config::withPrefix('wpcafe_delete_reservation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	ee0bfa8ccd2080b695f5a354013af5611e844517	-
+WPCafe	execute	Hooks::apply	Config::withPrefix('wpcafe_update_reservation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WeDocs	execute	Hooks::apply	Config::withPrefix('wedocs_create_article')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+WeDocs	execute	Hooks::apply	Config::withPrefix('wedocs_create_documentation')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+WeDocs	execute	Hooks::apply	Config::withPrefix('wedocs_create_section')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	3304113776b77e5c0a7e5eb1600918ad19a175d2	-
+WebbaBooking	execute	Hooks::apply	Config::withPrefix($hookMap[$mainAction])	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+WhatsApp	sendMessageWithContact	Hooks::apply	'btcbi_whatsapp_send_contact_messages'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	4400141b883b23d123440f58e3f22d729224b5e9	-
+WhatsApp	sendMessageWithContact	Hooks::apply	Config::withPrefix('whatsapp_send_contact_messages')	6	ac3821e844bd73ead7dada1b0a85d3fd6f909243	a1bb4a5786f302ca4850fab073b9d1ecfe03bf16	-
+WhatsApp	sendMessageWithMedia	Hooks::apply	'btcbi_whatsapp_send_media_messages'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	4400141b883b23d123440f58e3f22d729224b5e9	-
+WhatsApp	sendMessageWithMedia	Hooks::apply	Config::withPrefix('whatsapp_send_media_messages')	6	ac3821e844bd73ead7dada1b0a85d3fd6f909243	a1bb4a5786f302ca4850fab073b9d1ecfe03bf16	-
+WhatsApp	sendMessageWithTemplate	Hooks::apply	Config::withPrefix('whatsapp_template_components')	3	97d170e1550eee4afc0af065b78cda302a97674c	9d7e509f1ae64a963497d08abc73a5b2e6f0f520	-
+WhatsApp	sendMessageWithText	Hooks::apply	'btcbi_whatsapp_send_text_messages'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	4400141b883b23d123440f58e3f22d729224b5e9	-
+WhatsApp	sendMessageWithText	Hooks::apply	Config::withPrefix('whatsapp_send_text_messages')	6	340a6adac238ef7abcfa3bba0c9ca02233b7909d	c2352cefb420971b1efd314246ad6429d7ea6546	-
+WishlistMember	createMember	Hooks::apply	'btcbi_wishlist_create_member'	5	f157c97a02406cf39428a92f64581c3a2e09bdd5	e0f9d6360ea61439f5c0c5797015a7386119e031	-
+WishlistMember	createMember	Hooks::apply	Config::withPrefix('wishlist_create_member')	5	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	a9746594fe43632b3329391c2d26efe3549ecc89	-
+WishlistMember	deleteLevel	Hooks::apply	'btcbi_wishlist_delete_level'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	e2dc787d143bcb67604051ff5815edfd23fc8370	-
+WishlistMember	deleteLevel	Hooks::apply	Config::withPrefix('wishlist_delete_level')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	5bea6fc21b64cafe6e2853530b8dcba225fdc84c	-
+WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	'btcbi_wishlist_add_member_to_level'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	0ce73c9618498aebdd32d221d1ce6fbe3d0b6a29	-
+WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	'btcbi_wishlist_remove_member_from_level'	4	f157c97a02406cf39428a92f64581c3a2e09bdd5	0ce73c9618498aebdd32d221d1ce6fbe3d0b6a29	-
+WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	Config::withPrefix('wishlist_add_member_to_level')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	213e9d5bef9db985df55defff6eb01cb6f0333e6	-
+WishlistMember	handleMemberAddOrRemoveFromLevel	Hooks::apply	Config::withPrefix('wishlist_remove_member_from_level')	4	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	213e9d5bef9db985df55defff6eb01cb6f0333e6	-
+WishlistMember	handleMemberEvents	Hooks::apply	'btcbi_wishlist_delete_member'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	e2dc787d143bcb67604051ff5815edfd23fc8370	-
+WishlistMember	handleMemberEvents	Hooks::apply	'btcbi_wishlist_update_member'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	e2dc787d143bcb67604051ff5815edfd23fc8370	-
+WishlistMember	handleMemberEvents	Hooks::apply	Config::withPrefix('wishlist_delete_member')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	5bea6fc21b64cafe6e2853530b8dcba225fdc84c	-
+WishlistMember	handleMemberEvents	Hooks::apply	Config::withPrefix('wishlist_update_member')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	5bea6fc21b64cafe6e2853530b8dcba225fdc84c	-
+WishlistMember	updateLevel	Hooks::apply	'btcbi_wishlist_update_level'	3	f157c97a02406cf39428a92f64581c3a2e09bdd5	e2dc787d143bcb67604051ff5815edfd23fc8370	-
+WishlistMember	updateLevel	Hooks::apply	Config::withPrefix('wishlist_update_level')	3	7cb6efb98ba5972a9b5090dc2e517fe14d12cb04	5bea6fc21b64cafe6e2853530b8dcba225fdc84c	-
+WooCommerce	createCustomer	do_action	'woocommerce_update_customer'	2	1686487e29535c9d46ecb33998db33518cb4fd58	1686487e29535c9d46ecb33998db33518cb4fd58	-
+WooCommerce	execute	do_action	'woocommerce_checkout_order_processed'	4	c21d4b614adbc9f686bd08bd8b696a5a011f32c3	494f9944d27d3511240698e62db6204ce4153ac6	-
+WooCommerce	execute	do_action	'woocommerce_update_customer'	2	1686487e29535c9d46ecb33998db33518cb4fd58	1686487e29535c9d46ecb33998db33518cb4fd58	-
+WooCommerce	getFlexibleCheckoutFields	Hooks::apply	'btcbi_woocommerce_flexible_checkout_fields'	2	97d170e1550eee4afc0af065b78cda302a97674c	97d170e1550eee4afc0af065b78cda302a97674c	-
+WooCommerce	getFlexibleCheckoutFields	Hooks::apply	Config::withPrefix('woocommerce_flexible_checkout_fields')	2	97d170e1550eee4afc0af065b78cda302a97674c	97d170e1550eee4afc0af065b78cda302a97674c	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_activatePlugin')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addCategoryToPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addNewImage')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addPostTypeFeatures')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addTagsToPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_addTaxonomyToPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_checkPluginActivationStatus')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createNewTerm')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createPostTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createProductCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createProductTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_createProductType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteMedia')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deletePostTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteProductCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteProductTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_deleteProductType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_registerPostType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_registerTaxonomy')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_removeTagsFromPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_removeTaxonomyFromPost')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_renameMedia')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_termDelete')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_unregisterPostType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_unregisterTaxonomy')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updatePostTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateProductCategory')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateProductTag')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateProductType')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WordPress	execute	Hooks::apply	Config::withPrefix('wordpress_updateTerm')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	c626d25de7389c06e1545c8b9a8acd966a1bfc7d	-
+WpDataTables	execute	Hooks::apply	Config::withPrefix('wp_data_tables_add_row')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	84ea98a046401a5e0972546018ea33db8b2bd6a3	-
+WpErp	execute	Hooks::apply	Config::withPrefix($entry['hook'])	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_add_row')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_create_table')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_delete_table')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	cbba4971f95ef3611b48d5af1eca9821c760127c	-
+WpTableBuilder	execute	Hooks::apply	Config::withPrefix('wptablebuilder_update_table')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_add_group')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_add_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_delete_group')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_delete_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_send_sms')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_update_group')	3	0de1e79adeb75cb2d3ae1371567cbbae0df08751	b905ee48436bac73e57695d537e5dde40ab32924	-
+Wsms	execute	Hooks::apply	Config::withPrefix('wsms_update_subscriber')	4	0de1e79adeb75cb2d3ae1371567cbbae0df08751	73eae4f8cec268417df24e5e9cc8c76499d2fa1d	-
+ZendeskSupport	execute	Hooks::apply	Config::withPrefix(self::$hookMap[$actionName])	5	7a8efd1328c2152244072668c454a0dabc0a4f24	39f1b97af73f1299009f2a9e2011cb1c56f4495c	sha1:d81f58e1bfeb42875ab0278c23ce62bc3d98eef5
+ZohoBigin	execute	Hooks::apply	'btcbi_zbigin_add_tags_to_records'	6	f157c97a02406cf39428a92f64581c3a2e09bdd5	7399700475cfa30c92f75efd7100932e05ed3e5a	-
+ZohoBigin	execute	Hooks::apply	Config::withPrefix('zbigin_add_tags_to_records')	6	fa991807313591b7a32022291a28799018c387ae	35d46f5cacdefb0b22a3d9e78323e5ec7ae7f5c5	-
+ZohoBigin	getTagList	Hooks::apply	'btcbi_zbigin_get_tags'	5	97d170e1550eee4afc0af065b78cda302a97674c	b4ba5924ffb5a04253b13ec637b4ca5eeb6d55b9	-
+ZohoBigin	getTagList	Hooks::apply	Config::withPrefix('zbigin_get_tags')	5	97d170e1550eee4afc0af065b78cda302a97674c	b4ba5924ffb5a04253b13ec637b4ca5eeb6d55b9	-
