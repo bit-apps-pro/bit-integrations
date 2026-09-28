@@ -13,6 +13,7 @@ use BitApps\Restructure\Php\ClassLayout;
 use BitApps\Restructure\Php\Member;
 use BitApps\Restructure\Php\Names;
 use BitApps\Restructure\Php\Source;
+use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
@@ -20,6 +21,9 @@ use PhpParser\NodeFinder;
 use PhpParser\Token;
 use RuntimeException;
 
+/**
+ * @phpstan-type Piece array{position: int, index: int, text: string, key: string, nodes: list<Node>, rewritten: array<string, true>, comments: list<Token>}
+ */
 final class ControllerSplitter
 {
     private const NOP_POSITION = 1000;
@@ -70,7 +74,15 @@ final class ControllerSplitter
 
         foreach ($this->layout->members as $member) {
             if (!$member->isCode()) {
-                $pieces[$primary][] = ['position' => self::NOP_POSITION, 'index' => $member->index, 'text' => $this->source->text($member->start, $member->end), 'key' => $member->key];
+                $pieces[$primary][] = [
+                    'position'  => self::NOP_POSITION,
+                    'index'     => $member->index,
+                    'text'      => $this->source->text($member->start, $member->end),
+                    'key'       => $member->key,
+                    'nodes'     => [],
+                    'rewritten' => [],
+                    'comments'  => $this->commentsIn($member->start, $member->end),
+                ];
 
                 continue;
             }
@@ -109,7 +121,7 @@ final class ControllerSplitter
     }
 
     /**
-     * @return array{position: int, index: int, text: string, key: string}
+     * @return Piece
      */
     private function piece(Member $member, string $side, bool $copy): array
     {
@@ -128,14 +140,29 @@ final class ControllerSplitter
                 throw new RuntimeException("{$this->plan->folder}: {$member->key} does not start its line");
             }
 
-            $text = $indent . $this->editsFor($member, $side, $start, $end, false)->applyTo($this->source->code, $start, $end);
+            $edits = $this->editsFor($member, $side, $start, $end, false);
+            $text = $indent . $edits->applyTo($this->source->code, $start, $end);
         } else {
-            $text = $this->editsFor($member, $side, $member->start, $member->end, true)->applyTo($this->source->code, $member->start, $member->end);
+            $edits = $this->editsFor($member, $side, $member->start, $member->end, true);
+            $text = $edits->applyTo($this->source->code, $member->start, $member->end);
         }
 
         $visibility = !$copy && isset($this->plan->widen[$member->key]) ? $this->plan->widen[$member->key] : null;
+        $rewritten = [];
 
-        return ['position' => $member->orderPosition($visibility), 'index' => $member->index, 'text' => $text, 'key' => $member->key];
+        foreach ($edits->all() as [$editStart, $editEnd]) {
+            $rewritten["{$editStart}:{$editEnd}"] = true;
+        }
+
+        return [
+            'position'  => $member->orderPosition($visibility),
+            'index'     => $member->index,
+            'text'      => $text,
+            'key'       => $member->key,
+            'nodes'     => [$member->stmt],
+            'rewritten' => $rewritten,
+            'comments'  => $copy ? [] : $this->commentsIn($member->start, $member->end),
+        ];
     }
 
     private function editsFor(Member $member, string $side, int $from, int $to, bool $widen): TextEdits
@@ -288,7 +315,7 @@ final class ControllerSplitter
     }
 
     /**
-     * @return array{position: int, index: int, text: string, key: string}
+     * @return Piece
      */
     private function constructorCopy(Member $constructor): array
     {
@@ -314,20 +341,30 @@ final class ControllerSplitter
 
         $header = $this->source->text($this->source->lineStartPos($stmt->getStartFilePos()), $open + 1);
         $lines = [];
+        $nodes = [];
 
         foreach ($this->plan->ctorCopy ?? [] as $index) {
             $kept = $stmt->stmts[$index] ?? throw new RuntimeException("{$this->plan->folder}: constructor statement {$index} is missing");
             $lines[] = $this->source->text($this->source->lineStartPos($kept->getStartFilePos()), $kept->getEndFilePos() + 1);
+            $nodes[] = $kept;
         }
 
         $close = $stmt->getEndFilePos();
         $footer = $this->source->text($this->source->lineStartPos($close), $close + 1);
 
-        return ['position' => $constructor->orderPosition(), 'index' => $constructor->index, 'text' => $header . "\n" . implode("\n", $lines) . "\n" . $footer, 'key' => 'method:__construct'];
+        return [
+            'position'  => $constructor->orderPosition(),
+            'index'     => $constructor->index,
+            'text'      => $header . "\n" . implode("\n", $lines) . "\n" . $footer,
+            'key'       => 'method:__construct',
+            'nodes'     => $nodes,
+            'rewritten' => [],
+            'comments'  => [],
+        ];
     }
 
     /**
-     * @param list<array{position: int, index: int, text: string, key: string}> $pieces
+     * @param list<Piece> $pieces
      */
     private function body(array $pieces): string
     {
@@ -341,7 +378,7 @@ final class ControllerSplitter
     }
 
     /**
-     * @param list<array{position: int, index: int, text: string, key: string}> $pieces
+     * @param list<Piece> $pieces
      */
     private function rebuildMoved(array $pieces, string $side): string
     {
@@ -370,7 +407,7 @@ final class ControllerSplitter
     }
 
     /**
-     * @param list<array{position: int, index: int, text: string, key: string}> $pieces
+     * @param list<Piece> $pieces
      */
     private function createFile(array $pieces, string $side): string
     {
@@ -458,7 +495,7 @@ final class ControllerSplitter
     }
 
     /**
-     * @param list<array{position: int, index: int, text: string, key: string}> $pieces
+     * @param list<Piece> $pieces
      */
     private function insertIntoHelper(array $pieces): string
     {
@@ -502,10 +539,23 @@ final class ControllerSplitter
             }
         }
 
-        return $this->withImports($helper->source->code, $edits, ImportBlock::of($helper->source), true);
+        $block = ImportBlock::of($helper->source);
+        $extra = HelperImports::extra(
+            $helper->source,
+            $this->originalImports(),
+            self::importsOf($block),
+            array_merge(...array_column($pieces, 'nodes')),
+            array_merge(...array_column($pieces, 'rewritten')),
+            array_merge(...array_column($pieces, 'comments')),
+        );
+
+        return $this->withImports($helper->source->code, $edits, $block, true, $extra);
     }
 
-    private function withImports(string $code, TextEdits $edits, ImportBlock $block, bool $keepAll): string
+    /**
+     * @param list<array{name: string, alias: string, type: int}> $extraImports imports the code may use beyond the file's own
+     */
+    private function withImports(string $code, TextEdits $edits, ImportBlock $block, bool $keepAll, array $extraImports = []): string
     {
         $source = $block->source;
         $placeholder = '/*__BI_IMPORTS__*/';
@@ -522,7 +572,7 @@ final class ControllerSplitter
         }
 
         $drafted = $draft->applyTo($code);
-        $original = $source === $this->source ? $this->originalImports() : self::importsOf($block);
+        $original = $source === $this->source ? $this->originalImports() : array_merge(self::importsOf($block), $extraImports);
         $needs = ImportNeeds::compute(str_replace($placeholder, '', $drafted), $this->plan->namespace, $original, $this->introduced, $keepAll ? [] : $this->renamed);
         $lines = [];
         $satisfied = [];
@@ -595,6 +645,14 @@ final class ControllerSplitter
         }
 
         return $imports;
+    }
+
+    /**
+     * @return list<Token>
+     */
+    private function commentsIn(int $start, int $end): array
+    {
+        return array_values(array_filter($this->source->commentTokens(), static fn (Token $token) => $token->pos >= $start && $token->pos < $end));
     }
 
     private function hasCommentBetween(int $start, int $end): bool
