@@ -15,16 +15,18 @@ const USAGE = <<<'TXT'
       php csfixer-subset.php --base <gitRef> [--head <gitRef>] [--only A,B]
                              [--manifests <dir>] [--fixer <php-cs-fixer>] [--repo <dir>]
 
-    For every PHP file under backend/ that is added, renamed or copied between
+    For every PHP file under backend/ that is added, renamed, copied or modified between
     merge-base(base, head) and head, runs
       php-cs-fixer fix --dry-run --format=json -v --config=.php-cs-fixer.php
     on the new file and on its source files at base, and fails when a fixer fires
     on the new file that fired on none of its sources.
 
-    Sources of a new file, first match wins:
-      1. "sources" in a manifest: {"<new path>": ["<base path>", ...]}
+    Sources of a file, first match wins:
+      1. "sources" in a manifest: {"<new path>": ["<base path>", ...]}; a modified file
+         (an existing Helper that received members, say) always counts itself at base too
       2. the rename or copy origin git reports (-M -C)
-      3. for an added file: the files that left the same folder (renamed away or
+      3. for a modified file: the same file at base
+      4. for an added file: the files that left the same folder (renamed away or
          deleted), narrowed to *Controller.php when one of them is a Controller;
          otherwise every file the folder had at base
 
@@ -39,7 +41,7 @@ const USAGE = <<<'TXT'
     --repo     repository root (default: three levels above this file)
     -v         also list the files that pass, with their fixer sets
 
-    Exit codes: 0 every new file is a subset, 1 at least one is not, 2 usage or tool error.
+    Exit codes: 0 every checked file is a subset, 1 at least one is not, 2 usage or tool error.
     TXT;
 
 function main(array $argv): int
@@ -77,8 +79,8 @@ function main(array $argv): int
         $baseFiles = listBaseFiles($repo, $base);
         $plan = [];
 
-        foreach ($targets as $path => $origin) {
-            $plan[$path] = resolveSources($path, $origin, $explicitSources, $changes, $baseFiles);
+        foreach ($targets as $path => $change) {
+            $plan[$path] = resolveSources($path, $change, $explicitSources, $changes, $baseFiles);
         }
 
         $fixer = resolveFixer($repo, $options['fixer']);
@@ -229,7 +231,7 @@ function selectTargets(array $changes, ?array $only): array
     $targets = [];
 
     foreach ($changes as $change) {
-        if (!\in_array($change['kind'], ['A', 'R', 'C'], true) || !str_ends_with($change['path'], '.php')) {
+        if (!\in_array($change['kind'], ['A', 'R', 'C', 'M'], true) || !str_ends_with($change['path'], '.php')) {
             continue;
         }
 
@@ -237,7 +239,7 @@ function selectTargets(array $changes, ?array $only): array
             continue;
         }
 
-        $targets[$change['path']] = $change['from'];
+        $targets[$change['path']] = $change;
     }
 
     ksort($targets, SORT_STRING);
@@ -290,12 +292,16 @@ function listBaseFiles(string $repo, string $base): array
     return array_fill_keys(array_filter(explode("\0", $output), fn (string $path): bool => str_ends_with($path, '.php')), true);
 }
 
-function resolveSources(string $path, ?string $origin, array $explicitSources, array $changes, array $baseFiles): array
+function resolveSources(string $path, array $change, array $explicitSources, array $changes, array $baseFiles): array
 {
+    $modified = $change['kind'] === 'M';
+
     if (isset($explicitSources[$path])) {
-        $sources = $explicitSources[$path];
-    } elseif ($origin !== null) {
-        $sources = [$origin];
+        $sources = array_merge($explicitSources[$path], $modified ? [$path] : []);
+    } elseif ($change['from'] !== null) {
+        $sources = [$change['from']];
+    } elseif ($modified) {
+        $sources = [$path];
     } else {
         $sources = departedFromFolder(\dirname($path), $changes);
 
