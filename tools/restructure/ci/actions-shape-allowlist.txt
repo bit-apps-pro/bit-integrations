@@ -173,8 +173,6 @@ backend/Actions/Livestorm/RecordApiHelper.php
 backend/Actions/Mail/MailController.php
 backend/Actions/MailBluster/MailBlusterController.php
 backend/Actions/MailBluster/RecordApiHelper.php
-backend/Actions/MailChimp/MailChimpController.php
-backend/Actions/MailChimp/RecordApiHelper.php
 backend/Actions/MailMint/MailMintController.php
 backend/Actions/MailMint/RecordApiHelper.php
 backend/Actions/MailPoet/MailPoetController.php

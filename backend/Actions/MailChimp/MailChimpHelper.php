@@ -6,30 +6,11 @@
 
 namespace BitApps\Integrations\Actions\MailChimp;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class MailChimpController
+class MailChimpHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::OAUTH2,
-        'slug'     => 'mailchimp',
-        'fields'   => [
-            'clientId'     => 'client_id',
-            'clientSecret' => 'client_secret',
-            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'dc']],
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
-
     public static function apiEndPoint($dc)
     {
         return "https://{$dc}.api.mailchimp.com/3.0";
@@ -200,58 +181,7 @@ class MailChimpController
         wp_send_json_success($response);
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param object $integrationData Details of flow
-     * @param array  $fieldValues     Data to send Mail Chimp
-     *
-     * @return null
-     */
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-
-        $tokenDetails = self::resolveTokenDetails($integrationDetails->tokenDetails);
-        $listId = $integrationDetails->listId;
-        $module = isset($integrationDetails->module) ? $integrationDetails->module : '';
-        $tags = $integrationDetails->tags;
-        $fieldMap = $integrationDetails->field_map;
-        $actions = $integrationDetails->actions;
-        $defaultDataConf = $integrationDetails->default;
-        $addressFields = $integrationDetails->address_field;
-
-        if (
-            empty($tokenDetails)
-            || empty($tokenDetails->access_token)
-            || empty($tokenDetails->dc)
-            || empty($listId)
-            || empty($fieldMap)
-            || empty($defaultDataConf)
-        ) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Mail Chimp'));
-        }
-        $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID, $integrationDetails);
-        $mChimpApiResponse = $recordApiHelper->execute(
-            $listId,
-            $module,
-            $tags,
-            $defaultDataConf,
-            $fieldValues,
-            $fieldMap,
-            $actions,
-            $addressFields
-        );
-
-        if (is_wp_error($mChimpApiResponse)) {
-            return $mChimpApiResponse;
-        }
-
-        return $mChimpApiResponse;
-    }
-
-    private static function resolveTokenDetails($tokenDetails)
+    public static function resolveTokenDetails($tokenDetails)
     {
         if (empty($tokenDetails) || !\is_object($tokenDetails) || empty($tokenDetails->access_token) || !empty($tokenDetails->dc)) {
             return $tokenDetails;

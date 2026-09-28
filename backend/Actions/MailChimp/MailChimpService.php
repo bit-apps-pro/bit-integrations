@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class MailChimpService
 {
     private $_defaultHeader;
 
