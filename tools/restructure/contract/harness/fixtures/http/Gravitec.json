@@ -1,0 +1,17 @@
+[
+    {
+        "id": "push-rejected",
+        "method": "POST",
+        "url": "~^https://uapi\\.gravitec\\.net/api/v3/push~",
+        "body_contains": "smoke-gravitec-reject",
+        "status": 400,
+        "body": {"error": "invalid_request", "error_description": "Smoke rejection"}
+    },
+    {
+        "id": "push",
+        "method": "POST",
+        "url": "~^https://uapi\\.gravitec\\.net/api/v3/push~",
+        "status": 200,
+        "body": {"id": 987654}
+    }
+]

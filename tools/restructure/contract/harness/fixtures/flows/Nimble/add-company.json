@@ -1,0 +1,19 @@
+{
+    "name": "Nimble smoke: add company contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Nimble",
+        "name": "Nimble smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "company",
+        "selectedxofEmployees": "11-50",
+        "selectedRating": "2",
+        "field_map": [
+            {"formField": "your-name", "nimbleFormField": "company name"},
+            {"formField": "your-email", "nimbleFormField": "Email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-company@example.com", "your-name": "Smoke Company"}
+}

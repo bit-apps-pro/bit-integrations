@@ -1,0 +1,21 @@
+{
+    "name": "LionDesk smoke: create campaign",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LionDesk",
+        "name": "LionDesk smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "redirectURI": "https://example.test/callback",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "actionName": "campaign",
+        "actionId": "campaign",
+        "field_map": [
+            {"formField": "your-name", "lionDeskFormField": "name"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Campaign"}
+}

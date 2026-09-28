@@ -1,0 +1,23 @@
+[
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://people\\.googleapis\\.com/v1/people:createContact~",
+        "status": 200,
+        "body": {"resourceName": "people/c1001", "etag": "smoke-etag-create"}
+    },
+    {
+        "id": "search-contacts",
+        "method": "GET",
+        "url": "~^https://people\\.googleapis\\.com/v1/people:searchContacts~",
+        "status": 200,
+        "body": {"results": [{"person": {"resourceName": "people/c2002", "etag": "smoke-etag-2002", "emailAddresses": [{"value": "smoke@example.com"}]}}]}
+    },
+    {
+        "id": "update-contact",
+        "method": "PATCH",
+        "url": "~^https://people\\.googleapis\\.com/v1/people/c2002:updateContact~",
+        "status": 200,
+        "body": {"resourceName": "people/c2002", "etag": "smoke-etag-2002b"}
+    }
+]

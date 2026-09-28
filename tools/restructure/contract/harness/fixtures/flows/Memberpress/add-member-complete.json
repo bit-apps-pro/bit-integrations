@@ -1,0 +1,22 @@
+{
+    "name": "Memberpress smoke: add current user to a membership as complete manual transaction",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Memberpress",
+        "name": "Memberpress smoke",
+        "mainAction": "1",
+        "selectedMembership": "999901",
+        "statusId": "complete",
+        "gatewayId": "manual",
+        "field_map": [
+            {"formField": "your-amount", "memberpressFormField": "sub_total"},
+            {"formField": "custom", "memberpressFormField": "tax_amount", "customValue": "2"},
+            {"formField": "custom", "memberpressFormField": "taxrate", "customValue": "10"},
+            {"formField": "your-expiry", "memberpressFormField": "expiration_date"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-amount": "20", "your-expiry": "2099-12-31"}
+}

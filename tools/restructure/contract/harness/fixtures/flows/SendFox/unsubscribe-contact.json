@@ -1,0 +1,19 @@
+{
+    "name": "SendFox smoke: unsubscribe contact (mainAction 3, PATCH)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SendFox",
+        "name": "SendFox smoke",
+        "access_token": "smoke-access-token",
+        "mainAction": "3",
+        "listId": "",
+        "field_map": [{"formField": "", "sendFoxFormField": ""}],
+        "field_map_list": [{"formField": "", "sendFoxListFormField": ""}],
+        "field_map_unsubscribe": [
+            {"formField": "your-email", "sendFoxUnsubscribeFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

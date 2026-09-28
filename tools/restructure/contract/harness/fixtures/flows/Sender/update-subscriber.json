@@ -1,0 +1,22 @@
+{
+    "name": "Sender smoke: update subscriber status fields (PATCH)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Sender",
+        "name": "Sender smoke",
+        "api_token": "smoke-api-token",
+        "mainAction": "update_subscriber",
+        "groups": "grp-a",
+        "groupId": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "senderField": "subscriber_id"},
+            {"formField": "your-name", "senderField": "firstname"},
+            {"formField": "custom", "senderField": "subscriber_status", "customValue": "active"},
+            {"formField": "custom", "senderField": "sms_status", "customValue": "unsubscribed"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Updated"}
+}

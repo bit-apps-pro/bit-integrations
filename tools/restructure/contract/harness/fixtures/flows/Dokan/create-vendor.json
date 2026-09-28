@@ -1,0 +1,32 @@
+{
+    "name": "Dokan smoke: create vendor with vendor actions",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Dokan",
+        "name": "Dokan smoke",
+        "selectedTask": "createVendor",
+        "selectedVendor": "",
+        "selectedPaymentMethod": "",
+        "actions": {"notifyVendor": true, "enableSelling": true, "publishProduct": true, "featureVendor": true},
+        "field_map": [
+            {"formField": "your-email", "dokanField": "email"},
+            {"formField": "your-username", "dokanField": "user_login"},
+            {"formField": "your-store", "dokanField": "store_name"},
+            {"formField": "your-first-name", "dokanField": "first_name"},
+            {"formField": "your-email", "dokanField": "payment_paypal_email"},
+            {"formField": "your-bank", "dokanField": "payment_bank_bank_name"},
+            {"formField": "your-city", "dokanField": "city"},
+            {"formField": "custom", "dokanField": "dokan_company_name", "customValue": "Smoke Co ${your-store}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke-vendor@example.com",
+        "your-username": "smokevendor",
+        "your-store": "Smoke Store",
+        "your-first-name": "Smoke",
+        "your-bank": "Smoke Bank",
+        "your-city": "Dhaka"
+    }
+}

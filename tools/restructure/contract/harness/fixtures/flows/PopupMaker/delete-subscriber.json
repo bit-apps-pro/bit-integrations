@@ -1,0 +1,13 @@
+{
+    "name": "PopupMaker smoke: delete_subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PopupMaker",
+        "name": "PopupMaker smoke",
+        "mainAction": "delete_subscriber",
+        "field_map": [{"formField": "your-id", "popupMakerField": "subscriber_id"}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Popup", "your-email": "smoke@example.com", "your-id": "999991"}
+}

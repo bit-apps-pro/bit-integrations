@@ -1,0 +1,20 @@
+{
+    "name": "Vbout smoke: add new contact (lookup returns errorCode)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Vbout",
+        "name": "Vbout smoke",
+        "auth_token": "smoke-api-key",
+        "list_id": "5001",
+        "contact_status": "active",
+        "field_map": [
+            {"formField": "your-email", "VboutFormField": "101"},
+            {"formField": "your-name", "VboutFormField": "102"},
+            {"formField": "custom", "VboutFormField": "103", "customValue": "Smoke ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-new@example.com", "your-name": "Smoke"}
+}

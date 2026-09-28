@@ -1,0 +1,19 @@
+{
+    "name": "SmartSuite smoke: create solution with logo color",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SmartSuite",
+        "name": "SmartSuite smoke",
+        "workspaceId": "smoke-workspace",
+        "apiToken": "smoke-api-key",
+        "actionName": "solution",
+        "selectedLogoColor": "#3A86FF",
+        "field_map": [
+            {"formField": "your-name", "smartSuiteFormField": "name"},
+            {"formField": "custom", "smartSuiteFormField": "logo_icon", "customValue": "star"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Solution"}
+}

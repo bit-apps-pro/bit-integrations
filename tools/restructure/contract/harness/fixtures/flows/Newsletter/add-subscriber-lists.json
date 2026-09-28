@@ -1,0 +1,19 @@
+{
+    "name": "Newsletter smoke: add subscriber to lists",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Newsletter",
+        "name": "Newsletter smoke",
+        "field_map": [
+            {"formField": "your-email", "newsletterFormField": "email"},
+            {"formField": "your-name", "newsletterFormField": "name"},
+            {"formField": "custom", "newsletterFormField": "surname", "customValue": "Smoke"},
+            {"formField": "custom", "newsletterFormField": "status", "customValue": "C"}
+        ],
+        "selectedLists": "1,2",
+        "actions": {"lists": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-newsletter@example.com", "your-name": "Smoke User"}
+}

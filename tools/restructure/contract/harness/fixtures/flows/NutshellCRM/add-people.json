@@ -1,0 +1,25 @@
+{
+    "name": "NutshellCRM smoke: create person linked to a company",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NutshellCRM",
+        "name": "NutshellCRM smoke",
+        "user_name": "smoke-user@example.com",
+        "api_token": "smoke-api-token",
+        "actionName": "people",
+        "actionId": "",
+        "actions": {"Company": true},
+        "selectedCompany": "11",
+        "field_map": [
+            {"formField": "your-name", "nutshellCRMFormField": "first_name"},
+            {"formField": "your-last", "nutshellCRMFormField": "last_name"},
+            {"formField": "your-email", "nutshellCRMFormField": "email"},
+            {"formField": "your-phone", "nutshellCRMFormField": "phone"},
+            {"formField": "your-city", "nutshellCRMFormField": "city"},
+            {"formField": "custom", "nutshellCRMFormField": "Smoke Custom", "customValue": "cf-value"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-last": "User", "your-email": "smoke@example.com", "your-phone": "5550100", "your-city": "Dhaka", "your-company": "Smoke Co", "your-message": "Smoke lead"}
+}

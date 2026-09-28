@@ -1,0 +1,27 @@
+[
+    {
+        "id": "lookup-existing-lead",
+        "method": "GET",
+        "url": "~^https://api\\.lemlist\\.com/api/leads/existing(@|%40)example\\.com\\?campaignId=~",
+        "body": {"_id": "lea_smoke_existing", "email": "existing@example.com", "campaignId": "cam_smoke1"}
+    },
+    {
+        "id": "lookup-missing-lead",
+        "method": "GET",
+        "url": "~^https://api\\.lemlist\\.com/api/leads/[^?]+\\?campaignId=~",
+        "status": 404,
+        "body": {}
+    },
+    {
+        "id": "add-lead",
+        "method": "POST",
+        "url": "~^https://api\\.lemlist\\.com/api/campaigns/[^/]+/leads$~",
+        "body": {"_id": "lea_smoke_new", "email": "newlead@example.com", "campaignId": "cam_smoke1"}
+    },
+    {
+        "id": "update-lead",
+        "method": "PATCH",
+        "url": "~^https://api\\.lemlist\\.com/api/campaigns/[^/]+/leads/[^/]+$~",
+        "body": {"_id": "lea_smoke_existing", "email": "existing@example.com"}
+    }
+]

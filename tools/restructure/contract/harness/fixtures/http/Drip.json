@@ -1,0 +1,16 @@
+[
+    {
+        "id": "upsert-subscriber",
+        "method": "POST",
+        "url": "~^https://api\\.getdrip\\.com/v2/9990001/subscribers$~",
+        "status": 200,
+        "body": {"links": {}, "subscribers": [{"id": "smoke-sub-1", "email": "smoke@example.com", "status": "active"}]}
+    },
+    {
+        "id": "upsert-subscriber-error",
+        "method": "POST",
+        "url": "~^https://api\\.getdrip\\.com/v2/9990002/subscribers$~",
+        "status": 422,
+        "body": {"errors": [{"code": "validation_error", "message": "Smoke validation error"}]}
+    }
+]

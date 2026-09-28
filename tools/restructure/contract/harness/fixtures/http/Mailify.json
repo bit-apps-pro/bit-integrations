@@ -1,0 +1,26 @@
+[
+    {
+        "id": "contact-lookup-missing",
+        "method": "GET",
+        "url": "~^https://mailifyapis\\.com/v1/lists/[^/]+/contacts\\?email=smoke-new@~",
+        "body": "null"
+    },
+    {
+        "id": "contact-lookup-existing",
+        "method": "GET",
+        "url": "~^https://mailifyapis\\.com/v1/lists/[^/]+/contacts\\?email=smoke-existing@~",
+        "body": [{"id": "contact-501", "email": "smoke-existing@example.com"}]
+    },
+    {
+        "id": "add-contact",
+        "method": "POST",
+        "url": "~^https://mailifyapis\\.com/v1/lists/[^/]+/contacts$~",
+        "body": {"id": "contact-601"}
+    },
+    {
+        "id": "update-contact",
+        "method": "PUT",
+        "url": "~^https://mailifyapis\\.com/v1/lists/[^/]+/contacts/contact-501$~",
+        "body": ""
+    }
+]

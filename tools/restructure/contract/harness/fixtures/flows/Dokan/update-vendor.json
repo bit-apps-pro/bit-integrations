@@ -1,0 +1,20 @@
+{
+    "name": "Dokan smoke: update vendor with vendor actions",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Dokan",
+        "name": "Dokan smoke",
+        "selectedTask": "updateVendor",
+        "selectedVendor": "1",
+        "selectedPaymentMethod": "",
+        "actions": {"enableSelling": true},
+        "field_map": [
+            {"formField": "your-store", "dokanField": "store_name"},
+            {"formField": "your-phone", "dokanField": "phone"},
+            {"formField": "your-city", "dokanField": "city"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-store": "Smoke Store Updated", "your-phone": "0123456789", "your-city": "Dhaka"}
+}

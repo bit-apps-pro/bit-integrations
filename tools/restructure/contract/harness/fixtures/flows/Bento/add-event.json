@@ -1,0 +1,20 @@
+{
+    "name": "Bento smoke: add event (Pro store_event filter)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Bento",
+        "name": "Bento smoke",
+        "publishable_key": "smoke-publishable-key",
+        "secret_key": "smoke-secret-key",
+        "site_uuid": "smoke-site-uuid",
+        "action": "add_event",
+        "field_map": [
+            {"formField": "custom", "bentoFormField": "type", "customValue": "smoke_signup"},
+            {"formField": "your-email", "bentoFormField": "email"},
+            {"formField": "your-name", "bentoFormField": "customFieldKey", "customFieldKey": "full_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Person"}
+}

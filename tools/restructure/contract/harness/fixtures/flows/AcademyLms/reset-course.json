@@ -1,0 +1,16 @@
+{
+    "name": "AcademyLms smoke: reset course progress",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "AcademyLms",
+        "name": "AcademyLms smoke",
+        "actionName": "reset-course",
+        "selectedCourse": ["101"],
+        "field_map": [{"formField": "", "tutorField": ""}],
+        "actions": {},
+        "actionData": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Learner"}
+}

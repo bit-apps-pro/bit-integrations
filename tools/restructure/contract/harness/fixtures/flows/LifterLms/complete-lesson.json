@@ -1,0 +1,15 @@
+{
+    "name": "LifterLms smoke: complete lesson for logged-in user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LifterLms",
+        "name": "LifterLms smoke",
+        "mainAction": "1",
+        "lessonId": "101",
+        "field_map": [{"formField": "", "lifterLmsFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

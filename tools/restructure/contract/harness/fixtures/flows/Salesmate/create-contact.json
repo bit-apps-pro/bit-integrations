@@ -1,0 +1,24 @@
+{
+    "name": "Salesmate smoke: create contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesmate",
+        "name": "Salesmate smoke",
+        "session_token": "smoke-session-token",
+        "link_name": "smoke",
+        "actionName": "contact",
+        "actionId": "1",
+        "selectedCRMOwner": "11",
+        "selectedTag": "smoke-tag",
+        "selectedType": "Customer",
+        "field_map": [
+            {"formField": "your-name", "salesmateFormField": "lastName"},
+            {"formField": "your-email", "salesmateFormField": "email"},
+            {"formField": "custom", "salesmateFormField": "firstName", "customValue": "Smoke"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Tester"}
+}

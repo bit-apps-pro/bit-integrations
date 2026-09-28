@@ -1,0 +1,22 @@
+{
+    "name": "Flowlu smoke: create account",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Flowlu",
+        "name": "Flowlu smoke",
+        "api_key": "smoke-api-key",
+        "company_name": "smoke",
+        "actionName": "account",
+        "selectedAccountType": "1",
+        "selectedCategory": "11",
+        "selectedIndustry": "21",
+        "field_map": [
+            {"formField": "your-name", "flowluFormField": "name"},
+            {"formField": "your-email", "flowluFormField": "email"},
+            {"formField": "custom", "flowluFormField": "description", "customValue": "Fixture for ${your-email}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Account", "your-email": "smoke@example.com"}
+}

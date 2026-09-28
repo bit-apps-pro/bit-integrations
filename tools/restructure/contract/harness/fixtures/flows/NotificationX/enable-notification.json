@@ -1,0 +1,18 @@
+{
+    "name": "NotificationX smoke: enable notification (Pro seam notificationx_enable_notification)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NotificationX",
+        "name": "NotificationX smoke",
+        "mainAction": "enable_notification",
+        "selected_notification_id": "",
+        "entry_map": [],
+        "field_map": [
+            {"formField": "notification-id", "notificationXField": "notification_id"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User", "your-email": "smoke@example.com", "notification-id": "42", "your-city": "Dhaka"}
+}

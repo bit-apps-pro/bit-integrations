@@ -1,0 +1,20 @@
+{
+    "name": "Acumbamail smoke: add/update subscriber with double opt-in",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Acumbamail",
+        "name": "Acumbamail smoke",
+        "auth_token": "smoke-api-key",
+        "listId": "501",
+        "mainAction": "1",
+        "field_map": [
+            {"formField": "your-email", "acumbamailFormField": "email"},
+            {"formField": "your-name", "acumbamailFormField": "nombre"},
+            {"formField": "custom", "acumbamailFormField": "note", "customValue": "Fixture for ${your-email}"}
+        ],
+        "actions": {"double_optin": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Subscriber"}
+}

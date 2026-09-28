@@ -1,0 +1,23 @@
+{
+    "name": "SmartSuite smoke: create record (Pro filter seam)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SmartSuite",
+        "name": "SmartSuite smoke",
+        "workspaceId": "smoke-workspace",
+        "apiToken": "smoke-api-key",
+        "actionName": "record",
+        "selectedSolution": "sol-smoke-1",
+        "selectedTable": "tbl-smoke-1",
+        "assigned_to": "usr-smoke-1",
+        "status": "in_progress",
+        "priority": "high",
+        "field_map": [
+            {"formField": "your-name", "smartSuiteFormField": "title"},
+            {"formField": "your-message", "smartSuiteFormField": "description"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Record", "your-message": "Created by flow smoke"}
+}

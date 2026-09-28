@@ -1,0 +1,18 @@
+{
+    "name": "Hubspot smoke: update existing contact through the hubspot_update_entity seam",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Hubspot",
+        "name": "Hubspot smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "contact",
+        "field_map": [
+            {"formField": "your-email", "hubspotField": "email"},
+            {"formField": "your-name", "hubspotField": "firstname"}
+        ],
+        "actions": {"update": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Contact"}
+}

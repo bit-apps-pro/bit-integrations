@@ -1,0 +1,30 @@
+{
+    "name": "WishlistMember smoke: update member",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WishlistMember",
+        "name": "WishlistMember smoke",
+        "action": "update_member",
+        "field_map": [
+            {
+                "formField": "your-email",
+                "wishlistMemberField": "user_email"
+            },
+            {
+                "formField": "first-name",
+                "wishlistMemberField": "first_name"
+            },
+            {
+                "formField": "city",
+                "wishlistMemberField": "city"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "first-name": "Smoky",
+        "city": "Dhaka"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "MasterStudyLms smoke: reset a lesson for the current user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MasterStudyLms",
+        "name": "MasterStudyLms smoke",
+        "mainAction": "5",
+        "courseId": "999901", "lessonId": "999902",
+        "field_map": [{"formField": "", "msLmsFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Learner"}
+}

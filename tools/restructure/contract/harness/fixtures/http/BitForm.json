@@ -1,0 +1,15 @@
+[
+    {
+        "id": "entry-error",
+        "method": "POST",
+        "url": "~^https://bitform\\.example\\.test/wp-json/bitform/v1/entry/12$~",
+        "status": 422,
+        "body": {"success": false, "errors": {"b2-1": "Email is invalid"}}
+    },
+    {
+        "id": "entry-success",
+        "method": "POST",
+        "url": "~^https://bitform\\.example\\.test/wp-json/bitform/v1/entry/\\d+$~",
+        "body": {"success": true, "message": "Entry saved", "entry_id": 501}
+    }
+]

@@ -1,0 +1,20 @@
+{
+    "name": "LMFWC smoke: update license (Pro filter)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LMFWC",
+        "name": "LMFWC smoke",
+        "base_url": "https://example.com", "api_key": "ck_smoke-api-key", "api_secret": "cs_smoke-api-secret",
+        "module": "update_license",
+        "selectedLicense": "SMOKE-LICENSE-0001",
+        "selectedStatus": "inactive",
+        "selectedProduct": "201",
+        "field_map": [
+            {"formField": "license-key", "lmfwcFormField": "license_key"},
+            {"formField": "expires-at", "lmfwcFormField": "expires_at"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"license-key": "SMOKE-LICENSE-0002", "expires-at": "2099-12-31"}
+}

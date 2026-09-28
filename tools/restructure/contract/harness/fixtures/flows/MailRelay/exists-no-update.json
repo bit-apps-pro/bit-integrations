@@ -1,0 +1,20 @@
+{
+    "name": "MailRelay smoke: existing subscriber without update falls through to POST",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailRelay",
+        "name": "MailRelay smoke",
+        "api_key": "smoke-api-key",
+        "auth_token": "smoke-api-key",
+        "domain": "smoke",
+        "status": "active",
+        "selectedGroups": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailRelayFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com"}
+}

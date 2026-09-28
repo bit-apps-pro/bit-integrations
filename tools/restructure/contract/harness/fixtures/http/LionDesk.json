@@ -1,0 +1,26 @@
+[
+    {
+        "id": "refresh-token",
+        "method": "POST",
+        "url": "~^https://api-v2\\.liondesk\\.com/oauth2/token~",
+        "body": {"access_token": "smoke-refreshed-token", "refresh_token": "smoke-refresh-token-2", "token_type": "Bearer", "expires_in": 3600}
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://api-v2\\.liondesk\\.com//?contacts$~",
+        "body": {"id": 5001, "email": "smoke@example.com"}
+    },
+    {
+        "id": "contact-address",
+        "method": "POST",
+        "url": "~^https://api-v2\\.liondesk\\.com//?contacts/5001/addresses$~",
+        "body": {"id": 7001, "type": "Home"}
+    },
+    {
+        "id": "create-campaign",
+        "method": "POST",
+        "url": "~^https://api-v2\\.liondesk\\.com//?campaigns$~",
+        "body": {"id": 6001, "name": "Smoke Campaign"}
+    }
+]

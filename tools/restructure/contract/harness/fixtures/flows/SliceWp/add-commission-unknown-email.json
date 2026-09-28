@@ -1,0 +1,22 @@
+{
+    "name": "SliceWp smoke: user source email with no matching user logs error",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SliceWp",
+        "name": "SliceWp smoke",
+        "mainAction": "1",
+        "statusId": "paid",
+        "typeId": "subscription",
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "field_map": [
+            {"formField": "your-date", "slicewpFormField": "commission_date"},
+            {"formField": "custom", "slicewpFormField": "reference", "customValue": "Ref ${your-email}"},
+            {"formField": "your-amount", "slicewpFormField": "amount"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-no-such-user@example.test", "your-date": "2026-01-15", "your-amount": "7"}
+}

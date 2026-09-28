@@ -1,0 +1,16 @@
+{
+    "name": "NextCrm smoke: create tag",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NextCrm",
+        "name": "NextCrm smoke",
+        "mainAction": "create_tag",
+        "field_map": [
+            {"formField": "your-name", "nextCrmField": "title"},
+            {"formField": "custom", "nextCrmField": "description", "customValue": "Tag from ${your-email}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-nextcrm@example.com", "your-name": "Smoke Tag"}
+}

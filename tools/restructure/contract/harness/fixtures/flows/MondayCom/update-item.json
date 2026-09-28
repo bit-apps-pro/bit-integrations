@@ -1,0 +1,29 @@
+{
+    "name": "MondayCom smoke: update item column values",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MondayCom",
+        "name": "MondayCom smoke",
+        "apiToken": "smoke-api-token",
+        "mainAction": "update_item",
+        "selectedBoard": "1001",
+        "field_map": [
+            {
+                "formField": "item-id",
+                "mondayComField": "item_id"
+            },
+            {
+                "formField": "your-email",
+                "mondayComField": "email_col"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke Item",
+        "item-id": "5001",
+        "group-id": "topics"
+    }
+}

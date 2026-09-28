@@ -1,0 +1,20 @@
+[
+    {
+        "id": "add-subscriber",
+        "method": "POST",
+        "url": "~^https://app\\.bentonow\\.com/api/v1/fetch/subscribers\\?site_uuid=~",
+        "body": {"data": {"id": "sub-1", "type": "visitors", "attributes": {"uuid": "sub-1", "email": "smoke@example.com"}}}
+    },
+    {
+        "id": "commands",
+        "method": "POST",
+        "url": "~^https://app\\.bentonow\\.com/api/v1/fetch/commands\\?site_uuid=~",
+        "body": {"results": 4, "failed": 0}
+    },
+    {
+        "id": "batch-events",
+        "method": "POST",
+        "url": "~^https://app\\.bentonow\\.com/api/v1/batch/events\\?site_uuid=~",
+        "body": {"results": 1, "failed": 0}
+    }
+]

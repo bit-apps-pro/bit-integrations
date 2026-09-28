@@ -1,0 +1,20 @@
+{
+    "name": "DirectIq smoke: import contact into list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "DirectIq",
+        "name": "DirectIq smoke",
+        "client_id": "smoke-client-id",
+        "client_secret": "smoke-client-secret",
+        "listId": "901",
+        "field_map": [
+            {"formField": "your-email", "directIqField": "email"},
+            {"formField": "your-first", "directIqField": "first_name"},
+            {"formField": "custom", "directIqField": "last_name", "customValue": "Fixture"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-first": "Smoke"}
+}

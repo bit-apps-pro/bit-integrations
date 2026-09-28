@@ -1,0 +1,25 @@
+{
+    "name": "HefflCRM smoke: create deal",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "HefflCRM",
+        "name": "HefflCRM smoke",
+        "api_key": "smoke-api-key",
+        "mainAction": "create_deal",
+        "pipelineId": "31",
+        "dealStageId": "41",
+        "clientId": "51",
+        "leadId": "61",
+        "dealSourceId": "11",
+        "priority": "HIGH",
+        "field_map": [
+            {"formField": "your-subject", "hefflCRMField": "title"},
+            {"formField": "custom", "hefflCRMField": "price", "customValue": "999"},
+            {"formField": "custom", "hefflCRMField": "expectedCloseDate", "customValue": "2030-01-15"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Deal"}
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Instasent smoke: create or update contact in a datasource stream",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Instasent",
+        "name": "Instasent smoke",
+        "auth_token": "smoke-auth-token",
+        "action": "create_or_update_contact",
+        "projectId": "smoke-project",
+        "datasourceId": "smoke-datasource",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "instasentFormField": "userId"},
+            {"formField": "your-name", "instasentFormField": "firstName"},
+            {"formField": "your-email", "instasentFormField": "email"},
+            {"formField": "your-phone", "instasentFormField": "phoneMobile"},
+            {"formField": "custom", "instasentFormField": "plan", "customValue": "gold"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Contact", "your-phone": "+34600000001"}
+}

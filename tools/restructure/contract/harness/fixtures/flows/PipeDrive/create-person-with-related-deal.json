@@ -1,0 +1,29 @@
+{
+    "name": "PipeDrive smoke: create person with related deal",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PipeDrive",
+        "name": "PipeDrive smoke",
+        "api_key": "smoke-api-key",
+        "moduleData": {"module": "Persons", "organization_id": 11, "owner": 33, "visible_to": 1},
+        "actions": {"visible_to": true},
+        "field_map": [
+            {"formField": "your-name", "pipeDriveFormField": "name"},
+            {"formField": "your-email", "pipeDriveFormField": "email"},
+            {"formField": "phones", "pipeDriveFormField": "phone"}
+        ],
+        "relatedlists": [
+            {
+                "module": "Deals",
+                "moduleData": {"deal_stage": 4, "deal_status": "won", "currency": "USD"},
+                "actions": {},
+                "field_map": [
+                    {"formField": "custom", "pipeDriveFormField": "title", "customValue": "Deal for ${your-name}"}
+                ]
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Person", "your-email": "smoke@example.com", "phones": ["555-0100", "555-0101"]}
+}

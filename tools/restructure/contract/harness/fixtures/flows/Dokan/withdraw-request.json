@@ -1,0 +1,19 @@
+{
+    "name": "Dokan smoke: withdraw request",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Dokan",
+        "name": "Dokan smoke",
+        "selectedTask": "withdrawRequest",
+        "selectedVendor": "1",
+        "selectedPaymentMethod": "paypal",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-amount", "dokanField": "amount"},
+            {"formField": "your-note", "dokanField": "note"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-amount": "10", "your-note": "Smoke withdraw"}
+}

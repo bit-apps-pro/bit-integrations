@@ -1,0 +1,18 @@
+{
+    "name": "MailPoet smoke: add a new subscriber to a list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailPoet",
+        "name": "MailPoet smoke",
+        "lists": ["3"],
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailPoetField": "email"},
+            {"formField": "your-name", "mailPoetField": "first_name"},
+            {"formField": "custom", "mailPoetField": "last_name", "customValue": "Smoke ${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-mailpoet-new@example.com", "your-name": "Smoke"}
+}

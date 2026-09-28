@@ -1,0 +1,23 @@
+[
+    {
+        "id": "account-create",
+        "method": "POST",
+        "url": "~^https://my\\.agiled\\.app/api/v1/accounts\\?~",
+        "status": 200,
+        "body": {"data": {"id": 9001}}
+    },
+    {
+        "id": "contact-create",
+        "method": "POST",
+        "url": "~^https://my\\.agiled\\.app/api/v1/contacts\\?~",
+        "status": 200,
+        "body": {"data": {"id": 9002}}
+    },
+    {
+        "id": "deal-create",
+        "method": "POST",
+        "url": "~^https://my\\.agiled\\.app/api/v1/crm/pipeline-deals\\?~",
+        "status": 200,
+        "body": {"status": "success", "data": {"id": 9003}}
+    }
+]

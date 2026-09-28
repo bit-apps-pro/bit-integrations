@@ -1,0 +1,34 @@
+[
+    {
+        "id": "candidate-add-with-id",
+        "method": "POST",
+        "url": "~recruit\\.zoho\\.com/recruit/private/json/Candidates/addRecords~",
+        "status": 200,
+        "body": {
+            "response": {
+                "uri": "/recruit/private/json/Candidates/addRecords",
+                "result": {
+                    "message": "Record(s) added successfully",
+                    "row": {
+                        "no": "1",
+                        "success": {
+                            "code": "2000",
+                            "details": {
+                                "FL": [
+                                    {
+                                        "val": "Id",
+                                        "content": "9001"
+                                    },
+                                    {
+                                        "val": "Created Time",
+                                        "content": "2026-09-28 10:00:00"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+]

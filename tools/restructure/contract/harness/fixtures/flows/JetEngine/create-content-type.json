@@ -1,0 +1,25 @@
+{
+    "name": "JetEngine smoke: create custom content type",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "JetEngine",
+        "name": "JetEngine smoke",
+        "selectedTask": "createContentType",
+        "actions": {"db_table": true},
+        "selectedMenuPosition": "30",
+        "selectedMenuIcon": "dashicons-database",
+        "selectedSupports": "",
+        "selectedTaxPostTypes": "",
+        "relOptions": {"parentObject": "", "childObject": "", "selectedRelationType": "", "selectedRelationForEdit": ""},
+        "selectedCPT": "",
+        "selectedCCT": "",
+        "selectedTaxForEdit": "",
+        "field_map": [
+            {"formField": "your-subject", "jetEngineField": "name"},
+            {"formField": "custom", "jetEngineField": "capability", "customValue": "manage_options"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Records"}
+}

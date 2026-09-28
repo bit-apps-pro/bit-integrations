@@ -1,0 +1,23 @@
+{
+    "name": "Bento smoke: add people with tags and subscribe",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Bento",
+        "name": "Bento smoke",
+        "publishable_key": "smoke-publishable-key",
+        "secret_key": "smoke-secret-key",
+        "site_uuid": "smoke-site-uuid",
+        "action": "add_people",
+        "selected_tags": ["smoke-tag", "lead"],
+        "selected_tags_via_event": "event-tag",
+        "subscribe": true,
+        "field_map": [
+            {"formField": "your-email", "bentoFormField": "email"},
+            {"formField": "your-name", "bentoFormField": "first_name"},
+            {"formField": "custom", "bentoFormField": "company", "customValue": "Smoke for ${your-email}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Person"}
+}

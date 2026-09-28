@@ -1,0 +1,18 @@
+{
+    "name": "OneDrive smoke: upload two attachment fields, one array with a missing file (success and error log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "OneDrive",
+        "name": "OneDrive smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "folder": "SMOKEDRIVE!101",
+        "folderMap": ["SMOKEDRIVE!101", "SMOKEDRIVE!105"],
+        "actions": {"attachments": "your-file,your-files"},
+        "field_map": [{"formField": "", "OneDriveFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-file": "/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/woocommerce-placeholder-100x100.png", "your-files": ["/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/woocommerce-placeholder-100x100.png", "/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/no-such-smoke-file.png"]}
+}

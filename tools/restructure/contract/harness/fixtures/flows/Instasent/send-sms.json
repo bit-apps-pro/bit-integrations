@@ -1,0 +1,19 @@
+{
+    "name": "Instasent smoke: send SMS with allowUnicode utility",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Instasent",
+        "name": "Instasent smoke",
+        "auth_token": "smoke-auth-token",
+        "action": "send_sms",
+        "actions": {"allowUnicode": true},
+        "field_map": [
+            {"formField": "custom", "instasentFormField": "from", "customValue": "SmokeCo"},
+            {"formField": "your-phone", "instasentFormField": "to"},
+            {"formField": "your-message", "instasentFormField": "text"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-phone": "+34600000001", "your-message": "Smoke SMS"}
+}

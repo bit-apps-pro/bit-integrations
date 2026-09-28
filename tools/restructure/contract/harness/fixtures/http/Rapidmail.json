@@ -1,0 +1,9 @@
+[
+    {
+        "id": "recipient-create",
+        "method": "POST",
+        "url": "~^https://apiv3\\.emailsys\\.net/v1/recipients\\?send_activationmail=yes~",
+        "status": 201,
+        "body": {"id": 9001, "email": "smoke@example.com", "recipientlist_id": 501, "status": "new"}
+    }
+]

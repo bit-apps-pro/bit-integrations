@@ -1,0 +1,22 @@
+{
+    "name": "AgiledCRM smoke: create account",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "AgiledCRM",
+        "name": "AgiledCRM smoke",
+        "auth_token": "smoke-api-key",
+        "brand": "smoke-brand",
+        "actionName": "account",
+        "selectedOwner": "11",
+        "field_map": [
+            {"formField": "your-company", "agiledFormField": "name"},
+            {"formField": "your-email", "agiledFormField": "email"},
+            {"formField": "custom", "agiledFormField": "description", "customValue": "Account for ${your-email}"},
+            {"formField": "your-industry", "agiledFormField": "customFieldKey", "customFieldKey": "industry"}
+        ],
+        "actions": {"owner": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-company": "Smoke Co", "your-email": "smoke@example.com", "your-industry": "Testing"}
+}

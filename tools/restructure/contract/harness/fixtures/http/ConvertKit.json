@@ -1,0 +1,32 @@
+[
+    {
+        "id": "search-existing",
+        "method": "GET",
+        "url": "~^https://api\\.convertkit\\.com/v3/subscribers\\?.*email_address=smoke-existing%40example\\.com~",
+        "body": {"total_subscribers": 1, "page": 1, "total_pages": 1, "subscribers": [{"id": 555, "first_name": "Old", "email_address": "smoke-existing@example.com", "state": "active", "fields": {}}]}
+    },
+    {
+        "id": "search-none",
+        "method": "GET",
+        "url": "~^https://api\\.convertkit\\.com/v3/subscribers\\?~",
+        "body": {"total_subscribers": 0, "page": 1, "total_pages": 1, "subscribers": []}
+    },
+    {
+        "id": "form-subscribe",
+        "method": "POST",
+        "url": "~^https://api\\.convertkit\\.com/v3/forms/1001/subscribe\\?~",
+        "body": {"subscription": {"id": 9001, "state": "active", "subscriber": {"id": 556}}}
+    },
+    {
+        "id": "update-subscriber",
+        "method": "PUT",
+        "url": "~^https://api\\.convertkit\\.com/v3/subscribers/555\\?~",
+        "body": {"subscriber": {"id": 555, "email_address": "smoke-existing@example.com"}}
+    },
+    {
+        "id": "tag-subscribe",
+        "method": "POST",
+        "url": "~^https://api\\.convertkit\\.com/v3/tags/\\d+/(subscribe|unsubscribe)\\?~",
+        "body": {"subscription": {"id": 9002, "state": "active"}}
+    }
+]

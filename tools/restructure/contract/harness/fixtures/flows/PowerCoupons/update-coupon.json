@@ -1,0 +1,19 @@
+{
+    "name": "PowerCoupons smoke: update coupon",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PowerCoupons",
+        "name": "PowerCoupons smoke",
+        "mainAction": "update_coupon",
+        "actions": {},
+        "utilities": {"discount_type": "fixed_cart", "free_shipping": "", "individual_use": "yes", "exclude_sale_items": "", "auto_apply": "", "show_in_slideout": "no", "rules_enabled": ""},
+        "field_map": [
+            {"formField": "coupon-code", "powerCouponsField": "coupon_code"},
+            {"formField": "amount", "powerCouponsField": "amount"},
+            {"formField": "usage-limit", "powerCouponsField": "usage_limit"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"coupon-code": "SMOKE10", "amount": "15", "usage-limit": "100"}
+}

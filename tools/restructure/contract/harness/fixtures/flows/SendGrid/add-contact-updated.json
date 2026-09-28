@@ -1,0 +1,17 @@
+{
+    "name": "SendGrid smoke: upsert existing contact without lists (search hit -> updated)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SendGrid",
+        "name": "SendGrid smoke",
+        "apiKey": "smoke-api-key",
+        "selectedLists": "",
+        "field_map": [
+            {"formField": "your-email", "sendGridFormField": "email"},
+            {"formField": "your-name", "sendGridFormField": "last_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-name": "Existing"}
+}

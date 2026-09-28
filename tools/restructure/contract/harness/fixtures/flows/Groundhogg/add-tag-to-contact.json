@@ -1,0 +1,24 @@
+{
+    "name": "Groundhogg smoke: apply tags to existing contacts",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Groundhogg",
+        "name": "Groundhogg smoke",
+        "domainName": "https://groundhogg.example.test",
+        "token": "smoke-gh-token",
+        "public_key": "smoke-gh-public-key",
+        "mainAction": "2",
+        "addTagToUser": "ground-Smoke,your-name",
+        "emailAddress": "your-email,alt-email",
+        "showMeta": false,
+        "optin_status": "1",
+        "field_map": [
+            {"formField": "your-email", "GroundhoggMapField": "email"}
+        ],
+        "field_map_meta": [{"formField": "", "GroundhoggMetaMapField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "alt-email": "smoke2@example.com", "your-name": "Smoke"}
+}

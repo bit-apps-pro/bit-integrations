@@ -1,0 +1,17 @@
+{
+    "name": "PeepSo smoke: follow user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PeepSo",
+        "name": "PeepSo smoke",
+        "mainAction": "follow_user",
+        "field_map": [
+            {"formField": "your-email", "peepSoField": "user_email"},
+            {"formField": "follow-email", "peepSoField": "follow_user_email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "follow-email": "smoke-followed@example.com"}
+}

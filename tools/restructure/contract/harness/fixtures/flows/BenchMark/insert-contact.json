@@ -1,0 +1,20 @@
+{
+    "name": "BenchMark smoke: insert new contact into list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BenchMark",
+        "name": "BenchMark smoke",
+        "api_secret": "smoke-api-secret",
+        "listId": "5001",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "benchMarkField": "email", "required": true},
+            {"formField": "your-name", "benchMarkField": "FirstName"},
+            {"formField": "custom", "benchMarkField": "LastName", "customValue": "Smoke"},
+            {"formField": "your-phone", "benchMarkField": "Field6"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "insert-smoke@example.com", "your-name": "Insert", "your-phone": "5550100"}
+}

@@ -1,0 +1,21 @@
+{
+    "name": "Memberpress smoke: add current user as pending with expiry taken from the membership product",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Memberpress",
+        "name": "Memberpress smoke",
+        "mainAction": "1",
+        "selectedMembership": "999901",
+        "statusId": "pending",
+        "gatewayId": "manual",
+        "field_map": [
+            {"formField": "your-amount", "memberpressFormField": "sub_total"},
+            {"formField": "custom", "memberpressFormField": "tax_amount", "customValue": "0"},
+            {"formField": "custom", "memberpressFormField": "taxrate", "customValue": "0"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-amount": "15"}
+}

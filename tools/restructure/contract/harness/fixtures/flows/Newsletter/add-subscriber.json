@@ -1,0 +1,17 @@
+{
+    "name": "Newsletter smoke: add subscriber without lists",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Newsletter",
+        "name": "Newsletter smoke",
+        "field_map": [
+            {"formField": "your-email", "newsletterFormField": "email"},
+            {"formField": "your-name", "newsletterFormField": "name"}
+        ],
+        "selectedLists": "",
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-newsletter2@example.com", "your-name": "Smoke Plain"}
+}

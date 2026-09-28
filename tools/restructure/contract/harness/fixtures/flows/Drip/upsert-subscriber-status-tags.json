@@ -1,0 +1,23 @@
+{
+    "name": "Drip smoke: upsert subscriber with status, tags, remove tags and custom field",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Drip",
+        "name": "Drip smoke",
+        "api_token": "smoke-api-token",
+        "selectedAccountId": "9990001",
+        "selectedStatus": "unsubscribed",
+        "selectedTags": "smoke-tag,vip",
+        "selectedRemoveTags": "old-tag",
+        "actions": {"status": true, "tagsAdd": true, "tagsRemove": true},
+        "field_map": [
+            {"formField": "your-email", "dripField": "email"},
+            {"formField": "your-name", "dripField": "last_name"},
+            {"formField": "your-city", "dripField": "city"},
+            {"formField": "custom", "dripField": "smoke_custom", "customValue": "From ${your-city}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Tester", "your-city": "Dhaka"}
+}

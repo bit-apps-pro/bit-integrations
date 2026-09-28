@@ -1,0 +1,20 @@
+{
+    "name": "Mailjet smoke: add new contact to lists",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailjet",
+        "name": "Mailjet smoke",
+        "apiKey": "smoke-api-key",
+        "secretKey": "smoke-secret-key",
+        "selectedLists": "1001,1002",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailjetFormField": "Email"},
+            {"formField": "your-name", "mailjetFormField": "firstname"},
+            {"formField": "custom", "customValue": "From ${your-name}", "mailjetFormField": "source"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-new@example.com", "your-name": "Smoke"}
+}

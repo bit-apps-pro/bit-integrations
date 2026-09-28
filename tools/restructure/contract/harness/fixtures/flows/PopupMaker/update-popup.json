@@ -1,0 +1,14 @@
+{
+    "name": "PopupMaker smoke: update_popup",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PopupMaker",
+        "name": "PopupMaker smoke",
+        "mainAction": "update_popup",
+        "field_map": [{"formField": "your-id", "popupMakerField": "popup_id"}, {"formField": "your-name", "popupMakerField": "title"}],
+        "utilities": {"selected_status": "draft"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Popup", "your-email": "smoke@example.com", "your-id": "999991"}
+}

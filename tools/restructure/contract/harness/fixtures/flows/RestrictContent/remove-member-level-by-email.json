@@ -1,0 +1,19 @@
+{
+    "name": "RestrictContent smoke: remove unknown email user from all levels",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "RestrictContent",
+        "name": "Restrict Content smoke",
+        "actionName": "remove-member-level",
+        "level_id": "all",
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "restrictField": "user_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-nobody@example.test"}
+}

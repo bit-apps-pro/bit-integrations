@@ -1,0 +1,10 @@
+{
+    "hookDetails": {
+        "type": "WebHooks",
+        "method": "post",
+        "url": "https://hooks.example.test/webhooks-test",
+        "headers": [],
+        "params": [],
+        "body": {"type": "raw", "data": "{\"email\":\"smoke@example.com\"}"}
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "OmniSend smoke: add contact on email and sms with tags and custom properties",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "OmniSend",
+        "name": "OmniSend smoke",
+        "api_key": "smoke-api-key",
+        "channels": "email,sms",
+        "email_status": "subscribed",
+        "sms_status": "nonSubscribed",
+        "field_map": [
+            {"formField": "your-email", "omniSendFormField": "email"},
+            {"formField": "your-phone", "omniSendFormField": "phone_number"},
+            {"formField": "your-name", "omniSendFormField": "firstName"},
+            {"formField": "custom", "omniSendFormField": "lastName", "customValue": "Smoke"}
+        ],
+        "custom_field_map": [
+            {"formField": "your-name", "omniSendFormField": "nickname"},
+            {"formField": "custom", "omniSendFormField": "source", "customValue": "smoke-${your-email}"}
+        ],
+        "selected_tags": "smoke-tag,vip",
+        "actions": {"channel": true, "tag": true, "selected_tags": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-phone": "+15551234567", "your-name": "Smoke User"}
+}

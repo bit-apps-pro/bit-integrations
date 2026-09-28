@@ -1,0 +1,22 @@
+{
+    "name": "Instasent smoke: create contact event with a custom parameter",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Instasent",
+        "name": "Instasent smoke",
+        "auth_token": "smoke-auth-token",
+        "action": "create_contact_event",
+        "projectId": "smoke-project",
+        "datasourceId": "smoke-datasource",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "instasentFormField": "userId"},
+            {"formField": "custom", "instasentFormField": "eventId", "customValue": "smoke-event-1"},
+            {"formField": "custom", "instasentFormField": "eventType", "customValue": "form_submitted"},
+            {"formField": "your-name", "instasentFormField": "source"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Form"}
+}

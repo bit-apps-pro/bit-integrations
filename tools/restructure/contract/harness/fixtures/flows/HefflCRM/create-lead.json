@@ -1,0 +1,23 @@
+{
+    "name": "HefflCRM smoke: create lead",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "HefflCRM",
+        "name": "HefflCRM smoke",
+        "api_key": "smoke-api-key",
+        "mainAction": "create_lead",
+        "leadSourceId": "11",
+        "leadStageId": "21",
+        "field_map": [
+            {"formField": "your-name", "hefflCRMField": "name"},
+            {"formField": "your-email", "hefflCRMField": "email"},
+            {"formField": "your-phone", "hefflCRMField": "mobile"},
+            {"formField": "custom", "hefflCRMField": "title", "customValue": "Lead for ${your-email}"},
+            {"formField": "custom", "hefflCRMField": "value", "customValue": "1500"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Lead", "your-email": "smoke@example.com", "your-phone": "+15550100"}
+}

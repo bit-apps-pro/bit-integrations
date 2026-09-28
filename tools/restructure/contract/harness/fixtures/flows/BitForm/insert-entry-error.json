@@ -1,0 +1,20 @@
+{
+    "name": "BitForm smoke: insert entry rejected with errors",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BitForm",
+        "name": "BitForm smoke",
+        "domainName": "https://bitform.example.test",
+        "api_key": "smoke-api-key",
+        "id": "12",
+        "default": {"forms": [{"id": "12", "form_name": "Smoke Form Two"}], "fields": {"12": [{"key": "b2-1", "name": "Email"}]}},
+        "field_map": [
+            {"formField": "your-email", "BitFormMapField": "b2-1"}
+        ],
+        "address_field": [],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

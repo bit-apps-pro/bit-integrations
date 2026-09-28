@@ -1,0 +1,64 @@
+{
+    "name": "Zoom smoke: create attendee",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Zoom",
+        "name": "Zoom smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {
+            "access_token": "smoke-access-token",
+            "refresh_token": "smoke-refresh-token",
+            "expires_in": 3600,
+            "generates_on": 4102444800,
+            "generated_at": 4102444800
+        },
+        "id": "85012345678",
+        "default": {
+            "allMeeting": [
+                {
+                    "id": 85012345678,
+                    "topic": "Smoke Session"
+                }
+            ]
+        },
+        "actions": {},
+        "isAuthorized": true,
+        "selectedActions": "Create Attendee",
+        "field_map": [
+            {
+                "formField": "your-email",
+                "zoomField": "email"
+            },
+            {
+                "formField": "your-first",
+                "zoomField": "first_name"
+            },
+            {
+                "formField": "your-name",
+                "zoomField": "last_name"
+            },
+            {
+                "formField": "custom",
+                "zoomField": "city",
+                "customValue": "Smokeville ${your-name}"
+            },
+            {
+                "formField": "your-company",
+                "zoomField": "custom_questions_Company"
+            },
+            {
+                "formField": "custom",
+                "zoomField": "custom_questions_Referral",
+                "customValue": "Via ${your-email}"
+            }
+        ]
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-first": "Smoke",
+        "your-name": "Tester",
+        "your-company": "Smoke Co"
+    }
+}

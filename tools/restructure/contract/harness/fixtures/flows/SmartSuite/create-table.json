@@ -1,0 +1,18 @@
+{
+    "name": "SmartSuite smoke: create table (Pro filter seam)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SmartSuite",
+        "name": "SmartSuite smoke",
+        "workspaceId": "smoke-workspace",
+        "apiToken": "smoke-api-key",
+        "actionName": "table",
+        "selectedSolution": "sol-smoke-1",
+        "field_map": [
+            {"formField": "your-name", "smartSuiteFormField": "name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Table"}
+}

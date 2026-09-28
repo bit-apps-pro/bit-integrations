@@ -1,0 +1,7 @@
+{
+    "Mailup": "the forced-expiry run makes the refresh request and completes the action, but no token write-back is recorded in this harness; cause not diagnosed (save only happens when the returned access_token differs). Behaviour before and after the move is still compared exactly",
+    "SendPulse": "the forced-expiry run makes the refresh request twice but no connection or flow write-back is recorded in this harness; cause not diagnosed. Behaviour before and after the move is still compared exactly",
+    "ZohoMarketingHub": "existing bug: execute() calls saveRefreshedToken($this->_formID, $this->_integrationID, ...) against the signature ($integrationID, $tokenDetails, $others) and _formID is never set, so the refreshed token is never persisted. Fix separately",
+    "ZohoRecruit": "existing bug: the refresh path throws 'Attempt to assign property \"tokenDetails\" on null' inside saveRefreshedToken before anything is written. Fix separately",
+    "ZohoSheet": "the forced-expiry run makes the refresh request but no token write-back is recorded in this harness; cause not diagnosed (save only happens when the returned access_token differs). Behaviour before and after the move is still compared exactly"
+}

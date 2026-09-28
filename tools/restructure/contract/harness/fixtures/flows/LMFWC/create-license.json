@@ -1,0 +1,22 @@
+{
+    "name": "LMFWC smoke: create license",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LMFWC",
+        "name": "LMFWC smoke",
+        "base_url": "https://example.com", "api_key": "ck_smoke-api-key", "api_secret": "cs_smoke-api-secret",
+        "module": "create_license",
+        "selectedStatus": "active",
+        "selectedCustomer": "1",
+        "selectedOrder": "101",
+        "selectedProduct": "201",
+        "field_map": [
+            {"formField": "license-key", "lmfwcFormField": "license_key"},
+            {"formField": "custom", "lmfwcFormField": "valid_for", "customValue": "30"},
+            {"formField": "max-activations", "lmfwcFormField": "times_activated_max"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"license-key": "SMOKE-LICENSE-0001", "max-activations": "3"}
+}

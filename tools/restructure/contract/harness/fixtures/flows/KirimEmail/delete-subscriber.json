@@ -1,0 +1,19 @@
+{
+    "name": "KirimEmail smoke: remove subscriber found by email",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "KirimEmail",
+        "name": "KirimEmail smoke delete",
+        "app_slug": "KirimEmail",
+        "userName": "smoke-user",
+        "api_key": "smoke-api-key",
+        "mainAction": "2",
+        "field_map": [
+            {"formField": "your-email", "kirimEmailFormField": "email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

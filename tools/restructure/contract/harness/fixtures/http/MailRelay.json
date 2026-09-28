@@ -1,0 +1,26 @@
+[
+    {
+        "id": "search-existing",
+        "method": "GET",
+        "url": "~^https://smoke\\.ipzmarketing\\.com/api/v1/subscribers\\?q%5Bemail_eq%5D=smoke-existing%40example\\.com~",
+        "body": [{"id": 77, "email": "smoke-existing@example.com", "status": "active"}]
+    },
+    {
+        "id": "search-none",
+        "method": "GET",
+        "url": "~^https://smoke\\.ipzmarketing\\.com/api/v1/subscribers\\?q%5Bemail_eq%5D=~",
+        "body": []
+    },
+    {
+        "id": "update-subscriber",
+        "method": "PATCH",
+        "url": "~^https://smoke\\.ipzmarketing\\.com/api/v1/subscribers/77$~",
+        "body": {"id": 77, "email": "smoke-existing@example.com", "status": "inactive"}
+    },
+    {
+        "id": "create-subscriber",
+        "method": "POST",
+        "url": "~^https://smoke\\.ipzmarketing\\.com/api/v1/subscribers$~",
+        "body": {"id": 88, "email": "smoke@example.com", "status": "active"}
+    }
+]

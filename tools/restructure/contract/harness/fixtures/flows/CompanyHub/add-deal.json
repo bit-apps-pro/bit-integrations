@@ -1,0 +1,21 @@
+{
+    "name": "CompanyHub smoke: create deal with stage, company and contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "CompanyHub",
+        "name": "CompanyHub smoke",
+        "sub_domain": "smoke-subdomain",
+        "api_key": "smoke-api-key",
+        "actionName": "deal",
+        "selectedStage": "Prospecting",
+        "selectedCompany": "smoke-company-1",
+        "selectedContact": "smoke-contact-1",
+        "field_map": [
+            {"formField": "your-deal", "companyHubFormField": "Name"},
+            {"formField": "your-amount", "companyHubFormField": "Amount"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-deal": "Smoke Deal", "your-amount": "1200"}
+}

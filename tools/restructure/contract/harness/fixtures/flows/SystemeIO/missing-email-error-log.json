@@ -1,0 +1,17 @@
+{
+    "name": "SystemeIO smoke: email unmapped writes error log",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SystemeIO",
+        "name": "SystemeIO smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "registerPeopletoWabinar",
+        "selectedTag": "501",
+        "field_map": [
+            {"formField": "your-name", "systemeIOFormField": "first_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke"}
+}

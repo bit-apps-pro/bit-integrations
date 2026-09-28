@@ -1,0 +1,6 @@
+[
+    {"id": "nutshell-new-contact-error", "method": "POST", "url": "~^https://app\\.nutshell\\.com/api/v1/json$~", "body_contains": "fail@example.com", "status": 200, "body": {"id": "randomstring", "result": null, "error": {"code": 400, "message": "Smoke validation error"}}},
+    {"id": "nutshell-new-contact", "method": "POST", "url": "~^https://app\\.nutshell\\.com/api/v1/json$~", "body_contains": "newContact", "status": 200, "body": {"id": "randomstring", "result": {"id": 1001, "entityType": "Contacts", "name": "Smoke User"}, "error": null}},
+    {"id": "nutshell-new-account", "method": "POST", "url": "~^https://app\\.nutshell\\.com/api/v1/json$~", "body_contains": "newAccount", "status": 200, "body": {"id": "randomstring", "result": {"id": 2001, "entityType": "Accounts", "name": "Smoke Co"}, "error": null}},
+    {"id": "nutshell-new-lead", "method": "POST", "url": "~^https://app\\.nutshell\\.com/api/v1/json$~", "body_contains": "newLead", "status": 200, "body": {"id": "randomstring", "result": {"id": 3001, "entityType": "Leads", "description": "Smoke lead"}, "error": null}}
+]

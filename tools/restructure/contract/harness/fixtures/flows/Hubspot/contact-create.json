@@ -1,0 +1,22 @@
+{
+    "name": "Hubspot smoke: create contact with owner, lead status and lifecycle stage",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Hubspot",
+        "name": "Hubspot smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "contact",
+        "contact_owner": "7001",
+        "lead_status": "NEW",
+        "lifecycle_stage": "lead",
+        "field_map": [
+            {"formField": "your-email", "hubspotField": "email"},
+            {"formField": "your-name", "hubspotField": "firstname"},
+            {"formField": "custom", "hubspotField": "message", "customValue": "Fixture for ${your-email}"}
+        ],
+        "actions": {"contact_owner": true, "lead_status": true, "lifecycle_stage": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Contact"}
+}

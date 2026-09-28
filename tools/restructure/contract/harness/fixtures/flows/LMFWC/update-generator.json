@@ -1,0 +1,18 @@
+{
+    "name": "LMFWC smoke: update generator (Pro filter)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LMFWC",
+        "name": "LMFWC smoke",
+        "base_url": "https://example.com", "api_key": "ck_smoke-api-key", "api_secret": "cs_smoke-api-secret",
+        "module": "update_generator",
+        "selectedGenerator": "7",
+        "field_map": [
+            {"formField": "gen-name", "lmfwcFormField": "name"},
+            {"formField": "custom", "lmfwcFormField": "prefix", "customValue": "SMK-"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"gen-name": "Smoke Generator Renamed"}
+}

@@ -1,0 +1,22 @@
+{
+    "name": "Zendesk smoke: create deal with stage",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Zendesk",
+        "name": "Zendesk smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "deal",
+        "actions": {"stage": true},
+        "selectedStage": "12",
+        "selectedCRMCompany": "301",
+        "selectedCRMSources": "77",
+        "selectedCRMContact": "301",
+        "field_map": [
+            {"formField": "your-deal", "zendeskFormField": "name"},
+            {"formField": "your-value", "zendeskFormField": "value"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-deal": "Smoke Deal", "your-value": "1500"}
+}

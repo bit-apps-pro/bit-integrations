@@ -1,0 +1,15 @@
+{
+    "name": "MasterStudyLms smoke: complete course for the current user (course without curriculum)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MasterStudyLms",
+        "name": "MasterStudyLms smoke",
+        "mainAction": "1",
+        "courseId": "999901",
+        "field_map": [{"formField": "", "msLmsFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Learner"}
+}

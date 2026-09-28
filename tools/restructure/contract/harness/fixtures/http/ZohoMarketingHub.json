@@ -1,0 +1,9 @@
+[
+    {
+        "id": "listsubscribe-success",
+        "method": "POST",
+        "url": "~^https://marketinghub\\.zoho\\.com/api/v1/json/listsubscribe\\?.*listkey=smoke-list-ok&~",
+        "status": 200,
+        "body": {"status": "success", "code": "0", "message": "User subscribed successfully."}
+    }
+]

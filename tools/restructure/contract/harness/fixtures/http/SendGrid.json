@@ -1,0 +1,32 @@
+[
+    {
+        "id": "search-new",
+        "method": "POST",
+        "url": "~^https://api\\.sendgrid\\.com/v3/marketing/contacts/search/emails$~",
+        "body_contains": "smoke-new@example.com",
+        "status": 404,
+        "body": []
+    },
+    {
+        "id": "search-existing",
+        "method": "POST",
+        "url": "~^https://api\\.sendgrid\\.com/v3/marketing/contacts/search/emails$~",
+        "status": 200,
+        "body": {"result": {"smoke-existing@example.com": {"contact": {"id": "sg-contact-1", "email": "smoke-existing@example.com"}}}}
+    },
+    {
+        "id": "upsert-rejected",
+        "method": "PUT",
+        "url": "~^https://api\\.sendgrid\\.com/v3/marketing/contacts$~",
+        "body_contains": "smoke-reject@example.com",
+        "status": 400,
+        "body": {"errors": [{"field": "contacts[0].email", "message": "invalid email"}]}
+    },
+    {
+        "id": "upsert",
+        "method": "PUT",
+        "url": "~^https://api\\.sendgrid\\.com/v3/marketing/contacts$~",
+        "status": 202,
+        "body": {"job_id": "sg-job-1"}
+    }
+]

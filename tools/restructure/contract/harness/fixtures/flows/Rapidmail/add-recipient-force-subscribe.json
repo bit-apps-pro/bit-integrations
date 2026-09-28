@@ -1,0 +1,20 @@
+{
+    "name": "Rapidmail smoke: add recipient force subscribe, API returns no id",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Rapidmail",
+        "name": "Rapidmail smoke",
+        "username": "smoke-user",
+        "password": "smoke-password",
+        "recipient_id": "502",
+        "default": {"recipientlists": [{"id": 502, "name": "Smoke Forced List"}]},
+        "actions": {"force_subscribe": true},
+        "field_map": [
+            {"formField": "your-email", "rapidmailFormField": "email"},
+            {"formField": "your-name", "rapidmailFormField": "lastname"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-forced@example.com", "your-name": "Forced"}
+}

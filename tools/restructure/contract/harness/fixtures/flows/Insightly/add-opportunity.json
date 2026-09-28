@@ -1,0 +1,22 @@
+{
+    "name": "Insightly smoke: create opportunity in pipeline stage",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Insightly",
+        "name": "Insightly smoke",
+        "api_key": "smoke-api-key",
+        "api_url": "na1.insightly.com",
+        "actionName": "opportunity",
+        "selectedOrganisation": "5001",
+        "selectedCRMPipeline": "6001",
+        "selectedCRMPipelineStages": "7001",
+        "actions": {"organisation": true, "selectedCRMPipeline": true, "selectedCRMPipelineStages": true},
+        "field_map": [
+            {"formField": "your-subject", "insightlyFormField": "OPPORTUNITY_NAME"},
+            {"formField": "custom", "insightlyFormField": "BID_AMOUNT", "customValue": "1500"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Opportunity"}
+}

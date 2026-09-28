@@ -1,0 +1,23 @@
+{
+    "name": "Insightly smoke: create lead with category, source and status",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Insightly",
+        "name": "Insightly smoke",
+        "api_key": "smoke-api-key",
+        "api_url": "na1.insightly.com",
+        "actionName": "lead",
+        "selectedCategory": "8001",
+        "selectedLeadStatus": "8101",
+        "selectedLeadSource": "8201",
+        "actions": {"category": true, "status": true},
+        "field_map": [
+            {"formField": "your-name", "insightlyFormField": "FIRST_NAME"},
+            {"formField": "custom", "insightlyFormField": "LAST_NAME", "customValue": "Lead"},
+            {"formField": "your-email", "insightlyFormField": "EMAIL"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-email": "smoke@example.com"}
+}

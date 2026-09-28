@@ -1,0 +1,16 @@
+[
+    {
+        "id": "create-customer",
+        "method": "POST",
+        "url": "~^https://smoke\\.onehash\\.test/api/resource/Customer$~",
+        "status": 200,
+        "body": {"data": {"name": "CUST-0001", "customer_name": "Smoke Customer"}}
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://smoke\\.onehash\\.test/api/resource/Contact$~",
+        "status": 200,
+        "body": {"data": {"name": "CONT-0001", "first_name": "Smoke"}}
+    }
+]

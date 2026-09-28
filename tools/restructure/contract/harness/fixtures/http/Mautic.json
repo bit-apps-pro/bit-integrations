@@ -1,0 +1,24 @@
+[
+    {
+        "id": "contact-rejected",
+        "method": "POST",
+        "url": "~^https://example\\.com/api/contacts/new~",
+        "body_contains": "smoke-mautic-reject",
+        "status": 422,
+        "body": {"errors": [{"code": 422, "message": "email: A valid email is required.", "details": {"email": ["A valid email is required."]}}]}
+    },
+    {
+        "id": "contact-created",
+        "method": "POST",
+        "url": "~^https://example\\.com/api/contacts/new~",
+        "status": 200,
+        "body": {"contact": {"id": 501, "fields": {"core": {"email": {"value": "smoke@example.com"}}}}}
+    },
+    {
+        "id": "token-refresh",
+        "method": "POST",
+        "url": "~^https://example\\.com/oauth/v2/token~",
+        "status": 200,
+        "body": {"access_token": "smoke-refreshed-access-token", "refresh_token": "smoke-refreshed-refresh-token", "expires_in": 3600, "token_type": "bearer"}
+    }
+]

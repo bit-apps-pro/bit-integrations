@@ -1,0 +1,27 @@
+[
+    {
+        "id": "contact-existing",
+        "method": "GET",
+        "url": "~^https://api\\.mailjet\\.com/v3/REST/contact/smoke-existing%40~",
+        "body": {"Count": 1, "Data": [{"ID": 77, "Email": "smoke-existing@example.com"}], "Total": 1}
+    },
+    {
+        "id": "contact-missing",
+        "method": "GET",
+        "url": "~^https://api\\.mailjet\\.com/v3/REST/contact/smoke-new%40~",
+        "status": 404,
+        "body": {"ErrorMessage": "Object not found", "StatusCode": 404}
+    },
+    {
+        "id": "manage-many-contacts",
+        "method": "POST",
+        "url": "~^https://api\\.mailjet\\.com/v3/REST/contact/managemanycontacts$~",
+        "body": {"Count": 1, "Data": [{"JobID": 9001}], "Total": 1}
+    },
+    {
+        "id": "job-status",
+        "method": "GET",
+        "url": "~^https://api\\.mailjet\\.com/v3/REST/contact/managemanycontacts/9001$~",
+        "body": {"Count": 1, "Data": [{"Status": "Completed", "Error": "", "ErrorFile": ""}], "Total": 1}
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "SendFox smoke: add contact to lists (mainAction 2)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SendFox",
+        "name": "SendFox smoke",
+        "access_token": "smoke-access-token",
+        "mainAction": "2",
+        "listId": "101,102",
+        "field_map": [
+            {"formField": "your-email", "sendFoxFormField": "email"},
+            {"formField": "your-name", "sendFoxFormField": "first_name"},
+            {"formField": "custom", "sendFoxFormField": "last_name", "customValue": "Tester ${your-name}"}
+        ],
+        "field_map_list": [{"formField": "", "sendFoxListFormField": ""}],
+        "field_map_unsubscribe": [{"formField": "", "sendFoxUnsubscribeFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

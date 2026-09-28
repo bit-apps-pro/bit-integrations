@@ -1,0 +1,19 @@
+{
+    "name": "Mailster smoke: add subscriber with status, lists and tags",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailster",
+        "name": "Mailster smoke",
+        "field_map": [
+            {"formField": "your-email", "mailsterFormField": "email"},
+            {"formField": "your-name", "mailsterFormField": "firstname"},
+            {"formField": "custom", "mailsterFormField": "lastname", "customValue": "Smoke"}
+        ],
+        "selectedStatus": "1",
+        "selectedLists": "1,2",
+        "selectedTags": "1",
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

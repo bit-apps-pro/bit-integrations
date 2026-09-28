@@ -1,0 +1,35 @@
+{
+    "name": "N8n smoke: POST json webhook",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "N8n",
+        "name": "N8n smoke",
+        "method": "POST",
+        "url": "https://hooks.example.test/n8n?source=${your-name}",
+        "headers": [
+            {
+                "key": "X-Smoke",
+                "value": "n8n"
+            }
+        ],
+        "body": {
+            "type": "application/json",
+            "data": [
+                {
+                    "key": "email",
+                    "value": "${your-email}"
+                },
+                {
+                    "key": "name",
+                    "value": "${your-name}"
+                }
+            ]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke"
+    }
+}

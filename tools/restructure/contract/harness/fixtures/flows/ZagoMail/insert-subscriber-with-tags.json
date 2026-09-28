@@ -1,0 +1,21 @@
+{
+    "name": "ZagoMail smoke: insert subscriber and add tags",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZagoMail",
+        "name": "ZagoMail smoke",
+        "api_public_key": "smoke-api-key",
+        "listId": "smoke-list-uid",
+        "selectedList": "smoke-list-uid",
+        "selectedTags": "11,12",
+        "field_map": [
+            {"formField": "your-email", "zagoMailField": "EMAIL"},
+            {"formField": "your-name", "zagoMailField": "FNAME"},
+            {"formField": "custom", "zagoMailField": "LNAME", "customValue": "Fixture"}
+        ],
+        "actions": {"tags": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

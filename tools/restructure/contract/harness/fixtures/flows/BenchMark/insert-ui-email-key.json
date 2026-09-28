@@ -1,0 +1,19 @@
+{
+    "name": "BenchMark smoke: insert with UI-shaped Email key and numeric custom field",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BenchMark",
+        "name": "BenchMark smoke",
+        "api_secret": "smoke-api-secret",
+        "listId": "5001",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "benchMarkField": "Email", "required": true},
+            {"formField": "your-name", "benchMarkField": "FirstName"},
+            {"formField": "your-name", "benchMarkField": "7"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "ui-smoke@example.com", "your-name": "UiShape"}
+}

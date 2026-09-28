@@ -1,0 +1,22 @@
+{
+    "name": "BitForm smoke: insert entry on remote form",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BitForm",
+        "name": "BitForm smoke",
+        "domainName": "https://bitform.example.test",
+        "api_key": "smoke-api-key",
+        "id": "11",
+        "default": {"forms": [{"id": "11", "form_name": "Smoke Form"}], "fields": {"11": [{"key": "b1-1", "name": "Name"}, {"key": "b1-2", "name": "Email"}]}},
+        "field_map": [
+            {"formField": "your-name", "BitFormMapField": "b1-1"},
+            {"formField": "your-email", "BitFormMapField": "b1-2"},
+            {"formField": "custom", "BitFormMapField": "b1-3", "customValue": "Note for ${your-email}"}
+        ],
+        "address_field": [],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Entry"}
+}

@@ -1,0 +1,21 @@
+{
+    "name": "Hubspot smoke: create ticket in a pipeline stage with priority",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Hubspot",
+        "name": "Hubspot smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "ticket",
+        "pipeline": "0",
+        "stage": "1",
+        "priority": "medium",
+        "field_map": [
+            {"formField": "subject", "hubspotField": "subject"},
+            {"formField": "your-message", "hubspotField": "content"}
+        ],
+        "actions": {"priority": true},
+        "isAuthorized": true
+    },
+    "field_data": {"subject": "Smoke Ticket", "your-message": "Smoke ticket body"}
+}

@@ -1,0 +1,16 @@
+{
+    "name": "FreshSales smoke: insert deal linked to contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "FreshSales",
+        "name": "FreshSales smoke",
+        "api_key": "smoke-api-key",
+        "bundle_alias": "smoke.myfreshworks.com/crm/sales",
+        "moduleData": {"module": "Deal", "contact_view_id": 1, "contact_id": 6001},
+        "actions": {},
+        "field_map": [{"formField": "your-name", "freshSalesFormField": "name"}, {"formField": "your-amount", "freshSalesFormField": "amount"}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Deal", "your-amount": "250"}
+}

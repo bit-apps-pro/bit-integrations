@@ -1,0 +1,19 @@
+{
+    "name": "Sender smoke: create group",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Sender",
+        "name": "Sender smoke",
+        "api_token": "smoke-api-token",
+        "mainAction": "create_group",
+        "groups": [],
+        "groupId": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-group", "senderField": "title"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-group": "Smoke Group"}
+}

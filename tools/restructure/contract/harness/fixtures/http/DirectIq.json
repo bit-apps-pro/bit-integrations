@@ -1,0 +1,10 @@
+[
+    {
+        "id": "import-contacts-error",
+        "method": "POST",
+        "url": "~^https://rest\\.directiq\\.com/contacts/lists/importcontacts/[^/]+$~",
+        "body_contains": "smoke-directiq-error",
+        "status": 400,
+        "body": {"message": "Invalid contact"}
+    }
+]

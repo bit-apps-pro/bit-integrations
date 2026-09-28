@@ -1,0 +1,22 @@
+{
+    "name": "KirimEmail smoke: add subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "KirimEmail",
+        "name": "KirimEmail smoke",
+        "app_slug": "KirimEmail",
+        "userName": "smoke-user",
+        "api_key": "smoke-api-key",
+        "mainAction": "1",
+        "listId": "501",
+        "field_map": [
+            {"formField": "your-email", "kirimEmailFormField": "email"},
+            {"formField": "your-name", "kirimEmailFormField": "full_name"},
+            {"formField": "custom", "kirimEmailFormField": "tags", "customValue": "smoke"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

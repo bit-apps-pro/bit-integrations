@@ -1,0 +1,21 @@
+{
+    "name": "Zendesk smoke: create lead with company and source",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Zendesk",
+        "name": "Zendesk smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "lead",
+        "actions": {},
+        "selectedCRMCompany": "Smoke Co",
+        "selectedCRMSources": "77",
+        "field_map": [
+            {"formField": "your-first", "zendeskFormField": "first_name"},
+            {"formField": "your-last", "zendeskFormField": "last_name"},
+            {"formField": "your-email", "zendeskFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-first": "Smoke", "your-last": "Lead", "your-email": "smoke@example.com"}
+}

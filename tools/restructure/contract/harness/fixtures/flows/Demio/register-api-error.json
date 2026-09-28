@@ -1,0 +1,20 @@
+{
+    "name": "Demio smoke: register person, API returns errors",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Demio",
+        "name": "Demio smoke",
+        "api_key": "smoke-api-key",
+        "api_secret": "smoke-api-secret",
+        "actionName": "registerPeopletoWabinar",
+        "selectedEvent": "701",
+        "field_map": [
+            {"formField": "your-name", "demioFormField": "name"},
+            {"formField": "your-email", "demioFormField": "email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Error", "your-email": "smoke-demio-error@example.com"}
+}

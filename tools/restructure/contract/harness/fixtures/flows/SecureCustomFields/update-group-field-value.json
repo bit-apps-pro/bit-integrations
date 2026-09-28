@@ -1,0 +1,18 @@
+{
+    "name": "SecureCustomFields smoke: update group sub-fields",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SecureCustomFields",
+        "name": "SecureCustomFields smoke",
+        "mainAction": "update_group_field_value",
+        "postId": "1",
+        "groupName": "smoke_group",
+        "field_map": [
+            {"formField": "your-name", "subFieldName": "full_name", "customValue": "", "rowIndex": ""},
+            {"formField": "custom", "subFieldName": "email", "customValue": "${your-email}", "rowIndex": ""}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Tester", "your-email": "smoke@example.com"}
+}

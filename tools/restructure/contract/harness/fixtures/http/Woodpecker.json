@@ -1,0 +1,16 @@
+[
+    {
+        "id": "company-add-error",
+        "method": "POST",
+        "url": "~^https://api\\.woodpecker\\.co/rest/v1/agency/companies/add~",
+        "body_contains": "Smoke Error Co",
+        "status": 200,
+        "body": {
+            "status": {
+                "status": "ERROR",
+                "code": "E_SMOKE",
+                "msg": "Smoke forced error"
+            }
+        }
+    }
+]

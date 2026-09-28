@@ -1,0 +1,29 @@
+{
+    "name": "Groundhogg smoke: create contact with tags, meta and note",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Groundhogg",
+        "name": "Groundhogg smoke",
+        "domainName": "https://groundhogg.example.test",
+        "token": "smoke-gh-token",
+        "public_key": "smoke-gh-public-key",
+        "mainAction": "1",
+        "addTagToUser": "",
+        "emailAddress": "",
+        "showMeta": true,
+        "optin_status": "2",
+        "field_map": [
+            {"formField": "your-email", "GroundhoggMapField": "email"},
+            {"formField": "your-name", "GroundhoggMapField": "first_name"},
+            {"formField": "custom", "GroundhoggMapField": "note", "customValue": "Smoke note for ${your-email}"}
+        ],
+        "field_map_meta": [
+            {"formField": "your-phone", "GroundhoggMetaMapField": "primary_phone"},
+            {"formField": "custom", "GroundhoggMetaMapField": "city", "customMetaFormValue": "Smoke City"}
+        ],
+        "actions": {"tags": "ground-Smoke,ground-Existing,your-name"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke", "your-phone": "5550100"}
+}

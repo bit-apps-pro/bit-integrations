@@ -1,0 +1,22 @@
+{
+    "name": "Insightly smoke: create contact linked to organisation",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Insightly",
+        "name": "Insightly smoke",
+        "api_key": "smoke-api-key",
+        "api_url": "na1.insightly.com",
+        "actionName": "contact",
+        "selectedOrganisation": "5001",
+        "actions": {"organisation": true},
+        "field_map": [
+            {"formField": "your-name", "insightlyFormField": "FIRST_NAME"},
+            {"formField": "your-email", "insightlyFormField": "EMAIL_ADDRESS"},
+            {"formField": "custom", "insightlyFormField": "TITLE", "customValue": "Smoke Title"},
+            {"formField": "your-phone", "insightlyFormField": "CUSTOMFIELDS", "customFieldKey": "Smoke_Phone__c"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-email": "smoke@example.com", "your-phone": "5550100"}
+}

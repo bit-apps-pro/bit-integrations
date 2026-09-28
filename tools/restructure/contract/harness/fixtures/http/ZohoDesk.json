@@ -1,0 +1,23 @@
+[
+    {
+        "id": "search-contact",
+        "method": "GET",
+        "url": "~^https://desk\\.zoho\\.com/api/v1/contacts/search\\?~",
+        "status": 200,
+        "body": {"data": [{"id": "600001", "email": "found@example.com", "lastName": "Smoke"}]}
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://desk\\.zoho\\.com/api/v1/contacts$~",
+        "status": 200,
+        "body": {"id": "600002", "lastName": "Smoke New"}
+    },
+    {
+        "id": "create-ticket",
+        "method": "POST",
+        "url": "~^https://desk\\.zoho\\.com/api/v1/tickets$~",
+        "status": 200,
+        "body": {"id": "500001", "ticketNumber": "101", "subject": "Smoke ticket"}
+    }
+]

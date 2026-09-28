@@ -1,0 +1,15 @@
+{
+    "name": "PopupMaker smoke: create_subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PopupMaker",
+        "name": "PopupMaker smoke",
+        "mainAction": "create_subscriber",
+        "field_map": [{"formField": "your-email", "popupMakerField": "email"}, {"formField": "your-name", "popupMakerField": "name"}],
+        "selectedPopup": "999991",
+        "utilities": {"selected_consent": "yes"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Popup", "your-email": "smoke@example.com", "your-id": "999991"}
+}

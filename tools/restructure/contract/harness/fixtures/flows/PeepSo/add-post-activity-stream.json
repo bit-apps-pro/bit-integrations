@@ -1,0 +1,18 @@
+{
+    "name": "PeepSo smoke: add post to activity stream",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PeepSo",
+        "name": "PeepSo smoke",
+        "mainAction": "add_post_activity_stream",
+        "field_map": [
+            {"formField": "your-email", "peepSoField": "user_email"},
+            {"formField": "your-subject", "peepSoField": "post_title"},
+            {"formField": "custom", "peepSoField": "post_content", "customValue": "Smoke post from ${your-email}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-subject": "Smoke Post"}
+}

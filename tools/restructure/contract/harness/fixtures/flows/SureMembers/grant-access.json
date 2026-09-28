@@ -1,0 +1,17 @@
+{
+    "name": "SureMembers smoke: Add admin user to SureMembers access group",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SureMembers",
+        "name": "SureMembers smoke",
+        "selectedTask": "grantAccess",
+        "selectedGroup": "870",
+        "field_map": [
+            {"formField": "your-email", "sureMembersField": "email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "admin@bit-integrations.org"}
+}

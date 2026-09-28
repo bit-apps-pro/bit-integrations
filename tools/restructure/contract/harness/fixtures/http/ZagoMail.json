@@ -1,0 +1,38 @@
+[
+    {
+        "id": "search-existing",
+        "method": "POST",
+        "url": "~^https://api\\.zagomail\\.com/lists/search-by-email\\?~",
+        "body_contains": "smoke-existing@example.com",
+        "status": 200,
+        "body": {"status": "success", "data": {"subscriber_uid": "smoke-sub-existing", "status": "confirmed"}}
+    },
+    {
+        "id": "search-missing",
+        "method": "POST",
+        "url": "~^https://api\\.zagomail\\.com/lists/search-by-email\\?~",
+        "status": 200,
+        "body": {"status": "error", "error": "Subscriber not found"}
+    },
+    {
+        "id": "subscriber-create",
+        "method": "POST",
+        "url": "~^https://api\\.zagomail\\.com/lists/subscriber-create\\?~",
+        "status": 200,
+        "body": {"status": "success", "data": {"record": {"subscriber_uid": "smoke-sub-new", "email": "smoke@example.com"}}}
+    },
+    {
+        "id": "subscriber-update",
+        "method": "POST",
+        "url": "~^https://api\\.zagomail\\.com/lists/subscriber-update\\?~",
+        "status": 200,
+        "body": {"status": "success", "data": {"record": {"subscriber_uid": "smoke-sub-existing"}}}
+    },
+    {
+        "id": "add-tag",
+        "method": "POST",
+        "url": "~^https://api\\.zagomail\\.com/lists/add-tag\\?~",
+        "status": 200,
+        "body": {"status": "success"}
+    }
+]

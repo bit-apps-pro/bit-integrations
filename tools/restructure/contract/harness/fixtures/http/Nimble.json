@@ -1,0 +1,9 @@
+[
+    {
+        "id": "nimble-create-contact",
+        "method": "POST",
+        "url": "~^https://app\\.nimble\\.com/api/v1/contact$~",
+        "status": 200,
+        "body": {"id": "smoke-nimble-contact-1", "record_type": "person", "fields": {}}
+    }
+]

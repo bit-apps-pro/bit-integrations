@@ -1,0 +1,16 @@
+[
+    {
+        "id": "token-refresh",
+        "method": "POST",
+        "url": "~^https://accounts\\.zoho\\.[a-z.]+/oauth/v2/token~",
+        "status": 200,
+        "body": {"access_token": "smoke-refreshed-token", "expires_in": 3600, "token_type": "Bearer"}
+    },
+    {
+        "id": "listsubscribe",
+        "method": "POST",
+        "url": "~^https://campaigns\\.zoho\\.[a-z.]+/api/v1\\.1/json/listsubscribe~",
+        "status": 200,
+        "body": {"status": "success", "code": "0", "message": "A confirmation email is sent to the user."}
+    }
+]

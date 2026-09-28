@@ -1,0 +1,19 @@
+{
+    "name": "ElasticEmail smoke: add contact to two lists",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ElasticEmail",
+        "name": "ElasticEmail smoke",
+        "api_key": "smoke-api-key",
+        "list_id": ["Smoke List A", "SmokeListB"],
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "elasticEmailField": "Email"},
+            {"formField": "your-name", "elasticEmailField": "FirstName"},
+            {"formField": "custom", "elasticEmailField": "LastName", "customValue": "Smoke ${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

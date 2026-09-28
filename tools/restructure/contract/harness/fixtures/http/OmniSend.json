@@ -1,0 +1,9 @@
+[
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://api\\.omnisend\\.com/v3/contacts$~",
+        "status": 200,
+        "body": {"contactID": "smoke-contact-1", "email": "smoke@example.com"}
+    }
+]

@@ -1,0 +1,27 @@
+[
+    {
+        "id": "contact-create",
+        "method": "POST",
+        "url": "~^https://smoke\\.salesmate\\.io/apis/contact/v4~",
+        "body": {"Status": "success", "Data": {"id": 101}}
+    },
+    {
+        "id": "deal-create",
+        "method": "POST",
+        "url": "~^https://smoke\\.salesmate\\.io/apis/deal/v4~",
+        "body": {"Status": "success", "Data": {"id": 401}}
+    },
+    {
+        "id": "company-create-error",
+        "method": "POST",
+        "url": "~^https://smoke\\.salesmate\\.io/apis/company/v4~",
+        "status": 400,
+        "body": {"Status": "failure", "Error": {"Message": "Invalid owner"}}
+    },
+    {
+        "id": "product-create",
+        "method": "POST",
+        "url": "~^https://smoke\\.salesmate\\.io/apis/v1/products~",
+        "body": {"Status": "success", "Data": {"id": 601}}
+    }
+]

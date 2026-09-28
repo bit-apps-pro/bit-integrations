@@ -1,0 +1,26 @@
+[
+    {
+        "id": "lookup-new",
+        "method": "POST",
+        "url": "~api\\.vbout\\.com/1/emailmarketing/getcontactbyemail\\?.*email=smoke-new~",
+        "body": {"response": {"header": {"status": "ok"}, "data": {"contact": {"errorCode": 1021, "errorMessage": "Contact not found"}}}}
+    },
+    {
+        "id": "lookup-existing",
+        "method": "POST",
+        "url": "~api\\.vbout\\.com/1/emailmarketing/getcontactbyemail\\?.*email=smoke-existing~",
+        "body": {"response": {"header": {"status": "ok"}, "data": {"contact": [{"id": "90001", "email": "smoke-existing@example.com"}]}}}
+    },
+    {
+        "id": "add-contact",
+        "method": "POST",
+        "url": "~api\\.vbout\\.com/1/emailmarketing/addcontact\\?~",
+        "body": {"response": {"header": {"status": "ok"}, "data": {"id": "90002"}}}
+    },
+    {
+        "id": "edit-contact",
+        "method": "POST",
+        "url": "~api\\.vbout\\.com/1/emailmarketing/editcontact\\?~",
+        "body": {"response": {"header": {"status": "ok"}, "data": {"id": "90001"}}}
+    }
+]

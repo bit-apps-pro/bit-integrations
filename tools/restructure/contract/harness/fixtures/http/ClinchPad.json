@@ -1,0 +1,30 @@
+[
+    {
+        "id": "create-organization",
+        "method": "POST",
+        "url": "~^https://www\\.clinchpad\\.com/api/v1/organizations$~",
+        "status": 200,
+        "body": {"_id": "smoke-org-1", "name": "Smoke Co"}
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://www\\.clinchpad\\.com/api/v1/contacts$~",
+        "status": 200,
+        "body": {"_id": "smoke-contact-1", "name": "Smoke User"}
+    },
+    {
+        "id": "create-lead",
+        "method": "POST",
+        "url": "~^https://www\\.clinchpad\\.com/api/v1/leads$~",
+        "status": 200,
+        "body": {"_id": "smoke-lead-1", "name": "Smoke Lead"}
+    },
+    {
+        "id": "lead-add-contact",
+        "method": "POST",
+        "url": "~^https://www\\.clinchpad\\.com/api/v1/leads/smoke-lead-1/contacts/smoke-contact-1$~",
+        "status": 200,
+        "body": {"_id": "smoke-lead-1"}
+    }
+]

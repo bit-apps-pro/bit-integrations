@@ -1,0 +1,24 @@
+{
+    "name": "JetEngine smoke: delete relation by mapped id",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "JetEngine",
+        "name": "JetEngine smoke",
+        "selectedTask": "deleteRelation",
+        "actions": {},
+        "selectedMenuPosition": "",
+        "selectedMenuIcon": "",
+        "selectedSupports": "",
+        "selectedTaxPostTypes": "",
+        "relOptions": {"parentObject": "", "childObject": "", "selectedRelationType": "", "selectedRelationForEdit": ""},
+        "selectedCPT": "",
+        "selectedCCT": "",
+        "selectedTaxForEdit": "",
+        "field_map": [
+            {"formField": "relation-id", "jetEngineField": "relation_id"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"relation-id": "999999"}
+}

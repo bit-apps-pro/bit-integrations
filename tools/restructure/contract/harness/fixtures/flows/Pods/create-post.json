@@ -1,0 +1,24 @@
+{
+    "name": "Pods smoke: create post and map pod fields",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Pods",
+        "name": "Pods smoke",
+        "post_type": "post",
+        "post_status": "draft",
+        "comment_status": "closed",
+        "post_author": "logged_in_user",
+        "post_map": [
+            {"formField": "your-name", "postFormField": "post_title"},
+            {"formField": "custom", "postFormField": "post_content", "customValue": "Pods smoke body for ${your-email}"}
+        ],
+        "pod_field_map": [
+            {"formField": "your-email", "podField": "smoke_email"},
+            {"formField": "custom", "podField": "smoke_note", "customValue": "note ${your-name}"}
+        ],
+        "pod_file_map": [{}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Pods Post", "your-email": "smoke@example.com"}
+}

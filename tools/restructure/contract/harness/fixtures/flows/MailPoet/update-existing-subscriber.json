@@ -1,0 +1,17 @@
+{
+    "name": "MailPoet smoke: update an existing subscriber through the Pro filter",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailPoet",
+        "name": "MailPoet smoke",
+        "lists": ["3"],
+        "actions": {"update": true, "send_confirmation_email": true},
+        "field_map": [
+            {"formField": "your-email", "mailPoetField": "email"},
+            {"formField": "your-name", "mailPoetField": "first_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-name": "Smoke Existing"}
+}

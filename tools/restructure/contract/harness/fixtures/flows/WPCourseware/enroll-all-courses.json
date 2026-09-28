@@ -1,0 +1,16 @@
+{
+    "name": "WPCourseware smoke: enroll mapped admin user in all courses",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WPCourseware",
+        "name": "WPCourseware smoke",
+        "action": "enroll",
+        "course": ["select_all_course"],
+        "selectedAllCourse": ["1", "2"],
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "admin@bit-integrations.org"}
+}

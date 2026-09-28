@@ -1,0 +1,19 @@
+{
+    "name": "TheEventsCalendar smoke: register RSVP attendee",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "TheEventsCalendar",
+        "name": "TheEventsCalendar smoke",
+        "selectedTask": "newAttendee",
+        "selectedEvent": "1",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-name", "theEventsCalendarField": "name"},
+            {"formField": "your-email", "theEventsCalendarField": "email"},
+            {"formField": "custom", "theEventsCalendarField": "number_of_guests", "customValue": "2"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Attendee"}
+}

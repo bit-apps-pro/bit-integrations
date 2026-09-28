@@ -1,0 +1,20 @@
+{
+    "name": "MailRelay smoke: PATCH an existing subscriber when update is on",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailRelay",
+        "name": "MailRelay smoke",
+        "auth_token": "smoke-api-key",
+        "domain": "smoke",
+        "status": "inactive",
+        "selectedGroups": "11",
+        "actions": {"groups": true, "update": true},
+        "field_map": [
+            {"formField": "your-email", "mailRelayFormField": "email"},
+            {"formField": "your-name", "mailRelayFormField": "name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-name": "Smoke Existing"}
+}

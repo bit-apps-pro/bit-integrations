@@ -1,0 +1,20 @@
+{
+    "name": "Hubspot smoke: update existing company with type and industry",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Hubspot",
+        "name": "Hubspot smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "company",
+        "company_type": "PROSPECT",
+        "industry": "COMPUTER_SOFTWARE",
+        "field_map": [
+            {"formField": "company-name", "hubspotField": "name"},
+            {"formField": "company-domain", "hubspotField": "domain"}
+        ],
+        "actions": {"update": true, "company_type": true, "industry": true},
+        "isAuthorized": true
+    },
+    "field_data": {"company-name": "Smoke Company", "company-domain": "smoke.example.com"}
+}

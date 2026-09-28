@@ -1,0 +1,20 @@
+{
+    "name": "Smaily smoke: create new subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Smaily",
+        "name": "Smaily smoke",
+        "subdomain": "smoke",
+        "api_user_name": "smoke-user",
+        "api_user_password": "smoke-password",
+        "field_map": [
+            {"formField": "your-email", "smailyFormField": "email"},
+            {"formField": "your-birthday", "smailyFormField": "birthday"},
+            {"formField": "custom", "smailyFormField": "customFieldKey", "customFieldKey": "source", "customValue": "smoke"}
+        ],
+        "actions": {"unsubscribe": false},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-new@example.com", "your-birthday": "1990-01-01"}
+}

@@ -1,0 +1,21 @@
+{
+    "name": "Sendy smoke: add subscriber to list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Sendy",
+        "name": "Sendy smoke",
+        "api_key": "smoke-api-key",
+        "sendy_url": "https://sendy.example.test",
+        "brand_id": "1",
+        "list_id": "smoke-list-101",
+        "field_map": [
+            {"formField": "your-email", "sendyField": "email"},
+            {"formField": "your-name", "sendyField": "name"},
+            {"formField": "custom", "sendyField": "customFieldKey", "customFieldKey": "Source", "customValue": "Smoke ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Subscriber"}
+}

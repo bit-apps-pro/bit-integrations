@@ -1,0 +1,19 @@
+{
+    "name": "TheEventsCalendar smoke: non-numeric guest count writes error log",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "TheEventsCalendar",
+        "name": "TheEventsCalendar smoke",
+        "selectedTask": "newAttendee",
+        "selectedEvent": "1",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-name", "theEventsCalendarField": "name"},
+            {"formField": "your-email", "theEventsCalendarField": "email"},
+            {"formField": "your-guests", "theEventsCalendarField": "number_of_guests"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Attendee", "your-guests": "two"}
+}

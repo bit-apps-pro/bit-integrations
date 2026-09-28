@@ -1,0 +1,22 @@
+{
+    "name": "MailRelay smoke: create a subscriber with groups and custom field",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailRelay",
+        "name": "MailRelay smoke",
+        "auth_token": "smoke-api-key",
+        "domain": "smoke",
+        "status": "active",
+        "selectedGroups": "11,12",
+        "actions": {"groups": true},
+        "field_map": [
+            {"formField": "your-email", "mailRelayFormField": "email"},
+            {"formField": "your-name", "mailRelayFormField": "name"},
+            {"formField": "your-phone", "mailRelayFormField": "sms_phone"},
+            {"formField": "custom", "mailRelayFormField": "f_101", "customValue": "Note ${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name", "your-phone": "+15550100"}
+}

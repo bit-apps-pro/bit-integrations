@@ -1,0 +1,17 @@
+[
+    {
+        "id": "contact-rejected",
+        "method": "POST",
+        "url": "~^https://app\\.suitedash\\.com/secure-api/contact$~",
+        "body_contains": "smoke-existing@example.com",
+        "status": 422,
+        "body": {"success": false, "message": "Contact already exists"}
+    },
+    {
+        "id": "contact-created",
+        "method": "POST",
+        "url": "~^https://app\\.suitedash\\.com/secure-api/contact$~",
+        "status": 201,
+        "body": {"success": true, "data": {"uid": "smoke-contact-uid"}}
+    }
+]

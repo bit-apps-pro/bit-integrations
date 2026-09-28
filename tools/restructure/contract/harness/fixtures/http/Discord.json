@@ -1,0 +1,16 @@
+[
+    {
+        "id": "message-error",
+        "method": "POST",
+        "url": "~^https://discord\\.com/api/v10/channels/[^/]+/messages$~",
+        "body_contains": "smoke-discord-error",
+        "status": 403,
+        "body": {"message": "Missing Access", "code": 50001}
+    },
+    {
+        "id": "message",
+        "method": "POST",
+        "url": "~^https://discord\\.com/api/v10/channels/[^/]+/messages$~",
+        "body": {"id": "3001", "channel_id": "2001", "content": "smoke"}
+    }
+]

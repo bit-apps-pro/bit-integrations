@@ -1,0 +1,25 @@
+{
+    "name": "NutshellCRM smoke: create lead with all lead actions",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NutshellCRM",
+        "name": "NutshellCRM smoke",
+        "user_name": "smoke-user@example.com",
+        "api_token": "smoke-api-token",
+        "actionName": "lead",
+        "actionId": "",
+        "actions": {"Priority": true, "Contact": true, "Company": true, "Product": true, "Source": true, "Tag": true},
+        "selectedContact": "21",
+        "selectedCompany": "11",
+        "selectedProduct": "31",
+        "selectedSource": "41",
+        "selectedTag": "smoke-tag",
+        "field_map": [
+            {"formField": "your-message", "nutshellCRMFormField": "description"},
+            {"formField": "custom", "nutshellCRMFormField": "confidence", "customValue": "70"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-last": "User", "your-email": "smoke@example.com", "your-phone": "5550100", "your-city": "Dhaka", "your-company": "Smoke Co", "your-message": "Smoke lead"}
+}

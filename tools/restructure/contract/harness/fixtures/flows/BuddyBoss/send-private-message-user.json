@@ -1,0 +1,19 @@
+{
+    "name": "BuddyBoss smoke: send a private message to a user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BuddyBoss",
+        "name": "BuddyBoss smoke",
+        "mainAction": "10",
+        "friendId": "1",
+        "recipientUserId": "loggedInUser",
+        "field_map": [
+            {"formField": "your-message", "buddyBossFormField": "message_content"},
+            {"formField": "custom", "buddyBossFormField": "message_subject", "customValue": "Smoke from ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User", "your-message": "Smoke private message body"}
+}

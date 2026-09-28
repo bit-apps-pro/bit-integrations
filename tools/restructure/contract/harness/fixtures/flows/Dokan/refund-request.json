@@ -1,0 +1,20 @@
+{
+    "name": "Dokan smoke: refund request",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Dokan",
+        "name": "Dokan smoke",
+        "selectedTask": "refundRequest",
+        "selectedVendor": "",
+        "selectedPaymentMethod": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-order", "dokanField": "order_id"},
+            {"formField": "your-amount", "dokanField": "refund_amount"},
+            {"formField": "your-note", "dokanField": "refund_reason"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-order": "1", "your-amount": "5", "your-note": "Smoke refund"}
+}

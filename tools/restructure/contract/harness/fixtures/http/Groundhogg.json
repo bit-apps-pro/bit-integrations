@@ -1,0 +1,32 @@
+[
+    {
+        "id": "list-tags",
+        "method": "GET",
+        "url": "~rest_route=/gh/v3/tags~",
+        "body": {"status": "success", "tags": [{"tag_id": 3, "tag_name": "Existing"}]}
+    },
+    {
+        "id": "create-tags",
+        "method": "POST",
+        "url": "~rest_route=/gh/v3/tags~",
+        "body": {"status": "success", "tags": {"4": "Smoke"}}
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~rest_route=/gh/v3/contacts$~",
+        "body": {"status": "success", "contact": {"ID": 55, "data": {"email": "smoke@example.com"}}}
+    },
+    {
+        "id": "create-note",
+        "method": "POST",
+        "url": "~rest_route=/gh/v4/notes/~",
+        "body": {"status": "success", "items": [{"ID": 77}]}
+    },
+    {
+        "id": "apply-tags",
+        "method": "PUT",
+        "url": "~rest_route=/gh/v3/contacts/apply_tags~",
+        "body": {"status": "success", "contact": {"ID": 55}}
+    }
+]

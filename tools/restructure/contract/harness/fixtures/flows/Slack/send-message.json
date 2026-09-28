@@ -1,0 +1,17 @@
+{
+    "name": "Slack smoke: post message to channel",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Slack",
+        "name": "Slack smoke",
+        "accessToken": "smoke-access-token",
+        "parse_mode": "HTML",
+        "channel_id": "C0SMOKE01",
+        "body": "<p>New entry from ${your-name} (${your-email})</p>",
+        "field_map": [{"formField": "", "slackFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User", "your-email": "smoke@example.com"}
+}

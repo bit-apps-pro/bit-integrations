@@ -1,0 +1,23 @@
+[
+    {
+        "id": "subscribe",
+        "method": "POST",
+        "url": "~^https://api\\.moosend\\.com/v3/subscribers/[^/]+/subscribe\\.json\\?apikey=~",
+        "status": 200,
+        "body": {"Code": 0, "Error": null, "Context": {"ID": "smoke-subscriber-1", "Email": "smoke@example.com", "SubscribeType": 1}}
+    },
+    {
+        "id": "unsubscribe-from-list",
+        "method": "POST",
+        "url": "~^https://api\\.moosend\\.com/v3/subscribers/[^/]+/unsubscribe\\.json\\?apikey=~",
+        "status": 200,
+        "body": {"Code": 0, "Error": null, "Context": null}
+    },
+    {
+        "id": "unsubscribe-all",
+        "method": "POST",
+        "url": "~^https://api\\.moosend\\.com/v3/subscribers/unsubscribe\\.json\\?apikey=~",
+        "status": 200,
+        "body": {"Code": 0, "Error": null, "Context": null}
+    }
+]

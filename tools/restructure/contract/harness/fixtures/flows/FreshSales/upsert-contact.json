@@ -1,0 +1,16 @@
+{
+    "name": "FreshSales smoke: upsert contact (Pro seam, falls back to insert)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "FreshSales",
+        "name": "FreshSales smoke",
+        "api_key": "smoke-api-key",
+        "bundle_alias": "smoke.myfreshworks.com/crm/sales",
+        "moduleData": {"module": "Contact", "account_view_id": 1, "account_id": 5001},
+        "actions": {"upsert": true},
+        "field_map": [{"formField": "first-name", "freshSalesFormField": "first_name"}, {"formField": "last-name", "freshSalesFormField": "last_name"}, {"formField": "your-email", "freshSalesFormField": "emails"}],
+        "isAuthorized": true
+    },
+    "field_data": {"first-name": "Smoke", "last-name": "Upsert", "your-email": "smoke-upsert@example.com"}
+}

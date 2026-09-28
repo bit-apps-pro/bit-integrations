@@ -1,0 +1,22 @@
+{
+    "name": "Selzy smoke: unsubscribe contact (legacy authKey)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Selzy",
+        "name": "Selzy smoke",
+        "authKey": "smoke-auth-key",
+        "api_key": "",
+        "listIds": "11",
+        "tags": "",
+        "method": "2",
+        "option": "0",
+        "overwrite": "0",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "selzyFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

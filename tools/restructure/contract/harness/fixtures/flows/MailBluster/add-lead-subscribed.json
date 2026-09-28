@@ -1,0 +1,21 @@
+{
+    "name": "MailBluster smoke: add subscribed lead with tags, custom field, override and double opt-in",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailBluster",
+        "name": "MailBluster smoke",
+        "auth_token": "smoke-api-key",
+        "subscribed": "true",
+        "selectedTags": "smoke-tag,vip",
+        "actions": {"update": true, "doubleOptIn": true},
+        "field_map": [
+            {"formField": "your-email", "mailBlusterFormField": "email"},
+            {"formField": "your-name", "mailBlusterFormField": "firstName"},
+            {"formField": "custom", "mailBlusterFormField": "lastName", "customValue": "Smoke"},
+            {"formField": "your-city", "mailBlusterFormField": "city"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke User", "your-city": "Dhaka"}
+}

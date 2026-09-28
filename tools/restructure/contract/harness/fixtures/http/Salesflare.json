@@ -1,0 +1,23 @@
+[
+    {
+        "id": "account-create",
+        "method": "POST",
+        "url": "~^https://api\\.salesflare\\.com/accounts$~",
+        "status": 200,
+        "body": {"id": 7001}
+    },
+    {
+        "id": "contact-create",
+        "method": "POST",
+        "url": "~^https://api\\.salesflare\\.com/contacts$~",
+        "status": 200,
+        "body": {"id": 7101}
+    },
+    {
+        "id": "opportunity-create",
+        "method": "POST",
+        "url": "~^https://api\\.salesflare\\.com/opportunities$~",
+        "status": 200,
+        "body": {"id": 7201}
+    }
+]

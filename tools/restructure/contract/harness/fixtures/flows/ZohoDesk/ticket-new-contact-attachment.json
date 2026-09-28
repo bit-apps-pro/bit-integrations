@@ -1,0 +1,24 @@
+{
+    "name": "ZohoDesk smoke: create contact (no email mapped), ticket, attachment branch",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZohoDesk",
+        "name": "ZohoDesk smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "dataCenter": "com",
+        "orgId": "700001",
+        "department": "800001",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "api_domain": "https%3A%2F%2Fwww.zohoapis.com", "generates_on": 4102444800},
+        "default": {"fields": {"700001": {"required": ["lastName", "subject"]}}},
+        "actions": {"ticket_owner": "900001", "attachments": "your-file"},
+        "field_map": [
+            {"formField": "your-name", "zohoFormField": "lastName"},
+            {"formField": "your-subject", "zohoFormField": "subject"},
+            {"formField": "custom", "zohoFormField": "cf_source", "customValue": "smoke-${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke New", "your-subject": "Smoke ticket two", "your-file": "/nonexistent/smoke-attachment.txt"}
+}

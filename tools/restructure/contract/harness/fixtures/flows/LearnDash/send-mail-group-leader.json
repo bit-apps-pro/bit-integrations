@@ -1,0 +1,17 @@
+{
+    "name": "LearnDash smoke: send email to group leaders via Mail (action 16)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LearnDash",
+        "name": "LearnDash smoke",
+        "mainAction": "",
+        "learnDashConf": {"mainAction": "16", "type": "LearnDash"},
+        "to": ["${your-email}", "leader@example.com"],
+        "subject": "Smoke mail for ${your-name}",
+        "body": "<p>Hello ${your-name}</p>",
+        "field_map": [{"formField": "", "learnDeshFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Group"}
+}

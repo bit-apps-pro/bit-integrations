@@ -1,0 +1,9 @@
+[
+    {
+        "id": "create-license",
+        "method": "POST",
+        "url": "~^https://example\\.com/wp-json/lmfwc/v2/licenses$~",
+        "status": 200,
+        "body": {"success": true, "data": {"id": 11, "licenseKey": "SMOKE-LICENSE-0001", "status": 3}}
+    }
+]

@@ -1,0 +1,16 @@
+{
+    "name": "EventsManager smoke: unregister user from event",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "EventsManager",
+        "name": "EventsManager smoke",
+        "mainAction": "unregister_user_from_event",
+        "field_map": [
+            {"formField": "event-id", "eventsManagerField": "event_id"},
+            {"formField": "your-email", "eventsManagerField": "user_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"event-id": "12", "your-email": "smoke@example.com"}
+}

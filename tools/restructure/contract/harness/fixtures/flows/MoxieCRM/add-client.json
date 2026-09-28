@@ -1,0 +1,45 @@
+{
+    "name": "MoxieCRM smoke: create client with contact and record type",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MoxieCRM",
+        "name": "MoxieCRM smoke",
+        "api_key": "smoke-api-key",
+        "api_url": "smoke.withmoxie.test",
+        "actionName": "client",
+        "recordType": "Client",
+        "actions": {},
+        "field_map": [
+            {
+                "formField": "your-name",
+                "moxiecrmFormField": "name"
+            },
+            {
+                "formField": "your-phone",
+                "moxiecrmFormField": "phone"
+            },
+            {
+                "formField": "first-name",
+                "moxiecrmFormField": "firstName"
+            },
+            {
+                "formField": "last-name",
+                "moxiecrmFormField": "lastName"
+            },
+            {
+                "formField": "your-email",
+                "moxiecrmFormField": "email"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke Client",
+        "first-name": "Smoke",
+        "last-name": "Tester",
+        "your-phone": "5550100",
+        "budget": "1500"
+    }
+}

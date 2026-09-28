@@ -1,0 +1,17 @@
+{
+    "name": "SecureCustomFields smoke: update post field value",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SecureCustomFields",
+        "name": "SecureCustomFields smoke",
+        "mainAction": "update_post_acf_value",
+        "field_map": [
+            {"formField": "custom", "secureCustomFieldsField": "post_id", "customValue": "1"},
+            {"formField": "custom", "secureCustomFieldsField": "field_name", "customValue": "smoke_field"},
+            {"formField": "your-message", "secureCustomFieldsField": "field_value"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-message": "Smoke post value"}
+}

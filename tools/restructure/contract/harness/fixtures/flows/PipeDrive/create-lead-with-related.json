@@ -1,0 +1,28 @@
+{
+    "name": "PipeDrive smoke: create lead with currency, label and related note",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PipeDrive",
+        "name": "PipeDrive smoke",
+        "api_key": "smoke-api-key",
+        "moduleData": {"module": "Leads", "organization_id": 11, "person_id": 22, "owner": 33, "currency": "EUR", "lead_label": "f08b42a0-4e75-11ea-9643-03698ef1cfd6,f08b42a1-4e75-11ea-9643-03698ef1cfd6"},
+        "actions": {"currency": true},
+        "field_map": [
+            {"formField": "your-name", "pipeDriveFormField": "title"},
+            {"formField": "lead-value", "pipeDriveFormField": "value"}
+        ],
+        "relatedlists": [
+            {
+                "module": "Notes",
+                "moduleData": {},
+                "actions": {},
+                "field_map": [
+                    {"formField": "your-message", "pipeDriveFormField": "content"}
+                ]
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Lead", "lead-value": "900", "your-message": "Lead note body"}
+}

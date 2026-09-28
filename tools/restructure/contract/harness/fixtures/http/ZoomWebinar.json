@@ -1,0 +1,42 @@
+[
+    {
+        "id": "list-registrants",
+        "method": "GET",
+        "url": "~api\\.zoom\\.us/v2/webinars/85012345678/registrants(\\?|$)~",
+        "status": 200,
+        "body": {
+            "page_size": 30,
+            "total_records": 2,
+            "registrants": [
+                {
+                    "id": "reg-other",
+                    "email": "other@example.com"
+                },
+                {
+                    "id": "reg-smoke-1",
+                    "email": "smoke@example.com"
+                }
+            ]
+        }
+    },
+    {
+        "id": "list-users",
+        "method": "GET",
+        "url": "~api\\.zoom\\.us/v2/users(\\?|$)~",
+        "status": 200,
+        "body": {
+            "page_size": 30,
+            "total_records": 2,
+            "users": [
+                {
+                    "id": "usr-other",
+                    "email": "other@example.com"
+                },
+                {
+                    "id": "usr-smoke-1",
+                    "email": "smoke@example.com"
+                }
+            ]
+        }
+    }
+]

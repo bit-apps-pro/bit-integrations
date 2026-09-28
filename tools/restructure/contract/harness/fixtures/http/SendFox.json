@@ -1,0 +1,24 @@
+[
+    {
+        "id": "add-contact-rejected",
+        "method": "POST",
+        "url": "~^https://api\\.sendfox\\.com/contacts$~",
+        "body_contains": "smoke-reject",
+        "status": 422,
+        "body": {"message": "The given data was invalid.", "errors": {"email": ["The email has already been taken."]}}
+    },
+    {
+        "id": "add-contact",
+        "method": "POST",
+        "url": "~^https://api\\.sendfox\\.com/contacts$~",
+        "status": 200,
+        "body": {"id": 5001, "email": "smoke@example.com"}
+    },
+    {
+        "id": "create-list",
+        "method": "POST",
+        "url": "~^https://api\\.sendfox\\.com/lists$~",
+        "status": 200,
+        "body": {"id": 101, "name": "Smoke List"}
+    }
+]

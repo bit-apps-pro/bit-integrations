@@ -1,0 +1,20 @@
+{
+    "name": "MailerPress smoke: create or update contact with lists and tags",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailerPress",
+        "name": "MailerPress smoke",
+        "mainAction": "create_or_update_contact",
+        "lists": "1,2",
+        "tags": ["3"],
+        "field_map": [
+            {"formField": "your-email", "mailerPressField": "email"},
+            {"formField": "first-name", "mailerPressField": "first_name"},
+            {"formField": "last-name", "mailerPressField": "last_name"},
+            {"formField": "custom", "customValue": "subscribed", "mailerPressField": "status"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "first-name": "Smoke", "last-name": "Tester"}
+}

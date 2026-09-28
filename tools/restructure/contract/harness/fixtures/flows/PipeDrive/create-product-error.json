@@ -1,0 +1,21 @@
+{
+    "name": "PipeDrive smoke: create product without currency (API error logged)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PipeDrive",
+        "name": "PipeDrive smoke",
+        "api_key": "smoke-api-key",
+        "moduleData": {"module": "Products", "owner": 33},
+        "actions": {"active_flag": true},
+        "field_map": [
+            {"formField": "your-name", "pipeDriveFormField": "name"},
+            {"formField": "price", "pipeDriveFormField": "price"},
+            {"formField": "cost", "pipeDriveFormField": "cost"},
+            {"formField": "overhead", "pipeDriveFormField": "overhead_cost"}
+        ],
+        "relatedlists": [],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Product", "price": "40", "cost": "15", "overhead": "5"}
+}

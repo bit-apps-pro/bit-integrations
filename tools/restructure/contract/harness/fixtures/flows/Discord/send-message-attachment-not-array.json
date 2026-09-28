@@ -1,0 +1,18 @@
+{
+    "name": "Discord smoke: attachments action set but file value is not an array",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Discord",
+        "name": "Discord smoke",
+        "accessToken": "smoke-bot-token",
+        "parse_mode": "HTML",
+        "selectedServer": "1001",
+        "selectedChannel": "2001",
+        "body": "<p>Text-only from ${your-name}</p>",
+        "field_map": [{"formField": "", "discordFormField": ""}],
+        "actions": {"attachments": "your-file"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Person", "your-file": "smoke.pdf"}
+}

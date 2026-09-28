@@ -1,0 +1,35 @@
+{
+    "name": "Woodpecker smoke: add prospect to prospects list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Woodpecker",
+        "name": "Woodpecker smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "adding_prospects_to_the_prospects_list",
+        "actionId": "",
+        "actions": {
+            "update": true
+        },
+        "field_map": [
+            {
+                "formField": "your-email",
+                "woodpeckerFormField": "email"
+            },
+            {
+                "formField": "first-name",
+                "woodpeckerFormField": "first_name"
+            },
+            {
+                "formField": "custom",
+                "woodpeckerFormField": "company",
+                "customValue": "Smoke Co"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "first-name": "Smoke"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "JetEngine smoke: create taxonomy",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "JetEngine",
+        "name": "JetEngine smoke",
+        "selectedTask": "createTaxonomy",
+        "actions": {"public": true, "hierarchical": true},
+        "selectedMenuPosition": "",
+        "selectedMenuIcon": "",
+        "selectedSupports": "",
+        "selectedTaxPostTypes": "post,page",
+        "relOptions": {"parentObject": "", "childObject": "", "selectedRelationType": "", "selectedRelationForEdit": ""},
+        "selectedCPT": "",
+        "selectedCCT": "",
+        "selectedTaxForEdit": "",
+        "field_map": [
+            {"formField": "your-subject", "jetEngineField": "name"},
+            {"formField": "custom", "jetEngineField": "singular_name", "customValue": "Smoke Genre"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Genres"}
+}

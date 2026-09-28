@@ -1,0 +1,18 @@
+{
+    "name": "Autonami smoke: insert with skip_if_exists action",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Autonami",
+        "name": "Autonami smoke",
+        "field_map": [
+            {"formField": "your-email", "autonamiField": "email"},
+            {"formField": "your-name", "autonamiField": "f_name"}
+        ],
+        "lists": ["1"],
+        "tags": ["1"],
+        "actions": {"skip_if_exists": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-autonami-skip@example.com", "your-name": "Smoke Name"}
+}

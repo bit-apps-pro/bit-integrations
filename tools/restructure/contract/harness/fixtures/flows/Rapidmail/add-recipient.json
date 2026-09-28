@@ -1,0 +1,21 @@
+{
+    "name": "Rapidmail smoke: add recipient with double opt-in",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Rapidmail",
+        "name": "Rapidmail smoke",
+        "username": "smoke-user",
+        "password": "smoke-password",
+        "recipient_id": "501",
+        "default": {"recipientlists": [{"id": 501, "name": "Smoke List"}]},
+        "actions": {"send_activationmail": true},
+        "field_map": [
+            {"formField": "your-email", "rapidmailFormField": "email"},
+            {"formField": "your-name", "rapidmailFormField": "firstname"},
+            {"formField": "custom", "rapidmailFormField": "extra1", "customValue": "Via ${your-email}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

@@ -1,0 +1,16 @@
+{
+    "name": "AcademyLms smoke: unenroll current user from all courses",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "AcademyLms",
+        "name": "AcademyLms smoke",
+        "actionName": "unenroll-course",
+        "selectedCourse": ["all-course"], "selectedAllCourse": [{"courseId": "all-course", "courseTitle": "All Course"}, {"courseId": "101", "courseTitle": "Smoke Course"}, {"courseId": "102", "courseTitle": "Smoke Course Two"}],
+        "field_map": [{"formField": "", "tutorField": ""}],
+        "actions": {},
+        "actionData": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Learner"}
+}

@@ -1,0 +1,22 @@
+{
+    "name": "ZohoMarketingHub smoke: subscribe to list, API reports success",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZohoMarketingHub",
+        "name": "ZohoMarketingHub smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "dataCenter": "com",
+        "list": "smoke-list-ok",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "api_domain": "https%3A%2F%2Fwww.zohoapis.com", "generates_on": 4102444800},
+        "default": {"fields": {"smoke-list-ok": {"required": ["Contact Email"]}}},
+        "field_map": [
+            {"formField": "your-email", "zohoFormField": "Contact Email"},
+            {"formField": "your-name", "zohoFormField": "First Name"},
+            {"formField": "custom", "zohoFormField": "Last Name", "customValue": "Fixture"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

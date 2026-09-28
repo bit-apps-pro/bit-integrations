@@ -1,0 +1,20 @@
+{
+    "name": "PerfexCRM smoke: add customer",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PerfexCRM",
+        "name": "PerfexCRM smoke",
+        "actionName": "customer",
+        "field_map": [
+            {"formField": "your-company", "perfexCRMFormField": "company"},
+            {"formField": "your-phone", "perfexCRMFormField": "phonenumber"},
+            {"formField": "custom", "perfexCRMFormField": "city", "customValue": "Smoke City"}
+        ],
+        "selectedLeadSourceId": 1,
+        "selectedLeadStatusId": 1,
+        "actions": {},
+        "api_token": "smoke-api-token", "domain": "https://perfex.example.test", "isAuthorized": true
+    },
+    "field_data": {"your-company": "Smoke Co", "your-phone": "5550100"}
+}

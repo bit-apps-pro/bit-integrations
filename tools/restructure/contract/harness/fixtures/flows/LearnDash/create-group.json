@@ -1,0 +1,15 @@
+{
+    "name": "LearnDash smoke: create group with course access (action 1)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LearnDash",
+        "name": "LearnDash smoke",
+        "mainAction": "1",
+        "userRole": "1",
+        "courseId": "101",
+        "field_map": [{"formField": "your-name", "learnDeshFormField": "title"}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Group"}
+}

@@ -1,0 +1,8 @@
+[
+    {
+        "id": "create-record",
+        "method": "POST",
+        "url": "~^https://api\\.companyhub\\.com/v1/tables/(contact|company|deal)$~",
+        "body": {"Success": true, "Id": "smoke-record-1"}
+    }
+]

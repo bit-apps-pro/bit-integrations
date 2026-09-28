@@ -1,0 +1,25 @@
+{
+    "name": "PerfexCRM smoke: add fixed-rate project for a customer",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PerfexCRM",
+        "name": "PerfexCRM smoke",
+        "actionName": "project",
+        "field_map": [
+            {"formField": "your-name", "perfexCRMFormField": "name"},
+            {"formField": "custom", "perfexCRMFormField": "start_date", "customValue": "2026-01-01"}
+        ],
+        "selectedProjectStatus": "2",
+        "selectedProjectType": "customer",
+        "selectedbillingType": 1,
+        "totalRate": "500",
+        "selectedCustomer": "11",
+        "selectedProjectMembers": "1,2",
+        "selectedLeadSourceId": 1,
+        "selectedLeadStatusId": 1,
+        "actions": {"projectMembers": true},
+        "api_token": "smoke-api-token", "domain": "https://perfex.example.test", "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Project"}
+}

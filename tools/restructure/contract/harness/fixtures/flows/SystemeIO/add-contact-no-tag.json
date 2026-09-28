@@ -1,0 +1,18 @@
+{
+    "name": "SystemeIO smoke: add contact without tag",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SystemeIO",
+        "name": "SystemeIO smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "registerPeopletoWabinar",
+        "selectedTag": "",
+        "field_map": [
+            {"formField": "your-email", "systemeIOFormField": "email"},
+            {"formField": "your-name", "systemeIOFormField": "first_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-notag@example.com", "your-name": "Smoke"}
+}

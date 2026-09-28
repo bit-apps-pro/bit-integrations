@@ -1,0 +1,15 @@
+{
+    "name": "MasterStudyLms smoke: enroll user by email (Pro hook master_study_lms_enroll_user)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MasterStudyLms",
+        "name": "MasterStudyLms smoke",
+        "mainAction": "6",
+        "courseId": "999901",
+        "field_map": [{"formField": "your-email", "msLmsFormField": "user_email"}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Learner"}
+}

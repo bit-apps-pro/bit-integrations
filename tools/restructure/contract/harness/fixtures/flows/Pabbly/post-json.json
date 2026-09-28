@@ -1,0 +1,22 @@
+{
+    "name": "Pabbly smoke: POST JSON webhook",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Pabbly",
+        "name": "Pabbly smoke",
+        "method": "POST",
+        "url": "https://hooks.example.test/pabbly?src=${your-name}",
+        "apiConsole": "https://connect.pabbly.com/dashboard",
+        "headers": [{"key": "X-Smoke", "value": "pabbly"}],
+        "body": {
+            "type": "application/json",
+            "data": [
+                {"key": "email", "value": "${your-email}"},
+                {"key": "name", "value": "${your-name}"}
+            ]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

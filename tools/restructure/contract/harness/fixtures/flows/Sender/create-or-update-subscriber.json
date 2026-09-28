@@ -1,0 +1,23 @@
+{
+    "name": "Sender smoke: create or update subscriber with groups, custom field and trigger automation",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Sender",
+        "name": "Sender smoke",
+        "api_token": "smoke-api-token",
+        "mainAction": "create_or_update_subscriber",
+        "groups": ["grp-a", "grp-b"],
+        "groupId": "",
+        "actions": {"groups": true, "trigger_automation": true},
+        "field_map": [
+            {"formField": "your-email", "senderField": "email"},
+            {"formField": "your-name", "senderField": "firstname"},
+            {"formField": "custom", "senderField": "lastname", "customValue": "Tester ${your-name}"},
+            {"formField": "your-phone", "senderField": "phone"},
+            {"formField": "your-company", "senderField": "{$company}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke", "your-phone": "+15550001111", "your-company": "Smoke Co"}
+}

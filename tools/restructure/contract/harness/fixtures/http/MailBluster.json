@@ -1,0 +1,9 @@
+[
+    {
+        "id": "leads",
+        "method": "POST",
+        "url": "~^https://api\\.mailbluster\\.com/api/leads~",
+        "status": 201,
+        "body": {"message": "Lead created", "lead": {"id": 12345, "email": "smoke@example.com"}}
+    }
+]

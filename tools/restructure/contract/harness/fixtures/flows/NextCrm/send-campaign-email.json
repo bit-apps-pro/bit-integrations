@@ -1,0 +1,19 @@
+{
+    "name": "NextCrm smoke: send campaign email",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NextCrm",
+        "name": "NextCrm smoke",
+        "mainAction": "send_campaign_email",
+        "selectedCampaign": "1",
+        "field_map": [
+            {"formField": "your-email", "nextCrmField": "contact_email"},
+            {"formField": "your-message", "nextCrmField": "body"},
+            {"formField": "custom", "nextCrmField": "subject", "customValue": "Smoke subject"}
+        ],
+        "utilities": {"selected_skip_already_sent": "no"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-nextcrm@example.com", "your-message": "Smoke campaign body"}
+}

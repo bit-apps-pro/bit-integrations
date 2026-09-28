@@ -1,0 +1,19 @@
+{
+    "name": "Mailup smoke: add subscriber to group (unmatched response logs error)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailup",
+        "name": "Mailup smoke",
+        "clientId": "smoke-client-id", "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "listId": "1",
+        "groupId": "5",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailupFormField": "Email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-group@example.com"}
+}

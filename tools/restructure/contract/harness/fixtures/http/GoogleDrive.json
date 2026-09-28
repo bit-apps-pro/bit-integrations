@@ -1,0 +1,9 @@
+[
+    {
+        "id": "drive-upload",
+        "method": "POST",
+        "url": "~^https://www\\.googleapis\\.com/upload/drive/v3/files\\?uploadType=multipart~",
+        "status": 200,
+        "body": {"kind": "drive#file", "id": "smoke-drive-file-1", "name": "robots.txt", "mimeType": "text/plain"}
+    }
+]

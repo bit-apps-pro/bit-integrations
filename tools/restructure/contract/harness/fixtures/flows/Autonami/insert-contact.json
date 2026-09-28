@@ -1,0 +1,19 @@
+{
+    "name": "Autonami smoke: insert contact with tags and lists",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Autonami",
+        "name": "Autonami smoke",
+        "field_map": [
+            {"formField": "your-email", "autonamiField": "email"},
+            {"formField": "your-name", "autonamiField": "f_name"},
+            {"formField": "custom", "customValue": "Smoke", "autonamiField": "l_name"}
+        ],
+        "lists": ["1"],
+        "tags": ["1"],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-autonami@example.com", "your-name": "Smoke Name"}
+}

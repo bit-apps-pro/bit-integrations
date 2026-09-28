@@ -1,0 +1,19 @@
+{
+    "name": "SecureCustomFields smoke: update repeater rows",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SecureCustomFields",
+        "name": "SecureCustomFields smoke",
+        "mainAction": "update_repeater_field_value",
+        "postId": "1",
+        "repeaterName": "smoke_repeater",
+        "field_map": [
+            {"formField": "your-name", "subFieldName": "label", "customValue": "", "rowIndex": "0"},
+            {"formField": "custom", "subFieldName": "label", "customValue": "Second row", "rowIndex": "1"},
+            {"formField": "your-email", "subFieldName": "email", "customValue": "", "rowIndex": "1"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Row zero", "your-email": "smoke@example.com"}
+}

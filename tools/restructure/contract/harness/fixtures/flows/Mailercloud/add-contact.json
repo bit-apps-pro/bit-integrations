@@ -1,0 +1,20 @@
+{
+    "name": "Mailercloud smoke: add a contact to a list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailercloud",
+        "name": "Mailercloud smoke",
+        "api_key": "smoke-api-key",
+        "listId": "smoke-list-1",
+        "contactType": "active",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailercloudFormField": "email"},
+            {"formField": "your-name", "mailercloudFormField": "name"},
+            {"formField": "custom", "mailercloudFormField": "smoke_custom", "customValue": "Note ${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

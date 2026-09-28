@@ -1,0 +1,26 @@
+[
+    {
+        "id": "search-existing",
+        "method": "GET",
+        "url": "~^https://clientapi\\.benchmarkemail\\.com/Contact/ContactDetails\\?Search=update-smoke%40example\\.com~",
+        "body": {"Response": {"Count": 1, "Data": [{"ID": "9001", "ContactMasterID": "5001", "Email": "update-smoke@example.com"}]}}
+    },
+    {
+        "id": "search-none",
+        "method": "GET",
+        "url": "~^https://clientapi\\.benchmarkemail\\.com/Contact/ContactDetails\\?Search=~",
+        "body": {"Response": {"Count": 0, "Data": []}}
+    },
+    {
+        "id": "add-contact",
+        "method": "POST",
+        "url": "~^https://clientapi\\.benchmarkemail\\.com/Contact/[^/]+/ContactDetails$~",
+        "body": {"Response": {"Status": 1, "Data": {"ID": "9002"}}}
+    },
+    {
+        "id": "update-contact",
+        "method": "PATCH",
+        "url": "~^https://clientapi\\.benchmarkemail\\.com/Contact/5001/ContactDetails/9001$~",
+        "body": {"Response": {"Status": 1, "Data": {"ID": "9001"}}}
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "id": "add-contact-rejected",
+        "method": "POST",
+        "url": "~^https://cloudapi\\.mailercloud\\.com/v1/contacts$~",
+        "body_contains": "smoke-reject@example.com",
+        "status": 400,
+        "body": {"errors": [{"field": "email", "message": "Contact already exists"}]}
+    },
+    {
+        "id": "add-contact",
+        "method": "POST",
+        "url": "~^https://cloudapi\\.mailercloud\\.com/v1/contacts$~",
+        "body": {"id": "smoke-contact-1", "errors": null}
+    }
+]

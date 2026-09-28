@@ -1,0 +1,19 @@
+{
+    "name": "SendFox smoke: create list (mainAction 1)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SendFox",
+        "name": "SendFox smoke",
+        "access_token": "smoke-access-token",
+        "mainAction": "1",
+        "listId": "",
+        "field_map": [{"formField": "", "sendFoxFormField": ""}],
+        "field_map_list": [
+            {"formField": "your-list", "sendFoxListFormField": "name"}
+        ],
+        "field_map_unsubscribe": [{"formField": "", "sendFoxUnsubscribeFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-list": "Smoke List"}
+}

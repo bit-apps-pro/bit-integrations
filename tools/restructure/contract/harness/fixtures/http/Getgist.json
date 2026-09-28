@@ -1,0 +1,10 @@
+[
+    {
+        "id": "create-user-contact",
+        "method": "POST",
+        "url": "~^https://api\\.getgist\\.com/contacts~",
+        "body_contains": "smoke-user-1",
+        "status": 200,
+        "body": {"contact": {"id": 7002, "email": "user@example.com", "user_id": "smoke-user-1"}}
+    }
+]

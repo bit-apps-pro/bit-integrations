@@ -1,0 +1,21 @@
+{
+    "name": "Mailup smoke: add subscriber to list with double opt-in",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailup",
+        "name": "Mailup smoke",
+        "clientId": "smoke-client-id", "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "listId": "1",
+        "groupId": "",
+        "actions": {"doubleOptIn": true},
+        "field_map": [
+            {"formField": "your-email", "mailupFormField": "Email"},
+            {"formField": "your-name", "mailupFormField": "1"},
+            {"formField": "custom", "mailupFormField": "2", "customValue": "Smoke ${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

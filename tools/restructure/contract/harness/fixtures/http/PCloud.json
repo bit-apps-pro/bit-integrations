@@ -1,0 +1,9 @@
+[
+    {
+        "id": "uploadfile",
+        "method": "POST",
+        "url": "~^https://api\\.pcloud\\.com/uploadfile\\?folderid=~",
+        "status": 200,
+        "body": {"result": 0, "fileids": [5001], "metadata": [{"id": "f5001", "fileid": 5001, "name": "woocommerce-placeholder-100x100.png"}]}
+    }
+]

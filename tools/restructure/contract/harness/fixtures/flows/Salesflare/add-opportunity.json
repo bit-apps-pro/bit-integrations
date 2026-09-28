@@ -1,0 +1,22 @@
+{
+    "name": "Salesflare smoke: create opportunity",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesflare",
+        "name": "Salesflare smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "opportunities",
+        "actionId": "",
+        "selectedAccount": "7001",
+        "selectedPipeline": "8001",
+        "selectedStage": "9001",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-deal", "salesflareFormField": "name"},
+            {"formField": "your-value", "salesflareFormField": "value"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-deal": "Smoke Deal", "your-value": "1500"}
+}

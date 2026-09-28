@@ -1,0 +1,22 @@
+{
+    "name": "Flowlu smoke: create opportunity",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Flowlu",
+        "name": "Flowlu smoke",
+        "api_key": "smoke-api-key",
+        "company_name": "smoke",
+        "actionName": "opportunity",
+        "selectedPipeline": "31",
+        "selectedOpportunityStage": "41",
+        "selectedSource": "51",
+        "selectedCustomer": "61",
+        "field_map": [
+            {"formField": "your-name", "flowluFormField": "name"},
+            {"formField": "your-email", "flowluFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Opportunity", "your-email": "smoke@example.com"}
+}

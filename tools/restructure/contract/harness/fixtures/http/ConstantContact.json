@@ -1,0 +1,39 @@
+[
+    {
+        "id": "search-existing",
+        "method": "GET",
+        "url": "~^https://api\\.cc\\.email/v3/contacts\\?email=smoke-existing@example\\.com&~",
+        "body": {"contacts": [{
+            "contact_id": "cc-existing-1",
+            "email_address": {"address": "smoke-existing@example.com"},
+            "first_name": "Old",
+            "last_name": "Contact",
+            "job_title": "Tester",
+            "create_source": "Contact",
+            "taggings": ["tag-a"],
+            "list_memberships": ["list-z"],
+            "custom_fields": [{"custom_field_id": "cf-2", "value": "keep-me"}],
+            "phone_numbers": [{"kind": "home", "phone_number": "5550000"}],
+            "street_addresses": [{"kind": "home", "street": "", "city": "Oldtown", "state": "OS", "postal_code": "00000", "country": "US"}]
+        }]}
+    },
+    {
+        "id": "search-none",
+        "method": "GET",
+        "url": "~^https://api\\.cc\\.email/v3/contacts\\?email=~",
+        "body": {"contacts": []}
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://api\\.cc\\.email/v3/contacts$~",
+        "status": 201,
+        "body": {"contact_id": "cc-new-1", "email_address": {"address": "smoke-new@example.com"}}
+    },
+    {
+        "id": "update-contact",
+        "method": "PUT",
+        "url": "~^https://api\\.cc\\.email/v3/contacts/cc-existing-1$~",
+        "body": {"contact_id": "cc-existing-1", "email_address": {"address": "smoke-existing@example.com"}}
+    }
+]

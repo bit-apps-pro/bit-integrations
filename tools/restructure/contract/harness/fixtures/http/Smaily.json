@@ -1,0 +1,27 @@
+[
+    {
+        "id": "contact-lookup-existing",
+        "method": "GET",
+        "url": "~^https://smoke\\.sendsmaily\\.net/api/contact\\.php\\?email=smoke-existing~",
+        "body": {"email": "smoke-existing@example.com", "is_unsubscribed": "0"}
+    },
+    {
+        "id": "contact-lookup-missing",
+        "method": "GET",
+        "url": "~^https://smoke\\.sendsmaily\\.net/api/contact\\.php\\?email=~",
+        "body": []
+    },
+    {
+        "id": "contact-upsert-rejected",
+        "method": "POST",
+        "url": "~^https://smoke\\.sendsmaily\\.net/api/contact\\.php$~",
+        "body_contains": "smoke-reject",
+        "body": {"code": 201, "message": "Invalid email"}
+    },
+    {
+        "id": "contact-upsert",
+        "method": "POST",
+        "url": "~^https://smoke\\.sendsmaily\\.net/api/contact\\.php$~",
+        "body": {"code": 101, "message": "OK"}
+    }
+]

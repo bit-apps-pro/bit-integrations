@@ -1,0 +1,19 @@
+{
+    "name": "Sender smoke: delete subscribers by comma-separated emails",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Sender",
+        "name": "Sender smoke",
+        "api_token": "smoke-api-token",
+        "mainAction": "delete_subscriber",
+        "groups": [],
+        "groupId": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "custom", "senderField": "emails", "customValue": "${your-email}, second@example.com"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

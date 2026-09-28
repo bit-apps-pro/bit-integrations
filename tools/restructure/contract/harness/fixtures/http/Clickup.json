@@ -1,0 +1,9 @@
+[
+    {
+        "id": "create-task",
+        "method": "POST",
+        "url": "~^https://api\\.clickup\\.com/api/v2/list/9004/task$~",
+        "status": 200,
+        "body": {"id": "smoke-task-1", "name": "Smoke Task"}
+    }
+]

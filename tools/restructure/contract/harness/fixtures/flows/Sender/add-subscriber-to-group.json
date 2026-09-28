@@ -1,0 +1,19 @@
+{
+    "name": "Sender smoke: add subscriber to a single group with legacy top-level trigger_automation",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Sender",
+        "name": "Sender smoke",
+        "api_token": "smoke-api-token",
+        "mainAction": "add_subscriber_to_group",
+        "groups": [],
+        "groupId": "grp-a",
+        "trigger_automation": true,
+        "field_map": [
+            {"formField": "your-email", "senderField": "emails"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

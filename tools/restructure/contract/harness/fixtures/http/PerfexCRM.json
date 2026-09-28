@@ -1,0 +1,9 @@
+[
+    {
+        "id": "create-record",
+        "method": "POST",
+        "url": "~^https://perfex\\.example\\.test/api/(customers|contacts|leads|projects)$~",
+        "status": 200,
+        "body": {"status": true, "message": "Record added successfully."}
+    }
+]

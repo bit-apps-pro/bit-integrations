@@ -1,0 +1,20 @@
+{
+    "name": "Gravitec smoke: push notification rejected by the API logs an error",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Gravitec",
+        "name": "Gravitec smoke",
+        "app_key": "smoke-app-key",
+        "app_secret": "smoke-app-secret",
+        "site_url": "https://smoke.example.test",
+        "actionName": "notification",
+        "field_map": [
+            {"formField": "your-message", "gravitecFormField": "message"},
+            {"formField": "custom", "gravitecFormField": "icon", "customValue": "https://smoke.example.test/icon.png"},
+            {"formField": "custom", "gravitecFormField": "redirect_url", "customValue": "https://smoke.example.test/landing"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-message": "smoke-gravitec-reject"}
+}

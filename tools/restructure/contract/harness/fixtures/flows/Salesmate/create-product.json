@@ -1,0 +1,25 @@
+{
+    "name": "Salesmate smoke: create product",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesmate",
+        "name": "Salesmate smoke",
+        "session_token": "smoke-session-token",
+        "link_name": "smoke",
+        "actionName": "product",
+        "actionId": "6",
+        "selectedCRMOwner": "11",
+        "selectedIsActive": "1",
+        "selectedCurrency": "USD",
+        "selectedTag": "smoke-tag",
+        "field_map": [
+            {"formField": "your-name", "salesmateFormField": "name"},
+            {"formField": "your-price", "salesmateFormField": "unitPrice"},
+            {"formField": "your-sku", "salesmateFormField": "sku"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Product", "your-price": "49.99", "your-sku": "SMK-1"}
+}

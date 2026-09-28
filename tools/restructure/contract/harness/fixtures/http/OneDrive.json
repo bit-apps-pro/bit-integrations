@@ -1,0 +1,3 @@
+[
+    {"id": "onedrive-upload", "method": "POST", "url": "~^https://api\\.onedrive\\.com/v1\\.0/drives/SMOKEDRIVE/items/SMOKEDRIVE!105:/[^/]+:/content$~", "status": 201, "body": {"id": "SMOKEDRIVE!900", "name": "woocommerce-placeholder-100x100.png", "size": 2300}}
+]

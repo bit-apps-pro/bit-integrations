@@ -1,0 +1,19 @@
+{
+    "name": "Getgist smoke: create lead contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Getgist",
+        "name": "Getgist smoke",
+        "api_key": "smoke-api-key",
+        "user_type": "Lead",
+        "field_map": [
+            {"formField": "your-email", "getgistFormField": "email"},
+            {"formField": "your-name", "getgistFormField": "name"},
+            {"formField": "custom", "getgistFormField": "job_title", "customValue": "Tester for ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Lead"}
+}

@@ -1,0 +1,15 @@
+[
+    {
+        "id": "subscribe-empty",
+        "method": "POST",
+        "url": "~^https://sendy\\.example\\.test/subscribe$~",
+        "body_contains": "smoke-fail",
+        "body": ""
+    },
+    {
+        "id": "subscribe",
+        "method": "POST",
+        "url": "~^https://sendy\\.example\\.test/subscribe$~",
+        "body": "1"
+    }
+]

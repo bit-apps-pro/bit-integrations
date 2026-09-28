@@ -1,0 +1,17 @@
+{
+    "name": "PaidMembershipPro smoke: add membership for mapped email with no matching user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PaidMembershipPro",
+        "name": "PaidMembershipPro smoke",
+        "mainAction": "1",
+        "selectedMembership": "1",
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "field_map": [{"formField": "", "paidmembershipproFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-no-such-user@example.test"}
+}

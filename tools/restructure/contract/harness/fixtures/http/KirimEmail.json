@@ -1,0 +1,20 @@
+[
+    {
+        "id": "add-subscriber",
+        "method": "POST",
+        "url": "~^https://api\\.kirim\\.email/v3/subscriber/$~",
+        "body": {"code": 200, "status": "success", "message": "Subscriber added", "data": {"id": 9001, "email": "smoke@example.com"}}
+    },
+    {
+        "id": "find-subscriber-by-email",
+        "method": "GET",
+        "url": "~^https://api\\.kirim\\.email/v3/subscriber/email/~",
+        "body": {"code": 200, "status": "success", "data": {"id": 9001, "email": "smoke@example.com", "list": [{"id": 501, "name": "Smoke List"}]}}
+    },
+    {
+        "id": "delete-subscriber",
+        "method": "DELETE",
+        "url": "~^https://api\\.kirim\\.email/v3/subscriber/9001$~",
+        "body": {"code": 200, "status": "success", "message": "Subscriber deleted"}
+    }
+]

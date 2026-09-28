@@ -1,0 +1,6 @@
+{
+    "addTo": "header",
+    "api_url": "https://smoke.brilliantdirectories.test",
+    "key": "X-Api-Key",
+    "value": "smoke-api-key"
+}

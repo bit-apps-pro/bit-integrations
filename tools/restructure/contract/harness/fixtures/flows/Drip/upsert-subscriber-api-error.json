@@ -1,0 +1,20 @@
+{
+    "name": "Drip smoke: upsert subscriber, API returns no subscribers (error log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Drip",
+        "name": "Drip smoke",
+        "api_token": "smoke-api-token",
+        "selectedAccountId": "9990002",
+        "selectedStatus": "",
+        "selectedTags": "",
+        "selectedRemoveTags": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "dripField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

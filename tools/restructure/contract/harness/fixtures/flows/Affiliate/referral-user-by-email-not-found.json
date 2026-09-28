@@ -1,0 +1,21 @@
+{
+    "name": "Affiliate smoke: user source email with no matching user logs error",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Affiliate",
+        "name": "Affiliate smoke",
+        "mainAction": "2",
+        "referralId": "2",
+        "statusId": "1",
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "field_map": [
+            {"formField": "your-amount", "affiliateFormField": "amount"},
+            {"formField": "your-message", "affiliateFormField": "description"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "no-such-user-smoke@example.invalid", "your-amount": "5", "your-message": "Smoke"}
+}

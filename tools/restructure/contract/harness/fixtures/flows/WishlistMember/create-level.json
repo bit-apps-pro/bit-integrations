@@ -1,0 +1,20 @@
+{
+    "name": "WishlistMember smoke: create level",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WishlistMember",
+        "name": "WishlistMember smoke",
+        "action": "create_level",
+        "field_map": [
+            {
+                "formField": "your-name",
+                "wishlistMemberField": "name"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-name": "Smoke Level"
+    }
+}

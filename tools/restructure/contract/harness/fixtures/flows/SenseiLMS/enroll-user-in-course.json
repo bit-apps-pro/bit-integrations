@@ -1,0 +1,17 @@
+{
+    "name": "SenseiLMS smoke: enroll user in course",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SenseiLMS",
+        "name": "SenseiLMS smoke",
+        "mainAction": "enroll_user_in_course",
+        "selectedCourse": "101",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "senseiLMSField": "user_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

@@ -1,0 +1,16 @@
+[
+    {
+        "id": "upload",
+        "method": "POST",
+        "url": "~^https://content\\.dropboxapi\\.com/2/files/upload$~",
+        "status": 200,
+        "body": {"id": "id:smoke-file-1", "name": "woocommerce-placeholder-100x100.png", "path_lower": "/smoke/woocommerce-placeholder-100x100.png", "size": 1}
+    },
+    {
+        "id": "token-refresh",
+        "method": "POST",
+        "url": "~^https://api\\.dropboxapi\\.com/oauth2/token$~",
+        "status": 200,
+        "body": {"access_token": "smoke-refreshed-access-token", "token_type": "bearer", "expires_in": 14400}
+    }
+]

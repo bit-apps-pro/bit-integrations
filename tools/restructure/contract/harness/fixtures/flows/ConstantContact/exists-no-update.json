@@ -1,0 +1,25 @@
+{
+    "name": "ConstantContact smoke: existing contact without update logs email-exists error",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ConstantContact",
+        "name": "ConstantContact smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "source_type": "Contact",
+        "list_ids": "",
+        "tag_ids": "",
+        "address_type": "",
+        "phone_type": "",
+        "address_field": "",
+        "phone_field": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "constantContactFormField": "email_address"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com"}
+}

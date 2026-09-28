@@ -1,0 +1,5 @@
+{
+    "MoxieCRM__moxiecrm_fetch_all_CRMPeoples": "MoxieCRMController never sets $apiEndpoint (its constructor is commented out), so the URL is relative and Common::isSafeRemoteUrl blocks it before any request; the route cannot work until that existing bug is fixed.",
+    "MoxieCRM__moxiecrm_fetch_all_CRMPipelines": "MoxieCRMController never sets $apiEndpoint (its constructor is commented out), so the URL is relative and Common::isSafeRemoteUrl blocks it before any request; the route cannot work until that existing bug is fixed.",
+    "MoxieCRM__moxiecrm_fetch_all_opportunities": "MoxieCRMController never sets $apiEndpoint (its constructor is commented out), so the URL is relative and Common::isSafeRemoteUrl blocks it before any request; the route cannot work until that existing bug is fixed."
+}

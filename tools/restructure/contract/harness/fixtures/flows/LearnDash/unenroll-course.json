@@ -1,0 +1,14 @@
+{
+    "name": "LearnDash smoke: unenroll current user from a course (action 17)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LearnDash",
+        "name": "LearnDash smoke",
+        "mainAction": "17",
+        "courseId": "101",
+        "field_map": [{"formField": "", "learnDeshFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Group"}
+}

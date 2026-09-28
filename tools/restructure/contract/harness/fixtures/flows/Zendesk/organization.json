@@ -1,0 +1,21 @@
+{
+    "name": "Zendesk smoke: create organization with parent",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Zendesk",
+        "name": "Zendesk smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "organization",
+        "actions": {"parentOrganization": true},
+        "selectedParentOrganization": "501",
+        "field_map": [
+            {"formField": "your-company", "zendeskFormField": "name"},
+            {"formField": "your-email", "zendeskFormField": "email"},
+            {"formField": "your-city", "zendeskFormField": "city"},
+            {"formField": "custom", "zendeskFormField": "fields", "customFieldKey": "9001", "customValue": "Smoke Custom"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-company": "Smoke Co", "your-email": "smoke@example.com", "your-city": "Dhaka"}
+}

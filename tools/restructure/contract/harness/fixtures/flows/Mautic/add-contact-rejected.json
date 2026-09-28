@@ -1,0 +1,18 @@
+{
+    "name": "Mautic smoke: add contact rejected by API (error log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mautic",
+        "name": "Mautic smoke",
+        "baseUrl": "https://example.com", "clientId": "smoke-client-id", "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "default": {"fields": [{"fieldName": "Email", "fieldAlias": "email", "required": true}, {"fieldName": "First Name", "fieldAlias": "firstname", "required": false}]},
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mauticField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-mautic-reject@example.com"}
+}

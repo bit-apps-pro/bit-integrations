@@ -1,0 +1,9 @@
+[
+    {
+        "id": "create-customer",
+        "method": "POST",
+        "url": "~^https://api\\.surecart\\.com/v1/customers~",
+        "status": 200,
+        "body": {"id": "cus-smoke-1", "object": "customer", "email": "smoke@example.com", "name": "Smoke Customer", "live_mode": true}
+    }
+]

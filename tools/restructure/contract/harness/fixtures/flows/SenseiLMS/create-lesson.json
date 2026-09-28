@@ -1,0 +1,19 @@
+{
+    "name": "SenseiLMS smoke: create lesson in course",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SenseiLMS",
+        "name": "SenseiLMS smoke",
+        "mainAction": "create_lesson",
+        "selectedCourse": "101",
+        "selectedStatus": "publish",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-subject", "senseiLMSField": "post_title"},
+            {"formField": "your-message", "senseiLMSField": "post_content"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Lesson", "your-message": "Smoke lesson body"}
+}

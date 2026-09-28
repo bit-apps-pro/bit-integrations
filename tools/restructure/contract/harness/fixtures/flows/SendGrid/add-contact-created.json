@@ -1,0 +1,19 @@
+{
+    "name": "SendGrid smoke: upsert new contact with lists and custom field (search empty -> created)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SendGrid",
+        "name": "SendGrid smoke",
+        "apiKey": "smoke-api-key",
+        "selectedLists": "list-a,list-b",
+        "field_map": [
+            {"formField": "your-email", "sendGridFormField": "email"},
+            {"formField": "your-name", "sendGridFormField": "first_name"},
+            {"formField": "your-city", "sendGridFormField": "city"},
+            {"formField": "custom", "sendGridFormField": "e1_T", "customValue": "Plan for ${your-name}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-new@example.com", "your-name": "Smoke", "your-city": "Dhaka"}
+}

@@ -1,0 +1,28 @@
+{
+    "name": "AgiledCRM smoke: create contact with every option",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "AgiledCRM",
+        "name": "AgiledCRM smoke",
+        "auth_token": "smoke-api-key",
+        "brand": "smoke-brand",
+        "actionName": "contact",
+        "contactRole": "customer",
+        "selectedAccount": "21",
+        "selectedOwner": "11",
+        "selectedSource": "31",
+        "selectedStatus": "41",
+        "selectedLifeCycleStage": "lead",
+        "selectedFollowUp": "2030-01-01",
+        "actions": {"owner": true, "account": true, "source": true, "status": true, "lifeCycleStage": true, "followUp": true, "dealType": true},
+        "field_map": [
+            {"formField": "your-name", "agiledFormField": "first_name"},
+            {"formField": "your-email", "agiledFormField": "email"},
+            {"formField": "your-phone", "agiledFormField": "phone"},
+            {"formField": "your-color", "agiledFormField": "customFieldKey", "customFieldKey": "favorite_color"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-email": "smoke@example.com", "your-phone": "5550100", "your-color": "blue"}
+}

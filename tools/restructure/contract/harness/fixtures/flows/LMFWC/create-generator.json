@@ -1,0 +1,20 @@
+{
+    "name": "LMFWC smoke: create generator (Pro filter)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LMFWC",
+        "name": "LMFWC smoke",
+        "base_url": "https://example.com", "api_key": "ck_smoke-api-key", "api_secret": "cs_smoke-api-secret",
+        "module": "create_generator",
+        "field_map": [
+            {"formField": "gen-name", "lmfwcFormField": "name"},
+            {"formField": "custom", "lmfwcFormField": "charset", "customValue": "ABCDEF0123456789"},
+            {"formField": "custom", "lmfwcFormField": "chunks", "customValue": "4"},
+            {"formField": "custom", "lmfwcFormField": "chunk_length", "customValue": "5"},
+            {"formField": "custom", "lmfwcFormField": "separator", "customValue": "-"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"gen-name": "Smoke Generator"}
+}

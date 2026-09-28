@@ -1,0 +1,20 @@
+{
+    "name": "SureCart smoke: create customer",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SureCart",
+        "name": "SureCart smoke",
+        "token": "smoke-api-key",
+        "mainAction": "1",
+        "field_map": [
+            {"formField": "your-first-name", "SureCartFormField": "customer_first_name"},
+            {"formField": "your-email", "SureCartFormField": "customer_email"},
+            {"formField": "your-last-name", "SureCartFormField": "customer_last_name"},
+            {"formField": "your-phone", "SureCartFormField": "customer_phone"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-first-name": "Smoke", "your-last-name": "Customer", "your-email": "smoke@example.com", "your-phone": "+15550100"}
+}

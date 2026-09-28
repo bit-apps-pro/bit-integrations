@@ -1,0 +1,15 @@
+{
+    "name": "PaidMembershipPro smoke: remove current user from any membership level",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PaidMembershipPro",
+        "name": "PaidMembershipPro smoke",
+        "mainAction": "2",
+        "selectedMembership": "any",
+        "field_map": [{"formField": "", "paidmembershipproFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

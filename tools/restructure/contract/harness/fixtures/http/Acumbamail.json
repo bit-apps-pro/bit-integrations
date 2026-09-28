@@ -1,0 +1,16 @@
+[
+    {
+        "id": "add-subscriber",
+        "method": "POST",
+        "url": "~^https://acumbamail\\.com/api/1/addSubscriber/~",
+        "status": 200,
+        "body": {"subscriber_id": 9001}
+    },
+    {
+        "id": "delete-subscriber-error",
+        "method": "POST",
+        "url": "~^https://acumbamail\\.com/api/1/deleteSubscriber/~",
+        "status": 200,
+        "body": {"error": "Subscriber not found"}
+    }
+]

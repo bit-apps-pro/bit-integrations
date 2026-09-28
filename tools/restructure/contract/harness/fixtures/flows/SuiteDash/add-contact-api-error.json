@@ -1,0 +1,21 @@
+{
+    "name": "SuiteDash smoke: create contact rejected by the API writes an error log",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SuiteDash",
+        "name": "SuiteDash smoke",
+        "public_id": "smoke-public-id",
+        "secret_key": "smoke-secret-key",
+        "actionName": "contact",
+        "selectedRole": "Client",
+        "field_map": [
+            {"formField": "your-first", "suiteDashFormField": "first_name"},
+            {"formField": "your-last", "suiteDashFormField": "last_name"},
+            {"formField": "your-email", "suiteDashFormField": "email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-first": "Smoke", "your-last": "Rejected", "your-email": "smoke-existing@example.com"}
+}

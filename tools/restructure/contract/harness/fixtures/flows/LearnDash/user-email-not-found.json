@@ -1,0 +1,16 @@
+{
+    "name": "LearnDash smoke: mapped user email not found logs resolve-user error",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LearnDash",
+        "name": "LearnDash smoke",
+        "mainAction": "3",
+        "courseId": "101",
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "field_map": [{"formField": "", "learnDeshFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "ld-missing-user@example.test", "your-name": "Smoke Group"}
+}

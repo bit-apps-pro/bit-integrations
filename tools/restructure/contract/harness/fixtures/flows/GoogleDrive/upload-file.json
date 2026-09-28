@@ -1,0 +1,28 @@
+{
+    "name": "GoogleDrive smoke: upload a file from uploads into a folder",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "GoogleDrive",
+        "name": "GoogleDrive smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {
+            "access_token": "smoke-access-token",
+            "refresh_token": "smoke-refresh-token",
+            "token_type": "Bearer",
+            "expires_in": 3600,
+            "generated_at": 4102444800
+        },
+        "field_map": [
+            {"formField": "your-file", "googleDriveFormField": "smoke-folder-1"},
+            {"formField": "your-files", "googleDriveFormField": "smoke-folder-2"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-file": "/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/wpforo/robots.txt",
+        "your-files": ["/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/wpforo/robots.txt"]
+    }
+}

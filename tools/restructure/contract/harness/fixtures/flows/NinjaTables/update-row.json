@@ -1,0 +1,18 @@
+{
+    "name": "NinjaTables smoke: update row in table",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NinjaTables",
+        "name": "NinjaTables smoke",
+        "mainAction": "update_row_in_table",
+        "selectedTable": "1",
+        "selectedRow": "1",
+        "field_map": [
+            {"formField": "your-name", "columnName": "name"},
+            {"formField": "custom", "columnName": "note", "customValue": "Updated for ${your-email}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-ninja@example.com", "your-name": "Smoke Row Updated"}
+}

@@ -1,0 +1,23 @@
+[
+    {
+        "id": "create-contact-or-organization",
+        "method": "POST",
+        "url": "~^https://api\\.getbase\\.com/v2/contacts~",
+        "status": 200,
+        "body": {"data": {"id": 1001}, "meta": {"type": "contact"}}
+    },
+    {
+        "id": "create-lead",
+        "method": "POST",
+        "url": "~^https://api\\.getbase\\.com/v2/leads~",
+        "status": 200,
+        "body": {"data": {"id": 2001}, "meta": {"type": "lead"}}
+    },
+    {
+        "id": "create-deal",
+        "method": "POST",
+        "url": "~^https://api\\.getbase\\.com/v2/deals~",
+        "status": 200,
+        "body": {"data": {"id": 3001}, "meta": {"type": "deal"}}
+    }
+]

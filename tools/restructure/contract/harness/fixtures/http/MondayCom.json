@@ -1,0 +1,78 @@
+[
+    {
+        "id": "create-item",
+        "method": "POST",
+        "url": "~^https://api\\.monday\\.com/v2$~",
+        "body_contains": "create_item",
+        "status": 200,
+        "body": {
+            "data": {
+                "create_item": {
+                    "id": "7001",
+                    "name": "Smoke Item"
+                }
+            }
+        }
+    },
+    {
+        "id": "update-item",
+        "method": "POST",
+        "url": "~^https://api\\.monday\\.com/v2$~",
+        "body_contains": "change_multiple_column_values",
+        "status": 200,
+        "body": {
+            "data": {
+                "change_multiple_column_values": {
+                    "id": "5001"
+                }
+            }
+        }
+    },
+    {
+        "id": "create-subitem",
+        "method": "POST",
+        "url": "~^https://api\\.monday\\.com/v2$~",
+        "body_contains": "create_subitem",
+        "status": 200,
+        "body": {
+            "data": {
+                "create_subitem": {
+                    "id": "7002",
+                    "name": "Smoke Item",
+                    "board": {
+                        "id": "1002",
+                        "name": "Subitems"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "move-item",
+        "method": "POST",
+        "url": "~^https://api\\.monday\\.com/v2$~",
+        "body_contains": "move_item_to_group",
+        "status": 200,
+        "body": {
+            "data": {
+                "move_item_to_group": {
+                    "id": "5001"
+                }
+            }
+        }
+    },
+    {
+        "id": "duplicate-group",
+        "method": "POST",
+        "url": "~^https://api\\.monday\\.com/v2$~",
+        "body_contains": "duplicate_group",
+        "status": 200,
+        "body": {
+            "data": {
+                "duplicate_group": {
+                    "id": "topics_copy"
+                }
+            }
+        }
+    }
+]

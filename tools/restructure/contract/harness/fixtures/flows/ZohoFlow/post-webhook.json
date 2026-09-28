@@ -1,0 +1,21 @@
+{
+    "name": "ZohoFlow smoke: POST json webhook",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZohoFlow",
+        "name": "ZohoFlow smoke",
+        "method": "POST",
+        "url": "https://hooks.example.test/zohoflow?source=${your-name}",
+        "headers": [{"key": "X-Smoke", "value": "zohoflow"}],
+        "body": {
+            "type": "application/json",
+            "data": [
+                {"key": "email", "value": "${your-email}"},
+                {"key": "name", "value": "${your-name}"}
+            ]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

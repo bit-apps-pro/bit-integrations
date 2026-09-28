@@ -1,0 +1,18 @@
+{
+    "name": "Dropbox smoke: missing access token (not authorized log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Dropbox",
+        "name": "Dropbox smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {},
+        "actions": {},
+        "field_map": [
+            {"formField": "your-file", "dropboxFormField": "/smoke"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-file": "/tmp/none.png"}
+}

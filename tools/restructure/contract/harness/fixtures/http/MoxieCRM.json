@@ -1,0 +1,32 @@
+[
+    {
+        "id": "create-client",
+        "method": "POST",
+        "url": "~^https://smoke\\.withmoxie\\.test/api/public/action/clients/create$~",
+        "status": 200,
+        "body": {
+            "id": "cl-1",
+            "name": "Smoke Client"
+        }
+    },
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://smoke\\.withmoxie\\.test/api/public/action/contacts/create$~",
+        "status": 200,
+        "body": {
+            "id": "ct-1",
+            "email": "smoke@example.com"
+        }
+    },
+    {
+        "id": "create-opportunity",
+        "method": "POST",
+        "url": "~^https://smoke\\.withmoxie\\.test/api/public/action/opportunities/create$~",
+        "status": 200,
+        "body": {
+            "id": "op-1",
+            "name": "Smoke Client"
+        }
+    }
+]

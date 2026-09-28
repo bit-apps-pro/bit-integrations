@@ -1,0 +1,19 @@
+{
+    "name": "Instasent smoke: create datasource in a project",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Instasent",
+        "name": "Instasent smoke",
+        "auth_token": "smoke-auth-token",
+        "action": "create_datasource",
+        "projectId": "smoke-project",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-name", "instasentFormField": "name"},
+            {"formField": "custom", "instasentFormField": "defaultCountry", "customValue": "ES"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Datasource"}
+}

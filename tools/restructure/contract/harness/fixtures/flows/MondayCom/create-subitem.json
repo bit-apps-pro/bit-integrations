@@ -1,0 +1,26 @@
+{
+    "name": "MondayCom smoke: create subitem under selected item",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MondayCom",
+        "name": "MondayCom smoke",
+        "apiToken": "smoke-api-token",
+        "mainAction": "create_subitem",
+        "selectedBoard": "1001",
+        "selectedItem": "5001",
+        "field_map": [
+            {
+                "formField": "your-name",
+                "mondayComField": "subitem_name"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke Item",
+        "item-id": "5001",
+        "group-id": "topics"
+    }
+}

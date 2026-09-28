@@ -1,0 +1,21 @@
+{
+    "name": "NotificationX smoke: add sales notification (Pro seam notificationx_add_sales_notification)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NotificationX",
+        "name": "NotificationX smoke",
+        "mainAction": "add_sales_notification",
+        "selected_notification_id": "42",
+        "entry_map": [],
+        "field_map": [
+            {"formField": "your-name", "notificationXField": "name"},
+            {"formField": "your-email", "notificationXField": "email"},
+            {"formField": "custom", "notificationXField": "title", "customValue": "Order by ${your-name}"},
+            {"formField": "your-city", "notificationXField": "city"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User", "your-email": "smoke@example.com", "notification-id": "42", "your-city": "Dhaka"}
+}

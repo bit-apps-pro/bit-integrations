@@ -1,0 +1,17 @@
+[
+    {
+        "id": "create-contact",
+        "method": "POST",
+        "url": "~^https://api\\.systeme\\.io/api/contacts$~",
+        "status": 201,
+        "body": {"id": 9001, "email": "smoke@example.com"}
+    },
+    {
+        "id": "tag-contact",
+        "method": "POST",
+        "url": "~^https://api\\.systeme\\.io/api/contacts/9001/tags$~",
+        "body_contains": "\"tagId\":501",
+        "status": 204,
+        "body": {}
+    }
+]

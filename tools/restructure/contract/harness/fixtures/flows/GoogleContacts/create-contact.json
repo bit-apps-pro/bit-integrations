@@ -1,0 +1,29 @@
+{
+    "name": "GoogleContacts smoke: create a contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "GoogleContacts",
+        "name": "GoogleContacts smoke",
+        "mainAction": "1",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {
+            "access_token": "smoke-access-token",
+            "refresh_token": "smoke-refresh-token",
+            "token_type": "Bearer",
+            "expires_in": 3600,
+            "generated_at": 4102444800
+        },
+        "field_map": [
+            {"formField": "your-phone", "googleContactsFormField": "phoneNumber"},
+            {"formField": "your-name", "googleContactsFormField": "name"},
+            {"formField": "your-last-name", "googleContactsFormField": "lastName"},
+            {"formField": "your-email", "googleContactsFormField": "email"},
+            {"formField": "custom", "googleContactsFormField": "organization", "customValue": "Org of ${your-name}"}
+        ],
+        "actions": {"attachments": "your-photo"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-phone": "+15550100", "your-name": "Smoke", "your-last-name": "Contact", "your-email": "smoke@example.com", "your-photo": [""]}
+}

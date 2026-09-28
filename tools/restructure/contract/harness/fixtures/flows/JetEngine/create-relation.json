@@ -1,0 +1,25 @@
+{
+    "name": "JetEngine smoke: create relation",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "JetEngine",
+        "name": "JetEngine smoke",
+        "selectedTask": "createRelation",
+        "actions": {"parent_control": true, "child_control": true, "db_table": true},
+        "selectedMenuPosition": "",
+        "selectedMenuIcon": "",
+        "selectedSupports": "",
+        "selectedTaxPostTypes": "",
+        "relOptions": {"parentObject": "posts::post", "childObject": "posts::page", "selectedRelationType": "one_to_many", "selectedRelationForEdit": ""},
+        "selectedCPT": "",
+        "selectedCCT": "",
+        "selectedTaxForEdit": "",
+        "field_map": [
+            {"formField": "your-subject", "jetEngineField": "name"},
+            {"formField": "custom", "jetEngineField": "parent_page_control_title", "customValue": "Smoke Parent"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Post to Page"}
+}

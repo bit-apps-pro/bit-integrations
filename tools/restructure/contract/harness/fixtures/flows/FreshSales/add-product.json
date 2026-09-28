@@ -1,0 +1,16 @@
+{
+    "name": "FreshSales smoke: insert CPQ product",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "FreshSales",
+        "name": "FreshSales smoke",
+        "api_key": "smoke-api-key",
+        "bundle_alias": "smoke.myfreshworks.com/crm/sales",
+        "moduleData": {"module": "Product"},
+        "actions": {},
+        "field_map": [{"formField": "your-name", "freshSalesFormField": "name"}, {"formField": "your-message", "freshSalesFormField": "description"}, {"formField": "your-sku", "freshSalesFormField": "sku_number"}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Product", "your-message": "Smoke product description", "your-sku": "SMK-1"}
+}

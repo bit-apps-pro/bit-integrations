@@ -1,0 +1,23 @@
+{
+    "name": "Hubspot smoke: create deal in a pipeline stage with company and contact associations",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Hubspot",
+        "name": "Hubspot smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "deal",
+        "pipeline": "default",
+        "stage": "appointmentscheduled",
+        "company": "8001,8002",
+        "contact": "9001",
+        "contact_owner": "7001",
+        "field_map": [
+            {"formField": "deal-name", "hubspotField": "dealname"},
+            {"formField": "amount", "hubspotField": "amount"}
+        ],
+        "actions": {"company": true, "contact": true, "contact_owner": true},
+        "isAuthorized": true
+    },
+    "field_data": {"deal-name": "Smoke Deal", "amount": "250"}
+}

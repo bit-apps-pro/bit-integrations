@@ -1,0 +1,15 @@
+{
+    "name": "LifterLms smoke: mark course complete for logged-in user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LifterLms",
+        "name": "LifterLms smoke",
+        "mainAction": "5",
+        "courseId": "201",
+        "field_map": [{"formField": "", "lifterLmsFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

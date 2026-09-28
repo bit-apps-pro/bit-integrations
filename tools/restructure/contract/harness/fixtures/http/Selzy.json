@@ -1,0 +1,16 @@
+[
+    {
+        "id": "subscribe",
+        "method": "POST",
+        "url": "~^https://api\\.selzy\\.com/en/api/subscribe\\?~",
+        "status": 200,
+        "body": {"result": {"person_id": 501}}
+    },
+    {
+        "id": "exclude",
+        "method": "POST",
+        "url": "~^https://api\\.selzy\\.com/en/api/exclude\\?~",
+        "status": 200,
+        "body": {"result": {"excluded": 1}}
+    }
+]

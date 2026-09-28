@@ -1,0 +1,15 @@
+{
+    "name": "GamiPress smoke: revoke points from the current user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "GamiPress",
+        "name": "GamiPress smoke",
+        "mainAction": "6",
+        "selectedPointType": "points",
+        "field_map": [{"formField": "your-points", "gamiPressFormField": "point"}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-points": "5"}
+}

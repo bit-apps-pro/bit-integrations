@@ -1,0 +1,25 @@
+{
+    "name": "JetEngine smoke: create post type",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "JetEngine",
+        "name": "JetEngine smoke",
+        "selectedTask": "createPostType",
+        "actions": {"public": true, "show_in_rest": true, "hierarchical": true},
+        "selectedMenuPosition": "25",
+        "selectedMenuIcon": "dashicons-admin-post",
+        "selectedSupports": "title,editor,thumbnail",
+        "selectedTaxPostTypes": "",
+        "relOptions": {"parentObject": "", "childObject": "", "selectedRelationType": "", "selectedRelationForEdit": ""},
+        "selectedCPT": "",
+        "selectedCCT": "",
+        "selectedTaxForEdit": "",
+        "field_map": [
+            {"formField": "your-subject", "jetEngineField": "name"},
+            {"formField": "custom", "jetEngineField": "singular_name", "customValue": "Smoke Item"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Items"}
+}

@@ -1,0 +1,21 @@
+{
+    "name": "NutshellCRM smoke: create person, API returns error (error log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NutshellCRM",
+        "name": "NutshellCRM smoke",
+        "user_name": "smoke-user@example.com",
+        "api_token": "smoke-api-token",
+        "actionName": "people",
+        "actionId": "",
+        "actions": {"Company": false},
+        "selectedCompany": "",
+        "field_map": [
+            {"formField": "your-name", "nutshellCRMFormField": "first_name"},
+            {"formField": "custom", "nutshellCRMFormField": "email", "customValue": "fail@example.com"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-last": "User", "your-email": "smoke@example.com", "your-phone": "5550100", "your-city": "Dhaka", "your-company": "Smoke Co", "your-message": "Smoke lead"}
+}

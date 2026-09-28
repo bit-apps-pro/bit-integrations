@@ -1,0 +1,21 @@
+{
+    "name": "Salesflare smoke: create contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesflare",
+        "name": "Salesflare smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "contacts",
+        "actionId": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-name", "salesflareFormField": "firstname"},
+            {"formField": "your-email", "salesflareFormField": "email"},
+            {"formField": "your-phone", "salesflareFormField": "phone_number"},
+            {"formField": "your-zip", "salesflareFormField": "zip"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-email": "smoke@example.com", "your-phone": "+8801700000000", "your-zip": "1207"}
+}

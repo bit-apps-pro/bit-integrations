@@ -1,0 +1,27 @@
+[
+    {
+        "id": "create-deal",
+        "method": "POST",
+        "url": "~^https://api\\.pipedrive\\.com/v1/deals\\?api_token=~",
+        "body": {"success": true, "data": {"id": 501, "title": "Smoke Deal"}}
+    },
+    {
+        "id": "create-lead",
+        "method": "POST",
+        "url": "~^https://api\\.pipedrive\\.com/v1/leads\\?api_token=~",
+        "body": {"success": true, "data": {"id": "adf21080-0e10-11eb-879b-05d71fb426ec", "title": "Smoke Lead"}}
+    },
+    {
+        "id": "create-person",
+        "method": "POST",
+        "url": "~^https://api\\.pipedrive\\.com/v1/persons\\?api_token=~",
+        "body": {"success": true, "data": {"id": 701, "name": "Smoke Person"}}
+    },
+    {
+        "id": "create-product-error",
+        "method": "POST",
+        "url": "~^https://api\\.pipedrive\\.com/v1/products\\?api_token=~",
+        "status": 400,
+        "body": {"success": false, "error": "Smoke validation error", "error_info": "Please check developers.pipedrive.com"}
+    }
+]

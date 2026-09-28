@@ -1,0 +1,15 @@
+{
+    "name": "WPCourseware smoke: enroll with mapped email that has no user logs error",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WPCourseware",
+        "name": "WPCourseware smoke",
+        "action": "enroll",
+        "course": ["1"],
+        "userSource": "email",
+        "userEmailField": {"formField": "your-email"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-no-such-user@example.test"}
+}

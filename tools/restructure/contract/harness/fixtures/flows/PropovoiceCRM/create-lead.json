@@ -1,0 +1,18 @@
+{
+    "name": "PropovoiceCRM smoke: create lead",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PropovoiceCRM",
+        "name": "PropovoiceCRM smoke",
+        "mainAction": "1",
+        "field_map": [
+            {"formField": "your-name", "propovoiceCrmFormField": "first_name"},
+            {"formField": "your-email", "propovoiceCrmFormField": "email"},
+            {"formField": "custom", "propovoiceCrmFormField": "note", "customValue": "Lead from ${your-email}"},
+            {"formField": "custom", "propovoiceCrmFormField": "img", "customValue": ""}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Lead", "your-email": "smoke@example.com"}
+}

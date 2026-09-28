@@ -1,0 +1,18 @@
+{
+    "name": "Moosend smoke: unsubscribe from list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Moosend",
+        "name": "Moosend smoke",
+        "authKey": "smoke-api-key",
+        "method": "2",
+        "listId": "smoke-list-1",
+        "field_map": [
+            {"formFields": "your-email", "moosendFormFields": "Email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

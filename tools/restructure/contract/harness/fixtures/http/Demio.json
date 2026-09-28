@@ -1,0 +1,16 @@
+[
+    {
+        "id": "register-error",
+        "method": "POST",
+        "url": "~^https://my\\.demio\\.com/api/v1/event/register$~",
+        "body_contains": "smoke-demio-error",
+        "status": 422,
+        "body": {"errors": {"email": ["The email is invalid."]}}
+    },
+    {
+        "id": "register",
+        "method": "POST",
+        "url": "~^https://my\\.demio\\.com/api/v1/event/register$~",
+        "body": {"hash": "smoke-hash", "join_link": "https://my.demio.com/join/smoke"}
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "OneHashCRM smoke: create customer",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "OneHashCRM",
+        "name": "OneHashCRM smoke",
+        "api_key": "smoke-api-key",
+        "api_secret": "smoke-api-secret",
+        "domain": "https://smoke.onehash.test",
+        "actionName": "customer",
+        "selectedCustomerType": "Company",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-name", "oneHashCRMFormField": "customer_name"},
+            {"formField": "your-email", "oneHashCRMFormField": "email_id"},
+            {"formField": "custom", "oneHashCRMFormField": "website", "customValue": "https://example.test"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Customer", "your-email": "smoke@example.com"}
+}

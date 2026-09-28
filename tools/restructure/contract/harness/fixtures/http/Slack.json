@@ -1,0 +1,16 @@
+[
+    {
+        "id": "post-message",
+        "method": "POST",
+        "url": "~^https://slack\\.com/api/chat\\.postMessage~",
+        "status": 200,
+        "body": {"ok": true, "channel": "C0SMOKE01", "ts": "1700000000.000100", "message": {"text": "smoke"}}
+    },
+    {
+        "id": "files-upload",
+        "method": "POST",
+        "url": "~^https://slack\\.com/api/files\\.upload~",
+        "status": 200,
+        "body": {"ok": true, "file": {"id": "F0SMOKE01", "name": "woocommerce-placeholder-768x768.png"}}
+    }
+]

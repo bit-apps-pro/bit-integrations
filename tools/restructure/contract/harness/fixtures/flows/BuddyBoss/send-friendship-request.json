@@ -1,0 +1,15 @@
+{
+    "name": "BuddyBoss smoke: send a friendship request to a user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BuddyBoss",
+        "name": "BuddyBoss smoke",
+        "mainAction": "7",
+        "friendId": "2",
+        "field_map": [{"formField": "", "buddyBossFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User"}
+}

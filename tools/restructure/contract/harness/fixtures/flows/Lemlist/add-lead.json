@@ -1,0 +1,19 @@
+{
+    "name": "Lemlist smoke: add new lead to campaign",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Lemlist",
+        "name": "Lemlist smoke",
+        "api_key": "smoke-api-key",
+        "campaignId": "cam_smoke1",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "lemlistField": "email"},
+            {"formField": "your-name", "lemlistField": "firstName"},
+            {"formField": "custom", "lemlistField": "companyName", "customValue": "Smoke Co"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "newlead@example.com", "your-name": "Smoke Lead"}
+}

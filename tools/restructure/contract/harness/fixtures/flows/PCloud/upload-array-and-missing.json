@@ -1,0 +1,22 @@
+{
+    "name": "PCloud smoke: file array to one folder, missing file to another (success and error log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PCloud",
+        "name": "PCloud smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "actions": {},
+        "field_map": [
+            {"formField": "your-files", "pCloudFormField": "1002"},
+            {"formField": "your-missing", "pCloudFormField": "1003"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-files": ["/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/woocommerce-placeholder-100x100.png"],
+        "your-missing": "/home/rishadalam/Sites/valet/bit-integrations/wp-content/uploads/no-such-smoke-file.png"
+    }
+}

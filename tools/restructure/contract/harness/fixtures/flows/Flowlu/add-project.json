@@ -1,0 +1,24 @@
+{
+    "name": "Flowlu smoke: create project",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Flowlu",
+        "name": "Flowlu smoke",
+        "api_key": "smoke-api-key",
+        "company_name": "smoke",
+        "actionName": "project",
+        "selectedManager": "71",
+        "selectedProjectStage": "81",
+        "selectedPortfolio": "91",
+        "selectedPriority": "2",
+        "selectedProjectOpportunity": "101",
+        "selectedCustomer": "61",
+        "field_map": [
+            {"formField": "your-name", "flowluFormField": "name"},
+            {"formField": "your-message", "flowluFormField": "description"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Project", "your-message": "Smoke project body"}
+}

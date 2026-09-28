@@ -1,0 +1,19 @@
+{
+    "name": "MailBluster smoke: add unsubscribed lead without tags or actions",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailBluster",
+        "name": "MailBluster smoke",
+        "auth_token": "smoke-api-key",
+        "subscribed": "false",
+        "selectedTags": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailBlusterFormField": "email"},
+            {"formField": "your-name", "mailBlusterFormField": "firstName"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke2@example.com", "your-name": "Smoke Two"}
+}

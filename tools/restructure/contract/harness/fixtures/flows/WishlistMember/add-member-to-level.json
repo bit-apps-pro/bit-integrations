@@ -1,0 +1,21 @@
+{
+    "name": "WishlistMember smoke: add member to level",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WishlistMember",
+        "name": "WishlistMember smoke",
+        "action": "add_member_to_level",
+        "level_id": "1700000000",
+        "field_map": [
+            {
+                "formField": "your-email",
+                "wishlistMemberField": "user_email"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Clickup smoke: create a task in a list",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Clickup",
+        "name": "Clickup smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "task",
+        "selectedTeam": "9001",
+        "selectedSpace": "9002",
+        "selectedFolder": "9003",
+        "selectedList": "9004",
+        "field_map": [
+            {"formField": "your-name", "clickupFormField": "name"},
+            {"formField": "custom", "clickupFormField": "description", "customValue": "Fixture for ${your-email}"},
+            {"formField": "your-date", "clickupFormField": "due_date"},
+            {"formField": "your-phone", "clickupFormField": "customFieldKey", "customFieldKey": "cf-smoke-phone"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Task", "your-email": "smoke@example.com", "your-date": "2030-01-15", "your-phone": "+1 (555) 010-0200"}
+}

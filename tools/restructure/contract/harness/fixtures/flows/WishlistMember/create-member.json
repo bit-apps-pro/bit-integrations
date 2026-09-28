@@ -1,0 +1,36 @@
+{
+    "name": "WishlistMember smoke: create member with level",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WishlistMember",
+        "name": "WishlistMember smoke",
+        "action": "create_member",
+        "level_id": "1700000000",
+        "field_map": [
+            {
+                "formField": "user-login",
+                "wishlistMemberField": "user_login"
+            },
+            {
+                "formField": "your-email",
+                "wishlistMemberField": "user_email"
+            },
+            {
+                "formField": "first-name",
+                "wishlistMemberField": "first_name"
+            },
+            {
+                "formField": "last-name",
+                "wishlistMemberField": "last_name"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "user-login": "smokeuser",
+        "your-email": "smoke@example.com",
+        "first-name": "Smoke",
+        "last-name": "User"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "MailerPress smoke: delete contact (Pro filter seam)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailerPress",
+        "name": "MailerPress smoke",
+        "mainAction": "delete_contact",
+        "lists": [],
+        "tags": [],
+        "field_map": [{"formField": "your-email", "mailerPressField": "email"}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "first-name": "Smoke", "last-name": "Tester"}
+}

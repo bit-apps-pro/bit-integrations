@@ -1,0 +1,20 @@
+{
+    "name": "Insightly smoke: create task with category",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Insightly",
+        "name": "Insightly smoke",
+        "api_key": "smoke-api-key",
+        "api_url": "na1.insightly.com",
+        "actionName": "task",
+        "selectedCategory": "8001",
+        "actions": {"category": true},
+        "field_map": [
+            {"formField": "your-subject", "insightlyFormField": "TITLE"},
+            {"formField": "your-message", "insightlyFormField": "DETAILS"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Task", "your-message": "Smoke task details"}
+}

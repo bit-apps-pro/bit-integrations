@@ -1,0 +1,17 @@
+{
+    "name": "PowerCoupons smoke: toggle show in slideout",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PowerCoupons",
+        "name": "PowerCoupons smoke",
+        "mainAction": "toggle_show_in_slideout",
+        "actions": {},
+        "utilities": {"enabled": "no"},
+        "field_map": [
+            {"formField": "coupon-code", "powerCouponsField": "coupon_code"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"coupon-code": "SMOKE10"}
+}

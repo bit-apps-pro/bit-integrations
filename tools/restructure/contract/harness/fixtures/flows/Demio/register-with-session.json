@@ -1,0 +1,22 @@
+{
+    "name": "Demio smoke: register person to webinar with session",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Demio",
+        "name": "Demio smoke",
+        "api_key": "smoke-api-key",
+        "api_secret": "smoke-api-secret",
+        "actionName": "registerPeopletoWabinar",
+        "selectedEvent": "701",
+        "selectedSession": "801",
+        "field_map": [
+            {"formField": "your-name", "demioFormField": "name"},
+            {"formField": "your-email", "demioFormField": "email"},
+            {"formField": "custom", "demioFormField": "company", "customValue": "Smoke Co"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Person", "your-email": "smoke@example.com"}
+}

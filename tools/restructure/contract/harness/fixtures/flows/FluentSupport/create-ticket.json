@@ -1,0 +1,19 @@
+{
+    "name": "FluentSupport smoke: create ticket for new customer",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "FluentSupport",
+        "name": "FluentSupport smoke",
+        "field_map": [
+            {"formField": "your-subject", "fluentSupportFormField": "title"},
+            {"formField": "your-message", "fluentSupportFormField": "content"},
+            {"formField": "first-name", "fluentSupportFormField": "first_name"},
+            {"formField": "last-name", "fluentSupportFormField": "last_name"},
+            {"formField": "your-email", "fluentSupportFormField": "email"}
+        ],
+        "actions": {"support_staff": "1", "client_priority": "high"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke ticket", "your-message": "Smoke ticket body", "first-name": "Smoke", "last-name": "Tester", "your-email": "smoke-fs@example.com"}
+}

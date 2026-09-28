@@ -1,0 +1,23 @@
+{
+    "name": "NextCrm smoke: create contact with utilities",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NextCrm",
+        "name": "NextCrm smoke",
+        "mainAction": "create_contact",
+        "field_map": [
+            {"formField": "your-email", "nextCrmField": "email_address"},
+            {"formField": "your-name", "nextCrmField": "first_name"},
+            {"formField": "custom", "nextCrmField": "city", "customValue": "Smoke City for ${your-name}"}
+        ],
+        "utilities": {
+            "selected_contact_type": "lead",
+            "selected_status": "subscribed",
+            "selected_lists": ["1"],
+            "selected_tags": ["1"]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-nextcrm@example.com", "your-name": "Smoke Contact"}
+}

@@ -1,0 +1,17 @@
+{
+    "name": "BuddyBoss smoke: send a notification to the current user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BuddyBoss",
+        "name": "BuddyBoss smoke",
+        "mainAction": "11",
+        "field_map": [
+            {"formField": "your-message", "buddyBossFormField": "notification_content"},
+            {"formField": "custom", "buddyBossFormField": "notification_link", "customValue": "https://example.test/smoke"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-message": "Smoke notification"}
+}

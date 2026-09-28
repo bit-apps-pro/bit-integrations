@@ -1,0 +1,22 @@
+{
+    "name": "Salesflare smoke: create account with address, tags and custom field",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesflare",
+        "name": "Salesflare smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "accounts",
+        "actionId": "",
+        "selectedTags": "smoke,fixture",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-company", "salesflareFormField": "name"},
+            {"formField": "your-email", "salesflareFormField": "email"},
+            {"formField": "your-city", "salesflareFormField": "city"},
+            {"formField": "custom", "salesflareFormField": "custom_field_industry", "customValue": "Software"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-company": "Smoke Co", "your-email": "smoke@example.com", "your-city": "Dhaka"}
+}

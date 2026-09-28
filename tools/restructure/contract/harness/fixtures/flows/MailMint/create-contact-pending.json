@@ -1,0 +1,20 @@
+{
+    "name": "MailMint smoke: create pending contact (double opt-in) with update enabled",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailMint",
+        "name": "MailMint smoke",
+        "mainAction": "1",
+        "selectedList": "1,2",
+        "selectedTags": "1,2",
+        "selectedSubStatus": "pending",
+        "update": true,
+        "field_map": [
+            {"formField": "your-email", "mailMintFormField": "email"},
+            {"formField": "your-name", "mailMintFormField": "first_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-mailmint-pending@example.com", "your-name": "Smoke Pending"}
+}

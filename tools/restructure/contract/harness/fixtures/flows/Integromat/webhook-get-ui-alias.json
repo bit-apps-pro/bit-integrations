@@ -1,0 +1,14 @@
+{
+    "name": "Integromat smoke: GET webhook saved with the UI type Make(Integromat)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Make(Integromat)",
+        "name": "Make(Integromat) Web Hooks",
+        "method": "GET",
+        "url": "https://hooks.example.test/integromat-get?email=${your-email}",
+        "body": {"type": "application/json", "data": []},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

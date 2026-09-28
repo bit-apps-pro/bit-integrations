@@ -1,0 +1,20 @@
+{
+    "name": "ClinchPad smoke: create a lead in a pipeline and attach a contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ClinchPad",
+        "name": "ClinchPad smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "lead",
+        "selectedCRMPipeline": "smoke-pipeline-1",
+        "selectedContact": "smoke-contact-1",
+        "field_map": [
+            {"formField": "your-name", "clinchPadFormField": "name"},
+            {"formField": "custom", "clinchPadFormField": "size", "customValue": "1000"}
+        ],
+        "actions": {"contact": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Lead"}
+}

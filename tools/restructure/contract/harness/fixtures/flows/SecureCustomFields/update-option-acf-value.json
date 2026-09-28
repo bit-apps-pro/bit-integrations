@@ -1,0 +1,16 @@
+{
+    "name": "SecureCustomFields smoke: update options page field value",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SecureCustomFields",
+        "name": "SecureCustomFields smoke",
+        "mainAction": "update_option_acf_value",
+        "field_map": [
+            {"formField": "custom", "secureCustomFieldsField": "field_name", "customValue": "smoke_option_field"},
+            {"formField": "your-subject", "secureCustomFieldsField": "field_value"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke option value"}
+}

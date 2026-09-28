@@ -1,0 +1,18 @@
+{
+    "name": "Dokan smoke: delete vendor by unknown email",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Dokan",
+        "name": "Dokan smoke",
+        "selectedTask": "deleteVendor",
+        "selectedVendor": "",
+        "selectedPaymentMethod": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "dokanField": "vendor_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "no-such-vendor@example.test"}
+}

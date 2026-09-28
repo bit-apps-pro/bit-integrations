@@ -1,0 +1,24 @@
+{
+    "name": "HefflCRM smoke: create contact client with billing and primary contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "HefflCRM",
+        "name": "HefflCRM smoke",
+        "api_key": "smoke-api-key",
+        "mainAction": "create_client",
+        "clientType": "contact",
+        "field_map": [
+            {"formField": "your-first-name", "hefflCRMField": "firstName"},
+            {"formField": "your-last-name", "hefflCRMField": "lastName"},
+            {"formField": "your-email", "hefflCRMField": "email"},
+            {"formField": "custom", "hefflCRMField": "billingCity", "customValue": "Dhaka"},
+            {"formField": "custom", "hefflCRMField": "billingCountry", "customValue": "Bangladesh"},
+            {"formField": "your-email", "hefflCRMField": "primaryContactEmail"},
+            {"formField": "custom", "hefflCRMField": "openingBalance", "customValue": "250.5"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-first-name": "Smoke", "your-last-name": "Client", "your-email": "smoke@example.com"}
+}

@@ -1,0 +1,27 @@
+{
+    "name": "OneHashCRM smoke: create lead with all optional selects (error log on empty response)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "OneHashCRM",
+        "name": "OneHashCRM smoke",
+        "api_key": "smoke-api-key",
+        "api_secret": "smoke-api-secret",
+        "domain": "https://smoke.onehash.test",
+        "actionName": "lead",
+        "selectedLeadStatus": "Lead",
+        "selectedLeadSource": "Website",
+        "selectedLeadAddressType": "Billing",
+        "selectedLeadType": "Client",
+        "selectedRequestType": "Product Enquiry",
+        "selectedMarketSegment": "Upper Income",
+        "actions": {"organizationLead": true},
+        "field_map": [
+            {"formField": "your-name", "oneHashCRMFormField": "lead_name"},
+            {"formField": "your-company", "oneHashCRMFormField": "company_name"},
+            {"formField": "your-email", "oneHashCRMFormField": "email_id"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Lead", "your-company": "Smoke Org", "your-email": "smoke@example.com"}
+}

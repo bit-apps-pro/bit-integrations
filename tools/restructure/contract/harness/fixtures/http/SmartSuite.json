@@ -1,0 +1,23 @@
+[
+    {
+        "id": "create-solution",
+        "method": "POST",
+        "url": "~^https://app\\.smartsuite\\.com/api/v1/solutions/$~",
+        "status": 200,
+        "body": {"id": "sol-smoke-new", "name": "Smoke Solution"}
+    },
+    {
+        "id": "create-record",
+        "method": "POST",
+        "url": "~^https://app\\.smartsuite\\.com/api/v1/applications/[^/]+/records~",
+        "status": 200,
+        "body": {"id": "rec-smoke-1", "title": "Smoke Record"}
+    },
+    {
+        "id": "create-table",
+        "method": "POST",
+        "url": "~^https://app\\.smartsuite\\.com/api/v1/applications/$~",
+        "status": 200,
+        "body": {"id": "tbl-smoke-new", "name": "Smoke Table"}
+    }
+]

@@ -1,0 +1,19 @@
+{
+    "name": "CompanyHub smoke: create company",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "CompanyHub",
+        "name": "CompanyHub smoke",
+        "sub_domain": "smoke-subdomain",
+        "api_key": "smoke-api-key",
+        "actionName": "company",
+        "field_map": [
+            {"formField": "your-company", "companyHubFormField": "Name"},
+            {"formField": "your-website", "companyHubFormField": "Website"},
+            {"formField": "your-phone", "companyHubFormField": "Phone"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-company": "Smoke Co", "your-website": "https://smoke.example.com", "your-phone": "5550100"}
+}

@@ -1,0 +1,24 @@
+{
+    "name": "SuiteDash smoke: create contact with role, company, address and custom fields",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SuiteDash",
+        "name": "SuiteDash smoke",
+        "public_id": "smoke-public-id",
+        "secret_key": "smoke-secret-key",
+        "actionName": "contact",
+        "selectedRole": "Lead",
+        "selectedCompany": "Smoke Co",
+        "field_map": [
+            {"formField": "your-first", "suiteDashFormField": "first_name"},
+            {"formField": "your-last", "suiteDashFormField": "last_name"},
+            {"formField": "your-email", "suiteDashFormField": "email"},
+            {"formField": "your-city", "suiteDashFormField": "address-city"},
+            {"formField": "custom", "suiteDashFormField": "custom-source", "customValue": "smoke"}
+        ],
+        "actions": {"company": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-first": "Smoke", "your-last": "Tester", "your-email": "smoke@example.com", "your-city": "Dhaka"}
+}

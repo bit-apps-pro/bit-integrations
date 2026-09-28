@@ -1,0 +1,17 @@
+{
+    "name": "PowerCoupons smoke: toggle auto apply",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PowerCoupons",
+        "name": "PowerCoupons smoke",
+        "mainAction": "toggle_auto_apply",
+        "actions": {},
+        "utilities": {"enabled": "yes"},
+        "field_map": [
+            {"formField": "coupon-code", "powerCouponsField": "coupon_code"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"coupon-code": "SMOKE10"}
+}

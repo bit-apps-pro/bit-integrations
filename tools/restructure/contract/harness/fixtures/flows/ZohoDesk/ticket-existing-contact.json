@@ -1,0 +1,28 @@
+{
+    "name": "ZohoDesk smoke: ticket for existing contact found by email, custom field, product, due date",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZohoDesk",
+        "name": "ZohoDesk smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "dataCenter": "com",
+        "orgId": "700001",
+        "department": "800001",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "api_domain": "https%3A%2F%2Fwww.zohoapis.com", "generates_on": 4102444800},
+        "default": {"fields": {"700001": {"required": ["lastName", "subject"]}}},
+        "actions": {"ticket_owner": "900001", "product": "910001"},
+        "field_map": [
+            {"formField": "your-name", "zohoFormField": "lastName"},
+            {"formField": "your-first", "zohoFormField": "firstName"},
+            {"formField": "your-email", "zohoFormField": "email"},
+            {"formField": "your-subject", "zohoFormField": "subject"},
+            {"formField": "your-due", "zohoFormField": "dueDate"},
+            {"formField": "custom", "zohoFormField": "description", "customValue": "Fixture for ${your-email}"},
+            {"formField": "your-tier", "zohoFormField": "cf_tier"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-first": "Tester", "your-email": "found@example.com", "your-subject": "Smoke ticket", "your-due": "2030-01-15 10:30:00", "your-tier": ["gold", "silver"]}
+}

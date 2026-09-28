@@ -1,0 +1,17 @@
+{
+    "name": "LMFWC smoke: deactivate license (Pro filter)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LMFWC",
+        "name": "LMFWC smoke",
+        "base_url": "https://example.com", "api_key": "ck_smoke-api-key", "api_secret": "cs_smoke-api-secret",
+        "module": "deactivate_license",
+        "field_map": [
+            {"formField": "license-key", "lmfwcFormField": "license_key"},
+            {"formField": "activation-token", "lmfwcFormField": "token"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"license-key": "SMOKE-LICENSE-0001", "activation-token": "smoke-activation-token"}
+}

@@ -1,0 +1,21 @@
+{
+    "name": "AntApps smoke: POST webhook with JSON body",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "AntApps",
+        "name": "AntApps smoke",
+        "method": "POST",
+        "url": "https://hooks.example.test/antapps?source=${your-name}",
+        "headers": [{"key": "X-Smoke", "value": "antapps"}],
+        "body": {
+            "type": "application/json",
+            "data": [
+                {"key": "email", "value": "${your-email}"},
+                {"key": "name", "value": "${your-name}"}
+            ]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

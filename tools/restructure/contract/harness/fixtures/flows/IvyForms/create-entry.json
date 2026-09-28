@@ -1,0 +1,19 @@
+{
+    "name": "IvyForms smoke: create entry",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "IvyForms",
+        "name": "IvyForms smoke",
+        "formId": "1",
+        "mainAction": "create_entry",
+        "field_map": [
+            {"formField": "your-email", "ivyFormsField": "1"},
+            {"formField": "your-name", "ivyFormsField": "2"},
+            {"formField": "custom", "ivyFormsField": "3", "customValue": "Note for ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Name"}
+}

@@ -1,0 +1,31 @@
+{
+    "name": "ConstantContact smoke: update existing contact merging lists, tags, custom fields, phone and address",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ConstantContact",
+        "name": "ConstantContact smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "source_type": "Contact",
+        "list_ids": "list-a",
+        "tag_ids": "tag-b",
+        "address_type": "home",
+        "phone_type": "work",
+        "address_field": [
+            {"formField": "your-street", "constantContactAddressField": "street"}
+        ],
+        "phone_field": [
+            {"formField": "your-phone", "constantContactPhoneField": "phone_number", "required": true}
+        ],
+        "actions": {"update": true, "list": true, "tag": true, "address": true, "phone": true},
+        "field_map": [
+            {"formField": "your-email", "constantContactFormField": "email_address"},
+            {"formField": "your-first", "constantContactFormField": "first_name"},
+            {"formField": "custom", "constantContactFormField": "custom-cf-1", "customValue": "Updated ${your-first}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-first": "Smoke", "your-street": "2 Smoke Ave", "your-phone": "5550199"}
+}

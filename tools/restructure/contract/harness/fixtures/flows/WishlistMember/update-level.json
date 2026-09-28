@@ -1,0 +1,25 @@
+{
+    "name": "WishlistMember smoke: update level",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WishlistMember",
+        "name": "WishlistMember smoke",
+        "action": "update_level",
+        "field_map": [
+            {
+                "formField": "level-id",
+                "wishlistMemberField": "id"
+            },
+            {
+                "formField": "your-name",
+                "wishlistMemberField": "name"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "level-id": "1700000000",
+        "your-name": "Smoke Level Renamed"
+    }
+}

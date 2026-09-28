@@ -1,0 +1,15 @@
+{
+    "name": "BuddyBoss smoke: add the current user to a group",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "BuddyBoss",
+        "name": "BuddyBoss smoke",
+        "mainAction": "2",
+        "groupId": "1",
+        "field_map": [{"formField": "", "buddyBossFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User"}
+}

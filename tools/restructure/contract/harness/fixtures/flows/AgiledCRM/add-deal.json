@@ -1,0 +1,23 @@
+{
+    "name": "AgiledCRM smoke: create pipeline deal",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "AgiledCRM",
+        "name": "AgiledCRM smoke",
+        "auth_token": "smoke-api-key",
+        "brand": "smoke-brand",
+        "actionName": "deal",
+        "selectedCRMPipeline": "51",
+        "selectedCRMPipelineStages": "61",
+        "selectedOwner": "11",
+        "selectedDealType": "new",
+        "actions": {"owner": true, "dealType": true},
+        "field_map": [
+            {"formField": "your-deal", "agiledFormField": "deal_name"},
+            {"formField": "custom", "agiledFormField": "deal_value", "customValue": "500"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-deal": "Smoke Deal"}
+}

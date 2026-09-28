@@ -1,0 +1,15 @@
+{
+    "name": "PopupMaker smoke: create_popup",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PopupMaker",
+        "name": "PopupMaker smoke",
+        "mainAction": "create_popup",
+        "field_map": [{"formField": "your-name", "popupMakerField": "title"}, {"formField": "custom", "popupMakerField": "content", "customValue": "Hello ${your-email}"}],
+        "selectedTheme": "",
+        "utilities": {"selected_status": "draft", "selected_size": "medium"},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Popup", "your-email": "smoke@example.com", "your-id": "999991"}
+}

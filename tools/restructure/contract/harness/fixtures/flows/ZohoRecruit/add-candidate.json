@@ -1,0 +1,111 @@
+{
+    "name": "ZohoRecruit smoke: add candidate with workflow/upsert/approval/owner",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZohoRecruit",
+        "name": "ZohoRecruit smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "dataCenter": "com",
+        "tokenDetails": {
+            "access_token": "smoke-access-token",
+            "refresh_token": "smoke-refresh-token",
+            "expires_in": 3600,
+            "generates_on": 4102444800,
+            "api_domain": "https://www.zohoapis.com"
+        },
+        "module": "Candidates",
+        "relatedlists": [],
+        "upload_field_map": [],
+        "default": {
+            "modules": {
+                "Candidates": {
+                    "singular_label": "Candidate",
+                    "plural_label": "Candidates"
+                }
+            },
+            "moduleData": {
+                "Candidates": {
+                    "fields": {
+                        "First Name": {
+                            "length": 40,
+                            "required": false,
+                            "data_type": "Text"
+                        },
+                        "Last Name": {
+                            "length": 80,
+                            "required": true,
+                            "data_type": "Text"
+                        },
+                        "Email": {
+                            "length": 100,
+                            "required": false,
+                            "data_type": "Email"
+                        },
+                        "City": {
+                            "length": 60,
+                            "required": false,
+                            "data_type": "Text"
+                        },
+                        "Zip/Postal Code": {
+                            "length": 20,
+                            "required": false,
+                            "data_type": "Text"
+                        }
+                    },
+                    "required": [
+                        "Last Name"
+                    ],
+                    "fileUploadFields": {
+                        "Resume": {
+                            "length": 1,
+                            "required": false,
+                            "data_type": "UploadText"
+                        }
+                    },
+                    "requiredFileUploadFields": []
+                }
+            },
+            "noteTypes": {
+                "401__General Note": "General Note"
+            }
+        },
+        "isAuthorized": true,
+        "field_map": [
+            {
+                "formField": "your-first",
+                "zohoFormField": "First Name"
+            },
+            {
+                "formField": "your-name",
+                "zohoFormField": "Last Name"
+            },
+            {
+                "formField": "your-email",
+                "zohoFormField": "Email"
+            },
+            {
+                "formField": "custom",
+                "zohoFormField": "City",
+                "customValue": "Smokeville"
+            },
+            {
+                "formField": "your-zip",
+                "zohoFormField": "Zip/Postal Code"
+            }
+        ],
+        "actions": {
+            "workflow": true,
+            "upsert": true,
+            "approval": true,
+            "recordOwner": "7001"
+        }
+    },
+    "field_data": {
+        "your-first": "Smoke",
+        "your-name": "Tester",
+        "your-email": "smoke@example.com",
+        "your-zip": "12345"
+    }
+}

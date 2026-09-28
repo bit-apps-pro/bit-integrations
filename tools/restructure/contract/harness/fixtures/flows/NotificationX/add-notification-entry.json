@@ -1,0 +1,22 @@
+{
+    "name": "NotificationX smoke: add notification entry via entry_map (Pro seam notificationx_add_notification_entry)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NotificationX",
+        "name": "NotificationX smoke",
+        "mainAction": "add_notification_entry",
+        "selected_notification_id": "",
+        "entry_map": [
+            {"formField": "your-name", "entryKey": "name"},
+            {"formField": "custom", "entryKey": "title", "customValue": "Entry for ${your-email}"},
+            {"formField": "your-city", "entryKey": ""}
+        ],
+        "field_map": [
+            {"formField": "notification-id", "notificationXField": "notification_id"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke User", "your-email": "smoke@example.com", "notification-id": "42", "your-city": "Dhaka"}
+}

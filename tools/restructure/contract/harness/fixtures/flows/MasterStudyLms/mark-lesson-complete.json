@@ -1,0 +1,15 @@
+{
+    "name": "MasterStudyLms smoke: mark lesson complete by email (Pro hook master_study_lms_mark_lesson_complete)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MasterStudyLms",
+        "name": "MasterStudyLms smoke",
+        "mainAction": "9",
+        "courseId": "999901", "lessonId": "999902",
+        "field_map": [{"formField": "custom", "msLmsFormField": "user_email", "customValue": "${your-email}"}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Learner"}
+}

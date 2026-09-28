@@ -1,0 +1,20 @@
+{
+    "name": "SenseiLMS smoke: create course",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SenseiLMS",
+        "name": "SenseiLMS smoke",
+        "mainAction": "create_course",
+        "selectedStatus": "draft",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-subject", "senseiLMSField": "post_title"},
+            {"formField": "your-message", "senseiLMSField": "post_content"},
+            {"formField": "custom", "senseiLMSField": "post_excerpt", "customValue": "Excerpt for ${your-subject}"},
+            {"formField": "your-email", "senseiLMSField": "author_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Course", "your-message": "Smoke course body", "your-email": "smoke@example.com"}
+}

@@ -1,0 +1,19 @@
+{
+    "name": "SenseiLMS smoke: grade quiz for user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SenseiLMS",
+        "name": "SenseiLMS smoke",
+        "mainAction": "grade_quiz",
+        "selectedQuiz": "301",
+        "selectedGradeType": "manual",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "senseiLMSField": "user_email"},
+            {"formField": "grade", "senseiLMSField": "grade"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "grade": "85"}
+}

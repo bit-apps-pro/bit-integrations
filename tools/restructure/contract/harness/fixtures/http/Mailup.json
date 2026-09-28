@@ -1,0 +1,16 @@
+[
+    {
+        "id": "list-recipient",
+        "method": "POST",
+        "url": "~^https://services\\.mailup\\.com/API/v1\\.1/Rest/ConsoleService\\.svc/Console/List/[^/]+/Recipient~",
+        "status": 200,
+        "body": 4242
+    },
+    {
+        "id": "token-refresh",
+        "method": "POST",
+        "url": "~^https://services\\.mailup\\.com/Authorization/OAuth/Token~",
+        "status": 200,
+        "body": {"access_token": "smoke-refreshed-access-token", "refresh_token": "smoke-refreshed-refresh-token", "expires_in": 3600, "token_type": "bearer"}
+    }
+]

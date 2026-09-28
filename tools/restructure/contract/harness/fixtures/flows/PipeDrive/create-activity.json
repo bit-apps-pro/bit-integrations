@@ -1,0 +1,19 @@
+{
+    "name": "PipeDrive smoke: create activity with participants and busy flag",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PipeDrive",
+        "name": "PipeDrive smoke",
+        "api_key": "smoke-api-key",
+        "moduleData": {"module": "Activities", "organization_id": 11, "person_id": 22, "owner": 33, "activities_type": "meeting", "activities_participants": "22,24"},
+        "actions": {"busy_flag": true, "activities_participants": true},
+        "field_map": [
+            {"formField": "your-subject", "pipeDriveFormField": "subject"},
+            {"formField": "due-date", "pipeDriveFormField": "due_date"}
+        ],
+        "relatedlists": [],
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke meeting", "due-date": "2030-01-15"}
+}

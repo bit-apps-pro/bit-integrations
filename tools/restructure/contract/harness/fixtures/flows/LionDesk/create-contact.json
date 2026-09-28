@@ -1,0 +1,26 @@
+{
+    "name": "LionDesk smoke: create contact with tags, custom field and address",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LionDesk",
+        "name": "LionDesk smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "redirectURI": "https://example.test/callback",
+        "tokenDetails": {"access_token": "smoke-access-token", "refresh_token": "smoke-refresh-token", "token_type": "Bearer", "expires_in": 3600, "generated_at": 4102444800},
+        "actionName": "contact",
+        "actionId": "contact",
+        "selectedTag": "Smoke,Lead",
+        "field_map": [
+            {"formField": "your-email", "lionDeskFormField": "email"},
+            {"formField": "your-name", "lionDeskFormField": "first_name"},
+            {"formField": "your-city", "lionDeskFormField": "city"},
+            {"formField": "custom", "lionDeskFormField": "type", "customValue": "Home"},
+            {"formField": "your-note", "lionDeskFormField": "9001"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke", "your-city": "Dhaka", "your-note": "custom value"}
+}

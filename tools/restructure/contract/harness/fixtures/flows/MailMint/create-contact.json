@@ -1,0 +1,21 @@
+{
+    "name": "MailMint smoke: create subscribed contact with list and tag",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MailMint",
+        "name": "MailMint smoke",
+        "mainAction": "1",
+        "selectedList": "1",
+        "selectedTags": "1",
+        "selectedSubStatus": "subscribed",
+        "field_map": [
+            {"formField": "your-email", "mailMintFormField": "email"},
+            {"formField": "your-name", "mailMintFormField": "first_name"},
+            {"formField": "custom", "mailMintFormField": "last_name", "customValue": "Smoke"},
+            {"formField": "your-city", "mailMintFormField": "custom_meta_field_city"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-mailmint@example.com", "your-name": "Smoke Mint", "your-city": "Dhaka"}
+}

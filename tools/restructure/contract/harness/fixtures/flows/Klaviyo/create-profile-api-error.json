@@ -1,0 +1,18 @@
+{
+    "name": "Klaviyo smoke: create profile API error logged",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Klaviyo",
+        "name": "Klaviyo smoke",
+        "authKey": "smoke-api-key",
+        "listId": "SmokeList1",
+        "field_map": [
+            {"formField": "your-email", "klaviyoFormField": "email"},
+            {"formField": "your-name", "klaviyoFormField": "first_name"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "error@example.com", "your-name": "Smoke"}
+}

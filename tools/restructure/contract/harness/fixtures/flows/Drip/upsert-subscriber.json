@@ -1,0 +1,21 @@
+{
+    "name": "Drip smoke: upsert subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Drip",
+        "name": "Drip smoke",
+        "api_token": "smoke-api-token",
+        "selectedAccountId": "9990001",
+        "selectedStatus": "",
+        "selectedTags": "",
+        "selectedRemoveTags": "",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "dripField": "email"},
+            {"formField": "your-name", "dripField": "first_name"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

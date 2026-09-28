@@ -1,0 +1,15 @@
+{
+    "name": "EventsManager smoke: unknown action default branch",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "EventsManager",
+        "name": "EventsManager smoke",
+        "mainAction": "smoke_unknown_action",
+        "field_map": [
+            {"formField": "your-email", "eventsManagerField": "user_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

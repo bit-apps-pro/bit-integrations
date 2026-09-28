@@ -1,0 +1,18 @@
+{
+    "name": "Mailercloud smoke: API rejects the contact and the error log row is written",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailercloud",
+        "name": "Mailercloud smoke",
+        "authKey": "smoke-api-key",
+        "listId": "smoke-list-1",
+        "contactType": "unsubscribe",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "mailercloudFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-reject@example.com"}
+}

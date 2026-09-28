@@ -1,0 +1,21 @@
+{
+    "name": "PerfexCRM smoke: add lead",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PerfexCRM",
+        "name": "PerfexCRM smoke",
+        "actionName": "lead",
+        "field_map": [
+            {"formField": "your-name", "perfexCRMFormField": "name"},
+            {"formField": "your-email", "perfexCRMFormField": "email"}
+        ],
+        "selectedLeadStatusId": "2",
+        "selectedLeadSourceId": "3",
+        "selectedStaff": "1",
+        "selectedCustomer": "11",
+        "actions": {"leadIsPublic": true, "contactedToday": true},
+        "api_token": "smoke-api-token", "domain": "https://perfex.example.test", "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Lead", "your-email": "smoke@example.com"}
+}

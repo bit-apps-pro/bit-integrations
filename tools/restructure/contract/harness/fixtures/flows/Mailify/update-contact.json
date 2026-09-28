@@ -1,0 +1,21 @@
+{
+    "name": "Mailify smoke: update existing contact (update action on)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Mailify",
+        "name": "Mailify smoke",
+        "account_id": "smoke-account-id",
+        "api_key": "smoke-api-key",
+        "listId": "list-101",
+        "actions": {"update": true},
+        "field_map": [
+            {"formField": "your-email", "mailifyField": "EMAIL_ID"},
+            {"formField": "your-phone", "mailifyField": "PHONE_ID"},
+            {"formField": "your-name", "mailifyField": "field-firstname"},
+            {"formField": "custom", "customValue": "smoke-source", "mailifyField": "field-source"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-phone": "+15550100", "your-name": "Smoke"}
+}

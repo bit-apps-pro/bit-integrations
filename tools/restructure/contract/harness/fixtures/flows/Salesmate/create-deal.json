@@ -1,0 +1,29 @@
+{
+    "name": "Salesmate smoke: create deal",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesmate",
+        "name": "Salesmate smoke",
+        "session_token": "smoke-session-token",
+        "link_name": "smoke",
+        "actionName": "deal",
+        "actionId": "4",
+        "selectedCRMContact": "21",
+        "selectedCRMOwner": "11",
+        "selectedCRMPipeline": "Sales",
+        "selectedCRMStage": "New (Untouched)",
+        "selectedStatus": "Open",
+        "selectedSource": "Web",
+        "selectedPriority": "Medium",
+        "selectedCurrency": "USD",
+        "selectedTag": "smoke-tag",
+        "field_map": [
+            {"formField": "your-subject", "salesmateFormField": "title"},
+            {"formField": "your-message", "salesmateFormField": "description"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-subject": "Smoke Deal", "your-message": "Deal from the smoke fixture"}
+}

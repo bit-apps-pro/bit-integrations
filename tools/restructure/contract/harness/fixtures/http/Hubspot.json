@@ -1,0 +1,23 @@
+[
+    {
+        "id": "object-search",
+        "method": "POST",
+        "url": "~^https://api\\.hubapi\\.com/crm/v3/objects/[a-z]+/search$~",
+        "status": 200,
+        "body": {"total": 1, "results": [{"id": "9001", "properties": {}}]}
+    },
+    {
+        "id": "object-update",
+        "method": "PATCH",
+        "url": "~^https://api\\.hubapi\\.com/crm/v3/objects/[a-z]+/9001$~",
+        "status": 200,
+        "body": {"id": "9001", "properties": {"hs_object_id": "9001"}}
+    },
+    {
+        "id": "object-create",
+        "method": "POST",
+        "url": "~^https://api\\.hubapi\\.com/crm/v3/objects/[a-z]+$~",
+        "status": 201,
+        "body": {"id": "9101", "properties": {"hs_object_id": "9101"}}
+    }
+]

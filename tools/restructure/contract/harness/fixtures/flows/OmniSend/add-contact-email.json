@@ -1,0 +1,23 @@
+{
+    "name": "OmniSend smoke: add contact on email channel only",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "OmniSend",
+        "name": "OmniSend smoke",
+        "api_key": "smoke-api-key",
+        "channels": "email",
+        "email_status": "subscribed",
+        "sms_status": "",
+        "field_map": [
+            {"formField": "your-email", "omniSendFormField": "email"},
+            {"formField": "your-phone", "omniSendFormField": "phone_number"},
+            {"formField": "your-name", "omniSendFormField": "firstName"}
+        ],
+        "custom_field_map": [],
+        "selected_tags": "",
+        "actions": {"channel": true, "tag": false},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-phone": "+15551234567", "your-name": "Smoke User"}
+}

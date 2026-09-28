@@ -1,0 +1,32 @@
+{
+    "name": "WeDocs smoke: create documentation",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WeDocs",
+        "name": "WeDocs smoke",
+        "mainAction": "create_documentation",
+        "selectedDocumentationId": "",
+        "selectedSectionId": "",
+        "field_map": [
+            {
+                "formField": "your-name",
+                "weDocsField": "post_title"
+            },
+            {
+                "formField": "your-message",
+                "weDocsField": "post_content"
+            },
+            {
+                "formField": "custom",
+                "weDocsField": "post_status",
+                "customValue": "draft"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-name": "Smoke Doc",
+        "your-message": "Smoke content"
+    }
+}

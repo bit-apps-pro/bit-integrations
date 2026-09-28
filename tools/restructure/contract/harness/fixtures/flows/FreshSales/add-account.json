@@ -1,0 +1,16 @@
+{
+    "name": "FreshSales smoke: insert sales account",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "FreshSales",
+        "name": "FreshSales smoke",
+        "api_key": "smoke-api-key",
+        "bundle_alias": "smoke.myfreshworks.com/crm/sales",
+        "moduleData": {"module": "Account"},
+        "actions": {},
+        "field_map": [{"formField": "your-name", "freshSalesFormField": "name"}, {"formField": "custom", "freshSalesFormField": "website", "customValue": "https://example.test/${your-name}"}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "SmokeAccount"}
+}

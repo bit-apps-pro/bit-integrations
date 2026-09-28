@@ -1,0 +1,35 @@
+{
+    "name": "MondayCom smoke: create item with column values",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MondayCom",
+        "name": "MondayCom smoke",
+        "apiToken": "smoke-api-token",
+        "mainAction": "create_item",
+        "selectedBoard": "1001",
+        "selectedGroup": "topics",
+        "field_map": [
+            {
+                "formField": "your-name",
+                "mondayComField": "item_name"
+            },
+            {
+                "formField": "your-email",
+                "mondayComField": "email_col"
+            },
+            {
+                "formField": "custom",
+                "mondayComField": "text_col",
+                "customValue": "From ${your-name}"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke Item",
+        "item-id": "5001",
+        "group-id": "topics"
+    }
+}

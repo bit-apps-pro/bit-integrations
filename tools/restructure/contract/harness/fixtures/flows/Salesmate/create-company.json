@@ -1,0 +1,23 @@
+{
+    "name": "Salesmate smoke: create company (API error branch)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Salesmate",
+        "name": "Salesmate smoke",
+        "session_token": "smoke-session-token",
+        "link_name": "smoke",
+        "actionName": "company",
+        "actionId": "5",
+        "selectedCRMOwner": "11",
+        "selectedCurrency": "EUR",
+        "selectedType": "Partner",
+        "field_map": [
+            {"formField": "your-name", "salesmateFormField": "name"},
+            {"formField": "custom", "salesmateFormField": "website", "customValue": "https://example.com"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Company Ltd"}
+}

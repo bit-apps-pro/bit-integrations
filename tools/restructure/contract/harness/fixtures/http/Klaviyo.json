@@ -1,0 +1,36 @@
+[
+    {
+        "id": "search-existing-profile",
+        "method": "GET",
+        "url": "~^https://a\\.klaviyo\\.com/api/profiles\\?filter=equals\\(email,'existing(@|%40)example\\.com'\\)~",
+        "body": {"data": [{"type": "profile", "id": "01SMOKEEXISTING"}]}
+    },
+    {
+        "id": "search-profile-none",
+        "method": "GET",
+        "url": "~^https://a\\.klaviyo\\.com/api/profiles\\?filter=~",
+        "body": {"data": []}
+    },
+    {
+        "id": "create-profile-error",
+        "method": "POST",
+        "url": "~^https://a\\.klaviyo\\.com/api/profiles$~",
+        "body_contains": "error@example.com",
+        "status": 400,
+        "body": {"errors": [{"id": "smoke-err", "status": 400, "code": "invalid", "title": "Invalid input.", "detail": "Smoke duplicate profile"}]}
+    },
+    {
+        "id": "create-profile",
+        "method": "POST",
+        "url": "~^https://a\\.klaviyo\\.com/api/profiles$~",
+        "status": 201,
+        "body": {"data": {"type": "profile", "id": "01SMOKENEW", "attributes": {"email": "new@example.com"}}}
+    },
+    {
+        "id": "add-profile-to-list",
+        "method": "POST",
+        "url": "~^https://a\\.klaviyo\\.com/api/lists/[^/]+/relationships/profiles~",
+        "status": 204,
+        "body": ""
+    }
+]

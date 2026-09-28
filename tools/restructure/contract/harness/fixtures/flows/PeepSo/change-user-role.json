@@ -1,0 +1,17 @@
+{
+    "name": "PeepSo smoke: change user role",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PeepSo",
+        "name": "PeepSo smoke",
+        "mainAction": "change_user_role",
+        "field_map": [
+            {"formField": "your-email", "peepSoField": "user_email"},
+            {"formField": "custom", "peepSoField": "new_role", "customValue": "member"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

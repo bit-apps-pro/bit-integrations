@@ -1,0 +1,14 @@
+{
+    "name": "LearnDash smoke: enroll current user in a course (action 3)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "LearnDash",
+        "name": "LearnDash smoke",
+        "mainAction": "3",
+        "courseId": "101",
+        "field_map": [{"formField": "", "learnDeshFormField": ""}],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke Group"}
+}

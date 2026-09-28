@@ -1,0 +1,23 @@
+{
+    "name": "PerfexCRM smoke: add contact with direction, permissions and primary flag",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PerfexCRM",
+        "name": "PerfexCRM smoke",
+        "actionName": "contact",
+        "field_map": [
+            {"formField": "your-first", "perfexCRMFormField": "firstname"},
+            {"formField": "your-last", "perfexCRMFormField": "lastname"},
+            {"formField": "your-email", "perfexCRMFormField": "email"}
+        ],
+        "selectedCustomer": "11",
+        "selectedDirection": "ltr",
+        "selectedPermission": "1,2",
+        "selectedLeadSourceId": 1,
+        "selectedLeadStatusId": 1,
+        "actions": {"direction": true, "permission": true, "contactIsPrimary": true},
+        "api_token": "smoke-api-token", "domain": "https://perfex.example.test", "isAuthorized": true
+    },
+    "field_data": {"your-first": "Smoke", "your-last": "Contact", "your-email": "smoke@example.com"}
+}

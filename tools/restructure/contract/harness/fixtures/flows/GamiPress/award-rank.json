@@ -1,0 +1,15 @@
+{
+    "name": "GamiPress smoke: award rank to the current user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "GamiPress",
+        "name": "GamiPress smoke",
+        "mainAction": "1",
+        "selectedRankType": "rank", "selectedRank": "999901",
+        "field_map": [{"formField": "", "gamiPressFormField": ""}],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

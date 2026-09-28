@@ -1,0 +1,33 @@
+{
+    "name": "ZohoCampaigns smoke: list subscribe",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZohoCampaigns",
+        "name": "ZohoCampaigns smoke",
+        "clientId": "smoke-client-id",
+        "clientSecret": "smoke-client-secret",
+        "dataCenter": "com",
+        "tokenDetails": {
+            "access_token": "smoke-access-token",
+            "refresh_token": "smoke-refresh-token",
+            "token_type": "Bearer",
+            "expires_in": 3600,
+            "api_domain": "https://www.zohoapis.com",
+            "generated_at": 4102444800,
+            "generates_on": 4102444800
+        },
+        "list": "smoke-list-key",
+        "field_map": [
+            {"formField": "your-email", "zohoFormField": "Contact Email"},
+            {"formField": "your-name", "zohoFormField": "First Name"},
+            {"formField": "custom", "zohoFormField": "Last Name", "customValue": "Fixture"}
+        ],
+        "default": {
+            "lists": {"Smoke List": {"listkey": "smoke-list-key", "listname": "Smoke List"}},
+            "fields": {"smoke-list-key": {"fields": ["Contact Email", "First Name", "Last Name"], "required": ["Contact Email"]}}
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

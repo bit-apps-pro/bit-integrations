@@ -1,0 +1,21 @@
+{
+    "name": "Moosend smoke: subscribe to list with custom field",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Moosend",
+        "name": "Moosend smoke",
+        "authKey": "smoke-api-key",
+        "method": "1",
+        "listId": "smoke-list-1",
+        "field_map": [
+            {"formFields": "your-email", "moosendFormFields": "Email"},
+            {"formFields": "your-name", "moosendFormFields": "Name"},
+            {"formFields": "your-phone", "moosendFormFields": "Mobile"},
+            {"formFields": "custom", "moosendFormFields": "custom_field_Company", "customValue": "Smoke Co ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke User", "your-phone": "+1 555-123-4567"}
+}

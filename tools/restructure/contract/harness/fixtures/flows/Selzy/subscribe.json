@@ -1,0 +1,22 @@
+{
+    "name": "Selzy smoke: subscribe contact with double opt-in and overwrite",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Selzy",
+        "name": "Selzy smoke",
+        "api_key": "smoke-api-key",
+        "listIds": "11,12",
+        "tags": "smoke-tag",
+        "method": "1",
+        "option": "3",
+        "overwrite": "1",
+        "actions": {"option": true, "overwrite": true},
+        "field_map": [
+            {"formField": "your-email", "selzyFormField": "email"},
+            {"formField": "custom", "selzyFormField": "phone", "customValue": "+15550100"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com"}
+}

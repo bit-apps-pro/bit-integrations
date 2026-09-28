@@ -1,0 +1,46 @@
+{
+    "name": "MoxieCRM smoke: create contact linked to client with custom value",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MoxieCRM",
+        "name": "MoxieCRM smoke",
+        "api_key": "smoke-api-key",
+        "api_url": "smoke.withmoxie.test",
+        "actionName": "contact",
+        "recordType": "",
+        "actions": {
+            "client": true
+        },
+        "selectedClient": "Smoke Co",
+        "field_map": [
+            {
+                "formField": "your-email",
+                "moxiecrmFormField": "email"
+            },
+            {
+                "formField": "first-name",
+                "moxiecrmFormField": "first"
+            },
+            {
+                "formField": "last-name",
+                "moxiecrmFormField": "last"
+            },
+            {
+                "formField": "custom",
+                "moxiecrmFormField": "customValues",
+                "customFieldKey": "cf_source",
+                "customValue": "smoke"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke Client",
+        "first-name": "Smoke",
+        "last-name": "Tester",
+        "your-phone": "5550100",
+        "budget": "1500"
+    }
+}

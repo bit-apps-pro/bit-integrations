@@ -1,0 +1,22 @@
+{
+    "name": "Nimble smoke: add person contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Nimble",
+        "name": "Nimble smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "person",
+        "selectedRating": "3",
+        "selectedLeadStatus": "Qualified",
+        "selectedLeadSource": "Web",
+        "selectedLeadType": "Hot",
+        "field_map": [
+            {"formField": "your-name", "nimbleFormField": "first name"},
+            {"formField": "your-email", "nimbleFormField": "Email"},
+            {"formField": "custom", "nimbleFormField": "title", "customValue": "Smoke Title"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-nimble@example.com", "your-name": "Smoke Person"}
+}

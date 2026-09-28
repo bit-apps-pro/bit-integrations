@@ -1,0 +1,25 @@
+{
+    "name": "Gravitec smoke: push notification with a button",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Gravitec",
+        "name": "Gravitec smoke",
+        "app_key": "smoke-app-key",
+        "app_secret": "smoke-app-secret",
+        "site_url": "https://smoke.example.test",
+        "actionName": "notification",
+        "selectedButtonTitle": "Open",
+        "selectedButtonURL": "https://smoke.example.test/open",
+        "field_map": [
+            {"formField": "your-message", "gravitecFormField": "message"},
+            {"formField": "your-name", "gravitecFormField": "title"},
+            {"formField": "custom", "gravitecFormField": "icon", "customValue": "https://smoke.example.test/icon.png"},
+            {"formField": "custom", "gravitecFormField": "redirect_url", "customValue": "https://smoke.example.test/landing"},
+            {"formField": "custom", "gravitecFormField": "ttl", "customValue": "3600"},
+            {"formField": "custom", "gravitecFormField": "push_tag", "customValue": "smoke"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-message": "Smoke push message", "your-name": "Smoke Title"}
+}

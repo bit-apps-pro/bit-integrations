@@ -1,0 +1,24 @@
+{
+    "name": "NutshellCRM smoke: create company with contact and company type",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NutshellCRM",
+        "name": "NutshellCRM smoke",
+        "user_name": "smoke-user@example.com",
+        "api_token": "smoke-api-token",
+        "actionName": "company",
+        "actionId": "",
+        "actions": {"Contact": true, "CompanyType": true},
+        "selectedContact": "21",
+        "selectedCompanyType": "3",
+        "field_map": [
+            {"formField": "your-company", "nutshellCRMFormField": "name"},
+            {"formField": "custom", "nutshellCRMFormField": "url", "customValue": "https://example.test"},
+            {"formField": "your-phone", "nutshellCRMFormField": "phone"},
+            {"formField": "your-city", "nutshellCRMFormField": "city"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-last": "User", "your-email": "smoke@example.com", "your-phone": "5550100", "your-city": "Dhaka", "your-company": "Smoke Co", "your-message": "Smoke lead"}
+}

@@ -1,0 +1,19 @@
+{
+    "name": "RestrictContent smoke: add current user to a level",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "RestrictContent",
+        "name": "Restrict Content smoke",
+        "actionName": "add-member-level",
+        "level_id": "1",
+        "exp_date": "2099-12-31",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-email", "restrictField": "user_email"},
+            {"formField": "your-name", "restrictField": "user_login"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "smokeuser"}
+}

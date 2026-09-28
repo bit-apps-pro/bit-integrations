@@ -1,0 +1,19 @@
+{
+    "name": "ClinchPad smoke: create an organization",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ClinchPad",
+        "name": "ClinchPad smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "organization",
+        "field_map": [
+            {"formField": "your-company", "clinchPadFormField": "name"},
+            {"formField": "your-email", "clinchPadFormField": "email"},
+            {"formField": "custom", "clinchPadFormField": "fields", "customFieldKey": "cf-smoke-org", "customValue": "Org of ${your-name}"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-company": "Smoke Co", "your-email": "smoke@example.com", "your-name": "Smoke User"}
+}

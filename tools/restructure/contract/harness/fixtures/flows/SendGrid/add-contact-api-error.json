@@ -1,0 +1,16 @@
+{
+    "name": "SendGrid smoke: upsert contact rejected by API (errors -> error log)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "SendGrid",
+        "name": "SendGrid smoke",
+        "apiKey": "smoke-api-key",
+        "selectedLists": "list-a",
+        "field_map": [
+            {"formField": "your-email", "sendGridFormField": "email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-reject@example.com"}
+}

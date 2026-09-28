@@ -1,0 +1,22 @@
+{
+    "name": "Albato smoke: POST webhook with JSON body",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Albato",
+        "name": "Albato smoke",
+        "method": "POST",
+        "url": "https://hooks.example.test/albato?source=${your-name}",
+        "apiConsole": "https://albato.com/app/bundle",
+        "headers": [{"key": "X-Smoke", "value": "albato"}],
+        "body": {
+            "type": "application/json",
+            "data": [
+                {"key": "name", "value": "${your-name}"},
+                {"key": "email", "value": "${your-email}"}
+            ]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke", "your-email": "smoke@example.com"}
+}

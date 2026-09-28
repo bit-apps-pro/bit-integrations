@@ -1,0 +1,20 @@
+{
+    "name": "Zendesk smoke: create contact",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Zendesk",
+        "name": "Zendesk smoke",
+        "api_key": "smoke-api-key",
+        "actionName": "contact",
+        "actions": {},
+        "field_map": [
+            {"formField": "your-first", "zendeskFormField": "first_name"},
+            {"formField": "your-last", "zendeskFormField": "last_name"},
+            {"formField": "your-email", "zendeskFormField": "email"},
+            {"formField": "your-country", "zendeskFormField": "country"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-first": "Smoke", "your-last": "Tester", "your-email": "smoke@example.com", "your-country": "BD"}
+}

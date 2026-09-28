@@ -1,0 +1,29 @@
+{
+    "name": "MondayCom smoke: move item to group (3-arg hook)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "MondayCom",
+        "name": "MondayCom smoke",
+        "apiToken": "smoke-api-token",
+        "mainAction": "move_item_to_group",
+        "selectedBoard": "1001",
+        "field_map": [
+            {
+                "formField": "group-id",
+                "mondayComField": "group_id"
+            },
+            {
+                "formField": "item-id",
+                "mondayComField": "item_id"
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "smoke@example.com",
+        "your-name": "Smoke Item",
+        "item-id": "5001",
+        "group-id": "topics"
+    }
+}

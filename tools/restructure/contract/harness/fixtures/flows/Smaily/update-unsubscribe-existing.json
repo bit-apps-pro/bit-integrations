@@ -1,0 +1,19 @@
+{
+    "name": "Smaily smoke: update existing subscriber as unsubscribed",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Smaily",
+        "name": "Smaily smoke",
+        "subdomain": "smoke",
+        "api_user_name": "smoke-user",
+        "api_user_password": "smoke-password",
+        "field_map": [
+            {"formField": "your-email", "smailyFormField": "email"},
+            {"formField": "your-name", "smailyFormField": "customFieldKey", "customFieldKey": "name"}
+        ],
+        "actions": {"unsubscribe": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-name": "Smoke Existing"}
+}

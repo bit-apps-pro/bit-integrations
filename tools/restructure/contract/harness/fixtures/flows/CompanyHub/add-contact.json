@@ -1,0 +1,22 @@
+{
+    "name": "CompanyHub smoke: create contact with company and source",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "CompanyHub",
+        "name": "CompanyHub smoke",
+        "sub_domain": "smoke-subdomain",
+        "api_key": "smoke-api-key",
+        "actionName": "contact",
+        "selectedCompany": "smoke-company-1",
+        "selectedSource": "Website",
+        "field_map": [
+            {"formField": "your-first", "companyHubFormField": "FirstName"},
+            {"formField": "your-last", "companyHubFormField": "LastName"},
+            {"formField": "your-email", "companyHubFormField": "Email"},
+            {"formField": "custom", "companyHubFormField": "Description", "customValue": "Fixture for ${your-email}"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-first": "Smoke", "your-last": "Tester", "your-email": "smoke@example.com"}
+}

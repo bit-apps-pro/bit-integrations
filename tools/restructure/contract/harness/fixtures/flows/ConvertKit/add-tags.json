@@ -1,0 +1,22 @@
+{
+    "name": "ConvertKit smoke: add tags to a subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ConvertKit",
+        "name": "ConvertKit smoke",
+        "api_secret": "smoke-api-secret",
+        "module": "add_tags_to_a_subscriber",
+        "actions": {},
+        "formId": "1001",
+        "tagIds": ["11", "12"],
+        "field_map": [
+            {"formField": "your-email", "convertKitField": "email"},
+            {"formField": "your-first", "convertKitField": "firstName"},
+            {"formField": "custom", "convertKitField": "companyName", "customValue": "Smoke Co for ${your-email}"},
+            {"formField": "your-city", "convertKitField": "301"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-first": "Smoke", "your-city": "Smokeville"}
+}

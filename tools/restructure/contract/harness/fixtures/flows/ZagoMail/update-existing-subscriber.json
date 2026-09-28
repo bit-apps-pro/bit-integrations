@@ -1,0 +1,20 @@
+{
+    "name": "ZagoMail smoke: update existing subscriber",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "ZagoMail",
+        "name": "ZagoMail smoke update",
+        "api_public_key": "smoke-api-key",
+        "listId": "smoke-list-uid",
+        "selectedList": "smoke-list-uid",
+        "selectedTags": [],
+        "field_map": [
+            {"formField": "your-email", "zagoMailField": "EMAIL"},
+            {"formField": "your-name", "zagoMailField": "FNAME"}
+        ],
+        "actions": {"update": true},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-existing@example.com", "your-name": "Smoke Existing"}
+}

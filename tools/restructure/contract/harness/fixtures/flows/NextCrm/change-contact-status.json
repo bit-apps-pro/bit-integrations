@@ -1,0 +1,16 @@
+{
+    "name": "NextCrm smoke: change contact status",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "NextCrm",
+        "name": "NextCrm smoke",
+        "mainAction": "change_contact_status",
+        "selectedStatus": "subscribed",
+        "field_map": [
+            {"formField": "your-email", "nextCrmField": "contact_email"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke-nextcrm@example.com"}
+}

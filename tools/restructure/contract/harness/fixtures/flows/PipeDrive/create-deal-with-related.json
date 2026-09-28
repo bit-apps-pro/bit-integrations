@@ -1,0 +1,36 @@
+{
+    "name": "PipeDrive smoke: create deal with related note and activity",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "PipeDrive",
+        "name": "PipeDrive smoke",
+        "api_key": "smoke-api-key",
+        "moduleData": {"module": "Deals", "organization_id": 11, "person_id": 22, "owner": 33, "deal_stage": 2, "currency": "USD", "deal_status": "open", "visible_to": 3},
+        "actions": {"currency": true, "deal_status": true, "visible_to": true},
+        "field_map": [
+            {"formField": "your-name", "pipeDriveFormField": "title"},
+            {"formField": "deal-value", "pipeDriveFormField": "value"}
+        ],
+        "relatedlists": [
+            {
+                "module": "Notes",
+                "moduleData": {},
+                "actions": {},
+                "field_map": [
+                    {"formField": "custom", "pipeDriveFormField": "content", "customValue": "Note for ${your-email}"}
+                ]
+            },
+            {
+                "module": "Activities",
+                "moduleData": {"activities_type": "call", "activities_participants": "22,23"},
+                "actions": {"activities_participants": true},
+                "field_map": [
+                    {"formField": "your-subject", "pipeDriveFormField": "subject"}
+                ]
+            }
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-name": "Smoke Deal", "deal-value": "250", "your-email": "smoke@example.com", "your-subject": "Smoke call"}
+}

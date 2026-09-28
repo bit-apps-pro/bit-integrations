@@ -1,0 +1,20 @@
+{
+    "name": "Affiliate smoke: create referral for the logged-in user",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Affiliate",
+        "name": "Affiliate smoke",
+        "mainAction": "2",
+        "referralId": "3",
+        "statusId": "2",
+        "field_map": [
+            {"formField": "your-amount", "affiliateFormField": "amount"},
+            {"formField": "your-message", "affiliateFormField": "description"},
+            {"formField": "your-context", "affiliateFormField": "context"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-amount": "10", "your-message": "Smoke lead referral", "your-context": "smoke"}
+}
