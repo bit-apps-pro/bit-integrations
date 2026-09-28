@@ -5,6 +5,7 @@ on:
     branches:
       - main
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 permissions:
   contents: read
@@ -138,7 +139,30 @@ jobs:
 
       - name: Hook and filter fire points match the baseline
         if: ${{ !cancelled() && steps.deps.outcome == 'success' }}
-        run: php tools/restructure/contract/seams.php backend/Actions | diff -u baseline/seams.tsv -
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+          SEAMS_APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'seams-change') }}
+        run: |
+          status=0
+          php tools/restructure/contract/seams.php backend/Actions > "$RUNNER_TEMP/seams.tsv"
+          if ! diff -u baseline/seams.tsv "$RUNNER_TEMP/seams.tsv"; then
+            echo "::error file=baseline/seams.tsv::the hook and filter fire points differ from baseline/seams.tsv"
+            status=1
+          fi
+          if [ -n "$BASE_SHA" ] && git cat-file -e "$BASE_SHA:baseline/seams.tsv" 2>/dev/null; then
+            git show "$BASE_SHA:baseline/seams.tsv" > "$RUNNER_TEMP/seams-base.tsv"
+            if ! cmp -s "$RUNNER_TEMP/seams-base.tsv" baseline/seams.tsv; then
+              diff -u "$RUNNER_TEMP/seams-base.tsv" baseline/seams.tsv || true
+              if [ "$EVENT_NAME" != pull_request ] || [ "$SEAMS_APPROVED" = true ]; then
+                echo "::warning file=baseline/seams.tsv::baseline/seams.tsv changed in this range (approved with the seams-change label)"
+              else
+                echo "::error file=baseline/seams.tsv::this change rewrites baseline/seams.tsv. Hook names and arguments are a contract with Pro, so a reviewer must approve the diff above and add the seams-change label."
+                status=1
+              fi
+            fi
+          fi
+          exit "$status"
 
       - name: PHP 7.4 syntax check of changed backend files
         if: ${{ !cancelled() && steps.base.outcome == 'success' }}
@@ -161,3 +185,116 @@ jobs:
           done < "$RUNNER_TEMP/changed-php"
           echo "php7.4 -l checked $count file(s)"
           exit "$status"
+
+  dispatch-snapshot:
+    name: Dispatch and route snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=30
+
+    env:
+      ALLOWED_RENAMES: Controller:Action,Controller:Helper,RecordApiHelper:Service,ApiHelper:Service
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          path: head
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+          extensions: mysqli
+          tools: composer:v2, wp-cli
+
+      - name: Resolve base commit
+        id: base
+        working-directory: head
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+        run: |
+          sha="$PUSH_BEFORE"
+          if [ "$EVENT_NAME" = pull_request ]; then
+            sha="$PR_BASE_SHA"
+          fi
+          if [ -z "$sha" ] || [ -z "${sha//0/}" ] || ! git fetch --no-tags --depth=1 origin "$sha"; then
+            sha=''
+          fi
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the base commit next to the head
+        if: ${{ steps.base.outputs.sha != '' }}
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: git -C head worktree add --detach "$RUNNER_TEMP/base" "$BASE_SHA"
+
+      - name: Install dependencies
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          composer --working-dir=head/tools/restructure install --no-progress --prefer-dist --no-interaction
+          composer --working-dir=head install --no-dev --no-progress --prefer-dist --no-interaction
+          if [ -n "$BASE_SHA" ]; then
+            composer --working-dir="$RUNNER_TEMP/base" install --no-dev --no-progress --prefer-dist --no-interaction
+          fi
+
+      - name: Install WordPress
+        run: |
+          wp="$RUNNER_TEMP/wordpress"
+          wp core download --path="$wp" --quiet
+          wp config create --path="$wp" --dbname=wordpress --dbuser=root --dbpass=root --dbhost=127.0.0.1:3306 --skip-check --quiet
+          wp core install --path="$wp" --url=http://localhost --title=Restructure --admin_user=ci --admin_password=ci --admin_email=ci@example.com --skip-email --quiet
+
+      - name: Snapshot the base commit
+        if: ${{ steps.base.outputs.sha != '' }}
+        run: |
+          wp="$RUNNER_TEMP/wordpress"
+          ln -sfn "$RUNNER_TEMP/base" "$wp/wp-content/plugins/bit-integrations"
+          wp --path="$wp" plugin activate bit-integrations
+          wp --path="$wp" eval-file head/tools/restructure/contract/snapshot.php > "$RUNNER_TEMP/snap-base.json"
+
+      - name: Snapshot this change
+        id: head
+        run: |
+          wp="$RUNNER_TEMP/wordpress"
+          ln -sfn "$GITHUB_WORKSPACE/head" "$wp/wp-content/plugins/bit-integrations"
+          wp --path="$wp" plugin activate bit-integrations
+          wp --path="$wp" eval-file head/tools/restructure/contract/snapshot.php > "$RUNNER_TEMP/snap-head.json"
+
+      - name: Every route handler exists and every $authConfig is readable
+        if: ${{ !cancelled() && steps.head.outcome == 'success' }}
+        run: |
+          php -r '
+            $snap = json_decode(file_get_contents($argv[1]), true, 512, JSON_THROW_ON_ERROR);
+            foreach ($snap["errors"] as $error) {
+                fwrite(STDERR, "::error::{$error}\n");
+            }
+            $missing = $snap["counts"]["routeHandlersMissing"];
+            if ($missing > 0) {
+                fwrite(STDERR, "::error::{$missing} route handler(s) do not exist\n");
+            }
+            echo json_encode($snap["counts"]), PHP_EOL;
+            exit($snap["errors"] === [] && $missing === 0 ? 0 : 1);
+          ' "$RUNNER_TEMP/snap-head.json"
+
+      - name: Dispatch and routes match the base commit
+        if: ${{ !cancelled() && steps.head.outcome == 'success' && steps.base.outputs.sha != '' }}
+        run: php head/tools/restructure/contract/diff.php "$RUNNER_TEMP/snap-base.json" "$RUNNER_TEMP/snap-head.json" --allow="$ALLOWED_RENAMES"
