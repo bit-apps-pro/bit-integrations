@@ -14,8 +14,6 @@ backend/Actions/Airtable/AirtableController.php
 backend/Actions/Airtable/RecordApiHelper.php
 backend/Actions/Albato/AlbatoController.php
 backend/Actions/AntApps/AntAppsController.php
-backend/Actions/Asana/AsanaController.php
-backend/Actions/Asana/RecordApiHelper.php
 backend/Actions/AsgarosForum/AsgarosForumController.php
 backend/Actions/AsgarosForum/RecordApiHelper.php
 backend/Actions/AutomatorWP/AutomatorWPController.php

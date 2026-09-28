@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Asana;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class AsanaController
+class AsanaHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'asana',
-        'fields'   => [
-            'api_key' => 'token',
-        ],
-    ];
-
     private const PAGE_SIZE = 100;
 
     private const MAX_PAGES = 50;
@@ -202,28 +192,5 @@ class AsanaController
         }
 
         return $records;
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $authToken = $integrationDetails->api_key;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($authToken) || empty($actionName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Asana'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $asanaApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($asanaApiResponse)) {
-            return $asanaApiResponse;
-        }
-
-        return $asanaApiResponse;
     }
 }

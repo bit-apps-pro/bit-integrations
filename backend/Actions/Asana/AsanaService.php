@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-class RecordApiHelper
+class AsanaService
 {
     private $integrationDetails;
 
