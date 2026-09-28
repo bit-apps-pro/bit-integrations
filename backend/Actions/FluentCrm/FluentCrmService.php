@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use FluentCrm\App\Models\Subscriber;
 
-class RecordApiHelper
+class FluentCrmService
 {
     private $_integrationID;
 

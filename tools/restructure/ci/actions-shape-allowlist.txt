@@ -97,8 +97,6 @@ backend/Actions/Flowlu/FlowluController.php
 backend/Actions/Flowlu/RecordApiHelper.php
 backend/Actions/FluentCart/FluentCartController.php
 backend/Actions/FluentCart/RecordApiHelper.php
-backend/Actions/FluentCrm/FluentCrmController.php
-backend/Actions/FluentCrm/RecordApiHelper.php
 backend/Actions/FluentPlayer/FluentPlayerController.php
 backend/Actions/FluentPlayer/RecordApiHelper.php
 backend/Actions/FluentSupport/FluentSupportController.php

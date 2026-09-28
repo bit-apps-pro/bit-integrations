@@ -12,17 +12,9 @@ use FluentCrm\App\Models\CustomContactField;
 use FluentCrm\App\Models\Lists;
 use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Models\Tag;
-use WP_Error;
 
-class FluentCrmController
+class FluentCrmHelper
 {
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
-
     public static function checkedExistsFluentCRM()
     {
         if (!is_plugin_active('fluent-crm/fluent-crm.php')) {
@@ -132,39 +124,5 @@ class FluentCrmController
         }
         $response['fluentCrmFlelds'] = $fieldOptions;
         wp_send_json_success($response, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-
-        $fieldMap = $integrationDetails->field_map;
-        $defaultDataConf = $integrationDetails->default;
-        $list_id = isset($integrationDetails->list_id) ? $integrationDetails->list_id : null;
-        $tags = $integrationDetails->tags;
-        $actions = $integrationDetails->actions;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Fluent CRM'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($this->_integrationID);
-
-        $fluentCrmApiResponse = $recordApiHelper->execute(
-            $fieldValues,
-            $fieldMap,
-            $actions,
-            $list_id,
-            $tags,
-            $actionName
-        );
-
-        if (is_wp_error($fluentCrmApiResponse)) {
-            return $fluentCrmApiResponse;
-        }
-
-        return $fluentCrmApiResponse;
     }
 }
