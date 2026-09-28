@@ -550,6 +550,8 @@ final class Flow
                     }
                     // Execute through the wrapper so field data is captured for re-execution.
                     IntegrationHandler::executeWithCapture($flowData, $data, $handler);
+                } elseif (!empty($integrationName) && isset($flowData->id)) {
+                    self::logUnresolvedAction($flowData->id, $integrationName, $data);
                 }
             }
         }
@@ -565,6 +567,25 @@ final class Flow
     protected static function isActionExists($name)
     {
         return ActionResolver::resolve($name);
+    }
+
+    private static function logUnresolvedAction($flowId, $integrationName, $data)
+    {
+        $throttleKey = Config::withPrefix("unresolved_action_{$flowId}");
+
+        if (get_transient($throttleKey)) {
+            return;
+        }
+
+        set_transient($throttleKey, 1, HOUR_IN_SECONDS);
+
+        LogHandler::save(
+            $flowId,
+            ['type' => 'dispatch', 'type_name' => $integrationName],
+            'error',
+            new WP_Error('ACTION_NOT_FOUND', __('Integration handler not found', 'bit-integrations')),
+            $data
+        );
     }
 
     /**
