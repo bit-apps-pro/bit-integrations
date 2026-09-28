@@ -1,0 +1,630 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 30,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:refreshaudience",
+            "line": 78,
+            "to": "method:resolvetokendetails",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshaudience",
+            "line": 85,
+            "to": "method:apiendpoint",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshaudiencefields",
+            "line": 127,
+            "to": "method:resolvetokendetails",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshaudiencefields",
+            "line": 141,
+            "to": "method:apiendpoint",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 180,
+            "to": "method:resolvetokendetails",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 186,
+            "to": "method:apiendpoint",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 215,
+            "rewriteTo": "MailChimpHelper",
+            "to": "method:resolvetokendetails",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 235,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 273,
+        "modifiers": [],
+        "path": "backend/Actions/MailChimp/MailChimpController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MailChimp/MailChimpController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailChimp/MailChimpHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MailChimp/MailChimpAction.php"
+        },
+        {
+            "from": "backend/Actions/MailChimp/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailChimp/MailChimpService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MailChimp/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MailChimp\\MailChimpRecordHelper"
+            ],
+            "hooks": "backend/Actions/MailChimp/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 64,
+            "helper": 183
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "MailChimpHelper",
+                "member": "method:resolvetokendetails",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "MailChimp",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction"
+            ],
+            "method:apiendpoint": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction"
+            ],
+            "method:refreshaudience": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+            ],
+            "method:refreshaudiencefields": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+            ],
+            "method:refreshmodules": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+            ],
+            "method:refreshtags": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+            ],
+            "method:resolvetokendetails": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MailChimp\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                16,
+                24
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                28,
+                31
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:apiendpoint",
+            "kind": "method",
+            "lines": [
+                33,
+                36
+            ],
+            "names": [
+                "apiEndPoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshmodules",
+            "kind": "method",
+            "lines": [
+                38,
+                64
+            ],
+            "names": [
+                "refreshModules"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshaudience",
+            "kind": "method",
+            "lines": [
+                66,
+                110
+            ],
+            "names": [
+                "refreshAudience"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshaudiencefields",
+            "kind": "method",
+            "lines": [
+                112,
+                163
+            ],
+            "names": [
+                "refreshAudienceFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtags",
+            "kind": "method",
+            "lines": [
+                165,
+                201
+            ],
+            "names": [
+                "refreshTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                203,
+                252
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:resolvetokendetails",
+            "kind": "method",
+            "lines": [
+                254,
+                271
+            ],
+            "names": [
+                "resolveTokenDetails"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MailChimp",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\RecordApiHelper",
+            "file": "backend/Actions/MailChimp/MailChimpController.php",
+            "kind": "new",
+            "line": 235,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshaudience",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "text": "MailChimpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshaudiencefields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "text": "MailChimpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "text": "MailChimpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshmodules",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "text": "MailChimpController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController": [
+            "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction",
+            "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MailChimp\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "line": 10,
+            "method": "refreshAudience",
+            "route": "mChimp_refresh_audience",
+            "target": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "line": 11,
+            "method": "refreshAudienceFields",
+            "route": "mChimp_refresh_fields",
+            "target": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "line": 12,
+            "method": "refreshTags",
+            "route": "mChimp_refresh_tags",
+            "target": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MailChimp/Routes.php",
+            "line": 13,
+            "method": "refreshModules",
+            "route": "mChimp_refresh_modules",
+            "target": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MailChimp/RecordApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_tokenDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    24,
+                    31
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    33,
+                    38
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addremovetag",
+                "kind": "method",
+                "lines": [
+                    40,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updaterecord",
+                "kind": "method",
+                "lines": [
+                    64,
+                    69
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:existcontact",
+                "kind": "method",
+                "lines": [
+                    71,
+                    76
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    78,
+                    125
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatefieldmap",
+                "kind": "method",
+                "lines": [
+                    127,
+                    165
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:_apiendpoint",
+                "kind": "method",
+                "lines": [
+                    167,
+                    170
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MailChimp/MailChimpController.php": "fd0904aab256fe834d56b590c5983259c2fce1e7",
+        "backend/Actions/MailChimp/RecordApiHelper.php": "16ec958beca04b2c317129000a2092c477210fbf",
+        "backend/Actions/MailChimp/Routes.php": "369808551097e89724887f2602488cbeeee3cfc0"
+    },
+    "sources": {
+        "backend/Actions/MailChimp/MailChimpAction.php": [
+            "backend/Actions/MailChimp/MailChimpController.php"
+        ],
+        "backend/Actions/MailChimp/MailChimpHelper.php": [
+            "backend/Actions/MailChimp/MailChimpController.php"
+        ],
+        "backend/Actions/MailChimp/MailChimpService.php": [
+            "backend/Actions/MailChimp/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction",
+            "origin": "created",
+            "path": "backend/Actions/MailChimp/MailChimpAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MailChimp/MailChimpHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MailChimp/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MailChimp\\RecordApiHelper",
+                "to": "backend/Actions/MailChimp/MailChimpService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "MailChimp"
+    ]
+}

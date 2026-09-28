@@ -1,0 +1,497 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 23,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:fluentcrmlists",
+            "line": 38,
+            "to": "method:checkedexistsfluentcrm",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:fluentcrmtags",
+            "line": 62,
+            "to": "method:checkedexistsfluentcrm",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcompany",
+            "line": 78,
+            "to": "method:checkedexistsfluentcrm",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:fluentcrmfields",
+            "line": 98,
+            "to": "method:checkedexistsfluentcrm",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 153,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 171,
+        "modifiers": [],
+        "path": "backend/Actions/FluentCrm/FluentCrmController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/FluentCrm/FluentCrmController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FluentCrm/FluentCrmHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/FluentCrm/FluentCrmAction.php"
+        },
+        {
+            "from": "backend/Actions/FluentCrm/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FluentCrm/FluentCrmService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/FluentCrm/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\FluentCRM\\FluentCRMProHelper"
+            ],
+            "hooks": "backend/Actions/FluentCRM/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 38,
+            "helper": 106
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "FluentCrm",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmAction"
+            ],
+            "method:checkedexistsfluentcrm": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmAction"
+            ],
+            "method:fluentcrmfields": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper"
+            ],
+            "method:fluentcrmlists": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper"
+            ],
+            "method:fluentcrmtags": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper"
+            ],
+            "method:getallcompany": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\FluentCrm\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                19,
+                19
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                21,
+                24
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:checkedexistsfluentcrm",
+            "kind": "method",
+            "lines": [
+                26,
+                34
+            ],
+            "names": [
+                "checkedExistsFluentCRM"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fluentcrmlists",
+            "kind": "method",
+            "lines": [
+                36,
+                58
+            ],
+            "names": [
+                "fluentCrmLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fluentcrmtags",
+            "kind": "method",
+            "lines": [
+                60,
+                74
+            ],
+            "names": [
+                "fluentCrmTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcompany",
+            "kind": "method",
+            "lines": [
+                76,
+                94
+            ],
+            "names": [
+                "getAllCompany"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fluentcrmfields",
+            "kind": "method",
+            "lines": [
+                96,
+                135
+            ],
+            "names": [
+                "fluentCrmFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                137,
+                169
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\FluentCrm",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\RecordApiHelper",
+            "file": "backend/Actions/FluentCrm/FluentCrmController.php",
+            "kind": "new",
+            "line": 153,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController",
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "text": "use BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController",
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fluentcrmlists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "text": "FluentCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController",
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:fluentcrmtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "text": "FluentCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController",
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:fluentcrmfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "text": "FluentCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController",
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallcompany",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "text": "FluentCrmController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController": [
+            "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmAction",
+            "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\FluentCrm\\RecordApiHelper": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "line": 10,
+            "method": "fluentCrmLists",
+            "route": "refresh_fluent_crm_lists",
+            "target": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "line": 11,
+            "method": "fluentCrmTags",
+            "route": "refresh_fluent_crm_tags",
+            "target": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "line": 12,
+            "method": "fluentCrmFields",
+            "route": "fluent_crm_headers",
+            "target": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentCrm/Routes.php",
+            "line": 13,
+            "method": "getAllCompany",
+            "route": "fluent_crm_get_all_company",
+            "target": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/FluentCrm/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    18,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    23,
+                    85
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertdeletetag",
+                "kind": "method",
+                "lines": [
+                    87,
+                    109
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:removeuser",
+                "kind": "method",
+                "lines": [
+                    111,
+                    130
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    132,
+                    184
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/FluentCrm/FluentCrmController.php": "d238ad8cd1236761cf2c0946f16fbc5a99d7a268",
+        "backend/Actions/FluentCrm/RecordApiHelper.php": "55d87c2fd063439d2c061f32695ba9ef1a22674b",
+        "backend/Actions/FluentCrm/Routes.php": "3598600b3c2ad992787f55938de987ffc1720e25"
+    },
+    "sources": {
+        "backend/Actions/FluentCrm/FluentCrmAction.php": [
+            "backend/Actions/FluentCrm/FluentCrmController.php"
+        ],
+        "backend/Actions/FluentCrm/FluentCrmHelper.php": [
+            "backend/Actions/FluentCrm/FluentCrmController.php"
+        ],
+        "backend/Actions/FluentCrm/FluentCrmService.php": [
+            "backend/Actions/FluentCrm/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmAction",
+            "origin": "created",
+            "path": "backend/Actions/FluentCrm/FluentCrmAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/FluentCrm/FluentCrmHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/FluentCrm/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\FluentCrm\\RecordApiHelper",
+                "to": "backend/Actions/FluentCrm/FluentCrmService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "FluentCrm"
+    ]
+}

@@ -1,0 +1,432 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshcontactgroups",
+            "line": 22,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlifestages",
+            "line": 45,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshdepartments",
+            "line": 60,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshdesignations",
+            "line": 79,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 117,
+        "modifiers": [],
+        "path": "backend/Actions/WpErp/WpErpController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WpErp/WpErpController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpErp/WpErpHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WpErp/WpErpAction.php"
+        },
+        {
+            "from": "backend/Actions/WpErp/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpErp/WpErpService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WpErp/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\WpErp\\WpErpProHelper"
+            ],
+            "hooks": "backend/Actions/WpErp/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 20,
+            "helper": 78
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WpErp",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WpErp\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WpErp\\WpErpController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper"
+            ],
+            "method:refreshcontactgroups": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper"
+            ],
+            "method:refreshdepartments": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper"
+            ],
+            "method:refreshdesignations": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper"
+            ],
+            "method:refreshlifestages": [
+                "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                18
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcontactgroups",
+            "kind": "method",
+            "lines": [
+                20,
+                41
+            ],
+            "names": [
+                "refreshContactGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshlifestages",
+            "kind": "method",
+            "lines": [
+                43,
+                56
+            ],
+            "names": [
+                "refreshLifeStages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshdepartments",
+            "kind": "method",
+            "lines": [
+                58,
+                75
+            ],
+            "names": [
+                "refreshDepartments"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshdesignations",
+            "kind": "method",
+            "lines": [
+                77,
+                94
+            ],
+            "names": [
+                "refreshDesignations"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                96,
+                115
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WpErp",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController",
+            "file": "backend/Actions/WpErp/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WpErp\\WpErpController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController",
+            "file": "backend/Actions/WpErp/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshcontactgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "text": "WpErpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController",
+            "file": "backend/Actions/WpErp/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshlifestages",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "text": "WpErpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController",
+            "file": "backend/Actions/WpErp/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshdepartments",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "text": "WpErpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController",
+            "file": "backend/Actions/WpErp/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshdesignations",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "text": "WpErpController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\RecordApiHelper",
+            "file": "backend/Actions/WpErp/WpErpController.php",
+            "kind": "new",
+            "line": 107,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpErp\\WpErpService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WpErp\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WpErp\\WpErpService",
+        "BitApps\\Integrations\\Actions\\WpErp\\WpErpController": [
+            "BitApps\\Integrations\\Actions\\WpErp\\WpErpAction",
+            "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WpErp/Routes.php",
+            "line": 10,
+            "method": "refreshContactGroups",
+            "route": "refresh_wp_erp_contact_groups",
+            "target": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WpErp/Routes.php",
+            "line": 11,
+            "method": "refreshLifeStages",
+            "route": "refresh_wp_erp_life_stages",
+            "target": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WpErp/Routes.php",
+            "line": 12,
+            "method": "refreshDepartments",
+            "route": "refresh_wp_erp_departments",
+            "target": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WpErp/Routes.php",
+            "line": 13,
+            "method": "refreshDesignations",
+            "route": "refresh_wp_erp_designations",
+            "target": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WpErp/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    84
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    86,
+                    103
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WpErp/RecordApiHelper.php": "01ab73656890fefb3525ab9f29f3e94ac4238d60",
+        "backend/Actions/WpErp/Routes.php": "14e51bf791f5f98027369ec8a1b12bd495fa7f06",
+        "backend/Actions/WpErp/WpErpController.php": "0f8e9a497cd3c20df3387746fa6ef472a01b92e7"
+    },
+    "sources": {
+        "backend/Actions/WpErp/WpErpAction.php": [
+            "backend/Actions/WpErp/WpErpController.php"
+        ],
+        "backend/Actions/WpErp/WpErpHelper.php": [
+            "backend/Actions/WpErp/WpErpController.php"
+        ],
+        "backend/Actions/WpErp/WpErpService.php": [
+            "backend/Actions/WpErp/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpAction",
+            "origin": "created",
+            "path": "backend/Actions/WpErp/WpErpAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WpErp/WpErpHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WpErp/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WpErp\\RecordApiHelper",
+                "to": "backend/Actions/WpErp/WpErpService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WpErp\\WpErpService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "WpErp"
+    ]
+}

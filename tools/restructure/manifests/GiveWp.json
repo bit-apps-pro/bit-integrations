@@ -1,0 +1,210 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 50,
+        "modifiers": [],
+        "path": "backend/Actions/GiveWp/GiveWpController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/GiveWp/GiveWpController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GiveWp/GiveWpAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/GiveWp/GiveWpHelper.php"
+        },
+        {
+            "from": "backend/Actions/GiveWp/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GiveWp/GiveWpService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 31,
+            "helper": 8
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:pluginactive"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "GiveWp",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpAction"
+            ],
+            "method:pluginactive": [
+                "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\GiveWp\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:pluginactive",
+            "kind": "method",
+            "lines": [
+                9,
+                16
+            ],
+            "names": [
+                "pluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                18,
+                48
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\GiveWp",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\GiveWp\\RecordApiHelper",
+            "file": "backend/Actions/GiveWp/GiveWpController.php",
+            "kind": "new",
+            "line": 34,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpController": [
+            "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpAction",
+            "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\GiveWp\\RecordApiHelper": "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/GiveWp/RecordApiHelper.php": [
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    11,
+                    26
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:creategivewpdonar",
+                "kind": "method",
+                "lines": [
+                    28,
+                    55
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    57,
+                    78
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/GiveWp/GiveWpController.php": "c0c0aba810db1f7edb9743209ce743f9b7a1aded",
+        "backend/Actions/GiveWp/RecordApiHelper.php": "9f4d5263279ab1235853a8c65661119679953ff0"
+    },
+    "sources": {
+        "backend/Actions/GiveWp/GiveWpAction.php": [
+            "backend/Actions/GiveWp/GiveWpController.php"
+        ],
+        "backend/Actions/GiveWp/GiveWpHelper.php": [
+            "backend/Actions/GiveWp/GiveWpController.php"
+        ],
+        "backend/Actions/GiveWp/GiveWpService.php": [
+            "backend/Actions/GiveWp/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/GiveWp/GiveWpAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpHelper",
+            "origin": "created",
+            "path": "backend/Actions/GiveWp/GiveWpHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/GiveWp/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\GiveWp\\RecordApiHelper",
+                "to": "backend/Actions/GiveWp/GiveWpService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\GiveWp\\GiveWpService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "GiveWp"
+    ]
+}

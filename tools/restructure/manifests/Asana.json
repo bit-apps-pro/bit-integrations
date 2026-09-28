@@ -1,0 +1,683 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 31,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:getcustomfields",
+            "line": 48,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 49,
+            "to": "method:fetchallpages",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 49,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltasks",
+            "line": 78,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallprojects",
+            "line": 105,
+            "to": "method:fetchallpages",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallprojects",
+            "line": 105,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallprojects",
+            "line": 105,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallsections",
+            "line": 139,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallsections",
+            "line": 140,
+            "to": "method:fetchallpages",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallsections",
+            "line": 140,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "const",
+            "from": "method:fetchallpages",
+            "line": 184,
+            "to": "const:MAX_PAGES",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:fetchallpages",
+            "line": 185,
+            "to": "const:PAGE_SIZE",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": {
+        "properties": [
+            "apiEndpoint"
+        ],
+        "statements": [
+            0
+        ]
+    },
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 230,
+        "modifiers": [],
+        "path": "backend/Actions/Asana/AsanaController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Asana/AsanaController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Asana/AsanaHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Asana/AsanaAction.php"
+        },
+        {
+            "from": "backend/Actions/Asana/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Asana/AsanaService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Asana/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 34,
+            "helper": 175
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [
+            {
+                "member": "property:apiEndpoint",
+                "placement": "both",
+                "resolution": "set only by the no-argument constructor; copied with that constructor line"
+            }
+        ],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Asana",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Asana\\AsanaController": {
+            "const:MAX_PAGES": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "const:PAGE_SIZE": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaAction"
+            ],
+            "method:fetchallpages": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "method:getallprojects": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "method:getallsections": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "method:getalltasks": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaAction",
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Asana\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Asana\\AsanaService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "const:PAGE_SIZE",
+            "kind": "const",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "PAGE_SIZE"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "const:MAX_PAGES",
+            "kind": "const",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "MAX_PAGES"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                27,
+                27
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "both",
+            "reachedFrom": [],
+            "reason": "set only by the no-argument constructor; copied with that constructor line",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                29,
+                32
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                34,
+                69
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltasks",
+            "kind": "method",
+            "lines": [
+                71,
+                96
+            ],
+            "names": [
+                "getAllTasks"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallprojects",
+            "kind": "method",
+            "lines": [
+                98,
+                124
+            ],
+            "names": [
+                "getAllProjects"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallsections",
+            "kind": "method",
+            "lines": [
+                126,
+                159
+            ],
+            "names": [
+                "getAllSections"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                161,
+                164
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchallpages",
+            "kind": "method",
+            "lines": [
+                166,
+                205
+            ],
+            "names": [
+                "fetchAllPages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                207,
+                228
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Asana",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\RecordApiHelper",
+            "file": "backend/Actions/Asana/AsanaController.php",
+            "kind": "new",
+            "line": 220,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Asana\\AsanaService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+            "file": "backend/Actions/Asana/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Asana\\AsanaController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+            "file": "backend/Actions/Asana/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "text": "AsanaController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+            "file": "backend/Actions/Asana/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalltasks",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "text": "AsanaController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+            "file": "backend/Actions/Asana/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallprojects",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "text": "AsanaController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+            "file": "backend/Actions/Asana/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallsections",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "text": "AsanaController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Asana\\AsanaController": [
+            "BitApps\\Integrations\\Actions\\Asana\\AsanaAction",
+            "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Asana\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Asana\\AsanaService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Asana/Routes.php",
+            "line": 10,
+            "method": "getCustomFields",
+            "route": "asana_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Asana/Routes.php",
+            "line": 11,
+            "method": "getAllTasks",
+            "route": "asana_fetch_all_tasks",
+            "target": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Asana/Routes.php",
+            "line": 12,
+            "method": "getAllProjects",
+            "route": "asana_fetch_all_Projects",
+            "target": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Asana/Routes.php",
+            "line": 13,
+            "method": "getAllSections",
+            "route": "asana_fetch_all_Sections",
+            "target": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Asana/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    25,
+                    25
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    27,
+                    27
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    29,
+                    38
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtask",
+                "kind": "method",
+                "lines": [
+                    40,
+                    73
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtasktosection",
+                "kind": "method",
+                "lines": [
+                    75,
+                    81
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    83,
+                    107
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    109,
+                    128
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Asana/AsanaController.php": "577404bc60e8a6a95360b475bedada931e703fb8",
+        "backend/Actions/Asana/RecordApiHelper.php": "7a4300bac2ff36988c3e76acbf9c9526e6d36047",
+        "backend/Actions/Asana/Routes.php": "641e7195fe7239ef5d4530a4549139004d8d1593"
+    },
+    "sources": {
+        "backend/Actions/Asana/AsanaAction.php": [
+            "backend/Actions/Asana/AsanaController.php"
+        ],
+        "backend/Actions/Asana/AsanaHelper.php": [
+            "backend/Actions/Asana/AsanaController.php"
+        ],
+        "backend/Actions/Asana/AsanaService.php": [
+            "backend/Actions/Asana/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaAction",
+            "origin": "created",
+            "path": "backend/Actions/Asana/AsanaAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Asana/AsanaHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Asana/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Asana\\RecordApiHelper",
+                "to": "backend/Actions/Asana/AsanaService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Asana\\AsanaService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Asana"
+    ]
+}
