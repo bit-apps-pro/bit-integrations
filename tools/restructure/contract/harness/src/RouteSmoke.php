@@ -121,12 +121,14 @@ final class RouteSmoke
 
         $auth = $this->context->auth->{self::authKey($integration, $route['class'])} ?? null;
         $derived = (new ParamDeriver($this->session->source, $this->session->fixtures->params($integration)))->derive($route['class'], $route['function']);
+        $derived['params'] += $this->session->fixtures->integrationParams($integration);
+        ksort($derived['params'], SORT_STRING);
 
         $input = [
             'params'        => $derived['params'] === [] ? new stdClass() : $derived['params'],
             'superglobals'  => $derived['superglobals'] === [] ? new stdClass() : $derived['superglobals'],
             'connection_id' => $auth === null ? null : self::FIXTURE_CONNECTION,
-            'connection'    => $auth === null ? null : self::fixtureConnection($auth, $derived['params']),
+            'connection'    => $auth === null ? null : self::fixtureConnection($auth, $derived['params'], $this->session->fixtures->connectionDetails($integration)),
         ];
 
         $notes = $derived['notes'];
@@ -328,9 +330,9 @@ final class RouteSmoke
      *
      * @return array{app_slug: string, auth_type: string, auth_details: array<string, mixed>}
      */
-    private static function fixtureConnection(object $auth, array $params): array
+    private static function fixtureConnection(object $auth, array $params, array $extraDetails = []): array
     {
-        $details = [];
+        $details = $extraDetails;
 
         foreach ($auth->map ?? [] as $entry) {
             $field = (string) $entry->field;

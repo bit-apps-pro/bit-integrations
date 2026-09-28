@@ -42,7 +42,23 @@ final class Fixtures
      */
     public function params(string $integration): array
     {
-        return ($this->json("params/{$integration}.json") ?? []) + ($this->json('params/_common.json') ?? []);
+        return $this->integrationParams($integration) + ($this->json('params/_common.json') ?? []);
+    }
+
+    /**
+     * @return array<string, mixed> params/<Integration>.json only, without the shared defaults
+     */
+    public function integrationParams(string $integration): array
+    {
+        return $this->json("params/{$integration}.json") ?? [];
+    }
+
+    /**
+     * @return array<string, mixed> auth_details the fixture connection should carry beyond $authConfig['fields']
+     */
+    public function connectionDetails(string $integration): array
+    {
+        return $this->json("connections/{$integration}.json") ?? [];
     }
 
     /**
@@ -101,6 +117,14 @@ final class Fixtures
     public function coverageExempt(): array
     {
         return array_map('strval', $this->json('coverage-exempt.json') ?? []);
+    }
+
+    /**
+     * @return array<string, string> integration => why no forced-expiry run can write the token back today
+     */
+    public function t1Exempt(): array
+    {
+        return array_map('strval', $this->json('t1-exempt.json') ?? []);
     }
 
     private function json(string $relative): ?array

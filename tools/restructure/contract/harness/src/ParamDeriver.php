@@ -463,7 +463,7 @@ final class ParamDeriver
         return $object;
     }
 
-    private function leaf(string $name, array $node): string|int|float
+    private function leaf(string $name, array $node): mixed
     {
         if (isset($node['hint'])) {
             return $node['hint'];

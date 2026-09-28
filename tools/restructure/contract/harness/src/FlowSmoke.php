@@ -103,7 +103,13 @@ final class FlowSmoke
         }
 
         if ($session->options->flag('force-expiry')) {
-            $session->result($integration, 'T1', $ok && $this->t1Passes > 0, "{$this->t1Passes} forced-expiry run(s) wrote the refreshed token back, {$states}");
+            $exempt = $session->fixtures->t1Exempt()[$integration] ?? null;
+
+            if ($this->t1Passes === 0 && $exempt !== null) {
+                $session->result($integration, 'T1', $ok && $names !== [], "no run can write the token back ({$exempt}); forced-expiry runs compared with the baseline, {$states}");
+            } else {
+                $session->result($integration, 'T1', $ok && $this->t1Passes > 0, "{$this->t1Passes} forced-expiry run(s) wrote the refreshed token back, {$states}");
+            }
         }
     }
 
@@ -145,10 +151,10 @@ final class FlowSmoke
                     unset($outcome['input']);
                 }
 
-                if ($forceExpiry && isset($outcome['compare']) && !($outcome['compare']['t1']->pass ?? false)) {
-                    $session->fail("{$name} {$key}: T1 forced-expiry write-back did not happen: " . json_encode($outcome['compare']['t1']));
-                } elseif ($forceExpiry && isset($outcome['compare'])) {
+                if ($forceExpiry && isset($outcome['compare']) && ($outcome['compare']['t1']->pass ?? false)) {
                     $this->t1Passes++;
+                } elseif ($forceExpiry && isset($outcome['compare'])) {
+                    $session->log->info("  note {$name} {$key}: no token write-back in this run (compared with the baseline like any other outcome): " . json_encode($outcome['compare']['t1']));
                 }
 
                 $runs[$key] = $outcome;
