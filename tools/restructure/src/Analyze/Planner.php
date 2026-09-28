@@ -54,6 +54,7 @@ final class Planner
         $this->place($plan, $overrides);
         $this->crossings($plan);
         $this->checkBindings($plan);
+        $this->checkConstructor($plan);
         $this->checkNotes($plan);
         $this->chooseMoveTarget($plan);
         $this->buildRenames($plan);
@@ -689,6 +690,12 @@ final class Planner
                 continue;
             }
 
+            if (\in_array($edge->via, ['static', 'this', 'this-static'], true) && $this->hasSubclasses($plan)) {
+                $plan->refuse('late_static_binding', "{$where}: subclasses of the Controller can override {$to}, and naming " . Naming::shortName($plan->sideClass($toSide)) . ' would bypass them');
+
+                continue;
+            }
+
             $plan->crossings[] = ['edge' => $edge, 'holder' => $plan->sideClass($toSide), 'replacement' => $replacement];
 
             if ($target->visibility() !== 'public' && !isset($plan->widen[$to])) {
@@ -697,6 +704,10 @@ final class Planner
         }
 
         $plan->flag('unresolvedMemberReferences', $unresolved);
+
+        if ($unresolved !== [] && $plan->parent !== null && isset($this->context->candidates[$plan->parent])) {
+            $plan->refuse('inherited_member_reference', "{$plan->controllerFqcn} reaches members it inherits from {$plan->parent}, which is split by its own move");
+        }
         $undeclared = [];
 
         foreach ($unresolved as $edge) {
@@ -748,6 +759,69 @@ final class Planner
         $plan->flag('bindingsToMissingMethods', $missing);
     }
 
+    private function checkConstructor(IntegrationPlan $plan): void
+    {
+        $ctor = $plan->layout?->member('method:__construct');
+
+        if ($ctor === null || !$ctor->stmt instanceof Stmt\ClassMethod) {
+            return;
+        }
+
+        $instanceEntry = false;
+
+        foreach (array_merge($plan->routes, $plan->hooks) as $binding) {
+            $member = $plan->layout->member($binding['key']);
+
+            if ($member !== null && !$member->isStatic()) {
+                $instanceEntry = true;
+
+                break;
+            }
+        }
+
+        if (!$instanceEntry) {
+            return;
+        }
+
+        $copied = array_flip($plan->ctorCopy ?? []);
+
+        foreach ($ctor->stmt->stmts ?? [] as $index => $stmt) {
+            if (!isset($copied[$index]) && !self::isPlainPropertyWrite($stmt)) {
+                $plan->refuse('helper_ctor_side_effects', "constructor line {$stmt->getStartLine()} does more than set a property; the Helper that answers the instance routes would be built without it");
+            }
+        }
+    }
+
+    private static function isPlainPropertyWrite(Stmt $stmt): bool
+    {
+        if (!$stmt instanceof Stmt\Expression || !$stmt->expr instanceof Expr\Assign) {
+            return false;
+        }
+
+        $target = $stmt->expr->var;
+
+        if (!$target instanceof Expr\PropertyFetch || !Names::isThis($target->var) || !$target->name instanceof Node\Identifier) {
+            return false;
+        }
+
+        return (new NodeFinder())->findFirst([$stmt->expr->expr], static fn (Node $node) => $node instanceof Expr\CallLike
+            || $node instanceof Expr\Include_ || $node instanceof Expr\Eval_ || $node instanceof Expr\Exit_ || $node instanceof Expr\ShellExec
+            || $node instanceof Expr\Print_ || $node instanceof Expr\Assign || $node instanceof Expr\AssignOp || $node instanceof Expr\AssignRef
+            || $node instanceof Expr\PreInc || $node instanceof Expr\PreDec || $node instanceof Expr\PostInc || $node instanceof Expr\PostDec
+            || $node instanceof Expr\Yield_ || $node instanceof Expr\YieldFrom || $node instanceof Expr\Throw_) === null;
+    }
+
+    private function hasSubclasses(IntegrationPlan $plan): bool
+    {
+        foreach ($this->context->index->to($plan->controllerFqcn) as $reference) {
+            if ($reference->kind === Reference::EXTENDS) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private function checkNotes(IntegrationPlan $plan): void
     {
         $split = $plan->hasHelperMembers();
@@ -760,6 +834,10 @@ final class Planner
 
         if ($plan->parent !== null && $split) {
             $plan->refuse('split_subclass', "{$plan->controllerFqcn} extends {$plan->parent}; the Helper would lose inherited members");
+        }
+
+        if ($split && $plan->layout?->class instanceof Stmt\Class_ && $plan->layout->class->implements !== []) {
+            $plan->refuse('split_interface', "{$plan->controllerFqcn} implements an interface whose methods the split could separate from it");
         }
 
         foreach ($plan->graph->notes('parentReference') as $note) {
@@ -830,6 +908,7 @@ final class Planner
         $strings = [];
         $nonPublic = [];
         $bare = [];
+        $undeclared = [];
         $members = $this->members($plan);
 
         foreach ($classes as $fqcn) {
@@ -842,6 +921,18 @@ final class Planner
 
                 if (!isset($moved[$reference->file])) {
                     $edited[$reference->file] = true;
+                }
+
+                if ($fqcn === $plan->controllerFqcn && $reference->member !== null && $reference->member !== 'method:__construct' && !isset($members[$plan->resolveKey($reference->member)])) {
+                    if ($plan->parent !== null) {
+                        $plan->refuse('inherited_member_reference', "{$reference->file}:{$reference->line} reaches {$reference->member} through {$plan->controllerFqcn}, which only inherits it");
+                    } else {
+                        $undeclared[] = $reference->describe();
+                    }
+                }
+
+                if ($reference->file === $plan->helperPath && $plan->helperExists) {
+                    $plan->refuse('existing_helper', "{$plan->helperPath} references {$fqcn}; inserting into it and renaming inside it would both edit the file");
                 }
 
                 if ($reference->kind === Reference::STRING_CALLABLE) {
@@ -878,6 +969,7 @@ final class Planner
         $plan->flag('classNameStrings', $strings);
         $plan->flag('referencesToNonPublicMembers', $nonPublic);
         $plan->flag('bareClassReferences', $bare);
+        $plan->flag('referencesToUndeclaredMembers', $undeclared);
     }
 
     private function checkImportAliases(IntegrationPlan $plan): void
