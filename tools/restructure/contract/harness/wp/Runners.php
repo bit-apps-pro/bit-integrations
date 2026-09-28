@@ -90,6 +90,10 @@ final class Runners
 
         $_REQUEST['_ajax_nonce'] = $nonce;
 
+        if (isset($job['fixture_connection'])) {
+            self::insertFixtureConnection($job['fixture_connection'], (int) $job['user_id']);
+        }
+
         require_once ABSPATH . 'wp-admin/includes/admin.php';
         require_once ABSPATH . 'wp-admin/includes/ajax-actions.php';
 
@@ -193,6 +197,50 @@ final class Runners
         );
     }
 
+    /**
+     * Inside the rolled-back transaction: a connection row carrying the fixture's plain (unencrypted)
+     * auth details, and the request's connection_id pointed at it.
+     */
+    private static function insertFixtureConnection(array $fixture, int $userId): void
+    {
+        global $wpdb;
+
+        $inserted = $wpdb->insert(Tables::connectionTable(), [
+            'app_slug'        => (string) $fixture['app_slug'],
+            'auth_type'       => (string) $fixture['auth_type'],
+            'connection_name' => 'smoke fixture',
+            'account_name'    => 'smoke fixture',
+            'encrypt_keys'    => '',
+            'auth_details'    => wp_json_encode($fixture['auth_details']),
+            'status'          => 1,
+            'user_id'         => $userId,
+            'created_at'      => '2024-01-01 00:00:00',
+            'updated_at'      => '2024-01-01 00:00:00',
+        ]);
+
+        if (!$inserted) {
+            Probe::emit(['setup_error' => 'could not insert the fixture connection: ' . $wpdb->last_error]);
+        }
+
+        $id = (int) $wpdb->insert_id;
+        Probe::scrub()->alias($id, '<fixture-connection>');
+
+        if (isset($_POST['data']) && \is_string($_POST['data'])) {
+            $data = json_decode(wp_unslash($_POST['data']), true);
+
+            if (\is_array($data)) {
+                $data['connection_id'] = $id;
+                $_POST['data'] = wp_slash((string) wp_json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            }
+        }
+
+        if (isset($_GET['connection_id'])) {
+            $_GET['connection_id'] = (string) $id;
+        }
+
+        $_REQUEST = array_merge($_GET, $_POST);
+    }
+
     private static function authConfig(array $candidates): ?array
     {
         foreach ($candidates as $class) {
@@ -206,15 +254,21 @@ final class Runners
 
             $config = $class::$authConfig;
             $fields = [];
+            $map = [];
             foreach ($config['fields'] ?? [] as $key => $value) {
                 $fields[] = $key === '__object' ? (string) $value[0] : (string) $key;
+                $map[] = $key === '__object'
+                    ? ['field' => (string) $value[0], 'keys' => array_values(array_map('strval', (array) ($value[1] ?? [])))]
+                    : ['field' => (string) $key, 'key' => (string) $value];
             }
 
             return [
-                'owner'   => $class,
-                'slug'    => (string) ($config['slug'] ?? ''),
-                'aliases' => array_values(array_map('strval', $config['aliases'] ?? [])),
-                'fields'  => $fields,
+                'owner'     => $class,
+                'slug'      => (string) ($config['slug'] ?? ''),
+                'auth_type' => (string) ($config['authType'] ?? ''),
+                'aliases'   => array_values(array_map('strval', $config['aliases'] ?? [])),
+                'fields'    => $fields,
+                'map'       => $map,
             ];
         }
 

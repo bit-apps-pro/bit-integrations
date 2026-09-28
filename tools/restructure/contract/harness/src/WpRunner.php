@@ -10,7 +10,7 @@ final class WpRunner
 {
     public const PRO_PLUGIN = 'bit-integrations-pro';
 
-    private const DISABLED_FUNCTIONS = 'curl_exec,curl_multi_exec,fsockopen,pfsockopen,stream_socket_client,socket_connect';
+    private const DISABLED_FUNCTIONS = 'curl_exec,curl_multi_exec,fsockopen,pfsockopen,stream_socket_client,socket_connect,dns_get_record,gethostbyname,gethostbynamel,checkdnsrr,dns_check_record,getmxrr,dns_get_mx';
 
     private string $php;
 

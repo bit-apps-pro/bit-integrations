@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 final class Options
 {
-    private const VALUED = ['wp', 'only', 'batch', 'record', 'compare', 'pro', 'free', 'pro-dir', 'php', 'wp-cli', 'timeout', 'flow'];
+    private const VALUED = ['wp', 'only', 'batch', 'record', 'compare', 'pro', 'free', 'pro-dir', 'php', 'wp-cli', 'timeout', 'flow', 'results'];
 
     private const FLAGS = ['force-expiry', 'keep-tmp', 'verbose', 'connections', 'help', 'no-fingerprint'];
 

@@ -10,7 +10,7 @@ require __DIR__ . '/harness/autoload.php';
 
 $usage = <<<'TXT'
 Usage: php tools/restructure/contract/flow-smoke.php --wp=<WordPress root> (--only=A,B | --batch=F1)
-         [--record=DIR | --compare=DIR] [--pro=on,off] [--force-expiry] [--flow=ID,...]
+         [--record=DIR | --compare=DIR] [--results=DIR] [--pro=on,off] [--force-expiry] [--flow=ID,...]
          [--timeout=180] [--keep-tmp] [--verbose]
 
 Replays every stored flow whose action type is one of the selected integrations, plus the
@@ -21,7 +21,9 @@ rolled back; HTTP and mail are stubbed. --pro=off runs with --skip-plugins=bit-i
 --force-expiry adds a run per state with tokenDetails (and the connection) expired, and fails
 unless the token is written back (T1).
 --record writes one JSON per flow into DIR; --compare re-runs with the recorded inputs and
-exits 1 on any difference. Exit 2 means a safety check failed.
+exits 1 on any difference, including a PHP diagnostic or error_log line the baseline lacks.
+--results (with --compare) writes flow-smoke and, with --force-expiry, T1 evidence per
+integration for bi verify --tests. Exit 2 means a safety check failed.
 
 TXT;
 

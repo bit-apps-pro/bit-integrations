@@ -12,6 +12,8 @@ final class FlowSmoke
 
     private FlowTypes $types;
 
+    private int $t1Passes = 0;
+
     public function __construct(private Session $session)
     {
     }
@@ -53,6 +55,9 @@ final class FlowSmoke
             $store->clear($integration, 'flow');
         }
 
+        $failuresBefore = $session->failureCount();
+        $this->t1Passes = 0;
+
         if ($stored === [] && $fixtures === []) {
             $session->log->info("{$integration}: no stored flow and no fixture flow");
         }
@@ -86,6 +91,15 @@ final class FlowSmoke
             foreach (array_diff($store->baselineNames($integration, 'flow'), $names) as $missing) {
                 $session->fail("{$missing}: in the baseline but the flow is gone");
             }
+        }
+
+        $ok = $session->failureCount() === $failuresBefore;
+        $states = 'Pro ' . implode('/', $session->proStates);
+
+        $session->result($integration, 'flow-smoke', $ok && $names !== [], $names === [] ? 'no stored or fixture flow to replay' : \count($names) . " flow(s) compared with the baseline, {$states}");
+
+        if ($session->options->flag('force-expiry')) {
+            $session->result($integration, 'T1', $ok && $this->t1Passes > 0, "{$this->t1Passes} forced-expiry run(s) wrote the refreshed token back, {$states}");
         }
     }
 
@@ -129,6 +143,8 @@ final class FlowSmoke
 
                 if ($forceExpiry && isset($outcome['compare']) && !($outcome['compare']['t1']->pass ?? false)) {
                     $session->fail("{$name} {$key}: T1 forced-expiry write-back did not happen: " . json_encode($outcome['compare']['t1']));
+                } elseif ($forceExpiry && isset($outcome['compare'])) {
+                    $this->t1Passes++;
                 }
 
                 $runs[$key] = $outcome;

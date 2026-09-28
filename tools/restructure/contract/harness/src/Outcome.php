@@ -8,6 +8,8 @@ use stdClass;
 
 final class Outcome
 {
+    private const DIAGNOSTICS = ['php_errors', 'error_log'];
+
     /**
      * @param array{exit_code: int, result: ?object, stderr: string, timed_out: bool} $run
      */
@@ -81,9 +83,49 @@ final class Outcome
             $session->fail("{$label}: behaviour differs\n    " . implode("\n    ", Canon::diff($baseline->compare ?? null, $current->compare ?? null, 'compare')));
         }
 
+        foreach (self::DIAGNOSTICS as $key) {
+            $added = array_values(array_filter(
+                self::added((array) ($baseline->info->{$key} ?? []), (array) ($current->info->{$key} ?? [])),
+                static fn (string $line) => !$session->fixtures->diagnosticAllowed($line)
+            ));
+
+            if ($added !== []) {
+                $session->fail("{$label}: new {$key} the baseline does not have\n    + " . implode("\n    + ", $added));
+            }
+        }
+
         if (!Canon::same($baseline->info ?? null, $current->info ?? null)) {
             $session->log->info("  note {$label}: diagnostics differ (not compared)\n    " . implode("\n    ", Canon::diff($baseline->info ?? null, $current->info ?? null, 'info', 8)));
         }
+    }
+
+    /**
+     * @param list<mixed> $baseline
+     * @param list<mixed> $current
+     *
+     * @return list<string> lines of $current beyond their count in $baseline
+     */
+    private static function added(array $baseline, array $current): array
+    {
+        $left = [];
+
+        foreach ($baseline as $line) {
+            $left[(string) $line] = ($left[(string) $line] ?? 0) + 1;
+        }
+
+        $added = [];
+
+        foreach ($current as $line) {
+            $line = (string) $line;
+
+            if (($left[$line] ?? 0) > 0) {
+                $left[$line]--;
+            } else {
+                $added[] = $line;
+            }
+        }
+
+        return $added;
     }
 
     public static function label(mixed $run): string

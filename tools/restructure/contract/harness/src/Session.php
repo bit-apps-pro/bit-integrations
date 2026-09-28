@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BitApps\Restructure\Contract\Smoke;
 
+use BitApps\Restructure\Verify\TestResults;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -41,6 +42,11 @@ final class Session
     private array $failures = [];
 
     private ?array $before = null;
+
+    /**
+     * @var array<string, array<string, array{ok: bool, detail: string}>> integration => test => result
+     */
+    private array $results = [];
 
     private string $tablePrefix = '';
 
@@ -99,9 +105,24 @@ final class Session
         $this->failures[] = $message;
     }
 
+    public function failureCount(): int
+    {
+        return \count($this->failures);
+    }
+
+    /**
+     * Evidence for bi verify --tests (plan 8.5): kept only for a --compare run, and downgraded to a
+     * failure when the run ends with a safety violation.
+     */
+    public function result(string $integration, string $test, bool $ok, string $detail): void
+    {
+        $this->results[$integration][$test] = ['ok' => $ok, 'detail' => $detail];
+    }
+
     public function finish(string $what): int
     {
         $this->safety->report($this->log);
+        $this->writeResults();
 
         foreach ($this->failures as $failure) {
             $this->log->info('FAIL ' . $failure);
@@ -128,6 +149,33 @@ final class Session
         $this->log->info("{$what}: ok ({$this->store->mode()})");
 
         return 0;
+    }
+
+    private function writeResults(): void
+    {
+        $dir = $this->options->get('results');
+
+        if ($dir === null || $this->results === []) {
+            return;
+        }
+
+        if ($this->store->mode() !== 'compare') {
+            $this->log->info('--results is only written by a --compare run; nothing written');
+
+            return;
+        }
+
+        $safe = $this->safety->ok();
+
+        foreach ($this->results as $integration => $results) {
+            if (!$safe) {
+                $results = array_map(static fn (array $result) => ['ok' => false, 'detail' => 'safety violation during the run; ' . $result['detail']], $results);
+            }
+
+            TestResults::record($dir, $integration, TestResults::folderDigest($this->workspace->freeDir, $integration), $results);
+        }
+
+        $this->log->info('test results written for ' . implode(', ', array_keys($this->results)));
     }
 
     /**
