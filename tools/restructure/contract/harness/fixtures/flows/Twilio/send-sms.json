@@ -1,0 +1,20 @@
+{
+    "name": "Twilio smoke: send sms",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "Twilio",
+        "name": "Twilio smoke",
+        "sid": "ACsmoke0000000000000000000000000000",
+        "token": "smoke-auth-token",
+        "from_num": "+15005550000",
+        "to": "${your-phone}",
+        "body": "<p>Hello ${your-name}</p>",
+        "field_map": [
+            {"formField": "your-phone", "twilioField": "To"},
+            {"formField": "your-name", "twilioField": "Body"}
+        ],
+        "isAuthorized": true
+    },
+    "field_data": {"your-phone": "+15005550006", "your-name": "Smoke"}
+}

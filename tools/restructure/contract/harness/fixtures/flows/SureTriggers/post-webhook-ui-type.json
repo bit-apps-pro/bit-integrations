@@ -1,0 +1,19 @@
+{
+    "name": "SureTriggers smoke: POST webhook via the UI type alias OttoKit (SureTriggers)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "OttoKit (SureTriggers)",
+        "name": "OttoKit (SureTriggers) Web Hooks",
+        "method": "POST",
+        "url": "https://hooks.example.test/ottokit",
+        "body": {
+            "type": "application/json",
+            "data": [
+                {"key": "email", "value": "${your-email}"}
+            ]
+        },
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "smoke@example.com", "your-name": "Smoke"}
+}

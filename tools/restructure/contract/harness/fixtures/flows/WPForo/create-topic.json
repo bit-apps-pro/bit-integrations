@@ -1,0 +1,24 @@
+{
+    "name": "WPForo smoke: create private topic with tags",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WPForo",
+        "name": "WPForo smoke",
+        "selectedTask": "createTopic",
+        "selectedForum": "2",
+        "selectedTags": "smoke,fixture",
+        "field_map": [
+            {"formField": "your-email", "wpforoField": "email"},
+            {"formField": "your-subject", "wpforoField": "topic_title"},
+            {"formField": "your-message", "wpforoField": "topic_content"}
+        ],
+        "actions": {"privateTopic": true},
+        "isAuthorized": true
+    },
+    "field_data": {
+        "your-email": "admin@bit-integrations.org",
+        "your-subject": "Smoke topic title",
+        "your-message": "Smoke topic body written by the restructure contract fixture, long enough to pass a minimum length."
+    }
+}

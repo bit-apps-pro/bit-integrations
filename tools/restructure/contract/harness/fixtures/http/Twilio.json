@@ -1,0 +1,17 @@
+[
+    {
+        "id": "messages-invalid-to",
+        "method": "POST",
+        "url": "~^https://api\\.twilio\\.com/2010-04-01/Accounts/[^/]+/Messages\\.json~",
+        "body_contains": "15005550001",
+        "status": 400,
+        "body": {"code": 21211, "message": "The 'To' number is not a valid phone number.", "status": 400}
+    },
+    {
+        "id": "messages",
+        "method": "POST",
+        "url": "~^https://api\\.twilio\\.com/2010-04-01/Accounts/[^/]+/Messages\\.json~",
+        "status": 201,
+        "body": {"sid": "SMsmoke000000000000000000000000000", "status": "queued", "to": "+15005550006"}
+    }
+]

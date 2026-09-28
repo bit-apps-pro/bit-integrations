@@ -1,0 +1,17 @@
+{
+    "name": "WPForo smoke: add user to group",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WPForo",
+        "name": "WPForo smoke",
+        "selectedTask": "addToGroup",
+        "selectedGroup": "2",
+        "field_map": [
+            {"formField": "your-email", "wpforoField": "email"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"your-email": "admin@bit-integrations.org"}
+}
