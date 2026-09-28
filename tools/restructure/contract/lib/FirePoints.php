@@ -13,6 +13,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Namespace_;
@@ -25,7 +27,9 @@ use RecursiveIteratorIterator;
 
 final class FirePoints
 {
-    public const HEADER = "# folder\tmethod\tkind\tname\targs\tdefault_sha1";
+    public const HEADER = "# folder\tmethod\tkind\tname\targs\tdefault_sha1\targs_sha1\tname_value";
+
+    private const INLINE_LIMIT = 160;
 
     private const FUNCTIONS = [
         'do_action',
@@ -50,20 +54,24 @@ final class FirePoints
         }
 
         $rootNamespace = self::rootNamespace($parsed);
+        $classes = self::classTable($parsed);
         $rows = [];
 
         foreach ($parsed as $relative => $stmts) {
             $segments = explode('/', $relative);
             $folder = \count($segments) > 1 ? $segments[0] : '-';
 
-            foreach (self::firesIn($stmts) as [$method, $kind, $args]) {
+            foreach (self::firesIn($stmts) as [$method, $kind, $args, $class]) {
+                $printed = array_map(static fn (Arg $arg) => self::printArg($arg, $rootNamespace), $args);
                 $rows[] = implode("\t", [
                     $folder,
                     $method,
                     $kind,
-                    self::oneLine(self::printArg($args[0] ?? null, $rootNamespace)),
+                    self::oneLine($printed[0] ?? '-'),
                     (string) \count($args),
-                    isset($args[1]) ? sha1(self::printArg($args[1], $rootNamespace)) : '-',
+                    isset($printed[1]) ? sha1($printed[1]) : '-',
+                    \count($printed) > 1 ? sha1(implode("\n", \array_slice($printed, 1))) : '-',
+                    isset($args[0]) ? self::nameValue($args[0], $class, $classes, $rootNamespace) : '-',
                 ]);
             }
         }
@@ -128,13 +136,13 @@ final class FirePoints
     /**
      * @param Node[] $stmts
      *
-     * @return list<array{0: string, 1: string, 2: list<Arg>}>
+     * @return list<array{0: string, 1: string, 2: list<Arg>, 3: ?string}>
      */
     private static function firesIn(array $stmts): array
     {
         $visitor = new class(self::FUNCTIONS, self::HOOKS_METHODS) extends NodeVisitorAbstract {
             /**
-             * @var list<array{0: string, 1: string, 2: list<Arg>}>
+             * @var list<array{0: string, 1: string, 2: list<Arg>, 3: ?string}>
              */
             public array $fires = [];
 
@@ -143,12 +151,23 @@ final class FirePoints
              */
             private array $scope = [];
 
+            /**
+             * @var list<?string>
+             */
+            private array $classes = [];
+
             public function __construct(private array $functions, private array $hooksMethods)
             {
             }
 
             public function enterNode(Node $node)
             {
+                if ($node instanceof ClassLike) {
+                    $this->classes[] = $node->namespacedName?->toString();
+
+                    return;
+                }
+
                 if ($node instanceof ClassMethod || $node instanceof Function_) {
                     $this->scope[] = $node->name->toString();
 
@@ -158,7 +177,8 @@ final class FirePoints
                 $kind = $this->kind($node);
 
                 if ($kind !== null && !$node->isFirstClassCallable()) {
-                    $this->fires[] = [$this->scope === [] ? '-' : $this->scope[\count($this->scope) - 1], $kind, $node->getArgs()];
+                    $class = $this->classes === [] ? null : $this->classes[\count($this->classes) - 1];
+                    $this->fires[] = [$this->scope === [] ? '-' : $this->scope[\count($this->scope) - 1], $kind, $node->getArgs(), $class];
                 }
             }
 
@@ -166,6 +186,10 @@ final class FirePoints
             {
                 if ($node instanceof ClassMethod || $node instanceof Function_) {
                     array_pop($this->scope);
+                }
+
+                if ($node instanceof ClassLike) {
+                    array_pop($this->classes);
                 }
             }
 
@@ -196,6 +220,117 @@ final class FirePoints
         return $visitor->fires;
     }
 
+    /**
+     * @param array<string, Node[]> $parsed
+     *
+     * @return array<string, array{parent: ?string, consts: array<string, Expr>, statics: array<string, ?Expr>}>
+     */
+    private static function classTable(array $parsed): array
+    {
+        $classes = [];
+        $finder = new NodeFinder();
+
+        foreach ($parsed as $stmts) {
+            foreach ($finder->findInstanceOf($stmts, ClassLike::class) as $class) {
+                $name = $class->namespacedName?->toString();
+
+                if ($name === null) {
+                    continue;
+                }
+
+                $entry = ['parent' => $class instanceof Class_ && $class->extends !== null ? $class->extends->toString() : null, 'consts' => [], 'statics' => []];
+
+                foreach ($class->getConstants() as $group) {
+                    foreach ($group->consts as $const) {
+                        $entry['consts'][$const->name->toString()] = $const->value;
+                    }
+                }
+
+                foreach ($class->getProperties() as $group) {
+                    if ($group->isStatic()) {
+                        foreach ($group->props as $property) {
+                            $entry['statics'][$property->name->toString()] = $property->default;
+                        }
+                    }
+                }
+
+                $classes[$name] = $entry;
+            }
+        }
+
+        return $classes;
+    }
+
+    /**
+     * The hook name with class constants and static properties of the scanned classes replaced by
+     * their declared values, so a changed value or a different `self::` shows up.
+     *
+     * @param array<string, array{parent: ?string, consts: array<string, Expr>, statics: array<string, ?Expr>}> $classes
+     */
+    private static function nameValue(Arg $arg, ?string $scopeClass, array $classes, string $rootNamespace): string
+    {
+        $replaced = false;
+        $visitor = new class($scopeClass, $classes, $replaced) extends NodeVisitorAbstract {
+            public function __construct(private ?string $scopeClass, private array $classes, private bool &$replaced)
+            {
+            }
+
+            public function leaveNode(Node $node)
+            {
+                if ($node instanceof Expr\ClassConstFetch && $node->name instanceof Identifier && $node->name->toLowerString() !== 'class') {
+                    $value = $this->lookup($node->class, 'consts', $node->name->toString());
+                } elseif ($node instanceof Expr\StaticPropertyFetch && $node->name instanceof Node\VarLikeIdentifier) {
+                    $value = $this->lookup($node->class, 'statics', $node->name->toString());
+                } else {
+                    return null;
+                }
+
+                if ($value === null) {
+                    return null;
+                }
+
+                $this->replaced = true;
+
+                return (new NodeTraverser(new CloningVisitor(), $this))->traverse([$value])[0];
+            }
+
+            private function lookup(Node $class, string $table, string $member): ?Expr
+            {
+                if (!$class instanceof Name) {
+                    return null;
+                }
+
+                $owner = \in_array($class->toLowerString(), ['self', 'static'], true) ? $this->scopeClass : $class->toString();
+
+                for ($depth = 0; $owner !== null && $depth < 8; $depth++) {
+                    $entry = $this->classes[$owner] ?? null;
+
+                    if ($entry === null) {
+                        return null;
+                    }
+
+                    if (\array_key_exists($member, $entry[$table])) {
+                        return $entry[$table][$member];
+                    }
+
+                    $owner = $entry['parent'];
+                }
+
+                return null;
+            }
+        };
+
+        $value = (new NodeTraverser(new CloningVisitor(), $visitor))->traverse([$arg->value])[0];
+
+        if (!$replaced) {
+            return '-';
+        }
+
+        $printed = self::oneLine(ParserKit::printer()->prettyPrintExpr(self::relativeNames($value, $rootNamespace)));
+
+        return \strlen($printed) > self::INLINE_LIMIT ? 'sha1:' . sha1($printed) : $printed;
+    }
+
     private static function printArg(?Arg $arg, string $rootNamespace): string
     {
         if ($arg === null) {
@@ -221,7 +356,7 @@ final class FirePoints
             public function leaveNode(Node $node)
             {
                 if ($node instanceof FullyQualified && str_starts_with($node->toString(), $this->rootNamespace . '\\')) {
-                    return new Name(substr($node->toString(), \strlen($this->rootNamespace) + 1), $node->getAttributes());
+                    return new Name(ClassRenames::canonical(substr($node->toString(), \strlen($this->rootNamespace) + 1)), $node->getAttributes());
                 }
             }
         };
