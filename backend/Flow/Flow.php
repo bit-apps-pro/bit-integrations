@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Flow;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Integration\ActionResolver;
 use BitApps\Integrations\Core\Integration\IntegrationHandler;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
@@ -559,19 +560,11 @@ final class Flow
      *
      * @param string $name Name of Action
      *
-     * @return bool
+     * @return false|string
      */
     protected static function isActionExists($name)
     {
-        if (class_exists("BitApps\\Integrations\\Actions\\{$name}\\{$name}Controller")) {
-            return "BitApps\\Integrations\\Actions\\{$name}\\{$name}Controller";
-        } elseif (class_exists("BitApps\\BTCBI_PRO\\Actions\\{$name}\\{$name}Controller")) {
-            return "BitApps\\BTCBI_PRO\\Actions\\{$name}\\{$name}Controller";
-        } elseif (class_exists("BitApps\\IntegrationsPro\\Actions\\{$name}\\{$name}Controller")) {
-            return "BitApps\\IntegrationsPro\\Actions\\{$name}\\{$name}Controller";
-        }
-
-        return false;
+        return ActionResolver::resolve($name);
     }
 
     /**
