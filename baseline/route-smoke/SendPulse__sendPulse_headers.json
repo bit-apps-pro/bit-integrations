@@ -1,0 +1,250 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "SendPulse",
+    "hook": "sendPulse_headers",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "client_id": "101",
+            "client_secret": "smoke_client_secret",
+            "list_id": "101",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "sendpulse",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "client_id": "101",
+                "client_secret": "smoke_client_secret",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "sendPulseField": {
+                                    "Email": {
+                                        "fieldValue": "email",
+                                        "fieldName": "Email",
+                                        "required": true
+                                    },
+                                    "Name": {
+                                        "fieldValue": "name",
+                                        "fieldName": "Name",
+                                        "required": false
+                                    },
+                                    "Phone": {
+                                        "fieldValue": "phone",
+                                        "fieldName": "Phone",
+                                        "required": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://api.sendpulse.com/oauth/access_token",
+                            "url_sha": "3b658cbc47b20d9e",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "d16e70ebc40fa79c",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret"
+                            ],
+                            "answer": "synthetic"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://api.sendpulse.com/addressbooks/101/variables",
+                            "url_sha": "968a70958ef03cc5",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "d62c30f14084cbec"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_sendPulse_refresh_fields",
+                            "argc": 3,
+                            "args_sha": "daeb325b78985fc0"
+                        },
+                        {
+                            "name": "btcbi_sendPulse_refresh_fields",
+                            "argc": 3,
+                            "args_sha": "daeb325b78985fc0"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$access_token",
+                        "warning: Undefined property: stdClass::$expires_in"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "sendPulseField": {
+                                    "Email": {
+                                        "fieldValue": "email",
+                                        "fieldName": "Email",
+                                        "required": true
+                                    },
+                                    "Name": {
+                                        "fieldValue": "name",
+                                        "fieldName": "Name",
+                                        "required": false
+                                    },
+                                    "Phone": {
+                                        "fieldValue": "phone",
+                                        "fieldName": "Phone",
+                                        "required": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://api.sendpulse.com/oauth/access_token",
+                            "url_sha": "3b658cbc47b20d9e",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "d16e70ebc40fa79c",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret"
+                            ],
+                            "answer": "synthetic"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://api.sendpulse.com/addressbooks/101/variables",
+                            "url_sha": "968a70958ef03cc5",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "d62c30f14084cbec"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_sendPulse_refresh_fields",
+                            "argc": 3,
+                            "args_sha": "daeb325b78985fc0"
+                        },
+                        {
+                            "name": "btcbi_sendPulse_refresh_fields",
+                            "argc": 3,
+                            "args_sha": "daeb325b78985fc0"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$access_token",
+                        "warning: Undefined property: stdClass::$expires_in"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 9,
+        "runs": {
+            "pro-on/connection": "reached HTTP (2 request(s)), 7 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (2 request(s)), 2 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\SendPulse\\SendPulseController::sendPulseHeaders",
+        "auth_owner": "BitApps\\Integrations\\Actions\\SendPulse\\SendPulseController",
+        "notes": []
+    }
+}

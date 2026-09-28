@@ -1,0 +1,68 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Affiliate",
+    "flow": {
+        "source": "fixture",
+        "fixture": "referral-for-user",
+        "type": "Affiliate",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "57e6c19acc36d4e0",
+        "field_source": "fixture",
+        "field_data_sha": "1013d6ab438c8c0b"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Call to undefined function Integrations\\Actions\\Affiliate\\*()"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Call to undefined function Integrations\\Actions\\Affiliate\\*()"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

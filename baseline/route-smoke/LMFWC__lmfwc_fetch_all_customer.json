@@ -1,0 +1,914 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "LMFWC",
+    "hook": "lmfwc_fetch_all_customer",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key",
+            "api_secret": "smoke_api_secret",
+            "base_url": "https://example.com"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "lmfwc",
+            "auth_type": "api_key",
+            "auth_details": {
+                "api_secret": "smoke_api_secret",
+                "base_url": "https://example.com",
+                "value": "smoke_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": [
+                                {
+                                    "id": 145,
+                                    "name": "Abdul Sharp"
+                                },
+                                {
+                                    "id": 285,
+                                    "name": "BDTprocessing"
+                                },
+                                {
+                                    "id": 1,
+                                    "name": "Admin"
+                                },
+                                {
+                                    "id": 41,
+                                    "name": "Arden Harrison"
+                                },
+                                {
+                                    "id": 174,
+                                    "name": "Jessica"
+                                },
+                                {
+                                    "id": 18,
+                                    "name": "bixagyfo"
+                                },
+                                {
+                                    "id": 45,
+                                    "name": "Blake Walton"
+                                },
+                                {
+                                    "id": 59,
+                                    "name": "Boris Burch"
+                                },
+                                {
+                                    "id": 197,
+                                    "name": "Brittany Wilson Brittany Wilson"
+                                },
+                                {
+                                    "id": 49,
+                                    "name": "Camille Guy"
+                                },
+                                {
+                                    "id": 195,
+                                    "name": "Christian Frazier Christian Frazier"
+                                },
+                                {
+                                    "id": 31,
+                                    "name": "Colorado Morin"
+                                },
+                                {
+                                    "id": 306,
+                                    "name": "cuxixad"
+                                },
+                                {
+                                    "id": 61,
+                                    "name": "Deanna Manning"
+                                },
+                                {
+                                    "id": 112,
+                                    "name": "Nero Greene"
+                                },
+                                {
+                                    "id": 110,
+                                    "name": "Chaim Green"
+                                },
+                                {
+                                    "id": 22,
+                                    "name": "dumej"
+                                },
+                                {
+                                    "id": 107,
+                                    "name": "Edward Hahn"
+                                },
+                                {
+                                    "id": 111,
+                                    "name": "Guinevere Lynn"
+                                },
+                                {
+                                    "id": 26,
+                                    "name": "fufagutypi"
+                                },
+                                {
+                                    "id": 42,
+                                    "name": "Gary Sloan"
+                                },
+                                {
+                                    "id": 20,
+                                    "name": "gejox"
+                                },
+                                {
+                                    "id": 225,
+                                    "name": "gutu"
+                                },
+                                {
+                                    "id": 215,
+                                    "name": "gyqiraje"
+                                },
+                                {
+                                    "id": 212,
+                                    "name": "gytymiweb"
+                                },
+                                {
+                                    "id": 256,
+                                    "name": "Hadley Buckley Hadley Buckley"
+                                },
+                                {
+                                    "id": 214,
+                                    "name": "hapodysa"
+                                },
+                                {
+                                    "id": 33,
+                                    "name": "Harlan Ellison"
+                                },
+                                {
+                                    "id": 48,
+                                    "name": "Hayfa Schneider"
+                                },
+                                {
+                                    "id": 208,
+                                    "name": "hefo"
+                                },
+                                {
+                                    "id": 222,
+                                    "name": "hemanyqymu"
+                                },
+                                {
+                                    "id": 131,
+                                    "name": "Irene Mcclure"
+                                },
+                                {
+                                    "id": 132,
+                                    "name": "Irene Mcclure <email:cdd263c1>"
+                                },
+                                {
+                                    "id": 133,
+                                    "name": "Irene Mcclure <email:cdd263c1>"
+                                },
+                                {
+                                    "id": 43,
+                                    "name": "Isaiah Rhodes"
+                                },
+                                {
+                                    "id": 303,
+                                    "name": "Jarrod Valdez"
+                                },
+                                {
+                                    "id": 6,
+                                    "name": "jatafucil"
+                                },
+                                {
+                                    "id": 44,
+                                    "name": "Josiah Berg"
+                                },
+                                {
+                                    "id": 27,
+                                    "name": "judi"
+                                },
+                                {
+                                    "id": 207,
+                                    "name": "jutowusup"
+                                },
+                                {
+                                    "id": 217,
+                                    "name": "juwu"
+                                },
+                                {
+                                    "id": 211,
+                                    "name": "jygyr"
+                                },
+                                {
+                                    "id": 52,
+                                    "name": "Karina Blanchard"
+                                },
+                                {
+                                    "id": 12,
+                                    "name": "koxavak"
+                                },
+                                {
+                                    "id": 297,
+                                    "name": "Lareina Hester"
+                                },
+                                {
+                                    "id": 53,
+                                    "name": "Lilah Lambert"
+                                },
+                                {
+                                    "id": 58,
+                                    "name": "Macon Summers"
+                                },
+                                {
+                                    "id": 57,
+                                    "name": "Maggie Long"
+                                },
+                                {
+                                    "id": 35,
+                                    "name": "Margaret Glenn"
+                                },
+                                {
+                                    "id": 54,
+                                    "name": "Mariam Sampson"
+                                },
+                                {
+                                    "id": 46,
+                                    "name": "Melyssa Colon"
+                                },
+                                {
+                                    "id": 302,
+                                    "name": "Finn Richardson"
+                                },
+                                {
+                                    "id": 113,
+                                    "name": "Catherine Mckenzie"
+                                },
+                                {
+                                    "id": 19,
+                                    "name": "motifebif"
+                                },
+                                {
+                                    "id": 11,
+                                    "name": "mugofelo"
+                                },
+                                {
+                                    "id": 32,
+                                    "name": "Myra Francis"
+                                },
+                                {
+                                    "id": 25,
+                                    "name": "necal"
+                                },
+                                {
+                                    "id": 9,
+                                    "name": "nejyxahox"
+                                },
+                                {
+                                    "id": 10,
+                                    "name": "nibi"
+                                },
+                                {
+                                    "id": 8,
+                                    "name": "niqoj"
+                                },
+                                {
+                                    "id": 220,
+                                    "name": "nobonoro"
+                                },
+                                {
+                                    "id": 109,
+                                    "name": "Lucian Sharp"
+                                },
+                                {
+                                    "id": 55,
+                                    "name": "Odessa Preston"
+                                },
+                                {
+                                    "id": 50,
+                                    "name": "Odysseus Frazier"
+                                },
+                                {
+                                    "id": 257,
+                                    "name": "Paula Thomas Paula Thomas"
+                                },
+                                {
+                                    "id": 36,
+                                    "name": "Pearl Hoover"
+                                },
+                                {
+                                    "id": 162,
+                                    "name": "Jelani Robinson"
+                                },
+                                {
+                                    "id": 5,
+                                    "name": "Aimee Kirby"
+                                },
+                                {
+                                    "id": 4,
+                                    "name": "Ifeoma Figueroa"
+                                },
+                                {
+                                    "id": 304,
+                                    "name": "rishadrahattr"
+                                },
+                                {
+                                    "id": 305,
+                                    "name": "roco"
+                                },
+                                {
+                                    "id": 39,
+                                    "name": "Russell Vang"
+                                },
+                                {
+                                    "id": 21,
+                                    "name": "ryfud"
+                                },
+                                {
+                                    "id": 213,
+                                    "name": "rygos"
+                                },
+                                {
+                                    "id": 228,
+                                    "name": "rymyv"
+                                },
+                                {
+                                    "id": 171,
+                                    "name": "Adena Bowen"
+                                },
+                                {
+                                    "id": 29,
+                                    "name": "Melyssa Mcclain"
+                                },
+                                {
+                                    "id": 37,
+                                    "name": "Sara Hays"
+                                },
+                                {
+                                    "id": 259,
+                                    "name": "sfsdf asdasd"
+                                },
+                                {
+                                    "id": 40,
+                                    "name": "Shea Bush"
+                                },
+                                {
+                                    "id": 219,
+                                    "name": "siqoto"
+                                },
+                                {
+                                    "id": 51,
+                                    "name": "Stuart Irwin"
+                                },
+                                {
+                                    "id": 210,
+                                    "name": "syzitykys"
+                                },
+                                {
+                                    "id": 3,
+                                    "name": "Martin Oneal"
+                                },
+                                {
+                                    "id": 296,
+                                    "name": "Talon Rutledge"
+                                },
+                                {
+                                    "id": 60,
+                                    "name": "Tate Garrett"
+                                },
+                                {
+                                    "id": 130,
+                                    "name": "Malik Gibbs"
+                                },
+                                {
+                                    "id": 23,
+                                    "name": "tucacusu"
+                                },
+                                {
+                                    "id": 13,
+                                    "name": "tykyre"
+                                },
+                                {
+                                    "id": 223,
+                                    "name": "tysim"
+                                },
+                                {
+                                    "id": 209,
+                                    "name": "tysy"
+                                },
+                                {
+                                    "id": 7,
+                                    "name": "vemewucope"
+                                },
+                                {
+                                    "id": 14,
+                                    "name": "vidadumahi"
+                                },
+                                {
+                                    "id": 194,
+                                    "name": "Vladimir Rose"
+                                },
+                                {
+                                    "id": 108,
+                                    "name": "tsqwe as"
+                                },
+                                {
+                                    "id": 216,
+                                    "name": "wesobor"
+                                },
+                                {
+                                    "id": 198,
+                                    "name": "Winter Washington Winter Washington"
+                                },
+                                {
+                                    "id": 218,
+                                    "name": "wowal"
+                                },
+                                {
+                                    "id": 221,
+                                    "name": "wuqile"
+                                },
+                                {
+                                    "id": 307,
+                                    "name": "xeky"
+                                },
+                                {
+                                    "id": 224,
+                                    "name": "zuqodu"
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": [
+                                {
+                                    "id": 145,
+                                    "name": "Abdul Sharp"
+                                },
+                                {
+                                    "id": 285,
+                                    "name": "BDTprocessing"
+                                },
+                                {
+                                    "id": 1,
+                                    "name": "Admin"
+                                },
+                                {
+                                    "id": 41,
+                                    "name": "Arden Harrison"
+                                },
+                                {
+                                    "id": 174,
+                                    "name": "Jessica"
+                                },
+                                {
+                                    "id": 18,
+                                    "name": "bixagyfo"
+                                },
+                                {
+                                    "id": 45,
+                                    "name": "Blake Walton"
+                                },
+                                {
+                                    "id": 59,
+                                    "name": "Boris Burch"
+                                },
+                                {
+                                    "id": 197,
+                                    "name": "Brittany Wilson Brittany Wilson"
+                                },
+                                {
+                                    "id": 49,
+                                    "name": "Camille Guy"
+                                },
+                                {
+                                    "id": 195,
+                                    "name": "Christian Frazier Christian Frazier"
+                                },
+                                {
+                                    "id": 31,
+                                    "name": "Colorado Morin"
+                                },
+                                {
+                                    "id": 306,
+                                    "name": "cuxixad"
+                                },
+                                {
+                                    "id": "<fixture-connection>",
+                                    "name": "Deanna Manning"
+                                },
+                                {
+                                    "id": 112,
+                                    "name": "Nero Greene"
+                                },
+                                {
+                                    "id": 110,
+                                    "name": "Chaim Green"
+                                },
+                                {
+                                    "id": 22,
+                                    "name": "dumej"
+                                },
+                                {
+                                    "id": 107,
+                                    "name": "Edward Hahn"
+                                },
+                                {
+                                    "id": 111,
+                                    "name": "Guinevere Lynn"
+                                },
+                                {
+                                    "id": 26,
+                                    "name": "fufagutypi"
+                                },
+                                {
+                                    "id": 42,
+                                    "name": "Gary Sloan"
+                                },
+                                {
+                                    "id": 20,
+                                    "name": "gejox"
+                                },
+                                {
+                                    "id": 225,
+                                    "name": "gutu"
+                                },
+                                {
+                                    "id": 215,
+                                    "name": "gyqiraje"
+                                },
+                                {
+                                    "id": 212,
+                                    "name": "gytymiweb"
+                                },
+                                {
+                                    "id": 256,
+                                    "name": "Hadley Buckley Hadley Buckley"
+                                },
+                                {
+                                    "id": 214,
+                                    "name": "hapodysa"
+                                },
+                                {
+                                    "id": 33,
+                                    "name": "Harlan Ellison"
+                                },
+                                {
+                                    "id": 48,
+                                    "name": "Hayfa Schneider"
+                                },
+                                {
+                                    "id": 208,
+                                    "name": "hefo"
+                                },
+                                {
+                                    "id": 222,
+                                    "name": "hemanyqymu"
+                                },
+                                {
+                                    "id": 131,
+                                    "name": "Irene Mcclure"
+                                },
+                                {
+                                    "id": 132,
+                                    "name": "Irene Mcclure <email:cdd263c1>"
+                                },
+                                {
+                                    "id": 133,
+                                    "name": "Irene Mcclure <email:cdd263c1>"
+                                },
+                                {
+                                    "id": 43,
+                                    "name": "Isaiah Rhodes"
+                                },
+                                {
+                                    "id": 303,
+                                    "name": "Jarrod Valdez"
+                                },
+                                {
+                                    "id": 6,
+                                    "name": "jatafucil"
+                                },
+                                {
+                                    "id": 44,
+                                    "name": "Josiah Berg"
+                                },
+                                {
+                                    "id": 27,
+                                    "name": "judi"
+                                },
+                                {
+                                    "id": 207,
+                                    "name": "jutowusup"
+                                },
+                                {
+                                    "id": 217,
+                                    "name": "juwu"
+                                },
+                                {
+                                    "id": 211,
+                                    "name": "jygyr"
+                                },
+                                {
+                                    "id": 52,
+                                    "name": "Karina Blanchard"
+                                },
+                                {
+                                    "id": 12,
+                                    "name": "koxavak"
+                                },
+                                {
+                                    "id": 297,
+                                    "name": "Lareina Hester"
+                                },
+                                {
+                                    "id": 53,
+                                    "name": "Lilah Lambert"
+                                },
+                                {
+                                    "id": 58,
+                                    "name": "Macon Summers"
+                                },
+                                {
+                                    "id": 57,
+                                    "name": "Maggie Long"
+                                },
+                                {
+                                    "id": 35,
+                                    "name": "Margaret Glenn"
+                                },
+                                {
+                                    "id": 54,
+                                    "name": "Mariam Sampson"
+                                },
+                                {
+                                    "id": 46,
+                                    "name": "Melyssa Colon"
+                                },
+                                {
+                                    "id": 302,
+                                    "name": "Finn Richardson"
+                                },
+                                {
+                                    "id": 113,
+                                    "name": "Catherine Mckenzie"
+                                },
+                                {
+                                    "id": 19,
+                                    "name": "motifebif"
+                                },
+                                {
+                                    "id": 11,
+                                    "name": "mugofelo"
+                                },
+                                {
+                                    "id": 32,
+                                    "name": "Myra Francis"
+                                },
+                                {
+                                    "id": 25,
+                                    "name": "necal"
+                                },
+                                {
+                                    "id": 9,
+                                    "name": "nejyxahox"
+                                },
+                                {
+                                    "id": 10,
+                                    "name": "nibi"
+                                },
+                                {
+                                    "id": 8,
+                                    "name": "niqoj"
+                                },
+                                {
+                                    "id": 220,
+                                    "name": "nobonoro"
+                                },
+                                {
+                                    "id": 109,
+                                    "name": "Lucian Sharp"
+                                },
+                                {
+                                    "id": 55,
+                                    "name": "Odessa Preston"
+                                },
+                                {
+                                    "id": 50,
+                                    "name": "Odysseus Frazier"
+                                },
+                                {
+                                    "id": 257,
+                                    "name": "Paula Thomas Paula Thomas"
+                                },
+                                {
+                                    "id": 36,
+                                    "name": "Pearl Hoover"
+                                },
+                                {
+                                    "id": 162,
+                                    "name": "Jelani Robinson"
+                                },
+                                {
+                                    "id": 5,
+                                    "name": "Aimee Kirby"
+                                },
+                                {
+                                    "id": 4,
+                                    "name": "Ifeoma Figueroa"
+                                },
+                                {
+                                    "id": 304,
+                                    "name": "rishadrahattr"
+                                },
+                                {
+                                    "id": 305,
+                                    "name": "roco"
+                                },
+                                {
+                                    "id": 39,
+                                    "name": "Russell Vang"
+                                },
+                                {
+                                    "id": 21,
+                                    "name": "ryfud"
+                                },
+                                {
+                                    "id": 213,
+                                    "name": "rygos"
+                                },
+                                {
+                                    "id": 228,
+                                    "name": "rymyv"
+                                },
+                                {
+                                    "id": 171,
+                                    "name": "Adena Bowen"
+                                },
+                                {
+                                    "id": 29,
+                                    "name": "Melyssa Mcclain"
+                                },
+                                {
+                                    "id": 37,
+                                    "name": "Sara Hays"
+                                },
+                                {
+                                    "id": 259,
+                                    "name": "sfsdf asdasd"
+                                },
+                                {
+                                    "id": 40,
+                                    "name": "Shea Bush"
+                                },
+                                {
+                                    "id": 219,
+                                    "name": "siqoto"
+                                },
+                                {
+                                    "id": 51,
+                                    "name": "Stuart Irwin"
+                                },
+                                {
+                                    "id": 210,
+                                    "name": "syzitykys"
+                                },
+                                {
+                                    "id": 3,
+                                    "name": "Martin Oneal"
+                                },
+                                {
+                                    "id": 296,
+                                    "name": "Talon Rutledge"
+                                },
+                                {
+                                    "id": 60,
+                                    "name": "Tate Garrett"
+                                },
+                                {
+                                    "id": 130,
+                                    "name": "Malik Gibbs"
+                                },
+                                {
+                                    "id": 23,
+                                    "name": "tucacusu"
+                                },
+                                {
+                                    "id": 13,
+                                    "name": "tykyre"
+                                },
+                                {
+                                    "id": 223,
+                                    "name": "tysim"
+                                },
+                                {
+                                    "id": 209,
+                                    "name": "tysy"
+                                },
+                                {
+                                    "id": 7,
+                                    "name": "vemewucope"
+                                },
+                                {
+                                    "id": 14,
+                                    "name": "vidadumahi"
+                                },
+                                {
+                                    "id": 194,
+                                    "name": "Vladimir Rose"
+                                },
+                                {
+                                    "id": 108,
+                                    "name": "tsqwe as"
+                                },
+                                {
+                                    "id": 216,
+                                    "name": "wesobor"
+                                },
+                                {
+                                    "id": 198,
+                                    "name": "Winter Washington Winter Washington"
+                                },
+                                {
+                                    "id": 218,
+                                    "name": "wowal"
+                                },
+                                {
+                                    "id": 221,
+                                    "name": "wuqile"
+                                },
+                                {
+                                    "id": 307,
+                                    "name": "xeky"
+                                },
+                                {
+                                    "id": 224,
+                                    "name": "zuqodu"
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "no request, 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "no request"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\LMFWC\\LMFWCController::getAllCustomer",
+        "auth_owner": "BitApps\\Integrations\\Actions\\LMFWC\\LMFWCController",
+        "notes": []
+    }
+}

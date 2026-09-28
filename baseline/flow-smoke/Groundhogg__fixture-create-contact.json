@@ -1,0 +1,316 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Groundhogg",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-contact",
+        "type": "Groundhogg",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "ec3093e866ab0154",
+        "field_source": "fixture",
+        "field_data_sha": "4c671ca7e59fe06f"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v3/tags",
+                        "url_sha": "25ae74311dab3327",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:list-tags"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v3/tags",
+                        "url_sha": "25ae74311dab3327",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": "b03c0d866c1dc054",
+                        "body_keys": [
+                            "tags"
+                        ],
+                        "answer": "fixture:create-tags"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v3/contacts",
+                        "url_sha": "d44d8c6df1615e3b",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": "30df784c38b99aa8",
+                        "body_keys": [
+                            "email",
+                            "first_name",
+                            "note",
+                            "meta",
+                            "tags",
+                            "optin_status"
+                        ],
+                        "answer": "fixture:create-contact"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v4/notes/",
+                        "url_sha": "e4ae0cf8c0f7c5c7",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": "ecf032e06b3700ac",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "fixture:create-note"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "status": "success",
+                            "items": [
+                                {
+                                    "ID": 77
+                                }
+                            ]
+                        },
+                        "field_data_sha": "dd4e18f93980b912",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined variable $apiResponse"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v3/tags",
+                        "url_sha": "25ae74311dab3327",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:list-tags"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v3/tags",
+                        "url_sha": "25ae74311dab3327",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": "b03c0d866c1dc054",
+                        "body_keys": [
+                            "tags"
+                        ],
+                        "answer": "fixture:create-tags"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v3/contacts",
+                        "url_sha": "d44d8c6df1615e3b",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": "30df784c38b99aa8",
+                        "body_keys": [
+                            "email",
+                            "first_name",
+                            "note",
+                            "meta",
+                            "tags",
+                            "optin_status"
+                        ],
+                        "answer": "fixture:create-contact"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://groundhogg.example.test/index.php?rest_route=/gh/v4/notes/",
+                        "url_sha": "e4ae0cf8c0f7c5c7",
+                        "headers": {
+                            "names": [
+                                "gh-public-key",
+                                "gh-token",
+                                "user-agent"
+                            ],
+                            "sha": "13c03b87d813582f"
+                        },
+                        "body_sha": "ecf032e06b3700ac",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "fixture:create-note"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "status": "success",
+                            "items": [
+                                {
+                                    "ID": 77
+                                }
+                            ]
+                        },
+                        "field_data_sha": "dd4e18f93980b912",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined variable $apiResponse"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,255 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoBigin",
+    "flow": {
+        "source": "db",
+        "id": 232,
+        "type": "Zoho Bigin",
+        "status": 0,
+        "connection_id": 42
+    },
+    "input": {
+        "flow_details_sha": "8d808849c6d3d3a9",
+        "field_source": "log#2106",
+        "field_data_sha": "84eaa9cf2f779818"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "06307011356ace31",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/bigin/v1/Contacts",
+                        "url_sha": "f33d617a37b3bfab",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "54dce876a4c51538",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "eaf2463a77d4960f"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 232,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "<datetime-3357300>",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 232,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Contacts"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "007b0ed82b0e1be8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoBigin\\*::$_integID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "06307011356ace31",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/bigin/v1/Contacts",
+                        "url_sha": "f33d617a37b3bfab",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "54dce876a4c51538",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "eaf2463a77d4960f"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 232,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "<datetime-3357300>",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 232,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Contacts"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "007b0ed82b0e1be8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoBigin\\*::$_integID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

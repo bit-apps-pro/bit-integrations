@@ -1,0 +1,249 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Hubspot",
+    "flow": {
+        "source": "fixture",
+        "fixture": "contact-update",
+        "type": "Hubspot",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "ac68f6d9849f02a6",
+        "field_source": "fixture",
+        "field_data_sha": "0c7dedb90fce5a62"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.hubapi.com/crm/v3/objects/contacts/search",
+                        "url_sha": "d3d0d9965d4612be",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "1a5154d1e4167df9",
+                        "body_keys": [
+                            "query",
+                            "properties"
+                        ],
+                        "answer": "fixture:object-search"
+                    },
+                    {
+                        "method": "PATCH",
+                        "url": "https://api.hubapi.com/crm/v3/objects/contacts/9001",
+                        "url_sha": "91f2f0cdb637d760",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "93a4417c9618b570",
+                        "body_keys": [
+                            "properties"
+                        ],
+                        "answer": "fixture:object-update"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_hubspot_update_entity",
+                        "argc": 4,
+                        "args_sha": "d7e4ed8de54d66fd"
+                    },
+                    {
+                        "name": "btcbi_hubspot_update_entity",
+                        "argc": 5,
+                        "args_sha": "7c7c3b8a7d6be9c0"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "contacts-update"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "9001",
+                            "properties": {
+                                "hs_object_id": "9001"
+                            }
+                        },
+                        "field_data_sha": "da169eb4c08ca511",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.hubapi.com/crm/v3/objects/contacts/search",
+                        "url_sha": "d3d0d9965d4612be",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "1a5154d1e4167df9",
+                        "body_keys": [
+                            "query",
+                            "properties"
+                        ],
+                        "answer": "fixture:object-search"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_hubspot_update_entity",
+                        "argc": 4,
+                        "args_sha": "d7e4ed8de54d66fd"
+                    },
+                    {
+                        "name": "btcbi_hubspot_update_entity",
+                        "argc": 5,
+                        "args_sha": "32288846c8e32164"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "a0b6e7463796c437",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "contacts-update"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "errors": "Bit Integrations Pro is not active or not installed"
+                        },
+                        "field_data_sha": "da169eb4c08ca511",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

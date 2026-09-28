@@ -1,0 +1,64 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "MailPoet",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-subscriber",
+        "type": "MailPoet",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "9d6dc6eaab92bf73",
+        "field_source": "fixture",
+        "field_data_sha": "3a4c4bea35697364"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,220 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "LMFWC",
+    "flow": {
+        "source": "fixture",
+        "fixture": "update-license",
+        "type": "LMFWC",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1c2e5bf4009500f8",
+        "field_source": "fixture",
+        "field_data_sha": "35f934f7426426a2"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "PUT",
+                        "url": "https://example.com/wp-json/lmfwc/v2/licenses/SMOKE-LICENSE-0001",
+                        "url_sha": "0f7ae2bb97c2919f",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "96ac256d894cf6f5"
+                        },
+                        "body_sha": "e874abd5f9e64ba4",
+                        "body_keys": [
+                            "license_key",
+                            "expires_at",
+                            "status",
+                            "product_id"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_lmfwc_update_licence",
+                        "argc": 5,
+                        "args_sha": "d454b5b3ab5c69bd"
+                    },
+                    {
+                        "name": "btcbi_lmfwc_update_licence",
+                        "argc": 5,
+                        "args_sha": "0cf8451cb83fe4d3"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "d7d0f3e446204b57",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Update license",
+                            "type_name": "Update license creating"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "626a360469eac6a3",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_lmfwc_update_licence",
+                        "argc": 5,
+                        "args_sha": "d454b5b3ab5c69bd"
+                    },
+                    {
+                        "name": "btcbi_lmfwc_update_licence",
+                        "argc": 5,
+                        "args_sha": "d454b5b3ab5c69bd"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "6f20d97b4cff167a",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Update license",
+                            "type_name": "Update license creating"
+                        },
+                        "response_type": "error",
+                        "response_obj": "Bit Integrations Pro plugin is not installed or activate",
+                        "field_data_sha": "626a360469eac6a3",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

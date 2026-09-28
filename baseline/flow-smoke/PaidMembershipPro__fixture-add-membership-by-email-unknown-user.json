@@ -1,0 +1,64 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "PaidMembershipPro",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-membership-by-email-unknown-user",
+        "type": "PaidMembershipPro",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "a55a5fcef5123371",
+        "field_source": "fixture",
+        "field_data_sha": "1231ec31a3dab1ee"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

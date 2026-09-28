@@ -1,0 +1,276 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ZohoCRM",
+    "hook": "zcrm_refresh_modules",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "dataCenter": "com",
+            "id": "101",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "api_domain": "https://www.zohoapis.com",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "zohocrm",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "api_domain": "https://www.zohoapis.com",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "dataCenter": "com",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "tokenDetails": {
+                                    "access_token": "<redacted:a7dc7097c955>",
+                                    "api_domain": "https://www.zohoapis.com",
+                                    "generates_on": "<ts>",
+                                    "refresh_token": "<redacted:6141e5e760f2>"
+                                },
+                                "modules": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://www.zohoapis.com/crm/v2.1/settings/modules",
+                            "url_sha": "21dd5357239eb4fb",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0ba131c27dc42189"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": [
+                        {
+                            "id": 101,
+                            "change": "updated",
+                            "columns": {
+                                "flow_details": {
+                                    "tokenDetails": {
+                                        "old": "<absent>",
+                                        "new": {
+                                            "access_token": "<redacted:a7dc7097c955>",
+                                            "api_domain": "https://www.zohoapis.com",
+                                            "generates_on": "<ts>",
+                                            "refresh_token": "<redacted:6141e5e760f2>"
+                                        }
+                                    }
+                                },
+                                "updated_at": {
+                                    "old": "2026-01-28 10:36:07",
+                                    "new": "<datetime>"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$modules",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}btcbi_flow": {
+                            "UPDATE": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "tokenDetails": {
+                                    "access_token": "<redacted:a7dc7097c955>",
+                                    "refresh_token": "<redacted:6141e5e760f2>",
+                                    "token_type": "<redacted:4b0d53deebbb>",
+                                    "expires_in": "smoke_expires_in",
+                                    "generated_at": "smoke_generated_at",
+                                    "generates_on": "<ts>",
+                                    "api_domain": "https://www.zohoapis.com"
+                                },
+                                "modules": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://www.zohoapis.com/crm/v2.1/settings/modules",
+                            "url_sha": "21dd5357239eb4fb",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0ba131c27dc42189"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": [
+                        {
+                            "id": 101,
+                            "change": "updated",
+                            "columns": {
+                                "flow_details": {
+                                    "tokenDetails": {
+                                        "old": "<absent>",
+                                        "new": {
+                                            "access_token": "<redacted:a7dc7097c955>",
+                                            "refresh_token": "<redacted:6141e5e760f2>",
+                                            "token_type": "<redacted:4b0d53deebbb>",
+                                            "expires_in": "smoke_expires_in",
+                                            "generated_at": "smoke_generated_at",
+                                            "generates_on": "<ts>",
+                                            "api_domain": "https://www.zohoapis.com"
+                                        }
+                                    }
+                                },
+                                "updated_at": {
+                                    "old": "2026-01-28 10:36:07",
+                                    "new": "<datetime>"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$modules",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}btcbi_flow": {
+                            "UPDATE": 1
+                        },
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 14,
+        "runs": {
+            "pro-on/connection": "reached HTTP (2 request(s)), 7 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (2 request(s)), 7 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ZohoCRM\\ZohoCRMController::refreshModulesAjaxHelper",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ZohoCRM\\ZohoCRMController",
+        "notes": []
+    }
+}

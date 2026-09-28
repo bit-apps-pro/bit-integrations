@@ -1,0 +1,105 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "GetResponse",
+    "flow": {
+        "source": "db",
+        "id": 32,
+        "type": "GetResponse",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "46cf3bfc0a77b555",
+        "field_source": "field_map",
+        "field_data_sha": "06c0dc150c1c15ee"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Cannot use object of type stdClass as array"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.getresponse.com/v3/contacts?query[email]=smoke@example.com",
+                        "url_sha": "a5d6aa13bebea62c",
+                        "headers": {
+                            "names": [
+                                "user-agent",
+                                "x-auth-token"
+                            ],
+                            "sha": "ad381a79da6213b3"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$mailer_lite_type"
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Cannot use object of type stdClass as array"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.getresponse.com/v3/contacts?query[email]=smoke@example.com",
+                        "url_sha": "a5d6aa13bebea62c",
+                        "headers": {
+                            "names": [
+                                "user-agent",
+                                "x-auth-token"
+                            ],
+                            "sha": "ad381a79da6213b3"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$mailer_lite_type"
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

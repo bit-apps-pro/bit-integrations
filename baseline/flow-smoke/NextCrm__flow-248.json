@@ -1,0 +1,65 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "NextCrm",
+    "flow": {
+        "source": "db",
+        "id": 248,
+        "type": "NextCrm",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "5c4ba491f2a38fe6",
+        "field_source": "log#2086",
+        "field_data_sha": "8b506285024435cc"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

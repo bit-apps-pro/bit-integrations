@@ -1,0 +1,190 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Drip",
+    "flow": {
+        "source": "fixture",
+        "fixture": "upsert-subscriber-status-tags",
+        "type": "Drip",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "804d0fae035e0d95",
+        "field_source": "fixture",
+        "field_data_sha": "12e4a3a8ca315e18"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.getdrip.com/v2/9990001/subscribers",
+                        "url_sha": "0f17c9027bdb3216",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "5c9ffc96464d1476"
+                        },
+                        "body_sha": "bcc15bbe0b8851d8",
+                        "body_keys": [
+                            "subscribers"
+                        ],
+                        "answer": "fixture:upsert-subscriber"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "subscriber",
+                            "type_name": "Subscriber upsert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Subscriber upserted successfully"
+                        },
+                        "field_data_sha": "159afd642856d698",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.getdrip.com/v2/9990001/subscribers",
+                        "url_sha": "0f17c9027bdb3216",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "5c9ffc96464d1476"
+                        },
+                        "body_sha": "bcc15bbe0b8851d8",
+                        "body_keys": [
+                            "subscribers"
+                        ],
+                        "answer": "fixture:upsert-subscriber"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "subscriber",
+                            "type_name": "Subscriber upsert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Subscriber upserted successfully"
+                        },
+                        "field_data_sha": "159afd642856d698",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

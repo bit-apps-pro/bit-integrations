@@ -1,0 +1,224 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Vbout",
+    "flow": {
+        "source": "fixture",
+        "fixture": "existing-contact-no-update",
+        "type": "Vbout",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "e7fa41338438e06d",
+        "field_source": "fixture",
+        "field_data_sha": "f13870d5c0133da0"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.vbout.com/1/emailmarketing/getcontactbyemail?key=smoke-api-key&email=smoke-existing@example.com&list_id=5001",
+                        "url_sha": "53b3d179746b9752",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:lookup-existing"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "c8a5ec38a2135852",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Your contact already exists in list!",
+                            "code": 400
+                        },
+                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Vbout\\*::$_integrationDetails is deprecated",
+                    "warning: Attempt to read property \"response\" on array",
+                    "warning: Attempt to read property \"data\" on null",
+                    "warning: Attempt to read property \"id\" on null",
+                    "warning: Attempt to read property \"update\" on array",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.vbout.com/1/emailmarketing/getcontactbyemail?key=smoke-api-key&email=smoke-existing@example.com&list_id=5001",
+                        "url_sha": "53b3d179746b9752",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:lookup-existing"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "c8a5ec38a2135852",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Your contact already exists in list!",
+                            "code": 400
+                        },
+                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Vbout\\*::$_integrationDetails is deprecated",
+                    "warning: Attempt to read property \"response\" on array",
+                    "warning: Attempt to read property \"data\" on null",
+                    "warning: Attempt to read property \"id\" on null",
+                    "warning: Attempt to read property \"update\" on array",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

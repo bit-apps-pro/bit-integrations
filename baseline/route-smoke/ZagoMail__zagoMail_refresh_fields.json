@@ -1,0 +1,138 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ZagoMail",
+    "hook": "zagoMail_refresh_fields",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_public_key": "smoke_api_public_key",
+            "listId": "101"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "zagomail",
+            "auth_type": "api_key",
+            "auth_details": {
+                "value": "smoke_api_public_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://api.zagomail.com/lists/get-fields?list_uid=101",
+                            "url_sha": "99af9869ac9fec4a",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": "21e1a551181d95bb",
+                            "body_keys": [
+                                "publicKey"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$status"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://api.zagomail.com/lists/get-fields?list_uid=101",
+                            "url_sha": "99af9869ac9fec4a",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": "21e1a551181d95bb",
+                            "body_keys": [
+                                "publicKey"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$status"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 7,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 1 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ZagoMail\\ZagoMailController::zagoMailRefreshFields",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ZagoMail\\ZagoMailController",
+        "notes": []
+    }
+}

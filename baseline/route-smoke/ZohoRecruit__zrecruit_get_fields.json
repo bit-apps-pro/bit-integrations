@@ -1,0 +1,208 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ZohoRecruit",
+    "hook": "zrecruit_get_fields",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "dataCenter": "com",
+            "id": "101",
+            "module": "smoke_module",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "zohorecruit",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "dataCenter": "com",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "Error",
+                        "message": "Attempt to assign property \"tokenDetails\" on null"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://recruit.zoho.com/recruit/private/json/smoke_module/getFields?authtoken=<redacted:a7dc7097c955>&scope=recruitapi&version=2",
+                            "url_sha": "ea95425395e4b405",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0ba131c27dc42189"
+                            },
+                            "body_sha": "683abac15a4d3190",
+                            "body_keys": [
+                                "module"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$smoke_module",
+                        "warning: Attempt to read property \"section\" on null",
+                        "warning: Attempt to read property \"FL\" on null",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$integration_details",
+                        "deprecated: json_decode(): Passing null to parameter #1 ($json) of type string is deprecated"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "Error",
+                        "message": "Attempt to assign property \"tokenDetails\" on null"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://recruit.zoho.com/recruit/private/json/smoke_module/getFields?authtoken=<redacted:a7dc7097c955>&scope=recruitapi&version=2",
+                            "url_sha": "ea95425395e4b405",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0ba131c27dc42189"
+                            },
+                            "body_sha": "683abac15a4d3190",
+                            "body_keys": [
+                                "module"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$smoke_module",
+                        "warning: Attempt to read property \"section\" on null",
+                        "warning: Attempt to read property \"FL\" on null",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "warning: Undefined property: stdClass::$integration_details",
+                        "deprecated: json_decode(): Passing null to parameter #1 ($json) of type string is deprecated"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 22,
+        "runs": {
+            "pro-on/connection": "reached HTTP (2 request(s)), 11 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (2 request(s)), 11 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ZohoRecruit\\ZohoRecruitController::getFields",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ZohoRecruit\\ZohoRecruitController",
+        "notes": []
+    }
+}

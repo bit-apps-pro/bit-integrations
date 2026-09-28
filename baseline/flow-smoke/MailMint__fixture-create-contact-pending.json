@@ -1,0 +1,68 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "MailMint",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-contact-pending",
+        "type": "MailMint",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "39fc59bdca46926f",
+        "field_source": "fixture",
+        "field_data_sha": "414339def1de4e45"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"Mint\\MRM\\DataBase\\Models\\ContactModel\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"Mint\\MRM\\DataBase\\Models\\ContactModel\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

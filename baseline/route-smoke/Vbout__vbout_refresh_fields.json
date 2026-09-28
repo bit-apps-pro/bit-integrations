@@ -1,0 +1,138 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Vbout",
+    "hook": "vbout_refresh_fields",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "auth_token": "smoke_auth_token",
+            "list_id": "101"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "vbout",
+            "auth_type": "api_key",
+            "auth_details": {
+                "value": "smoke_auth_token"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "The token is invalid"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://api.vbout.com/1/emailmarketing/getlist.json?key=smoke_auth_token&id=101",
+                            "url_sha": "ff307ff37a0c939e",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$response",
+                        "warning: Attempt to read property \"header\" on null",
+                        "warning: Attempt to read property \"status\" on null"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "The token is invalid"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://api.vbout.com/1/emailmarketing/getlist.json?key=smoke_auth_token&id=101",
+                            "url_sha": "ff307ff37a0c939e",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$response",
+                        "warning: Attempt to read property \"header\" on null",
+                        "warning: Attempt to read property \"status\" on null"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 11,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 8 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 3 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Vbout\\VboutController::vboutRefreshFields",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Vbout\\VboutController",
+        "notes": []
+    }
+}

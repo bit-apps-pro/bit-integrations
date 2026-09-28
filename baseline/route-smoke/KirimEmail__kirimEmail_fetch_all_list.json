@@ -1,0 +1,142 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "KirimEmail",
+    "hook": "kirimEmail_fetch_all_list",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key",
+            "userName": "smoke_userName",
+            "username": "smoke_username"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "KirimEmail",
+            "auth_type": "custom",
+            "auth_details": {
+                "api_key": "smoke_api_key",
+                "userName": "smoke_userName"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Unknown"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.kirim.email/v3/list",
+                            "url_sha": "d6b2f12a3b820241",
+                            "headers": {
+                                "names": [
+                                    "auth-id",
+                                    "auth-token",
+                                    "timestamp",
+                                    "user-agent"
+                                ],
+                                "sha": "debd28ba14ba5768"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$code"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Unknown"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.kirim.email/v3/list",
+                            "url_sha": "d6b2f12a3b820241",
+                            "headers": {
+                                "names": [
+                                    "auth-id",
+                                    "auth-token",
+                                    "timestamp",
+                                    "user-agent"
+                                ],
+                                "sha": "c21458a6d31753e8"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$code"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 7,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 1 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController::getAllList",
+        "auth_owner": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController",
+        "notes": []
+    }
+}

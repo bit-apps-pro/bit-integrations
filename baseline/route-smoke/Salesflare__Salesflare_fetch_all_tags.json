@@ -1,0 +1,134 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Salesflare",
+    "hook": "Salesflare_fetch_all_tags",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "salesflare",
+            "auth_type": "bearer_token",
+            "auth_details": {
+                "token": "smoke_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.salesflare.com/tags",
+                            "url_sha": "fb8feee3cc779360",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "3639f76e4ac2fc35"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.salesflare.com/tags",
+                            "url_sha": "fb8feee3cc779360",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "3639f76e4ac2fc35"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController::getAllTags",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+        "notes": []
+    }
+}

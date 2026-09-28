@@ -1,0 +1,190 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "OneDrive",
+    "flow": {
+        "source": "fixture",
+        "fixture": "upload-file",
+        "type": "OneDrive",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1e2b76407926b783",
+        "field_source": "fixture",
+        "field_data_sha": "e45b54cfba4fb728"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.onedrive.com/v1.0/drives/SMOKEDRIVE/items/SMOKEDRIVE!105:/woocommerce-placeholder-100x100.png:/content",
+                        "url_sha": "3a3ed265ec4ae813",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-length",
+                                "content-type",
+                                "prefer",
+                                "user-agent",
+                                "x-http-method"
+                            ],
+                            "sha": "77571f99d5d11203"
+                        },
+                        "body_sha": "0ba6941f6ada5d57",
+                        "body_keys": [],
+                        "answer": "fixture:onedrive-upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "OneDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"id\":\"SMOKEDRIVE!900\",\"name\":\"woocommerce-placeholder-100x100.png\",\"size\":2300}]",
+                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Array to string conversion",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.onedrive.com/v1.0/drives/SMOKEDRIVE/items/SMOKEDRIVE!105:/woocommerce-placeholder-100x100.png:/content",
+                        "url_sha": "3a3ed265ec4ae813",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-length",
+                                "content-type",
+                                "prefer",
+                                "user-agent",
+                                "x-http-method"
+                            ],
+                            "sha": "77571f99d5d11203"
+                        },
+                        "body_sha": "0ba6941f6ada5d57",
+                        "body_keys": [],
+                        "answer": "fixture:onedrive-upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "OneDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"id\":\"SMOKEDRIVE!900\",\"name\":\"woocommerce-placeholder-100x100.png\",\"size\":2300}]",
+                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Array to string conversion",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

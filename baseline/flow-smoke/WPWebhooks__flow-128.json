@@ -1,0 +1,191 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "WPWebhooks",
+    "flow": {
+        "source": "db",
+        "id": 128,
+        "type": "WPWebhooks",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "c7b9d1299fe07e82",
+        "field_source": "field_map",
+        "field_data_sha": "97d170e1550eee4a"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #128",
+                        "message_sha": "5711b5da71e6d7a2",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 128,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": "<absent>",
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-03-12 08:54:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 128,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "WPWebhooks",
+                            "type_name": "WPWebhooks"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "errors": {
+                                "bit-integrations-webhook-url": [
+                                    "Webhook url is empty"
+                                ]
+                            },
+                            "error_data": []
+                        },
+                        "field_data_sha": "a8c9777da9826854",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #128",
+                        "message_sha": "5711b5da71e6d7a2",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 128,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": "<absent>",
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-03-12 08:54:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 128,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "WPWebhooks",
+                            "type_name": "WPWebhooks"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "errors": {
+                                "bit-integrations-webhook-url": [
+                                    "Webhook url is empty"
+                                ]
+                            },
+                            "error_data": []
+                        },
+                        "field_data_sha": "a8c9777da9826854",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

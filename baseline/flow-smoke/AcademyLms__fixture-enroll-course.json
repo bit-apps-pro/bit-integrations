@@ -1,0 +1,68 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "AcademyLms",
+    "flow": {
+        "source": "fixture",
+        "fixture": "enroll-course",
+        "type": "AcademyLms",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "807e8f4547afad45",
+        "field_source": "fixture",
+        "field_data_sha": "71b48807c894ce58"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"Academy\\Helper\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"Academy\\Helper\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

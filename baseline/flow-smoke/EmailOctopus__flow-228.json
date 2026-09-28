@@ -1,0 +1,251 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "EmailOctopus",
+    "flow": {
+        "source": "db",
+        "id": 228,
+        "type": "EmailOctopus",
+        "status": 0,
+        "connection_id": 36
+    },
+    "input": {
+        "flow_details_sha": "c4d8d81a1b21bb11",
+        "field_source": "log#2003",
+        "field_data_sha": "33b61a6cebf2432c"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://emailoctopus.com/api/1.6/lists/752bf4b0-8bd6-11f1-bc7e-4194aec3332d/contacts/13af13e0664538727601a6300d39e48d?api_key=<redacted:e01744c4a3e2>",
+                        "url_sha": "057e6e25e4989695",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://emailoctopus.com/api/1.6/lists/752bf4b0-8bd6-11f1-bc7e-4194aec3332d/contacts",
+                        "url_sha": "3089c271bc09a2d3",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "ac6371120980046d",
+                        "body_keys": [
+                            "api_key",
+                            "email_address",
+                            "fields",
+                            "status"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #228",
+                        "message_sha": "550decd343d04394",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 228,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-08-01 05:48:30",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 228,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Adding Contact"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "05157523495bfd58",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\EmailOctopus\\*::$_integrationDetails is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\EmailOctopus\\*::$_authToken is deprecated",
+                    "warning: Undefined property: stdClass::$id"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://emailoctopus.com/api/1.6/lists/752bf4b0-8bd6-11f1-bc7e-4194aec3332d/contacts/13af13e0664538727601a6300d39e48d?api_key=<redacted:e01744c4a3e2>",
+                        "url_sha": "057e6e25e4989695",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://emailoctopus.com/api/1.6/lists/752bf4b0-8bd6-11f1-bc7e-4194aec3332d/contacts",
+                        "url_sha": "3089c271bc09a2d3",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "ac6371120980046d",
+                        "body_keys": [
+                            "api_key",
+                            "email_address",
+                            "fields",
+                            "status"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #228",
+                        "message_sha": "550decd343d04394",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 228,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-08-01 05:48:30",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 228,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Adding Contact"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "05157523495bfd58",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\EmailOctopus\\*::$_integrationDetails is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\EmailOctopus\\*::$_authToken is deprecated",
+                    "warning: Undefined property: stdClass::$id"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

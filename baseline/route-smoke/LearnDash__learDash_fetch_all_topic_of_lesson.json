@@ -1,0 +1,60 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "LearnDash",
+    "hook": "learDash_fetch_all_topic_of_lesson",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "courseId": "101",
+            "lessonId": "101"
+        },
+        "superglobals": {},
+        "connection_id": null,
+        "connection": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "Error",
+                        "message": "Call to undefined function Integrations\\Actions\\LearnDash\\*()"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 0,
+        "runs": {
+            "pro-on/connection": "skipped: no authConfig on the handler, Action or Controller",
+            "pro-on/no-connection": "threw Error"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\LearnDash\\LearnDashController::getTopicsByLesson",
+        "auth_owner": null,
+        "notes": []
+    }
+}

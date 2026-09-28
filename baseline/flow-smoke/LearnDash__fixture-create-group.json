@@ -1,0 +1,78 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "LearnDash",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-group",
+        "type": "LearnDash",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "f27d361090be534e",
+        "field_source": "fixture",
+        "field_data_sha": "33b155b882bc0373"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Call to undefined function Integrations\\Actions\\LearnDash\\*()"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}posts": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Call to undefined function Integrations\\Actions\\LearnDash\\*()"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}posts": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

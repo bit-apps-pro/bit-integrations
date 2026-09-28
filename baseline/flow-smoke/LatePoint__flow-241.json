@@ -1,0 +1,65 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "LatePoint",
+    "flow": {
+        "source": "db",
+        "id": 241,
+        "type": "LatePoint",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "dd86d88156a54f8d",
+        "field_source": "log#2058",
+        "field_data_sha": "3f50a5da3ca0cfe3"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

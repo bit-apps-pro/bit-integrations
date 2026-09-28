@@ -1,0 +1,194 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "SendFox",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-list",
+        "type": "SendFox",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1cce7447ff272f88",
+        "field_source": "fixture",
+        "field_data_sha": "48659b8ccf2f7549"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendfox.com/lists",
+                        "url_sha": "3cc2200381b6cff9",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "8dc73d72b70cf0b3"
+                        },
+                        "body_sha": "cc169aa38d6ebed8",
+                        "body_keys": [
+                            "name"
+                        ],
+                        "answer": "fixture:create-list"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "List",
+                            "type_name": "Create List"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": 101,
+                            "name": "Smoke List"
+                        },
+                        "field_data_sha": "0bfb89ed94f259ce",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\SendFox\\*::$_integrationDetails is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendfox.com/lists",
+                        "url_sha": "3cc2200381b6cff9",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "8dc73d72b70cf0b3"
+                        },
+                        "body_sha": "cc169aa38d6ebed8",
+                        "body_keys": [
+                            "name"
+                        ],
+                        "answer": "fixture:create-list"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "List",
+                            "type_name": "Create List"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": 101,
+                            "name": "Smoke List"
+                        },
+                        "field_data_sha": "0bfb89ed94f259ce",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\SendFox\\*::$_integrationDetails is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

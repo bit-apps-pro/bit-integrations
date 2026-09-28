@@ -1,0 +1,138 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Salesmate",
+    "hook": "salesmate_fetch_all_CRMOwners",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "link_name": "smoke_link_name",
+            "session_token": "smoke_session_token"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "salesmate",
+            "auth_type": "api_key",
+            "auth_details": {
+                "link_name": "smoke_link_name",
+                "value": "smoke_session_token"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Owners fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://smoke_link_name.salesmate.io/apis/v1/users/active",
+                            "url_sha": "6d6132af4c1e5290",
+                            "headers": {
+                                "names": [
+                                    "accesstoken",
+                                    "content-type",
+                                    "user-agent",
+                                    "x-linkname"
+                                ],
+                                "sha": "a91645e6d0c7e25b"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Owners fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://smoke_link_name.salesmate.io/apis/v1/users/active",
+                            "url_sha": "6d6132af4c1e5290",
+                            "headers": {
+                                "names": [
+                                    "accesstoken",
+                                    "content-type",
+                                    "user-agent",
+                                    "x-linkname"
+                                ],
+                                "sha": "a91645e6d0c7e25b"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController::getAllCRMOwners",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+        "notes": []
+    }
+}

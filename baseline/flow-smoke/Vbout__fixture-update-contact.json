@@ -1,0 +1,228 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Vbout",
+    "flow": {
+        "source": "fixture",
+        "fixture": "update-contact",
+        "type": "Vbout",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "122b124230f4f701",
+        "field_source": "fixture",
+        "field_data_sha": "f13870d5c0133da0"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.vbout.com/1/emailmarketing/getcontactbyemail?key=smoke-api-key&email=smoke-existing@example.com&list_id=5001",
+                        "url_sha": "53b3d179746b9752",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:lookup-existing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.vbout.com/1/emailmarketing/editcontact?key=smoke-api-key",
+                        "url_sha": "0c2815f568c35ae9",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "6afba126e33c4b03",
+                        "body_keys": [
+                            "email",
+                            "status",
+                            "listid",
+                            "fields",
+                            "id"
+                        ],
+                        "answer": "fixture:edit-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": "Your contact has been updated successfully",
+                            "code": 200
+                        },
+                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Vbout\\*::$_integrationDetails is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.vbout.com/1/emailmarketing/getcontactbyemail?key=smoke-api-key&email=smoke-existing@example.com&list_id=5001",
+                        "url_sha": "53b3d179746b9752",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:lookup-existing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.vbout.com/1/emailmarketing/editcontact?key=smoke-api-key",
+                        "url_sha": "0c2815f568c35ae9",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "6afba126e33c4b03",
+                        "body_keys": [
+                            "email",
+                            "status",
+                            "listid",
+                            "fields",
+                            "id"
+                        ],
+                        "answer": "fixture:edit-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": "Your contact has been updated successfully",
+                            "code": 200
+                        },
+                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Vbout\\*::$_integrationDetails is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

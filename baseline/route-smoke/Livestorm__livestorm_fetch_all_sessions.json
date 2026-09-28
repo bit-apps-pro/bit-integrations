@@ -1,0 +1,137 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Livestorm",
+    "hook": "livestorm_fetch_all_sessions",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key",
+            "event_id": "101"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "livestorm",
+            "auth_type": "api_key",
+            "auth_details": {
+                "value": "smoke_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Session fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.livestorm.co/v1/events/101/sessions",
+                            "url_sha": "9d0b8acf4731a855",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "19b87e877a78fad9"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Session fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.livestorm.co/v1/events/101/sessions",
+                            "url_sha": "9d0b8acf4731a855",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "19b87e877a78fad9"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController::getAllSessions",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController",
+        "notes": []
+    }
+}

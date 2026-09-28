@@ -1,0 +1,64 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "PowerCoupons",
+    "flow": {
+        "source": "fixture",
+        "fixture": "toggle-auto-apply",
+        "type": "PowerCoupons",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "f3be75f41db60bcb",
+        "field_source": "fixture",
+        "field_data_sha": "3edcd1cce1793738"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "WishlistMember",
+    "flow": {
+        "source": "db",
+        "id": 59,
+        "type": "Wishlist Member",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1c4f1edf1160b0a5",
+        "field_source": "field_map",
+        "field_data_sha": "06c0dc150c1c15ee"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

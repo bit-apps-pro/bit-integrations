@@ -1,0 +1,228 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Lemlist",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-lead",
+        "type": "Lemlist",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "67dd1b268e7d7441",
+        "field_source": "fixture",
+        "field_data_sha": "a3c5cd04107f3aa7"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.lemlist.com/api/leads/newlead@example.com?campaignId=cam_smoke1",
+                        "url_sha": "18b0720479f03e60",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "44f7d12057864cfa"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:lookup-missing-lead"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.lemlist.com/api/campaigns/cam_smoke1/leads",
+                        "url_sha": "596a426a800e7ef2",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "44f7d12057864cfa"
+                        },
+                        "body_sha": "68821c5bc68c5549",
+                        "body_keys": [
+                            "email",
+                            "firstName",
+                            "companyName"
+                        ],
+                        "answer": "fixture:add-lead"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Lead",
+                            "type_name": "Lead added"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Lead added successfully"
+                        },
+                        "field_data_sha": "8b00b6f2f702ebaf",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Attempt to read property \"_id\" on array",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.lemlist.com/api/leads/newlead@example.com?campaignId=cam_smoke1",
+                        "url_sha": "18b0720479f03e60",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "44f7d12057864cfa"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:lookup-missing-lead"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.lemlist.com/api/campaigns/cam_smoke1/leads",
+                        "url_sha": "596a426a800e7ef2",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "44f7d12057864cfa"
+                        },
+                        "body_sha": "68821c5bc68c5549",
+                        "body_keys": [
+                            "email",
+                            "firstName",
+                            "companyName"
+                        ],
+                        "answer": "fixture:add-lead"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Lead",
+                            "type_name": "Lead added"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Lead added successfully"
+                        },
+                        "field_data_sha": "8b00b6f2f702ebaf",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Attempt to read property \"_id\" on array",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

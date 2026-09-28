@@ -1,0 +1,62 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Affiliate",
+    "hook": "affiliate_fetch_all_affiliate",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {},
+        "superglobals": {},
+        "connection_id": null,
+        "connection": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [
+                        "WordPress database error Table 'bit_integrations.wp_affiliate_wp_affiliates' doesn't exist for query SELECT affiliate_Id FROM wp_affiliate_wp_affiliates made by include('phar:///usr/local/bin/wp/php/boot-phar.php'), include('phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php'), WP_CLI\\bootstrap, WP_CLI\\Bootstrap\\LaunchRunner->process, WP_CLI\\Runner->start, WP_CLI\\Runner->do_early_invoke, WP_CLI\\Runner->run_command_and_exit, WP_CLI\\Runner->run_command, WP_CLI\\Dispatcher\\Subcommand->invoke, call_user_func, WP_CLI\\Dispatcher\\CommandFactory::{closure:WP_CLI\\Dispatcher\\CommandFactory::create_subcommand():97}, call_user_func, EvalFile_Command->__invoke, EvalFile_Command::execute_eval, eval, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::dispatch, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::route, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Probe::run, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::{closure:BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::route():111}, do_action('wp_ajax_bit_integrations_affiliate_fetch_all_affiliate'), WP_Hook->do_action, WP_Hook->apply_filters, BitApps\\Integrations\\Core\\Util\\Route::action, ReflectionMethod->invoke, Integrations\\Actions\\Affiliate\\*::getAllAffiliate"
+                    ],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 0,
+        "runs": {
+            "pro-on/connection": "skipped: no authConfig on the handler, Action or Controller",
+            "pro-on/no-connection": "no request"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Affiliate\\AffiliateController::getAllAffiliate",
+        "auth_owner": null,
+        "notes": []
+    }
+}

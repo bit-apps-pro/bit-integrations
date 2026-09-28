@@ -1,0 +1,238 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Dropbox",
+    "flow": {
+        "source": "fixture",
+        "fixture": "upload-files-array-with-missing",
+        "type": "Dropbox",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "2fcc85bb82208b4a",
+        "field_source": "fixture",
+        "field_data_sha": "2f555b85cde63279"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://content.dropboxapi.com/2/files/upload",
+                        "url_sha": "d3822461d6b656bd",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "dropbox-api-arg",
+                                "user-agent"
+                            ],
+                            "sha": "805b5348cf9df298"
+                        },
+                        "body_sha": "0ba6941f6ada5d57",
+                        "body_keys": [],
+                        "answer": "fixture:upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "3d36e26ba2ec58c5",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "dropbox",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
+                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "dropbox",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "error",
+                        "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
+                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 2
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://content.dropboxapi.com/2/files/upload",
+                        "url_sha": "d3822461d6b656bd",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "dropbox-api-arg",
+                                "user-agent"
+                            ],
+                            "sha": "805b5348cf9df298"
+                        },
+                        "body_sha": "0ba6941f6ada5d57",
+                        "body_keys": [],
+                        "answer": "fixture:upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "3d36e26ba2ec58c5",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "dropbox",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
+                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "dropbox",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "error",
+                        "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
+                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 2
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

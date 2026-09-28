@@ -1,0 +1,134 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "CapsuleCRM",
+    "hook": "capsulecrm_fetch_all_CRMParties",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "action": "person",
+            "api_key": "smoke_api_key"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "capsulecrm",
+            "auth_type": "bearer_token",
+            "auth_details": {
+                "api_url": "smoke_api_url",
+                "token": "smoke_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Parties fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.capsulecrm.com/api/v2/parties",
+                            "url_sha": "297fba1fc2ad6f10",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "f83859c820e1bc74"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Parties fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.capsulecrm.com/api/v2/parties",
+                            "url_sha": "297fba1fc2ad6f10",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "f83859c820e1bc74"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\CapsuleCRM\\CapsuleCRMController::getAllCRMParties",
+        "auth_owner": "BitApps\\Integrations\\Actions\\CapsuleCRM\\CapsuleCRMController",
+        "notes": []
+    }
+}

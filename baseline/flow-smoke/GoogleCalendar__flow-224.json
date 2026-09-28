@@ -1,0 +1,151 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "GoogleCalendar",
+    "flow": {
+        "source": "db",
+        "id": 224,
+        "type": "Google Calendar",
+        "status": 0,
+        "connection_id": 33
+    },
+    "input": {
+        "flow_details_sha": "6dfd7046d3ce467a",
+        "field_source": "field_map",
+        "field_data_sha": "9917fc07d6bdefe7"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "DateMalformedStringException",
+                    "message": "Failed to parse time string (smoke _bi_current_time) at position 0 (s): The timezone could not be found in the database"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "37ce91f182f2e2be",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "2f5d98b61e41385d"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "DateMalformedStringException",
+                    "message": "Failed to parse time string (smoke _bi_current_time) at position 0 (s): The timezone could not be found in the database"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "37ce91f182f2e2be",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "2f5d98b61e41385d"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,150 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Mailify",
+    "hook": "mailify_headers",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "account_id": "101",
+            "api_key": "smoke_api_key",
+            "list_id": "101",
+            "password": "smoke_password",
+            "username": "smoke_username"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "mailify",
+            "auth_type": "basic_auth",
+            "auth_details": {
+                "password": "smoke_api_key",
+                "username": "101"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "mailifyField": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://mailifyapis.com/v1/lists/101/fields",
+                            "url_sha": "d650deef816d7e86",
+                            "headers": {
+                                "names": [
+                                    "accountid",
+                                    "apikey",
+                                    "user-agent"
+                                ],
+                                "sha": "a029fa8ba045a3d0"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$fields",
+                        "warning: Undefined property: stdClass::$fields",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "mailifyField": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://mailifyapis.com/v1/lists/101/fields",
+                            "url_sha": "d650deef816d7e86",
+                            "headers": {
+                                "names": [
+                                    "accountid",
+                                    "apikey",
+                                    "user-agent"
+                                ],
+                                "sha": "a029fa8ba045a3d0"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$fields",
+                        "warning: Undefined property: stdClass::$fields",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 11,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 8 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 3 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Mailify\\MailifyController::mailifyHeaders",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Mailify\\MailifyController",
+        "notes": []
+    }
+}

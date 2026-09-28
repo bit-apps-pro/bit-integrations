@@ -1,0 +1,68 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "PropovoiceCRM",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-lead",
+        "type": "PropovoiceCRM",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "c86239cb49b2750b",
+        "field_source": "fixture",
+        "field_data_sha": "e1e8b5d52bff7c29"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"Ndpv\\Model\\Lead\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"Ndpv\\Model\\Lead\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

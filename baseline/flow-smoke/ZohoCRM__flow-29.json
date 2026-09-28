@@ -1,0 +1,271 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoCRM",
+    "flow": {
+        "source": "db",
+        "id": 29,
+        "type": "Zoho CRM",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "6ca9767054ec671c",
+        "field_source": "field_map",
+        "field_data_sha": "041ef63185d5a2db"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "57d79a2d6ab6d618",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/crm/v2.1/Tasks",
+                        "url_sha": "540bf74a9bea92af",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "f2bf207c74e64b13",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 29,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:5726baecb036>",
+                                        "refresh_token": "<redacted:498c38f4c9fc>",
+                                        "scope": "ZohoCRM.modules.ALL ZohoCRM.settings.ALL ZohoCRM.users.Read zohocrm.files.CREATE",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": 1754283480
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:498c38f4c9fc>",
+                                        "scope": "ZohoCRM.modules.ALL ZohoCRM.settings.ALL ZohoCRM.users.Read zohocrm.files.CREATE",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-08-04 09:43:22",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 29,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Tasks"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "2beab6976e5215d1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoCRM\\*::$_integId is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "57d79a2d6ab6d618",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/crm/v2.1/Tasks",
+                        "url_sha": "540bf74a9bea92af",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "f2bf207c74e64b13",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 29,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:5726baecb036>",
+                                        "refresh_token": "<redacted:498c38f4c9fc>",
+                                        "scope": "ZohoCRM.modules.ALL ZohoCRM.settings.ALL ZohoCRM.users.Read zohocrm.files.CREATE",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": 1754283480
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:498c38f4c9fc>",
+                                        "scope": "ZohoCRM.modules.ALL ZohoCRM.settings.ALL ZohoCRM.users.Read zohocrm.files.CREATE",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-08-04 09:43:22",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 29,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Tasks"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "2beab6976e5215d1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoCRM\\*::$_integId is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

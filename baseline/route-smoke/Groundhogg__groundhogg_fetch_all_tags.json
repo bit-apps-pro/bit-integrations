@@ -1,0 +1,141 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Groundhogg",
+    "hook": "groundhogg_fetch_all_tags",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "domainName": "https://example.com",
+            "public_key": "smoke_public_key",
+            "token": "smoke_token"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "groundhogg",
+            "auth_type": "api_key",
+            "auth_details": {
+                "domainName": "https://example.com",
+                "public_key": "smoke_public_key",
+                "value": "smoke_token"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "There is an error ."
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://example.com/index.php?rest_route=/gh/v3/tags",
+                            "url_sha": "52bc2e6225665208",
+                            "headers": {
+                                "names": [
+                                    "gh-public-key",
+                                    "gh-token",
+                                    "user-agent"
+                                ],
+                                "sha": "bbb6ea56e751c781"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$status"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "There is an error ."
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://example.com/index.php?rest_route=/gh/v3/tags",
+                            "url_sha": "52bc2e6225665208",
+                            "headers": {
+                                "names": [
+                                    "gh-public-key",
+                                    "gh-token",
+                                    "user-agent"
+                                ],
+                                "sha": "bbb6ea56e751c781"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$status"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 7,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 1 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController::groundhoggFetchAllTags",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController",
+        "notes": []
+    }
+}

@@ -1,0 +1,475 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoSheet",
+    "flow": {
+        "source": "db",
+        "id": 72,
+        "type": "Zoho Sheet",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "c840378768f5c7f8",
+        "field_source": "log#1978",
+        "field_data_sha": "b85af0a53ce6571c"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.eu/oauth/v2/token",
+                        "url_sha": "d2cc3195b8632879",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "63770fb50f5b9f5c",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheet.zoho.eu/api/v2/msnm95f43a8aae4c448c5aa8e9ead3839bffa?method=worksheet.records.add&worksheet_name=Sheet1&header_row=1&json_data=[{\"Other \":\"Teagan Newton\"}]",
+                        "url_sha": "567cfdf983f0c4e9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "f06ecf2f33bcc290"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #72",
+                        "message_sha": "2c6951caa3e198e8",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 72,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:50",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 72,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Adding Record"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$status",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.eu/oauth/v2/token",
+                        "url_sha": "d2cc3195b8632879",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "63770fb50f5b9f5c",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheet.zoho.eu/api/v2/msnm95f43a8aae4c448c5aa8e9ead3839bffa?method=worksheet.records.add&worksheet_name=Sheet1&header_row=1&json_data=[{\"Other \":\"Teagan Newton\"}]",
+                        "url_sha": "567cfdf983f0c4e9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "f06ecf2f33bcc290"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #72",
+                        "message_sha": "2c6951caa3e198e8",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 72,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:50",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 72,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Adding Record"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": false
+                    },
+                    "pass": false
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$status",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.eu/oauth/v2/token",
+                        "url_sha": "d2cc3195b8632879",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "63770fb50f5b9f5c",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheet.zoho.eu/api/v2/msnm95f43a8aae4c448c5aa8e9ead3839bffa?method=worksheet.records.add&worksheet_name=Sheet1&header_row=1&json_data=[{\"Other \":\"Teagan Newton\"}]",
+                        "url_sha": "567cfdf983f0c4e9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "f06ecf2f33bcc290"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #72",
+                        "message_sha": "2c6951caa3e198e8",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 72,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:50",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 72,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Adding Record"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$status",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.eu/oauth/v2/token",
+                        "url_sha": "d2cc3195b8632879",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "63770fb50f5b9f5c",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheet.zoho.eu/api/v2/msnm95f43a8aae4c448c5aa8e9ead3839bffa?method=worksheet.records.add&worksheet_name=Sheet1&header_row=1&json_data=[{\"Other \":\"Teagan Newton\"}]",
+                        "url_sha": "567cfdf983f0c4e9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "f06ecf2f33bcc290"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #72",
+                        "message_sha": "2c6951caa3e198e8",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 72,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:50",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 72,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Adding Record"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": false
+                    },
+                    "pass": false
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$status",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,136 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "EmailOctopus",
+    "hook": "emailOctopus_fetch_all_tags",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "auth_token": "smoke_auth_token",
+            "listId": "101"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "emailoctopus",
+            "auth_type": "bearer_token",
+            "auth_details": {
+                "token": "smoke_auth_token"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://emailoctopus.com/api/1.6/lists/101/tags?api_key=<redacted:1e1990565ab6>",
+                            "url_sha": "257c026a64270eec",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$data",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://emailoctopus.com/api/1.6/lists/101/tags?api_key=<redacted:1e1990565ab6>",
+                            "url_sha": "257c026a64270eec",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$data",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 9,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 7 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 2 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\EmailOctopus\\EmailOctopusController::getAllTags",
+        "auth_owner": "BitApps\\Integrations\\Actions\\EmailOctopus\\EmailOctopusController",
+        "notes": []
+    }
+}

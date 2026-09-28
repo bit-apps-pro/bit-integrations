@@ -1,0 +1,60 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Pointics",
+    "hook": "refresh_pointics_channels",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {},
+        "superglobals": {},
+        "connection_id": null,
+        "connection": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Pointics is not activated or not installed"
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 0,
+        "runs": {
+            "pro-on/connection": "skipped: no authConfig on the handler, Action or Controller",
+            "pro-on/no-connection": "stopped at a guard (400)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Pointics\\PointicsController::refreshChannels",
+        "auth_owner": null,
+        "notes": []
+    }
+}

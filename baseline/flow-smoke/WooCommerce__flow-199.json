@@ -1,0 +1,163 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "WooCommerce",
+    "flow": {
+        "source": "db",
+        "id": 199,
+        "type": "WooCommerce",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "4724bdbd4b7819ea",
+        "field_source": "field_map",
+        "field_data_sha": "8f34929ddafd6c91"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 199,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-06-16 06:03:26",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 199,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "product",
+                            "type_name": "create"
+                        },
+                        "response_type": "success",
+                        "response_obj": 3512,
+                        "field_data_sha": "4831e74c2c173b24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}postmeta": {
+                        "INSERT": 2
+                    },
+                    "{prefix}posts": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 199,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-06-16 06:03:26",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 199,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "product",
+                            "type_name": "create"
+                        },
+                        "response_type": "success",
+                        "response_obj": 3512,
+                        "field_data_sha": "4831e74c2c173b24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}postmeta": {
+                        "INSERT": 2
+                    },
+                    "{prefix}posts": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

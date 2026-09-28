@@ -1,0 +1,250 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ConvertKit",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-subscriber-to-form",
+        "type": "ConvertKit",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "e6529dc6fb10f047",
+        "field_source": "fixture",
+        "field_data_sha": "b067f5b92c2223fb"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.convertkit.com/v3/forms/1001/subscribe?api_secret=<redacted:592bec3aa2a5>&email=smoke-new@example.com&first_name=Smoke&fields%5Bcompany_name%5D=Smoke Co for smoke-new@example.com&fields%5Bfield_values%5D%5B0%5D%5Bfield%5D=301&fields%5Bfield_values%5D%5B0%5D%5Bvalue%5D=Smokeville",
+                        "url_sha": "15d592633a203775",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:form-subscribe"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.convertkit.com/v3/tags/11/subscribe?api_secret=<redacted:592bec3aa2a5>&email=smoke-new@example.com",
+                        "url_sha": "d2a335e9f74e3979",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:tag-subscribe"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.convertkit.com/v3/tags/12/subscribe?api_secret=<redacted:592bec3aa2a5>&email=smoke-new@example.com",
+                        "url_sha": "2a21f14502c1848f",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:tag-subscribe"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Add subscriber to a form",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "subscription": {
+                                "id": 9001,
+                                "state": "active",
+                                "subscriber": {
+                                    "id": 556
+                                }
+                            }
+                        },
+                        "field_data_sha": "e18d082a1bb5136d",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.convertkit.com/v3/forms/1001/subscribe?api_secret=<redacted:592bec3aa2a5>&email=smoke-new@example.com&first_name=Smoke&fields%5Bcompany_name%5D=Smoke Co for smoke-new@example.com&fields%5Bfield_values%5D%5B0%5D%5Bfield%5D=301&fields%5Bfield_values%5D%5B0%5D%5Bvalue%5D=Smokeville",
+                        "url_sha": "15d592633a203775",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:form-subscribe"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.convertkit.com/v3/tags/11/subscribe?api_secret=<redacted:592bec3aa2a5>&email=smoke-new@example.com",
+                        "url_sha": "d2a335e9f74e3979",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:tag-subscribe"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.convertkit.com/v3/tags/12/subscribe?api_secret=<redacted:592bec3aa2a5>&email=smoke-new@example.com",
+                        "url_sha": "2a21f14502c1848f",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:tag-subscribe"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Add subscriber to a form",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "subscription": {
+                                "id": 9001,
+                                "state": "active",
+                                "subscriber": {
+                                    "id": 556
+                                }
+                            }
+                        },
+                        "field_data_sha": "e18d082a1bb5136d",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

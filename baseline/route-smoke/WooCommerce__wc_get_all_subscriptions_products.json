@@ -1,0 +1,69 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "WooCommerce",
+    "hook": "wc_get_all_subscriptions_products",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {},
+        "superglobals": {},
+        "connection_id": null,
+        "connection": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": [
+                                {
+                                    "product_id": "any",
+                                    "product_name": "Any Product"
+                                },
+                                {
+                                    "product_id": "141",
+                                    "product_name": "Jescie Hardings"
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 0,
+        "runs": {
+            "pro-on/connection": "skipped: no authConfig on the handler, Action or Controller",
+            "pro-on/no-connection": "no request"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController::allSubscriptionsProducts",
+        "auth_owner": null,
+        "notes": []
+    }
+}

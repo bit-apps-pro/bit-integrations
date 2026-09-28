@@ -1,0 +1,133 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Telegram",
+    "hook": "refresh_get_updates",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "bot_api_key": "smoke_bot_api_key"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "telegram",
+            "auth_type": "api_key",
+            "auth_details": {
+                "value": "smoke_bot_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.telegram.org/botsmoke_bot_api_key/getUpdates",
+                            "url_sha": "c0f29e657e2b2439",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "user-agent"
+                                ],
+                                "sha": "91b67db4c1d129a4"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$description"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.telegram.org/botsmoke_bot_api_key/getUpdates",
+                            "url_sha": "c0f29e657e2b2439",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "user-agent"
+                                ],
+                                "sha": "91b67db4c1d129a4"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$description"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 7,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 1 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Telegram\\TelegramController::refreshGetUpdates",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Telegram\\TelegramController",
+        "notes": []
+    }
+}

@@ -1,0 +1,139 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ConvertKit",
+    "hook": "convertKit_forms",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_secret": "smoke_api_secret"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "convertkit",
+            "auth_type": "api_key",
+            "auth_details": {
+                "value": "smoke_api_secret"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "convertKitForms": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.convertkit.com/v3/forms?api_secret=<redacted:05bf887c3cb5>",
+                            "url_sha": "488cbb2d704da7c6",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$forms",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "convertKitForms": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.convertkit.com/v3/forms?api_secret=<redacted:05bf887c3cb5>",
+                            "url_sha": "488cbb2d704da7c6",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$forms",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 9,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 7 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 2 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ConvertKit\\ConvertKitController::convertKitForms",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ConvertKit\\ConvertKitController",
+        "notes": []
+    }
+}

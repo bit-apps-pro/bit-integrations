@@ -1,0 +1,291 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Salesforce",
+    "flow": {
+        "source": "db",
+        "id": 226,
+        "type": "Salesforce",
+        "status": 0,
+        "connection_id": 35
+    },
+    "input": {
+        "flow_details_sha": "5f4cf7442e9b15a2",
+        "field_source": "field_map",
+        "field_data_sha": "2bb53be902753f9c"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://login.salesforce.com/services/oauth2/token",
+                        "url_sha": "eb0e314a7b1029e8",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "a6ddad004a924f5c",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://orgfarm-fddfdb7136-dev-ed.develop.my.salesforce.com/services/data/v37.0/sobjects/Lead",
+                        "url_sha": "d244842b1186575d",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "8f68a6705a7d88af",
+                        "body_keys": [
+                            "LastName",
+                            "Company",
+                            "Email"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "334512aea271e4ca"
+                    },
+                    {
+                        "name": "bit_integrations_salesforce_add_lead_utilities",
+                        "argc": 2,
+                        "args_sha": "9a9ffd3ea236a48e"
+                    },
+                    {
+                        "name": "btcbi_salesforce_add_lead_utilities",
+                        "argc": 2,
+                        "args_sha": "9a9ffd3ea236a48e"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 226,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": "<absent>",
+                                    "new": true
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-29 06:40:45",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 226,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Lead",
+                            "type_name": "Lead-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": "Created lead id is : ",
+                        "field_data_sha": "a5a53df31952c2d4",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$id"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://login.salesforce.com/services/oauth2/token",
+                        "url_sha": "eb0e314a7b1029e8",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "a6ddad004a924f5c",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://orgfarm-fddfdb7136-dev-ed.develop.my.salesforce.com/services/data/v37.0/sobjects/Lead",
+                        "url_sha": "d244842b1186575d",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "8f68a6705a7d88af",
+                        "body_keys": [
+                            "LastName",
+                            "Company",
+                            "Email"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "334512aea271e4ca"
+                    },
+                    {
+                        "name": "bit_integrations_salesforce_add_lead_utilities",
+                        "argc": 2,
+                        "args_sha": "9a9ffd3ea236a48e"
+                    },
+                    {
+                        "name": "btcbi_salesforce_add_lead_utilities",
+                        "argc": 2,
+                        "args_sha": "9a9ffd3ea236a48e"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 226,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": "<absent>",
+                                    "new": true
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-29 06:40:45",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 226,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Lead",
+                            "type_name": "Lead-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": "Created lead id is : ",
+                        "field_data_sha": "a5a53df31952c2d4",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$id"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

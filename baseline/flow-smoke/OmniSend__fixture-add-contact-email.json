@@ -1,0 +1,216 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "OmniSend",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-contact-email",
+        "type": "OmniSend",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "3290205da1b31466",
+        "field_source": "fixture",
+        "field_data_sha": "20444d118fc5498e"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.omnisend.com/v3/contacts",
+                        "url_sha": "05aa47e6f206fe8a",
+                        "headers": {
+                            "names": [
+                                "user-agent",
+                                "x-api-key"
+                            ],
+                            "sha": "179c9dee41a3f5f3"
+                        },
+                        "body_sha": "af1874078d703684",
+                        "body_keys": [
+                            "identifiers",
+                            "customProperties",
+                            "firstName"
+                        ],
+                        "answer": "fixture:create-contact"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_omnisend_custom_properties",
+                        "argc": 3,
+                        "args_sha": "7fd36913872b3294"
+                    },
+                    {
+                        "name": "btcbi_omnisend_custom_properties",
+                        "argc": 3,
+                        "args_sha": "7fd36913872b3294"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "contactID": "smoke-contact-1",
+                            "email": "smoke@example.com"
+                        },
+                        "field_data_sha": "50bf0bf3a73bb656",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.omnisend.com/v3/contacts",
+                        "url_sha": "05aa47e6f206fe8a",
+                        "headers": {
+                            "names": [
+                                "user-agent",
+                                "x-api-key"
+                            ],
+                            "sha": "179c9dee41a3f5f3"
+                        },
+                        "body_sha": "af1874078d703684",
+                        "body_keys": [
+                            "identifiers",
+                            "customProperties",
+                            "firstName"
+                        ],
+                        "answer": "fixture:create-contact"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_omnisend_custom_properties",
+                        "argc": 3,
+                        "args_sha": "7fd36913872b3294"
+                    },
+                    {
+                        "name": "btcbi_omnisend_custom_properties",
+                        "argc": 3,
+                        "args_sha": "7fd36913872b3294"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "contactID": "smoke-contact-1",
+                            "email": "smoke@example.com"
+                        },
+                        "field_data_sha": "50bf0bf3a73bb656",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,265 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Notion",
+    "flow": {
+        "source": "db",
+        "id": 171,
+        "type": "Notion",
+        "status": 0,
+        "connection_id": 23
+    },
+    "input": {
+        "flow_details_sha": "d218803fa3c9e3c8",
+        "field_source": "field_map",
+        "field_data_sha": "6a36a0c2210e190b"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.notion.com/v1/oauth/token",
+                        "url_sha": "6adcc9de4642c4f4",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "13572abc40d8c948"
+                        },
+                        "body_sha": "2075bcd645c11b88",
+                        "body_keys": [
+                            "grant_type",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.notion.com/v1/pages",
+                        "url_sha": "48114ffea07c3f0c",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "notion-version",
+                                "user-agent"
+                            ],
+                            "sha": "1dd38cbb36292a71"
+                        },
+                        "body_sha": "dfc745e45f00788a",
+                        "body_keys": [
+                            "parent",
+                            "properties"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "6ca35dbcece5008a"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 171,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-05-13 05:18:09",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 171,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "database",
+                            "type_name": "create item"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": {},
+                            "code": 200
+                        },
+                        "field_data_sha": "c1f85cec85988a24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Notion\\*::$_integrationDetails is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.notion.com/v1/oauth/token",
+                        "url_sha": "6adcc9de4642c4f4",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "13572abc40d8c948"
+                        },
+                        "body_sha": "2075bcd645c11b88",
+                        "body_keys": [
+                            "grant_type",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.notion.com/v1/pages",
+                        "url_sha": "48114ffea07c3f0c",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "notion-version",
+                                "user-agent"
+                            ],
+                            "sha": "1dd38cbb36292a71"
+                        },
+                        "body_sha": "dfc745e45f00788a",
+                        "body_keys": [
+                            "parent",
+                            "properties"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "6ca35dbcece5008a"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 171,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-05-13 05:18:09",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 171,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "database",
+                            "type_name": "create item"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": {},
+                            "code": 200
+                        },
+                        "field_data_sha": "c1f85cec85988a24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Notion\\*::$_integrationDetails is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_connections": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

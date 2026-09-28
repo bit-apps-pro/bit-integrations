@@ -1,0 +1,192 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "SmartSuite",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-table",
+        "type": "SmartSuite",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "46ef5c75b307b814",
+        "field_source": "fixture",
+        "field_data_sha": "012931ce0d90727d"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://app.smartsuite.com/api/v1/applications/",
+                        "url_sha": "06b66d6b0abd6af6",
+                        "headers": {
+                            "names": [
+                                "account-id",
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "99273d9fdabc8d39"
+                        },
+                        "body_sha": "ac91d2169b038f2f",
+                        "body_keys": [
+                            "name",
+                            "solution",
+                            "structure"
+                        ],
+                        "answer": "fixture:create-table"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_smartSuite_create_table",
+                        "argc": 5,
+                        "args_sha": "97833f6693748413"
+                    },
+                    {
+                        "name": "btcbi_smartSuite_create_table",
+                        "argc": 5,
+                        "args_sha": "dd4c704a8121b853"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "table",
+                            "type_name": "create"
+                        },
+                        "response_type": "success",
+                        "response_obj": "create table successfully",
+                        "field_data_sha": "d81b09bd08c65695",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_smartSuite_create_table",
+                        "argc": 5,
+                        "args_sha": "97833f6693748413"
+                    },
+                    {
+                        "name": "btcbi_smartSuite_create_table",
+                        "argc": 5,
+                        "args_sha": "97833f6693748413"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "table",
+                            "type_name": "create"
+                        },
+                        "response_type": "success",
+                        "response_obj": "create table successfully",
+                        "field_data_sha": "d81b09bd08c65695",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

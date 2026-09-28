@@ -1,0 +1,182 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ConstantContact",
+    "hook": "cContact_refresh_list",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "connection_id": "101",
+            "integId": "101",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "constantcontact",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "contactList": [],
+                                "tokenDetails": {
+                                    "access_token": "<redacted:6c25c84874db>",
+                                    "expires_in": "smoke_expires_in",
+                                    "generated_at": "smoke_generated_at",
+                                    "generates_on": "smoke_generates_on"
+                                }
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.cc.email/v3/contact_lists",
+                            "url_sha": "c0169092d7e75e22",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "2a38b2a5ee264cb4"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$lists",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [
+                        "CredentialInjector: skipped injection for Integrations\\Actions\\ConstantContact\\* — Connection auth details are missing"
+                    ],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "contactList": [],
+                                "tokenDetails": {
+                                    "access_token": "<redacted:6c25c84874db>",
+                                    "refresh_token": "<redacted:6141e5e760f2>",
+                                    "token_type": "<redacted:4b0d53deebbb>",
+                                    "expires_in": "smoke_expires_in",
+                                    "generated_at": "smoke_generated_at",
+                                    "generates_on": 0
+                                }
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.cc.email/v3/contact_lists",
+                            "url_sha": "c0169092d7e75e22",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "2a38b2a5ee264cb4"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$lists",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 14,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 7 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 7 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController::refreshList",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController",
+        "notes": []
+    }
+}

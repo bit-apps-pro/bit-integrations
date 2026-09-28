@@ -1,0 +1,184 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Dropbox",
+    "flow": {
+        "source": "fixture",
+        "fixture": "upload-file",
+        "type": "Dropbox",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "7e09e54f973fa334",
+        "field_source": "fixture",
+        "field_data_sha": "eb20c5eb2a2da529"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://content.dropboxapi.com/2/files/upload",
+                        "url_sha": "d3822461d6b656bd",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "dropbox-api-arg",
+                                "user-agent"
+                            ],
+                            "sha": "040c84d1a48bc773"
+                        },
+                        "body_sha": "0ba6941f6ada5d57",
+                        "body_keys": [],
+                        "answer": "fixture:upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "dropbox",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
+                        "field_data_sha": "7664b5330161795c",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://content.dropboxapi.com/2/files/upload",
+                        "url_sha": "d3822461d6b656bd",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "dropbox-api-arg",
+                                "user-agent"
+                            ],
+                            "sha": "040c84d1a48bc773"
+                        },
+                        "body_sha": "0ba6941f6ada5d57",
+                        "body_keys": [],
+                        "answer": "fixture:upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "dropbox",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
+                        "field_data_sha": "7664b5330161795c",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

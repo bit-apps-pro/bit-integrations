@@ -1,0 +1,68 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "GamiPress",
+    "flow": {
+        "source": "fixture",
+        "fixture": "award-rank",
+        "type": "GamiPress",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "3addb09c5678ec11",
+        "field_source": "fixture",
+        "field_data_sha": "5da4ebd6a6481a4e"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Call to undefined function Integrations\\Actions\\GamiPress\\*()"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Call to undefined function Integrations\\Actions\\GamiPress\\*()"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

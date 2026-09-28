@@ -1,0 +1,298 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "PipeDrive",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-deal-with-related",
+        "type": "PipeDrive",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "bc576057061ff435",
+        "field_source": "fixture",
+        "field_data_sha": "ebf00080decc14bf"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.pipedrive.com/v1/deals?api_token=<redacted:5d0a79c29b0b>",
+                        "url_sha": "9d069f7adcd0e5d3",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "b22905925f151cb6",
+                        "body_keys": [
+                            "title",
+                            "value",
+                            "org_id",
+                            "person_id",
+                            "user_id",
+                            "stage_id",
+                            "currency",
+                            "status",
+                            "visible_to"
+                        ],
+                        "answer": "fixture:create-deal"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.pipedrive.com/v1/notes?api_token=<redacted:5d0a79c29b0b>",
+                        "url_sha": "54ab2b947019451b",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "8eadc83138600e94",
+                        "body_keys": [
+                            "content",
+                            "deal_id"
+                        ],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.pipedrive.com/v1/activities?api_token=<redacted:5d0a79c29b0b>",
+                        "url_sha": "747e5e824b9e16cc",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "e1c016be78405a76",
+                        "body_keys": [
+                            "subject",
+                            "type",
+                            "participants",
+                            "deal_id"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_pipedrive_store_related_list",
+                        "argc": 6,
+                        "args_sha": "2480b5efff828628"
+                    },
+                    {
+                        "name": "btcbi_pipedrive_store_related_list",
+                        "argc": 6,
+                        "args_sha": "2480b5efff828628"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "deals",
+                            "type_name": "add-deals"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "data": {
+                                "id": 501,
+                                "title": "Smoke Deal"
+                            }
+                        },
+                        "field_data_sha": "db0532dc67f9cffb",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "deals",
+                            "type_name": "add-related-list-notes"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "db0532dc67f9cffb",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "deals",
+                            "type_name": "add-related-list-activities"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "db0532dc67f9cffb",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.pipedrive.com/v1/deals?api_token=<redacted:5d0a79c29b0b>",
+                        "url_sha": "9d069f7adcd0e5d3",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "b22905925f151cb6",
+                        "body_keys": [
+                            "title",
+                            "value",
+                            "org_id",
+                            "person_id",
+                            "user_id",
+                            "stage_id",
+                            "currency",
+                            "status",
+                            "visible_to"
+                        ],
+                        "answer": "fixture:create-deal"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_pipedrive_store_related_list",
+                        "argc": 6,
+                        "args_sha": "2480b5efff828628"
+                    },
+                    {
+                        "name": "btcbi_pipedrive_store_related_list",
+                        "argc": 6,
+                        "args_sha": "2480b5efff828628"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "deals",
+                            "type_name": "add-deals"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "data": {
+                                "id": 501,
+                                "title": "Smoke Deal"
+                            }
+                        },
+                        "field_data_sha": "db0532dc67f9cffb",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

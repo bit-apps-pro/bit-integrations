@@ -1,0 +1,179 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "SendPulse",
+    "flow": {
+        "source": "db",
+        "id": 253,
+        "type": "SendPulse",
+        "status": 0,
+        "connection_id": 52
+    },
+    "input": {
+        "flow_details_sha": "ba0b55209aeffec0",
+        "field_source": "field_map",
+        "field_data_sha": "041ef63185d5a2db"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendpulse.com/oauth/access_token",
+                        "url_sha": "3b658cbc47b20d9e",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "7dbcd9b9748ff613",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret"
+                        ],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendpulse.com/oauth/access_token",
+                        "url_sha": "3b658cbc47b20d9e",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "7dbcd9b9748ff613",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "85ce19cbf73ec223"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$access_token",
+                    "warning: Undefined property: stdClass::$expires_in"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendpulse.com/oauth/access_token",
+                        "url_sha": "3b658cbc47b20d9e",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e2326be46328f4f6"
+                        },
+                        "body_sha": "7dbcd9b9748ff613",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret"
+                        ],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendpulse.com/oauth/access_token",
+                        "url_sha": "3b658cbc47b20d9e",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "7dbcd9b9748ff613",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_allow_internal_connection_url",
+                        "argc": 2,
+                        "args_sha": "85ce19cbf73ec223"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$access_token",
+                    "warning: Undefined property: stdClass::$expires_in"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}options": {
+                        "DELETE": 1,
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

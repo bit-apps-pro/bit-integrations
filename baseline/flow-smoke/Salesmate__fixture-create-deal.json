@@ -1,0 +1,212 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Salesmate",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-deal",
+        "type": "Salesmate",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "d0c69dbd292a7dca",
+        "field_source": "fixture",
+        "field_data_sha": "76b71008e8dba02f"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://smoke.salesmate.io/apis/deal/v4",
+                        "url_sha": "8ed3da0d538a2405",
+                        "headers": {
+                            "names": [
+                                "accesstoken",
+                                "content-type",
+                                "user-agent",
+                                "x-linkname"
+                            ],
+                            "sha": "a5cc51d050694b81"
+                        },
+                        "body_sha": "6b10d1d446afe3ac",
+                        "body_keys": [
+                            "title",
+                            "description",
+                            "currency",
+                            "status",
+                            "source",
+                            "priority",
+                            "tags",
+                            "primaryContact",
+                            "owner",
+                            "pipeline",
+                            "stage"
+                        ],
+                        "answer": "fixture:deal-create"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Deal",
+                            "type_name": "Deal created"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            "Deal created  successfully"
+                        ],
+                        "field_data_sha": "675554eaeaca9389",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://smoke.salesmate.io/apis/deal/v4",
+                        "url_sha": "8ed3da0d538a2405",
+                        "headers": {
+                            "names": [
+                                "accesstoken",
+                                "content-type",
+                                "user-agent",
+                                "x-linkname"
+                            ],
+                            "sha": "a5cc51d050694b81"
+                        },
+                        "body_sha": "6b10d1d446afe3ac",
+                        "body_keys": [
+                            "title",
+                            "description",
+                            "currency",
+                            "status",
+                            "source",
+                            "priority",
+                            "tags",
+                            "primaryContact",
+                            "owner",
+                            "pipeline",
+                            "stage"
+                        ],
+                        "answer": "fixture:deal-create"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Deal",
+                            "type_name": "Deal created"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            "Deal created  successfully"
+                        ],
+                        "field_data_sha": "675554eaeaca9389",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

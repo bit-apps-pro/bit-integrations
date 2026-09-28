@@ -1,0 +1,291 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "WooCommerce",
+    "flow": {
+        "source": "db",
+        "id": 78,
+        "type": "WooCommerce",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "6c7bfcc9a3b89ea2",
+        "field_source": "field_map",
+        "field_data_sha": "623608fae1433291"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "6cfadc41ff873dee",
+                        "subject": "Your Bit Integrations account has been created!",
+                        "message_sha": "9a5697bd9238fe51",
+                        "headers_sha": "b1120c5d4eb2862f",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 78,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-04-28 07:11:46",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 78,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "customer",
+                            "type_name": "create"
+                        },
+                        "response_type": "success",
+                        "response_obj": 341,
+                        "field_data_sha": "395af1c22c0272d7",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": 78,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "order-create",
+                            "type_name": "order"
+                        },
+                        "response_type": "success",
+                        "response_obj": "Your order id is: 3512",
+                        "field_data_sha": "395af1c22c0272d7",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "notice: Function ID was called <strong>incorrectly</strong>. Order properties should not be accessed directly. Backtrace: include('phar:///usr/local/bin/wp/php/boot-phar.php'), include('phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php'), WP_CLI\\bootstrap, WP_CLI\\Bootstrap\\LaunchRunner-&gt;process, WP_CLI\\Runner-&gt;start, WP_CLI\\Runner-&gt;do_early_invoke, WP_CLI\\Runner-&gt;run_command_and_exit, WP_CLI\\Runner-&gt;run_command, WP_CLI\\Dispatcher\\Subcommand-&gt;invoke, call_user_func, WP_CLI\\Dispatcher\\CommandFactory::{closure:WP_CLI\\Dispatcher\\CommandFactory::create_subcommand():97}, call_user_func, EvalFile_Command-&gt;__invoke, EvalFile_Command::execute_eval, eval, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::dispatch, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::flow, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Probe::run, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::{closure:BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::flow():182}, BitApps\\Integrations\\Flow\\Flow::execute, BitApps\\Integrations\\Core\\Integration\\IntegrationHandler::executeWithCapture, Integrations\\Actions\\WooCommerce\\*-&gt;execute, Integrations\\Actions\\WooCommerce\\*-&gt;execute, WC_Abstract_Legacy_Order-&gt;__get, wc_doing_it_wrong Please see <a href=\"https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/\">Debugging in WordPress</a> for more information. (This message was added in version 3.0.)"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}actionscheduler_actions": {
+                        "INSERT": 2
+                    },
+                    "{prefix}actionscheduler_logs": {
+                        "INSERT": 2
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 2
+                    },
+                    "{prefix}options": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}postmeta": {
+                        "INSERT": 20
+                    },
+                    "{prefix}posts": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    },
+                    "{prefix}usermeta": {
+                        "INSERT": 19
+                    },
+                    "{prefix}users": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    },
+                    "{prefix}wc_customer_lookup": {
+                        "REPLACE": 2
+                    },
+                    "{prefix}wc_order_addresses": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    },
+                    "{prefix}wc_order_operational_data": {
+                        "INSERT": 3
+                    },
+                    "{prefix}wc_orders": {
+                        "INSERT": 4
+                    },
+                    "{prefix}wc_orders_meta": {
+                        "INSERT": 2
+                    },
+                    "{prefix}woocommerce_downloadable_product_permissions": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}woocommerce_order_itemmeta": {
+                        "INSERT": 9,
+                        "UPDATE": 2
+                    },
+                    "{prefix}woocommerce_order_items": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "6cfadc41ff873dee",
+                        "subject": "Your Bit Integrations account has been created!",
+                        "message_sha": "00ae638b1de76b3c",
+                        "headers_sha": "b1120c5d4eb2862f",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 78,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-04-28 07:11:46",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 78,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "customer",
+                            "type_name": "create"
+                        },
+                        "response_type": "success",
+                        "response_obj": 341,
+                        "field_data_sha": "395af1c22c0272d7",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": 78,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "order-create",
+                            "type_name": "order"
+                        },
+                        "response_type": "success",
+                        "response_obj": "Your order id is: 3512",
+                        "field_data_sha": "395af1c22c0272d7",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "notice: Function ID was called <strong>incorrectly</strong>. Order properties should not be accessed directly. Backtrace: include('phar:///usr/local/bin/wp/php/boot-phar.php'), include('phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php'), WP_CLI\\bootstrap, WP_CLI\\Bootstrap\\LaunchRunner-&gt;process, WP_CLI\\Runner-&gt;start, WP_CLI\\Runner-&gt;do_early_invoke, WP_CLI\\Runner-&gt;run_command_and_exit, WP_CLI\\Runner-&gt;run_command, WP_CLI\\Dispatcher\\Subcommand-&gt;invoke, call_user_func, WP_CLI\\Dispatcher\\CommandFactory::{closure:WP_CLI\\Dispatcher\\CommandFactory::create_subcommand():97}, call_user_func, EvalFile_Command-&gt;__invoke, EvalFile_Command::execute_eval, eval, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::dispatch, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::flow, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Probe::run, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::{closure:BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::flow():182}, BitApps\\Integrations\\Flow\\Flow::execute, BitApps\\Integrations\\Core\\Integration\\IntegrationHandler::executeWithCapture, Integrations\\Actions\\WooCommerce\\*-&gt;execute, Integrations\\Actions\\WooCommerce\\*-&gt;execute, WC_Abstract_Legacy_Order-&gt;__get, wc_doing_it_wrong Please see <a href=\"https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/\">Debugging in WordPress</a> for more information. (This message was added in version 3.0.)"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}actionscheduler_actions": {
+                        "INSERT": 2
+                    },
+                    "{prefix}actionscheduler_logs": {
+                        "INSERT": 2
+                    },
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 2
+                    },
+                    "{prefix}options": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}postmeta": {
+                        "INSERT": 20
+                    },
+                    "{prefix}posts": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    },
+                    "{prefix}usermeta": {
+                        "INSERT": 19
+                    },
+                    "{prefix}users": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    },
+                    "{prefix}wc_customer_lookup": {
+                        "REPLACE": 2
+                    },
+                    "{prefix}wc_order_addresses": {
+                        "INSERT": 1,
+                        "UPDATE": 1
+                    },
+                    "{prefix}wc_order_operational_data": {
+                        "INSERT": 3
+                    },
+                    "{prefix}wc_orders": {
+                        "INSERT": 4
+                    },
+                    "{prefix}wc_orders_meta": {
+                        "INSERT": 2
+                    },
+                    "{prefix}woocommerce_downloadable_product_permissions": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}woocommerce_order_itemmeta": {
+                        "INSERT": 9,
+                        "UPDATE": 2
+                    },
+                    "{prefix}woocommerce_order_items": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

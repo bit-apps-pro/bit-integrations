@@ -1,0 +1,109 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Freshdesk",
+    "flow": {
+        "source": "db",
+        "id": 56,
+        "type": "Freshdesk",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "55376594aef5367e",
+        "field_source": "field_map",
+        "field_data_sha": "623608fae1433291"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Cannot use object of type stdClass as array"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://rishadbitcode.freshdesk.com//api/v2/contacts?email=smoke@example.com",
+                        "url_sha": "8bacd465c1b18b21",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "f1f1fd32135d47f1"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$attachments",
+                    "warning: Undefined array key \"\""
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Cannot use object of type stdClass as array"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://rishadbitcode.freshdesk.com//api/v2/contacts?email=smoke@example.com",
+                        "url_sha": "8bacd465c1b18b21",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "f1f1fd32135d47f1"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$attachments",
+                    "warning: Undefined array key \"\""
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

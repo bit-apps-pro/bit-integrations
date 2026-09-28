@@ -1,0 +1,127 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Discord",
+    "hook": "discord_fetch_channels",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "accessToken": "smoke_accessToken",
+            "serverId": "101"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "discord",
+            "auth_type": "api_key",
+            "auth_details": {
+                "value": "smoke_accessToken"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "TypeError",
+                        "message": "count(): Argument #1 ($value) must be of type Countable|array, stdClass given"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://discord.com/api/v10/guilds/101/channels",
+                            "url_sha": "63f24d47a21143d2",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "69095f4a31de1e76"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "TypeError",
+                        "message": "count(): Argument #1 ($value) must be of type Countable|array, stdClass given"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://discord.com/api/v10/guilds/101/channels",
+                            "url_sha": "63f24d47a21143d2",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "69095f4a31de1e76"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Discord\\DiscordController::fetchChannels",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Discord\\DiscordController",
+        "notes": []
+    }
+}

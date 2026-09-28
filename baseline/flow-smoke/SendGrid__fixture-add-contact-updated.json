@@ -1,0 +1,230 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "SendGrid",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-contact-updated",
+        "type": "SendGrid",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "fc67b29f4dcc5d0b",
+        "field_source": "fixture",
+        "field_data_sha": "bbcfb684de42c3aa"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendgrid.com/v3/marketing/contacts/search/emails",
+                        "url_sha": "cfaa304d80ecb134",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "2e8ec3ad116df28a",
+                        "body_keys": [
+                            "emails"
+                        ],
+                        "answer": "fixture:search-existing"
+                    },
+                    {
+                        "method": "PUT",
+                        "url": "https://api.sendgrid.com/v3/marketing/contacts",
+                        "url_sha": "640aa97782b7f772",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "28b54481cf36c0ab",
+                        "body_keys": [
+                            "contacts"
+                        ],
+                        "answer": "fixture:upsert"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Contact updated"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Contact updated successfully"
+                        },
+                        "field_data_sha": "bfeef4f4d58561aa",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\SendGrid\\*::$_integrationDetails is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\SendGrid\\*::$_defaultHeader is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendgrid.com/v3/marketing/contacts/search/emails",
+                        "url_sha": "cfaa304d80ecb134",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "2e8ec3ad116df28a",
+                        "body_keys": [
+                            "emails"
+                        ],
+                        "answer": "fixture:search-existing"
+                    },
+                    {
+                        "method": "PUT",
+                        "url": "https://api.sendgrid.com/v3/marketing/contacts",
+                        "url_sha": "640aa97782b7f772",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "0615282d7b7296ef"
+                        },
+                        "body_sha": "28b54481cf36c0ab",
+                        "body_keys": [
+                            "contacts"
+                        ],
+                        "answer": "fixture:upsert"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Contact updated"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Contact updated successfully"
+                        },
+                        "field_data_sha": "bfeef4f4d58561aa",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\SendGrid\\*::$_integrationDetails is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\SendGrid\\*::$_defaultHeader is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

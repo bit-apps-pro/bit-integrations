@@ -1,0 +1,204 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "PerfexCRM",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-project",
+        "type": "PerfexCRM",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "9c68da6843205345",
+        "field_source": "fixture",
+        "field_data_sha": "a0f21bf00d0ec592"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://perfex.example.test/api/projects",
+                        "url_sha": "1aada5a05a96b477",
+                        "headers": {
+                            "names": [
+                                "authtoken",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "20c7b9633bda476d"
+                        },
+                        "body_sha": "c5ba17fba912e79a",
+                        "body_keys": [
+                            "name",
+                            "start_date",
+                            "status",
+                            "rel_type",
+                            "billing_type",
+                            "clientid",
+                            "project_cost",
+                            "project_members"
+                        ],
+                        "answer": "fixture:create-record"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Project",
+                            "type_name": "Project created"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            "Project created  successfully"
+                        ],
+                        "field_data_sha": "aa1735f1535ed6d9",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://perfex.example.test/api/projects",
+                        "url_sha": "1aada5a05a96b477",
+                        "headers": {
+                            "names": [
+                                "authtoken",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "20c7b9633bda476d"
+                        },
+                        "body_sha": "c5ba17fba912e79a",
+                        "body_keys": [
+                            "name",
+                            "start_date",
+                            "status",
+                            "rel_type",
+                            "billing_type",
+                            "clientid",
+                            "project_cost",
+                            "project_members"
+                        ],
+                        "answer": "fixture:create-record"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Project",
+                            "type_name": "Project created"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            "Project created  successfully"
+                        ],
+                        "field_data_sha": "aa1735f1535ed6d9",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

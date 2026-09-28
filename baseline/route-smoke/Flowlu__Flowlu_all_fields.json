@@ -1,0 +1,179 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Flowlu",
+    "hook": "Flowlu_all_fields",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "action_name": "account",
+            "api_key": "smoke_api_key",
+            "company_name": "smoke_company_name",
+            "selectedAccountType": "smoke_selectedAccountType"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "flowlu",
+            "auth_type": "api_key",
+            "auth_details": {
+                "company_name": "smoke_company_name",
+                "value": "smoke_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://smoke_company_name.flowlu.com/api/v1/module/crm/account?api_key=<redacted:026f8d2901da>",
+                            "url_sha": "9f789027cace9545",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://smoke_company_name.flowlu.com/api/v1/module/customfields/fields/list?api_key=<redacted:026f8d2901da>",
+                            "url_sha": "36f05be3c1b0a4bb",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$response",
+                        "warning: Attempt to read property \"fields\" on null",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "warning: Undefined property: stdClass::$response",
+                        "warning: Attempt to read property \"items\" on null",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://smoke_company_name.flowlu.com/api/v1/module/crm/account?api_key=<redacted:026f8d2901da>",
+                            "url_sha": "9f789027cace9545",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://smoke_company_name.flowlu.com/api/v1/module/customfields/fields/list?api_key=<redacted:026f8d2901da>",
+                            "url_sha": "36f05be3c1b0a4bb",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$response",
+                        "warning: Attempt to read property \"fields\" on null",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "warning: Undefined property: stdClass::$response",
+                        "warning: Attempt to read property \"items\" on null",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 17,
+        "runs": {
+            "pro-on/connection": "reached HTTP (2 request(s)), 11 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (2 request(s)), 6 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Flowlu\\FlowluController::getAllFields",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Flowlu\\FlowluController",
+        "notes": []
+    }
+}

@@ -1,0 +1,272 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ZohoDesk",
+    "hook": "zdesk_refresh_owners",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "dataCenter": "com",
+            "id": "101",
+            "orgId": "101",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "zohodesk",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "api_domain": "smoke_api_domain",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "dataCenter": "com",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "tokenDetails": {
+                                    "access_token": "<redacted:a7dc7097c955>",
+                                    "generates_on": "<ts>",
+                                    "refresh_token": "<redacted:6141e5e760f2>"
+                                },
+                                "owners": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://desk.zoho.com/api/v1/agents?status=ACTIVE&limit=100",
+                            "url_sha": "9bd11c194c0f5d1b",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "orgid",
+                                    "user-agent"
+                                ],
+                                "sha": "737484bca24c1585"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": [
+                        {
+                            "id": 101,
+                            "change": "updated",
+                            "columns": {
+                                "flow_details": {
+                                    "tokenDetails": {
+                                        "old": "<absent>",
+                                        "new": {
+                                            "access_token": "<redacted:a7dc7097c955>",
+                                            "generates_on": "<ts>",
+                                            "refresh_token": "<redacted:6141e5e760f2>"
+                                        }
+                                    }
+                                },
+                                "updated_at": {
+                                    "old": "2026-01-28 10:36:07",
+                                    "new": "<datetime>"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}btcbi_flow": {
+                            "UPDATE": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "tokenDetails": {
+                                    "access_token": "<redacted:a7dc7097c955>",
+                                    "refresh_token": "<redacted:6141e5e760f2>",
+                                    "token_type": "<redacted:4b0d53deebbb>",
+                                    "expires_in": "smoke_expires_in",
+                                    "generated_at": "smoke_generated_at",
+                                    "generates_on": "<ts>",
+                                    "api_domain": "smoke_api_domain"
+                                },
+                                "owners": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://desk.zoho.com/api/v1/agents?status=ACTIVE&limit=100",
+                            "url_sha": "9bd11c194c0f5d1b",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "orgid",
+                                    "user-agent"
+                                ],
+                                "sha": "737484bca24c1585"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": [
+                        {
+                            "id": 101,
+                            "change": "updated",
+                            "columns": {
+                                "flow_details": {
+                                    "tokenDetails": {
+                                        "old": "<absent>",
+                                        "new": {
+                                            "access_token": "<redacted:a7dc7097c955>",
+                                            "refresh_token": "<redacted:6141e5e760f2>",
+                                            "token_type": "<redacted:4b0d53deebbb>",
+                                            "expires_in": "smoke_expires_in",
+                                            "generated_at": "smoke_generated_at",
+                                            "generates_on": "<ts>",
+                                            "api_domain": "smoke_api_domain"
+                                        }
+                                    }
+                                },
+                                "updated_at": {
+                                    "old": "2026-01-28 10:36:07",
+                                    "new": "<datetime>"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}btcbi_flow": {
+                            "UPDATE": 1
+                        },
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 10,
+        "runs": {
+            "pro-on/connection": "reached HTTP (2 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (2 request(s)), 5 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ZohoDesk\\ZohoDeskController::refreshTicketOwners",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ZohoDesk\\ZohoDeskController",
+        "notes": []
+    }
+}

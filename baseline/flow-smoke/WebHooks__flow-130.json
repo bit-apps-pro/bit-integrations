@@ -1,0 +1,351 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "WebHooks",
+    "flow": {
+        "source": "db",
+        "id": 130,
+        "type": "Web Hooks",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "7d6156fa2a5cc7ff",
+        "field_source": "field_map",
+        "field_data_sha": "97d170e1550eee4a"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://webhook.is/test/callback/1f02d7e3675963a099f7067f2def955d",
+                        "url_sha": "fcdebb2a694bc857",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "fa990801568fdde6",
+                        "body_keys": [
+                            "subscription.value",
+                            "subscription_id.value",
+                            "subscription_title.value",
+                            "subscription_status.value",
+                            "customer.value",
+                            "customer_first_name.value",
+                            "customer_last_name.value",
+                            "customer_user_email.value",
+                            "customer_nickname.value",
+                            "customer_avatar_url.value",
+                            "order.value",
+                            "order_id.value",
+                            "order_order_key.value",
+                            "order_cart_tax.value",
+                            "order_currency.value",
+                            "order_discount_tax.value",
+                            "order_discount_to_display.value",
+                            "order_discount_total.value",
+                            "order_fees.value",
+                            "order_shipping_tax.value",
+                            "order_shipping_total.value",
+                            "order_tax_totals.value",
+                            "order_total.value",
+                            "order_total_refunded.value",
+                            "order_total_tax_refunded.value",
+                            "order_total_shipping_refunded.value",
+                            "order_total_qty_refunded.value",
+                            "order_remaining_refund_amount.value",
+                            "order_shipping_method.value",
+                            "order_date_created.value",
+                            "order_date_modified.value",
+                            "order_date_completed.value",
+                            "order_date_paid.value",
+                            "order_customer_id.value",
+                            "order_created_via.value",
+                            "order_customer_note.value",
+                            "order_billing_first_name.value",
+                            "order_billing_last_name.value",
+                            "order_billing_company.value",
+                            "order_billing_address_1.value",
+                            "order_billing_address_2.value",
+                            "order_billing_city.value",
+                            "order_billing_state.value",
+                            "order_billing_postcode.value",
+                            "order_billing_country.value",
+                            "order_billing_email.value",
+                            "order_billing_phone.value",
+                            "order_shipping_first_name.value",
+                            "order_shipping_last_name.value",
+                            "order_shipping_company.value",
+                            "order_shipping_address_1.value",
+                            "order_shipping_address_2.value",
+                            "order_shipping_city.value",
+                            "order_shipping_state.value",
+                            "order_shipping_postcode.value",
+                            "order_shipping_country.value",
+                            "order_payment_method.value",
+                            "order_payment_method_title.value",
+                            "order_status.value",
+                            "order_checkout_order_received_url.value",
+                            "order_line_items.value",
+                            "order_line_items_0.value",
+                            "order_line_items_0_product_id.value",
+                            "order_line_items_0_variation_id.value",
+                            "order_line_items_0_product_name.value",
+                            "order_line_items_0_quantity.value",
+                            "order_line_items_0_subtotal.value",
+                            "order_line_items_0_total.value",
+                            "order_line_items_0_subtotal_tax.value",
+                            "order_line_items_0_tax_class.value",
+                            "order_line_items_0_tax_status.value",
+                            "order_line_items_0_product_sku.value",
+                            "order_line_items_0_product_unit_price.value",
+                            "order_product_names.value",
+                            "order_line_items_quantity.value",
+                            "order__wc_order_attribution_referrer.value",
+                            "order__wc_order_attribution_user_agent.value",
+                            "order__wc_order_attribution_utm_source.value",
+                            "order__wc_order_attribution_device_type.value",
+                            "order__wc_order_attribution_source_type.value",
+                            "order__wc_order_attribution_session_count.value",
+                            "order__wc_order_attribution_session_entry.value",
+                            "order__wc_order_attribution_session_pages.value",
+                            "order__wc_order_attribution_session_start_time.value"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 130,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-03-13 06:02:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 130,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Web Hooks",
+                            "type_name": "Web Hooks"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "88fedc3b3094ff8d",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://webhook.is/test/callback/1f02d7e3675963a099f7067f2def955d",
+                        "url_sha": "fcdebb2a694bc857",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "fa990801568fdde6",
+                        "body_keys": [
+                            "subscription.value",
+                            "subscription_id.value",
+                            "subscription_title.value",
+                            "subscription_status.value",
+                            "customer.value",
+                            "customer_first_name.value",
+                            "customer_last_name.value",
+                            "customer_user_email.value",
+                            "customer_nickname.value",
+                            "customer_avatar_url.value",
+                            "order.value",
+                            "order_id.value",
+                            "order_order_key.value",
+                            "order_cart_tax.value",
+                            "order_currency.value",
+                            "order_discount_tax.value",
+                            "order_discount_to_display.value",
+                            "order_discount_total.value",
+                            "order_fees.value",
+                            "order_shipping_tax.value",
+                            "order_shipping_total.value",
+                            "order_tax_totals.value",
+                            "order_total.value",
+                            "order_total_refunded.value",
+                            "order_total_tax_refunded.value",
+                            "order_total_shipping_refunded.value",
+                            "order_total_qty_refunded.value",
+                            "order_remaining_refund_amount.value",
+                            "order_shipping_method.value",
+                            "order_date_created.value",
+                            "order_date_modified.value",
+                            "order_date_completed.value",
+                            "order_date_paid.value",
+                            "order_customer_id.value",
+                            "order_created_via.value",
+                            "order_customer_note.value",
+                            "order_billing_first_name.value",
+                            "order_billing_last_name.value",
+                            "order_billing_company.value",
+                            "order_billing_address_1.value",
+                            "order_billing_address_2.value",
+                            "order_billing_city.value",
+                            "order_billing_state.value",
+                            "order_billing_postcode.value",
+                            "order_billing_country.value",
+                            "order_billing_email.value",
+                            "order_billing_phone.value",
+                            "order_shipping_first_name.value",
+                            "order_shipping_last_name.value",
+                            "order_shipping_company.value",
+                            "order_shipping_address_1.value",
+                            "order_shipping_address_2.value",
+                            "order_shipping_city.value",
+                            "order_shipping_state.value",
+                            "order_shipping_postcode.value",
+                            "order_shipping_country.value",
+                            "order_payment_method.value",
+                            "order_payment_method_title.value",
+                            "order_status.value",
+                            "order_checkout_order_received_url.value",
+                            "order_line_items.value",
+                            "order_line_items_0.value",
+                            "order_line_items_0_product_id.value",
+                            "order_line_items_0_variation_id.value",
+                            "order_line_items_0_product_name.value",
+                            "order_line_items_0_quantity.value",
+                            "order_line_items_0_subtotal.value",
+                            "order_line_items_0_total.value",
+                            "order_line_items_0_subtotal_tax.value",
+                            "order_line_items_0_tax_class.value",
+                            "order_line_items_0_tax_status.value",
+                            "order_line_items_0_product_sku.value",
+                            "order_line_items_0_product_unit_price.value",
+                            "order_product_names.value",
+                            "order_line_items_quantity.value",
+                            "order__wc_order_attribution_referrer.value",
+                            "order__wc_order_attribution_user_agent.value",
+                            "order__wc_order_attribution_utm_source.value",
+                            "order__wc_order_attribution_device_type.value",
+                            "order__wc_order_attribution_source_type.value",
+                            "order__wc_order_attribution_session_count.value",
+                            "order__wc_order_attribution_session_entry.value",
+                            "order__wc_order_attribution_session_pages.value",
+                            "order__wc_order_attribution_session_start_time.value"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 130,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-03-13 06:02:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 130,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Web Hooks",
+                            "type_name": "Web Hooks"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "88fedc3b3094ff8d",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

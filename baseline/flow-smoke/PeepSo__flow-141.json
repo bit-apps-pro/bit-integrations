@@ -1,0 +1,65 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "PeepSo",
+    "flow": {
+        "source": "db",
+        "id": 141,
+        "type": "PeepSo",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "4408eb025034c998",
+        "field_source": "field_map",
+        "field_data_sha": "d6e7e2628ff263a9"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

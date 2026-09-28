@@ -1,0 +1,222 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "BenchMark",
+    "flow": {
+        "source": "fixture",
+        "fixture": "update-contact",
+        "type": "BenchMark",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "e6ed1b18a4d64365",
+        "field_source": "fixture",
+        "field_data_sha": "b60a45a597c27b5d"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://clientapi.benchmarkemail.com/Contact/ContactDetails?Search=update-smoke@example.com",
+                        "url_sha": "d22c59d95dc6b531",
+                        "headers": {
+                            "names": [
+                                "authtoken",
+                                "user-agent"
+                            ],
+                            "sha": "a3dbdbf5568934ea"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-existing"
+                    },
+                    {
+                        "method": "PATCH",
+                        "url": "https://clientapi.benchmarkemail.com/Contact/5001/ContactDetails/9001",
+                        "url_sha": "20854e8847a9bfdd",
+                        "headers": {
+                            "names": [
+                                "authtoken",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "990dce9b759ae614"
+                        },
+                        "body_sha": "c01e7efc3bcd9b0b",
+                        "body_keys": [
+                            "Data"
+                        ],
+                        "answer": "fixture:update-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "update"
+                        },
+                        "response_type": "success",
+                        "response_obj": null,
+                        "field_data_sha": "1390e2b35d930ebf",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined variable $recordApiResponse",
+                    "warning: Undefined variable $recordApiResponse",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined variable $recordApiResponse"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://clientapi.benchmarkemail.com/Contact/ContactDetails?Search=update-smoke@example.com",
+                        "url_sha": "d22c59d95dc6b531",
+                        "headers": {
+                            "names": [
+                                "authtoken",
+                                "user-agent"
+                            ],
+                            "sha": "a3dbdbf5568934ea"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-existing"
+                    },
+                    {
+                        "method": "PATCH",
+                        "url": "https://clientapi.benchmarkemail.com/Contact/5001/ContactDetails/9001",
+                        "url_sha": "20854e8847a9bfdd",
+                        "headers": {
+                            "names": [
+                                "authtoken",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "990dce9b759ae614"
+                        },
+                        "body_sha": "c01e7efc3bcd9b0b",
+                        "body_keys": [
+                            "Data"
+                        ],
+                        "answer": "fixture:update-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "update"
+                        },
+                        "response_type": "success",
+                        "response_obj": null,
+                        "field_data_sha": "1390e2b35d930ebf",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined variable $recordApiResponse",
+                    "warning: Undefined variable $recordApiResponse",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined variable $recordApiResponse"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

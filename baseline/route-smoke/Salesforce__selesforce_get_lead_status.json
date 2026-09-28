@@ -1,0 +1,132 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Salesforce",
+    "hook": "selesforce_get_lead_status",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {},
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "salesforce",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "client_id": "smoke_client_id",
+                "client_secret": "smoke_client_secret",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "instance_url": "smoke_instance_url",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Requested parameter is empty"
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_salesforce_get_lead_utilities",
+                            "argc": 3,
+                            "args_sha": "17805b74cae24acf"
+                        },
+                        {
+                            "name": "btcbi_salesforce_get_lead_utilities",
+                            "argc": 3,
+                            "args_sha": "6a89d0aa0164faf6"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Requested parameter is empty"
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_salesforce_get_lead_utilities",
+                            "argc": 3,
+                            "args_sha": "9b6a50c662fd9428"
+                        },
+                        {
+                            "name": "btcbi_salesforce_get_lead_utilities",
+                            "argc": 3,
+                            "args_sha": "a6be591b097ccabc"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "stopped at a guard (400), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "stopped at a guard (400)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Salesforce\\SalesforceController::getAllLeadStatus",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Salesforce\\SalesforceController",
+        "notes": []
+    }
+}

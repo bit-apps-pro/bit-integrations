@@ -1,0 +1,296 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Klaviyo",
+    "flow": {
+        "source": "fixture",
+        "fixture": "create-profile",
+        "type": "Klaviyo",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "a87402f8d9ddde75",
+        "field_source": "fixture",
+        "field_data_sha": "bb75008da65207e5"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://a.klaviyo.com/api/profiles?filter=equals(email,'new@example.com')",
+                        "url_sha": "3550d1b73e22a2f7",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-profile-none"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://a.klaviyo.com/api/profiles",
+                        "url_sha": "d155aeef18ab0d12",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": "4a8ef1e2e2c2e5a2",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "fixture:create-profile"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://a.klaviyo.com/api/lists/SmokeList1/relationships/profiles",
+                        "url_sha": "f13cf5497fc314af",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": "63f8d821a8d64a00",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "fixture:add-profile-to-list"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "6fc0d97432839814"
+                    },
+                    {
+                        "name": "btcbi_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "bd6cef649efe5d7e"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "members",
+                            "type_name": "add-members"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": "",
+                            "code": 200
+                        },
+                        "field_data_sha": "224e36271895d783",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://a.klaviyo.com/api/profiles?filter=equals(email,'new@example.com')",
+                        "url_sha": "3550d1b73e22a2f7",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-profile-none"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://a.klaviyo.com/api/profiles",
+                        "url_sha": "d155aeef18ab0d12",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": "03d9316c9ca2cadf",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "fixture:create-profile"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://a.klaviyo.com/api/lists/SmokeList1/relationships/profiles",
+                        "url_sha": "f13cf5497fc314af",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": "63f8d821a8d64a00",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "fixture:add-profile-to-list"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "6fc0d97432839814"
+                    },
+                    {
+                        "name": "btcbi_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "6fc0d97432839814"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "members",
+                            "type_name": "add-members"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": "",
+                            "code": 200
+                        },
+                        "field_data_sha": "224e36271895d783",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

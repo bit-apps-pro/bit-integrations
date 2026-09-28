@@ -1,0 +1,270 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Klaviyo",
+    "flow": {
+        "source": "fixture",
+        "fixture": "update-existing-profile",
+        "type": "Klaviyo",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1ba236dc49286cdc",
+        "field_source": "fixture",
+        "field_data_sha": "d516e1a91910a72c"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://a.klaviyo.com/api/profiles?filter=equals(email,'existing@example.com')",
+                        "url_sha": "e4230dc26a207179",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-existing-profile"
+                    },
+                    {
+                        "method": "PATCH",
+                        "url": "https://a.klaviyo.com/api/profiles/01SMOKEEXISTING",
+                        "url_sha": "d3deb07e3d1d449e",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": "343db6a7e960fc96",
+                        "body_keys": [
+                            "data"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "0065f5271b99ef29"
+                    },
+                    {
+                        "name": "btcbi_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "12dd5b343cec0f41"
+                    },
+                    {
+                        "name": "bit_integrations_klaviyo_update_profile",
+                        "argc": 4,
+                        "args_sha": "8e5667b9b237d011"
+                    },
+                    {
+                        "name": "btcbi_klaviyo_update_profile",
+                        "argc": 4,
+                        "args_sha": "cac180bca66e30cc"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "members",
+                            "type_name": "update-members"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": {},
+                            "code": 200
+                        },
+                        "field_data_sha": "5422c64013a3e19d",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://a.klaviyo.com/api/profiles?filter=equals(email,'existing@example.com')",
+                        "url_sha": "e4230dc26a207179",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "revision",
+                                "user-agent"
+                            ],
+                            "sha": "85572185eac3830d"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-existing-profile"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "0065f5271b99ef29"
+                    },
+                    {
+                        "name": "btcbi_klaviyo_custom_properties",
+                        "argc": 3,
+                        "args_sha": "0065f5271b99ef29"
+                    },
+                    {
+                        "name": "bit_integrations_klaviyo_update_profile",
+                        "argc": 4,
+                        "args_sha": "2bf4a7bf4a263c67"
+                    },
+                    {
+                        "name": "btcbi_klaviyo_update_profile",
+                        "argc": 4,
+                        "args_sha": "2bf4a7bf4a263c67"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #<fixture>",
+                        "message_sha": "74668b96ca3ad301",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "members",
+                            "type_name": "update-members"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Bit Integrations Pro plugin is not installed or activate",
+                            "code": 400
+                        },
+                        "field_data_sha": "5422c64013a3e19d",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

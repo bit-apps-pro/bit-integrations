@@ -1,0 +1,555 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "GoogleSheet",
+    "flow": {
+        "source": "db",
+        "id": 55,
+        "type": "Google Sheet",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "9fb3f55a26e3da95",
+        "field_source": "log#1981",
+        "field_data_sha": "2ab5cd04dbbb428e"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "9f82e5e751c880d3",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheets.googleapis.com/v4/spreadsheets/<seg:9903c9e0>/values/Sheet1!A1:append?valueInputOption=USER_ENTERED",
+                        "url_sha": "1c5625b4148e83a9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "d348cbae6b10caf1",
+                        "body_keys": [
+                            "range",
+                            "majorDimension",
+                            "values"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 55,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2da44fa75bfb>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": 1758348385
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-25 09:22:38",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 55,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "5e027ace32ece7fc",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "9f82e5e751c880d3",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheets.googleapis.com/v4/spreadsheets/<seg:9903c9e0>/values/Sheet1!A1:append?valueInputOption=USER_ENTERED",
+                        "url_sha": "1c5625b4148e83a9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "d348cbae6b10caf1",
+                        "body_keys": [
+                            "range",
+                            "majorDimension",
+                            "values"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 55,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2da44fa75bfb>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-25 09:22:38",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 55,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "5e027ace32ece7fc",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "9f82e5e751c880d3",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheets.googleapis.com/v4/spreadsheets/<seg:9903c9e0>/values/Sheet1!A1:append?valueInputOption=USER_ENTERED",
+                        "url_sha": "1c5625b4148e83a9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "d348cbae6b10caf1",
+                        "body_keys": [
+                            "range",
+                            "majorDimension",
+                            "values"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 55,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2da44fa75bfb>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": 1758348385
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-25 09:22:38",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 55,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "5e027ace32ece7fc",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "9f82e5e751c880d3",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://sheets.googleapis.com/v4/spreadsheets/<seg:9903c9e0>/values/Sheet1!A1:append?valueInputOption=USER_ENTERED",
+                        "url_sha": "1c5625b4148e83a9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "d348cbae6b10caf1",
+                        "body_keys": [
+                            "range",
+                            "majorDimension",
+                            "values"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 55,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2da44fa75bfb>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "expires_in": 3599,
+                                        "refresh_token": "<redacted:cd9b976f8691>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-25 09:22:38",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 55,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "5e027ace32ece7fc",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

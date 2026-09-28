@@ -1,0 +1,257 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "GoogleDrive",
+    "flow": {
+        "source": "db",
+        "id": 95,
+        "type": "Google Drive",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "3561ad8e69f2b0df",
+        "field_source": "field_map",
+        "field_data_sha": "27f37e1e7b589e0a"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "fbddebc70d6c680f",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #95",
+                        "message_sha": "016fff8555d51029",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 95,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:af87b971d745>",
+                                        "expires_in": 3599,
+                                        "refresh_token": null,
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": 1778649541,
+                                        "generated_at": 1778649541
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "expires_in": 3600,
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-05-13 05:19:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 95,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "GoogleDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "error",
+                        "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
+                        "field_data_sha": "cd1d3bfe33537384",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "fbddebc70d6c680f",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #95",
+                        "message_sha": "016fff8555d51029",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 95,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:af87b971d745>",
+                                        "expires_in": 3599,
+                                        "refresh_token": null,
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": 1778649541,
+                                        "generated_at": 1778649541
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "expires_in": 3600,
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "scope": "https://www.googleapis.com/auth/drive",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-05-13 05:19:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 95,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "GoogleDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "error",
+                        "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
+                        "field_data_sha": "cd1d3bfe33537384",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

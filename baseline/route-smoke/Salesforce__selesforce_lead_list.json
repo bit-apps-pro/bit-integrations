@@ -1,0 +1,165 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Salesforce",
+    "hook": "selesforce_lead_list",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "flowID": "smoke_flowID",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "salesforce",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "instance_url": "smoke_instance_url",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": [
+                                {
+                                    "code": "bit_integrations_blocked_url",
+                                    "message": "The requested URL is not allowed."
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:dbc0f0048544>&client_secret=<redacted:af00ad3eff8e>&refresh_token=<redacted:6141e5e760f2>",
+                            "url_sha": "db9c96b53a7804b7",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$access_token",
+                        "warning: Undefined property: stdClass::$instance_url"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": [
+                                {
+                                    "code": "bit_integrations_blocked_url",
+                                    "message": "The requested URL is not allowed."
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:dbc0f0048544>&client_secret=<redacted:af00ad3eff8e>&refresh_token=<redacted:6141e5e760f2>",
+                            "url_sha": "db9c96b53a7804b7",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$access_token"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 8,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 2 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Salesforce\\SalesforceController::selesforceLeadList",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Salesforce\\SalesforceController",
+        "notes": []
+    }
+}

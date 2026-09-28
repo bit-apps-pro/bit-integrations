@@ -1,0 +1,224 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Moosend",
+    "flow": {
+        "source": "fixture",
+        "fixture": "unsubscribe-from-list",
+        "type": "Moosend",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "74fc37f9f3de8e20",
+        "field_source": "fixture",
+        "field_data_sha": "5da4ebd6a6481a4e"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.moosend.com/v3/subscribers/smoke-list-1/unsubscribe.json?apikey=<redacted:5d0a79c29b0b>",
+                        "url_sha": "f542a5649a84c40a",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "62789eea616b7c90",
+                        "body_keys": [
+                            "Email"
+                        ],
+                        "answer": "fixture:unsubscribe-from-list"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_moosend_map_custom_fields",
+                        "argc": 3,
+                        "args_sha": "414e28dcace493e3"
+                    },
+                    {
+                        "name": "btcbi_moosend_map_custom_fields",
+                        "argc": 3,
+                        "args_sha": "414e28dcace493e3"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "unsubscribe",
+                            "type_name": "unsubscribe-from-list"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": {
+                                "Code": 0,
+                                "Error": null,
+                                "Context": null
+                            },
+                            "code": 200
+                        },
+                        "field_data_sha": "174c6ebd769078e8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Moosend\\*::$_integrationDetails is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.moosend.com/v3/subscribers/smoke-list-1/unsubscribe.json?apikey=<redacted:5d0a79c29b0b>",
+                        "url_sha": "f542a5649a84c40a",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "62789eea616b7c90",
+                        "body_keys": [
+                            "Email"
+                        ],
+                        "answer": "fixture:unsubscribe-from-list"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_moosend_map_custom_fields",
+                        "argc": 3,
+                        "args_sha": "414e28dcace493e3"
+                    },
+                    {
+                        "name": "btcbi_moosend_map_custom_fields",
+                        "argc": 3,
+                        "args_sha": "414e28dcace493e3"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "unsubscribe",
+                            "type_name": "unsubscribe-from-list"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": {
+                                "Code": 0,
+                                "Error": null,
+                                "Context": null
+                            },
+                            "code": 200
+                        },
+                        "field_data_sha": "174c6ebd769078e8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Moosend\\*::$_integrationDetails is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

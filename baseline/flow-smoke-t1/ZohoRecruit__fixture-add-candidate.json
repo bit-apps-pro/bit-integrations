@@ -1,0 +1,372 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoRecruit",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-candidate",
+        "type": "ZohoRecruit",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "53ce662394e7579e",
+        "field_source": "fixture",
+        "field_data_sha": "7b0924a44497580d"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://recruit.zoho.com/recruit/private/json/Candidates/addRecords",
+                        "url_sha": "15359aec3eb5bc16",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "77154a99ae541e6c"
+                        },
+                        "body_sha": "6252d71c193f5ed6",
+                        "body_keys": [
+                            "scope",
+                            "version",
+                            "xmlData",
+                            "wfTrigger",
+                            "duplicateCheck",
+                            "isApproval"
+                        ],
+                        "answer": "fixture:candidate-add-with-id"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "response": {
+                                "uri": "/recruit/private/json/Candidates/addRecords",
+                                "result": {
+                                    "message": "Record(s) added successfully",
+                                    "row": {
+                                        "no": "1",
+                                        "success": {
+                                            "code": "2000",
+                                            "details": {
+                                                "FL": [
+                                                    {
+                                                        "val": "Id",
+                                                        "content": "9001"
+                                                    },
+                                                    {
+                                                        "val": "Created Time",
+                                                        "content": "<datetime+6000>"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "field_data_sha": "00dd2680b0dcab8e",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_integrationID is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Attempt to assign property \"tokenDetails\" on null"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "f0e76ce28cbbf34e",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": false
+                    },
+                    "pass": false
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$integration_details",
+                    "deprecated: json_decode(): Passing null to parameter #1 ($json) of type string is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://recruit.zoho.com/recruit/private/json/Candidates/addRecords",
+                        "url_sha": "15359aec3eb5bc16",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "77154a99ae541e6c"
+                        },
+                        "body_sha": "6252d71c193f5ed6",
+                        "body_keys": [
+                            "scope",
+                            "version",
+                            "xmlData",
+                            "wfTrigger",
+                            "duplicateCheck",
+                            "isApproval"
+                        ],
+                        "answer": "fixture:candidate-add-with-id"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "response": {
+                                "uri": "/recruit/private/json/Candidates/addRecords",
+                                "result": {
+                                    "message": "Record(s) added successfully",
+                                    "row": {
+                                        "no": "1",
+                                        "success": {
+                                            "code": "2000",
+                                            "details": {
+                                                "FL": [
+                                                    {
+                                                        "val": "Id",
+                                                        "content": "9001"
+                                                    },
+                                                    {
+                                                        "val": "Created Time",
+                                                        "content": "<datetime+6000>"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "field_data_sha": "00dd2680b0dcab8e",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_integrationID is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Attempt to assign property \"tokenDetails\" on null"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "f0e76ce28cbbf34e",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": false
+                    },
+                    "pass": false
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$integration_details",
+                    "deprecated: json_decode(): Passing null to parameter #1 ($json) of type string is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

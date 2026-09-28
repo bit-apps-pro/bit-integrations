@@ -1,0 +1,142 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "NutshellCRM",
+    "hook": "nutshellcrm_fetch_all_companies",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_token": "smoke_api_token",
+            "user_name": "smoke_user_name"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "nutshellcrm",
+            "auth_type": "basic_auth",
+            "auth_details": {
+                "password": "smoke_api_token",
+                "username": "smoke_user_name"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Contacts fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://app.nutshell.com/api/v1/json",
+                            "url_sha": "015304c7fbe4e965",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "a4cb98447c03a213"
+                            },
+                            "body_sha": "6e78a7c8b31d62c4",
+                            "body_keys": [
+                                "method",
+                                "id"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Contacts fetching failed"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://app.nutshell.com/api/v1/json",
+                            "url_sha": "015304c7fbe4e965",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "a4cb98447c03a213"
+                            },
+                            "body_sha": "6e78a7c8b31d62c4",
+                            "body_keys": [
+                                "method",
+                                "id"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController::getCompanies",
+        "auth_owner": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+        "notes": []
+    }
+}

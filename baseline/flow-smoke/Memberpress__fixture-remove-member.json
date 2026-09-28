@@ -1,0 +1,72 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Memberpress",
+    "flow": {
+        "source": "fixture",
+        "fixture": "remove-member",
+        "type": "Memberpress",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "748e7c19fa4115d5",
+        "field_source": "fixture",
+        "field_data_sha": "5da4ebd6a6481a4e"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"MeprSubscription\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined array key \"\""
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"MeprSubscription\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined array key \"\""
+                ],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

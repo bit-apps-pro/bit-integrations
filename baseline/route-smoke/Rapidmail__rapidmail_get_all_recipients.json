@@ -1,0 +1,149 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Rapidmail",
+    "hook": "rapidmail_get_all_recipients",
+    "method": "GET",
+    "flags": [],
+    "input": {
+        "params": {
+            "password": "smoke_password",
+            "username": "smoke_username"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "rapidmail",
+            "auth_type": "basic_auth",
+            "auth_details": {
+                "password": "smoke_password",
+                "username": "smoke_username"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "recipientlists": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://apiv3.emailsys.net/v1/recipientlists",
+                            "url_sha": "fb1115e83338dc36",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "authorization",
+                                    "user-agent",
+                                    "verify"
+                                ],
+                                "sha": "d2698ccc0d3a1a4d"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$_embedded",
+                        "warning: Attempt to read property \"recipientlists\" on null",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "recipientlists": []
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://apiv3.emailsys.net/v1/recipientlists",
+                            "url_sha": "fb1115e83338dc36",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "authorization",
+                                    "user-agent",
+                                    "verify"
+                                ],
+                                "sha": "d2698ccc0d3a1a4d"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$_embedded",
+                        "warning: Attempt to read property \"recipientlists\" on null",
+                        "warning: foreach() argument must be of type array|object, null given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 11,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 8 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 3 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController::getAllRecipients",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController",
+        "notes": []
+    }
+}

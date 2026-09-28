@@ -1,0 +1,244 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "HighLevel",
+    "flow": {
+        "source": "db",
+        "id": 93,
+        "type": "GoHighLevel",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "dc70efb7727bcf5d",
+        "field_source": "log#1411",
+        "field_data_sha": "bc4208382025448a"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://services.leadconnectorhq.com/contacts",
+                        "url_sha": "076a67b1a5a7c140",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "user-agent",
+                                "version"
+                            ],
+                            "sha": "822cf9c871786d52"
+                        },
+                        "body_sha": "a748629d9d8b6aba",
+                        "body_keys": [
+                            "email",
+                            "firstName",
+                            "dateOfBirth",
+                            "tags",
+                            "locationId",
+                            "customFields"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_high_level_contact_utilities",
+                        "argc": 3,
+                        "args_sha": "1010af0e049362e2"
+                    },
+                    {
+                        "name": "btcbi_high_level_contact_utilities",
+                        "argc": 3,
+                        "args_sha": "b3397ff0b7fe9fde"
+                    },
+                    {
+                        "name": "bit_integrations_high_level_v2_create_contact",
+                        "argc": 4,
+                        "args_sha": "9f4e0bfa0a79f49c"
+                    },
+                    {
+                        "name": "btcbi_high_level_v2_create_contact",
+                        "argc": 4,
+                        "args_sha": "c170910139b6ee1c"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #93",
+                        "message_sha": "bdc10387182d2133",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 93,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-02-28 04:48:35",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 93,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Contact",
+                            "type_name": "Create Contact"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Failed to create contact!",
+                            "response": {},
+                            "code": 400
+                        },
+                        "field_data_sha": "97e9c235a49d64d9",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined array key \"customField\"",
+                    "warning: foreach() argument must be of type array|object, null given",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_high_level_contact_utilities",
+                        "argc": 3,
+                        "args_sha": "1010af0e049362e2"
+                    },
+                    {
+                        "name": "btcbi_high_level_contact_utilities",
+                        "argc": 3,
+                        "args_sha": "1010af0e049362e2"
+                    },
+                    {
+                        "name": "bit_integrations_high_level_v2_create_contact",
+                        "argc": 4,
+                        "args_sha": "cb4906f93f34b3d8"
+                    },
+                    {
+                        "name": "btcbi_high_level_v2_create_contact",
+                        "argc": 4,
+                        "args_sha": "cb4906f93f34b3d8"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #93",
+                        "message_sha": "207ce257d54c40f5",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 93,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-02-28 04:48:35",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 93,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Contact",
+                            "type_name": "Create Contact"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Bit Integrations Pro plugin is not installed or activate",
+                            "code": 400
+                        },
+                        "field_data_sha": "97e9c235a49d64d9",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

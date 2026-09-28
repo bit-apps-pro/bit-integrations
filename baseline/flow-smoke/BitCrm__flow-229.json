@@ -1,0 +1,65 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "BitCrm",
+    "flow": {
+        "source": "db",
+        "id": 229,
+        "type": "BitCrm",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "8d3e9fd30faa5088",
+        "field_source": "log#2004",
+        "field_data_sha": "6c5db362a9bde8b2"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

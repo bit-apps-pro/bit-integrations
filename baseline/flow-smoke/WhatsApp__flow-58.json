@@ -1,0 +1,249 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "WhatsApp",
+    "flow": {
+        "source": "db",
+        "id": 58,
+        "type": "WhatsApp",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "6be92e33cecf1b43",
+        "field_source": "field_map",
+        "field_data_sha": "97d170e1550eee4a"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://graph.facebook.com/v20.0/1987303898499438/message_templates?fields=language&name=bit_integration_variable_test",
+                        "url_sha": "c238c6e89ed74814",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "4bbff9437aa7fbfa"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://graph.facebook.com/v20.0/793379673858759/messages",
+                        "url_sha": "bb18c9d746b4e518",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "4bbff9437aa7fbfa"
+                        },
+                        "body_sha": "53bf7ca8bc42d276",
+                        "body_keys": [
+                            "messaging_product",
+                            "to",
+                            "type",
+                            "template"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_whatsapp_template_components",
+                        "argc": 2,
+                        "args_sha": "164374825086dc65"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 58,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-09-27 06:09:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 58,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "message",
+                            "type_name": "Template Message"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "de67607ee8a80bf6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://graph.facebook.com/v20.0/1987303898499438/message_templates?fields=language&name=bit_integration_variable_test",
+                        "url_sha": "c238c6e89ed74814",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "4bbff9437aa7fbfa"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://graph.facebook.com/v20.0/793379673858759/messages",
+                        "url_sha": "bb18c9d746b4e518",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "4bbff9437aa7fbfa"
+                        },
+                        "body_sha": "53bf7ca8bc42d276",
+                        "body_keys": [
+                            "messaging_product",
+                            "to",
+                            "type",
+                            "template"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_whatsapp_template_components",
+                        "argc": 2,
+                        "args_sha": "164374825086dc65"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 58,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-09-27 06:09:27",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 58,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "message",
+                            "type_name": "Template Message"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "de67607ee8a80bf6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,232 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Mailify",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-contact",
+        "type": "Mailify",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "cf3d790a3de3463f",
+        "field_source": "fixture",
+        "field_data_sha": "178767f197c7023b"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Cannot use object of type stdClass as array"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://mailifyapis.com/v1/lists/list-101/contacts?email=smoke-new@example.com",
+                        "url_sha": "14247f256f8c5678",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "516dee5d1cb66f3a"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:contact-lookup-missing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://mailifyapis.com/v1/lists/list-101/contacts",
+                        "url_sha": "32d476a0efbb89a7",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "516dee5d1cb66f3a"
+                        },
+                        "body_sha": "3245a3ad66a43381",
+                        "body_keys": [
+                            "email",
+                            "phone",
+                            "field-firstname",
+                            "field-source"
+                        ],
+                        "answer": "fixture:add-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Contact added"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Contact added successfully"
+                        },
+                        "field_data_sha": "64fe420d59d74a59",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Cannot use object of type stdClass as array"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://mailifyapis.com/v1/lists/list-101/contacts?email=smoke-new@example.com",
+                        "url_sha": "14247f256f8c5678",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "516dee5d1cb66f3a"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:contact-lookup-missing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://mailifyapis.com/v1/lists/list-101/contacts",
+                        "url_sha": "32d476a0efbb89a7",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "516dee5d1cb66f3a"
+                        },
+                        "body_sha": "3245a3ad66a43381",
+                        "body_keys": [
+                            "email",
+                            "phone",
+                            "field-firstname",
+                            "field-source"
+                        ],
+                        "answer": "fixture:add-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Contact added"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Contact added successfully"
+                        },
+                        "field_data_sha": "64fe420d59d74a59",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

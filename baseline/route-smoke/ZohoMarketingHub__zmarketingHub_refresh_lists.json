@@ -1,0 +1,190 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ZohoMarketingHub",
+    "hook": "zmarketingHub_refresh_lists",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "dataCenter": "com",
+            "formID": "smoke_formID",
+            "id": "101",
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token"
+            }
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "zohomarketinghub",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "api_domain": "smoke_api_domain",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "dataCenter": "com",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "TypeError",
+                        "message": "count(): Argument #1 ($value) must be of type Countable|array, null given"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://marketinghub.zoho.com/api/v1/getmailinglists?resfmt=JSON&range=100",
+                            "url_sha": "eac6e5d802743482",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0ba131c27dc42189"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$list_of_details"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "throwable",
+                        "class": "TypeError",
+                        "message": "count(): Argument #1 ($value) must be of type Countable|array, null given"
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "text": ""
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://accounts.zoho.com/oauth/v2/token",
+                            "url_sha": "1b70b71d1018bb6a",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": "1dca364f625cb944",
+                            "body_keys": [
+                                "grant_type",
+                                "client_id",
+                                "client_secret",
+                                "refresh_token"
+                            ],
+                            "answer": "fixture:oauth-refresh"
+                        },
+                        {
+                            "method": "GET",
+                            "url": "https://marketinghub.zoho.com/api/v1/getmailinglists?resfmt=JSON&range=100",
+                            "url_sha": "eac6e5d802743482",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0ba131c27dc42189"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$list_of_details"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 7,
+        "runs": {
+            "pro-on/connection": "reached HTTP (2 request(s)), 6 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (2 request(s)), 1 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ZohoMarketingHub\\ZohoMarketingHubController::refreshLists",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ZohoMarketingHub\\ZohoMarketingHubController",
+        "notes": []
+    }
+}

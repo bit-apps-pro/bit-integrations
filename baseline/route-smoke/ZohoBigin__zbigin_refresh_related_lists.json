@@ -1,0 +1,149 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "ZohoBigin",
+    "hook": "zbigin_refresh_related_lists",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "clientId": "101",
+            "clientSecret": "smoke_clientSecret",
+            "dataCenter": "com",
+            "id": "101",
+            "module": "smoke_module",
+            "tokenDetails": "smoke_tokenDetails"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "zohobigin",
+            "auth_type": "oauth2",
+            "auth_details": {
+                "access_token": "smoke_access_token",
+                "api_domain": "smoke_api_domain",
+                "client_id": "101",
+                "client_secret": "smoke_clientSecret",
+                "dataCenter": "com",
+                "expires_in": "smoke_expires_in",
+                "generated_at": "smoke_generated_at",
+                "generates_on": "smoke_generates_on",
+                "refresh_token": "smoke_refresh_token",
+                "token_type": "smoke_token_type"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "related_modules": {
+                                    "Calls": {
+                                        "api_name": "Calls",
+                                        "plural_label": "Calls"
+                                    },
+                                    "Events": {
+                                        "api_name": "Events",
+                                        "plural_label": "Events"
+                                    },
+                                    "Tasks": {
+                                        "api_name": "Tasks",
+                                        "plural_label": "Tasks"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "related_modules": {
+                                    "Calls": {
+                                        "api_name": "Calls",
+                                        "plural_label": "Calls"
+                                    },
+                                    "Events": {
+                                        "api_name": "Events",
+                                        "plural_label": "Events"
+                                    },
+                                    "Tasks": {
+                                        "api_name": "Tasks",
+                                        "plural_label": "Tasks"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": {
+                        "{prefix}options": {
+                            "DELETE": 1,
+                            "INSERT": 1
+                        }
+                    },
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "no request, 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "no request"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\ZohoBigin\\ZohoBiginController::refreshRelatedModules",
+        "auth_owner": "BitApps\\Integrations\\Actions\\ZohoBigin\\ZohoBiginController",
+        "notes": []
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Voxel",
+    "flow": {
+        "source": "db",
+        "id": 87,
+        "type": "Voxel",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "e55b4e7c0cc8ff74",
+        "field_source": "field_map",
+        "field_data_sha": "32ef12b14c7bc857"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "exit"
+                },
+                "output": {
+                    "json": {
+                        "success": false,
+                        "data": "Voxel is not active or installed!"
+                    }
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "exit"
+                },
+                "output": {
+                    "json": {
+                        "success": false,
+                        "data": "Voxel is not active or installed!"
+                    }
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

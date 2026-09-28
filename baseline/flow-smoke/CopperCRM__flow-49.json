@@ -1,0 +1,353 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "CopperCRM",
+    "flow": {
+        "source": "db",
+        "id": 49,
+        "type": "CopperCRM",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "002c76443e402b5f",
+        "field_source": "field_map",
+        "field_data_sha": "ea1bbf772b633119"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.copper.com/developer_api/v1/custom_field_definitions",
+                        "url_sha": "7a5957b4d2caa9e2",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent",
+                                "x-pw-accesstoken",
+                                "x-pw-application",
+                                "x-pw-useremail"
+                            ],
+                            "sha": "045bcc8cbf5fc2f9"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.copper.com/developer_api/v1/custom_field_definitions",
+                        "url_sha": "7a5957b4d2caa9e2",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent",
+                                "x-pw-accesstoken",
+                                "x-pw-application",
+                                "x-pw-useremail"
+                            ],
+                            "sha": "045bcc8cbf5fc2f9"
+                        },
+                        "body_sha": "81767cef924a502e",
+                        "body_keys": [
+                            "name",
+                            "data_type",
+                            "available_on"
+                        ],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.copper.com/developer_api/v1/people",
+                        "url_sha": "78a8eb765c8c458e",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent",
+                                "x-pw-accesstoken",
+                                "x-pw-application",
+                                "x-pw-useremail"
+                            ],
+                            "sha": "045bcc8cbf5fc2f9"
+                        },
+                        "body_sha": "5f930cb14f5ce4ab",
+                        "body_keys": [
+                            "name",
+                            "custom_fields",
+                            "company_id",
+                            "tags"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #49",
+                        "message_sha": "6ee9707f18575250",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    },
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #49",
+                        "message_sha": "a88373e1fb0a6e40",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 49,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-09-14 07:17:41",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 49,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Create Custom Field",
+                            "type_name": "Custom field creation failed"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "9e37d121525104a8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": 49,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Person",
+                            "type_name": "Person creating"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "9e37d121525104a8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$id",
+                    "warning: Undefined property: stdClass::$id",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$id",
+                    "warning: Undefined property: stdClass::$status"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 2
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.copper.com/developer_api/v1/custom_field_definitions",
+                        "url_sha": "7a5957b4d2caa9e2",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent",
+                                "x-pw-accesstoken",
+                                "x-pw-application",
+                                "x-pw-useremail"
+                            ],
+                            "sha": "045bcc8cbf5fc2f9"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.copper.com/developer_api/v1/custom_field_definitions",
+                        "url_sha": "7a5957b4d2caa9e2",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent",
+                                "x-pw-accesstoken",
+                                "x-pw-application",
+                                "x-pw-useremail"
+                            ],
+                            "sha": "045bcc8cbf5fc2f9"
+                        },
+                        "body_sha": "81767cef924a502e",
+                        "body_keys": [
+                            "name",
+                            "data_type",
+                            "available_on"
+                        ],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.copper.com/developer_api/v1/people",
+                        "url_sha": "78a8eb765c8c458e",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent",
+                                "x-pw-accesstoken",
+                                "x-pw-application",
+                                "x-pw-useremail"
+                            ],
+                            "sha": "045bcc8cbf5fc2f9"
+                        },
+                        "body_sha": "5f930cb14f5ce4ab",
+                        "body_keys": [
+                            "name",
+                            "custom_fields",
+                            "company_id",
+                            "tags"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #49",
+                        "message_sha": "6ee9707f18575250",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    },
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #49",
+                        "message_sha": "a88373e1fb0a6e40",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 49,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-09-14 07:17:41",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 49,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Create Custom Field",
+                            "type_name": "Custom field creation failed"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "9e37d121525104a8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": 49,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Person",
+                            "type_name": "Person creating"
+                        },
+                        "response_type": "error",
+                        "response_obj": {},
+                        "field_data_sha": "9e37d121525104a8",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$id",
+                    "warning: Undefined property: stdClass::$id",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "warning: Undefined property: stdClass::$id",
+                    "warning: Undefined property: stdClass::$status"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 2
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

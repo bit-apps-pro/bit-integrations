@@ -1,0 +1,238 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZagoMail",
+    "flow": {
+        "source": "fixture",
+        "fixture": "update-existing-subscriber",
+        "type": "ZagoMail",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1136db73e3dc67ba",
+        "field_source": "fixture",
+        "field_data_sha": "da82476f5e4aa4b3"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.zagomail.com/lists/search-by-email?list_uid=smoke-list-uid",
+                        "url_sha": "e85ba2caa147f7d6",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "ec2534ff67b1b8ed",
+                        "body_keys": [
+                            "publicKey",
+                            "email"
+                        ],
+                        "answer": "fixture:search-existing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.zagomail.com/lists/subscriber-update?list_uid=smoke-list-uid&subscriber_uid=smoke-sub-existing",
+                        "url_sha": "aa4afb14c1582048",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "b4649d96398831ca",
+                        "body_keys": [
+                            "publicKey",
+                            "EMAIL",
+                            "FNAME"
+                        ],
+                        "answer": "fixture:subscriber-update"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "update"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "status": "success",
+                            "data": {
+                                "record": {
+                                    "subscriber_uid": "smoke-sub-existing"
+                                }
+                            }
+                        },
+                        "field_data_sha": "2e07c14b69426c17",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.zagomail.com/lists/search-by-email?list_uid=smoke-list-uid",
+                        "url_sha": "e85ba2caa147f7d6",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "ec2534ff67b1b8ed",
+                        "body_keys": [
+                            "publicKey",
+                            "email"
+                        ],
+                        "answer": "fixture:search-existing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.zagomail.com/lists/subscriber-update?list_uid=smoke-list-uid&subscriber_uid=smoke-sub-existing",
+                        "url_sha": "aa4afb14c1582048",
+                        "headers": {
+                            "names": [
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "25e837fb1a3ec313"
+                        },
+                        "body_sha": "b4649d96398831ca",
+                        "body_keys": [
+                            "publicKey",
+                            "EMAIL",
+                            "FNAME"
+                        ],
+                        "answer": "fixture:subscriber-update"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "update"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "status": "success",
+                            "data": {
+                                "record": {
+                                    "subscriber_uid": "smoke-sub-existing"
+                                }
+                            }
+                        },
+                        "field_data_sha": "2e07c14b69426c17",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,502 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "GoogleDrive",
+    "flow": {
+        "source": "fixture",
+        "fixture": "upload-file",
+        "type": "GoogleDrive",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "ca0e095357b417d0",
+        "field_source": "fixture",
+        "field_data_sha": "07fe6db0bc1a76c6"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "59b52b47e88e873b"
+                        },
+                        "body_sha": "bc4c2a865e3978cb",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "59b52b47e88e873b"
+                        },
+                        "body_sha": "537ead468e1b4e06",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "GoogleDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
+                        "field_data_sha": "81aaab99c07108c1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "f0e76ce28cbbf34e",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "2a3da65b5078764e"
+                        },
+                        "body_sha": "cb2f39fd7f709934",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "2a3da65b5078764e"
+                        },
+                        "body_sha": "a95a62eb17503259",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:e77c1625791c>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": "<ts>",
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "GoogleDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
+                        "field_data_sha": "81aaab99c07108c1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generated_at"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "59b52b47e88e873b"
+                        },
+                        "body_sha": "763e31726b5b4084",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "59b52b47e88e873b"
+                        },
+                        "body_sha": "d6d047a5f7d64915",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "GoogleDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
+                        "field_data_sha": "81aaab99c07108c1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://oauth2.googleapis.com/token",
+                        "url_sha": "a9eda31b6f8c3837",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "f0e76ce28cbbf34e",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "2a3da65b5078764e"
+                        },
+                        "body_sha": "7371a5b12aea298c",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+                        "url_sha": "92b70cba9bae22c5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "2a3da65b5078764e"
+                        },
+                        "body_sha": "264e41da8376bf00",
+                        "body_keys": [],
+                        "answer": "fixture:drive-upload"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:e77c1625791c>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": "<ts>",
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "GoogleDrive",
+                            "type_name": "file_upload"
+                        },
+                        "response_type": "success",
+                        "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
+                        "field_data_sha": "81aaab99c07108c1",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generated_at"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

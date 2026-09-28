@@ -1,0 +1,302 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Registration",
+    "flow": {
+        "source": "db",
+        "id": 159,
+        "type": "WP User Registration",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "c98f5792e68f1038",
+        "field_source": "field_map",
+        "field_data_sha": "6a36a0c2210e190b"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_updateUserMetadata",
+                        "argc": 2,
+                        "args_sha": "6e9b90bc51d61b46"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 159,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-05-06 09:35:19",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 159,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "WP User Registration",
+                            "type_name": "updateUserMetadata"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": {
+                                "nickname": [
+                                    "abc.ccb"
+                                ],
+                                "first_name": [
+                                    "abc-ccb"
+                                ],
+                                "last_name": [
+                                    "abc"
+                                ],
+                                "description": [
+                                    ""
+                                ],
+                                "rich_editing": [
+                                    "true"
+                                ],
+                                "syntax_highlighting": [
+                                    "true"
+                                ],
+                                "comment_shortcuts": [
+                                    "false"
+                                ],
+                                "admin_color": [
+                                    "modern"
+                                ],
+                                "use_ssl": [
+                                    "0"
+                                ],
+                                "show_admin_bar_front": [
+                                    "true"
+                                ],
+                                "locale": [
+                                    ""
+                                ],
+                                "wp_capabilities": [
+                                    "a:1:{s:10:\"subscriber\";b:1;}"
+                                ],
+                                "wp_user_level": [
+                                    "0"
+                                ],
+                                "dismissed_wp_pointers": [
+                                    ""
+                                ],
+                                "_is_creator_lms_student": [
+                                    "yes"
+                                ],
+                                "_is_creator_lms_user": [
+                                    "yes"
+                                ],
+                                "last_update": [
+                                    "1773643351"
+                                ],
+                                "peepso_user_field_gender": [
+                                    ""
+                                ],
+                                "peepso_user_field_gender_acc": [
+                                    "10"
+                                ],
+                                "wp_peepso_name_based_avatars_config": [
+                                    ""
+                                ],
+                                "wp_peepso_name_based_avatar_url": [
+                                    "https://bit-integrations.test.org/wp-content/peepso/avatars-svg/0959276a385ce225bb46cfe894553564.svg"
+                                ],
+                                "wp_peepso_name_based_avatar_path": [
+                                    "<abspath>/wp-content/peepso/avatars-svg/0959276a385ce225bb46cfe894553564.svg"
+                                ],
+                                "peepso_user_field_first_name_acc": [
+                                    "10"
+                                ],
+                                "peepso_user_field_last_name_acc": [
+                                    "10"
+                                ],
+                                "peepso_user_field_birthdate": [
+                                    ""
+                                ],
+                                "peepso_user_field_birthdate_acc": [
+                                    "10"
+                                ],
+                                "peepso_user_field_description_acc": [
+                                    "10"
+                                ],
+                                "peepso_user_field_user_url_acc": [
+                                    "10"
+                                ],
+                                "bthckso_skda": [
+                                    "Smoke Name"
+                                ],
+                                "wp_sensei_enrolment_providers_state": [
+                                    "{\"3030\":{\"manual\":{\"enrolment_status\":false}}}"
+                                ],
+                                "wp_sensei_course_enrolment_3030": [
+                                    "{\"t\":1782985521,\"v\":\"30254691f9489388359afd1436977b97\",\"r\":{\"manual\":false}}"
+                                ],
+                                "voxel:post_stats": [
+                                    "{\"post\":{\"publish\":5,\"trash\":2},\"profile\":{\"publish\":1}}"
+                                ],
+                                "webhook_executed": [
+                                    "1"
+                                ],
+                                "voxel:profile_id": [
+                                    "3189"
+                                ],
+                                "_badgeos_triggered_triggers": [
+                                    "a:2:{i:0;a:0:{}i:1;a:4:{s:21:\"badgeos_unlock_badges\";i:1;s:16:\"all-achievements\";i:0;s:15:\"any-achievement\";i:0;s:25:\"badgeos_unlock_all_badges\";i:1;}}"
+                                ],
+                                "_badgeos_active_achievements": [
+                                    "a:0:{}"
+                                ],
+                                "_badgeos_points": [
+                                    "1"
+                                ],
+                                "pointics_referral_code": [
+                                    "SURPLY4ZRM"
+                                ],
+                                "wc_last_active": [
+                                    "<ts-944400>"
+                                ]
+                            }
+                        },
+                        "field_data_sha": "c1f85cec85988a24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    },
+                    "{prefix}usermeta": {
+                        "UPDATE": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_updateUserMetadata",
+                        "argc": 2,
+                        "args_sha": "6e9b90bc51d61b46"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #159",
+                        "message_sha": "6c935551e9fbc78c",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 159,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-05-06 09:35:19",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 159,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "WP User Registration",
+                            "type_name": "updateUserMetadata"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Bit Integrations Pro plugin is not installed or activated"
+                        },
+                        "field_data_sha": "c1f85cec85988a24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

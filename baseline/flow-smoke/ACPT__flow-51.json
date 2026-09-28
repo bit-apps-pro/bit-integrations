@@ -1,0 +1,196 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ACPT",
+    "flow": {
+        "source": "db",
+        "id": 51,
+        "type": "ACPT",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "d98461ea9412d2bc",
+        "field_source": "field_map",
+        "field_data_sha": "6a36a0c2210e190b"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_acpt_update_cpt",
+                        "argc": 4,
+                        "args_sha": "cb07ba059cb710d0"
+                    },
+                    {
+                        "name": "btcbi_acpt_update_cpt",
+                        "argc": 4,
+                        "args_sha": "220fa7b606d21ad5"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #51",
+                        "message_sha": "a02c7c7bc51762c7",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 51,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-02-28 04:48:46",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 51,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "error",
+                            "type_name": "Update CPT"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "errors": {
+                                "bit_integrations_blocked_url": [
+                                    "The requested URL is not allowed."
+                                ]
+                            },
+                            "error_data": []
+                        },
+                        "field_data_sha": "c1f85cec85988a24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_acpt_update_cpt",
+                        "argc": 4,
+                        "args_sha": "cb07ba059cb710d0"
+                    },
+                    {
+                        "name": "btcbi_acpt_update_cpt",
+                        "argc": 4,
+                        "args_sha": "cb07ba059cb710d0"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #51",
+                        "message_sha": "196a169b5dcf3cf7",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 51,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-02-28 04:48:46",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 51,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "error",
+                            "type_name": "Update CPT"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "error": "Bit Integration Pro plugin is not installed or activate"
+                        },
+                        "field_data_sha": "c1f85cec85988a24",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

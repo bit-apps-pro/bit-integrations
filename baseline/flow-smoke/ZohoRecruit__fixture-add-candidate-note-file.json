@@ -1,0 +1,338 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoRecruit",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-candidate-note-file",
+        "type": "ZohoRecruit",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "5323ec43c293dcf9",
+        "field_source": "fixture",
+        "field_data_sha": "2094b0276b2b8c55"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://recruit.zoho.com/recruit/private/json/Candidates/addRecords",
+                        "url_sha": "15359aec3eb5bc16",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "77154a99ae541e6c"
+                        },
+                        "body_sha": "63ebd90847e9412c",
+                        "body_keys": [
+                            "scope",
+                            "version",
+                            "xmlData"
+                        ],
+                        "answer": "fixture:candidate-add-with-id"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://recruit.zoho.com/recruit/private/json/Notes/addRecords",
+                        "url_sha": "5c9e5035cd517462",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "77154a99ae541e6c"
+                        },
+                        "body_sha": "a639036d5e3a6f51",
+                        "body_keys": [
+                            "scope",
+                            "version",
+                            "xmlData"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "response": {
+                                "uri": "/recruit/private/json/Candidates/addRecords",
+                                "result": {
+                                    "message": "Record(s) added successfully",
+                                    "row": {
+                                        "no": "1",
+                                        "success": {
+                                            "code": "2000",
+                                            "details": {
+                                                "FL": [
+                                                    {
+                                                        "val": "Id",
+                                                        "content": "9001"
+                                                    },
+                                                    {
+                                                        "val": "Created Time",
+                                                        "content": "<datetime+6300>"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "field_data_sha": "68d6603b0d47580f",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "note",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "68d6603b0d47580f",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "file",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            false
+                        ],
+                        "field_data_sha": "68d6603b0d47580f",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_integrationID is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://recruit.zoho.com/recruit/private/json/Candidates/addRecords",
+                        "url_sha": "15359aec3eb5bc16",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "77154a99ae541e6c"
+                        },
+                        "body_sha": "63ebd90847e9412c",
+                        "body_keys": [
+                            "scope",
+                            "version",
+                            "xmlData"
+                        ],
+                        "answer": "fixture:candidate-add-with-id"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://recruit.zoho.com/recruit/private/json/Notes/addRecords",
+                        "url_sha": "5c9e5035cd517462",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "77154a99ae541e6c"
+                        },
+                        "body_sha": "a639036d5e3a6f51",
+                        "body_keys": [
+                            "scope",
+                            "version",
+                            "xmlData"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "response": {
+                                "uri": "/recruit/private/json/Candidates/addRecords",
+                                "result": {
+                                    "message": "Record(s) added successfully",
+                                    "row": {
+                                        "no": "1",
+                                        "success": {
+                                            "code": "2000",
+                                            "details": {
+                                                "FL": [
+                                                    {
+                                                        "val": "Id",
+                                                        "content": "9001"
+                                                    },
+                                                    {
+                                                        "val": "Created Time",
+                                                        "content": "<datetime+6300>"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "field_data_sha": "68d6603b0d47580f",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "note",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "68d6603b0d47580f",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "file",
+                            "type_name": "Candidates"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            false
+                        ],
+                        "field_data_sha": "68d6603b0d47580f",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_integrationID is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoRecruit\\*::$_dataCenter is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

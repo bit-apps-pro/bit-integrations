@@ -1,0 +1,64 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "PaidMembershipPro",
+    "hook": "fetch_all_paid_membership_pro_level",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {},
+        "superglobals": {},
+        "connection_id": null,
+        "connection": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": null,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: wpdb::$pmpro_membership_levels"
+                    ],
+                    "error_log": [
+                        "WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY id ASC' at line 1 for query SELECT * FROM  ORDER BY id ASC made by include('phar:///usr/local/bin/wp/php/boot-phar.php'), include('phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php'), WP_CLI\\bootstrap, WP_CLI\\Bootstrap\\LaunchRunner->process, WP_CLI\\Runner->start, WP_CLI\\Runner->do_early_invoke, WP_CLI\\Runner->run_command_and_exit, WP_CLI\\Runner->run_command, WP_CLI\\Dispatcher\\Subcommand->invoke, call_user_func, WP_CLI\\Dispatcher\\CommandFactory::{closure:WP_CLI\\Dispatcher\\CommandFactory::create_subcommand():97}, call_user_func, EvalFile_Command->__invoke, EvalFile_Command::execute_eval, eval, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::dispatch, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::route, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Probe::run, BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::{closure:BitApps\\Restructure\\Contract\\Smoke\\Wp\\Runners::route():111}, do_action('wp_ajax_bit_integrations_fetch_all_paid_membership_pro_level'), WP_Hook->do_action, WP_Hook->apply_filters, BitApps\\Integrations\\Core\\Util\\Route::action, ReflectionMethod->invoke, Integrations\\Actions\\PaidMembershipPro\\*::getAllPaidMembershipProLevel"
+                    ],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "coverage": {
+        "verdict": "no-http-in-handler",
+        "handler_calls_http": false,
+        "php_errors": 1,
+        "runs": {
+            "pro-on/connection": "skipped: no authConfig on the handler, Action or Controller",
+            "pro-on/no-connection": "no request, 1 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController::getAllPaidMembershipProLevel",
+        "auth_owner": null,
+        "notes": []
+    }
+}

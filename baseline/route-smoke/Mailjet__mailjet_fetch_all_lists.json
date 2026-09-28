@@ -1,0 +1,141 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Mailjet",
+    "hook": "mailjet_fetch_all_lists",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "apiKey": "smoke_apiKey",
+            "password": "smoke_password",
+            "secretKey": "smoke_secretKey",
+            "username": "smoke_username"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "mailjet",
+            "auth_type": "basic_auth",
+            "auth_details": {
+                "password": "smoke_secretKey",
+                "username": "smoke_apiKey"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.mailjet.com/v3/REST/contactslist?Limit=1000",
+                            "url_sha": "6071d13e9f89bfc0",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "1a474d59d27e707f"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: Undefined property: stdClass::$Data",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "warning: Undefined variable $lists"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.mailjet.com/v3/REST/contactslist?Limit=1000",
+                            "url_sha": "6071d13e9f89bfc0",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "1a474d59d27e707f"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "warning: Undefined property: stdClass::$Data",
+                        "warning: foreach() argument must be of type array|object, null given",
+                        "warning: Undefined variable $lists"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 11,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 8 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 3 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Mailjet\\MailjetController::getAllLists",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Mailjet\\MailjetController",
+        "notes": []
+    }
+}

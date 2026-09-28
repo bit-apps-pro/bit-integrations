@@ -1,0 +1,70 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Newsletter",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-subscriber",
+        "type": "Newsletter",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "075e18a04f58b058",
+        "field_source": "fixture",
+        "field_data_sha": "18480a612d2d8e11"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "exit"
+                },
+                "output": {
+                    "json": {
+                        "success": false,
+                        "data": "Newsletter Plugin is not active or not installed"
+                    }
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "exit"
+                },
+                "output": {
+                    "json": {
+                        "success": false,
+                        "data": "Newsletter Plugin is not active or not installed"
+                    }
+                },
+                "requests": [],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

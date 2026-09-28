@@ -1,0 +1,155 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Trello",
+    "hook": "trello_fetch_all_custom_fields",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "accessToken": "smoke_accessToken",
+            "boardId": "101",
+            "clientId": "101"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "trello",
+            "auth_type": "oauth1",
+            "auth_details": {
+                "access_token": "smoke_accessToken",
+                "consumer_key": "101"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.trello.com/1/boards/101/customFields?key=101&token=<redacted:e51f7cbe882e>",
+                            "url_sha": "f4e9f9610285f912",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_trello_get_all_custom_fields",
+                            "argc": 4,
+                            "args_sha": "2d07be90f996aa5f"
+                        },
+                        {
+                            "name": "btcbi_trello_get_all_custom_fields",
+                            "argc": 4,
+                            "args_sha": "2d07be90f996aa5f"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://api.trello.com/1/boards/101/customFields?key=101&token=<redacted:e51f7cbe882e>",
+                            "url_sha": "f4e9f9610285f912",
+                            "headers": {
+                                "names": [
+                                    "user-agent"
+                                ],
+                                "sha": "1977a0032af4d997"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_trello_get_all_custom_fields",
+                            "argc": 4,
+                            "args_sha": "2d07be90f996aa5f"
+                        },
+                        {
+                            "name": "btcbi_trello_get_all_custom_fields",
+                            "argc": 4,
+                            "args_sha": "2d07be90f996aa5f"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": false,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Trello\\TrelloController::fetchAllCustomFields",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Trello\\TrelloController",
+        "notes": []
+    }
+}

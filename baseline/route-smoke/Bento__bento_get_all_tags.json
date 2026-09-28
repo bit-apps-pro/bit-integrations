@@ -1,0 +1,162 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Bento",
+    "hook": "bento_get_all_tags",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "publishable_key": "smoke_publishable_key",
+            "secret_key": "smoke_secret_key",
+            "site_uuid": "smoke_site_uuid"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "bento",
+            "auth_type": "basic_auth",
+            "auth_details": {
+                "password": "smoke_secret_key",
+                "site_uuid": "smoke_site_uuid",
+                "username": "smoke_publishable_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://app.bentonow.com/api/v1/fetch/tags?site_uuid=smoke_site_uuid",
+                            "url_sha": "822965fc49398bf3",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "a02bbdee71b1ee64"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_bento_get_all_tags",
+                            "argc": 2,
+                            "args_sha": "d44edc8a7c5b3164"
+                        },
+                        {
+                            "name": "btcbi_bento_get_all_tags",
+                            "argc": 2,
+                            "args_sha": "d44edc8a7c5b3164"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://app.bentonow.com/api/v1/fetch/tags?site_uuid=smoke_site_uuid",
+                            "url_sha": "822965fc49398bf3",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "authorization",
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "a02bbdee71b1ee64"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [
+                        {
+                            "name": "bit_integrations_bento_get_all_tags",
+                            "argc": 2,
+                            "args_sha": "ff8521bfe213075a"
+                        },
+                        {
+                            "name": "btcbi_bento_get_all_tags",
+                            "argc": 2,
+                            "args_sha": "ff8521bfe213075a"
+                        }
+                    ],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": false,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Bento\\BentoController::getAlTags",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Bento\\BentoController",
+        "notes": []
+    }
+}

@@ -1,0 +1,556 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ConstantContact",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-contact",
+        "type": "ConstantContact",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "121fbb9a439d1732",
+        "field_source": "fixture",
+        "field_data_sha": "84a7b15bb44d8d95"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.cc.email/v3/contacts?email=smoke-new@example.com&include=custom_fields,list_memberships,taggings,notes,phone_numbers,street_addresses,sms_channel",
+                        "url_sha": "28855d3c2587ed7f",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "a7a070a55d83082c"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-none"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.cc.email/v3/contacts",
+                        "url_sha": "d9e8ed6988eb3af1",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "a7a070a55d83082c"
+                        },
+                        "body_sha": "913fed56b8011540",
+                        "body_keys": [
+                            "email_address",
+                            "create_source",
+                            "list_memberships",
+                            "taggings",
+                            "first_name",
+                            "street_addresses",
+                            "phone_numbers",
+                            "custom_fields"
+                        ],
+                        "answer": "fixture:create-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "source_type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "contact_id": "cc-new-1",
+                            "email_address": {
+                                "address": "smoke-new@example.com"
+                            }
+                        },
+                        "field_data_sha": "20214ba3c0c0fd69",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://authz.constantcontact.com/oauth2/default/v1/token",
+                        "url_sha": "e12c74357bef556a",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "9a7d6bf922a534bd"
+                        },
+                        "body_sha": "e942801ebece7a84",
+                        "body_keys": [
+                            "grant_type",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "GET",
+                        "url": "https://api.cc.email/v3/contacts?email=smoke-new@example.com&include=custom_fields,list_memberships,taggings,notes,phone_numbers,street_addresses,sms_channel",
+                        "url_sha": "28855d3c2587ed7f",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-none"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.cc.email/v3/contacts",
+                        "url_sha": "d9e8ed6988eb3af1",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "913fed56b8011540",
+                        "body_keys": [
+                            "email_address",
+                            "create_source",
+                            "list_memberships",
+                            "taggings",
+                            "first_name",
+                            "street_addresses",
+                            "phone_numbers",
+                            "custom_fields"
+                        ],
+                        "answer": "fixture:create-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:e77c1625791c>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": "<ts>",
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "source_type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "contact_id": "cc-new-1",
+                            "email_address": {
+                                "address": "smoke-new@example.com"
+                            }
+                        },
+                        "field_data_sha": "20214ba3c0c0fd69",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generated_at"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.cc.email/v3/contacts?email=smoke-new@example.com&include=custom_fields,list_memberships,taggings,notes,phone_numbers,street_addresses,sms_channel",
+                        "url_sha": "28855d3c2587ed7f",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "a7a070a55d83082c"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-none"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.cc.email/v3/contacts",
+                        "url_sha": "d9e8ed6988eb3af1",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "a7a070a55d83082c"
+                        },
+                        "body_sha": "913fed56b8011540",
+                        "body_keys": [
+                            "email_address",
+                            "create_source",
+                            "list_memberships",
+                            "taggings",
+                            "first_name",
+                            "street_addresses",
+                            "phone_numbers",
+                            "custom_fields"
+                        ],
+                        "answer": "fixture:create-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "source_type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "contact_id": "cc-new-1",
+                            "email_address": {
+                                "address": "smoke-new@example.com"
+                            }
+                        },
+                        "field_data_sha": "20214ba3c0c0fd69",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://authz.constantcontact.com/oauth2/default/v1/token",
+                        "url_sha": "e12c74357bef556a",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "9a7d6bf922a534bd"
+                        },
+                        "body_sha": "e942801ebece7a84",
+                        "body_keys": [
+                            "grant_type",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "GET",
+                        "url": "https://api.cc.email/v3/contacts?email=smoke-new@example.com&include=custom_fields,list_memberships,taggings,notes,phone_numbers,street_addresses,sms_channel",
+                        "url_sha": "28855d3c2587ed7f",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:search-none"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.cc.email/v3/contacts",
+                        "url_sha": "d9e8ed6988eb3af1",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "93fb99285a12bab1"
+                        },
+                        "body_sha": "913fed56b8011540",
+                        "body_keys": [
+                            "email_address",
+                            "create_source",
+                            "list_memberships",
+                            "taggings",
+                            "first_name",
+                            "street_addresses",
+                            "phone_numbers",
+                            "custom_fields"
+                        ],
+                        "answer": "fixture:create-contact"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:e77c1625791c>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generated_at": "<ts>",
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "source_type": "contact",
+                            "type_name": "add-contact"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "contact_id": "cc-new-1",
+                            "email_address": {
+                                "address": "smoke-new@example.com"
+                            }
+                        },
+                        "field_data_sha": "20214ba3c0c0fd69",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generated_at"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,247 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Bento",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-people",
+        "type": "Bento",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "b3f0ba81b4afb5bd",
+        "field_source": "fixture",
+        "field_data_sha": "68507e5c3a5c950f"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://app.bentonow.com/api/v1/fetch/subscribers?site_uuid=smoke-site-uuid",
+                        "url_sha": "c4135c49a79a19f6",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "6dd83cc3e6c49526"
+                        },
+                        "body_sha": "d61cf2e2a3a97376",
+                        "body_keys": [
+                            "email"
+                        ],
+                        "answer": "fixture:add-subscriber"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://app.bentonow.com/api/v1/fetch/commands?site_uuid=smoke-site-uuid",
+                        "url_sha": "71a30aedb7cde883",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "6dd83cc3e6c49526"
+                        },
+                        "body_sha": "82fcd77374908ef6",
+                        "body_keys": [
+                            "command"
+                        ],
+                        "answer": "fixture:commands"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_bento_update_user_data",
+                        "argc": 5,
+                        "args_sha": "cf6426a78296664e"
+                    },
+                    {
+                        "name": "btcbi_bento_update_user_data",
+                        "argc": 5,
+                        "args_sha": "cf6426a78296664e"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "People",
+                            "type_name": "Add People"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "data": {
+                                "id": "sub-1",
+                                "type": "visitors",
+                                "attributes": {
+                                    "uuid": "sub-1",
+                                    "email": "smoke@example.com"
+                                }
+                            }
+                        },
+                        "field_data_sha": "b2f1988aa189f4e3",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://app.bentonow.com/api/v1/fetch/subscribers?site_uuid=smoke-site-uuid",
+                        "url_sha": "c4135c49a79a19f6",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "6dd83cc3e6c49526"
+                        },
+                        "body_sha": "d61cf2e2a3a97376",
+                        "body_keys": [
+                            "email"
+                        ],
+                        "answer": "fixture:add-subscriber"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_bento_update_user_data",
+                        "argc": 5,
+                        "args_sha": "cf6426a78296664e"
+                    },
+                    {
+                        "name": "btcbi_bento_update_user_data",
+                        "argc": 5,
+                        "args_sha": "cf6426a78296664e"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "People",
+                            "type_name": "Add People"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "data": {
+                                "id": "sub-1",
+                                "type": "visitors",
+                                "attributes": {
+                                    "uuid": "sub-1",
+                                    "email": "smoke@example.com"
+                                }
+                            }
+                        },
+                        "field_data_sha": "b2f1988aa189f4e3",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

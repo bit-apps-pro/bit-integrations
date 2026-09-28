@@ -1,0 +1,91 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "WebHooks",
+    "hook": "test_webhook",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "hookDetails": {
+                "type": "WebHooks",
+                "method": "post",
+                "url": "https://hooks.example.test/webhooks-test",
+                "headers": [],
+                "params": [],
+                "body": {
+                    "type": "raw",
+                    "data": "{\"email\":\"smoke@example.com\"}"
+                }
+            }
+        },
+        "superglobals": {},
+        "connection_id": null,
+        "connection": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": "Test webhook executed successfully (status 200)"
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://hooks.example.test/webhooks-test",
+                            "url_sha": "454d341d943ddc08",
+                            "headers": {
+                                "names": [
+                                    "content-type",
+                                    "user-agent"
+                                ],
+                                "sha": "25e837fb1a3ec313"
+                            },
+                            "body_sha": "bf21a9e8fbc5a384",
+                            "body_keys": [],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "warning: foreach() argument must be of type array|object, string given",
+                        "warning: foreach() argument must be of type array|object, string given"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 2,
+        "runs": {
+            "pro-on/connection": "skipped: no authConfig on the handler, Action or Controller",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 2 PHP diagnostic(s)"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController::testWebhook",
+        "auth_owner": null,
+        "notes": []
+    }
+}

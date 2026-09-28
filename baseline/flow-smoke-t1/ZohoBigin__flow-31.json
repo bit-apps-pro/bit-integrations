@@ -1,0 +1,555 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoBigin",
+    "flow": {
+        "source": "db",
+        "id": 31,
+        "type": "Zoho Bigin",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "d133a7acc6b9462b",
+        "field_source": "log#1979",
+        "field_data_sha": "b85af0a53ce6571c"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "5abce01cb53e33d1",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/bigin/v1/Deals",
+                        "url_sha": "15875436054f1567",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "e4eaa1b3ce731d79",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 31,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2be7edd7611d>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": 1784788937
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:48",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 31,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Deals"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoBigin\\*::$_integID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "5abce01cb53e33d1",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/bigin/v1/Deals",
+                        "url_sha": "15875436054f1567",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "e4eaa1b3ce731d79",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 31,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2be7edd7611d>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:48",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 31,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Deals"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoBigin\\*::$_integID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "5abce01cb53e33d1",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/bigin/v1/Deals",
+                        "url_sha": "15875436054f1567",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "e4eaa1b3ce731d79",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 31,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2be7edd7611d>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": 1784788937
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:48",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 31,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Deals"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoBigin\\*::$_integID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "5abce01cb53e33d1",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://www.zohoapis.com/bigin/v1/Deals",
+                        "url_sha": "15875436054f1567",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "user-agent"
+                            ],
+                            "sha": "0ba131c27dc42189"
+                        },
+                        "body_sha": "e4eaa1b3ce731d79",
+                        "body_keys": [
+                            "data",
+                            "trigger"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 31,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:2be7edd7611d>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:09d968153149>",
+                                        "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
+                                        "api_domain": "https://www.zohoapis.com",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-07-23 08:22:48",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 31,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "Deals"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoBigin\\*::$_integID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

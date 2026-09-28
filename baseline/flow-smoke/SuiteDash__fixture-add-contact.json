@@ -1,0 +1,204 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "SuiteDash",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-contact",
+        "type": "SuiteDash",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "82da8567d43cb102",
+        "field_source": "fixture",
+        "field_data_sha": "3fe0064240700acf"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://app.suitedash.com/secure-api/contact",
+                        "url_sha": "ac32f5ada63cfc79",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "user-agent",
+                                "x-public-id",
+                                "x-secret-key"
+                            ],
+                            "sha": "80f9ab19650b465d"
+                        },
+                        "body_sha": "658515c4163e1b6d",
+                        "body_keys": [
+                            "role",
+                            "first_name",
+                            "last_name",
+                            "email",
+                            "company",
+                            "custom_fields",
+                            "address"
+                        ],
+                        "answer": "fixture:contact-created"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Contact",
+                            "type_name": "Contact created"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            "Contact created  successfully"
+                        ],
+                        "field_data_sha": "49b1e19760b6ff0a",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://app.suitedash.com/secure-api/contact",
+                        "url_sha": "ac32f5ada63cfc79",
+                        "headers": {
+                            "names": [
+                                "accept",
+                                "user-agent",
+                                "x-public-id",
+                                "x-secret-key"
+                            ],
+                            "sha": "80f9ab19650b465d"
+                        },
+                        "body_sha": "658515c4163e1b6d",
+                        "body_keys": [
+                            "role",
+                            "first_name",
+                            "last_name",
+                            "email",
+                            "company",
+                            "custom_fields",
+                            "address"
+                        ],
+                        "answer": "fixture:contact-created"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Contact",
+                            "type_name": "Contact created"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            "Contact created  successfully"
+                        ],
+                        "field_data_sha": "49b1e19760b6ff0a",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

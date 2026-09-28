@@ -1,0 +1,260 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Mailjet",
+    "flow": {
+        "source": "fixture",
+        "fixture": "update-contact-excluded",
+        "type": "Mailjet",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "2f275c9a0a41aa1c",
+        "field_source": "fixture",
+        "field_data_sha": "f13870d5c0133da0"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.mailjet.com/v3/REST/contact/smoke-existing%40example.com",
+                        "url_sha": "5355f1628885c2d9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e9faaa41536abf08"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:contact-existing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.mailjet.com/v3/REST/contact/managemanycontacts",
+                        "url_sha": "bb8632ae166719a6",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e9faaa41536abf08"
+                        },
+                        "body_sha": "9b4133887f204244",
+                        "body_keys": [
+                            "Contacts",
+                            "ContactsLists"
+                        ],
+                        "answer": "fixture:manage-many-contacts"
+                    },
+                    {
+                        "method": "GET",
+                        "url": "https://api.mailjet.com/v3/REST/contact/managemanycontacts/9001",
+                        "url_sha": "07d2cbb64b3cfc33",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e9faaa41536abf08"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:job-status"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Contact updated"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Contact updated successfully"
+                        },
+                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Mailjet\\*::$_integrationDetails is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Mailjet\\*::$_defaultHeader is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "GET",
+                        "url": "https://api.mailjet.com/v3/REST/contact/smoke-existing%40example.com",
+                        "url_sha": "5355f1628885c2d9",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e9faaa41536abf08"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:contact-existing"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://api.mailjet.com/v3/REST/contact/managemanycontacts",
+                        "url_sha": "bb8632ae166719a6",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e9faaa41536abf08"
+                        },
+                        "body_sha": "9b4133887f204244",
+                        "body_keys": [
+                            "Contacts",
+                            "ContactsLists"
+                        ],
+                        "answer": "fixture:manage-many-contacts"
+                    },
+                    {
+                        "method": "GET",
+                        "url": "https://api.mailjet.com/v3/REST/contact/managemanycontacts/9001",
+                        "url_sha": "07d2cbb64b3cfc33",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "e9faaa41536abf08"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "fixture:job-status"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "contact",
+                            "type_name": "Contact updated"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "message": "Contact updated successfully"
+                        },
+                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Mailjet\\*::$_integrationDetails is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\Mailjet\\*::$_defaultHeader is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

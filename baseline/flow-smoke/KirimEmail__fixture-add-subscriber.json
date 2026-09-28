@@ -1,0 +1,212 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "KirimEmail",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-subscriber",
+        "type": "KirimEmail",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "4a240e55861c6933",
+        "field_source": "fixture",
+        "field_data_sha": "06c0dc150c1c15ee"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.kirim.email/v3/subscriber/",
+                        "url_sha": "a9f5f5ff8a73eb7c",
+                        "headers": {
+                            "names": [
+                                "auth-id",
+                                "auth-token",
+                                "content-type",
+                                "timestamp",
+                                "user-agent"
+                            ],
+                            "sha": "ecab47ab002c51e0"
+                        },
+                        "body_sha": "e79f1e170117927f",
+                        "body_keys": [
+                            "email",
+                            "full_name",
+                            "tags",
+                            "lists"
+                        ],
+                        "answer": "fixture:add-subscriber"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "insert",
+                            "type_name": "add-subscriber"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "code": 200,
+                            "status": "success",
+                            "message": "Subscriber added",
+                            "data": {
+                                "id": 9001,
+                                "email": "smoke@example.com"
+                            }
+                        },
+                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.kirim.email/v3/subscriber/",
+                        "url_sha": "a9f5f5ff8a73eb7c",
+                        "headers": {
+                            "names": [
+                                "auth-id",
+                                "auth-token",
+                                "content-type",
+                                "timestamp",
+                                "user-agent"
+                            ],
+                            "sha": "21d747928caa209a"
+                        },
+                        "body_sha": "e79f1e170117927f",
+                        "body_keys": [
+                            "email",
+                            "full_name",
+                            "tags",
+                            "lists"
+                        ],
+                        "answer": "fixture:add-subscriber"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "insert",
+                            "type_name": "add-subscriber"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "code": 200,
+                            "status": "success",
+                            "message": "Subscriber added",
+                            "data": {
+                                "id": 9001,
+                                "email": "smoke@example.com"
+                            }
+                        },
+                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

@@ -1,0 +1,309 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Salesforce",
+    "flow": {
+        "source": "db",
+        "id": 70,
+        "type": "Salesforce",
+        "status": 0,
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "caafd00d9b38c3bc",
+        "field_source": "field_map",
+        "field_data_sha": "9f614beb4ce06643"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:c433f207251b>&client_secret=<redacted:fff805002324>&refresh_token=<redacted:f76db4556f50>",
+                        "url_sha": "9798128f5a6de9b6",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://orgfarm-2d09e1d741-dev-ed.develop.my.salesforce.com/services/data/v37.0/sobjects/Contact",
+                        "url_sha": "f40cc3fe0e274d31",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "1056cde01d03856a"
+                        },
+                        "body_sha": "ebe74ecc378d682e",
+                        "body_keys": [
+                            "LastName",
+                            "Email",
+                            "Birthdate"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_salesforce_update_record",
+                        "argc": 4,
+                        "args_sha": "8f7df52451bb3778"
+                    },
+                    {
+                        "name": "btcbi_salesforce_update_record",
+                        "argc": 4,
+                        "args_sha": "19a34dfd9c3e37d5"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 70,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:b3a84af50592>",
+                                        "refresh_token": "<redacted:f76db4556f50>",
+                                        "signature": "<redacted:ef650cbd44eb>",
+                                        "scope": "refresh_token full",
+                                        "id_token": "<redacted:5bae48e2e6c5>",
+                                        "instance_url": "https://orgfarm-2d09e1d741-dev-ed.develop.my.salesforce.com",
+                                        "id": "https://login.salesforce.com/id/00DgK000005c6kfUAA/005gK0000041Q7pQAE",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "issued_at": "1762592523009",
+                                        "generates_on": 1763027093
+                                    },
+                                    "new": {
+                                        "access_token": null,
+                                        "refresh_token": "<redacted:f76db4556f50>",
+                                        "signature": "<redacted:ef650cbd44eb>",
+                                        "scope": "refresh_token full",
+                                        "id_token": "<redacted:5bae48e2e6c5>",
+                                        "instance_url": "https://orgfarm-2d09e1d741-dev-ed.develop.my.salesforce.com",
+                                        "id": "https://login.salesforce.com/id/00DgK000005c6kfUAA/005gK0000041Q7pQAE",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "issued_at": "1762592523009",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-11-13 10:27:47",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 70,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Contact",
+                            "type_name": "Contact-update"
+                        },
+                        "response_type": "success",
+                        "response_obj": "Contact Updated Successfully",
+                        "field_data_sha": "fd18a4cdf485b231",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$access_token",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:c433f207251b>&client_secret=<redacted:fff805002324>&refresh_token=<redacted:f76db4556f50>",
+                        "url_sha": "9798128f5a6de9b6",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": null,
+                        "body_keys": [],
+                        "answer": "synthetic"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://orgfarm-2d09e1d741-dev-ed.develop.my.salesforce.com/services/data/v37.0/sobjects/Contact",
+                        "url_sha": "f40cc3fe0e274d31",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "1056cde01d03856a"
+                        },
+                        "body_sha": "ebe74ecc378d682e",
+                        "body_keys": [
+                            "LastName",
+                            "Email",
+                            "Birthdate"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_salesforce_update_record",
+                        "argc": 4,
+                        "args_sha": "8f7df52451bb3778"
+                    },
+                    {
+                        "name": "btcbi_salesforce_update_record",
+                        "argc": 4,
+                        "args_sha": "8f7df52451bb3778"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 70,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": false,
+                                    "new": true
+                                },
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:b3a84af50592>",
+                                        "refresh_token": "<redacted:f76db4556f50>",
+                                        "signature": "<redacted:ef650cbd44eb>",
+                                        "scope": "refresh_token full",
+                                        "id_token": "<redacted:5bae48e2e6c5>",
+                                        "instance_url": "https://orgfarm-2d09e1d741-dev-ed.develop.my.salesforce.com",
+                                        "id": "https://login.salesforce.com/id/00DgK000005c6kfUAA/005gK0000041Q7pQAE",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "issued_at": "1762592523009",
+                                        "generates_on": 1763027093
+                                    },
+                                    "new": {
+                                        "access_token": null,
+                                        "refresh_token": "<redacted:f76db4556f50>",
+                                        "signature": "<redacted:ef650cbd44eb>",
+                                        "scope": "refresh_token full",
+                                        "id_token": "<redacted:5bae48e2e6c5>",
+                                        "instance_url": "https://orgfarm-2d09e1d741-dev-ed.develop.my.salesforce.com",
+                                        "id": "https://login.salesforce.com/id/00DgK000005c6kfUAA/005gK0000041Q7pQAE",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "issued_at": "1762592523009",
+                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2025-11-13 10:27:47",
+                                "new": "<datetime>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 70,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Contact",
+                            "type_name": "Contact-update"
+                        },
+                        "response_type": "success",
+                        "response_obj": "Contact Updated Successfully",
+                        "field_data_sha": "fd18a4cdf485b231",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "warning: Undefined property: stdClass::$access_token",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 2
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

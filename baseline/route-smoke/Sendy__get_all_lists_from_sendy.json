@@ -1,0 +1,142 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Sendy",
+    "hook": "get_all_lists_from_sendy",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key",
+            "brand_id": "101",
+            "sendy_url": "https://example.com",
+            "value": "smoke_value"
+        },
+        "superglobals": {},
+        "connection_id": "fixture",
+        "connection": {
+            "app_slug": "sendy",
+            "auth_type": "api_key",
+            "auth_details": {
+                "sendy_url": "https://example.com",
+                "value": "smoke_api_key"
+            }
+        }
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://example.com/api/lists/get-lists.php",
+                            "url_sha": "bd3fde20db3398b1",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "user-agent"
+                                ],
+                                "sha": "91b67db4c1d129a4"
+                            },
+                            "body_sha": "fc7e7e1e3d178fe6",
+                            "body_keys": [
+                                "api_key",
+                                "brand_id"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": []
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "POST",
+                            "url": "https://example.com/api/lists/get-lists.php",
+                            "url_sha": "bd3fde20db3398b1",
+                            "headers": {
+                                "names": [
+                                    "accept",
+                                    "user-agent"
+                                ],
+                                "sha": "91b67db4c1d129a4"
+                            },
+                            "body_sha": "fc7e7e1e3d178fe6",
+                            "body_keys": [
+                                "api_key",
+                                "brand_id"
+                            ],
+                            "answer": "synthetic"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "coverage": {
+        "verdict": "reached-http",
+        "handler_calls_http": true,
+        "php_errors": 5,
+        "runs": {
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Sendy\\SendyController::getAllLists",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Sendy\\SendyController",
+        "notes": []
+    }
+}

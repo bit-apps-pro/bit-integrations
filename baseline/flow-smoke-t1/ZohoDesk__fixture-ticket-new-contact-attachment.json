@@ -1,0 +1,692 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "ZohoDesk",
+    "flow": {
+        "source": "fixture",
+        "fixture": "ticket-new-contact-attachment",
+        "type": "ZohoDesk",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "1f2d2555e392cc18",
+        "field_source": "fixture",
+        "field_data_sha": "35baa724772f30d3"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/contacts",
+                        "url_sha": "d93087b7b72a9ed5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "a0aa0dafdd11802e"
+                        },
+                        "body_sha": "e48a73939715a9f8",
+                        "body_keys": [
+                            "lastName"
+                        ],
+                        "answer": "fixture:create-contact"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/tickets",
+                        "url_sha": "19bfbe8e6a69d84e",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "a0aa0dafdd11802e"
+                        },
+                        "body_sha": "e69f17a10d616a54",
+                        "body_keys": [
+                            "subject",
+                            "contactId",
+                            "departmentId",
+                            "assigneeId",
+                            "cf"
+                        ],
+                        "answer": "fixture:create-ticket"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "contact-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "600002",
+                            "lastName": "Smoke New"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "ticket-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "500001",
+                            "ticketNumber": "101",
+                            "subject": "Smoke ticket"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "file",
+                            "type_name": "ticket"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            false
+                        ],
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_apiDomain is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_integrationID is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-on+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "f0e76ce28cbbf34e",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/contacts",
+                        "url_sha": "d93087b7b72a9ed5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "3acab283c59df22d"
+                        },
+                        "body_sha": "e48a73939715a9f8",
+                        "body_keys": [
+                            "lastName"
+                        ],
+                        "answer": "fixture:create-contact"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/tickets",
+                        "url_sha": "19bfbe8e6a69d84e",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "3acab283c59df22d"
+                        },
+                        "body_sha": "e69f17a10d616a54",
+                        "body_keys": [
+                            "subject",
+                            "contactId",
+                            "departmentId",
+                            "assigneeId",
+                            "cf"
+                        ],
+                        "answer": "fixture:create-ticket"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:e77c1625791c>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "api_domain": "https%3A%2F%2Fwww.zohoapis.com",
+                                        "generates_on": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "api_domain": "https%3A%2F%2Fwww.zohoapis.com",
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "contact-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "600002",
+                            "lastName": "Smoke New"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "ticket-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "500001",
+                            "ticketNumber": "101",
+                            "subject": "Smoke ticket"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "file",
+                            "type_name": "ticket"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            false
+                        ],
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_apiDomain is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_integrationID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 4
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/contacts",
+                        "url_sha": "d93087b7b72a9ed5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "a0aa0dafdd11802e"
+                        },
+                        "body_sha": "e48a73939715a9f8",
+                        "body_keys": [
+                            "lastName"
+                        ],
+                        "answer": "fixture:create-contact"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/tickets",
+                        "url_sha": "19bfbe8e6a69d84e",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "a0aa0dafdd11802e"
+                        },
+                        "body_sha": "e69f17a10d616a54",
+                        "body_keys": [
+                            "subject",
+                            "contactId",
+                            "departmentId",
+                            "assigneeId",
+                            "cf"
+                        ],
+                        "answer": "fixture:create-ticket"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "contact-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "600002",
+                            "lastName": "Smoke New"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "ticket-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "500001",
+                            "ticketNumber": "101",
+                            "subject": "Smoke ticket"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "file",
+                            "type_name": "ticket"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            false
+                        ],
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_apiDomain is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_integrationID is deprecated",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 3
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off+expired": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://accounts.zoho.com/oauth/v2/token",
+                        "url_sha": "1b70b71d1018bb6a",
+                        "headers": {
+                            "names": [
+                                "user-agent"
+                            ],
+                            "sha": "1977a0032af4d997"
+                        },
+                        "body_sha": "f0e76ce28cbbf34e",
+                        "body_keys": [
+                            "grant_type",
+                            "client_id",
+                            "client_secret",
+                            "refresh_token"
+                        ],
+                        "answer": "fixture:oauth-refresh"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/contacts",
+                        "url_sha": "d93087b7b72a9ed5",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "3acab283c59df22d"
+                        },
+                        "body_sha": "e48a73939715a9f8",
+                        "body_keys": [
+                            "lastName"
+                        ],
+                        "answer": "fixture:create-contact"
+                    },
+                    {
+                        "method": "POST",
+                        "url": "https://desk.zoho.com/api/v1/tickets",
+                        "url_sha": "19bfbe8e6a69d84e",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "orgid",
+                                "user-agent"
+                            ],
+                            "sha": "3acab283c59df22d"
+                        },
+                        "body_sha": "e69f17a10d616a54",
+                        "body_keys": [
+                            "subject",
+                            "contactId",
+                            "departmentId",
+                            "assigneeId",
+                            "cf"
+                        ],
+                        "answer": "fixture:create-ticket"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": "<fixture>",
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "tokenDetails": {
+                                    "old": {
+                                        "access_token": "<redacted:e77c1625791c>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "api_domain": "https%3A%2F%2Fwww.zohoapis.com",
+                                        "generates_on": 1500000000
+                                    },
+                                    "new": {
+                                        "access_token": "<redacted:a7dc7097c955>",
+                                        "refresh_token": "<redacted:dd4d681293bf>",
+                                        "token_type": "<redacted:2c035ac06add>",
+                                        "expires_in": 3600,
+                                        "api_domain": "https%3A%2F%2Fwww.zohoapis.com",
+                                        "generates_on": "<ts>"
+                                    }
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2024-01-01 00:00:00",
+                                "new": "<datetime>"
+                            },
+                            "user_ip": {
+                                "old": null,
+                                "new": "2130706433"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "contact-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "600002",
+                            "lastName": "Smoke New"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "ticket-create"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "id": "500001",
+                            "ticketNumber": "101",
+                            "subject": "Smoke ticket"
+                        },
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    },
+                    {
+                        "flow_id": "<fixture>",
+                        "job_id": null,
+                        "api_type": {
+                            "type": "file",
+                            "type_name": "ticket"
+                        },
+                        "response_type": "success",
+                        "response_obj": [
+                            false
+                        ],
+                        "field_data_sha": "68c68f68940f3d13",
+                        "parent_id": null,
+                        "created_at": "<datetime>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": {
+                    "forced": [
+                        "tokenDetails.generates_on"
+                    ],
+                    "write_back": {
+                        "flow_details": true
+                    },
+                    "pass": true
+                }
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_apiDomain is deprecated",
+                    "deprecated: Creation of dynamic property Integrations\\Actions\\ZohoDesk\\*::$_integrationID is deprecated"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 4
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 3
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}
