@@ -1,0 +1,74 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Asana",
+    "hook": "asana_fetch_all_Sections",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key",
+            "selected_project": "smoke_selected_project"
+        },
+        "superglobals": {},
+        "connection_id": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": [
+                                {
+                                    "id": "301",
+                                    "name": "Smoke Section"
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://app.asana.com/api/1.0/projects/smoke_selected_project/sections?limit=100",
+                            "url_sha": "5a2b4efb3062c7b3",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "f83859c820e1bc74"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "fixture:sections"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no connection"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Asana\\AsanaController::getAllSections",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+        "notes": []
+    }
+}

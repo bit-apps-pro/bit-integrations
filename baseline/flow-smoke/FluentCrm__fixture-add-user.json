@@ -1,0 +1,85 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "FluentCrm",
+    "flow": {
+        "source": "fixture",
+        "fixture": "add-user",
+        "type": "Fluent Crm",
+        "connection_id": null
+    },
+    "input": {
+        "flow_details_sha": "da64f8283c504240",
+        "field_source": "fixture",
+        "field_data_sha": "06c0dc150c1c15ee"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"FluentCrm\\App\\Models\\Subscriber\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_fluent_crm_assign_company",
+                        "argc": 2,
+                        "args_sha": "a94180e3a885657a"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "throwable",
+                    "class": "Error",
+                    "message": "Class \"FluentCrm\\App\\Models\\Subscriber\" not found"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_fluent_crm_assign_company",
+                        "argc": 2,
+                        "args_sha": "a94180e3a885657a"
+                    },
+                    {
+                        "name": "btcbi_fluent_crm_assign_company",
+                        "argc": 2,
+                        "args_sha": "a94180e3a885657a"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [],
+                "log_rows": [],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [],
+                "error_log": [],
+                "tables_written": [],
+                "blocked": []
+            }
+        }
+    }
+}

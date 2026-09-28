@@ -1,0 +1,154 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "MailChimp",
+    "hook": "mChimp_refresh_audience",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "tokenDetails": {
+                "access_token": "smoke_access_token",
+                "dc": "us1"
+            }
+        },
+        "superglobals": {},
+        "connection_id": 1
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "audiencelist": {
+                                    "Alpha List": {
+                                        "listId": "101",
+                                        "listName": "Alpha List"
+                                    },
+                                    "beta list": {
+                                        "listId": "102",
+                                        "listName": "beta list"
+                                    }
+                                },
+                                "tokenDetails": {
+                                    "access_token": "<redacted:6c25c84874db>",
+                                    "dc": "us1"
+                                }
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://us1.api.mailchimp.com/3.0/lists?count=1000&offset=0",
+                            "url_sha": "0913fa80ea832e8c",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "2a38b2a5ee264cb4"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "fixture:lists"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": {
+                                "audiencelist": {
+                                    "Alpha List": {
+                                        "listId": "101",
+                                        "listName": "Alpha List"
+                                    },
+                                    "beta list": {
+                                        "listId": "102",
+                                        "listName": "beta list"
+                                    }
+                                },
+                                "tokenDetails": {
+                                    "access_token": "<redacted:0fbada8ade21>",
+                                    "refresh_token": "",
+                                    "token_type": "",
+                                    "expires_in": 0,
+                                    "generated_at": 1777715887,
+                                    "generates_on": 1777715887,
+                                    "dc": "us14"
+                                }
+                            }
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://us14.api.mailchimp.com/3.0/lists?count=1000&offset=0",
+                            "url_sha": "d623601d59350010",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "0afaf0ab94334470"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "fixture:lists"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                    ],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            }
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController::refreshAudience",
+        "auth_owner": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+        "notes": []
+    }
+}

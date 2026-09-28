@@ -1,0 +1,50 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "FluentCrm",
+    "hook": "fluent_crm_get_all_company",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {},
+        "superglobals": {},
+        "connection_id": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 400,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": false,
+                            "data": "Fluent CRM is not active or not installed"
+                        }
+                    },
+                    "requests": [],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no authConfig on the handler, Action or Controller"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController::getAllCompany",
+        "auth_owner": null,
+        "notes": []
+    }
+}

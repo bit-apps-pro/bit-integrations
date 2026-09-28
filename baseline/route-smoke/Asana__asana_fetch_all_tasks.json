@@ -1,0 +1,73 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Asana",
+    "hook": "asana_fetch_all_tasks",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "api_key": "smoke_api_key"
+        },
+        "superglobals": {},
+        "connection_id": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": [
+                                {
+                                    "id": "11",
+                                    "name": "Smoke task"
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://app.asana.com/api/1.0//tasks",
+                            "url_sha": "558ea8d22549abe4",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "f83859c820e1bc74"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "fixture:tasks-list"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no connection"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Asana\\AsanaController::getAllTasks",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+        "notes": []
+    }
+}

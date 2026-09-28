@@ -1,0 +1,76 @@
+{
+    "schema": 1,
+    "kind": "route",
+    "integration": "Asana",
+    "hook": "asana_fetch_custom_fields",
+    "method": "POST",
+    "flags": [],
+    "input": {
+        "params": {
+            "action": "task",
+            "api_key": "smoke_api_key",
+            "project_id": "101"
+        },
+        "superglobals": {},
+        "connection_id": null
+    },
+    "runs": {
+        "pro-on": {
+            "no-connection": {
+                "compare": {
+                    "exit": {
+                        "kind": "wp_die",
+                        "message": "",
+                        "response": null
+                    },
+                    "status": 200,
+                    "registered": true,
+                    "output": {
+                        "json": {
+                            "success": true,
+                            "data": [
+                                {
+                                    "key": "401",
+                                    "label": "Priority",
+                                    "required": false
+                                }
+                            ]
+                        }
+                    },
+                    "requests": [
+                        {
+                            "method": "GET",
+                            "url": "https://app.asana.com/api/1.0/projects/101/custom_field_settings?limit=100",
+                            "url_sha": "a7503d3c00751f88",
+                            "headers": {
+                                "names": [
+                                    "authorization",
+                                    "user-agent"
+                                ],
+                                "sha": "f83859c820e1bc74"
+                            },
+                            "body_sha": null,
+                            "body_keys": [],
+                            "answer": "fixture:custom-fields"
+                        }
+                    ],
+                    "hooks": [],
+                    "mails": [],
+                    "flow_writes": []
+                },
+                "info": {
+                    "php_errors": [],
+                    "error_log": [],
+                    "tables_written": [],
+                    "blocked": []
+                }
+            },
+            "connection": "skipped: no connection"
+        }
+    },
+    "info": {
+        "handler": "BitApps\\Integrations\\Actions\\Asana\\AsanaController::getCustomFields",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+        "notes": []
+    }
+}

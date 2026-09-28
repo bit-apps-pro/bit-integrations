@@ -1,0 +1,2 @@
+Class BTCBI_Quiet_Installer_Skin located in ./backend/Core/Util/Quiet_Installer_Skin.php does not comply with psr-4 autoloading standard (rule: BitApps\IntegrationsPro\ => ./backend). Skipping.
+Class BTCBI_Quiet_Upgrader_Skin located in ./backend/Core/Util/Quiet_Upgrader_Skin.php does not comply with psr-4 autoloading standard (rule: BitApps\IntegrationsPro\ => ./backend). Skipping.
