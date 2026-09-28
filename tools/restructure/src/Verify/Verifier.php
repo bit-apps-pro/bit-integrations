@@ -44,6 +44,7 @@ final class Verifier
             $this->checkGone($manifest);
             $this->checkController($manifest);
             $this->checkServices($manifest);
+            $this->checkEditedFiles($manifest);
             $this->checkComments($manifest);
             $this->checkLint($manifest);
             $this->checkBindings($manifest);
@@ -311,6 +312,50 @@ final class Verifier
     /**
      * @param array<string, mixed> $manifest
      */
+    private function checkEditedFiles(array $manifest): void
+    {
+        $problems = [];
+        $compared = 0;
+        $movedByUnit = 0;
+
+        foreach ($manifest['fileOps'] ?? [] as $op) {
+            if ($op['op'] !== 'edit') {
+                continue;
+            }
+
+            $path = (string) $op['path'];
+
+            if ($this->map->headPath($path) !== $path) {
+                $movedByUnit++;
+
+                continue;
+            }
+
+            $base = $this->base->source($path);
+            $head = $this->head->source($path);
+
+            if ($base === null || $head === null) {
+                $problems[] = "{$path} is missing or does not parse";
+
+                continue;
+            }
+
+            $compared++;
+            $want = Canonical::expectedFile($base->stmts, $this->map);
+            $have = Canonical::actualFile($head->stmts);
+
+            if ($want !== $have) {
+                $problems[] = "{$path}: " . Canonical::firstDifference($want, $have);
+            }
+        }
+
+        $detail = "{$compared} edited files equal to base after renames" . ($movedByUnit > 0 ? "; {$movedByUnit} moved by the unit are checked with their own integration" : '');
+        $problems === [] ? $this->pass('AST equivalence (edits)', $detail) : $this->fail('AST equivalence (edits)', implode("\n", $problems));
+    }
+
+    /**
+     * @param array<string, mixed> $manifest
+     */
     private function checkComments(array $manifest): void
     {
         $folder = Naming::folderPath((string) $manifest['integration']);
@@ -319,7 +364,8 @@ final class Verifier
         $problems = self::multisetDiff($baseComments, $headComments, $folder);
 
         foreach ($this->editedOutside($manifest) as $path) {
-            $problems = array_merge($problems, self::multisetDiff($this->comments($this->base, [$path]), $this->comments($this->head, [$path]), $path));
+            $headPath = $this->map->headPath($path);
+            $problems = array_merge($problems, self::multisetDiff($this->comments($this->base, [$path]), $this->comments($this->head, [$headPath]), $headPath === $path ? $path : "{$path} -> {$headPath}"));
         }
 
         $problems === []
@@ -332,7 +378,7 @@ final class Verifier
      */
     private function checkLint(array $manifest): void
     {
-        $paths = array_merge($this->phpFiles($this->head, Naming::folderPath((string) $manifest['integration'])), $this->editedOutside($manifest));
+        $paths = array_merge($this->phpFiles($this->head, Naming::folderPath((string) $manifest['integration'])), array_map(fn (string $path) => $this->map->headPath($path), $this->editedOutside($manifest)));
         $errors = [];
 
         foreach ($paths as $path) {
@@ -524,7 +570,7 @@ final class Verifier
             $source = $workspace->source($path);
 
             if ($source === null) {
-                throw new RuntimeException("{$path} does not parse in the " . $workspace->tree->label());
+                throw new RuntimeException("{$path} is missing or does not parse in the " . $workspace->tree->label());
             }
 
             foreach ($source->commentTokens() as $token) {

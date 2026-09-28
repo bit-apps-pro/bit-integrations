@@ -52,6 +52,25 @@ final class Canonical
     }
 
     /**
+     * A whole file at base as it must read after the move, without its import statements: the names in the
+     * code are compared resolved, so which `use` lines bring them in does not matter.
+     *
+     * @param list<Stmt> $stmts
+     */
+    public static function expectedFile(array $stmts, UnitMap $map): string
+    {
+        return implode("\n", array_map(static fn (Stmt $stmt) => self::expected($stmt, '', '', $map), self::withoutImports($stmts)));
+    }
+
+    /**
+     * @param list<Stmt> $stmts
+     */
+    public static function actualFile(array $stmts): string
+    {
+        return implode("\n", array_map(static fn (Stmt $stmt) => self::actual($stmt), self::withoutImports($stmts)));
+    }
+
+    /**
      * @internal
      */
     public static function rewriteBase(Node $node, string $ownOld, string $enclosing, UnitMap $map): ?Node
@@ -205,6 +224,32 @@ final class Canonical
         $from = max(0, $at - 60);
 
         return 'expected ...' . substr($expected, $from, 140) . '... but found ...' . substr($actual, $from, 140) . '...';
+    }
+
+    /**
+     * @param list<Stmt> $stmts
+     *
+     * @return list<Stmt>
+     */
+    private static function withoutImports(array $stmts): array
+    {
+        $kept = [];
+
+        foreach ($stmts as $stmt) {
+            if ($stmt instanceof Stmt\Use_ || $stmt instanceof Stmt\GroupUse) {
+                continue;
+            }
+
+            if ($stmt instanceof Stmt\Namespace_) {
+                $clone = clone $stmt;
+                $clone->stmts = self::withoutImports($stmt->stmts);
+                $stmt = $clone;
+            }
+
+            $kept[] = $stmt;
+        }
+
+        return $kept;
     }
 
     private static function holder(UnitMap $map, string $ownOld, string $member, string $enclosing): string

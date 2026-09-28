@@ -19,10 +19,21 @@ final class UnitMap
     private array $split = [];
 
     /**
+     * @var array<string, string> path at base => path after the unit's git mv operations
+     */
+    private array $moves = [];
+
+    /**
      * @param array<string, mixed> $manifest
      */
     public function add(array $manifest): void
     {
+        foreach ($manifest['fileOps'] ?? [] as $op) {
+            if (($op['op'] ?? null) === 'git-mv') {
+                $this->moves[(string) $op['from']] = (string) $op['to'];
+            }
+        }
+
         $controller = (string) ($manifest['controller']['class'] ?? '');
         $action = (string) ($manifest['targets']['action']['class'] ?? '');
 
@@ -33,6 +44,11 @@ final class UnitMap
                 $this->split[$controller] = ['primary' => $action, 'members' => array_map(static fn ($holders) => array_values(array_map('strval', (array) $holders)), $members)];
             }
         }
+    }
+
+    public function headPath(string $path): string
+    {
+        return $this->moves[$path] ?? $path;
     }
 
     public function isRenamed(string $fqcn): bool
