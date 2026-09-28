@@ -19,17 +19,18 @@ parameters:
         - ../../backend/Flow
         - ../../backend/Core/Util/CredentialInjector.php
 
+    # Only BitApps\Integrations\ and the WordPress stubs are loaded; every other class, Pro included, is external.
+    # NEON single quotes keep backslashes as written, so \\ below is one escaped backslash in the regex.
     ignoreErrors:
         - '#Call to (an undefined )?function [a-zA-Z0-9_]+\(\)#'
         - '#Function [a-zA-Z0-9_]+ not found\.$#'
-        - '#Class (?!BitApps\\\\Integrations).* not found\.$#'
-        - '#Class (?!BitApps\\\\Integrations).* does not exist\.$#'
-        - '#Instantiated class (?!BitApps\\\\Integrations).* not found\.$#'
-        - '#Caught class (?!BitApps\\\\Integrations).* not found\.$#'
         - '#Constant (?!BTCBI_|BIT_INTEGRATIONS_)[A-Z0-9_]+ not found\.$#'
-        - '#on an unknown class (?!BitApps\\\\Integrations).*\.$#'
-        - '#Call to an undefined method (?!BitApps\\\\Integrations).*::.*\(\)\.$#'
-        - '#Access to an undefined property (?!BitApps\\\\Integrations).*::\$.*\.$#'
-        - '#has invalid type (?!BitApps\\\\Integrations).*\.$#'
-        - '#Parameter .* has invalid type (?!BitApps\\\\Integrations).*\.$#'
-        - '#Method .* has invalid return type (?!BitApps\\\\Integrations).*\.$#'
+        - '#Class (?!BitApps\\Integrations\\).* not found\.$#'
+        - '#Class (?!BitApps\\Integrations\\).* does not exist\.$#'
+        - '#Instantiated class (?!BitApps\\Integrations\\).* not found\.$#'
+        - '#Caught class (?!BitApps\\Integrations\\).* not found\.$#'
+        - '#on an unknown class (?!BitApps\\Integrations\\).*\.$#'
+        - '#unknown (class|interface|trait) (?!BitApps\\Integrations\\)\S+#'
+        - '#Call to an undefined (static )?method (?!BitApps\\Integrations\\).*::.*\(\)\.$#'
+        - '#Access to an undefined (static )?property (?!BitApps\\Integrations\\).*::\$.*\.$#'
+        - '#has invalid (return )?type (?!BitApps\\Integrations\\).*\.$#'
