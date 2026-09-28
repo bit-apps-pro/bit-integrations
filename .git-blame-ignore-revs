@@ -1,0 +1,11 @@
+# Phase A action moves (Controller/RecordApiHelper -> Action/Service/Helper): file moves with verbatim bodies
+# refactor(actions): move MailChimp to Action/Service/Helper layout
+eadd33d1dbb2a1c89939e6c9fd8a9b8ff836d3ab
+# refactor(actions): move FluentCrm to Action/Service/Helper layout
+c718d022af246171998b25de5a8a9ac1b15ed58c
+# refactor(actions): move Asana to Action/Service/Helper layout
+96a47fe504c47d56a2e3bec1b234d5649a2df1ce
+# refactor(actions): move GiveWp to Action/Service/Helper layout
+4389dede016b4ffb832fc7c535843b6633ae1a82
+# refactor(actions): move WpErp to Action/Service/Helper layout
+1398f7ec6c8935c2c8a3a31f5af4856921ef7330
