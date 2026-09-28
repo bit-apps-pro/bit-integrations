@@ -6,7 +6,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use Give_Donor;
 
-class RecordApiHelper
+class GiveWpService
 {
     public function generateReqDataFromFieldMap($data, $fieldMap)
     {

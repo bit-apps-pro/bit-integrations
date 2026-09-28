@@ -4,17 +4,8 @@ namespace BitApps\Integrations\Actions\GiveWp;
 
 use WP_Error;
 
-class GiveWpController
+class GiveWpAction
 {
-    public static function pluginActive($option = null)
-    {
-        if (is_plugin_active('give/give.php')) {
-            return $option === 'get_name' ? 'give/give.php' : true;
-        }
-
-        return false;
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
@@ -31,7 +22,7 @@ class GiveWpController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'GiveWp'));
         }
-        $recordApiHelper = new RecordApiHelper();
+        $recordApiHelper = new GiveWpService();
         $giveWpApiResponse = $recordApiHelper->execute(
             $mainAction,
             $fieldValues,
