@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace BitApps\Restructure\Qa\CsFixerSubset;
 
+use FilesystemIterator;
 use JsonException;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use RuntimeException;
 
 const USAGE = <<<'TXT'
@@ -472,9 +475,9 @@ function removeTree(string $directory): void
         return;
     }
 
-    $items = new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS),
-        \RecursiveIteratorIterator::CHILD_FIRST
+    $items = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::CHILD_FIRST
     );
 
     foreach ($items as $item) {

@@ -40,7 +40,7 @@ const FQCN_PATTERN = '/\\\\?[A-Za-z_][A-Za-z0-9_]*(?:\\\\[A-Za-z_][A-Za-z0-9_]*)
 function main(array $argv): int
 {
     try {
-        $options = parseArguments(array_slice($argv, 1));
+        $options = parseArguments(\array_slice($argv, 1));
     } catch (RuntimeException $exception) {
         fwrite(STDERR, $exception->getMessage() . "\n\n" . USAGE . "\n");
 
@@ -248,8 +248,8 @@ function loadReport(string $file, array $classMap): array
 
         foreach ($details['messages'] ?? [] as $message) {
             $errors[] = [
-                'scope'    => $scope,
-                'key'      => implode("\t", [
+                'scope' => $scope,
+                'key'   => implode("\t", [
                     $scope,
                     (string) ($message['identifier'] ?? '-'),
                     normalizeMessage((string) ($message['message'] ?? ''), $classMap),
