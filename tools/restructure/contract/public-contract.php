@@ -4,17 +4,43 @@ declare(strict_types=1);
 
 $pluginRoot = dirname(__DIR__, 3);
 
-if (!defined('ABSPATH')) {
-    define('ABSPATH', $pluginRoot . '/');
+foreach (array_slice($argv, 1) as $argument) {
+    if (str_starts_with($argument, '--root=')) {
+        $pluginRoot = rtrim(substr($argument, 7), '/');
+    } else {
+        fwrite(STDERR, "Usage: php public-contract.php [--root=<Free plugin root>]\n");
+
+        exit(2);
+    }
 }
 
-if (!is_file($pluginRoot . '/vendor/autoload.php')) {
-    fwrite(STDERR, "vendor/autoload.php is missing; run composer install in the plugin root\n");
+if (!is_dir($pluginRoot . '/backend')) {
+    fwrite(STDERR, "no backend/ under the plugin root\n");
 
     exit(2);
 }
 
-require_once $pluginRoot . '/vendor/autoload.php';
+if (!defined('ABSPATH')) {
+    define('ABSPATH', $pluginRoot . '/');
+}
+
+spl_autoload_register(static function (string $class) use ($pluginRoot): void {
+    $prefix = 'BitApps\\Integrations\\';
+
+    if (strncmp($class, $prefix, strlen($prefix)) !== 0) {
+        return;
+    }
+
+    $file = $pluginRoot . '/backend/' . str_replace('\\', '/', substr($class, strlen($prefix))) . '.php';
+
+    if (is_file($file)) {
+        require_once $file;
+    }
+}, true, true);
+
+if (is_file($pluginRoot . '/vendor/autoload.php')) {
+    require_once $pluginRoot . '/vendor/autoload.php';
+}
 
 $salesforce = 'BitApps\\Integrations\\Actions\\Salesforce\\SalesforceController';
 $moosend = 'BitApps\\Integrations\\Actions\\Moosend\\MoosendHelper';

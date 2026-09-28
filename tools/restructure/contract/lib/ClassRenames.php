@@ -70,6 +70,44 @@ final class ClassRenames
     }
 
     /**
+     * One name for a class before and after the move: Actions\<N>\<N>Controller, <N>Action and <N>Helper
+     * become Actions\<N>\{main}; RecordApiHelper and <N>Service become {service}; <Role>ApiHelper and
+     * <N><Role>Service become {service:<Role>}. Other names are returned unchanged.
+     */
+    public static function canonical(string $class): string
+    {
+        if (!preg_match('/^((?:.*\\\\)?Actions\\\\([A-Za-z0-9_]+))\\\\([A-Za-z0-9_]+)$/', ltrim($class, '\\'), $match)) {
+            return $class;
+        }
+
+        [, $namespace, $integration, $short] = $match;
+
+        if (\in_array($short, [$integration . 'Controller', $integration . 'Action', $integration . 'Helper'], true)) {
+            return $namespace . '\\{main}';
+        }
+
+        if (\in_array($short, ['RecordApiHelper', $integration . 'RecordApiHelper', $integration . 'Service'], true)) {
+            return $namespace . '\\{service}';
+        }
+
+        $role = null;
+
+        if (str_ends_with($short, 'ApiHelper')) {
+            $role = substr($short, 0, -\strlen('ApiHelper'));
+        } elseif (str_ends_with($short, 'Service') && str_starts_with($short, $integration)) {
+            $role = substr($short, \strlen($integration), -\strlen('Service'));
+        }
+
+        if ($role === null || $role === '') {
+            return $class;
+        }
+
+        $role = str_starts_with($role, $integration) ? substr($role, \strlen($integration)) : $role;
+
+        return $namespace . '\\{service:' . $role . '}';
+    }
+
+    /**
      * @return array{0: string, 1: string}
      */
     private static function split(string $class): array

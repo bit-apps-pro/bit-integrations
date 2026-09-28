@@ -146,10 +146,14 @@ final class Snapshot
             return ['class' => null];
         }
 
-        return ['class' => $class]
+        $entry = ['class' => $class]
+            + ClassFacts::shape($class)
             + ClassFacts::constructor($class)
             + ClassFacts::method($class, 'execute', 'execute')
             + ClassFacts::authConfig($class);
+        $this->checkAuthConfig("dispatch {$name}", $entry);
+
+        return $entry;
     }
 
     /**
@@ -214,9 +218,23 @@ final class Snapshot
 
         if (($handler['handlerStatic'] ?? true) === false) {
             $handler['ctorRequired'] = ClassFacts::constructor($class)['ctorRequired'] ?? 0;
+            $handler += ClassFacts::shape($class);
         }
 
-        return $entry + $handler + ClassFacts::authConfig($class);
+        $entry += $handler + ClassFacts::authConfig($class);
+        $this->checkAuthConfig("route {$registration['name']} {$registration['method']}", $entry);
+
+        return $entry;
+    }
+
+    /**
+     * @param array<string, mixed> $entry
+     */
+    private function checkAuthConfig(string $label, array $entry): void
+    {
+        if (($entry['authConfigOwner'] ?? null) !== null && ($entry['authConfigReadable'] ?? false) !== true) {
+            $this->errors[] = "{$label}: {$entry['authConfigOwner']}::\$authConfig is " . ($entry['authConfigVisibility'] ?? '?') . (($entry['authConfigStatic'] ?? false) ? ' static' : ' non-static') . '; CredentialInjector needs it public static';
+        }
     }
 
     /**

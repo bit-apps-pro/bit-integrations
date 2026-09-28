@@ -6,7 +6,9 @@ namespace BitApps\Restructure\Contract\Lib;
 
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionParameter;
 use ReflectionProperty;
+use ReflectionType;
 use Throwable;
 
 final class ClassFacts
@@ -36,6 +38,16 @@ final class ClassFacts
     }
 
     /**
+     * @return array{instantiable: bool, abstract: bool}
+     */
+    public static function shape(string $class): array
+    {
+        $reflection = new ReflectionClass($class);
+
+        return ['instantiable' => $reflection->isInstantiable(), 'abstract' => $reflection->isAbstract()];
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public static function method(string $class, string $method, string $prefix): array
@@ -55,11 +67,15 @@ final class ClassFacts
             $prefix . 'Params'     => $reflectionMethod->getNumberOfParameters(),
             $prefix . 'Required'   => $reflectionMethod->getNumberOfRequiredParameters(),
             $prefix . 'Variadic'   => $reflectionMethod->isVariadic(),
+            $prefix . 'Signature'  => array_map([self::class, 'parameter'], $reflectionMethod->getParameters()),
+            $prefix . 'Returns'    => self::type($reflectionMethod->getReturnType()),
         ];
     }
 
     /**
-     * @return array{authConfigOwner: ?string, authConfigHash: ?string}
+     * CredentialInjector reads `$owner::$authConfig`, so anything but a public static property is fatal at runtime.
+     *
+     * @return array<string, mixed>
      */
     public static function authConfig(string $class): array
     {
@@ -74,11 +90,45 @@ final class ClassFacts
         }
 
         $property = new ReflectionProperty($owner, 'authConfig');
+        $visibility = $property->isPublic() ? 'public' : ($property->isProtected() ? 'protected' : 'private');
 
         return [
-            'authConfigOwner' => $owner,
-            'authConfigHash'  => $property->isStatic() ? Json::hash($property->getValue()) : 'instance property',
+            'authConfigOwner'      => $owner,
+            'authConfigHash'       => $property->isStatic() ? Json::hash($property->getValue()) : 'instance property',
+            'authConfigVisibility' => $visibility,
+            'authConfigStatic'     => $property->isStatic(),
+            'authConfigType'       => self::type($property->getType()),
+            'authConfigReadable'   => $visibility === 'public' && $property->isStatic(),
         ];
+    }
+
+    /**
+     * @return array{type: ?string, byRef: bool, variadic: bool, optional: bool, default: mixed}
+     */
+    private static function parameter(ReflectionParameter $parameter): array
+    {
+        $default = null;
+
+        if ($parameter->isDefaultValueAvailable()) {
+            try {
+                $default = $parameter->isDefaultValueConstant() ? 'const ' . $parameter->getDefaultValueConstantName() : $parameter->getDefaultValue();
+            } catch (Throwable $e) {
+                $default = 'unavailable';
+            }
+        }
+
+        return [
+            'type'     => self::type($parameter->getType()),
+            'byRef'    => $parameter->isPassedByReference(),
+            'variadic' => $parameter->isVariadic(),
+            'optional' => $parameter->isOptional(),
+            'default'  => \is_scalar($default) || $default === null || \is_array($default) ? $default : get_debug_type($default),
+        ];
+    }
+
+    private static function type(?ReflectionType $type): ?string
+    {
+        return $type === null ? null : (string) $type;
     }
 
     private static function authConfigOwner(string $class): ?string
