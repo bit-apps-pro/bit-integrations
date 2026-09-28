@@ -5,13 +5,14 @@ $proBindingsRun = static function (array $arguments): int {
     $options = ['pro' => (string) getenv('BI_PRO_ROOT'), 'free' => $freeRoot, 'verbose' => false];
 
     foreach ($arguments as $argument) {
-        if ($argument === '--verbose') {
+        $argument = (string) $argument;
+        if ($argument === '--verbose' || $argument === 'verbose') {
             $options['verbose'] = true;
-        } elseif (preg_match('/^--(pro|free)=(.+)$/', (string) $argument, $match)) {
+        } elseif (preg_match('/^(?:--)?(pro|free)=(.+)$/', $argument, $match)) {
             $options[$match[1]] = $match[2];
         } else {
             fwrite(STDERR, "usage: php pro-bindings.php [--pro=<proRoot>] [--free=<freeRoot>] [--verbose]\n"
-                . "   or: wp --path=<site> eval-file pro-bindings.php [--pro=<proRoot>] [--free=<freeRoot>] [--verbose]\n");
+                . "   or: wp --path=<site> eval-file pro-bindings.php [pro=<proRoot>] [free=<freeRoot>] [verbose]\n");
 
             return 2;
         }
@@ -48,6 +49,17 @@ $proBindingsRun = static function (array $arguments): int {
 
     return proc_close($process);
 };
+
+if (function_exists('add_filter')) {
+    add_filter(
+        'pre_http_request',
+        static function () {
+            return new WP_Error('pro_bindings_offline', 'Outgoing HTTP is blocked while the Pro bindings check runs');
+        },
+        PHP_INT_MAX
+    );
+    add_filter('pre_wp_mail', '__return_false', PHP_INT_MAX);
+}
 
 $proBindingsExit = $proBindingsRun(isset($args) && is_array($args) ? $args : array_slice($argv ?? [], 1));
 
