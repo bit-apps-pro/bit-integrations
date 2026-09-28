@@ -634,6 +634,30 @@ s/btcbi_/bit_integrations_/g
 
 ---
 
+## 🧱 Renamed Action Classes (v2.11.0)
+
+Action integrations under `backend/Actions/<Name>/` move from `Controller` + `RecordApiHelper`
+to three classes. Folder names, route names, hook names and their arguments, and every stored
+flow value stay the same, so saved flows and bound filters keep working.
+
+| Old class | New class | Holds |
+|-----------|-----------|-------|
+| `Actions\<Name>\<Name>Controller` | `Actions\<Name>\<Name>Action` | `$authConfig`, the constructor, `execute()` (what Flow dispatches) |
+| `Actions\<Name>\<Name>Controller` | `Actions\<Name>\<Name>Helper` | route handlers, plugin checks, token refresh |
+| `Actions\<Name>\RecordApiHelper` | `Actions\<Name>\<Name>Service` | field mapping, API calls, hook fire points, log rows |
+| `Actions\<Name>\<Role>ApiHelper` | `Actions\<Name>\<Name><Role>Service` | e.g. `ZohoCRMFilesService`, `ZohoCRMTagService` |
+
+- Dispatch goes through `Core\Integration\ActionResolver`, which tries `<Name>Action` first and
+  still falls back to `<Name>Controller`, so an add-on that ships its own `<Name>Controller`
+  keeps working.
+- Kept permanently for Bit Integrations Pro 2.6.11–2.8.5, which resolve them by name:
+  `Actions\Salesforce\SalesforceController` (now an empty subclass of `SalesforceHelper`) and
+  `Actions\Moosend\MoosendHelper::formatPhoneNumber()`.
+- Code that calls a free action class directly should resolve the new name first, e.g.
+  `bit_integrations_get_class('Actions\\<Name>\\<Name>Helper')`, then fall back to the old one.
+
+---
+
 ## ⚠️ Backward Compatibility
 
 | Status | Details |
