@@ -353,8 +353,6 @@ backend/Actions/WordPress/RecordApiHelper.php
 backend/Actions/WordPress/WordPressController.php
 backend/Actions/WpDataTables/RecordApiHelper.php
 backend/Actions/WpDataTables/WpDataTablesController.php
-backend/Actions/WpErp/RecordApiHelper.php
-backend/Actions/WpErp/WpErpController.php
 backend/Actions/WpTableBuilder/RecordApiHelper.php
 backend/Actions/WpTableBuilder/WpTableBuilderController.php
 backend/Actions/Wsms/RecordApiHelper.php
