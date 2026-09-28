@@ -117,6 +117,7 @@ final class Probe
         self::seed('http_api_curl', 'refuseTransport', PHP_INT_MIN, 1);
         self::seed('requests-requests.before_request', 'refuseTransport', PHP_INT_MIN, 1);
         self::seed('pre_wp_mail', 'stubMail', PHP_INT_MAX, 2);
+        self::seed('random_password', 'stubPassword', PHP_INT_MAX, 2);
 
         register_shutdown_function([self::class, 'onShutdown']);
     }
@@ -425,6 +426,11 @@ final class Probe
         return $prefix !== '' && str_starts_with($table, $prefix) ? '{prefix}' . substr($table, \strlen($prefix)) : $table;
     }
 
+    public static function stubPassword($password, $length = 12): string
+    {
+        return substr(str_repeat('Smoke0', 43), 0, max(1, (int) $length));
+    }
+
     private static function seed(string $hook, string $method, int $priority, int $args): void
     {
         $GLOBALS['wp_filter'][$hook][$priority][] = ['function' => [self::class, $method], 'accepted_args' => $args];
@@ -620,7 +626,7 @@ final class Probe
             'phase'     => self::$phase,
             'method'    => strtoupper((string) ($args['method'] ?? 'GET')),
             'url'       => self::displayUrl($url),
-            'url_sha'   => substr(sha1($scrub->text($url)), 0, 16),
+            'url_sha'   => substr(sha1($scrub->collapsed()->text($url)), 0, 16),
             'headers'   => self::headerDigest($headers),
             'body_sha'  => $bodySha,
             'body_keys' => $bodyKeys,
@@ -665,14 +671,14 @@ final class Probe
             $key = strtolower((string) $name);
             $value = \is_scalar($value) ? (string) $value : json_encode($value);
             if ($key === 'content-type') {
-                $value = (string) preg_replace('~boundary=\S+~i', 'boundary=<boundary>', $value);
+                $value = (string) preg_replace('~boundary="?[^\s;"]+"?~i', 'boundary=<boundary>', $value);
             }
             $normalized[$key] = $scrub->value($value, $key);
         }
 
         ksort($normalized);
 
-        return ['names' => array_keys($normalized), 'sha' => substr(sha1(json_encode($normalized)), 0, 16)];
+        return ['names' => array_keys($normalized), 'sha' => $scrub->hash($normalized)];
     }
 
     private static function bodyDigest(mixed $body, array $headers): array
@@ -684,15 +690,13 @@ final class Probe
         }
 
         if (\is_array($body) || \is_object($body)) {
-            $value = $scrub->value($body);
-
-            return [substr(sha1(json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)), 0, 16), array_map('strval', array_keys((array) $body))];
+            return [$scrub->hash($body), array_map('strval', array_keys((array) $body))];
         }
 
         $text = (string) $body;
 
         foreach ($headers as $name => $value) {
-            if (strtolower((string) $name) === 'content-type' && \is_string($value) && preg_match('~boundary=([^\s;]+)~i', $value, $m)) {
+            if (strtolower((string) $name) === 'content-type' && \is_string($value) && preg_match('~boundary="?([^\s;"]+)"?~i', $value, $m)) {
                 $text = str_replace($m[1], '<boundary>', $text);
             }
         }
@@ -700,10 +704,10 @@ final class Probe
         $decoded = json_decode($text);
 
         if (\is_array($decoded) || \is_object($decoded)) {
-            return [substr(sha1(json_encode($scrub->value($decoded), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)), 0, 16), array_map('strval', array_keys((array) $decoded))];
+            return [$scrub->hash($decoded), array_map('strval', array_keys((array) $decoded))];
         }
 
-        return [substr(sha1($scrub->text($text)), 0, 16), []];
+        return [substr(sha1($scrub->collapsed()->text($text)), 0, 16), []];
     }
 
     private static function answer(string $method, string $url, mixed $body): array

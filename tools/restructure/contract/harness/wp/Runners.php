@@ -170,8 +170,9 @@ final class Runners
         $input = ['flow_details_sha' => substr(sha1((string) $row->flow_details), 0, 16)];
 
         [$fieldData, $source] = self::fieldData($row, $job);
+        $fieldData = (array) $fieldData + self::frozenSmartTags((string) $row->flow_details);
         $input['field_source'] = $source;
-        $input['field_data_sha'] = substr(sha1((string) wp_json_encode($fieldData)), 0, 16);
+        $input['field_data_sha'] = Probe::scrub()->hash($fieldData);
 
         $expiry = empty($job['force_expiry']) ? null : self::forceExpiry($row);
 
@@ -273,6 +274,53 @@ final class Runners
         }
 
         return null;
+    }
+
+    /**
+     * Flow::execute merges smart tag values with `$data + $sptagData`, so a key already in the
+     * field data wins. Pre-filling the clock- and random-based tags the flow maps gives every run
+     * the same input without touching plugin code.
+     *
+     * @return array<string, string>
+     */
+    private static function frozenSmartTags(string $flowDetails): array
+    {
+        $at = 1767268800;
+        $values = [
+            '_bi_current_time'      => gmdate('Y-m-d H:i:s', $at),
+            '_bi_date_default'      => date_i18n(get_option('date_format'), $at),
+            '_bi_date.m/d/y'        => date_i18n('m/d/y', $at),
+            '_bi_date.d/m/y'        => date_i18n('d/m/y', $at),
+            '_bi_date.y/m/d'        => date_i18n('y/m/d', $at),
+            '_bi_time'              => date_i18n(get_option('time_format'), $at),
+            '_bi_weekday'           => date_i18n('l', $at),
+            '_bi_current_time_site' => date_i18n('Y-m-d H:i:s', $at),
+            '_bi_timestamp'         => (string) $at,
+            '_bi_date_iso8601'      => gmdate('c', $at),
+            '_bi_date_ymd'          => date_i18n('Y-m-d', $at),
+            '_bi_date_time_default' => date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $at),
+            '_bi_time_24h'          => date_i18n('H:i', $at),
+            '_bi_time_24h_seconds'  => date_i18n('H:i:s', $at),
+            '_bi_time_12h'          => date_i18n('h:i A', $at),
+            '_bi_hour'              => date_i18n('H', $at),
+            '_bi_minute'            => date_i18n('i', $at),
+            '_bi_second'            => date_i18n('s', $at),
+            '_bi_day'               => date_i18n('d', $at),
+            '_bi_month'             => date_i18n('m', $at),
+            '_bi_month_name'        => date_i18n('F', $at),
+            '_bi_year'              => date_i18n('Y', $at),
+            '_bi_weekday_number'    => date_i18n('N', $at),
+            '_bi_week_number'       => date_i18n('W', $at),
+            '_bi_day_of_year'       => date_i18n('z', $at),
+            '_bi_quarter'           => (string) (int) ceil((int) date_i18n('n', $at) / 3),
+            '_bi_timestamp_ms'      => (string) ($at * 1000),
+            '_bi_date_rfc2822'      => gmdate('r', $at),
+            '_bi_random_digit_num'  => '4242424242',
+            '_bi_uuid'              => '00000000-0000-4000-8000-000000000000',
+            '_bi_random_string'     => 'SmokeRand0',
+        ];
+
+        return array_filter($values, static fn ($key) => strpos($flowDetails, '"' . $key . '"') !== false, ARRAY_FILTER_USE_KEY);
     }
 
     private static function fieldData(object $row, array $job): array

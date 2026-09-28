@@ -27,12 +27,22 @@ final class Scrub
      */
     private array $aliases = [];
 
+    private bool $collapseTime = false;
+
     /**
      * @param array<string, string> $paths absolute prefix => placeholder, longest first
      */
     public function __construct(private int $origin, private array $paths)
     {
         uksort($this->paths, static fn ($a, $b) => \strlen($b) <=> \strlen($a));
+    }
+
+    public function collapsed(): self
+    {
+        $copy = clone $this;
+        $copy->collapseTime = true;
+
+        return $copy;
     }
 
     public function alias(int $number, string $label): void
@@ -43,7 +53,9 @@ final class Scrub
     public function value(mixed $value, ?string $key = null, int $depth = 0): mixed
     {
         if ($key !== null && $this->isSecret($key, $value)) {
-            return '<redacted:' . substr(sha1((string) $value), 0, 12) . '>';
+            return preg_match('~^(?:[a-f0-9]{32,}|[A-Za-z0-9+/_=-]{40,}|[\w-]+\.[\w-]+\.[\w-]+)$~i', (string) $value)
+                ? '<redacted:digest>'
+                : '<redacted:' . substr(sha1((string) $value), 0, 12) . '>';
         }
 
         if (\is_string($value)) {
@@ -118,6 +130,8 @@ final class Scrub
             $text
         );
 
+        $text = (string) preg_replace('~([?&](?:key|rp_key)=)[A-Za-z0-9]{20}\b~', '$1<key>', $text);
+
         $text = preg_replace_callback(
             '~\b(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})(?:\.\d+)?(Z|[+-]\d{2}:?\d{2})?~',
             fn (array $m) => $this->datetime($m[0], $m[1] . ' ' . $m[2], $m[3] ?? ''),
@@ -131,7 +145,19 @@ final class Scrub
         );
 
         $text = preg_replace_callback(
-            '~(?<![\w.])(1\d{9})(\d{3})?(?![\w.])~',
+            '~\b(January|February|March|April|May|June|July|August|September|October|November|December) (\d{1,2}), (\d{4})\b~',
+            function (array $m) {
+                $ts = strtotime("{$m[1]} {$m[2]}, {$m[3]} 12:00:00 UTC");
+
+                return $ts === false ? $m[0] : $this->date(gmdate('Y-m-d', $ts));
+            },
+            $text
+        );
+
+        $text = (string) preg_replace('~(?<![\d:.])\d{1,2}:\d{2}(?::\d{2})?(?:\s?[AaPp][Mm])?(?![\d:])~', '<clock>', $text);
+
+        $text = preg_replace_callback(
+            '~(?<![\w.])(1\d{9})(\d{3})?(?:\.\d+)?(?![\w.])~',
             fn (array $m) => $this->epochText($m[0]),
             $text
         );
@@ -185,7 +211,7 @@ final class Scrub
 
     public function hash(mixed $value): string
     {
-        return substr(sha1(json_encode($this->value($value), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR)), 0, 16);
+        return substr(sha1(json_encode($this->collapsed()->value($value), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR)), 0, 16);
     }
 
     private function isSecret(string $key, mixed $value): bool
@@ -231,11 +257,16 @@ final class Scrub
             return $raw;
         }
 
-        return $days === 0 ? '<date>' : \sprintf('<date%+d>', $days);
+        if ($this->collapseTime) {
+            return '<date>';
+        }
+
+        return ($days === 0 ? '<date' : \sprintf('<date%+d', $days)) . '@' . $raw . '>';
     }
 
     private function epochText(string $raw): string
     {
+        $raw = explode('.', $raw)[0];
         $seconds = \strlen($raw) === 13 ? intdiv((int) $raw, 1000) : (int) $raw;
 
         if (!$this->near($seconds)) {
@@ -252,8 +283,12 @@ final class Scrub
 
     private function offsetLabel(string $kind, int $seconds): string
     {
+        if ($this->collapseTime) {
+            return "<{$kind}>";
+        }
+
         $offset = (int) (round(($seconds - $this->origin) / self::BUCKET) * self::BUCKET);
 
-        return $offset === 0 ? "<{$kind}>" : \sprintf('<%s%+d>', $kind, $offset);
+        return ($offset === 0 ? "<{$kind}" : \sprintf('<%s%+d', $kind, $offset)) . '@' . $seconds . '>';
     }
 }

@@ -8,6 +8,10 @@ final class Canon
 {
     private const FLAGS = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR;
 
+    private const TIME = '~<(ts-ms|ts|datetime|date)([+-]\d+)?@([^>]+)>~';
+
+    private const RELATIVE_TOLERANCE = 600;
+
     public static function encode(mixed $value): string
     {
         return json_encode($value, self::FLAGS) . "\n";
@@ -15,7 +19,7 @@ final class Canon
 
     public static function same(mixed $a, mixed $b): bool
     {
-        return self::encode($a) === self::encode($b);
+        return self::encode($a) === self::encode($b) || self::diff($a, $b) === [];
     }
 
     /**
@@ -26,7 +30,7 @@ final class Canon
         $lines = [];
         self::walk(self::plain($baseline), self::plain($current), $path, $lines, $limit);
 
-        if ($lines === [] && !self::same($baseline, $current)) {
+        if ($lines === [] && self::encode(self::stripTimes(self::plain($baseline))) !== self::encode(self::stripTimes(self::plain($current)))) {
             $lines[] = "{$path}: differs only in object/array form ({} vs [])";
         }
 
@@ -69,9 +73,60 @@ final class Canon
             return;
         }
 
-        if ($a !== $b) {
+        if ($a !== $b && !(\is_string($a) && \is_string($b) && self::timeEquivalent($a, $b))) {
             $lines[] = "{$path}: baseline " . self::short($a) . ' now ' . self::short($b);
         }
+    }
+
+    /**
+     * Two time tokens match when they name the same absolute time (a stored value) or the same
+     * offset from the run's own clock (a value the code computed from "now").
+     */
+    private static function timeEquivalent(string $a, string $b): bool
+    {
+        if (preg_split(self::TIME, $a) !== preg_split(self::TIME, $b)) {
+            return false;
+        }
+
+        preg_match_all(self::TIME, $a, $left, PREG_SET_ORDER);
+        preg_match_all(self::TIME, $b, $right, PREG_SET_ORDER);
+
+        if ($left === [] || \count($left) !== \count($right)) {
+            return false;
+        }
+
+        foreach ($left as $i => $token) {
+            $other = $right[$i];
+
+            if ($token[1] !== $other[1]) {
+                return false;
+            }
+
+            if ($token[3] === $other[3]) {
+                continue;
+            }
+
+            $tolerance = $token[1] === 'date' ? 0 : self::RELATIVE_TOLERANCE;
+
+            if (abs((int) ($token[2] ?? 0) - (int) ($other[2] ?? 0)) > $tolerance) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static function stripTimes(mixed $value): mixed
+    {
+        if (\is_string($value)) {
+            return preg_replace(self::TIME, '<$1>', $value);
+        }
+
+        if (\is_array($value)) {
+            return array_map([self::class, 'stripTimes'], $value);
+        }
+
+        return $value;
     }
 
     private static function short(mixed $value): string
