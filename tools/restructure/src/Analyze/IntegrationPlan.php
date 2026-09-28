@@ -51,6 +51,11 @@ final class IntegrationPlan
     public string $moveTarget = self::ACTION;
 
     /**
+     * @var array{path: string, class: string, extends: string, docblock: string}|null
+     */
+    public ?array $shim = null;
+
+    /**
      * @var list<array{from: string, to: string, fromClass: string, toClass: string}>
      */
     public array $services = [];

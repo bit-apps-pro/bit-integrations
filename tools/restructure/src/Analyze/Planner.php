@@ -57,6 +57,7 @@ final class Planner
         $this->checkConstructor($plan);
         $this->checkNotes($plan);
         $this->chooseMoveTarget($plan);
+        $this->planShim($plan);
         $this->buildRenames($plan);
         $this->collectReferences($plan);
         $this->flags($plan);
@@ -847,6 +848,28 @@ final class Planner
         }
     }
 
+    private function planShim(IntegrationPlan $plan): void
+    {
+        $shim = PermanentShims::for($plan->folder);
+
+        if ($shim === null) {
+            return;
+        }
+
+        if (!$plan->hasHelperMembers()) {
+            $plan->refuse('shim_without_helper', "{$plan->controllerFqcn} must stay as a permanent shim over " . Naming::shortName($plan->helperFqcn) . ', but no member is placed in the Helper');
+
+            return;
+        }
+
+        $plan->shim = [
+            'path'     => $plan->controllerPath,
+            'class'    => $plan->controllerFqcn,
+            'extends'  => $plan->helperFqcn,
+            'docblock' => PermanentShims::docblock(Naming::shortName($plan->helperFqcn), $shim['since'], $shim['reason']),
+        ];
+    }
+
     private function chooseMoveTarget(IntegrationPlan $plan): void
     {
         if ($plan->helperExists || !$plan->hasHelperMembers()) {
@@ -955,6 +978,10 @@ final class Planner
                     }
                 }
 
+                if ($fqcn === $plan->controllerFqcn && $reference->kind === Reference::NEW && $plan->hasHelperMembers()) {
+                    $this->checkExternalNew($plan, $reference);
+                }
+
                 if ($fqcn === $plan->controllerFqcn && $plan->hasHelperMembers() && \in_array($reference->kind, [Reference::CLASS_NAME, Reference::TYPE, Reference::INSTANCEOF, Reference::NAME, Reference::STRING_FQCN, Reference::CATCH], true)) {
                     $bare[] = $reference->describe() + ['rewriteTo' => $plan->actionFqcn];
                 }
@@ -970,6 +997,109 @@ final class Planner
         $plan->flag('referencesToNonPublicMembers', $nonPublic);
         $plan->flag('bareClassReferences', $bare);
         $plan->flag('referencesToUndeclaredMembers', $undeclared);
+    }
+
+    private function checkExternalNew(IntegrationPlan $plan, Reference $reference): void
+    {
+        $where = "{$reference->file}:{$reference->line}";
+        $short = Naming::shortName($plan->controllerFqcn);
+        $source = $this->context->workspace->source($reference->file);
+        $new = null;
+
+        foreach ((new NodeFinder())->findInstanceOf($source?->stmts ?? [], Expr\New_::class) as $candidate) {
+            if ($candidate->class instanceof Node\Name && $candidate->class->getStartFilePos() === $reference->start) {
+                $new = $candidate;
+
+                break;
+            }
+        }
+
+        if ($new === null) {
+            $plan->refuse('external_new', "{$where} creates {$short}, and the object cannot be followed");
+
+            return;
+        }
+
+        $uses = self::instanceUses($new);
+
+        if ($uses === null) {
+            $plan->refuse('external_new', "{$where} creates {$short} and the object leaves the expression or function, so the members used on it cannot be checked against the split");
+
+            return;
+        }
+
+        foreach ($uses as $key) {
+            $side = $plan->placement[$plan->resolveKey($key)] ?? null;
+
+            if ($side !== IntegrationPlan::ACTION && $side !== IntegrationPlan::BOTH) {
+                $plan->refuse('external_new', "{$where} creates {$short} and uses {$key} on it, but {$key} " . ($side === null ? 'is not declared by the Controller' : 'moves to the Helper') . '; the object would be ' . Naming::shortName($plan->actionFqcn));
+            }
+        }
+    }
+
+    /**
+     * @return list<string>|null member keys used on the new object, or null when the object escapes
+     */
+    private static function instanceUses(Expr\New_ $new): ?array
+    {
+        $parent = $new->getAttribute('parent');
+        $direct = self::memberUse($parent, $new);
+
+        if ($direct !== false) {
+            return $direct === null ? null : [$direct];
+        }
+
+        if (!$parent instanceof Expr\Assign || $parent->expr !== $new || !$parent->var instanceof Expr\Variable || !\is_string($parent->var->name) || !$parent->getAttribute('parent') instanceof Stmt\Expression) {
+            return null;
+        }
+
+        $name = $parent->var->name;
+        $scope = $parent;
+
+        while ($scope instanceof Node && !$scope instanceof Stmt\ClassMethod && !$scope instanceof Stmt\Function_ && !$scope instanceof Expr\Closure) {
+            $scope = $scope->getAttribute('parent');
+        }
+
+        if (!$scope instanceof Node) {
+            return null;
+        }
+
+        $uses = [];
+
+        foreach ((new NodeFinder())->find([$scope], static fn (Node $node) => $node instanceof Expr\Variable && $node->name === $name) as $variable) {
+            if ($variable === $parent->var) {
+                continue;
+            }
+
+            $use = self::memberUse($variable->getAttribute('parent'), $variable);
+
+            if (!\is_string($use)) {
+                return null;
+            }
+
+            $uses[$use] = true;
+        }
+
+        $uses = array_keys($uses);
+        sort($uses, SORT_STRING);
+
+        return $uses;
+    }
+
+    /**
+     * @return string|false|null the member key used on $object, null for a dynamic name, false when $parent does not use a member of it
+     */
+    private static function memberUse(mixed $parent, Node $object): string|false|null
+    {
+        if (($parent instanceof Expr\MethodCall || $parent instanceof Expr\NullsafeMethodCall) && $parent->var === $object) {
+            return $parent->name instanceof Node\Identifier ? 'method:' . $parent->name->toLowerString() : null;
+        }
+
+        if (($parent instanceof Expr\PropertyFetch || $parent instanceof Expr\NullsafePropertyFetch) && $parent->var === $object) {
+            return $parent->name instanceof Node\Identifier ? 'property:' . $parent->name->toString() : null;
+        }
+
+        return false;
     }
 
     private function checkImportAliases(IntegrationPlan $plan): void

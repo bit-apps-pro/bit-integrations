@@ -138,7 +138,7 @@ final class MemberGraph
 
         if (($node instanceof Expr\PropertyFetch || $node instanceof Expr\NullsafePropertyFetch) && Names::isThis($node->var)) {
             if ($node->name instanceof Node\Identifier) {
-                $this->addEdge(new Edge($key, 'property:' . $node->name->toString(), Edge::PROPERTY, 'this', $node->getStartLine(), $node->var->getStartFilePos(), $node->name->getStartFilePos(), self::isWrite($node)));
+                $this->addEdge(new Edge($key, 'property:' . $node->name->toString(), Edge::PROPERTY, 'this', $node->getStartLine(), $node->var->getStartFilePos(), $node->name->getStartFilePos(), $this->isWrite($node, false)));
             } else {
                 $this->addNote('dynamic', $key, $node);
             }
@@ -244,7 +244,7 @@ final class MemberGraph
 
         if ($node instanceof Expr\StaticPropertyFetch) {
             if ($node->name instanceof Node\VarLikeIdentifier) {
-                $this->addEdge(new Edge($key, 'property:' . $node->name->toString(), Edge::PROPERTY, $via, $node->getStartLine(), $start, $end, self::isWrite($node)));
+                $this->addEdge(new Edge($key, 'property:' . $node->name->toString(), Edge::PROPERTY, $via, $node->getStartLine(), $start, $end, $this->isWrite($node, true)));
             } else {
                 $this->addNote('dynamic', $key, $node);
             }
@@ -349,7 +349,10 @@ final class MemberGraph
         $this->addNote('thisEscapes', $key, $parent instanceof Node ? $parent : $node);
     }
 
-    private static function isWrite(Node $node): bool
+    /**
+     * @param bool $unknownCalleeWrites whether passing the property to a callee whose parameters cannot be known counts as a write
+     */
+    private function isWrite(Node $node, bool $unknownCalleeWrites): bool
     {
         $child = $node;
         $parent = $node->getAttribute('parent');
@@ -371,13 +374,92 @@ final class MemberGraph
             return true;
         }
 
+        if ($parent instanceof Node\Arg && $parent->value === $child) {
+            return $this->passedByReference($parent) ?? $unknownCalleeWrites;
+        }
+
         if ($parent instanceof Node\ArrayItem) {
+            if ($parent->byRef && $parent->value === $child) {
+                return true;
+            }
+
             $list = $parent->getAttribute('parent');
             $assign = $list instanceof Node ? $list->getAttribute('parent') : null;
 
             return $list instanceof Expr\List_ || ($list instanceof Expr\Array_ && $assign instanceof Expr\Assign && $assign->var === $list);
         }
 
-        return $parent instanceof Stmt\Foreach_ && ($parent->valueVar === $child || $parent->keyVar === $child);
+        return $parent instanceof Stmt\Foreach_ && ($parent->valueVar === $child || $parent->keyVar === $child || ($parent->expr === $child && $parent->byRef));
+    }
+
+    /**
+     * @return bool|null null when the callee's parameters cannot be known
+     */
+    private function passedByReference(Node\Arg $arg): ?bool
+    {
+        $call = $arg->getAttribute('parent');
+
+        if (!$call instanceof Expr\CallLike || $call->isFirstClassCallable()) {
+            return null;
+        }
+
+        $position = array_search($arg, $call->getRawArgs(), true);
+        $params = $this->calleeParameters($call);
+
+        if ($params === null || !\is_int($position)) {
+            return null;
+        }
+
+        foreach ($params as $index => $param) {
+            $matches = $arg->name !== null ? strcasecmp($arg->name->toString(), $param['name']) === 0 : ($index === $position || ($param['variadic'] && $position >= $index));
+
+            if ($matches) {
+                return $param['byRef'];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return list<array{name: string, byRef: bool, variadic: bool}>|null null when the callee cannot be known
+     */
+    private function calleeParameters(Expr\CallLike $call): ?array
+    {
+        if ($call instanceof Expr\FuncCall) {
+            if (!$call->name instanceof Name) {
+                return null;
+            }
+
+            $function = $call->name->getLast();
+
+            if (!\function_exists($function) || !(new \ReflectionFunction($function))->isInternal()) {
+                return null;
+            }
+
+            return array_map(static fn (\ReflectionParameter $param) => ['name' => $param->getName(), 'byRef' => $param->isPassedByReference(), 'variadic' => $param->isVariadic()], (new \ReflectionFunction($function))->getParameters());
+        }
+
+        $own = match (true) {
+            ($call instanceof Expr\MethodCall || $call instanceof Expr\NullsafeMethodCall) && Names::isThis($call->var) => true,
+            $call instanceof Expr\StaticCall && $this->ownVia($call->class) !== null                                     => true,
+            default                                                                                                       => false,
+        };
+
+        if (!$own || !$call->name instanceof Node\Identifier) {
+            return null;
+        }
+
+        $method = $this->layout->member('method:' . $call->name->toLowerString())?->stmt;
+
+        if (!$method instanceof Stmt\ClassMethod) {
+            return null;
+        }
+
+        return array_map(static fn (Node\Param $param) => [
+            'name'     => $param->var instanceof Expr\Variable && \is_string($param->var->name) ? $param->var->name : '',
+            'byRef'    => $param->byRef,
+            'variadic' => $param->variadic,
+        ], $method->params);
     }
 }

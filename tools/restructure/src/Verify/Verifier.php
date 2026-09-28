@@ -6,9 +6,11 @@ namespace BitApps\Restructure\Verify;
 
 use BitApps\Restructure\Analyze\Bindings;
 use BitApps\Restructure\Analyze\Naming;
+use BitApps\Restructure\Analyze\PermanentShims;
 use BitApps\Restructure\Php\ClassLayout;
 use BitApps\Restructure\Php\Member;
 use BitApps\Restructure\Php\Names;
+use BitApps\Restructure\Php\Source;
 use BitApps\Restructure\Repo\Workspace;
 use BitApps\Restructure\Support\Lint;
 use PhpParser\Modifiers;
@@ -42,8 +44,10 @@ final class Verifier
         try {
             $this->checkBase($manifest);
             $this->checkGone($manifest);
+            $this->checkShim($manifest);
             $this->checkController($manifest);
             $this->checkServices($manifest);
+            $this->checkTopLevel($manifest);
             $this->checkEditedFiles($manifest);
             $this->checkComments($manifest);
             $this->checkLint($manifest);
@@ -84,14 +88,153 @@ final class Verifier
     private function checkGone(array $manifest): void
     {
         $left = [];
+        $shims = array_flip($this->shimPaths($manifest));
 
         foreach ($manifest['fileOps'] ?? [] as $op) {
-            if ($op['op'] === 'git-mv' && $this->head->tree->exists($op['from'])) {
+            if ($op['op'] === 'git-mv' && !isset($shims[$op['from']]) && $this->head->tree->exists($op['from'])) {
                 $left[] = $op['from'];
             }
         }
 
         $left === [] ? $this->pass('moved files', 'no Controller or *ApiHelper file left behind') : $this->fail('moved files', 'still present: ' . implode(', ', $left));
+    }
+
+    /**
+     * @param array<string, mixed> $manifest
+     */
+    private function checkShim(array $manifest): void
+    {
+        $problems = [];
+        $count = 0;
+
+        foreach ($manifest['fileOps'] ?? [] as $op) {
+            if ($op['op'] !== PermanentShims::OP) {
+                continue;
+            }
+
+            $count++;
+            $path = (string) $op['path'];
+            $expected = PermanentShims::renderOp($op);
+            $actual = $this->head->tree->read($path);
+
+            if ($actual === null) {
+                $problems[] = "{$path} is missing";
+            } elseif ($actual !== $expected) {
+                $problems[] = "{$path} is not exactly the permanent shim: " . Canonical::firstDifference($expected, $actual);
+            }
+
+            if ((string) $op['extends'] !== (string) $manifest['targets']['helper']['class']) {
+                $problems[] = "{$path} must extend the Helper, " . $manifest['targets']['helper']['class'];
+            }
+        }
+
+        if ($count === 0) {
+            return;
+        }
+
+        $problems === [] ? $this->pass('permanent shim', "{$count} shim(s) match plan 6.6 byte for byte") : $this->fail('permanent shim', implode("\n", $problems));
+    }
+
+    /**
+     * Statements outside the class (declare, guards, expressions, functions) run when the autoloader
+     * includes the file, so every class file the unit writes must carry exactly its source's.
+     *
+     * @param array<string, mixed> $manifest
+     */
+    private function checkTopLevel(array $manifest): void
+    {
+        $controllerPath = (string) $manifest['controller']['path'];
+        $baseController = $this->base->source($controllerPath) ?? throw new RuntimeException("{$controllerPath} is missing or does not parse in the " . $this->base->tree->label());
+        $controllerTop = $this->topLevel($baseController);
+        $copied = array_values(array_filter($controllerTop, static fn (Stmt $stmt) => $stmt instanceof Stmt\Declare_ || $stmt instanceof Stmt\If_));
+        $expected = [];
+
+        foreach (['action', 'helper'] as $side) {
+            $target = $manifest['targets'][$side];
+            $origin = (string) $target['origin'];
+
+            if ($origin === 'none') {
+                continue;
+            }
+
+            $expected[(string) $target['path']] = match ($origin) {
+                'git mv of the Controller'            => $controllerTop,
+                'existing file; members are inserted' => $this->topLevel($this->base->source((string) $target['path']) ?? throw new RuntimeException("{$target['path']} is missing at base")),
+                default                               => $copied,
+            };
+        }
+
+        foreach ($manifest['targets']['services'] ?? [] as $service) {
+            $expected[(string) $service['to']] = $this->topLevel($this->base->source((string) $service['from']) ?? throw new RuntimeException("{$service['from']} is missing at base"));
+        }
+
+        $problems = [];
+
+        foreach ($expected as $path => $stmts) {
+            $head = $this->head->source($path);
+
+            if ($head === null) {
+                $problems[] = "{$path} is missing or does not parse";
+
+                continue;
+            }
+
+            $want = array_map(fn (Stmt $stmt) => Canonical::expected($stmt, '', '', $this->map), $stmts);
+            $have = array_map(static fn (Stmt $stmt) => Canonical::actual($stmt), $this->topLevel($head));
+
+            if ($want !== $have) {
+                $problems[] = "{$path}: " . \count($have) . ' statement(s) outside the class, expected ' . \count($want) . '; ' . Canonical::firstDifference(implode("\n", $want), implode("\n", $have));
+            }
+
+            $namespaces = array_map(static fn (Stmt\Namespace_ $namespace) => $namespace->name?->toString(), array_values(array_filter($head->stmts, static fn (Stmt $stmt) => $stmt instanceof Stmt\Namespace_)));
+            $wantNamespace = [(string) $manifest['namespace']];
+
+            if ($namespaces !== $wantNamespace) {
+                $problems[] = "{$path} declares namespace(s) " . json_encode($namespaces) . ', expected ' . json_encode($wantNamespace);
+            }
+        }
+
+        $problems === [] ? $this->pass('file-level statements', \count($expected) . ' class files carry exactly their source\'s statements outside the class') : $this->fail('file-level statements', implode("\n", $problems));
+    }
+
+    /**
+     * @return list<Stmt> statements outside namespace, use and class declarations, in file order
+     */
+    private function topLevel(Source $source): array
+    {
+        $kept = [];
+
+        foreach ($source->stmts as $stmt) {
+            $inner = $stmt instanceof Stmt\Namespace_ ? $stmt->stmts : [$stmt];
+
+            foreach ($inner as $child) {
+                if ($child instanceof Stmt\Use_ || $child instanceof Stmt\GroupUse || $child instanceof Stmt\ClassLike || $child instanceof Stmt\Nop) {
+                    continue;
+                }
+
+                $kept[] = $child;
+            }
+        }
+
+        return $kept;
+    }
+
+    /**
+     * @param array<string, mixed> $manifest
+     *
+     * @return list<string>
+     */
+    private function shimPaths(array $manifest): array
+    {
+        $paths = [];
+
+        foreach ($manifest['fileOps'] ?? [] as $op) {
+            if ($op['op'] === PermanentShims::OP) {
+                $paths[] = (string) $op['path'];
+            }
+        }
+
+        return $paths;
     }
 
     /**
@@ -360,7 +503,7 @@ final class Verifier
     {
         $folder = Naming::folderPath((string) $manifest['integration']);
         $baseComments = $this->comments($this->base, $this->phpFiles($this->base, $folder));
-        $headComments = $this->comments($this->head, $this->phpFiles($this->head, $folder));
+        $headComments = $this->comments($this->head, array_values(array_diff($this->phpFiles($this->head, $folder), $this->shimPaths($manifest))));
         $problems = self::multisetDiff($baseComments, $headComments, $folder);
 
         foreach ($this->editedOutside($manifest) as $path) {

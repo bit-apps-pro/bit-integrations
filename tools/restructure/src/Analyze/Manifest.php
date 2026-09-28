@@ -255,6 +255,10 @@ final class Manifest
             $ops[] = ['op' => $plan->helperExists ? 'insert' : 'create', 'path' => $plan->helperPath];
         }
 
+        if ($plan->shim !== null) {
+            $ops[] = ['op' => PermanentShims::OP] + $plan->shim;
+        }
+
         foreach ($plan->services as $service) {
             $ops[] = ['op' => 'git-mv', 'from' => $service['from'], 'to' => $service['to']];
         }

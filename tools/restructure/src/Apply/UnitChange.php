@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BitApps\Restructure\Apply;
 
 use BitApps\Restructure\Analyze\IntegrationPlan;
+use BitApps\Restructure\Analyze\PermanentShims;
 use BitApps\Restructure\Analyze\RenameMap;
 use BitApps\Restructure\Repo\Workspace;
 use RuntimeException;
@@ -30,6 +31,11 @@ final class UnitChange
      * @var list<string>
      */
     public array $edited = [];
+
+    /**
+     * @var list<string> permanent shims written at a moved Controller's old path
+     */
+    public array $shims = [];
 
     /**
      * @param list<IntegrationPlan> $plans
@@ -73,6 +79,11 @@ final class UnitChange
                 }
             }
 
+            if ($plan->shim !== null) {
+                $change->put($plan->shim['path'], PermanentShims::renderOp($plan->shim));
+                $change->shims[] = $plan->shim['path'];
+            }
+
             foreach ($plan->services as $service) {
                 $source = $workspace->mustSource($service['from']);
                 $class = $source->findClass(basename($service['from'], '.php')) ?? throw new RuntimeException("{$service['from']} does not declare its class");
@@ -107,6 +118,7 @@ final class UnitChange
         }
 
         sort($change->created, SORT_STRING);
+        sort($change->shims, SORT_STRING);
         $change->edited = array_values(array_unique($change->edited));
         sort($change->edited, SORT_STRING);
         ksort($change->contents, SORT_STRING);

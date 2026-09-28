@@ -15,12 +15,13 @@ use BitApps\Restructure\Repo\Tree;
 use BitApps\Restructure\Repo\Workspace;
 use BitApps\Restructure\Support\Git;
 use BitApps\Restructure\Support\Lint;
+use InvalidArgumentException;
 use RuntimeException;
 
 final class ApplyCommand
 {
     public const USAGE = <<<'TXT'
-        bi apply --root <repoRoot> [--only A,B | --batch F1] [--commit-per-unit] [--manifests <dir>]
+        bi apply [--root <repoRoot> | --repo free] [--only A,B | --batch F1] [--commit-per-unit] [--manifests <dir>]
                  [--pro <proRoot>] [--fixer <php-cs-fixer> | --no-fixer] [--dry-run]
 
           Performs Phase A for each integration from its reviewed manifest: git mv of the
@@ -32,6 +33,10 @@ final class ApplyCommand
           (WebHooks and its subclasses, Mail and LearnDash) form one unit and must be selected
           together. Files are linted with php7.4 and php8.4 before anything is committed.
 
+          Salesforce keeps a permanent @deprecated SalesforceController extending SalesforceHelper
+          at its old path (plan 6.6); the manifest lists it as a create-shim file operation.
+
+          --root / --repo    repository to change; --repo free (or no option) means this plugin
           --commit-per-unit  commit each unit: refactor(actions): move <N> to Action/Service/Helper layout
           --manifests        manifest directory (default: tools/restructure/manifests)
           --pro              Pro root, only used to recompute the T2 flag
@@ -51,8 +56,8 @@ final class ApplyCommand
      */
     public function run(array $argv): int
     {
-        $options = Options::parse($argv, ['commit-per-unit', 'no-fixer', 'dry-run'], ['root', 'only', 'batch', 'manifests', 'pro', 'fixer']);
-        $root = Tree::filesystem($options->require('root'))->root;
+        $options = Options::parse($argv, ['commit-per-unit', 'no-fixer', 'dry-run'], ['root', 'repo', 'only', 'batch', 'manifests', 'pro', 'fixer']);
+        $root = Tree::filesystem($this->root($options))->root;
         $git = new Git($root);
 
         if (!$git->isRepository()) {
@@ -124,6 +129,17 @@ final class ApplyCommand
         }
 
         return $failures === 0 ? 0 : 1;
+    }
+
+    private function root(Options $options): string
+    {
+        if ($options->has('root') && $options->has('repo')) {
+            throw new InvalidArgumentException('pass --root or --repo, not both');
+        }
+
+        $repo = $options->get('repo', 'free');
+
+        return (string) $options->get('root', $repo === 'free' ? \dirname($this->toolRoot, 2) : $repo);
     }
 
     /**
@@ -244,6 +260,10 @@ final class ApplyCommand
 
         foreach ($change->edited as $path) {
             $text .= "   edit   {$path}\n";
+        }
+
+        foreach ($change->shims as $path) {
+            $text .= "   shim   {$path}\n";
         }
 
         return $text;
