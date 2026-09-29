@@ -122,7 +122,7 @@ class BuddyBossController
     public static function notificationForUser($content, $item_id, $secondary_item_id, $action_item_count, $format, $component_action_name, $component_name, $id)
     {
         if ('bit_integrations_send_notification' === $component_action_name) {
-            $notification_content = bp_notifications_get_meta($id, 'uo_notification_content');
+            $notification_content = wp_kses_post(bp_notifications_get_meta($id, 'uo_notification_content'));
             $notification_link = bp_notifications_get_meta($id, 'uo_notification_link');
 
             if ('string' === $format) {
