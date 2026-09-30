@@ -738,6 +738,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
   },
+  pointics: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/pointics-integration-as-an-action/'
+  },
   mondayCom: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/monday-com-integration-as-an-action/'
