@@ -7,8 +7,10 @@ import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import QuizMakerActions from './QuizMakerActions'
+import QuizMakerAnswerMap from './QuizMakerAnswerMap'
 import {
   generateMappedField,
+  newAnswerRow,
   refreshQuizMakerQuestionCategories,
   refreshQuizMakerQuestions,
   refreshQuizMakerQuizCategories,
@@ -19,6 +21,7 @@ import {
   CategoryFields,
   hasUtilities,
   modules,
+  needsAnswers,
   needsQuestionCategory,
   needsQuestionList,
   needsQuestionStatus,
@@ -98,6 +101,7 @@ export default function QuizMakerIntegLayout({
         draftConf.mainAction = value
         draftConf.quizMakerFields = fieldSets[value] || []
         draftConf.field_map = generateMappedField(draftConf.quizMakerFields)
+        draftConf.answer_map = value === 'create_question' ? [newAnswerRow()] : []
       })
     )
 
@@ -360,6 +364,14 @@ export default function QuizMakerIntegLayout({
           </div>
           <br />
         </div>
+      )}
+
+      {needsAnswers.includes(mainAction) && (
+        <QuizMakerAnswerMap
+          formFields={formFields}
+          quizMakerConf={quizMakerConf}
+          setQuizMakerConf={setQuizMakerConf}
+        />
       )}
 
       {mainAction && quizMakerConf.quizMakerFields && hasUtilities.includes(mainAction) && (

@@ -93,6 +93,13 @@ export const checkMappedFields = quizMakerConf => {
   return true
 }
 
+export const newAnswerRow = () => ({
+  id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+  formField: '',
+  customValue: '',
+  correct: '0'
+})
+
 export const generateMappedField = fields => {
   const requiredFlds = fields.filter(fld => fld.required === true)
   return requiredFlds.length > 0

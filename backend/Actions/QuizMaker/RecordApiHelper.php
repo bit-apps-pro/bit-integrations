@@ -72,6 +72,7 @@ class RecordApiHelper
                 break;
 
             case 'create_question':
+                $fieldData['answers'] = static::generateAnswersFromMap($this->_integrationDetails->answer_map ?? [], $fieldValues);
                 $response = Hooks::apply(Config::withPrefix('quiz_maker_create_question'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'question';
                 $actionType = 'create_question';
@@ -79,6 +80,7 @@ class RecordApiHelper
                 break;
 
             case 'update_question':
+                $fieldData['answers'] = static::generateAnswersFromMap($this->_integrationDetails->answer_map ?? [], $fieldValues);
                 $response = Hooks::apply(Config::withPrefix('quiz_maker_update_question'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
                 $type = 'question';
                 $actionType = 'update_question';
@@ -229,5 +231,36 @@ class RecordApiHelper
         }
 
         return $dataFinal;
+    }
+
+    private static function generateAnswersFromMap($answerMap, $fieldValues)
+    {
+        $answers = [];
+
+        foreach ((array) $answerMap as $item) {
+            $item = (object) $item;
+            $formField = $item->formField ?? '';
+
+            $answer = $formField === 'custom'
+                ? Common::replaceFieldWithValue($item->customValue ?? '', $fieldValues)
+                : ($fieldValues[$formField] ?? '');
+
+            if (\is_array($answer)) {
+                $answer = implode(', ', $answer);
+            }
+
+            $answer = trim((string) $answer);
+
+            if ($answer === '') {
+                continue;
+            }
+
+            $answers[] = [
+                'answer'  => $answer,
+                'correct' => (string) ($item->correct ?? '0') === '1' ? 1 : 0,
+            ];
+        }
+
+        return $answers;
     }
 }

@@ -1,14 +1,10 @@
+import { create } from 'mutative'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
-import {
-  addFieldMap,
-  delFieldMap,
-  handleCustomValue,
-  handleFieldMapping
-} from '../GlobalIntegrationHelper'
+import { addFieldMap, delFieldMap, handleFieldMapping } from '../GlobalIntegrationHelper'
 
 export default function QuizMakerFieldMap({ i, formFields, field, quizMakerConf, setQuizMakerConf }) {
   const btcbi = useRecoilValue($appConfigState)
@@ -16,6 +12,16 @@ export default function QuizMakerFieldMap({ i, formFields, field, quizMakerConf,
 
   const requiredFlds = quizMakerConf?.quizMakerFields?.filter(fld => fld.required === true) || []
   const nonRequiredFlds = quizMakerConf?.quizMakerFields?.filter(fld => fld.required === false) || []
+
+  // TagifyInput binds onChange once on mount, so update from the latest state rather than this render's props.
+  const setCustomValue = val =>
+    setQuizMakerConf(prevConf =>
+      create(prevConf, draftConf => {
+        if (draftConf.field_map?.[i]) {
+          draftConf.field_map[i].customValue = val?.target?.value || val
+        }
+      })
+    )
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -51,7 +57,7 @@ export default function QuizMakerFieldMap({ i, formFields, field, quizMakerConf,
 
           {field.formField === 'custom' && (
             <TagifyInput
-              onChange={e => handleCustomValue(e, i, quizMakerConf, setQuizMakerConf)}
+              onChange={setCustomValue}
               label={__('Custom Value', 'bit-integrations')}
               className="mr-2"
               type="text"

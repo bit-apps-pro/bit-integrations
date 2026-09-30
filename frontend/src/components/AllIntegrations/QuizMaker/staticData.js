@@ -95,13 +95,7 @@ export const QuestionFields = [
   { key: 'question_hint', label: __('Hint', 'bit-integrations'), required: false },
   { key: 'explanation', label: __('Explanation', 'bit-integrations'), required: false },
   { key: 'right_answer_text', label: __('Right Answer Text', 'bit-integrations'), required: false },
-  { key: 'wrong_answer_text', label: __('Wrong Answer Text', 'bit-integrations'), required: false },
-  { key: 'weight', label: __('Weight', 'bit-integrations'), required: false },
-  {
-    key: 'answers',
-    label: __('Answers (JSON array)', 'bit-integrations'),
-    required: false
-  }
+  { key: 'wrong_answer_text', label: __('Wrong Answer Text', 'bit-integrations'), required: false }
 ]
 
 export const QuestionUpdateFields = [
@@ -112,13 +106,7 @@ export const QuestionUpdateFields = [
   { key: 'question_hint', label: __('Hint', 'bit-integrations'), required: false },
   { key: 'explanation', label: __('Explanation', 'bit-integrations'), required: false },
   { key: 'right_answer_text', label: __('Right Answer Text', 'bit-integrations'), required: false },
-  { key: 'wrong_answer_text', label: __('Wrong Answer Text', 'bit-integrations'), required: false },
-  { key: 'weight', label: __('Weight', 'bit-integrations'), required: false },
-  {
-    key: 'answers',
-    label: __('Answers (JSON array)', 'bit-integrations'),
-    required: false
-  }
+  { key: 'wrong_answer_text', label: __('Wrong Answer Text', 'bit-integrations'), required: false }
 ]
 
 export const QuestionIdField = [
@@ -231,6 +219,11 @@ export const questionTypeOptions = [
   { label: __('Upload File', 'bit-integrations'), value: 'upload_file' }
 ]
 
+export const answerCorrectnessOptions = [
+  { label: __('Wrong answer', 'bit-integrations'), value: '0' },
+  { label: __('Correct answer', 'bit-integrations'), value: '1' }
+]
+
 export const reviewScoreOptions = [
   { label: '1', value: '1' },
   { label: '2', value: '2' },
@@ -243,6 +236,7 @@ export const needsQuizCategory = ['create_quiz', 'update_quiz']
 export const needsQuestionList = ['create_quiz', 'update_quiz']
 export const needsQuestionCategory = ['create_question', 'update_question']
 export const needsQuestionType = ['create_question']
+export const needsAnswers = ['create_question', 'update_question']
 export const needsQuizStatus = ['change_quiz_status']
 export const needsQuestionStatus = ['change_question_status']
 export const needsReviewScore = ['create_review']
