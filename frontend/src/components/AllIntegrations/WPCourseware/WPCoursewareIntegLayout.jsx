@@ -4,8 +4,11 @@ import { __ } from '../../../Utils/i18nwrap'
 import { getWPCoursewareCourses } from './WPCoursewareCommonFunc'
 import Note from '../../Utilities/Note'
 import { create } from 'mutative'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function WPCoursewareIntegLayout({
+  formFields,
   wpCoursewareConf,
   setWPCoursewareConf,
   isLoading,
@@ -54,6 +57,12 @@ export default function WPCoursewareIntegLayout({
       </div>
 
       {wpCoursewareConf?.action && (
+        <div className="mt-4">
+          <UserSourceSelect conf={wpCoursewareConf} setConf={setWPCoursewareConf} />
+        </div>
+      )}
+
+      {wpCoursewareConf?.action && (
         <div className="flx mt-4">
           <b className="wdt-200 d-in-b">{__('WP Courseware Courses:', 'bit-integrations')}</b>
           <MultiSelect
@@ -82,9 +91,27 @@ export default function WPCoursewareIntegLayout({
           </button>
         </div>
       )}
+      {wpCoursewareConf?.action && wpCoursewareConf?.userSource === 'email' && (
+        <UserEmailFieldMap
+          conf={wpCoursewareConf}
+          setConf={setWPCoursewareConf}
+          formFields={formFields}
+          actionLabel={__('WP Courseware Fields', 'bit-integrations')}
+        />
+      )}
+
       <br />
       <br />
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      {wpCoursewareConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

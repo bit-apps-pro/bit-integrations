@@ -4,8 +4,11 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { getAllCourses, getAllLesson } from './AcademyLmsCommonFunc'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function AcademyLmsIntegLayout({
+  formFields,
   academyLmsConf,
   setAcademyLmsConf,
   isLoading,
@@ -160,7 +163,30 @@ export default function AcademyLmsIntegLayout({
           }}
         />
       )}
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      {academyLmsConf?.actionName && (
+        <>
+          <UserSourceSelect conf={academyLmsConf} setConf={setAcademyLmsConf} />
+          {academyLmsConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={academyLmsConf}
+              setConf={setAcademyLmsConf}
+              formFields={formFields}
+              actionLabel={__('Academy LMS Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {academyLmsConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

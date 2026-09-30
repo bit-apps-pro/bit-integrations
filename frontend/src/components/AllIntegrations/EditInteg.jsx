@@ -4,8 +4,9 @@ import { Link, useParams } from 'react-router'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../GlobalStates'
 import useFetch from '../../hooks/useFetch'
-import { __ } from '../../Utils/i18nwrap'
+import { __, sprintf } from '../../Utils/i18nwrap'
 import Loader from '../Loaders/Loader'
+import ErrorBoundary from '../Utilities/ErrorBoundary'
 import SnackMsg from '../Utilities/SnackMsg'
 import EditCustomApi from './CustomApi/EditCustomApi'
 
@@ -185,6 +186,7 @@ const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
+const EditPointics = lazy(() => import('./Pointics/EditPointics'))
 const EditSenseiLMS = lazy(() => import('./SenseiLMS/EditSenseiLMS'))
 const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
 const EditCartAbandonmentRecovery = lazy(
@@ -290,11 +292,18 @@ export default function EditInteg({ allIntegURL }) {
           <div>{__('Integration Settings', 'bit-integrations')}</div>
         </div>
       </div>
-      <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
-        {actionConfig && Object.keys(actionConfig).length && (
-          <IntegType allIntegURL={allIntegURL} formFields={flow.fields} flow={flow} setFlow={setFlow} />
-        )}
-      </Suspense>
+      <ErrorBoundary resetKey={id}>
+        <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
+          {actionConfig && Object.keys(actionConfig).length > 0 && (
+            <IntegType
+              allIntegURL={allIntegURL}
+              formFields={flow.fields}
+              flow={flow}
+              setFlow={setFlow}
+            />
+          )}
+        </Suspense>
+      </ErrorBoundary>
     </div>
   )
 }
@@ -353,6 +362,7 @@ const IntegType = memo(({ allIntegURL, flow }) => {
     case 'SyncSpider':
       return <EditSyncSpider allIntegURL={allIntegURL} />
     case 'KonnectzIT':
+    case 'konnectzIT':
       return <EditKonnectzIT allIntegURL={allIntegURL} />
     case 'Ant Apps':
       return <EditAntApps allIntegURL={allIntegURL} />
@@ -662,6 +672,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'Charitable':
       return <EditCharitable allIntegURL={allIntegURL} />
+    case 'Pointics':
+      return <EditPointics allIntegURL={allIntegURL} />
     case 'SenseiLMS':
       return <EditSenseiLMS allIntegURL={allIntegURL} />
     case 'ConvertForce':
@@ -731,6 +743,20 @@ const IntegType = memo(({ allIntegURL, flow }) => {
     case 'SeoPress':
       return <EditSeoPress allIntegURL={allIntegURL} />
     default:
-      return <Loader style={loaderStyle} />
+      return (
+        <div className="txt-center" style={{ padding: '60px 20px' }}>
+          <h3 className="mt-0">{__('Integration settings unavailable', 'bit-integrations')}</h3>
+          <p>
+            {sprintf(
+              // translators: %s: saved integration type
+              __(
+                'No settings screen is registered for "%s". If this action came from Bit Integrations Pro, activate Pro to edit it.',
+                'bit-integrations'
+              ),
+              flow?.flow_details?.type || __('unknown', 'bit-integrations')
+            )}
+          </p>
+        </div>
+      )
   }
 })

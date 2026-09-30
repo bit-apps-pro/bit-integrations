@@ -3,9 +3,17 @@ import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { getAllCourses, getAllLesson } from './TutorLmsCommonFunc'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 import Note from '../../Utilities/Note'
 
-export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isLoading, setIsLoading }) {
+export default function TutorLmsIntegLayout({
+  formFields,
+  tutorlmsConf,
+  setTutorlmsConf,
+  isLoading,
+  setIsLoading
+}) {
   const action = [
     { value: 'enroll-course', label: __('Enroll the user in a course', 'bit-integrations') },
     { value: 'unenroll-course', label: __('Unenroll user from a course', 'bit-integrations') },
@@ -82,6 +90,13 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
       </div>
       <br />
 
+      {tutorlmsConf?.actionName && (
+        <>
+          <UserSourceSelect conf={tutorlmsConf} setConf={setTutorlmsConf} mapKey="tutorField" />
+          <br />
+        </>
+      )}
+
       {(tutorlmsConf?.actionName === 'enroll-course' ||
         tutorlmsConf?.actionName === 'unenroll-course' ||
         tutorlmsConf?.actionName === 'complete-course' ||
@@ -143,6 +158,15 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
         </div>
       )}
 
+      {tutorlmsConf?.actionName && tutorlmsConf?.userSource === 'email' && (
+        <UserEmailFieldMap
+          conf={tutorlmsConf}
+          setConf={setTutorlmsConf}
+          formFields={formFields}
+          actionLabel={__('Tutor LMS Fields', 'bit-integrations')}
+        />
+      )}
+
       <br />
       <br />
       {isLoading && (
@@ -156,7 +180,16 @@ export default function TutorLmsIntegLayout({ tutorlmsConf, setTutorlmsConf, isL
           }}
         />
       )}
-      <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      {tutorlmsConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

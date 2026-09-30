@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import SliceWpIntegLayout from './SliceWpIntegLayout'
 import { handleInput } from './SliceWpCommonFunc'
 
@@ -66,7 +67,7 @@ function EditSliceWp({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={!sliceWpConf.mainAction || isLoading}
+        disabled={!sliceWpConf.mainAction || isLoading || isUserSourceIncomplete(sliceWpConf)}
         isLoading={isLoading}
         dataConf={sliceWpConf}
         setDataConf={setSliceWpConf}
