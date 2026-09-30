@@ -193,6 +193,7 @@ const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthor
 const QuizAndSurveyMasterAuthorization = lazy(
   () => import('./QuizAndSurveyMaster/QuizAndSurveyMasterAuthorization')
 )
+const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
 const CartAbandonmentRecoveryAuthorization = lazy(
@@ -701,12 +702,10 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'QuizAndSurveyMaster':
       return (
-        <QuizAndSurveyMasterAuthorization
-          quizAndSurveyMasterConf={integrationConf}
-          step={1}
-          isInfo
-        />
+        <QuizAndSurveyMasterAuthorization quizAndSurveyMasterConf={integrationConf} step={1} isInfo />
       )
+    case 'Pointics':
+      return <PointicsAuthorization pointicsConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':
       return <SenseiLMSAuthorization senseiLMSConf={integrationConf} step={1} isInfo />
     case 'ConvertForce':
