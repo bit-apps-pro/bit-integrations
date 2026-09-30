@@ -1816,7 +1816,7 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
-    case 'Bookings and Appointments for Woocommerce':
+    case 'Bookings And Appointments For Woocommerce':
       return (
         <BookingsAndAppointmentsForWoocommerce
           allIntegURL={allIntegURL}

@@ -78,7 +78,7 @@ export const BookingParticipantsFields = [
   { key: 'item_id', label: __('Booking ID', 'bit-integrations'), required: true },
   {
     key: 'participants',
-    label: __('Participants (label:count, label:count)', 'bit-integrations'),
+    label: __('Participants (Type:Count, e.g. Adult:2, Child:1)', 'bit-integrations'),
     required: true
   }
 ]
@@ -89,17 +89,16 @@ export const BookingUpdatedEmailFields = [
 
 export const BookingPaymentEmailFields = [
   { key: 'item_id', label: __('Booking ID', 'bit-integrations'), required: true },
-  { key: 'to_email', label: __('Send To (Email)', 'bit-integrations'), required: false },
-  { key: 'status', label: __('Payment Status', 'bit-integrations'), required: false }
+  { key: 'to_email', label: __('Send To (Email)', 'bit-integrations'), required: false }
 ]
 
 // Fixed option sets — never mapped, rendered as selects.
 export const statusOptions = [
   { label: __('Paid', 'bit-integrations'), value: 'paid' },
   { label: __('Un-paid', 'bit-integrations'), value: 'un-paid' },
-  { label: __('Confirmed', 'bit-integrations'), value: 'confirmed' },
-  { label: __('Cancelled', 'bit-integrations'), value: 'cancelled' },
-  { label: __('Deleted', 'bit-integrations'), value: 'deleted' }
+  { label: __('Cancelled', 'bit-integrations'), value: 'canceled' },
+  { label: __('Requires Confirmation', 'bit-integrations'), value: 'requires-confirmation' },
+  { label: __('Partially Paid', 'bit-integrations'), value: 'partially-paid' }
 ]
 
 export const notifyModeOptions = [
