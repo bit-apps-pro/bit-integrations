@@ -190,6 +190,7 @@ const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
@@ -697,6 +698,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'QuizMaker':
+      return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
     case 'Pointics':
       return <PointicsAuthorization pointicsConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':
