@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Quiz Maker Record Api
- */
-
 namespace BitApps\Integrations\Actions\QuizMaker;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Quiz Maker Integration
- */
-
 namespace BitApps\Integrations\Actions\QuizMaker;
 
 use WP_Error;
@@ -91,14 +87,6 @@ class QuizMakerController
         return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
-    /**
-     * Dropdown options read from one of Quiz Maker's own tables.
-     *
-     * @param string $suffix      table suffix after the `aysquiz_` prefix
-     * @param string $labelColumn
-     *
-     * @return array
-     */
     private static function rowOptions($suffix, $labelColumn)
     {
         global $wpdb;

@@ -13,7 +13,6 @@ export default function QuizMakerFieldMap({ i, formFields, field, quizMakerConf,
   const requiredFlds = quizMakerConf?.quizMakerFields?.filter(fld => fld.required === true) || []
   const nonRequiredFlds = quizMakerConf?.quizMakerFields?.filter(fld => fld.required === false) || []
 
-  // TagifyInput binds onChange once on mount, so update from the latest state rather than this render's props.
   const setCustomValue = val =>
     setQuizMakerConf(prevConf =>
       create(prevConf, draftConf => {

@@ -24,7 +24,6 @@ export default function QuizMakerAnswerMap({ formFields, quizMakerConf, setQuizM
 
   const removeAnswer = index => updateAnswers(rows => rows.splice(index, 1))
 
-  // Rows are addressed by id: TagifyInput keeps the onChange it mounted with, so an index could point at a moved row.
   const setAnswerValue = (id, key, value) =>
     updateAnswers(rows => {
       const row = rows.find(item => item.id === id)
