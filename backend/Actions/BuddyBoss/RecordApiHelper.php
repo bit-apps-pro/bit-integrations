@@ -336,7 +336,7 @@ class RecordApiHelper
         $data = [
             'group_id'             => $group_id,
             'friend_id'            => $friendId,
-            'notification_content' => do_shortcode($finalData['notification_content']),
+            'notification_content' => wp_kses_post(do_shortcode($finalData['notification_content'])),
             'notification_link'    => do_shortcode($finalData['notification_link']),
         ];
 
@@ -480,7 +480,7 @@ class RecordApiHelper
             );
 
             $data = [
-                'notification_content' => do_shortcode($finalData['notification_content']),
+                'notification_content' => wp_kses_post(do_shortcode($finalData['notification_content'])),
                 'notification_link'    => do_shortcode($finalData['notification_link']),
             ];
 

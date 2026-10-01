@@ -7,7 +7,10 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  FETCH_RETRY_DELAY,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { extractValueFromPath } from '../../Utils/Helpers'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
@@ -63,48 +66,50 @@ function EditActionHook() {
         return
       }
 
-      bitsFetch({ hook_id: hookID }, 'action_hook/test', null, 'POST', signal).then(resp => {
-        if (!resp.success && isFetchingRef.current) {
-          fetchSequentially()
-          return
-        }
+      bitsFetch({ hook_id: hookID }, 'action_hook/test', null, 'POST', signal)
+        .then(resp => {
+          if (!resp.success && !resp.aborted && isFetchingRef.current) {
+            setTimeout(fetchSequentially, FETCH_RETRY_DELAY)
+            return
+          }
 
-        if (resp.success) {
-          setFlow(prevFlow =>
-            create(prevFlow, draftFlow => {
-              draftFlow.flow_details['rawData'] = resp.data.actionHook
-              draftFlow.flow_details['fields'] = []
-              draftFlow.flow_details['primaryKey'] = undefined
-              draftFlow.flow_details['trigger_type'] =
-                draftFlow.flow_details?.trigger_type || 'action_hook'
+          if (resp.success) {
+            setFlow(prevFlow =>
+              create(prevFlow, draftFlow => {
+                draftFlow.flow_details['rawData'] = resp.data.actionHook
+                draftFlow.flow_details['fields'] = []
+                draftFlow.flow_details['primaryKey'] = undefined
+                draftFlow.flow_details['trigger_type'] =
+                  draftFlow.flow_details?.trigger_type || 'action_hook'
 
-              if (draftFlow.flow_details?.body?.data) {
-                draftFlow.flow_details.body.data = []
-              } else {
-                draftFlow.flow_details.field_map = []
-              }
-            })
-          )
-          setActionConf(prevConf =>
-            create(prevConf, draftConf => {
-              draftConf['rawData'] = resp.data.actionHook
-              draftConf['fields'] = []
-              draftConf['primaryKey'] = undefined
+                if (draftFlow.flow_details?.body?.data) {
+                  draftFlow.flow_details.body.data = []
+                } else {
+                  draftFlow.flow_details.field_map = []
+                }
+              })
+            )
+            setActionConf(prevConf =>
+              create(prevConf, draftConf => {
+                draftConf['rawData'] = resp.data.actionHook
+                draftConf['fields'] = []
+                draftConf['primaryKey'] = undefined
 
-              if (draftConf?.body?.data) {
-                draftConf.body.data = []
-              } else {
-                draftConf.field_map = []
-              }
-            })
-          )
-          setFormFields([])
-          setShowResponse(true)
-          setShowSelectedFields(true)
-        }
+                if (draftConf?.body?.data) {
+                  draftConf.body.data = []
+                } else {
+                  draftConf.field_map = []
+                }
+              })
+            )
+            setFormFields([])
+            setShowResponse(true)
+            setShowSelectedFields(true)
+          }
 
-        stopFetching()
-      })
+          stopFetching()
+        })
+        .catch(stopFetching)
     } catch (err) {
       console.error(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err

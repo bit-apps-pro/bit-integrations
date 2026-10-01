@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\Affiliate;
 
+use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
@@ -48,7 +49,7 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public static function createAffiliateWithSpecificId($affiliateId, $statusId, $referralId, $finalData)
+    public static function createAffiliateWithSpecificId($affiliateId, $statusId, $referralId, $finalData, $user_id)
     {
         switch ($statusId) {
             case '1':
@@ -83,13 +84,12 @@ class RecordApiHelper
                 break;
         }
 
-        $user_id = get_current_user_id();
         $user = get_user_by('id', $user_id);
         $finalData['user_id'] = $user_id;
         $finalData['type'] = $referral;
         $finalData['status'] = $status;
         $finalData['custom'] = 'this is custom field';
-        $finalData['user_name'] = $user->user_login;
+        $finalData['user_name'] = $user ? $user->user_login : '';
         $finalData['affiliate_id'] = $affiliateId;
 
         $affiliate_user_id = affwp_get_affiliate_user_id($affiliateId);
@@ -99,7 +99,7 @@ class RecordApiHelper
         LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'group', 'type_name' => 'create-referral']), 'error', wp_json_encode('User are not affiliate'));
     }
 
-    public static function createAffiliateFortheUser($statusId, $referralId, $finalData)
+    public static function createAffiliateFortheUser($statusId, $referralId, $finalData, $user_id)
     {
         switch ($statusId) {
             case '1':
@@ -134,14 +134,13 @@ class RecordApiHelper
                 break;
         }
 
-        $user_id = get_current_user_id();
         $affiliateId = affwp_get_affiliate_id($user_id);
         $user = get_user_by('id', $user_id);
         $finalData['user_id'] = $user_id;
         $finalData['type'] = $referral;
         $finalData['status'] = $status;
         $finalData['custom'] = 'this is custom field';
-        $finalData['user_name'] = $user->user_login;
+        $finalData['user_name'] = $user ? $user->user_login : '';
         $finalData['affiliate_id'] = $affiliateId;
 
         $affiliate_user_id = affwp_get_affiliate_user_id($affiliateId);
@@ -158,6 +157,15 @@ class RecordApiHelper
         $integrationData
     ) {
         $fieldData = [];
+
+        $userId = ActionUser::resolve($integrationDetails, $fieldValues);
+
+        if (is_wp_error($userId)) {
+            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'referral', 'type_name' => 'create-referral']), 'error', wp_json_encode($userId->get_error_message()));
+
+            return $userId;
+        }
+
         if ($mainAction === '1') {
             $fieldMap = $integrationDetails->field_map;
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
@@ -168,7 +176,8 @@ class RecordApiHelper
                 $affiliateId,
                 $statusId,
                 $referralId,
-                $finalData
+                $finalData,
+                $userId
             );
             if ($apiResponse !== 0) {
                 // translators: %s: Placeholder value
@@ -187,7 +196,8 @@ class RecordApiHelper
             $apiResponse = self::createAffiliateFortheUser(
                 $statusId,
                 $referralId,
-                $finalData
+                $finalData,
+                $userId
             );
             if ($apiResponse !== 0) {
                 // translators: %s: Placeholder value

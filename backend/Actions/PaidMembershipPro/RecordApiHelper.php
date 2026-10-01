@@ -35,9 +35,8 @@ class RecordApiHelper
         return $dataFinal;
     }
 
-    public function addUserMembershipLevel($membership_level)
+    public function addUserMembershipLevel($membership_level, $user_id)
     {
-        $user_id = get_current_user_id();
         $current_level = pmpro_getMembershipLevelForUser($user_id);
 
         if (!empty($current_level) && absint($current_level->ID) == absint($membership_level)) {
@@ -91,9 +90,8 @@ class RecordApiHelper
         LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('Failed to add membership level', 'bit-integrations')));
     }
 
-    public function removeUserFromMembershipLevel($membership_level)
+    public function removeUserFromMembershipLevel($membership_level, $user_id)
     {
-        $user_id = get_current_user_id();
         $user_membership_levels = $this->get_user_membership_levels($user_id);
 
         if ('any' === $membership_level) {
@@ -124,13 +122,14 @@ class RecordApiHelper
 
     public function execute(
         $mainAction,
-        $selectedMembership
+        $selectedMembership,
+        $userId
     ) {
         $apiResponse = true;
         if ($mainAction === '1') {
-            $this->addUserMembershipLevel($selectedMembership);
+            $this->addUserMembershipLevel($selectedMembership, $userId);
         } elseif ($mainAction === '2') {
-            $this->removeUserFromMembershipLevel($selectedMembership);
+            $this->removeUserFromMembershipLevel($selectedMembership, $userId);
         }
 
         return $apiResponse;

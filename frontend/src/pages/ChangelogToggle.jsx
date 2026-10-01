@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '20th August 2026'
+const releaseDate = '27th September 2026'
 
 // Example for items:
 // items: [
@@ -29,83 +29,25 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      { label: 'NextCRM', desc: '19 new events added.', isPro: true },
-      { label: 'Sensei LMS', desc: '11 new events added.', isPro: true },
-      { label: 'Events Manager', desc: '10 new events added.', isPro: true },
-      { label: 'LatePoint', desc: '5 new events added.', isPro: true },
-      { label: 'Cart Abandonment Recovery', desc: '5 new events added.', isPro: true },
-      { label: 'ClickWhale', desc: '4 new events added.', isPro: true },
-      { label: 'ConvertForce Popup Builder', desc: '4 new events added.', isPro: true },
-      { label: 'Power Coupons for WooCommerce', desc: '4 new events added.', isPro: true },
-      { label: 'WP Table Builder', desc: '4 new events added.', isPro: true },
-      { label: 'Booking Calendar', desc: '2 new events added.', isPro: true },
-      { label: 'ProfilePress', desc: '2 new events added.', isPro: true },
-      { label: 'Modern Cart', desc: '1 new event added.', isPro: true },
-      { label: 'Popup Maker', desc: '1 new event added.', isPro: true }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      { label: 'SureContact', desc: '42 new events added.', isPro: true },
-      { label: 'NextCRM', desc: '13 new events added.', isPro: true },
-      { label: 'Sensei LMS', desc: '12 new events added.', isPro: true },
-      { label: 'Brilliant Directories', desc: '11 new events added.', isPro: true },
-      { label: 'Popup Maker', desc: '9 new events added.', isPro: true },
-      { label: 'LatePoint', desc: '8 new events added.', isPro: true },
-      { label: 'Power Coupons for WooCommerce', desc: '5 new events added.', isPro: true },
-      { label: 'ConvertForce Popup Builder', desc: '4 new events added.', isPro: true },
-      { label: 'WP Table Builder', desc: '4 new events added.', isPro: true },
-      { label: 'Cart Abandonment Recovery', desc: '3 new events added.', isPro: true },
-      { label: 'ClickWhale', desc: '3 new events added.', isPro: true },
-      { label: 'Modern Cart', desc: '3 new events added.', isPro: true },
-      { label: 'Booking Calendar', desc: '2 new events added.', isPro: true },
-      { label: 'ProfilePress', desc: '2 new events added.', isPro: true },
-      { label: 'BadgeOS', desc: '1 new event added.', isPro: true },
-      { label: 'Events Manager', desc: '1 new event added.', isPro: true }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
     headClass: 'new-feature',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'Smart Tags',
-        desc: 'new tags added - date and time, logged-in user, post and post author, site info, visitor info, and true / false values.',
-        isPro: false
-      },
-      {
-        label: 'Custom API',
-        desc: 'URL path variables added. Fill them from trigger data in the new Path Variables tab.',
-        isPro: false
-      },
-      {
-        label: 'Trello',
-        desc: 'Card descriptions now use a rich text editor.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Improvements', 'bit-integrations'),
     headClass: 'new-improvement',
     itemClass: 'feature-list',
-    items: [
-      {
-        label: 'Bit CRM',
-        desc: 'Lead dates now follow your site timezone.',
-        isPro: false
-      },
-      {
-        label: 'Connections',
-        desc: 'A new connection gets a default name, so you do not have to type one.',
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Bug Fixes', 'bit-integrations'),
@@ -113,8 +55,18 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Custom API',
-        desc: 'An empty API endpoint is now logged as an error.',
+        label: 'wpDataTables',
+        desc: 'Manual tables now work. Their columns load in the field map and new rows are added to the table.',
+        isPro: true
+      },
+      {
+        label: 'Zoho CRM',
+        desc: 'Records with a lookup field, such as Account Name, failed with a "MANDATORY_NOT_FOUND" error.',
+        isPro: false
+      },
+      {
+        label: 'MailerLite',
+        desc: 'The "Update subscriber" option was disabled when groups were selected, so existing subscribers failed with "Subscriber already exist".',
         isPro: false
       }
     ]

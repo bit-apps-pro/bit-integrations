@@ -5,6 +5,8 @@ import { $appConfigState } from '../../../GlobalStates'
 import TrashIcn from '../../../Icons/TrashIcn'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import MtInput from '../../Utilities/MtInput'
+import { addFieldMap, delFieldMap, handleFieldMapping } from '../IntegrationHelpers/FieldMapHelper'
+import { handleCustomValue } from './SendPulseCommonFunc'
 
 export default function SendPulseFieldMap({ i, formFields, field, sendPulseConf, setSendPulseConf }) {
   const isRequired = field.required
@@ -13,35 +15,6 @@ export default function SendPulseFieldMap({ i, formFields, field, sendPulseConf,
     Object.values(sendPulseConf?.default?.fields).filter(f => !f.required)
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
-  const addFieldMap = indx => {
-    const newConf = { ...sendPulseConf }
-    newConf.field_map.splice(indx, 0, {})
-    setSendPulseConf(newConf)
-  }
-
-  const delFieldMap = indx => {
-    const newConf = { ...sendPulseConf }
-    if (newConf.field_map.length > 1) {
-      newConf.field_map.splice(indx, 1)
-    }
-    setSendPulseConf(newConf)
-  }
-
-  const handleFieldMapping = (event, indx) => {
-    const newConf = { ...sendPulseConf }
-    newConf.field_map[indx][event.target.name] = event.target.value
-
-    if (event.target.value === 'custom') {
-      newConf.field_map[indx].customValue = ''
-    }
-    setSendPulseConf(newConf)
-  }
-
-  const handleCustomValue = (event, indx) => {
-    const newConf = { ...sendPulseConf }
-    newConf.field_map[indx].customValue = event.target.value
-    setSendPulseConf(newConf)
-  }
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -50,7 +23,7 @@ export default function SendPulseFieldMap({ i, formFields, field, sendPulseConf,
           className="btcd-paper-inp mr-2"
           name="formField"
           value={field.formField || ''}
-          onChange={ev => handleFieldMapping(ev, i)}>
+          onChange={ev => handleFieldMapping(ev, i, sendPulseConf, setSendPulseConf)}>
           <option value="">{__('Select Field', 'bit-integrations')}</option>
           <optgroup label={__('List Fields', 'bit-integrations')}>
             {formFields?.map(f => (
@@ -75,11 +48,11 @@ export default function SendPulseFieldMap({ i, formFields, field, sendPulseConf,
 
         {field.formField === 'custom' && (
           <MtInput
-            onChange={e => handleCustomValue(e, i)}
+            onChange={e => handleCustomValue(e, i, sendPulseConf, setSendPulseConf)}
             label={__('Custom Value', 'bit-integrations')}
             className="mr-2"
             type="text"
-            value={field.customValue}
+            value={field.customValue || ''}
             placeholder={__('Custom Value', 'bit-integrations')}
           />
         )}
@@ -88,7 +61,7 @@ export default function SendPulseFieldMap({ i, formFields, field, sendPulseConf,
           className="btcd-paper-inp"
           name="sendPulseField"
           value={field.sendPulseField || ''}
-          onChange={ev => handleFieldMapping(ev, i)}
+          onChange={ev => handleFieldMapping(ev, i, sendPulseConf, setSendPulseConf)}
           disabled={isRequired}>
           <option value="">{__('Select Field', 'bit-integrations')}</option>
           {isRequired
@@ -108,11 +81,11 @@ export default function SendPulseFieldMap({ i, formFields, field, sendPulseConf,
       </div>
       {!isRequired && (
         <>
-          <button onClick={() => addFieldMap(i)} className="icn-btn sh-sm ml-2" type="button">
+          <button onClick={() => addFieldMap(i, sendPulseConf, setSendPulseConf)} className="icn-btn sh-sm ml-2" type="button">
             +
           </button>
           <button
-            onClick={() => delFieldMap(i)}
+            onClick={() => delFieldMap(i, sendPulseConf, setSendPulseConf)}
             className="icn-btn sh-sm ml-2"
             type="button"
             aria-label="btn">

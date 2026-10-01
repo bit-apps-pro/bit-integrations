@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput } from './AcademyLmsCommonFunc'
 import AcademyLmsIntegLayout from './AcademyLmsIntegLayout'
 
@@ -51,6 +52,7 @@ function EditAcademyLms({ allIntegURL }) {
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
       <AcademyLmsIntegLayout
+        formFields={formField}
         academyLmsConf={academyLmsConf}
         setAcademyLmsConf={setAcademyLmsConf}
         isLoading={isLoading}
@@ -60,7 +62,7 @@ function EditAcademyLms({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        disabled={false}
+        disabled={isUserSourceIncomplete(academyLmsConf)}
         isLoading={isLoading}
         dataConf={academyLmsConf}
         setDataConf={setAcademyLmsConf}

@@ -9,6 +9,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
 import CustomFetcherHelper, {
+  FETCH_RETRY_DELAY,
   resetActionHookFlowData,
   useFetchCountdown
 } from '../../Utils/CustomFetcherHelper'
@@ -157,27 +158,29 @@ const ActionHook = () => {
         return
       }
 
-      bitsFetch({ hook_id: hookID }, 'action_hook/test', null, 'POST', signal).then(resp => {
-        if (!resp.success && isFetchingRef.current) {
-          fetchSequentially()
-          return
-        }
+      bitsFetch({ hook_id: hookID }, 'action_hook/test', null, 'POST', signal)
+        .then(resp => {
+          if (!resp.success && !resp.aborted && isFetchingRef.current) {
+            setTimeout(fetchSequentially, FETCH_RETRY_DELAY)
+            return
+          }
 
-        if (resp.success) {
-          setNewFlow(prevFlow =>
-            create(prevFlow, draftFlow => {
-              draftFlow.triggerDetail['tmp'] = resp.data.actionHook
-              draftFlow.triggerDetail['data'] = resp.data.actionHook
-              draftFlow.triggerDetail['hook_id'] = hookID
-            })
-          )
+          if (resp.success) {
+            setNewFlow(prevFlow =>
+              create(prevFlow, draftFlow => {
+                draftFlow.triggerDetail['tmp'] = resp.data.actionHook
+                draftFlow.triggerDetail['data'] = resp.data.actionHook
+                draftFlow.triggerDetail['hook_id'] = hookID
+              })
+            )
 
-          setPrimaryKey(undefined)
-          setShowResponse(true)
-        }
+            setPrimaryKey(undefined)
+            setShowResponse(true)
+          }
 
-        stopFetching()
-      })
+          stopFetching()
+        })
+        .catch(stopFetching)
     } catch (err) {
       console.log(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err
