@@ -187,6 +187,8 @@ export default function SelectAction() {
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
     { type: 'BookingCalendar', is_pro: true },
+    { type: 'SureContact', is_pro: false },
+    { type: 'Flodesk', is_pro: false },
     { type: 'SureContact', is_pro: true },
     {
       type: 'BrilliantDirectories',
@@ -196,6 +198,7 @@ export default function SelectAction() {
     },
     { type: 'FluentCart', is_pro: true },
     { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
+    { type: 'Charitable', is_pro: true },
     { type: 'Pointics', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },
     { type: 'ConvertForce', is_pro: true },
