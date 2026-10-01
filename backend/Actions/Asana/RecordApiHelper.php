@@ -6,9 +6,11 @@
 
 namespace BitApps\Integrations\Actions\Asana;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
+use WP_Error;
 
 class RecordApiHelper
 {
@@ -63,12 +65,11 @@ class RecordApiHelper
         $apiEndpoint = $this->apiUrl . 'tasks';
 
         $response = HttpHelper::post($apiEndpoint, wp_json_encode(['data' => $requestParams]), $this->defaultHeader);
-        if (!isset($this->integrationDetails->selectedSections)) {
+        if (!isset($this->integrationDetails->selectedSections) || !isset($response->data)) {
             return $response;
         }
-        if (isset($response->data)) {
-            return $this->addTaskToSection($response->data->gid, $this->integrationDetails->selectedSections);
-        }
+
+        return $this->addTaskToSection($response->data->gid, $this->integrationDetails->selectedSections);
     }
 
     public function addTaskToSection($taskId, $sectionId)
@@ -83,11 +84,23 @@ class RecordApiHelper
     {
         $dataFinal = [];
         foreach ($fieldMap as $value) {
-            $triggerValue = $value->formField;
-            $actionValue = $value->asanaFormField;
+            $triggerValue = $value->formField ?? null;
+            $actionValue = $value->asanaFormField ?? null;
 
-            $fieldKey = $actionValue === 'fields' ? $value->customFieldKey : $actionValue;
-            $dataFinal[$fieldKey] = $triggerValue === 'custom' && isset($value->customValue) ? Common::replaceFieldWithValue($value->customValue, $data) : $data[$triggerValue] ?? null;
+            $fieldKey = $actionValue === 'fields' ? ($value->customFieldKey ?? null) : $actionValue;
+            if (empty($fieldKey)) {
+                continue;
+            }
+
+            $fieldValue = $triggerValue === 'custom' && isset($value->customValue)
+                ? Common::replaceFieldWithValue($value->customValue, $data)
+                : $data[$triggerValue] ?? null;
+
+            if (\is_null($fieldValue)) {
+                continue;
+            }
+
+            $dataFinal[$fieldKey] = $fieldValue;
         }
 
         return $dataFinal;
@@ -96,11 +109,15 @@ class RecordApiHelper
     public function execute($fieldValues, $fieldMap, $actionName)
     {
         $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap);
-        if ($actionName === 'task') {
-            $apiResponse = $this->addTask($finalData);
+
+        if ($actionName !== 'task') {
+            // translators: %s: action name
+            return new WP_Error(Config::withPrefix('asana_unknown_action'), wp_sprintf(__('Unknown Asana action "%s"', 'bit-integrations'), $actionName));
         }
 
-        if ($apiResponse->data || $apiResponse->status === 'success') {
+        $apiResponse = $this->addTask($finalData);
+
+        if (isset($apiResponse->data) || (isset($apiResponse->status) && $apiResponse->status === 'success')) {
             $res = [$this->typeName . ' successfully'];
             LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->typeName]), 'success', wp_json_encode($res));
         } else {

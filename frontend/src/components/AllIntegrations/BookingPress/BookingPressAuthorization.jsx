@@ -1,6 +1,7 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
 import Authorization from '../../Connections/Authorization'
+import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 
 export default function BookingPressAuthorization({
   bookingPressConf,
@@ -11,6 +12,8 @@ export default function BookingPressAuthorization({
 }) {
   return (
     <Authorization
+      tutorialTitle="BookingPress"
+      tutorialLinks={tutorialLinks?.bookingPress || {}}
       config={bookingPressConf}
       setConfig={setBookingPressConf}
       step={step}

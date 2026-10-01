@@ -8,6 +8,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput, checkMappedFields } from './AffiliateCommonFunc'
 import { $appConfigState } from '../../../GlobalStates'
 import AffiliateAuthorization from './AffiliateAuthorization'
@@ -113,7 +114,12 @@ function Affiliate({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
 
         <button
           onClick={() => nextPage(3)}
-          disabled={!affiliateConf.statusId || !affiliateConf.referralId || isLoading}
+          disabled={
+            !affiliateConf.statusId ||
+            !affiliateConf.referralId ||
+            isLoading ||
+            isUserSourceIncomplete(affiliateConf)
+          }
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}

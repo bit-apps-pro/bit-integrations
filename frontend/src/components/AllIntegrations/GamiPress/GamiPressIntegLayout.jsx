@@ -12,6 +12,8 @@ import {
 } from './GamiPressCommonFunc'
 import GamiPressFieldMap from './GamiPressFieldMap'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function GamiPressIntegLayout({
   formFields,
@@ -270,7 +272,31 @@ export default function GamiPressIntegLayout({
         </>
       )}
       <br />
-      <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      {gamiPressConf?.mainAction && (
+        <>
+          <br />
+          <UserSourceSelect conf={gamiPressConf} setConf={setGamiPressConf} />
+          {gamiPressConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={gamiPressConf}
+              setConf={setGamiPressConf}
+              formFields={formFields}
+              actionLabel={__('GamiPress Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {gamiPressConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

@@ -189,13 +189,15 @@ export default function SelectAction() {
     { type: 'BookingCalendar', is_pro: true },
     { type: 'SureContact', is_pro: false },
     { type: 'Flodesk', is_pro: false },
+    { type: 'SureContact', is_pro: true },
     {
       type: 'BrilliantDirectories',
       name: 'Brilliant Directories',
       logo: 'brilliantDirectories',
-      is_pro: false
+      is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'Pointics', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },
     { type: 'ConvertForce', is_pro: true },
     { type: 'Cart Abandonment Recovery', is_pro: true },

@@ -12,7 +12,7 @@ import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
 import TutorLmsIntegLayout from './TutorLmsIntegLayout'
-import { handleInput } from './TutorLmsCommonFunc'
+import { handleInput, isActionConfigIncomplete } from './TutorLmsCommonFunc'
 
 function EditTutorLms({ allIntegURL }) {
   const navigate = useNavigate()
@@ -52,6 +52,7 @@ function EditTutorLms({ allIntegURL }) {
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
       <TutorLmsIntegLayout
+        formFields={formField}
         tutorlmsConf={tutorlmsConf}
         setTutorlmsConf={setTutorlmsConf}
         isLoading={isLoading}
@@ -61,7 +62,7 @@ function EditTutorLms({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        disabled={false}
+        disabled={isActionConfigIncomplete(tutorlmsConf)}
         isLoading={isLoading}
         dataConf={tutorlmsConf}
         setDataConf={setTutorlmsConf}

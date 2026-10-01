@@ -8,6 +8,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput, checkMappedFields } from './GamiPressCommonFunc'
 import GamiPressIntegLayout from './GamiPressIntegLayout'
 import { $appConfigState } from '../../../GlobalStates'
@@ -115,7 +116,12 @@ function GamiPress({ formFields, setFlow, flow, allIntegURL, isInfo, edit }) {
 
         <button
           onClick={() => nextPage(3)}
-          disabled={!gamiPressConf.mainAction || isLoading || isDisabled()}
+          disabled={
+            !gamiPressConf.mainAction ||
+            isLoading ||
+            isDisabled() ||
+            isUserSourceIncomplete(gamiPressConf)
+          }
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}
