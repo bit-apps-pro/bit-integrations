@@ -197,6 +197,7 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
     { type: 'Charitable', is_pro: true },
     { type: 'Pointics', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },

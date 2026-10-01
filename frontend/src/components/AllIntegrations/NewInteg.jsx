@@ -185,6 +185,7 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
@@ -1818,6 +1819,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'FluentCart':
       return (
         <FluentCart
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'ElementsKit':
+      return (
+        <ElementsKit
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
