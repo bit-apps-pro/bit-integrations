@@ -183,6 +183,7 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
+const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
@@ -1799,6 +1800,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'BrilliantDirectories':
       return (
         <BrilliantDirectories
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Flodesk':
+      return (
+        <Flodesk
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

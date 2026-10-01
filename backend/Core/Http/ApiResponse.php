@@ -120,6 +120,19 @@ final class ApiResponse
         return self::getValue($this->body, $key);
     }
 
+    public function errorMessage(string $fallback, string $bodyKey = 'message'): ?string
+    {
+        if ($this->success()) {
+            return null;
+        }
+
+        $message = $this->getBodyValue($bodyKey);
+
+        return $this->getError()
+            ?: (\is_string($message) && $message !== '' ? $message : null)
+            ?: $fallback;
+    }
+
     /**
      * Read a key off any decoded value — a body, or one row out of a list. WPKit
      * decodes JSON to stdClass by default, but arrays turn up too, so every caller
