@@ -8,7 +8,7 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import GoogleSheetAuthorization from './GoogleSheetAuthorization'
-import { handleInput, checkMappedFields } from './GoogleSheetCommonFunc'
+import { handleInput, checkMappedFields, isActionConfigured } from './GoogleSheetCommonFunc'
 import GoogleSheetIntegLayout from './GoogleSheetIntegLayout'
 import bitsFetch from '../../../Utils/bitsFetch'
 
@@ -21,6 +21,7 @@ function GoogleSheet({ formFields, setFlow, flow, allIntegURL }) {
   const [sheetConf, setSheetConf] = useState({
     name: 'Google Sheet',
     type: 'Google Sheet',
+    mainAction: '',
     clientId: '',
     clientSecret: '',
     spreadsheetId: '',
@@ -39,11 +40,7 @@ function GoogleSheet({ formFields, setFlow, flow, allIntegURL }) {
       setSnackbar({ show: true, msg: __('Please map fields to continue.', 'bit-integrations') })
       return
     }
-    if (
-      sheetConf.spreadsheetId !== '' &&
-      sheetConf.worksheetName !== '' &&
-      sheetConf.field_map.length > 0
-    ) {
+    if (isActionConfigured(sheetConf)) {
       setstep(3)
     }
   }
@@ -66,7 +63,9 @@ function GoogleSheet({ formFields, setFlow, flow, allIntegURL }) {
         setIsLoading={setIsLoading}
       />
 
-      <div className="btcd-stp-page" style={{ width: step === 2 && 900, height: step === 2 && 'auto' }}>
+      <div
+        className="btcd-stp-page"
+        style={{ width: step === 2 && 900, height: step === 2 && 'auto', minHeight: step === 2 && 500 }}>
         <GoogleSheetIntegLayout
           formID={formID}
           formFields={formFields}
@@ -79,9 +78,7 @@ function GoogleSheet({ formFields, setFlow, flow, allIntegURL }) {
         />
         <button
           onClick={() => nextPage(3)}
-          disabled={
-            !sheetConf.spreadsheetId || !sheetConf.worksheetName || sheetConf.field_map.length < 1
-          }
+          disabled={!isActionConfigured(sheetConf)}
           className="btn f-right btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}
