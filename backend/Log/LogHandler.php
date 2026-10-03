@@ -462,7 +462,7 @@ final class LogHandler
         }
 
         $fieldData = json_decode($log->field_data, true);
-        if (empty($fieldData)) {
+        if (empty($fieldData) || !\is_array($fieldData)) {
             wp_send_json_error(__('Invalid field data', 'bit-integrations'));
         }
 
@@ -494,8 +494,6 @@ final class LogHandler
         if ($runAsUserId !== 0 && $runAsUserId !== $replayerId && !Capabilities::Check('edit_user', $runAsUserId)) {
             wp_send_json_error(__('You are not allowed to re-execute a log entry that ran as another user.', 'bit-integrations'));
         }
-
-        unset($fieldData['bit-integrator%exec_user%']);
 
         IntegrationHandler::setReexecuteParent($flowData->id, $data->log_id);
 
@@ -535,7 +533,11 @@ final class LogHandler
             return $field_data;
         }
 
-        $decoded['bit-integrator%exec_user%'] = get_current_user_id();
+        $triggerData = isset($decoded['bit-integrator%trigger_data%']) && \is_array($decoded['bit-integrator%trigger_data%'])
+            ? $decoded['bit-integrator%trigger_data%']
+            : [];
+        $triggerData['exec_user'] = get_current_user_id();
+        $decoded['bit-integrator%trigger_data%'] = $triggerData;
 
         return $decoded;
     }
@@ -547,7 +549,8 @@ final class LogHandler
      */
     private static function executedAsUserId(array $fieldData)
     {
-        $userId = isset($fieldData['bit-integrator%exec_user%']) ? (int) $fieldData['bit-integrator%exec_user%'] : 0;
+        // Flow::execute() rebuilds trigger_data server-side, so a submitted or pre-patch value can't land here.
+        $userId = isset($fieldData['bit-integrator%trigger_data%']['exec_user']) ? (int) $fieldData['bit-integrator%trigger_data%']['exec_user'] : 0;
 
         return ($userId > 0 && get_userdata($userId)) ? $userId : 0;
     }
