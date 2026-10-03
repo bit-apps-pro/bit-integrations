@@ -287,6 +287,7 @@ final class LogHandler
         // Persist the trigger field values so this log entry can be re-executed. Stored on each row so
         // every execution stays re-executable even when one flow fires many times in a single request.
         if ($columnsReady && !empty($field_data)) {
+            $field_data = self::stampExecutingUser($field_data);
             $logData['field_data'] = \is_string($field_data) ? $field_data : wp_json_encode($field_data);
         }
 
@@ -543,8 +544,23 @@ final class LogHandler
             wp_send_json_error(__('Triggered entity ID is required for re-execution', 'bit-integrations'));
         }
 
+        $replayerId = get_current_user_id();
+        $runAsUserId = self::executedAsUserId($fieldData);
+
+        if ($runAsUserId !== 0 && $runAsUserId !== $replayerId && !Capabilities::Check('edit_user', $runAsUserId)) {
+            wp_send_json_error(__('You are not allowed to re-execute a log entry that ran as another user.', 'bit-integrations'));
+        }
+
+        unset($fieldData['bit-integrator%exec_user%']);
+
         // Mark this flow's run so the resulting (child) log rows nest under the entry re-executed.
         IntegrationHandler::setReexecuteParent($flowData->id, $data->log_id);
+
+        // Replay as the original identity, never the admin, so "Update User" can't target the replayer.
+        wp_set_current_user($runAsUserId);
+        add_filter('send_auth_cookies', '__return_false', PHP_INT_MAX);
+
+        $replayError = null;
 
         try {
             // Replay through the full Flow::execute() path so conditions and field mapping run correctly.
@@ -553,13 +569,50 @@ final class LogHandler
             Flow::execute($triggered_entity, $triggered_entity_id, $fieldData, [$flowData]);
         } catch (\Throwable $e) {
             // Catch Throwable (not just Exception) so a fatal Error/TypeError from replaying stale
-            // trigger data still clears the parent marker and returns a clean JSON error.
+            // trigger data still returns a clean JSON error.
+            $replayError = $e;
+        } finally {
+            remove_filter('send_auth_cookies', '__return_false', PHP_INT_MAX);
+            wp_set_current_user($replayerId);
             IntegrationHandler::clearReexecuteParent($flowData->id);
-            wp_send_json_error(__('Re-execution error: ', 'bit-integrations') . $e->getMessage());
         }
 
-        IntegrationHandler::clearReexecuteParent($flowData->id);
+        if (null !== $replayError) {
+            wp_send_json_error(__('Re-execution error: ', 'bit-integrations') . $replayError->getMessage());
+        }
+
         wp_send_json_success(__('Re-execution triggered. See the latest log entry for the result.', 'bit-integrations'));
+    }
+
+    /**
+     * @param array|string $field_data
+     *
+     * @return array|string
+     */
+    private static function stampExecutingUser($field_data)
+    {
+        $decoded = \is_array($field_data) ? $field_data : json_decode((string) $field_data, true);
+        if (!\is_array($decoded)) {
+            return $field_data;
+        }
+
+        $decoded['bit-integrator%exec_user%'] = get_current_user_id();
+
+        return $decoded;
+    }
+
+    /**
+     * Rows without a stamped user (anonymous, pre-fix, or deleted user) resolve to 0 and replay as guest.
+     *
+     * @param array $fieldData
+     *
+     * @return int
+     */
+    private static function executedAsUserId(array $fieldData)
+    {
+        $userId = isset($fieldData['bit-integrator%exec_user%']) ? (int) $fieldData['bit-integrator%exec_user%'] : 0;
+
+        return ($userId > 0 && get_userdata($userId)) ? $userId : 0;
     }
 
     /**
