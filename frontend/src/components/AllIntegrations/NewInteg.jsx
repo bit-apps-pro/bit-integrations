@@ -185,6 +185,7 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
 const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
@@ -203,6 +204,7 @@ const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
+const WpSimpleBookingCalendar = lazy(() => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendar'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
@@ -1825,6 +1827,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'QuizAndSurveyMaster':
+      return (
+        <QuizAndSurveyMaster
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'ElementsKit':
       return (
         <ElementsKit
@@ -1972,6 +1983,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WebbaBooking':
       return (
         <WebbaBooking
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpSimpleBookingCalendar':
+      return (
+        <WpSimpleBookingCalendar
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
