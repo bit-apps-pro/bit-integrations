@@ -7,6 +7,8 @@ import MemberpressActions from './MemberpressActions'
 import { getAllMemberShip } from './MemberpressCommonFunc'
 import MemberpressFieldMap from './MemberpressFieldMap'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function MemberpressIntegLayout({
   formFields,
@@ -151,7 +153,31 @@ export default function MemberpressIntegLayout({
         )}
       </>
       <br />
-      <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      {memberpressConf?.mainAction && (
+        <>
+          <br />
+          <UserSourceSelect conf={memberpressConf} setConf={setMemberpressConf} />
+          {memberpressConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={memberpressConf}
+              setConf={setMemberpressConf}
+              formFields={formFields}
+              actionLabel={__('MemberPress Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+        </>
+      )}
+      {memberpressConf?.userSource === 'email' ? (
+        <Note
+          note={__(
+            'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+            'bit-integrations'
+          )}
+        />
+      ) : (
+        <Note note={__('Some integrations will only work for logged-in users.', 'bit-integrations')} />
+      )}
     </>
   )
 }

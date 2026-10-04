@@ -10,6 +10,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
+import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
 import { handleInput } from './PaidMembershipProCommonFunc'
 import PaidMembershipProIntegLayout from './PaidMembershipProIntegLayout'
 
@@ -71,7 +72,8 @@ function EditPaidMembershipPro({ allIntegURL }) {
         disabled={
           !paidMembershipProConf.mainAction ||
           isLoading ||
-          paidMembershipProConf.selectedMembership === undefined
+          paidMembershipProConf.selectedMembership === undefined ||
+          isUserSourceIncomplete(paidMembershipProConf)
         }
         isLoading={isLoading}
         dataConf={paidMembershipProConf}

@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
+import { create } from 'mutative'
+import { addFieldMap } from '../IntegrationHelpers/FieldMapHelper'
 import { refreshSendPulseHeader, refreshSendPulseList } from './SendPulseCommonFunc'
 import SendPulseFieldMap from './SendPulseFieldMap'
 import Note from '../../Utilities/Note'
@@ -15,13 +16,23 @@ export default function SendPulseIntegLayout({
   setSnackbar
 }) {
   const handleInput = e => {
-    const listid = e.target.value
-    const newConf = { ...sendPulseConf }
-    if (listid) {
-      newConf.listId = listid
+    const listId = e.target.value
+
+    setSendPulseConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.listId = listId
+        if (draftConf.default) {
+          delete draftConf.default.fields
+        }
+        draftConf.field_map = [{ formField: '', sendPulseField: '' }]
+      })
+    )
+
+    if (!listId) {
+      return
     }
 
-    refreshSendPulseHeader(newConf, setSendPulseConf, setIsLoading, setSnackbar)
+    refreshSendPulseHeader({ ...sendPulseConf, listId }, setSendPulseConf, setIsLoading, setSnackbar)
   }
 
   return (
@@ -29,7 +40,7 @@ export default function SendPulseIntegLayout({
       <br />
       <b className="wdt-200 d-in-b">{__('List:', 'bit-integrations')}</b>
       <select
-        value={sendPulseConf?.listId}
+        value={sendPulseConf?.listId || ''}
         name="listId"
         id=""
         className="btcd-paper-inp w-5"
@@ -92,7 +103,7 @@ export default function SendPulseIntegLayout({
             </div>
           </div>
 
-          {sendPulseConf.field_map.map((itm, i) => (
+          {sendPulseConf?.field_map?.map((itm, i) => (
             <SendPulseFieldMap
               key={`SendPulse-m-${i + 9}`}
               i={i}
@@ -105,7 +116,7 @@ export default function SendPulseIntegLayout({
           <div className="txt-center btcbi-field-map-button mt-2">
             <button
               onClick={() =>
-                addFieldMap(sendPulseConf.field_map.length, sendPulseConf, setSendPulseConf)
+                addFieldMap(sendPulseConf?.field_map?.length || 0, sendPulseConf, setSendPulseConf)
               }
               className="icn-btn sh-sm"
               type="button">

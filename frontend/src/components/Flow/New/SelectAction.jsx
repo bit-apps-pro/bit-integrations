@@ -188,11 +188,13 @@ export default function SelectAction() {
     { type: 'Bookly', is_pro: true },
     { type: 'BookingCalendar', is_pro: true },
     { type: 'SureContact', is_pro: false },
+    { type: 'Flodesk', is_pro: false },
+    { type: 'SureContact', is_pro: true },
     {
       type: 'BrilliantDirectories',
       name: 'Brilliant Directories',
       logo: 'brilliantDirectories',
-      is_pro: false
+      is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
     {
@@ -201,6 +203,15 @@ export default function SelectAction() {
       logo: 'roxAppointmentBooking',
       is_pro: true
     },
+    {
+      type: 'QuizAndSurveyMaster',
+      name: 'Quiz And Survey Master (QSM)',
+      logo: 'quizAndSurveyMaster',
+      is_pro: true
+    },
+    { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
+    { type: 'Charitable', is_pro: true },
+    { type: 'Pointics', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },
     { type: 'ConvertForce', is_pro: true },
     { type: 'Cart Abandonment Recovery', is_pro: true },
@@ -237,6 +248,7 @@ export default function SelectAction() {
     { type: 'B2BKing', is_pro: true },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
+    { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'Sender', is_pro: true },
     { type: 'MainWP', is_pro: true }
   ]
@@ -332,9 +344,8 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button

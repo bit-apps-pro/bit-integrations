@@ -5,8 +5,9 @@ import { lazy, memo, Suspense, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState } from 'recoil'
 import { $newFlow } from '../../GlobalStates'
-import { __ } from '../../Utils/i18nwrap'
+import { __, sprintf } from '../../Utils/i18nwrap'
 import Loader from '../Loaders/Loader'
+import ErrorBoundary from '../Utilities/ErrorBoundary'
 import { getRecoil } from 'recoil-nexus'
 
 const CustomAction = lazy(() => import('./CustomAction/CustomAction'))
@@ -182,10 +183,12 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
+const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
-const RoxAppointmentBooking = lazy(() =>
-  import('./RoxAppointmentBooking/RoxAppointmentBooking')
-)
+const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
+const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
+const Charitable = lazy(() => import('./Charitable/Charitable'))
+const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
 const ConvertForce = lazy(() => import('./ConvertForce/ConvertForce'))
 const CartAbandonmentRecovery = lazy(() => import('./CartAbandonmentRecovery/CartAbandonmentRecovery'))
@@ -201,6 +204,7 @@ const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
+const WpSimpleBookingCalendar = lazy(() => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendar'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
@@ -224,6 +228,9 @@ const B2BKing = lazy(() => import('./B2BKing/B2BKing'))
 const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
+)
+const RoxAppointmentBooking = lazy(() =>
+  import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
@@ -1805,6 +1812,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'Flodesk':
+      return (
+        <Flodesk
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'FluentCart':
       return (
         <FluentCart
@@ -1814,9 +1830,36 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
-    case 'RoxAppointmentBooking':
+    case 'QuizAndSurveyMaster':
       return (
-        <RoxAppointmentBooking
+        <QuizAndSurveyMaster
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'ElementsKit':
+      return (
+        <ElementsKit
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Charitable':
+      return (
+        <Charitable
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Pointics':
+      return (
+        <Pointics
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -1943,6 +1986,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WebbaBooking':
       return (
         <WebbaBooking
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpSimpleBookingCalendar':
+      return (
+        <WpSimpleBookingCalendar
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -2122,8 +2174,28 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'RoxAppointmentBooking':
+      return (
+        <RoxAppointmentBooking
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     default:
-      return <></>
+      return (
+        <div className="txt-center" style={{ padding: '60px 20px' }}>
+          <h3 className="mt-0">{__('Action not available', 'bit-integrations')}</h3>
+          <p>
+            {sprintf(
+              // translators: %s: action name
+              __('No settings screen is registered for "%s".', 'bit-integrations'),
+              integUrlName
+            )}
+          </p>
+        </div>
+      )
   }
 })
 
@@ -2190,9 +2262,22 @@ export default function NewInteg({ allIntegURL }) {
         </div>
       </div>
 
-      <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
-        <NewIntegs integUrlName={integUrlName} allIntegURL={allIntegURL} flow={flow} setFlow={setFlow} />
-      </Suspense>
+      <ErrorBoundary
+        resetKey={integUrlName}
+        title={sprintf(
+          // translators: %s: integration name
+          __('%s settings could not be loaded', 'bit-integrations'),
+          integrationName
+        )}>
+        <Suspense fallback={<Loader className="g-c" style={{ height: '82vh' }} />}>
+          <NewIntegs
+            integUrlName={integUrlName}
+            allIntegURL={allIntegURL}
+            flow={flow}
+            setFlow={setFlow}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   )
 }

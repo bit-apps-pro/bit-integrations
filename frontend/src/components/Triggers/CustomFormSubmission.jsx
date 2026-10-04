@@ -8,7 +8,11 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { $flowStep, $formFields, $newFlow } from '../../GlobalStates'
 import bitsFetch from '../../Utils/bitsFetch'
-import CustomFetcherHelper, { startFetching, useFetchCountdown } from '../../Utils/CustomFetcherHelper'
+import CustomFetcherHelper, {
+  FETCH_RETRY_DELAY,
+  startFetching,
+  useFetchCountdown
+} from '../../Utils/CustomFetcherHelper'
 import { __, sprintf } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import ConfirmModal from '../Utilities/ConfirmModal'
@@ -115,28 +119,30 @@ const CustomFormSubmission = () => {
         return
       }
 
-      bitsFetch({ triggered_entity_id: entityId }, fetchAction, null, fetchMethod, signal).then(resp => {
-        if (!resp.success && isFetchingRef.current) {
-          fetchSequentially()
+      bitsFetch({ triggered_entity_id: entityId }, fetchAction, null, fetchMethod, signal)
+        .then(resp => {
+          if (!resp.success && !resp.aborted && isFetchingRef.current) {
+            setTimeout(fetchSequentially, FETCH_RETRY_DELAY)
 
-          return
-        }
+            return
+          }
 
-        if (resp.success) {
-          setNewFlow(prevFlow =>
-            create(prevFlow, draftFlow => {
-              draftFlow.triggerDetail.data = Array.isArray(resp.data?.formData)
-                ? resp.data.formData
-                : Object.values(resp.data?.formData)
-            })
-          )
+          if (resp.success) {
+            setNewFlow(prevFlow =>
+              create(prevFlow, draftFlow => {
+                draftFlow.triggerDetail.data = Array.isArray(resp.data?.formData)
+                  ? resp.data.formData
+                  : Object.values(resp.data?.formData)
+              })
+            )
 
-          setPrimaryKey(resp.data?.primaryKey || undefined)
-          setShowResponse(true)
-        }
+            setPrimaryKey(resp.data?.primaryKey || undefined)
+            setShowResponse(true)
+          }
 
-        stopFetching()
-      })
+          stopFetching()
+        })
+        .catch(stopFetching)
     } catch (err) {
       console.log(
         err.name === 'AbortError' ? __('AbortError: Fetch request aborted', 'bit-integrations') : err

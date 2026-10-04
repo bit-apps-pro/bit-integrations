@@ -16,6 +16,8 @@ import {
 } from './MasterStudyLmsCommonFunc'
 import MasterStudyLmsFieldMap from './MasterStudyLmsFieldMap'
 import Note from '../../Utilities/Note'
+import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
+import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
 
 export default function MasterStudyLmsIntegLayout({
   formFields,
@@ -229,7 +231,30 @@ export default function MasterStudyLmsIntegLayout({
         />
       )}
       {loggedInActions.includes(msLmsConf.mainAction) && (
-        <Note note={__('This integration will only work for logged-in users.', 'bit-integrations')} />
+        <>
+          <UserSourceSelect conf={msLmsConf} setConf={setMsLmsConf} />
+          {msLmsConf?.userSource === 'email' && (
+            <UserEmailFieldMap
+              conf={msLmsConf}
+              setConf={setMsLmsConf}
+              formFields={formFields}
+              actionLabel={__('MasterStudy LMS Fields', 'bit-integrations')}
+            />
+          )}
+          <br />
+          {msLmsConf?.userSource === 'email' ? (
+            <Note
+              note={__(
+                'This action runs for the user matching the mapped email. The user must already exist on your site, otherwise the action fails.',
+                'bit-integrations'
+              )}
+            />
+          ) : (
+            <Note
+              note={__('This integration will only work for logged-in users.', 'bit-integrations')}
+            />
+          )}
+        </>
       )}
       {emailActions.includes(msLmsConf.mainAction) && (
         <Note

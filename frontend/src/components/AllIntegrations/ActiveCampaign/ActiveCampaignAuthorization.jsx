@@ -66,7 +66,7 @@ export default function ActiveCampaignAuthorization({
       tutorialLinks={tutorialLinks?.activeCampaign || {}}
       authDetails={{
         authType: AUTH_TYPES.API_KEY,
-        apiEndpoint: '{api_url}/api/3/accounts',
+        apiEndpoint: '{api_url}/api/3/users/me',
         method: 'GET',
         key: 'Api-Token',
         addTo: 'header',

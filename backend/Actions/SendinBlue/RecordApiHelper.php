@@ -6,9 +6,11 @@
 
 namespace BitApps\Integrations\Actions\SendinBlue;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
+use WP_Error;
 
 class RecordApiHelper
 {
@@ -57,14 +59,14 @@ class RecordApiHelper
 
     public function existRecord($email)
     {
-        $insertRecordEndpoint = "{$this->_apiEndPoint}/{$email}";
+        $insertRecordEndpoint = "{$this->_apiEndPoint}/" . rawurlencode($email);
 
         return HttpHelper::get($insertRecordEndpoint, null, $this->_defaultHeader);
     }
 
     public function updateRecord($id, $data)
     {
-        $updateRecordEndpoint = "{$this->_apiEndPoint}/{$id}";
+        $updateRecordEndpoint = "{$this->_apiEndPoint}/" . rawurlencode($id);
 
         return HttpHelper::request($updateRecordEndpoint, 'PUT', $data, $this->_defaultHeader);
     }
@@ -72,6 +74,16 @@ class RecordApiHelper
     public function execute($lists, $defaultDataConf, $fieldValues, $fieldMap, $actions, $integrationDetails)
     {
         $fieldData = $this->setFiledMapping($fieldMap, $fieldValues);
+
+        if (empty($fieldData['email'])) {
+            $error = new WP_Error(
+                Config::withPrefix('brevo_email_empty'),
+                __('Contact email is empty, so the request was skipped. Brevo rejects a contact without an email address.', 'bit-integrations')
+            );
+            LogHandler::save($this->_integrationID, ['type' => 'record', 'type_name' => 'insert'], 'validation', $error);
+
+            return $error;
+        }
 
         $fieldData['listIds'] = array_map('intval', $lists);
 
@@ -126,9 +138,13 @@ class RecordApiHelper
                 continue;
             }
 
-            $attributes[$sendinBlueField] = ($formField === 'custom' && isset($customValue))
+            $value = ($formField === 'custom' && isset($customValue))
                 ? Common::replaceFieldWithValue($customValue, $fieldValues)
                 : ($fieldValues[$formField] ?? null);
+
+            if (!\is_null($value)) {
+                $attributes[$sendinBlueField] = $value;
+            }
         }
 
         $fieldData['attributes'] = (object) $attributes;

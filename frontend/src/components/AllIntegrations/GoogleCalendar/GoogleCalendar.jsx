@@ -33,6 +33,7 @@ function GoogleCalendar({ formFields, setFlow, flow, allIntegURL }) {
     clientSecret: '',
     field_map: [{ formField: '', googleCalendarFormField: '' }],
     reminder_field_map: [{ method: 'popup', minutes: '30' }],
+    descRichText: '',
     default: defaultCalendarFields,
     calendarLists: [],
     actions: {}
