@@ -197,6 +197,12 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    {
+      type: 'QuizAndSurveyMaster',
+      name: 'Quiz And Survey Master (QSM)',
+      logo: 'quizAndSurveyMaster',
+      is_pro: true
+    },
     { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
     { type: 'Charitable', is_pro: true },
     { type: 'Pointics', is_pro: true },

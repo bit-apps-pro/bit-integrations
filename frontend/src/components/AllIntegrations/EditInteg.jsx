@@ -186,6 +186,7 @@ const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFlodesk = lazy(() => import('./Flodesk/EditFlodesk'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditQuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/EditQuizAndSurveyMaster'))
 const EditElementsKit = lazy(() => import('./ElementsKit/EditElementsKit'))
 const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
 const EditPointics = lazy(() => import('./Pointics/EditPointics'))
@@ -674,6 +675,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'QuizAndSurveyMaster':
+      return <EditQuizAndSurveyMaster allIntegURL={allIntegURL} />
     case 'ElementsKit':
       return <EditElementsKit allIntegURL={allIntegURL} />
     case 'Charitable':
