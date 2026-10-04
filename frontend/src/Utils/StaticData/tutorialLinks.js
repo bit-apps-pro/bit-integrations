@@ -657,7 +657,8 @@ const tutorialLinks = {
   },
   teamsForWooCommerceMemberships: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/teams-for-woocommerce-memberships-integration-as-an-action/'
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/teams-for-woocommerce-memberships-integration-as-an-action/'
   },
   wpcafe: {
     youTubeLink: '',
@@ -743,6 +744,14 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
   },
+  flodesk: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/flodesk-integration-as-an-action/'
+  },
+  pointics: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/pointics-integration-as-an-action/'
+  },
   mondayCom: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/monday-com-integration-as-an-action/'
@@ -769,7 +778,8 @@ const tutorialLinks = {
   },
   ultimateAffiliatePro: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
   },
   bookly: {
     youTubeLink: '',

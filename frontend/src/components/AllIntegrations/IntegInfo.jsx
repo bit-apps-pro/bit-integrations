@@ -189,7 +189,11 @@ const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAut
 const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
+const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const ElementsKitAuthorization = lazy(() => import('./ElementsKit/ElementsKitAuthorization'))
+const CharitableAuthorization = lazy(() => import('./Charitable/CharitableAuthorization'))
+const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
 const CartAbandonmentRecoveryAuthorization = lazy(
@@ -697,8 +701,16 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return (
         <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
       )
+    case 'Flodesk':
+      return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'ElementsKit':
+      return <ElementsKitAuthorization elementsKitConf={integrationConf} step={1} isInfo />
+    case 'Charitable':
+      return <CharitableAuthorization charitableConf={integrationConf} step={1} isInfo />
+    case 'Pointics':
+      return <PointicsAuthorization pointicsConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':
       return <SenseiLMSAuthorization senseiLMSConf={integrationConf} step={1} isInfo />
     case 'ConvertForce':

@@ -150,7 +150,6 @@ class LatePointController
         $columnList = implode(', ', array_map('sanitize_key', $columns));
 
         // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is verified above, columns are sanitized literals.
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery -- table and column names are hardcoded literals verified above
         $rows = $wpdb->get_results("SELECT {$columnList} FROM {$tableName}", ARRAY_A);
 
         if (empty($rows)) {
