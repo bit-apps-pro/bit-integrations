@@ -184,8 +184,11 @@ const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditU
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
+const EditFlodesk = lazy(() => import('./Flodesk/EditFlodesk'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
+const EditElementsKit = lazy(() => import('./ElementsKit/EditElementsKit'))
+const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
 const EditPointics = lazy(() => import('./Pointics/EditPointics'))
 const EditSenseiLMS = lazy(() => import('./SenseiLMS/EditSenseiLMS'))
 const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
@@ -668,10 +671,16 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSureContact allIntegURL={allIntegURL} />
     case 'BrilliantDirectories':
       return <EditBrilliantDirectories allIntegURL={allIntegURL} />
+    case 'Flodesk':
+      return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'QuizMaker':
       return <EditQuizMaker allIntegURL={allIntegURL} />
+    case 'ElementsKit':
+      return <EditElementsKit allIntegURL={allIntegURL} />
+    case 'Charitable':
+      return <EditCharitable allIntegURL={allIntegURL} />
     case 'Pointics':
       return <EditPointics allIntegURL={allIntegURL} />
     case 'SenseiLMS':

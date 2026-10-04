@@ -1,46 +1,25 @@
-/* eslint-disable no-param-reassign */
-
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
-import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { handleInput, isActionConfigured } from './GoogleSheetCommonFunc'
-import GoogleSheetIntegLayout from './GoogleSheetIntegLayout'
-import GoogleSheetAuthorization from './GoogleSheetAuthorization'
+import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
+import { checkMappedFields, handleInput } from './CharitableCommonFunc'
+import CharitableIntegLayout from './CharitableIntegLayout'
 
-function EditGoogleSheet({ allIntegURL }) {
+export default function EditCharitable({ allIntegURL }) {
   const navigate = useNavigate()
   const { id, formID } = useParams()
 
-  const [sheetConf, setSheetConf] = useRecoilState($actionConf)
+  const [charitableConf, setCharitableConf] = useRecoilState($actionConf)
   const [flow, setFlow] = useRecoilState($newFlow)
+  const formFields = useRecoilValue($formFields)
   const [isLoading, setIsLoading] = useState(false)
   const [snack, setSnackbar] = useState({ show: false })
-  const formFields = useRecoilValue($formFields)
-  const [name, setName] = useState(sheetConf?.name || '')
 
-  // const [step, setStep] = useState(1);
-  // if (step == 1) {
-  //   return (
-  //     <GoogleSheetAuthorization
-  //       formID={formID}
-  //       sheetConf={sheetConf}
-  //       setSheetConf={setSheetConf}
-  //       step={step}
-  //       setstep={setStep}
-  //       setSnackbar={setSnackbar}
-  //       isLoading={isLoading}
-  //       setIsLoading={setIsLoading}
-  //       isEdit={true}
-  //     />
-  //   )
-  // }
-  // if (step == 2) {
   return (
     <div style={{ width: 900 }}>
       <SnackMsg snack={snack} setSnackbar={setSnackbar} />
@@ -49,12 +28,9 @@ function EditGoogleSheet({ allIntegURL }) {
         <b className="wdt-200 d-in-b">{__('Integration Name:', 'bit-integrations')}</b>
         <input
           className="btcd-paper-inp w-5"
-          onChange={e => {
-            setName(e.target.value)
-            handleInput(e, sheetConf, setSheetConf)
-          }}
+          onChange={e => handleInput(e, charitableConf, setCharitableConf)}
           name="name"
-          value={name}
+          value={charitableConf.name}
           type="text"
           placeholder={__('Integration Name...', 'bit-integrations')}
         />
@@ -63,15 +39,14 @@ function EditGoogleSheet({ allIntegURL }) {
 
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
-      <GoogleSheetIntegLayout
+      <CharitableIntegLayout
         formID={formID}
         formFields={formFields}
-        handleInput={e => handleInput(e, sheetConf, setSheetConf, formID, setIsLoading, setSnackbar)}
-        sheetConf={sheetConf}
-        setSheetConf={setSheetConf}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
+        charitableConf={charitableConf}
+        setCharitableConf={setCharitableConf}
         setSnackbar={setSnackbar}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
       />
 
       <IntegrationStepThree
@@ -81,22 +56,21 @@ function EditGoogleSheet({ allIntegURL }) {
             flow,
             setFlow,
             allIntegURL,
-            conf: sheetConf,
+            conf: charitableConf,
             navigate,
+            id,
             edit: 1,
             setIsLoading,
             setSnackbar
           })
         }
-        disabled={!isActionConfigured(sheetConf)}
+        disabled={!checkMappedFields(charitableConf)}
         isLoading={isLoading}
-        dataConf={sheetConf}
-        setDataConf={setSheetConf}
+        dataConf={charitableConf}
+        setDataConf={setCharitableConf}
         formFields={formFields}
       />
       <br />
     </div>
   )
 }
-
-export default EditGoogleSheet
