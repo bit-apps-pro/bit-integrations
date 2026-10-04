@@ -184,10 +184,14 @@ const EditUltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/EditU
 const EditBookly = lazy(() => import('./Bookly/EditBookly'))
 const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
+const EditFlodesk = lazy(() => import('./Flodesk/EditFlodesk'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
 const EditBookingsAndAppointmentsForWoocommerce = lazy(
   () => import('./BookingsAndAppointmentsForWoocommerce/EditBookingsAndAppointmentsForWoocommerce')
 )
+const EditQuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/EditQuizAndSurveyMaster'))
+const EditElementsKit = lazy(() => import('./ElementsKit/EditElementsKit'))
+const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
 const EditPointics = lazy(() => import('./Pointics/EditPointics'))
 const EditSenseiLMS = lazy(() => import('./SenseiLMS/EditSenseiLMS'))
 const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
@@ -206,6 +210,9 @@ const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
 const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
 const EditWebbaBooking = lazy(() => import('./WebbaBooking/EditWebbaBooking'))
+const EditWpSimpleBookingCalendar = lazy(
+  () => import('./WpSimpleBookingCalendar/EditWpSimpleBookingCalendar')
+)
 const EditMoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/EditMoreConvertWishlist'))
 const EditHefflCRM = lazy(() => import('./HefflCRM/EditHefflCRM'))
 const EditSecureCustomFields = lazy(() => import('./SecureCustomFields/EditSecureCustomFields'))
@@ -670,10 +677,18 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSureContact allIntegURL={allIntegURL} />
     case 'BrilliantDirectories':
       return <EditBrilliantDirectories allIntegURL={allIntegURL} />
+    case 'Flodesk':
+      return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
     case 'Bookings And Appointments For Woocommerce':
       return <EditBookingsAndAppointmentsForWoocommerce allIntegURL={allIntegURL} />
+    case 'QuizAndSurveyMaster':
+      return <EditQuizAndSurveyMaster allIntegURL={allIntegURL} />
+    case 'ElementsKit':
+      return <EditElementsKit allIntegURL={allIntegURL} />
+    case 'Charitable':
+      return <EditCharitable allIntegURL={allIntegURL} />
     case 'Pointics':
       return <EditPointics allIntegURL={allIntegURL} />
     case 'SenseiLMS':
@@ -704,6 +719,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditWsms allIntegURL={allIntegURL} />
     case 'WebbaBooking':
       return <EditWebbaBooking allIntegURL={allIntegURL} />
+    case 'WpSimpleBookingCalendar':
+      return <EditWpSimpleBookingCalendar allIntegURL={allIntegURL} />
     case 'MoreConvert Wishlist':
       return <EditMoreConvertWishlist allIntegURL={allIntegURL} />
     case 'Heffl CRM':

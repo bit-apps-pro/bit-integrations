@@ -189,11 +189,17 @@ const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAut
 const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
+const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
 const BookingsAndAppointmentsForWoocommerceAuthorization = lazy(
   () =>
     import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAuthorization')
 )
+const QuizAndSurveyMasterAuthorization = lazy(
+  () => import('./QuizAndSurveyMaster/QuizAndSurveyMasterAuthorization')
+)
+const ElementsKitAuthorization = lazy(() => import('./ElementsKit/ElementsKitAuthorization'))
+const CharitableAuthorization = lazy(() => import('./Charitable/CharitableAuthorization'))
 const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
@@ -213,6 +219,9 @@ const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
 )
 const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBookingAuthorization'))
+const WpSimpleBookingCalendarAuthorization = lazy(
+  () => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendarAuthorization')
+)
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -699,6 +708,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return (
         <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
       )
+    case 'Flodesk':
+      return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
     case 'Bookings And Appointments For Woocommerce':
@@ -709,6 +720,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
           isInfo
         />
       )
+    case 'QuizAndSurveyMaster':
+      return (
+        <QuizAndSurveyMasterAuthorization quizAndSurveyMasterConf={integrationConf} step={1} isInfo />
+      )
+    case 'ElementsKit':
+      return <ElementsKitAuthorization elementsKitConf={integrationConf} step={1} isInfo />
+    case 'Charitable':
+      return <CharitableAuthorization charitableConf={integrationConf} step={1} isInfo />
     case 'Pointics':
       return <PointicsAuthorization pointicsConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':
@@ -743,6 +762,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
     case 'WebbaBooking':
       return <WebbaBookingAuthorization webbaBookingConf={integrationConf} step={1} isInfo />
+    case 'WpSimpleBookingCalendar':
+      return (
+        <WpSimpleBookingCalendarAuthorization
+          wpSimpleBookingCalendarConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'MoreConvert Wishlist':
       return (
         <MoreConvertWishlistAuthorization moreConvertWishlistConf={integrationConf} step={1} isInfo />

@@ -183,10 +183,14 @@ const UltimateAffiliatePro = lazy(() => import('./UltimateAffiliatePro/UltimateA
 const Bookly = lazy(() => import('./Bookly/Bookly'))
 const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
+const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
 const BookingsAndAppointmentsForWoocommerce = lazy(
   () => import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerce')
 )
+const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
+const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
+const Charitable = lazy(() => import('./Charitable/Charitable'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
 const ConvertForce = lazy(() => import('./ConvertForce/ConvertForce'))
@@ -203,6 +207,7 @@ const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
+const WpSimpleBookingCalendar = lazy(() => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendar'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
@@ -1807,6 +1812,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'Flodesk':
+      return (
+        <Flodesk
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'FluentCart':
       return (
         <FluentCart
@@ -1819,6 +1833,33 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'Bookings And Appointments For Woocommerce':
       return (
         <BookingsAndAppointmentsForWoocommerce
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'QuizAndSurveyMaster':
+      return (
+        <QuizAndSurveyMaster
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'ElementsKit':
+      return (
+        <ElementsKit
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Charitable':
+      return (
+        <Charitable
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -1954,6 +1995,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WebbaBooking':
       return (
         <WebbaBooking
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpSimpleBookingCalendar':
+      return (
+        <WpSimpleBookingCalendar
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
