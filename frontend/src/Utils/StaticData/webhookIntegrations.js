@@ -123,7 +123,17 @@ export const customFormIntegrations = [
   'ClickWhale',
   'FluentPlayer',
   'BitCrm',
-  'NextCrm'
+  'NextCrm',
+  'BookingCalendar',
+  'BookingsAndAppointmentsForWoocommerce',
+  'Charitable',
+  'ConvertForce',
+  'ElementsKit',
+  'EventsManager',
+  'Pointics',
+  'QuizAndSurveyMaster',
+  'QuizMaker',
+  'RoxAppointmentBooking'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
