@@ -191,6 +191,10 @@ const BrilliantDirectoriesAuthorization = lazy(
 )
 const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const BookingsAndAppointmentsForWoocommerceAuthorization = lazy(
+  () =>
+    import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAuthorization')
+)
 const QuizAndSurveyMasterAuthorization = lazy(
   () => import('./QuizAndSurveyMaster/QuizAndSurveyMasterAuthorization')
 )
@@ -253,6 +257,10 @@ const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthoriza
 const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
+const RoxAppointmentBookingAuthorization = lazy(() =>
+  import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
+)
+const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
   <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
@@ -708,6 +716,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'Bookings And Appointments For Woocommerce':
+      return (
+        <BookingsAndAppointmentsForWoocommerceAuthorization
+          bookingsAndAppointmentsForWoocommerceConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'QuizAndSurveyMaster':
       return (
         <QuizAndSurveyMasterAuthorization quizAndSurveyMasterConf={integrationConf} step={1} isInfo />
@@ -822,6 +838,16 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
     case 'CustomApi':
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
+    case 'RoxAppointmentBooking':
+      return (
+        <RoxAppointmentBookingAuthorization
+          roxAppointmentBookingConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
+    case 'QuizMaker':
+      return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
     default:
       // Actions with no authorization UI of their own (site-local ones like Mail
       // or Post Creation, and anything this build has no component for) used to

@@ -701,6 +701,11 @@ const tutorialLinks = {
     docLink:
       'https://bit-integrations.com/wp-docs/actions/webba-booking-calendar-integration-as-an-action/'
   },
+  bookingsAndAppointmentsForWoocommerce: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/bookings-and-appointments-for-woocommerce-integration-as-an-action/'
+  },
   mainWP: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mainwp-integration-as-an-action/'
@@ -743,6 +748,11 @@ const tutorialLinks = {
   weDocs: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
+  },
+  roxAppointmentBooking: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/rox-appointment-booking-integration-as-an-action/'
   },
   flodesk: {
     youTubeLink: '',
@@ -796,6 +806,10 @@ const tutorialLinks = {
   wpErp: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wp-erp-integration-as-an-action/'
+  },
+  quizMaker: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/quiz-maker-integration-as-an-action/'
   }
 }
 export default tutorialLinks

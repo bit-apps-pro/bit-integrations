@@ -185,6 +185,9 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const BookingsAndAppointmentsForWoocommerce = lazy(
+  () => import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerce')
+)
 const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
 const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
@@ -229,6 +232,10 @@ const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
 )
+const RoxAppointmentBooking = lazy(() =>
+  import('./RoxAppointmentBooking/RoxAppointmentBooking')
+)
+const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -1827,6 +1834,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'Bookings And Appointments For Woocommerce':
+      return (
+        <BookingsAndAppointmentsForWoocommerce
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'QuizAndSurveyMaster':
       return (
         <QuizAndSurveyMaster
@@ -2165,6 +2181,24 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'SeoPress':
       return (
         <SeoPress
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'RoxAppointmentBooking':
+      return (
+        <RoxAppointmentBooking
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'QuizMaker':
+      return (
+        <QuizMaker
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

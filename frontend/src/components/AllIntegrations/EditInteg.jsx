@@ -186,6 +186,9 @@ const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFlodesk = lazy(() => import('./Flodesk/EditFlodesk'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditBookingsAndAppointmentsForWoocommerce = lazy(
+  () => import('./BookingsAndAppointmentsForWoocommerce/EditBookingsAndAppointmentsForWoocommerce')
+)
 const EditQuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/EditQuizAndSurveyMaster'))
 const EditElementsKit = lazy(() => import('./ElementsKit/EditElementsKit'))
 const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
@@ -234,6 +237,7 @@ const EditSeoPress = lazy(() => import('./SeoPress/EditSeoPress'))
 const EditUserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/EditUserRegistrationMembership')
 )
+const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
 
 const loaderStyle = {
   display: 'flex',
@@ -678,6 +682,10 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'RoxAppointmentBooking':
+      return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
+    case 'Bookings And Appointments For Woocommerce':
+      return <EditBookingsAndAppointmentsForWoocommerce allIntegURL={allIntegURL} />
     case 'QuizAndSurveyMaster':
       return <EditQuizAndSurveyMaster allIntegURL={allIntegURL} />
     case 'ElementsKit':
@@ -756,6 +764,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditTeamsForWooCommerceMemberships allIntegURL={allIntegURL} />
     case 'SeoPress':
       return <EditSeoPress allIntegURL={allIntegURL} />
+    case 'QuizMaker':
+      return <EditQuizMaker allIntegURL={allIntegURL} />
     default:
       return (
         <div className="txt-center" style={{ padding: '60px 20px' }}>

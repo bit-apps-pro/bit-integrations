@@ -197,6 +197,13 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
+    {
+      type: 'RoxAppointmentBooking',
+      name: 'Rox Appointment Booking',
+      logo: 'roxAppointmentBooking',
+      is_pro: true
+    },
     {
       type: 'QuizAndSurveyMaster',
       name: 'Quiz And Survey Master (QSM)',
@@ -244,7 +251,8 @@ export default function SelectAction() {
     { type: 'WebbaBooking', is_pro: true },
     { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'Sender', is_pro: true },
-    { type: 'MainWP', is_pro: true }
+    { type: 'MainWP', is_pro: true },
+    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)
@@ -338,9 +346,8 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button
