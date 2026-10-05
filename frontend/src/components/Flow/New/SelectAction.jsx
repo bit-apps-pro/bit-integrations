@@ -197,6 +197,7 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
     {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
@@ -250,7 +251,8 @@ export default function SelectAction() {
     { type: 'WebbaBooking', is_pro: true },
     { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'Sender', is_pro: true },
-    { type: 'MainWP', is_pro: true }
+    { type: 'MainWP', is_pro: true },
+    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)
