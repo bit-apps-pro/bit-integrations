@@ -682,6 +682,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'RoxAppointmentBooking':
+      return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
     case 'Bookings And Appointments For Woocommerce':
       return <EditBookingsAndAppointmentsForWoocommerce allIntegURL={allIntegURL} />
     case 'QuizAndSurveyMaster':

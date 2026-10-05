@@ -257,6 +257,9 @@ const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthoriza
 const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
+const RoxAppointmentBookingAuthorization = lazy(() =>
+  import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
+)
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
@@ -835,6 +838,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
     case 'CustomApi':
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
+    case 'RoxAppointmentBooking':
+      return (
+        <RoxAppointmentBookingAuthorization
+          roxAppointmentBookingConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'QuizMaker':
       return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
     default:
