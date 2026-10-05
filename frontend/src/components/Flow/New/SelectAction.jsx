@@ -197,6 +197,7 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
     {
       type: 'QuizAndSurveyMaster',
       name: 'Quiz And Survey Master (QSM)',
