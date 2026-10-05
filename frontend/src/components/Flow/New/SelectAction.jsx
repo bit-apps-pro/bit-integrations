@@ -197,7 +197,12 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
-    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true },
+    {
+      type: 'QuizAndSurveyMaster',
+      name: 'Quiz And Survey Master (QSM)',
+      logo: 'quizAndSurveyMaster',
+      is_pro: true
+    },
     { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
     { type: 'Charitable', is_pro: true },
     { type: 'Pointics', is_pro: true },
@@ -237,8 +242,10 @@ export default function SelectAction() {
     { type: 'B2BKing', is_pro: true },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
+    { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'Sender', is_pro: true },
-    { type: 'MainWP', is_pro: true }
+    { type: 'MainWP', is_pro: true },
+    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)

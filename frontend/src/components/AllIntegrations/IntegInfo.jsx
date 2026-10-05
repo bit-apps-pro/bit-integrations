@@ -191,7 +191,9 @@ const BrilliantDirectoriesAuthorization = lazy(
 )
 const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
-const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
+const QuizAndSurveyMasterAuthorization = lazy(
+  () => import('./QuizAndSurveyMaster/QuizAndSurveyMasterAuthorization')
+)
 const ElementsKitAuthorization = lazy(() => import('./ElementsKit/ElementsKitAuthorization'))
 const CharitableAuthorization = lazy(() => import('./Charitable/CharitableAuthorization'))
 const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
@@ -213,6 +215,9 @@ const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
 )
 const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBookingAuthorization'))
+const WpSimpleBookingCalendarAuthorization = lazy(
+  () => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendarAuthorization')
+)
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -248,6 +253,7 @@ const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthoriza
 const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
+const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
   <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
@@ -703,8 +709,10 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
-    case 'QuizMaker':
-      return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
+    case 'QuizAndSurveyMaster':
+      return (
+        <QuizAndSurveyMasterAuthorization quizAndSurveyMasterConf={integrationConf} step={1} isInfo />
+      )
     case 'ElementsKit':
       return <ElementsKitAuthorization elementsKitConf={integrationConf} step={1} isInfo />
     case 'Charitable':
@@ -743,6 +751,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
     case 'WebbaBooking':
       return <WebbaBookingAuthorization webbaBookingConf={integrationConf} step={1} isInfo />
+    case 'WpSimpleBookingCalendar':
+      return (
+        <WpSimpleBookingCalendarAuthorization
+          wpSimpleBookingCalendarConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'MoreConvert Wishlist':
       return (
         <MoreConvertWishlistAuthorization moreConvertWishlistConf={integrationConf} step={1} isInfo />
@@ -807,6 +823,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
     case 'CustomApi':
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
+    case 'QuizMaker':
+      return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
     default:
       // Actions with no authorization UI of their own (site-local ones like Mail
       // or Post Creation, and anything this build has no component for) used to

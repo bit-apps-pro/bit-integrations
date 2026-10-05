@@ -134,6 +134,7 @@ final class AllTriggersName
             'ProfileGrid'                    => ['name' => 'ProfileGrid',  'isPro' => true, 'is_active' => false],
             'ProfilePress'                   => ['name' => 'ProfilePress',  'isPro' => true, 'is_active' => false],
             'QuillForms'                     => ['name' => 'Quill Forms',  'isPro' => true, 'is_active' => false],
+            'QuizAndSurveyMaster'            => ['name' => 'Quiz And Survey Master (QSM)',  'isPro' => true, 'is_active' => false],
             'Rafflepress'                    => ['name' => 'Rafflepress',  'isPro' => true, 'is_active' => false],
             'PeepSo'                         => ['name' => 'PeepSo',  'isPro' => true, 'is_active' => false],
             'Registration'                   => ['name' => 'WP User Registration',  'isPro' => true, 'is_active' => false],
@@ -190,6 +191,7 @@ final class AllTriggersName
             'WPSubscription'                 => ['name' => 'WPSubscription',  'isPro' => true, 'is_active' => false],
             'WpPolls'                        => ['name' => 'WP-Polls',  'isPro' => true, 'is_active' => false],
             'WpSimplePay'                    => ['name' => 'WP Simple Pay',  'isPro' => true, 'is_active' => false],
+            'WpSimpleBookingCalendar'        => ['name' => 'WP Simple Booking Calendar',  'isPro' => true, 'is_active' => false],
             'WPTravelEngine'                 => ['name' => 'WP Travel Engine',  'isPro' => true, 'is_active' => false],
             'WPUserFrontend'                 => ['name' => 'WP User Frontend',  'isPro' => true, 'is_active' => false],
         ];
