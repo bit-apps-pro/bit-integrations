@@ -257,6 +257,7 @@ const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthoriza
 const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
+const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
   <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
@@ -834,6 +835,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
     case 'CustomApi':
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
+    case 'QuizMaker':
+      return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
     default:
       // Actions with no authorization UI of their own (site-local ones like Mail
       // or Post Creation, and anything this build has no component for) used to

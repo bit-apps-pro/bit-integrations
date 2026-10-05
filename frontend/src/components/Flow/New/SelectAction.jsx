@@ -245,7 +245,8 @@ export default function SelectAction() {
     { type: 'WebbaBooking', is_pro: true },
     { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'Sender', is_pro: true },
-    { type: 'MainWP', is_pro: true }
+    { type: 'MainWP', is_pro: true },
+    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)

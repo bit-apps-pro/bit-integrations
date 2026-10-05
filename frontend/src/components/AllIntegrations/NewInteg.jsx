@@ -232,6 +232,7 @@ const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
 )
+const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -2177,6 +2178,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'SeoPress':
       return (
         <SeoPress
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'QuizMaker':
+      return (
+        <QuizMaker
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
