@@ -191,6 +191,10 @@ const BrilliantDirectoriesAuthorization = lazy(
 )
 const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const BookingsAndAppointmentsForWoocommerceAuthorization = lazy(
+  () =>
+    import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAuthorization')
+)
 const QuizAndSurveyMasterAuthorization = lazy(
   () => import('./QuizAndSurveyMaster/QuizAndSurveyMasterAuthorization')
 )
@@ -709,6 +713,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'Bookings And Appointments For Woocommerce':
+      return (
+        <BookingsAndAppointmentsForWoocommerceAuthorization
+          bookingsAndAppointmentsForWoocommerceConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'QuizAndSurveyMaster':
       return (
         <QuizAndSurveyMasterAuthorization quizAndSurveyMasterConf={integrationConf} step={1} isInfo />
