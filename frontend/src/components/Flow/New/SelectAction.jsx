@@ -190,6 +190,7 @@ export default function SelectAction() {
     { type: 'SureContact', is_pro: false },
     { type: 'Flodesk', is_pro: false },
     { type: 'SureContact', is_pro: true },
+    { type: 'Eventbrite', is_pro: true },
     {
       type: 'BrilliantDirectories',
       name: 'Brilliant Directories',
