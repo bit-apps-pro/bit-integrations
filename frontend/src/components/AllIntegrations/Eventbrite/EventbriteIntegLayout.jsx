@@ -70,12 +70,16 @@ export default function EventbriteIntegLayout({
     )
   }
 
-  const selectOptions = select =>
-    select.options ||
-    (eventbriteConf?.default?.[select.source] || []).map(({ id, name }) => ({
-      label: name,
+  const selectOptions = select => {
+    if (select.options) return select.options
+
+    const items = eventbriteConf?.default?.[select.source] || []
+
+    return items.map(({ id, name }) => ({
+      label: items.filter(item => item.name === name).length > 1 ? `${name} (#${id})` : name,
       value: String(id)
     }))
+  }
 
   return (
     <>
