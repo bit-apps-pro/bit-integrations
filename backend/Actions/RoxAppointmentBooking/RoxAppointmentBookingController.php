@@ -38,7 +38,7 @@ class RoxAppointmentBookingController
 
         $table = self::table('agent');
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- dropdown listing off a plugin table
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- dropdown listing off a plugin table; table name is built from fixed strings
         $rows = $wpdb->get_results("SELECT id, first_name, last_name, email FROM `{$table}` ORDER BY id DESC");
 
         $agents = array_map(
@@ -88,7 +88,7 @@ class RoxAppointmentBookingController
 
         $table = self::table($tableSuffix);
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table and column are fixed strings from this class
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- table and column are fixed strings from this class
         $rows = $wpdb->get_results("SELECT id, `{$labelColumn}` AS label FROM `{$table}` ORDER BY id DESC");
 
         return array_map(

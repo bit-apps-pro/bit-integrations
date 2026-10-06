@@ -36,6 +36,9 @@ class QuizAndSurveyMasterController
 
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- QSM keeps themes in a custom table with no API
+        $rows = $wpdb->get_results("SELECT id, theme_name FROM {$wpdb->prefix}mlw_themes");
+
         $themes = array_map(
             function ($theme) {
                 return (object) [
@@ -43,7 +46,7 @@ class QuizAndSurveyMasterController
                     'label' => (string) $theme->theme_name,
                 ];
             },
-            $wpdb->get_results("SELECT id, theme_name FROM {$wpdb->prefix}mlw_themes") ?: []
+            $rows ?: []
         );
 
         wp_send_json_success(['themes' => $themes], 200);

@@ -93,7 +93,7 @@ class QuizMakerController
 
         $table = $wpdb->prefix . 'aysquiz_' . $suffix;
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Quiz Maker keeps its data in custom tables
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Quiz Maker keeps its data in custom tables; table and column are fixed strings from this class
         $rows = $wpdb->get_results("SELECT id, `{$labelColumn}` AS label FROM `{$table}` ORDER BY id DESC");
 
         return array_map(
