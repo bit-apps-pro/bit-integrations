@@ -20,6 +20,8 @@ class ZoomController
         ],
     ];
 
+    private const MEETING_PAGE_LIMIT = 10;
+
     private $integrationID;
 
     public function __construct($integrationID)
@@ -55,13 +57,26 @@ class ZoomController
         ];
 
         $apiEndpoint = 'https://api.zoom.us/v2/users/me/meetings';
-        $apiResponse = HttpHelper::get($apiEndpoint, null, $header);
+        $meetings = [];
+        $nextPageToken = '';
 
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            wp_send_json_error(empty($apiResponse->error) ? 'Unknown' : $apiResponse->error, 400);
+        for ($page = 0; $page < self::MEETING_PAGE_LIMIT; $page++) {
+            $query = array_filter(['page_size' => 300, 'next_page_token' => $nextPageToken]);
+            $apiResponse = HttpHelper::get($apiEndpoint . '?' . http_build_query($query), null, $header);
+
+            if (is_wp_error($apiResponse) || !empty($apiResponse->error) || !isset($apiResponse->meetings)) {
+                wp_send_json_error($apiResponse->error ?? $apiResponse->message ?? 'Unknown', 400);
+            }
+
+            $meetings = array_merge($meetings, $apiResponse->meetings);
+            $nextPageToken = $apiResponse->next_page_token ?? '';
+
+            if (empty($nextPageToken)) {
+                break;
+            }
         }
 
-        $response['allMeeting'] = $apiResponse->meetings;
+        $response['allMeeting'] = $meetings;
         wp_send_json_success($response, 200);
     }
 
