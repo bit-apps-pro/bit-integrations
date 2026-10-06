@@ -798,50 +798,57 @@ export const selectsByAction = {
   ]
 }
 
-const yesNoUtility = (key, title, subTitle) => ({ key, options: yesNoOptions, subTitle, title })
+const checkboxUtility = (key, title, subTitle, value = 'true') => ({
+  checkbox: true,
+  key,
+  subTitle,
+  title,
+  value
+})
 
 const eventFlagUtilities = [
-  yesNoUtility(
+  checkboxUtility(
     'online_event',
     __('Online Event', 'bit-integrations'),
     __('Online events have no venue', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'listed',
-    __('Publicly Listed', 'bit-integrations'),
-    __('Show the event in Eventbrite search', 'bit-integrations')
+    __('Unlisted', 'bit-integrations'),
+    __('Hide the event from Eventbrite search', 'bit-integrations'),
+    'false'
   ),
-  yesNoUtility(
+  checkboxUtility(
     'shareable',
-    __('Shareable', 'bit-integrations'),
+    __('Show Share Buttons', 'bit-integrations'),
     __('Show social sharing buttons', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'invite_only',
     __('Invite Only', 'bit-integrations'),
     __('Only invited people can register', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'show_remaining',
     __('Show Remaining Tickets', 'bit-integrations'),
     __('Show how many tickets are left', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'is_reserved_seating',
     __('Reserved Seating', 'bit-integrations'),
     __('Use a seat map for this event', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'is_series',
     __('Recurring Event', 'bit-integrations'),
     __('Create a series parent, then add dates', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'hide_start_date',
     __('Hide Start Date', 'bit-integrations'),
     __('Hide the start date on the event page', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'hide_end_date',
     __('Hide End Date', 'bit-integrations'),
     __('Hide the end date on the event page', 'bit-integrations')
@@ -856,22 +863,22 @@ const timezoneUtility = {
 }
 
 const ticketClassUtilities = [
-  yesNoUtility(
+  checkboxUtility(
     'hidden',
     __('Hidden', 'bit-integrations'),
     __('Hide this ticket from buyers', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'auto_hide',
     __('Hide When Not On Sale', 'bit-integrations'),
     __('Hide outside the sales window', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'include_fee',
     __('Absorb Fees', 'bit-integrations'),
     __('Include fees in the price', 'bit-integrations')
   ),
-  yesNoUtility(
+  checkboxUtility(
     'hide_description',
     __('Hide Description', 'bit-integrations'),
     __('Hide the ticket description', 'bit-integrations')
@@ -942,62 +949,69 @@ export const utilitiesByAction = {
       subTitle: __('Wording used on the event page', 'bit-integrations'),
       title: __('Terminology', 'bit-integrations')
     },
-    yesNoUtility(
+    checkboxUtility(
       'show_start_date',
-      __('Show Start Date', 'bit-integrations'),
-      __('Show the start date', 'bit-integrations')
+      __('Hide Start Date', 'bit-integrations'),
+      __('Hide the start date on the event page', 'bit-integrations'),
+      'false'
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_end_date',
-      __('Show End Date', 'bit-integrations'),
-      __('Show the end date', 'bit-integrations')
+      __('Hide End Date', 'bit-integrations'),
+      __('Hide the end date on the event page', 'bit-integrations'),
+      'false'
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_start_end_time',
-      __('Show Times', 'bit-integrations'),
-      __('Show the start and end time', 'bit-integrations')
+      __('Hide Times', 'bit-integrations'),
+      __('Hide the start and end time', 'bit-integrations'),
+      'false'
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_timezone',
-      __('Show Time Zone', 'bit-integrations'),
-      __('Show the event time zone', 'bit-integrations')
+      __('Hide Time Zone', 'bit-integrations'),
+      __('Hide the event time zone', 'bit-integrations'),
+      'false'
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_map',
-      __('Show Map', 'bit-integrations'),
-      __('Show the venue map', 'bit-integrations')
+      __('Hide Map', 'bit-integrations'),
+      __('Hide the venue map', 'bit-integrations'),
+      'false'
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_remaining',
       __('Show Remaining Tickets', 'bit-integrations'),
       __('Show how many tickets are left', 'bit-integrations')
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_organizer_facebook',
       __('Show Organizer Facebook', 'bit-integrations'),
       __('Link the organizer Facebook page', 'bit-integrations')
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_organizer_twitter',
       __('Show Organizer X (Twitter)', 'bit-integrations'),
       __('Link the organizer X profile', 'bit-integrations')
     ),
-    yesNoUtility(
+    checkboxUtility(
       'show_facebook_friends_going',
       __('Show Friends Going', 'bit-integrations'),
       __('Show Facebook friends who are going', 'bit-integrations')
     )
   ],
   update_ticket_buyer_settings: [
-    yesNoUtility(
+    checkboxUtility(
       'refund_request_enabled',
-      __('Accept Refund Requests', 'bit-integrations'),
-      __('Let buyers request refunds', 'bit-integrations')
+      __('Turn Off Refund Requests', 'bit-integrations'),
+      __("Buyers can't request refunds", 'bit-integrations'),
+      'false'
     ),
-    yesNoUtility(
+    checkboxUtility(
       'allow_attendee_update',
-      __('Attendees Can Edit Info', 'bit-integrations'),
-      __('Let attendees update their details', 'bit-integrations')
+      __('Lock Attendee Info', 'bit-integrations'),
+      __("Attendees can't edit their details", 'bit-integrations'),
+      'false'
     ),
     {
       key: 'survey_respondent',
@@ -1019,10 +1033,11 @@ export const utilitiesByAction = {
       subTitle: __('Listing page or online event page', 'bit-integrations'),
       title: __('Page', 'bit-integrations')
     },
-    yesNoUtility(
+    checkboxUtility(
       'publish',
-      __('Publish Now', 'bit-integrations'),
-      __('Publish the new description right away', 'bit-integrations')
+      __('Save as Draft', 'bit-integrations'),
+      __("Don't publish the new description yet", 'bit-integrations'),
+      'false'
     ),
     {
       key: 'access_type',
@@ -1036,26 +1051,27 @@ export const utilitiesByAction = {
   create_ticket_group: [ticketGroupStatusUtility],
   update_ticket_group: [ticketGroupStatusUtility],
   create_inventory_tier: [
-    yesNoUtility(
+    checkboxUtility(
       'count_against_event_capacity',
-      __('Counts Against Capacity', 'bit-integrations'),
-      __('Turn off for add-on tiers', 'bit-integrations')
+      __('Add-on Tier', 'bit-integrations'),
+      __("Doesn't count against event capacity", 'bit-integrations'),
+      'false'
     )
   ],
   create_custom_question: [
-    yesNoUtility(
+    checkboxUtility(
       'is_required',
       __('Required', 'bit-integrations'),
       __('Buyers must answer it', 'bit-integrations')
     ),
-    yesNoUtility(
+    checkboxUtility(
       'display_answer_on_order',
       __('Show Answer On Order', 'bit-integrations'),
       __('Show the answer on the order', 'bit-integrations')
     )
   ],
   create_default_question: [
-    yesNoUtility(
+    checkboxUtility(
       'is_required',
       __('Required', 'bit-integrations'),
       __('Names, billing, card and tax info are always required', 'bit-integrations')
