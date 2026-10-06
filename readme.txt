@@ -470,7 +470,7 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 == Changelog ==
 
 = 2.10.7 =
-_Release Date - 5th October 2026_
+_Release Date - 6th October 2026_
 
 - **New Triggers**
  - Bookings And Appointments For WooCommerce: 19 new events added (Pro).
