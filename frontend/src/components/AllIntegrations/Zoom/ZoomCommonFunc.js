@@ -113,10 +113,14 @@ export const refreshFields = (zoomConf, setZoomConf, setIsLoading, setSnackbar) 
           show: true,
           msg: __('Zoom fields refreshed', 'bit-integrations')
         })
+        return
       }
       setSnackbar({
         show: true,
-        msg: result?.data ? result?.data : __('Zoom fields refreshed failed!', 'bit-integrations')
+        msg:
+          typeof result?.data === 'string'
+            ? result.data
+            : __('Zoom fields refreshed failed!', 'bit-integrations')
       })
     })
     .catch(() => setIsLoading(false))

@@ -46,7 +46,7 @@ function EditZoom({ allIntegURL }) {
       <ZoomIntegLayout
         formID={formID}
         formFields={formFields}
-        handleInput={e => handleInput(e, zoomConf, setZoomConf, setIsLoading, setSnackbar)}
+        handleInput={e => handleInput(e, zoomConf, setZoomConf, formID, setIsLoading, setSnackbar)}
         zoomConf={zoomConf}
         setZoomConf={setZoomConf}
         isLoading={isLoading}

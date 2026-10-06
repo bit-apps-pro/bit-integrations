@@ -121,6 +121,7 @@ class RecordApiHelper
     {
         $integrationDetails = $this->_integrationDetails;
         $fieldData = $this->proFieldData($mainAction, $mappedValues);
+        // translators: %s: Plugin name
         $default = ['success' => false, 'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')];
 
         switch ($mainAction) {

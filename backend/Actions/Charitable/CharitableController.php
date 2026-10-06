@@ -57,9 +57,7 @@ class CharitableController
 
         global $wpdb;
 
-        $tableName = $wpdb->prefix . 'charitable_donors';
-
-        $rows = $wpdb->get_results($wpdb->prepare('SELECT donor_id, email, first_name, last_name FROM ' . $tableName . ' ORDER BY donor_id DESC LIMIT %d', 5000)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $rows = $wpdb->get_results($wpdb->prepare("SELECT donor_id, email, first_name, last_name FROM {$wpdb->prefix}charitable_donors ORDER BY donor_id DESC LIMIT %d", 5000)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
         $donors = array_map(
             function ($donor) {

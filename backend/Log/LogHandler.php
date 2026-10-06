@@ -36,14 +36,10 @@ final class LogHandler
             $limit = (int) $data->limit;
         }
 
-        // Grouped mode: paginate original runs and nest their re-executions (children) underneath,
-        // so a re-run always appears with its parent regardless of which page the parent lands on.
         $status = isset($data->status) ? (string) $data->status : 'all';
         $search = isset($data->search) ? trim((string) $data->search) : '';
         $hasReexecCols = self::logColumnsReady();
 
-        // Any active status/search filter is served by a correctly-paginated FLAT query — even on
-        // installs where the re-execution columns are missing (it queries base columns only there).
         if ('all' !== $status || '' !== $search) {
             $filtered = self::getFilteredLogs($data->id, $limit, $offset, $status, $search, $hasReexecCols);
             wp_send_json_success(
@@ -64,7 +60,6 @@ final class LogHandler
             );
         }
 
-        // Fallback (columns not migrated yet, no filter active): flat, unnested list.
         $logModel = new LogModel();
         $countResult = $logModel->count(['flow_id' => $data->id]);
         if (is_wp_error($countResult)) {
@@ -89,9 +84,6 @@ final class LogHandler
     }
 
     /**
-     * Whether the re-execution columns exist. Cached (static + option) to avoid an
-     * INFORMATION_SCHEMA lookup on every log/get request.
-     *
      * @return bool
      */
     private static function logColumnsReady()
@@ -114,10 +106,6 @@ final class LogHandler
     }
 
     /**
-     * Fetch a page of original log entries with their re-executions nested underneath.
-     * Returns a depth-ordered flat list (each original followed by its descendant re-runs) plus the
-     * total count of ORIGINAL entries (used for pagination).
-     *
      * @param int $flowId Flow id
      * @param int $limit  Page size (originals per page)
      * @param int $offset Offset into the originals
@@ -130,12 +118,9 @@ final class LogHandler
         $table = $wpdb->prefix . 'btcbi_log';
         $flowId = (int) $flowId;
 
-        // Select explicit columns and expose only a boolean for the heavy field_data LONGTEXT, so the
-        // list never loads or ships the full trigger payloads (fetched lazily per row for the preview).
         $cols = "id, flow_id, job_id, api_type, response_type, response_obj, parent_id, created_at, (field_data IS NOT NULL AND field_data <> '') AS has_field_data";
 
-        // A row is a "top-level" entry when it is an original (parent_id IS NULL) OR its parent has
-        // been deleted (orphaned re-run) — so nothing is ever hidden from the list.
+        // Orphaned re-runs (parent deleted) stay top-level so they are never hidden.
         $rootWhere = "flow_id = %d AND (parent_id IS NULL OR parent_id NOT IN (SELECT id FROM `{$table}` sub WHERE sub.flow_id = %d))";
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name from $wpdb->prefix (no input); the two %d placeholders live inside $rootWhere and are bound via prepare()
@@ -148,8 +133,6 @@ final class LogHandler
         $tops = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE {$rootWhere} ORDER BY id DESC LIMIT %d OFFSET %d", $flowId, $flowId, (int) $limit, (int) $offset));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list and $table from $wpdb->prefix (no input); the %d value is bound via prepare()
-        // Re-executions are rare, so fetch them all for this flow (without the LONGTEXT payload) and nest.
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $cols is a constant column list and $table from $wpdb->prefix (no input); the %d value is bound via prepare()
         $descendants = $wpdb->get_results($wpdb->prepare("SELECT {$cols} FROM `{$table}` WHERE flow_id = %d AND parent_id IS NOT NULL ORDER BY id DESC", $flowId));
 
         $childrenBy = [];
@@ -161,14 +144,12 @@ final class LogHandler
             $childrenBy[$pid][] = $row;
         }
 
-        // Nest each re-run under the exact entry it was re-executed from (true tree).
         $ordered = [];
         foreach ((array) $tops as $top) {
             self::appendWithChildren($top, 0, $childrenBy, $ordered);
         }
 
         foreach ($ordered as $row) {
-            // has_field_data arrives as the string "1"/"0" from the DB; normalise to a real boolean.
             $row->has_field_data = (bool) (int) $row->has_field_data;
         }
 
@@ -176,9 +157,6 @@ final class LogHandler
     }
 
     /**
-     * Fetch a correctly-paginated FLAT list of log rows for the active status/search filter.
-     * Runs entirely server-side so counts and paging reflect the whole flow, not just one page.
-     *
      * @param int    $flowId        Flow id
      * @param int    $limit         Page size
      * @param int    $offset        Offset
@@ -231,8 +209,6 @@ final class LogHandler
     }
 
     /**
-     * Depth-first append a row and its re-execution descendants, tagging each with its nesting depth.
-     *
      * @param object $row        Log row
      * @param int    $depth      Nesting depth (0 = original)
      * @param array  $childrenBy Map of parent id => child rows
@@ -261,7 +237,6 @@ final class LogHandler
         $flow = new Flow();
         $flow->authorizationStatusChange($flow_id, $response_type == 'success' ? true : false);
 
-        // If field data was not passed explicitly, fall back to the values captured for this execution.
         if (empty($field_data)) {
             $field_data = IntegrationHandler::getFieldValues($flow_id);
         }
@@ -274,19 +249,13 @@ final class LogHandler
             'created_at'    => current_time('mysql')
         ];
 
-        // When this save happens during a re-execution of THIS flow, link the new (child) row to the
-        // parent log. Keyed by flow id so unrelated flows firing in the same request are not stamped.
         $parentId = IntegrationHandler::getReexecuteParent($flow_id);
 
-        // Only write the re-execution columns once we have confirmed they exist. The migration that
-        // adds them is gated behind an admin capability check, but logging also runs on anonymous
-        // front-end requests; if the columns cannot be ensured, we skip them so the core log row
-        // still saves instead of the whole INSERT failing.
+        // Re-execution columns may not exist yet; skip them so the core log row still inserts.
         $columnsReady = (!empty($field_data) || !empty($parentId)) ? self::ensureLogColumns() : false;
 
-        // Persist the trigger field values so this log entry can be re-executed. Stored on each row so
-        // every execution stays re-executable even when one flow fires many times in a single request.
         if ($columnsReady && !empty($field_data)) {
+            $field_data = self::stampExecutingUser($field_data);
             $logData['field_data'] = \is_string($field_data) ? $field_data : wp_json_encode($field_data);
         }
 
@@ -297,8 +266,6 @@ final class LogHandler
         $logModel = new LogModel();
         $logModel->insert($logData);
 
-        // Skip the failure email for re-execution runs: the admin is actively retrying from the log UI
-        // and does not need a duplicate alert for each manual retry of a still-broken flow.
         $isReexecution = !empty($parentId);
         $appConfig = Config::getOption('app_conf', get_option('btcbi_app_conf', []));
         if (!$isReexecution && \in_array($response_type, ['error', 'validation']) && !empty($appConfig->enable_failure_email)) {
@@ -307,11 +274,6 @@ final class LogHandler
     }
 
     /**
-     * Make sure the btcbi_log re-execution columns (field_data, parent_id) exist before writing to
-     * them. The schema migration is gated behind an admin capability check, whereas logging happens
-     * on anonymous front-end requests, so this guarantees the columns once per install (cached).
-     * The version stamp lets new columns added later re-run the check on existing installs.
-     *
      * @return bool True when the columns are present
      */
     private static function ensureLogColumns()
@@ -330,18 +292,12 @@ final class LogHandler
             return true;
         }
 
-        // Attempt the DDL at most once per request: if it cannot succeed (e.g. the DB user lacks
-        // ALTER), avoid re-running the migration + INFORMATION_SCHEMA lookups on every logged row.
         if ($attempted) {
             return false;
         }
         $attempted = true;
 
-        // Serialize the one-time DDL across concurrent front-end requests. Without this,
-        // two simultaneous post-upgrade submissions both pass the column-exists check and
-        // both run ALTER TABLE, the second failing with "Duplicate column". A request that
-        // does not win the sentinel skips the migration and relies on the cached-ready flag
-        // a later request sets. A stale sentinel (crashed migration) is reclaimed after 30s.
+        // Lock so concurrent first requests don't both run ALTER TABLE ("Duplicate column").
         $migrationLock = Config::VAR_PREFIX . 'log_columns_migrating';
 
         if (!add_option($migrationLock, time(), '', 'no')) {
@@ -366,9 +322,7 @@ final class LogHandler
             delete_option($migrationLock);
         }
 
-        // Only cache "ready" once the columns are confirmed present; otherwise a failed ALTER would be
-        // cached permanently and break every future write. Leaving the option unset lets a LATER
-        // request retry (the per-request $attempted guard just prevents retrying within this request).
+        // Cache "ready" only after confirming the columns, or a failed ALTER is cached for good.
         if (!DB::logColumnsExist()) {
             return false;
         }
@@ -416,8 +370,6 @@ final class LogHandler
         $logModel = new LogModel();
         $result = $logModel->bulkDelete($condition);
 
-        // When deleting specific log rows, also remove their re-execution descendants so a collapsed
-        // group is deleted as a whole and its hidden re-runs do not reappear as orphaned top-level rows.
         if (!empty($data->id)) {
             self::deleteDescendants(\is_array($data->id) ? $data->id : [$data->id]);
         }
@@ -426,8 +378,6 @@ final class LogHandler
     }
 
     /**
-     * Delete every re-execution descendant of the given log ids (iteratively, any depth).
-     *
      * @param array $ids Parent log ids whose descendants should be removed
      *
      * @return void
@@ -468,8 +418,6 @@ final class LogHandler
     }
 
     /**
-     * Re-execute an integration using the field data stored on a log entry.
-     *
      * @param object $data Contains log_id of the entry to re-execute
      *
      * @return void
@@ -506,9 +454,7 @@ final class LogHandler
 
         $flowData = $flows[0];
 
-        // Re-execution runs the flow's action for real, so it has to clear the same
-        // administrator gate that save/update/delete/toggle apply to custom actions —
-        // otherwise manage_integrations alone could invoke admin-authored PHP on demand.
+        // Same custom-action admin gate as save/update, so manage_integrations alone can't run admin PHP.
         Flow::guardCustomActionFlowDetails($flowData->flow_details ?? null);
 
         if ($flowData->status != 1) {
@@ -516,11 +462,10 @@ final class LogHandler
         }
 
         $fieldData = json_decode($log->field_data, true);
-        if (empty($fieldData)) {
+        if (empty($fieldData) || !\is_array($fieldData)) {
             wp_send_json_error(__('Invalid field data', 'bit-integrations'));
         }
 
-        // Recover the trigger information from the captured field data, falling back to the flow record.
         $triggered_entity = null;
         $triggered_entity_id = null;
 
@@ -543,29 +488,74 @@ final class LogHandler
             wp_send_json_error(__('Triggered entity ID is required for re-execution', 'bit-integrations'));
         }
 
-        // Mark this flow's run so the resulting (child) log rows nest under the entry re-executed.
-        IntegrationHandler::setReexecuteParent($flowData->id, $data->log_id);
+        $replayerId = get_current_user_id();
+        $runAsUserId = self::executedAsUserId($fieldData);
 
-        try {
-            // Replay through the full Flow::execute() path so conditions and field mapping run correctly.
-            // Flow::execute() returns void and each action records its own success/error log row, so the
-            // real outcome is the newly created log entry rather than this acknowledgement.
-            Flow::execute($triggered_entity, $triggered_entity_id, $fieldData, [$flowData]);
-        } catch (\Throwable $e) {
-            // Catch Throwable (not just Exception) so a fatal Error/TypeError from replaying stale
-            // trigger data still clears the parent marker and returns a clean JSON error.
-            IntegrationHandler::clearReexecuteParent($flowData->id);
-            wp_send_json_error(__('Re-execution error: ', 'bit-integrations') . $e->getMessage());
+        if ($runAsUserId !== 0 && $runAsUserId !== $replayerId && !Capabilities::Check('edit_user', $runAsUserId)) {
+            wp_send_json_error(__('You are not allowed to re-execute a log entry that ran as another user.', 'bit-integrations'));
         }
 
-        IntegrationHandler::clearReexecuteParent($flowData->id);
+        IntegrationHandler::setReexecuteParent($flowData->id, $data->log_id);
+
+        // Replay as the original identity, never the admin, so "Update User" can't target the replayer.
+        wp_set_current_user($runAsUserId);
+        add_filter('send_auth_cookies', '__return_false', PHP_INT_MAX);
+
+        $replayError = null;
+
+        try {
+            Flow::execute($triggered_entity, $triggered_entity_id, $fieldData, [$flowData]);
+        } catch (\Throwable $e) {
+            // Throwable, not Exception, so a TypeError from stale trigger data still returns clean JSON.
+            $replayError = $e;
+        } finally {
+            remove_filter('send_auth_cookies', '__return_false', PHP_INT_MAX);
+            wp_set_current_user($replayerId);
+            IntegrationHandler::clearReexecuteParent($flowData->id);
+        }
+
+        if (null !== $replayError) {
+            wp_send_json_error(__('Re-execution error: ', 'bit-integrations') . $replayError->getMessage());
+        }
+
         wp_send_json_success(__('Re-execution triggered. See the latest log entry for the result.', 'bit-integrations'));
     }
 
     /**
-     * Return the stored trigger field data (input) for a single log entry.
-     * Fetched lazily by the preview UI so the log list response stays lightweight.
+     * @param array|string $field_data
      *
+     * @return array|string
+     */
+    private static function stampExecutingUser($field_data)
+    {
+        $decoded = \is_array($field_data) ? $field_data : json_decode((string) $field_data, true);
+        if (!\is_array($decoded)) {
+            return $field_data;
+        }
+
+        $triggerData = isset($decoded['bit-integrator%trigger_data%']) && \is_array($decoded['bit-integrator%trigger_data%'])
+            ? $decoded['bit-integrator%trigger_data%']
+            : [];
+        $triggerData['exec_user'] = get_current_user_id();
+        $decoded['bit-integrator%trigger_data%'] = $triggerData;
+
+        return $decoded;
+    }
+
+    /**
+     * @param array $fieldData
+     *
+     * @return int
+     */
+    private static function executedAsUserId(array $fieldData)
+    {
+        // Flow::execute() rebuilds trigger_data server-side, so a submitted or pre-patch value can't land here.
+        $userId = isset($fieldData['bit-integrator%trigger_data%']['exec_user']) ? (int) $fieldData['bit-integrator%trigger_data%']['exec_user'] : 0;
+
+        return ($userId > 0 && get_userdata($userId)) ? $userId : 0;
+    }
+
+    /**
      * @param object $data Contains log_id
      *
      * @return void
