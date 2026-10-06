@@ -692,6 +692,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  eventbrite: {
+    youTubeLink: '',
+    docLink: ''
+  },
   sender: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/sender-integration-as-an-action/'
