@@ -249,7 +249,7 @@ const loaderStyle = {
 
 export default function EditInteg({ allIntegURL }) {
   const { id } = useParams()
-  const { data, isLoading, isError } = useFetch({
+  const { data, isLoading, isError, mutate } = useFetch({
     payload: { id },
     action: ['flow/get', id]
   })
@@ -279,6 +279,14 @@ export default function EditInteg({ allIntegURL }) {
       flowReset()
     }
   }, [data])
+
+  // The cached flow is stale once this screen saves; reopening must not show (or re-save) it.
+  useEffect(
+    () => () => {
+      mutate(undefined, { revalidate: false })
+    },
+    [mutate]
+  )
   if (isLoading || isError) {
     return <Loader style={loaderStyle} />
   }
