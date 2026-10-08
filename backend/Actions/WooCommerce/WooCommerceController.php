@@ -247,6 +247,49 @@ class WooCommerceController
         wp_send_json_success($response, 200);
     }
 
+    public static function refreshOptions($queryParams)
+    {
+        if (!class_exists('WooCommerce')) {
+            wp_send_json_error(__('WooCommerce is not installed or activated', 'bit-integrations'), 400);
+        }
+
+        $type = $queryParams->type ?? '';
+
+        if ($type === 'products') {
+            $products = wc_get_products(['limit' => -1, 'status' => ['publish', 'private', 'draft', 'pending'], 'orderby' => 'title', 'order' => 'ASC']);
+
+            wp_send_json_success(
+                array_map(
+                    function ($product) {
+                        return ['value' => (string) $product->get_id(), 'label' => \sprintf('%1$s (#%2$d)', $product->get_name(), $product->get_id())];
+                    },
+                    $products
+                ),
+                200
+            );
+        }
+
+        if (!\in_array($type, ['product_cat', 'product_tag', 'product_brand', 'product_shipping_class'], true)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        $terms = get_terms(['taxonomy' => $type, 'hide_empty' => false, 'orderby' => 'name']);
+
+        if (is_wp_error($terms)) {
+            wp_send_json_success([], 200);
+        }
+
+        wp_send_json_success(
+            array_map(
+                function ($term) {
+                    return ['value' => (string) $term->term_id, 'label' => $term->name];
+                },
+                $terms
+            ),
+            200
+        );
+    }
+
     public function searchProjects($queryParams)
     {
         include_once \dirname(WC_PLUGIN_FILE) . '/includes/class-wc-product-functions.php';
