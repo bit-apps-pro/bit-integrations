@@ -7,12 +7,26 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
 import { getAllSubscriptionsProducts, refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
+import { WooCommerceModuleSelects, WooCommerceModuleUtilities } from './WooCommerceModuleOptions'
+import { proModules } from './staticData'
 import Note from '../../Utilities/Note'
+
+const proModuleGroups = proModules.reduce((groups, proModule) => {
+  const group = groups.find(item => item.label === proModule.group)
+  if (group) {
+    group.modules.push(proModule)
+  } else {
+    groups.push({ label: proModule.group, modules: [proModule] })
+  }
+  return groups
+}, [])
 
 export default function WooCommerceIntegLayout({
   formFields,
@@ -39,6 +53,7 @@ export default function WooCommerceIntegLayout({
 
   const [active, setActive] = useState({ customer: false, order: true })
   const [module, setModule] = useState(wcConf.module)
+  const { isPro } = useRecoilValue($appConfigState)
 
   useEffect(() => {
     setModule(wcConf.module)
@@ -174,7 +189,17 @@ export default function WooCommerceIntegLayout({
             {f.label}
           </option>
         ))}
+        {proModuleGroups.map(group => (
+          <optgroup key={group.label} label={group.label}>
+            {group.modules.map(proModule => (
+              <option key={proModule.name} value={proModule.name} disabled={!isPro}>
+                {isPro ? proModule.label : `${proModule.label} (${__('Pro', 'bit-integrations')})`}
+              </option>
+            ))}
+          </optgroup>
+        ))}
       </select>
+      <WooCommerceModuleSelects wcConf={wcConf} setWcConf={setWcConf} setSnackbar={setSnackbar} />
       <br />
       {module === 'changestatus' && wcConf.default?.fields?.changestatus?.fields && (
         <>
@@ -328,6 +353,8 @@ export default function WooCommerceIntegLayout({
           </div>
         </>
       )}
+
+      <WooCommerceModuleUtilities wcConf={wcConf} setWcConf={setWcConf} />
 
       {wcConf.default?.fields?.[module]?.uploadFields && module === 'product' && (
         <>

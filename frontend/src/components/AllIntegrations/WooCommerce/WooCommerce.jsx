@@ -3,7 +3,7 @@ import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
@@ -11,6 +11,7 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WooCommerceAuthorization from './WooCommerceAuthorization'
 import { checkMappedFields, handleInput } from './WooCommerceCommonFunc'
 import WooCommerceIntegLayout from './WooCommerceIntegLayout'
+import { isProModule, moduleSelects } from './staticData'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 
@@ -62,6 +63,22 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
       if (!fieldMap) {
         status = 'Product Field Map'
         setSnackbar({ show: true, msg: __("Product Field Map can't be empty", 'bit-integrations') })
+      }
+    } else if (isProModule(wcConf?.module)) {
+      const missingSelect = (moduleSelects[wcConf.module] || []).find(
+        select => select.required && !wcConf?.selects?.[select.key]
+      )
+
+      if (!checkMappedFields(wcConf[wcConf.module]?.field_map)) {
+        status = 'Field Map'
+        setSnackbar({ show: true, msg: __("Field Map can't be empty", 'bit-integrations') })
+      } else if (missingSelect) {
+        status = missingSelect.label
+        setSnackbar({
+          show: true,
+          // translators: %s: Field label
+          msg: sprintf(__('%s is required', 'bit-integrations'), missingSelect.label)
+        })
       }
     } else if (wcConf?.module === 'changestatus') {
       const fieldMap = checkMappedFields(wcConf.changestatus.field_map)

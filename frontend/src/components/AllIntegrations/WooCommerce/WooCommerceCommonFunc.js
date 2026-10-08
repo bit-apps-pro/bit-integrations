@@ -22,6 +22,8 @@ const moduleChange = (wcConf, setWcConf, setIsLoading, setSnackbar, isPro = fals
   let newConf = deepCopy(wcConf)
   if (!newConf[wcConf.module]) newConf[wcConf.module] = {}
   newConf[wcConf.module].field_map = []
+  delete newConf.selects
+  delete newConf.utilities
   if (!newConf?.default?.fields?.[wcConf.module]) {
     if (wcConf.module !== 'cancelSubscription') {
       refreshFields(newConf, setWcConf, setIsLoading, setSnackbar)
