@@ -116,7 +116,9 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-      <div className="btcd-stp-page" style={{ width: step === 2 && 1000, height: step === 2 && 'auto' }}>
+      <div
+        className="btcd-stp-page"
+        style={{ width: step === 2 && 1000, height: step === 2 && 'auto', minHeight: 500 }}>
         <WooCommerceIntegLayout
           wcConf={wcConf}
           setWcConf={setWcConf}
