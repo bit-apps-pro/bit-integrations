@@ -1,213 +1,182 @@
 import { __ } from '../../../Utils/i18nwrap'
 
-export const proModules = [
+export const moduleGroups = [
   {
-    name: 'add_order_note',
-    label: __('Add Order Note', 'bit-integrations'),
-    group: __('Order', 'bit-integrations'),
-    is_pro: true
+    title: __('Order', 'bit-integrations'),
+    modules: [
+      { name: 'order', label: __('Create-Order', 'bit-integrations') },
+      { name: 'changestatus', label: __('Change Order Status', 'bit-integrations') },
+      { name: 'add_order_note', label: __('Add Order Note', 'bit-integrations'), is_pro: true },
+      {
+        name: 'update_order_meta',
+        label: __('Add or Update Order Meta', 'bit-integrations'),
+        is_pro: true
+      }
+    ]
   },
   {
-    name: 'update_order_meta',
-    label: __('Add or Update Order Meta', 'bit-integrations'),
-    group: __('Order', 'bit-integrations'),
-    is_pro: true
+    title: __('Customer', 'bit-integrations'),
+    modules: [
+      { name: 'customer', label: __('Create-Customer', 'bit-integrations') },
+      { name: 'update_customer', label: __('Update Customer', 'bit-integrations'), is_pro: true },
+      { name: 'delete_customer', label: __('Delete Customer', 'bit-integrations'), is_pro: true }
+    ]
   },
   {
-    name: 'update_customer',
-    label: __('Update Customer', 'bit-integrations'),
-    group: __('Customer', 'bit-integrations'),
-    is_pro: true
+    title: __('Product', 'bit-integrations'),
+    modules: [
+      { name: 'product', label: __('Create-Product', 'bit-integrations') },
+      { name: 'update_product', label: __('Update Product', 'bit-integrations'), is_pro: true },
+      {
+        name: 'update_product_stock',
+        label: __('Update Product Stock', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'update_product_status',
+        label: __('Update Product Status', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'update_product_price',
+        label: __('Update Product Price', 'bit-integrations'),
+        is_pro: true
+      },
+      { name: 'delete_product', label: __('Delete Product', 'bit-integrations'), is_pro: true }
+    ]
   },
   {
-    name: 'delete_customer',
-    label: __('Delete Customer', 'bit-integrations'),
-    group: __('Customer', 'bit-integrations'),
-    is_pro: true
+    title: __('Product Variation', 'bit-integrations'),
+    modules: [
+      {
+        name: 'create_product_variation',
+        label: __('Create Product Variation', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'update_product_variation',
+        label: __('Update Product Variation', 'bit-integrations'),
+        is_pro: true
+      }
+    ]
   },
   {
-    name: 'update_product',
-    label: __('Update Product', 'bit-integrations'),
-    group: __('Product', 'bit-integrations'),
-    is_pro: true
+    title: __('Product Taxonomy', 'bit-integrations'),
+    modules: [
+      {
+        name: 'create_product_term',
+        label: __('Create Category, Tag, Brand or Shipping Class', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'update_product_term',
+        label: __('Update Category, Tag, Brand or Shipping Class', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'delete_product_term',
+        label: __('Delete Category, Tag, Brand or Shipping Class', 'bit-integrations'),
+        is_pro: true
+      }
+    ]
   },
   {
-    name: 'update_product_stock',
-    label: __('Update Product Stock', 'bit-integrations'),
-    group: __('Product', 'bit-integrations'),
-    is_pro: true
+    title: __('Product Attribute', 'bit-integrations'),
+    modules: [
+      { name: 'create_attribute', label: __('Create Attribute', 'bit-integrations'), is_pro: true },
+      { name: 'update_attribute', label: __('Update Attribute', 'bit-integrations'), is_pro: true },
+      { name: 'delete_attribute', label: __('Delete Attribute', 'bit-integrations'), is_pro: true },
+      {
+        name: 'add_attribute_terms',
+        label: __('Add Attribute Terms', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'add_product_attribute',
+        label: __('Add Attribute to Product', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'remove_product_attribute',
+        label: __('Remove Attribute from Product', 'bit-integrations'),
+        is_pro: true
+      }
+    ]
   },
   {
-    name: 'update_product_status',
-    label: __('Update Product Status', 'bit-integrations'),
-    group: __('Product', 'bit-integrations'),
-    is_pro: true
+    title: __('Cart', 'bit-integrations'),
+    modules: [
+      {
+        name: 'add_product_to_cart',
+        label: __('Add Product to Cart', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'remove_product_from_cart',
+        label: __('Remove Product from Cart', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'apply_coupon_to_cart',
+        label: __('Apply Coupon to Cart', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'remove_coupon_from_cart',
+        label: __('Remove Coupon from Cart', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'send_abandoned_cart_email',
+        label: __('Send Abandoned Cart Email', 'bit-integrations'),
+        is_pro: true
+      }
+    ]
   },
   {
-    name: 'update_product_price',
-    label: __('Update Product Price', 'bit-integrations'),
-    group: __('Product', 'bit-integrations'),
-    is_pro: true
+    title: __('Coupon', 'bit-integrations'),
+    modules: [
+      { name: 'create_coupon', label: __('Create Coupon', 'bit-integrations'), is_pro: true },
+      { name: 'update_coupon', label: __('Update Coupon', 'bit-integrations'), is_pro: true },
+      { name: 'update_coupon_code', label: __('Change Coupon Code', 'bit-integrations'), is_pro: true },
+      {
+        name: 'add_emails_to_coupon',
+        label: __('Add Allowed Emails to Coupon', 'bit-integrations'),
+        is_pro: true
+      },
+      { name: 'delete_coupon', label: __('Delete Coupon', 'bit-integrations'), is_pro: true }
+    ]
   },
   {
-    name: 'delete_product',
-    label: __('Delete Product', 'bit-integrations'),
-    group: __('Product', 'bit-integrations'),
-    is_pro: true
+    title: __('Review', 'bit-integrations'),
+    modules: [
+      {
+        name: 'create_product_review',
+        label: __('Create Product Review', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'update_product_review',
+        label: __('Update Product Review', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'approve_product_review',
+        label: __('Approve Product Review', 'bit-integrations'),
+        is_pro: true
+      },
+      {
+        name: 'delete_product_review',
+        label: __('Delete Product Review', 'bit-integrations'),
+        is_pro: true
+      }
+    ]
   },
   {
-    name: 'create_product_variation',
-    label: __('Create Product Variation', 'bit-integrations'),
-    group: __('Product Variation', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'update_product_variation',
-    label: __('Update Product Variation', 'bit-integrations'),
-    group: __('Product Variation', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'create_product_term',
-    label: __('Create Category, Tag, Brand or Shipping Class', 'bit-integrations'),
-    group: __('Product Taxonomy', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'update_product_term',
-    label: __('Update Category, Tag, Brand or Shipping Class', 'bit-integrations'),
-    group: __('Product Taxonomy', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'delete_product_term',
-    label: __('Delete Category, Tag, Brand or Shipping Class', 'bit-integrations'),
-    group: __('Product Taxonomy', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'create_attribute',
-    label: __('Create Attribute', 'bit-integrations'),
-    group: __('Product Attribute', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'update_attribute',
-    label: __('Update Attribute', 'bit-integrations'),
-    group: __('Product Attribute', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'delete_attribute',
-    label: __('Delete Attribute', 'bit-integrations'),
-    group: __('Product Attribute', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'add_attribute_terms',
-    label: __('Add Attribute Terms', 'bit-integrations'),
-    group: __('Product Attribute', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'add_product_attribute',
-    label: __('Add Attribute to Product', 'bit-integrations'),
-    group: __('Product Attribute', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'remove_product_attribute',
-    label: __('Remove Attribute from Product', 'bit-integrations'),
-    group: __('Product Attribute', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'add_product_to_cart',
-    label: __('Add Product to Cart', 'bit-integrations'),
-    group: __('Cart', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'remove_product_from_cart',
-    label: __('Remove Product from Cart', 'bit-integrations'),
-    group: __('Cart', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'apply_coupon_to_cart',
-    label: __('Apply Coupon to Cart', 'bit-integrations'),
-    group: __('Cart', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'remove_coupon_from_cart',
-    label: __('Remove Coupon from Cart', 'bit-integrations'),
-    group: __('Cart', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'send_abandoned_cart_email',
-    label: __('Send Abandoned Cart Email', 'bit-integrations'),
-    group: __('Cart', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'create_coupon',
-    label: __('Create Coupon', 'bit-integrations'),
-    group: __('Coupon', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'update_coupon',
-    label: __('Update Coupon', 'bit-integrations'),
-    group: __('Coupon', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'update_coupon_code',
-    label: __('Change Coupon Code', 'bit-integrations'),
-    group: __('Coupon', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'add_emails_to_coupon',
-    label: __('Add Allowed Emails to Coupon', 'bit-integrations'),
-    group: __('Coupon', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'delete_coupon',
-    label: __('Delete Coupon', 'bit-integrations'),
-    group: __('Coupon', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'create_product_review',
-    label: __('Create Product Review', 'bit-integrations'),
-    group: __('Review', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'update_product_review',
-    label: __('Update Product Review', 'bit-integrations'),
-    group: __('Review', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'approve_product_review',
-    label: __('Approve Product Review', 'bit-integrations'),
-    group: __('Review', 'bit-integrations'),
-    is_pro: true
-  },
-  {
-    name: 'delete_product_review',
-    label: __('Delete Product Review', 'bit-integrations'),
-    group: __('Review', 'bit-integrations'),
-    is_pro: true
+    title: __('Subscription', 'bit-integrations'),
+    modules: [{ name: 'cancelSubscription', label: __('Cancel Subscription', 'bit-integrations') }]
   }
 ]
-
-export const isProModule = module => proModules.some(proModule => proModule.name === module)
 
 const addressFields = [
   { key: 'billing_first_name', label: __('Billing First Name', 'bit-integrations'), required: false },

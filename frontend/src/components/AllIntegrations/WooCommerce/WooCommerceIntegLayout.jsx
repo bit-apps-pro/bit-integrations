@@ -11,23 +11,13 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import { checkIsPro } from '../../Utilities/ProUtilHelpers'
+import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
 import { getAllSubscriptionsProducts, refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
 import { WooCommerceModuleSelects, WooCommerceModuleUtilities } from './WooCommerceModuleOptions'
-import { moduleFields, proModules } from './staticData'
+import { moduleFields, moduleGroups } from './staticData'
 import Note from '../../Utilities/Note'
-
-const proModuleGroups = proModules.reduce((groups, proModule) => {
-  const group = groups.find(item => item.label === proModule.group)
-  if (group) {
-    group.modules.push(proModule)
-  } else {
-    groups.push({ label: proModule.group, modules: [proModule] })
-  }
-  return groups
-}, [])
 
 export default function WooCommerceIntegLayout({
   formFields,
@@ -56,6 +46,17 @@ export default function WooCommerceIntegLayout({
   const [module, setModule] = useState(wcConf.module)
   const { isPro } = useRecoilValue($appConfigState)
   const hasOptionalFields = !moduleFields[module] || moduleFields[module].some(field => !field.required)
+  const moduleOptions = moduleGroups.map(group => ({
+    type: 'group',
+    title: group.title,
+    childs: group.modules.map(item => ({
+      label: checkIsPro(isPro, item.is_pro) ? item.label : getProLabel(item.label),
+      title: item.label,
+      value: item.name,
+      disabled: !checkIsPro(isPro, item.is_pro)
+    }))
+  }))
+
 
   useEffect(() => {
     setModule(wcConf.module)
@@ -138,14 +139,6 @@ export default function WooCommerceIntegLayout({
     setWcConf(newConf)
   }
 
-  const moduleType = [
-    { name: 'customer', label: __('Create-Customer', 'bit-integrations') },
-    { name: 'product', label: __('Create-Product', 'bit-integrations') },
-    { name: 'order', label: __('Create-Order', 'bit-integrations') },
-    { name: 'changestatus', label: __('Change Order Status', 'bit-integrations') },
-    { name: 'cancelSubscription', label: __('Cancel Subscription', 'bit-integrations') }
-  ]
-
   const filterStatus = [
     { name: 'order-id', label: __('Specific Order ID', 'bit-integrations') },
     { name: 'email', label: __('Specific Customer Email', 'bit-integrations') },
@@ -183,29 +176,18 @@ export default function WooCommerceIntegLayout({
   return (
     <>
       <br />
-      <b className="wdt-200 d-in-b">{__('Module:', 'bit-integrations')}</b>
-      <select onChange={handleInput} name="module" value={wcConf.module} className="btcd-paper-inp w-5">
-        <option value="">{__('Select Module', 'bit-integrations')}</option>
-        {moduleType?.map(f => (
-          <option key={`ff-rm-${f.name}`} value={f.name}>
-            {f.label}
-          </option>
-        ))}
-        {proModuleGroups.map(group => (
-          <optgroup key={group.label} label={group.label}>
-            {group.modules.map(proModule => (
-              <option
-                key={proModule.name}
-                value={proModule.name}
-                disabled={!checkIsPro(isPro, proModule.is_pro)}>
-                {checkIsPro(isPro, proModule.is_pro)
-                  ? proModule.label
-                  : `${proModule.label} (${__('Pro', 'bit-integrations')})`}
-              </option>
-            ))}
-          </optgroup>
-        ))}
-      </select>
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{__('Module:', 'bit-integrations')}</b>
+        <MultiSelect
+          defaultValue={wcConf.module ?? null}
+          className="btcd-paper-drpdwn w-5"
+          options={moduleOptions}
+          onChange={value => handleInput({ target: { name: 'module', value } })}
+          placeholder={__('Select Module', 'bit-integrations')}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
       <WooCommerceModuleSelects wcConf={wcConf} setWcConf={setWcConf} setSnackbar={setSnackbar} />
       <br />
       {module === 'changestatus' && wcConf.default?.fields?.changestatus?.fields && (
