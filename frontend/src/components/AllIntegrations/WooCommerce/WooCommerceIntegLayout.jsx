@@ -11,13 +11,13 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
+import { getProSelectOptions } from '../../Utilities/ProUtilHelpers'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
 import WooCommerceActions from './WooCommerceActions'
 import { refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
 import WooCommerceModuleOptions from './WooCommerceModuleOptions'
-import { moduleFields, moduleGroups, moduleUtilities } from './staticData'
+import { moduleFields, modules, moduleUtilities } from './staticData'
 import Note from '../../Utilities/Note'
 
 export default function WooCommerceIntegLayout({
@@ -47,16 +47,6 @@ export default function WooCommerceIntegLayout({
   const [module, setModule] = useState(wcConf.module)
   const { isPro } = useRecoilValue($appConfigState)
   const hasOptionalFields = !moduleFields[module] || moduleFields[module].some(field => !field.required)
-  const moduleOptions = moduleGroups.map(group => ({
-    type: 'group',
-    title: group.title,
-    childs: group.modules.map(item => ({
-      label: checkIsPro(isPro, item.is_pro) ? item.label : getProLabel(item.label),
-      title: item.label,
-      value: item.name,
-      disabled: !checkIsPro(isPro, item.is_pro)
-    }))
-  }))
 
   useEffect(() => {
     setModule(wcConf.module)
@@ -75,7 +65,7 @@ export default function WooCommerceIntegLayout({
         <MultiSelect
           defaultValue={wcConf.module ?? null}
           className="btcd-paper-drpdwn w-5"
-          options={moduleOptions}
+          options={getProSelectOptions(modules, isPro)}
           onChange={value => handleInput({ target: { name: 'module', value } })}
           placeholder={__('Select Module', 'bit-integrations')}
           singleSelect
