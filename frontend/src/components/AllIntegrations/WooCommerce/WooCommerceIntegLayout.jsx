@@ -11,6 +11,7 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
+import { checkIsPro } from '../../Utilities/ProUtilHelpers'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
 import { getAllSubscriptionsProducts, refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
@@ -195,8 +196,13 @@ export default function WooCommerceIntegLayout({
         {proModuleGroups.map(group => (
           <optgroup key={group.label} label={group.label}>
             {group.modules.map(proModule => (
-              <option key={proModule.name} value={proModule.name} disabled={!isPro}>
-                {isPro ? proModule.label : `${proModule.label} (${__('Pro', 'bit-integrations')})`}
+              <option
+                key={proModule.name}
+                value={proModule.name}
+                disabled={!checkIsPro(isPro, proModule.is_pro)}>
+                {checkIsPro(isPro, proModule.is_pro)
+                  ? proModule.label
+                  : `${proModule.label} (${__('Pro', 'bit-integrations')})`}
               </option>
             ))}
           </optgroup>
