@@ -16,7 +16,7 @@ import WcLineItemsFieldMap from './WcLineItemsFieldMap'
 import { getAllSubscriptionsProducts, refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
 import { WooCommerceModuleSelects, WooCommerceModuleUtilities } from './WooCommerceModuleOptions'
-import { proModules } from './staticData'
+import { moduleFields, proModules } from './staticData'
 import Note from '../../Utilities/Note'
 
 const proModuleGroups = proModules.reduce((groups, proModule) => {
@@ -55,9 +55,7 @@ export default function WooCommerceIntegLayout({
   const [active, setActive] = useState({ customer: false, order: true })
   const [module, setModule] = useState(wcConf.module)
   const { isPro } = useRecoilValue($appConfigState)
-  const hasOptionalFields = Object.values(wcConf.default?.fields?.[module]?.fields || {}).some(
-    field => !field.required
-  )
+  const hasOptionalFields = !moduleFields[module] || moduleFields[module].some(field => !field.required)
 
   useEffect(() => {
     setModule(wcConf.module)
@@ -323,14 +321,16 @@ export default function WooCommerceIntegLayout({
         <>
           <div className="mt-4">
             <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
-            <button
-              onClick={() => refreshFields(wcConf, setWcConf, setIsLoading, setSnackbar)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh fields', 'bit-integrations')}'` }}
-              type="button"
-              disabled={isLoading}>
-              &#x21BB;
-            </button>
+            {!moduleFields[module] && (
+              <button
+                onClick={() => refreshFields(wcConf, setWcConf, setIsLoading, setSnackbar)}
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': `'${__('Refresh fields', 'bit-integrations')}'` }}
+                type="button"
+                disabled={isLoading}>
+                &#x21BB;
+              </button>
+            )}
           </div>
           <div className="btcd-hr mt-1" />
           <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">

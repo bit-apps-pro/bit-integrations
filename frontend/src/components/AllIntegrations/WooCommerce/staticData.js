@@ -209,6 +209,287 @@ export const proModules = [
 
 export const isProModule = module => proModules.some(proModule => proModule.name === module)
 
+const addressFields = [
+  { key: 'billing_first_name', label: __('Billing First Name', 'bit-integrations'), required: false },
+  { key: 'billing_last_name', label: __('Billing Last Name', 'bit-integrations'), required: false },
+  { key: 'billing_company', label: __('Billing Company', 'bit-integrations'), required: false },
+  { key: 'billing_address_1', label: __('Billing Address 1', 'bit-integrations'), required: false },
+  { key: 'billing_address_2', label: __('Billing Address 2', 'bit-integrations'), required: false },
+  { key: 'billing_city', label: __('Billing City', 'bit-integrations'), required: false },
+  { key: 'billing_postcode', label: __('Billing Post Code', 'bit-integrations'), required: false },
+  { key: 'billing_country', label: __('Billing Country', 'bit-integrations'), required: false },
+  { key: 'billing_state', label: __('Billing State', 'bit-integrations'), required: false },
+  { key: 'billing_email', label: __('Billing Email', 'bit-integrations'), required: false },
+  { key: 'billing_phone', label: __('Billing Phone', 'bit-integrations'), required: false },
+  { key: 'shipping_first_name', label: __('Shipping First Name', 'bit-integrations'), required: false },
+  { key: 'shipping_last_name', label: __('Shipping Last Name', 'bit-integrations'), required: false },
+  { key: 'shipping_company', label: __('Shipping Company', 'bit-integrations'), required: false },
+  { key: 'shipping_address_1', label: __('Shipping Address 1', 'bit-integrations'), required: false },
+  { key: 'shipping_address_2', label: __('Shipping Address 2', 'bit-integrations'), required: false },
+  { key: 'shipping_city', label: __('Shipping City', 'bit-integrations'), required: false },
+  { key: 'shipping_postcode', label: __('Shipping Post Code', 'bit-integrations'), required: false },
+  { key: 'shipping_country', label: __('Shipping Country', 'bit-integrations'), required: false },
+  { key: 'shipping_state', label: __('Shipping State', 'bit-integrations'), required: false },
+  { key: 'shipping_phone', label: __('Shipping Phone', 'bit-integrations'), required: false }
+]
+
+const variationFields = [
+  { key: 'sale_price', label: __('Sale Price', 'bit-integrations'), required: false },
+  {
+    key: 'date_on_sale_from',
+    label: __('Sale Start Date (YYYY-MM-DD)', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'date_on_sale_to',
+    label: __('Sale End Date (YYYY-MM-DD)', 'bit-integrations'),
+    required: false
+  },
+  { key: 'sku', label: __('SKU', 'bit-integrations'), required: false },
+  { key: 'stock_quantity', label: __('Stock Quantity', 'bit-integrations'), required: false },
+  { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+  { key: 'weight', label: __('Weight', 'bit-integrations'), required: false },
+  { key: 'length', label: __('Length', 'bit-integrations'), required: false },
+  { key: 'width', label: __('Width', 'bit-integrations'), required: false },
+  { key: 'height', label: __('Height', 'bit-integrations'), required: false },
+  { key: 'variation_image', label: __('Variation Image URL', 'bit-integrations'), required: false }
+]
+
+const couponFields = [
+  { key: 'expiry_date', label: __('Expiry Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
+  { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+  { key: 'minimum_amount', label: __('Minimum Spend', 'bit-integrations'), required: false },
+  { key: 'maximum_amount', label: __('Maximum Spend', 'bit-integrations'), required: false },
+  {
+    key: 'allowed_emails',
+    label: __('Allowed Emails (comma separated)', 'bit-integrations'),
+    required: false
+  },
+  { key: 'usage_limit', label: __('Usage Limit Per Coupon', 'bit-integrations'), required: false },
+  {
+    key: 'usage_limit_per_user',
+    label: __('Usage Limit Per User', 'bit-integrations'),
+    required: false
+  },
+  {
+    key: 'limit_usage_to_x_items',
+    label: __('Limit Usage to X Items', 'bit-integrations'),
+    required: false
+  }
+]
+
+const termFields = [
+  { key: 'slug', label: __('Slug', 'bit-integrations'), required: false },
+  { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+  { key: 'parent', label: __('Parent Term ID', 'bit-integrations'), required: false }
+]
+
+const productIdField = { key: 'product_id', label: __('Product ID', 'bit-integrations'), required: true }
+const customerIdField = {
+  key: 'customer_id',
+  label: __('Customer ID', 'bit-integrations'),
+  required: true
+}
+const termIdField = { key: 'term_id', label: __('Term ID', 'bit-integrations'), required: true }
+const attributeIdField = {
+  key: 'attribute_id',
+  label: __('Attribute ID', 'bit-integrations'),
+  required: true
+}
+const couponCodeField = {
+  key: 'coupon_code',
+  label: __('Coupon Code', 'bit-integrations'),
+  required: true
+}
+const couponCodeOrIdField = {
+  key: 'coupon_code_or_id',
+  label: __('Coupon Code or ID', 'bit-integrations'),
+  required: true
+}
+const reviewIdField = { key: 'review_id', label: __('Review ID', 'bit-integrations'), required: true }
+
+export const moduleFields = {
+  add_order_note: [
+    { key: 'order_id', label: __('Order ID', 'bit-integrations'), required: true },
+    { key: 'note', label: __('Note', 'bit-integrations'), required: true }
+  ],
+  update_order_meta: [
+    { key: 'order_id', label: __('Order ID', 'bit-integrations'), required: true },
+    { key: 'meta_key', label: __('Meta Key', 'bit-integrations'), required: true },
+    { key: 'meta_value', label: __('Meta Value', 'bit-integrations'), required: false }
+  ],
+  update_customer: [
+    customerIdField,
+    { key: 'first_name', label: __('First Name', 'bit-integrations'), required: false },
+    { key: 'last_name', label: __('Last Name', 'bit-integrations'), required: false },
+    { key: 'display_name', label: __('Display Name', 'bit-integrations'), required: false },
+    { key: 'email', label: __('Email', 'bit-integrations'), required: false },
+    ...addressFields
+  ],
+  delete_customer: [customerIdField],
+  update_product: [
+    productIdField,
+    { key: 'name', label: __('Name', 'bit-integrations'), required: false },
+    { key: 'slug', label: __('Slug', 'bit-integrations'), required: false },
+    { key: 'short_description', label: __('Short Description', 'bit-integrations'), required: false },
+    { key: 'description', label: __('Description', 'bit-integrations'), required: false },
+    { key: 'regular_price', label: __('Regular Price', 'bit-integrations'), required: false },
+    { key: 'sale_price', label: __('Sale Price', 'bit-integrations'), required: false },
+    {
+      key: 'date_on_sale_from',
+      label: __('Sale Start Date (YYYY-MM-DD)', 'bit-integrations'),
+      required: false
+    },
+    {
+      key: 'date_on_sale_to',
+      label: __('Sale End Date (YYYY-MM-DD)', 'bit-integrations'),
+      required: false
+    },
+    { key: 'sku', label: __('SKU', 'bit-integrations'), required: false },
+    { key: 'stock_quantity', label: __('Stock Quantity', 'bit-integrations'), required: false },
+    { key: 'low_stock_amount', label: __('Low Stock Threshold', 'bit-integrations'), required: false },
+    { key: 'tax_class', label: __('Tax Class', 'bit-integrations'), required: false },
+    { key: 'weight', label: __('Weight', 'bit-integrations'), required: false },
+    { key: 'length', label: __('Length', 'bit-integrations'), required: false },
+    { key: 'width', label: __('Width', 'bit-integrations'), required: false },
+    { key: 'height', label: __('Height', 'bit-integrations'), required: false },
+    { key: 'external_url', label: __('External Product URL', 'bit-integrations'), required: false },
+    {
+      key: 'button_text',
+      label: __('External Product Button Text', 'bit-integrations'),
+      required: false
+    },
+    { key: 'purchase_note', label: __('Purchase Note', 'bit-integrations'), required: false },
+    { key: 'menu_order', label: __('Menu Order', 'bit-integrations'), required: false },
+    { key: 'featured_image', label: __('Featured Image URL', 'bit-integrations'), required: false },
+    {
+      key: 'gallery_images',
+      label: __('Gallery Image URLs (comma separated)', 'bit-integrations'),
+      required: false
+    }
+  ],
+  update_product_stock: [
+    productIdField,
+    { key: 'stock_quantity', label: __('Stock Quantity', 'bit-integrations'), required: true }
+  ],
+  update_product_status: [productIdField],
+  update_product_price: [
+    { key: 'product_id_or_sku', label: __('Product ID or SKU', 'bit-integrations'), required: true },
+    { key: 'regular_price', label: __('Regular Price', 'bit-integrations'), required: false },
+    { key: 'sale_price', label: __('Sale Price', 'bit-integrations'), required: false }
+  ],
+  delete_product: [productIdField],
+  create_product_variation: [
+    { key: 'product_id', label: __('Parent Product ID', 'bit-integrations'), required: true },
+    {
+      key: 'attributes',
+      label: __('Attributes (e.g. Color: Red, Size: Large)', 'bit-integrations'),
+      required: true
+    },
+    { key: 'regular_price', label: __('Regular Price', 'bit-integrations'), required: true },
+    ...variationFields
+  ],
+  update_product_variation: [
+    { key: 'variation_id', label: __('Variation ID', 'bit-integrations'), required: true },
+    {
+      key: 'attributes',
+      label: __('Attributes (e.g. Color: Red, Size: Large)', 'bit-integrations'),
+      required: false
+    },
+    { key: 'regular_price', label: __('Regular Price', 'bit-integrations'), required: false },
+    ...variationFields
+  ],
+  create_product_term: [
+    { key: 'name', label: __('Name', 'bit-integrations'), required: true },
+    ...termFields
+  ],
+  update_product_term: [
+    termIdField,
+    { key: 'name', label: __('Name', 'bit-integrations'), required: false },
+    ...termFields
+  ],
+  delete_product_term: [termIdField],
+  create_attribute: [
+    { key: 'name', label: __('Name', 'bit-integrations'), required: true },
+    { key: 'slug', label: __('Slug', 'bit-integrations'), required: false }
+  ],
+  update_attribute: [
+    attributeIdField,
+    { key: 'name', label: __('Name', 'bit-integrations'), required: false },
+    { key: 'slug', label: __('Slug', 'bit-integrations'), required: false }
+  ],
+  delete_attribute: [attributeIdField],
+  add_attribute_terms: [
+    attributeIdField,
+    { key: 'terms', label: __('Terms (comma separated)', 'bit-integrations'), required: true }
+  ],
+  add_product_attribute: [
+    productIdField,
+    { key: 'attribute_name', label: __('Attribute Name', 'bit-integrations'), required: true },
+    {
+      key: 'attribute_values',
+      label: __('Attribute Values (comma separated)', 'bit-integrations'),
+      required: true
+    }
+  ],
+  remove_product_attribute: [
+    productIdField,
+    {
+      key: 'attribute_names',
+      label: __('Attribute Names (comma separated)', 'bit-integrations'),
+      required: true
+    }
+  ],
+  add_product_to_cart: [
+    productIdField,
+    { key: 'quantity', label: __('Quantity', 'bit-integrations'), required: true },
+    { key: 'variation_id', label: __('Variation ID', 'bit-integrations'), required: false }
+  ],
+  remove_product_from_cart: [productIdField],
+  apply_coupon_to_cart: [couponCodeField],
+  remove_coupon_from_cart: [couponCodeField],
+  send_abandoned_cart_email: [
+    { key: 'email', label: __('Email', 'bit-integrations'), required: true },
+    { key: 'subject', label: __('Subject', 'bit-integrations'), required: false },
+    { key: 'body', label: __('Body (HTML allowed)', 'bit-integrations'), required: false }
+  ],
+  create_coupon: [
+    couponCodeField,
+    { key: 'amount', label: __('Amount', 'bit-integrations'), required: true },
+    ...couponFields
+  ],
+  update_coupon: [
+    couponCodeOrIdField,
+    { key: 'amount', label: __('Amount', 'bit-integrations'), required: false },
+    ...couponFields
+  ],
+  update_coupon_code: [
+    { key: 'coupon_id', label: __('Coupon ID', 'bit-integrations'), required: true },
+    { key: 'new_coupon_code', label: __('New Coupon Code', 'bit-integrations'), required: true }
+  ],
+  add_emails_to_coupon: [
+    couponCodeOrIdField,
+    { key: 'emails', label: __('Emails (comma separated)', 'bit-integrations'), required: true }
+  ],
+  delete_coupon: [couponCodeOrIdField],
+  create_product_review: [
+    productIdField,
+    { key: 'reviewer_name', label: __('Reviewer Name', 'bit-integrations'), required: true },
+    { key: 'reviewer_email', label: __('Reviewer Email', 'bit-integrations'), required: true },
+    { key: 'rating', label: __('Rating (1-5)', 'bit-integrations'), required: true },
+    { key: 'review', label: __('Review', 'bit-integrations'), required: true }
+  ],
+  update_product_review: [
+    reviewIdField,
+    { key: 'reviewer_name', label: __('Reviewer Name', 'bit-integrations'), required: false },
+    { key: 'reviewer_email', label: __('Reviewer Email', 'bit-integrations'), required: false },
+    { key: 'rating', label: __('Rating (1-5)', 'bit-integrations'), required: false },
+    { key: 'review', label: __('Review', 'bit-integrations'), required: false }
+  ],
+  approve_product_review: [reviewIdField],
+  delete_product_review: [reviewIdField]
+}
+
 const yesNoOptions = [
   { label: __('Yes', 'bit-integrations'), value: 'yes' },
   { label: __('No', 'bit-integrations'), value: 'no' }

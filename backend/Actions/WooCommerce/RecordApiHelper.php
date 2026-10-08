@@ -16,6 +16,8 @@ use WP_Error;
 
 class RecordApiHelper
 {
+    private const FREE_MODULES = ['customer', 'product', 'order', 'changestatus', 'cancelSubscription'];
+
     private $_integrationID;
 
     public function __construct($integId)
@@ -251,7 +253,7 @@ class RecordApiHelper
 
     public function execute($module, $fieldValues, $fieldMap, $uploadFieldMap, $required, $integrationDetails)
     {
-        if (WooCommerceActionModules::exists($module)) {
+        if (!\in_array($module, self::FREE_MODULES, true)) {
             return $this->executeModuleAction($module, $fieldValues, $fieldMap, $integrationDetails);
         }
 
@@ -781,10 +783,10 @@ class RecordApiHelper
                 : ($fieldValues[$fieldPair->formField] ?? '');
         }
 
-        foreach (WooCommerceActionModules::fields($module)['fields'] as $field) {
+        foreach ($integrationDetails->default->fields->{$module}->fields ?? [] as $field) {
             $value = $fieldData[$field->fieldKey] ?? '';
 
-            if ($field->required && ($value === '' || $value === [])) {
+            if (!empty($field->required) && ($value === '' || $value === [])) {
                 // translators: %s: Field label
                 $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%s is required', 'bit-integrations'), $field->fieldName));
                 LogHandler::save($this->_integrationID, ['type' => 'woocommerce', 'type_name' => $module], 'validation', $error);

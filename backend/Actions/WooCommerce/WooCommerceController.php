@@ -31,12 +31,6 @@ class WooCommerceController
             );
         }
 
-        $moduleFields = WooCommerceActionModules::fields($queryParams->module);
-
-        if ($moduleFields) {
-            wp_send_json_success($moduleFields, 200);
-        }
-
         $metabox = WooCommerceMetaFields::metaBoxFields($queryParams->module);
 
         $uploadFields = [];

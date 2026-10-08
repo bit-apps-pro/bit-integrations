@@ -11,7 +11,7 @@ import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WooCommerceAuthorization from './WooCommerceAuthorization'
 import { checkMappedFields, getIncompleteFieldMapMessage, handleInput } from './WooCommerceCommonFunc'
 import WooCommerceIntegLayout from './WooCommerceIntegLayout'
-import { isProModule, moduleSelects } from './staticData'
+import { moduleFields, moduleSelects } from './staticData'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 
@@ -64,7 +64,7 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         status = 'Product Field Map'
         setSnackbar({ show: true, msg: __("Product Field Map can't be empty", 'bit-integrations') })
       }
-    } else if (isProModule(wcConf?.module)) {
+    } else if (moduleFields[wcConf?.module]) {
       const missingSelect = (moduleSelects[wcConf.module] || []).find(
         select => select.required && !wcConf?.selects?.[select.key]
       )
