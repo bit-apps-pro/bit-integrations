@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import TableCheckBox from '../../Utilities/TableCheckBox'
-import { moduleSelects, moduleUtilities } from './staticData'
+import { moduleSelects } from './staticData'
 
 export function WooCommerceModuleSelects({ wcConf, setWcConf, setSnackbar }) {
   const [loadingSources, setLoadingSources] = useState({})
@@ -100,46 +99,4 @@ export function WooCommerceModuleSelects({ wcConf, setWcConf, setSnackbar }) {
       </div>
     )
   })
-}
-
-export function WooCommerceModuleUtilities({ wcConf, setWcConf }) {
-  const utilities = moduleUtilities[wcConf?.module] || []
-
-  if (!utilities.length) {
-    return null
-  }
-
-  const toggleUtility = key =>
-    setWcConf(prevConf =>
-      create(prevConf, draftConf => {
-        if (!draftConf.utilities) draftConf.utilities = {}
-        if (draftConf.utilities[key]) {
-          delete draftConf.utilities[key]
-        } else {
-          draftConf.utilities[key] = true
-        }
-      })
-    )
-
-  return (
-    <>
-      <div className="mt-4">
-        <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
-      </div>
-      <div className="btcd-hr mt-1" />
-      <div className="pos-rel d-flx flx-wrp">
-        {utilities.map(utility => (
-          <TableCheckBox
-            key={`${wcConf.module}-${utility.key}`}
-            checked={!!wcConf?.utilities?.[utility.key]}
-            onChange={() => toggleUtility(utility.key)}
-            className="wdt-200 mt-4 mr-2"
-            value={utility.key}
-            title={utility.title}
-            subTitle={utility.subTitle}
-          />
-        ))}
-      </div>
-    </>
-  )
 }

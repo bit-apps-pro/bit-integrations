@@ -13,10 +13,11 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
+import WooCommerceActions from './WooCommerceActions'
 import { getAllSubscriptionsProducts, refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
-import { WooCommerceModuleSelects, WooCommerceModuleUtilities } from './WooCommerceModuleOptions'
-import { moduleFields, moduleGroups } from './staticData'
+import { WooCommerceModuleSelects } from './WooCommerceModuleOptions'
+import { moduleFields, moduleGroups, moduleUtilities } from './staticData'
 import Note from '../../Utilities/Note'
 
 export default function WooCommerceIntegLayout({
@@ -347,7 +348,13 @@ export default function WooCommerceIntegLayout({
         </>
       )}
 
-      <WooCommerceModuleUtilities wcConf={wcConf} setWcConf={setWcConf} />
+      {moduleUtilities[wcConf.module] && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <WooCommerceActions wcConf={wcConf} setWcConf={setWcConf} />
+        </div>
+      )}
 
       {wcConf.default?.fields?.[module]?.uploadFields && module === 'product' && (
         <>
