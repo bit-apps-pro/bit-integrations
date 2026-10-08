@@ -254,6 +254,146 @@ class WCStaticFields
         ];
     }
 
+    public static function getVariationStockFields()
+    {
+        return [
+            'Variation Id' => (object) [
+                'fieldKey'  => 'variation_id',
+                'fieldName' => __('Variation Id', 'bit-integrations')
+            ],
+            'Variation Name' => (object) [
+                'fieldKey'  => 'variation_name',
+                'fieldName' => __('Variation Name', 'bit-integrations')
+            ],
+            'Variation Sku' => (object) [
+                'fieldKey'  => 'variation_sku',
+                'fieldName' => __('Variation Sku', 'bit-integrations')
+            ],
+            'Variation Price' => (object) [
+                'fieldKey'  => 'variation_price',
+                'fieldName' => __('Variation Price', 'bit-integrations')
+            ],
+            'Variation Attributes' => (object) [
+                'fieldKey'  => 'variation_attributes',
+                'fieldName' => __('Variation Attributes', 'bit-integrations')
+            ],
+            'Stock Quantity' => (object) [
+                'fieldKey'  => 'stock_quantity',
+                'fieldName' => __('Stock Quantity', 'bit-integrations')
+            ],
+            'Stock Status' => (object) [
+                'fieldKey'  => 'stock_status',
+                'fieldName' => __('Stock Status', 'bit-integrations')
+            ],
+            'Parent Product Id' => (object) [
+                'fieldKey'  => 'parent_id',
+                'fieldName' => __('Parent Product Id', 'bit-integrations')
+            ],
+            'Parent Product Name' => (object) [
+                'fieldKey'  => 'parent_name',
+                'fieldName' => __('Parent Product Name', 'bit-integrations')
+            ],
+        ];
+    }
+
+    public static function getEventFields($id)
+    {
+        switch ($id) {
+            case WCController::ORDER_NOTE_ADDED:
+                return [
+                    'Note Id' => (object) [
+                        'fieldKey'  => 'note_id',
+                        'fieldName' => __('Note Id', 'bit-integrations')
+                    ],
+                    'Note Content' => (object) [
+                        'fieldKey'  => 'note_content',
+                        'fieldName' => __('Note Content', 'bit-integrations')
+                    ],
+                    'Note Type' => (object) [
+                        'fieldKey'  => 'note_type',
+                        'fieldName' => __('Note Type', 'bit-integrations')
+                    ],
+                    'Note Added By' => (object) [
+                        'fieldKey'  => 'note_added_by',
+                        'fieldName' => __('Note Added By', 'bit-integrations')
+                    ],
+                    'Note Date' => (object) [
+                        'fieldKey'  => 'note_date',
+                        'fieldName' => __('Note Date', 'bit-integrations')
+                    ],
+                ];
+
+            case WCController::ORDER_REFUNDED:
+                return [
+                    'Refund Id' => (object) [
+                        'fieldKey'  => 'refund_id',
+                        'fieldName' => __('Refund Id', 'bit-integrations')
+                    ],
+                    'Refund Amount' => (object) [
+                        'fieldKey'  => 'refund_amount',
+                        'fieldName' => __('Refund Amount', 'bit-integrations')
+                    ],
+                    'Refund Reason' => (object) [
+                        'fieldKey'  => 'refund_reason',
+                        'fieldName' => __('Refund Reason', 'bit-integrations')
+                    ],
+                    'Refunded By' => (object) [
+                        'fieldKey'  => 'refunded_by',
+                        'fieldName' => __('Refunded By', 'bit-integrations')
+                    ],
+                    'Refund Date' => (object) [
+                        'fieldKey'  => 'refund_date',
+                        'fieldName' => __('Refund Date', 'bit-integrations')
+                    ],
+                    'Refunded Items' => (object) [
+                        'fieldKey'  => 'refunded_items',
+                        'fieldName' => __('Refunded Items', 'bit-integrations')
+                    ],
+                ];
+
+            case WCController::PRODUCT_VIEWED:
+                return [
+                    'Viewer User Id' => (object) [
+                        'fieldKey'  => 'viewer_id',
+                        'fieldName' => __('Viewer User Id', 'bit-integrations')
+                    ],
+                    'Viewer Email' => (object) [
+                        'fieldKey'  => 'viewer_email',
+                        'fieldName' => __('Viewer Email', 'bit-integrations')
+                    ],
+                    'Viewer Name' => (object) [
+                        'fieldKey'  => 'viewer_name',
+                        'fieldName' => __('Viewer Name', 'bit-integrations')
+                    ],
+                ];
+
+            case WCController::REVIEW_APPROVED:
+            case WCController::REVIEW_STATUS_CHANGED:
+                return [
+                    'Old Status' => (object) [
+                        'fieldKey'  => 'old_status',
+                        'fieldName' => __('Old Status', 'bit-integrations')
+                    ],
+                    'New Status' => (object) [
+                        'fieldKey'  => 'new_status',
+                        'fieldName' => __('New Status', 'bit-integrations')
+                    ],
+                ];
+
+            case WCController::COUPON_DELETED:
+            case WCController::COUPON_RESTORED:
+                return [
+                    'Previous Status' => (object) [
+                        'fieldKey'  => 'previous_status',
+                        'fieldName' => __('Previous Status', 'bit-integrations')
+                    ],
+                ];
+
+            default:
+                return [];
+        }
+    }
+
     private static function getOrderACFFields($type = [])
     {
         if (!class_exists('ACF')) {
