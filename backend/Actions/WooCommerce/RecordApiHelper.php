@@ -771,6 +771,13 @@ class RecordApiHelper
 
     private function executeModuleAction($module, $fieldValues, $fieldMap, $integrationDetails)
     {
+        if (!class_exists('WooCommerce')) {
+            $response = ['success' => false, 'message' => __('WooCommerce is not installed or activated', 'bit-integrations')];
+            LogHandler::save($this->_integrationID, ['type' => 'woocommerce', 'type_name' => $module], 'error', $response);
+
+            return $response;
+        }
+
         $fieldData = [];
 
         foreach ($fieldMap as $fieldPair) {
