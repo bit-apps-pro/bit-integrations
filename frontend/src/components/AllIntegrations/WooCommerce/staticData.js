@@ -254,7 +254,6 @@ const couponRestrictionSelects = [
   }
 ]
 
-// Selects hold configuration, not mapped data. A `source` select loads store data through the wc_refresh_options route.
 export const moduleSelects = {
   update_product: [
     { key: 'status', label: __('Status', 'bit-integrations'), options: productStatusOptions },

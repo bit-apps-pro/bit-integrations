@@ -127,11 +127,10 @@ const generateMappedFields = (wcConf, mod = '') => {
   const newConf = deepCopy(wcConf)
   if (mod === '') mod = newConf.module
 
-  newConf.default.fields[mod].required.forEach(reqFld => {
-    if (!newConf[mod].field_map.find(fld => fld.wcField === reqFld)) {
-      newConf[mod].field_map.unshift({ formField: '', wcField: reqFld, required: true })
-    }
-  })
+  const missingRequiredRows = newConf.default.fields[mod].required
+    .filter(reqFld => !newConf[mod].field_map.find(fld => fld.wcField === reqFld))
+    .map(reqFld => ({ formField: '', wcField: reqFld, required: true }))
+  newConf[mod].field_map.unshift(...missingRequiredRows)
   if (!newConf[mod].field_map.length) newConf[mod].field_map = [{ formField: '', wcField: '' }]
   return newConf
 }

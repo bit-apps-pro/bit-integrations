@@ -54,6 +54,9 @@ export default function WooCommerceIntegLayout({
   const [active, setActive] = useState({ customer: false, order: true })
   const [module, setModule] = useState(wcConf.module)
   const { isPro } = useRecoilValue($appConfigState)
+  const hasOptionalFields = Object.values(wcConf.default?.fields?.[module]?.fields || {}).some(
+    field => !field.required
+  )
 
   useEffect(() => {
     setModule(wcConf.module)
@@ -343,14 +346,16 @@ export default function WooCommerceIntegLayout({
               module={module}
             />
           ))}
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() => addFieldMap(wcConf[module].field_map.length)}
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+          {hasOptionalFields && (
+            <div className="txt-center btcbi-field-map-button mt-2">
+              <button
+                onClick={() => addFieldMap(wcConf[module].field_map.length)}
+                className="icn-btn sh-sm"
+                type="button">
+                +
+              </button>
+            </div>
+          )}
         </>
       )}
 
