@@ -6,8 +6,10 @@
 
 namespace BitApps\Integrations\Actions\WooCommerce;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use WC_Product_Download;
 use WP_Error;
@@ -249,6 +251,10 @@ class RecordApiHelper
 
     public function execute($module, $fieldValues, $fieldMap, $uploadFieldMap, $required, $integrationDetails)
     {
+        if (WooCommerceActionModules::exists($module)) {
+            return $this->executeModuleAction($module, $fieldValues, $fieldMap, $integrationDetails);
+        }
+
         $fieldData = [];
         foreach ($fieldMap as $fieldPair) {
             if (!empty($fieldPair->wcField) && !empty($fieldPair->formField)) {
@@ -759,5 +765,194 @@ class RecordApiHelper
 
             return $order;
         }
+    }
+
+    private function executeModuleAction($module, $fieldValues, $fieldMap, $integrationDetails)
+    {
+        $fieldData = [];
+
+        foreach ($fieldMap as $fieldPair) {
+            if (empty($fieldPair->wcField) || empty($fieldPair->formField)) {
+                continue;
+            }
+
+            $fieldData[$fieldPair->wcField] = $fieldPair->formField === 'custom'
+                ? Common::replaceFieldWithValue($fieldPair->customValue ?? '', $fieldValues)
+                : ($fieldValues[$fieldPair->formField] ?? '');
+        }
+
+        foreach (WooCommerceActionModules::fields($module)['required'] as $requiredField) {
+            if (!isset($fieldData[$requiredField]) || $fieldData[$requiredField] === '' || $fieldData[$requiredField] === []) {
+                // translators: %1$s: Field key, %2$s: Module name
+                $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%1$s is required for woocommerce %2$s', 'bit-integrations'), $requiredField, $module));
+                LogHandler::save($this->_integrationID, ['type' => 'woocommerce', 'type_name' => $module], 'validation', $error);
+
+                return $error;
+            }
+        }
+
+        $selects = array_filter(
+            (array) ($integrationDetails->selects ?? []),
+            function ($value) {
+                return $value !== '' && $value !== null;
+            }
+        );
+        $fieldData = array_merge($fieldData, $selects);
+        $utilities = (array) ($integrationDetails->utilities ?? []);
+
+        $defaultResponse = [
+            'success' => false,
+            // translators: %s: Plugin name
+            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+        ];
+
+        switch ($module) {
+            case 'add_order_note':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_add_order_note'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'update_order_meta':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_order_meta'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_customer':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_customer'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'delete_customer':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_delete_customer'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_product':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_product_stock':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product_stock'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_product_status':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product_status'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_product_price':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product_price'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'delete_product':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_delete_product'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'create_product_variation':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_create_product_variation'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_product_variation':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product_variation'), $defaultResponse, $fieldData);
+
+                break;
+            case 'create_product_term':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_create_product_term'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_product_term':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product_term'), $defaultResponse, $fieldData);
+
+                break;
+            case 'delete_product_term':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_delete_product_term'), $defaultResponse, $fieldData);
+
+                break;
+            case 'create_attribute':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_create_attribute'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'update_attribute':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_attribute'), $defaultResponse, $fieldData);
+
+                break;
+            case 'delete_attribute':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_delete_attribute'), $defaultResponse, $fieldData);
+
+                break;
+            case 'add_attribute_terms':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_add_attribute_terms'), $defaultResponse, $fieldData);
+
+                break;
+            case 'add_product_attribute':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_add_product_attribute'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'remove_product_attribute':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_remove_product_attribute'), $defaultResponse, $fieldData);
+
+                break;
+            case 'add_product_to_cart':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_add_product_to_cart'), $defaultResponse, $fieldData);
+
+                break;
+            case 'remove_product_from_cart':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_remove_product_from_cart'), $defaultResponse, $fieldData);
+
+                break;
+            case 'apply_coupon_to_cart':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_apply_coupon_to_cart'), $defaultResponse, $fieldData);
+
+                break;
+            case 'remove_coupon_from_cart':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_remove_coupon_from_cart'), $defaultResponse, $fieldData);
+
+                break;
+            case 'send_abandoned_cart_email':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_send_abandoned_cart_email'), $defaultResponse, $fieldData);
+
+                break;
+            case 'create_coupon':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_create_coupon'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'update_coupon':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_coupon'), $defaultResponse, $fieldData);
+
+                break;
+            case 'update_coupon_code':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_coupon_code'), $defaultResponse, $fieldData);
+
+                break;
+            case 'add_emails_to_coupon':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_add_emails_to_coupon'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'delete_coupon':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_delete_coupon'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'create_product_review':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_create_product_review'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'update_product_review':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_update_product_review'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+            case 'approve_product_review':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_approve_product_review'), $defaultResponse, $fieldData);
+
+                break;
+            case 'delete_product_review':
+                $response = Hooks::apply(Config::withPrefix('woocommerce_delete_product_review'), $defaultResponse, $fieldData, $utilities);
+
+                break;
+
+            default:
+                $response = $defaultResponse;
+
+                break;
+        }
+
+        $responseType = !empty($response['success']) ? 'success' : 'error';
+        LogHandler::save($this->_integrationID, ['type' => 'woocommerce', 'type_name' => $module], $responseType, $response);
+
+        return $response;
     }
 }
