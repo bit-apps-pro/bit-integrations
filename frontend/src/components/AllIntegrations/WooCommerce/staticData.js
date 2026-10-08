@@ -459,6 +459,48 @@ export const moduleFields = {
   delete_product_review: [reviewIdField]
 }
 
+export const filterStatus = [
+  { name: 'order-id', label: __('Specific Order ID', 'bit-integrations') },
+  { name: 'email', label: __('Specific Customer Email', 'bit-integrations') },
+  { name: 'date-range', label: __('Specific Date Range', 'bit-integrations') },
+  { name: 'n-days', label: __("Last N Day's Orders", 'bit-integrations') },
+  { name: 'n-weeks', label: __("Last N Week's Orders", 'bit-integrations') },
+  { name: 'n-months', label: __("Last N Month's Orders", 'bit-integrations') },
+  { name: 'prev-months', label: __("Previous Month's Orders", 'bit-integrations') },
+  { name: 'n-prev-months', label: __("Previous N Month's Orders", 'bit-integrations') }
+]
+
+export const filterStatusFields = {
+  'order-id': ['order_id', 'order_status'],
+  email: ['email', 'order_status'],
+  'n-days': ['order_status', 'n_days'],
+  'n-weeks': ['order_status', 'n_weeks'],
+  'n-months': ['order_status', 'n_months'],
+  'prev-months': ['order_status'],
+  'n-prev-months': ['order_status', 'n_months'],
+  'date-range': ['order_status', 'from_date', 'to_date']
+}
+
+export const orderChange = [
+  { name: 'latest-order', label: __('Latest Order', 'bit-integrations') },
+  { name: 'all-order', label: __('All Orders', 'bit-integrations') },
+  { name: 'date-order', label: __('Specific Date Range', 'bit-integrations') },
+  { name: 'n-days-order', label: __("Last N Day's Orders", 'bit-integrations') },
+  { name: 'n-weeks-order', label: __("Last N Week's Orders", 'bit-integrations') },
+  { name: 'n-months-order', label: __("Last N Month's Orders", 'bit-integrations') },
+  { name: 'prev-months-order', label: __("Previous Month's Orders", 'bit-integrations') },
+  { name: 'n-prev-months-order', label: __("Previous N Month's Orders", 'bit-integrations') }
+]
+
+export const orderChangeFields = {
+  'latest-order': ['email', 'order_status'],
+  'date-order': ['email', 'order_status', 'from_date', 'to_date'],
+  'n-days-order': ['email', 'order_status', 'n_days'],
+  'n-weeks-order': ['email', 'order_status', 'n_weeks'],
+  'n-months-order': ['email', 'order_status', 'n_months'],
+  'n-prev-months-order': ['email', 'order_status', 'n_months']
+}
+
 const yesNoOptions = [
   { label: __('Yes', 'bit-integrations'), value: 'yes' },
   { label: __('No', 'bit-integrations'), value: 'no' }
