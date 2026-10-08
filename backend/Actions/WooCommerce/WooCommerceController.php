@@ -256,12 +256,22 @@ class WooCommerceController
         $type = $queryParams->type ?? '';
 
         if ($type === 'products') {
-            $products = wc_get_products(['limit' => -1, 'status' => ['publish', 'private', 'draft', 'pending'], 'orderby' => 'title', 'order' => 'ASC']);
+            $products = get_posts(
+                [
+                    'post_type'              => 'product',
+                    'post_status'            => ['publish', 'private', 'draft', 'pending'],
+                    'numberposts'            => -1,
+                    'orderby'                => 'title',
+                    'order'                  => 'ASC',
+                    'update_post_meta_cache' => false,
+                    'update_post_term_cache' => false,
+                ]
+            );
 
             wp_send_json_success(
                 array_map(
                     function ($product) {
-                        return ['value' => (string) $product->get_id(), 'label' => \sprintf('%1$s (#%2$d)', $product->get_name(), $product->get_id())];
+                        return ['value' => (string) $product->ID, 'label' => \sprintf('%1$s (#%2$d)', $product->post_title, $product->ID)];
                     },
                     $products
                 ),
