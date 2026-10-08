@@ -105,6 +105,7 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
           handleInput={e => handleInput(e, wcConf, setWcConf, setIsLoading, setSnackbar, isPro)}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
+          setSnackbar={setSnackbar}
         />
 
         <button onClick={nextPage} className="btn f-right btcd-btn-lg purple sh-sm flx" type="button">
