@@ -15,7 +15,7 @@ const isLockedOption = option =>
 
 const freeFirst = (first, second) => Number(isLockedOption(first)) - Number(isLockedOption(second))
 
-export const getProSelectOptions = (items, isPro) => {
+export const getModuleOptions = (items, isPro) => {
   const options = []
 
   items.forEach(item => {

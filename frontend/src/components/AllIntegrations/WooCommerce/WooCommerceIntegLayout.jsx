@@ -11,7 +11,7 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
-import { getProSelectOptions } from '../../Utilities/ProUtilHelpers'
+import { getModuleOptions } from '../../Utilities/ProUtilHelpers'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
 import WooCommerceActions from './WooCommerceActions'
 import { refreshFields } from './WooCommerceCommonFunc'
@@ -65,7 +65,7 @@ export default function WooCommerceIntegLayout({
         <MultiSelect
           defaultValue={wcConf.module ?? null}
           className="btcd-paper-drpdwn w-5"
-          options={getProSelectOptions(modules, isPro)}
+          options={getModuleOptions(modules, isPro)}
           onChange={value => handleInput({ target: { name: 'module', value } })}
           placeholder={__('Select Module', 'bit-integrations')}
           singleSelect
