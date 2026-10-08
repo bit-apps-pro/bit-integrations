@@ -147,9 +147,9 @@ class WCStaticFields
                 'fieldKey'  => 'date_created',
                 'fieldName' => __('Date Created', 'bit-integrations')
             ],
-            'Website' => (object) [
+            'Date Modified' => (object) [
                 'fieldKey'  => 'date_modified',
-                'fieldName' => __('Website', 'bit-integrations')
+                'fieldName' => __('Date Modified', 'bit-integrations')
             ],
             'Date Expires' => (object) [
                 'fieldKey'  => 'date_expires',
@@ -337,9 +337,9 @@ class WCStaticFields
                         'fieldKey'  => 'refund_reason',
                         'fieldName' => __('Refund Reason', 'bit-integrations')
                     ],
-                    'Refunded By' => (object) [
+                    'Refunded By User Id' => (object) [
                         'fieldKey'  => 'refunded_by',
-                        'fieldName' => __('Refunded By', 'bit-integrations')
+                        'fieldName' => __('Refunded By User Id', 'bit-integrations')
                     ],
                     'Refund Date' => (object) [
                         'fieldKey'  => 'refund_date',
