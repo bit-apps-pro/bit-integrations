@@ -239,6 +239,26 @@ class WCStaticFields
                 'fieldKey'  => 'cart_item_key',
                 'fieldName' => __('Cart Item Key', 'bit-integrations')
             ],
+            'Product ID' => (object) [
+                'fieldKey'  => 'product_id',
+                'fieldName' => __('Product ID', 'bit-integrations')
+            ],
+            'Product Name' => (object) [
+                'fieldKey'  => 'product_name',
+                'fieldName' => __('Product Name', 'bit-integrations')
+            ],
+            'Variation ID' => (object) [
+                'fieldKey'  => 'variation_id',
+                'fieldName' => __('Variation ID', 'bit-integrations')
+            ],
+            'Quantity' => (object) [
+                'fieldKey'  => 'quantity',
+                'fieldName' => __('Quantity', 'bit-integrations')
+            ],
+            'Cart Total' => (object) [
+                'fieldKey'  => 'cart_total',
+                'fieldName' => __('Cart Total', 'bit-integrations')
+            ],
             'Applied Coupons' => (object) [
                 'fieldKey'  => 'applied_coupons',
                 'fieldName' => __('Applied Coupons', 'bit-integrations')
