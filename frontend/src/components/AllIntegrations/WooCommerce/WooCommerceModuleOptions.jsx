@@ -62,37 +62,44 @@ export function WooCommerceModuleSelects({ wcConf, setWcConf, setSnackbar }) {
     ? __('Keep current', 'bit-integrations')
     : __('Optional', 'bit-integrations')
 
-  return selects.map(select => (
-    <div key={`${wcConf.module}-${select.key}`} className="flx mt-3">
-      <b className="wdt-200 d-in-b">
-        {select.label}
-        {select.required && ' *'}
-      </b>
-      <MultiSelect
-        title={select.key}
-        defaultValue={wcConf?.selects?.[select.key] ?? null}
-        className="btcd-paper-drpdwn w-5"
-        options={select.options ?? sourceOptions[select.source] ?? []}
-        onChange={value => setSelect(select.key, value)}
-        placeholder={
-          select.placeholder ??
-          (select.required ? __('Select...', 'bit-integrations') : optionalPlaceholder)
-        }
-        singleSelect={!select.multi}
-        closeOnSelect={!select.multi}
-      />
-      {select.source && (
-        <button
-          onClick={() => loadOptions(select.source)}
-          className="icn-btn sh-sm ml-2 mr-2 tooltip"
-          style={{ '--tooltip-txt': `'${__('Refresh list', 'bit-integrations')}'` }}
-          type="button"
-          disabled={!!loadingSources[select.source]}>
-          &#x21BB;
-        </button>
-      )}
-    </div>
-  ))
+  return selects.map(select => {
+    const isLoaded = !select.source || !!sourceOptions[select.source]
+
+    return (
+      <div key={`${wcConf.module}-${select.key}`} className="flx mt-3">
+        <b className="wdt-200 d-in-b">
+          {select.label}
+          {select.required && ' *'}
+        </b>
+        <MultiSelect
+          key={isLoaded ? 'loaded' : 'loading'}
+          title={select.key}
+          defaultValue={wcConf?.selects?.[select.key] ?? null}
+          className="btcd-paper-drpdwn w-5"
+          options={select.options ?? sourceOptions[select.source] ?? []}
+          onChange={value => setSelect(select.key, value)}
+          placeholder={
+            isLoaded
+              ? (select.placeholder ??
+                (select.required ? __('Select...', 'bit-integrations') : optionalPlaceholder))
+              : __('Loading...', 'bit-integrations')
+          }
+          singleSelect={!select.multi}
+          closeOnSelect={!select.multi}
+        />
+        {select.source && (
+          <button
+            onClick={() => loadOptions(select.source)}
+            className="icn-btn sh-sm ml-2 mr-2 tooltip"
+            style={{ '--tooltip-txt': `'${__('Refresh list', 'bit-integrations')}'` }}
+            type="button"
+            disabled={!!loadingSources[select.source]}>
+            &#x21BB;
+          </button>
+        )}
+      </div>
+    )
+  })
 }
 
 export function WooCommerceModuleUtilities({ wcConf, setWcConf }) {
