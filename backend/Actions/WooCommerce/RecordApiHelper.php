@@ -781,10 +781,12 @@ class RecordApiHelper
                 : ($fieldValues[$fieldPair->formField] ?? '');
         }
 
-        foreach (WooCommerceActionModules::fields($module)['required'] as $requiredField) {
-            if (!isset($fieldData[$requiredField]) || $fieldData[$requiredField] === '' || $fieldData[$requiredField] === []) {
-                // translators: %1$s: Field key, %2$s: Module name
-                $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%1$s is required for woocommerce %2$s', 'bit-integrations'), $requiredField, $module));
+        foreach (WooCommerceActionModules::fields($module)['fields'] as $field) {
+            $value = $fieldData[$field->fieldKey] ?? '';
+
+            if ($field->required && ($value === '' || $value === [])) {
+                // translators: %s: Field label
+                $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%s is required', 'bit-integrations'), $field->fieldName));
                 LogHandler::save($this->_integrationID, ['type' => 'woocommerce', 'type_name' => $module], 'validation', $error);
 
                 return $error;
