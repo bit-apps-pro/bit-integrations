@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import c from 'react-multiple-select-dropdown-lite'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
 
@@ -133,6 +133,28 @@ const generateMappedFields = (wcConf, mod = '') => {
   newConf[mod].field_map.unshift(...missingRequiredRows)
   if (!newConf[mod].field_map.length) newConf[mod].field_map = [{ formField: '', wcField: '' }]
   return newConf
+}
+
+export const getIncompleteFieldMapMessage = wcConf => {
+  const { module } = wcConf
+  const incompleteRow = (wcConf[module]?.field_map || []).find(
+    row => !row.wcField || !row.formField || (row.formField === 'custom' && !row.customValue)
+  )
+
+  if (!incompleteRow) {
+    return ''
+  }
+
+  if (!incompleteRow.wcField) {
+    return __('Choose a WooCommerce field in every row, or remove the empty row', 'bit-integrations')
+  }
+
+  const field = Object.values(wcConf.default?.fields?.[module]?.fields || {}).find(
+    item => item.fieldKey === incompleteRow.wcField
+  )
+
+  // translators: %s: Field label
+  return sprintf(__('Map a value for %s', 'bit-integrations'), field?.fieldName || incompleteRow.wcField)
 }
 
 export const checkMappedFields = fieldMap => {

@@ -9,7 +9,7 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WooCommerceAuthorization from './WooCommerceAuthorization'
-import { checkMappedFields, handleInput } from './WooCommerceCommonFunc'
+import { checkMappedFields, getIncompleteFieldMapMessage, handleInput } from './WooCommerceCommonFunc'
 import WooCommerceIntegLayout from './WooCommerceIntegLayout'
 import { isProModule, moduleSelects } from './staticData'
 import { useRecoilValue } from 'recoil'
@@ -69,9 +69,11 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         select => select.required && !wcConf?.selects?.[select.key]
       )
 
-      if (!checkMappedFields(wcConf[wcConf.module]?.field_map)) {
+      const fieldMapMessage = getIncompleteFieldMapMessage(wcConf)
+
+      if (fieldMapMessage) {
         status = 'Field Map'
-        setSnackbar({ show: true, msg: __("Field Map can't be empty", 'bit-integrations') })
+        setSnackbar({ show: true, msg: fieldMapMessage })
       } else if (missingSelect) {
         status = missingSelect.label
         setSnackbar({
