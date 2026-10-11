@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
+import CustomFieldKey from '../../Utilities/CustomFieldKey'
 import TagifyInput from '../../Utilities/TagifyInput'
 import {
   addFieldMap,
@@ -9,7 +10,7 @@ import {
   handleCustomValue,
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
-import { fieldsByAction } from './staticData'
+import { customKeyActions, fieldsByAction } from './staticData'
 
 export default function PushbulletFieldMap({ i, formFields, field, pushbulletConf, setPushbulletConf }) {
   const btcbi = useRecoilValue($appConfigState)
@@ -81,7 +82,22 @@ export default function PushbulletFieldMap({ i, formFields, field, pushbulletCon
                 </option>
               ))
             )}
+            {customKeyActions.includes(pushbulletConf?.mainAction) && (
+              <option value="customFieldKey">{__('Custom Field Key', 'bit-integrations')}</option>
+            )}
           </select>
+
+          {field.pushbulletField === 'customFieldKey' && (
+            <CustomFieldKey
+              field={field}
+              index={i}
+              conf={pushbulletConf}
+              setConf={setPushbulletConf}
+              fieldValue="customFieldKey"
+              fieldLabel="Custom Field Key"
+              className="ml-2"
+            />
+          )}
         </div>
 
         {i >= requiredFlds.length && (

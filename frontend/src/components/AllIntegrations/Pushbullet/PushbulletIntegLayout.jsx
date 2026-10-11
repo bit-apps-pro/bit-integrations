@@ -12,6 +12,7 @@ import PushbulletActions from './PushbulletActions'
 import { fetchActionSources, fetchSource, generateMappedField } from './PushbulletCommonFunc'
 import PushbulletFieldMap from './PushbulletFieldMap'
 import {
+  customKeyActions,
   fieldsByAction,
   modules,
   notesByAction,
@@ -150,7 +151,7 @@ export default function PushbulletIntegLayout({
         />
       )}
 
-      {fieldsByAction[action]?.length > 0 && (
+      {(fieldsByAction[action]?.length > 0 || customKeyActions.includes(action)) && (
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <div className="btcd-hr mt-1" />

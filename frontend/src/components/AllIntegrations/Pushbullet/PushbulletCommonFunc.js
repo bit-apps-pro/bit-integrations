@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
-import { fieldsByAction, selectsByAction } from './staticData'
+import { customKeyActions, fieldsByAction, selectsByAction } from './staticData'
 
 const sources = {
   channels: { route: 'pushbullet_get_channels' },
@@ -69,6 +69,10 @@ export const fetchActionSources = (conf, setConf, setIsLoading) => {
 }
 
 export const generateMappedField = pushbulletConf => {
+  if (customKeyActions.includes(pushbulletConf?.mainAction)) {
+    return [{ customFieldKey: '', formField: '', pushbulletField: 'customFieldKey' }]
+  }
+
   const actionFields = fieldsByAction[pushbulletConf?.mainAction] || []
   const requiredFlds = actionFields.filter(fld => fld.required === true)
 
@@ -88,10 +92,15 @@ export const checkMappedFields = pushbulletConf => {
 
   if (missingSelect) return false
 
-  const incompleteRows = (pushbulletConf.field_map || []).filter(
+  const fieldMap = pushbulletConf.field_map || []
+
+  if (customKeyActions.includes(pushbulletConf.mainAction) && fieldMap.length === 0) return false
+
+  const incompleteRows = fieldMap.filter(
     mappedField =>
       !mappedField.formField ||
       !mappedField.pushbulletField ||
+      (mappedField.pushbulletField === 'customFieldKey' && !mappedField.customFieldKey?.trim()) ||
       (mappedField.formField === 'custom' && !mappedField.customValue)
   )
 

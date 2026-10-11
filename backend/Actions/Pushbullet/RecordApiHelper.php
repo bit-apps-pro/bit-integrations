@@ -163,6 +163,10 @@ class RecordApiHelper
             $triggerField = $map->formField ?? '';
             $pushbulletField = $map->pushbulletField ?? '';
 
+            if ($pushbulletField === 'customFieldKey') {
+                $pushbulletField = trim($map->customFieldKey ?? '');
+            }
+
             if (empty($pushbulletField)) {
                 continue;
             }

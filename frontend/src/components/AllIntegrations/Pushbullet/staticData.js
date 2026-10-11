@@ -138,8 +138,10 @@ export const fieldsByAction = {
     field('notification_id', __('Notification ID', 'bit-integrations'), true),
     field('notification_tag', __('Notification Tag', 'bit-integrations'))
   ],
-  send_ephemeral: [field('data', __('Ephemeral Data (JSON object)', 'bit-integrations'), true)]
+  send_ephemeral: []
 }
+
+export const customKeyActions = ['send_ephemeral']
 
 const deviceSelect = (key, label) => ({ key, label, source: 'devices' })
 
@@ -194,6 +196,10 @@ export const notesByAction = {
   ),
   delete_all_pushes: __(
     '<b>Deletes every push in this Pushbullet account</b>, including pushes from other apps and devices. It cannot be undone.',
+    'bit-integrations'
+  ),
+  send_ephemeral: __(
+    'Each row sends one key and its value to the devices listening on your Pushbullet stream. Choose <b>Custom Field Key</b> and type the key name, for example <b>event</b>.',
     'bit-integrations'
   )
 }
