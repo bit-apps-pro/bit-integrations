@@ -68,7 +68,6 @@ function EditPushbullet({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        disabled={!checkMappedFields(pushbulletConf)}
         isLoading={isLoading}
         dataConf={pushbulletConf}
         setDataConf={setPushbulletConf}
