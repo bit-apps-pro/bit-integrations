@@ -16,6 +16,9 @@ export const handleInput = (e, perfexCRMConf, setPerfexCRMConf) => {
   setPerfexCRMConf({ ...newConf })
 }
 
+export const toSelectOptions = items =>
+  items?.filter(item => item?.id != null).map(item => ({ label: item.name, value: String(item.id) }))
+
 const buildAuthRequestParams = confTmp =>
   confTmp.connection_id
     ? { connection_id: confTmp.connection_id }

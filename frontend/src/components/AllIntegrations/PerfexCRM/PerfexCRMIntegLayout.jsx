@@ -6,7 +6,13 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { addFieldMap } from './IntegrationHelpers'
 import PerfexCRMActions from './PerfexCRMActions'
-import { getAllCustomer, getAllStaffs, getAllLeads, refreshCustomFields } from './PerfexCRMCommonFunc'
+import {
+  getAllCustomer,
+  getAllStaffs,
+  getAllLeads,
+  refreshCustomFields,
+  toSelectOptions
+} from './PerfexCRMCommonFunc'
 import PerfexCRMFieldMap from './PerfexCRMFieldMap'
 
 export default function PerfexCRMIntegLayout({
@@ -150,10 +156,7 @@ export default function PerfexCRMIntegLayout({
             <div className="flx">
               <b className="wdt-200 d-in-b">{__('Select Customer:', 'bit-integrations')}</b>
               <MultiSelect
-                options={perfexCRMConf?.customers?.map(customer => ({
-                  label: customer.name,
-                  value: customer.id.toString()
-                }))}
+                options={toSelectOptions(perfexCRMConf?.customers)}
                 className="msl-wrp-options dropdown-custom-width"
                 defaultValue={perfexCRMConf?.selectedCustomer}
                 onChange={val => setChanges(val, 'selectedCustomer')}
@@ -179,10 +182,7 @@ export default function PerfexCRMIntegLayout({
           <div className="flx">
             <b className="wdt-200 d-in-b">{__('Assigned By:', 'bit-integrations')}</b>
             <MultiSelect
-              options={perfexCRMConf?.staffs?.map(staff => ({
-                label: staff.name,
-                value: staff.id.toString()
-              }))}
+              options={toSelectOptions(perfexCRMConf?.staffs)}
               className="msl-wrp-options dropdown-custom-width"
               defaultValue={perfexCRMConf?.selectedStaff}
               onChange={val => setChanges(val, 'selectedStaff')}
