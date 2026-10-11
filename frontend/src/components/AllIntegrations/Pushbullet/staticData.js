@@ -26,7 +26,6 @@ export const modules = [
     label: __('Unsubscribe from Channel', 'bit-integrations'),
     is_pro: true
   },
-  { name: 'upload_file', label: __('Upload File', 'bit-integrations'), is_pro: true },
   {
     name: 'mirror_notification',
     label: __('Send Mirrored Notification', 'bit-integrations'),
@@ -123,7 +122,6 @@ export const fieldsByAction = {
   subscribe_channel: [field('channel_tag', __('Channel Tag', 'bit-integrations'), true)],
   mute_subscription: [subscriptionIdField],
   unsubscribe_channel: [subscriptionIdField],
-  upload_file: fileFields,
   mirror_notification: [
     field('title', __('Title', 'bit-integrations'), true),
     field('body', __('Body', 'bit-integrations')),

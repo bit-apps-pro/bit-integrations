@@ -123,11 +123,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'upload_file':
-                $response = Hooks::apply(Config::withPrefix('pushbullet_upload_file'), $default, $fieldData, $this->apiClient);
-
-                break;
-
             case 'mirror_notification':
                 $response = Hooks::apply(Config::withPrefix('pushbullet_mirror_notification'), $default, $fieldData, $this->apiClient, $settings);
 
