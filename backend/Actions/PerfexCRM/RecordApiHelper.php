@@ -134,9 +134,11 @@ class RecordApiHelper
         $finalData['billing_type'] = $this->integrationDetails->selectedbillingType;
         $finalData['clientid'] = $this->integrationDetails->selectedCustomer;
 
-        if ($this->integrationDetails->selectedbillingType === 1) {
+        $billingType = (int) $this->integrationDetails->selectedbillingType;
+
+        if ($billingType === 1) {
             $finalData['project_cost'] = $this->integrationDetails->totalRate;
-        } elseif ($this->integrationDetails->selectedbillingType === 2) {
+        } elseif ($billingType === 2) {
             $finalData['project_rate_per_hour'] = $this->integrationDetails->ratePerHour;
         }
 
