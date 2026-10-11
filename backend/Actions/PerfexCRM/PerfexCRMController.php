@@ -85,7 +85,7 @@ class PerfexCRMController
         $apiToken = $fieldsRequestParams->api_token;
         $apiEndpoint = $this->setApiEndpoint() . '/customers';
         $headers = $this->setHeaders($apiToken);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
+        $response = $this->getAllPages($apiEndpoint, $headers);
 
         if (\is_string($response) || isset($response->errors) || (isset($response->status) && !$response->status)) {
             wp_send_json_error(\is_string($response) ? $response : (!empty($response->message) ? $response->message : 'Customer fetching failed'), 400);
@@ -108,7 +108,7 @@ class PerfexCRMController
         $apiToken = $fieldsRequestParams->api_token;
         $apiEndpoint = $this->setApiEndpoint() . '/leads';
         $headers = $this->setHeaders($apiToken);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
+        $response = $this->getAllPages($apiEndpoint, $headers);
 
         if (\is_string($response) || isset($response->errors) || (isset($response->status) && !$response->status)) {
             wp_send_json_error(\is_string($response) ? $response : (!empty($response->message) ? $response->message : 'Lead fetching failed'), 400);
@@ -133,7 +133,7 @@ class PerfexCRMController
         $apiToken = $fieldsRequestParams->api_token;
         $apiEndpoint = $this->setApiEndpoint() . '/staffs';
         $headers = $this->setHeaders($apiToken);
-        $response = HttpHelper::get($apiEndpoint, null, $headers);
+        $response = $this->getAllPages($apiEndpoint, $headers);
 
         if (\is_string($response) || isset($response->errors) || (isset($response->status) && !$response->status)) {
             wp_send_json_error(\is_string($response) ? $response : (!empty($response->message) ? $response->message : 'Project Member fetching failed'), 400);
@@ -173,6 +173,26 @@ class PerfexCRMController
         }
 
         return $perfexCRMApiResponse;
+    }
+
+    private function getAllPages($apiEndpoint, $headers)
+    {
+        $items = [];
+        $page = 1;
+
+        do {
+            $response = HttpHelper::get(add_query_arg(['page' => $page, 'per_page' => 100], $apiEndpoint), null, $headers);
+
+            // Some PerfexCRM API versions and endpoints return a plain array instead of a paginated {data, meta} object
+            if (!isset($response->data, $response->meta) || !\is_array($response->data)) {
+                return $response;
+            }
+
+            $items = array_merge($items, $response->data);
+            ++$page;
+        } while (!empty($response->meta->has_more));
+
+        return $items;
     }
 
     private function setApiEndpoint()
