@@ -9,7 +9,6 @@ import PerfexCRMActions from './PerfexCRMActions'
 import {
   getAllCustomer,
   getAllStaffs,
-  getAllLeads,
   refreshCustomFields,
   toSelectOptions
 } from './PerfexCRMCommonFunc'
@@ -34,7 +33,11 @@ export default function PerfexCRMIntegLayout({
         if (e.target.value !== '') {
           draftConf.actionName = e.target.value
 
-          if (e.target.value === 'contact' || e.target.value === 'lead') {
+          if (
+            e.target.value === 'contact' ||
+            e.target.value === 'lead' ||
+            e.target.value === 'project'
+          ) {
             getAllCustomer(draftConf, setPerfexCRMConf, loading, setLoading)
           }
           if (e.target.value === 'lead') {
@@ -68,12 +71,6 @@ export default function PerfexCRMIntegLayout({
   const setChanges = (val, name) => {
     const newConf = { ...perfexCRMConf }
     newConf[name] = val
-
-    if (name === 'selectedProjectType' && val === 'customer') {
-      getAllCustomer(perfexCRMConf, setPerfexCRMConf, loading, setLoading)
-    } else if (name === 'selectedProjectType' && val === 'lead') {
-      getAllLeads(perfexCRMConf, setPerfexCRMConf, loading, setLoading)
-    }
     setPerfexCRMConf({ ...newConf })
   }
 
@@ -117,28 +114,6 @@ export default function PerfexCRMIntegLayout({
               className="msl-wrp-options dropdown-custom-width"
               defaultValue={perfexCRMConf?.selectedProjectStatus}
               onChange={val => setChanges(val, 'selectedProjectStatus')}
-              disabled={isLoading}
-              singleSelect
-              closeOnSelect
-            />
-          </div>
-        </>
-      )}
-      {perfexCRMConf.actionName === 'project' && (
-        <>
-          <br />
-          <br />
-          <br />
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Project Related With:', 'bit-integrations')}</b>
-            <MultiSelect
-              options={['customer', 'lead']?.map(type => ({
-                label: type.charAt(0).toUpperCase() + type.slice(1),
-                value: type
-              }))}
-              className="msl-wrp-options dropdown-custom-width"
-              defaultValue={perfexCRMConf?.selectedProjectType}
-              onChange={val => setChanges(val, 'selectedProjectType')}
               disabled={isLoading}
               singleSelect
               closeOnSelect
@@ -258,7 +233,7 @@ export default function PerfexCRMIntegLayout({
         </>
       )}
 
-      {(isLoading || loading.customers || loading.staffs || loading.leads) && (
+      {(isLoading || loading.customers || loading.staffs) && (
         <Loader
           style={{
             display: 'flex',

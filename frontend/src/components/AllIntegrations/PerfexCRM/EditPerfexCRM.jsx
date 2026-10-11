@@ -50,10 +50,6 @@ function EditPerfexCRM({ allIntegURL }) {
         toast.error(__('Please select Project status', 'bit-integrations'))
         return
       }
-      if (!perfexCRMConf.selectedProjectType) {
-        toast.error(__('Please select Project Related With...', 'bit-integrations'))
-        return
-      }
       if (!perfexCRMConf.selectedbillingType) {
         toast.error(__('Please select a Billing type', 'bit-integrations'))
         return

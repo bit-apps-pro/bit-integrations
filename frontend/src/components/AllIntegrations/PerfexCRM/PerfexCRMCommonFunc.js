@@ -129,29 +129,6 @@ export const getAllCustomer = (confTmp, setConf, loading, setLoading) => {
     toast.error(__(String(result?.data) ? result?.data : 'Customer Not Found!', 'bit-integrations'))
   })
 }
-export const getAllLeads = (confTmp, setConf, loading, setLoading) => {
-  setLoading({ ...loading, leads: true })
-
-  const requestParams = buildAuthRequestParams(confTmp)
-
-  bitsFetch(requestParams, 'perfexcrm_fetch_all_leads').then(result => {
-    if (result && result.success) {
-      setConf(prevConf =>
-        create(prevConf, draftConf => {
-          if (result.data) {
-            draftConf.leads = result.data
-          }
-        })
-      )
-      setLoading({ ...loading, leads: false })
-
-      toast.success(__('Lead fetched successfully', 'bit-integrations'))
-      return
-    }
-    setLoading({ ...loading, leads: false })
-    toast.error(__(String(result?.data) ? result?.data : 'Lead Not Found!', 'bit-integrations'))
-  })
-}
 export const getAllStaffs = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, staffs: true })
 
