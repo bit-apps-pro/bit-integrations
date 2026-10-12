@@ -121,8 +121,6 @@ class RecordApiHelper
             return ['success' => false, 'message' => __('Required field Start Date is empty', 'bit-integrations'), 'code' => 400];
         } elseif (isset($this->integrationDetails->selectedProjectStatus) && empty($this->integrationDetails->selectedProjectStatus)) {
             return ['success' => false, 'message' => __('Required field Project Status is empty', 'bit-integrations'), 'code' => 400];
-        } elseif (isset($this->integrationDetails->selectedProjectType) && empty($this->integrationDetails->selectedProjectType)) {
-            return ['success' => false, 'message' => __('Required field Project Type is empty', 'bit-integrations'), 'code' => 400];
         } elseif (isset($this->integrationDetails->selectedbillingType) && empty($this->integrationDetails->selectedbillingType)) {
             return ['success' => false, 'message' => __('Required field Billing Type is empty', 'bit-integrations'), 'code' => 400];
         } elseif (isset($this->integrationDetails->selectedCustomer) && empty($this->integrationDetails->selectedCustomer)) {
@@ -130,13 +128,15 @@ class RecordApiHelper
         }
 
         $finalData['status'] = $this->integrationDetails->selectedProjectStatus;
-        $finalData['rel_type'] = $this->integrationDetails->selectedProjectType;
+        $finalData['rel_type'] = 'customer';
         $finalData['billing_type'] = $this->integrationDetails->selectedbillingType;
         $finalData['clientid'] = $this->integrationDetails->selectedCustomer;
 
-        if ($this->integrationDetails->selectedbillingType === 1) {
+        $billingType = (int) $this->integrationDetails->selectedbillingType;
+
+        if ($billingType === 1) {
             $finalData['project_cost'] = $this->integrationDetails->totalRate;
-        } elseif ($this->integrationDetails->selectedbillingType === 2) {
+        } elseif ($billingType === 2) {
             $finalData['project_rate_per_hour'] = $this->integrationDetails->ratePerHour;
         }
 

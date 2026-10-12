@@ -3,8 +3,10 @@
 namespace BitApps\Integrations\Actions\Zoom;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
+use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
 class ZoomController
@@ -50,6 +52,10 @@ class ZoomController
             $tokenDetails = self::normalizeConnectionToken($tokenDetails);
         } else {
             $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
+        }
+
+        if (!$tokenDetails) {
+            wp_send_json_error(self::tokenRefreshFailedMessage(), 400);
         }
         $header = [
             'Authorization' => 'Bearer ' . $tokenDetails->access_token,
@@ -102,6 +108,10 @@ class ZoomController
         } else {
             $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
         }
+
+        if (!$tokenDetails) {
+            wp_send_json_error(self::tokenRefreshFailedMessage(), 400);
+        }
         $header = [
             'Authorization' => 'Bearer ' . $tokenDetails->access_token,
             'Content-Type'  => 'application/json'
@@ -120,7 +130,7 @@ class ZoomController
         ];
         $excludedFields = ['first_name', 'last_name', 'email'];
 
-        foreach ($apiResponse->questions as $field) {
+        foreach ($apiResponse->questions ?? [] as $field) {
             if (\in_array($field->field_name, $excludedFields)) {
                 continue;
             }
@@ -132,7 +142,7 @@ class ZoomController
             ];
         }
 
-        foreach ($apiResponse->custom_questions as $field) {
+        foreach ($apiResponse->custom_questions ?? [] as $field) {
             $allFields[] = (object) [
                 'key'      => 'custom_questions_' . $field->title,
                 'label'    => $field->title,
@@ -159,6 +169,13 @@ class ZoomController
 
         if (!$isConnectionAuth) {
             $tokenDetails = self::tokenExpiryCheck($tokenDetails, $integrationDetails->clientId, $integrationDetails->clientSecret);
+        }
+
+        if (!$tokenDetails) {
+            $message = self::tokenRefreshFailedMessage();
+            LogHandler::save($this->integrationID, ['type' => 'contact', 'type_name' => 'add-contact'], 'error', (object) ['message' => $message]);
+
+            return new WP_Error(Config::withPrefix('zoom_token_refresh_failed'), $message);
         }
 
         if (!$isConnectionAuth && $tokenDetails->access_token !== $oldToken) {
@@ -245,6 +262,11 @@ class ZoomController
         $token->generated_at = $token->generates_on;
 
         return $token;
+    }
+
+    private static function tokenRefreshFailedMessage()
+    {
+        return __('The Zoom access token expired and could not be refreshed. Authorize the Zoom connection again.', 'bit-integrations');
     }
 
     private static function normalizeConnectionToken($token)

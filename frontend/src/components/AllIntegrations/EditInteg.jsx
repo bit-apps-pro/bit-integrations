@@ -17,6 +17,7 @@ const EditOneDrive = lazy(() => import('./OneDrive/EditOneDrive'))
 const EditZohoCampaigns = lazy(() => import('./ZohoCampaigns/EditZohoCampaigns'))
 const EditZohoCRM = lazy(() => import('./ZohoCRM/EditZohoCRM'))
 const EditRapidmail = lazy(() => import('./Rapidmail/EditRapidmail'))
+const EditRoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/EditRoxAppointmentBooking'))
 const EditTwilio = lazy(() => import('./Twilio/EditTwilio'))
 const EditZohoMarketingHub = lazy(() => import('./ZohoMarketingHub/EditZohoMarketingHub'))
 const EditZohoRecruit = lazy(() => import('./ZohoRecruit/EditZohoRecruit'))
@@ -248,7 +249,7 @@ const loaderStyle = {
 
 export default function EditInteg({ allIntegURL }) {
   const { id } = useParams()
-  const { data, isLoading, isError } = useFetch({
+  const { data, isLoading, isError, mutate } = useFetch({
     payload: { id },
     action: ['flow/get', id]
   })
@@ -278,6 +279,14 @@ export default function EditInteg({ allIntegURL }) {
       flowReset()
     }
   }, [data])
+
+  // The cached flow is stale once this screen saves; reopening must not show (or re-save) it.
+  useEffect(
+    () => () => {
+      mutate(undefined, { revalidate: false })
+    },
+    [mutate]
+  )
   if (isLoading || isError) {
     return <Loader style={loaderStyle} />
   }
