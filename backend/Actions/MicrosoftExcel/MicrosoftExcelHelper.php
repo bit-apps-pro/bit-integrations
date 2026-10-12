@@ -12,19 +12,41 @@ class MicrosoftExcelHelper
 
     private const MAX_PAGES = 10;
 
+    private const FOLDER_LEVELS = 3;
+
+    private const BATCH_SIZE = 20;
+
     private const MIN_COLUMNS = 26;
 
     private const MAX_COLUMNS = 702;
 
     public function getFolders($queryParams)
     {
+        $client = self::requireClient($queryParams);
         $folders = [];
+        $parents = [];
 
-        foreach (self::fetchAll(self::requireClient($queryParams), '/me/drive/root/children?$select=id,name,folder&$top=200') as $item) {
-            if (ApiResponse::getValue($item, 'folder') !== null) {
-                $folders[] = self::namedItem($item);
+        foreach (self::fetchAll($client, '/me/drive/root/children?$select=id,name,folder&$top=200') as $item) {
+            self::collectFolder($item, '', $folders, $parents);
+        }
+
+        for ($level = 1; $level < self::FOLDER_LEVELS && !empty($parents); ++$level) {
+            $children = self::batchChildren($client, \array_slice($parents, 0, self::BATCH_SIZE, true));
+            $parents = [];
+
+            foreach ($children as $parentPath => $items) {
+                foreach ($items as $item) {
+                    self::collectFolder($item, $parentPath, $folders, $parents);
+                }
             }
         }
+
+        usort(
+            $folders,
+            static function ($first, $second) {
+                return strnatcasecmp($first->name, $second->name);
+            }
+        );
 
         wp_send_json_success($folders, 200);
     }
@@ -150,6 +172,55 @@ class MicrosoftExcelHelper
         }
 
         return $items;
+    }
+
+    private static function collectFolder($item, string $parentPath, array &$folders, array &$parents): void
+    {
+        $folder = ApiResponse::getValue($item, 'folder');
+
+        if ($folder === null) {
+            return;
+        }
+
+        $id = (string) ApiResponse::getValue($item, 'id');
+        $name = (string) ApiResponse::getValue($item, 'name');
+        $path = $parentPath === '' ? $name : $parentPath . ' / ' . $name;
+        $folders[] = (object) ['id' => $id, 'name' => $path];
+
+        if ((int) ApiResponse::getValue($folder, 'childCount') > 0) {
+            $parents[$id] = $path;
+        }
+    }
+
+    private static function batchChildren(ApiClient $client, array $parents): array
+    {
+        $requests = [];
+        $paths = [];
+
+        foreach ($parents as $id => $path) {
+            $requestId = (string) \count($requests);
+            $paths[$requestId] = $path;
+            $requests[] = [
+                'id'     => $requestId,
+                'method' => 'GET',
+                'url'    => '/me/drive/items/' . rawurlencode((string) $id) . '/children?$select=id,name,folder&$top=200',
+            ];
+        }
+
+        $response = $client->post('/$batch', wp_json_encode(['requests' => $requests]), ['Content-Type' => 'application/json']);
+        self::failOnError($response);
+
+        $children = [];
+
+        foreach ((array) $response->getBodyValue('responses') as $part) {
+            $requestId = (string) ApiResponse::getValue($part, 'id');
+
+            if ((int) ApiResponse::getValue($part, 'status') === 200 && isset($paths[$requestId])) {
+                $children[$paths[$requestId]] = (array) ApiResponse::getValue(ApiResponse::getValue($part, 'body'), 'value');
+            }
+        }
+
+        return $children;
     }
 
     private static function failOnError(ApiResponse $response): void
