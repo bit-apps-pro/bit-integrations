@@ -7,7 +7,7 @@ import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import MicrosoftExcelAuthorization from './MicrosoftExcelAuthorization'
-import { checkMappedFields } from './MicrosoftExcelCommonFunc'
+import { validationMessage } from './MicrosoftExcelCommonFunc'
 import MicrosoftExcelIntegLayout from './MicrosoftExcelIntegLayout'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 
@@ -51,10 +51,10 @@ function MicrosoftExcel({ formFields, setFlow, flow, allIntegURL }) {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
 
-    if (!checkMappedFields(microsoftExcelConf)) {
-      toast.error(
-        __('Please select an action and fill the required options and fields', 'bit-integrations')
-      )
+    const message = validationMessage(microsoftExcelConf)
+
+    if (message) {
+      toast.error(message)
 
       return
     }

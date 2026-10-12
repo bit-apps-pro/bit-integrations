@@ -123,27 +123,45 @@ export const generateMappedField = conf => {
     : [{ formField: '', microsoftExcelField: '' }]
 }
 
-export const checkMappedFields = conf => {
-  if (!conf?.mainAction) return false
+const hasValue = field => field.formField && (field.formField !== 'custom' || field.customValue)
 
-  const missingSelect = (selectsByAction[conf.mainAction] || []).some(
+export const validationMessage = conf => {
+  if (!conf?.mainAction) return __('Select an action', 'bit-integrations')
+
+  const missingSelect = (selectsByAction[conf.mainAction] || []).find(
     select => select.required && !conf[select.key]
   )
 
-  if (missingSelect) return false
+  if (missingSelect) return missingSelect.requiredMessage
 
-  const mappedRows = (conf.field_map || []).filter(field => field.formField || field.microsoftExcelField)
-  const hasIncompleteRow = mappedRows.some(
+  const fieldMap = conf.field_map || []
+  const missingField = (fieldsByAction[conf.mainAction] || []).find(
     field =>
-      !field.formField ||
-      !field.microsoftExcelField ||
-      (field.formField === 'custom' && !field.customValue)
+      field.required &&
+      !fieldMap.some(mapped => mapped.microsoftExcelField === field.key && hasValue(mapped))
   )
 
-  if (hasIncompleteRow) return false
+  if (missingField) {
+    // translators: %s: Microsoft Excel field label
+    return sprintf(__('Map a value to %s', 'bit-integrations'), missingField.label)
+  }
 
-  return (
-    !rowActions.includes(conf.mainAction) ||
-    mappedRows.some(field => COLUMN_KEY.test(field.microsoftExcelField))
-  )
+  const mappedRows = fieldMap.filter(field => field.formField || field.microsoftExcelField)
+
+  if (mappedRows.some(field => !field.formField || !field.microsoftExcelField)) {
+    return __('Finish or remove the incomplete field map row', 'bit-integrations')
+  }
+
+  if (mappedRows.some(field => !hasValue(field))) {
+    return __('Type a value for every Custom field', 'bit-integrations')
+  }
+
+  if (
+    rowActions.includes(conf.mainAction) &&
+    !mappedRows.some(field => COLUMN_KEY.test(field.microsoftExcelField))
+  ) {
+    return __('Map at least one form field to a worksheet column', 'bit-integrations')
+  }
+
+  return ''
 }

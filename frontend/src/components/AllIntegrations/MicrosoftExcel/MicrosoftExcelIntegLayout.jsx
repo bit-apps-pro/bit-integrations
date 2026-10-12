@@ -103,6 +103,14 @@ export default function MicrosoftExcelIntegLayout({
     }))
   }
 
+  const emptyLabel = select => {
+    if (isLoading) return __('Loading...', 'bit-integrations')
+
+    return select.waitingText && !microsoftExcelConf?.[select.dependsOn]
+      ? select.waitingText
+      : select.emptyText
+  }
+
   return (
     <>
       <br />
@@ -139,6 +147,7 @@ export default function MicrosoftExcelIntegLayout({
               options={selectOptions(select)}
               onChange={value => handleSelect(select, value)}
               placeholder={select.placeholder}
+              emptyDataLabel={emptyLabel(select)}
               singleSelect
               closeOnSelect
             />
@@ -184,40 +193,51 @@ export default function MicrosoftExcelIntegLayout({
             </button>
           )}
           <div className="btcd-hr mt-1" />
-          <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
-            <div className="txt-dp">
-              <b>{__('Form Fields', 'bit-integrations')}</b>
-            </div>
-            <div className="txt-dp">
-              <b>{__('Microsoft Excel Fields', 'bit-integrations')}</b>
-            </div>
-          </div>
+          {isRowAction && !microsoftExcelConf?.worksheet_id ? (
+            <p className="txt-dp mt-2">
+              {__(
+                'Select a workbook and worksheet to map form fields to its columns.',
+                'bit-integrations'
+              )}
+            </p>
+          ) : (
+            <>
+              <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
+                <div className="txt-dp">
+                  <b>{__('Form Fields', 'bit-integrations')}</b>
+                </div>
+                <div className="txt-dp">
+                  <b>{__('Microsoft Excel Fields', 'bit-integrations')}</b>
+                </div>
+              </div>
 
-          {microsoftExcelConf?.field_map?.map((itm, i) => (
-            <MicrosoftExcelFieldMap
-              key={`mse-m-${i + 9}`}
-              i={i}
-              field={itm}
-              microsoftExcelConf={microsoftExcelConf}
-              formFields={formFields}
-              setMicrosoftExcelConf={setMicrosoftExcelConf}
-            />
-          ))}
+              {microsoftExcelConf?.field_map?.map((itm, i) => (
+                <MicrosoftExcelFieldMap
+                  key={`mse-m-${i + 9}`}
+                  i={i}
+                  field={itm}
+                  microsoftExcelConf={microsoftExcelConf}
+                  formFields={formFields}
+                  setMicrosoftExcelConf={setMicrosoftExcelConf}
+                />
+              ))}
 
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() =>
-                addFieldMap(
-                  microsoftExcelConf.field_map.length,
-                  microsoftExcelConf,
-                  setMicrosoftExcelConf
-                )
-              }
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+              <div className="txt-center btcbi-field-map-button mt-2">
+                <button
+                  onClick={() =>
+                    addFieldMap(
+                      microsoftExcelConf.field_map.length,
+                      microsoftExcelConf,
+                      setMicrosoftExcelConf
+                    )
+                  }
+                  className="icn-btn sh-sm"
+                  type="button">
+                  +
+                </button>
+              </div>
+            </>
+          )}
         </div>
       )}
 

@@ -50,12 +50,15 @@ const folderSelect = {
   key: 'folder_id',
   label: __('Folder', 'bit-integrations'),
   placeholder: __('Root (My files)', 'bit-integrations'),
+  emptyText: __('No folders found', 'bit-integrations'),
   source: 'folders'
 }
 
 const workbookSelect = {
   key: 'workbook_id',
   label: __('Workbook', 'bit-integrations'),
+  emptyText: __('No Excel workbooks (.xlsx) in this folder', 'bit-integrations'),
+  requiredMessage: __('Select a workbook', 'bit-integrations'),
   source: 'workbooks',
   dependsOn: 'folder_id',
   required: true
@@ -64,6 +67,9 @@ const workbookSelect = {
 const worksheetSelect = {
   key: 'worksheet_id',
   label: __('Worksheet', 'bit-integrations'),
+  emptyText: __('No worksheets in this workbook', 'bit-integrations'),
+  waitingText: __('Select a workbook first', 'bit-integrations'),
+  requiredMessage: __('Select a worksheet', 'bit-integrations'),
   source: 'worksheets',
   dependsOn: 'workbook_id',
   required: true

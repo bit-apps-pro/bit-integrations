@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './MicrosoftExcelCommonFunc'
+import { handleInput, validationMessage } from './MicrosoftExcelCommonFunc'
 import MicrosoftExcelIntegLayout from './MicrosoftExcelIntegLayout'
 
 function EditMicrosoftExcel({ allIntegURL }) {
@@ -19,11 +19,10 @@ function EditMicrosoftExcel({ allIntegURL }) {
   const formField = useRecoilValue($formFields)
 
   const saveConfig = () => {
-    if (!checkMappedFields(microsoftExcelConf)) {
-      setSnackbar({
-        show: true,
-        msg: __('Please fill the required options and fields', 'bit-integrations')
-      })
+    const message = validationMessage(microsoftExcelConf)
+
+    if (message) {
+      setSnackbar({ show: true, msg: message })
 
       return
     }
