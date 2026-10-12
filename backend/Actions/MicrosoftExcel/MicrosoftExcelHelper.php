@@ -12,7 +12,6 @@ class MicrosoftExcelHelper
 
     private const MAX_PAGES = 10;
 
-    // A blank sheet reports A1 as its used range, so A-Z stay mappable; ZZ caps very wide sheets.
     private const MIN_COLUMNS = 26;
 
     private const MAX_COLUMNS = 702;
@@ -169,9 +168,6 @@ class MicrosoftExcelHelper
         );
     }
 
-    /**
-     * The used range address looks like `Sheet1!B3:F20`, or `Sheet1!A1` on a blank sheet.
-     */
     private static function headerRowAndLastColumn(string $address): array
     {
         $sheetSeparator = strrpos($address, '!');

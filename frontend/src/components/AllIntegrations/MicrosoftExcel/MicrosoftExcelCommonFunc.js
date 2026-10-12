@@ -96,7 +96,6 @@ const columnLabel = (letter, header) => {
   return sprintf(__('Column %1$s (%2$s)', 'bit-integrations'), letter, header)
 }
 
-// Saved columns stay selectable while the worksheet's columns load, or when they cannot be read.
 export const actionFields = conf => {
   const fields = fieldsByAction[conf?.mainAction] || []
 
