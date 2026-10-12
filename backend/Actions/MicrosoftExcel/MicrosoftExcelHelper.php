@@ -16,6 +16,8 @@ class MicrosoftExcelHelper
 
     private const BATCH_SIZE = 20;
 
+    private const MAX_BATCHES_PER_LEVEL = 5;
+
     private const MIN_COLUMNS = 26;
 
     private const MAX_COLUMNS = 702;
@@ -31,12 +33,14 @@ class MicrosoftExcelHelper
         }
 
         for ($level = 1; $level < self::FOLDER_LEVELS && !empty($parents); ++$level) {
-            $children = self::batchChildren($client, \array_slice($parents, 0, self::BATCH_SIZE, true));
+            $chunks = \array_slice(array_chunk($parents, self::BATCH_SIZE, true), 0, self::MAX_BATCHES_PER_LEVEL);
             $parents = [];
 
-            foreach ($children as $parentPath => $items) {
-                foreach ($items as $item) {
-                    self::collectFolder($item, $parentPath, $folders, $parents);
+            foreach ($chunks as $chunk) {
+                foreach (self::batchChildren($client, $chunk) as $parentPath => $items) {
+                    foreach ($items as $item) {
+                        self::collectFolder($item, $parentPath, $folders, $parents);
+                    }
                 }
             }
         }
@@ -44,7 +48,7 @@ class MicrosoftExcelHelper
         usort(
             $folders,
             static function ($first, $second) {
-                return strnatcasecmp($first->name, $second->name);
+                return strnatcasecmp(str_replace(' / ', "\x01", $first->name), str_replace(' / ', "\x01", $second->name));
             }
         );
 
@@ -113,7 +117,7 @@ class MicrosoftExcelHelper
     {
         $connection = AuthorizationFactory::getConnectionHandler($connectionId);
 
-        if ($connection === null) {
+        if ($connection === null || !self::belongsToExcel($connection)) {
             return null;
         }
 
@@ -122,6 +126,14 @@ class MicrosoftExcelHelper
         $apiClient->setHeaders(['Accept' => 'application/json']);
 
         return $apiClient;
+    }
+
+    private static function belongsToExcel($connection): bool
+    {
+        $row = method_exists($connection, 'getConnection') ? $connection->getConnection() : null;
+        $appSlug = strtolower((string) preg_replace('/[^a-z0-9]/i', '', (string) ApiResponse::getValue($row, 'app_slug')));
+
+        return $appSlug === strtolower(MicrosoftExcelController::$authConfig['slug']);
     }
 
     private static function requireClient($queryParams): ApiClient
@@ -208,9 +220,11 @@ class MicrosoftExcelHelper
         }
 
         $response = $client->post('/$batch', wp_json_encode(['requests' => $requests]), ['Content-Type' => 'application/json']);
-        self::failOnError($response);
-
         $children = [];
+
+        if (!$response->success()) {
+            return $children;
+        }
 
         foreach ((array) $response->getBodyValue('responses') as $part) {
             $requestId = (string) ApiResponse::getValue($part, 'id');
