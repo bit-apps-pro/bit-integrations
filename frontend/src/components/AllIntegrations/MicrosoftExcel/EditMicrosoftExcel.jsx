@@ -67,7 +67,6 @@ function EditMicrosoftExcel({ allIntegURL }) {
       <IntegrationStepThree
         edit
         saveConfig={saveConfig}
-        disabled={microsoftExcelConf?.field_map?.length < 1}
         isLoading={isLoading}
         dataConf={microsoftExcelConf}
         setDataConf={setMicrosoftExcelConf}

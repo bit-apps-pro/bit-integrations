@@ -3,13 +3,8 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
-import {
-  addFieldMap,
-  delFieldMap,
-  handleCustomValue,
-  handleFieldMapping
-} from '../GlobalIntegrationHelper'
-import { actionFields } from './MicrosoftExcelCommonFunc'
+import { addFieldMap, delFieldMap, handleFieldMapping } from '../GlobalIntegrationHelper'
+import { actionFields, setCustomValue } from './MicrosoftExcelCommonFunc'
 
 export default function MicrosoftExcelFieldMap({
   i,
@@ -60,7 +55,7 @@ export default function MicrosoftExcelFieldMap({
 
           {field.formField === 'custom' && (
             <TagifyInput
-              onChange={e => handleCustomValue(e, i, microsoftExcelConf, setMicrosoftExcelConf)}
+              onChange={e => setCustomValue(e, i, setMicrosoftExcelConf)}
               label={__('Custom Value', 'bit-integrations')}
               className="mr-2"
               type="text"

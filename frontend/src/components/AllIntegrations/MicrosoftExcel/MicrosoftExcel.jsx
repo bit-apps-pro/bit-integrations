@@ -2,7 +2,6 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router'
 import { __ } from '../../../Utils/i18nwrap'
-import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
@@ -15,7 +14,6 @@ function MicrosoftExcel({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setstep] = useState(1)
-  const [snack, setSnackbar] = useState({ show: false })
 
   const [microsoftExcelConf, setMicrosoftExcelConf] = useState({
     field_map: [{ formField: '', microsoftExcelField: '' }],
@@ -24,27 +22,10 @@ function MicrosoftExcel({ formFields, setFlow, flow, allIntegURL }) {
     utilities: {}
   })
 
-  const saveConfig = () => {
-    setIsLoading(true)
-    const resp = saveIntegConfig(
-      flow,
-      setFlow,
-      allIntegURL,
-      microsoftExcelConf,
-      navigate,
-      '',
-      '',
-      setIsLoading
+  const saveConfig = () =>
+    saveIntegConfig(flow, setFlow, allIntegURL, microsoftExcelConf, navigate, '', '', setIsLoading).then(
+      res => (res.success ? toast.success(res.data?.msg) : toast.error(res.data || res))
     )
-    resp.then(res => {
-      if (res.success) {
-        toast.success(res.data?.msg)
-        navigate(allIntegURL)
-      } else {
-        toast.error(res.data || res)
-      }
-    })
-  }
 
   const nextPage = pageNo => {
     setTimeout(() => {
@@ -63,7 +44,6 @@ function MicrosoftExcel({ formFields, setFlow, flow, allIntegURL }) {
 
   return (
     <div>
-      <SnackMsg snack={snack} setSnackbar={setSnackbar} />
       <div className="txt-center mt-2">
         <Steps step={3} active={step} />
       </div>
@@ -101,7 +81,7 @@ function MicrosoftExcel({ formFields, setFlow, flow, allIntegURL }) {
 
       <IntegrationStepThree
         step={step}
-        saveConfig={() => saveConfig()}
+        saveConfig={saveConfig}
         isLoading={isLoading}
         dataConf={microsoftExcelConf}
         setDataConf={setMicrosoftExcelConf}

@@ -16,7 +16,7 @@ const note = `
       <li>${__('Under <b>API permissions</b>, add the Microsoft Graph delegated permissions <b>Files.ReadWrite</b>, <b>offline_access</b> and <b>openid</b>.', 'bit-integrations')}</li>
       <li>${__('Under <b>Certificates & secrets</b>, create a client secret and copy its <b>Value</b>, not its Secret ID.', 'bit-integrations')}</li>
       <li>${__('Paste the <b>Application (client) ID</b> into Client ID and the secret value into Client Secret, then click <b>Authorize</b>.', 'bit-integrations')}</li>
-      <li>${__('Workbooks must live in OneDrive for work or school or in SharePoint.', 'bit-integrations')}</li>
+      <li>${__('Workbooks must be in your own OneDrive for work or school (SharePoint libraries are not listed).', 'bit-integrations')}</li>
     </ul>
   `
 

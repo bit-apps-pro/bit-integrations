@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
@@ -9,7 +9,12 @@ import Note from '../../Utilities/Note'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../GlobalIntegrationHelper'
 import MicrosoftExcelActions from './MicrosoftExcelActions'
-import { fetchActionSources, fetchSource, generateMappedField } from './MicrosoftExcelCommonFunc'
+import {
+  clearSourceOptions,
+  fetchActionSources,
+  fetchSource,
+  generateMappedField
+} from './MicrosoftExcelCommonFunc'
 import MicrosoftExcelFieldMap from './MicrosoftExcelFieldMap'
 import {
   modules,
@@ -39,6 +44,7 @@ export default function MicrosoftExcelIntegLayout({
   const action = microsoftExcelConf?.mainAction
   const selects = selectsByAction[action] || []
   const isRowAction = rowActions.includes(action)
+  const [actionSelectKey, setActionSelectKey] = useState(0)
 
   useEffect(() => {
     if (action && microsoftExcelConf?.connection_id) {
@@ -47,11 +53,16 @@ export default function MicrosoftExcelIntegLayout({
   }, [])
 
   const handleMainAction = value => {
+    if (!value || value === action) {
+      setActionSelectKey(key => key + 1)
+      return
+    }
+
     const keptSelects = (selectsByAction[value] || []).map(select => select.key)
 
     const nextConf = create(microsoftExcelConf, draftConf => {
       draftConf.mainAction = value
-      draftConf.field_map = generateMappedField({ mainAction: value })
+      draftConf.field_map = generateMappedField(value)
       draftConf.utilities = {}
       selectKeys
         .filter(key => !keptSelects.includes(key))
@@ -61,7 +72,7 @@ export default function MicrosoftExcelIntegLayout({
     })
 
     setMicrosoftExcelConf(nextConf)
-    fetchActionSources(nextConf, setMicrosoftExcelConf, setIsLoading)
+    fetchActionSources(nextConf, setMicrosoftExcelConf, setIsLoading, true)
   }
 
   const handleSelect = (select, value) => {
@@ -81,13 +92,16 @@ export default function MicrosoftExcelIntegLayout({
 
     setMicrosoftExcelConf(nextConf)
 
-    dependents.forEach(dependent =>
-      fetchSource(dependent.source, nextConf, setMicrosoftExcelConf, setIsLoading, true)
-    )
+    const staleSources = dependents.map(dependent => dependent.source)
 
     if (isRowAction) {
-      fetchSource('columns', nextConf, setMicrosoftExcelConf, setIsLoading, true)
+      staleSources.push('columns')
     }
+
+    staleSources.forEach(source => {
+      clearSourceOptions(setMicrosoftExcelConf, source)
+      fetchSource(source, nextConf, setMicrosoftExcelConf, setIsLoading, true)
+    })
   }
 
   const selectOptions = select => {
@@ -117,10 +131,12 @@ export default function MicrosoftExcelIntegLayout({
       <div className="flx">
         <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
         <MultiSelect
+          key={`action-${actionSelectKey}`}
           title="mainAction"
           defaultValue={action ?? null}
           className="mt-2 w-5"
-          onChange={value => handleMainAction(value)}
+          onChange={handleMainAction}
+          clearable={false}
           options={modules.map(module => ({
             disabled: !checkIsPro(isPro, module.is_pro),
             label: checkIsPro(isPro, module.is_pro) ? module.label : getProLabel(module.label),

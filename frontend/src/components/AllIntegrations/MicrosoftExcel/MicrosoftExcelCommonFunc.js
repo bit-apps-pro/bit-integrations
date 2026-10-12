@@ -11,15 +11,28 @@ const sources = {
   worksheets: { requires: ['workbook_id'], route: 'microsoft_excel_get_worksheets' }
 }
 
-const setSourceOptions = (setConf, source, options) =>
-  setConf(prevConf =>
-    create(prevConf, draftConf => {
+const paramKeys = source => [...(sources[source].requires || []), ...(sources[source].optional || [])]
+
+const setSourceOptions = (setConf, source, options, params = null) =>
+  setConf(prevConf => {
+    const isStale =
+      params &&
+      (String(prevConf?.connection_id ?? '') !== String(params.connection_id ?? '') ||
+        paramKeys(source).some(key => (prevConf?.[key] || '') !== (params[key] || '')))
+
+    if (isStale) return prevConf
+
+    return create(prevConf, draftConf => {
       if (!draftConf.default) {
         draftConf.default = {}
       }
       draftConf.default[source] = options
     })
-  )
+  })
+
+export const clearSourceOptions = (setConf, source) => setSourceOptions(setConf, source, [])
+
+let pendingRequests = 0
 
 export const handleInput = (e, setConf) => {
   const { name, value } = e.target
@@ -43,10 +56,11 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
 
   const params = { connection_id: conf?.connection_id }
 
-  ;[...requires, ...optional].forEach(key => {
+  paramKeys(source).forEach(key => {
     if (conf?.[key]) params[key] = conf[key]
   })
 
+  pendingRequests += 1
   setIsLoading(true)
 
   const request = bitsFetch(params, route)
@@ -59,10 +73,13 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
         )
       }
 
-      setSourceOptions(setConf, source, Array.isArray(result.data) ? result.data : [])
+      setSourceOptions(setConf, source, Array.isArray(result.data) ? result.data : [], params)
       return __('Options refreshed', 'bit-integrations')
     })
-    .finally(() => setIsLoading(false))
+    .finally(() => {
+      pendingRequests -= 1
+      setIsLoading(pendingRequests > 0)
+    })
 
   if (silent) {
     request.catch(error => toast.error(error.message))
@@ -76,14 +93,16 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
   })
 }
 
-export const fetchActionSources = (conf, setConf, setIsLoading) => {
+export const fetchActionSources = (conf, setConf, setIsLoading, skipLoaded = false) => {
   const actionSources = (selectsByAction[conf?.mainAction] || []).map(select => select.source)
 
   if (rowActions.includes(conf?.mainAction)) {
     actionSources.push('columns')
   }
 
-  actionSources.forEach(source => fetchSource(source, conf, setConf, setIsLoading, true))
+  actionSources
+    .filter(source => !skipLoaded || !conf?.default?.[source]?.length)
+    .forEach(source => fetchSource(source, conf, setConf, setIsLoading, true))
 }
 
 const columnLabel = (letter, header) => {
@@ -93,7 +112,19 @@ const columnLabel = (letter, header) => {
   }
 
   // translators: 1: column letter, 2: column name read from the worksheet
-  return sprintf(__('Column %1$s (%2$s)', 'bit-integrations'), letter, header)
+  return sprintf(__('Column %s (%s)', 'bit-integrations'), letter, header)
+}
+
+export const setCustomValue = (event, index, setConf) => {
+  const value = event?.target?.value ?? event
+
+  setConf(prevConf =>
+    create(prevConf, draftConf => {
+      if (draftConf.field_map?.[index]) {
+        draftConf.field_map[index].customValue = value
+      }
+    })
+  )
 }
 
 export const actionFields = conf => {
@@ -115,8 +146,8 @@ export const actionFields = conf => {
   return [...fields, ...columns, ...savedColumns]
 }
 
-export const generateMappedField = conf => {
-  const requiredFields = (fieldsByAction[conf?.mainAction] || []).filter(field => field.required)
+export const generateMappedField = mainAction => {
+  const requiredFields = (fieldsByAction[mainAction] || []).filter(field => field.required)
 
   return requiredFields.length > 0
     ? requiredFields.map(field => ({ formField: '', microsoftExcelField: field.key }))
@@ -132,7 +163,9 @@ export const validationMessage = conf => {
     select => select.required && !conf[select.key]
   )
 
-  if (missingSelect) return missingSelect.requiredMessage
+  if (missingSelect) {
+    return missingSelect.requiredMessage || __('Select every required option', 'bit-integrations')
+  }
 
   const fieldMap = conf.field_map || []
   const missingField = (fieldsByAction[conf.mainAction] || []).find(
