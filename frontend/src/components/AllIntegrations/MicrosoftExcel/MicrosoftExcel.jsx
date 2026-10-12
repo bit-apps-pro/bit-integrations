@@ -77,7 +77,9 @@ function MicrosoftExcel({ formFields, setFlow, flow, allIntegURL }) {
 
       <div
         className="btcd-stp-page"
-        style={{ ...(step === 2 && { height: 'auto', minHeight: 500, overflow: 'visible', width: 900 }) }}>
+        style={{
+          ...(step === 2 && { height: 'auto', minHeight: 500, overflow: 'visible', width: 900 })
+        }}>
         {step === 2 && (
           <MicrosoftExcelIntegLayout
             formFields={formFields}

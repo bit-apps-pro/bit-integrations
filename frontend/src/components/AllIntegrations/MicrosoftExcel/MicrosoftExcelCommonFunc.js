@@ -133,9 +133,7 @@ export const checkMappedFields = conf => {
 
   if (missingSelect) return false
 
-  const mappedRows = (conf.field_map || []).filter(
-    field => field.formField || field.microsoftExcelField
-  )
+  const mappedRows = (conf.field_map || []).filter(field => field.formField || field.microsoftExcelField)
   const hasIncompleteRow = mappedRows.some(
     field =>
       !field.formField ||
