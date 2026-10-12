@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.7
+Stable tag: 2.10.8
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,16 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.8 =
+_Release Date - 12th October 2026_
+
+- **Bug Fixes**
+ - Zoom: Failed Create Attendee and Create User actions were logged as successful. Failures now show the error from Zoom.
+ - Zoom: Delete Attendee and Delete User always reported success and only checked the first 30 records. They now search every page and report an error when no registrant or user has that email.
+ - Zoom: A field map row with a form field but no Zoom field could be saved. Both columns are now required.
+ - PerfexCRM: The Customer and Assigned By dropdowns stayed empty. Customers, leads and staff now load from every page.
+ - PerfexCRM: Projects are now always linked to a customer. The "Project Related With" option is removed, because PerfexCRM cannot link a project to a lead.
 
 = 2.10.7 =
 _Release Date - 6th October 2026_
