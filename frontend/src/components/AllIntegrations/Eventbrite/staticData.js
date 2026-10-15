@@ -584,7 +584,6 @@ export const fieldsByAction = {
     { key: 'inventory_tier_id', label: __('Inventory Tier ID', 'bit-integrations'), required: true },
     { key: 'name', label: __('Tier Name', 'bit-integrations'), required: false },
     { key: 'quantity_total', label: __('Quantity', 'bit-integrations'), required: false },
-    { key: 'capacity_total', label: __('Capacity', 'bit-integrations'), required: false },
     ...inventoryTierFields
   ],
   delete_inventory_tier: [
