@@ -89,7 +89,6 @@ export const modules = [
   { name: 'create_venue', label: __('Create Venue', 'bit-integrations'), is_pro: true },
   { name: 'update_venue', label: __('Update Venue', 'bit-integrations'), is_pro: true },
   { name: 'create_text_override', label: __('Create Text Override', 'bit-integrations'), is_pro: true },
-  { name: 'create_seat_map', label: __('Create Seat Map for Event', 'bit-integrations'), is_pro: true },
   { name: 'upload_image', label: __('Upload Image', 'bit-integrations'), is_pro: true }
 ]
 
@@ -652,10 +651,6 @@ export const fieldsByAction = {
       label: __('Event ID (override one event only)', 'bit-integrations'),
       required: false
     }
-  ],
-  create_seat_map: [
-    eventIdField,
-    { key: 'source_seatmap_id', label: __('Seat Map ID to Copy', 'bit-integrations'), required: true }
   ],
   upload_image: [
     { key: 'image_url', label: __('Image URL', 'bit-integrations'), required: true },

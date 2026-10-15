@@ -218,11 +218,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'create_seat_map':
-                $response = Hooks::apply(Config::withPrefix('eventbrite_create_seat_map'), $default, $fieldData, $this->apiClient, $settings);
-
-                break;
-
             case 'upload_image':
                 $response = Hooks::apply(Config::withPrefix('eventbrite_upload_image'), $default, $fieldData, $this->apiClient, $settings);
 
