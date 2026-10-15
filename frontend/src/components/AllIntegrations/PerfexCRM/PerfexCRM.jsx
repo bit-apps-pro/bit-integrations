@@ -49,7 +49,7 @@ function PerfexCRM({ formFields, setFlow, flow, allIntegURL }) {
     { key: 'email', label: __('Email Address', 'bit-integrations'), required: true },
     { key: 'title', label: __('Position', 'bit-integrations'), required: false },
     { key: 'phonenumber', label: __('Phone Number', 'bit-integrations'), required: false },
-    { key: 'password', label: __('Password', 'bit-integrations'), required: false }
+    { key: 'password', label: __('Password', 'bit-integrations'), required: true }
   ]
 
   const leadFields = [
@@ -142,10 +142,6 @@ function PerfexCRM({ formFields, setFlow, flow, allIntegURL }) {
     if (perfexCRMConf.actionName === 'project') {
       if (!perfexCRMConf.selectedProjectStatus) {
         toast.error(__('Please select Project status', 'bit-integrations'))
-        return
-      }
-      if (!perfexCRMConf.selectedProjectType) {
-        toast.error(__('Please select Project Related With...', 'bit-integrations'))
         return
       }
       if (!perfexCRMConf.selectedbillingType) {

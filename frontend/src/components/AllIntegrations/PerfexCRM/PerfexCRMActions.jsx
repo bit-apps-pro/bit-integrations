@@ -7,7 +7,7 @@ import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import ConfirmModal from '../../Utilities/ConfirmModal'
 import TableCheckBox from '../../Utilities/TableCheckBox'
-import { getAllStaffs } from './PerfexCRMCommonFunc'
+import { getAllStaffs, toSelectOptions } from './PerfexCRMCommonFunc'
 
 export default function PerfexCRMActions({ perfexCRMConf, setPerfexCRMConf, loading, setLoading }) {
   const [actionMdl, setActionMdl] = useState({ show: false, action: () => {} })
@@ -324,10 +324,7 @@ export default function PerfexCRMActions({ perfexCRMConf, setPerfexCRMConf, load
         ) : (
           <div className="flx flx-between mt-2">
             <MultiSelect
-              options={perfexCRMConf?.staffs?.map(staff => ({
-                label: staff.name,
-                value: staff.id.toString()
-              }))}
+              options={toSelectOptions(perfexCRMConf?.staffs)}
               className="msl-wrp-options"
               defaultValue={perfexCRMConf?.selectedProjectMembers}
               onChange={val => setChanges(val, 'selectedProjectMembers')}
