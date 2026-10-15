@@ -18,10 +18,9 @@ export default function FreshBooksFieldMap({ i, formFields, field, freshBooksCon
   const actionFields = fieldsByAction[freshBooksConf?.mainAction] || []
   const requiredFlds = actionFields.filter(fld => fld.required === true)
   const nonRequiredFlds = actionFields.filter(fld => fld.required === false)
-  const mappedField = actionFields.find(fld => fld.key === field.freshBooksField)
 
   return (
-    <div className="mt-2 mb-2 btcbi-field-map">
+    <div className="flx mt-2 mb-2 btcbi-field-map">
       <div className="pos-rel flx">
         <div className="flx integ-fld-wrp">
           <select
@@ -103,12 +102,6 @@ export default function FreshBooksFieldMap({ i, formFields, field, freshBooksCon
           </>
         )}
       </div>
-
-      {mappedField?.helper && (
-        <small className="d-blk mt-1 txt-dp">
-          {mappedField.label}: {mappedField.helper}
-        </small>
-      )}
     </div>
   )
 }

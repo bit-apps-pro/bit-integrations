@@ -52,65 +52,46 @@ export const modules = [
   { name: 'create_service', label: __('Create Service', 'bit-integrations'), is_pro: true }
 ]
 
-export const creditTypeOptions = [
+const creditTypeOptions = [
   { label: __('Goodwill', 'bit-integrations'), value: 'goodwill' },
   { label: __('Prepayment', 'bit-integrations'), value: 'prepayment' }
 ]
 
-export const projectTypeOptions = [
+const projectTypeOptions = [
   { label: __('Fixed Price', 'bit-integrations'), value: 'fixed_price' },
   { label: __('Hourly Rate', 'bit-integrations'), value: 'hourly_rate' }
 ]
 
-export const billingMethodOptions = [
+const billingMethodOptions = [
   { label: __('Project Rate', 'bit-integrations'), value: 'project_rate' },
   { label: __('Service Rate', 'bit-integrations'), value: 'service_rate' },
   { label: __('Team Member Rate', 'bit-integrations'), value: 'team_member_rate' },
   { label: __('Business Rate', 'bit-integrations'), value: 'business_rate' }
 ]
 
-const field = (key, label, { helper, required = false } = {}) => ({ helper, key, label, required })
+const field = (key, label, required = false) => ({ key, label, required })
 
-const dateHelper = __('Use the YYYY-MM-DD format.', 'bit-integrations')
-const currencyHelper = __('Use a three-letter currency code, for example USD.', 'bit-integrations')
-const languageHelper = __('Use a two-letter language code, for example en.', 'bit-integrations')
-const percentHelper = __('Use a percentage, for example 10.', 'bit-integrations')
-const amountHelper = __('Use a decimal number, for example 25.00.', 'bit-integrations')
-
-const idField = (key, label) => field(key, label, { required: true })
-const dateField = (key, label, required = false) => field(key, label, { helper: dateHelper, required })
+const createDateField = required =>
+  field('create_date', __('Create Date (YYYY-MM-DD)', 'bit-integrations'), required)
 const currencyField = (required = false) =>
-  field('currency_code', __('Currency Code', 'bit-integrations'), {
-    helper: currencyHelper,
-    required
-  })
-const languageField = field('language', __('Language', 'bit-integrations'), {
-  helper: languageHelper
-})
-const discountField = field('discount_value', __('Discount Value', 'bit-integrations'), {
-  helper: percentHelper
-})
-const dueOffsetField = field('due_offset_days', __('Due Offset Days', 'bit-integrations'), {
-  helper: __('Number of days from the create date to the due date.', 'bit-integrations')
-})
+  field('currency_code', __('Currency Code (USD, EUR)', 'bit-integrations'), required)
+const languageField = field('language', __('Language (en, fr)', 'bit-integrations'))
+const discountField = field('discount_value', __('Discount Value (%)', 'bit-integrations'))
+const dueOffsetField = field('due_offset_days', __('Due Offset (days)', 'bit-integrations'))
 const poNumberField = field('po_number', __('PO Number', 'bit-integrations'))
 const notesField = field('notes', __('Notes', 'bit-integrations'))
 const termsField = field('terms', __('Terms', 'bit-integrations'))
 const noteField = field('note', __('Note', 'bit-integrations'))
+const amountField = required => field('amount', __('Amount', 'bit-integrations'), required)
+const dueDateField = field('due_date', __('Due Date (YYYY-MM-DD)', 'bit-integrations'))
 
 const lineNameField = field('line_name', __('Line Item Name', 'bit-integrations'))
 const lineDescriptionField = field('line_description', __('Line Item Description', 'bit-integrations'))
-const lineQuantityField = field('line_quantity', __('Line Item Quantity', 'bit-integrations'), {
-  helper: __('Use a number, for example 1.', 'bit-integrations')
-})
-const lineUnitCostField = field('line_unit_cost', __('Line Item Unit Cost', 'bit-integrations'), {
-  helper: amountHelper
-})
+const lineQuantityField = field('line_quantity', __('Line Item Quantity', 'bit-integrations'))
+const lineUnitCostField = field('line_unit_cost', __('Line Item Unit Cost', 'bit-integrations'))
 const lineTaxFields = [
   field('line_tax_name', __('Line Item Tax Name', 'bit-integrations')),
-  field('line_tax_amount', __('Line Item Tax Amount (%)', 'bit-integrations'), {
-    helper: percentHelper
-  })
+  field('line_tax_amount', __('Line Item Tax Amount (%)', 'bit-integrations'))
 ]
 const lineFields = [
   lineNameField,
@@ -121,7 +102,7 @@ const lineFields = [
 ]
 
 const invoiceFields = isCreate => [
-  dateField('create_date', __('Create Date', 'bit-integrations'), isCreate),
+  createDateField(isCreate),
   field('invoice_number', __('Invoice Number', 'bit-integrations')),
   currencyField(),
   dueOffsetField,
@@ -160,56 +141,32 @@ const clientFields = [
   noteField
 ]
 
-const expenseTaxPercentHelper = __(
-  'Use a percentage. This value does not add tax to the expense.',
-  'bit-integrations'
-)
-const expenseTaxAmountHelper = __(
-  'Tax amount to add to the expense, for example 1.30.',
-  'bit-integrations'
-)
-
-const expenseTaxFields = [
-  field('tax_name1', __('Tax Name 1', 'bit-integrations')),
-  field('tax_percent1', __('Tax Percent 1', 'bit-integrations'), {
-    helper: expenseTaxPercentHelper
-  }),
-  field('tax_amount1', __('Tax Amount 1', 'bit-integrations'), { helper: expenseTaxAmountHelper }),
-  field('tax_name2', __('Tax Name 2', 'bit-integrations')),
-  field('tax_percent2', __('Tax Percent 2', 'bit-integrations'), {
-    helper: expenseTaxPercentHelper
-  }),
-  field('tax_amount2', __('Tax Amount 2', 'bit-integrations'), { helper: expenseTaxAmountHelper })
-]
-
 const expenseFields = isCreate => [
-  field('amount', __('Amount', 'bit-integrations'), { helper: amountHelper, required: isCreate }),
-  dateField('date', __('Date', 'bit-integrations'), isCreate),
+  amountField(isCreate),
+  field('date', __('Date (YYYY-MM-DD)', 'bit-integrations'), isCreate),
   field('vendor', __('Vendor', 'bit-integrations')),
   notesField,
-  field('markup_percent', __('Markup Percent', 'bit-integrations'), { helper: percentHelper }),
+  field('markup_percent', __('Markup (%)', 'bit-integrations')),
   currencyField(),
-  ...expenseTaxFields
+  field('tax_name1', __('Tax Name 1', 'bit-integrations')),
+  field('tax_percent1', __('Tax Percent 1', 'bit-integrations')),
+  field('tax_amount1', __('Tax Amount 1', 'bit-integrations')),
+  field('tax_name2', __('Tax Name 2', 'bit-integrations')),
+  field('tax_percent2', __('Tax Percent 2', 'bit-integrations')),
+  field('tax_amount2', __('Tax Amount 2', 'bit-integrations'))
 ]
 
-const orderIdField = field('order_id', __('Order ID', 'bit-integrations'), {
-  helper: __('ID of the related payment gateway order.', 'bit-integrations')
-})
-
 const paymentFields = isCreate => [
-  field('amount', __('Amount', 'bit-integrations'), { helper: amountHelper, required: isCreate }),
-  dateField('date', __('Payment Date', 'bit-integrations'), isCreate),
-  field('type', __('Payment Type', 'bit-integrations'), {
-    helper: __('Use a payment method, for example Check, Credit or Cash.', 'bit-integrations'),
-    required: isCreate
-  }),
+  amountField(isCreate),
+  field('date', __('Payment Date (YYYY-MM-DD)', 'bit-integrations'), isCreate),
+  field('type', __('Payment Type (Check, Credit, Cash)', 'bit-integrations'), isCreate),
   noteField,
-  ...(isCreate ? [orderIdField] : []),
+  ...(isCreate ? [field('order_id', __('Order ID', 'bit-integrations'))] : []),
   currencyField()
 ]
 
 const estimateFields = isCreate => [
-  dateField('create_date', __('Create Date', 'bit-integrations'), isCreate),
+  createDateField(isCreate),
   field('estimate_number', __('Estimate Number', 'bit-integrations')),
   currencyField(),
   languageField,
@@ -221,34 +178,23 @@ const estimateFields = isCreate => [
 ]
 
 const itemFields = isCreate => [
-  field('name', __('Name', 'bit-integrations'), { required: isCreate }),
+  field('name', __('Name', 'bit-integrations'), isCreate),
   field('description', __('Description', 'bit-integrations')),
   field('sku', __('SKU', 'bit-integrations')),
-  field('qty', __('Quantity', 'bit-integrations'), {
-    helper: __('Use a number, for example 1.', 'bit-integrations')
-  }),
-  field('inventory', __('Inventory', 'bit-integrations'), {
-    helper: __('Number of units in stock, for example 10.', 'bit-integrations')
-  }),
-  field('unit_cost', __('Unit Cost', 'bit-integrations'), { helper: amountHelper }),
+  field('qty', __('Quantity', 'bit-integrations')),
+  field('inventory', __('Inventory', 'bit-integrations')),
+  field('unit_cost', __('Unit Cost', 'bit-integrations')),
   currencyField()
 ]
 
 const taxFields = isCreate => [
-  field('name', __('Name', 'bit-integrations'), {
-    helper: __('Name of the tax, for example GST.', 'bit-integrations'),
-    required: isCreate
-  }),
-  field('amount', __('Amount (%)', 'bit-integrations'), {
-    helper: __('Use a percentage, for example 5 or 7.5.', 'bit-integrations')
-  }),
-  field('number', __('Tax Number', 'bit-integrations'), {
-    helper: __('Use the tax registration number of your business.', 'bit-integrations')
-  })
+  field('name', __('Name', 'bit-integrations'), isCreate),
+  field('amount', __('Amount (%)', 'bit-integrations')),
+  field('number', __('Tax Number', 'bit-integrations'))
 ]
 
 const creditNoteFields = isCreate => [
-  dateField('create_date', __('Create Date', 'bit-integrations'), isCreate),
+  createDateField(isCreate),
   field('credit_number', __('Credit Note Number', 'bit-integrations')),
   currencyField(isCreate),
   languageField,
@@ -260,42 +206,26 @@ const creditNoteFields = isCreate => [
   ...lineTaxFields
 ]
 
-const billLineTaxFields = [
-  field('line_tax_name1', __('Line Item Tax Name 1', 'bit-integrations')),
-  field('line_tax_percent1', __('Line Item Tax Percent 1', 'bit-integrations'), {
-    helper: percentHelper
-  }),
-  field('line_tax_name2', __('Line Item Tax Name 2', 'bit-integrations')),
-  field('line_tax_percent2', __('Line Item Tax Percent 2', 'bit-integrations'), {
-    helper: percentHelper
-  })
-]
-
 const billFields = [
-  dateField('issue_date', __('Issue Date', 'bit-integrations')),
-  dateField('due_date', __('Due Date', 'bit-integrations')),
-  field('due_offset_days', __('Due Offset Days', 'bit-integrations'), {
-    helper: __('Number of days from the issue date to the due date.', 'bit-integrations')
-  }),
+  field('issue_date', __('Issue Date (YYYY-MM-DD)', 'bit-integrations')),
+  dueDateField,
+  dueOffsetField,
   field('bill_number', __('Bill Number', 'bit-integrations')),
   currencyField(),
   languageField,
   lineDescriptionField,
   lineQuantityField,
   lineUnitCostField,
-  ...billLineTaxFields
+  field('line_tax_name1', __('Line Item Tax Name 1', 'bit-integrations')),
+  field('line_tax_percent1', __('Line Item Tax Percent 1', 'bit-integrations')),
+  field('line_tax_name2', __('Line Item Tax Name 2', 'bit-integrations')),
+  field('line_tax_percent2', __('Line Item Tax Percent 2', 'bit-integrations'))
 ]
 
 const recurringProfileFields = isCreate => [
-  dateField('create_date', __('Create Date', 'bit-integrations'), isCreate),
-  field('frequency', __('Frequency', 'bit-integrations'), {
-    helper: __('Use a number and a unit: d, w, m or y. For example, 2w.', 'bit-integrations'),
-    required: isCreate
-  }),
-  field('number_recurring', __('Number of Invoices', 'bit-integrations'), {
-    helper: __('Use 0 for no limit.', 'bit-integrations'),
-    required: isCreate
-  }),
+  createDateField(isCreate),
+  field('frequency', __('Frequency (7d, 2w, m, 1y)', 'bit-integrations'), isCreate),
+  field('number_recurring', __('Number of Invoices (0 for no limit)', 'bit-integrations'), isCreate),
   dueOffsetField,
   currencyField(),
   discountField,
@@ -306,31 +236,21 @@ const recurringProfileFields = isCreate => [
 ]
 
 const projectFields = isCreate => [
-  field('title', __('Title', 'bit-integrations'), { required: isCreate }),
+  field('title', __('Title', 'bit-integrations'), isCreate),
   field('description', __('Description', 'bit-integrations')),
-  dateField('due_date', __('Due Date', 'bit-integrations')),
-  field('fixed_price', __('Fixed Price', 'bit-integrations'), {
-    helper: __('Amount for a fixed price project, for example 1000.00.', 'bit-integrations')
-  }),
-  field('rate', __('Rate', 'bit-integrations'), {
-    helper: __('Hourly rate for an hourly rate project, for example 75.00.', 'bit-integrations')
-  }),
-  field('budget', __('Budget', 'bit-integrations'), {
-    helper: __('Use a whole number.', 'bit-integrations')
-  })
+  dueDateField,
+  field('fixed_price', __('Fixed Price', 'bit-integrations')),
+  field('rate', __('Hourly Rate', 'bit-integrations')),
+  field('budget', __('Budget', 'bit-integrations'))
 ]
 
 const timeEntryFields = isCreate => [
-  field('duration', __('Duration', 'bit-integrations'), {
-    helper: __('Number of seconds.', 'bit-integrations'),
-    required: isCreate
-  }),
-  field('started_at', __('Start Time', 'bit-integrations'), {
-    helper: __('Use an ISO 8601 date and time.', 'bit-integrations'),
-    required: isCreate
-  }),
+  field('duration', __('Duration (seconds)', 'bit-integrations'), isCreate),
+  field('started_at', __('Start Time (UTC)', 'bit-integrations'), isCreate),
   noteField
 ]
+
+const idField = (key, label) => field(key, label, true)
 
 const invoiceIdField = idField('invoice_id', __('Invoice ID', 'bit-integrations'))
 const clientIdField = idField('client_id', __('Client ID', 'bit-integrations'))
@@ -385,10 +305,10 @@ export const fieldsByAction = {
   create_time_entry: timeEntryFields(true),
   update_time_entry: [timeEntryIdField, ...timeEntryFields(false)],
   delete_time_entry: [timeEntryIdField],
-  create_service: [field('name', __('Service Name', 'bit-integrations'), { required: true })]
+  create_service: [field('name', __('Service Name', 'bit-integrations'), true)]
 }
 
-export const scopeKeys = ['account_id', 'business_id']
+const scopeKeys = ['account_id', 'business_id']
 
 const select = (key, label, source, required = false) => ({ key, label, required, source })
 
@@ -486,43 +406,44 @@ export const selectsByAction = {
 }
 
 export const selectKeys = [
-  'account_id',
-  'business_id',
-  'client_id',
-  'category_id',
-  'staff_id',
-  'project_id',
-  'vendor_id',
-  'invoice_id',
-  'tax1',
-  'tax2',
-  'service_id',
-  'identity_id',
-  'line_category_id',
-  'credit_type',
-  'project_type',
-  'billing_method'
+  ...new Set(Object.values(selectsByAction).flatMap(selects => selects.map(({ key }) => key)))
 ]
 
 export const scopeKeyOf = action =>
   (selectsByAction[action] || []).find(({ key }) => scopeKeys.includes(key))?.key
 
-const lineReplaceNote = __(
-  'Mapped line item fields replace all current line items. Leave them unmapped to keep the current line items.',
+const lineNameNote = __('Map <b>Line Item Name</b> to send a line item.', 'bit-integrations')
+const lineNameUpdateNote = __(
+  'Map <b>Line Item Name</b> to send a line item. It replaces all current line items. Leave Line Item Name empty to keep the current line items.',
   'bit-integrations'
 )
-const billLineNote = __(
-  'Select a <b>Line Item Category</b> to send the line item fields.',
+const expenseTaxNote = __(
+  '<b>Tax Percent</b> fields do not add tax to the expense. Map the <b>Tax Amount</b> fields to add tax.',
+  'bit-integrations'
+)
+const startTimeNote = __(
+  'Use an ISO 8601 date and time in UTC for <b>Start Time</b>, for example 2026-10-15T10:00:00Z.',
   'bit-integrations'
 )
 
 export const notesByAction = {
-  update_invoice: lineReplaceNote,
-  update_estimate: lineReplaceNote,
-  update_credit_note: lineReplaceNote,
-  update_recurring_profile: lineReplaceNote,
-  create_bill: billLineNote,
-  update_bill: `${billLineNote} ${lineReplaceNote}`
+  create_invoice: lineNameNote,
+  update_invoice: lineNameUpdateNote,
+  create_expense: expenseTaxNote,
+  update_expense: expenseTaxNote,
+  create_estimate: lineNameNote,
+  update_estimate: lineNameUpdateNote,
+  create_credit_note: lineNameNote,
+  update_credit_note: lineNameUpdateNote,
+  create_bill: __('Select a <b>Line Item Category</b> to send a line item.', 'bit-integrations'),
+  update_bill: __(
+    'Select a <b>Line Item Category</b> to send a line item. It replaces all current line items. Leave the category empty to keep the current line items.',
+    'bit-integrations'
+  ),
+  create_recurring_profile: lineNameNote,
+  update_recurring_profile: lineNameUpdateNote,
+  create_time_entry: startTimeNote,
+  update_time_entry: startTimeNote
 }
 
 const checkboxUtility = (key, title, subTitle, value = 'true') => ({ key, subTitle, title, value })
