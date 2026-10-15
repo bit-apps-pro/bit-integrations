@@ -110,11 +110,33 @@ export const timezoneOptions = toOptions([
   ...supportedValues('timeZone').filter(timezone => timezone !== 'UTC')
 ])
 
-export const currencyOptions = toOptions(
-  supportedValues('currency').length
-    ? supportedValues('currency')
-    : ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'NZD', 'INR', 'JPY', 'BRL', 'MXN', 'SGD', 'HKD', 'CHF']
-)
+export const currencyOptions = toOptions([
+  'ARS',
+  'AUD',
+  'BRL',
+  'CAD',
+  'CHF',
+  'CZK',
+  'DKK',
+  'EUR',
+  'GBP',
+  'HKD',
+  'HUF',
+  'ILS',
+  'JPY',
+  'MXN',
+  'MYR',
+  'NOK',
+  'NZD',
+  'PHP',
+  'PLN',
+  'SEK',
+  'SGD',
+  'THB',
+  'TRY',
+  'TWD',
+  'USD'
+])
 
 export const localeOptions = [
   { label: __('German (Austria)', 'bit-integrations'), value: 'de_AT' },
