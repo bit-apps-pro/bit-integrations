@@ -289,9 +289,7 @@ const salesChannelOptions = [
 
 const deliveryMethodOptions = [
   { label: __('Electronic', 'bit-integrations'), value: 'electronic' },
-  { label: __('Will call', 'bit-integrations'), value: 'will_call' },
-  { label: __('Standard shipping', 'bit-integrations'), value: 'standard_shipping' },
-  { label: __('Third party shipping', 'bit-integrations'), value: 'third_party_shipping' }
+  { label: __('Will call', 'bit-integrations'), value: 'will_call' }
 ]
 
 const respondentOptions = [
