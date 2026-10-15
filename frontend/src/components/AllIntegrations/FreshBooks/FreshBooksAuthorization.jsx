@@ -12,9 +12,11 @@ const note = `
         'bit-integrations'
       )}</a>.</li>
       <li>${__('Create an app.', 'bit-integrations')}</li>
+      <li>${__('Select the read and write scopes for the data that your actions use, for example <b>user:invoices:write</b>.', 'bit-integrations')}</li>
       <li>${__('Copy the <b>Client ID</b> and the <b>Client Secret</b> of the app into this form.', 'bit-integrations')}</li>
       <li>${__('Copy the <b>Callback / Redirect URL</b> from this form. Add it to the app as a redirect URI. FreshBooks accepts only HTTPS URLs.', 'bit-integrations')}</li>
       <li>${__('Click <b>Authorize</b>.', 'bit-integrations')}</li>
+      <li>${__('If you change the scopes of the app, authorize again.', 'bit-integrations')}</li>
     </ul>
   `
 
