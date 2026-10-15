@@ -19,11 +19,6 @@ const sources = {
   teamMembers: { route: 'fresh_books_get_team_members', scope: 'business_id' }
 }
 
-const scopeMissingMessage = scope =>
-  scope === 'business_id'
-    ? __('Select a business first.', 'bit-integrations')
-    : __('Select an account first.', 'bit-integrations')
-
 const setSourceOptions = (setConf, source, options, scope, scopeValue) =>
   setConf(prevConf => {
     if (scope && prevConf?.[scope] !== scopeValue) return prevConf
@@ -55,10 +50,7 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
 
   const scopeValue = scope ? conf?.[scope] : undefined
 
-  if (scope && !scopeValue) {
-    if (!silent) toast.error(scopeMissingMessage(scope))
-    return
-  }
+  if (scope && !scopeValue) return
 
   setIsLoading(true)
 
@@ -88,6 +80,12 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
     error: error => error.message,
     loading: __('Loading options...', 'bit-integrations'),
     success: message => message
+  })
+}
+
+export const clearScopedOptions = (draftConf, scope) => {
+  Object.entries(sources).forEach(([source, { scope: sourceScope }]) => {
+    if (sourceScope === scope && draftConf.default) delete draftConf.default[source]
   })
 }
 

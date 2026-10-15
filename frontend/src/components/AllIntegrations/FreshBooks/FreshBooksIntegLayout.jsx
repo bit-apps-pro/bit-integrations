@@ -10,6 +10,7 @@ import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../GlobalIntegrationHelper'
 import FreshBooksActions from './FreshBooksActions'
 import {
+  clearScopedOptions,
   fetchActionSources,
   fetchSource,
   fetchSources,
@@ -74,8 +75,8 @@ export default function FreshBooksIntegLayout({
 
       dependentSelects.forEach(select => {
         delete draftConf[select.key]
-        if (draftConf.default) delete draftConf.default[select.source]
       })
+      clearScopedOptions(draftConf, scopeKey)
     })
 
     setFreshBooksConf(nextConf)
