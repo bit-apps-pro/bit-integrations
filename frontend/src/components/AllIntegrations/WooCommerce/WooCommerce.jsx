@@ -3,14 +3,15 @@ import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { useNavigate, useParams } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WooCommerceAuthorization from './WooCommerceAuthorization'
-import { checkMappedFields, handleInput } from './WooCommerceCommonFunc'
+import { checkMappedFields, getIncompleteFieldMapMessage, handleInput } from './WooCommerceCommonFunc'
 import WooCommerceIntegLayout from './WooCommerceIntegLayout'
+import { moduleFields, moduleSelects } from './staticData'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 
@@ -63,6 +64,24 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         status = 'Product Field Map'
         setSnackbar({ show: true, msg: __("Product Field Map can't be empty", 'bit-integrations') })
       }
+    } else if (moduleFields[wcConf?.module]) {
+      const missingSelect = (moduleSelects[wcConf.module] || []).find(
+        select => select.required && !wcConf?.selects?.[select.key]
+      )
+
+      const fieldMapMessage = getIncompleteFieldMapMessage(wcConf)
+
+      if (fieldMapMessage) {
+        status = 'Field Map'
+        setSnackbar({ show: true, msg: fieldMapMessage })
+      } else if (missingSelect) {
+        status = missingSelect.label
+        setSnackbar({
+          show: true,
+          // translators: %s: Field label
+          msg: sprintf(__('%s is required', 'bit-integrations'), missingSelect.label)
+        })
+      }
     } else if (wcConf?.module === 'changestatus') {
       const fieldMap = checkMappedFields(wcConf.changestatus.field_map)
       if (!fieldMap) {
@@ -97,7 +116,9 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
         setIsLoading={setIsLoading}
         setSnackbar={setSnackbar}
       />
-      <div className="btcd-stp-page" style={{ width: step === 2 && 1000, height: step === 2 && 'auto' }}>
+      <div
+        className="btcd-stp-page"
+        style={{ width: step === 2 && 1000, height: step === 2 && 'auto', minHeight: 500 }}>
         <WooCommerceIntegLayout
           wcConf={wcConf}
           setWcConf={setWcConf}
@@ -105,6 +126,7 @@ export default function WooCommerce({ formFields, setFlow, flow, allIntegURL }) 
           handleInput={e => handleInput(e, wcConf, setWcConf, setIsLoading, setSnackbar, isPro)}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
+          setSnackbar={setSnackbar}
         />
 
         <button onClick={nextPage} className="btn f-right btcd-btn-lg purple sh-sm flx" type="button">

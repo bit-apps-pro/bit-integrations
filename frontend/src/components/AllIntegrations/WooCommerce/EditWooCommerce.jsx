@@ -50,6 +50,7 @@ function EditWooCommerce({ allIntegURL }) {
         handleInput={e => handleInput(e, wcConf, setWcConf, setIsLoading, setSnackbar)}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        setSnackbar={setSnackbar}
       />
 
       <IntegrationStepThree
