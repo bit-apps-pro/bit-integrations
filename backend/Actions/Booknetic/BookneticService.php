@@ -75,11 +75,6 @@ class BookneticService
 
                     break;
 
-                case 'create_payment_link':
-                    $response = Hooks::apply(Config::withPrefix('booknetic_create_payment_link'), $default, $fieldData, $integrationDetails);
-
-                    break;
-
                 case 'create_customer':
                     $response = Hooks::apply(Config::withPrefix('booknetic_create_customer'), $default, $fieldData, $utilities);
 

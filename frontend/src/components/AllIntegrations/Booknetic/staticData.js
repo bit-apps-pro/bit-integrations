@@ -16,7 +16,6 @@ export const modules = [
   },
   { name: 'update_payment', label: __('Update Payment', 'bit-integrations'), is_pro: true },
   { name: 'complete_payment', label: __('Complete Payment', 'bit-integrations'), is_pro: true },
-  { name: 'create_payment_link', label: __('Create Payment Link', 'bit-integrations'), is_pro: true },
   { name: 'create_customer', label: __('Create Customer', 'bit-integrations'), is_pro: true },
   { name: 'update_customer', label: __('Update Customer', 'bit-integrations'), is_pro: true },
   { name: 'delete_customer', label: __('Delete Customer', 'bit-integrations'), is_pro: true },
@@ -209,7 +208,6 @@ export const BookneticStaticData = {
     field('prices', __('Prices (JSON)', 'bit-integrations'))
   ],
   complete_payment: [appointmentId],
-  create_payment_link: [appointmentId],
   create_customer: customerFields(true),
   update_customer: [customerId, ...customerFields(false)],
   delete_customer: [customerId],
@@ -368,12 +366,6 @@ export const requiredSelects = [
     label: __('Payment Status', 'bit-integrations'),
     options: paymentStatusOptions,
     actions: ['update_payment']
-  },
-  {
-    key: 'selectedPaymentGateway',
-    label: __('Payment Gateway', 'bit-integrations'),
-    source: 'payment_gateways',
-    actions: ['create_payment_link']
   },
   {
     key: 'selectedCustomerCategory',
