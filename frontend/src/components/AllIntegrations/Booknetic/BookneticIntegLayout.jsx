@@ -55,8 +55,7 @@ export default function BookneticIntegLayout({
     setBookneticConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
-        draftConf.bookneticFields = BookneticStaticData[value] ?? []
-        draftConf.field_map = generateMappedField(draftConf.bookneticFields)
+        draftConf.field_map = generateMappedField(BookneticStaticData[value] ?? [])
         draftConf.utilities = {}
         requiredSelects.forEach(select => delete draftConf[select.key])
       })
@@ -69,6 +68,9 @@ export default function BookneticIntegLayout({
     )
     loadSources(sources)
   }
+
+  // The select reads defaultValue only on mount, so it remounts once its options arrive.
+  const selectOptions = select => select.options ?? bookneticConf?.default?.[select.source] ?? []
 
   const mapLabel = key =>
     (BookneticStaticData[action] ?? []).find(fieldDef => fieldDef.key === key)?.label ?? key
@@ -110,7 +112,8 @@ export default function BookneticIntegLayout({
               title={select.key}
               defaultValue={bookneticConf?.[select.key] ?? null}
               className="btcd-paper-drpdwn w-5"
-              options={select.options ?? bookneticConf?.default?.[select.source] ?? []}
+              key={selectOptions(select).length}
+              options={selectOptions(select)}
               onChange={val => setSelect(select.key, val)}
               singleSelect={!select.multi}
               closeOnSelect={!select.multi}
@@ -156,7 +159,7 @@ export default function BookneticIntegLayout({
         />
       )}
 
-      {action && bookneticConf.bookneticFields && (
+      {action && BookneticStaticData[action] && (
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <div className="btcd-hr mt-1" />

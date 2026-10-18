@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import ConfirmModal from '../../Utilities/ConfirmModal'
 import TableCheckBox from '../../Utilities/TableCheckBox'
@@ -49,6 +49,17 @@ export default function BookneticActions({ bookneticConf, setBookneticConf }) {
 
   const options = item => item.options ?? bookneticConf?.default?.[item.source] ?? []
 
+  const selectedLabels = item => {
+    const values = String(bookneticConf?.utilities?.[item.key] ?? '')
+      .split(',')
+      .filter(Boolean)
+    const labels = values
+      .map(value => options(item).find(option => option.value === value)?.label)
+      .filter(Boolean)
+
+    return labels.length === values.length && labels.length ? labels.join(', ') : ''
+  }
+
   return (
     <div className="pos-rel d-flx flx-wrp">
       {actionUtilities.map(item => (
@@ -59,7 +70,15 @@ export default function BookneticActions({ bookneticConf, setBookneticConf }) {
           className="wdt-200 mt-4 mr-2"
           value={item.key}
           title={item.title}
-          subTitle={item.subTitle}
+          subTitle={
+            selectedLabels(item)
+              ? sprintf(
+                  // translators: %s: selected option labels
+                  __('Selected: %s', 'bit-integrations'),
+                  selectedLabels(item)
+                )
+              : item.subTitle
+          }
         />
       ))}
 

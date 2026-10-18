@@ -3,6 +3,7 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
+import { BookneticStaticData } from './staticData'
 import {
   addFieldMap,
   delFieldMap,
@@ -14,8 +15,9 @@ export default function BookneticFieldMap({ i, formFields, field, bookneticConf,
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  const requiredFlds = bookneticConf?.bookneticFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = bookneticConf?.bookneticFields?.filter(fld => fld.required === false) || []
+  const fieldDefs = BookneticStaticData[bookneticConf?.mainAction] ?? []
+  const requiredFlds = fieldDefs.filter(fld => fld.required === true)
+  const nonRequiredFlds = fieldDefs.filter(fld => fld.required === false)
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
