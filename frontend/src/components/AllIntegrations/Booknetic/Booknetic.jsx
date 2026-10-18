@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import BookneticAuthorization from './BookneticAuthorization'
-import { checkMappedFields, missingRequiredSelect } from './BookneticCommonFunc'
+import { checkMappedFields, missingRequiredSelect, withoutOptionLists } from './BookneticCommonFunc'
 import BookneticIntegLayout from './BookneticIntegLayout'
 
 export default function Booknetic({ formFields, setFlow, flow, allIntegURL }) {
@@ -112,7 +112,16 @@ export default function Booknetic({ formFields, setFlow, flow, allIntegURL }) {
       <IntegrationStepThree
         step={step}
         saveConfig={() =>
-          saveIntegConfig(flow, setFlow, allIntegURL, bookneticConf, navigate, '', '', setIsLoading)
+          saveIntegConfig(
+            flow,
+            setFlow,
+            allIntegURL,
+            withoutOptionLists(bookneticConf),
+            navigate,
+            '',
+            '',
+            setIsLoading
+          )
         }
         isLoading={isLoading}
         dataConf={bookneticConf}

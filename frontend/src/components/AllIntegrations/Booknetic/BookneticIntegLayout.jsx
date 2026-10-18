@@ -1,15 +1,22 @@
+import { useEffect } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import BookneticActions from './BookneticActions'
-import { generateMappedField, refreshBookneticOptions, selectsForAction } from './BookneticCommonFunc'
+import {
+  generateMappedField,
+  isFieldMapped,
+  refreshBookneticOptions,
+  selectsForAction
+} from './BookneticCommonFunc'
 import BookneticFieldMap from './BookneticFieldMap'
-import { BookneticStaticData, modules, requiredSelects, utilities } from './staticData'
+import Note from '../../Utilities/Note'
+import { actionNotes, BookneticStaticData, modules, requiredSelects, utilities } from './staticData'
 
 export default function BookneticIntegLayout({
   formFields,
@@ -21,6 +28,28 @@ export default function BookneticIntegLayout({
   const { isPro } = useRecoilValue($appConfigState)
   const action = bookneticConf?.mainAction
   const actionSelects = selectsForAction(requiredSelects, action)
+
+  const loadSources = sources => {
+    if (!sources.size) {
+      return
+    }
+
+    setIsLoading(true)
+    Promise.all(
+      [...sources].map(source => refreshBookneticOptions(source, setBookneticConf, () => {}))
+    ).finally(() => setIsLoading(false))
+  }
+
+  useEffect(() => {
+    loadSources(
+      new Set(
+        actionSelects
+          .map(select => select.source)
+          .filter(source => source && !bookneticConf?.default?.[source])
+      )
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleMainAction = value => {
     setBookneticConf(prevConf =>
@@ -38,8 +67,11 @@ export default function BookneticIntegLayout({
         .map(select => select.source)
         .filter(Boolean)
     )
-    sources.forEach(source => refreshBookneticOptions(source, setBookneticConf, setIsLoading))
+    loadSources(sources)
   }
+
+  const mapLabel = key =>
+    (BookneticStaticData[action] ?? []).find(fieldDef => fieldDef.key === key)?.label ?? key
 
   const setSelect = (key, val) => {
     setBookneticConf(prevConf =>
@@ -94,6 +126,21 @@ export default function BookneticIntegLayout({
               </button>
             )}
           </div>
+          {select.mapKey && (
+            <small className="d-blk mt-1 txt-dp" style={{ marginLeft: 200 }}>
+              {isFieldMapped(bookneticConf, select.mapKey)
+                ? sprintf(
+                    // translators: %s: field label
+                    __('The mapped %s field is used.', 'bit-integrations'),
+                    mapLabel(select.mapKey)
+                  )
+                : sprintf(
+                    // translators: %s: field label
+                    __('Or map the %s field below to use a value from the trigger.', 'bit-integrations'),
+                    mapLabel(select.mapKey)
+                  )}
+            </small>
+          )}
         </div>
       ))}
 
@@ -145,6 +192,8 @@ export default function BookneticIntegLayout({
           <br />
         </div>
       )}
+
+      {actionNotes[action] && <Note note={actionNotes[action]} />}
 
       {selectsForAction(utilities, action).length > 0 && (
         <div className="mt-4">

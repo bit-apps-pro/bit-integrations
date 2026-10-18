@@ -16,7 +16,7 @@ export const handleInput = (e, bookneticConf, setBookneticConf) => {
 
 export const refreshBookneticOptions = (type, setBookneticConf, setIsLoading) => {
   setIsLoading(true)
-  bitsFetch({ type }, 'refresh_booknetic_options')
+  return bitsFetch({ type }, 'refresh_booknetic_options')
     .then(result => {
       setIsLoading(false)
 
@@ -37,11 +37,20 @@ export const refreshBookneticOptions = (type, setBookneticConf, setIsLoading) =>
     .catch(() => setIsLoading(false))
 }
 
+export const withoutOptionLists = bookneticConf =>
+  create(bookneticConf, draftConf => {
+    delete draftConf.default
+  })
+
 export const selectsForAction = (selects, action) => selects.filter(s => s.actions.includes(action))
+
+export const isFieldMapped = (bookneticConf, key) =>
+  !!bookneticConf?.field_map?.some(map => map.bookneticField === key && map.formField)
 
 export const missingRequiredSelect = bookneticConf =>
   selectsForAction(requiredSelects, bookneticConf?.mainAction).find(
-    select => !bookneticConf?.[select.key]
+    select =>
+      !bookneticConf?.[select.key] && !(select.mapKey && isFieldMapped(bookneticConf, select.mapKey))
   )
 
 export const checkMappedFields = bookneticConf => {

@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './BookneticCommonFunc'
+import { checkMappedFields, handleInput, withoutOptionLists } from './BookneticCommonFunc'
 import BookneticIntegLayout from './BookneticIntegLayout'
 
 export default function EditBooknetic({ allIntegURL }) {
@@ -54,7 +54,7 @@ export default function EditBooknetic({ allIntegURL }) {
             flow,
             setFlow,
             allIntegURL,
-            conf: bookneticConf,
+            conf: withoutOptionLists(bookneticConf),
             navigate,
             id,
             edit: 1,

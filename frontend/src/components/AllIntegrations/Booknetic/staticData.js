@@ -182,6 +182,10 @@ const nameField = field('name', __('Name', 'bit-integrations'), true)
 export const BookneticStaticData = {
   create_appointment: [
     field('starts_at', __('Starts At (YYYY-MM-DD HH:MM)', 'bit-integrations'), true),
+    field('customer_id', __('Customer ID', 'bit-integrations')),
+    field('location_id', __('Location ID', 'bit-integrations')),
+    field('service_id', __('Service ID', 'bit-integrations')),
+    field('staff_id', __('Staff ID', 'bit-integrations')),
     field('weight', __('Number of Customers', 'bit-integrations')),
     field('paid_amount', __('Paid Amount', 'bit-integrations')),
     field('note', __('Note', 'bit-integrations'))
@@ -256,9 +260,43 @@ export const BookneticStaticData = {
   create_in_app_notification: [
     field('title', __('Title', 'bit-integrations'), true),
     field('message', __('Message', 'bit-integrations'), true),
-    field('action_type', __('Action Type', 'bit-integrations')),
-    field('action_data', __('Action Data', 'bit-integrations'))
+    field('user_id', __('WordPress User ID', 'bit-integrations'))
   ]
+}
+
+export const actionNotes = {
+  create_appointment: __(
+    'Map Starts At as YYYY-MM-DD HH:MM. The staff member must work at the location, give the service and be free at that time.',
+    'bit-integrations'
+  ),
+  update_appointment: __(
+    'Map only the fields to change. Map Starts At as YYYY-MM-DD HH:MM.',
+    'bit-integrations'
+  ),
+  reschedule_appointment: __(
+    'Map Date as YYYY-MM-DD and Time as HH:MM. The staff member must be free at that time.',
+    'bit-integrations'
+  ),
+  update_payment: __(
+    'Prices is a JSON object with one value for each price key of the appointment, for example {"service_price": 50}.',
+    'bit-integrations'
+  ),
+  update_customer: __('Map only the fields to change.', 'bit-integrations'),
+  update_staff: __('Map only the fields to change.', 'bit-integrations'),
+  update_location: __('Map only the fields to change.', 'bit-integrations'),
+  update_service: __('Map only the fields to change.', 'bit-integrations'),
+  update_service_extra: __('Map only the fields to change.', 'bit-integrations'),
+  update_customer_category: __('Map only the fields to change.', 'bit-integrations'),
+  delete_customer: __('Booknetic does not delete a customer that has appointments.', 'bit-integrations'),
+  delete_staff: __(
+    'Booknetic does not delete a staff member that has appointments.',
+    'bit-integrations'
+  ),
+  delete_location: __(
+    'Booknetic does not delete a location that has staff members or appointments.',
+    'bit-integrations'
+  ),
+  delete_service: __('Booknetic does not delete a service that has appointments.', 'bit-integrations')
 }
 
 export const paymentStatusOptions = [
@@ -289,27 +327,32 @@ export const depositTypeOptions = [
 ]
 
 // `source` names a list that refresh_booknetic_options returns; `options` is a fixed list.
+// A select with `mapKey` is optional when the field map maps that key instead.
 export const requiredSelects = [
   {
     key: 'selectedLocation',
+    mapKey: 'location_id',
     label: __('Location', 'bit-integrations'),
     source: 'locations',
     actions: ['create_appointment']
   },
   {
     key: 'selectedService',
+    mapKey: 'service_id',
     label: __('Service', 'bit-integrations'),
     source: 'services',
     actions: ['create_appointment']
   },
   {
     key: 'selectedStaff',
+    mapKey: 'staff_id',
     label: __('Staff', 'bit-integrations'),
     source: 'staff',
     actions: ['create_appointment']
   },
   {
     key: 'selectedCustomer',
+    mapKey: 'customer_id',
     label: __('Customer', 'bit-integrations'),
     source: 'customers',
     actions: ['create_appointment']
@@ -359,6 +402,7 @@ export const requiredSelects = [
   },
   {
     key: 'selectedUser',
+    mapKey: 'user_id',
     label: __('WordPress User', 'bit-integrations'),
     source: 'users',
     actions: ['create_in_app_notification']
