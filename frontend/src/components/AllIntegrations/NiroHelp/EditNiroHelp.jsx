@@ -18,7 +18,7 @@ import { listsByAction } from './staticData'
 
 export default function EditNiroHelp({ allIntegURL }) {
   const navigate = useNavigate()
-  const { id, formID } = useParams()
+  const { id } = useParams()
 
   const [niroHelpConf, setNiroHelpConf] = useRecoilState($actionConf)
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -38,7 +38,7 @@ export default function EditNiroHelp({ allIntegURL }) {
         <b className="wdt-200 d-in-b">{__('Integration Name:', 'bit-integrations')}</b>
         <input
           className="btcd-paper-inp w-5"
-          onChange={e => handleInput(e, niroHelpConf, setNiroHelpConf)}
+          onChange={e => handleInput(e, setNiroHelpConf)}
           name="name"
           value={niroHelpConf.name}
           type="text"
@@ -50,11 +50,9 @@ export default function EditNiroHelp({ allIntegURL }) {
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
       <NiroHelpIntegLayout
-        formID={formID}
         formFields={formFields}
         niroHelpConf={niroHelpConf}
         setNiroHelpConf={setNiroHelpConf}
-        setSnackbar={setSnackbar}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
       />

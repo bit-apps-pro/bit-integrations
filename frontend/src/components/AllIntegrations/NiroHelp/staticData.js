@@ -64,7 +64,7 @@ export const fieldSets = {
   set_follow_up: [
     ticketIdField,
     { key: 'note', label: __('Note', 'bit-integrations'), required: true },
-    { key: 'due_date', label: __('Due Date (Y-m-d)', 'bit-integrations'), required: false },
+    { key: 'due_date', label: __('Due Date (YYYY-MM-DD)', 'bit-integrations'), required: false },
     { key: 'days', label: __('Due in Days', 'bit-integrations'), required: false }
   ],
   clear_follow_up: [ticketIdField],

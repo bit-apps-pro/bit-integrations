@@ -12,7 +12,7 @@ import {
   needsTicketStatus
 } from './staticData'
 
-export const handleInput = (e, niroHelpConf, setNiroHelpConf) => {
+export const handleInput = (e, setNiroHelpConf) => {
   const { name, value } = e.target
 
   setNiroHelpConf(prevConf =>
@@ -160,6 +160,9 @@ export const checkMappedFields = niroHelpConf => {
 export const requiredSelectMissing = niroHelpConf => {
   const { mainAction } = niroHelpConf
 
+  if (!mainAction) {
+    return __('Select an action to continue.', 'bit-integrations')
+  }
   if (needsTicketStatus.includes(mainAction) && !niroHelpConf?.status) {
     return __('Select a status to continue.', 'bit-integrations')
   }

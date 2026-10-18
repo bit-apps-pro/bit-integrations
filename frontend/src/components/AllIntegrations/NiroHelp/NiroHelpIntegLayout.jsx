@@ -68,8 +68,7 @@ export default function NiroHelpIntegLayout({
   niroHelpConf,
   setNiroHelpConf,
   isLoading,
-  setIsLoading,
-  setSnackbar
+  setIsLoading
 }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
@@ -245,11 +244,7 @@ export default function NiroHelpIntegLayout({
         <div className="mt-4">
           <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
           <div className="btcd-hr mt-1" />
-          <NiroHelpActions
-            niroHelpConf={niroHelpConf}
-            setNiroHelpConf={setNiroHelpConf}
-            setSnackbar={setSnackbar}
-          />
+          <NiroHelpActions niroHelpConf={niroHelpConf} setNiroHelpConf={setNiroHelpConf} />
         </div>
       )}
     </>
