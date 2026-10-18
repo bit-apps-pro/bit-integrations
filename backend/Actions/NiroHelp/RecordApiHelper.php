@@ -9,12 +9,12 @@ use BitApps\Integrations\Log\LogHandler;
 
 class RecordApiHelper
 {
-    private const CONFIG_SETTINGS = [
-        'status'    => 'status',
-        'agentId'   => 'agent_id',
-        'sentiment' => 'sentiment',
-        'replyBy'   => 'reply_by',
-        'authorId'  => 'author_id',
+    private const ACTION_CONFIG_SETTINGS = [
+        'change_ticket_status' => ['status' => 'status'],
+        'assign_agent'         => ['agentId' => 'agent_id'],
+        'set_sentiment'        => ['sentiment' => 'sentiment'],
+        'add_reply'            => ['replyBy' => 'reply_by'],
+        'create_doc'           => ['authorId' => 'author_id'],
     ];
 
     private $_integrationID;
@@ -32,13 +32,13 @@ class RecordApiHelper
         if (!\defined('NIROHELP_VERSION')) {
             return [
                 'success' => false,
-                'message' => __('NiroHelp is not installed or activated', 'bit-integrations')
+                'message' => __('NiroHelp is not activated or not installed', 'bit-integrations')
             ];
         }
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-        $settings = $this->settings($utilities);
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_ticket';
+        $settings = $this->settings($mainAction, $utilities);
 
         $defaultResponse = [
             'success' => false,
@@ -178,11 +178,11 @@ class RecordApiHelper
         return $response;
     }
 
-    private function settings($utilities)
+    private function settings($mainAction, $utilities)
     {
         $settings = [];
 
-        foreach (self::CONFIG_SETTINGS as $confKey => $settingKey) {
+        foreach (self::ACTION_CONFIG_SETTINGS[$mainAction] ?? [] as $confKey => $settingKey) {
             if (isset($this->_integrationDetails->{$confKey}) && $this->_integrationDetails->{$confKey} !== '') {
                 $settings[$settingKey] = $this->_integrationDetails->{$confKey};
             }
