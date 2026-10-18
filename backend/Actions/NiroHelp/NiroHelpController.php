@@ -66,7 +66,13 @@ class NiroHelpController
                     'label' => $user->display_name . ' (' . $user->user_email . ')',
                 ];
             },
-            get_users(['orderby' => 'display_name', 'fields' => ['ID', 'display_name', 'user_email']])
+            get_users(
+                [
+                    'orderby'      => 'display_name',
+                    'fields'       => ['ID', 'display_name', 'user_email'],
+                    'role__not_in' => ['nirohelp_user'],
+                ]
+            )
         );
 
         wp_send_json_success(['users' => $users], 200);

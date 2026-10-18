@@ -37,7 +37,7 @@ class RecordApiHelper
         }
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-        $mainAction = $this->_integrationDetails->mainAction ?? 'create_ticket';
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
         $settings = $this->settings($mainAction, $utilities);
 
         $defaultResponse = [
