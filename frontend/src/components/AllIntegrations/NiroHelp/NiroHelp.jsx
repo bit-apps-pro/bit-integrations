@@ -20,7 +20,6 @@ export default function NiroHelp({ formFields, setFlow, flow, allIntegURL }) {
     name: 'NiroHelp',
     type: 'NiroHelp',
     field_map: [{ formField: '', niroHelpField: '' }],
-    actions: {},
     mainAction: ''
   })
 

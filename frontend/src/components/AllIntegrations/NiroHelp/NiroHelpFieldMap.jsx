@@ -70,7 +70,7 @@ export default function NiroHelpFieldMap({ i, formFields, field, niroHelpConf, s
             className="btcd-paper-inp"
             disabled={i < requiredFlds.length}
             name="niroHelpField"
-            value={i < requiredFlds ? requiredFlds[i].label || '' : field.niroHelpField || ''}
+            value={i < requiredFlds.length ? requiredFlds[i].key || '' : field.niroHelpField || ''}
             onChange={ev => handleFieldMapping(ev, i, niroHelpConf, setNiroHelpConf)}>
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (

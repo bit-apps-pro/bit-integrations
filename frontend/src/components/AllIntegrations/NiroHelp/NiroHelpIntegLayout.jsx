@@ -7,7 +7,12 @@ import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/IntegrationHelpers'
 import NiroHelpActions from './NiroHelpActions'
-import { generateMappedField, refreshNiroHelpList, refreshNiroHelpLists } from './NiroHelpCommonFunc'
+import {
+  generateMappedField,
+  refreshNiroHelpCustomFields,
+  refreshNiroHelpList,
+  refreshNiroHelpLists
+} from './NiroHelpCommonFunc'
 import NiroHelpFieldMap from './NiroHelpFieldMap'
 import {
   customerReplyOption,
@@ -15,11 +20,13 @@ import {
   listsByAction,
   modules,
   needsAssignAgent,
+  needsCustomFields,
   needsDocAuthor,
   needsReplyAuthor,
   needsSentiment,
   needsTicketStatus,
   noAgentOption,
+  oneOfFieldsNote,
   sentimentOptions,
   ticketStatusOptions,
   utilitiesByAction
@@ -78,6 +85,11 @@ export default function NiroHelpIntegLayout({
     setNiroHelpConf(prevConf =>
       create(prevConf, draftConf => {
         draftConf.mainAction = value
+        delete draftConf.status
+        delete draftConf.agentId
+        delete draftConf.sentiment
+        delete draftConf.replyBy
+        delete draftConf.authorId
         draftConf.niroHelpFields = fieldSets[value] || []
         draftConf.field_map = generateMappedField(draftConf.niroHelpFields)
         draftConf.utilities = {}
@@ -181,8 +193,23 @@ export default function NiroHelpIntegLayout({
 
       {mainAction && niroHelpConf.niroHelpFields && (
         <div className="mt-4">
-          <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
+          <div className="flx">
+            <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
+            {needsCustomFields.includes(mainAction) && (
+              <button
+                onClick={() => refreshNiroHelpCustomFields(setNiroHelpConf, setIsLoading)}
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': `'${__('Refresh Custom Fields', 'bit-integrations')}'` }}
+                type="button"
+                disabled={isLoading}>
+                &#x21BB;
+              </button>
+            )}
+          </div>
           <div className="btcd-hr mt-1" />
+          {oneOfFieldsNote[mainAction] && (
+            <p className="mt-2 mb-0 txt-dp">{oneOfFieldsNote[mainAction]}</p>
+          )}
           <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
             <div className="txt-dp">
               <b>{__('Form Fields', 'bit-integrations')}</b>

@@ -133,6 +133,10 @@ export const customerReplyOption = {
   value: 'customer'
 }
 
+export const oneOfFieldsNote = {
+  set_follow_up: __('Map Due Date or Due in Days. Do not map both.', 'bit-integrations')
+}
+
 export const needsTicketStatus = ['change_ticket_status']
 export const needsAssignAgent = ['assign_agent']
 export const needsSentiment = ['set_sentiment']
@@ -183,13 +187,10 @@ const ticketUtilities = [
   )
 ]
 
+const docStatusUtility = subTitle =>
+  selectUtility('status', __('Status', 'bit-integrations'), subTitle, { options: docStatusOptions })
+
 const docUtilities = [
-  selectUtility(
-    'status',
-    __('Status', 'bit-integrations'),
-    __('Set the doc status. A new doc is published by default.', 'bit-integrations'),
-    { options: docStatusOptions }
-  ),
   selectUtility(
     'topic_id',
     __('Topic', 'bit-integrations'),
@@ -230,8 +231,11 @@ export const utilitiesByAction = {
       { list: 'allAgents' }
     )
   ],
-  create_doc: docUtilities,
-  update_doc: docUtilities,
+  create_doc: [
+    docStatusUtility(__('Set the doc status. A new doc is published by default.', 'bit-integrations')),
+    ...docUtilities
+  ],
+  update_doc: [docStatusUtility(__('Set the doc status.', 'bit-integrations')), ...docUtilities],
   create_topic: [
     selectUtility(
       'parent_id',

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { $actionConf, $formFields, $newFlow } from '../../../GlobalStates'
@@ -7,8 +7,14 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput, requiredSelectMissing } from './NiroHelpCommonFunc'
+import {
+  checkMappedFields,
+  handleInput,
+  refreshNiroHelpLists,
+  requiredSelectMissing
+} from './NiroHelpCommonFunc'
 import NiroHelpIntegLayout from './NiroHelpIntegLayout'
+import { listsByAction } from './staticData'
 
 export default function EditNiroHelp({ allIntegURL }) {
   const navigate = useNavigate()
@@ -19,6 +25,10 @@ export default function EditNiroHelp({ allIntegURL }) {
   const formFields = useRecoilValue($formFields)
   const [isLoading, setIsLoading] = useState(false)
   const [snack, setSnackbar] = useState({ show: false })
+
+  useEffect(() => {
+    refreshNiroHelpLists(listsByAction[niroHelpConf?.mainAction] || [], setNiroHelpConf, setIsLoading)
+  }, [])
 
   return (
     <div style={{ width: 900 }}>
