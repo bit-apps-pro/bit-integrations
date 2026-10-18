@@ -205,7 +205,7 @@ export const BookneticStaticData = {
   update_payment: [
     appointmentId,
     field('paid_amount', __('Paid Amount', 'bit-integrations')),
-    field('prices', __('Prices (JSON)', 'bit-integrations'))
+    field('service_price', __('Service Price', 'bit-integrations'))
   ],
   complete_payment: [appointmentId],
   create_customer: customerFields(true),
@@ -276,7 +276,7 @@ export const actionNotes = {
     'bit-integrations'
   ),
   update_payment: __(
-    'Prices is a JSON object with one value for each price key of the appointment, for example {"service_price": 50}.',
+    'Service Price is the total for all customers of the appointment. Other prices stay the same.',
     'bit-integrations'
   ),
   update_customer: __('Map only the fields to change.', 'bit-integrations'),
@@ -324,8 +324,6 @@ export const depositTypeOptions = [
   { label: __('Fixed Amount', 'bit-integrations'), value: 'price' }
 ]
 
-// `source` names a list that refresh_booknetic_options returns; `options` is a fixed list.
-// A select with `mapKey` is optional when the field map maps that key instead.
 export const requiredSelects = [
   {
     key: 'selectedLocation',

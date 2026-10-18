@@ -69,7 +69,6 @@ export default function BookneticIntegLayout({
     loadSources(sources)
   }
 
-  // The select reads defaultValue only on mount, so it remounts once its options arrive.
   const selectOptions = select => select.options ?? bookneticConf?.default?.[select.source] ?? []
 
   const mapLabel = key =>
