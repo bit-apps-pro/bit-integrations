@@ -4,6 +4,8 @@ namespace BitApps\Integrations\Actions\Booknetic;
 
 class BookneticHelper
 {
+    private const OPTION_LIMIT = 500;
+
     private const MODEL_OPTIONS = [
         'locations'           => 'BookneticApp\Models\Location',
         'services'            => 'BookneticApp\Models\Service',
@@ -65,7 +67,7 @@ class BookneticHelper
 
         $options = [];
 
-        foreach ($modelClass::query()->orderBy('id DESC')->fetchAll() as $record) {
+        foreach ($modelClass::query()->orderBy('id DESC')->limit(self::OPTION_LIMIT)->fetchAll() as $record) {
             $label = (string) ($record->name ?? '');
             $options[] = [
                 'value' => (string) $record->id,
@@ -84,7 +86,7 @@ class BookneticHelper
 
         $options = [];
 
-        foreach (\BookneticApp\Models\Customer::query()->orderBy('id DESC')->fetchAll() as $customer) {
+        foreach (\BookneticApp\Models\Customer::query()->orderBy('id DESC')->limit(self::OPTION_LIMIT)->fetchAll() as $customer) {
             $name = trim($customer->first_name . ' ' . $customer->last_name);
             $label = $name !== '' ? $name : '#' . (int) $customer->id;
 
@@ -132,7 +134,7 @@ class BookneticHelper
     {
         $options = [];
 
-        foreach (get_users(['fields' => ['ID', 'display_name', 'user_email']]) as $user) {
+        foreach (get_users(['fields' => ['ID', 'display_name', 'user_email'], 'number' => self::OPTION_LIMIT]) as $user) {
             $options[] = [
                 'value' => (string) $user->ID,
                 'label' => ($user->display_name ?: $user->user_email) . ' (' . $user->user_email . ')',

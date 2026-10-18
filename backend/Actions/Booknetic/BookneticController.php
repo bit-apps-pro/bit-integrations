@@ -10,7 +10,7 @@ class BookneticController
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
+        $fieldMap = $integrationDetails->field_map ?? [];
         $utilities = $integrationDetails->utilities ?? [];
 
         if (empty($fieldMap)) {
