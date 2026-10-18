@@ -90,7 +90,7 @@ export const fieldSets = {
   ],
   add_agent: [
     { key: 'user_id', label: __('User ID', 'bit-integrations'), required: true },
-    { key: 'max_tickets', label: __('Open Ticket Limit', 'bit-integrations'), required: false }
+    { key: 'max_tickets', label: __('Max Open Tickets', 'bit-integrations'), required: false }
   ]
 }
 
