@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\SendPulse;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class SendPulseService
 {
     private $_integrationID;
 

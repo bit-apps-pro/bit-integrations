@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\SendPulse\SendPulseController;
+use BitApps\Integrations\Actions\SendPulse\SendPulseHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('sendPulse_lists', [SendPulseController::class, 'getAllList']);
-Route::post('sendPulse_headers', [SendPulseController::class, 'sendPulseHeaders']);
+Route::post('sendPulse_lists', [SendPulseHelper::class, 'getAllList']);
+Route::post('sendPulse_headers', [SendPulseHelper::class, 'sendPulseHeaders']);

@@ -70,8 +70,6 @@ backend/Actions/RoxAppointmentBooking/RoxAppointmentBookingController.php
 backend/Actions/Salesforce/RecordApiHelper.php
 backend/Actions/Salesmate/RecordApiHelper.php
 backend/Actions/Salesmate/SalesmateController.php
-backend/Actions/SendPulse/RecordApiHelper.php
-backend/Actions/SendPulse/SendPulseController.php
 backend/Actions/Slack/FilesApiHelper.php
 backend/Actions/Slack/RecordApiHelper.php
 backend/Actions/Slack/SlackController.php
