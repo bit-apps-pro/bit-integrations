@@ -187,8 +187,6 @@ backend/Actions/PCloud/RecordApiHelper.php
 backend/Actions/Pabbly/PabblyController.php
 backend/Actions/PeepSo/PeepSoController.php
 backend/Actions/PeepSo/RecordApiHelper.php
-backend/Actions/PerfexCRM/PerfexCRMController.php
-backend/Actions/PerfexCRM/RecordApiHelper.php
 backend/Actions/PipeDrive/PipeDriveController.php
 backend/Actions/PipeDrive/RecordApiHelper.php
 backend/Actions/Pods/PodsController.php
