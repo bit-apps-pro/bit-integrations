@@ -50,8 +50,6 @@ backend/Actions/Dropbox/DropboxController.php
 backend/Actions/Dropbox/RecordApiHelper.php
 backend/Actions/ElementsKit/ElementsKitController.php
 backend/Actions/ElementsKit/RecordApiHelper.php
-backend/Actions/EventsManager/EventsManagerController.php
-backend/Actions/EventsManager/RecordApiHelper.php
 backend/Actions/Fabman/FabmanController.php
 backend/Actions/Fabman/RecordApiHelper.php
 backend/Actions/Flodesk/FlodeskController.php

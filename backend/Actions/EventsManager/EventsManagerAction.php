@@ -8,7 +8,7 @@ namespace BitApps\Integrations\Actions\EventsManager;
 
 use WP_Error;
 
-class EventsManagerController
+class EventsManagerAction
 {
     public function execute($integrationData, $fieldValues)
     {
@@ -20,7 +20,7 @@ class EventsManagerController
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new EventsManagerService($integrationDetails, $integId);
 
         return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
