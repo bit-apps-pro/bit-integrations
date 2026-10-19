@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Salesmate;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class SalesmateService
 {
     private $integrationDetails;
 
