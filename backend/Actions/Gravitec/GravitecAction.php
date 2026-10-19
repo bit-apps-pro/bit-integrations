@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Gravitec;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-class GravitecController
+class GravitecAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::BASIC_AUTH,
@@ -35,7 +35,7 @@ class GravitecController
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Gravitec'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $appKey, $appSecret);
+        $recordApiHelper = new GravitecService($integrationDetails, $integId, $appKey, $appSecret);
         $gravitecApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
 
         if (is_wp_error($gravitecApiResponse)) {

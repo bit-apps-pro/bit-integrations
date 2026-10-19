@@ -103,8 +103,6 @@ backend/Actions/GoogleDrive/GoogleDriveController.php
 backend/Actions/GoogleDrive/RecordApiHelper.php
 backend/Actions/GoogleSheet/GoogleSheetController.php
 backend/Actions/GoogleSheet/RecordApiHelper.php
-backend/Actions/Gravitec/GravitecController.php
-backend/Actions/Gravitec/RecordApiHelper.php
 backend/Actions/Groundhogg/GroundhoggController.php
 backend/Actions/Groundhogg/RecordApiHelper.php
 backend/Actions/HefflCRM/HefflCRMController.php
