@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Nimble;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class NimbleController
+class NimbleHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'nimble',
-        'fields'   => [
-            'api_key' => 'value',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -101,29 +91,6 @@ class NimbleController
         } else {
             wp_send_json_error(__('Field fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $apiKey = !empty($integrationDetails->api_key) ? $integrationDetails->api_key : (isset($integrationDetails->value) ? $integrationDetails->value : '');
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($apiKey) || empty($actionName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Nimble'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiKey);
-        $nimbleApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($nimbleApiResponse)) {
-            return $nimbleApiResponse;
-        }
-
-        return $nimbleApiResponse;
     }
 
     private function checkValidation($apiKey, $customParam = '**')

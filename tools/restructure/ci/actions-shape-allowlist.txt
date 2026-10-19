@@ -10,8 +10,6 @@ backend/Actions/Flodesk/FlodeskController.php
 backend/Actions/Flodesk/RecordApiHelper.php
 backend/Actions/Moosend/MoosendController.php
 backend/Actions/Moosend/RecordApiHelper.php
-backend/Actions/Nimble/NimbleController.php
-backend/Actions/Nimble/RecordApiHelper.php
 backend/Actions/QuizAndSurveyMaster/QuizAndSurveyMasterController.php
 backend/Actions/QuizAndSurveyMaster/RecordApiHelper.php
 backend/Actions/QuizMaker/QuizMakerController.php
