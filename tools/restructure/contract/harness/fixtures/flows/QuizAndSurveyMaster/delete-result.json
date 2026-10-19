@@ -1,0 +1,17 @@
+{
+    "name": "QuizAndSurveyMaster smoke: trash result (Pro seam quiz_and_survey_master_delete_result)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "QuizAndSurveyMaster",
+        "name": "QuizAndSurveyMaster smoke",
+        "mainAction": "delete_result",
+        "field_map": [
+            {"formField": "result-id", "quizAndSurveyMasterField": "result_id"}
+        ],
+        "actions": {},
+        "utilities": {"selected_delete_permanently": "0"},
+        "isAuthorized": true
+    },
+    "field_data": {"result-id": "1"}
+}

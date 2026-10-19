@@ -1,0 +1,20 @@
+{
+    "name": "WpSimpleBookingCalendar smoke: book a three-day range (Pro seam wp_simple_booking_calendar_book_date_range)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "WpSimpleBookingCalendar",
+        "name": "WpSimpleBookingCalendar smoke",
+        "mainAction": "book_date_range",
+        "selectedCalendar": "16",
+        "selectedLegendItem": "71",
+        "field_map": [
+            {"formField": "check-in", "wpSimpleBookingCalendarField": "start_date"},
+            {"formField": "check-out", "wpSimpleBookingCalendarField": "end_date"},
+            {"formField": "your-message", "wpSimpleBookingCalendarField": "description"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"check-in": "2030-02-01", "check-out": "2030-02-03", "your-message": "Smoke range booking"}
+}

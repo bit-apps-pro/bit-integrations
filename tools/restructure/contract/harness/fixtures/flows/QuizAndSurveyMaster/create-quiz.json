@@ -1,0 +1,16 @@
+{
+    "name": "QuizAndSurveyMaster smoke: create quiz, no utilities (Pro seam quiz_and_survey_master_create_quiz)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "QuizAndSurveyMaster",
+        "name": "QuizAndSurveyMaster smoke",
+        "mainAction": "create_quiz",
+        "field_map": [
+            {"formField": "quiz-name", "quizAndSurveyMasterField": "quiz_name"}
+        ],
+        "actions": {},
+        "isAuthorized": true
+    },
+    "field_data": {"quiz-name": "Smoke Quiz", "your-email": "smoke@example.com"}
+}

@@ -1,0 +1,25 @@
+{
+    "name": "QuizAndSurveyMaster smoke: create question with answers (Pro seam quiz_and_survey_master_create_question)",
+    "triggered_entity": "CF7",
+    "triggered_entity_id": "1",
+    "flow_details": {
+        "type": "QuizAndSurveyMaster",
+        "name": "QuizAndSurveyMaster smoke",
+        "mainAction": "create_question",
+        "selectedQuestionType": "0",
+        "field_map": [
+            {"formField": "quiz-id", "quizAndSurveyMasterField": "quiz_id"},
+            {"formField": "custom", "quizAndSurveyMasterField": "question_name", "customValue": "Smoke question from ${your-name}?"},
+            {"formField": "question-hint", "quizAndSurveyMasterField": "hint"},
+            {"formField": "answer-yes", "quizAndSurveyMasterField": "answer_1"},
+            {"formField": "custom", "quizAndSurveyMasterField": "answer_1_points", "customValue": "5"},
+            {"formField": "custom", "quizAndSurveyMasterField": "answer_1_correct", "customValue": "1"},
+            {"formField": "answer-no", "quizAndSurveyMasterField": "answer_2"},
+            {"formField": "custom", "quizAndSurveyMasterField": "answer_2_correct", "customValue": "0"}
+        ],
+        "actions": {},
+        "utilities": {"selected_required": "1"},
+        "isAuthorized": true
+    },
+    "field_data": {"quiz-id": "2", "your-name": "Smoke Name", "question-hint": "Smoke hint", "answer-yes": "Yes", "answer-no": "No"}
+}
