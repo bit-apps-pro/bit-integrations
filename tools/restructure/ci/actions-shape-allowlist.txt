@@ -191,8 +191,6 @@ backend/Actions/Trello/TrelloController.php
 backend/Actions/TutorLms/TutorLmsController.php
 backend/Actions/Twilio/RecordApiHelper.php
 backend/Actions/Twilio/TwilioController.php
-backend/Actions/UltimateAffiliatePro/RecordApiHelper.php
-backend/Actions/UltimateAffiliatePro/UltimateAffiliateProController.php
 backend/Actions/UncannyAutomator/UncannyAutomatorController.php
 backend/Actions/UserRegistrationMembership/RecordApiHelper.php
 backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php

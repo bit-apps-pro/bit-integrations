@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class UltimateAffiliateProService
 {
     private $_integrationID;
 
@@ -25,7 +25,7 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap)
     {
-        if (!UltimateAffiliateProController::pluginActive()) {
+        if (!UltimateAffiliateProHelper::pluginActive()) {
             return [
                 'success' => false,
                 'message' => __('Ultimate Affiliate Pro is not installed or activated', 'bit-integrations')
