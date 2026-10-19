@@ -218,8 +218,6 @@ backend/Actions/SecureCustomFields/RecordApiHelper.php
 backend/Actions/SecureCustomFields/SecureCustomFieldsController.php
 backend/Actions/Selzy/RecordApiHelper.php
 backend/Actions/Selzy/SelzyController.php
-backend/Actions/SendFox/RecordApiHelper.php
-backend/Actions/SendFox/SendFoxController.php
 backend/Actions/SendGrid/RecordApiHelper.php
 backend/Actions/SendGrid/SendGridController.php
 backend/Actions/SendPulse/RecordApiHelper.php
