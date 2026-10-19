@@ -35,8 +35,6 @@ backend/Actions/Trello/RecordApiHelper.php
 backend/Actions/Trello/TrelloController.php
 backend/Actions/UserRegistrationMembership/RecordApiHelper.php
 backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php
-backend/Actions/Voxel/RecordApiHelper.php
-backend/Actions/Voxel/VoxelController.php
 backend/Actions/WebbaBooking/RecordApiHelper.php
 backend/Actions/WebbaBooking/WebbaBookingController.php
 backend/Actions/WooCommerce/RecordApiHelper.php

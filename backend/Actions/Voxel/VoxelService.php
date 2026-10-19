@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Voxel;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class VoxelService
 {
     private $_integrationID;
 
