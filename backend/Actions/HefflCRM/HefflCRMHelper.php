@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\HefflCRM;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class HefflCRMController
+class HefflCRMHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'hefflcrm',
-        'fields'   => [
-            'api_key' => 'value',
-        ],
-    ];
-
     private const BASE_URL = 'https://api.heffl.com/api/v1';
 
     private const PAGE_LIMIT = 100;
@@ -93,23 +83,6 @@ class HefflCRMController
             self::fetchListItems($requestParams, '/leads', [self::class, 'leadLabel']),
             200
         );
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $apiKey = $integrationDetails->api_key ?? '';
-        $fieldMap = $integrationDetails->field_map ?? [];
-
-        if (empty($fieldMap) || empty($apiKey)) {
-            // translators: %s is the name of the integration.
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('API key and field map are required for %s api', 'bit-integrations'), 'Heffl CRM'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     public static function buildHeaders($apiKey)

@@ -77,8 +77,6 @@ backend/Actions/GoogleSheet/GoogleSheetController.php
 backend/Actions/GoogleSheet/RecordApiHelper.php
 backend/Actions/Groundhogg/GroundhoggController.php
 backend/Actions/Groundhogg/RecordApiHelper.php
-backend/Actions/HefflCRM/HefflCRMController.php
-backend/Actions/HefflCRM/RecordApiHelper.php
 backend/Actions/HighLevel/HighLevelController.php
 backend/Actions/HighLevel/RecordApiHelper.php
 backend/Actions/Hubspot/HubspotController.php
