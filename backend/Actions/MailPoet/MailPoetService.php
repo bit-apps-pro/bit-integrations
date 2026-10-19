@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use Exception;
 
-class RecordApiHelper
+class MailPoetService
 {
     private $_integrationID;
 

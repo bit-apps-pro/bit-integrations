@@ -113,8 +113,6 @@ backend/Actions/LionDesk/RecordApiHelper.php
 backend/Actions/Mail/MailController.php
 backend/Actions/MailMint/MailMintController.php
 backend/Actions/MailMint/RecordApiHelper.php
-backend/Actions/MailPoet/MailPoetController.php
-backend/Actions/MailPoet/RecordApiHelper.php
 backend/Actions/MailerLite/MailerLiteController.php
 backend/Actions/MailerLite/RecordApiHelper.php
 backend/Actions/MailerPress/MailerPressController.php
