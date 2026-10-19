@@ -6,37 +6,13 @@ use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-class WPCoursewareController
+class WPCoursewareAction
 {
     private $integrationID;
 
     public function __construct($integrationID)
     {
         $this->integrationID = $integrationID;
-    }
-
-    public static function WPCWCourses()
-    {
-        if (!is_plugin_active('wp-courseware/wp-courseware.php')) {
-            wp_send_json_error(__('WP Courseware Plugin is not active or installed', 'bit-integrations'), 400);
-        }
-
-        $wpcwCourses = \function_exists('wpcw_get_courses') ? wpcw_get_courses() : [];
-
-        $courses = [(object) [
-            'id'    => 'select_all_course',
-            'title' => 'All Courses'
-        ]];
-
-        foreach ($wpcwCourses as $course) {
-            $courses[] = (object) [
-                'id'    => $course->course_id,
-                'title' => $course->course_title
-            ];
-        }
-
-        $response['WPCWCourses'] = $courses;
-        wp_send_json_success($response, 200);
     }
 
     public function execute($integrationData, $fieldValues)
@@ -65,7 +41,7 @@ class WPCoursewareController
             return new WP_Error('REQ_FIELD_EMPTY', __('Action, Course are required for WP Courseware api', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($this->integrationID);
+        $recordApiHelper = new WPCoursewareService($this->integrationID);
 
         return $recordApiHelper->execute($action, $course, $userId, $allCourse);
     }

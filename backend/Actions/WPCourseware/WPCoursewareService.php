@@ -4,7 +4,7 @@ namespace BitApps\Integrations\Actions\WPCourseware;
 
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class WPCoursewareService
 {
     private $integrationID;
 

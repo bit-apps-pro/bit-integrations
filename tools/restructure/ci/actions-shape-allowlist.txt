@@ -324,8 +324,6 @@ backend/Actions/WCAffiliate/RecordApiHelper.php
 backend/Actions/WCAffiliate/WCAffiliateController.php
 backend/Actions/WPCafe/RecordApiHelper.php
 backend/Actions/WPCafe/WPCafeController.php
-backend/Actions/WPCourseware/RecordApiHelper.php
-backend/Actions/WPCourseware/WPCoursewareController.php
 backend/Actions/WPForo/RecordApiHelper.php
 backend/Actions/WPForo/WPForoController.php
 backend/Actions/WPFusion/WPFusionController.php
