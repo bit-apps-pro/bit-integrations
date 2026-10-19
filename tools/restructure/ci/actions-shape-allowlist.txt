@@ -229,8 +229,6 @@ backend/Actions/OneHashCRM/RecordApiHelper.php
 backend/Actions/PCloud/PCloudController.php
 backend/Actions/PCloud/RecordApiHelper.php
 backend/Actions/Pabbly/PabblyController.php
-backend/Actions/PaidMembershipPro/PaidMembershipProController.php
-backend/Actions/PaidMembershipPro/RecordApiHelper.php
 backend/Actions/PeepSo/PeepSoController.php
 backend/Actions/PeepSo/RecordApiHelper.php
 backend/Actions/PerfexCRM/PerfexCRMController.php
