@@ -128,8 +128,6 @@ backend/Actions/MondayCom/RecordApiHelper.php
 backend/Actions/Moosend/MoosendController.php
 backend/Actions/Moosend/RecordApiHelper.php
 backend/Actions/N8n/N8nController.php
-backend/Actions/NextCrm/NextCrmController.php
-backend/Actions/NextCrm/RecordApiHelper.php
 backend/Actions/Nimble/NimbleController.php
 backend/Actions/Nimble/RecordApiHelper.php
 backend/Actions/NinjaTables/NinjaTablesController.php
