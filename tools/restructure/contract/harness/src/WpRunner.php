@@ -115,22 +115,7 @@ final class WpRunner
      */
     public function sql(string $sql): array
     {
-        $command = [$this->php, $this->wpCli, '--path=' . $this->workspace->wpPath, 'db', 'query', $sql, '--skip-column-names', '--batch'];
-        $process = proc_open($command, [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, $this->workspace->wpPath);
-
-        if (!\is_resource($process)) {
-            throw new RuntimeException('cannot start wp db query');
-        }
-
-        fclose($pipes[0]);
-        $out = (string) stream_get_contents($pipes[1]);
-        $err = (string) stream_get_contents($pipes[2]);
-        fclose($pipes[1]);
-        fclose($pipes[2]);
-
-        if (proc_close($process) !== 0) {
-            throw new RuntimeException('wp db query failed: ' . trim($err));
-        }
+        $out = $this->capture('wp db query', [$this->php, $this->wpCli, '--path=' . $this->workspace->wpPath, 'db', 'query', $sql, '--skip-column-names', '--batch']);
 
         $rows = [];
         foreach (preg_split('~\R~', trim($out)) as $line) {
@@ -140,6 +125,46 @@ final class WpRunner
         }
 
         return $rows;
+    }
+
+    /**
+     * Runs PHP through `wp eval` with plugins loaded but without the harness, so its writes are committed.
+     */
+    public function evalCommitted(string $code): void
+    {
+        $this->capture('wp eval', [
+            $this->php,
+            '-d', 'disable_functions=' . self::DISABLED_FUNCTIONS,
+            '-d', 'allow_url_fopen=0',
+            $this->wpCli,
+            '--path=' . $this->workspace->wpPath,
+            'eval',
+            $code,
+        ]);
+    }
+
+    /**
+     * @param list<string> $command
+     */
+    private function capture(string $what, array $command): string
+    {
+        $process = proc_open($command, [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, $this->workspace->wpPath);
+
+        if (!\is_resource($process)) {
+            throw new RuntimeException("cannot start {$what}");
+        }
+
+        fclose($pipes[0]);
+        $out = (string) stream_get_contents($pipes[1]);
+        $err = (string) stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        if (proc_close($process) !== 0) {
+            throw new RuntimeException("{$what} failed: " . trim($err));
+        }
+
+        return $out;
     }
 
     private static function which(string $binary): string

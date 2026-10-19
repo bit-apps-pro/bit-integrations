@@ -81,6 +81,15 @@ final class Session
         return $payload;
     }
 
+    /**
+     * Once StoreInCache's day-long active-trigger transient expires, every rolled-back process rebuilds it
+     * at boot, which loads Model before Probe::begin() and drops its compile-time deprecations from the record.
+     */
+    public function primeTriggerCache(): void
+    {
+        $this->runner->evalCommitted('BitApps\Integrations\Core\Util\StoreInCache::getActiveFlowEntities(true);');
+    }
+
     public function fingerprintBefore(): void
     {
         if ($this->options->flag('no-fingerprint')) {

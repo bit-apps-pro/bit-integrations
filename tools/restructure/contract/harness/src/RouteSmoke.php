@@ -44,6 +44,7 @@ final class RouteSmoke
         }
 
         $this->reach = new HttpReach($session->source);
+        $session->primeTriggerCache();
         $this->context = $session->discover($candidates);
         $session->fingerprintBefore();
 

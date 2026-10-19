@@ -22,6 +22,7 @@ final class FlowSmoke
     {
         $session = $this->session;
         $types = $this->types = new FlowTypes($session->source, $session->workspace);
+        $session->primeTriggerCache();
         $this->context = $session->discover();
         $session->fingerprintBefore();
 
