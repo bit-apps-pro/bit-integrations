@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class RecordApiHelper
+class MainWPService
 {
     private $_integrationID;
 

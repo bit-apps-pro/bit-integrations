@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class MainWPController
+class MainWPHelper
 {
     public static function isExists(): void
     {
@@ -39,16 +39,5 @@ class MainWPController
         }
 
         wp_send_json_success(['sites' => $sites], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-
-        $RecordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $RecordApiHelper->execute($fieldValues, $fieldMap);
     }
 }

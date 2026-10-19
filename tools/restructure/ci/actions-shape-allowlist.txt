@@ -119,8 +119,6 @@ backend/Actions/MailerPress/MailerPressController.php
 backend/Actions/MailerPress/RecordApiHelper.php
 backend/Actions/Mailup/MailupController.php
 backend/Actions/Mailup/RecordApiHelper.php
-backend/Actions/MainWP/MainWPController.php
-backend/Actions/MainWP/RecordApiHelper.php
 backend/Actions/MasterStudyLms/MasterStudyLmsController.php
 backend/Actions/MasterStudyLms/RecordApiHelper.php
 backend/Actions/Mautic/MauticController.php
