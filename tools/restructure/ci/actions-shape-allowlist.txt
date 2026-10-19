@@ -277,8 +277,6 @@ backend/Actions/WishlistMember/RecordApiHelper.php
 backend/Actions/WishlistMember/WishlistMemberController.php
 backend/Actions/WooCommerce/RecordApiHelper.php
 backend/Actions/WooCommerce/WooCommerceController.php
-backend/Actions/Woodpecker/RecordApiHelper.php
-backend/Actions/Woodpecker/WoodpeckerController.php
 backend/Actions/WordPress/RecordApiHelper.php
 backend/Actions/WordPress/WordPressController.php
 backend/Actions/WpDataTables/RecordApiHelper.php
