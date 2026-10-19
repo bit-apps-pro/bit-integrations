@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\ClinchPad;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class ClinchPadController
+class ClinchPadHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'clinchpad',
-        'fields'   => [
-            'api_key' => 'value',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -108,28 +98,5 @@ class ClinchPadController
         } else {
             wp_send_json_error(__('Contacts fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $authToken = $integrationDetails->api_key;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($authToken) || empty($actionName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'ClinchPad'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $clinchPadApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($clinchPadApiResponse)) {
-            return $clinchPadApiResponse;
-        }
-
-        return $clinchPadApiResponse;
     }
 }

@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\ClinchPad\ClinchPadController;
+use BitApps\Integrations\Actions\ClinchPad\ClinchPadHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('clinchPad_fetch_all_parentOrganizations', [ClinchPadController::class, 'getAllParentOrganizations']);
-Route::post('clinchPad_fetch_all_CRMPipelines', [ClinchPadController::class, 'getAllCRMPipelines']);
-Route::post('clinchPad_fetch_all_CRMContacts', [ClinchPadController::class, 'getAllCRMContacts']);
+Route::post('clinchPad_fetch_all_parentOrganizations', [ClinchPadHelper::class, 'getAllParentOrganizations']);
+Route::post('clinchPad_fetch_all_CRMPipelines', [ClinchPadHelper::class, 'getAllCRMPipelines']);
+Route::post('clinchPad_fetch_all_CRMContacts', [ClinchPadHelper::class, 'getAllCRMContacts']);
