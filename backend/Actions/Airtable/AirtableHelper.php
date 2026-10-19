@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Airtable;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class AirtableController
+class AirtableHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'airtable',
-        'fields'   => [
-            'auth_token' => 'token',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     public function fetchAllBases($fieldsRequestParams)
@@ -117,26 +107,5 @@ class AirtableController
         } else {
             wp_send_json_error(__('Table fields fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $auth_token = $integrationDetails->auth_token;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap) || empty($auth_token)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('fields are required for Airtable api', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $airtableApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap);
-
-        if (is_wp_error($airtableApiResponse)) {
-            return $airtableApiResponse;
-        }
-
-        return $airtableApiResponse;
     }
 }

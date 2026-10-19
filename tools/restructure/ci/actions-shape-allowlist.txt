@@ -10,8 +10,6 @@ backend/Actions/Affiliate/AffiliateController.php
 backend/Actions/Affiliate/RecordApiHelper.php
 backend/Actions/AgiledCRM/AgiledCRMController.php
 backend/Actions/AgiledCRM/RecordApiHelper.php
-backend/Actions/Airtable/AirtableController.php
-backend/Actions/Airtable/RecordApiHelper.php
 backend/Actions/Albato/AlbatoController.php
 backend/Actions/AntApps/AntAppsController.php
 backend/Actions/AsgarosForum/AsgarosForumController.php
