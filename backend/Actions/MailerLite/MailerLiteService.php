@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class MailerLiteService
 {
     private $_integrationID;
 
