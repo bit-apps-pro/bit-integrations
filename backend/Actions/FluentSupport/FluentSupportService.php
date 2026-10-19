@@ -14,7 +14,7 @@ use FluentSupport\App\Models\Customer;
 use FluentSupport\App\Models\Ticket;
 use FluentSupport\App\Services\Helper;
 
-class RecordApiHelper
+class FluentSupportService
 {
     private $_integrationID;
 

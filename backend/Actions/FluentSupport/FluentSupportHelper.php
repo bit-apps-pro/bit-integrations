@@ -9,9 +9,7 @@ namespace BitApps\Integrations\Actions\FluentSupport;
 use FluentSupport\App\Models\Agent;
 use FluentSupport\App\Models\MailBox;
 
-use WP_Error;
-
-class FluentSupportController
+class FluentSupportHelper
 {
     public function getCustomFields()
     {
@@ -54,28 +52,5 @@ class FluentSupportController
             );
         }
         wp_send_json_success(\is_string($businessInboxes) ? json_decode($businessInboxes) : $businessInboxes, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integrationId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($integrationDetails)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('module, required fields are empty', 'bit-integrations'));
-        }
-        $recordApiHelper = new RecordApiHelper($integrationId);
-        $fluentSupportApiResponse = $recordApiHelper->execute(
-            $fieldValues,
-            $fieldMap,
-            $integrationDetails
-        );
-
-        if (is_wp_error($fluentSupportApiResponse)) {
-            return $fluentSupportApiResponse;
-        }
-
-        return $fluentSupportApiResponse;
     }
 }

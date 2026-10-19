@@ -59,8 +59,6 @@ backend/Actions/FluentCart/FluentCartController.php
 backend/Actions/FluentCart/RecordApiHelper.php
 backend/Actions/FluentPlayer/FluentPlayerController.php
 backend/Actions/FluentPlayer/RecordApiHelper.php
-backend/Actions/FluentSupport/FluentSupportController.php
-backend/Actions/FluentSupport/RecordApiHelper.php
 backend/Actions/FormyChat/FormyChatController.php
 backend/Actions/FormyChat/RecordApiHelper.php
 backend/Actions/FreshSales/FreshSalesController.php
