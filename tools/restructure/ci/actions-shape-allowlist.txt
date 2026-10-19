@@ -70,8 +70,6 @@ backend/Actions/Dropbox/DropboxController.php
 backend/Actions/Dropbox/RecordApiHelper.php
 backend/Actions/ElementsKit/ElementsKitController.php
 backend/Actions/ElementsKit/RecordApiHelper.php
-backend/Actions/EmailOctopus/EmailOctopusController.php
-backend/Actions/EmailOctopus/RecordApiHelper.php
 backend/Actions/Encharge/EnchargeController.php
 backend/Actions/Encharge/RecordApiHelper.php
 backend/Actions/EventsManager/EventsManagerController.php

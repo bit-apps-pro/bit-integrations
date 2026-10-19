@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\EmailOctopus;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class EmailOctopusController
+class EmailOctopusHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'emailoctopus',
-        'fields'   => [
-            'auth_token' => 'token',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     public function fetchAllLists($fieldsRequestParams)
@@ -95,28 +85,5 @@ class EmailOctopusController
         } else {
             wp_send_json_success($tags, 200);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $auth_token = $integrationDetails->auth_token;
-        $selectedList = $integrationDetails->selectedList;
-        $selectedTags = $integrationDetails->selectedTags;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap) || empty($auth_token) || empty($selectedList)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('fields are required for EmailOctopus api', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $emailOctopusApiResponse = $recordApiHelper->execute($selectedTags, $fieldValues, $fieldMap, $selectedList);
-
-        if (is_wp_error($emailOctopusApiResponse)) {
-            return $emailOctopusApiResponse;
-        }
-
-        return $emailOctopusApiResponse;
     }
 }
