@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use CURLFile;
 
-class RecordApiHelper
+class ClickupService
 {
     private $integrationDetails;
 
