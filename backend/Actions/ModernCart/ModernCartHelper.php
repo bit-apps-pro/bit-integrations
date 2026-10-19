@@ -6,7 +6,7 @@
 
 namespace BitApps\Integrations\Actions\ModernCart;
 
-class ModernCartController
+class ModernCartHelper
 {
     public static function isExists()
     {
@@ -108,15 +108,6 @@ class ModernCartController
         }
 
         wp_send_json_success(['cartItems' => $items], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId            = $integrationData->id;
-        $fieldMap           = $integrationDetails->field_map ?? [];
-
-        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
     }
 
     private static function isWooCommerceAvailable()
