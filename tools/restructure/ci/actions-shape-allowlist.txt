@@ -39,8 +39,6 @@ backend/Actions/FluentCart/FluentCartController.php
 backend/Actions/FluentCart/RecordApiHelper.php
 backend/Actions/FluentPlayer/FluentPlayerController.php
 backend/Actions/FluentPlayer/RecordApiHelper.php
-backend/Actions/FreshSales/FreshSalesController.php
-backend/Actions/FreshSales/RecordApiHelper.php
 backend/Actions/Freshdesk/AllFilesApiHelper.php
 backend/Actions/Freshdesk/FilesApiHelper.php
 backend/Actions/Freshdesk/FreshdeskController.php
