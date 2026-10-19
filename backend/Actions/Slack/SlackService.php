@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class SlackService
 {
     private $_defaultHeader;
 
@@ -61,7 +61,7 @@ class RecordApiHelper
                     'file'            => \is_array($file) ? $file[0] : $file
                 ];
 
-                $sendPhotoApiHelper = new FilesApiHelper($this->_accessToken);
+                $sendPhotoApiHelper = new SlackFilesService($this->_accessToken);
                 $recordApiResponse = $sendPhotoApiHelper->uploadFiles($this->_apiEndPoint, $data, $this->_accessToken);
             } else {
                 $data = [

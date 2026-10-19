@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
-final class FilesApiHelper
+final class SlackFilesService
 {
     private $_defaultHeader;
 
