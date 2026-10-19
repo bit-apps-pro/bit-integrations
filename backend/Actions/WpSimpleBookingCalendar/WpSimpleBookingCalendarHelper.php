@@ -6,9 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WpSimpleBookingCalendar;
 
-use WP_Error;
-
-class WpSimpleBookingCalendarController
+class WpSimpleBookingCalendarHelper
 {
     public static function isExists()
     {
@@ -72,21 +70,6 @@ class WpSimpleBookingCalendarController
         }
 
         wp_send_json_success(['legendItems' => $legendItems], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     public static function isPluginActive()

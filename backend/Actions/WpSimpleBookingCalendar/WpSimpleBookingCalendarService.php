@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class WpSimpleBookingCalendarService
 {
     private $_integrationID;
 
@@ -25,7 +25,7 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap)
     {
-        if (!WpSimpleBookingCalendarController::isPluginActive()) {
+        if (!WpSimpleBookingCalendarHelper::isPluginActive()) {
             return [
                 'success' => false,
                 'message' => __('WP Simple Booking Calendar is not installed or activated', 'bit-integrations')
