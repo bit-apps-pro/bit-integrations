@@ -7,7 +7,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use CURLFile;
 
-class RecordApiHelper
+class PCloudService
 {
     protected $token;
 
