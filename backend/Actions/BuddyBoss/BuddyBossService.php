@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use BP_Suspend_Member;
 
-class RecordApiHelper
+class BuddyBossService
 {
     private const CREATE_GROUP_PRO = 1;
 
@@ -336,7 +336,7 @@ class RecordApiHelper
         $data = [
             'group_id'             => $group_id,
             'friend_id'            => $friendId,
-            'notification_content' => BuddyBossController::sanitizeNotificationContent(do_shortcode($finalData['notification_content'])),
+            'notification_content' => BuddyBossHelper::sanitizeNotificationContent(do_shortcode($finalData['notification_content'])),
             'notification_link'    => esc_url_raw(do_shortcode($finalData['notification_link'] ?? '')),
         ];
 
@@ -480,7 +480,7 @@ class RecordApiHelper
             );
 
             $data = [
-                'notification_content' => BuddyBossController::sanitizeNotificationContent(do_shortcode($finalData['notification_content'])),
+                'notification_content' => BuddyBossHelper::sanitizeNotificationContent(do_shortcode($finalData['notification_content'])),
                 'notification_link'    => esc_url_raw(do_shortcode($finalData['notification_link'] ?? '')),
             ];
 

@@ -2,8 +2,6 @@ backend/Actions/BitCrm/BitCrmController.php
 backend/Actions/BitCrm/RecordApiHelper.php
 backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php
 backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php
-backend/Actions/BuddyBoss/BuddyBossController.php
-backend/Actions/BuddyBoss/RecordApiHelper.php
 backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ClinchPad/ClinchPadController.php
