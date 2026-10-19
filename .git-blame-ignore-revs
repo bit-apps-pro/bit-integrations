@@ -373,3 +373,7 @@ cadb002d9e3ae32af83e2a4aa1ee68584e77fb09
 2677093bdd410887b93c3e1164afcd39e30f61f2
 # refactor(actions): move BitCrm to Action/Service/Helper layout
 2e0d7792d5bf5b5f0fcc985c330bd72c9d968fc7
+# refactor(actions): move Salesforce to Action/Service/Helper layout
+fd45e91428c3c466baa7baff9055bf72e225ae0e
+# refactor(actions): move Moosend to Action/Service/Helper layout
+409fd5fa6b5af845bb1f872e54570c40364a600b
