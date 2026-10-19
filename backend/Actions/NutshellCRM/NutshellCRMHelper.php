@@ -6,21 +6,10 @@
 
 namespace BitApps\Integrations\Actions\NutshellCRM;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class NutshellCRMController
+class NutshellCRMHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BASIC_AUTH,
-        'slug'     => 'nutshellcrm',
-        'fields'   => [
-            'user_name' => 'username',
-            'api_token' => 'password',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -203,30 +192,6 @@ class NutshellCRMController
         } else {
             wp_send_json_error(__('CompanyTypes fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $userName = $integrationDetails->user_name;
-        $apiToken = $integrationDetails->api_token;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($userName) || empty($apiToken) || empty($actionName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'NutshellCRM'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $userName, $apiToken);
-        $nutshellCRMApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($nutshellCRMApiResponse)) {
-            return $nutshellCRMApiResponse;
-        }
-
-        return $nutshellCRMApiResponse;
     }
 
     private function setApiEndpoint()
