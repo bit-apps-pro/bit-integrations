@@ -377,3 +377,19 @@ cadb002d9e3ae32af83e2a4aa1ee68584e77fb09
 fd45e91428c3c466baa7baff9055bf72e225ae0e
 # refactor(actions): move Moosend to Action/Service/Helper layout
 409fd5fa6b5af845bb1f872e54570c40364a600b
+# refactor(actions): move BookingsAndAppointmentsForWoocommerce to Action/Service/Helper layout
+8bf246a1770407c6e20b39fd1ccca0e78b2f29b2
+# refactor(actions): move Charitable to Action/Service/Helper layout
+968d3e4a6eee53b4eed3d044f50c6024e0713c60
+# refactor(actions): move ElementsKit to Action/Service/Helper layout
+86fa17500cd78d8fb3a27b0bf14313b6b1f36193
+# refactor(actions): move Flodesk to Action/Service/Helper layout
+43b4c0ef803112d23ceb85b3259d7cbdb975fe7a
+# refactor(actions): move QuizAndSurveyMaster to Action/Service/Helper layout
+d5621e7807ee74a55b49d43504249158afbd7008
+# refactor(actions): move QuizMaker to Action/Service/Helper layout
+dd3521bd2da0d73103d33bdf942fb3f236dc1c55
+# refactor(actions): move RoxAppointmentBooking to Action/Service/Helper layout
+c545d4889604489ece020f427eda8d5036b76326
+# refactor(actions): move WpSimpleBookingCalendar to Action/Service/Helper layout
+2d640ac12c9707d7b9d5bb80dde3ad91ceeb2ed3
