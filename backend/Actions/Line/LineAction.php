@@ -4,7 +4,7 @@ namespace BitApps\Integrations\Actions\Line;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
 
-class LineController
+class LineAction
 {
     public const APIENDPOINT = 'https://api.line.me/v2/bot';
 
@@ -21,7 +21,7 @@ class LineController
         $integrationDetails = $integrationData->flow_details;
         $integrationId = $integrationData->id;
         $access_token = $integrationDetails->accessToken;
-        $recordApiHelper = new RecordApiHelper(self::APIENDPOINT, $access_token, $integrationId);
+        $recordApiHelper = new LineService(self::APIENDPOINT, $access_token, $integrationId);
 
         return $recordApiHelper->execute($integrationDetails, $fieldValues);
     }
