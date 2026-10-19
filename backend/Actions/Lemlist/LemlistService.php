@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\Lemlist;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class LemlistService
 {
     private $_integrationID;
 

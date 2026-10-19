@@ -134,8 +134,6 @@ backend/Actions/LatePoint/LatePointController.php
 backend/Actions/LatePoint/RecordApiHelper.php
 backend/Actions/LearnDash/LearnDashController.php
 backend/Actions/LearnDash/RecordApiHelper.php
-backend/Actions/Lemlist/LemlistController.php
-backend/Actions/Lemlist/RecordApiHelper.php
 backend/Actions/LifterLms/LifterLmsController.php
 backend/Actions/LifterLms/RecordApiHelper.php
 backend/Actions/Line/LineController.php
