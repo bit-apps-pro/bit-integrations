@@ -285,8 +285,6 @@ backend/Actions/SeoPress/SeoPressController.php
 backend/Actions/Slack/FilesApiHelper.php
 backend/Actions/Slack/RecordApiHelper.php
 backend/Actions/Slack/SlackController.php
-backend/Actions/SliceWp/RecordApiHelper.php
-backend/Actions/SliceWp/SliceWpController.php
 backend/Actions/Smaily/RecordApiHelper.php
 backend/Actions/Smaily/SmailyController.php
 backend/Actions/SmartSuite/RecordApiHelper.php

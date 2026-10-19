@@ -4,17 +4,8 @@ namespace BitApps\Integrations\Actions\SliceWp;
 
 use WP_Error;
 
-class SliceWpController
+class SliceWpAction
 {
-    public static function pluginActive($option = null)
-    {
-        if (is_plugin_active('slicewp/index.php')) {
-            return $option === 'get_name' ? 'slicewp/index.php' : true;
-        }
-
-        return false;
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
@@ -31,7 +22,7 @@ class SliceWpController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'sliceWp affiliate'));
         }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new SliceWpService($integrationDetails, $integId);
         $sliceWpApiResponse = $recordApiHelper->execute(
             $mainAction,
             $fieldValues,
