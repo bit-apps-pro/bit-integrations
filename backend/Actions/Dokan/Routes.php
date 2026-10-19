@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Dokan\DokanController;
+use BitApps\Integrations\Actions\Dokan\DokanHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('dokan_fetch_eu_fields', [DokanController::class, 'getEUFields']);
-Route::post('dokan_fetch_vendors', [DokanController::class, 'getAllVendors']);
+Route::post('dokan_fetch_eu_fields', [DokanHelper::class, 'getEUFields']);
+Route::post('dokan_fetch_vendors', [DokanHelper::class, 'getAllVendors']);

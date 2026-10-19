@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use WeDevs\DokanPro\Refund\Validator;
 
-class RecordApiHelper
+class DokanService
 {
     private $_integrationID;
 
