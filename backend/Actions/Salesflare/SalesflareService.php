@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Salesflare;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class SalesflareService
 {
     private $integrationDetails;
 
