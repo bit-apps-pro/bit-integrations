@@ -4,8 +4,6 @@ backend/Actions/AcademyLms/AcademyLmsController.php
 backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationController.php
 backend/Actions/Affiliate/AffiliateController.php
 backend/Actions/Affiliate/RecordApiHelper.php
-backend/Actions/AgiledCRM/AgiledCRMController.php
-backend/Actions/AgiledCRM/RecordApiHelper.php
 backend/Actions/Albato/AlbatoController.php
 backend/Actions/AntApps/AntAppsController.php
 backend/Actions/AutomatorWP/AutomatorWPController.php
