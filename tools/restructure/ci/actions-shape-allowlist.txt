@@ -21,8 +21,6 @@ backend/Actions/BitForm/BitFormController.php
 backend/Actions/BitForm/RecordApiHelper.php
 backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php
 backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php
-backend/Actions/BrilliantDirectories/BrilliantDirectoriesController.php
-backend/Actions/BrilliantDirectories/RecordApiHelper.php
 backend/Actions/BuddyBoss/BuddyBossController.php
 backend/Actions/BuddyBoss/RecordApiHelper.php
 backend/Actions/CapsuleCRM/CapsuleCRMController.php

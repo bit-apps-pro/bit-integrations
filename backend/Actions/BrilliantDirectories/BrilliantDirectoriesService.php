@@ -16,7 +16,7 @@ use BitApps\Integrations\Log\LogHandler;
  * Every Brilliant Directories action is Pro — this class only builds the payload and
  * fires the matching hook. All API traffic happens in Bit Integrations Pro.
  */
-class RecordApiHelper
+class BrilliantDirectoriesService
 {
     private $_integrationID;
 
