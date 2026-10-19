@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class CustomApiController
+class CustomApiAction
 {
     public static function execute($integrationDetails, $fieldValues)
     {
