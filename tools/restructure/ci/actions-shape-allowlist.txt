@@ -37,8 +37,6 @@ backend/Actions/ConvertKit/ConvertKitController.php
 backend/Actions/ConvertKit/RecordApiHelper.php
 backend/Actions/CopperCRM/CopperCRMController.php
 backend/Actions/CopperCRM/RecordApiHelper.php
-backend/Actions/CreatorLms/CreatorLmsController.php
-backend/Actions/CreatorLms/RecordApiHelper.php
 backend/Actions/CustomAction/CustomActionController.php
 backend/Actions/CustomApi/CustomApiController.php
 backend/Actions/Discord/DiscordController.php
