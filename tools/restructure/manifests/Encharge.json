@@ -1,0 +1,384 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 29,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "const",
+            "from": "method:enchargeheaders",
+            "line": 43,
+            "to": "const:APIENDPOINT",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 77,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 91,
+        "modifiers": [],
+        "path": "backend/Actions/Encharge/EnchargeController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Encharge/EnchargeController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Encharge/EnchargeAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Encharge/EnchargeHelper.php"
+        },
+        {
+            "from": "backend/Actions/Encharge/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Encharge/EnchargeService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Encharge/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 39,
+            "helper": 31
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Encharge",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Encharge\\EnchargeController": {
+            "const:APIENDPOINT": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper"
+            ],
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeAction"
+            ],
+            "method:enchargeheaders": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeAction"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Encharge\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Encharge\\EnchargeService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "const:APIENDPOINT",
+            "kind": "const",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "APIENDPOINT"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                27,
+                30
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:enchargeheaders",
+            "kind": "method",
+            "lines": [
+                32,
+                61
+            ],
+            "names": [
+                "enchargeHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                63,
+                89
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Encharge",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Encharge\\RecordApiHelper",
+            "file": "backend/Actions/Encharge/EnchargeController.php",
+            "kind": "new",
+            "line": 77,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeController",
+            "file": "backend/Actions/Encharge/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Encharge\\EnchargeController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeController",
+            "file": "backend/Actions/Encharge/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:enchargeheaders",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper",
+            "text": "EnchargeController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Encharge\\EnchargeController": [
+            "BitApps\\Integrations\\Actions\\Encharge\\EnchargeAction",
+            "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Encharge\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Encharge/Routes.php",
+            "line": 10,
+            "method": "enchargeHeaders",
+            "route": "encharge_headers",
+            "target": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Encharge/RecordApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_endpoint",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    21,
+                    27
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    29,
+                    32
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    34,
+                    64
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:combinetagswithexisting",
+                "kind": "method",
+                "lines": [
+                    66,
+                    82
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Encharge/EnchargeController.php": "a4d119f37bfecbd91c765559bdb9b619516687f5",
+        "backend/Actions/Encharge/RecordApiHelper.php": "ba9a6edbf370f0758fbe5156b7a6101cb5b854e5",
+        "backend/Actions/Encharge/Routes.php": "fff6ab7c8eb6e94c6f5a1d68bb6d3c5de49e82ac"
+    },
+    "sources": {
+        "backend/Actions/Encharge/EnchargeAction.php": [
+            "backend/Actions/Encharge/EnchargeController.php"
+        ],
+        "backend/Actions/Encharge/EnchargeHelper.php": [
+            "backend/Actions/Encharge/EnchargeController.php"
+        ],
+        "backend/Actions/Encharge/EnchargeService.php": [
+            "backend/Actions/Encharge/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Encharge/EnchargeAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeHelper",
+            "origin": "created",
+            "path": "backend/Actions/Encharge/EnchargeHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Encharge/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Encharge\\RecordApiHelper",
+                "to": "backend/Actions/Encharge/EnchargeService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Encharge\\EnchargeService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Encharge"
+    ]
+}

@@ -1,0 +1,432 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 28,
+            "to": "method:extractauthtoken",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 29,
+            "to": "method:extractdomain",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallgroups",
+            "line": 67,
+            "to": "method:extractauthtoken",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallgroups",
+            "line": 68,
+            "to": "method:extractdomain",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 153,
+        "modifiers": [],
+        "path": "backend/Actions/MailRelay/MailRelayController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MailRelay/MailRelayController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailRelay/MailRelayHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MailRelay/MailRelayAction.php"
+        },
+        {
+            "from": "backend/Actions/MailRelay/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailRelay/MailRelayService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MailRelay/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 39,
+            "helper": 92
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MailRelay",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayAction"
+            ],
+            "method:extractauthtoken": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper"
+            ],
+            "method:extractdomain": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper"
+            ],
+            "method:getallgroups": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MailRelay\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                26,
+                63
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallgroups",
+            "kind": "method",
+            "lines": [
+                65,
+                101
+            ],
+            "names": [
+                "getAllGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                103,
+                133
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:extractauthtoken",
+            "kind": "method",
+            "lines": [
+                135,
+                146
+            ],
+            "names": [
+                "extractAuthToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:extractdomain",
+            "kind": "method",
+            "lines": [
+                148,
+                151
+            ],
+            "names": [
+                "extractDomain"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MailRelay",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailRelay\\RecordApiHelper",
+            "file": "backend/Actions/MailRelay/MailRelayController.php",
+            "kind": "new",
+            "line": 120,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController",
+            "file": "backend/Actions/MailRelay/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController",
+            "file": "backend/Actions/MailRelay/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper",
+            "text": "MailRelayController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController",
+            "file": "backend/Actions/MailRelay/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper",
+            "text": "MailRelayController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayController": [
+            "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayAction",
+            "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MailRelay\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MailRelay/Routes.php",
+            "line": 10,
+            "method": "getCustomFields",
+            "route": "mailRelay_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MailRelay/Routes.php",
+            "line": 11,
+            "method": "getAllGroups",
+            "route": "mailRelay_fetch_all_groups",
+            "target": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MailRelay/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_requestStoringTypes",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    29
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    31,
+                    86
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    88,
+                    102
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    104,
+                    117
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:isexist",
+                "kind": "method",
+                "lines": [
+                    119,
+                    131
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MailRelay/MailRelayController.php": "e5f25658eeeb3242683b614f1d95ecfa88e3d905",
+        "backend/Actions/MailRelay/RecordApiHelper.php": "50928ab1b3af1dfc5ba6489ffa5880a6d26c466c",
+        "backend/Actions/MailRelay/Routes.php": "1e18ce1c4f4f58c3b421f9ae4b853cbcbb29de0f"
+    },
+    "sources": {
+        "backend/Actions/MailRelay/MailRelayAction.php": [
+            "backend/Actions/MailRelay/MailRelayController.php"
+        ],
+        "backend/Actions/MailRelay/MailRelayHelper.php": [
+            "backend/Actions/MailRelay/MailRelayController.php"
+        ],
+        "backend/Actions/MailRelay/MailRelayService.php": [
+            "backend/Actions/MailRelay/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayAction",
+            "origin": "created",
+            "path": "backend/Actions/MailRelay/MailRelayAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MailRelay/MailRelayHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MailRelay/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MailRelay\\RecordApiHelper",
+                "to": "backend/Actions/MailRelay/MailRelayService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MailRelay\\MailRelayService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "MailRelay"
+    ]
+}

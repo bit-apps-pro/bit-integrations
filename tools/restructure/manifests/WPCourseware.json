@@ -1,0 +1,321 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 15,
+            "to": "property:integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 45,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 55,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 68,
+            "to": "property:integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 73,
+        "modifiers": [],
+        "path": "backend/Actions/WPCourseware/WPCoursewareController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WPCourseware/WPCoursewareController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WPCourseware/WPCoursewareAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WPCourseware/WPCoursewareHelper.php"
+        },
+        {
+            "from": "backend/Actions/WPCourseware/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WPCourseware/WPCoursewareService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WPCourseware/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 35,
+            "helper": 23
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WPCourseware",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WPCourseware\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareAction"
+            ],
+            "method:wpcwcourses": [
+                "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareHelper"
+            ],
+            "property:integrationID": [
+                "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:integrationID",
+            "kind": "property",
+            "lines": [
+                11,
+                11
+            ],
+            "names": [
+                "integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                13,
+                16
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:wpcwcourses",
+            "kind": "method",
+            "lines": [
+                18,
+                40
+            ],
+            "names": [
+                "WPCWCourses"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                42,
+                71
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WPCourseware",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareController",
+            "file": "backend/Actions/WPCourseware/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareController",
+            "file": "backend/Actions/WPCourseware/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:wpcwcourses",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareHelper",
+            "text": "WPCoursewareController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPCourseware\\RecordApiHelper",
+            "file": "backend/Actions/WPCourseware/WPCoursewareController.php",
+            "kind": "new",
+            "line": 68,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WPCourseware\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareService",
+        "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareController": [
+            "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareAction",
+            "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WPCourseware/Routes.php",
+            "line": 10,
+            "method": "WPCWCourses",
+            "route": "wpCourseware_courses",
+            "target": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WPCourseware/RecordApiHelper.php": [
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    9,
+                    9
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    11,
+                    14
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:enrollandunroll",
+                "kind": "method",
+                "lines": [
+                    16,
+                    51
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    53,
+                    64
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WPCourseware/RecordApiHelper.php": "0fcccdf185a0154d9d7b8f74938388b3bd1abd3b",
+        "backend/Actions/WPCourseware/Routes.php": "0e4632920964a1d1954aa01a37294cba4ffd726a",
+        "backend/Actions/WPCourseware/WPCoursewareController.php": "1b72fd4a61536aea799eb1c79806b9aa64264692"
+    },
+    "sources": {
+        "backend/Actions/WPCourseware/WPCoursewareAction.php": [
+            "backend/Actions/WPCourseware/WPCoursewareController.php"
+        ],
+        "backend/Actions/WPCourseware/WPCoursewareHelper.php": [
+            "backend/Actions/WPCourseware/WPCoursewareController.php"
+        ],
+        "backend/Actions/WPCourseware/WPCoursewareService.php": [
+            "backend/Actions/WPCourseware/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WPCourseware/WPCoursewareAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareHelper",
+            "origin": "created",
+            "path": "backend/Actions/WPCourseware/WPCoursewareHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WPCourseware/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WPCourseware\\RecordApiHelper",
+                "to": "backend/Actions/WPCourseware/WPCoursewareService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WPCourseware\\WPCoursewareService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "WPCourseware"
+    ]
+}

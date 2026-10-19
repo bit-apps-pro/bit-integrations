@@ -1,0 +1,692 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:customfields",
+            "line": 31,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:customfields",
+            "line": 33,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:customfields",
+            "line": 34,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 57,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 59,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 60,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallaccounts",
+            "line": 77,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallaccounts",
+            "line": 79,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallaccounts",
+            "line": 80,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallpipelines",
+            "line": 102,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallpipelines",
+            "line": 104,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallpipelines",
+            "line": 105,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setapiendpoint",
+            "line": 151,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 170,
+        "modifiers": [],
+        "path": "backend/Actions/Salesflare/SalesflareController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Salesflare/SalesflareController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Salesflare/SalesflareHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Salesflare/SalesflareAction.php"
+        },
+        {
+            "from": "backend/Actions/Salesflare/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Salesflare/SalesflareService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Salesflare/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 29,
+            "helper": 114
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader",
+            "property:domain"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Salesflare",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Salesflare\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController": {
+            "method:checkvalidation": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "method:customfields": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareAction"
+            ],
+            "method:getallaccounts": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "method:getallpipelines": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "method:getalltags": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "method:setapiendpoint": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareAction"
+            ],
+            "property:domain": [
+                "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:domain",
+            "kind": "property",
+            "lines": [
+                27,
+                27
+            ],
+            "names": [
+                "domain"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:customfields",
+            "kind": "method",
+            "lines": [
+                29,
+                53
+            ],
+            "names": [
+                "customFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltags",
+            "kind": "method",
+            "lines": [
+                55,
+                73
+            ],
+            "names": [
+                "getAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallaccounts",
+            "kind": "method",
+            "lines": [
+                75,
+                98
+            ],
+            "names": [
+                "getAllAccounts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallpipelines",
+            "kind": "method",
+            "lines": [
+                100,
+                124
+            ],
+            "names": [
+                "getAllPipelines"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                126,
+                147
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:setapiendpoint",
+            "kind": "method",
+            "lines": [
+                149,
+                152
+            ],
+            "names": [
+                "setApiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:checkvalidation",
+            "kind": "method",
+            "lines": [
+                154,
+                159
+            ],
+            "names": [
+                "checkValidation"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                161,
+                168
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Salesflare",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:customfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "text": "SalesflareController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "text": "SalesflareController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallaccounts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "text": "SalesflareController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController",
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallpipelines",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "text": "SalesflareController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\RecordApiHelper",
+            "file": "backend/Actions/Salesflare/SalesflareController.php",
+            "kind": "new",
+            "line": 139,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Salesflare\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareService",
+        "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareController": [
+            "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareAction",
+            "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "line": 10,
+            "method": "customFields",
+            "route": "Salesflare_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "line": 11,
+            "method": "getAllTags",
+            "route": "Salesflare_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "line": 12,
+            "method": "getAllAccounts",
+            "route": "Salesflare_fetch_all_account",
+            "target": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesflare/Routes.php",
+            "line": 13,
+            "method": "getAllPipelines",
+            "route": "Salesflare_fetch_all_pipelines",
+            "target": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Salesflare/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addaccount",
+                "kind": "method",
+                "lines": [
+                    37,
+                    49
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    51,
+                    66
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addopprtunity",
+                "kind": "method",
+                "lines": [
+                    68,
+                    88
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    90,
+                    100
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    102,
+                    121
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setdata",
+                "kind": "method",
+                "lines": [
+                    123,
+                    147
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Salesflare/RecordApiHelper.php": "5cc8d0f998f2fda300870ac397890e1a26721336",
+        "backend/Actions/Salesflare/Routes.php": "d9c550888e0736066cb5858fefb2235fbd2db954",
+        "backend/Actions/Salesflare/SalesflareController.php": "c5f0331ebd9422426d9513c3084dddfc6f6a954d"
+    },
+    "sources": {
+        "backend/Actions/Salesflare/SalesflareAction.php": [
+            "backend/Actions/Salesflare/SalesflareController.php"
+        ],
+        "backend/Actions/Salesflare/SalesflareHelper.php": [
+            "backend/Actions/Salesflare/SalesflareController.php"
+        ],
+        "backend/Actions/Salesflare/SalesflareService.php": [
+            "backend/Actions/Salesflare/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareAction",
+            "origin": "created",
+            "path": "backend/Actions/Salesflare/SalesflareAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Salesflare/SalesflareHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Salesflare/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Salesflare\\RecordApiHelper",
+                "to": "backend/Actions/Salesflare/SalesflareService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Salesflare\\SalesflareService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Salesflare"
+    ]
+}

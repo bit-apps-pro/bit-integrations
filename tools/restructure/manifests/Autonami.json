@@ -1,0 +1,407 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 18,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:autonamilistsandtags",
+            "line": 32,
+            "to": "method:checkedexistsautonami",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:autonamifields",
+            "line": 59,
+            "to": "method:checkedexistsautonami",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 89,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 110,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 115,
+        "modifiers": [],
+        "path": "backend/Actions/Autonami/AutonamiController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Autonami/AutonamiController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Autonami/AutonamiHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Autonami/AutonamiAction.php"
+        },
+        {
+            "from": "backend/Actions/Autonami/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Autonami/AutonamiService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Autonami/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 33,
+            "helper": 62
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Autonami",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Autonami\\AutonamiController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiAction"
+            ],
+            "method:autonamifields": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper"
+            ],
+            "method:autonamilistsandtags": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper"
+            ],
+            "method:checkedexistsautonami": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiAction"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Autonami\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Autonami\\AutonamiService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                14,
+                14
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                16,
+                19
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:checkedexistsautonami",
+            "kind": "method",
+            "lines": [
+                21,
+                28
+            ],
+            "names": [
+                "checkedExistsAutonami"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:autonamilistsandtags",
+            "kind": "method",
+            "lines": [
+                30,
+                55
+            ],
+            "names": [
+                "autonamiListsAndTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:autonamifields",
+            "kind": "method",
+            "lines": [
+                57,
+                84
+            ],
+            "names": [
+                "autonamiFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                86,
+                113
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Autonami",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Autonami\\RecordApiHelper",
+            "file": "backend/Actions/Autonami/AutonamiController.php",
+            "kind": "new",
+            "line": 110,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiController",
+            "file": "backend/Actions/Autonami/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Autonami\\AutonamiController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiController",
+            "file": "backend/Actions/Autonami/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:autonamilistsandtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper",
+            "text": "AutonamiController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiController",
+            "file": "backend/Actions/Autonami/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:autonamifields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper",
+            "text": "AutonamiController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Autonami\\AutonamiController": [
+            "BitApps\\Integrations\\Actions\\Autonami\\AutonamiAction",
+            "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Autonami\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Autonami/Routes.php",
+            "line": 10,
+            "method": "autonamiListsAndTags",
+            "route": "autonami_lists_and_tags",
+            "target": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Autonami/Routes.php",
+            "line": 11,
+            "method": "autonamiFields",
+            "route": "autonami_fields",
+            "target": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Autonami/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    11,
+                    11
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    13,
+                    16
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    18,
+                    53
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    55,
+                    77
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtags",
+                "kind": "method",
+                "lines": [
+                    79,
+                    87
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:addlists",
+                "kind": "method",
+                "lines": [
+                    89,
+                    97
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Autonami/AutonamiController.php": "991896dc943c599f69f088f72323fe3ac8b68540",
+        "backend/Actions/Autonami/RecordApiHelper.php": "ad764201fc6ab703b484f0e0c020f85c45d2d7af",
+        "backend/Actions/Autonami/Routes.php": "3906ab0655eedd56bf242eb9ba85c829ab1daa00"
+    },
+    "sources": {
+        "backend/Actions/Autonami/AutonamiAction.php": [
+            "backend/Actions/Autonami/AutonamiController.php"
+        ],
+        "backend/Actions/Autonami/AutonamiHelper.php": [
+            "backend/Actions/Autonami/AutonamiController.php"
+        ],
+        "backend/Actions/Autonami/AutonamiService.php": [
+            "backend/Actions/Autonami/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiAction",
+            "origin": "created",
+            "path": "backend/Actions/Autonami/AutonamiAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Autonami/AutonamiHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Autonami/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Autonami\\RecordApiHelper",
+                "to": "backend/Actions/Autonami/AutonamiService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Autonami\\AutonamiService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "Autonami"
+    ]
+}

@@ -1,0 +1,568 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 29,
+            "to": "property:_apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 34,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 35,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltags",
+            "line": 36,
+            "to": "property:_apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltags",
+            "line": 37,
+            "to": "property:_defaultHeader",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfields",
+            "line": 57,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfields",
+            "line": 58,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallfields",
+            "line": 59,
+            "to": "property:_apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallfields",
+            "line": 60,
+            "to": "property:_defaultHeader",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setheaders",
+            "line": 111,
+            "to": "property:_defaultHeader",
+            "via": "this",
+            "write": true
+        }
+    ],
+    "constructorCopy": {
+        "properties": [
+            "_apiEndpoint"
+        ],
+        "statements": [
+            0
+        ]
+    },
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 117,
+        "modifiers": [],
+        "path": "backend/Actions/SystemeIO/SystemeIOController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SystemeIO/SystemeIOController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SystemeIO/SystemeIOHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/SystemeIO/SystemeIOAction.php"
+        },
+        {
+            "from": "backend/Actions/SystemeIO/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SystemeIO/SystemeIOService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/SystemeIO/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 34,
+            "helper": 65
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [
+            {
+                "member": "property:_apiEndpoint",
+                "placement": "both",
+                "resolution": "set only by the no-argument constructor; copied with that constructor line"
+            }
+        ],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SystemeIO",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SystemeIO\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOAction"
+            ],
+            "method:checkvalidation": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOAction"
+            ],
+            "method:getallfields": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+            ],
+            "method:getalltags": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+            ],
+            "property:_apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOAction",
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:_apiEndpoint",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "_apiEndpoint"
+            ],
+            "placement": "both",
+            "reachedFrom": [],
+            "reason": "set only by the no-argument constructor; copied with that constructor line",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                27,
+                30
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltags",
+            "kind": "method",
+            "lines": [
+                32,
+                53
+            ],
+            "names": [
+                "getAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallfields",
+            "kind": "method",
+            "lines": [
+                55,
+                77
+            ],
+            "names": [
+                "getAllFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                79,
+                100
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:checkvalidation",
+            "kind": "method",
+            "lines": [
+                102,
+                107
+            ],
+            "names": [
+                "checkValidation"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                109,
+                115
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\SystemeIO",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController",
+            "file": "backend/Actions/SystemeIO/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper",
+            "text": "use BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController",
+            "file": "backend/Actions/SystemeIO/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper",
+            "text": "SystemeIOController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController",
+            "file": "backend/Actions/SystemeIO/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper",
+            "text": "SystemeIOController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SystemeIO\\RecordApiHelper",
+            "file": "backend/Actions/SystemeIO/SystemeIOController.php",
+            "kind": "new",
+            "line": 92,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SystemeIO\\RecordApiHelper": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOService",
+        "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOController": [
+            "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOAction",
+            "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/SystemeIO/Routes.php",
+            "line": 10,
+            "method": "getAllFields",
+            "route": "systemeIO_fetch_all_fields",
+            "target": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/SystemeIO/Routes.php",
+            "line": 11,
+            "method": "getAllTags",
+            "route": "systemeIO_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/SystemeIO/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    37,
+                    56
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtag",
+                "kind": "method",
+                "lines": [
+                    58,
+                    72
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    74,
+                    106
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    108,
+                    127
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/SystemeIO/RecordApiHelper.php": "eda834cf33bbe7e13313fed920205b1c7e25618e",
+        "backend/Actions/SystemeIO/Routes.php": "013cd76357c73c4c3d0598620b9e7457dc803236",
+        "backend/Actions/SystemeIO/SystemeIOController.php": "b7cce6a089d93fd30b071cd54326f0f16c101278"
+    },
+    "sources": {
+        "backend/Actions/SystemeIO/SystemeIOAction.php": [
+            "backend/Actions/SystemeIO/SystemeIOController.php"
+        ],
+        "backend/Actions/SystemeIO/SystemeIOHelper.php": [
+            "backend/Actions/SystemeIO/SystemeIOController.php"
+        ],
+        "backend/Actions/SystemeIO/SystemeIOService.php": [
+            "backend/Actions/SystemeIO/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOAction",
+            "origin": "created",
+            "path": "backend/Actions/SystemeIO/SystemeIOAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SystemeIO/SystemeIOHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/SystemeIO/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\SystemeIO\\RecordApiHelper",
+                "to": "backend/Actions/SystemeIO/SystemeIOService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\SystemeIO\\SystemeIOService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "SystemeIO"
+    ]
+}

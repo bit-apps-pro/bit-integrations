@@ -1,0 +1,566 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:getallopportunities",
+            "line": 65,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmpeoples",
+            "line": 149,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmpipelines",
+            "line": 178,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 222,
+        "modifiers": [],
+        "path": "backend/Actions/MoxieCRM/MoxieCRMController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MoxieCRM/MoxieCRMController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MoxieCRM/MoxieCRMHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MoxieCRM/MoxieCRMAction.php"
+        },
+        {
+            "from": "backend/Actions/MoxieCRM/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MoxieCRM/MoxieCRMService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MoxieCRM/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 30,
+            "helper": 168
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MoxieCRM",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMAction"
+            ],
+            "method:getallclients": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "method:getallcrmpeoples": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "method:getallcrmpipelines": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "method:getallopportunities": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "method:getallpipelinestages": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MoxieCRM\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getallopportunities",
+            "kind": "method",
+            "lines": [
+                28,
+                83
+            ],
+            "names": [
+                "getAllOpportunities"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallclients",
+            "kind": "method",
+            "lines": [
+                85,
+                111
+            ],
+            "names": [
+                "getAllClients"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallpipelinestages",
+            "kind": "method",
+            "lines": [
+                113,
+                139
+            ],
+            "names": [
+                "getAllPipelineStages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpeoples",
+            "kind": "method",
+            "lines": [
+                141,
+                168
+            ],
+            "names": [
+                "getAllCRMPeoples"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpipelines",
+            "kind": "method",
+            "lines": [
+                170,
+                197
+            ],
+            "names": [
+                "getAllCRMPipelines"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                199,
+                220
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MoxieCRM",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\RecordApiHelper",
+            "file": "backend/Actions/MoxieCRM/MoxieCRMController.php",
+            "kind": "new",
+            "line": 212,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallopportunities",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "text": "MoxieCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallclients",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "text": "MoxieCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallpipelinestages",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "text": "MoxieCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallcrmpeoples",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "text": "MoxieCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController",
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:getallcrmpipelines",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "text": "MoxieCRMController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMController": [
+            "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMAction",
+            "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MoxieCRM\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "line": 10,
+            "method": "getAllOpportunities",
+            "route": "moxiecrm_fetch_all_opportunities",
+            "target": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "line": 11,
+            "method": "getAllClients",
+            "route": "moxiecrm_fetch_all_clients",
+            "target": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "line": 12,
+            "method": "getAllPipelineStages",
+            "route": "moxiecrm_fetch_all_pipelineStages",
+            "target": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "line": 13,
+            "method": "getAllCRMPeoples",
+            "route": "moxiecrm_fetch_all_CRMPeoples",
+            "target": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MoxieCRM/Routes.php",
+            "line": 14,
+            "method": "getAllCRMPipelines",
+            "route": "moxiecrm_fetch_all_CRMPipelines",
+            "target": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MoxieCRM/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addclient",
+                "kind": "method",
+                "lines": [
+                    37,
+                    64
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    66,
+                    95
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addopportunity",
+                "kind": "method",
+                "lines": [
+                    97,
+                    131
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    133,
+                    155
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    157,
+                    176
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MoxieCRM/MoxieCRMController.php": "e071e0c0d9d305c6eab4dec69b7ffde1d21c82f7",
+        "backend/Actions/MoxieCRM/RecordApiHelper.php": "354bc2f76491d642f87cc05544544a15a18cb8fe",
+        "backend/Actions/MoxieCRM/Routes.php": "5b663a808879bf4cbe28cfb7cecccd4e10402dce"
+    },
+    "sources": {
+        "backend/Actions/MoxieCRM/MoxieCRMAction.php": [
+            "backend/Actions/MoxieCRM/MoxieCRMController.php"
+        ],
+        "backend/Actions/MoxieCRM/MoxieCRMHelper.php": [
+            "backend/Actions/MoxieCRM/MoxieCRMController.php"
+        ],
+        "backend/Actions/MoxieCRM/MoxieCRMService.php": [
+            "backend/Actions/MoxieCRM/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMAction",
+            "origin": "created",
+            "path": "backend/Actions/MoxieCRM/MoxieCRMAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MoxieCRM/MoxieCRMHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MoxieCRM/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MoxieCRM\\RecordApiHelper",
+                "to": "backend/Actions/MoxieCRM/MoxieCRMService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MoxieCRM\\MoxieCRMService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "MoxieCRM"
+    ]
+}

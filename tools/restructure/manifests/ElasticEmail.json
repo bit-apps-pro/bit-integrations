@@ -1,0 +1,292 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 82,
+        "modifiers": [],
+        "path": "backend/Actions/ElasticEmail/ElasticEmailController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/ElasticEmail/ElasticEmailController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ElasticEmail/ElasticEmailAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/ElasticEmail/ElasticEmailHelper.php"
+        },
+        {
+            "from": "backend/Actions/ElasticEmail/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ElasticEmail/ElasticEmailService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/ElasticEmail/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 35,
+            "helper": 29
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "ElasticEmail",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailAction"
+            ],
+            "method:getalllists": [
+                "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\ElasticEmail\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllists",
+            "kind": "method",
+            "lines": [
+                23,
+                51
+            ],
+            "names": [
+                "getAllLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                53,
+                80
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\ElasticEmail",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\ElasticEmail\\RecordApiHelper",
+            "file": "backend/Actions/ElasticEmail/ElasticEmailController.php",
+            "kind": "new",
+            "line": 67,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailController",
+            "file": "backend/Actions/ElasticEmail/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailHelper",
+            "text": "use BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailController",
+            "file": "backend/Actions/ElasticEmail/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getalllists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailHelper",
+            "text": "ElasticEmailController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailController": [
+            "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailAction",
+            "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\ElasticEmail\\RecordApiHelper": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/ElasticEmail/Routes.php",
+            "line": 10,
+            "method": "getAllLists",
+            "route": "get_all_lists",
+            "target": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailHelper",
+            "verb": "get"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/ElasticEmail/RecordApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    11,
+                    11
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    13,
+                    13
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    15,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createcontact",
+                "kind": "method",
+                "lines": [
+                    22,
+                    33
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    35,
+                    50
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    52,
+                    74
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/ElasticEmail/ElasticEmailController.php": "2d0368fcf2fbb66722a9122b4f0e7964d153c01b",
+        "backend/Actions/ElasticEmail/RecordApiHelper.php": "768f0bb6e90b30949b70f34aee7dd57c3960ef02",
+        "backend/Actions/ElasticEmail/Routes.php": "899c5e30a6620ec698cc1a1c6dddc6a4d9cbbe5c"
+    },
+    "sources": {
+        "backend/Actions/ElasticEmail/ElasticEmailAction.php": [
+            "backend/Actions/ElasticEmail/ElasticEmailController.php"
+        ],
+        "backend/Actions/ElasticEmail/ElasticEmailHelper.php": [
+            "backend/Actions/ElasticEmail/ElasticEmailController.php"
+        ],
+        "backend/Actions/ElasticEmail/ElasticEmailService.php": [
+            "backend/Actions/ElasticEmail/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/ElasticEmail/ElasticEmailAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailHelper",
+            "origin": "created",
+            "path": "backend/Actions/ElasticEmail/ElasticEmailHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/ElasticEmail/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\ElasticEmail\\RecordApiHelper",
+                "to": "backend/Actions/ElasticEmail/ElasticEmailService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\ElasticEmail\\ElasticEmailService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "ElasticEmail"
+    ]
+}

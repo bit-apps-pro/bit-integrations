@@ -1,0 +1,256 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 48,
+        "modifiers": [],
+        "path": "backend/Actions/Gravitec/GravitecController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Gravitec/GravitecController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Gravitec/GravitecAction.php"
+        },
+        {
+            "from": "backend/Actions/Gravitec/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Gravitec/GravitecService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Gravitec",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Gravitec\\GravitecController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Gravitec\\GravitecAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Gravitec\\GravitecAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Gravitec\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Gravitec\\GravitecService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                14,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                24,
+                46
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Gravitec",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Gravitec\\RecordApiHelper",
+            "file": "backend/Actions/Gravitec/GravitecController.php",
+            "kind": "new",
+            "line": 38,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Gravitec\\GravitecController": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecAction",
+        "BitApps\\Integrations\\Actions\\Gravitec\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Gravitec/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    24,
+                    32
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:pushnotification",
+                "kind": "method",
+                "lines": [
+                    34,
+                    71
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    73,
+                    83
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    85,
+                    100
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Gravitec/GravitecController.php": "6c0ad484df8c1260ab335fc37dd680830d8155cb",
+        "backend/Actions/Gravitec/RecordApiHelper.php": "bbf2aeb1d6109cab60e0bc4e5f8a700cfa7bb68d"
+    },
+    "sources": {
+        "backend/Actions/Gravitec/GravitecAction.php": [
+            "backend/Actions/Gravitec/GravitecController.php"
+        ],
+        "backend/Actions/Gravitec/GravitecService.php": [
+            "backend/Actions/Gravitec/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Gravitec/GravitecAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecHelper",
+            "origin": "none",
+            "path": "backend/Actions/Gravitec/GravitecHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Gravitec/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Gravitec\\RecordApiHelper",
+                "to": "backend/Actions/Gravitec/GravitecService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Gravitec\\GravitecService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Gravitec"
+    ]
+}

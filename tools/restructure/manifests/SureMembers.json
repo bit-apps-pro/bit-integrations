@@ -1,0 +1,320 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getgroups",
+            "line": 31,
+            "to": "method:checkedsuremembersexists",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 54,
+            "rewriteTo": "SureMembersHelper",
+            "to": "method:checkedsuremembersexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 76,
+        "modifiers": [],
+        "path": "backend/Actions/SureMembers/SureMembersController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SureMembers/SureMembersController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SureMembers/SureMembersHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/SureMembers/SureMembersAction.php"
+        },
+        {
+            "from": "backend/Actions/SureMembers/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SureMembers/SureMembersService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/SureMembers/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 23,
+            "helper": 36
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SureMembers",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SureMembers\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersController": {
+            "method:checkedsuremembersexists": [
+                "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersAction"
+            ],
+            "method:getgroups": [
+                "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:checkedsuremembersexists",
+            "kind": "method",
+            "lines": [
+                14,
+                27
+            ],
+            "names": [
+                "checkedSureMembersExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getgroups",
+            "kind": "method",
+            "lines": [
+                29,
+                50
+            ],
+            "names": [
+                "getGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                52,
+                74
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\SureMembers",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersController",
+            "file": "backend/Actions/SureMembers/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper",
+            "text": "use BitApps\\Integrations\\Actions\\SureMembers\\SureMembersController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersController",
+            "file": "backend/Actions/SureMembers/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper",
+            "text": "SureMembersController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SureMembers\\RecordApiHelper",
+            "file": "backend/Actions/SureMembers/SureMembersController.php",
+            "kind": "new",
+            "line": 66,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SureMembers\\RecordApiHelper": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersService",
+        "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersController": [
+            "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersAction",
+            "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/SureMembers/Routes.php",
+            "line": 10,
+            "method": "getGroups",
+            "route": "sureMembers_fetch_groups",
+            "target": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/SureMembers/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    17,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:grantaccesstogroup",
+                "kind": "method",
+                "lines": [
+                    22,
+                    37
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:revokeaccessfromgroup",
+                "kind": "method",
+                "lines": [
+                    39,
+                    54
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getuseridfromemail",
+                "kind": "method",
+                "lines": [
+                    56,
+                    65
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    67,
+                    81
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    83,
+                    107
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/SureMembers/RecordApiHelper.php": "4c86ab66cc4e9253ae326a150cbd2dd576ce253f",
+        "backend/Actions/SureMembers/Routes.php": "cfae695cca589fe7ffb3c0f803911c68ee2c6586",
+        "backend/Actions/SureMembers/SureMembersController.php": "039b7876ec0f070c974b1b7566c2a88830f238b1"
+    },
+    "sources": {
+        "backend/Actions/SureMembers/SureMembersAction.php": [
+            "backend/Actions/SureMembers/SureMembersController.php"
+        ],
+        "backend/Actions/SureMembers/SureMembersHelper.php": [
+            "backend/Actions/SureMembers/SureMembersController.php"
+        ],
+        "backend/Actions/SureMembers/SureMembersService.php": [
+            "backend/Actions/SureMembers/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersAction",
+            "origin": "created",
+            "path": "backend/Actions/SureMembers/SureMembersAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SureMembers/SureMembersHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/SureMembers/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\SureMembers\\RecordApiHelper",
+                "to": "backend/Actions/SureMembers/SureMembersService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\SureMembers\\SureMembersService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "SureMembers"
+    ]
+}

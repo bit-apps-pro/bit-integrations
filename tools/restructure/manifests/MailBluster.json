@@ -1,0 +1,340 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:fetchcustomfields",
+            "line": 39,
+            "to": "property:baseUrl",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 94,
+        "modifiers": [],
+        "path": "backend/Actions/MailBluster/MailBlusterController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MailBluster/MailBlusterController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailBluster/MailBlusterAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MailBluster/MailBlusterHelper.php"
+        },
+        {
+            "from": "backend/Actions/MailBluster/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailBluster/MailBlusterService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MailBluster/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 37,
+            "helper": 37
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MailBluster",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterAction"
+            ],
+            "method:fetchcustomfields": [
+                "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MailBluster\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchcustomfields",
+            "kind": "method",
+            "lines": [
+                27,
+                61
+            ],
+            "names": [
+                "fetchCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                63,
+                92
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MailBluster",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailBluster\\RecordApiHelper",
+            "file": "backend/Actions/MailBluster/MailBlusterController.php",
+            "kind": "new",
+            "line": 79,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterController",
+            "file": "backend/Actions/MailBluster/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterController",
+            "file": "backend/Actions/MailBluster/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper",
+            "text": "MailBlusterController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterController": [
+            "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterAction",
+            "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MailBluster\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MailBluster/Routes.php",
+            "line": 10,
+            "method": "fetchCustomFields",
+            "route": "mailBluster_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MailBluster/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    26
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addleadtobrand",
+                "kind": "method",
+                "lines": [
+                    28,
+                    75
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    77,
+                    91
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    93,
+                    106
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MailBluster/MailBlusterController.php": "070d63830e84326ad9b066b25552c9edac057e61",
+        "backend/Actions/MailBluster/RecordApiHelper.php": "13ee1722b39bb411674b8200046af1ca33e925a7",
+        "backend/Actions/MailBluster/Routes.php": "bec6ff438c97394df3db8918cda01cda9cfc8174"
+    },
+    "sources": {
+        "backend/Actions/MailBluster/MailBlusterAction.php": [
+            "backend/Actions/MailBluster/MailBlusterController.php"
+        ],
+        "backend/Actions/MailBluster/MailBlusterHelper.php": [
+            "backend/Actions/MailBluster/MailBlusterController.php"
+        ],
+        "backend/Actions/MailBluster/MailBlusterService.php": [
+            "backend/Actions/MailBluster/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MailBluster/MailBlusterAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterHelper",
+            "origin": "created",
+            "path": "backend/Actions/MailBluster/MailBlusterHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MailBluster/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MailBluster\\RecordApiHelper",
+                "to": "backend/Actions/MailBluster/MailBlusterService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MailBluster\\MailBlusterService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "MailBluster"
+    ]
+}

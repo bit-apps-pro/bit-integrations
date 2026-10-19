@@ -1,0 +1,300 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getallevents",
+            "line": 26,
+            "to": "method:checkedtheeventscalendarexists",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 51,
+            "rewriteTo": "TheEventsCalendarHelper",
+            "to": "method:checkedtheeventscalendarexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 74,
+        "modifiers": [],
+        "path": "backend/Actions/TheEventsCalendar/TheEventsCalendarController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/TheEventsCalendar/TheEventsCalendarController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/TheEventsCalendar/TheEventsCalendarHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/TheEventsCalendar/TheEventsCalendarAction.php"
+        },
+        {
+            "from": "backend/Actions/TheEventsCalendar/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/TheEventsCalendar/TheEventsCalendarService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/TheEventsCalendar/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 24,
+            "helper": 33
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "TheEventsCalendar",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\TheEventsCalendar\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarController": {
+            "method:checkedtheeventscalendarexists": [
+                "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarAction"
+            ],
+            "method:getallevents": [
+                "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:checkedtheeventscalendarexists",
+            "kind": "method",
+            "lines": [
+                14,
+                22
+            ],
+            "names": [
+                "checkedTheEventsCalendarExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallevents",
+            "kind": "method",
+            "lines": [
+                24,
+                47
+            ],
+            "names": [
+                "getAllEvents"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                49,
+                72
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\TheEventsCalendar",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarController",
+            "file": "backend/Actions/TheEventsCalendar/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper",
+            "text": "use BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarController",
+            "file": "backend/Actions/TheEventsCalendar/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallevents",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper",
+            "text": "TheEventsCalendarController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\RecordApiHelper",
+            "file": "backend/Actions/TheEventsCalendar/TheEventsCalendarController.php",
+            "kind": "new",
+            "line": 64,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\TheEventsCalendar\\RecordApiHelper": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarService",
+        "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarController": [
+            "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarAction",
+            "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/TheEventsCalendar/Routes.php",
+            "line": 10,
+            "method": "getAllEvents",
+            "route": "get_the_events_calendar_events",
+            "target": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/TheEventsCalendar/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    18,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:newattendee",
+                "kind": "method",
+                "lines": [
+                    23,
+                    79
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    81,
+                    95
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    97,
+                    121
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/TheEventsCalendar/RecordApiHelper.php": "9b79315043d0a1b8a1fa4c6114056c6928c045e2",
+        "backend/Actions/TheEventsCalendar/Routes.php": "6163395af4b67c0a9635af7d92cd33d2006aad35",
+        "backend/Actions/TheEventsCalendar/TheEventsCalendarController.php": "0af7960e97146a0d44de732bedcde1edfa4e0278"
+    },
+    "sources": {
+        "backend/Actions/TheEventsCalendar/TheEventsCalendarAction.php": [
+            "backend/Actions/TheEventsCalendar/TheEventsCalendarController.php"
+        ],
+        "backend/Actions/TheEventsCalendar/TheEventsCalendarHelper.php": [
+            "backend/Actions/TheEventsCalendar/TheEventsCalendarController.php"
+        ],
+        "backend/Actions/TheEventsCalendar/TheEventsCalendarService.php": [
+            "backend/Actions/TheEventsCalendar/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarAction",
+            "origin": "created",
+            "path": "backend/Actions/TheEventsCalendar/TheEventsCalendarAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/TheEventsCalendar/TheEventsCalendarHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/TheEventsCalendar/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\RecordApiHelper",
+                "to": "backend/Actions/TheEventsCalendar/TheEventsCalendarService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\TheEventsCalendar\\TheEventsCalendarService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "TheEventsCalendar"
+    ]
+}

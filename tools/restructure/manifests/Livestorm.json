@@ -1,0 +1,558 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 29,
+            "to": "property:_apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallevents",
+            "line": 34,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallevents",
+            "line": 35,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallevents",
+            "line": 36,
+            "to": "property:_apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallevents",
+            "line": 37,
+            "to": "property:_defaultHeader",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallsessions",
+            "line": 72,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallsessions",
+            "line": 73,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallsessions",
+            "line": 74,
+            "to": "property:_apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallsessions",
+            "line": 75,
+            "to": "property:_defaultHeader",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setheaders",
+            "line": 124,
+            "to": "property:_defaultHeader",
+            "via": "this",
+            "write": true
+        }
+    ],
+    "constructorCopy": {
+        "properties": [
+            "_apiEndpoint"
+        ],
+        "statements": [
+            0
+        ]
+    },
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 131,
+        "modifiers": [],
+        "path": "backend/Actions/Livestorm/LivestormController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Livestorm/LivestormController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Livestorm/LivestormHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Livestorm/LivestormAction.php"
+        },
+        {
+            "from": "backend/Actions/Livestorm/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Livestorm/LivestormService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Livestorm/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 33,
+            "helper": 80
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [
+            {
+                "member": "property:_apiEndpoint",
+                "placement": "both",
+                "resolution": "set only by the no-argument constructor; copied with that constructor line"
+            }
+        ],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Livestorm",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormAction"
+            ],
+            "method:checkvalidation": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormAction"
+            ],
+            "method:getallevents": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+            ],
+            "method:getallsessions": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+            ],
+            "property:_apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormAction",
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Livestorm\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Livestorm\\LivestormService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:_apiEndpoint",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "_apiEndpoint"
+            ],
+            "placement": "both",
+            "reachedFrom": [],
+            "reason": "set only by the no-argument constructor; copied with that constructor line",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                27,
+                30
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallevents",
+            "kind": "method",
+            "lines": [
+                32,
+                68
+            ],
+            "names": [
+                "getAllEvents"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallsessions",
+            "kind": "method",
+            "lines": [
+                70,
+                91
+            ],
+            "names": [
+                "getAllSessions"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                93,
+                113
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:checkvalidation",
+            "kind": "method",
+            "lines": [
+                115,
+                120
+            ],
+            "names": [
+                "checkValidation"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                122,
+                129
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Livestorm",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Livestorm\\RecordApiHelper",
+            "file": "backend/Actions/Livestorm/LivestormController.php",
+            "kind": "new",
+            "line": 105,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController",
+            "file": "backend/Actions/Livestorm/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Livestorm\\LivestormController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController",
+            "file": "backend/Actions/Livestorm/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallevents",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper",
+            "text": "LivestormController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController",
+            "file": "backend/Actions/Livestorm/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallsessions",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper",
+            "text": "LivestormController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Livestorm\\LivestormController": [
+            "BitApps\\Integrations\\Actions\\Livestorm\\LivestormAction",
+            "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Livestorm\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Livestorm/Routes.php",
+            "line": 10,
+            "method": "getAllEvents",
+            "route": "livestorm_fetch_all_events",
+            "target": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Livestorm/Routes.php",
+            "line": 11,
+            "method": "getAllSessions",
+            "route": "livestorm_fetch_all_sessions",
+            "target": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Livestorm/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    36
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:registration",
+                "kind": "method",
+                "lines": [
+                    38,
+                    57
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    59,
+                    82
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    84,
+                    97
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Livestorm/LivestormController.php": "aa88fd1482c1559201ed1cfbbc17b0f963473d08",
+        "backend/Actions/Livestorm/RecordApiHelper.php": "a68c6e65d7ba1a2fef70ceb8c7e0693b7b1ac030",
+        "backend/Actions/Livestorm/Routes.php": "1d042e84b3b88c72735ab2925e3d0c2b6e9e95e0"
+    },
+    "sources": {
+        "backend/Actions/Livestorm/LivestormAction.php": [
+            "backend/Actions/Livestorm/LivestormController.php"
+        ],
+        "backend/Actions/Livestorm/LivestormHelper.php": [
+            "backend/Actions/Livestorm/LivestormController.php"
+        ],
+        "backend/Actions/Livestorm/LivestormService.php": [
+            "backend/Actions/Livestorm/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormAction",
+            "origin": "created",
+            "path": "backend/Actions/Livestorm/LivestormAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Livestorm/LivestormHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Livestorm/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Livestorm\\RecordApiHelper",
+                "to": "backend/Actions/Livestorm/LivestormService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Livestorm\\LivestormService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Livestorm"
+    ]
+}

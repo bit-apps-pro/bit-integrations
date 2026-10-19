@@ -1,0 +1,312 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 89,
+        "modifiers": [],
+        "path": "backend/Actions/PaidMembershipPro/PaidMembershipProController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/PaidMembershipPro/PaidMembershipProController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PaidMembershipPro/PaidMembershipProHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/PaidMembershipPro/PaidMembershipProAction.php"
+        },
+        {
+            "from": "backend/Actions/PaidMembershipPro/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PaidMembershipPro/PaidMembershipProService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/PaidMembershipPro/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 31,
+            "helper": 44
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:pluginactive"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "PaidMembershipPro",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProAction"
+            ],
+            "method:getallpaidmembershipprolevel": [
+                "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper"
+            ],
+            "method:pluginactive": [
+                "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\PaidMembershipPro\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:pluginactive",
+            "kind": "method",
+            "lines": [
+                11,
+                18
+            ],
+            "names": [
+                "pluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallpaidmembershipprolevel",
+            "kind": "method",
+            "lines": [
+                20,
+                55
+            ],
+            "names": [
+                "getAllPaidMembershipProLevel"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                57,
+                87
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\PaidMembershipPro",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\RecordApiHelper",
+            "file": "backend/Actions/PaidMembershipPro/PaidMembershipProController.php",
+            "kind": "new",
+            "line": 75,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController",
+            "file": "backend/Actions/PaidMembershipPro/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper",
+            "text": "use BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController",
+            "file": "backend/Actions/PaidMembershipPro/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallpaidmembershipprolevel",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper",
+            "text": "PaidMembershipProController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProController": [
+            "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProAction",
+            "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\PaidMembershipPro\\RecordApiHelper": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/PaidMembershipPro/Routes.php",
+            "line": 10,
+            "method": "getAllPaidMembershipProLevel",
+            "route": "fetch_all_paid_membership_pro_level",
+            "target": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/PaidMembershipPro/RecordApiHelper.php": [
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    11,
+                    11
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    13,
+                    13
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    15,
+                    19
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    21,
+                    36
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addusermembershiplevel",
+                "kind": "method",
+                "lines": [
+                    38,
+                    91
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:removeuserfrommembershiplevel",
+                "kind": "method",
+                "lines": [
+                    93,
+                    121
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    123,
+                    136
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:get_user_membership_levels",
+                "kind": "method",
+                "lines": [
+                    138,
+                    151
+                ],
+                "static": false,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/PaidMembershipPro/PaidMembershipProController.php": "544bed58e477ed6b172012ba164c770f88863170",
+        "backend/Actions/PaidMembershipPro/RecordApiHelper.php": "b8a898bfc6aa92bbafee9b2bc737913d4ec7e466",
+        "backend/Actions/PaidMembershipPro/Routes.php": "7120cb1204161ec142291eea99738d153845097a"
+    },
+    "sources": {
+        "backend/Actions/PaidMembershipPro/PaidMembershipProAction.php": [
+            "backend/Actions/PaidMembershipPro/PaidMembershipProController.php"
+        ],
+        "backend/Actions/PaidMembershipPro/PaidMembershipProHelper.php": [
+            "backend/Actions/PaidMembershipPro/PaidMembershipProController.php"
+        ],
+        "backend/Actions/PaidMembershipPro/PaidMembershipProService.php": [
+            "backend/Actions/PaidMembershipPro/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProAction",
+            "origin": "created",
+            "path": "backend/Actions/PaidMembershipPro/PaidMembershipProAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/PaidMembershipPro/PaidMembershipProHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/PaidMembershipPro/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\RecordApiHelper",
+                "to": "backend/Actions/PaidMembershipPro/PaidMembershipProService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\PaidMembershipPro\\PaidMembershipProService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "PaidMembershipPro"
+    ]
+}

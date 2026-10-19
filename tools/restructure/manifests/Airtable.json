@@ -1,0 +1,409 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 143,
+        "modifiers": [],
+        "path": "backend/Actions/Airtable/AirtableController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Airtable/AirtableController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Airtable/AirtableHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Airtable/AirtableAction.php"
+        },
+        {
+            "from": "backend/Actions/Airtable/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Airtable/AirtableService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Airtable/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 27,
+            "helper": 95
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Airtable",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Airtable\\AirtableController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableAction"
+            ],
+            "method:fetchallbases": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper"
+            ],
+            "method:getallfields": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper"
+            ],
+            "method:getalltables": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Airtable\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Airtable\\AirtableService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:fetchallbases",
+            "kind": "method",
+            "lines": [
+                25,
+                53
+            ],
+            "names": [
+                "fetchAllBases"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltables",
+            "kind": "method",
+            "lines": [
+                55,
+                82
+            ],
+            "names": [
+                "getAllTables"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallfields",
+            "kind": "method",
+            "lines": [
+                84,
+                120
+            ],
+            "names": [
+                "getAllFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                122,
+                141
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Airtable",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\RecordApiHelper",
+            "file": "backend/Actions/Airtable/AirtableController.php",
+            "kind": "new",
+            "line": 133,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Airtable\\AirtableService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableController",
+            "file": "backend/Actions/Airtable/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Airtable\\AirtableController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableController",
+            "file": "backend/Actions/Airtable/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchallbases",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "text": "AirtableController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableController",
+            "file": "backend/Actions/Airtable/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalltables",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "text": "AirtableController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableController",
+            "file": "backend/Actions/Airtable/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "text": "AirtableController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Airtable\\AirtableController": [
+            "BitApps\\Integrations\\Actions\\Airtable\\AirtableAction",
+            "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Airtable\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Airtable\\AirtableService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Airtable/Routes.php",
+            "line": 10,
+            "method": "fetchAllBases",
+            "route": "airtable_fetch_all_bases",
+            "target": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Airtable/Routes.php",
+            "line": 11,
+            "method": "getAllTables",
+            "route": "airtable_fetch_all_tables",
+            "target": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Airtable/Routes.php",
+            "line": 12,
+            "method": "getAllFields",
+            "route": "airtable_fetch_all_fields",
+            "target": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Airtable/RecordApiHelper.php": [
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    21,
+                    29
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createrecord",
+                "kind": "method",
+                "lines": [
+                    31,
+                    63
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    65,
+                    79
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    81,
+                    98
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:parseattachmentfile",
+                "kind": "method",
+                "lines": [
+                    100,
+                    113
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Airtable/AirtableController.php": "b4925f562bc4b726c55e86cbaf54cbc3279a58ae",
+        "backend/Actions/Airtable/RecordApiHelper.php": "ba54c7b905d49df8a20833dbcadd68b541285b35",
+        "backend/Actions/Airtable/Routes.php": "ef80c38aa982cf9283562face7d769fe8b4ea308"
+    },
+    "sources": {
+        "backend/Actions/Airtable/AirtableAction.php": [
+            "backend/Actions/Airtable/AirtableController.php"
+        ],
+        "backend/Actions/Airtable/AirtableHelper.php": [
+            "backend/Actions/Airtable/AirtableController.php"
+        ],
+        "backend/Actions/Airtable/AirtableService.php": [
+            "backend/Actions/Airtable/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableAction",
+            "origin": "created",
+            "path": "backend/Actions/Airtable/AirtableAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Airtable\\AirtableHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Airtable/AirtableHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Airtable/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Airtable\\RecordApiHelper",
+                "to": "backend/Actions/Airtable/AirtableService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Airtable\\AirtableService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Airtable"
+    ]
+}

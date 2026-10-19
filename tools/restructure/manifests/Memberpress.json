@@ -1,0 +1,355 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getallmembership",
+            "line": 28,
+            "to": "method:pluginactive",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:allpaymentgateway",
+            "line": 64,
+            "to": "method:pluginactive",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 122,
+        "modifiers": [],
+        "path": "backend/Actions/Memberpress/MemberpressController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Memberpress/MemberpressController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Memberpress/MemberpressHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Memberpress/MemberpressAction.php"
+        },
+        {
+            "from": "backend/Actions/Memberpress/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Memberpress/MemberpressService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Memberpress/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 30,
+            "helper": 77
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Memberpress",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController": {
+            "method:allpaymentgateway": [
+                "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressAction"
+            ],
+            "method:getallmembership": [
+                "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper"
+            ],
+            "method:pluginactive": [
+                "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Memberpress\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:pluginactive",
+            "kind": "method",
+            "lines": [
+                11,
+                23
+            ],
+            "names": [
+                "pluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallmembership",
+            "kind": "method",
+            "lines": [
+                25,
+                60
+            ],
+            "names": [
+                "getAllMembership"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:allpaymentgateway",
+            "kind": "method",
+            "lines": [
+                62,
+                89
+            ],
+            "names": [
+                "allPaymentGateway"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                91,
+                120
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Memberpress",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Memberpress\\RecordApiHelper",
+            "file": "backend/Actions/Memberpress/MemberpressController.php",
+            "kind": "new",
+            "line": 107,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController",
+            "file": "backend/Actions/Memberpress/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController",
+            "file": "backend/Actions/Memberpress/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallmembership",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper",
+            "text": "MemberpressController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController",
+            "file": "backend/Actions/Memberpress/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:allpaymentgateway",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper",
+            "text": "MemberpressController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressController": [
+            "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressAction",
+            "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Memberpress\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Memberpress/Routes.php",
+            "line": 10,
+            "method": "getAllMembership",
+            "route": "fetch_all_membership",
+            "target": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Memberpress/Routes.php",
+            "line": 11,
+            "method": "allPaymentGateway",
+            "route": "fetch_all_payment_gateway",
+            "target": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Memberpress/RecordApiHelper.php": [
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    22,
+                    26
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    28,
+                    43
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:cratemember",
+                "kind": "method",
+                "lines": [
+                    45,
+                    101
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:removeuserformmembership",
+                "kind": "method",
+                "lines": [
+                    103,
+                    149
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    151,
+                    188
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Memberpress/MemberpressController.php": "69c6b8245614726776f6280d3eca50075dfb7ed0",
+        "backend/Actions/Memberpress/RecordApiHelper.php": "63116d5a1e2108d4732bf2e3dd5d802fe1a6f893",
+        "backend/Actions/Memberpress/Routes.php": "7527955a2e84b2c12467e932f404827f679b0dbb"
+    },
+    "sources": {
+        "backend/Actions/Memberpress/MemberpressAction.php": [
+            "backend/Actions/Memberpress/MemberpressController.php"
+        ],
+        "backend/Actions/Memberpress/MemberpressHelper.php": [
+            "backend/Actions/Memberpress/MemberpressController.php"
+        ],
+        "backend/Actions/Memberpress/MemberpressService.php": [
+            "backend/Actions/Memberpress/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressAction",
+            "origin": "created",
+            "path": "backend/Actions/Memberpress/MemberpressAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Memberpress/MemberpressHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Memberpress/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Memberpress\\RecordApiHelper",
+                "to": "backend/Actions/Memberpress/MemberpressService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Memberpress\\MemberpressService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "Memberpress"
+    ]
+}

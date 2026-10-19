@@ -1,0 +1,224 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 30,
+            "to": "method:checkednewsletterexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 51,
+        "modifiers": [],
+        "path": "backend/Actions/Newsletter/NewsletterController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Newsletter/NewsletterController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Newsletter/NewsletterAction.php"
+        },
+        {
+            "from": "backend/Actions/Newsletter/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Newsletter/NewsletterService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Newsletter",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterController": {
+            "method:checkednewsletterexists": [
+                "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Newsletter\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:checkednewsletterexists",
+            "kind": "method",
+            "lines": [
+                13,
+                26
+            ],
+            "names": [
+                "checkedNewsletterExists"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                28,
+                49
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Newsletter",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Newsletter\\RecordApiHelper",
+            "file": "backend/Actions/Newsletter/NewsletterController.php",
+            "kind": "new",
+            "line": 41,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterController": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterAction",
+        "BitApps\\Integrations\\Actions\\Newsletter\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Newsletter/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    17,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    22,
+                    33
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    35,
+                    49
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    51,
+                    64
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Newsletter/NewsletterController.php": "18583e468ac998d35ee49528082a881c05765801",
+        "backend/Actions/Newsletter/RecordApiHelper.php": "e02012bdb952d5b276d0825e0ef70e627bab2928"
+    },
+    "sources": {
+        "backend/Actions/Newsletter/NewsletterAction.php": [
+            "backend/Actions/Newsletter/NewsletterController.php"
+        ],
+        "backend/Actions/Newsletter/NewsletterService.php": [
+            "backend/Actions/Newsletter/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Newsletter/NewsletterAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterHelper",
+            "origin": "none",
+            "path": "backend/Actions/Newsletter/NewsletterHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Newsletter/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Newsletter\\RecordApiHelper",
+                "to": "backend/Actions/Newsletter/NewsletterService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Newsletter\\NewsletterService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "Newsletter"
+    ]
+}

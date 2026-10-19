@@ -1,0 +1,384 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:fetchalllists",
+            "line": 36,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:vboutrefreshfields",
+            "line": 71,
+            "to": "property:baseUrl",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Vbout\\VboutController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 126,
+        "modifiers": [],
+        "path": "backend/Actions/Vbout/VboutController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Vbout/VboutController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Vbout/VboutHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Vbout/VboutAction.php"
+        },
+        {
+            "from": "backend/Actions/Vbout/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Vbout/VboutService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Vbout/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 38,
+            "helper": 68
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Vbout",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Vbout\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Vbout\\VboutService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Vbout\\VboutController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Vbout\\VboutAction"
+            ],
+            "method:fetchalllists": [
+                "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper"
+            ],
+            "method:vboutrefreshfields": [
+                "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Vbout\\VboutAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchalllists",
+            "kind": "method",
+            "lines": [
+                25,
+                58
+            ],
+            "names": [
+                "fetchAllLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:vboutrefreshfields",
+            "kind": "method",
+            "lines": [
+                60,
+                92
+            ],
+            "names": [
+                "vboutRefreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                94,
+                124
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Vbout",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Vbout\\VboutController",
+            "file": "backend/Actions/Vbout/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Vbout\\VboutController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Vbout\\VboutController",
+            "file": "backend/Actions/Vbout/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchalllists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper",
+            "text": "VboutController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Vbout\\VboutController",
+            "file": "backend/Actions/Vbout/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:vboutrefreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper",
+            "text": "VboutController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Vbout\\RecordApiHelper",
+            "file": "backend/Actions/Vbout/VboutController.php",
+            "kind": "new",
+            "line": 110,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Vbout\\VboutService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Vbout\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Vbout\\VboutService",
+        "BitApps\\Integrations\\Actions\\Vbout\\VboutController": [
+            "BitApps\\Integrations\\Actions\\Vbout\\VboutAction",
+            "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Vbout/Routes.php",
+            "line": 10,
+            "method": "fetchAllLists",
+            "route": "vbout_fetch_all_lists",
+            "target": "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Vbout/Routes.php",
+            "line": 11,
+            "method": "vboutRefreshFields",
+            "route": "vbout_refresh_fields",
+            "target": "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Vbout/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    23
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getcontactbyemail",
+                "kind": "method",
+                "lines": [
+                    25,
+                    30
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:editcontact",
+                "kind": "method",
+                "lines": [
+                    32,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    37,
+                    70
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    72,
+                    87
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    89,
+                    111
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Vbout/RecordApiHelper.php": "eb95606237e130e5cbdeb2d34f0aa199842096a6",
+        "backend/Actions/Vbout/Routes.php": "d4ec46acf73f14c9bf5fde8a52db382beae7020e",
+        "backend/Actions/Vbout/VboutController.php": "d9e1ac6d9c0f0186cdbf0664b69875f0b0a73f44"
+    },
+    "sources": {
+        "backend/Actions/Vbout/VboutAction.php": [
+            "backend/Actions/Vbout/VboutController.php"
+        ],
+        "backend/Actions/Vbout/VboutHelper.php": [
+            "backend/Actions/Vbout/VboutController.php"
+        ],
+        "backend/Actions/Vbout/VboutService.php": [
+            "backend/Actions/Vbout/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Vbout\\VboutAction",
+            "origin": "created",
+            "path": "backend/Actions/Vbout/VboutAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Vbout\\VboutHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Vbout/VboutHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Vbout/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Vbout\\RecordApiHelper",
+                "to": "backend/Actions/Vbout/VboutService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Vbout\\VboutService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Vbout"
+    ]
+}

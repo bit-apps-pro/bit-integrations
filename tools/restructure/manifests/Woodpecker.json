@@ -1,0 +1,495 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getallcampagns",
+            "line": 31,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcampagns",
+            "line": 33,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcampagns",
+            "line": 34,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setapiendpoint",
+            "line": 80,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 99,
+        "modifiers": [],
+        "path": "backend/Actions/Woodpecker/WoodpeckerController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Woodpecker/WoodpeckerController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Woodpecker/WoodpeckerHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Woodpecker/WoodpeckerAction.php"
+        },
+        {
+            "from": "backend/Actions/Woodpecker/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Woodpecker/WoodpeckerService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Woodpecker/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 30,
+            "helper": 45
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader",
+            "property:domain"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Woodpecker",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Woodpecker\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerController": {
+            "method:checkvalidation": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerAction"
+            ],
+            "method:getallcampagns": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ],
+            "method:setapiendpoint": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerAction"
+            ],
+            "property:domain": [
+                "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:domain",
+            "kind": "property",
+            "lines": [
+                27,
+                27
+            ],
+            "names": [
+                "domain"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getallcampagns",
+            "kind": "method",
+            "lines": [
+                29,
+                52
+            ],
+            "names": [
+                "getAllCampagns"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                54,
+                76
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:setapiendpoint",
+            "kind": "method",
+            "lines": [
+                78,
+                81
+            ],
+            "names": [
+                "setApiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:checkvalidation",
+            "kind": "method",
+            "lines": [
+                83,
+                88
+            ],
+            "names": [
+                "checkValidation"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                90,
+                97
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Woodpecker",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerController",
+            "file": "backend/Actions/Woodpecker/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerController",
+            "file": "backend/Actions/Woodpecker/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallcampagns",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper",
+            "text": "WoodpeckerController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Woodpecker\\RecordApiHelper",
+            "file": "backend/Actions/Woodpecker/WoodpeckerController.php",
+            "kind": "new",
+            "line": 68,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Woodpecker\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerService",
+        "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerController": [
+            "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerAction",
+            "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Woodpecker/Routes.php",
+            "line": 10,
+            "method": "getAllCampagns",
+            "route": "woodpecker_fetch_all_campaigns",
+            "target": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Woodpecker/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addprospects",
+                "kind": "method",
+                "lines": [
+                    37,
+                    64
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcompany",
+                "kind": "method",
+                "lines": [
+                    66,
+                    77
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    79,
+                    89
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    91,
+                    108
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Woodpecker/RecordApiHelper.php": "7e1c20ccda7d38f20c75776e739150633d2b1cbb",
+        "backend/Actions/Woodpecker/Routes.php": "aaa721b3c5e08789b151f9da28588bcb91d1766b",
+        "backend/Actions/Woodpecker/WoodpeckerController.php": "29533a3ca642e0df23ddbf2838279a4d58369361"
+    },
+    "sources": {
+        "backend/Actions/Woodpecker/WoodpeckerAction.php": [
+            "backend/Actions/Woodpecker/WoodpeckerController.php"
+        ],
+        "backend/Actions/Woodpecker/WoodpeckerHelper.php": [
+            "backend/Actions/Woodpecker/WoodpeckerController.php"
+        ],
+        "backend/Actions/Woodpecker/WoodpeckerService.php": [
+            "backend/Actions/Woodpecker/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerAction",
+            "origin": "created",
+            "path": "backend/Actions/Woodpecker/WoodpeckerAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Woodpecker/WoodpeckerHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Woodpecker/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Woodpecker\\RecordApiHelper",
+                "to": "backend/Actions/Woodpecker/WoodpeckerService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Woodpecker\\WoodpeckerService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Woodpecker"
+    ]
+}

@@ -1,0 +1,216 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SureCart\\SureCartController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 46,
+        "modifiers": [],
+        "path": "backend/Actions/SureCart/SureCartController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SureCart/SureCartController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SureCart/SureCartAction.php"
+        },
+        {
+            "from": "backend/Actions/SureCart/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SureCart/SureCartService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SureCart",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SureCart\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\SureCart\\SureCartService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\SureCart\\SureCartController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\SureCart\\SureCartAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\SureCart\\SureCartAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                10,
+                16
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                18,
+                44
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\SureCart",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\SureCart\\RecordApiHelper",
+            "file": "backend/Actions/SureCart/SureCartController.php",
+            "kind": "new",
+            "line": 35,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SureCart\\SureCartService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SureCart\\RecordApiHelper": "BitApps\\Integrations\\Actions\\SureCart\\SureCartService",
+        "BitApps\\Integrations\\Actions\\SureCart\\SureCartController": "BitApps\\Integrations\\Actions\\SureCart\\SureCartAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/SureCart/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    10,
+                    10
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    12,
+                    15
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    17,
+                    32
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createcustomer",
+                "kind": "method",
+                "lines": [
+                    34,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    64,
+                    83
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/SureCart/RecordApiHelper.php": "70123bf3a764b22d77d266153e91bf79d0c09875",
+        "backend/Actions/SureCart/SureCartController.php": "e8ba50e7f2f838cad155898358d187707a42356d"
+    },
+    "sources": {
+        "backend/Actions/SureCart/SureCartAction.php": [
+            "backend/Actions/SureCart/SureCartController.php"
+        ],
+        "backend/Actions/SureCart/SureCartService.php": [
+            "backend/Actions/SureCart/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SureCart\\SureCartAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SureCart/SureCartAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SureCart\\SureCartHelper",
+            "origin": "none",
+            "path": "backend/Actions/SureCart/SureCartHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/SureCart/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\SureCart\\RecordApiHelper",
+                "to": "backend/Actions/SureCart/SureCartService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\SureCart\\SureCartService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "SureCart"
+    ]
+}
