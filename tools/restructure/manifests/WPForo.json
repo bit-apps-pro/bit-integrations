@@ -1,0 +1,485 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getreputations",
+            "line": 25,
+            "to": "method:checkedwpforoexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getgroups",
+            "line": 45,
+            "to": "method:checkedwpforoexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getforums",
+            "line": 65,
+            "to": "method:checkedwpforoexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:gettopics",
+            "line": 85,
+            "to": "method:checkedwpforoexists",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 105,
+            "rewriteTo": "WPForoHelper",
+            "to": "method:checkedwpforoexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 141,
+        "modifiers": [],
+        "path": "backend/Actions/WPForo/WPForoController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WPForo/WPForoController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WPForo/WPForoHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WPForo/WPForoAction.php"
+        },
+        {
+            "from": "backend/Actions/WPForo/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WPForo/WPForoService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WPForo/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 37,
+            "helper": 85
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WPForo",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WPForo\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WPForo\\WPForoController": {
+            "method:checkedwpforoexists": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoAction"
+            ],
+            "method:getforums": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper"
+            ],
+            "method:getgroups": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper"
+            ],
+            "method:getreputations": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper"
+            ],
+            "method:gettopics": [
+                "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:checkedwpforoexists",
+            "kind": "method",
+            "lines": [
+                13,
+                21
+            ],
+            "names": [
+                "checkedWPForoExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getreputations",
+            "kind": "method",
+            "lines": [
+                23,
+                41
+            ],
+            "names": [
+                "getReputations"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getgroups",
+            "kind": "method",
+            "lines": [
+                43,
+                61
+            ],
+            "names": [
+                "getGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getforums",
+            "kind": "method",
+            "lines": [
+                63,
+                81
+            ],
+            "names": [
+                "getForums"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:gettopics",
+            "kind": "method",
+            "lines": [
+                83,
+                101
+            ],
+            "names": [
+                "getTopics"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                103,
+                139
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WPForo",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoController",
+            "file": "backend/Actions/WPForo/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WPForo\\WPForoController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoController",
+            "file": "backend/Actions/WPForo/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getreputations",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "text": "WPForoController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoController",
+            "file": "backend/Actions/WPForo/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "text": "WPForoController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoController",
+            "file": "backend/Actions/WPForo/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getforums",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "text": "WPForoController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoController",
+            "file": "backend/Actions/WPForo/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:gettopics",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "text": "WPForoController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\RecordApiHelper",
+            "file": "backend/Actions/WPForo/WPForoController.php",
+            "kind": "new",
+            "line": 131,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPForo\\WPForoService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WPForo\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WPForo\\WPForoService",
+        "BitApps\\Integrations\\Actions\\WPForo\\WPForoController": [
+            "BitApps\\Integrations\\Actions\\WPForo\\WPForoAction",
+            "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WPForo/Routes.php",
+            "line": 10,
+            "method": "getReputations",
+            "route": "wpforo_fetch_reputations",
+            "target": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WPForo/Routes.php",
+            "line": 11,
+            "method": "getGroups",
+            "route": "wpforo_fetch_groups",
+            "target": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WPForo/Routes.php",
+            "line": 12,
+            "method": "getForums",
+            "route": "wpforo_fetch_forums",
+            "target": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WPForo/Routes.php",
+            "line": 13,
+            "method": "getTopics",
+            "route": "wpforo_fetch_topics",
+            "target": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WPForo/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    19
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setuserreputation",
+                "kind": "method",
+                "lines": [
+                    21,
+                    40
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtogroup",
+                "kind": "method",
+                "lines": [
+                    42,
+                    57
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:removefromgroup",
+                "kind": "method",
+                "lines": [
+                    59,
+                    99
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createtopic",
+                "kind": "method",
+                "lines": [
+                    101,
+                    167
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletetopic",
+                "kind": "method",
+                "lines": [
+                    169,
+                    188
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getuseridfromemail",
+                "kind": "method",
+                "lines": [
+                    190,
+                    199
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    201,
+                    215
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    217,
+                    257
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WPForo/RecordApiHelper.php": "233d2f52bed2e496672b8b104988a401e9df1fb1",
+        "backend/Actions/WPForo/Routes.php": "b05b99fff19f16b5c46879b16a85524ee603d8bd",
+        "backend/Actions/WPForo/WPForoController.php": "4cbc2ab68929e20dbeaa3c22887f3e203228b841"
+    },
+    "sources": {
+        "backend/Actions/WPForo/WPForoAction.php": [
+            "backend/Actions/WPForo/WPForoController.php"
+        ],
+        "backend/Actions/WPForo/WPForoHelper.php": [
+            "backend/Actions/WPForo/WPForoController.php"
+        ],
+        "backend/Actions/WPForo/WPForoService.php": [
+            "backend/Actions/WPForo/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoAction",
+            "origin": "created",
+            "path": "backend/Actions/WPForo/WPForoAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WPForo\\WPForoHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WPForo/WPForoHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WPForo/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WPForo\\RecordApiHelper",
+                "to": "backend/Actions/WPForo/WPForoService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WPForo\\WPForoService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "WPForo"
+    ]
+}

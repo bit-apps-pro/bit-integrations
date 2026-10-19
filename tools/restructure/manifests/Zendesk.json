@@ -1,0 +1,834 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 29,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:getcustomfields",
+            "line": 41,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getcustomfields",
+            "line": 43,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getcustomfields",
+            "line": 45,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallleads",
+            "line": 74,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallparentorganizations",
+            "line": 101,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallteams",
+            "line": 130,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcurrencies",
+            "line": 157,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallstages",
+            "line": 184,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmcompanies",
+            "line": 211,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmcontacts",
+            "line": 240,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmsources",
+            "line": 269,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmsources",
+            "line": 271,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": {
+        "properties": [
+            "apiEndpoint"
+        ],
+        "statements": [
+            0
+        ]
+    },
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 315,
+        "modifiers": [],
+        "path": "backend/Actions/Zendesk/ZendeskController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Zendesk/ZendeskController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Zendesk/ZendeskHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Zendesk/ZendeskAction.php"
+        },
+        {
+            "from": "backend/Actions/Zendesk/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Zendesk/ZendeskService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Zendesk/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 34,
+            "helper": 258
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [
+            {
+                "member": "property:apiEndpoint",
+                "placement": "both",
+                "resolution": "set only by the no-argument constructor; copied with that constructor line"
+            }
+        ],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Zendesk",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Zendesk\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskAction"
+            ],
+            "method:getallcrmcompanies": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallcrmcontacts": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallcrmsources": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallcurrencies": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallleads": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallparentorganizations": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallstages": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getallteams": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskAction",
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "both",
+            "reachedFrom": [],
+            "reason": "set only by the no-argument constructor; copied with that constructor line",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                27,
+                30
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                32,
+                65
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallleads",
+            "kind": "method",
+            "lines": [
+                67,
+                92
+            ],
+            "names": [
+                "getAllLeads"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallparentorganizations",
+            "kind": "method",
+            "lines": [
+                94,
+                121
+            ],
+            "names": [
+                "getAllParentOrganizations"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallteams",
+            "kind": "method",
+            "lines": [
+                123,
+                148
+            ],
+            "names": [
+                "getAllTeams"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcurrencies",
+            "kind": "method",
+            "lines": [
+                150,
+                175
+            ],
+            "names": [
+                "getAllCurrencies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallstages",
+            "kind": "method",
+            "lines": [
+                177,
+                202
+            ],
+            "names": [
+                "getAllStages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmcompanies",
+            "kind": "method",
+            "lines": [
+                204,
+                231
+            ],
+            "names": [
+                "getAllCRMCompanies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmcontacts",
+            "kind": "method",
+            "lines": [
+                233,
+                258
+            ],
+            "names": [
+                "getAllCRMContacts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmsources",
+            "kind": "method",
+            "lines": [
+                260,
+                290
+            ],
+            "names": [
+                "getAllCRMSources"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                292,
+                313
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Zendesk",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallleads",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallparentorganizations",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallteams",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:getallcurrencies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:getallstages",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 16,
+            "member": "method:getallcrmcompanies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 17,
+            "member": "method:getallcrmcontacts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController",
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "kind": "callable",
+            "line": 18,
+            "member": "method:getallcrmsources",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "text": "ZendeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\RecordApiHelper",
+            "file": "backend/Actions/Zendesk/ZendeskController.php",
+            "kind": "new",
+            "line": 305,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Zendesk\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskService",
+        "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskController": [
+            "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskAction",
+            "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 10,
+            "method": "getCustomFields",
+            "route": "zendesk_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 11,
+            "method": "getAllLeads",
+            "route": "zendesk_fetch_all_leads",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 12,
+            "method": "getAllParentOrganizations",
+            "route": "zendesk_fetch_all_parentOrganizations",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 13,
+            "method": "getAllTeams",
+            "route": "zendesk_fetch_all_teams",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 14,
+            "method": "getAllCurrencies",
+            "route": "zendesk_fetch_all_currencies",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 15,
+            "method": "getAllStages",
+            "route": "zendesk_fetch_all_stages",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 16,
+            "method": "getAllCRMCompanies",
+            "route": "zendesk_fetch_all_CRMCompanies",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 17,
+            "method": "getAllCRMContacts",
+            "route": "zendesk_fetch_all_CRMContacts",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zendesk/Routes.php",
+            "line": 18,
+            "method": "getAllCRMSources",
+            "route": "zendesk_fetch_all_CRMSources",
+            "target": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Zendesk/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addorganization",
+                "kind": "method",
+                "lines": [
+                    37,
+                    72
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    74,
+                    103
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addlead",
+                "kind": "method",
+                "lines": [
+                    105,
+                    140
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:adddeal",
+                "kind": "method",
+                "lines": [
+                    142,
+                    176
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    178,
+                    200
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    202,
+                    223
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Zendesk/RecordApiHelper.php": "66722c896612121453b55a4a1cef6edcb9af1dc6",
+        "backend/Actions/Zendesk/Routes.php": "b66c4f276bc83d1bec3ec436517b1549446a68af",
+        "backend/Actions/Zendesk/ZendeskController.php": "f65ea61a3ae8a5675470aaf48015297355248da1"
+    },
+    "sources": {
+        "backend/Actions/Zendesk/ZendeskAction.php": [
+            "backend/Actions/Zendesk/ZendeskController.php"
+        ],
+        "backend/Actions/Zendesk/ZendeskHelper.php": [
+            "backend/Actions/Zendesk/ZendeskController.php"
+        ],
+        "backend/Actions/Zendesk/ZendeskService.php": [
+            "backend/Actions/Zendesk/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskAction",
+            "origin": "created",
+            "path": "backend/Actions/Zendesk/ZendeskAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Zendesk/ZendeskHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Zendesk/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Zendesk\\RecordApiHelper",
+                "to": "backend/Actions/Zendesk/ZendeskService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Zendesk\\ZendeskService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Zendesk"
+    ]
+}

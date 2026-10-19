@@ -1,0 +1,778 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 30,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:getcustomfields",
+            "line": 51,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallopportunities",
+            "line": 82,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallowners",
+            "line": 109,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcompanies",
+            "line": 139,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltags",
+            "line": 169,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallpipelinestages",
+            "line": 194,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmpeoples",
+            "line": 225,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmpipelines",
+            "line": 256,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": {
+        "properties": [
+            "apiEndpoint"
+        ],
+        "statements": [
+            0
+        ]
+    },
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 302,
+        "modifiers": [],
+        "path": "backend/Actions/CopperCRM/CopperCRMController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/CopperCRM/CopperCRMController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/CopperCRM/CopperCRMHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/CopperCRM/CopperCRMAction.php"
+        },
+        {
+            "from": "backend/Actions/CopperCRM/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/CopperCRM/CopperCRMService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/CopperCRM/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 35,
+            "helper": 245
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [
+            {
+                "member": "property:apiEndpoint",
+                "placement": "both",
+                "resolution": "set only by the no-argument constructor; copied with that constructor line"
+            }
+        ],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "CopperCRM",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMAction"
+            ],
+            "method:getallcompanies": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getallcrmpeoples": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getallcrmpipelines": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getallopportunities": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getallowners": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getallpipelinestages": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getalltags": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMAction",
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\CopperCRM\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "both",
+            "reachedFrom": [],
+            "reason": "set only by the no-argument constructor; copied with that constructor line",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                28,
+                31
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                33,
+                73
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallopportunities",
+            "kind": "method",
+            "lines": [
+                75,
+                100
+            ],
+            "names": [
+                "getAllOpportunities"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallowners",
+            "kind": "method",
+            "lines": [
+                102,
+                130
+            ],
+            "names": [
+                "getAllOwners"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcompanies",
+            "kind": "method",
+            "lines": [
+                132,
+                160
+            ],
+            "names": [
+                "getAllCompanies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltags",
+            "kind": "method",
+            "lines": [
+                162,
+                184
+            ],
+            "names": [
+                "getAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallpipelinestages",
+            "kind": "method",
+            "lines": [
+                186,
+                215
+            ],
+            "names": [
+                "getAllPipelineStages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpeoples",
+            "kind": "method",
+            "lines": [
+                217,
+                246
+            ],
+            "names": [
+                "getAllCRMPeoples"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpipelines",
+            "kind": "method",
+            "lines": [
+                248,
+                277
+            ],
+            "names": [
+                "getAllCRMPipelines"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                279,
+                300
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\CopperCRM",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\RecordApiHelper",
+            "file": "backend/Actions/CopperCRM/CopperCRMController.php",
+            "kind": "new",
+            "line": 292,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "use BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallopportunities",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallowners",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallcompanies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:getalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:getallpipelinestages",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 16,
+            "member": "method:getallcrmpeoples",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController",
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "kind": "callable",
+            "line": 17,
+            "member": "method:getallcrmpipelines",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "text": "CopperCRMController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMController": [
+            "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMAction",
+            "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\CopperCRM\\RecordApiHelper": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 10,
+            "method": "getCustomFields",
+            "route": "coppercrm_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 11,
+            "method": "getAllOpportunities",
+            "route": "coppercrm_fetch_all_opportunities",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 12,
+            "method": "getAllOwners",
+            "route": "coppercrm_fetch_all_owners",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 13,
+            "method": "getAllCompanies",
+            "route": "coppercrm_fetch_all_companies",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 14,
+            "method": "getAllTags",
+            "route": "coppercrm_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 15,
+            "method": "getAllPipelineStages",
+            "route": "coppercrm_fetch_all_pipelineStages",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 16,
+            "method": "getAllCRMPeoples",
+            "route": "coppercrm_fetch_all_CRMPeoples",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/CopperCRM/Routes.php",
+            "line": 17,
+            "method": "getAllCRMPipelines",
+            "route": "coppercrm_fetch_all_CRMPipelines",
+            "target": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/CopperCRM/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiEmail",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    25,
+                    25
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    27,
+                    38
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcompany",
+                "kind": "method",
+                "lines": [
+                    40,
+                    82
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addperson",
+                "kind": "method",
+                "lines": [
+                    84,
+                    137
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addopportunity",
+                "kind": "method",
+                "lines": [
+                    139,
+                    183
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtask",
+                "kind": "method",
+                "lines": [
+                    185,
+                    218
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    220,
+                    236
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    238,
+                    259
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getcustomfieldid",
+                "kind": "method",
+                "lines": [
+                    261,
+                    297
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/CopperCRM/CopperCRMController.php": "49768e65f861cab3622f6e9791c4ace49b9d02fa",
+        "backend/Actions/CopperCRM/RecordApiHelper.php": "1c4ae173439e39e00e78ccdda0344c92b4ae335f",
+        "backend/Actions/CopperCRM/Routes.php": "a0988c0f5148cf5f4d8b9579eae8f4b5c2488e93"
+    },
+    "sources": {
+        "backend/Actions/CopperCRM/CopperCRMAction.php": [
+            "backend/Actions/CopperCRM/CopperCRMController.php"
+        ],
+        "backend/Actions/CopperCRM/CopperCRMHelper.php": [
+            "backend/Actions/CopperCRM/CopperCRMController.php"
+        ],
+        "backend/Actions/CopperCRM/CopperCRMService.php": [
+            "backend/Actions/CopperCRM/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMAction",
+            "origin": "created",
+            "path": "backend/Actions/CopperCRM/CopperCRMAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/CopperCRM/CopperCRMHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/CopperCRM/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\CopperCRM\\RecordApiHelper",
+                "to": "backend/Actions/CopperCRM/CopperCRMService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\CopperCRM\\CopperCRMService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "CopperCRM"
+    ]
+}

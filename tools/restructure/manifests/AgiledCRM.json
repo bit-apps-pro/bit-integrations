@@ -1,0 +1,611 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 248,
+        "modifiers": [],
+        "path": "backend/Actions/AgiledCRM/AgiledCRMController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/AgiledCRM/AgiledCRMController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/AgiledCRM/AgiledCRMHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/AgiledCRM/AgiledCRMAction.php"
+        },
+        {
+            "from": "backend/Actions/AgiledCRM/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/AgiledCRM/AgiledCRMService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/AgiledCRM/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 30,
+            "helper": 193
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "AgiledCRM",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMAction"
+            ],
+            "method:getallaccounts": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "method:getallcrmpipelines": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "method:getallcrmpipelinestages": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "method:getalllifecyclestage": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "method:getallowners": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "method:getallsources": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "method:getallstatuses": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\AgiledCRM\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getallowners",
+            "kind": "method",
+            "lines": [
+                26,
+                52
+            ],
+            "names": [
+                "getAllOwners"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallaccounts",
+            "kind": "method",
+            "lines": [
+                54,
+                80
+            ],
+            "names": [
+                "getAllAccounts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallsources",
+            "kind": "method",
+            "lines": [
+                82,
+                108
+            ],
+            "names": [
+                "getAllSources"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallstatuses",
+            "kind": "method",
+            "lines": [
+                110,
+                136
+            ],
+            "names": [
+                "getAllStatuses"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllifecyclestage",
+            "kind": "method",
+            "lines": [
+                138,
+                164
+            ],
+            "names": [
+                "getAllLifeCycleStage"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpipelines",
+            "kind": "method",
+            "lines": [
+                166,
+                192
+            ],
+            "names": [
+                "getAllCRMPipelines"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpipelinestages",
+            "kind": "method",
+            "lines": [
+                194,
+                223
+            ],
+            "names": [
+                "getAllCRMPipelineStages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                225,
+                246
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\AgiledCRM",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\RecordApiHelper",
+            "file": "backend/Actions/AgiledCRM/AgiledCRMController.php",
+            "kind": "new",
+            "line": 238,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "use BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallowners",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallaccounts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallsources",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallstatuses",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:getalllifecyclestage",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:getallcrmpipelines",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController",
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "kind": "callable",
+            "line": 16,
+            "member": "method:getallcrmpipelinestages",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "text": "AgiledCRMController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMController": [
+            "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMAction",
+            "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\AgiledCRM\\RecordApiHelper": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 10,
+            "method": "getAllOwners",
+            "route": "agiled_fetch_all_owners",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 11,
+            "method": "getAllAccounts",
+            "route": "agiled_fetch_all_accounts",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 12,
+            "method": "getAllSources",
+            "route": "agiled_fetch_all_sources",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 13,
+            "method": "getAllStatuses",
+            "route": "agiled_fetch_all_statuses",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 14,
+            "method": "getAllLifeCycleStage",
+            "route": "agiled_fetch_all_lifeCycleStages",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 15,
+            "method": "getAllCRMPipelines",
+            "route": "agiled_fetch_all_CRMPipelines",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/AgiledCRM/Routes.php",
+            "line": 16,
+            "method": "getAllCRMPipelineStages",
+            "route": "agiled_fetch_all_CRMPipelineStages",
+            "target": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/AgiledCRM/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:authToken",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    25,
+                    25
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    27,
+                    36
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addaccount",
+                "kind": "method",
+                "lines": [
+                    38,
+                    67
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    69,
+                    122
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:adddeal",
+                "kind": "method",
+                "lines": [
+                    124,
+                    151
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    153,
+                    175
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatedealfieldmap",
+                "kind": "method",
+                "lines": [
+                    177,
+                    191
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    193,
+                    214
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/AgiledCRM/AgiledCRMController.php": "ab265d7920f7f9f53834d5a7a2bf3bc1a6aa0655",
+        "backend/Actions/AgiledCRM/RecordApiHelper.php": "d2600c453c53cd70d5909af6245040779cc54c4f",
+        "backend/Actions/AgiledCRM/Routes.php": "dd376e5ee10836cbd263c85fbd723330d868a59c"
+    },
+    "sources": {
+        "backend/Actions/AgiledCRM/AgiledCRMAction.php": [
+            "backend/Actions/AgiledCRM/AgiledCRMController.php"
+        ],
+        "backend/Actions/AgiledCRM/AgiledCRMHelper.php": [
+            "backend/Actions/AgiledCRM/AgiledCRMController.php"
+        ],
+        "backend/Actions/AgiledCRM/AgiledCRMService.php": [
+            "backend/Actions/AgiledCRM/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMAction",
+            "origin": "created",
+            "path": "backend/Actions/AgiledCRM/AgiledCRMAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/AgiledCRM/AgiledCRMHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/AgiledCRM/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\AgiledCRM\\RecordApiHelper",
+                "to": "backend/Actions/AgiledCRM/AgiledCRMService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\AgiledCRM\\AgiledCRMService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "AgiledCRM"
+    ]
+}

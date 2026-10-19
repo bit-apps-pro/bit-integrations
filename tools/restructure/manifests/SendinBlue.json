@@ -1,0 +1,449 @@
+{
+    "callGraph": [
+        {
+            "form": "const",
+            "from": "method:refreshlists",
+            "line": 47,
+            "to": "const:APIENDPOINT",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:refreshtemplate",
+            "line": 88,
+            "to": "const:APIENDPOINT",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:sendinblueheaders",
+            "line": 127,
+            "to": "const:APIENDPOINT",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 189,
+        "modifiers": [],
+        "path": "backend/Actions/SendinBlue/SendinBlueController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SendinBlue/SendinBlueController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SendinBlue/SendinBlueHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/SendinBlue/SendinBlueAction.php"
+        },
+        {
+            "from": "backend/Actions/SendinBlue/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SendinBlue/SendinBlueService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/SendinBlue/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 45,
+            "helper": 123
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SendinBlue",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SendinBlue\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController": {
+            "const:APIENDPOINT": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueAction"
+            ],
+            "method:refreshlists": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper"
+            ],
+            "method:refreshtemplate": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper"
+            ],
+            "method:sendinblueheaders": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "const:APIENDPOINT",
+            "kind": "const",
+            "lines": [
+                15,
+                15
+            ],
+            "names": [
+                "APIENDPOINT"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                17,
+                25
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshlists",
+            "kind": "method",
+            "lines": [
+                27,
+                75
+            ],
+            "names": [
+                "refreshlists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtemplate",
+            "kind": "method",
+            "lines": [
+                77,
+                114
+            ],
+            "names": [
+                "refreshTemplate"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:sendinblueheaders",
+            "kind": "method",
+            "lines": [
+                116,
+                150
+            ],
+            "names": [
+                "sendinblueHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                152,
+                187
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\SendinBlue",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController",
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "text": "use BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController",
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshlists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "text": "SendinBlueController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController",
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:sendinblueheaders",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "text": "SendinBlueController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController",
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshtemplate",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "text": "SendinBlueController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\RecordApiHelper",
+            "file": "backend/Actions/SendinBlue/SendinBlueController.php",
+            "kind": "new",
+            "line": 172,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SendinBlue\\RecordApiHelper": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueService",
+        "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueController": [
+            "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueAction",
+            "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "line": 10,
+            "method": "refreshlists",
+            "route": "sblue_refresh_lists",
+            "target": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "line": 11,
+            "method": "sendinblueHeaders",
+            "route": "sblue_headers",
+            "target": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/SendinBlue/Routes.php",
+            "line": 12,
+            "method": "refreshTemplate",
+            "route": "sblue_refresh_template",
+            "target": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/SendinBlue/RecordApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_apiEndPoint",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    23,
+                    28
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecorddoubleopt",
+                "kind": "method",
+                "lines": [
+                    30,
+                    51
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    53,
+                    58
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:existrecord",
+                "kind": "method",
+                "lines": [
+                    60,
+                    65
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updaterecord",
+                "kind": "method",
+                "lines": [
+                    67,
+                    72
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    74,
+                    117
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setfiledmapping",
+                "kind": "method",
+                "lines": [
+                    119,
+                    153
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/SendinBlue/RecordApiHelper.php": "5509a42a75d29ebc6d806a5690066acca4026caa",
+        "backend/Actions/SendinBlue/Routes.php": "02899439f787149a25272447aa3534598386bd05",
+        "backend/Actions/SendinBlue/SendinBlueController.php": "b5a09aa11777de612c11117e5ced64eb13e3b0b9"
+    },
+    "sources": {
+        "backend/Actions/SendinBlue/SendinBlueAction.php": [
+            "backend/Actions/SendinBlue/SendinBlueController.php"
+        ],
+        "backend/Actions/SendinBlue/SendinBlueHelper.php": [
+            "backend/Actions/SendinBlue/SendinBlueController.php"
+        ],
+        "backend/Actions/SendinBlue/SendinBlueService.php": [
+            "backend/Actions/SendinBlue/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueAction",
+            "origin": "created",
+            "path": "backend/Actions/SendinBlue/SendinBlueAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SendinBlue/SendinBlueHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/SendinBlue/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\SendinBlue\\RecordApiHelper",
+                "to": "backend/Actions/SendinBlue/SendinBlueService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\SendinBlue\\SendinBlueService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "SendinBlue"
+    ]
+}

@@ -1,0 +1,464 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getalllists",
+            "line": 28,
+            "to": "method:resolveapikey",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalllists",
+            "line": 38,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 54,
+            "to": "method:resolveapikey",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltags",
+            "line": 64,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcustomfields",
+            "line": 80,
+            "to": "method:resolveapikey",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 156,
+        "modifiers": [],
+        "path": "backend/Actions/Selzy/SelzyController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Selzy/SelzyController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Selzy/SelzyHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Selzy/SelzyAction.php"
+        },
+        {
+            "from": "backend/Actions/Selzy/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Selzy/SelzyService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Selzy/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 53,
+            "helper": 81
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Selzy",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Selzy\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Selzy\\SelzyController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyAction"
+            ],
+            "method:getallcustomfields": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper"
+            ],
+            "method:getalllists": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper"
+            ],
+            "method:getalltags": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper"
+            ],
+            "method:resolveapikey": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                15,
+                15
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                17,
+                24
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllists",
+            "kind": "method",
+            "lines": [
+                26,
+                50
+            ],
+            "names": [
+                "getAllLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltags",
+            "kind": "method",
+            "lines": [
+                52,
+                76
+            ],
+            "names": [
+                "getAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcustomfields",
+            "kind": "method",
+            "lines": [
+                78,
+                103
+            ],
+            "names": [
+                "getAllCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                105,
+                149
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:resolveapikey",
+            "kind": "method",
+            "lines": [
+                151,
+                154
+            ],
+            "names": [
+                "resolveApiKey"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Selzy",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyController",
+            "file": "backend/Actions/Selzy/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Selzy\\SelzyController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyController",
+            "file": "backend/Actions/Selzy/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getalllists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "text": "SelzyController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyController",
+            "file": "backend/Actions/Selzy/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "text": "SelzyController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyController",
+            "file": "backend/Actions/Selzy/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "text": "SelzyController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\RecordApiHelper",
+            "file": "backend/Actions/Selzy/SelzyController.php",
+            "kind": "new",
+            "line": 132,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Selzy\\SelzyService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Selzy\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Selzy\\SelzyService",
+        "BitApps\\Integrations\\Actions\\Selzy\\SelzyController": [
+            "BitApps\\Integrations\\Actions\\Selzy\\SelzyAction",
+            "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Selzy/Routes.php",
+            "line": 10,
+            "method": "getAllLists",
+            "route": "selzy_get_all_lists",
+            "target": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Selzy/Routes.php",
+            "line": 11,
+            "method": "getAllTags",
+            "route": "selzy_get_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Selzy/Routes.php",
+            "line": 12,
+            "method": "getAllCustomFields",
+            "route": "selzy_get_all_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Selzy/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    23
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    25,
+                    40
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:response",
+                "kind": "method",
+                "lines": [
+                    42,
+                    48
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:subscribe",
+                "kind": "method",
+                "lines": [
+                    50,
+                    75
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:unsubscribe",
+                "kind": "method",
+                "lines": [
+                    77,
+                    85
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    87,
+                    127
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Selzy/RecordApiHelper.php": "66f24c50d22a7c24f26acd1a9519f8913c4feb6f",
+        "backend/Actions/Selzy/Routes.php": "95c9ef0b5cb06a7064de61ea7e1b74708482f2de",
+        "backend/Actions/Selzy/SelzyController.php": "f9391448810145c3cf578b13f561dfd2d04a3e31"
+    },
+    "sources": {
+        "backend/Actions/Selzy/SelzyAction.php": [
+            "backend/Actions/Selzy/SelzyController.php"
+        ],
+        "backend/Actions/Selzy/SelzyHelper.php": [
+            "backend/Actions/Selzy/SelzyController.php"
+        ],
+        "backend/Actions/Selzy/SelzyService.php": [
+            "backend/Actions/Selzy/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyAction",
+            "origin": "created",
+            "path": "backend/Actions/Selzy/SelzyAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Selzy\\SelzyHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Selzy/SelzyHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Selzy/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Selzy\\RecordApiHelper",
+                "to": "backend/Actions/Selzy/SelzyService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Selzy\\SelzyService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Selzy"
+    ]
+}

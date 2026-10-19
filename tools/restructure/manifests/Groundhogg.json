@@ -1,0 +1,352 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 86,
+        "modifiers": [],
+        "path": "backend/Actions/Groundhogg/GroundhoggController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Groundhogg/GroundhoggController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Groundhogg/GroundhoggAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Groundhogg/GroundhoggHelper.php"
+        },
+        {
+            "from": "backend/Actions/Groundhogg/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Groundhogg/GroundhoggService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Groundhogg/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 36,
+            "helper": 32
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Groundhogg",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggAction"
+            ],
+            "method:groundhoggfetchalltags": [
+                "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Groundhogg\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                23
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:groundhoggfetchalltags",
+            "kind": "method",
+            "lines": [
+                25,
+                56
+            ],
+            "names": [
+                "groundhoggFetchAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                58,
+                84
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Groundhogg",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Groundhogg\\RecordApiHelper",
+            "file": "backend/Actions/Groundhogg/GroundhoggController.php",
+            "kind": "new",
+            "line": 71,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController",
+            "file": "backend/Actions/Groundhogg/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController",
+            "file": "backend/Actions/Groundhogg/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:groundhoggfetchalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggHelper",
+            "text": "GroundhoggController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggController": [
+            "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggAction",
+            "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Groundhogg\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Groundhogg/Routes.php",
+            "line": 10,
+            "method": "groundhoggFetchAllTags",
+            "route": "groundhogg_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Groundhogg/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiResponseSuccess",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiResponseError",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    23,
+                    27
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    29,
+                    45
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatemetadatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    47,
+                    63
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createcontact",
+                "kind": "method",
+                "lines": [
+                    65,
+                    101
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createtag",
+                "kind": "method",
+                "lines": [
+                    103,
+                    123
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:checkexitstagsorcreate",
+                "kind": "method",
+                "lines": [
+                    125,
+                    149
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addtagstoexitsuser",
+                "kind": "method",
+                "lines": [
+                    151,
+                    164
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    166,
+                    246
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Groundhogg/GroundhoggController.php": "3f8a388d68a5bb0d71c7a2054785c1ea181a2980",
+        "backend/Actions/Groundhogg/RecordApiHelper.php": "2c69b39c076634e309fa334c8230a51d76dc547c",
+        "backend/Actions/Groundhogg/Routes.php": "61c45a3627cdf13891cf3135bbc58e42ef5b8c99"
+    },
+    "sources": {
+        "backend/Actions/Groundhogg/GroundhoggAction.php": [
+            "backend/Actions/Groundhogg/GroundhoggController.php"
+        ],
+        "backend/Actions/Groundhogg/GroundhoggHelper.php": [
+            "backend/Actions/Groundhogg/GroundhoggController.php"
+        ],
+        "backend/Actions/Groundhogg/GroundhoggService.php": [
+            "backend/Actions/Groundhogg/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Groundhogg/GroundhoggAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggHelper",
+            "origin": "created",
+            "path": "backend/Actions/Groundhogg/GroundhoggHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Groundhogg/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Groundhogg\\RecordApiHelper",
+                "to": "backend/Actions/Groundhogg/GroundhoggService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Groundhogg\\GroundhoggService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Groundhogg"
+    ]
+}

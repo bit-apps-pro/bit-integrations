@@ -1,0 +1,402 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:fetchallboards",
+            "line": 102,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:fetchallboards",
+            "line": 104,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:fetchalllists",
+            "line": 143,
+            "to": "property:baseUrl",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\BitForm\\BitFormController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 211,
+        "modifiers": [],
+        "path": "backend/Actions/BitForm/BitFormController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/BitForm/BitFormController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BitForm/BitFormHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/BitForm/BitFormAction.php"
+        },
+        {
+            "from": "backend/Actions/BitForm/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BitForm/BitFormService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/BitForm/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 52,
+            "helper": 138
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:fetchallboards",
+            "method:fetchalllists"
+        ],
+        "unresolvedMemberReferences": [
+            {
+                "line": 102,
+                "member": "method:fetchallboards",
+                "target": "property:baseUrl",
+                "via": "$this->"
+            },
+            {
+                "line": 104,
+                "member": "method:fetchallboards",
+                "target": "property:baseUrl",
+                "via": "$this->"
+            },
+            {
+                "line": 143,
+                "member": "method:fetchalllists",
+                "target": "property:baseUrl",
+                "via": "$this->"
+            }
+        ],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "BitForm",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\BitForm\\BitFormController": {
+            "method:bitformallformlist": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper"
+            ],
+            "method:bitformfetchsingleformfields": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormAction"
+            ],
+            "method:fetchallboards": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper"
+            ],
+            "method:fetchalllists": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\BitForm\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\BitForm\\BitFormService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:bitformallformlist",
+            "kind": "method",
+            "lines": [
+                24,
+                53
+            ],
+            "names": [
+                "bitFormAllFormList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:bitformfetchsingleformfields",
+            "kind": "method",
+            "lines": [
+                55,
+                85
+            ],
+            "names": [
+                "bitFormFetchSingleFormFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fetchallboards",
+            "kind": "method",
+            "lines": [
+                87,
+                125
+            ],
+            "names": [
+                "fetchAllBoards"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fetchalllists",
+            "kind": "method",
+            "lines": [
+                127,
+                164
+            ],
+            "names": [
+                "fetchAllLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                166,
+                209
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\BitForm",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitForm\\RecordApiHelper",
+            "file": "backend/Actions/BitForm/BitFormController.php",
+            "kind": "new",
+            "line": 194,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitForm\\BitFormService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitForm\\BitFormController",
+            "file": "backend/Actions/BitForm/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper",
+            "text": "use BitApps\\Integrations\\Actions\\BitForm\\BitFormController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitForm\\BitFormController",
+            "file": "backend/Actions/BitForm/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:bitformallformlist",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper",
+            "text": "BitFormController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitForm\\BitFormController",
+            "file": "backend/Actions/BitForm/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:bitformfetchsingleformfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper",
+            "text": "BitFormController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\BitForm\\BitFormController": [
+            "BitApps\\Integrations\\Actions\\BitForm\\BitFormAction",
+            "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\BitForm\\RecordApiHelper": "BitApps\\Integrations\\Actions\\BitForm\\BitFormService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/BitForm/Routes.php",
+            "line": 10,
+            "method": "bitFormAllFormList",
+            "route": "bitForm_all_form_list",
+            "target": "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitForm/Routes.php",
+            "line": 11,
+            "method": "bitFormFetchSingleFormFields",
+            "route": "bitForm_fetch_single_form_fields",
+            "target": "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/BitForm/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    17,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    23,
+                    38
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    40,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    64,
+                    84
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/BitForm/BitFormController.php": "619bf92f7d68d3cde7b59daeb8c4ff8e804e5193",
+        "backend/Actions/BitForm/RecordApiHelper.php": "a1b1cb76ee5a18e6186bda42056ccd3ba688a23a",
+        "backend/Actions/BitForm/Routes.php": "da1557451703393fb4b6247cad138b4bb31ae31b"
+    },
+    "sources": {
+        "backend/Actions/BitForm/BitFormAction.php": [
+            "backend/Actions/BitForm/BitFormController.php"
+        ],
+        "backend/Actions/BitForm/BitFormHelper.php": [
+            "backend/Actions/BitForm/BitFormController.php"
+        ],
+        "backend/Actions/BitForm/BitFormService.php": [
+            "backend/Actions/BitForm/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\BitForm\\BitFormAction",
+            "origin": "created",
+            "path": "backend/Actions/BitForm/BitFormAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\BitForm\\BitFormHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/BitForm/BitFormHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/BitForm/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\BitForm\\RecordApiHelper",
+                "to": "backend/Actions/BitForm/BitFormService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\BitForm\\BitFormService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "BitForm"
+    ]
+}

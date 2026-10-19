@@ -1,0 +1,364 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:fetchalllists",
+            "line": 37,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:acumbamailrefreshfields",
+            "line": 66,
+            "to": "property:baseUrl",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 128,
+        "modifiers": [],
+        "path": "backend/Actions/Acumbamail/AcumbamailController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Acumbamail/AcumbamailController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Acumbamail/AcumbamailHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Acumbamail/AcumbamailAction.php"
+        },
+        {
+            "from": "backend/Actions/Acumbamail/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Acumbamail/AcumbamailService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Acumbamail/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 41,
+            "helper": 67
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Acumbamail",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController": {
+            "method:acumbamailrefreshfields": [
+                "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailAction"
+            ],
+            "method:fetchalllists": [
+                "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Acumbamail\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchalllists",
+            "kind": "method",
+            "lines": [
+                25,
+                53
+            ],
+            "names": [
+                "fetchAllLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:acumbamailrefreshfields",
+            "kind": "method",
+            "lines": [
+                55,
+                91
+            ],
+            "names": [
+                "acumbamailRefreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                93,
+                126
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Acumbamail",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Acumbamail\\RecordApiHelper",
+            "file": "backend/Actions/Acumbamail/AcumbamailController.php",
+            "kind": "new",
+            "line": 111,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController",
+            "file": "backend/Actions/Acumbamail/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController",
+            "file": "backend/Actions/Acumbamail/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchalllists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper",
+            "text": "AcumbamailController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController",
+            "file": "backend/Actions/Acumbamail/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:acumbamailrefreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper",
+            "text": "AcumbamailController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailController": [
+            "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailAction",
+            "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Acumbamail\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Acumbamail/Routes.php",
+            "line": 10,
+            "method": "fetchAllLists",
+            "route": "acumbamail_fetch_all_list",
+            "target": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Acumbamail/Routes.php",
+            "line": 11,
+            "method": "acumbamailRefreshFields",
+            "route": "acumbamail_refresh_fields",
+            "target": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Acumbamail/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    17,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    23,
+                    41
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletesubscriber",
+                "kind": "method",
+                "lines": [
+                    43,
+                    58
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    60,
+                    75
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    77,
+                    99
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Acumbamail/AcumbamailController.php": "76e1b98cefb8c9bea8c81120aaaf3c43e78e409f",
+        "backend/Actions/Acumbamail/RecordApiHelper.php": "10abca106f3dbf34b978ab2146ad9ba0982a181f",
+        "backend/Actions/Acumbamail/Routes.php": "4082ddd9fbeb0d0d7ae6d6ba40c544455f90078d"
+    },
+    "sources": {
+        "backend/Actions/Acumbamail/AcumbamailAction.php": [
+            "backend/Actions/Acumbamail/AcumbamailController.php"
+        ],
+        "backend/Actions/Acumbamail/AcumbamailHelper.php": [
+            "backend/Actions/Acumbamail/AcumbamailController.php"
+        ],
+        "backend/Actions/Acumbamail/AcumbamailService.php": [
+            "backend/Actions/Acumbamail/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailAction",
+            "origin": "created",
+            "path": "backend/Actions/Acumbamail/AcumbamailAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Acumbamail/AcumbamailHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Acumbamail/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Acumbamail\\RecordApiHelper",
+                "to": "backend/Actions/Acumbamail/AcumbamailService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Acumbamail\\AcumbamailService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Acumbamail"
+    ]
+}

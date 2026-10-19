@@ -1,0 +1,394 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:getalldatabaselists",
+            "line": 37,
+            "to": "property:baseurl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getfieldsproperties",
+            "line": 69,
+            "to": "property:baseurl",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Notion\\NotionController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 123,
+        "modifiers": [],
+        "path": "backend/Actions/Notion/NotionController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Notion/NotionController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Notion/NotionHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Notion/NotionAction.php"
+        },
+        {
+            "from": "backend/Actions/Notion/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Notion/NotionService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Notion/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 44,
+            "helper": 63
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Notion",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Notion\\NotionController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Notion\\NotionAction"
+            ],
+            "method:getalldatabaselists": [
+                "BitApps\\Integrations\\Actions\\Notion\\NotionHelper"
+            ],
+            "method:getfieldsproperties": [
+                "BitApps\\Integrations\\Actions\\Notion\\NotionHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Notion\\NotionAction"
+            ],
+            "property:baseurl": [
+                "BitApps\\Integrations\\Actions\\Notion\\NotionHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Notion\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Notion\\NotionService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                11,
+                19
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:baseurl",
+            "kind": "property",
+            "lines": [
+                21,
+                21
+            ],
+            "names": [
+                "baseurl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:getalldatabaselists",
+            "kind": "method",
+            "lines": [
+                23,
+                53
+            ],
+            "names": [
+                "getAllDatabaseLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getfieldsproperties",
+            "kind": "method",
+            "lines": [
+                55,
+                85
+            ],
+            "names": [
+                "getFieldsProperties"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                87,
+                121
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Notion",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Notion\\RecordApiHelper",
+            "file": "backend/Actions/Notion/NotionController.php",
+            "kind": "new",
+            "line": 105,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Notion\\NotionService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Notion\\NotionController",
+            "file": "backend/Actions/Notion/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Notion\\NotionHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Notion\\NotionController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Notion\\NotionController",
+            "file": "backend/Actions/Notion/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getalldatabaselists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Notion\\NotionHelper",
+            "text": "NotionController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Notion\\NotionController",
+            "file": "backend/Actions/Notion/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getfieldsproperties",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Notion\\NotionHelper",
+            "text": "NotionController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Notion\\NotionController": [
+            "BitApps\\Integrations\\Actions\\Notion\\NotionAction",
+            "BitApps\\Integrations\\Actions\\Notion\\NotionHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Notion\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Notion\\NotionService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Notion/Routes.php",
+            "line": 10,
+            "method": "getAllDatabaseLists",
+            "route": "notion_database_lists",
+            "target": "BitApps\\Integrations\\Actions\\Notion\\NotionHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Notion/Routes.php",
+            "line": 11,
+            "method": "getFieldsProperties",
+            "route": "notion_database_properties",
+            "target": "BitApps\\Integrations\\Actions\\Notion\\NotionHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Notion/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    26,
+                    48
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:response",
+                "kind": "method",
+                "lines": [
+                    50,
+                    56
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createitemindatabase",
+                "kind": "method",
+                "lines": [
+                    58,
+                    77
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:valueformat",
+                "kind": "method",
+                "lines": [
+                    79,
+                    118
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    120,
+                    153
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setfile",
+                "kind": "method",
+                "lines": [
+                    155,
+                    166
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Notion/NotionController.php": "5be3dda85991914f76c6477fa1b846f987432559",
+        "backend/Actions/Notion/RecordApiHelper.php": "3924c04bb6fbe2d042d8d8b6d2d8a21cc268a6dc",
+        "backend/Actions/Notion/Routes.php": "5c2c3c6aadc9cfbc5c6925f143d1e4c3e4d3d364"
+    },
+    "sources": {
+        "backend/Actions/Notion/NotionAction.php": [
+            "backend/Actions/Notion/NotionController.php"
+        ],
+        "backend/Actions/Notion/NotionHelper.php": [
+            "backend/Actions/Notion/NotionController.php"
+        ],
+        "backend/Actions/Notion/NotionService.php": [
+            "backend/Actions/Notion/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Notion\\NotionAction",
+            "origin": "created",
+            "path": "backend/Actions/Notion/NotionAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Notion\\NotionHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Notion/NotionHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Notion/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Notion\\RecordApiHelper",
+                "to": "backend/Actions/Notion/NotionService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Notion\\NotionService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Notion"
+    ]
+}

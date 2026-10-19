@@ -1,0 +1,737 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getcompanies",
+            "line": 36,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcompanies",
+            "line": 37,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcontacts",
+            "line": 66,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcontacts",
+            "line": 67,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getproducts",
+            "line": 96,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getproducts",
+            "line": 97,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getsources",
+            "line": 126,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getsources",
+            "line": 127,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:gettags",
+            "line": 156,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:gettags",
+            "line": 157,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcompanytypes",
+            "line": 186,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcompanytypes",
+            "line": 187,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setapiendpoint",
+            "line": 234,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 253,
+        "modifiers": [],
+        "path": "backend/Actions/NutshellCRM/NutshellCRMController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/NutshellCRM/NutshellCRMController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/NutshellCRM/NutshellCRMHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/NutshellCRM/NutshellCRMAction.php"
+        },
+        {
+            "from": "backend/Actions/NutshellCRM/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/NutshellCRM/NutshellCRMService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/NutshellCRM/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 31,
+            "helper": 194
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:checkvalidation",
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "NutshellCRM",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController": {
+            "method:checkvalidation": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMAction"
+            ],
+            "method:getcompanies": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:getcompanytypes": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:getcontacts": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:getproducts": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:getsources": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:gettags": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:setapiendpoint": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\NutshellCRM\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getcompanies",
+            "kind": "method",
+            "lines": [
+                28,
+                56
+            ],
+            "names": [
+                "getCompanies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcontacts",
+            "kind": "method",
+            "lines": [
+                58,
+                86
+            ],
+            "names": [
+                "getContacts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getproducts",
+            "kind": "method",
+            "lines": [
+                88,
+                116
+            ],
+            "names": [
+                "getProducts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getsources",
+            "kind": "method",
+            "lines": [
+                118,
+                146
+            ],
+            "names": [
+                "getSources"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:gettags",
+            "kind": "method",
+            "lines": [
+                148,
+                176
+            ],
+            "names": [
+                "getTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcompanytypes",
+            "kind": "method",
+            "lines": [
+                178,
+                206
+            ],
+            "names": [
+                "getCompanyTypes"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                208,
+                230
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:setapiendpoint",
+            "kind": "method",
+            "lines": [
+                232,
+                235
+            ],
+            "names": [
+                "setApiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:checkvalidation",
+            "kind": "method",
+            "lines": [
+                237,
+                242
+            ],
+            "names": [
+                "checkValidation"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                244,
+                251
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\NutshellCRM",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\RecordApiHelper",
+            "file": "backend/Actions/NutshellCRM/NutshellCRMController.php",
+            "kind": "new",
+            "line": 222,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "use BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcontacts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "NutshellCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getproducts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "NutshellCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getsources",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "NutshellCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:gettags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "NutshellCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:getcompanies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "NutshellCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController",
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:getcompanytypes",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "text": "NutshellCRMController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMController": [
+            "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMAction",
+            "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\NutshellCRM\\RecordApiHelper": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "line": 10,
+            "method": "getContacts",
+            "route": "nutshellcrm_fetch_all_contacts",
+            "target": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "line": 11,
+            "method": "getProducts",
+            "route": "nutshellcrm_fetch_all_products",
+            "target": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "line": 12,
+            "method": "getSources",
+            "route": "nutshellcrm_fetch_all_sources",
+            "target": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "line": 13,
+            "method": "getTags",
+            "route": "nutshellcrm_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "line": 14,
+            "method": "getCompanies",
+            "route": "nutshellcrm_fetch_all_companies",
+            "target": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NutshellCRM/Routes.php",
+            "line": 15,
+            "method": "getCompanyTypes",
+            "route": "nutshellcrm_fetch_all_companytypes",
+            "target": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/NutshellCRM/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    35
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addpeople",
+                "kind": "method",
+                "lines": [
+                    37,
+                    83
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcompany",
+                "kind": "method",
+                "lines": [
+                    85,
+                    130
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addlead",
+                "kind": "method",
+                "lines": [
+                    132,
+                    192
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    194,
+                    204
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    206,
+                    225
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/NutshellCRM/NutshellCRMController.php": "2fac45b7045defcce8b244db11c5e6ff313ee95a",
+        "backend/Actions/NutshellCRM/RecordApiHelper.php": "5221138793e45734cf4c1abb62cf9ec769189057",
+        "backend/Actions/NutshellCRM/Routes.php": "9a58dd281654a7764f93d9a34ba2837aca202196"
+    },
+    "sources": {
+        "backend/Actions/NutshellCRM/NutshellCRMAction.php": [
+            "backend/Actions/NutshellCRM/NutshellCRMController.php"
+        ],
+        "backend/Actions/NutshellCRM/NutshellCRMHelper.php": [
+            "backend/Actions/NutshellCRM/NutshellCRMController.php"
+        ],
+        "backend/Actions/NutshellCRM/NutshellCRMService.php": [
+            "backend/Actions/NutshellCRM/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMAction",
+            "origin": "created",
+            "path": "backend/Actions/NutshellCRM/NutshellCRMAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/NutshellCRM/NutshellCRMHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/NutshellCRM/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\NutshellCRM\\RecordApiHelper",
+                "to": "backend/Actions/NutshellCRM/NutshellCRMService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\NutshellCRM\\NutshellCRMService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "NutshellCRM"
+    ]
+}
