@@ -147,8 +147,6 @@ backend/Actions/PipeDrive/PipeDriveController.php
 backend/Actions/PipeDrive/RecordApiHelper.php
 backend/Actions/Pods/PodsController.php
 backend/Actions/PostCreation/PostCreationController.php
-backend/Actions/PowerCoupons/PowerCouponsController.php
-backend/Actions/PowerCoupons/RecordApiHelper.php
 backend/Actions/ProfilePress/ProfilePressController.php
 backend/Actions/ProfilePress/RecordApiHelper.php
 backend/Actions/PropovoiceCRM/FilesApiHelper.php

@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class RecordApiHelper
+class PowerCouponsService
 {
     private $_integrationID;
 
@@ -29,7 +29,7 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap)
     {
-        if (!PowerCouponsController::isPluginInstalled()) {
+        if (!PowerCouponsHelper::isPluginInstalled()) {
             return [
                 'success' => false,
                 'message' => __('Power Coupons for WooCommerce is not installed or activated', 'bit-integrations')
