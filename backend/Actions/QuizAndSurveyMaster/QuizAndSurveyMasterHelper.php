@@ -6,9 +6,7 @@
 
 namespace BitApps\Integrations\Actions\QuizAndSurveyMaster;
 
-use WP_Error;
-
-class QuizAndSurveyMasterController
+class QuizAndSurveyMasterHelper
 {
     public static function isExists()
     {
@@ -70,21 +68,5 @@ class QuizAndSurveyMasterController
         }
 
         wp_send_json_success(['questionTypes' => $questionTypes], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 }
