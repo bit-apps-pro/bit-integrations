@@ -189,8 +189,6 @@ backend/Actions/WPWebhooks/WPWebhooksController.php
 backend/Actions/WebHooks/WebHooksController.php
 backend/Actions/WebbaBooking/RecordApiHelper.php
 backend/Actions/WebbaBooking/WebbaBookingController.php
-backend/Actions/WhatsApp/RecordApiHelper.php
-backend/Actions/WhatsApp/WhatsAppController.php
 backend/Actions/WishlistMember/RecordApiHelper.php
 backend/Actions/WishlistMember/WishlistMemberController.php
 backend/Actions/WooCommerce/RecordApiHelper.php

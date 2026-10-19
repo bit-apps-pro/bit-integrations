@@ -6,22 +6,10 @@
 
 namespace BitApps\Integrations\Actions\WhatsApp;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class WhatsAppController
+class WhatsAppHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'whatsapp',
-        'fields'   => [
-            'token'             => 'token',
-            'numberID'          => 'numberID',
-            'businessAccountID' => 'businessAccountID',
-        ],
-    ];
-
     private $baseUrl = 'https://graph.facebook.com/v20.0/';
 
     public function getAllTemplate($requestParams)
@@ -36,38 +24,6 @@ class WhatsAppController
         } else {
             wp_send_json_success($allTemplates, 200);
         }
-    }
-
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param object $integrationData Details of flow
-     * @param array  $fieldValues     Data to send Mail Chimp
-     *
-     * @return null
-     */
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $messageType = isset($integrationDetails->messageTypeId) ? $integrationDetails->messageTypeId : $integrationDetails->messageType;
-
-        if (empty($messageType)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'WhatsApp'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $whatsAppApiResponse = $recordApiHelper->execute(
-            $fieldValues,
-            $messageType,
-        );
-
-        if (is_wp_error($whatsAppApiResponse)) {
-            return $whatsAppApiResponse;
-        }
-
-        return $whatsAppApiResponse;
     }
 
     private static function getTemplate($apiEndpoint, $token)
