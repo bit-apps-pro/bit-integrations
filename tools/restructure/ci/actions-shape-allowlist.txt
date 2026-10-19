@@ -213,8 +213,6 @@ backend/Actions/WordPress/RecordApiHelper.php
 backend/Actions/WordPress/WordPressController.php
 backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php
 backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php
-backend/Actions/WpTableBuilder/RecordApiHelper.php
-backend/Actions/WpTableBuilder/WpTableBuilderController.php
 backend/Actions/Wsms/RecordApiHelper.php
 backend/Actions/Wsms/WsmsController.php
 backend/Actions/ZagoMail/RecordApiHelper.php
