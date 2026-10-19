@@ -8,7 +8,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 
-final class RegistrationController
+final class RegistrationAction
 {
     /**
      * wp_insert_user / wp_update_user fields a form submission is allowed to set.
