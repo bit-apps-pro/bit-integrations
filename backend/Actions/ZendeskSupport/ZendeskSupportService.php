@@ -17,7 +17,7 @@ use BitApps\Integrations\Log\LogHandler;
  * Free side never calls the Zendesk API. It only builds the mapped field
  * data and fires a hook that the Pro plugin handles.
  */
-class RecordApiHelper
+class ZendeskSupportService
 {
     /**
      * Maps each action slug to its dedicated hook name. Each event uses a

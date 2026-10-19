@@ -6,22 +6,10 @@
 
 namespace BitApps\Integrations\Actions\ZendeskSupport;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class ZendeskSupportController
+class ZendeskSupportHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::CUSTOM,
-        'slug'     => 'ZendeskSupport',
-        'fields'   => [
-            'subdomain' => 'subdomain',
-            'email'     => 'email',
-            'apiToken'  => 'apiToken',
-        ],
-    ];
-
     public function refreshGroups($requestParams)
     {
         $this->fetchOptions($requestParams, '/groups.json', 'groups', 'name');
@@ -45,29 +33,6 @@ class ZendeskSupportController
     public function refreshAgents($requestParams)
     {
         $this->fetchOptions($requestParams, '/users.json?role[]=agent&role[]=admin&per_page=100', 'users', 'name');
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (
-            empty($fieldMap)
-            || empty($actionName)
-            || empty($integrationDetails->subdomain)
-            || empty($integrationDetails->email)
-            || empty($integrationDetails->apiToken)
-        ) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Zendesk Support'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
     }
 
     private function fetchOptions($requestParams, $path, $listKey, $labelKey)

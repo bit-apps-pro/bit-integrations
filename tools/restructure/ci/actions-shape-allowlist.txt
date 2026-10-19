@@ -35,5 +35,3 @@ backend/Actions/WebbaBooking/RecordApiHelper.php
 backend/Actions/WebbaBooking/WebbaBookingController.php
 backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php
 backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php
-backend/Actions/ZendeskSupport/RecordApiHelper.php
-backend/Actions/ZendeskSupport/ZendeskSupportController.php
