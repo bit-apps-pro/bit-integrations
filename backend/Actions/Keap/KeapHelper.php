@@ -6,30 +6,11 @@
 
 namespace BitApps\Integrations\Actions\Keap;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
-use WP_Error;
 
-class KeapController
+class KeapHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::OAUTH2,
-        'slug'     => 'keap',
-        'fields'   => [
-            'clientId'     => 'client_id',
-            'clientSecret' => 'client_secret',
-            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on']],
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
-
     public static function refreshTagListAjaxHelper($queryParams)
     {
         if (
@@ -157,54 +138,7 @@ class KeapController
         return $tokenDetails;
     }
 
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param object $integrationData Details of flow
-     * @param array  $fieldValues     Data to send Mail Chimp
-     *
-     * @return null
-     */
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $tokenDetails = $integrationDetails->tokenDetails;
-        $fieldMap = $integrationDetails->field_map;
-        $actions = $integrationDetails->actions;
-
-        if (
-            empty($tokenDetails)
-            || empty($fieldMap)
-        ) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Keap'));
-        }
-
-        if ((\intval($tokenDetails->generates_on) + (60 * 60 * 23)) < time()) {
-            $requiredParams['clientId'] = $integrationDetails->clientId;
-            $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
-            $requiredParams['tokenDetails'] = $tokenDetails;
-            $newTokenDetails = static::refreshAccessToken((object) $requiredParams);
-            $tokenDetails = $newTokenDetails;
-            self::saveRefreshedToken($this->_integrationID, $tokenDetails);
-        }
-
-        $recordApiHelper = new RecordApiHelper($tokenDetails, $this->_integrationID);
-        $keapApiResponse = $recordApiHelper->execute(
-            $integrationDetails,
-            $fieldValues,
-            $fieldMap,
-            $actions
-        );
-
-        if (is_wp_error($keapApiResponse)) {
-            return $keapApiResponse;
-        }
-
-        return $keapApiResponse;
-    }
-
-    private static function saveRefreshedToken($integrationID, $tokenDetails)
+    public static function saveRefreshedToken($integrationID, $tokenDetails)
     {
         if (empty($integrationID)) {
             return;
