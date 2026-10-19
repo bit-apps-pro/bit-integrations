@@ -91,8 +91,6 @@ backend/Actions/Instasent/InstasentController.php
 backend/Actions/Instasent/RecordApiHelper.php
 backend/Actions/Integrately/IntegratelyController.php
 backend/Actions/Integromat/IntegromatController.php
-backend/Actions/IvyForms/IvyFormsController.php
-backend/Actions/IvyForms/RecordApiHelper.php
 backend/Actions/JetEngine/JetEngineController.php
 backend/Actions/JetEngine/RecordApiHelper.php
 backend/Actions/Keap/KeapController.php

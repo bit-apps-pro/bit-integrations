@@ -7,7 +7,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class IvyFormsService
 {
     private $_integrationID;
 
