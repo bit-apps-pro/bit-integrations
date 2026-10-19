@@ -2,9 +2,7 @@
 
 namespace BitApps\Integrations\Actions\BookingCalendar;
 
-use WP_Error;
-
-class BookingCalendarController
+class BookingCalendarHelper
 {
     public static function isExists()
     {
@@ -73,20 +71,6 @@ class BookingCalendarController
         }
 
         wp_send_json_success(['resources' => $resources], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integDetails->field_map;
-        $utilities = $integDetails->utilities ?? [];
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        return (new RecordApiHelper($integDetails, $integId))->execute($fieldValues, $fieldMap, $utilities);
     }
 
     private static function isPluginInstalled()
