@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WC Affiliate Record API
- */
-
 namespace BitApps\Integrations\Actions\WCAffiliate;
 
 use BitApps\Integrations\Config;

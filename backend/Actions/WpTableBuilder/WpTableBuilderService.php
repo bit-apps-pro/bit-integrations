@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WP Table Builder Record Api
- */
-
 namespace BitApps\Integrations\Actions\WpTableBuilder;
 
 use BitApps\Integrations\Config;

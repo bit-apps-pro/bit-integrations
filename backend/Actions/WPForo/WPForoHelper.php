@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WPForo Integration
- */
-
 namespace BitApps\Integrations\Actions\WPForo;
 
 class WPForoHelper

@@ -1,20 +1,11 @@
 <?php
 
-/**
- * LearnDesh Integration
- */
-
 namespace BitApps\Integrations\Actions\LearnDash;
 
 use BitApps\Integrations\Core\Util\Post;
 
 class LearnDashHelper
 {
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';

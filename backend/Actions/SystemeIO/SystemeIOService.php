@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SystemeIO Record Api
- */
-
 namespace BitApps\Integrations\Actions\SystemeIO;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

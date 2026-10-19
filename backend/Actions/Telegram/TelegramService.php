@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Telegram Record Api
- */
-
 namespace BitApps\Integrations\Actions\Telegram;
 
 use BitApps\Integrations\Core\Util\Common;
@@ -107,7 +103,6 @@ class TelegramService
 
     private static function htmlToMarkdown($html)
     {
-        // Regular expressions for matching HTML elements and attributes
         $patterns = [
             '/<b>(.*?)<\/b>/s'                                                    => '*$1*',
             '/<strong>(.*?)<\/strong>/s'                                          => '*$1*',
@@ -132,7 +127,6 @@ class TelegramService
             '/<s>(.*?)<\/s>/s'                                                    => '~$1~',
         ];
 
-        // Replace HTML elements with their Markdown equivalents
         $markdown = preg_replace(array_keys($patterns), array_values($patterns), $html);
 
         return str_replace(['**', '\*', '\_', '\|', '\~'], ['*', '*', '_', '|', '~'], $markdown);

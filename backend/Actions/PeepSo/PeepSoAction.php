@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PeepSo Integration
- */
-
 namespace BitApps\Integrations\Actions\PeepSo;
 
 use WP_Error;

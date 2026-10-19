@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Ultimate Affiliate Pro Integration
- */
-
 namespace BitApps\Integrations\Actions\UltimateAffiliatePro;
 
 class UltimateAffiliateProHelper

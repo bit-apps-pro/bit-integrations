@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BitForm Integration
- */
-
 namespace BitApps\Integrations\Actions\BitForm;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Bento Integration
- */
-
 namespace BitApps\Integrations\Actions\Bento;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

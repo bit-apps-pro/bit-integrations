@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Benchmark Record Api
- */
-
 namespace BitApps\Integrations\Actions\BenchMark;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoRecruit Record Api
- */
-
 namespace BitApps\Integrations\Actions\ZohoCampaigns;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

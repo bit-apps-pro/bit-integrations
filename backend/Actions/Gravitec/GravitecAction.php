@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Gravitec Integration
- */
-
 namespace BitApps\Integrations\Actions\Gravitec;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Demio Record Api
- */
-
 namespace BitApps\Integrations\Actions\Demio;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

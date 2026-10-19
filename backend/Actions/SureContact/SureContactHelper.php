@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SureContact Integration.
- */
-
 namespace BitApps\Integrations\Actions\SureContact;
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;

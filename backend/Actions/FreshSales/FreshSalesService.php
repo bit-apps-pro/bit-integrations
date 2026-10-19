@@ -1,9 +1,5 @@
 <?php
 
-/**
- * FreshSales    Record Api
- */
-
 namespace BitApps\Integrations\Actions\FreshSales;
 
 use BitApps\Integrations\Config;

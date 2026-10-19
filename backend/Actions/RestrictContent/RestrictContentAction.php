@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Restrict Content Integration
- */
-
 namespace BitApps\Integrations\Actions\RestrictContent;
 
 use BitApps\Integrations\Log\LogHandler;

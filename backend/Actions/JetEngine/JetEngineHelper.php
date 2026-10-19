@@ -1,9 +1,5 @@
 <?php
 
-/**
- * JetEngine Integration
- */
-
 namespace BitApps\Integrations\Actions\JetEngine;
 
 use Jet_Engine\Modules\Custom_Content_Types\Module;

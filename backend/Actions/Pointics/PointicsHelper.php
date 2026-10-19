@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Pointics Integration
- */
-
 namespace BitApps\Integrations\Actions\Pointics;
 
 use Throwable;

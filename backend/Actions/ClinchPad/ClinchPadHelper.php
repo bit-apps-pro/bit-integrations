@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ClinchPad Integration
- */
-
 namespace BitApps\Integrations\Actions\ClinchPad;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

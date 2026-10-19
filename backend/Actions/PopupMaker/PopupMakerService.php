@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Popup Maker Record Api
- */
-
 namespace BitApps\Integrations\Actions\PopupMaker;
 
 use BitApps\Integrations\Config;

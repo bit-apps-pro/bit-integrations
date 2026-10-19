@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailRelay Record Api
- */
-
 namespace BitApps\Integrations\Actions\MailRelay;
 
 use BitApps\Integrations\Core\Util\Common;

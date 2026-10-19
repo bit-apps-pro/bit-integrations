@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Fabman Integration
- */
-
 namespace BitApps\Integrations\Actions\Fabman;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
@@ -57,7 +53,6 @@ class FabmanAction
             $lockVersion = $memberData['lockVersion'];
         }
 
-        // Fetch lockVersion for update_spaces if not provided
         if ($actionName === 'update_spaces' && (empty($lockVersion) || !is_numeric($lockVersion)) && !empty($selectedWorkspace)) {
             $spaceData = self::fetchSpaceById($apiKey, $selectedWorkspace);
             if ($spaceData && isset($spaceData['lockVersion'])) {

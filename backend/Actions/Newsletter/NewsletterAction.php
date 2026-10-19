@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Newsletter Integration
- */
-
 namespace BitApps\Integrations\Actions\Newsletter;
 
 use WP_Error;

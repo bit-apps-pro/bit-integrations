@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Clickup Integration
- */
-
 namespace BitApps\Integrations\Actions\Clickup;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

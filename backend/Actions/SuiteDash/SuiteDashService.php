@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SuiteDash Record Api
- */
-
 namespace BitApps\Integrations\Actions\SuiteDash;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

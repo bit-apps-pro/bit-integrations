@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ClickWhale Integration
- */
-
 namespace BitApps\Integrations\Actions\ClickWhale;
 
 class ClickWhaleHelper

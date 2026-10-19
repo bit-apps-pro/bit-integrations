@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LearnDesh Integration
- */
-
 namespace BitApps\Integrations\Actions\GamiPress;
 
 use BitApps\Integrations\Config;
@@ -11,11 +7,6 @@ use BitApps\Integrations\Core\Util\Post;
 
 class GamiPressHelper
 {
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';

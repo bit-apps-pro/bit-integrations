@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Webba Booking Record Api
- */
-
 namespace BitApps\Integrations\Actions\WebbaBooking;
 
 use BitApps\Integrations\Config;

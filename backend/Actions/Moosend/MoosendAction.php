@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Moosend Integration
- */
-
 namespace BitApps\Integrations\Actions\Moosend;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

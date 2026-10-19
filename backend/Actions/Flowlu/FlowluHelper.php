@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Flowlu Integration
- */
-
 namespace BitApps\Integrations\Actions\Flowlu;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

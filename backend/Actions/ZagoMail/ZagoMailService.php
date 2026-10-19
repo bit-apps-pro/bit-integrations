@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZagoMail Record Api
- */
-
 namespace BitApps\Integrations\Actions\ZagoMail;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -40,7 +36,6 @@ class ZagoMailService
         return HttpHelper::post($insertRecordEndpoint, wp_json_encode($requestParams), $this->_defaultHeader);
     }
 
-    // for updating subscribers data through email id.
     public function updateRecord($subscriberId, $listId, $data)
     {
         $requestParams['publicKey'] = $this->_apiPublicKey;

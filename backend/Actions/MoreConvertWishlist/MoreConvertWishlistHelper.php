@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MoreConvert Wishlist Integration
- */
-
 namespace BitApps\Integrations\Actions\MoreConvertWishlist;
 
 class MoreConvertWishlistHelper

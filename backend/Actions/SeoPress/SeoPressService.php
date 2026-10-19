@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SEOPress Record Api
- */
-
 namespace BitApps\Integrations\Actions\SeoPress;
 
 use BitApps\Integrations\Config;

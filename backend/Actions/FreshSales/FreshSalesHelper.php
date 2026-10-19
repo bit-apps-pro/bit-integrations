@@ -1,9 +1,5 @@
 <?php
 
-/**
- * FreshSales Integration
- */
-
 namespace BitApps\Integrations\Actions\FreshSales;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

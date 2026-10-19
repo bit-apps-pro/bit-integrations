@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Freshdesk Files Api
- */
-
 namespace BitApps\Integrations\Actions\Freshdesk;
 
 use BitApps\Integrations\Core\Util\Common;

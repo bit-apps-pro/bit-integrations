@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Telegrom Integration
- */
-
 namespace BitApps\Integrations\Actions\Telegram;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -14,10 +10,6 @@ class TelegramHelper
 
     private $_integrationID;
 
-    // public function __construct($integrationID=0)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
     public static function refreshGetUpdates($requestsParams)
     {
         if (empty($requestsParams->bot_api_key)) {

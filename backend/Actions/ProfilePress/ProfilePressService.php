@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ProfilePress Record Api
- */
-
 namespace BitApps\Integrations\Actions\ProfilePress;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Slack Files Api
- */
-
 namespace BitApps\Integrations\Actions\Freshdesk;
 
 use BitApps\Integrations\Core\Util\Common;

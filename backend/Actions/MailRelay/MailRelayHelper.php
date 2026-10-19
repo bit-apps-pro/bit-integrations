@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailRelay Integration
- */
-
 namespace BitApps\Integrations\Actions\MailRelay;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

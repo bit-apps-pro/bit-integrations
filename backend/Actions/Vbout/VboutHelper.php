@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Vbout Integration
- */
-
 namespace BitApps\Integrations\Actions\Vbout;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailBluster Integration
- */
-
 namespace BitApps\Integrations\Actions\MailBluster;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Sender Record Api
- */
-
 namespace BitApps\Integrations\Actions\Sender;
 
 use BitApps\Integrations\Config;

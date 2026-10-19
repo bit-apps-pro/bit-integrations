@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Mailjet Record Api
- */
-
 namespace BitApps\Integrations\Actions\Mailjet;
 
 use BitApps\Integrations\Core\Util\Common;

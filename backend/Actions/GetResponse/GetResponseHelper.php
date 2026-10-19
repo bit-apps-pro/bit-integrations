@@ -1,9 +1,5 @@
 <?php
 
-/**
- * GetResponse Integration
- */
-
 namespace BitApps\Integrations\Actions\GetResponse;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

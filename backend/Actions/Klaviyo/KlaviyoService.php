@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Klaviyo    Record Api
- */
-
 namespace BitApps\Integrations\Actions\Klaviyo;
 
 use BitApps\Integrations\Config;

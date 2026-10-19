@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Zoho CRM Meta Data Api Helper
- */
-
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

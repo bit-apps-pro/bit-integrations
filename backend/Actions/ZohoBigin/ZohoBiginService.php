@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoBigin Record Api
- */
-
 namespace BitApps\Integrations\Actions\ZohoBigin;
 
 use BitApps\Integrations\Config;

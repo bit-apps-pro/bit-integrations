@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AgiledCRM Integration
- */
-
 namespace BitApps\Integrations\Actions\AgiledCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Notion Record Api
- */
-
 namespace BitApps\Integrations\Actions\Notion;
 
 use BitApps\Integrations\Core\Util\Common;

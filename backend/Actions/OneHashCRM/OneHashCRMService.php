@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OneHashCRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\OneHashCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

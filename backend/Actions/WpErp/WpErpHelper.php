@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WP ERP Integration
- */
-
 namespace BitApps\Integrations\Actions\WpErp;
 
 class WpErpHelper

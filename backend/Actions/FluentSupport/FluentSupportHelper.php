@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Fluent Support Integration
- */
-
 namespace BitApps\Integrations\Actions\FluentSupport;
 
 use FluentSupport\App\Models\Agent;

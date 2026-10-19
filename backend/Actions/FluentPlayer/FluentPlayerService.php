@@ -1,9 +1,5 @@
 <?php
 
-/**
- * FluentPlayer Record Api
- */
-
 namespace BitApps\Integrations\Actions\FluentPlayer;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Asana Record Api
- */
-
 namespace BitApps\Integrations\Actions\Asana;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Flowlu Record Api
- */
-
 namespace BitApps\Integrations\Actions\Flowlu;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * KirimEmail Integration
- */
-
 namespace BitApps\Integrations\Actions\KirimEmail;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

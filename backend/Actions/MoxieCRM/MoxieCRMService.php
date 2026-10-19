@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MoxieCRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\MoxieCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

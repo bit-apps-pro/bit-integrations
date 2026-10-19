@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WooCommerce Record Api.
- */
-
 namespace BitApps\Integrations\Actions\WooCommerce;
 
 use BitApps\Integrations\Core\Util\Common;

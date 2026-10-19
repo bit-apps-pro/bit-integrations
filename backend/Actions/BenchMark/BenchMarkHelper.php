@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Benchmark Integration
- */
-
 namespace BitApps\Integrations\Actions\BenchMark;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

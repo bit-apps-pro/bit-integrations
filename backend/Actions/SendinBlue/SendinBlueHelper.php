@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoSheet Integration
- */
-
 namespace BitApps\Integrations\Actions\SendinBlue;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

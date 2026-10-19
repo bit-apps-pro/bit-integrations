@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Zoom Record Api
- */
-
 namespace BitApps\Integrations\Actions\Zoom;
 
 use BitApps\Integrations\Config;

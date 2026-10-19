@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ConvertForce Record Api
- */
-
 namespace BitApps\Integrations\Actions\ConvertForce;
 
 use BitApps\Integrations\Config;

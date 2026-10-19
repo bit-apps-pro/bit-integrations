@@ -1,9 +1,5 @@
 <?php
 
-/**
- * FluentPlayer Integration
- */
-
 namespace BitApps\Integrations\Actions\FluentPlayer;
 
 use BitApps\Integrations\Core\Util\Post;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LatePoint Record Api
- */
-
 namespace BitApps\Integrations\Actions\LatePoint;
 
 use BitApps\Integrations\Config;

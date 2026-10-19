@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Power Coupons Integration
- */
-
 namespace BitApps\Integrations\Actions\PowerCoupons;
 
 use WP_Error;

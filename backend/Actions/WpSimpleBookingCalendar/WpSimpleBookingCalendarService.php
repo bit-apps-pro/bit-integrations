@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WP Simple Booking Calendar Record Api
- */
-
 namespace BitApps\Integrations\Actions\WpSimpleBookingCalendar;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Events Manager Integration
- */
-
 namespace BitApps\Integrations\Actions\EventsManager;
 
 use WP_Error;

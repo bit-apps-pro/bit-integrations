@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Dokan Integration
- */
-
 namespace BitApps\Integrations\Actions\Dokan;
 
 use WeDevs\DokanPro\Modules\Germanized\Helper;

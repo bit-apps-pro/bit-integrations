@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TheEventsCalendar Record Api
- */
-
 namespace BitApps\Integrations\Actions\TheEventsCalendar;
 
 use BitApps\Integrations\Core\Util\Common;

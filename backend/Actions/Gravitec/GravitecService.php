@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Gravitec Record Api
- */
-
 namespace BitApps\Integrations\Actions\Gravitec;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

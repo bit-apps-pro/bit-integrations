@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SureMembers Integration
- */
-
 namespace BitApps\Integrations\Actions\SureMembers;
 
 use SureMembers\Inc\Access_Groups;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Pointics Record Api
- */
-
 namespace BitApps\Integrations\Actions\Pointics;
 
 use BitApps\Integrations\Config;

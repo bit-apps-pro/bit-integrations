@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SendGrid Record Api
- */
-
 namespace BitApps\Integrations\Actions\SendGrid;
 
 use BitApps\Integrations\Core\Util\Common;

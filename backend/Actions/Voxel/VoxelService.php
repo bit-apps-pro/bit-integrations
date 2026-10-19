@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Voxel Record Api
- */
-
 namespace BitApps\Integrations\Actions\Voxel;
 
 use BitApps\Integrations\Core\Util\Common;

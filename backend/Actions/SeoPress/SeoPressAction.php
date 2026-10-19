@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SEOPress Integration
- */
-
 namespace BitApps\Integrations\Actions\SeoPress;
 
 use WP_Error;

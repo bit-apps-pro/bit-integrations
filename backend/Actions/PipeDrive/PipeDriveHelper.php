@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PipeDrive Integration
- */
-
 namespace BitApps\Integrations\Actions\PipeDrive;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

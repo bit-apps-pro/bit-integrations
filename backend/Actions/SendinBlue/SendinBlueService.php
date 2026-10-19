@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoRecruit Record Api
- */
-
 namespace BitApps\Integrations\Actions\SendinBlue;
 
 use BitApps\Integrations\Config;

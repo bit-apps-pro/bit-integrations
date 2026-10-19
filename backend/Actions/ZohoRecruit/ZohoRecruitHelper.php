@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoRecruit Integration
- */
-
 namespace BitApps\Integrations\Actions\ZohoRecruit;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -157,10 +153,6 @@ class ZohoRecruitHelper
                 'aMod' => 'Calls',
                 'pl'   => 'Calls'
             ],
-        // 'Notes' => (object) array(
-        //     'aMod' => 'Notes',
-        //     'pl' => 'Notes'
-        // ),
         ];
         foreach ($allModules as $module) {
             if ($module->aMod !== $queryParams->module) {
@@ -315,15 +307,6 @@ class ZohoRecruitHelper
             self::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
-    // } else {
-    //     wp_send_json_error(
-    //         __(
-    //             'Token expired',
-    //             'bit-integrations'
-    //         ),
-    //         401
-    //     );
-    // }
     }
 
     /**

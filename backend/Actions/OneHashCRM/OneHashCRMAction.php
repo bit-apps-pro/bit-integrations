@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OneHashCRM Integration
- */
-
 namespace BitApps\Integrations\Actions\OneHashCRM;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

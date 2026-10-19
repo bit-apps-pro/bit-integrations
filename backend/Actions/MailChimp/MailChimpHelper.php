@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailChimp Integration
- */
-
 namespace BitApps\Integrations\Actions\MailChimp;
 
 use BitApps\Integrations\Core\Util\Helper;

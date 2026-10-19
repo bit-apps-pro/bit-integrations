@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Fluent CRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\FluentCrm;
 
 use BitApps\Integrations\Config;

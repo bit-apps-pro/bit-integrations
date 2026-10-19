@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WooCommerce Integration
- */
-
 namespace BitApps\Integrations\Actions\WooCommerce;
 
 use WC_Data_Store;

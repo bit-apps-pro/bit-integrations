@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WP Simple Booking Calendar Integration
- */
-
 namespace BitApps\Integrations\Actions\WpSimpleBookingCalendar;
 
 class WpSimpleBookingCalendarHelper

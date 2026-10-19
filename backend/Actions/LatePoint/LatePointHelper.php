@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LatePoint Integration
- */
-
 namespace BitApps\Integrations\Actions\LatePoint;
 
 class LatePointHelper

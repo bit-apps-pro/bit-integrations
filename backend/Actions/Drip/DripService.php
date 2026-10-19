@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Drip Record Api
- */
-
 namespace BitApps\Integrations\Actions\Drip;
 
 use BitApps\Integrations\Core\Util\Common;

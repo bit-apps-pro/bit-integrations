@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Voxel Integration
- */
-
 namespace BitApps\Integrations\Actions\Voxel;
 
 use WP_Error;

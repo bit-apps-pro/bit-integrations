@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Keap Record Api
- */
-
 namespace BitApps\Integrations\Actions\Keap;
 
 use BitApps\Integrations\Core\Util\Common;

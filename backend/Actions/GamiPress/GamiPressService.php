@@ -1,9 +1,5 @@
 <?php
 
-/**
- * GamiPress Record Api
- */
-
 namespace BitApps\Integrations\Actions\GamiPress;
 
 use BitApps\Integrations\Core\Util\ActionUser;

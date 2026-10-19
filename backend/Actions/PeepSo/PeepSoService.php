@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PeepSo Record Api
- */
-
 namespace BitApps\Integrations\Actions\PeepSo;
 
 use BitApps\Integrations\Config;

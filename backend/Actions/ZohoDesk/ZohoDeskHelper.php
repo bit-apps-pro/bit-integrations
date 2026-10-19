@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoDesk Integration
- */
-
 namespace BitApps\Integrations\Actions\ZohoDesk;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

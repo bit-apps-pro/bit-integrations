@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Freshdesk Record Api
- */
-
 namespace BitApps\Integrations\Actions\Freshdesk;
 
 use BitApps\Integrations\Config;

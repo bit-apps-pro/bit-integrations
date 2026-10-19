@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SmartSuite Integration
- */
-
 namespace BitApps\Integrations\Actions\SmartSuite;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

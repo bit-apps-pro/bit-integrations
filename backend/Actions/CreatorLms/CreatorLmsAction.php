@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Creator LMS Integration
- */
-
 namespace BitApps\Integrations\Actions\CreatorLms;
 
 use WP_Error;

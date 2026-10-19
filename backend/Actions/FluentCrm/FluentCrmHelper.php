@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Fluent CRM Integration
- */
-
 namespace BitApps\Integrations\Actions\FluentCrm;
 
 use FluentCrm\App\Models\Company;

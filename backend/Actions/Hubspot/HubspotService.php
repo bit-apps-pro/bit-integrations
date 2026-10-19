@@ -1,9 +1,5 @@
 <?php
 
-/**
- * HubSpot Record Api
- */
-
 namespace BitApps\Integrations\Actions\Hubspot;
 
 use BitApps\Integrations\Config;

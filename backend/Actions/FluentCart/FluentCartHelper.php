@@ -1,9 +1,5 @@
 <?php
 
-/**
- * FluentCart Integration
- */
-
 namespace BitApps\Integrations\Actions\FluentCart;
 
 class FluentCartHelper

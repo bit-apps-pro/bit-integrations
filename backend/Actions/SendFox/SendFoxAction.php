@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SendFox Integration
- */
-
 namespace BitApps\Integrations\Actions\SendFox;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OmniSend Integration
- */
-
 namespace BitApps\Integrations\Actions\OmniSend;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

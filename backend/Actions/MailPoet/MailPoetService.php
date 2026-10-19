@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoRecruit Record Api
- */
-
 namespace BitApps\Integrations\Actions\MailPoet;
 
 use BitApps\Integrations\Config;
@@ -31,7 +27,6 @@ class MailPoetService
     public function insertRecord($subscriber, $lists, $actions, $options = [])
     {
         try {
-            // try to find if user is already a subscriber
             $existingSubscriber = static::$mailPoet_api->getSubscriber($subscriber['email']);
 
             if (!$existingSubscriber) {
@@ -68,7 +63,6 @@ class MailPoetService
             }
         } catch (\MailPoet\API\MP\v1\APIException $e) {
             if ($e->getCode() == 4) {
-                // Handle the case where the subscriber doesn't exist
                 return static::addSubscriber($subscriber, $lists, $options);
             }
 

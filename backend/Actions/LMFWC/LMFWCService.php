@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LMFWC Record Api
- */
-
 namespace BitApps\Integrations\Actions\LMFWC;
 
 use BitApps\Integrations\Config;

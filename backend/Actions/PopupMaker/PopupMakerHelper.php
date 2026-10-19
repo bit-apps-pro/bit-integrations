@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Popup Maker Integration
- */
-
 namespace BitApps\Integrations\Actions\PopupMaker;
 
 use BitApps\Integrations\Core\Util\Post;

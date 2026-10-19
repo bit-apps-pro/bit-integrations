@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Encharge Integration
- */
-
 namespace BitApps\Integrations\Actions\Encharge;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

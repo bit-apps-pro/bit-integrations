@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Asana Integration
- */
-
 namespace BitApps\Integrations\Actions\Asana;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

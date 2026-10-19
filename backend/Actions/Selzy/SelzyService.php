@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Selzy Record Api
- */
-
 namespace BitApps\Integrations\Actions\Selzy;
 
 use BitApps\Integrations\Core\Util\Common;

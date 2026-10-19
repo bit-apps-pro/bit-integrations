@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Teams for WooCommerce Memberships Integration.
- */
-
 namespace BitApps\Integrations\Actions\TeamsForWooCommerceMemberships;
 
 class TeamsForWooCommerceMembershipsHelper

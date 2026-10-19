@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CustomApi Integration
- */
-
 namespace BitApps\Integrations\Actions\CustomApi;
 
 use BitApps\Integrations\Config;

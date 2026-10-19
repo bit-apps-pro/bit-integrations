@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Heffl CRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\HefflCRM;
 
 use BitApps\Integrations\Config;

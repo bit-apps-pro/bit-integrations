@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NinjaTables Integration
- */
-
 namespace BitApps\Integrations\Actions\NinjaTables;
 
 use BitApps\Integrations\Config;

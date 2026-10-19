@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Brilliant Directories Integration.
- */
-
 namespace BitApps\Integrations\Actions\BrilliantDirectories;
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;

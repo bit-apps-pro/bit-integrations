@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Heffl CRM Integration
- */
-
 namespace BitApps\Integrations\Actions\HefflCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

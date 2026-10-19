@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ConstantContact    Record Api
- */
-
 namespace BitApps\Integrations\Actions\ConstantContact;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Convert Kit Integration
- */
-
 namespace BitApps\Integrations\Actions\ConvertKit;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

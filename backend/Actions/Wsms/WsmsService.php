@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WSMS (WP SMS) Record Api
- */
-
 namespace BitApps\Integrations\Actions\Wsms;
 
 use BitApps\Integrations\Config;
@@ -42,7 +38,6 @@ class WsmsService
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'send_sms':
                 $response = Hooks::apply(Config::withPrefix('wsms_send_sms'), $defaultResponse, $fieldData);

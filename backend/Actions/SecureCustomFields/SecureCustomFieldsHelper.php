@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Secure Custom Fields Integration
- */
-
 namespace BitApps\Integrations\Actions\SecureCustomFields;
 
 class SecureCustomFieldsHelper

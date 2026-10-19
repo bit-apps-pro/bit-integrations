@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Livestorm Record Api
- */
-
 namespace BitApps\Integrations\Actions\Livestorm;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

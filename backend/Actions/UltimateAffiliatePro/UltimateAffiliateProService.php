@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Ultimate Affiliate Pro Record Api
- */
-
 namespace BitApps\Integrations\Actions\UltimateAffiliatePro;
 
 use BitApps\Integrations\Config;

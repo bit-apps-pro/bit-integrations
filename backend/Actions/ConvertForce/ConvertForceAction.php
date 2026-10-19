@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ConvertForce Integration
- */
-
 namespace BitApps\Integrations\Actions\ConvertForce;
 
 use WP_Error;

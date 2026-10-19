@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SuiteDash Integration
- */
-
 namespace BitApps\Integrations\Actions\SuiteDash;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

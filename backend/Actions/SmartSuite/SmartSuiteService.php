@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SmartSuite Record Api
- */
-
 namespace BitApps\Integrations\Actions\SmartSuite;
 
 use BitApps\Integrations\Config;

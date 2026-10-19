@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Klaviyo Integration
- */
-
 namespace BitApps\Integrations\Actions\Klaviyo;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

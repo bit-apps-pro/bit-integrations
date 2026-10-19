@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BadgeOS Integration
- */
-
 namespace BitApps\Integrations\Actions\BadgeOS;
 
 use BitApps\Integrations\Core\Util\Post;

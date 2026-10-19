@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoRecruit Files Api
- */
-
 namespace BitApps\Integrations\Actions\ZohoRecruit;
 
 use BitApps\Integrations\Core\Util\Common;

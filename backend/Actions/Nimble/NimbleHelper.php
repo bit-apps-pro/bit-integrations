@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Nimble Integration
- */
-
 namespace BitApps\Integrations\Actions\Nimble;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

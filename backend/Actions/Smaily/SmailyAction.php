@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Smaily Integration
- */
-
 namespace BitApps\Integrations\Actions\Smaily;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

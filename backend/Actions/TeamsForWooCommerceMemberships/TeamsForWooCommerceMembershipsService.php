@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Teams for WooCommerce Memberships Record Api
- */
-
 namespace BitApps\Integrations\Actions\TeamsForWooCommerceMemberships;
 
 use BitApps\Integrations\Config;
@@ -47,7 +43,6 @@ class TeamsForWooCommerceMembershipsService
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'add_member_to_team':
                 $response = Hooks::apply(Config::withPrefix('teams_for_wc_memberships_add_member'), $defaultResponse, $fieldData, $this->_integrationDetails);

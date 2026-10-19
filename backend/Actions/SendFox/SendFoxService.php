@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SendFox Record Api
- */
-
 namespace BitApps\Integrations\Actions\SendFox;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * JetEngine Record Api
- */
-
 namespace BitApps\Integrations\Actions\JetEngine;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * HighLevel Record Api
- */
-
 namespace BitApps\Integrations\Actions\HighLevel;
 
 use BitApps\Integrations\Config;

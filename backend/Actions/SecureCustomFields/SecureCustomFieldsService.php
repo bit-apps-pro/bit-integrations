@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Secure Custom Fields Record Api
- */
-
 namespace BitApps\Integrations\Actions\SecureCustomFields;
 
 use BitApps\Integrations\Config;

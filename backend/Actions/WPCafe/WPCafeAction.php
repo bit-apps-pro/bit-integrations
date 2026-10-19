@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WPCafe Integration.
- */
-
 namespace BitApps\Integrations\Actions\WPCafe;
 
 use WP_Error;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Airtable Integration
- */
-
 namespace BitApps\Integrations\Actions\Airtable;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

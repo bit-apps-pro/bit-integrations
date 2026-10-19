@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Bit CRM Integration
- */
-
 namespace BitApps\Integrations\Actions\BitCrm;
 
 class BitCrmHelper

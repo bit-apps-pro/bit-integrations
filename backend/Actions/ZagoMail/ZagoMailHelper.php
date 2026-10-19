@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZagoMail Integration
- */
-
 namespace BitApps\Integrations\Actions\ZagoMail;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

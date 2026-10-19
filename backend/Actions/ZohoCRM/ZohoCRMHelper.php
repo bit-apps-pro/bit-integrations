@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoCrm Integration
- */
-
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -134,9 +130,6 @@ final class ZohoCRMHelper
             $retriveLayoutsData = $layoutsMetaResponse->layouts;
             $layouts = [];
             foreach ($retriveLayoutsData as $layoutKey => $layoutValue) {
-                // if ($layoutValue->name !== 'Standard') {
-                //     continue;
-                // }
                 $fields = [];
                 $fileUploadFields = [];
                 $requiredFields = [];
@@ -146,9 +139,6 @@ final class ZohoCRMHelper
 
                 foreach ($layoutValue->sections as $sectionKey => $sectionValue) {
                     foreach ($sectionValue->fields as $fieldKey => $fieldDetails) {
-                        // if (!\in_array($fieldDetails->api_name, $fieldToShow)) {
-                        //     continue;
-                        // }
                         if (
                             empty($fieldDetails->subform)
                             && !empty($fieldDetails->api_name)

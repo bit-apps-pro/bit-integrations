@@ -1,9 +1,5 @@
 <?php
 
-/**
- * slack Integration
- */
-
 namespace BitApps\Integrations\Actions\Slack;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

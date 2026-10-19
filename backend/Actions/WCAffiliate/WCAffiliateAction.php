@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WC Affiliate Integration
- */
-
 namespace BitApps\Integrations\Actions\WCAffiliate;
 
 use WP_Error;

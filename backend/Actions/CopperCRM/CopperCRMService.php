@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CopperCRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\CopperCRM;
 
 use BitApps\Integrations\Core\Util\Common;

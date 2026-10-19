@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OmniSend    Record Api
- */
-
 namespace BitApps\Integrations\Actions\OmniSend;
 
 use BitApps\Integrations\Config;

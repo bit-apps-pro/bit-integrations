@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WP Table Builder Integration
- */
-
 namespace BitApps\Integrations\Actions\WpTableBuilder;
 
 use BitApps\Integrations\Core\Util\Post;

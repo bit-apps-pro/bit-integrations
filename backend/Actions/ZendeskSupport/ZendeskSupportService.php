@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Zendesk Support Record Api
- */
-
 namespace BitApps\Integrations\Actions\ZendeskSupport;
 
 use BitApps\Integrations\Config;

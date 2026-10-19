@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MondayCom Record Api
- */
-
 namespace BitApps\Integrations\Actions\MondayCom;
 
 use BitApps\Integrations\Config;

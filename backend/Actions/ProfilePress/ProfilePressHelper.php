@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ProfilePress Integration
- */
-
 namespace BitApps\Integrations\Actions\ProfilePress;
 
 class ProfilePressHelper

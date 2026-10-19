@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Mailjet Integration
- */
-
 namespace BitApps\Integrations\Actions\Mailjet;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

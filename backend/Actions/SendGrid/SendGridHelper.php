@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SendGrid Integration
- */
-
 namespace BitApps\Integrations\Actions\SendGrid;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

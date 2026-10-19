@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PerfexCRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\PerfexCRM;
 
 use BitApps\Integrations\Core\Util\Common;

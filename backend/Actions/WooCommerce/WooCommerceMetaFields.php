@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WooCommerce Fields.
- */
-
 namespace BitApps\Integrations\Actions\WooCommerce;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MondayCom Integration
- */
-
 namespace BitApps\Integrations\Actions\MondayCom;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

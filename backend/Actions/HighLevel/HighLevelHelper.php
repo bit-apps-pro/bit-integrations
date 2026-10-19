@@ -1,9 +1,5 @@
 <?php
 
-/**
- * HighLevel Integration
- */
-
 namespace BitApps\Integrations\Actions\HighLevel;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

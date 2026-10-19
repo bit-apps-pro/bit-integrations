@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Selzy Integration
- */
-
 namespace BitApps\Integrations\Actions\Selzy;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

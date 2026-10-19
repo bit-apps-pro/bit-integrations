@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MoreConvert Wishlist Record Api
- */
-
 namespace BitApps\Integrations\Actions\MoreConvertWishlist;
 
 use BitApps\Integrations\Config;
@@ -42,7 +38,6 @@ class MoreConvertWishlistService
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_wishlist':
                 $response = Hooks::apply(Config::withPrefix('more_convert_wishlist_create_wishlist'), $defaultResponse, $fieldData, $utilities);

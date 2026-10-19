@@ -1,9 +1,5 @@
 <?php
 
-/**
- * freshdesk Integration
- */
-
 namespace BitApps\Integrations\Actions\Freshdesk;
 
 use BitApps\Integrations\Config;

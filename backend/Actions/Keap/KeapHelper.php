@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Keap Integration
- */
-
 namespace BitApps\Integrations\Actions\Keap;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

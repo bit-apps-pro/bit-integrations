@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ModernCart Integration
- */
-
 namespace BitApps\Integrations\Actions\ModernCart;
 
 class ModernCartHelper

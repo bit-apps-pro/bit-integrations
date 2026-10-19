@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Bento Record Api
- */
-
 namespace BitApps\Integrations\Actions\Bento;
 
 use BitApps\Integrations\Config;

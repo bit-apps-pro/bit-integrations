@@ -1,9 +1,5 @@
 <?php
 
-/**
- * EmailOctopus Record Api
- */
-
 namespace BitApps\Integrations\Actions\EmailOctopus;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LMFWC Integration
- */
-
 namespace BitApps\Integrations\Actions\LMFWC;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PipeDrive    Record Api
- */
-
 namespace BitApps\Integrations\Actions\PipeDrive;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BitForm Record Api
- */
-
 namespace BitApps\Integrations\Actions\BitForm;
 
 use BitApps\Integrations\Core\Util\Common;

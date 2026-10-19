@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Salesmate Integration
- */
-
 namespace BitApps\Integrations\Actions\Salesmate;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TheEventsCalendar Integration
- */
-
 namespace BitApps\Integrations\Actions\TheEventsCalendar;
 
 use BitApps\Integrations\Core\Util\Post;

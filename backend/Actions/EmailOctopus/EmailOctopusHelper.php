@@ -1,9 +1,5 @@
 <?php
 
-/**
- * EmailOctopus Integration
- */
-
 namespace BitApps\Integrations\Actions\EmailOctopus;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CompanyHub Record Api
- */
-
 namespace BitApps\Integrations\Actions\CompanyHub;
 
 use BitApps\Integrations\Core\Util\Common;

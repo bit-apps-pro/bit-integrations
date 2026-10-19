@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Clickup Record Api
- */
-
 namespace BitApps\Integrations\Actions\Clickup;
 
 use BitApps\Integrations\Core\Util\Common;

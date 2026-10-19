@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoCrm Tag Api Helper
- */
-
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

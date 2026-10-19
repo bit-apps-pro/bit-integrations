@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Bit CRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\BitCrm;
 
 use BitApps\Integrations\Core\Util\Common;
@@ -497,7 +493,6 @@ class BitCrmService
             }
         }
 
-        // Utilities (booleans) — e.g. is_shared
         if (isset($conf->utilities) && \is_object($conf->utilities)) {
             foreach (get_object_vars($conf->utilities) as $utilKey => $utilVal) {
                 $fieldData[$utilKey] = $utilVal;

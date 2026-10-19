@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Salesflare Integration
- */
-
 namespace BitApps\Integrations\Actions\Salesflare;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

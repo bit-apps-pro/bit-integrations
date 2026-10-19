@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailerLite Integration
- */
-
 namespace BitApps\Integrations\Actions\MailerLite;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

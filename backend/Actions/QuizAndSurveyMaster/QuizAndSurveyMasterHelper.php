@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Quiz And Survey Master Integration
- */
-
 namespace BitApps\Integrations\Actions\QuizAndSurveyMaster;
 
 class QuizAndSurveyMasterHelper

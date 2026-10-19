@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WP ERP Record Api
- */
-
 namespace BitApps\Integrations\Actions\WpErp;
 
 use BitApps\Integrations\Config;

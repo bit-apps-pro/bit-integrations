@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Newsletter Record Api
- */
-
 namespace BitApps\Integrations\Actions\Newsletter;
 
 use BitApps\Integrations\Core\Util\Common;

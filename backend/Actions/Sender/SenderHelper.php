@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Sender Integration
- */
-
 namespace BitApps\Integrations\Actions\Sender;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

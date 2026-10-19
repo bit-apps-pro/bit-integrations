@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Moosend Record Api
- */
-
 namespace BitApps\Integrations\Actions\Moosend;
 
 use BitApps\Integrations\Config;

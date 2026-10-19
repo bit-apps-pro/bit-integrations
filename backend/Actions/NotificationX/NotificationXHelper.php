@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NotificationX Integration.
- */
-
 namespace BitApps\Integrations\Actions\NotificationX;
 
 class NotificationXHelper

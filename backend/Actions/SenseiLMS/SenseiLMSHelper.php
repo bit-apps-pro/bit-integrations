@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Sensei LMS Integration
- */
-
 namespace BitApps\Integrations\Actions\SenseiLMS;
 
 use BitApps\Integrations\Core\Util\Post;

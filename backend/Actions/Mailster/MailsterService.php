@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Mailster Record Api
- */
-
 namespace BitApps\Integrations\Actions\Mailster;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WhatsApp Record Api
- */
-
 namespace BitApps\Integrations\Actions\WhatsApp;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Drip Integration
- */
-
 namespace BitApps\Integrations\Actions\Drip;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

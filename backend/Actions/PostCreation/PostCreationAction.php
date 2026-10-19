@@ -1,11 +1,5 @@
 <?php
 
-/**
- *  Wordpres Post  Creation
- *  added MB  Custom Fields
- *  Added ACF Custom Fields
- */
-
 namespace BitApps\Integrations\Actions\PostCreation;
 
 use BitApps\Integrations\Config;

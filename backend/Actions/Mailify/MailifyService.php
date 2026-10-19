@@ -23,7 +23,6 @@ class MailifyService
         ];
     }
 
-    // for updating contact data through email id.
     public function updateContact($id, $data, $existContact, $selectedList)
     {
         $contactData = $data;

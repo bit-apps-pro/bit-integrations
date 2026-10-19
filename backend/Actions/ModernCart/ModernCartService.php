@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ModernCart Record Api
- */
-
 namespace BitApps\Integrations\Actions\ModernCart;
 
 use BitApps\Integrations\Config;

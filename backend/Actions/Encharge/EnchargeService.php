@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Encharge Record Api
- */
-
 namespace BitApps\Integrations\Actions\Encharge;
 
 use BitApps\Integrations\Core\Util\Common;

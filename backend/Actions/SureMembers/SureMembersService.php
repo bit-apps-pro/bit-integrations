@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SureMembers Record Api
- */
-
 namespace BitApps\Integrations\Actions\SureMembers;
 
 use BitApps\Integrations\Core\Util\Common;

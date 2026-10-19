@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoMarketingHub Integration
- */
-
 namespace BitApps\Integrations\Actions\ZohoMarketingHub;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

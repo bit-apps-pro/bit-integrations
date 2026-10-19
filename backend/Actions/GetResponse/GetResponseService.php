@@ -1,9 +1,5 @@
 <?php
 
-/**
- * GetResponse    Record Api
- */
-
 namespace BitApps\Integrations\Actions\GetResponse;
 
 use BitApps\Integrations\Config;

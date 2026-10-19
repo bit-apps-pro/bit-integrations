@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Quiz And Survey Master Record Api
- */
-
 namespace BitApps\Integrations\Actions\QuizAndSurveyMaster;
 
 use BitApps\Integrations\Config;

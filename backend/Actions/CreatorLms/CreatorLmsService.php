@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Creator LMS Record Api
- */
-
 namespace BitApps\Integrations\Actions\CreatorLms;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Insightly Integration
- */
-
 namespace BitApps\Integrations\Actions\Insightly;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

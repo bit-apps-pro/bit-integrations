@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WhatsApp Integration
- */
-
 namespace BitApps\Integrations\Actions\WhatsApp;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Brilliant Directories Record Api.
- */
-
 namespace BitApps\Integrations\Actions\BrilliantDirectories;
 
 use BitApps\Integrations\Config;

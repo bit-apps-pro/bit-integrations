@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Wishlist Member Integration
- */
-
 namespace BitApps\Integrations\Actions\WishlistMember;
 
 class WishlistMemberHelper

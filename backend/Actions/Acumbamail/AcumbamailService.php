@@ -1,9 +1,5 @@
 <?php
 
-/**
- * trello Record Api
- */
-
 namespace BitApps\Integrations\Actions\Acumbamail;
 
 use BitApps\Integrations\Core\Util\Common;

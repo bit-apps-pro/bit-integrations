@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Sensei LMS Record Api
- */
-
 namespace BitApps\Integrations\Actions\SenseiLMS;
 
 use BitApps\Integrations\Config;

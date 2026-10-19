@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Zoom Record Api
- */
-
 namespace BitApps\Integrations\Actions\ZoomWebinar;
 
 use BitApps\Integrations\Core\Util\Common;
@@ -40,7 +36,6 @@ class ZoomWebinarService
                 break;
             }
         }
-        // delete registrant using registrant id
         if ($registrantId !== null) {
             $headerDel = [
                 'Authorization' => 'Bearer ' . $tokenDetails->access_token,
@@ -142,7 +137,6 @@ class ZoomWebinarService
             $apiResponse = __('User deleted successfully', 'bit-integrations');
         }
 
-        // Delete registrant if email is present in the form
         if ($selectedAction === 'Delete Attendee') {
             $this->deleteWebinarRegistrant($webinarId, $finalData, $tokenDetails);
             $apiResponse = __('Attendee deleted successfully', 'bit-integrations');
@@ -152,7 +146,6 @@ class ZoomWebinarService
             $apiResponse = $this->createUser($webinarId, $finalData, $tokenDetails);
         }
 
-        // api response show but it was shown when registance created
         if ($selectedAction === 'Create Attendee') {
             $apiResponse = $this->createWebinarRegistrant($webinarId, $finalData, $tokenDetails);
         }

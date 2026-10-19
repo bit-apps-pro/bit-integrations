@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CompanyHub Integration
- */
-
 namespace BitApps\Integrations\Actions\CompanyHub;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

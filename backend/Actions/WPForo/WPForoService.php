@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WPForo Record Api
- */
-
 namespace BitApps\Integrations\Actions\WPForo;
 
 use BitApps\Integrations\Core\Util\Common;

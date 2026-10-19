@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Instasent Integration
- */
-
 namespace BitApps\Integrations\Actions\Instasent;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

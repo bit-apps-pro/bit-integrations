@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Discord Files Api
- */
-
 namespace BitApps\Integrations\Actions\Discord;
 
 use BitApps\Integrations\Core\Util\Common;

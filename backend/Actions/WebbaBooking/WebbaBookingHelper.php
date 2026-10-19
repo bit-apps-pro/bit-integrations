@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Webba Booking Integration
- */
-
 namespace BitApps\Integrations\Actions\WebbaBooking;
 
 use BitApps\Integrations\Config;

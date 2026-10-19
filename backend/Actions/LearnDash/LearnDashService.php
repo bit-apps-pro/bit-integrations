@@ -1,9 +1,5 @@
 <?php
 
-/**
- * trello Record Api
- */
-
 namespace BitApps\Integrations\Actions\LearnDash;
 
 use BitApps\Integrations\Actions\Mail\MailAction;

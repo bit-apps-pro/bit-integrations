@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Convert Kit Record Api
- */
-
 namespace BitApps\Integrations\Actions\ConvertKit;
 
 use BitApps\Integrations\Core\Util\Common;
@@ -36,7 +32,6 @@ class ConvertKitService
         return HttpHelper::post($insertRecordEndpoint, null);
     }
 
-    // for updating subscribers data through email id.
     public function updateRecord($id, $data)
     {
         $queries = $this->httpBuildQuery($data);

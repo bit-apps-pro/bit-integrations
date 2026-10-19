@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Mailercloud Record Api
- */
-
 namespace BitApps\Integrations\Actions\Mailercloud;
 
 use BitApps\Integrations\Core\Util\Common;

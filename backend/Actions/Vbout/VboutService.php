@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Vbout    Record Api
- */
-
 namespace BitApps\Integrations\Actions\Vbout;
 
 use BitApps\Integrations\Core\Util\Common;

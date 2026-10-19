@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Trello Integration
- */
-
 namespace BitApps\Integrations\Actions\Trello;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PerfexCRM Integration
- */
-
 namespace BitApps\Integrations\Actions\PerfexCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

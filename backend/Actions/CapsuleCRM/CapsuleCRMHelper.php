@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CapsuleCRM Integration
- */
-
 namespace BitApps\Integrations\Actions\CapsuleCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

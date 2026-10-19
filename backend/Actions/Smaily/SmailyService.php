@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Smaily Record Api
- */
-
 namespace BitApps\Integrations\Actions\Smaily;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

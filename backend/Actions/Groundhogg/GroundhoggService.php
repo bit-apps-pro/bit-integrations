@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Groundhogg Record Api
- */
-
 namespace BitApps\Integrations\Actions\Groundhogg;
 
 use BitApps\Integrations\Core\Util\Common;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NextCrm Record Api
- */
-
 namespace BitApps\Integrations\Actions\NextCrm;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Groundhogg Integration
- */
-
 namespace BitApps\Integrations\Actions\Groundhogg;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Active Campaign Integration
- */
-
 namespace BitApps\Integrations\Actions\ActiveCampaign;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -57,13 +53,6 @@ class ActiveCampaignHelper
 
         $lists = [];
         if (!is_wp_error($aCampaignResponse) && isset($aCampaignResponse->accounts)) {
-            // foreach ($allLists as $list) {
-            //     $lists[$list->name] = (object) [
-            //         'listId' => $list->id,
-            //         'listName' => $list->name,
-            //     ];
-            // }
-            // $response['activeCampaignLists'] = $lists;
             wp_send_json_success($aCampaignResponse->accounts);
         }
     }

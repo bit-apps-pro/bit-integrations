@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoBigin Files Api
- */
-
 namespace BitApps\Integrations\Actions\ZohoBigin;
 
 use BitApps\Integrations\Core\Util\Common;

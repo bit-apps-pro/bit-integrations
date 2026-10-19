@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Telegram Files Api
- */
-
 namespace BitApps\Integrations\Actions\Telegram;
 
 use BitApps\Integrations\Core\Util\Common;

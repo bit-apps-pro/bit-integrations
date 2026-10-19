@@ -16,10 +16,6 @@ use BitApps\Integrations\Log\LogHandler;
 use BitApps\Integrations\Triggers\TriggerController;
 use WP_Error;
 
-/**
- * Provides details of available integration and helps to
- * execute available flows
- */
 final class Flow
 {
     public function triggers()

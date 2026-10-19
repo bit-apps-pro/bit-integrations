@@ -7,11 +7,6 @@ use MeprOptions;
 
 class MemberpressHelper
 {
-    // public function __construct($integrationID)
-    // {
-    //     $this->_integrationID = $integrationID;
-    // }
-
     public static function pluginActive($option = null)
     {
         if (is_plugin_active('memberpress/memberpress.php')) {

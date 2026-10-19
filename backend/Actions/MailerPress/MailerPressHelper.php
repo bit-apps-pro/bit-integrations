@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailerPress Integration
- */
-
 namespace BitApps\Integrations\Actions\MailerPress;
 
 class MailerPressHelper

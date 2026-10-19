@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NotificationX Record Api
- */
-
 namespace BitApps\Integrations\Actions\NotificationX;
 
 use BitApps\Integrations\Config;

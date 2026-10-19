@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NutshellCRM Record Api
- */
-
 namespace BitApps\Integrations\Actions\NutshellCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

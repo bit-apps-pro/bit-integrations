@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Power Coupons Record Api
- */
-
 namespace BitApps\Integrations\Actions\PowerCoupons;
 
 use BitApps\Integrations\Config;

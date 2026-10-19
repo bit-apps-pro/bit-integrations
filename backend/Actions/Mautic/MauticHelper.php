@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailChimp Integration
- */
-
 namespace BitApps\Integrations\Actions\Mautic;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

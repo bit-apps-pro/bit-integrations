@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Active Campaign Record Api
- */
-
 namespace BitApps\Integrations\Actions\ActiveCampaign;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -128,7 +124,6 @@ class ActiveCampaignService
         }
 
         if (!empty($tags) && $this->shouldApplyTags($integrationDetails->actions, $type)) {
-            // Remove existing tags if tag update is enabled
             if ($type === 'update' && !empty($integrationDetails->actions->tagUpdate)) {
                 $contactTagsResponse = HttpHelper::get("{$this->_apiEndpoint}/contacts/{$contactId}/contactTags", null, $this->_defaultHeader);
                 $contactTags = $contactTagsResponse->contactTags ?? [];

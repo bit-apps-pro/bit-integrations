@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Dokan Record Api
- */
-
 namespace BitApps\Integrations\Actions\Dokan;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Zendesk Support Integration
- */
-
 namespace BitApps\Integrations\Actions\ZendeskSupport;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

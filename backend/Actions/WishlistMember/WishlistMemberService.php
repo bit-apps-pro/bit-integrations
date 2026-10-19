@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Wishlist Member Record Api
- */
-
 namespace BitApps\Integrations\Actions\WishlistMember;
 
 use BitApps\Integrations\Config;

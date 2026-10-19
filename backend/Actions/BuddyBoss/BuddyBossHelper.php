@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BuddyBoss Integration.
- */
-
 namespace BitApps\Integrations\Actions\BuddyBoss;
 
 use BitApps\Integrations\Config;

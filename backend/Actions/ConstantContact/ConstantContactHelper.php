@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Constant Contact Integration
- */
-
 namespace BitApps\Integrations\Actions\ConstantContact;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

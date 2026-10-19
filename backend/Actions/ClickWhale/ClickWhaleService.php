@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ClickWhale Record Api
- */
-
 namespace BitApps\Integrations\Actions\ClickWhale;
 
 use BitApps\Integrations\Config;

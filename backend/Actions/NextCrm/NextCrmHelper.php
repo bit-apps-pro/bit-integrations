@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NextCrm Integration
- */
-
 namespace BitApps\Integrations\Actions\NextCrm;
 
 class NextCrmHelper

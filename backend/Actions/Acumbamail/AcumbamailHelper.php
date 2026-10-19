@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Acumbamail Integration
- */
-
 namespace BitApps\Integrations\Actions\Acumbamail;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

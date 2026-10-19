@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LionDesk Record Api
- */
-
 namespace BitApps\Integrations\Actions\LionDesk;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailerLite    Record Api
- */
-
 namespace BitApps\Integrations\Actions\MailerLite;
 
 use BitApps\Integrations\Config;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * trello Record Api
- */
-
 namespace BitApps\Integrations\Actions\Affiliate;
 
 use BitApps\Integrations\Core\Util\ActionUser;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Mailster Integration
- */
-
 namespace BitApps\Integrations\Actions\Mailster;
 
 use MailsterBlockForms;

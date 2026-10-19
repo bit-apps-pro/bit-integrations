@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BadgeOS Record Api
- */
-
 namespace BitApps\Integrations\Actions\BadgeOS;
 
 use BitApps\Integrations\Config;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Wordpress Post Creation
- * Added Pods Custom Fields
- */
-
 namespace BitApps\Integrations\Actions\Pods;
 
 use BitApps\Integrations\Core\Util\Common;

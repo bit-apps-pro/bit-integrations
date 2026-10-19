@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NinjaTables Record Api
- */
-
 namespace BitApps\Integrations\Actions\NinjaTables;
 
 use BitApps\Integrations\Config;

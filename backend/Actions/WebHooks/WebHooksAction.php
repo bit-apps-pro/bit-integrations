@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WebHooks Integration
- */
-
 namespace BitApps\Integrations\Actions\WebHooks;
 
 use BitApps\Integrations\Config;

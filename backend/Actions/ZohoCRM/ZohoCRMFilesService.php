@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoCrm Files Api
- */
-
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\Common;

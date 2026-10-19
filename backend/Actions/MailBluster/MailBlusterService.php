@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailBluster Record Api
- */
-
 namespace BitApps\Integrations\Actions\MailBluster;
 
 use BitApps\Integrations\Core\Util\Common;

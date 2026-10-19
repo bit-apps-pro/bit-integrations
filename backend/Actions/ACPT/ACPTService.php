@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ACPT Record Api
- */
-
 namespace BitApps\Integrations\Actions\ACPT;
 
 use BitApps\Integrations\Config;

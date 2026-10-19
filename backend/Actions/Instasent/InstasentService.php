@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Instasent Record Api
- */
-
 namespace BitApps\Integrations\Actions\Instasent;
 
 use BitApps\Integrations\Config;

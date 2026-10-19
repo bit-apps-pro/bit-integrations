@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SureContact Record Api.
- */
-
 namespace BitApps\Integrations\Actions\SureContact;
 
 use BitApps\Integrations\Config;

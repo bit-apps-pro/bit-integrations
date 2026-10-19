@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoBigin Integration
- */
-
 namespace BitApps\Integrations\Actions\ZohoBigin;
 
 use BitApps\Integrations\Config;
@@ -143,11 +139,6 @@ class ZohoBiginHelper
                 'plural_label' => 'Calls'
             ],
         ];
-        // $modulesMetaApiEndpoint = "https://www.zohoapis.{$queryParams->dataCenter}/bigin/v1/settings/related_lists";
-        // $authorizationHeader["Authorization"] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
-        // $requiredParams['module'] = $queryParams->module;
-        // $modulesMetaResponse = HttpHelper::get($modulesMetaApiEndpoint, $queryParams, $authorizationHeader);
-        // wp_send_json_success($modulesMetaResponse, 200);
         foreach ($allModules as $module) {
             if ($module->api_name !== $queryParams->module) {
                 $relatedModules[$module->plural_label] = (object) [
@@ -210,15 +201,6 @@ class ZohoBiginHelper
                     $requiredFields[] = $field->api_name;
                 }
             }
-
-            // $fields['Pipeline'] = (object) array(
-            //         'api_name' => 'Pipeline',
-            //         'display_label' => 'Pipeline',
-            //         'data_type' => 'text',
-            //         'length' => 120,
-            //         'required' => true
-            //     );
-            // $requiredFields[] = 'Pipeline';
 
             uksort($fields, 'strnatcasecmp');
             uksort($fileUploadFields, 'strnatcasecmp');

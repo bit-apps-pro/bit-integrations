@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Events Manager Record Api
- */
-
 namespace BitApps\Integrations\Actions\EventsManager;
 
 use BitApps\Integrations\Config;

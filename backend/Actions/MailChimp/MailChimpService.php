@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MailChimp Record Api
- */
-
 namespace BitApps\Integrations\Actions\MailChimp;
 
 use BitApps\Integrations\Config;

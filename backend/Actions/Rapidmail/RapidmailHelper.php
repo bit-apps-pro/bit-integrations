@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Rapidmail Integration
- */
-
 namespace BitApps\Integrations\Actions\Rapidmail;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

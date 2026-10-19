@@ -1,9 +1,5 @@
 <?php
 
-/**
- * RestrictContent Record Api
- */
-
 namespace BitApps\Integrations\Actions\RestrictContent;
 
 use BitApps\Integrations\Core\Util\ActionUser;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Zendesk Record Api
- */
-
 namespace BitApps\Integrations\Actions\Zendesk;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

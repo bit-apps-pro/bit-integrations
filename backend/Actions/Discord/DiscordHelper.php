@@ -1,9 +1,5 @@
 <?php
 
-/**
- * discord Integration
- */
-
 namespace BitApps\Integrations\Actions\Discord;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

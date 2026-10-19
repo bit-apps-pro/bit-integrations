@@ -1,9 +1,5 @@
 <?php
 
-/**
- * FluentCart Record Api
- */
-
 namespace BitApps\Integrations\Actions\FluentCart;
 
 use BitApps\Integrations\Config;
@@ -42,7 +38,6 @@ class FluentCartService
             'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
-        // Route to appropriate action method
         switch ($mainAction) {
             case 'create_order':
                 $response = Hooks::apply(Config::withPrefix('fluentcart_create_order'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);

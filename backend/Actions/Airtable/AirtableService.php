@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Airtable Record Api
- */
-
 namespace BitApps\Integrations\Actions\Airtable;
 
 use BitApps\Integrations\Core\Util\Common;

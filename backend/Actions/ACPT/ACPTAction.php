@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ACPT Integration
- */
-
 namespace BitApps\Integrations\Actions\ACPT;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

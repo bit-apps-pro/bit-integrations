@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoDesk Files Api
- */
-
 namespace BitApps\Integrations\Actions\ZohoDesk;
 
 use BitApps\Integrations\Core\Util\Common;

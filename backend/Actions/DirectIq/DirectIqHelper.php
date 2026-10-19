@@ -1,9 +1,5 @@
 <?php
 
-/**
- * DirectIQ Integration
- */
-
 namespace BitApps\Integrations\Actions\DirectIq;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

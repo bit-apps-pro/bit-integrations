@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Selesforce Integration
- */
-
 namespace BitApps\Integrations\Actions\Salesforce;
 
 use BitApps\Integrations\Config;

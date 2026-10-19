@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Rapidmail Integration
- */
-
 namespace BitApps\Integrations\Actions\Twilio;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

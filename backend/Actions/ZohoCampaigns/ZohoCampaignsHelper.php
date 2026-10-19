@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoCampaigns Integration
- */
-
 namespace BitApps\Integrations\Actions\ZohoCampaigns;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

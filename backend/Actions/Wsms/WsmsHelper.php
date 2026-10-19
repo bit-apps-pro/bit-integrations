@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WSMS (WP SMS) Integration
- */
-
 namespace BitApps\Integrations\Actions\Wsms;
 
 class WsmsHelper

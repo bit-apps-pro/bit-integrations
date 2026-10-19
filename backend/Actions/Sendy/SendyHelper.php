@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Sendy Integration.
- */
-
 namespace BitApps\Integrations\Actions\Sendy;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Mailercloud Integration
- */
-
 namespace BitApps\Integrations\Actions\Mailercloud;
 
 use BitApps\Integrations\Core\Util\HttpHelper;

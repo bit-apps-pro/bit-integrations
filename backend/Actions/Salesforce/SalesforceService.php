@@ -346,16 +346,12 @@ class SalesforceService
                 return $input;
             }
 
-            // ----------------------------
             // PHONE NUMBER PROTECTION
-            // ----------------------------
             if (preg_match('/^\+?\d{7,15}$/', $input)) {
                 return $input;
             }
 
-            // ------------------------------------------------------------
             // 1) Handle UNIX timestamps (10 or 13 digits)
-            // ------------------------------------------------------------
             if (self::validateNumericDateWithLength($input, 10)) {
                 return gmdate('Y-m-d\TH:i:s\Z', (int) $input);
             }
@@ -363,9 +359,7 @@ class SalesforceService
                 return gmdate('Y-m-d\TH:i:s\Z', (int) ($input / 1000));
             }
 
-            // ------------------------------------------------------------
             // 2) Natural-language dates ("today", "tomorrow", "next Monday", etc.)
-            // ------------------------------------------------------------
             // WP 5.1 compat: strpos() in place of str_contains() (WP 5.9)
             if (preg_match('/^[a-zA-Z ]+$/', $input) || strpos($input, 'ago') !== false) {
                 $ts = strtotime($input);
@@ -374,23 +368,17 @@ class SalesforceService
                 }
             }
 
-            // ------------------------------------------------------------
             // 3) Clean ordinals: 1st, 2nd, 3rd, 21st, 31st...
-            // ------------------------------------------------------------
             $clean = preg_replace('/\b(\d+)(st|nd|rd|th)\b/i', '$1', $input);
 
-            // ------------------------------------------------------------
             // 4) Japanese/Chinese/Korean locale replacements
-            // ------------------------------------------------------------
             $clean = str_replace(
                 ['年', '月', '日', '년', '월', '일'],
                 ['-', '-', '', '-', '-', ''],
                 $clean
             );
 
-            // ------------------------------------------------------------
             // 5) Week-based formats (2025-W05 or 2025-W05-6)
-            // ------------------------------------------------------------
             if (preg_match('/^(\d{4})-?W(\d{2})(?:-?(\d))?$/i', $clean, $m)) {
                 $year = $m[1];
                 $week = $m[2];
@@ -404,9 +392,7 @@ class SalesforceService
                 }
             }
 
-            // ------------------------------------------------------------
             // 6) Quarter formats (Q1 2025, 2025 Q1, 1st Quarter 2025)
-            // ------------------------------------------------------------
             if (preg_match('/(Q[1-4]|[1-4]st Quarter)\s*[, ]*\s*(\d{4})/i', $clean, $m)) {
                 $q = preg_replace('/\D/', '', $m[1]);
                 $year = $m[2];
@@ -415,9 +401,7 @@ class SalesforceService
                 return "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
             }
 
-            // ------------------------------------------------------------
             // 7) Compact numeric formats (01022025, 20250201, 250201, 010225)
-            // ------------------------------------------------------------
             if (self::validateNumericDateWithLength($clean, 8)) {
                 // YYYYMMDD or DDMMYYYY or MMDDYYYY → try multiple interpretations
                 $candidates = [
@@ -458,13 +442,10 @@ class SalesforceService
                 }
             }
 
-            // ------------------------------------------------------------
             // 8) Try direct DateTime parsing for most formats
-            // ------------------------------------------------------------
             $dt = self::tryParseDateTimeImmutable($clean);
 
             if ($dt instanceof DateTimeImmutable) {
-                // Detect if datetime or pure date
                 if (preg_match('/\d{1,2}:\d/', $clean)) {
                     return $dt->setTimezone(new DateTimeZone('UTC'))
                         ->format('Y-m-d\TH:i:s\Z');
@@ -473,9 +454,7 @@ class SalesforceService
                 return $dt->format('Y-m-d');
             }
 
-            // ------------------------------------------------------------
             // 9) Last fallback using strtotime()
-            // ------------------------------------------------------------
             $ts = strtotime($clean);
             if ($ts) {
                 if (preg_match('/\d{1,2}:\d/', $clean)) {
@@ -485,9 +464,7 @@ class SalesforceService
                 return gmdate('Y-m-d', $ts);
             }
 
-            // ------------------------------------------------------------
             // 10) No match → return original
-            // ------------------------------------------------------------
             return $input;
         } catch (Throwable $th) {
             return $input;

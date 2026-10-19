@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ClinchPad Record Api
- */
-
 namespace BitApps\Integrations\Actions\ClinchPad;
 
 use BitApps\Integrations\Core\Util\Common;

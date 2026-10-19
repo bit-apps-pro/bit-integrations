@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ZohoSheet Integration
- */
-
 namespace BitApps\Integrations\Actions\ElasticEmail;
 
 use BitApps\Integrations\Authorization\AuthorizationType;

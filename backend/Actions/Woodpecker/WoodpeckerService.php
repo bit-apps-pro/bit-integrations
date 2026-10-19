@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Woodpecker Record Api
- */
-
 namespace BitApps\Integrations\Actions\Woodpecker;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
