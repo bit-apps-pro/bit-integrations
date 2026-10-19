@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\BitCrm;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class BitCrmService
 {
     private $_integrationID;
 
