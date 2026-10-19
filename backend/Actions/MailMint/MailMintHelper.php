@@ -6,9 +6,8 @@ use BitApps\Integrations\Config;
 use Mint\MRM\Constants;
 use Mint\MRM\DataBase\Models\ContactGroupModel;
 use Mint\MRM\DataBase\Tables\CustomFieldSchema;
-use WP_Error;
 
-class MailMintController
+class MailMintHelper
 {
     public static function pluginActive()
     {
@@ -88,35 +87,5 @@ class MailMintController
             }
         }
         wp_send_json_success($allTags, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $mainAction = $integrationDetails->mainAction;
-        $fieldMap = $integrationDetails->field_map;
-        if (
-            empty($integId)
-            || empty($mainAction)
-        ) {
-            // translators: %s: Integration name
-
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Mail Mint'));
-        }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $mailMintApiResponse = $recordApiHelper->execute(
-            $mainAction,
-            $fieldValues,
-            $fieldMap,
-            $integrationDetails
-        );
-
-        if (is_wp_error($mailMintApiResponse)) {
-            return $mailMintApiResponse;
-        }
-
-        return $mailMintApiResponse;
     }
 }

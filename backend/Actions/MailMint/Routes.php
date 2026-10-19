@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\MailMint\MailMintController;
+use BitApps\Integrations\Actions\MailMint\MailMintHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('fetch_all_mail_mint_list', [MailMintController::class, 'getAllList']);
-Route::post('fetch_all_mail_mint_tags', [MailMintController::class, 'getAllTags']);
-Route::post('fetch_all_mail_mint_custom_fields', [MailMintController::class, 'allCustomFields']);
+Route::post('fetch_all_mail_mint_list', [MailMintHelper::class, 'getAllList']);
+Route::post('fetch_all_mail_mint_tags', [MailMintHelper::class, 'getAllTags']);
+Route::post('fetch_all_mail_mint_custom_fields', [MailMintHelper::class, 'allCustomFields']);

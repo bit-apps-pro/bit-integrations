@@ -9,7 +9,7 @@ use Mint\MRM\DataBase\Models\ContactGroupModel;
 use Mint\MRM\DataBase\Models\ContactModel;
 use Mint\MRM\DataStores\ContactData;
 
-class RecordApiHelper
+class MailMintService
 {
     private static $integrationID;
 
