@@ -296,8 +296,6 @@ backend/Actions/SureContact/RecordApiHelper.php
 backend/Actions/SureContact/SureContactController.php
 backend/Actions/SureDash/RecordApiHelper.php
 backend/Actions/SureDash/SureDashController.php
-backend/Actions/SureMembers/RecordApiHelper.php
-backend/Actions/SureMembers/SureMembersController.php
 backend/Actions/SureTriggers/SureTriggersController.php
 backend/Actions/SyncSpider/SyncSpiderController.php
 backend/Actions/SystemeIO/RecordApiHelper.php

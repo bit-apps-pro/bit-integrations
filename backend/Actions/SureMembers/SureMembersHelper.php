@@ -7,9 +7,8 @@
 namespace BitApps\Integrations\Actions\SureMembers;
 
 use SureMembers\Inc\Access_Groups;
-use WP_Error;
 
-class SureMembersController
+class SureMembersHelper
 {
     public static function checkedSureMembersExists()
     {
@@ -47,29 +46,5 @@ class SureMembersController
         }
 
         wp_send_json_success($groups, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        self::checkedSureMembersExists();
-
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $selectedTask = $integrationDetails->selectedTask;
-        $selectedGroup = $integrationDetails->selectedGroup;
-
-        if (empty($fieldMap) || empty($selectedTask) || empty($selectedGroup)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('Fields map, task and group are required for SureMembers', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integId);
-        $sureMembersResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $selectedTask, $selectedGroup);
-
-        if (is_wp_error($sureMembersResponse)) {
-            return $sureMembersResponse;
-        }
-
-        return $sureMembersResponse;
     }
 }

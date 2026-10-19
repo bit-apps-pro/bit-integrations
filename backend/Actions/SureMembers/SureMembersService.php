@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use SureMembers\Inc\Access;
 
-class RecordApiHelper
+class SureMembersService
 {
     private $_integrationID;
 
