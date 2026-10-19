@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Sender;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class SenderController
+class SenderHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'sender',
-        'fields'   => [
-            'api_token' => 'token',
-        ],
-    ];
-
     private static $baseUrl = 'https://api.sender.net/v2';
 
     /**
@@ -99,26 +89,6 @@ class SenderController
         }
 
         wp_send_json_success(['fields' => $fields], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId            = $integrationData->id;
-        $fieldMap           = $integrationDetails->field_map ?? [];
-
-        if (empty($integrationDetails->api_token)) {
-            return new WP_Error('api_token_empty', __('Sender API token is required', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $senderResponse  = $recordApiHelper->execute($fieldValues, $fieldMap);
-
-        if (is_wp_error($senderResponse)) {
-            return $senderResponse;
-        }
-
-        return $senderResponse;
     }
 
     private static function authHeader($token)

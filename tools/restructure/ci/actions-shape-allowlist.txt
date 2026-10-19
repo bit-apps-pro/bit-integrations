@@ -158,8 +158,6 @@ backend/Actions/Selzy/RecordApiHelper.php
 backend/Actions/Selzy/SelzyController.php
 backend/Actions/SendPulse/RecordApiHelper.php
 backend/Actions/SendPulse/SendPulseController.php
-backend/Actions/Sender/RecordApiHelper.php
-backend/Actions/Sender/SenderController.php
 backend/Actions/SendinBlue/RecordApiHelper.php
 backend/Actions/SendinBlue/SendinBlueController.php
 backend/Actions/Slack/FilesApiHelper.php
