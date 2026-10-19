@@ -47,8 +47,6 @@ backend/Actions/ClickWhale/ClickWhaleController.php
 backend/Actions/ClickWhale/RecordApiHelper.php
 backend/Actions/ClinchPad/ClinchPadController.php
 backend/Actions/ClinchPad/RecordApiHelper.php
-backend/Actions/CompanyHub/CompanyHubController.php
-backend/Actions/CompanyHub/RecordApiHelper.php
 backend/Actions/ConstantContact/ConstantContactController.php
 backend/Actions/ConstantContact/RecordApiHelper.php
 backend/Actions/ConvertForce/ConvertForceController.php
