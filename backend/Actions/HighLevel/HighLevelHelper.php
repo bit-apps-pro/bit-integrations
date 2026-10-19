@@ -6,29 +6,11 @@
 
 namespace BitApps\Integrations\Actions\HighLevel;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class HighLevelController
+class HighLevelHelper
 {
     private const V2_HEADER_VERSION = '2021-07-28';
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'gohighlevel',
-        'fields'   => [
-            'api_key'     => 'token',
-            'version'     => 'version',
-            'location_id' => 'location_id',
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
 
     public static function getCustomFields($requestsParams)
     {
@@ -285,56 +267,7 @@ class HighLevelController
         wp_send_json_success($opportunityList, 200);
     }
 
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $fieldMap = $integrationDetails->field_map;
-        $actions = (array) $integrationDetails->actions;
-
-        $apiKey = self::getApiKey($integrationDetails);
-        $version = self::getVersion($integrationDetails);
-        $locationId = self::getLocationIdIfV2($integrationDetails, $version);
-        $selectedTask = self::getStringParam($integrationDetails, 'selectedTask');
-
-        if (empty($apiKey) || empty($fieldMap)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', \sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'HighLevel'));
-        }
-
-        if ($version === 'v2' && $locationId === '') {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', \sprintf(__('module, location_id is required for %s v2 api', 'bit-integrations'), 'HighLevel'));
-        }
-
-        $optionKeys = [
-            'selectedTags'        => 'selectedTags',
-            'selectedContact'     => 'selectedContact',
-            'selectedTaskStatus'  => 'selectedTaskStatus',
-            'selectedUser'        => 'selectedUser',
-            'updateTaskId'        => 'updateTaskId',
-            'selectedPipeline'    => 'selectedPipeline',
-            'selectedStage'       => 'selectedStage',
-            'selectedOpportunity' => 'selectedOpportunity',
-        ];
-
-        $selectedOptions = array_map(
-            function ($key) use ($integrationDetails) {
-                return self::getStringParam($integrationDetails, $key);
-            },
-            $optionKeys
-        );
-
-        $recordApiHelper = new RecordApiHelper($apiKey, $this->_integrationID, $version, $locationId);
-        $highLevelApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $selectedTask, $selectedOptions, $actions);
-
-        if (is_wp_error($highLevelApiResponse)) {
-            return $highLevelApiResponse;
-        }
-
-        return $highLevelApiResponse;
-    }
-
-    private static function getStringParam($requestsParams, string $key, string $default = ''): string
+    public static function getStringParam($requestsParams, string $key, string $default = ''): string
     {
         if (!isset($requestsParams->{$key})) {
             return $default;
@@ -343,14 +276,7 @@ class HighLevelController
         return trim((string) $requestsParams->{$key});
     }
 
-    private static function requireNonEmpty(string $value): void
-    {
-        if ($value === '') {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-    }
-
-    private static function getApiKey($requestsParams): string
+    public static function getApiKey($requestsParams): string
     {
         $apiKey = self::getStringParam($requestsParams, 'api_key');
         self::requireNonEmpty($apiKey);
@@ -358,14 +284,14 @@ class HighLevelController
         return $apiKey;
     }
 
-    private static function getVersion($requestsParams): string
+    public static function getVersion($requestsParams): string
     {
         $version = self::getStringParam($requestsParams, 'version', 'v1');
 
         return ($version === 'v2') ? 'v2' : 'v1';
     }
 
-    private static function getLocationIdIfV2($requestsParams, string $version): string
+    public static function getLocationIdIfV2($requestsParams, string $version): string
     {
         if ($version !== 'v2') {
             return '';
@@ -375,6 +301,13 @@ class HighLevelController
         self::requireNonEmpty($locationId);
 
         return $locationId;
+    }
+
+    private static function requireNonEmpty(string $value): void
+    {
+        if ($value === '') {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
     }
 
     private static function buildHeaders(string $apiKey, string $version): array

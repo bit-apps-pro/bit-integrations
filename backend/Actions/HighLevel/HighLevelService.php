@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class HighLevelService
 {
     private const V2_HEADER_VERSION = '2021-07-28';
 

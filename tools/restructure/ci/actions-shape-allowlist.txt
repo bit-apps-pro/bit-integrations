@@ -51,8 +51,6 @@ backend/Actions/GoogleDrive/GoogleDriveController.php
 backend/Actions/GoogleDrive/RecordApiHelper.php
 backend/Actions/GoogleSheet/GoogleSheetController.php
 backend/Actions/GoogleSheet/RecordApiHelper.php
-backend/Actions/HighLevel/HighLevelController.php
-backend/Actions/HighLevel/RecordApiHelper.php
 backend/Actions/Hubspot/HubspotController.php
 backend/Actions/Hubspot/HubspotRecordApiHelper.php
 backend/Actions/Integrately/IntegratelyController.php
