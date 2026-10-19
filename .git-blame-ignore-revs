@@ -9,3 +9,89 @@ c718d022af246171998b25de5a8a9ac1b15ed58c
 4389dede016b4ffb832fc7c535843b6633ae1a82
 # refactor(actions): move WpErp to Action/Service/Helper layout
 1398f7ec6c8935c2c8a3a31f5af4856921ef7330
+# refactor(actions): move Autonami to Action/Service/Helper layout
+1fca5692921c7336ca2653a8ff17dbb981351ffc
+# refactor(actions): move Mailster to Action/Service/Helper layout
+786bc9babc6740b55ce3c3a5abe2da60e52636f0
+# refactor(actions): move Memberpress to Action/Service/Helper layout
+3fa42c13b183e6086b74a9d7afc031fb8a93b95b
+# refactor(actions): move Newsletter to Action/Service/Helper layout
+d47c03be0db52789d58199f440f7da14806890cb
+# refactor(actions): move PaidMembershipPro to Action/Service/Helper layout
+0b21b3cfa945261932c002ff50a552e629c9d000
+# refactor(actions): move RestrictContent to Action/Service/Helper layout
+d03f3b23d742773597a9b5952a17693198f633bc
+# refactor(actions): move SliceWp to Action/Service/Helper layout
+ddb7688c8c76098ea7b4f70af00d999a92d566b3
+# refactor(actions): move SureCart to Action/Service/Helper layout
+569fd2557241bad09d51ec458d332ff575401166
+# refactor(actions): move SureMembers to Action/Service/Helper layout
+92752a417138536ec485bd93ae8cabbe1a8feac2
+# refactor(actions): move TheEventsCalendar to Action/Service/Helper layout
+65720cb663682088bb0b84dd1da3023ab7fab4f3
+# refactor(actions): move WPCourseware to Action/Service/Helper layout
+df2ad6b69d5c98eeb05fbf1320efec50fb5dd59b
+# refactor(actions): move Airtable to Action/Service/Helper layout
+204ca81b8873f0f2d4c2b754f7db4dff385bc869
+# refactor(actions): move BenchMark to Action/Service/Helper layout
+78ef0e1f9db8c482b9a568df0ad8a30a4caf4763
+# refactor(actions): move CampaignMonitor to Action/Service/Helper layout
+66e0d532a75b61f6674869bd05054441d4a1e233
+# refactor(actions): move Clickup to Action/Service/Helper layout
+e1a98142ee3ba7d264a1cb2a02540b21545dd69a
+# refactor(actions): move CompanyHub to Action/Service/Helper layout
+1bd396bf66591ee0147dcd00964c7c52ffaadc53
+# refactor(actions): move Demio to Action/Service/Helper layout
+ecb5b425eae6bd259750d1b837ad85b01139a644
+# refactor(actions): move DirectIq to Action/Service/Helper layout
+da0c09050c93bca2165f079dbbe5008e661b6587
+# refactor(actions): move ElasticEmail to Action/Service/Helper layout
+4857d2a74a6869c1dd17f4dcbaa493813989e8db
+# refactor(actions): move EmailOctopus to Action/Service/Helper layout
+00f71bd99226b3d87fe6a0a0a32e7c32b460115d
+# refactor(actions): move Encharge to Action/Service/Helper layout
+6077cad3a2324e7c2f0d178789d184758b67c8eb
+# refactor(actions): move Flowlu to Action/Service/Helper layout
+0f09c46b277a176f42044b17b439c7ef5bdeb261
+# refactor(actions): move Getgist to Action/Service/Helper layout
+6027b39e744435b12494e192a5ce562b8ae88165
+# refactor(actions): move Gravitec to Action/Service/Helper layout
+8b8964fcd7e0d50536813ff0278ee3fe4b69a429
+# refactor(actions): move Lemlist to Action/Service/Helper layout
+4fe8e2acc5564afcf5cfd350644ed756daf98dda
+# refactor(actions): move Livestorm to Action/Service/Helper layout
+0200b83cf62eb72a89e2124b250e7206a8b3aec1
+# refactor(actions): move MailBluster to Action/Service/Helper layout
+3797435cdf5d45d6fb6a3940eaf312100393b8ae
+# refactor(actions): move MailRelay to Action/Service/Helper layout
+e3aa299d28ae685bc07bbea797c5807ea596e3f5
+# refactor(actions): move Mailercloud to Action/Service/Helper layout
+a922f8016d418d540a729b22a7f5c317bf3cefe5
+# refactor(actions): move Mailify to Action/Service/Helper layout
+bb283b91a734ae412847037fbab516788274cf02
+# refactor(actions): move Mailjet to Action/Service/Helper layout
+634db6145b601566990c9b64d2d6cc9bbc0a0323
+# refactor(actions): move MoxieCRM to Action/Service/Helper layout
+6f81ba61dee6a3ae0f1f86a563a90da917d40ae5
+# refactor(actions): move OneHashCRM to Action/Service/Helper layout
+6e5d24706f26e89f23d49b0e0069ecc3d5206cc6
+# refactor(actions): move PerfexCRM to Action/Service/Helper layout
+35bf9b517a0b8f00959d55442615f8e116bd6671
+# refactor(actions): move Salesflare to Action/Service/Helper layout
+037ddd41873a8d640cfdda68524f2954949e92c8
+# refactor(actions): move SendFox to Action/Service/Helper layout
+97927878ab153321f777de4b6ddbe2536e65eb68
+# refactor(actions): move SendGrid to Action/Service/Helper layout
+92ba1b5b45c911ce19eaf482ac746bc897fc2629
+# refactor(actions): move Sendy to Action/Service/Helper layout
+1eefb915a827c46f67093ade3197339b2a0da3a0
+# refactor(actions): move Smaily to Action/Service/Helper layout
+b7a90ddd6d1459dddc9714c544b05c3957f8c96d
+# refactor(actions): move SuiteDash to Action/Service/Helper layout
+0a4185f849371b110e5a482e3473eaf2f4e265da
+# refactor(actions): move SystemeIO to Action/Service/Helper layout
+400ede9365fbb29dafd67f60b0d82d4a497f15fd
+# refactor(actions): move Vbout to Action/Service/Helper layout
+d6f4d3b96500ecaf0d8ef7dce48a45e02ab31206
+# refactor(actions): move Woodpecker to Action/Service/Helper layout
+49cae5db0194ef4e546f8d24aef1293d80a1cadb
