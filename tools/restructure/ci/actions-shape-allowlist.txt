@@ -62,8 +62,6 @@ backend/Actions/Keap/RecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
 backend/Actions/KirimEmail/RecordApiHelper.php
 backend/Actions/KonnectzIT/KonnectzITController.php
-backend/Actions/LMFWC/LMFWCController.php
-backend/Actions/LMFWC/RecordApiHelper.php
 backend/Actions/LearnDash/LearnDashController.php
 backend/Actions/LearnDash/RecordApiHelper.php
 backend/Actions/Line/LineController.php
