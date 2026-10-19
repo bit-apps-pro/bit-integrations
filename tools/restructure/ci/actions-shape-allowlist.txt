@@ -140,8 +140,6 @@ backend/Actions/Line/LineController.php
 backend/Actions/Line/RecordApiHelper.php
 backend/Actions/LionDesk/LionDeskController.php
 backend/Actions/LionDesk/RecordApiHelper.php
-backend/Actions/Livestorm/LivestormController.php
-backend/Actions/Livestorm/RecordApiHelper.php
 backend/Actions/Mail/MailController.php
 backend/Actions/MailBluster/MailBlusterController.php
 backend/Actions/MailBluster/RecordApiHelper.php

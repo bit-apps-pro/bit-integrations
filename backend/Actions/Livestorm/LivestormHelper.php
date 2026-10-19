@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Livestorm;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class LivestormController
+class LivestormHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'livestorm',
-        'fields'   => [
-            'api_key' => 'value',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -88,28 +78,6 @@ class LivestormController
         } else {
             wp_send_json_error(__('Session fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $apiKey = $integrationDetails->api_key;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap) || empty($apiKey)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Livestorm'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiKey);
-        $livestormApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap);
-
-        if (is_wp_error($livestormApiResponse)) {
-            return $livestormApiResponse;
-        }
-
-        return $livestormApiResponse;
     }
 
     private function checkValidation($fieldsRequestParams, $customParam = '**')
