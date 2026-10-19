@@ -69,6 +69,7 @@ final class RouteSmoke
 
         if ($routes === []) {
             $session->log->info("{$integration}: no routes");
+            $session->result($integration, 'T3', true, 'no routes: the connection_id path runs only through Flow::execute, whose $authConfig owner the dispatch snapshot checks');
         }
 
         $store->clear($integration, 'route');
