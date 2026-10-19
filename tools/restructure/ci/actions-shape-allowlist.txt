@@ -37,8 +37,6 @@ backend/Actions/BrilliantDirectories/BrilliantDirectoriesController.php
 backend/Actions/BrilliantDirectories/RecordApiHelper.php
 backend/Actions/BuddyBoss/BuddyBossController.php
 backend/Actions/BuddyBoss/RecordApiHelper.php
-backend/Actions/CampaignMonitor/CampaignMonitorController.php
-backend/Actions/CampaignMonitor/RecordApiHelper.php
 backend/Actions/CapsuleCRM/CapsuleCRMController.php
 backend/Actions/CapsuleCRM/RecordApiHelper.php
 backend/Actions/CartAbandonmentRecovery/CartAbandonmentRecoveryController.php

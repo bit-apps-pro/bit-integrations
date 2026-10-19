@@ -2,21 +2,10 @@
 
 namespace BitApps\Integrations\Actions\CampaignMonitor;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class CampaignMonitorController
+class CampaignMonitorHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BASIC_AUTH,
-        'slug'     => 'campaignmonitor',
-        'fields'   => [
-            'api_key'   => 'username',
-            'client_id' => 'client_id',
-        ],
-    ];
-
     private $baseUrl;
 
     public function __construct()
@@ -67,34 +56,6 @@ class CampaignMonitorController
             // translators: %s: Placeholder value
             wp_send_json_error(wp_sprintf(__('Field fetching failed: %s', 'bit-integrations'), $apiResponse->Message), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $selectedList = $integrationDetails->listId;
-        $actions = $integrationDetails->actions;
-        $fieldMap = $integrationDetails->field_map;
-        $apiKey = $integrationDetails->api_key;
-
-        if (empty($fieldMap) || empty($apiKey) || empty($selectedList)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Campaign Monitor'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiKey);
-        $campaignMonitorApiResponse = $recordApiHelper->execute(
-            $selectedList,
-            $fieldValues,
-            $fieldMap,
-            $actions
-        );
-        if (is_wp_error($campaignMonitorApiResponse) || !filter_var($campaignMonitorApiResponse, FILTER_VALIDATE_EMAIL)) {
-            return $campaignMonitorApiResponse->Message;
-        }
-
-        return $campaignMonitorApiResponse;
     }
 
     private function setHeader($apiKey)
