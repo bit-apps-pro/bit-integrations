@@ -1,0 +1,225 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 24,
+            "to": "method:postfielddata",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 35,
+            "to": "method:postfieldmapping",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 53,
+            "to": "method:podmappingfield",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 54,
+            "to": "method:podfilemapping",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Pods\\PodsController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 148,
+        "modifiers": [
+            "final"
+        ],
+        "path": "backend/Actions/Pods/PodsController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Pods/PodsController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Pods/PodsAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Pods",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Pods\\PodsController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Pods\\PodsAction"
+            ],
+            "method:podfilemapping": [
+                "BitApps\\Integrations\\Actions\\Pods\\PodsAction"
+            ],
+            "method:podmappingfield": [
+                "BitApps\\Integrations\\Actions\\Pods\\PodsAction"
+            ],
+            "method:postfielddata": [
+                "BitApps\\Integrations\\Actions\\Pods\\PodsAction"
+            ],
+            "method:postfieldmapping": [
+                "BitApps\\Integrations\\Actions\\Pods\\PodsAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                17,
+                66
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:podmappingfield",
+            "kind": "method",
+            "lines": [
+                68,
+                84
+            ],
+            "names": [
+                "podMappingField"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:postfielddata",
+            "kind": "method",
+            "lines": [
+                86,
+                99
+            ],
+            "names": [
+                "postFieldData"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:postfieldmapping",
+            "kind": "method",
+            "lines": [
+                101,
+                119
+            ],
+            "names": [
+                "postFieldMapping"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:podfilemapping",
+            "kind": "method",
+            "lines": [
+                121,
+                146
+            ],
+            "names": [
+                "podFileMapping"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Pods",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Pods\\PodsController": "BitApps\\Integrations\\Actions\\Pods\\PodsAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/Pods/PodsController.php": "d84726e15ed179a663e3b39d1f947fe703d2fe01"
+    },
+    "sources": {
+        "backend/Actions/Pods/PodsAction.php": [
+            "backend/Actions/Pods/PodsController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Pods\\PodsAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Pods/PodsAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Pods\\PodsHelper",
+            "origin": "none",
+            "path": "backend/Actions/Pods/PodsHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "Pods"
+    ]
+}

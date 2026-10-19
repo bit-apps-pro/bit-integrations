@@ -1,0 +1,851 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 93,
+            "to": "method:getmappedvalue",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 102,
+            "to": "method:fetchmemberbyemail",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 117,
+            "to": "method:fetchspacebyid",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Fabman\\FabmanController",
+        "constructorRequiredParams": 0,
+        "executeStatic": true,
+        "extends": null,
+        "lines": 195,
+        "modifiers": [],
+        "path": "backend/Actions/Fabman/FabmanController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Fabman/FabmanController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Fabman/FabmanAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Fabman/FabmanHelper.php"
+        },
+        {
+            "from": "backend/Actions/Fabman/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Fabman/FabmanService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Fabman/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\Fabman\\FabmanService"
+            ],
+            "hooks": "backend/Actions/Fabman/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 121,
+            "helper": 53
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Fabman",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Fabman\\FabmanController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction"
+            ],
+            "method:fetchaccountid": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper"
+            ],
+            "method:fetchmemberbyemail": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction"
+            ],
+            "method:fetchspacebyid": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction"
+            ],
+            "method:fetchworkspaces": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper"
+            ],
+            "method:getmappedvalue": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Fabman\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Fabman\\FabmanService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                14,
+                20
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fetchaccountid",
+            "kind": "method",
+            "lines": [
+                22,
+                48
+            ],
+            "names": [
+                "fetchAccountId"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fetchworkspaces",
+            "kind": "method",
+            "lines": [
+                50,
+                75
+            ],
+            "names": [
+                "fetchWorkspaces"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                77,
+                133
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getmappedvalue",
+            "kind": "method",
+            "lines": [
+                135,
+                150
+            ],
+            "names": [
+                "getMappedValue"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchmemberbyemail",
+            "kind": "method",
+            "lines": [
+                152,
+                172
+            ],
+            "names": [
+                "fetchMemberByEmail"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchspacebyid",
+            "kind": "method",
+            "lines": [
+                174,
+                193
+            ],
+            "names": [
+                "fetchSpaceById"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Fabman",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Fabman\\RecordApiHelper",
+            "file": "backend/Actions/Fabman/FabmanController.php",
+            "kind": "new",
+            "line": 123,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Fabman\\FabmanService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Fabman\\FabmanController",
+            "file": "backend/Actions/Fabman/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Fabman\\FabmanController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Fabman\\FabmanController",
+            "file": "backend/Actions/Fabman/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchaccountid",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper",
+            "text": "FabmanController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Fabman\\FabmanController",
+            "file": "backend/Actions/Fabman/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:fetchworkspaces",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper",
+            "text": "FabmanController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Fabman\\FabmanController": [
+            "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction",
+            "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Fabman\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Fabman\\FabmanService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Fabman/Routes.php",
+            "line": 10,
+            "method": "fetchAccountId",
+            "route": "fabman_fetch_account_id",
+            "target": "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Fabman/Routes.php",
+            "line": 11,
+            "method": "fetchWorkspaces",
+            "route": "fabman_fetch_workspaces",
+            "target": "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Fabman/RecordApiHelper.php": [
+            {
+                "key": "const:API_ENDPOINT",
+                "kind": "const",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SUCCESS_HTTP_CODES",
+                "kind": "const",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:REQUIRED_FIELDS",
+                "kind": "const",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:VALID_PRIVILEGES",
+                "kind": "const",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:DATE_FORMATS",
+                "kind": "const",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MAX_STRING_LENGTH",
+                "kind": "const",
+                "lines": [
+                    25,
+                    25
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MAX_NAME_LENGTH",
+                "kind": "const",
+                "lines": [
+                    27,
+                    27
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MAX_NOTES_LENGTH",
+                "kind": "const",
+                "lines": [
+                    29,
+                    29
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MAX_MEMBER_NUMBER_LENGTH",
+                "kind": "const",
+                "lines": [
+                    31,
+                    31
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MIN_PHONE_LENGTH",
+                "kind": "const",
+                "lines": [
+                    33,
+                    33
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MAX_PHONE_LENGTH",
+                "kind": "const",
+                "lines": [
+                    35,
+                    35
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    37,
+                    37
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiKey",
+                "kind": "property",
+                "lines": [
+                    39,
+                    39
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:workspaceId",
+                "kind": "property",
+                "lines": [
+                    41,
+                    41
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:accountId",
+                "kind": "property",
+                "lines": [
+                    43,
+                    43
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:memberId",
+                "kind": "property",
+                "lines": [
+                    45,
+                    45
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:lockVersion",
+                "kind": "property",
+                "lines": [
+                    47,
+                    47
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    49,
+                    57
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    59,
+                    84
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:buildbasedata",
+                "kind": "method",
+                "lines": [
+                    86,
+                    99
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:getfieldvalue",
+                "kind": "method",
+                "lines": [
+                    101,
+                    108
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:logvalidationerror",
+                "kind": "method",
+                "lines": [
+                    110,
+                    119
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:executeaction",
+                "kind": "method",
+                "lines": [
+                    121,
+                    137
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:logresponse",
+                "kind": "method",
+                "lines": [
+                    139,
+                    148
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:determineresponsestatus",
+                "kind": "method",
+                "lines": [
+                    150,
+                    157
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:createmember",
+                "kind": "method",
+                "lines": [
+                    159,
+                    174
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:updatemember",
+                "kind": "method",
+                "lines": [
+                    176,
+                    193
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:deletemember",
+                "kind": "method",
+                "lines": [
+                    195,
+                    210
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:createspace",
+                "kind": "method",
+                "lines": [
+                    212,
+                    224
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:updatespace",
+                "kind": "method",
+                "lines": [
+                    226,
+                    248
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:addlockversionifvalid",
+                "kind": "method",
+                "lines": [
+                    250,
+                    259
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:handlefilterresponse",
+                "kind": "method",
+                "lines": [
+                    261,
+                    269
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validateandsanitizefield",
+                "kind": "method",
+                "lines": [
+                    271,
+                    283
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:isemptyvalue",
+                "kind": "method",
+                "lines": [
+                    285,
+                    288
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatebyfieldtype",
+                "kind": "method",
+                "lines": [
+                    290,
+                    318
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:isfieldrequired",
+                "kind": "method",
+                "lines": [
+                    320,
+                    323
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validateemail",
+                "kind": "method",
+                "lines": [
+                    325,
+                    330
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatename",
+                "kind": "method",
+                "lines": [
+                    332,
+                    335
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatephone",
+                "kind": "method",
+                "lines": [
+                    337,
+                    348
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatenotes",
+                "kind": "method",
+                "lines": [
+                    350,
+                    353
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatelockversion",
+                "kind": "method",
+                "lines": [
+                    355,
+                    364
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validateprivileges",
+                "kind": "method",
+                "lines": [
+                    366,
+                    373
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validateprivilegesarray",
+                "kind": "method",
+                "lines": [
+                    375,
+                    386
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validateprivilegesscalar",
+                "kind": "method",
+                "lines": [
+                    388,
+                    393
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatemembernumber",
+                "kind": "method",
+                "lines": [
+                    395,
+                    400
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validatedate",
+                "kind": "method",
+                "lines": [
+                    402,
+                    412
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:validateid",
+                "kind": "method",
+                "lines": [
+                    414,
+                    423
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:sanitizestring",
+                "kind": "method",
+                "lines": [
+                    425,
+                    434
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:setheaders",
+                "kind": "method",
+                "lines": [
+                    436,
+                    442
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Fabman/FabmanController.php": "14430f3292098534ff1ee85af8e263fc2abfa315",
+        "backend/Actions/Fabman/RecordApiHelper.php": "d4332e8f9618358dcf4fcc8b7cb6c6f175b23ba4",
+        "backend/Actions/Fabman/Routes.php": "ee22bb6030f8ad78625462cb35941f050589e547"
+    },
+    "sources": {
+        "backend/Actions/Fabman/FabmanAction.php": [
+            "backend/Actions/Fabman/FabmanController.php"
+        ],
+        "backend/Actions/Fabman/FabmanHelper.php": [
+            "backend/Actions/Fabman/FabmanController.php"
+        ],
+        "backend/Actions/Fabman/FabmanService.php": [
+            "backend/Actions/Fabman/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Fabman\\FabmanAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Fabman/FabmanAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Fabman\\FabmanHelper",
+            "origin": "created",
+            "path": "backend/Actions/Fabman/FabmanHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Fabman/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Fabman\\RecordApiHelper",
+                "to": "backend/Actions/Fabman/FabmanService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Fabman\\FabmanService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "Fabman"
+    ]
+}

@@ -1,0 +1,421 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 19,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:completecourse",
+            "line": 131,
+            "to": "method:completedcourse",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 251,
+            "to": "method:completecourse",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 253,
+            "to": "method:resetcourse",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 255,
+            "to": "method:enrollcourse",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 261,
+            "to": "method:completelesson",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 273,
+        "modifiers": [],
+        "path": "backend/Actions/TutorLms/TutorLmsController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/TutorLms/TutorLmsController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/TutorLms/TutorLmsAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/TutorLms/TutorLmsHelper.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/TutorLms/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [
+            {
+                "hook": "'tutor_course_complete_before'",
+                "kind": "do_action",
+                "line": 191,
+                "member": "method:completedcourse",
+                "placement": "action"
+            },
+            {
+                "hook": "'tutor_course_complete_after'",
+                "kind": "do_action",
+                "line": 220,
+                "member": "method:completedcourse",
+                "placement": "action"
+            }
+        ],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 195,
+            "helper": 52
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "TutorLms",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "method:completecourse": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "method:completedcourse": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "method:completelesson": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "method:enrollcourse": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "method:getallcourse": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper"
+            ],
+            "method:getalllesson": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper"
+            ],
+            "method:resetcourse": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                15,
+                15
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                17,
+                20
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllesson",
+            "kind": "method",
+            "lines": [
+                22,
+                44
+            ],
+            "names": [
+                "getAllLesson"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcourse",
+            "kind": "method",
+            "lines": [
+                46,
+                74
+            ],
+            "names": [
+                "getAllCourse"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:enrollcourse",
+            "kind": "method",
+            "lines": [
+                76,
+                108
+            ],
+            "names": [
+                "enrollCourse"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:completelesson",
+            "kind": "method",
+            "lines": [
+                110,
+                116
+            ],
+            "names": [
+                "completeLesson"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:completecourse",
+            "kind": "method",
+            "lines": [
+                118,
+                134
+            ],
+            "names": [
+                "completeCourse"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:resetcourse",
+            "kind": "method",
+            "lines": [
+                136,
+                186
+            ],
+            "names": [
+                "resetCourse"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:completedcourse",
+            "kind": "method",
+            "lines": [
+                188,
+                223
+            ],
+            "names": [
+                "completedCourse"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                226,
+                271
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\TutorLms",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController",
+            "file": "backend/Actions/TutorLms/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper",
+            "text": "use BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController",
+            "file": "backend/Actions/TutorLms/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallcourse",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper",
+            "text": "TutorLmsController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController",
+            "file": "backend/Actions/TutorLms/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalllesson",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper",
+            "text": "TutorLmsController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsController": [
+            "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction",
+            "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/TutorLms/Routes.php",
+            "line": 10,
+            "method": "getAllCourse",
+            "route": "tutor_all_course",
+            "target": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper",
+            "verb": "get"
+        },
+        {
+            "file": "backend/Actions/TutorLms/Routes.php",
+            "line": 11,
+            "method": "getAllLesson",
+            "route": "tutor_all_lesson",
+            "target": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper",
+            "verb": "get"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/TutorLms/Routes.php": "5f78cbfc0f6b451a4c500fcd9b5da62a3c9a9c8d",
+        "backend/Actions/TutorLms/TutorLmsController.php": "d99439c722cad392aaa945847a3850e80d3d362b"
+    },
+    "sources": {
+        "backend/Actions/TutorLms/TutorLmsAction.php": [
+            "backend/Actions/TutorLms/TutorLmsController.php"
+        ],
+        "backend/Actions/TutorLms/TutorLmsHelper.php": [
+            "backend/Actions/TutorLms/TutorLmsController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/TutorLms/TutorLmsAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\TutorLms\\TutorLmsHelper",
+            "origin": "created",
+            "path": "backend/Actions/TutorLms/TutorLmsHelper.php"
+        },
+        "services": []
+    },
+    "tests": [
+        "T6"
+    ],
+    "unit": [
+        "TutorLms"
+    ]
+}
