@@ -10,7 +10,7 @@ use BitApps\Integrations\Log\LogHandler;
 use DateTime;
 use WP_Error;
 
-class RecordApiHelper
+class FabmanService
 {
     private const API_ENDPOINT = 'https://fabman.io/api/v1';
 

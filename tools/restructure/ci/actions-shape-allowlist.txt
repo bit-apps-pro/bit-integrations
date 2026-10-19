@@ -17,8 +17,6 @@ backend/Actions/Discord/FilesApiHelper.php
 backend/Actions/Discord/RecordApiHelper.php
 backend/Actions/ElementsKit/ElementsKitController.php
 backend/Actions/ElementsKit/RecordApiHelper.php
-backend/Actions/Fabman/FabmanController.php
-backend/Actions/Fabman/RecordApiHelper.php
 backend/Actions/Flodesk/FlodeskController.php
 backend/Actions/Flodesk/RecordApiHelper.php
 backend/Actions/Freshdesk/AllFilesApiHelper.php
