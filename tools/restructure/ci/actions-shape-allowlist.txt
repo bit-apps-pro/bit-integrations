@@ -106,8 +106,6 @@ backend/Actions/ZohoCRM/RecordApiHelper.php
 backend/Actions/ZohoCRM/TagApiHelper.php
 backend/Actions/ZohoCRM/ZohoCRMController.php
 backend/Actions/ZohoFlow/ZohoFlowController.php
-backend/Actions/ZohoMarketingHub/RecordApiHelper.php
-backend/Actions/ZohoMarketingHub/ZohoMarketingHubController.php
 backend/Actions/ZohoRecruit/FilesApiHelper.php
 backend/Actions/ZohoRecruit/RecordApiHelper.php
 backend/Actions/ZohoRecruit/ZohoRecruitController.php
