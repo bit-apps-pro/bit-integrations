@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\PropovoiceCRM;
 use BitApps\Integrations\Core\Util\Common;
 use WP_Error;
 
-final class FilesApiHelper
+final class PropovoiceCRMFilesService
 {
     public function uploadFile($file_data)
     {

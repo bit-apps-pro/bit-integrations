@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\PropovoiceCRM;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class PropovoiceCRMService
 {
     private $_integrationID;
 
@@ -34,7 +34,7 @@ class RecordApiHelper
     public function createLead($finalData)
     {
         if ($finalData['img']) {
-            $imgUpload = new FilesApiHelper();
+            $imgUpload = new PropovoiceCRMFilesService();
             $upload = $imgUpload->uploadFile($finalData['img'][0]);
             $finalData['img'] = $upload['id'];
         }
