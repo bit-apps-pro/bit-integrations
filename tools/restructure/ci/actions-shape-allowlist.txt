@@ -182,8 +182,6 @@ backend/Actions/OmniSend/OmniSendController.php
 backend/Actions/OmniSend/RecordApiHelper.php
 backend/Actions/OneDrive/OneDriveController.php
 backend/Actions/OneDrive/RecordApiHelper.php
-backend/Actions/OneHashCRM/OneHashCRMController.php
-backend/Actions/OneHashCRM/RecordApiHelper.php
 backend/Actions/PCloud/PCloudController.php
 backend/Actions/PCloud/RecordApiHelper.php
 backend/Actions/Pabbly/PabblyController.php

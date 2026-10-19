@@ -7,10 +7,9 @@
 namespace BitApps\Integrations\Actions\OneHashCRM;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-class OneHashCRMController
+class OneHashCRMAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
@@ -21,12 +20,6 @@ class OneHashCRMController
             'domain'     => 'domain',
         ],
     ];
-
-    protected $_defaultHeader;
-
-    protected $apiEndpoint;
-
-    protected $domain;
 
     public function execute($integrationData, $fieldValues)
     {
@@ -43,7 +36,7 @@ class OneHashCRMController
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'OneHashCRM'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiKey, $apiSecret, $domain);
+        $recordApiHelper = new OneHashCRMService($integrationDetails, $integId, $apiKey, $apiSecret, $domain);
         $oneHashCRMApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
 
         if (is_wp_error($oneHashCRMApiResponse)) {
@@ -51,26 +44,5 @@ class OneHashCRMController
         }
 
         return $oneHashCRMApiResponse;
-    }
-
-    private function setApiEndpoint()
-    {
-        return $this->apiEndpoint = "{$this->domain}/api/resource";
-    }
-
-    private function checkValidation($fieldsRequestParams, $customParam = '**')
-    {
-        if (empty($fieldsRequestParams->api_key) || empty($fieldsRequestParams->api_secret) || empty($fieldsRequestParams->domain) || empty($customParam)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-    }
-
-    private function setHeaders($apiKey, $apiSecret)
-    {
-        return
-            [
-                'Authorization' => "token {$apiKey}:{$apiSecret}",
-                'Content-type'  => 'application/json',
-            ];
     }
 }
