@@ -146,8 +146,6 @@ backend/Actions/Pabbly/PabblyController.php
 backend/Actions/PipeDrive/PipeDriveController.php
 backend/Actions/PipeDrive/RecordApiHelper.php
 backend/Actions/Pods/PodsController.php
-backend/Actions/Pointics/PointicsController.php
-backend/Actions/Pointics/RecordApiHelper.php
 backend/Actions/PopupMaker/PopupMakerController.php
 backend/Actions/PopupMaker/RecordApiHelper.php
 backend/Actions/PostCreation/PostCreationController.php
