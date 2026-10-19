@@ -6,14 +6,14 @@
 
 namespace BitApps\Integrations\Actions\LearnDash;
 
-use BitApps\Integrations\Actions\Mail\MailController;
+use BitApps\Integrations\Actions\Mail\MailAction;
 use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 use LDLMS_DB;
 
-class RecordApiHelper
+class LearnDashService
 {
     private static $integrationID;
 
@@ -721,7 +721,7 @@ class RecordApiHelper
 
     public function sendMailToGroupLeader($integrationData, $fieldValues)
     {
-        $mailInstance = new MailController();
+        $mailInstance = new MailAction();
 
         return $mailInstance->execute($integrationData, $fieldValues);
     }

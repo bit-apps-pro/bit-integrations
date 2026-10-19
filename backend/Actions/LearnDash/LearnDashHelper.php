@@ -7,9 +7,8 @@
 namespace BitApps\Integrations\Actions\LearnDash;
 
 use BitApps\Integrations\Core\Util\Post;
-use WP_Error;
 
-class LearnDashController
+class LearnDashHelper
 {
     // public function __construct($integrationID)
     // {
@@ -161,39 +160,5 @@ class LearnDashController
         }
 
         return $courses;
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $mainAction = $integrationDetails->mainAction;
-        $mainActionGroupLeaderMail = isset($integrationDetails->learnDashConf->mainAction) ? $integrationDetails->learnDashConf->mainAction : '';
-        if (!empty($mainActionGroupLeaderMail)) {
-            $mainAction = $mainActionGroupLeaderMail;
-        }
-
-        if (
-            empty($integId)
-            || empty($mainAction)
-        ) {
-            // translators: %s: Integration name
-
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'LearnDash'));
-        }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $learnDashApiResponse = $recordApiHelper->execute(
-            $mainAction,
-            $fieldValues,
-            $integrationDetails,
-            $integrationData
-        );
-
-        if (is_wp_error($learnDashApiResponse)) {
-            return $learnDashApiResponse;
-        }
-
-        return $learnDashApiResponse;
     }
 }

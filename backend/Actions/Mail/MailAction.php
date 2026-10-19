@@ -9,7 +9,7 @@ if (! defined('ABSPATH')) {
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-final class MailController
+final class MailAction
 {
     /**
      * Helps to execute integration flow for Mail action

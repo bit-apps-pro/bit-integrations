@@ -31,9 +31,6 @@ backend/Actions/Hubspot/HubspotController.php
 backend/Actions/Hubspot/HubspotRecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
 backend/Actions/KirimEmail/RecordApiHelper.php
-backend/Actions/LearnDash/LearnDashController.php
-backend/Actions/LearnDash/RecordApiHelper.php
-backend/Actions/Mail/MailController.php
 backend/Actions/MasterStudyLms/MasterStudyLmsController.php
 backend/Actions/MasterStudyLms/RecordApiHelper.php
 backend/Actions/Moosend/MoosendController.php
