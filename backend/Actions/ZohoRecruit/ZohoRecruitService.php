@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-class RecordApiHelper
+class ZohoRecruitService
 {
     private $_defaultHeader;
 
@@ -115,7 +115,7 @@ class RecordApiHelper
                 }
             }
 
-            $filesApiHelper = new FilesApiHelper($module, $this->_dataCenter, $this->_tokenDetails);
+            $filesApiHelper = new ZohoRecruitFilesService($module, $this->_dataCenter, $this->_tokenDetails);
             if (\count($fileMap)) {
                 $fileFound = 0;
                 $responseType = 'success';
