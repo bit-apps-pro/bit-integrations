@@ -256,8 +256,6 @@ backend/Actions/UltimateAffiliatePro/UltimateAffiliateProController.php
 backend/Actions/UncannyAutomator/UncannyAutomatorController.php
 backend/Actions/UserRegistrationMembership/RecordApiHelper.php
 backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php
-backend/Actions/Vbout/RecordApiHelper.php
-backend/Actions/Vbout/VboutController.php
 backend/Actions/Voxel/RecordApiHelper.php
 backend/Actions/Voxel/VoxelController.php
 backend/Actions/WCAffiliate/RecordApiHelper.php
