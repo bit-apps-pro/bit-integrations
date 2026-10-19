@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class WishlistMemberService
 {
     private $_integrationID;
 
@@ -170,7 +170,7 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap, $action)
     {
-        if (!WishlistMemberController::isPluginInstalled()) {
+        if (!WishlistMemberHelper::isPluginInstalled()) {
             return;
         }
 

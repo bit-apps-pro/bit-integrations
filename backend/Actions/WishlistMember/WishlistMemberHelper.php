@@ -6,9 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WishlistMember;
 
-use WP_Error;
-
-class WishlistMemberController
+class WishlistMemberHelper
 {
     public static function isPluginInstalled()
     {
@@ -36,26 +34,5 @@ class WishlistMemberController
         }
 
         wp_send_json_success($allLevels, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $action = $integrationDetails->action;
-
-        if (empty($fieldMap) || empty($action)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Wishlist Member'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integId, $integrationDetails);
-
-        return $recordApiHelper->execute(
-            $fieldValues,
-            $fieldMap,
-            $action
-        );
     }
 }
