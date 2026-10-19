@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class TelegramService
 {
     private $_defaultHeader;
 
@@ -52,7 +52,7 @@ class RecordApiHelper
                     'media'   => $file
                 ];
 
-                $sendPhotoApiHelper = new FilesApiHelper();
+                $sendPhotoApiHelper = new TelegramFilesService();
                 $recordApiResponse = $sendPhotoApiHelper->uploadMultipleFiles($this->_apiEndPoint, $data);
                 $recordApiResponse = \is_string($recordApiResponse) ? json_decode($recordApiResponse) : $recordApiResponse;
 
@@ -72,7 +72,7 @@ class RecordApiHelper
                     'photo'      => \is_array($file) ? $file[0] : $file
                 ];
 
-                $sendPhotoApiHelper = new FilesApiHelper();
+                $sendPhotoApiHelper = new TelegramFilesService();
                 $recordApiResponse = $sendPhotoApiHelper->uploadFiles($this->_apiEndPoint, $data);
             } else {
                 $data = [

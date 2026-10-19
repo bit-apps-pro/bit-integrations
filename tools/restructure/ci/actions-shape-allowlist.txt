@@ -42,9 +42,6 @@ backend/Actions/RoxAppointmentBooking/RoxAppointmentBookingController.php
 backend/Actions/Salesforce/RecordApiHelper.php
 backend/Actions/Salesmate/RecordApiHelper.php
 backend/Actions/Salesmate/SalesmateController.php
-backend/Actions/Telegram/FilesApiHelper.php
-backend/Actions/Telegram/RecordApiHelper.php
-backend/Actions/Telegram/TelegramController.php
 backend/Actions/Trello/RecordApiHelper.php
 backend/Actions/Trello/TrelloController.php
 backend/Actions/UserRegistrationMembership/RecordApiHelper.php
