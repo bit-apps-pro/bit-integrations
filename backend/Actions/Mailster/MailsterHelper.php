@@ -9,9 +9,8 @@ namespace BitApps\Integrations\Actions\Mailster;
 use MailsterBlockForms;
 use MailsterLists;
 use MailsterTags;
-use WP_Error;
 
-class MailsterController
+class MailsterHelper
 {
     public static function checkedMailsterExists()
     {
@@ -97,36 +96,5 @@ class MailsterController
         }
 
         wp_send_json_success($tags, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        self::checkedMailsterExists();
-
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $selectedStatus = $integrationDetails->selectedStatus;
-        $selectedLists = $integrationDetails->selectedLists;
-        $selectedTags = $integrationDetails->selectedTags;
-
-        if (empty($fieldMap)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('fields map are required for Mailster', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integId);
-        $mailsterResponse = $recordApiHelper->execute(
-            $fieldValues,
-            $fieldMap,
-            $selectedStatus,
-            $selectedLists,
-            $selectedTags
-        );
-
-        if (is_wp_error($mailsterResponse)) {
-            return $mailsterResponse;
-        }
-
-        return $mailsterResponse;
     }
 }

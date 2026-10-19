@@ -189,8 +189,6 @@ backend/Actions/Mailify/MailifyController.php
 backend/Actions/Mailify/RecordApiHelper.php
 backend/Actions/Mailjet/MailjetController.php
 backend/Actions/Mailjet/RecordApiHelper.php
-backend/Actions/Mailster/MailsterController.php
-backend/Actions/Mailster/RecordApiHelper.php
 backend/Actions/Mailup/MailupController.php
 backend/Actions/Mailup/RecordApiHelper.php
 backend/Actions/MainWP/MainWPController.php

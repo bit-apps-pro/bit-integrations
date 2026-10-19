@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use MailsterSubscribers;
 
-class RecordApiHelper
+class MailsterService
 {
     private $_integrationID;
 
