@@ -255,8 +255,6 @@ backend/Actions/QuizMaker/RecordApiHelper.php
 backend/Actions/Rapidmail/RapidmailController.php
 backend/Actions/Rapidmail/RecordApiHelper.php
 backend/Actions/Registration/RegistrationController.php
-backend/Actions/RestrictContent/RecordApiHelper.php
-backend/Actions/RestrictContent/RestrictContentController.php
 backend/Actions/RoxAppointmentBooking/RecordApiHelper.php
 backend/Actions/RoxAppointmentBooking/RoxAppointmentBookingController.php
 backend/Actions/Salesflare/RecordApiHelper.php

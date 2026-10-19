@@ -11,7 +11,7 @@ use BitApps\Integrations\Log\LogHandler;
 use RCP_Payments;
 use WP_Error;
 
-class RecordApiHelper
+class RestrictContentService
 {
     protected $action;
 
