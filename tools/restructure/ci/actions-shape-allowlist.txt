@@ -102,8 +102,6 @@ backend/Actions/Nimble/NimbleController.php
 backend/Actions/Nimble/RecordApiHelper.php
 backend/Actions/NinjaTables/NinjaTablesController.php
 backend/Actions/NinjaTables/RecordApiHelper.php
-backend/Actions/Notion/NotionController.php
-backend/Actions/Notion/RecordApiHelper.php
 backend/Actions/NutshellCRM/NutshellCRMController.php
 backend/Actions/NutshellCRM/RecordApiHelper.php
 backend/Actions/OmniSend/OmniSendController.php

@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class NotionService
 {
     private $_integrationID;
 
