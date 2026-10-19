@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\ZagoMail;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class ZagoMailService
 {
     private $_defaultHeader;
 

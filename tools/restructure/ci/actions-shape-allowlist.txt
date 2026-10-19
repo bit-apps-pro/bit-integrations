@@ -169,8 +169,6 @@ backend/Actions/WordPress/RecordApiHelper.php
 backend/Actions/WordPress/WordPressController.php
 backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php
 backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php
-backend/Actions/ZagoMail/RecordApiHelper.php
-backend/Actions/ZagoMail/ZagoMailController.php
 backend/Actions/Zapier/ZapierController.php
 backend/Actions/Zendesk/RecordApiHelper.php
 backend/Actions/Zendesk/ZendeskController.php
