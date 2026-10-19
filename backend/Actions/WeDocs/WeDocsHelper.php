@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\WeDocs;
 use BitApps\Integrations\Core\Util\Post;
 use WP_Post;
 
-class WeDocsController
+class WeDocsHelper
 {
     private const DOC_POST_TYPE = 'docs';
 
@@ -82,16 +82,6 @@ class WeDocsController
         );
 
         wp_send_json_success(['sections' => $options], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $fieldMap = $integrationDetails->field_map ?? [];
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integrationData->id);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     private static function checkPluginExists()

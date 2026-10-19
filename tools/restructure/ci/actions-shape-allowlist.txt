@@ -200,8 +200,6 @@ backend/Actions/WPForo/RecordApiHelper.php
 backend/Actions/WPForo/WPForoController.php
 backend/Actions/WPFusion/WPFusionController.php
 backend/Actions/WPWebhooks/WPWebhooksController.php
-backend/Actions/WeDocs/RecordApiHelper.php
-backend/Actions/WeDocs/WeDocsController.php
 backend/Actions/WebHooks/WebHooksController.php
 backend/Actions/WebbaBooking/RecordApiHelper.php
 backend/Actions/WebbaBooking/WebbaBookingController.php
