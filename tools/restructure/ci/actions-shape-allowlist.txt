@@ -224,8 +224,6 @@ backend/Actions/Sender/RecordApiHelper.php
 backend/Actions/Sender/SenderController.php
 backend/Actions/SendinBlue/RecordApiHelper.php
 backend/Actions/SendinBlue/SendinBlueController.php
-backend/Actions/Sendy/RecordApiHelper.php
-backend/Actions/Sendy/SendyController.php
 backend/Actions/SenseiLMS/RecordApiHelper.php
 backend/Actions/SenseiLMS/SenseiLMSController.php
 backend/Actions/SeoPress/RecordApiHelper.php
