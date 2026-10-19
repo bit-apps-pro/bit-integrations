@@ -1,0 +1,966 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getallfields",
+            "line": 32,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallfields",
+            "line": 35,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallfields",
+            "line": 36,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfields",
+            "line": 38,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfields",
+            "line": 49,
+            "to": "method:checkrequiredfields",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 63,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltags",
+            "line": 65,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 66,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 68,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcurrencies",
+            "line": 85,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcurrencies",
+            "line": 87,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallcurrencies",
+            "line": 88,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcurrencies",
+            "line": 90,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmpipelines",
+            "line": 107,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmpipelines",
+            "line": 109,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmpipelines",
+            "line": 110,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmpipelines",
+            "line": 112,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmcontacts",
+            "line": 130,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmcontacts",
+            "line": 132,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmcontacts",
+            "line": 133,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmcontacts",
+            "line": 136,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmcompanies",
+            "line": 155,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmcompanies",
+            "line": 157,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmcompanies",
+            "line": 158,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmcompanies",
+            "line": 161,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmowners",
+            "line": 179,
+            "to": "method:checkvalidation",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:getallcrmowners",
+            "line": 181,
+            "to": "property:linkName",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmowners",
+            "line": 182,
+            "to": "method:setapiendpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getallcrmowners",
+            "line": 184,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setapiendpoint",
+            "line": 227,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:setapiendpoint",
+            "line": 227,
+            "to": "property:linkName",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:setheaders",
+            "line": 243,
+            "to": "property:linkName",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 281,
+        "modifiers": [],
+        "path": "backend/Actions/Salesmate/SalesmateController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Salesmate/SalesmateController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Salesmate/SalesmateHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Salesmate/SalesmateAction.php"
+        },
+        {
+            "from": "backend/Actions/Salesmate/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Salesmate/SalesmateService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Salesmate/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 32,
+            "helper": 218
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Salesmate",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Salesmate\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController": {
+            "method:checkrequiredfields": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:checkvalidation": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateAction"
+            ],
+            "method:getallcrmcompanies": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:getallcrmcontacts": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:getallcrmowners": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:getallcrmpipelines": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:getallcurrencies": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:getallfields": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:getalltags": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:setapiendpoint": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateAction"
+            ],
+            "property:linkName": [
+                "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:linkName",
+            "kind": "property",
+            "lines": [
+                28,
+                28
+            ],
+            "names": [
+                "linkName"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getallfields",
+            "kind": "method",
+            "lines": [
+                30,
+                59
+            ],
+            "names": [
+                "getAllFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltags",
+            "kind": "method",
+            "lines": [
+                61,
+                81
+            ],
+            "names": [
+                "getAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcurrencies",
+            "kind": "method",
+            "lines": [
+                83,
+                103
+            ],
+            "names": [
+                "getAllCurrencies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmpipelines",
+            "kind": "method",
+            "lines": [
+                105,
+                126
+            ],
+            "names": [
+                "getAllCRMPipelines"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmcontacts",
+            "kind": "method",
+            "lines": [
+                128,
+                151
+            ],
+            "names": [
+                "getAllCRMContacts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmcompanies",
+            "kind": "method",
+            "lines": [
+                153,
+                175
+            ],
+            "names": [
+                "getAllCRMCompanies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcrmowners",
+            "kind": "method",
+            "lines": [
+                177,
+                198
+            ],
+            "names": [
+                "getAllCRMOwners"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                200,
+                223
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:setapiendpoint",
+            "kind": "method",
+            "lines": [
+                225,
+                228
+            ],
+            "names": [
+                "setApiEndpoint"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:checkvalidation",
+            "kind": "method",
+            "lines": [
+                230,
+                235
+            ],
+            "names": [
+                "checkValidation"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                237,
+                245
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:checkrequiredfields",
+            "kind": "method",
+            "lines": [
+                247,
+                279
+            ],
+            "names": [
+                "checkRequiredFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Salesmate",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallcurrencies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getallcrmpipelines",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:getallcrmowners",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:getallcrmcontacts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController",
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "kind": "callable",
+            "line": 16,
+            "member": "method:getallcrmcompanies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "text": "SalesmateController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\RecordApiHelper",
+            "file": "backend/Actions/Salesmate/SalesmateController.php",
+            "kind": "new",
+            "line": 215,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Salesmate\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateService",
+        "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateController": [
+            "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateAction",
+            "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 10,
+            "method": "getAllFields",
+            "route": "Salesmate_fields",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 11,
+            "method": "getAllCurrencies",
+            "route": "salesmate_fetch_all_currencies",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 12,
+            "method": "getAllTags",
+            "route": "salesmate_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 13,
+            "method": "getAllCRMPipelines",
+            "route": "salesmate_fetch_all_CRMPipelines",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 14,
+            "method": "getAllCRMOwners",
+            "route": "salesmate_fetch_all_CRMOwners",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 15,
+            "method": "getAllCRMContacts",
+            "route": "salesmate_fetch_all_CRMContacts",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Salesmate/Routes.php",
+            "line": 16,
+            "method": "getAllCRMCompanies",
+            "route": "salesmate_fetch_all_CRMCompanies",
+            "target": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Salesmate/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    37
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addproduct",
+                "kind": "method",
+                "lines": [
+                    39,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    64,
+                    85
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcompany",
+                "kind": "method",
+                "lines": [
+                    87,
+                    110
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:adddeal",
+                "kind": "method",
+                "lines": [
+                    112,
+                    147
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    149,
+                    159
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    161,
+                    182
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Salesmate/RecordApiHelper.php": "2a05a1fa1857f3a380ec070115813abcc9b5eade",
+        "backend/Actions/Salesmate/Routes.php": "34ce4a23811443d3435e15c2006463ea73a9e4ec",
+        "backend/Actions/Salesmate/SalesmateController.php": "0cc16c331ed1ec9d0bc565c228eb8e54fb026efb"
+    },
+    "sources": {
+        "backend/Actions/Salesmate/SalesmateAction.php": [
+            "backend/Actions/Salesmate/SalesmateController.php"
+        ],
+        "backend/Actions/Salesmate/SalesmateHelper.php": [
+            "backend/Actions/Salesmate/SalesmateController.php"
+        ],
+        "backend/Actions/Salesmate/SalesmateService.php": [
+            "backend/Actions/Salesmate/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateAction",
+            "origin": "created",
+            "path": "backend/Actions/Salesmate/SalesmateAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Salesmate/SalesmateHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Salesmate/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Salesmate\\RecordApiHelper",
+                "to": "backend/Actions/Salesmate/SalesmateService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Salesmate\\SalesmateService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Salesmate"
+    ]
+}

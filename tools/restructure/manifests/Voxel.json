@@ -1,0 +1,468 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getposttypes",
+            "line": 26,
+            "to": "method:checkifvoxelexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getposts",
+            "line": 58,
+            "to": "method:checkifvoxelexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getpostfields",
+            "line": 79,
+            "to": "method:checkifvoxelexists",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 152,
+            "rewriteTo": "VoxelHelper",
+            "to": "method:checkifvoxelexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 180,
+        "modifiers": [],
+        "path": "backend/Actions/Voxel/VoxelController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Voxel/VoxelController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Voxel/VoxelAction.php"
+        },
+        {
+            "op": "insert",
+            "path": "backend/Actions/Voxel/VoxelHelper.php"
+        },
+        {
+            "from": "backend/Actions/Voxel/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Voxel/VoxelService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Voxel/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Voxel",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Voxel\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Voxel\\VoxelService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Voxel\\VoxelController": {
+            "method:checkifvoxelexists": [
+                "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Voxel\\VoxelAction"
+            ],
+            "method:getpostfields": [
+                "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper"
+            ],
+            "method:getposts": [
+                "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper"
+            ],
+            "method:getposttypes": [
+                "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:checkifvoxelexists",
+            "kind": "method",
+            "lines": [
+                14,
+                22
+            ],
+            "names": [
+                "checkIfVoxelExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getposttypes",
+            "kind": "method",
+            "lines": [
+                24,
+                54
+            ],
+            "names": [
+                "getPostTypes"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getposts",
+            "kind": "method",
+            "lines": [
+                56,
+                75
+            ],
+            "names": [
+                "getPosts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getpostfields",
+            "kind": "method",
+            "lines": [
+                77,
+                148
+            ],
+            "names": [
+                "getPostFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                150,
+                178
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Voxel",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelController",
+            "file": "backend/Actions/Voxel/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Voxel\\VoxelController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelController",
+            "file": "backend/Actions/Voxel/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getposttypes",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "text": "VoxelController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelController",
+            "file": "backend/Actions/Voxel/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getpostfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "text": "VoxelController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelController",
+            "file": "backend/Actions/Voxel/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getposts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "text": "VoxelController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\RecordApiHelper",
+            "file": "backend/Actions/Voxel/VoxelController.php",
+            "kind": "new",
+            "line": 170,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Voxel\\VoxelService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Voxel\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Voxel\\VoxelService",
+        "BitApps\\Integrations\\Actions\\Voxel\\VoxelController": [
+            "BitApps\\Integrations\\Actions\\Voxel\\VoxelAction",
+            "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Voxel/Routes.php",
+            "line": 10,
+            "method": "getPostTypes",
+            "route": "get_voxel_post_types",
+            "target": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Voxel/Routes.php",
+            "line": 11,
+            "method": "getPostFields",
+            "route": "get_voxel_post_fields",
+            "target": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Voxel/Routes.php",
+            "line": 12,
+            "method": "getPosts",
+            "route": "get_voxel_posts",
+            "target": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Voxel/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    19
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:newpost",
+                "kind": "method",
+                "lines": [
+                    21,
+                    51
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:newcollectionpost",
+                "kind": "method",
+                "lines": [
+                    53,
+                    83
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:newprofile",
+                "kind": "method",
+                "lines": [
+                    85,
+                    115
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updatepost",
+                "kind": "method",
+                "lines": [
+                    117,
+                    142
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updatecollectionpost",
+                "kind": "method",
+                "lines": [
+                    144,
+                    168
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updateprofile",
+                "kind": "method",
+                "lines": [
+                    170,
+                    186
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setpostverified",
+                "kind": "method",
+                "lines": [
+                    188,
+                    205
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setcollectionpostverified",
+                "kind": "method",
+                "lines": [
+                    207,
+                    229
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setprofileverified",
+                "kind": "method",
+                "lines": [
+                    231,
+                    249
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    251,
+                    265
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    267,
+                    345
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Voxel/RecordApiHelper.php": "358a93524a0113f2f05ae1994ceeeb0513e2a9fd",
+        "backend/Actions/Voxel/Routes.php": "dd300ef90df039926c7fc234c07f1fccbf9892c0",
+        "backend/Actions/Voxel/VoxelController.php": "ca4fb1cf577b6212bcdcb352925c1c7c8c824182",
+        "backend/Actions/Voxel/VoxelHelper.php": "091ea1dd029fc6b985d65d04c0bbd40ef4afe600"
+    },
+    "sources": {
+        "backend/Actions/Voxel/VoxelAction.php": [
+            "backend/Actions/Voxel/VoxelController.php"
+        ],
+        "backend/Actions/Voxel/VoxelHelper.php": [
+            "backend/Actions/Voxel/VoxelController.php",
+            "backend/Actions/Voxel/VoxelHelper.php"
+        ],
+        "backend/Actions/Voxel/VoxelService.php": [
+            "backend/Actions/Voxel/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Voxel/VoxelAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Voxel\\VoxelHelper",
+            "origin": "existing file; members are inserted",
+            "path": "backend/Actions/Voxel/VoxelHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Voxel/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Voxel\\RecordApiHelper",
+                "to": "backend/Actions/Voxel/VoxelService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Voxel\\VoxelService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "Voxel"
+    ]
+}

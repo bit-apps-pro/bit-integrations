@@ -1,0 +1,321 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getalllist",
+            "line": 43,
+            "to": "method:buildauthheaders",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 105,
+        "modifiers": [],
+        "path": "backend/Actions/KirimEmail/KirimEmailController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/KirimEmail/KirimEmailController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/KirimEmail/KirimEmailAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/KirimEmail/KirimEmailHelper.php"
+        },
+        {
+            "from": "backend/Actions/KirimEmail/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/KirimEmail/KirimEmailService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/KirimEmail/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 43,
+            "helper": 43
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "KirimEmail",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController": {
+            "method:buildauthheaders": [
+                "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailAction"
+            ],
+            "method:getalllist": [
+                "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\KirimEmail\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllist",
+            "kind": "method",
+            "lines": [
+                24,
+                55
+            ],
+            "names": [
+                "getAllList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                57,
+                91
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:buildauthheaders",
+            "kind": "method",
+            "lines": [
+                93,
+                103
+            ],
+            "names": [
+                "buildAuthHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\KirimEmail",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\KirimEmail\\RecordApiHelper",
+            "file": "backend/Actions/KirimEmail/KirimEmailController.php",
+            "kind": "new",
+            "line": 76,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController",
+            "file": "backend/Actions/KirimEmail/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper",
+            "text": "use BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController",
+            "file": "backend/Actions/KirimEmail/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getalllist",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper",
+            "text": "KirimEmailController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailController": [
+            "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailAction",
+            "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\KirimEmail\\RecordApiHelper": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/KirimEmail/Routes.php",
+            "line": 10,
+            "method": "getAllList",
+            "route": "kirimEmail_fetch_all_list",
+            "target": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/KirimEmail/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    11,
+                    11
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    13,
+                    16
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    18,
+                    33
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    35,
+                    51
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletesubscriber",
+                "kind": "method",
+                "lines": [
+                    53,
+                    83
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    85,
+                    115
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/KirimEmail/KirimEmailController.php": "387fce976fab29fecd4cf06095d8cd689e1ee950",
+        "backend/Actions/KirimEmail/RecordApiHelper.php": "7a48d704189b37f675577e860b202b0201aecaf0",
+        "backend/Actions/KirimEmail/Routes.php": "d20b2d0eb37ad52573a589339bc5f8fa4f2773c0"
+    },
+    "sources": {
+        "backend/Actions/KirimEmail/KirimEmailAction.php": [
+            "backend/Actions/KirimEmail/KirimEmailController.php"
+        ],
+        "backend/Actions/KirimEmail/KirimEmailHelper.php": [
+            "backend/Actions/KirimEmail/KirimEmailController.php"
+        ],
+        "backend/Actions/KirimEmail/KirimEmailService.php": [
+            "backend/Actions/KirimEmail/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/KirimEmail/KirimEmailAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailHelper",
+            "origin": "created",
+            "path": "backend/Actions/KirimEmail/KirimEmailHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/KirimEmail/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\KirimEmail\\RecordApiHelper",
+                "to": "backend/Actions/KirimEmail/KirimEmailService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\KirimEmail\\KirimEmailService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "KirimEmail"
+    ]
+}

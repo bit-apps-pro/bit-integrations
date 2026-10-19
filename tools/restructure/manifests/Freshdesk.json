@@ -1,0 +1,534 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 168,
+        "modifiers": [],
+        "path": "backend/Actions/Freshdesk/FreshdeskController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Freshdesk/FreshdeskController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Freshdesk/FreshdeskHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Freshdesk/FreshdeskAction.php"
+        },
+        {
+            "from": "backend/Actions/Freshdesk/AllFilesApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Freshdesk/FreshdeskAllFilesService.php"
+        },
+        {
+            "from": "backend/Actions/Freshdesk/FilesApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Freshdesk/FreshdeskFilesService.php"
+        },
+        {
+            "from": "backend/Actions/Freshdesk/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Freshdesk/FreshdeskService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Freshdesk/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 48,
+            "helper": 100
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Freshdesk",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Freshdesk\\AllFilesApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAllFilesService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Freshdesk\\FilesApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskFilesService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAction"
+            ],
+            "method:getallcontactfields": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper"
+            ],
+            "method:getallticketfields": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Freshdesk\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                16,
+                23
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallticketfields",
+            "kind": "method",
+            "lines": [
+                25,
+                81
+            ],
+            "names": [
+                "getAllTicketFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcontactfields",
+            "kind": "method",
+            "lines": [
+                83,
+                125
+            ],
+            "names": [
+                "getAllContactFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                127,
+                166
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Freshdesk",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\RecordApiHelper",
+            "file": "backend/Actions/Freshdesk/FreshdeskController.php",
+            "kind": "new",
+            "line": 151,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\AllFilesApiHelper",
+            "file": "backend/Actions/Freshdesk/RecordApiHelper.php",
+            "kind": "new",
+            "line": 48,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAllFilesService",
+            "text": "AllFilesApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FilesApiHelper",
+            "file": "backend/Actions/Freshdesk/RecordApiHelper.php",
+            "kind": "new",
+            "line": 156,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskFilesService",
+            "text": "FilesApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController",
+            "file": "backend/Actions/Freshdesk/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController",
+            "file": "backend/Actions/Freshdesk/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallticketfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper",
+            "text": "FreshdeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController",
+            "file": "backend/Actions/Freshdesk/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallcontactfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper",
+            "text": "FreshdeskController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Freshdesk\\AllFilesApiHelper": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAllFilesService",
+        "BitApps\\Integrations\\Actions\\Freshdesk\\FilesApiHelper": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskFilesService",
+        "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskController": [
+            "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAction",
+            "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Freshdesk\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Freshdesk/Routes.php",
+            "line": 10,
+            "method": "getAllTicketFields",
+            "route": "freshdesk_fetch_ticket_fields",
+            "target": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Freshdesk/Routes.php",
+            "line": 11,
+            "method": "getAllContactFields",
+            "route": "freshdesk_fetch_Contact_fields",
+            "target": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Freshdesk/AllFilesApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_payloadBoundary",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    23
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:alluploadfiles",
+                "kind": "method",
+                "lines": [
+                    25,
+                    39
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setattachment",
+                "kind": "method",
+                "lines": [
+                    41,
+                    56
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ],
+        "backend/Actions/Freshdesk/FilesApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_payloadBoundary",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    23
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:uploadfiles",
+                "kind": "method",
+                "lines": [
+                    25,
+                    41
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ],
+        "backend/Actions/Freshdesk/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_api_key",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertticket",
+                "kind": "method",
+                "lines": [
+                    26,
+                    63
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    65,
+                    79
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmapcontact",
+                "kind": "method",
+                "lines": [
+                    81,
+                    109
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:fetchcontact",
+                "kind": "method",
+                "lines": [
+                    111,
+                    134
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertcontact",
+                "kind": "method",
+                "lines": [
+                    136,
+                    167
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updatecontact",
+                "kind": "method",
+                "lines": [
+                    169,
+                    192
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    194,
+                    263
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getavatar",
+                "kind": "method",
+                "lines": [
+                    265,
+                    274
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Freshdesk/AllFilesApiHelper.php": "7223afc87ea64835aa689a59c6a63bcc850f1aef",
+        "backend/Actions/Freshdesk/FilesApiHelper.php": "8811086d1e405f2036fb5e6c475f2a29c15419e9",
+        "backend/Actions/Freshdesk/FreshdeskController.php": "f33066a6be02b597120ad846c4f19fe6efc3dc89",
+        "backend/Actions/Freshdesk/RecordApiHelper.php": "433c24d3f65afaa0629ceffcfd37c30dc689b1c2",
+        "backend/Actions/Freshdesk/Routes.php": "963f173e0f563d283d4281997de2f56741127032"
+    },
+    "sources": {
+        "backend/Actions/Freshdesk/FreshdeskAction.php": [
+            "backend/Actions/Freshdesk/FreshdeskController.php"
+        ],
+        "backend/Actions/Freshdesk/FreshdeskAllFilesService.php": [
+            "backend/Actions/Freshdesk/AllFilesApiHelper.php"
+        ],
+        "backend/Actions/Freshdesk/FreshdeskFilesService.php": [
+            "backend/Actions/Freshdesk/FilesApiHelper.php"
+        ],
+        "backend/Actions/Freshdesk/FreshdeskHelper.php": [
+            "backend/Actions/Freshdesk/FreshdeskController.php"
+        ],
+        "backend/Actions/Freshdesk/FreshdeskService.php": [
+            "backend/Actions/Freshdesk/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAction",
+            "origin": "created",
+            "path": "backend/Actions/Freshdesk/FreshdeskAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Freshdesk/FreshdeskHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Freshdesk/AllFilesApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Freshdesk\\AllFilesApiHelper",
+                "to": "backend/Actions/Freshdesk/FreshdeskAllFilesService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskAllFilesService"
+            },
+            {
+                "from": "backend/Actions/Freshdesk/FilesApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Freshdesk\\FilesApiHelper",
+                "to": "backend/Actions/Freshdesk/FreshdeskFilesService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskFilesService"
+            },
+            {
+                "from": "backend/Actions/Freshdesk/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Freshdesk\\RecordApiHelper",
+                "to": "backend/Actions/Freshdesk/FreshdeskService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Freshdesk\\FreshdeskService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Freshdesk"
+    ]
+}

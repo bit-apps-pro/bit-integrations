@@ -1,0 +1,493 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 19,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 306,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 311,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 329,
+        "modifiers": [],
+        "path": "backend/Actions/WooCommerce/WooCommerceController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WooCommerce/WooCommerceController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WooCommerce/WooCommerceHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WooCommerce/WooCommerceAction.php"
+        },
+        {
+            "from": "backend/Actions/WooCommerce/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WooCommerce/WooCommerceService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WooCommerce/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 39,
+            "helper": 269
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:searchprojects"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WooCommerce",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WooCommerce\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceAction"
+            ],
+            "method:allsubscriptionsproducts": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceAction"
+            ],
+            "method:refreshfields": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper"
+            ],
+            "method:searchprojects": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                15,
+                15
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                17,
+                20
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshfields",
+            "kind": "method",
+            "lines": [
+                22,
+                242
+            ],
+            "names": [
+                "refreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:searchprojects",
+            "kind": "method",
+            "lines": [
+                244,
+                261
+            ],
+            "names": [
+                "searchProjects"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:allsubscriptionsproducts",
+            "kind": "method",
+            "lines": [
+                263,
+                292
+            ],
+            "names": [
+                "allSubscriptionsProducts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                294,
+                327
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WooCommerce",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController",
+            "file": "backend/Actions/WooCommerce/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController",
+            "file": "backend/Actions/WooCommerce/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper",
+            "text": "WooCommerceController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController",
+            "file": "backend/Actions/WooCommerce/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:allsubscriptionsproducts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper",
+            "text": "WooCommerceController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WooCommerce\\RecordApiHelper",
+            "file": "backend/Actions/WooCommerce/WooCommerceController.php",
+            "kind": "new",
+            "line": 311,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WooCommerce\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceService",
+        "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceController": [
+            "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceAction",
+            "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WooCommerce/Routes.php",
+            "line": 10,
+            "method": "refreshFields",
+            "route": "wc_refresh_fields",
+            "target": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WooCommerce/Routes.php",
+            "line": 11,
+            "method": "allSubscriptionsProducts",
+            "route": "wc_get_all_subscriptions_products",
+            "target": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WooCommerce/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    22
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createcustomer",
+                "kind": "method",
+                "lines": [
+                    24,
+                    76
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:findcustomer",
+                "kind": "method",
+                "lines": [
+                    78,
+                    101
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:changestatusbyid",
+                "kind": "method",
+                "lines": [
+                    103,
+                    120
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:statuschangebyorderid",
+                "kind": "method",
+                "lines": [
+                    122,
+                    139
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:changestatus",
+                "kind": "method",
+                "lines": [
+                    141,
+                    161
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:statuschangebyemail",
+                "kind": "method",
+                "lines": [
+                    163,
+                    193
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:statuschangebyspecificdays",
+                "kind": "method",
+                "lines": [
+                    195,
+                    224
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:cancelsubscription",
+                "kind": "method",
+                "lines": [
+                    226,
+                    248
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    250,
+                    618
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:upload_attachment",
+                "kind": "method",
+                "lines": [
+                    620,
+                    656
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:attach_product_attachments",
+                "kind": "method",
+                "lines": [
+                    658,
+                    669
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:attach_downloadable_attachments",
+                "kind": "method",
+                "lines": [
+                    671,
+                    697
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setfielddataline",
+                "kind": "method",
+                "lines": [
+                    699,
+                    729
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:product_added_to_order",
+                "kind": "method",
+                "lines": [
+                    731,
+                    762
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WooCommerce/RecordApiHelper.php": "684ae0faa336932cfaed93366eaefcc086cc2929",
+        "backend/Actions/WooCommerce/Routes.php": "5f258f7748f3f9f46521f6969d9cb3e1fe287c44",
+        "backend/Actions/WooCommerce/WooCommerceController.php": "dda2fd632bf2b378ec2d7f7005eae0d9a9399c6c"
+    },
+    "sources": {
+        "backend/Actions/WooCommerce/WooCommerceAction.php": [
+            "backend/Actions/WooCommerce/WooCommerceController.php"
+        ],
+        "backend/Actions/WooCommerce/WooCommerceHelper.php": [
+            "backend/Actions/WooCommerce/WooCommerceController.php"
+        ],
+        "backend/Actions/WooCommerce/WooCommerceService.php": [
+            "backend/Actions/WooCommerce/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceAction",
+            "origin": "created",
+            "path": "backend/Actions/WooCommerce/WooCommerceAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WooCommerce/WooCommerceHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WooCommerce/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WooCommerce\\RecordApiHelper",
+                "to": "backend/Actions/WooCommerce/WooCommerceService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WooCommerce\\WooCommerceService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "WooCommerce"
+    ]
+}

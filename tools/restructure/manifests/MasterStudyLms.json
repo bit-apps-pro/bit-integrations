@@ -1,0 +1,525 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getallcourse",
+            "line": 22,
+            "to": "method:pluginactive",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getalllesson",
+            "line": 45,
+            "to": "method:pluginactive",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallquizbycourse",
+            "line": 57,
+            "to": "method:pluginactive",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 94,
+        "modifiers": [],
+        "path": "backend/Actions/MasterStudyLms/MasterStudyLmsController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MasterStudyLms/MasterStudyLmsController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MasterStudyLms/MasterStudyLmsAction.php"
+        },
+        {
+            "op": "insert",
+            "path": "backend/Actions/MasterStudyLms/MasterStudyLmsHelper.php"
+        },
+        {
+            "from": "backend/Actions/MasterStudyLms/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MasterStudyLms/MasterStudyLmsService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MasterStudyLms/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MasterStudyLms\\MasterStudyLmsService"
+            ],
+            "hooks": "backend/Actions/MasterStudyLms/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MasterStudyLms",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsAction"
+            ],
+            "method:getallcourse": [
+                "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper"
+            ],
+            "method:getalllesson": [
+                "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper"
+            ],
+            "method:getallquizbycourse": [
+                "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper"
+            ],
+            "method:pluginactive": [
+                "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MasterStudyLms\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:pluginactive",
+            "kind": "method",
+            "lines": [
+                10,
+                18
+            ],
+            "names": [
+                "pluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallcourse",
+            "kind": "method",
+            "lines": [
+                20,
+                40
+            ],
+            "names": [
+                "getAllCourse"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllesson",
+            "kind": "method",
+            "lines": [
+                42,
+                52
+            ],
+            "names": [
+                "getAllLesson"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallquizbycourse",
+            "kind": "method",
+            "lines": [
+                54,
+                64
+            ],
+            "names": [
+                "getAllQuizByCourse"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                66,
+                92
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MasterStudyLms",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\RecordApiHelper",
+            "file": "backend/Actions/MasterStudyLms/MasterStudyLmsController.php",
+            "kind": "new",
+            "line": 79,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController",
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController",
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallcourse",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "text": "MasterStudyLmsController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController",
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalllesson",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "text": "MasterStudyLmsController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController",
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallquizbycourse",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "text": "MasterStudyLmsController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsController": [
+            "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsAction",
+            "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MasterStudyLms\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "line": 10,
+            "method": "getAllCourse",
+            "route": "mslms_fetch_all_course",
+            "target": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "line": 11,
+            "method": "getAllLesson",
+            "route": "msLms_fetch_all_lesson",
+            "target": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MasterStudyLms/Routes.php",
+            "line": 12,
+            "method": "getAllQuizByCourse",
+            "route": "msLms_fetch_all_quiz",
+            "target": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MasterStudyLms/RecordApiHelper.php": [
+            {
+                "key": "const:COMPLETE_COURSE",
+                "kind": "const",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:COMPLETE_LESSON",
+                "kind": "const",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:COMPLETE_QUIZ",
+                "kind": "const",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:RESET_COURSE",
+                "kind": "const",
+                "lines": [
+                    26,
+                    26
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:RESET_LESSON",
+                "kind": "const",
+                "lines": [
+                    28,
+                    28
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:ENROLL_USER",
+                "kind": "const",
+                "lines": [
+                    30,
+                    30
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:UNENROLL_USER",
+                "kind": "const",
+                "lines": [
+                    32,
+                    32
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MARK_COURSE_COMPLETE",
+                "kind": "const",
+                "lines": [
+                    34,
+                    34
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:MARK_LESSON_COMPLETE",
+                "kind": "const",
+                "lines": [
+                    36,
+                    36
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    38,
+                    38
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    40,
+                    40
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    42,
+                    46
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:complete_course",
+                "kind": "method",
+                "lines": [
+                    48,
+                    118
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:complete_lesson",
+                "kind": "method",
+                "lines": [
+                    120,
+                    172
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:complete_quiz",
+                "kind": "method",
+                "lines": [
+                    174,
+                    228
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:reset_course",
+                "kind": "method",
+                "lines": [
+                    230,
+                    273
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:reset_lesson",
+                "kind": "method",
+                "lines": [
+                    275,
+                    316
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    318,
+                    424
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    426,
+                    445
+                ],
+                "static": true,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MasterStudyLms/MasterStudyLmsController.php": "f90ad6c5b7b034a9f4661912fcf54a6fe3be1026",
+        "backend/Actions/MasterStudyLms/MasterStudyLmsHelper.php": "99c17412ab0201031897a50d4409e4d4bba1dba2",
+        "backend/Actions/MasterStudyLms/RecordApiHelper.php": "495521b049b5086f923b371e27675e194cf5087a",
+        "backend/Actions/MasterStudyLms/Routes.php": "2ea23a617f09a914c8de299be5e8f5a740ce1f85"
+    },
+    "sources": {
+        "backend/Actions/MasterStudyLms/MasterStudyLmsAction.php": [
+            "backend/Actions/MasterStudyLms/MasterStudyLmsController.php"
+        ],
+        "backend/Actions/MasterStudyLms/MasterStudyLmsHelper.php": [
+            "backend/Actions/MasterStudyLms/MasterStudyLmsController.php",
+            "backend/Actions/MasterStudyLms/MasterStudyLmsHelper.php"
+        ],
+        "backend/Actions/MasterStudyLms/MasterStudyLmsService.php": [
+            "backend/Actions/MasterStudyLms/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MasterStudyLms/MasterStudyLmsAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsHelper",
+            "origin": "existing file; members are inserted",
+            "path": "backend/Actions/MasterStudyLms/MasterStudyLmsHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MasterStudyLms/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MasterStudyLms\\RecordApiHelper",
+                "to": "backend/Actions/MasterStudyLms/MasterStudyLmsService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MasterStudyLms\\MasterStudyLmsService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "MasterStudyLms"
+    ]
+}

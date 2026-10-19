@@ -1,0 +1,959 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshcurrencies",
+            "line": 22,
+            "to": "method:ensureclass",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcurrencies",
+            "line": 23,
+            "to": "method:normalize",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshdealstages",
+            "line": 30,
+            "to": "method:ensureclass",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshinvoiceterms",
+            "line": 55,
+            "to": "method:ensureclass",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshinvoiceterms",
+            "line": 56,
+            "to": "method:normalize",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontacts",
+            "line": 61,
+            "to": "method:ensureclass",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontacts",
+            "line": 62,
+            "to": "method:normalize",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcompanies",
+            "line": 67,
+            "to": "method:ensureclass",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcompanies",
+            "line": 68,
+            "to": "method:normalize",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshusers",
+            "line": 73,
+            "to": "method:ensureclass",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshusers",
+            "line": 74,
+            "to": "method:normalize",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshentities",
+            "line": 84,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshentities",
+            "line": 101,
+            "to": "method:normalize",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 106,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshleadtags",
+            "line": 115,
+            "to": "method:tagoptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontacttags",
+            "line": 120,
+            "to": "method:tagoptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcompanytags",
+            "line": 125,
+            "to": "method:tagoptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshdealtags",
+            "line": 130,
+            "to": "method:tagoptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshproducttags",
+            "line": 135,
+            "to": "method:tagoptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:ensureclass",
+            "line": 153,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:tagoptions",
+            "line": 165,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 196,
+        "modifiers": [],
+        "path": "backend/Actions/BitCrm/BitCrmController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/BitCrm/BitCrmController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BitCrm/BitCrmHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/BitCrm/BitCrmAction.php"
+        },
+        {
+            "from": "backend/Actions/BitCrm/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BitCrm/BitCrmService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/BitCrm/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 12,
+            "helper": 153
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "BitCrm",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController": {
+            "method:ensureclass": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:normalize": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshcompanies": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshcompanytags": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshcontacts": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshcontacttags": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshcurrencies": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshdealstages": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshdealtags": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshentities": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshfields": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshinvoiceterms": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshleadtags": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshproducttags": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:refreshusers": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ],
+            "method:tagoptions": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\BitCrm\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                18
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcurrencies",
+            "kind": "method",
+            "lines": [
+                20,
+                24
+            ],
+            "names": [
+                "refreshCurrencies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshdealstages",
+            "kind": "method",
+            "lines": [
+                26,
+                51
+            ],
+            "names": [
+                "refreshDealStages"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshinvoiceterms",
+            "kind": "method",
+            "lines": [
+                53,
+                57
+            ],
+            "names": [
+                "refreshInvoiceTerms"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcontacts",
+            "kind": "method",
+            "lines": [
+                59,
+                63
+            ],
+            "names": [
+                "refreshContacts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcompanies",
+            "kind": "method",
+            "lines": [
+                65,
+                69
+            ],
+            "names": [
+                "refreshCompanies"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshusers",
+            "kind": "method",
+            "lines": [
+                71,
+                75
+            ],
+            "names": [
+                "refreshUsers"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshentities",
+            "kind": "method",
+            "lines": [
+                77,
+                102
+            ],
+            "names": [
+                "refreshEntities"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshfields",
+            "kind": "method",
+            "lines": [
+                104,
+                111
+            ],
+            "names": [
+                "refreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshleadtags",
+            "kind": "method",
+            "lines": [
+                113,
+                116
+            ],
+            "names": [
+                "refreshLeadTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcontacttags",
+            "kind": "method",
+            "lines": [
+                118,
+                121
+            ],
+            "names": [
+                "refreshContactTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcompanytags",
+            "kind": "method",
+            "lines": [
+                123,
+                126
+            ],
+            "names": [
+                "refreshCompanyTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshdealtags",
+            "kind": "method",
+            "lines": [
+                128,
+                131
+            ],
+            "names": [
+                "refreshDealTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshproducttags",
+            "kind": "method",
+            "lines": [
+                133,
+                136
+            ],
+            "names": [
+                "refreshProductTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                138,
+                149
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:ensureclass",
+            "kind": "method",
+            "lines": [
+                151,
+                161
+            ],
+            "names": [
+                "ensureClass"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:tagoptions",
+            "kind": "method",
+            "lines": [
+                163,
+                181
+            ],
+            "names": [
+                "tagOptions"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:normalize",
+            "kind": "method",
+            "lines": [
+                183,
+                194
+            ],
+            "names": [
+                "normalize"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\BitCrm",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\RecordApiHelper",
+            "file": "backend/Actions/BitCrm/BitCrmController.php",
+            "kind": "new",
+            "line": 148,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "use BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshcurrencies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshdealstages",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshinvoiceterms",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshcontacts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:refreshcompanies",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:refreshusers",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 16,
+            "member": "method:refreshentities",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 17,
+            "member": "method:refreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 18,
+            "member": "method:refreshleadtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 19,
+            "member": "method:refreshcontacttags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 20,
+            "member": "method:refreshcompanytags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 21,
+            "member": "method:refreshdealtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController",
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "kind": "callable",
+            "line": 22,
+            "member": "method:refreshproducttags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "text": "BitCrmController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmController": [
+            "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmAction",
+            "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\BitCrm\\RecordApiHelper": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 10,
+            "method": "refreshCurrencies",
+            "route": "refresh_bitcrm_currencies",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 11,
+            "method": "refreshDealStages",
+            "route": "refresh_bitcrm_deal_stages",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 12,
+            "method": "refreshInvoiceTerms",
+            "route": "refresh_bitcrm_invoice_terms",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 13,
+            "method": "refreshContacts",
+            "route": "refresh_bitcrm_contacts",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 14,
+            "method": "refreshCompanies",
+            "route": "refresh_bitcrm_companies",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 15,
+            "method": "refreshUsers",
+            "route": "refresh_bitcrm_users",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 16,
+            "method": "refreshEntities",
+            "route": "refresh_bitcrm_entities",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 17,
+            "method": "refreshFields",
+            "route": "refresh_bitcrm_fields",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 18,
+            "method": "refreshLeadTags",
+            "route": "refresh_bitcrm_lead_tags",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 19,
+            "method": "refreshContactTags",
+            "route": "refresh_bitcrm_contact_tags",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 20,
+            "method": "refreshCompanyTags",
+            "route": "refresh_bitcrm_company_tags",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 21,
+            "method": "refreshDealTags",
+            "route": "refresh_bitcrm_deal_tags",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BitCrm/Routes.php",
+            "line": 22,
+            "method": "refreshProductTags",
+            "route": "refresh_bitcrm_product_tags",
+            "target": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/BitCrm/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    18,
+                    22
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    24,
+                    417
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    419,
+                    436
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:mergeconfiguredvalues",
+                "kind": "method",
+                "lines": [
+                    438,
+                    508
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/BitCrm/BitCrmController.php": "e7c81e653cc9229e89d50adce05f92299a016654",
+        "backend/Actions/BitCrm/RecordApiHelper.php": "b85fb06796f03e5c3f7ede6490108aaa40e58b91",
+        "backend/Actions/BitCrm/Routes.php": "de8a4120a69d47c92711caf7a150624339563cd0"
+    },
+    "sources": {
+        "backend/Actions/BitCrm/BitCrmAction.php": [
+            "backend/Actions/BitCrm/BitCrmController.php"
+        ],
+        "backend/Actions/BitCrm/BitCrmHelper.php": [
+            "backend/Actions/BitCrm/BitCrmController.php"
+        ],
+        "backend/Actions/BitCrm/BitCrmService.php": [
+            "backend/Actions/BitCrm/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmAction",
+            "origin": "created",
+            "path": "backend/Actions/BitCrm/BitCrmAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/BitCrm/BitCrmHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/BitCrm/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\BitCrm\\RecordApiHelper",
+                "to": "backend/Actions/BitCrm/BitCrmService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\BitCrm\\BitCrmService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "BitCrm"
+    ]
+}

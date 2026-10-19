@@ -1,0 +1,380 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshforms",
+            "line": 12,
+            "to": "method:checkpluginexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshformfields",
+            "line": 36,
+            "to": "method:checkpluginexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshformfields",
+            "line": 44,
+            "to": "method:getformfields",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 91,
+        "modifiers": [],
+        "path": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipAction.php"
+        },
+        {
+            "from": "backend/Actions/UserRegistrationMembership/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/UserRegistrationMembership/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipService"
+            ],
+            "hooks": "backend/Actions/UserRegistrationMembership/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 13,
+            "helper": 63
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "UserRegistrationMembership",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController": {
+            "method:checkpluginexists": [
+                "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipAction"
+            ],
+            "method:getformfields": [
+                "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper"
+            ],
+            "method:refreshformfields": [
+                "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper"
+            ],
+            "method:refreshforms": [
+                "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:refreshforms",
+            "kind": "method",
+            "lines": [
+                10,
+                32
+            ],
+            "names": [
+                "refreshForms"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshformfields",
+            "kind": "method",
+            "lines": [
+                34,
+                47
+            ],
+            "names": [
+                "refreshFormFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                49,
+                61
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getformfields",
+            "kind": "method",
+            "lines": [
+                63,
+                79
+            ],
+            "names": [
+                "getFormFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:checkpluginexists",
+            "kind": "method",
+            "lines": [
+                81,
+                89
+            ],
+            "names": [
+                "checkPluginExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\UserRegistrationMembership",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController",
+            "file": "backend/Actions/UserRegistrationMembership/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper",
+            "text": "use BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController",
+            "file": "backend/Actions/UserRegistrationMembership/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshforms",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper",
+            "text": "UserRegistrationMembershipController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController",
+            "file": "backend/Actions/UserRegistrationMembership/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshformfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper",
+            "text": "UserRegistrationMembershipController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\RecordApiHelper",
+            "file": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php",
+            "kind": "new",
+            "line": 58,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\RecordApiHelper": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipService",
+        "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipController": [
+            "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipAction",
+            "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/UserRegistrationMembership/Routes.php",
+            "line": 10,
+            "method": "refreshForms",
+            "route": "refresh_user_registration_forms",
+            "target": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/UserRegistrationMembership/Routes.php",
+            "line": 11,
+            "method": "refreshFormFields",
+            "route": "refresh_user_registration_form_fields",
+            "target": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/UserRegistrationMembership/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    11,
+                    11
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    13,
+                    13
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    15,
+                    19
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    21,
+                    42
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:processaction",
+                "kind": "method",
+                "lines": [
+                    44,
+                    63
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    65,
+                    80
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/UserRegistrationMembership/RecordApiHelper.php": "a29904f64725ce14a552d64a58b4d01a02c651c0",
+        "backend/Actions/UserRegistrationMembership/Routes.php": "1da06a2f26d408756974097e6277d00affab0e06",
+        "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php": "1e7826cf22e27657c3a9850a33b41d66be0b1821"
+    },
+    "sources": {
+        "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipAction.php": [
+            "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php"
+        ],
+        "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipHelper.php": [
+            "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php"
+        ],
+        "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipService.php": [
+            "backend/Actions/UserRegistrationMembership/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipAction",
+            "origin": "created",
+            "path": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/UserRegistrationMembership/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\RecordApiHelper",
+                "to": "backend/Actions/UserRegistrationMembership/UserRegistrationMembershipService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\UserRegistrationMembership\\UserRegistrationMembershipService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "UserRegistrationMembership"
+    ]
+}

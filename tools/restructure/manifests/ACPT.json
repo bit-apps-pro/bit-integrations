@@ -1,0 +1,343 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\ACPT\\ACPTController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 47,
+        "modifiers": [],
+        "path": "backend/Actions/ACPT/ACPTController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/ACPT/ACPTController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ACPT/ACPTAction.php"
+        },
+        {
+            "from": "backend/Actions/ACPT/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ACPT/ACPTService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\ACPT\\ACPTService"
+            ],
+            "hooks": "backend/Actions/ACPT/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "ACPT",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\ACPT\\ACPTController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\ACPT\\ACPTAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\ACPT\\ACPTAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\ACPT\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\ACPT\\ACPTService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                14,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                23,
+                45
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\ACPT",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\ACPT\\RecordApiHelper",
+            "file": "backend/Actions/ACPT/ACPTController.php",
+            "kind": "new",
+            "line": 37,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ACPT\\ACPTService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\ACPT\\ACPTController": "BitApps\\Integrations\\Actions\\ACPT\\ACPTAction",
+        "BitApps\\Integrations\\Actions\\ACPT\\RecordApiHelper": "BitApps\\Integrations\\Actions\\ACPT\\ACPTService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/ACPT/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apikey",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    39
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createcpt",
+                "kind": "method",
+                "lines": [
+                    41,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updatecpt",
+                "kind": "method",
+                "lines": [
+                    64,
+                    86
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletecpt",
+                "kind": "method",
+                "lines": [
+                    88,
+                    109
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createorupdatetaxonomy",
+                "kind": "method",
+                "lines": [
+                    111,
+                    144
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletetaxonomy",
+                "kind": "method",
+                "lines": [
+                    146,
+                    169
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:associatetaxonomytocpt",
+                "kind": "method",
+                "lines": [
+                    171,
+                    202
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createorupdateoptionpage",
+                "kind": "method",
+                "lines": [
+                    204,
+                    254
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deleteoptionpage",
+                "kind": "method",
+                "lines": [
+                    256,
+                    279
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletemetagroup",
+                "kind": "method",
+                "lines": [
+                    281,
+                    302
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletedynamicblock",
+                "kind": "method",
+                "lines": [
+                    304,
+                    334
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    336,
+                    435
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/ACPT/ACPTController.php": "8b163e380ea4e8822e6e3475e9c6cb7757e2b21e",
+        "backend/Actions/ACPT/ACPTHelper.php": "1fee1711a31caf817e38de792233ce96fc8c989d",
+        "backend/Actions/ACPT/RecordApiHelper.php": "b819a370e48bb6f527516f488e23fd00971dbdb3"
+    },
+    "sources": {
+        "backend/Actions/ACPT/ACPTAction.php": [
+            "backend/Actions/ACPT/ACPTController.php"
+        ],
+        "backend/Actions/ACPT/ACPTService.php": [
+            "backend/Actions/ACPT/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\ACPT\\ACPTAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/ACPT/ACPTAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\ACPT\\ACPTHelper",
+            "origin": "existing file; members are inserted",
+            "path": "backend/Actions/ACPT/ACPTHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/ACPT/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\ACPT\\RecordApiHelper",
+                "to": "backend/Actions/ACPT/ACPTService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\ACPT\\ACPTService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "ACPT"
+    ]
+}

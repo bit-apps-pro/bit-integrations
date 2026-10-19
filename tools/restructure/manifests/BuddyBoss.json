@@ -1,0 +1,936 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getallgroups",
+            "line": 23,
+            "to": "method:pluginactive",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getalluser",
+            "line": 45,
+            "to": "method:pluginactive",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:notificationforuser",
+            "line": 125,
+            "to": "method:sanitizenotificationcontent",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 175,
+        "modifiers": [],
+        "path": "backend/Actions/BuddyBoss/BuddyBossController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/BuddyBoss/BuddyBossController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BuddyBoss/BuddyBossHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/BuddyBoss/BuddyBossAction.php"
+        },
+        {
+            "from": "backend/Actions/BuddyBoss/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BuddyBoss/BuddyBossService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/BuddyBoss/Hooks.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/BuddyBoss/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 27,
+            "helper": 124
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [
+        {
+            "file": "backend/Actions/BuddyBoss/Hooks.php",
+            "hook": "'bp_notifications_get_registered_components'",
+            "line": 10,
+            "method": "registerComponents",
+            "target": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+        },
+        {
+            "file": "backend/Actions/BuddyBoss/Hooks.php",
+            "hook": "'bp_notifications_get_notifications_for_user'",
+            "line": 11,
+            "method": "notificationForUser",
+            "target": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+        }
+    ],
+    "integration": "BuddyBoss",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossAction"
+            ],
+            "method:getallforums": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:getallgroups": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:getalltopics": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:getalluser": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:notificationforuser": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:pluginactive": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:registercomponents": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ],
+            "method:sanitizenotificationcontent": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:pluginactive",
+            "kind": "method",
+            "lines": [
+                15,
+                18
+            ],
+            "names": [
+                "pluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallgroups",
+            "kind": "method",
+            "lines": [
+                20,
+                40
+            ],
+            "names": [
+                "getAllGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalluser",
+            "kind": "method",
+            "lines": [
+                42,
+                62
+            ],
+            "names": [
+                "getAllUser"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallforums",
+            "kind": "method",
+            "lines": [
+                64,
+                84
+            ],
+            "names": [
+                "getAllForums"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltopics",
+            "kind": "method",
+            "lines": [
+                86,
+                110
+            ],
+            "names": [
+                "getAllTopics"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:registercomponents",
+            "kind": "method",
+            "lines": [
+                112,
+                120
+            ],
+            "names": [
+                "registerComponents"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "hook"
+            ],
+            "reason": "hook callback",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:notificationforuser",
+            "kind": "method",
+            "lines": [
+                122,
+                140
+            ],
+            "names": [
+                "notificationForUser"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "hook"
+            ],
+            "reason": "hook callback",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:sanitizenotificationcontent",
+            "kind": "method",
+            "lines": [
+                142,
+                145
+            ],
+            "names": [
+                "sanitizeNotificationContent"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "external",
+                "hook"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                147,
+                173
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\BuddyBoss",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper",
+            "file": "backend/Actions/BuddyBoss/BuddyBossController.php",
+            "kind": "new",
+            "line": 160,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Hooks.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "use BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Hooks.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:registercomponents",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Hooks.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:notificationforuser",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/RecordApiHelper.php",
+            "kind": "static-call",
+            "line": 339,
+            "member": "method:sanitizenotificationcontent",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/RecordApiHelper.php",
+            "kind": "static-call",
+            "line": 483,
+            "member": "method:sanitizenotificationcontent",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "use BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalluser",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallforums",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController",
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getalltopics",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "text": "BuddyBossController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossController": [
+            "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossAction",
+            "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "line": 10,
+            "method": "getAllGroups",
+            "route": "fetch_all_group",
+            "target": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "line": 11,
+            "method": "getAllUser",
+            "route": "fetch_all_user",
+            "target": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "line": 12,
+            "method": "getAllForums",
+            "route": "fetch_all_forum",
+            "target": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BuddyBoss/Routes.php",
+            "line": 13,
+            "method": "getAllTopics",
+            "route": "fetch_all_topic",
+            "target": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/BuddyBoss/RecordApiHelper.php": [
+            {
+                "key": "const:CREATE_GROUP_PRO",
+                "kind": "const",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:ADD_USER_GROUP",
+                "kind": "const",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:END_FRIENDSHIP_WITH_USER_PRO",
+                "kind": "const",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:FOLLOW_USER_PRO",
+                "kind": "const",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:POST_TOPIC_FORUM_PRO",
+                "kind": "const",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:REMOVE_USER_FROM_GROUP_PRO",
+                "kind": "const",
+                "lines": [
+                    26,
+                    26
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SEND_FRIENDSHIP_REQ_USER_PRO",
+                "kind": "const",
+                "lines": [
+                    28,
+                    28
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SEND_NOTIFICATION_MEMBER_GRP_PRO",
+                "kind": "const",
+                "lines": [
+                    30,
+                    30
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SEND_PRIVATE_MSG_MEMBER_GRP_PRO",
+                "kind": "const",
+                "lines": [
+                    32,
+                    32
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SEND_PRIVATE_MSG_USER_PRO",
+                "kind": "const",
+                "lines": [
+                    34,
+                    34
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SEND_NOTIFICATION_USER_PRO",
+                "kind": "const",
+                "lines": [
+                    36,
+                    36
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:STOP_FOLLOWING_USER_PRO",
+                "kind": "const",
+                "lines": [
+                    38,
+                    38
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SUBSCRIBE_USER_FORUM_PRO",
+                "kind": "const",
+                "lines": [
+                    40,
+                    40
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:ADD_POST_GRP_ACTIVITY_STREAM_PRO",
+                "kind": "const",
+                "lines": [
+                    42,
+                    42
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:ADD_POST_SITE_WIDE_ACTIVITY_STREAM_PRO",
+                "kind": "const",
+                "lines": [
+                    44,
+                    44
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:ADD_POST_USER_ACTIVITY_STREAM_PRO",
+                "kind": "const",
+                "lines": [
+                    46,
+                    46
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:POST_REPLY_TOPIC_FORUM_PRO",
+                "kind": "const",
+                "lines": [
+                    48,
+                    48
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:SET_USER_STATUS_PRO",
+                "kind": "const",
+                "lines": [
+                    50,
+                    50
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationID",
+                "kind": "property",
+                "lines": [
+                    52,
+                    52
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    54,
+                    54
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:assignment_list",
+                "kind": "property",
+                "lines": [
+                    56,
+                    56
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    58,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getintegrationid",
+                "kind": "method",
+                "lines": [
+                    64,
+                    67
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getassignmentlist",
+                "kind": "method",
+                "lines": [
+                    69,
+                    72
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    74,
+                    89
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:creategroup",
+                "kind": "method",
+                "lines": [
+                    91,
+                    116
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addusertogroup",
+                "kind": "method",
+                "lines": [
+                    118,
+                    131
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:endfriendshipwithuser",
+                "kind": "method",
+                "lines": [
+                    133,
+                    142
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:followuser",
+                "kind": "method",
+                "lines": [
+                    144,
+                    170
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:postopicforum",
+                "kind": "method",
+                "lines": [
+                    172,
+                    303
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:removeuserfromgroup",
+                "kind": "method",
+                "lines": [
+                    305,
+                    321
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:sendfriendshiprequestuser",
+                "kind": "method",
+                "lines": [
+                    323,
+                    331
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:sendnotificationmembersgroup",
+                "kind": "method",
+                "lines": [
+                    333,
+                    377
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:sendprivatemessagemembersgroup",
+                "kind": "method",
+                "lines": [
+                    379,
+                    425
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:sendprivatemessageuser",
+                "kind": "method",
+                "lines": [
+                    427,
+                    462
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:sendnotificationuser",
+                "kind": "method",
+                "lines": [
+                    464,
+                    503
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:stopfollowinguser",
+                "kind": "method",
+                "lines": [
+                    505,
+                    533
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:subscribeforum",
+                "kind": "method",
+                "lines": [
+                    535,
+                    566
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addposttogroup",
+                "kind": "method",
+                "lines": [
+                    568,
+                    661
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:postactivitystream",
+                "kind": "method",
+                "lines": [
+                    663,
+                    680
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:postactivityusersstream",
+                "kind": "method",
+                "lines": [
+                    682,
+                    699
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:postreplytopicforum",
+                "kind": "method",
+                "lines": [
+                    701,
+                    868
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setuserstatus",
+                "kind": "method",
+                "lines": [
+                    870,
+                    885
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    887,
+                    1075
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/BuddyBoss/BuddyBossController.php": "6761edfe63da770b4d62853d4425b426a61e3a4f",
+        "backend/Actions/BuddyBoss/Hooks.php": "8b4be7c1847de0dd831d5b08c1cc76bf1040a4a6",
+        "backend/Actions/BuddyBoss/RecordApiHelper.php": "2f5f4395de988f88fed6f2c73e630e4d09f88d6e",
+        "backend/Actions/BuddyBoss/Routes.php": "6dbca61458f456413a3157248a732fdb7b4b1700"
+    },
+    "sources": {
+        "backend/Actions/BuddyBoss/BuddyBossAction.php": [
+            "backend/Actions/BuddyBoss/BuddyBossController.php"
+        ],
+        "backend/Actions/BuddyBoss/BuddyBossHelper.php": [
+            "backend/Actions/BuddyBoss/BuddyBossController.php"
+        ],
+        "backend/Actions/BuddyBoss/BuddyBossService.php": [
+            "backend/Actions/BuddyBoss/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossAction",
+            "origin": "created",
+            "path": "backend/Actions/BuddyBoss/BuddyBossAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/BuddyBoss/BuddyBossHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/BuddyBoss/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper",
+                "to": "backend/Actions/BuddyBoss/BuddyBossService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\BuddyBoss\\BuddyBossService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "BuddyBoss"
+    ]
+}

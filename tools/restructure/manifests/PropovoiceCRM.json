@@ -1,0 +1,372 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 71,
+        "modifiers": [],
+        "path": "backend/Actions/PropovoiceCRM/PropovoiceCRMController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/PropovoiceCRM/PropovoiceCRMController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PropovoiceCRM/PropovoiceCRMAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/PropovoiceCRM/PropovoiceCRMHelper.php"
+        },
+        {
+            "from": "backend/Actions/PropovoiceCRM/FilesApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PropovoiceCRM/PropovoiceCRMFilesService.php"
+        },
+        {
+            "from": "backend/Actions/PropovoiceCRM/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PropovoiceCRM/PropovoiceCRMService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/PropovoiceCRM/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 32,
+            "helper": 26
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:pluginactive"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "PropovoiceCRM",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\PropovoiceCRM\\FilesApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMFilesService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMAction"
+            ],
+            "method:leadlabel": [
+                "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper"
+            ],
+            "method:leadtags": [
+                "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper"
+            ],
+            "method:pluginactive": [
+                "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\PropovoiceCRM\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:pluginactive",
+            "kind": "method",
+            "lines": [
+                9,
+                14
+            ],
+            "names": [
+                "pluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:leadtags",
+            "kind": "method",
+            "lines": [
+                16,
+                25
+            ],
+            "names": [
+                "leadTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:leadlabel",
+            "kind": "method",
+            "lines": [
+                27,
+                36
+            ],
+            "names": [
+                "leadLabel"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                38,
+                69
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\PropovoiceCRM",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\RecordApiHelper",
+            "file": "backend/Actions/PropovoiceCRM/PropovoiceCRMController.php",
+            "kind": "new",
+            "line": 56,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\FilesApiHelper",
+            "file": "backend/Actions/PropovoiceCRM/RecordApiHelper.php",
+            "kind": "new",
+            "line": 37,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMFilesService",
+            "text": "FilesApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController",
+            "file": "backend/Actions/PropovoiceCRM/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper",
+            "text": "use BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController",
+            "file": "backend/Actions/PropovoiceCRM/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:leadtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper",
+            "text": "PropovoiceCRMController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController",
+            "file": "backend/Actions/PropovoiceCRM/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:leadlabel",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper",
+            "text": "PropovoiceCRMController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\PropovoiceCRM\\FilesApiHelper": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMFilesService",
+        "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMController": [
+            "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMAction",
+            "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\PropovoiceCRM\\RecordApiHelper": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/PropovoiceCRM/Routes.php",
+            "line": 10,
+            "method": "leadTags",
+            "route": "propovoice_crm_lead_tags",
+            "target": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/PropovoiceCRM/Routes.php",
+            "line": 11,
+            "method": "leadLabel",
+            "route": "propovoice_crm_lead_label",
+            "target": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/PropovoiceCRM/FilesApiHelper.php": [
+            {
+                "key": "method:uploadfile",
+                "kind": "method",
+                "lines": [
+                    10,
+                    97
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:simulatefileupload",
+                "kind": "method",
+                "lines": [
+                    99,
+                    114
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ],
+        "backend/Actions/PropovoiceCRM/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    10,
+                    10
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    12,
+                    15
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    17,
+                    32
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createlead",
+                "kind": "method",
+                "lines": [
+                    34,
+                    45
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    47,
+                    70
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/PropovoiceCRM/FilesApiHelper.php": "a11b0fc22e99931dd0495510cce7732a6d706497",
+        "backend/Actions/PropovoiceCRM/PropovoiceCRMController.php": "f5d2ef0f2ef0144760636d61af6de91a2580cc90",
+        "backend/Actions/PropovoiceCRM/RecordApiHelper.php": "f6a91dcc813fbefafbe6d8c5b17f425a425fe38e",
+        "backend/Actions/PropovoiceCRM/Routes.php": "d801516caae3c759976cc6e5ecc3dd7661e5a2bb"
+    },
+    "sources": {
+        "backend/Actions/PropovoiceCRM/PropovoiceCRMAction.php": [
+            "backend/Actions/PropovoiceCRM/PropovoiceCRMController.php"
+        ],
+        "backend/Actions/PropovoiceCRM/PropovoiceCRMFilesService.php": [
+            "backend/Actions/PropovoiceCRM/FilesApiHelper.php"
+        ],
+        "backend/Actions/PropovoiceCRM/PropovoiceCRMHelper.php": [
+            "backend/Actions/PropovoiceCRM/PropovoiceCRMController.php"
+        ],
+        "backend/Actions/PropovoiceCRM/PropovoiceCRMService.php": [
+            "backend/Actions/PropovoiceCRM/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/PropovoiceCRM/PropovoiceCRMAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMHelper",
+            "origin": "created",
+            "path": "backend/Actions/PropovoiceCRM/PropovoiceCRMHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/PropovoiceCRM/FilesApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\FilesApiHelper",
+                "to": "backend/Actions/PropovoiceCRM/PropovoiceCRMFilesService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMFilesService"
+            },
+            {
+                "from": "backend/Actions/PropovoiceCRM/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\RecordApiHelper",
+                "to": "backend/Actions/PropovoiceCRM/PropovoiceCRMService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\PropovoiceCRM\\PropovoiceCRMService"
+            }
+        ]
+    },
+    "tests": [],
+    "unit": [
+        "PropovoiceCRM"
+    ]
+}
