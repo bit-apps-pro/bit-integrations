@@ -15,8 +15,6 @@ backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsFor
 backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php
 backend/Actions/BuddyBoss/BuddyBossController.php
 backend/Actions/BuddyBoss/RecordApiHelper.php
-backend/Actions/CapsuleCRM/CapsuleCRMController.php
-backend/Actions/CapsuleCRM/RecordApiHelper.php
 backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ClinchPad/ClinchPadController.php

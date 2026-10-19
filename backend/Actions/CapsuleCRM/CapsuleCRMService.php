@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\CapsuleCRM;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class CapsuleCRMService
 {
     private $integrationDetails;
 
