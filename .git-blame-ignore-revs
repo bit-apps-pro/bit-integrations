@@ -303,3 +303,7 @@ fa6f38fef83c309cf5256f4574ca562a34c57f0b
 9075e2c834bcc99f86054e8ddacb23e788ce608b
 # refactor(actions): move ZoomWebinar to Action/Service/Helper layout
 bb1aabda47e8d2b117b0bdab21c9b0d1621a2164
+# refactor(actions): move WebHooks and 19 coupled integrations to Action/Service/Helper layout
+0e5220f70e4529e58eb6889d4e2803d126c9fa80
+# refactor(actions): move CustomApi to Action/Service/Helper layout
+4cc6947956f97a3e0f83da415099cff0dcc1170e
