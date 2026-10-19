@@ -17,8 +17,6 @@ backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ClinchPad/ClinchPadController.php
 backend/Actions/ClinchPad/RecordApiHelper.php
-backend/Actions/ConstantContact/ConstantContactController.php
-backend/Actions/ConstantContact/RecordApiHelper.php
 backend/Actions/CustomAction/CustomActionController.php
 backend/Actions/CustomApi/CustomApiController.php
 backend/Actions/Discord/DiscordController.php
