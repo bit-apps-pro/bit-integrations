@@ -11,8 +11,6 @@ backend/Actions/Bento/BentoController.php
 backend/Actions/Bento/RecordApiHelper.php
 backend/Actions/BitCrm/BitCrmController.php
 backend/Actions/BitCrm/RecordApiHelper.php
-backend/Actions/BitForm/BitFormController.php
-backend/Actions/BitForm/RecordApiHelper.php
 backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php
 backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php
 backend/Actions/BuddyBoss/BuddyBossController.php
