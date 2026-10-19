@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\ActionUser;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class GamiPressService
 {
     private static $integrationID;
 
