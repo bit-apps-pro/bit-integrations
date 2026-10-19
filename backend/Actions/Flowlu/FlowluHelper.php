@@ -6,21 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Flowlu;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class FlowluController
+class FlowluHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'flowlu',
-        'fields'   => [
-            'api_key'      => 'value',
-            'company_name' => 'company_name',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -346,30 +335,6 @@ class FlowluController
             wp_send_json_success($portfolios, 200);
         }
         wp_send_json_error(__('Project Manager fetching failed', 'bit-integrations'), 400);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $apiKey = $integrationDetails->api_key;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-        $comapnyName = $integrationDetails->company_name;
-
-        if (empty($fieldMap) || empty($apiKey) || empty($actionName) || empty($comapnyName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Flowlu'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $comapnyName);
-        $flowluApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName, $apiKey);
-
-        if (is_wp_error($flowluApiResponse)) {
-            return $flowluApiResponse;
-        }
-
-        return $flowluApiResponse;
     }
 
     private function setApiEndpoint()
