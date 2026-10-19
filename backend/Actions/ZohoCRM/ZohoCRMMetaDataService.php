@@ -8,7 +8,7 @@ namespace BitApps\Integrations\Actions\ZohoCRM;
 
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-final class MetaDataApiHelper
+final class ZohoCRMMetaDataService
 {
     private $_defaultHeader;
 

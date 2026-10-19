@@ -6,33 +6,12 @@
 
 namespace BitApps\Integrations\Actions\ZohoCRM;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
-use BitApps\Integrations\Log\LogHandler;
 use stdClass;
-use WP_Error;
 
-final class ZohoCRMController
+final class ZohoCRMHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::OAUTH2,
-        'slug'     => 'zohocrm',
-        'fields'   => [
-            'dataCenter'   => 'dataCenter',
-            'clientId'     => 'client_id',
-            'clientSecret' => 'client_secret',
-            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'api_domain']],
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
-
     public static function refreshModulesAjaxHelper($queryParams)
     {
         if (
@@ -51,7 +30,7 @@ final class ZohoCRMController
         }
         $response = [];
         if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $refreshedToken = ZohoCRMController::_refreshAccessToken($queryParams);
+            $refreshedToken = ZohoCRMHelper::_refreshAccessToken($queryParams);
             if ($refreshedToken) {
                 $response['tokenDetails'] = $refreshedToken;
             } else {
@@ -120,7 +99,7 @@ final class ZohoCRMController
         $response['modules'] = $allModules;
 
         if (!empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            ZohoCRMController::_saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response['modules']);
+            ZohoCRMHelper::_saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response['modules']);
         }
         wp_send_json_success($response, 200);
     }
@@ -144,7 +123,7 @@ final class ZohoCRMController
         }
         $response = [];
         if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $response['tokenDetails'] = ZohoCRMController::_refreshAccessToken($queryParams);
+            $response['tokenDetails'] = ZohoCRMHelper::_refreshAccessToken($queryParams);
         }
         $layoutsMetaApiEndpoint = "{$queryParams->tokenDetails->api_domain}/crm/v2.1/settings/layouts";
         $authorizationHeader['Authorization'] = "Zoho-oauthtoken {$queryParams->tokenDetails->access_token}";
@@ -235,7 +214,7 @@ final class ZohoCRMController
         }
         if (!empty($response['tokenDetails']) && $response['tokenDetails'] && !empty($queryParams->id)) {
             $response['queryModule'] = $queryParams->module;
-            ZohoCRMController::_saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
+            ZohoCRMHelper::_saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -261,7 +240,7 @@ final class ZohoCRMController
         if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = self::_refreshAccessToken($queryParams);
         }
-        $metaDataApiHelper = new MetaDataApiHelper($queryParams->tokenDetails, true);
+        $metaDataApiHelper = new ZohoCRMMetaDataService($queryParams->tokenDetails, true);
         $assignmentRulesResponse = $metaDataApiHelper->getAssignmentRules($queryParams->module);
         if (
             !is_wp_error($assignmentRulesResponse)
@@ -306,7 +285,7 @@ final class ZohoCRMController
         if ((\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
             $response['tokenDetails'] = static::_refreshAccessToken($queryParams);
         }
-        $metaDataApiHelper = new MetaDataApiHelper($queryParams->tokenDetails);
+        $metaDataApiHelper = new ZohoCRMMetaDataService($queryParams->tokenDetails);
         $relatedListResponse = $metaDataApiHelper->getRelatedLists($queryParams->module);
         if (
             !is_wp_error($relatedListResponse)
@@ -415,7 +394,7 @@ final class ZohoCRMController
             $response['tokenDetails'] = static::_refreshAccessToken($queryParams);
         }
         $tokenDetails = empty($response['tokenDetails']) ? $queryParams->tokenDetails : $response['tokenDetails'];
-        $tagApiHelper = new TagApiHelper($tokenDetails, $queryParams->module);
+        $tagApiHelper = new ZohoCRMTagService($tokenDetails, $queryParams->module);
         $tagListApiResponse = $tagApiHelper->getTagList();
         if (!is_wp_error($tagListApiResponse)) {
             usort($tagListApiResponse, 'strnatcasecmp');
@@ -432,157 +411,6 @@ final class ZohoCRMController
         wp_send_json_success($response, 200);
     }
 
-    public static function addRelatedList($zcrmApiResponse, $integID, $fieldValues, $integrationDetails, RecordApiHelper $recordApiHelper)
-    {
-        foreach ($integrationDetails->relatedlists as $relatedlist) {
-            $relatedListModule = !empty($relatedlist->module) ? $relatedlist->module : '';
-            $relatedListLayout = !empty($relatedlist->layout) ? $relatedlist->layout : '';
-            $defaultDataConf = $integrationDetails->default;
-            if (empty($relatedListModule) || empty($relatedListLayout)) {
-                return new WP_Error('REQ_FIELD_EMPTY', __('module, layout are required for zoho crm relatedlist', 'bit-integrations'));
-            }
-            $module = $integrationDetails->module;
-            $moduleSingular = substr($module, 0, \strlen($module) - 1);
-            if (isset($defaultDataConf->layouts->{$relatedListModule}->{$relatedListLayout}->fields->{$module})) {
-                $moduleSingular = $module;
-            } elseif (!isset($defaultDataConf->layouts->{$relatedListModule}->{$relatedListLayout}->fields->{$moduleSingular})) {
-                $moduleSingular = '';
-            }
-            $relatedListRequired = !empty($defaultDataConf->layouts->{$relatedListModule}->{$relatedListLayout}->required)
-                ? $defaultDataConf->layouts->{$relatedListModule}->{$relatedListLayout}->required : [];
-            $recordID = $zcrmApiResponse->data[0]->details->id;
-            $defaultDataConf->layouts->{$relatedListModule}->{$relatedListLayout}->fields->{'$se_module'} = (object) [
-                'length'    => 200,
-                'visible'   => true,
-                'json_type' => 'string',
-                'data_type' => 'string',
-            ];
-            $fieldValues['$se_module'] = $module;
-            $relatedlist->field_map[] = (object)
-            [
-                'formField'     => '$se_module',
-                'zohoFormField' => '$se_module'
-            ];
-            if (isset($defaultDataConf->layouts->{$relatedListModule}->{$relatedListLayout}->fields->Parent_Id)) {
-                $fieldValues['Parent_Id'] = (object) ['id' => $recordID];
-                $relatedlist->field_map[] = (object)
-                [
-                    'formField'     => 'Parent_Id',
-                    'zohoFormField' => 'Parent_Id'
-                ];
-            } elseif (!empty($moduleSingular)) {
-                $fieldValues[$moduleSingular] = ['id' => $recordID];
-                $relatedlist->field_map[] = (object)
-                [
-                    'formField'     => $moduleSingular,
-                    'zohoFormField' => $moduleSingular
-                ];
-            } elseif ($module === 'Contacts') {
-                $fieldValues['Who_Id'] = (object) ['id' => $recordID];
-                $relatedlist->field_map[] = (object)
-                [
-                    'formField'     => 'Who_Id',
-                    'zohoFormField' => 'Who_Id'
-                ];
-            } else {
-                $fieldValues['What_Id'] = (object) ['id' => $recordID];
-                $relatedlist->field_map[] = (object)
-                [
-                    'formField'     => 'What_Id',
-                    'zohoFormField' => 'What_Id'
-                ];
-            }
-
-            $zcrmRelatedlistApiResponse = $recordApiHelper->execute(
-                $integID,
-                $defaultDataConf,
-                $relatedListModule,
-                $relatedListLayout,
-                $fieldValues,
-                $relatedlist->field_map,
-                $relatedlist->actions,
-                $relatedListRequired,
-                $relatedlist->upload_field_map,
-                true
-            );
-        }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-
-        $tokenDetails = $integrationDetails->tokenDetails;
-        $module = $integrationDetails->module;
-        $layout = $integrationDetails->layout;
-        $fieldMap = $integrationDetails->field_map;
-        $fileMap = $integrationDetails->upload_field_map;
-        $actions = $integrationDetails->actions;
-        $defaultDataConf = $integrationDetails->default;
-
-        if (
-            empty($tokenDetails)
-            || empty($module)
-            || empty($layout)
-            || empty($fieldMap)
-        ) {
-            $error = new WP_Error('REQ_FIELD_EMPTY', __('module, layout, fields are required for zoho crm api', 'bit-integrations'));
-            LogHandler::save($this->_integrationID, 'record', 'validation', $error);
-
-            return $error;
-        }
-        if (empty($defaultDataConf->layouts->{$module}->{$layout}->fields) || empty($defaultDataConf->modules->{$module})) {
-            $error = new WP_Error('REQ_FIELD_EMPTY', __('module, layout, fields are required for zoho crm api', 'bit-integrations'));
-            LogHandler::save($this->_integrationID, 'record', 'validation', $error);
-
-            return $error;
-        }
-        if ((\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $requiredParams['clientId'] = $integrationDetails->clientId;
-            $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
-            $requiredParams['dataCenter'] = $integrationDetails->dataCenter;
-            $requiredParams['tokenDetails'] = $tokenDetails;
-            $newTokenDetails = ZohoCRMController::_refreshAccessToken((object) $requiredParams);
-            if ($newTokenDetails) {
-                ZohoCRMController::_saveRefreshedToken($this->_integrationID, $newTokenDetails);
-                $tokenDetails = $newTokenDetails;
-            } else {
-                LogHandler::save($this->_integrationID, 'token', 'error', __('Failed to refresh access token', 'bit-integrations'));
-
-                return;
-            }
-        }
-
-        $required = !empty($defaultDataConf->layouts->{$module}->{$layout}->required)
-            ? $defaultDataConf->layouts->{$module}->{$layout}->required : [];
-        $actions = $integrationDetails->actions;
-        $recordApiHelper = new RecordApiHelper($tokenDetails);
-        $zcrmApiResponse = $recordApiHelper->execute(
-            $this->_integrationID,
-            $defaultDataConf,
-            $module,
-            $layout,
-            $fieldValues,
-            $fieldMap,
-            $actions,
-            $required,
-            $fileMap
-        );
-        if (is_wp_error($zcrmApiResponse)) {
-            return $zcrmApiResponse;
-        }
-        if (
-            !empty($zcrmApiResponse->data)
-            && !empty($zcrmApiResponse->data[0]->code)
-            && $zcrmApiResponse->data[0]->code === 'SUCCESS'
-            && \count($integrationDetails->relatedlists)
-        ) {
-            self::addRelatedList($zcrmApiResponse, $this->_integrationID, $fieldValues, $integrationDetails, $recordApiHelper);
-        }
-
-        return $zcrmApiResponse;
-    }
-
     /**
      * Helps to refresh zoho crm access_token
      *
@@ -590,7 +418,7 @@ final class ZohoCRMController
      *
      * @return JSON $tokenDetails API token details
      */
-    protected static function _refreshAccessToken($apiData)
+    public static function _refreshAccessToken($apiData)
     {
         if (
             empty($apiData->dataCenter)
@@ -630,7 +458,7 @@ final class ZohoCRMController
      *
      * @return null
      */
-    private static function _saveRefreshedToken($integrationID, $tokenDetails, $others = null)
+    public static function _saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {
             return;

@@ -13,7 +13,7 @@ use BitApps\Integrations\Log\LogHandler;
 use stdClass;
 use WP_Error;
 
-class RecordApiHelper
+class ZohoCRMService
 {
     private $_defaultHeader;
 
@@ -54,7 +54,7 @@ class RecordApiHelper
     public function execute($integId, $defaultConf, $module, $layout, $fieldValues, $fieldMap, $actions, $required, $fileMap = [], $isRelated = false)
     {
         $fieldData = [];
-        $filesApiHelper = new FilesApiHelper($this->_tokenDetails, $integId);
+        $filesApiHelper = new ZohoCRMFilesService($this->_tokenDetails, $integId);
         foreach ($fieldMap as $fieldKey => $fieldPair) {
             if (!empty($fieldPair->zohoFormField)) {
                 if (empty($defaultConf->layouts->{$module}->{$layout}->fields->{$fieldPair->zohoFormField})) {
@@ -197,7 +197,7 @@ class RecordApiHelper
             && $recordApiResponse->data[0]->code === 'SUCCESS'
             && !empty($recordApiResponse->data[0]->details->id)
         ) {
-            if (!empty($actions->tag_rec) && class_exists('BitApps\Integrations\Actions\ZohoCRM\TagApiHelper')) {
+            if (!empty($actions->tag_rec) && class_exists(ZohoCRMTagService::class)) {
                 $tags = '';
                 $tag_rec = explode(',', $actions->tag_rec);
                 foreach ($tag_rec as $tag) {
@@ -207,7 +207,7 @@ class RecordApiHelper
                         $tags .= (!empty($tags) ? ',' : '') . $tag;
                     }
                 }
-                $tagApiHelper = new TagApiHelper($this->_tokenDetails, $module);
+                $tagApiHelper = new ZohoCRMTagService($this->_tokenDetails, $module);
                 $addTagResponse = $tagApiHelper->addTagsSingleRecord($recordApiResponse->data[0]->details->id, $tags);
                 if (isset($addTagResponse->status) && $addTagResponse->status === 'error') {
                     LogHandler::save($integId, wp_json_encode(['type' => 'tag', 'type_name' => $module]), 'error', wp_json_encode($addTagResponse));

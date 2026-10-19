@@ -11,7 +11,7 @@ use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-final class FilesApiHelper
+final class ZohoCRMFilesService
 {
     private $_defaultHeader;
 

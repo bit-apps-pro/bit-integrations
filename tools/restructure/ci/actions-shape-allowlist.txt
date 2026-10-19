@@ -69,11 +69,6 @@ backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php
 backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php
 backend/Actions/ZendeskSupport/RecordApiHelper.php
 backend/Actions/ZendeskSupport/ZendeskSupportController.php
-backend/Actions/ZohoCRM/FilesApiHelper.php
-backend/Actions/ZohoCRM/MetaDataApiHelper.php
-backend/Actions/ZohoCRM/RecordApiHelper.php
-backend/Actions/ZohoCRM/TagApiHelper.php
-backend/Actions/ZohoCRM/ZohoCRMController.php
 backend/Actions/ZohoRecruit/FilesApiHelper.php
 backend/Actions/ZohoRecruit/RecordApiHelper.php
 backend/Actions/ZohoRecruit/ZohoRecruitController.php
