@@ -664,7 +664,7 @@ final class Probe
 
     private static function headerDigest(array $headers): array
     {
-        $scrub = self::scrub();
+        $scrub = self::scrub()->collapsed();
         $normalized = [];
 
         foreach ($headers as $name => $value) {
