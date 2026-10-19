@@ -16,7 +16,7 @@ use BitApps\Integrations\Log\LogHandler;
  * Every SureContact action is Pro — this class only builds the payload and fires the
  * matching hook. All API traffic happens in Bit Integrations Pro.
  */
-class RecordApiHelper
+class SureContactService
 {
     private $_integrationID;
 

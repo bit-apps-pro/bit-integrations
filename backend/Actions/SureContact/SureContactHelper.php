@@ -7,25 +7,11 @@
 namespace BitApps\Integrations\Actions\SureContact;
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Http\ApiResponse;
-use BitApps\Integrations\Log\LogHandler;
-use WP_Error;
 
-class SureContactController
+class SureContactHelper
 {
-    /**
-     * Credentials are read off the connection by the client, so nothing needs
-     * flattening onto flow_details or the request params. The slug is still declared —
-     * client() passes it to getConnectionHandler(), which rejects another app's connection_id.
-     */
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'SureContact',
-        'fields'   => [],
-    ];
-
     public function getLists($queryParams)
     {
         $lists = [];
@@ -54,25 +40,6 @@ class SureContactController
         wp_send_json_success($tags, 200);
     }
 
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap)) {
-            return self::validationError($integId, __('Field map is required for SureContact api', 'bit-integrations'));
-        }
-
-        $client = self::client($integrationDetails->connection_id ?? 0);
-
-        if ($client === null) {
-            return self::validationError($integId, __('A SureContact connection with an API Key is required', 'bit-integrations'));
-        }
-
-        return (new RecordApiHelper($integrationDetails, $integId, $client))->execute($fieldValues, $fieldMap);
-    }
-
     /**
      * Null when the response is good, otherwise the reason to surface in the log.
      *
@@ -89,20 +56,7 @@ class SureContactController
         return null;
     }
 
-    /**
-     * SureContact returns a validation envelope as `{ message, errors }`; the message is
-     * the only human-readable part.
-     *
-     * @param mixed $response
-     */
-    private static function bodyMessage($response): ?string
-    {
-        $message = $response->getBodyValue('message');
-
-        return \is_string($message) && $message !== '' ? $message : null;
-    }
-
-    private static function client($connectionId): ?ApiClient
+    public static function client($connectionId): ?ApiClient
     {
         $connection = AuthorizationFactory::getConnectionHandler($connectionId);
 
@@ -120,6 +74,19 @@ class SureContactController
         );
 
         return $apiClient;
+    }
+
+    /**
+     * SureContact returns a validation envelope as `{ message, errors }`; the message is
+     * the only human-readable part.
+     *
+     * @param mixed $response
+     */
+    private static function bodyMessage($response): ?string
+    {
+        $message = $response->getBodyValue('message');
+
+        return \is_string($message) && $message !== '' ? $message : null;
     }
 
     /**
@@ -149,13 +116,5 @@ class SureContactController
         $rows = $response->getBodyValue('data');
 
         return \is_array($rows) ? $rows : [];
-    }
-
-    private static function validationError($integId, $message)
-    {
-        $error = new WP_Error('REQ_FIELD_EMPTY', $message);
-        LogHandler::save($integId, 'record', 'validation', $error);
-
-        return $error;
     }
 }
