@@ -143,8 +143,6 @@ backend/Actions/OneDrive/RecordApiHelper.php
 backend/Actions/PCloud/PCloudController.php
 backend/Actions/PCloud/RecordApiHelper.php
 backend/Actions/Pabbly/PabblyController.php
-backend/Actions/PeepSo/PeepSoController.php
-backend/Actions/PeepSo/RecordApiHelper.php
 backend/Actions/PipeDrive/PipeDriveController.php
 backend/Actions/PipeDrive/RecordApiHelper.php
 backend/Actions/Pods/PodsController.php
