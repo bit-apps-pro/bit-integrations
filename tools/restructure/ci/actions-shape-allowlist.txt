@@ -28,8 +28,6 @@ backend/Actions/Discord/FilesApiHelper.php
 backend/Actions/Discord/RecordApiHelper.php
 backend/Actions/Dokan/DokanController.php
 backend/Actions/Dokan/RecordApiHelper.php
-backend/Actions/Drip/DripController.php
-backend/Actions/Drip/RecordApiHelper.php
 backend/Actions/Dropbox/DropboxController.php
 backend/Actions/Dropbox/RecordApiHelper.php
 backend/Actions/ElementsKit/ElementsKitController.php
