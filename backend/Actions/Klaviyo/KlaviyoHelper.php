@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Klaviyo;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class KlaviyoController
+class KlaviyoHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'klaviyo',
-        'fields'   => [
-            'authKey' => 'value',
-        ],
-    ];
-
     private $baseUrl = 'https://a.klaviyo.com/api/';
 
     public function getAllLists($requestParams)
@@ -47,36 +37,6 @@ class KlaviyoController
         }
 
         wp_send_json_success($response, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $authKey = $integrationDetails->authKey;
-        $listId = $integrationDetails->listId;
-        $field_map = $integrationDetails->field_map;
-
-        if (
-            empty($field_map)
-            || empty($authKey)
-        ) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Klaviyo'));
-        }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $klaviyoApiResponse = $recordApiHelper->execute(
-            $listId,
-            $fieldValues,
-            $field_map,
-            $authKey
-        );
-
-        if (is_wp_error($klaviyoApiResponse)) {
-            return $klaviyoApiResponse;
-        }
-
-        return $klaviyoApiResponse;
     }
 
     private static function fetchLists($authKey, $apiEndpoints, $data = [])

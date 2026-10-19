@@ -91,8 +91,6 @@ backend/Actions/Keap/KeapController.php
 backend/Actions/Keap/RecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
 backend/Actions/KirimEmail/RecordApiHelper.php
-backend/Actions/Klaviyo/KlaviyoController.php
-backend/Actions/Klaviyo/RecordApiHelper.php
 backend/Actions/KonnectzIT/KonnectzITController.php
 backend/Actions/LMFWC/LMFWCController.php
 backend/Actions/LMFWC/RecordApiHelper.php
