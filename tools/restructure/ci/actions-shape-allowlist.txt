@@ -64,8 +64,6 @@ backend/Actions/QuizAndSurveyMaster/QuizAndSurveyMasterController.php
 backend/Actions/QuizAndSurveyMaster/RecordApiHelper.php
 backend/Actions/QuizMaker/QuizMakerController.php
 backend/Actions/QuizMaker/RecordApiHelper.php
-backend/Actions/Rapidmail/RapidmailController.php
-backend/Actions/Rapidmail/RecordApiHelper.php
 backend/Actions/Registration/RegistrationController.php
 backend/Actions/RoxAppointmentBooking/RecordApiHelper.php
 backend/Actions/RoxAppointmentBooking/RoxAppointmentBookingController.php

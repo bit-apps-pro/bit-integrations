@@ -7,7 +7,7 @@ use BitApps\Integrations\Core\Util\DateTimeHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class RapidmailService
 {
     public static $apiBaseUri = 'https://apiv3.emailsys.net/v1';
 
