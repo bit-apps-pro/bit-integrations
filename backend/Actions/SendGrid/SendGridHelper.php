@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\SendGrid;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class SendGridController
+class SendGridHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'sendgrid',
-        'fields'   => [
-            'apiKey' => 'token',
-        ],
-    ];
-
     public function getCustomFields($fieldsRequestParams)
     {
         if (empty($fieldsRequestParams->apiKey)) {
@@ -74,32 +64,5 @@ class SendGridController
         } else {
             wp_send_json_error('Lists fetch failed', 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $apiKey = $integrationDetails->apiKey;
-        $selectedLists = $integrationDetails->selectedLists;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap) || empty($apiKey)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'SendGrid'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $sendGridApiResponse = $recordApiHelper->execute(
-            $selectedLists,
-            $fieldValues,
-            $fieldMap
-        );
-
-        if (is_wp_error($sendGridApiResponse)) {
-            return $sendGridApiResponse;
-        }
-
-        return $sendGridApiResponse;
     }
 }
