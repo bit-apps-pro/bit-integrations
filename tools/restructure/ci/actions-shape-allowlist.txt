@@ -27,8 +27,6 @@ backend/Actions/BuddyBoss/BuddyBossController.php
 backend/Actions/BuddyBoss/RecordApiHelper.php
 backend/Actions/CapsuleCRM/CapsuleCRMController.php
 backend/Actions/CapsuleCRM/RecordApiHelper.php
-backend/Actions/CartAbandonmentRecovery/CartAbandonmentRecoveryController.php
-backend/Actions/CartAbandonmentRecovery/RecordApiHelper.php
 backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ClickWhale/ClickWhaleController.php

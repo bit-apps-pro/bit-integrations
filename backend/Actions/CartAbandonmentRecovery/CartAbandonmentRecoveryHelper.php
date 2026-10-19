@@ -2,7 +2,7 @@
 
 namespace BitApps\Integrations\Actions\CartAbandonmentRecovery;
 
-class CartAbandonmentRecoveryController
+class CartAbandonmentRecoveryHelper
 {
     public static function isExists()
     {
@@ -16,15 +16,6 @@ class CartAbandonmentRecoveryController
         self::isExists();
 
         wp_send_json_success(['carts' => self::getAbandonedCarts()], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map ?? [];
-
-        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
     }
 
     private static function getAbandonedCarts()
