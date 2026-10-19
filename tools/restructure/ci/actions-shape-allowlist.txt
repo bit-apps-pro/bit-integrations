@@ -149,8 +149,6 @@ backend/Actions/MailerLite/MailerLiteController.php
 backend/Actions/MailerLite/RecordApiHelper.php
 backend/Actions/MailerPress/MailerPressController.php
 backend/Actions/MailerPress/RecordApiHelper.php
-backend/Actions/Mailjet/MailjetController.php
-backend/Actions/Mailjet/RecordApiHelper.php
 backend/Actions/Mailup/MailupController.php
 backend/Actions/Mailup/RecordApiHelper.php
 backend/Actions/MainWP/MainWPController.php
