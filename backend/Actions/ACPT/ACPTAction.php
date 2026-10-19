@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\ACPT;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-class ACPTController
+class ACPTAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
@@ -34,7 +34,7 @@ class ACPTController
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'ACPT'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiKey, $baseUrl);
+        $recordApiHelper = new ACPTService($integrationDetails, $integId, $apiKey, $baseUrl);
         $acptApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $module);
 
         if (is_wp_error($acptApiResponse)) {

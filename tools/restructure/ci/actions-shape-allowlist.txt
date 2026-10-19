@@ -1,5 +1,3 @@
-backend/Actions/ACPT/ACPTController.php
-backend/Actions/ACPT/RecordApiHelper.php
 backend/Actions/Bento/BentoController.php
 backend/Actions/Bento/RecordApiHelper.php
 backend/Actions/BitCrm/BitCrmController.php
