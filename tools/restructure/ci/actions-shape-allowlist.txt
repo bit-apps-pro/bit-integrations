@@ -14,8 +14,6 @@ backend/Actions/Moosend/MoosendController.php
 backend/Actions/Moosend/RecordApiHelper.php
 backend/Actions/Nimble/NimbleController.php
 backend/Actions/Nimble/RecordApiHelper.php
-backend/Actions/PipeDrive/PipeDriveController.php
-backend/Actions/PipeDrive/RecordApiHelper.php
 backend/Actions/QuizAndSurveyMaster/QuizAndSurveyMasterController.php
 backend/Actions/QuizAndSurveyMaster/RecordApiHelper.php
 backend/Actions/QuizMaker/QuizMakerController.php
