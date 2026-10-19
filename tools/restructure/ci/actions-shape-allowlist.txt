@@ -1,5 +1,3 @@
-backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php
-backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php
 backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ElementsKit/ElementsKitController.php
