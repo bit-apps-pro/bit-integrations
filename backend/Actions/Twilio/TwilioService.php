@@ -6,7 +6,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class TwilioService
 {
     public static $apiBaseUri = 'https://api.twilio.com/2010-04-01';
 

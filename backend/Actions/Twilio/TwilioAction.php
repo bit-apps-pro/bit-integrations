@@ -10,10 +10,8 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-final class TwilioController
+final class TwilioAction
 {
-    public static $apiBaseUri = 'https://api.twilio.com/2010-04-01';
-
     public static array $authConfig = [
         'authType' => AuthorizationType::BASIC_AUTH,
         'slug'     => 'twilio',
@@ -23,8 +21,6 @@ final class TwilioController
             'from_num' => 'from_num',
         ],
     ];
-
-    protected $_defaultHeader;
 
     private $_integrationID;
 
@@ -52,7 +48,7 @@ final class TwilioController
 
             return $error;
         }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $sid, $token, $from_num);
+        $recordApiHelper = new TwilioService($integrationDetails, $sid, $token, $from_num);
 
         return $recordApiHelper->executeRecordApi(
             $this->_integrationID,
