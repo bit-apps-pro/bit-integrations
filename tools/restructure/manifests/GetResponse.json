@@ -1,0 +1,476 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:fetchcustomfields",
+            "line": 39,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:fetchalltags",
+            "line": 79,
+            "to": "property:baseUrl",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:fetchalllist",
+            "line": 118,
+            "to": "property:baseUrl",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 176,
+        "modifiers": [],
+        "path": "backend/Actions/GetResponse/GetResponseController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/GetResponse/GetResponseController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GetResponse/GetResponseHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/GetResponse/GetResponseAction.php"
+        },
+        {
+            "from": "backend/Actions/GetResponse/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GetResponse/GetResponseService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/GetResponse/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\GetResponse\\GetResponseService"
+            ],
+            "hooks": "backend/Actions/GetResponse/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 41,
+            "helper": 113
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "GetResponse",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseAction"
+            ],
+            "method:fetchalllist": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper"
+            ],
+            "method:fetchalltags": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper"
+            ],
+            "method:fetchcustomfields": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\GetResponse\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchcustomfields",
+            "kind": "method",
+            "lines": [
+                27,
+                65
+            ],
+            "names": [
+                "fetchCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fetchalltags",
+            "kind": "method",
+            "lines": [
+                67,
+                104
+            ],
+            "names": [
+                "fetchAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:fetchalllist",
+            "kind": "method",
+            "lines": [
+                106,
+                139
+            ],
+            "names": [
+                "fetchAllList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                141,
+                174
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\GetResponse",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\RecordApiHelper",
+            "file": "backend/Actions/GetResponse/GetResponseController.php",
+            "kind": "new",
+            "line": 159,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController",
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "text": "use BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController",
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "text": "GetResponseController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController",
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:fetchalllist",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "text": "GetResponseController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController",
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:fetchcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "text": "GetResponseController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseController": [
+            "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseAction",
+            "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\GetResponse\\RecordApiHelper": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "line": 10,
+            "method": "fetchAllTags",
+            "route": "getresponse_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "line": 11,
+            "method": "fetchAllList",
+            "route": "getresponse_fetch_all_list",
+            "target": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/GetResponse/Routes.php",
+            "line": 12,
+            "method": "fetchCustomFields",
+            "route": "getresponse_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/GetResponse/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    25,
+                    32
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:existsubscriber",
+                "kind": "method",
+                "lines": [
+                    34,
+                    55
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontacttocampaign",
+                "kind": "method",
+                "lines": [
+                    57,
+                    115
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    117,
+                    132
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    134,
+                    157
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getformattedtags",
+                "kind": "method",
+                "lines": [
+                    159,
+                    173
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/GetResponse/GetResponseController.php": "9785c305de806f997d39a190f86086c64f98fc2f",
+        "backend/Actions/GetResponse/RecordApiHelper.php": "4696ff95f64bfb6fcaf77e5fa2da781ef9c5cd43",
+        "backend/Actions/GetResponse/Routes.php": "9683b1e8b7f10fa2d6aa5bccc528c0a45aaefe4c"
+    },
+    "sources": {
+        "backend/Actions/GetResponse/GetResponseAction.php": [
+            "backend/Actions/GetResponse/GetResponseController.php"
+        ],
+        "backend/Actions/GetResponse/GetResponseHelper.php": [
+            "backend/Actions/GetResponse/GetResponseController.php"
+        ],
+        "backend/Actions/GetResponse/GetResponseService.php": [
+            "backend/Actions/GetResponse/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseAction",
+            "origin": "created",
+            "path": "backend/Actions/GetResponse/GetResponseAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/GetResponse/GetResponseHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/GetResponse/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\GetResponse\\RecordApiHelper",
+                "to": "backend/Actions/GetResponse/GetResponseService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\GetResponse\\GetResponseService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "GetResponse"
+    ]
+}

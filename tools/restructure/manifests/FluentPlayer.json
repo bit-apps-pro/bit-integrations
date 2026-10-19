@@ -1,0 +1,477 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshmedia",
+            "line": 26,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 52,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshpresets",
+            "line": 75,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshusers",
+            "line": 98,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshattachments",
+            "line": 116,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 157,
+        "modifiers": [],
+        "path": "backend/Actions/FluentPlayer/FluentPlayerController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/FluentPlayer/FluentPlayerController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FluentPlayer/FluentPlayerHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/FluentPlayer/FluentPlayerAction.php"
+        },
+        {
+            "from": "backend/Actions/FluentPlayer/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FluentPlayer/FluentPlayerService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/FluentPlayer/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\FluentPlayer\\FluentPlayerService"
+            ],
+            "hooks": "backend/Actions/FluentPlayer/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 121
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "FluentPlayer",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+            ],
+            "method:refreshattachments": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+            ],
+            "method:refreshmedia": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+            ],
+            "method:refreshpresets": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+            ],
+            "method:refreshtags": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+            ],
+            "method:refreshusers": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\FluentPlayer\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                14,
+                22
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshmedia",
+            "kind": "method",
+            "lines": [
+                24,
+                48
+            ],
+            "names": [
+                "refreshMedia"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtags",
+            "kind": "method",
+            "lines": [
+                50,
+                71
+            ],
+            "names": [
+                "refreshTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshpresets",
+            "kind": "method",
+            "lines": [
+                73,
+                94
+            ],
+            "names": [
+                "refreshPresets"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshusers",
+            "kind": "method",
+            "lines": [
+                96,
+                112
+            ],
+            "names": [
+                "refreshUsers"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshattachments",
+            "kind": "method",
+            "lines": [
+                114,
+                139
+            ],
+            "names": [
+                "refreshAttachments"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                141,
+                155
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\FluentPlayer",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\RecordApiHelper",
+            "file": "backend/Actions/FluentPlayer/FluentPlayerController.php",
+            "kind": "new",
+            "line": 152,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "text": "use BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshmedia",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "text": "FluentPlayerController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "text": "FluentPlayerController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshpresets",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "text": "FluentPlayerController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshusers",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "text": "FluentPlayerController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController",
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:refreshattachments",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "text": "FluentPlayerController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerController": [
+            "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerAction",
+            "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\FluentPlayer\\RecordApiHelper": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "line": 10,
+            "method": "refreshMedia",
+            "route": "refresh_fluent_player_media",
+            "target": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "line": 11,
+            "method": "refreshTags",
+            "route": "refresh_fluent_player_tags",
+            "target": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "line": 12,
+            "method": "refreshPresets",
+            "route": "refresh_fluent_player_presets",
+            "target": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "line": 13,
+            "method": "refreshUsers",
+            "route": "refresh_fluent_player_users",
+            "target": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentPlayer/Routes.php",
+            "line": 14,
+            "method": "refreshAttachments",
+            "route": "refresh_fluent_player_attachments",
+            "target": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/FluentPlayer/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    23
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    25,
+                    198
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    200,
+                    215
+                ],
+                "static": true,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/FluentPlayer/FluentPlayerController.php": "df33429bd17c839e8cf7f74f51fed8979d80050d",
+        "backend/Actions/FluentPlayer/RecordApiHelper.php": "6aa67701d2eec8939e863bd50349821d39b18a0c",
+        "backend/Actions/FluentPlayer/Routes.php": "d52e13b1fd41f60a880a8f59cef2a1c68f23aa8a"
+    },
+    "sources": {
+        "backend/Actions/FluentPlayer/FluentPlayerAction.php": [
+            "backend/Actions/FluentPlayer/FluentPlayerController.php"
+        ],
+        "backend/Actions/FluentPlayer/FluentPlayerHelper.php": [
+            "backend/Actions/FluentPlayer/FluentPlayerController.php"
+        ],
+        "backend/Actions/FluentPlayer/FluentPlayerService.php": [
+            "backend/Actions/FluentPlayer/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerAction",
+            "origin": "created",
+            "path": "backend/Actions/FluentPlayer/FluentPlayerAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/FluentPlayer/FluentPlayerHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/FluentPlayer/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\FluentPlayer\\RecordApiHelper",
+                "to": "backend/Actions/FluentPlayer/FluentPlayerService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\FluentPlayer\\FluentPlayerService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "FluentPlayer"
+    ]
+}

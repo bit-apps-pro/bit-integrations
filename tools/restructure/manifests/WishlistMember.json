@@ -1,0 +1,368 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 62,
+        "modifiers": [],
+        "path": "backend/Actions/WishlistMember/WishlistMemberController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WishlistMember/WishlistMemberController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WishlistMember/WishlistMemberHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WishlistMember/WishlistMemberAction.php"
+        },
+        {
+            "from": "backend/Actions/WishlistMember/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WishlistMember/WishlistMemberService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WishlistMember/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\WishlistMember\\WishlistMemberService"
+            ],
+            "hooks": "backend/Actions/WishlistMember/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 20,
+            "helper": 26
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WishlistMember",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WishlistMember\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberAction"
+            ],
+            "method:getlevels": [
+                "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper"
+            ],
+            "method:isplugininstalled": [
+                "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isplugininstalled",
+            "kind": "method",
+            "lines": [
+                13,
+                16
+            ],
+            "names": [
+                "isPluginInstalled"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "external"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getlevels",
+            "kind": "method",
+            "lines": [
+                18,
+                39
+            ],
+            "names": [
+                "getLevels"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                41,
+                60
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WishlistMember",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController",
+            "file": "backend/Actions/WishlistMember/RecordApiHelper.php",
+            "kind": "static-call",
+            "line": 173,
+            "member": "method:isplugininstalled",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper",
+            "text": "WishlistMemberController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController",
+            "file": "backend/Actions/WishlistMember/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController",
+            "file": "backend/Actions/WishlistMember/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getlevels",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper",
+            "text": "WishlistMemberController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WishlistMember\\RecordApiHelper",
+            "file": "backend/Actions/WishlistMember/WishlistMemberController.php",
+            "kind": "new",
+            "line": 53,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WishlistMember\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberService",
+        "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberController": [
+            "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberAction",
+            "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WishlistMember/Routes.php",
+            "line": 10,
+            "method": "getLevels",
+            "route": "get_wishlist_levels",
+            "target": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WishlistMember/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createlevel",
+                "kind": "method",
+                "lines": [
+                    26,
+                    43
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updatelevel",
+                "kind": "method",
+                "lines": [
+                    45,
+                    63
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletelevel",
+                "kind": "method",
+                "lines": [
+                    65,
+                    83
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createmember",
+                "kind": "method",
+                "lines": [
+                    85,
+                    109
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:handlememberevents",
+                "kind": "method",
+                "lines": [
+                    111,
+                    139
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:handlememberaddorremovefromlevel",
+                "kind": "method",
+                "lines": [
+                    141,
+                    169
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    171,
+                    254
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setfieldmap",
+                "kind": "method",
+                "lines": [
+                    256,
+                    270
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:handlefilterresponse",
+                "kind": "method",
+                "lines": [
+                    272,
+                    279
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WishlistMember/RecordApiHelper.php": "536f264e4815b52fea79bdca8fbce09e3b6ed9dd",
+        "backend/Actions/WishlistMember/Routes.php": "57567c7b1ac1e4f5c548ef0dd55f9e5c0097c5b5",
+        "backend/Actions/WishlistMember/WishlistMemberController.php": "b6a0325c3cb352618cd656ee7ef33553e10f3194"
+    },
+    "sources": {
+        "backend/Actions/WishlistMember/WishlistMemberAction.php": [
+            "backend/Actions/WishlistMember/WishlistMemberController.php"
+        ],
+        "backend/Actions/WishlistMember/WishlistMemberHelper.php": [
+            "backend/Actions/WishlistMember/WishlistMemberController.php"
+        ],
+        "backend/Actions/WishlistMember/WishlistMemberService.php": [
+            "backend/Actions/WishlistMember/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberAction",
+            "origin": "created",
+            "path": "backend/Actions/WishlistMember/WishlistMemberAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WishlistMember/WishlistMemberHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WishlistMember/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WishlistMember\\RecordApiHelper",
+                "to": "backend/Actions/WishlistMember/WishlistMemberService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WishlistMember\\WishlistMemberService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "WishlistMember"
+    ]
+}

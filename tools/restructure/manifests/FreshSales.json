@@ -1,0 +1,420 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getmetadata",
+            "line": 51,
+            "to": "method:getmetadatarecursively",
+            "via": "static"
+        },
+        {
+            "form": "call",
+            "from": "method:getmetadatarecursively",
+            "line": 206,
+            "to": "method:getmetadatarecursively",
+            "via": "static"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 212,
+        "modifiers": [],
+        "path": "backend/Actions/FreshSales/FreshSalesController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/FreshSales/FreshSalesController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FreshSales/FreshSalesHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/FreshSales/FreshSalesAction.php"
+        },
+        {
+            "from": "backend/Actions/FreshSales/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FreshSales/FreshSalesService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/FreshSales/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\FreshSales\\FreshSalesService"
+            ],
+            "hooks": "backend/Actions/FreshSales/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [
+            {
+                "form": "call",
+                "from": "method:getmetadata",
+                "line": 51,
+                "rewrittenTo": null,
+                "to": "method:getmetadatarecursively",
+                "via": "static"
+            },
+            {
+                "form": "call",
+                "from": "method:getmetadatarecursively",
+                "line": 206,
+                "rewrittenTo": null,
+                "to": "method:getmetadatarecursively",
+                "via": "static"
+            }
+        ],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 40,
+            "helper": 152
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "FreshSales",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesAction"
+            ],
+            "method:getfields": [
+                "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper"
+            ],
+            "method:getmetadata": [
+                "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper"
+            ],
+            "method:getmetadatarecursively": [
+                "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\FreshSales\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getmetadata",
+            "kind": "method",
+            "lines": [
+                24,
+                52
+            ],
+            "names": [
+                "getMetaData"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getfields",
+            "kind": "method",
+            "lines": [
+                54,
+                144
+            ],
+            "names": [
+                "getFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                146,
+                177
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getmetadatarecursively",
+            "kind": "method",
+            "lines": [
+                179,
+                210
+            ],
+            "names": [
+                "getMetaDataRecursively"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\FreshSales",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\FreshSales\\RecordApiHelper",
+            "file": "backend/Actions/FreshSales/FreshSalesController.php",
+            "kind": "new",
+            "line": 164,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController",
+            "file": "backend/Actions/FreshSales/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper",
+            "text": "use BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController",
+            "file": "backend/Actions/FreshSales/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper",
+            "text": "FreshSalesController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController",
+            "file": "backend/Actions/FreshSales/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getmetadata",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper",
+            "text": "FreshSalesController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesController": [
+            "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesAction",
+            "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\FreshSales\\RecordApiHelper": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/FreshSales/Routes.php",
+            "line": 10,
+            "method": "getFields",
+            "route": "FreshSales_refresh_fields",
+            "target": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FreshSales/Routes.php",
+            "line": 11,
+            "method": "getMetaData",
+            "route": "FreshSales_fetch_meta_data",
+            "target": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/FreshSales/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    25,
+                    34
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    36,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:upsertrecord",
+                "kind": "method",
+                "lines": [
+                    64,
+                    79
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    81,
+                    105
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    107,
+                    127
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/FreshSales/FreshSalesController.php": "11f7dc5cbd647df79b9878a2442fd3bc8b5deda6",
+        "backend/Actions/FreshSales/RecordApiHelper.php": "30885298acbd1cb01b0594664e37d6278eed1659",
+        "backend/Actions/FreshSales/Routes.php": "db6fbad965a5385df1da1f271673f904b7a477a1"
+    },
+    "sources": {
+        "backend/Actions/FreshSales/FreshSalesAction.php": [
+            "backend/Actions/FreshSales/FreshSalesController.php"
+        ],
+        "backend/Actions/FreshSales/FreshSalesHelper.php": [
+            "backend/Actions/FreshSales/FreshSalesController.php"
+        ],
+        "backend/Actions/FreshSales/FreshSalesService.php": [
+            "backend/Actions/FreshSales/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesAction",
+            "origin": "created",
+            "path": "backend/Actions/FreshSales/FreshSalesAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/FreshSales/FreshSalesHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/FreshSales/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\FreshSales\\RecordApiHelper",
+                "to": "backend/Actions/FreshSales/FreshSalesService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\FreshSales\\FreshSalesService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3",
+        "T5"
+    ],
+    "unit": [
+        "FreshSales"
+    ]
+}

@@ -1,0 +1,534 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:fetchallgroups",
+            "line": 44,
+            "to": "property:_baseUrlV2",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:fetchallgroups",
+            "line": 60,
+            "to": "property:_baseUrlV1",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:mailerliterefreshfields",
+            "line": 101,
+            "to": "property:_baseUrlV2",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:mailerliterefreshfields",
+            "line": 141,
+            "to": "property:_baseUrlV1",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 204,
+        "modifiers": [],
+        "path": "backend/Actions/MailerLite/MailerLiteController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MailerLite/MailerLiteController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailerLite/MailerLiteHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MailerLite/MailerLiteAction.php"
+        },
+        {
+            "from": "backend/Actions/MailerLite/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailerLite/MailerLiteService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MailerLite/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MailerLite\\MailerLiteService"
+            ],
+            "hooks": "backend/Actions/MailerLite/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 42,
+            "helper": 140
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MailerLite",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteAction"
+            ],
+            "method:fetchallgroups": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper"
+            ],
+            "method:mailerliterefreshfields": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper"
+            ],
+            "property:_baseUrlV1": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper"
+            ],
+            "property:_baseUrlV2": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MailerLite\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:_baseUrlV1",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "_baseUrlV1"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "property:_baseUrlV2",
+            "kind": "property",
+            "lines": [
+                28,
+                28
+            ],
+            "names": [
+                "_baseUrlV2"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:fetchallgroups",
+            "kind": "method",
+            "lines": [
+                30,
+                86
+            ],
+            "names": [
+                "fetchAllGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:mailerliterefreshfields",
+            "kind": "method",
+            "lines": [
+                88,
+                167
+            ],
+            "names": [
+                "mailerliteRefreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                169,
+                202
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MailerLite",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailerLite\\RecordApiHelper",
+            "file": "backend/Actions/MailerLite/MailerLiteController.php",
+            "kind": "new",
+            "line": 187,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController",
+            "file": "backend/Actions/MailerLite/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController",
+            "file": "backend/Actions/MailerLite/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:fetchallgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper",
+            "text": "MailerLiteController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController",
+            "file": "backend/Actions/MailerLite/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:mailerliterefreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper",
+            "text": "MailerLiteController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteController": [
+            "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteAction",
+            "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MailerLite\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MailerLite/Routes.php",
+            "line": 10,
+            "method": "fetchAllGroups",
+            "route": "mailerlite_fetch_all_groups",
+            "target": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MailerLite/Routes.php",
+            "line": 11,
+            "method": "mailerliteRefreshFields",
+            "route": "mailerlite_refresh_fields",
+            "target": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MailerLite/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_baseUrl",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_actions",
+                "kind": "property",
+                "lines": [
+                    25,
+                    25
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_isMailerLiteV2",
+                "kind": "property",
+                "lines": [
+                    27,
+                    27
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    29,
+                    47
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:existsubscriber",
+                "kind": "method",
+                "lines": [
+                    49,
+                    69
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:enabledoubleoptin",
+                "kind": "method",
+                "lines": [
+                    71,
+                    89
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    91,
+                    134
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletesubscriber",
+                "kind": "method",
+                "lines": [
+                    136,
+                    175
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:unassignsubscriberfromgroup",
+                "kind": "method",
+                "lines": [
+                    177,
+                    214
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    216,
+                    231
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    233,
+                    282
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:preparerequestparams",
+                "kind": "method",
+                "lines": [
+                    284,
+                    301
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:handledoubleoptin",
+                "kind": "method",
+                "lines": [
+                    303,
+                    323
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:sendtogroups",
+                "kind": "method",
+                "lines": [
+                    325,
+                    341
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MailerLite/MailerLiteController.php": "fc0b2e5bfa8b0bc812118d5abba59cbd1e8228df",
+        "backend/Actions/MailerLite/RecordApiHelper.php": "1b587f0228855b8f57f377e9657f8eec73e3c7ee",
+        "backend/Actions/MailerLite/Routes.php": "0aa8cbc74f6abee09b4835e3e042681fa0e31a61"
+    },
+    "sources": {
+        "backend/Actions/MailerLite/MailerLiteAction.php": [
+            "backend/Actions/MailerLite/MailerLiteController.php"
+        ],
+        "backend/Actions/MailerLite/MailerLiteHelper.php": [
+            "backend/Actions/MailerLite/MailerLiteController.php"
+        ],
+        "backend/Actions/MailerLite/MailerLiteService.php": [
+            "backend/Actions/MailerLite/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteAction",
+            "origin": "created",
+            "path": "backend/Actions/MailerLite/MailerLiteAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MailerLite/MailerLiteHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MailerLite/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MailerLite\\RecordApiHelper",
+                "to": "backend/Actions/MailerLite/MailerLiteService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MailerLite\\MailerLiteService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "MailerLite"
+    ]
+}

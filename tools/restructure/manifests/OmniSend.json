@@ -1,0 +1,307 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 63,
+        "modifiers": [],
+        "path": "backend/Actions/OmniSend/OmniSendController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/OmniSend/OmniSendController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/OmniSend/OmniSendAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/OmniSend/OmniSendHelper.php"
+        },
+        {
+            "from": "backend/Actions/OmniSend/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/OmniSend/OmniSendService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\OmniSend\\OmniSendService"
+            ],
+            "hooks": "backend/Actions/OmniSend/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 42,
+            "helper": 2
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader",
+            "property:baseUrl"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "OmniSend",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendAction"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\OmniSend\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                27,
+                61
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\OmniSend",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\OmniSend\\RecordApiHelper",
+            "file": "backend/Actions/OmniSend/OmniSendController.php",
+            "kind": "new",
+            "line": 45,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendController": [
+            "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendAction",
+            "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\OmniSend\\RecordApiHelper": "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/OmniSend/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    25,
+                    32
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    34,
+                    84
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    86,
+                    100
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    102,
+                    134
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/OmniSend/OmniSendController.php": "25e08d6472dd313d3fc3b029fa6e6feedc512322",
+        "backend/Actions/OmniSend/RecordApiHelper.php": "a34e18cb7387b5bbdd59924fa2a2de1d9d0348e8"
+    },
+    "sources": {
+        "backend/Actions/OmniSend/OmniSendAction.php": [
+            "backend/Actions/OmniSend/OmniSendController.php"
+        ],
+        "backend/Actions/OmniSend/OmniSendHelper.php": [
+            "backend/Actions/OmniSend/OmniSendController.php"
+        ],
+        "backend/Actions/OmniSend/OmniSendService.php": [
+            "backend/Actions/OmniSend/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/OmniSend/OmniSendAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendHelper",
+            "origin": "created",
+            "path": "backend/Actions/OmniSend/OmniSendHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/OmniSend/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\OmniSend\\RecordApiHelper",
+                "to": "backend/Actions/OmniSend/OmniSendService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\OmniSend\\OmniSendService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "OmniSend"
+    ]
+}
