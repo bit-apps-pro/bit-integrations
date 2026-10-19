@@ -8,27 +8,8 @@ namespace BitApps\Integrations\Actions\SeoPress;
 
 use WP_Error;
 
-class SeoPressController
+class SeoPressAction
 {
-    /**
-     * Validate if SEOPress plugin exists or not. If not exists then terminate
-     * request and send an error response.
-     *
-     * @return void
-     */
-    public static function isExists()
-    {
-        if (!\defined('SEOPRESS_VERSION')) {
-            wp_send_json_error(
-                __(
-                    'SEOPress is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
@@ -39,7 +20,7 @@ class SeoPressController
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new SeoPressService($integrationDetails, $integId);
         $seoPressResponse = $recordApiHelper->execute($fieldValues, $fieldMap);
 
         if (is_wp_error($seoPressResponse)) {
