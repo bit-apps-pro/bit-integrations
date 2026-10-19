@@ -35,6 +35,8 @@ backend/Actions/BookingCalendar/BookingCalendarController.php
 backend/Actions/BookingCalendar/RecordApiHelper.php
 backend/Actions/BookingPress/BookingPressController.php
 backend/Actions/BookingPress/RecordApiHelper.php
+backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php
+backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php
 backend/Actions/Bookly/BooklyController.php
 backend/Actions/Bookly/RecordApiHelper.php
 backend/Actions/BrilliantDirectories/BrilliantDirectoriesController.php
@@ -47,6 +49,8 @@ backend/Actions/CapsuleCRM/CapsuleCRMController.php
 backend/Actions/CapsuleCRM/RecordApiHelper.php
 backend/Actions/CartAbandonmentRecovery/CartAbandonmentRecoveryController.php
 backend/Actions/CartAbandonmentRecovery/RecordApiHelper.php
+backend/Actions/Charitable/CharitableController.php
+backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ClickWhale/ClickWhaleController.php
 backend/Actions/ClickWhale/RecordApiHelper.php
 backend/Actions/Clickup/ClickupController.php
@@ -82,6 +86,8 @@ backend/Actions/Dropbox/DropboxController.php
 backend/Actions/Dropbox/RecordApiHelper.php
 backend/Actions/ElasticEmail/ElasticEmailController.php
 backend/Actions/ElasticEmail/RecordApiHelper.php
+backend/Actions/ElementsKit/ElementsKitController.php
+backend/Actions/ElementsKit/RecordApiHelper.php
 backend/Actions/EmailOctopus/EmailOctopusController.php
 backend/Actions/EmailOctopus/RecordApiHelper.php
 backend/Actions/Encharge/EnchargeController.php
@@ -90,6 +96,8 @@ backend/Actions/EventsManager/EventsManagerController.php
 backend/Actions/EventsManager/RecordApiHelper.php
 backend/Actions/Fabman/FabmanController.php
 backend/Actions/Fabman/RecordApiHelper.php
+backend/Actions/Flodesk/FlodeskController.php
+backend/Actions/Flodesk/RecordApiHelper.php
 backend/Actions/FlowMattic/FlowMatticController.php
 backend/Actions/Flowlu/FlowluController.php
 backend/Actions/Flowlu/RecordApiHelper.php
@@ -250,11 +258,17 @@ backend/Actions/ProfilePress/RecordApiHelper.php
 backend/Actions/PropovoiceCRM/FilesApiHelper.php
 backend/Actions/PropovoiceCRM/PropovoiceCRMController.php
 backend/Actions/PropovoiceCRM/RecordApiHelper.php
+backend/Actions/QuizAndSurveyMaster/QuizAndSurveyMasterController.php
+backend/Actions/QuizAndSurveyMaster/RecordApiHelper.php
+backend/Actions/QuizMaker/QuizMakerController.php
+backend/Actions/QuizMaker/RecordApiHelper.php
 backend/Actions/Rapidmail/RapidmailController.php
 backend/Actions/Rapidmail/RecordApiHelper.php
 backend/Actions/Registration/RegistrationController.php
 backend/Actions/RestrictContent/RecordApiHelper.php
 backend/Actions/RestrictContent/RestrictContentController.php
+backend/Actions/RoxAppointmentBooking/RecordApiHelper.php
+backend/Actions/RoxAppointmentBooking/RoxAppointmentBookingController.php
 backend/Actions/Salesflare/RecordApiHelper.php
 backend/Actions/Salesflare/SalesflareController.php
 backend/Actions/Salesforce/RecordApiHelper.php
@@ -353,6 +367,8 @@ backend/Actions/WordPress/RecordApiHelper.php
 backend/Actions/WordPress/WordPressController.php
 backend/Actions/WpDataTables/RecordApiHelper.php
 backend/Actions/WpDataTables/WpDataTablesController.php
+backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php
+backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php
 backend/Actions/WpTableBuilder/RecordApiHelper.php
 backend/Actions/WpTableBuilder/WpTableBuilderController.php
 backend/Actions/Wsms/RecordApiHelper.php

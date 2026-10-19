@@ -19,6 +19,7 @@ final class Batches
         'F8'  => 'Mail,LearnDash,PostCreation,Registration,Pods,AcademyLms,TutorLms,CustomAction,Fabman',
         'F9'  => 'ZohoCRM,ZohoRecruit,Freshdesk,Discord,Slack,Telegram,PropovoiceCRM,Hubspot,ACPT,Bento,MasterStudyLms,Voxel,WooCommerce,BuddyBoss,KirimEmail,ZendeskSupport,NinjaTables,UserRegistrationMembership,WebbaBooking,PipeDrive,Trello,ClinchPad,Nimble,Salesmate,BitCrm',
         'F10' => 'Salesforce,Moosend',
+        'F11' => 'BookingsAndAppointmentsForWoocommerce,Charitable,ElementsKit,Flodesk,QuizAndSurveyMaster,QuizMaker,RoxAppointmentBooking,WpSimpleBookingCalendar',
     ];
 
     /**
