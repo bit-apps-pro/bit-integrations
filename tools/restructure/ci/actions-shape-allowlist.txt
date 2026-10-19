@@ -12,9 +12,6 @@ backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
 backend/Actions/ClinchPad/ClinchPadController.php
 backend/Actions/ClinchPad/RecordApiHelper.php
-backend/Actions/Discord/DiscordController.php
-backend/Actions/Discord/FilesApiHelper.php
-backend/Actions/Discord/RecordApiHelper.php
 backend/Actions/ElementsKit/ElementsKitController.php
 backend/Actions/ElementsKit/RecordApiHelper.php
 backend/Actions/Flodesk/FlodeskController.php

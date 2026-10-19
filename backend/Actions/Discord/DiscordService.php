@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class DiscordService
 {
     private $_defaultHeader;
 
@@ -66,7 +66,7 @@ class RecordApiHelper
                     'file'       => \is_array($file) ? $file[0] : $file
                 ];
 
-                $sendPhotoApiHelper = new FilesApiHelper($this->_accessToken);
+                $sendPhotoApiHelper = new DiscordFilesService($this->_accessToken);
                 $recordApiResponse = $sendPhotoApiHelper->uploadFiles($this->_apiEndPoint, $data, $this->_accessToken, $integrationDetails->selectedChannel);
                 $recordApiResponse = $this->sendMessages($data, $integrationDetails->selectedChannel);
             } else {
