@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Zendesk;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class ZendeskController
+class ZendeskHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'zendesk',
-        'fields'   => [
-            'api_key' => 'token',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -287,28 +277,5 @@ class ZendeskController
         } else {
             wp_send_json_error(__('Sources fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $authToken = $integrationDetails->api_key;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($authToken) || empty($actionName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Zendesk'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $zendeskApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($zendeskApiResponse)) {
-            return $zendeskApiResponse;
-        }
-
-        return $zendeskApiResponse;
     }
 }

@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Zendesk;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class ZendeskService
 {
     private $integrationDetails;
 
