@@ -16,8 +16,6 @@ backend/Actions/ElementsKit/ElementsKitController.php
 backend/Actions/ElementsKit/RecordApiHelper.php
 backend/Actions/Flodesk/FlodeskController.php
 backend/Actions/Flodesk/RecordApiHelper.php
-backend/Actions/Hubspot/HubspotController.php
-backend/Actions/Hubspot/HubspotRecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
 backend/Actions/KirimEmail/RecordApiHelper.php
 backend/Actions/MasterStudyLms/MasterStudyLmsController.php

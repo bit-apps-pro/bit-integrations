@@ -2,28 +2,10 @@
 
 namespace BitApps\Integrations\Actions\Hubspot;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use BitApps\Integrations\Log\LogHandler;
-use WP_Error;
 
-final class HubspotController
+final class HubspotHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'hubspot',
-        'fields'   => [
-            'api_key' => 'token',
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
-
     public static function getFields($requestParams)
     {
         if (empty($requestParams->api_key) || empty($requestParams->type)) {
@@ -217,29 +199,5 @@ final class HubspotController
         } else {
             wp_send_json_error(__('fields fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $fieldMap = $integrationDetails->field_map;
-        $integId = $integrationData->id;
-        $apiKey = $integrationDetails->api_key;
-
-        if (empty($fieldMap) || empty($apiKey)) {
-            $error = new WP_Error('REQ_FIELD_EMPTY', __('Access token, fields map are required for hubspot api', 'bit-integrations'));
-            LogHandler::save($this->_integrationID, 'record', 'validation', $error);
-
-            return $error;
-        }
-
-        $recordApiHelper = new HubspotRecordApiHelper($apiKey);
-        $hubspotResponse = $recordApiHelper->executeRecordApi($integId, $integrationDetails, $fieldValues, $fieldMap);
-
-        if (is_wp_error($hubspotResponse)) {
-            return $hubspotResponse;
-        }
-
-        return $hubspotResponse;
     }
 }
