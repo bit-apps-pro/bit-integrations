@@ -185,3 +185,45 @@ a148e5b1a1cc9fb700c763b2fe5717abe0670428
 ebae7a4a946de8bc181e89bb6a28230cd39a0001
 # refactor(actions): move WhatsApp to Action/Service/Helper layout
 222cecb2c7b72183ffcc9dda50452634a4ba2f8f
+# refactor(actions): move ActiveCampaign to Action/Service/Helper layout
+db2e6edd1f1b962a491c652339b444db1b3905b7
+# refactor(actions): move Acumbamail to Action/Service/Helper layout
+395b48eac2b72ba92c7e8b52dceb8fa5df01e170
+# refactor(actions): move AgiledCRM to Action/Service/Helper layout
+7bae7ba42b64e012d7bb423a18b76f44b8661659
+# refactor(actions): move BitForm to Action/Service/Helper layout
+27733d48c95725eb7bdd4719ad7b3fb9385ec455
+# refactor(actions): move CapsuleCRM to Action/Service/Helper layout
+57733ecfffd4a8a36932fea40c8a9701e14f6622
+# refactor(actions): move ConvertKit to Action/Service/Helper layout
+3c1e5fc22b1451ade141b6a403909397ff06e63f
+# refactor(actions): move CopperCRM to Action/Service/Helper layout
+93bc5b93055a96c912d8f98263630fb4677efa53
+# refactor(actions): move Drip to Action/Service/Helper layout
+01ce7279ba1a3025892f65759ac070a5da8841df
+# refactor(actions): move Groundhogg to Action/Service/Helper layout
+b0e45e16beb9758d259945d7162985854376775f
+# refactor(actions): move Insightly to Action/Service/Helper layout
+4ba599eadc0316fc072445b68a9fd76028897abf
+# refactor(actions): move Notion to Action/Service/Helper layout
+7f3a90c49330b4ad61333fbbee7a89fdccb3f8b3
+# refactor(actions): move NutshellCRM to Action/Service/Helper layout
+f634fa46cdb20da6b2ec60a0d56c2f5bc84668de
+# refactor(actions): move Selzy to Action/Service/Helper layout
+5daec99dd2a016a9e91c8118b8fdf4d220453fe9
+# refactor(actions): move SendinBlue to Action/Service/Helper layout
+cc40ff933d29f9fffa0dab4b3d094ba9afa61808
+# refactor(actions): move ZagoMail to Action/Service/Helper layout
+a0da2bf80313e737d5e5b57eb5103ee3c838b644
+# refactor(actions): move Zendesk to Action/Service/Helper layout
+b45fd05a2959db703b28f60f71365991d1f0a5b5
+# refactor(actions): move Affiliate to Action/Service/Helper layout
+93e95cae4b711531c2ee6ad490ebc16d867d5362
+# refactor(actions): move GamiPress to Action/Service/Helper layout
+9233b91598de78d1b6c11ecf84fd881c7eb795ea
+# refactor(actions): move LifterLms to Action/Service/Helper layout
+0e7f258cc3682ab81cd0885e2bf30bb7d4bd2924
+# refactor(actions): move MailMint to Action/Service/Helper layout
+7dd2466dcbd24275475960067bc202f98cef946e
+# refactor(actions): move WPForo to Action/Service/Helper layout
+bd3e8a0eb78d867590ec5609d9f773259d4ff70b
