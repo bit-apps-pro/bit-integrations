@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\N8n\\N8nController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/N8n/N8nController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/N8n/N8nController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/N8n/N8nAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "AdvancedFormIntegration",
+            "Albato",
+            "AntApps",
+            "AutomatorWP",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "Pabbly",
+            "SperseIO",
+            "SureTriggers",
+            "SyncSpider",
+            "ThriveAutomator",
+            "UncannyAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "N8n",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\N8n\\N8nController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\N8n",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\N8n\\N8nController": "BitApps\\Integrations\\Actions\\N8n\\N8nAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/N8n/N8nController.php": "0b9f5c35e31b0ec2a26354efc48ce36dbc3c9973"
+    },
+    "sources": {
+        "backend/Actions/N8n/N8nAction.php": [
+            "backend/Actions/N8n/N8nController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\N8n\\N8nAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/N8n/N8nAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\N8n\\N8nHelper",
+            "origin": "none",
+            "path": "backend/Actions/N8n/N8nHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}

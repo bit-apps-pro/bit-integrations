@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\AdvancedFormIntegration\\AdvancedFormIntegrationController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "Albato",
+            "AntApps",
+            "AutomatorWP",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "N8n",
+            "Pabbly",
+            "SperseIO",
+            "SureTriggers",
+            "SyncSpider",
+            "ThriveAutomator",
+            "UncannyAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "AdvancedFormIntegration",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\AdvancedFormIntegration\\AdvancedFormIntegrationController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\AdvancedFormIntegration",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\AdvancedFormIntegration\\AdvancedFormIntegrationController": "BitApps\\Integrations\\Actions\\AdvancedFormIntegration\\AdvancedFormIntegrationAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationController.php": "c9a33b553a9029844eeecc6848b6b460dd6e29ea"
+    },
+    "sources": {
+        "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationAction.php": [
+            "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\AdvancedFormIntegration\\AdvancedFormIntegrationAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\AdvancedFormIntegration\\AdvancedFormIntegrationHelper",
+            "origin": "none",
+            "path": "backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}

@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\AutomatorWP\\AutomatorWPController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/AutomatorWP/AutomatorWPController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/AutomatorWP/AutomatorWPController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/AutomatorWP/AutomatorWPAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "AdvancedFormIntegration",
+            "Albato",
+            "AntApps",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "N8n",
+            "Pabbly",
+            "SperseIO",
+            "SureTriggers",
+            "SyncSpider",
+            "ThriveAutomator",
+            "UncannyAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "AutomatorWP",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\AutomatorWP\\AutomatorWPController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\AutomatorWP",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\AutomatorWP\\AutomatorWPController": "BitApps\\Integrations\\Actions\\AutomatorWP\\AutomatorWPAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/AutomatorWP/AutomatorWPController.php": "636648b0f14b3cc8a7c902eb241839aacdbc56c1"
+    },
+    "sources": {
+        "backend/Actions/AutomatorWP/AutomatorWPAction.php": [
+            "backend/Actions/AutomatorWP/AutomatorWPController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\AutomatorWP\\AutomatorWPAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/AutomatorWP/AutomatorWPAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\AutomatorWP\\AutomatorWPHelper",
+            "origin": "none",
+            "path": "backend/Actions/AutomatorWP/AutomatorWPHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}

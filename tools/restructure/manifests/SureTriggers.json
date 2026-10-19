@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SureTriggers\\SureTriggersController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/SureTriggers/SureTriggersController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SureTriggers/SureTriggersController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SureTriggers/SureTriggersAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "AdvancedFormIntegration",
+            "Albato",
+            "AntApps",
+            "AutomatorWP",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "N8n",
+            "Pabbly",
+            "SperseIO",
+            "SyncSpider",
+            "ThriveAutomator",
+            "UncannyAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SureTriggers",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SureTriggers\\SureTriggersController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\SureTriggers",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SureTriggers\\SureTriggersController": "BitApps\\Integrations\\Actions\\SureTriggers\\SureTriggersAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/SureTriggers/SureTriggersController.php": "5813a991f8ca7bb2dadbcc66684bfb05d636e461"
+    },
+    "sources": {
+        "backend/Actions/SureTriggers/SureTriggersAction.php": [
+            "backend/Actions/SureTriggers/SureTriggersController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SureTriggers\\SureTriggersAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SureTriggers/SureTriggersAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SureTriggers\\SureTriggersHelper",
+            "origin": "none",
+            "path": "backend/Actions/SureTriggers/SureTriggersHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}

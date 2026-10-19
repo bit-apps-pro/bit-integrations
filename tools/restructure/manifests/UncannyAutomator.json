@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\UncannyAutomator\\UncannyAutomatorController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/UncannyAutomator/UncannyAutomatorController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/UncannyAutomator/UncannyAutomatorController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/UncannyAutomator/UncannyAutomatorAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "AdvancedFormIntegration",
+            "Albato",
+            "AntApps",
+            "AutomatorWP",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "N8n",
+            "Pabbly",
+            "SperseIO",
+            "SureTriggers",
+            "SyncSpider",
+            "ThriveAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "UncannyAutomator",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\UncannyAutomator\\UncannyAutomatorController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\UncannyAutomator",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\UncannyAutomator\\UncannyAutomatorController": "BitApps\\Integrations\\Actions\\UncannyAutomator\\UncannyAutomatorAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/UncannyAutomator/UncannyAutomatorController.php": "11ff7de3991c004824f7f4b0880a3b21b11c3b04"
+    },
+    "sources": {
+        "backend/Actions/UncannyAutomator/UncannyAutomatorAction.php": [
+            "backend/Actions/UncannyAutomator/UncannyAutomatorController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\UncannyAutomator\\UncannyAutomatorAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/UncannyAutomator/UncannyAutomatorAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\UncannyAutomator\\UncannyAutomatorHelper",
+            "origin": "none",
+            "path": "backend/Actions/UncannyAutomator/UncannyAutomatorHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}

@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Albato\\AlbatoController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/Albato/AlbatoController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Albato/AlbatoController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Albato/AlbatoAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "AdvancedFormIntegration",
+            "AntApps",
+            "AutomatorWP",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "N8n",
+            "Pabbly",
+            "SperseIO",
+            "SureTriggers",
+            "SyncSpider",
+            "ThriveAutomator",
+            "UncannyAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Albato",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Albato\\AlbatoController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\Albato",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Albato\\AlbatoController": "BitApps\\Integrations\\Actions\\Albato\\AlbatoAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/Albato/AlbatoController.php": "985814a1d1d69439cd28fc203ff44c1a75ab5914"
+    },
+    "sources": {
+        "backend/Actions/Albato/AlbatoAction.php": [
+            "backend/Actions/Albato/AlbatoController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Albato\\AlbatoAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Albato/AlbatoAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Albato\\AlbatoHelper",
+            "origin": "none",
+            "path": "backend/Actions/Albato/AlbatoHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}

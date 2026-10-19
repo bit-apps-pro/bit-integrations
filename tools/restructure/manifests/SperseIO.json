@@ -1,0 +1,126 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SperseIO\\SperseIOController",
+        "constructorRequiredParams": 0,
+        "executeStatic": null,
+        "extends": "BitApps\\Integrations\\Actions\\WebHooks\\WebHooksController",
+        "lines": 14,
+        "modifiers": [],
+        "path": "backend/Actions/SperseIO/SperseIOController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SperseIO/SperseIOController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SperseIO/SperseIOAction.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [
+            "AdvancedFormIntegration",
+            "Albato",
+            "AntApps",
+            "AutomatorWP",
+            "FlowMattic",
+            "Integrately",
+            "Integromat",
+            "KonnectzIT",
+            "N8n",
+            "Pabbly",
+            "SureTriggers",
+            "SyncSpider",
+            "ThriveAutomator",
+            "UncannyAutomator",
+            "WPFusion",
+            "WPWebhooks",
+            "WebHooks",
+            "Zapier",
+            "ZohoFlow"
+        ],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SperseIO",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SperseIO\\SperseIOController": []
+    },
+    "members": [],
+    "namespace": "BitApps\\Integrations\\Actions\\SperseIO",
+    "references": [],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SperseIO\\SperseIOController": "BitApps\\Integrations\\Actions\\SperseIO\\SperseIOAction"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": [],
+    "sourceHashes": {
+        "backend/Actions/SperseIO/SperseIOController.php": "df0c63eec380cc2706e9ae4ef57572856fb7afed"
+    },
+    "sources": {
+        "backend/Actions/SperseIO/SperseIOAction.php": [
+            "backend/Actions/SperseIO/SperseIOController.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SperseIO\\SperseIOAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SperseIO/SperseIOAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SperseIO\\SperseIOHelper",
+            "origin": "none",
+            "path": "backend/Actions/SperseIO/SperseIOHelper.php"
+        },
+        "services": []
+    },
+    "tests": [],
+    "unit": [
+        "AdvancedFormIntegration",
+        "Albato",
+        "AntApps",
+        "AutomatorWP",
+        "FlowMattic",
+        "Integrately",
+        "Integromat",
+        "KonnectzIT",
+        "N8n",
+        "Pabbly",
+        "SperseIO",
+        "SureTriggers",
+        "SyncSpider",
+        "ThriveAutomator",
+        "UncannyAutomator",
+        "WPFusion",
+        "WPWebhooks",
+        "WebHooks",
+        "Zapier",
+        "ZohoFlow"
+    ]
+}
