@@ -8,7 +8,7 @@ namespace BitApps\Integrations\Actions\ConvertForce;
 
 use WP_Error;
 
-class ConvertForceController
+class ConvertForceAction
 {
     public function execute($integrationData, $fieldValues)
     {
@@ -20,7 +20,7 @@ class ConvertForceController
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new ConvertForceService($integrationDetails, $integId);
 
         return $recordApiHelper->execute($fieldValues, $fieldMap);
     }

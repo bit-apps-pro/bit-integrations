@@ -33,8 +33,6 @@ backend/Actions/ClinchPad/ClinchPadController.php
 backend/Actions/ClinchPad/RecordApiHelper.php
 backend/Actions/ConstantContact/ConstantContactController.php
 backend/Actions/ConstantContact/RecordApiHelper.php
-backend/Actions/ConvertForce/ConvertForceController.php
-backend/Actions/ConvertForce/RecordApiHelper.php
 backend/Actions/ConvertKit/ConvertKitController.php
 backend/Actions/ConvertKit/RecordApiHelper.php
 backend/Actions/CopperCRM/CopperCRMController.php
