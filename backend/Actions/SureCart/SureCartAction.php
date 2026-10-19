@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\SureCart;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-class SureCartController
+class SureCartAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::BEARER_TOKEN,
@@ -32,7 +32,7 @@ class SureCartController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'sureCart'));
         }
-        $recordApiHelper = new RecordApiHelper($integrationId);
+        $recordApiHelper = new SureCartService($integrationId);
 
         return $recordApiHelper->execute(
             $token,
