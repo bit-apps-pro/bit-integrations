@@ -12,7 +12,7 @@ use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 
-final class PodsController
+final class PodsAction
 {
     public function execute($integrationData, $fieldValues)
     {
