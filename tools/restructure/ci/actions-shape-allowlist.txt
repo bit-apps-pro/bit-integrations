@@ -305,8 +305,6 @@ backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsCon
 backend/Actions/Telegram/FilesApiHelper.php
 backend/Actions/Telegram/RecordApiHelper.php
 backend/Actions/Telegram/TelegramController.php
-backend/Actions/TheEventsCalendar/RecordApiHelper.php
-backend/Actions/TheEventsCalendar/TheEventsCalendarController.php
 backend/Actions/ThriveAutomator/ThriveAutomatorController.php
 backend/Actions/Trello/RecordApiHelper.php
 backend/Actions/Trello/TrelloController.php

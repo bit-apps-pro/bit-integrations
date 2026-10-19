@@ -11,7 +11,7 @@ use BitApps\Integrations\Log\LogHandler;
 use Tribe__Tickets__RSVP;
 use Tribe__Tickets__Tickets_Handler;
 
-class RecordApiHelper
+class TheEventsCalendarService
 {
     private $_integrationID;
 
