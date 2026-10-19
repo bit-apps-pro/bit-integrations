@@ -15,7 +15,7 @@ use STM_LMS_Quiz;
 use STM_LMS_User_Manager_Course_User;
 use WP_Error;
 
-class RecordApiHelper
+class MasterStudyLmsService
 {
     private const COMPLETE_COURSE = 1;
 

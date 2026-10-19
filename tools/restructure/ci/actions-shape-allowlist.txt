@@ -14,8 +14,6 @@ backend/Actions/Flodesk/FlodeskController.php
 backend/Actions/Flodesk/RecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
 backend/Actions/KirimEmail/RecordApiHelper.php
-backend/Actions/MasterStudyLms/MasterStudyLmsController.php
-backend/Actions/MasterStudyLms/RecordApiHelper.php
 backend/Actions/Moosend/MoosendController.php
 backend/Actions/Moosend/RecordApiHelper.php
 backend/Actions/Nimble/NimbleController.php
