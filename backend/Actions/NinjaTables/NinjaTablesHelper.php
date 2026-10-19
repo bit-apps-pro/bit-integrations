@@ -8,9 +8,8 @@ namespace BitApps\Integrations\Actions\NinjaTables;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Post;
-use WP_Error;
 
-class NinjaTablesController
+class NinjaTablesHelper
 {
     private const POST_TYPE = 'ninja-table';
 
@@ -74,20 +73,6 @@ class NinjaTablesController
         $formattedColumns = $this->formatColumns($columns);
 
         wp_send_json_success(['columns' => $formattedColumns], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integrationData->id);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     private function fetchAllTables()

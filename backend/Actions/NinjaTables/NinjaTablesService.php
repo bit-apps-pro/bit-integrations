@@ -10,7 +10,7 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class NinjaTablesService
 {
     private const ACTION_ADD_ROW = 'add_row_in_table';
 
