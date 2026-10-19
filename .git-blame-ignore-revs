@@ -307,3 +307,19 @@ bb1aabda47e8d2b117b0bdab21c9b0d1621a2164
 0e5220f70e4529e58eb6889d4e2803d126c9fa80
 # refactor(actions): move CustomApi to Action/Service/Helper layout
 4cc6947956f97a3e0f83da415099cff0dcc1170e
+# refactor(actions): move Mail and LearnDash to Action/Service/Helper layout
+fd0aff74e8d147b3a37e7e921cc6a640d5b3313e
+# refactor(actions): move PostCreation to Action/Service/Helper layout
+3ac38ce2418ff89fc44be9cc5f06151abcd87c5c
+# refactor(actions): move Registration to Action/Service/Helper layout
+0f4ee2737636a406b75c33dd8c8e88ce83cdad5d
+# refactor(actions): move Pods to Action/Service/Helper layout
+12f24fa370bcb68fb0f93946fcb0178ed17eb857
+# refactor(actions): move AcademyLms to Action/Service/Helper layout
+09c817807a49fc90329a81747020eac21819e025
+# refactor(actions): move TutorLms to Action/Service/Helper layout
+3771694b250313752fa3586458460bf878093d4f
+# refactor(actions): move CustomAction to Action/Service/Helper layout
+ce885e32c7c0a7cc022f2219fa4aeca9029e9408
+# refactor(actions): move Fabman to Action/Service/Helper layout
+a907274109ef385008ae3875b7e5229770653549
