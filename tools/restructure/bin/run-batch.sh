@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Usage: WP_PATH=/path/to/wordpress tools/restructure/bin/run-batch.sh F2 [out-dir]
 # Moves one batch and stops at the first failing gate (plan section 8.5).
+# GATES_ONLY_BASE=<sha> re-runs only the gates for a batch already applied on top of <sha>.
 
 set -uo pipefail
 
@@ -22,20 +23,21 @@ fail() { echo "GATE FAILED [$B]: $*"; exit 1; }
 same() { /usr/bin/cmp -s "$1" "$2"; }
 
 [ -z "$($GIT status --porcelain -- backend tools/restructure/manifests)" ] || fail "backend or manifests not clean"
-BASE=$($GIT rev-parse HEAD)
+BASE="${GATES_ONLY_BASE:-$($GIT rev-parse HEAD)}"
 echo "$BASE" > "$OUT/base.sha"
 
 LIST=$(sed -n "s/^ *'$B' *=> *'\([^']*\)'.*/\1/p" tools/restructure/src/Cli/Batches.php)
 [ -n "$LIST" ] || fail "no integration list for $B in Batches.php"
 
-step "analyze"
-$BI analyze --free . --pro "$PRO" --batch "$B" --summary "$OUT/summary.json" > "$OUT/analyze.log" 2>&1 || fail "bi analyze (see $OUT/analyze.log)"
-REFUSED=$(jq -r .refused "$OUT/summary.json")
-[ "$REFUSED" = 0 ] || fail "bi analyze refused $REFUSED integration(s)"
-T1=$(for n in $(echo "$LIST" | tr ',' ' '); do jq -r 'select(.tests | index("T1")) | .integration' "tools/restructure/manifests/$n.json"; done | paste -sd,)
-FLAGS=$(sed -n '/^integrations=/,$p' "$OUT/analyze.log" | sed 's/^/  /')
-$GIT add tools/restructure/manifests
-$GIT commit -q -F - <<EOF || fail "commit manifests"
+if [ -z "${GATES_ONLY_BASE:-}" ]; then
+    step "analyze"
+    $BI analyze --free . --pro "$PRO" --batch "$B" --summary "$OUT/summary.json" > "$OUT/analyze.log" 2>&1 || fail "bi analyze (see $OUT/analyze.log)"
+    REFUSED=$(jq -r .refused "$OUT/summary.json")
+    [ "$REFUSED" = 0 ] || fail "bi analyze refused $REFUSED integration(s)"
+    T1=$(for n in $(echo "$LIST" | tr ',' ' '); do jq -r 'select(.tests | index("T1")) | .integration' "tools/restructure/manifests/$n.json"; done | paste -sd,)
+    FLAGS=$(sed -n '/^integrations=/,$p' "$OUT/analyze.log" | sed 's/^/  /')
+    $GIT add tools/restructure/manifests
+    $GIT commit -q -F - <<EOF || fail "commit manifests"
 chore(restructure): add the reviewed $B manifests
 
 $(echo "$LIST" | tr ',' ' ' | fold -s -w 72)
@@ -44,9 +46,13 @@ bi analyze summary:
 $FLAGS
 EOF
 
-step "apply"
-$BI apply --repo free --batch "$B" --commit-per-unit > "$OUT/apply.log" 2>&1 || fail "bi apply (see $OUT/apply.log)"
-composer dump-autoload -o --strict-psr --strict-ambiguous > "$OUT/dump.log" 2>&1 || fail "strict composer dump (see $OUT/dump.log)"
+    step "apply"
+    $BI apply --repo free --batch "$B" --commit-per-unit > "$OUT/apply.log" 2>&1 || fail "bi apply (see $OUT/apply.log)"
+    composer dump-autoload -o --strict-psr --strict-ambiguous > "$OUT/dump.log" 2>&1 || fail "strict composer dump (see $OUT/dump.log)"
+else
+    step "gates only, base $BASE"
+    T1=$(for n in $(echo "$LIST" | tr ',' ' '); do jq -r 'select(.tests | index("T1")) | .integration' "tools/restructure/manifests/$n.json"; done | paste -sd,)
+fi
 
 step "route smoke compare"
 php tools/restructure/contract/route-smoke.php --wp="$WP" --batch="$B" --compare=baseline/route-smoke --results="$OUT/results" --timeout=120 > "$OUT/route.log" 2>&1 || fail "route smoke (see $OUT/route.log)"
