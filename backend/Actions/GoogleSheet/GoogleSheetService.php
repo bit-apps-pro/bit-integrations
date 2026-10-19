@@ -8,7 +8,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class GoogleSheetService
 {
     private const ACTION_FIELDS = [
         'createSpreadsheet' => ['title', 'sheetTitle'],

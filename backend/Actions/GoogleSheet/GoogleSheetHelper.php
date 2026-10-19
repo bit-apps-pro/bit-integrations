@@ -9,33 +9,14 @@ namespace BitApps\Integrations\Actions\GoogleSheet;
 if (! defined('ABSPATH')) {
     exit;
 }
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
-use WP_Error;
 
-class GoogleSheetController
+class GoogleSheetHelper
 {
     private const DRIVE_PAGE_SIZE = 1000;
 
     private const MAX_PAGES = 20;
-
-    public static array $authConfig = [
-        'authType' => AuthorizationType::OAUTH2,
-        'slug'     => 'googlesheet',
-        'fields'   => [
-            'clientId'     => 'client_id',
-            'clientSecret' => 'client_secret',
-            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
 
     /**
      * Process ajax request for generate_token
@@ -100,7 +81,7 @@ class GoogleSheetController
         $response = [];
         $authorizationHeader = [];
         if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
+            $response['tokenDetails'] = GoogleSheetHelper::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
                 $authorizationHeader['Authorization'] = 'Bearer ' . $response['tokenDetails']->access_token;
             }
@@ -125,7 +106,7 @@ class GoogleSheetController
         uksort($allSpreadsheet, 'strnatcasecmp');
         $response['spreadsheets'] = $allSpreadsheet;
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
-            GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
+            GoogleSheetHelper::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -148,7 +129,7 @@ class GoogleSheetController
         }
         $response = [];
         if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
+            $response['tokenDetails'] = GoogleSheetHelper::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
                 $queryParams->tokenDetails = $response['tokenDetails'];
             }
@@ -167,7 +148,7 @@ class GoogleSheetController
         $response['worksheets'] = $worksheetsMetaResponse->sheets ?? [];
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             $response['queryWorkbook'] = $queryParams->workbook;
-            GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
+            GoogleSheetHelper::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
     }
@@ -192,7 +173,7 @@ class GoogleSheetController
         }
         $response = [];
         if (!$isConnectionAuth && (\intval($queryParams->tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $response['tokenDetails'] = GoogleSheetController::refreshAccessToken($queryParams);
+            $response['tokenDetails'] = GoogleSheetHelper::refreshAccessToken($queryParams);
             if ($response['tokenDetails'] && !empty($response['tokenDetails']->access_token)) {
                 $queryParams->tokenDetails = $response['tokenDetails'];
             }
@@ -224,61 +205,13 @@ class GoogleSheetController
 
         if (!$isConnectionAuth && !empty($response['tokenDetails']) && !empty($queryParams->id)) {
             $response['queryModule'] = $queryParams->module;
-            GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
+            GoogleSheetHelper::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
 
         wp_send_json_success($response, 200);
     }
 
-    public static function resolveTokenDetails($integrationDetails, $integrationID = null)
-    {
-        $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);
-
-        if (!empty($integrationDetails->connection_id)) {
-            return $tokenDetails;
-        }
-
-        if ((\intval($tokenDetails->generates_on) + (55 * 60)) >= time()) {
-            return $tokenDetails;
-        }
-
-        $newTokenDetails = self::refreshAccessToken((object) [
-            'clientId'     => $integrationDetails->clientId ?? '',
-            'clientSecret' => $integrationDetails->clientSecret ?? '',
-            'tokenDetails' => $tokenDetails,
-        ]);
-
-        if (!$newTokenDetails) {
-            return $tokenDetails;
-        }
-
-        if (!empty($integrationID)) {
-            self::saveRefreshedToken($integrationID, $newTokenDetails);
-        }
-
-        return $newTokenDetails;
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $mainAction = empty($integrationDetails->mainAction) ? 'insertRow' : $integrationDetails->mainAction;
-
-        if ($mainAction === 'insertRow'
-            && (empty($integrationDetails->spreadsheetId)
-                || empty($integrationDetails->worksheetName)
-                || empty($integrationDetails->field_map))
-        ) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Google sheet'));
-        }
-
-        $integrationDetails->tokenDetails = self::resolveTokenDetails($integrationDetails, $this->_integrationID);
-
-        return (new RecordApiHelper($integrationDetails, $this->_integrationID))->execute($fieldValues, $mainAction);
-    }
-
-    protected static function refreshAccessToken($apiData)
+    public static function refreshAccessToken($apiData)
     {
         if (empty($apiData->clientId)
             || empty($apiData->clientSecret)
@@ -316,7 +249,7 @@ class GoogleSheetController
      *
      * @return null
      */
-    protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
+    public static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
     {
         if (empty($integrationID)) {
             return;
@@ -342,6 +275,19 @@ class GoogleSheetController
         }
 
         $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
+    }
+
+    public static function normalizeConnectionToken($token)
+    {
+        if (!\is_object($token)) {
+            $token = (object) [];
+        }
+
+        if (empty($token->generates_on) && !empty($token->generated_at)) {
+            $token->generates_on = (int) $token->generated_at;
+        }
+
+        return $token;
     }
 
     /**
@@ -417,18 +363,5 @@ class GoogleSheetController
         }
 
         return __('Unknown error', 'bit-integrations');
-    }
-
-    private static function normalizeConnectionToken($token)
-    {
-        if (!\is_object($token)) {
-            $token = (object) [];
-        }
-
-        if (empty($token->generates_on) && !empty($token->generated_at)) {
-            $token->generates_on = (int) $token->generated_at;
-        }
-
-        return $token;
     }
 }
