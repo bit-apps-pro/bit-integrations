@@ -42,7 +42,6 @@ backend/Actions/NinjaTables/RecordApiHelper.php
 backend/Actions/PipeDrive/PipeDriveController.php
 backend/Actions/PipeDrive/RecordApiHelper.php
 backend/Actions/Pods/PodsController.php
-backend/Actions/PostCreation/PostCreationController.php
 backend/Actions/PropovoiceCRM/FilesApiHelper.php
 backend/Actions/PropovoiceCRM/PropovoiceCRMController.php
 backend/Actions/PropovoiceCRM/RecordApiHelper.php

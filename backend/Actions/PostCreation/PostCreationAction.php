@@ -16,7 +16,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 
-final class PostCreationController
+final class PostCreationAction
 {
     public static function postFieldMapping($postData, $mappingFields, $fieldValues)
     {
