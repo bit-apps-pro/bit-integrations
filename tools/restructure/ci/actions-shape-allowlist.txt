@@ -105,8 +105,6 @@ backend/Actions/ZohoCRM/MetaDataApiHelper.php
 backend/Actions/ZohoCRM/RecordApiHelper.php
 backend/Actions/ZohoCRM/TagApiHelper.php
 backend/Actions/ZohoCRM/ZohoCRMController.php
-backend/Actions/ZohoCampaigns/RecordApiHelper.php
-backend/Actions/ZohoCampaigns/ZohoCampaignsController.php
 backend/Actions/ZohoDesk/FilesApiHelper.php
 backend/Actions/ZohoDesk/RecordApiHelper.php
 backend/Actions/ZohoDesk/ZohoDeskController.php
