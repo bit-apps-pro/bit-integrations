@@ -6,21 +6,10 @@
 
 namespace BitApps\Integrations\Actions\CopperCRM;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class CopperCRMController
+class CopperCRMHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'coppercrm',
-        'fields'   => [
-            'api_key'   => 'value',
-            'api_email' => 'api_email',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -274,28 +263,5 @@ class CopperCRMController
         } else {
             wp_send_json_error(__('Pipelines fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $authToken = $integrationDetails->api_key;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($authToken) || empty($actionName)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Copper CRM'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $coppercrmApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($coppercrmApiResponse)) {
-            return $coppercrmApiResponse;
-        }
-
-        return $coppercrmApiResponse;
     }
 }
