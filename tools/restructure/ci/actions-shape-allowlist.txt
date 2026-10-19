@@ -82,8 +82,6 @@ backend/Actions/Nimble/NimbleController.php
 backend/Actions/Nimble/RecordApiHelper.php
 backend/Actions/NinjaTables/NinjaTablesController.php
 backend/Actions/NinjaTables/RecordApiHelper.php
-backend/Actions/OmniSend/OmniSendController.php
-backend/Actions/OmniSend/RecordApiHelper.php
 backend/Actions/OneDrive/OneDriveController.php
 backend/Actions/OneDrive/RecordApiHelper.php
 backend/Actions/PCloud/PCloudController.php

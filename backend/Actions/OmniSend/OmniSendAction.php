@@ -7,10 +7,9 @@
 namespace BitApps\Integrations\Actions\OmniSend;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-class OmniSendController
+class OmniSendAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
@@ -19,10 +18,6 @@ class OmniSendController
             'api_key' => 'value',
         ],
     ];
-
-    protected $_defaultHeader;
-
-    private $baseUrl = 'https://api.omnisend.com/v3/';
 
     public function execute($integrationData, $fieldValues)
     {
@@ -42,7 +37,7 @@ class OmniSendController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'OmniSend'));
         }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new OmniSendService($integrationDetails, $integId);
 
         $omniSendApiResponse = $recordApiHelper->execute(
             $channels,
