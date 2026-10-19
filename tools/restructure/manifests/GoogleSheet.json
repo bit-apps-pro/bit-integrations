@@ -1,0 +1,991 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 37,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:refreshspreadsheetsajaxhelper",
+            "line": 87,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshspreadsheetsajaxhelper",
+            "line": 103,
+            "to": "method:refreshaccesstoken",
+            "via": "class"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshspreadsheetsajaxhelper",
+            "line": 114,
+            "to": "method:hasapierror",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshspreadsheetsajaxhelper",
+            "line": 115,
+            "to": "method:apierrormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshspreadsheetsajaxhelper",
+            "line": 128,
+            "to": "method:saverefreshedtoken",
+            "via": "class"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetsajaxhelper",
+            "line": 135,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetsajaxhelper",
+            "line": 151,
+            "to": "method:refreshaccesstoken",
+            "via": "class"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetsajaxhelper",
+            "line": 161,
+            "to": "method:googleerrormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetsajaxhelper",
+            "line": 163,
+            "to": "method:hasapierror",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetsajaxhelper",
+            "line": 164,
+            "to": "method:apierrormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetsajaxhelper",
+            "line": 170,
+            "to": "method:saverefreshedtoken",
+            "via": "class"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetheadersajaxhelper",
+            "line": 177,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetheadersajaxhelper",
+            "line": 195,
+            "to": "method:refreshaccesstoken",
+            "via": "class"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetheadersajaxhelper",
+            "line": 214,
+            "to": "method:hasapierror",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetheadersajaxhelper",
+            "line": 215,
+            "to": "method:apierrormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshworksheetheadersajaxhelper",
+            "line": 227,
+            "to": "method:saverefreshedtoken",
+            "via": "class"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:resolvetokendetails",
+            "line": 235,
+            "rewriteTo": "GoogleSheetHelper",
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:resolvetokendetails",
+            "line": 245,
+            "rewriteTo": "GoogleSheetHelper",
+            "to": "method:refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:resolvetokendetails",
+            "line": 256,
+            "rewriteTo": "GoogleSheetHelper",
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 276,
+            "to": "method:resolvetokendetails",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 276,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 278,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:googleerrormessage",
+            "line": 385,
+            "to": "method:reconnectmessage",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 435,
+        "modifiers": [],
+        "path": "backend/Actions/GoogleSheet/GoogleSheetController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GoogleSheet/GoogleSheetHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/GoogleSheet/GoogleSheetAction.php"
+        },
+        {
+            "from": "backend/Actions/GoogleSheet/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GoogleSheet/GoogleSheetService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/GoogleSheet/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+                "line": 128,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+                "line": 170,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+                "line": 227,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+                "line": 256,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+                "line": 344,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\GoogleSheet\\GoogleSheetService"
+            ],
+            "hooks": "backend/Actions/GoogleSheet/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 60,
+            "helper": 338
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:generatetokens",
+            "const:DRIVE_PAGE_SIZE",
+            "const:MAX_PAGES"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "GoogleSheetHelper",
+                "member": "method:normalizeconnectiontoken",
+                "to": "public"
+            },
+            {
+                "from": "protected",
+                "in": "GoogleSheetHelper",
+                "member": "method:refreshaccesstoken",
+                "to": "public"
+            },
+            {
+                "from": "protected",
+                "in": "GoogleSheetHelper",
+                "member": "method:saverefreshedtoken",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "GoogleSheet",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController": {
+            "const:DRIVE_PAGE_SIZE": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "const:MAX_PAGES": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction"
+            ],
+            "method:apierrormessage": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction"
+            ],
+            "method:generatetokens": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:googleerrormessage": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:hasapierror": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:normalizeconnectiontoken": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:reconnectmessage": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:refreshaccesstoken": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:refreshspreadsheetsajaxhelper": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:refreshworksheetheadersajaxhelper": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:refreshworksheetsajaxhelper": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "method:resolvetokendetails": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\GoogleSheet\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "const:DRIVE_PAGE_SIZE",
+            "kind": "const",
+            "lines": [
+                19,
+                19
+            ],
+            "names": [
+                "DRIVE_PAGE_SIZE"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "const:MAX_PAGES",
+            "kind": "const",
+            "lines": [
+                21,
+                21
+            ],
+            "names": [
+                "MAX_PAGES"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                23,
+                31
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                33,
+                33
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                35,
+                38
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:generatetokens",
+            "kind": "method",
+            "lines": [
+                40,
+                83
+            ],
+            "names": [
+                "generateTokens"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshspreadsheetsajaxhelper",
+            "kind": "method",
+            "lines": [
+                85,
+                131
+            ],
+            "names": [
+                "refreshSpreadsheetsAjaxHelper"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshworksheetsajaxhelper",
+            "kind": "method",
+            "lines": [
+                133,
+                173
+            ],
+            "names": [
+                "refreshWorksheetsAjaxHelper"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshworksheetheadersajaxhelper",
+            "kind": "method",
+            "lines": [
+                175,
+                231
+            ],
+            "names": [
+                "refreshWorksheetHeadersAjaxHelper"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:resolvetokendetails",
+            "kind": "method",
+            "lines": [
+                233,
+                260
+            ],
+            "names": [
+                "resolveTokenDetails"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                262,
+                279
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshaccesstoken",
+            "kind": "method",
+            "lines": [
+                281,
+                308
+            ],
+            "names": [
+                "refreshAccessToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                310,
+                345
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:googleerrormessage",
+            "kind": "method",
+            "lines": [
+                347,
+                389
+            ],
+            "names": [
+                "googleErrorMessage"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:reconnectmessage",
+            "kind": "method",
+            "lines": [
+                391,
+                394
+            ],
+            "names": [
+                "reconnectMessage"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:hasapierror",
+            "kind": "method",
+            "lines": [
+                396,
+                399
+            ],
+            "names": [
+                "hasApiError"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:apierrormessage",
+            "kind": "method",
+            "lines": [
+                401,
+                420
+            ],
+            "names": [
+                "apiErrorMessage"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:normalizeconnectiontoken",
+            "kind": "method",
+            "lines": [
+                422,
+                433
+            ],
+            "names": [
+                "normalizeConnectionToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\GoogleSheet",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\RecordApiHelper",
+            "file": "backend/Actions/GoogleSheet/GoogleSheetController.php",
+            "kind": "new",
+            "line": 278,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController",
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "text": "use BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController",
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshspreadsheetsajaxhelper",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "text": "GoogleSheetController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController",
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshworksheetsajaxhelper",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "text": "GoogleSheetController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController",
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshworksheetheadersajaxhelper",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "text": "GoogleSheetController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController": [
+            "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction",
+            "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\GoogleSheet\\RecordApiHelper": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "line": 10,
+            "method": "refreshSpreadsheetsAjaxHelper",
+            "route": "gsheet_refresh_spreadsheets",
+            "target": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "line": 11,
+            "method": "refreshWorksheetsAjaxHelper",
+            "route": "gsheet_refresh_worksheets",
+            "target": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/GoogleSheet/Routes.php",
+            "line": 12,
+            "method": "refreshWorksheetHeadersAjaxHelper",
+            "route": "gsheet_refresh_worksheet_headers",
+            "target": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/GoogleSheet/RecordApiHelper.php": [
+            {
+                "key": "const:ACTION_FIELDS",
+                "kind": "const",
+                "lines": [
+                    13,
+                    22
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:ROW_VALUE_ACTIONS",
+                "kind": "const",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    26,
+                    26
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    28,
+                    28
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    30,
+                    30
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    32,
+                    38
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    40,
+                    46
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:a1sheet",
+                "kind": "method",
+                "lines": [
+                    48,
+                    51
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updaterecord",
+                "kind": "method",
+                "lines": [
+                    53,
+                    58
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:formatarrayobject",
+                "kind": "method",
+                "lines": [
+                    60,
+                    76
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    78,
+                    87
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:appendrow",
+                "kind": "method",
+                "lines": [
+                    89,
+                    118
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:dispatchproaction",
+                "kind": "method",
+                "lines": [
+                    120,
+                    183
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:profielddata",
+                "kind": "method",
+                "lines": [
+                    185,
+                    200
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:resolvefieldmap",
+                "kind": "method",
+                "lines": [
+                    202,
+                    224
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:worksheetheaders",
+                "kind": "method",
+                "lines": [
+                    226,
+                    240
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:columnoffsets",
+                "kind": "method",
+                "lines": [
+                    242,
+                    253
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:columntomatchindex",
+                "kind": "method",
+                "lines": [
+                    255,
+                    265
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/GoogleSheet/GoogleSheetController.php": "83d074c3f45d3a97b717e4848c2b8e7ec2908ca5",
+        "backend/Actions/GoogleSheet/RecordApiHelper.php": "0ddf8bf0cfe850961345bbef59078216fef22fc6",
+        "backend/Actions/GoogleSheet/Routes.php": "b649a34f02b9c6c1dea9bcf4a89c8423033b3585"
+    },
+    "sources": {
+        "backend/Actions/GoogleSheet/GoogleSheetAction.php": [
+            "backend/Actions/GoogleSheet/GoogleSheetController.php"
+        ],
+        "backend/Actions/GoogleSheet/GoogleSheetHelper.php": [
+            "backend/Actions/GoogleSheet/GoogleSheetController.php"
+        ],
+        "backend/Actions/GoogleSheet/GoogleSheetService.php": [
+            "backend/Actions/GoogleSheet/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetAction",
+            "origin": "created",
+            "path": "backend/Actions/GoogleSheet/GoogleSheetAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/GoogleSheet/GoogleSheetHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/GoogleSheet/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\GoogleSheet\\RecordApiHelper",
+                "to": "backend/Actions/GoogleSheet/GoogleSheetService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "GoogleSheet"
+    ]
+}

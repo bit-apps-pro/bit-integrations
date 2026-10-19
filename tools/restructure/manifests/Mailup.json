@@ -1,0 +1,542 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 26,
+            "to": "property:integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallfield",
+            "line": 35,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getalllist",
+            "line": 75,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallgroup",
+            "line": 103,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 132,
+            "rewriteTo": "MailupHelper",
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 134,
+            "to": "method:saverefreshedtoken",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 134,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:tokenexpirycheck",
+            "line": 168,
+            "to": "method:refreshtoken",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 221,
+        "modifiers": [],
+        "path": "backend/Actions/Mailup/MailupController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Mailup/MailupController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Mailup/MailupHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Mailup/MailupAction.php"
+        },
+        {
+            "from": "backend/Actions/Mailup/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Mailup/MailupService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Mailup/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/Mailup/MailupController.php",
+                "line": 134,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/Mailup/MailupController.php",
+                "line": 218,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 61,
+            "helper": 138
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "protected",
+                "in": "MailupHelper",
+                "member": "method:tokenexpirycheck",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "Mailup",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Mailup\\MailupController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupAction"
+            ],
+            "method:getallfield": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper"
+            ],
+            "method:getallgroup": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper"
+            ],
+            "method:getalllist": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper"
+            ],
+            "method:refreshtoken": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupAction"
+            ],
+            "method:tokenexpirycheck": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupAction"
+            ],
+            "property:integrationID": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Mailup\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Mailup\\MailupService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                12,
+                20
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:integrationID",
+            "kind": "property",
+            "lines": [
+                22,
+                22
+            ],
+            "names": [
+                "integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                24,
+                27
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallfield",
+            "kind": "method",
+            "lines": [
+                29,
+                67
+            ],
+            "names": [
+                "getAllField"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalllist",
+            "kind": "method",
+            "lines": [
+                69,
+                95
+            ],
+            "names": [
+                "getAllList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallgroup",
+            "kind": "method",
+            "lines": [
+                97,
+                123
+            ],
+            "names": [
+                "getAllGroup"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                125,
+                155
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:tokenexpirycheck",
+            "kind": "method",
+            "lines": [
+                157,
+                181
+            ],
+            "names": [
+                "tokenExpiryCheck"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:refreshtoken",
+            "kind": "method",
+            "lines": [
+                183,
+                202
+            ],
+            "names": [
+                "refreshToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                204,
+                219
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": false,
+            "visibility": "protected"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Mailup",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\RecordApiHelper",
+            "file": "backend/Actions/Mailup/MailupController.php",
+            "kind": "new",
+            "line": 142,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Mailup\\MailupService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupController",
+            "file": "backend/Actions/Mailup/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Mailup\\MailupController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupController",
+            "file": "backend/Actions/Mailup/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getalllist",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "text": "MailupController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupController",
+            "file": "backend/Actions/Mailup/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallgroup",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "text": "MailupController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupController",
+            "file": "backend/Actions/Mailup/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallfield",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "text": "MailupController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Mailup\\MailupController": [
+            "BitApps\\Integrations\\Actions\\Mailup\\MailupAction",
+            "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Mailup\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Mailup\\MailupService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Mailup/Routes.php",
+            "line": 10,
+            "method": "getAllList",
+            "route": "mailup_fetch_all_list",
+            "target": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Mailup/Routes.php",
+            "line": 11,
+            "method": "getAllGroup",
+            "route": "mailup_fetch_all_group",
+            "target": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Mailup/Routes.php",
+            "line": 12,
+            "method": "getAllField",
+            "route": "mailup_fetch_all_field",
+            "target": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Mailup/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    11,
+                    11
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    13,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    23,
+                    58
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    60,
+                    74
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    76,
+                    89
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Mailup/MailupController.php": "fbbf177c9f3d4d2d10129228da16179e769da1bf",
+        "backend/Actions/Mailup/RecordApiHelper.php": "50f3185da145540175146279d959dfaf0ecd485c",
+        "backend/Actions/Mailup/Routes.php": "169e7f5fb2f185ccba1acf5520976104abcf70f9"
+    },
+    "sources": {
+        "backend/Actions/Mailup/MailupAction.php": [
+            "backend/Actions/Mailup/MailupController.php"
+        ],
+        "backend/Actions/Mailup/MailupHelper.php": [
+            "backend/Actions/Mailup/MailupController.php"
+        ],
+        "backend/Actions/Mailup/MailupService.php": [
+            "backend/Actions/Mailup/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupAction",
+            "origin": "created",
+            "path": "backend/Actions/Mailup/MailupAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Mailup\\MailupHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Mailup/MailupHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Mailup/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Mailup\\RecordApiHelper",
+                "to": "backend/Actions/Mailup/MailupService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Mailup\\MailupService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3"
+    ],
+    "unit": [
+        "Mailup"
+    ]
+}

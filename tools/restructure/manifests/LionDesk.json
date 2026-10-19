@@ -1,0 +1,733 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 30,
+            "to": "property:apiEndpoint",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 35,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 43,
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 44,
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:getcustomfields",
+            "line": 57,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 58,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 76,
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 90,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 98,
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 99,
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:getalltags",
+            "line": 112,
+            "to": "property:apiEndpoint",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 113,
+            "to": "method:setheaders",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getalltags",
+            "line": 130,
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 146,
+            "rewriteTo": "LionDeskHelper",
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 157,
+            "rewriteTo": "LionDeskHelper",
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 158,
+            "rewriteTo": "LionDeskHelper",
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 171,
+            "rewriteTo": "LionDeskHelper",
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": {
+        "properties": [
+            "apiEndpoint"
+        ],
+        "statements": [
+            0
+        ]
+    },
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 288,
+        "modifiers": [],
+        "path": "backend/Actions/LionDesk/LionDeskController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/LionDesk/LionDeskController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/LionDesk/LionDeskHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/LionDesk/LionDeskAction.php"
+        },
+        {
+            "from": "backend/Actions/LionDesk/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/LionDesk/LionDeskService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/LionDesk/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/LionDesk/LionDeskController.php",
+                "line": 76,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/LionDesk/LionDeskController.php",
+                "line": 130,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/LionDesk/LionDeskController.php",
+                "line": 171,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/LionDesk/LionDeskController.php",
+                "line": 277,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 55,
+            "helper": 212
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [
+            {
+                "member": "property:apiEndpoint",
+                "placement": "both",
+                "resolution": "set only by the no-argument constructor; copied with that constructor line"
+            }
+        ],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "protected",
+                "in": "LionDeskHelper",
+                "member": "method:_refreshaccesstoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "LionDeskHelper",
+                "member": "method:istokenexpired",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "LionDeskHelper",
+                "member": "method:normalizeconnectiontoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "LionDeskHelper",
+                "member": "method:saverefreshedtoken",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "LionDesk",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskAction"
+            ],
+            "method:_refreshaccesstoken": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskAction"
+            ],
+            "method:getalltags": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "method:istokenexpired": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "method:normalizeconnectiontoken": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "property:apiEndpoint": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskAction",
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\LionDesk\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                16,
+                24
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:apiEndpoint",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "apiEndpoint"
+            ],
+            "placement": "both",
+            "reachedFrom": [],
+            "reason": "set only by the no-argument constructor; copied with that constructor line",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                28,
+                31
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                33,
+                86
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getalltags",
+            "kind": "method",
+            "lines": [
+                88,
+                140
+            ],
+            "names": [
+                "getAllTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                142,
+                182
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:_refreshaccesstoken",
+            "kind": "method",
+            "lines": [
+                184,
+                228
+            ],
+            "names": [
+                "_refreshAccessToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:istokenexpired",
+            "kind": "method",
+            "lines": [
+                230,
+                247
+            ],
+            "names": [
+                "isTokenExpired"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:normalizeconnectiontoken",
+            "kind": "method",
+            "lines": [
+                249,
+                260
+            ],
+            "names": [
+                "normalizeConnectionToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                262,
+                278
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                280,
+                286
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": false,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\LionDesk",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\LionDesk\\RecordApiHelper",
+            "file": "backend/Actions/LionDesk/LionDeskController.php",
+            "kind": "new",
+            "line": 174,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController",
+            "file": "backend/Actions/LionDesk/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper",
+            "text": "use BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController",
+            "file": "backend/Actions/LionDesk/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper",
+            "text": "LionDeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController",
+            "file": "backend/Actions/LionDesk/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getalltags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper",
+            "text": "LionDeskController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskController": [
+            "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskAction",
+            "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\LionDesk\\RecordApiHelper": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/LionDesk/Routes.php",
+            "line": 10,
+            "method": "getCustomFields",
+            "route": "lionDesk_fetch_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/LionDesk/Routes.php",
+            "line": 11,
+            "method": "getAllTags",
+            "route": "lionDesk_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/LionDesk/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:tokenDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiUrl",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:defaultHeader",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    26,
+                    26
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    28,
+                    38
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcampaign",
+                "kind": "method",
+                "lines": [
+                    40,
+                    51
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    53,
+                    99
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    101,
+                    111
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    113,
+                    130
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/LionDesk/LionDeskController.php": "ae5bc2530a1d4d96182b3a3896ee825f1b34e9ae",
+        "backend/Actions/LionDesk/RecordApiHelper.php": "12b0c6c60b94082df7e52ad33217a30a9701d335",
+        "backend/Actions/LionDesk/Routes.php": "40c4709e06f813b7dff52f3e24daf87dd7961b3d"
+    },
+    "sources": {
+        "backend/Actions/LionDesk/LionDeskAction.php": [
+            "backend/Actions/LionDesk/LionDeskController.php"
+        ],
+        "backend/Actions/LionDesk/LionDeskHelper.php": [
+            "backend/Actions/LionDesk/LionDeskController.php"
+        ],
+        "backend/Actions/LionDesk/LionDeskService.php": [
+            "backend/Actions/LionDesk/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskAction",
+            "origin": "created",
+            "path": "backend/Actions/LionDesk/LionDeskAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/LionDesk/LionDeskHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/LionDesk/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\LionDesk\\RecordApiHelper",
+                "to": "backend/Actions/LionDesk/LionDeskService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\LionDesk\\LionDeskService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3"
+    ],
+    "unit": [
+        "LionDesk"
+    ]
+}

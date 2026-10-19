@@ -1,0 +1,794 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshlist",
+            "line": 31,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlist",
+            "line": 39,
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlist",
+            "line": 40,
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlist",
+            "line": 72,
+            "to": "method:_saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 86,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 94,
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 95,
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 127,
+            "to": "method:_saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 141,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 149,
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 150,
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 182,
+            "to": "method:_saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 198,
+            "rewriteTo": "ConstantContactHelper",
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 216,
+            "rewriteTo": "ConstantContactHelper",
+            "to": "method:istokenexpired",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 217,
+            "rewriteTo": "ConstantContactHelper",
+            "to": "method:_refreshaccesstoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 224,
+            "rewriteTo": "ConstantContactHelper",
+            "to": "method:_saverefreshedtoken",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 349,
+        "modifiers": [],
+        "path": "backend/Actions/ConstantContact/ConstantContactController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/ConstantContact/ConstantContactController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ConstantContact/ConstantContactHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/ConstantContact/ConstantContactAction.php"
+        },
+        {
+            "from": "backend/Actions/ConstantContact/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ConstantContact/ConstantContactService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/ConstantContact/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/ConstantContact/ConstantContactController.php",
+                "line": 72,
+                "what": "_saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/ConstantContact/ConstantContactController.php",
+                "line": 127,
+                "what": "_saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/ConstantContact/ConstantContactController.php",
+                "line": 182,
+                "what": "_saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/ConstantContact/ConstantContactController.php",
+                "line": 224,
+                "what": "_saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/ConstantContact/ConstantContactController.php",
+                "line": 346,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 70,
+            "helper": 252
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "protected",
+                "in": "ConstantContactHelper",
+                "member": "method:_refreshaccesstoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "ConstantContactHelper",
+                "member": "method:_saverefreshedtoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "ConstantContactHelper",
+                "member": "method:istokenexpired",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "ConstantContactHelper",
+                "member": "method:normalizeconnectiontoken",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "ConstantContact",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController": {
+            "method:_refreshaccesstoken": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "method:_saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactAction"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "method:istokenexpired": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "method:normalizeconnectiontoken": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "method:refreshlist": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "method:refreshtags": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\ConstantContact\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                17,
+                25
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                27,
+                27
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:refreshlist",
+            "kind": "method",
+            "lines": [
+                29,
+                82
+            ],
+            "names": [
+                "refreshList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtags",
+            "kind": "method",
+            "lines": [
+                84,
+                137
+            ],
+            "names": [
+                "refreshTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                139,
+                192
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                194,
+                254
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:_refreshaccesstoken",
+            "kind": "method",
+            "lines": [
+                256,
+                292
+            ],
+            "names": [
+                "_refreshAccessToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:istokenexpired",
+            "kind": "method",
+            "lines": [
+                294,
+                312
+            ],
+            "names": [
+                "isTokenExpired"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:normalizeconnectiontoken",
+            "kind": "method",
+            "lines": [
+                314,
+                329
+            ],
+            "names": [
+                "normalizeConnectionToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:_saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                331,
+                347
+            ],
+            "names": [
+                "_saveRefreshedToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\ConstantContact",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\RecordApiHelper",
+            "file": "backend/Actions/ConstantContact/ConstantContactController.php",
+            "kind": "new",
+            "line": 234,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController",
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "text": "use BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController",
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshlist",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "text": "ConstantContactController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController",
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "text": "ConstantContactController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController",
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "text": "ConstantContactController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactController": [
+            "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactAction",
+            "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\ConstantContact\\RecordApiHelper": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "line": 10,
+            "method": "refreshList",
+            "route": "cContact_refresh_list",
+            "target": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "line": 11,
+            "method": "refreshTags",
+            "route": "cContact_refresh_tags",
+            "target": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/ConstantContact/Routes.php",
+            "line": 12,
+            "method": "getCustomFields",
+            "route": "cContact_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/ConstantContact/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:baseUrl",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    23,
+                    31
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    33,
+                    48
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    50,
+                    76
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:updatecontact",
+                "kind": "method",
+                "lines": [
+                    78,
+                    81
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:addcontact",
+                "kind": "method",
+                "lines": [
+                    83,
+                    86
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:sendcontactrequest",
+                "kind": "method",
+                "lines": [
+                    88,
+                    114
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:mergeexistingfields",
+                "kind": "method",
+                "lines": [
+                    116,
+                    121
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:mergecustomfields",
+                "kind": "method",
+                "lines": [
+                    123,
+                    131
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:mergephonenumbers",
+                "kind": "method",
+                "lines": [
+                    133,
+                    140
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:mergestreetaddresses",
+                "kind": "method",
+                "lines": [
+                    142,
+                    158
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:fillemptyaddressfields",
+                "kind": "method",
+                "lines": [
+                    160,
+                    166
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:splitvalues",
+                "kind": "method",
+                "lines": [
+                    168,
+                    171
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:preparecustomfields",
+                "kind": "method",
+                "lines": [
+                    173,
+                    193
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:logapiresponse",
+                "kind": "method",
+                "lines": [
+                    195,
+                    206
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:mapfields",
+                "kind": "method",
+                "lines": [
+                    208,
+                    220
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:existcontact",
+                "kind": "method",
+                "lines": [
+                    222,
+                    232
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/ConstantContact/ConstantContactController.php": "53aeaa5f8e840b5bbd74d92fc6a2779876d89e9c",
+        "backend/Actions/ConstantContact/RecordApiHelper.php": "32fd5b2218b534e0b612fe78fbdfc6ede36ba11d",
+        "backend/Actions/ConstantContact/Routes.php": "3b6665b95171bc91a11dff23a4da43125b0c1631"
+    },
+    "sources": {
+        "backend/Actions/ConstantContact/ConstantContactAction.php": [
+            "backend/Actions/ConstantContact/ConstantContactController.php"
+        ],
+        "backend/Actions/ConstantContact/ConstantContactHelper.php": [
+            "backend/Actions/ConstantContact/ConstantContactController.php"
+        ],
+        "backend/Actions/ConstantContact/ConstantContactService.php": [
+            "backend/Actions/ConstantContact/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactAction",
+            "origin": "created",
+            "path": "backend/Actions/ConstantContact/ConstantContactAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/ConstantContact/ConstantContactHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/ConstantContact/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\ConstantContact\\RecordApiHelper",
+                "to": "backend/Actions/ConstantContact/ConstantContactService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\ConstantContact\\ConstantContactService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3"
+    ],
+    "unit": [
+        "ConstantContact"
+    ]
+}

@@ -1,0 +1,734 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 31,
+            "to": "property:integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:zoomfetchallmeetings",
+            "line": 52,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:zoomfetchallmeetings",
+            "line": 54,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:zoomfetchallmeetings",
+            "line": 58,
+            "to": "method:tokenrefreshfailedmessage",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:zoomfetchallmeetings",
+            "line": 69,
+            "to": "const:MEETING_PAGE_LIMIT",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:zoomfetchallcustomfields",
+            "line": 107,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:zoomfetchallcustomfields",
+            "line": 109,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:zoomfetchallcustomfields",
+            "line": 113,
+            "to": "method:tokenrefreshfailedmessage",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 167,
+            "rewriteTo": "ZoomHelper",
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 171,
+            "rewriteTo": "ZoomHelper",
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 175,
+            "rewriteTo": "ZoomHelper",
+            "to": "method:tokenrefreshfailedmessage",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 176,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 182,
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 182,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:tokenexpirycheck",
+            "line": 219,
+            "to": "method:refreshtoken",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Zoom\\ZoomController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 302,
+        "modifiers": [],
+        "path": "backend/Actions/Zoom/ZoomController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Zoom/ZoomController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Zoom/ZoomHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Zoom/ZoomAction.php"
+        },
+        {
+            "from": "backend/Actions/Zoom/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Zoom/ZoomService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Zoom/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/Zoom/ZoomController.php",
+                "line": 182,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/Zoom/ZoomController.php",
+                "line": 299,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 84,
+            "helper": 192
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "ZoomHelper",
+                "member": "method:normalizeconnectiontoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "ZoomHelper",
+                "member": "method:tokenexpirycheck",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "ZoomHelper",
+                "member": "method:tokenrefreshfailedmessage",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "Zoom",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Zoom\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Zoom\\ZoomController": {
+            "const:MEETING_PAGE_LIMIT": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction"
+            ],
+            "method:normalizeconnectiontoken": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "method:refreshtoken": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction"
+            ],
+            "method:tokenexpirycheck": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "method:tokenrefreshfailedmessage": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "method:zoomfetchallcustomfields": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "method:zoomfetchallmeetings": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction"
+            ],
+            "property:integrationID": [
+                "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                14,
+                23
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "const:MEETING_PAGE_LIMIT",
+            "kind": "const",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "MEETING_PAGE_LIMIT"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "property:integrationID",
+            "kind": "property",
+            "lines": [
+                27,
+                27
+            ],
+            "names": [
+                "integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                29,
+                32
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:zoomfetchallmeetings",
+            "kind": "method",
+            "lines": [
+                34,
+                87
+            ],
+            "names": [
+                "zoomFetchAllMeetings"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:zoomfetchallcustomfields",
+            "kind": "method",
+            "lines": [
+                89,
+                154
+            ],
+            "names": [
+                "zoomFetchAllCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                156,
+                208
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:tokenexpirycheck",
+            "kind": "method",
+            "lines": [
+                210,
+                241
+            ],
+            "names": [
+                "tokenExpiryCheck"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:refreshtoken",
+            "kind": "method",
+            "lines": [
+                243,
+                265
+            ],
+            "names": [
+                "refreshToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:tokenrefreshfailedmessage",
+            "kind": "method",
+            "lines": [
+                267,
+                270
+            ],
+            "names": [
+                "tokenRefreshFailedMessage"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:normalizeconnectiontoken",
+            "kind": "method",
+            "lines": [
+                272,
+                283
+            ],
+            "names": [
+                "normalizeConnectionToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                285,
+                300
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Zoom",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zoom\\ZoomController",
+            "file": "backend/Actions/Zoom/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Zoom\\ZoomController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zoom\\ZoomController",
+            "file": "backend/Actions/Zoom/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:zoomfetchallmeetings",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper",
+            "text": "ZoomController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zoom\\ZoomController",
+            "file": "backend/Actions/Zoom/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:zoomfetchallcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper",
+            "text": "ZoomController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Zoom\\RecordApiHelper",
+            "file": "backend/Actions/Zoom/ZoomController.php",
+            "kind": "new",
+            "line": 192,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Zoom\\ZoomService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Zoom\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Zoom\\ZoomService",
+        "BitApps\\Integrations\\Actions\\Zoom\\ZoomController": [
+            "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction",
+            "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Zoom/Routes.php",
+            "line": 10,
+            "method": "zoomFetchAllMeetings",
+            "route": "zoom_fetch_all_meetings",
+            "target": "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Zoom/Routes.php",
+            "line": 11,
+            "method": "zoomFetchAllCustomFields",
+            "route": "zoom_fetch_all_fields",
+            "target": "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Zoom/RecordApiHelper.php": [
+            {
+                "key": "const:PAGE_SIZE",
+                "kind": "const",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "const:PAGE_LIMIT",
+                "kind": "const",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    21,
+                    21
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    23,
+                    23
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    25,
+                    29
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletemeetingregistrant",
+                "kind": "method",
+                "lines": [
+                    31,
+                    68
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createmeetingregistrant",
+                "kind": "method",
+                "lines": [
+                    70,
+                    76
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    78,
+                    98
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createuser",
+                "kind": "method",
+                "lines": [
+                    100,
+                    114
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deleteuser",
+                "kind": "method",
+                "lines": [
+                    116,
+                    155
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    157,
+                    200
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:findbyemail",
+                "kind": "method",
+                "lines": [
+                    202,
+                    232
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:iserrorresponse",
+                "kind": "method",
+                "lines": [
+                    234,
+                    241
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:authheader",
+                "kind": "method",
+                "lines": [
+                    243,
+                    250
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:setcustomfieldmap",
+                "kind": "method",
+                "lines": [
+                    252,
+                    258
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Zoom/RecordApiHelper.php": "644e6f4a1ed95ff787ff1e8d9623b7e1a223c8f8",
+        "backend/Actions/Zoom/Routes.php": "767ff7249f7d25ddcefd0a3204b5b91e44df2cce",
+        "backend/Actions/Zoom/ZoomController.php": "ca50645e0455f054db6c4af2fefc0f563b20584c"
+    },
+    "sources": {
+        "backend/Actions/Zoom/ZoomAction.php": [
+            "backend/Actions/Zoom/ZoomController.php"
+        ],
+        "backend/Actions/Zoom/ZoomHelper.php": [
+            "backend/Actions/Zoom/ZoomController.php"
+        ],
+        "backend/Actions/Zoom/ZoomService.php": [
+            "backend/Actions/Zoom/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Zoom\\ZoomAction",
+            "origin": "created",
+            "path": "backend/Actions/Zoom/ZoomAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Zoom\\ZoomHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Zoom/ZoomHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Zoom/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Zoom\\RecordApiHelper",
+                "to": "backend/Actions/Zoom/ZoomService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Zoom\\ZoomService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3"
+    ],
+    "unit": [
+        "Zoom"
+    ]
+}

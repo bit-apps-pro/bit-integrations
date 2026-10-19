@@ -1,0 +1,706 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 28,
+            "to": "property:integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 33,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 51,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 58,
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 62,
+            "to": "method:getgoogledrivefolderslist",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 66,
+            "to": "method:getpathfromparentid",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 104,
+            "rewriteTo": "GoogleDriveHelper",
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 108,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 116,
+            "rewriteTo": "GoogleDriveHelper",
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 124,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 130,
+            "rewriteTo": "GoogleDriveHelper",
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 130,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 136,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 141,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:getpathfromparentid",
+            "line": 150,
+            "to": "method:getparentname",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getparentname",
+            "line": 166,
+            "to": "method:getparentname",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:tokenexpirycheck",
+            "line": 187,
+            "to": "method:refreshtoken",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 263,
+        "modifiers": [],
+        "path": "backend/Actions/GoogleDrive/GoogleDriveController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/GoogleDrive/GoogleDriveController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GoogleDrive/GoogleDriveHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/GoogleDrive/GoogleDriveAction.php"
+        },
+        {
+            "from": "backend/Actions/GoogleDrive/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/GoogleDrive/GoogleDriveService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/GoogleDrive/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/GoogleDrive/GoogleDriveController.php",
+                "line": 58,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/GoogleDrive/GoogleDriveController.php",
+                "line": 130,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/GoogleDrive/GoogleDriveController.php",
+                "line": 260,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 61,
+            "helper": 176
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "GoogleDriveHelper",
+                "member": "method:normalizeconnectiontoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "GoogleDriveHelper",
+                "member": "method:saverefreshedtoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "GoogleDriveHelper",
+                "member": "method:tokenexpirycheck",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "GoogleDrive",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveAction"
+            ],
+            "method:getallfolders": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:getgoogledrivefolderslist": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:getparentname": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:getpathfromparentid": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:normalizeconnectiontoken": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:refreshtoken": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "method:tokenexpirycheck": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveAction"
+            ],
+            "property:integrationID": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\GoogleDrive\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                14,
+                22
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:integrationID",
+            "kind": "property",
+            "lines": [
+                24,
+                24
+            ],
+            "names": [
+                "integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                26,
+                29
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallfolders",
+            "kind": "method",
+            "lines": [
+                31,
+                80
+            ],
+            "names": [
+                "getAllFolders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getgoogledrivefolderslist",
+            "kind": "method",
+            "lines": [
+                82,
+                96
+            ],
+            "names": [
+                "getGoogleDriveFoldersList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                98,
+                144
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getpathfromparentid",
+            "kind": "method",
+            "lines": [
+                146,
+                158
+            ],
+            "names": [
+                "getPathFromParentId"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:getparentname",
+            "kind": "method",
+            "lines": [
+                160,
+                176
+            ],
+            "names": [
+                "getParentName"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "protected"
+        },
+        {
+            "key": "method:tokenexpirycheck",
+            "kind": "method",
+            "lines": [
+                178,
+                210
+            ],
+            "names": [
+                "tokenExpiryCheck"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:refreshtoken",
+            "kind": "method",
+            "lines": [
+                212,
+                231
+            ],
+            "names": [
+                "refreshToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:normalizeconnectiontoken",
+            "kind": "method",
+            "lines": [
+                233,
+                244
+            ],
+            "names": [
+                "normalizeConnectionToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                246,
+                261
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\GoogleDrive",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\RecordApiHelper",
+            "file": "backend/Actions/GoogleDrive/GoogleDriveController.php",
+            "kind": "import",
+            "line": 5,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveService",
+            "text": "use BitApps\\Integrations\\Actions\\GoogleDrive\\RecordApiHelper as GoogleDriveRecordApiHelper;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\RecordApiHelper",
+            "file": "backend/Actions/GoogleDrive/GoogleDriveController.php",
+            "kind": "new",
+            "line": 141,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveService",
+            "text": "GoogleDriveRecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveController",
+            "file": "backend/Actions/GoogleDrive/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper",
+            "text": "use BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveController",
+            "file": "backend/Actions/GoogleDrive/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallfolders",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper",
+            "text": "GoogleDriveController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveController": [
+            "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveAction",
+            "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\GoogleDrive\\RecordApiHelper": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/GoogleDrive/Routes.php",
+            "line": 10,
+            "method": "getAllFolders",
+            "route": "googleDrive_get_all_folders",
+            "target": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/GoogleDrive/RecordApiHelper.php": [
+            {
+                "key": "property:token",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "property:errorApiResponse",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "property:successApiResponse",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    18,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:uploadfile",
+                "kind": "method",
+                "lines": [
+                    23,
+                    42
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:handleallfiles",
+                "kind": "method",
+                "lines": [
+                    44,
+                    60
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletefile",
+                "kind": "method",
+                "lines": [
+                    62,
+                    71
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:executerecordapi",
+                "kind": "method",
+                "lines": [
+                    73,
+                    90
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getbody",
+                "kind": "method",
+                "lines": [
+                    92,
+                    103
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "method:getboundary",
+                "kind": "method",
+                "lines": [
+                    105,
+                    108
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "method:storeinstate",
+                "kind": "method",
+                "lines": [
+                    110,
+                    117
+                ],
+                "static": false,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/GoogleDrive/GoogleDriveController.php": "cffe15ea6fdff4e726709b44da5396cdf18c2f44",
+        "backend/Actions/GoogleDrive/RecordApiHelper.php": "46969f35f6cdcd0198b761fe5fe87a341ba63a29",
+        "backend/Actions/GoogleDrive/Routes.php": "7bce7f7075f996213e878ed6d5d904663f387364"
+    },
+    "sources": {
+        "backend/Actions/GoogleDrive/GoogleDriveAction.php": [
+            "backend/Actions/GoogleDrive/GoogleDriveController.php"
+        ],
+        "backend/Actions/GoogleDrive/GoogleDriveHelper.php": [
+            "backend/Actions/GoogleDrive/GoogleDriveController.php"
+        ],
+        "backend/Actions/GoogleDrive/GoogleDriveService.php": [
+            "backend/Actions/GoogleDrive/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveAction",
+            "origin": "created",
+            "path": "backend/Actions/GoogleDrive/GoogleDriveAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/GoogleDrive/GoogleDriveHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/GoogleDrive/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\GoogleDrive\\RecordApiHelper",
+                "to": "backend/Actions/GoogleDrive/GoogleDriveService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\GoogleDrive\\GoogleDriveService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3"
+    ],
+    "unit": [
+        "GoogleDrive"
+    ]
+}

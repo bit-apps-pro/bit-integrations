@@ -1,0 +1,575 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 30,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtaglistajaxhelper",
+            "line": 50,
+            "to": "method:refreshaccesstoken",
+            "via": "static"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtaglistajaxhelper",
+            "line": 73,
+            "to": "method:saverefreshedtoken",
+            "via": "static"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcustomfieldajaxhelper",
+            "line": 96,
+            "to": "method:refreshaccesstoken",
+            "via": "static"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcustomfieldajaxhelper",
+            "line": 117,
+            "to": "method:saverefreshedtoken",
+            "via": "static"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 187,
+            "rewriteTo": "KeapHelper",
+            "to": "method:refreshaccesstoken",
+            "via": "static"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 189,
+            "rewriteTo": "KeapHelper",
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 189,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 192,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Keap\\KeapController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 224,
+        "modifiers": [],
+        "path": "backend/Actions/Keap/KeapController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Keap/KeapController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Keap/KeapHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Keap/KeapAction.php"
+        },
+        {
+            "from": "backend/Actions/Keap/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Keap/KeapService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Keap/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/Keap/KeapController.php",
+                "line": 73,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/Keap/KeapController.php",
+                "line": 117,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/Keap/KeapController.php",
+                "line": 189,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/Keap/KeapController.php",
+                "line": 221,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [
+            {
+                "form": "call",
+                "from": "method:refreshtaglistajaxhelper",
+                "line": 50,
+                "rewrittenTo": null,
+                "to": "method:refreshaccesstoken",
+                "via": "static"
+            },
+            {
+                "form": "call",
+                "from": "method:refreshtaglistajaxhelper",
+                "line": 73,
+                "rewrittenTo": null,
+                "to": "method:saverefreshedtoken",
+                "via": "static"
+            },
+            {
+                "form": "call",
+                "from": "method:refreshcustomfieldajaxhelper",
+                "line": 96,
+                "rewrittenTo": null,
+                "to": "method:refreshaccesstoken",
+                "via": "static"
+            },
+            {
+                "form": "call",
+                "from": "method:refreshcustomfieldajaxhelper",
+                "line": 117,
+                "rewrittenTo": null,
+                "to": "method:saverefreshedtoken",
+                "via": "static"
+            },
+            {
+                "form": "call",
+                "from": "method:execute",
+                "line": 187,
+                "rewrittenTo": "KeapHelper",
+                "to": "method:refreshaccesstoken",
+                "via": "static"
+            }
+        ],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 60,
+            "helper": 140
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "KeapHelper",
+                "member": "method:saverefreshedtoken",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "Keap",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Keap\\KeapController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapAction"
+            ],
+            "method:refreshaccesstoken": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapHelper"
+            ],
+            "method:refreshcustomfieldajaxhelper": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapHelper"
+            ],
+            "method:refreshtaglistajaxhelper": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapHelper"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapHelper"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Keap\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Keap\\KeapService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                16,
+                24
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                26,
+                26
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                28,
+                31
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtaglistajaxhelper",
+            "kind": "method",
+            "lines": [
+                33,
+                77
+            ],
+            "names": [
+                "refreshTagListAjaxHelper"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcustomfieldajaxhelper",
+            "kind": "method",
+            "lines": [
+                79,
+                120
+            ],
+            "names": [
+                "refreshCustomFieldAjaxHelper"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshaccesstoken",
+            "kind": "method",
+            "lines": [
+                122,
+                158
+            ],
+            "names": [
+                "refreshAccessToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                160,
+                205
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                207,
+                222
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Keap",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Keap\\RecordApiHelper",
+            "file": "backend/Actions/Keap/KeapController.php",
+            "kind": "new",
+            "line": 192,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Keap\\KeapService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Keap\\KeapController",
+            "file": "backend/Actions/Keap/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Keap\\KeapHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Keap\\KeapController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Keap\\KeapController",
+            "file": "backend/Actions/Keap/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshtaglistajaxhelper",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Keap\\KeapHelper",
+            "text": "KeapController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Keap\\KeapController",
+            "file": "backend/Actions/Keap/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshcustomfieldajaxhelper",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Keap\\KeapHelper",
+            "text": "KeapController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Keap\\KeapController": [
+            "BitApps\\Integrations\\Actions\\Keap\\KeapAction",
+            "BitApps\\Integrations\\Actions\\Keap\\KeapHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Keap\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Keap\\KeapService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Keap/Routes.php",
+            "line": 10,
+            "method": "refreshTagListAjaxHelper",
+            "route": "keap_fetch_all_tags",
+            "target": "BitApps\\Integrations\\Actions\\Keap\\KeapHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Keap/Routes.php",
+            "line": 11,
+            "method": "refreshCustomFieldAjaxHelper",
+            "route": "keap_fetch_all_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\Keap\\KeapHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Keap/RecordApiHelper.php": [
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_tokenDetails",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    21,
+                    26
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertcard",
+                "kind": "method",
+                "lines": [
+                    28,
+                    37
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:inserttag",
+                "kind": "method",
+                "lines": [
+                    39,
+                    54
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    56,
+                    133
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    135,
+                    151
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Keap/KeapController.php": "d4dc12e8564a701eec2dbd7167cb229b6db86404",
+        "backend/Actions/Keap/RecordApiHelper.php": "c9a7378ccfdd5bce742304d982532d68f458379e",
+        "backend/Actions/Keap/Routes.php": "9f6c25de884ce23a5440a9379875e24508afb554"
+    },
+    "sources": {
+        "backend/Actions/Keap/KeapAction.php": [
+            "backend/Actions/Keap/KeapController.php"
+        ],
+        "backend/Actions/Keap/KeapHelper.php": [
+            "backend/Actions/Keap/KeapController.php"
+        ],
+        "backend/Actions/Keap/KeapService.php": [
+            "backend/Actions/Keap/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Keap\\KeapAction",
+            "origin": "created",
+            "path": "backend/Actions/Keap/KeapAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Keap\\KeapHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Keap/KeapHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Keap/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Keap\\RecordApiHelper",
+                "to": "backend/Actions/Keap/KeapService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Keap\\KeapService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3",
+        "T5"
+    ],
+    "unit": [
+        "Keap"
+    ]
+}

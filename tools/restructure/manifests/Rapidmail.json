@@ -1,0 +1,474 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 34,
+            "to": "property:_integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "property",
+            "from": "method:getallrecipients",
+            "line": 56,
+            "to": "property:apiBaseUri",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:getallfields",
+            "line": 90,
+            "to": "property:apiBaseUri",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 121,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 127,
+            "to": "property:_integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 134,
+            "to": "property:_integrationID",
+            "via": "this"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 148,
+        "modifiers": [
+            "final"
+        ],
+        "path": "backend/Actions/Rapidmail/RapidmailController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Rapidmail/RapidmailController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Rapidmail/RapidmailHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Rapidmail/RapidmailAction.php"
+        },
+        {
+            "from": "backend/Actions/Rapidmail/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Rapidmail/RapidmailService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Rapidmail/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 55,
+            "helper": 68
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "property:_defaultHeader"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Rapidmail",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailAction"
+            ],
+            "method:getallfields": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper"
+            ],
+            "method:getallrecipients": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper"
+            ],
+            "property:_defaultHeader": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper"
+            ],
+            "property:_integrationID": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailAction"
+            ],
+            "property:apiBaseUri": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Rapidmail\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:apiBaseUri",
+            "kind": "property",
+            "lines": [
+                17,
+                17
+            ],
+            "names": [
+                "apiBaseUri"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                19,
+                26
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:_defaultHeader",
+            "kind": "property",
+            "lines": [
+                28,
+                28
+            ],
+            "names": [
+                "_defaultHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unused",
+            "static": false,
+            "visibility": "protected"
+        },
+        {
+            "key": "property:_integrationID",
+            "kind": "property",
+            "lines": [
+                30,
+                30
+            ],
+            "names": [
+                "_integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                32,
+                35
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallrecipients",
+            "kind": "method",
+            "lines": [
+                37,
+                69
+            ],
+            "names": [
+                "getAllRecipients"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallfields",
+            "kind": "method",
+            "lines": [
+                71,
+                103
+            ],
+            "names": [
+                "getAllFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                105,
+                146
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Rapidmail",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RecordApiHelper",
+            "file": "backend/Actions/Rapidmail/RapidmailController.php",
+            "kind": "import",
+            "line": 10,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailService",
+            "text": "use BitApps\\Integrations\\Actions\\Rapidmail\\RecordApiHelper as RapidmailRecordApiHelper;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RecordApiHelper",
+            "file": "backend/Actions/Rapidmail/RapidmailController.php",
+            "kind": "new",
+            "line": 132,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailService",
+            "text": "RapidmailRecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController",
+            "file": "backend/Actions/Rapidmail/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController",
+            "file": "backend/Actions/Rapidmail/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallrecipients",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper",
+            "text": "RapidmailController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController",
+            "file": "backend/Actions/Rapidmail/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper",
+            "text": "RapidmailController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailController": [
+            "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailAction",
+            "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Rapidmail\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Rapidmail/Routes.php",
+            "line": 10,
+            "method": "getAllRecipients",
+            "route": "rapidmail_get_all_recipients",
+            "target": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper",
+            "verb": "get"
+        },
+        {
+            "file": "backend/Actions/Rapidmail/Routes.php",
+            "line": 11,
+            "method": "getAllFields",
+            "route": "rapidmail_get_all_fields",
+            "target": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper",
+            "verb": "get"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Rapidmail/RecordApiHelper.php": [
+            {
+                "key": "property:apiBaseUri",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": true,
+                "visibility": "public"
+            },
+            {
+                "key": "property:_defaultHeader",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    25
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecipientrecord",
+                "kind": "method",
+                "lines": [
+                    27,
+                    39
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    41,
+                    58
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:executerecordapi",
+                "kind": "method",
+                "lines": [
+                    60,
+                    72
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:formatfieldvalue",
+                "kind": "method",
+                "lines": [
+                    74,
+                    194
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Rapidmail/RapidmailController.php": "8f2cc53ec2936569d88215cf168652f1c04750ae",
+        "backend/Actions/Rapidmail/RecordApiHelper.php": "438136e8c7204b876c474cb0268ece2965f87bf2",
+        "backend/Actions/Rapidmail/Routes.php": "ab2cf61f3932ce0f3c1441594023ef6627ba71e8"
+    },
+    "sources": {
+        "backend/Actions/Rapidmail/RapidmailAction.php": [
+            "backend/Actions/Rapidmail/RapidmailController.php"
+        ],
+        "backend/Actions/Rapidmail/RapidmailHelper.php": [
+            "backend/Actions/Rapidmail/RapidmailController.php"
+        ],
+        "backend/Actions/Rapidmail/RapidmailService.php": [
+            "backend/Actions/Rapidmail/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailAction",
+            "origin": "created",
+            "path": "backend/Actions/Rapidmail/RapidmailAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Rapidmail/RapidmailHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Rapidmail/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Rapidmail\\RecordApiHelper",
+                "to": "backend/Actions/Rapidmail/RapidmailService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Rapidmail\\RapidmailService"
+            }
+        ]
+    },
+    "tests": [
+        "T3"
+    ],
+    "unit": [
+        "Rapidmail"
+    ]
+}

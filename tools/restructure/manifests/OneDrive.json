@@ -1,0 +1,680 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:__construct",
+            "line": 27,
+            "to": "property:integrationID",
+            "via": "this",
+            "write": true
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 32,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 43,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 51,
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getallfolders",
+            "line": 54,
+            "to": "method:getonedrivefolderslist",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:singleonedrivefolderlist",
+            "line": 88,
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:singleonedrivefolderlist",
+            "line": 100,
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:singleonedrivefolderlist",
+            "line": 108,
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 136,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 145,
+            "rewriteTo": "OneDriveHelper",
+            "to": "method:normalizeconnectiontoken",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 149,
+            "rewriteTo": "OneDriveHelper",
+            "to": "method:tokenexpirycheck",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 154,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 162,
+            "rewriteTo": "OneDriveHelper",
+            "to": "method:saverefreshedtoken",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 162,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "property",
+            "from": "method:execute",
+            "line": 165,
+            "to": "property:integrationID",
+            "via": "this"
+        },
+        {
+            "form": "call",
+            "from": "method:tokenexpirycheck",
+            "line": 179,
+            "to": "method:refreshtoken",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController",
+        "constructorRequiredParams": 1,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 255,
+        "modifiers": [],
+        "path": "backend/Actions/OneDrive/OneDriveController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/OneDrive/OneDriveController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/OneDrive/OneDriveHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/OneDrive/OneDriveAction.php"
+        },
+        {
+            "from": "backend/Actions/OneDrive/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/OneDrive/OneDriveService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/OneDrive/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [
+            {
+                "file": "backend/Actions/OneDrive/OneDriveController.php",
+                "line": 51,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/OneDrive/OneDriveController.php",
+                "line": 108,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/OneDrive/OneDriveController.php",
+                "line": 162,
+                "what": "saveRefreshedToken()"
+            },
+            {
+                "file": "backend/Actions/OneDrive/OneDriveController.php",
+                "line": 252,
+                "what": "FlowController update()"
+            }
+        ],
+        "T2": null,
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 51,
+            "helper": 180
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "OneDriveHelper",
+                "member": "method:normalizeconnectiontoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "OneDriveHelper",
+                "member": "method:saverefreshedtoken",
+                "to": "public"
+            },
+            {
+                "from": "private",
+                "in": "OneDriveHelper",
+                "member": "method:tokenexpirycheck",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "OneDrive",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController": {
+            "method:__construct": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveAction"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveAction"
+            ],
+            "method:getallfolders": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "method:getonedrivefolderslist": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "method:normalizeconnectiontoken": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "method:refreshtoken": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "method:saverefreshedtoken": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "method:singleonedrivefolderlist": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "method:tokenexpirycheck": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveAction"
+            ],
+            "property:integrationID": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\OneDrive\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                13,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:integrationID",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "integrationID"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "used only by Action members",
+            "static": false,
+            "visibility": "private"
+        },
+        {
+            "key": "method:__construct",
+            "kind": "method",
+            "lines": [
+                25,
+                28
+            ],
+            "names": [
+                "__construct"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "constructor"
+            ],
+            "reason": "constructor",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallfolders",
+            "kind": "method",
+            "lines": [
+                30,
+                68
+            ],
+            "names": [
+                "getAllFolders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getonedrivefolderslist",
+            "kind": "method",
+            "lines": [
+                70,
+                84
+            ],
+            "names": [
+                "getOneDriveFoldersList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:singleonedrivefolderlist",
+            "kind": "method",
+            "lines": [
+                86,
+                130
+            ],
+            "names": [
+                "singleOneDriveFolderList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                132,
+                168
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:tokenexpirycheck",
+            "kind": "method",
+            "lines": [
+                170,
+                202
+            ],
+            "names": [
+                "tokenExpiryCheck"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:refreshtoken",
+            "kind": "method",
+            "lines": [
+                204,
+                223
+            ],
+            "names": [
+                "refreshToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:normalizeconnectiontoken",
+            "kind": "method",
+            "lines": [
+                225,
+                236
+            ],
+            "names": [
+                "normalizeConnectionToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:saverefreshedtoken",
+            "kind": "method",
+            "lines": [
+                238,
+                253
+            ],
+            "names": [
+                "saveRefreshedToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\OneDrive",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\RecordApiHelper",
+            "file": "backend/Actions/OneDrive/OneDriveController.php",
+            "kind": "import",
+            "line": 5,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveService",
+            "text": "use BitApps\\Integrations\\Actions\\OneDrive\\RecordApiHelper as OneDriveRecordApiHelper;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\RecordApiHelper",
+            "file": "backend/Actions/OneDrive/OneDriveController.php",
+            "kind": "new",
+            "line": 165,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveService",
+            "text": "OneDriveRecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController",
+            "file": "backend/Actions/OneDrive/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper",
+            "text": "use BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController",
+            "file": "backend/Actions/OneDrive/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getallfolders",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper",
+            "text": "OneDriveController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController",
+            "file": "backend/Actions/OneDrive/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:singleonedrivefolderlist",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper",
+            "text": "OneDriveController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveController": [
+            "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveAction",
+            "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\OneDrive\\RecordApiHelper": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/OneDrive/Routes.php",
+            "line": 10,
+            "method": "getAllFolders",
+            "route": "oneDrive_get_all_folders",
+            "target": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/OneDrive/Routes.php",
+            "line": 11,
+            "method": "singleOneDriveFolderList",
+            "route": "oneDrive_get_single_folder",
+            "target": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/OneDrive/RecordApiHelper.php": [
+            {
+                "key": "property:token",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "property:errorApiResponse",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "property:successApiResponse",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "protected"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    18,
+                    21
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:uploadfile",
+                "kind": "method",
+                "lines": [
+                    23,
+                    52
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:handleallfiles",
+                "kind": "method",
+                "lines": [
+                    54,
+                    75
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:deletefile",
+                "kind": "method",
+                "lines": [
+                    77,
+                    86
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:executerecordapi",
+                "kind": "method",
+                "lines": [
+                    88,
+                    112
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:storeinstate",
+                "kind": "method",
+                "lines": [
+                    114,
+                    123
+                ],
+                "static": false,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/OneDrive/OneDriveController.php": "5055d5a76edcbe7ebae2b40a8d2673bb9fadc368",
+        "backend/Actions/OneDrive/RecordApiHelper.php": "46581ffb42132c1ac85349764e594fe8ff9e504d",
+        "backend/Actions/OneDrive/Routes.php": "255b4dd669e3b29047a54cdc870822240acfd234"
+    },
+    "sources": {
+        "backend/Actions/OneDrive/OneDriveAction.php": [
+            "backend/Actions/OneDrive/OneDriveController.php"
+        ],
+        "backend/Actions/OneDrive/OneDriveHelper.php": [
+            "backend/Actions/OneDrive/OneDriveController.php"
+        ],
+        "backend/Actions/OneDrive/OneDriveService.php": [
+            "backend/Actions/OneDrive/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveAction",
+            "origin": "created",
+            "path": "backend/Actions/OneDrive/OneDriveAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/OneDrive/OneDriveHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/OneDrive/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\OneDrive\\RecordApiHelper",
+                "to": "backend/Actions/OneDrive/OneDriveService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\OneDrive\\OneDriveService"
+            }
+        ]
+    },
+    "tests": [
+        "T1",
+        "T3"
+    ],
+    "unit": [
+        "OneDrive"
+    ]
+}
