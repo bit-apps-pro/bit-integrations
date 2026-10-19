@@ -109,5 +109,3 @@ backend/Actions/ZohoFlow/ZohoFlowController.php
 backend/Actions/ZohoRecruit/FilesApiHelper.php
 backend/Actions/ZohoRecruit/RecordApiHelper.php
 backend/Actions/ZohoRecruit/ZohoRecruitController.php
-backend/Actions/ZoomWebinar/RecordApiHelper.php
-backend/Actions/ZoomWebinar/ZoomWebinarController.php
