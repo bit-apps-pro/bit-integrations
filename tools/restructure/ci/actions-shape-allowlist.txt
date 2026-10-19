@@ -33,8 +33,6 @@ backend/Actions/Freshdesk/AllFilesApiHelper.php
 backend/Actions/Freshdesk/FilesApiHelper.php
 backend/Actions/Freshdesk/FreshdeskController.php
 backend/Actions/Freshdesk/RecordApiHelper.php
-backend/Actions/GoogleContacts/GoogleContactsController.php
-backend/Actions/GoogleContacts/RecordApiHelper.php
 backend/Actions/GoogleDrive/GoogleDriveController.php
 backend/Actions/GoogleDrive/RecordApiHelper.php
 backend/Actions/GoogleSheet/GoogleSheetController.php
