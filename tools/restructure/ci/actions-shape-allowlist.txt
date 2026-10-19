@@ -59,8 +59,6 @@ backend/Actions/CreatorLms/CreatorLmsController.php
 backend/Actions/CreatorLms/RecordApiHelper.php
 backend/Actions/CustomAction/CustomActionController.php
 backend/Actions/CustomApi/CustomApiController.php
-backend/Actions/DirectIq/DirectIqController.php
-backend/Actions/DirectIq/RecordApiHelper.php
 backend/Actions/Discord/DiscordController.php
 backend/Actions/Discord/FilesApiHelper.php
 backend/Actions/Discord/RecordApiHelper.php

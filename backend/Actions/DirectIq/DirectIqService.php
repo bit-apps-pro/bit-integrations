@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\DirectIq;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class DirectIqService
 {
     private $_defaultHeader;
 
