@@ -1,0 +1,432 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:bookingsandappointmentsforwoocommerceauthorize",
+            "line": 18,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshproducts",
+            "line": 24,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcustomers",
+            "line": 39,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshassets",
+            "line": 51,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 79,
+        "modifiers": [],
+        "path": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAction.php"
+        },
+        {
+            "from": "backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceService"
+            ],
+            "hooks": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 13,
+            "helper": 51
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "BookingsAndAppointmentsForWoocommerce",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController": {
+            "method:bookingsandappointmentsforwoocommerceauthorize": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper"
+            ],
+            "method:refreshassets": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper"
+            ],
+            "method:refreshcustomers": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper"
+            ],
+            "method:refreshproducts": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                9,
+                14
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:bookingsandappointmentsforwoocommerceauthorize",
+            "kind": "method",
+            "lines": [
+                16,
+                20
+            ],
+            "names": [
+                "bookingsAndAppointmentsForWoocommerceAuthorize"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshproducts",
+            "kind": "method",
+            "lines": [
+                22,
+                35
+            ],
+            "names": [
+                "refreshProducts"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcustomers",
+            "kind": "method",
+            "lines": [
+                37,
+                47
+            ],
+            "names": [
+                "refreshCustomers"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshassets",
+            "kind": "method",
+            "lines": [
+                49,
+                63
+            ],
+            "names": [
+                "refreshAssets"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                65,
+                77
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\RecordApiHelper",
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php",
+            "kind": "new",
+            "line": 76,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController",
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "text": "use BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController",
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:bookingsandappointmentsforwoocommerceauthorize",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "text": "BookingsAndAppointmentsForWoocommerceController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController",
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshproducts",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "text": "BookingsAndAppointmentsForWoocommerceController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController",
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshcustomers",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "text": "BookingsAndAppointmentsForWoocommerceController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController",
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshassets",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "text": "BookingsAndAppointmentsForWoocommerceController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceController": [
+            "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceAction",
+            "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\RecordApiHelper": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "line": 10,
+            "method": "bookingsAndAppointmentsForWoocommerceAuthorize",
+            "route": "bookings_and_appointments_for_woocommerce_authorize",
+            "target": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "line": 11,
+            "method": "refreshProducts",
+            "route": "refresh_bookings_and_appointments_for_woocommerce_products",
+            "target": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "line": 12,
+            "method": "refreshCustomers",
+            "route": "refresh_bookings_and_appointments_for_woocommerce_customers",
+            "target": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php",
+            "line": 13,
+            "method": "refreshAssets",
+            "route": "refresh_bookings_and_appointments_for_woocommerce_assets",
+            "target": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    22,
+                    115
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    117,
+                    130
+                ],
+                "static": true,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php": "85c33f16a7898d12824ecaa042fa53180969e80a",
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php": "9c857ff12e23883e5241a5396c41871de1d2c793",
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/Routes.php": "fe1d28b7c989183dfc0139aa4843f66d6913f00a"
+    },
+    "sources": {
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAction.php": [
+            "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php"
+        ],
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceHelper.php": [
+            "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceController.php"
+        ],
+        "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceService.php": [
+            "backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceAction",
+            "origin": "created",
+            "path": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/BookingsAndAppointmentsForWoocommerce/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\RecordApiHelper",
+                "to": "backend/Actions/BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\BookingsAndAppointmentsForWoocommerce\\BookingsAndAppointmentsForWoocommerceService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "BookingsAndAppointmentsForWoocommerce"
+    ]
+}

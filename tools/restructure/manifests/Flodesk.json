@@ -1,0 +1,553 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getsegments",
+            "line": 24,
+            "to": "method:fetchlist",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getworkflows",
+            "line": 38,
+            "to": "method:fetchlist",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcustomfields",
+            "line": 52,
+            "to": "method:fetchlist",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getsegmentcolors",
+            "line": 66,
+            "to": "method:fetchlist",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 82,
+            "to": "method:validationerror",
+            "via": "self"
+        },
+        {
+            "crosses": true,
+            "form": "call",
+            "from": "method:execute",
+            "line": 85,
+            "rewriteTo": "FlodeskHelper",
+            "to": "method:client",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:execute",
+            "line": 88,
+            "to": "method:validationerror",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:fetchlist",
+            "line": 116,
+            "to": "method:client",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 150,
+        "modifiers": [],
+        "path": "backend/Actions/Flodesk/FlodeskController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Flodesk/FlodeskController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Flodesk/FlodeskHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Flodesk/FlodeskAction.php"
+        },
+        {
+            "from": "backend/Actions/Flodesk/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Flodesk/FlodeskService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Flodesk/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\Flodesk\\FlodeskService"
+            ],
+            "hooks": "backend/Actions/Flodesk/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 30,
+            "helper": 97
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": [
+            {
+                "from": "private",
+                "in": "FlodeskHelper",
+                "member": "method:client",
+                "to": "public"
+            }
+        ]
+    },
+    "hooks": [],
+    "integration": "Flodesk",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController": {
+            "method:client": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskAction"
+            ],
+            "method:fetchlist": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+            ],
+            "method:getsegmentcolors": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+            ],
+            "method:getsegments": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+            ],
+            "method:getworkflows": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+            ],
+            "method:validationerror": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskAction"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Flodesk\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                14,
+                18
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getsegments",
+            "kind": "method",
+            "lines": [
+                20,
+                32
+            ],
+            "names": [
+                "getSegments"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getworkflows",
+            "kind": "method",
+            "lines": [
+                34,
+                46
+            ],
+            "names": [
+                "getWorkflows"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                48,
+                60
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getsegmentcolors",
+            "kind": "method",
+            "lines": [
+                62,
+                73
+            ],
+            "names": [
+                "getSegmentColors"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                75,
+                92
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:client",
+            "kind": "method",
+            "lines": [
+                94,
+                112
+            ],
+            "names": [
+                "client"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "execute",
+                "route"
+            ],
+            "reason": "reached from execute and from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private",
+            "widenTo": "public"
+        },
+        {
+            "key": "method:fetchlist",
+            "kind": "method",
+            "lines": [
+                114,
+                140
+            ],
+            "names": [
+                "fetchList"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:validationerror",
+            "kind": "method",
+            "lines": [
+                142,
+                148
+            ],
+            "names": [
+                "validationError"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "reached only from execute or the constructor",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Flodesk",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\RecordApiHelper",
+            "file": "backend/Actions/Flodesk/FlodeskController.php",
+            "kind": "new",
+            "line": 91,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController",
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController",
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getsegments",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "text": "FlodeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController",
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getworkflows",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "text": "FlodeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController",
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "text": "FlodeskController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController",
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getsegmentcolors",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "text": "FlodeskController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskController": [
+            "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskAction",
+            "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Flodesk\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "line": 10,
+            "method": "getSegments",
+            "route": "flodesk_get_segments",
+            "target": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "line": 11,
+            "method": "getWorkflows",
+            "route": "flodesk_get_workflows",
+            "target": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "line": 12,
+            "method": "getCustomFields",
+            "route": "flodesk_get_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Flodesk/Routes.php",
+            "line": 13,
+            "method": "getSegmentColors",
+            "route": "flodesk_get_segment_colors",
+            "target": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Flodesk/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    13,
+                    13
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    15,
+                    15
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiClient",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    19,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    89
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    91,
+                    111
+                ],
+                "static": true,
+                "visibility": "protected"
+            },
+            {
+                "key": "method:settings",
+                "kind": "method",
+                "lines": [
+                    113,
+                    125
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Flodesk/FlodeskController.php": "c1f1b80328a480d155bd27e58bcff375ff0ac0e7",
+        "backend/Actions/Flodesk/RecordApiHelper.php": "3210fb6c5aa69abd131ddd1062ae7e2d15609acc",
+        "backend/Actions/Flodesk/Routes.php": "17127948e76408a6ca14d07fedfae59483a92841"
+    },
+    "sources": {
+        "backend/Actions/Flodesk/FlodeskAction.php": [
+            "backend/Actions/Flodesk/FlodeskController.php"
+        ],
+        "backend/Actions/Flodesk/FlodeskHelper.php": [
+            "backend/Actions/Flodesk/FlodeskController.php"
+        ],
+        "backend/Actions/Flodesk/FlodeskService.php": [
+            "backend/Actions/Flodesk/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskAction",
+            "origin": "created",
+            "path": "backend/Actions/Flodesk/FlodeskAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Flodesk/FlodeskHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Flodesk/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Flodesk\\RecordApiHelper",
+                "to": "backend/Actions/Flodesk/FlodeskService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Flodesk\\FlodeskService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "Flodesk"
+    ]
+}

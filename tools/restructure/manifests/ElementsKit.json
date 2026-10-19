@@ -1,0 +1,297 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshdynamiccontents",
+            "line": 32,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 69,
+        "modifiers": [],
+        "path": "backend/Actions/ElementsKit/ElementsKitController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/ElementsKit/ElementsKitController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ElementsKit/ElementsKitHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/ElementsKit/ElementsKitAction.php"
+        },
+        {
+            "from": "backend/Actions/ElementsKit/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ElementsKit/ElementsKitService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/ElementsKit/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\ElementsKit\\ElementsKitService"
+            ],
+            "hooks": "backend/Actions/ElementsKit/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 42
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "ElementsKit",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper"
+            ],
+            "method:refreshdynamiccontents": [
+                "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\ElementsKit\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                9,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshdynamiccontents",
+            "kind": "method",
+            "lines": [
+                26,
+                51
+            ],
+            "names": [
+                "refreshDynamicContents"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                53,
+                67
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\ElementsKit",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\ElementsKit\\RecordApiHelper",
+            "file": "backend/Actions/ElementsKit/ElementsKitController.php",
+            "kind": "new",
+            "line": 64,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitController",
+            "file": "backend/Actions/ElementsKit/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper",
+            "text": "use BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitController",
+            "file": "backend/Actions/ElementsKit/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshdynamiccontents",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper",
+            "text": "ElementsKitController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitController": [
+            "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitAction",
+            "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\ElementsKit\\RecordApiHelper": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/ElementsKit/Routes.php",
+            "line": 10,
+            "method": "refreshDynamicContents",
+            "route": "refresh_elements_kit_contents",
+            "target": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/ElementsKit/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    22,
+                    113
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    115,
+                    133
+                ],
+                "static": true,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/ElementsKit/ElementsKitController.php": "cc2027e3746c3957e7cc523b75fa382cb66291ef",
+        "backend/Actions/ElementsKit/RecordApiHelper.php": "d1557b04eb76496d787273947b7870b0c9a187c2",
+        "backend/Actions/ElementsKit/Routes.php": "82419489943c3b7b20bd49d7bbc5d379b574237d"
+    },
+    "sources": {
+        "backend/Actions/ElementsKit/ElementsKitAction.php": [
+            "backend/Actions/ElementsKit/ElementsKitController.php"
+        ],
+        "backend/Actions/ElementsKit/ElementsKitHelper.php": [
+            "backend/Actions/ElementsKit/ElementsKitController.php"
+        ],
+        "backend/Actions/ElementsKit/ElementsKitService.php": [
+            "backend/Actions/ElementsKit/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitAction",
+            "origin": "created",
+            "path": "backend/Actions/ElementsKit/ElementsKitAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/ElementsKit/ElementsKitHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/ElementsKit/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\ElementsKit\\RecordApiHelper",
+                "to": "backend/Actions/ElementsKit/ElementsKitService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\ElementsKit\\ElementsKitService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "ElementsKit"
+    ]
+}

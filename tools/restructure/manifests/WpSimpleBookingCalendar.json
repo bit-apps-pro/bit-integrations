@@ -1,0 +1,380 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:isexists",
+            "line": 15,
+            "to": "method:ispluginactive",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcalendars",
+            "line": 28,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlegenditems",
+            "line": 44,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 97,
+        "modifiers": [],
+        "path": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarAction.php"
+        },
+        {
+            "from": "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WpSimpleBookingCalendar/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarService"
+            ],
+            "hooks": "backend/Actions/WpSimpleBookingCalendar/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 14,
+            "helper": 65
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WpSimpleBookingCalendar",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper"
+            ],
+            "method:ispluginactive": [
+                "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper"
+            ],
+            "method:refreshcalendars": [
+                "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper"
+            ],
+            "method:refreshlegenditems": [
+                "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcalendars",
+            "kind": "method",
+            "lines": [
+                26,
+                40
+            ],
+            "names": [
+                "refreshCalendars"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshlegenditems",
+            "kind": "method",
+            "lines": [
+                42,
+                75
+            ],
+            "names": [
+                "refreshLegendItems"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                77,
+                90
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:ispluginactive",
+            "kind": "method",
+            "lines": [
+                92,
+                95
+            ],
+            "names": [
+                "isPluginActive"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "external",
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController",
+            "file": "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php",
+            "kind": "static-call",
+            "line": 28,
+            "member": "method:ispluginactive",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "text": "WpSimpleBookingCalendarController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController",
+            "file": "backend/Actions/WpSimpleBookingCalendar/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController",
+            "file": "backend/Actions/WpSimpleBookingCalendar/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshcalendars",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "text": "WpSimpleBookingCalendarController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController",
+            "file": "backend/Actions/WpSimpleBookingCalendar/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshlegenditems",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "text": "WpSimpleBookingCalendarController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\RecordApiHelper",
+            "file": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php",
+            "kind": "new",
+            "line": 87,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarService",
+        "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarController": [
+            "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarAction",
+            "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WpSimpleBookingCalendar/Routes.php",
+            "line": 10,
+            "method": "refreshCalendars",
+            "route": "refresh_wp_simple_booking_calendar_calendars",
+            "target": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WpSimpleBookingCalendar/Routes.php",
+            "line": 11,
+            "method": "refreshLegendItems",
+            "route": "refresh_wp_simple_booking_calendar_legend_items",
+            "target": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    168
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    170,
+                    188
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php": "ce7cc7d1dc21660de260a3ed64574093d0955800",
+        "backend/Actions/WpSimpleBookingCalendar/Routes.php": "521b6b5b8ca6690772dd9dae1c2440a84d30ab93",
+        "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php": "b06f7e6b6c1f7ec46e5ee4bb398114985be30940"
+    },
+    "sources": {
+        "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarAction.php": [
+            "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php"
+        ],
+        "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarHelper.php": [
+            "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php"
+        ],
+        "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarService.php": [
+            "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarAction",
+            "origin": "created",
+            "path": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\RecordApiHelper",
+                "to": "backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\WpSimpleBookingCalendarService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "WpSimpleBookingCalendar"
+    ]
+}
