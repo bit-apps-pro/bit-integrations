@@ -9,9 +9,8 @@ namespace BitApps\Integrations\Actions\JetEngine;
 use Jet_Engine\Modules\Custom_Content_Types\Module;
 use Jet_Engine_CPT;
 use Jet_Engine_Tools;
-use WP_Error;
 
-class JetEngineController
+class JetEngineHelper
 {
     public static function checkedJetEngineExists()
     {
@@ -202,44 +201,5 @@ class JetEngineController
         }
 
         wp_send_json_success($relationList, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        self::checkedJetEngineExists();
-
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $selectedTask = $integrationDetails->selectedTask;
-        $actions = (array) $integrationDetails->actions;
-
-        if (empty($fieldMap) || empty($selectedTask)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('Fields map, task are required for JetEngine', 'bit-integrations'));
-        }
-
-        $createCPTSelectedOptions = [
-            'selectedMenuPosition' => $integrationDetails->selectedMenuPosition,
-            'selectedMenuIcon'     => $integrationDetails->selectedMenuIcon,
-            'selectedSupports'     => $integrationDetails->selectedSupports,
-            'selectedCPT'          => isset($integrationDetails->selectedCPT) ? $integrationDetails->selectedCPT : '',
-            'selectedCCT'          => isset($integrationDetails->selectedCCT) ? $integrationDetails->selectedCCT : '',
-        ];
-
-        $taxOptions = [
-            'selectedTaxPostTypes' => $integrationDetails->selectedTaxPostTypes,
-            'selectedTaxForEdit'   => isset($integrationDetails->selectedTaxForEdit) ? $integrationDetails->selectedTaxForEdit : ''
-        ];
-
-        $relOptions = (array) $integrationDetails->relOptions;
-
-        $recordApiHelper = new RecordApiHelper($integId);
-        $jetEngineResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $selectedTask, $actions, $createCPTSelectedOptions, $taxOptions, $relOptions);
-
-        if (is_wp_error($jetEngineResponse)) {
-            return $jetEngineResponse;
-        }
-
-        return $jetEngineResponse;
     }
 }

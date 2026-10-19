@@ -13,7 +13,7 @@ use BitApps\Integrations\Core\Util\Post;
 use BitApps\Integrations\Log\LogHandler;
 use Jet_Engine\Modules\Custom_Content_Types\Module;
 
-class RecordApiHelper
+class JetEngineService
 {
     private $_integrationID;
 

@@ -49,8 +49,6 @@ backend/Actions/Hubspot/HubspotController.php
 backend/Actions/Hubspot/HubspotRecordApiHelper.php
 backend/Actions/Integrately/IntegratelyController.php
 backend/Actions/Integromat/IntegromatController.php
-backend/Actions/JetEngine/JetEngineController.php
-backend/Actions/JetEngine/RecordApiHelper.php
 backend/Actions/Keap/KeapController.php
 backend/Actions/Keap/RecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
