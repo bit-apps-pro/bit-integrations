@@ -146,8 +146,6 @@ backend/Actions/UserRegistrationMembership/RecordApiHelper.php
 backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php
 backend/Actions/Voxel/RecordApiHelper.php
 backend/Actions/Voxel/VoxelController.php
-backend/Actions/WPForo/RecordApiHelper.php
-backend/Actions/WPForo/WPForoController.php
 backend/Actions/WPFusion/WPFusionController.php
 backend/Actions/WPWebhooks/WPWebhooksController.php
 backend/Actions/WebHooks/WebHooksController.php

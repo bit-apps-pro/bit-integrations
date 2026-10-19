@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\WPForo;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class WPForoService
 {
     private $_integrationID;
 
