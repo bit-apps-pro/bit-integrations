@@ -180,8 +180,6 @@ backend/Actions/SmartSuite/SmartSuiteController.php
 backend/Actions/SperseIO/SperseIOController.php
 backend/Actions/SureContact/RecordApiHelper.php
 backend/Actions/SureContact/SureContactController.php
-backend/Actions/SureDash/RecordApiHelper.php
-backend/Actions/SureDash/SureDashController.php
 backend/Actions/SureTriggers/SureTriggersController.php
 backend/Actions/SyncSpider/SyncSpiderController.php
 backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php
