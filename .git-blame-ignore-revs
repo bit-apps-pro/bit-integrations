@@ -259,3 +259,47 @@ d1ed7dae6585acf53b0ebfc1eb8b413b4e69f4b2
 3961e78b92810a6ecf4d4f1deec63b69a34177ff
 # refactor(actions): move WordPress to Action/Service/Helper layout
 657b517b6011e9370e9a3a9c692f1908d46a62ec
+# refactor(actions): move ConstantContact to Action/Service/Helper layout
+3682c7cda72806ed6ac95252190e5dbeb2ade4ee
+# refactor(actions): move Dropbox to Action/Service/Helper layout
+52905fc018328113cc47a3226c69308f606ab7db
+# refactor(actions): move GoogleCalendar to Action/Service/Helper layout
+23f5deb75281acb18813aa38132d053d4df01f54
+# refactor(actions): move GoogleContacts to Action/Service/Helper layout
+2133b67ec7d644a0514cf4ce8836ffed34cc6c61
+# refactor(actions): move GoogleDrive to Action/Service/Helper layout
+db02d102cce157ecbd00ae763aac2f95d0941f6e
+# refactor(actions): move GoogleSheet to Action/Service/Helper layout
+e00d4b512ab1a53a18ff54a3e818fd42342632de
+# refactor(actions): move Keap to Action/Service/Helper layout
+9c817f506b08d22dc47078785de0da1510efa530
+# refactor(actions): move LionDesk to Action/Service/Helper layout
+3ea1eb8cda80e1a9920e7ad8bc54d11c4af21363
+# refactor(actions): move Mailup to Action/Service/Helper layout
+d33f5ad9e482dbfdfa05a31fc374e1a22691240a
+# refactor(actions): move Mautic to Action/Service/Helper layout
+eccde4c2ea5d93fa30dcdab90046975405d8e29f
+# refactor(actions): move OneDrive to Action/Service/Helper layout
+f0bcf3beeb8eca7f7bb4eb10e9d7e51d905367b0
+# refactor(actions): move PCloud to Action/Service/Helper layout
+94e1b45a723b35eb1f22507b5d129535683f122f
+# refactor(actions): move Rapidmail to Action/Service/Helper layout
+2d122a738671684d1b3ad566c54609fd7be2218c
+# refactor(actions): move Twilio to Action/Service/Helper layout
+62b35a3956bcb86b8bad88cbc605b017ba198433
+# refactor(actions): move SendPulse to Action/Service/Helper layout
+fc9c825a16701f8c29cbf4389c7d3778c75d96d3
+# refactor(actions): move ZohoBigin to Action/Service/Helper layout
+c5e52d98b857249115b2419bc4e26689845d0a3b
+# refactor(actions): move ZohoCampaigns to Action/Service/Helper layout
+fa6f38fef83c309cf5256f4574ca562a34c57f0b
+# refactor(actions): move ZohoDesk to Action/Service/Helper layout
+750a4bcd935e3a79c11fa1e934c5bf6a3b740708
+# refactor(actions): move ZohoMarketingHub to Action/Service/Helper layout
+177168413fe724fb4eabd365defab9b323290e86
+# refactor(actions): move ZohoSheet to Action/Service/Helper layout
+4ccd45e7a4e55c68bb7127ea41b62e4924a78997
+# refactor(actions): move Zoom to Action/Service/Helper layout
+9075e2c834bcc99f86054e8ddacb23e788ce608b
+# refactor(actions): move ZoomWebinar to Action/Service/Helper layout
+bb1aabda47e8d2b117b0bdab21c9b0d1621a2164
