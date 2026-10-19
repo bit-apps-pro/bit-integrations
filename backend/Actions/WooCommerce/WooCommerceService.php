@@ -12,7 +12,7 @@ use BitApps\Integrations\Log\LogHandler;
 use WC_Product_Download;
 use WP_Error;
 
-class RecordApiHelper
+class WooCommerceService
 {
     private $_integrationID;
 
