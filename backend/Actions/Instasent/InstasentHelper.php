@@ -6,21 +6,11 @@
 
 namespace BitApps\Integrations\Actions\Instasent;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class InstasentController
+class InstasentHelper
 {
     private static $_baseUrl = 'https://api.instasent.com';
-
-    public static array $authConfig = [
-        'authType' => AuthorizationType::BEARER_TOKEN,
-        'slug'     => 'instasent',
-        'fields'   => [
-            'auth_token' => 'token',
-        ],
-    ];
 
     public function refreshDatasources($refreshFieldsRequestParams)
     {
@@ -64,36 +54,5 @@ class InstasentController
             $response->message ?? $response ?? __('Failed to fetch data sources', 'bit-integrations'),
             400
         );
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $auth_token = $integrationDetails->auth_token ?? '';
-        $fieldMap = $integrationDetails->field_map ?? '';
-        $action = $integrationDetails->action ?? '';
-        $actions = isset($integrationDetails->actions) ? $integrationDetails->actions : (object) [];
-
-        if (
-            empty($fieldMap)
-            || empty($auth_token)
-            || empty($action)
-        ) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Instasent'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($auth_token, $integrationDetails, $integId);
-        $instasentApiResponse = $recordApiHelper->execute(
-            $integrationDetails,
-            $fieldValues,
-            $fieldMap,
-            $auth_token,
-            $action,
-            $actions
-        );
-
-        return $instasentApiResponse;
     }
 }

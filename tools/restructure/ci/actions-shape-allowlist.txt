@@ -83,8 +83,6 @@ backend/Actions/Hubspot/HubspotController.php
 backend/Actions/Hubspot/HubspotRecordApiHelper.php
 backend/Actions/Insightly/InsightlyController.php
 backend/Actions/Insightly/RecordApiHelper.php
-backend/Actions/Instasent/InstasentController.php
-backend/Actions/Instasent/RecordApiHelper.php
 backend/Actions/Integrately/IntegratelyController.php
 backend/Actions/Integromat/IntegromatController.php
 backend/Actions/JetEngine/JetEngineController.php
