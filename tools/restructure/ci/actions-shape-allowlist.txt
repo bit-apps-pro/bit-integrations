@@ -19,8 +19,6 @@ backend/Actions/B2BKing/B2BKingController.php
 backend/Actions/B2BKing/RecordApiHelper.php
 backend/Actions/BadgeOS/BadgeOSController.php
 backend/Actions/BadgeOS/RecordApiHelper.php
-backend/Actions/BenchMark/BenchMarkController.php
-backend/Actions/BenchMark/RecordApiHelper.php
 backend/Actions/Bento/BentoController.php
 backend/Actions/Bento/RecordApiHelper.php
 backend/Actions/BitCrm/BitCrmController.php
