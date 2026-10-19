@@ -11,9 +11,8 @@ use WBK_Location;
 use WBK_Model_Utils;
 use WBK_Service;
 use WBK_Staff_Member;
-use WP_Error;
 
-class WebbaBookingController
+class WebbaBookingHelper
 {
     public static function isExists()
     {
@@ -183,21 +182,6 @@ class WebbaBookingController
         }
 
         wp_send_json_success(['coupons' => $coupons], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     /**
