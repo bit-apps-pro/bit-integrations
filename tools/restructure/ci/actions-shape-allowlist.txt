@@ -130,8 +130,6 @@ backend/Actions/Salesmate/RecordApiHelper.php
 backend/Actions/Salesmate/SalesmateController.php
 backend/Actions/SecureCustomFields/RecordApiHelper.php
 backend/Actions/SecureCustomFields/SecureCustomFieldsController.php
-backend/Actions/Selzy/RecordApiHelper.php
-backend/Actions/Selzy/SelzyController.php
 backend/Actions/SendPulse/RecordApiHelper.php
 backend/Actions/SendPulse/SendPulseController.php
 backend/Actions/SendinBlue/RecordApiHelper.php
