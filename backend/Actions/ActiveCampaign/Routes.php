@@ -4,10 +4,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\ActiveCampaign\ActiveCampaignController;
+use BitApps\Integrations\Actions\ActiveCampaign\ActiveCampaignHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('aCampaign_headers', [ActiveCampaignController::class, 'activeCampaignHeaders']);
-Route::post('aCampaign_lists', [ActiveCampaignController::class, 'activeCampaignLists']);
-Route::post('aCampaign_accounts', [ActiveCampaignController::class, 'activeCampaignAccounts']);
-Route::post('aCampaign_tags', [ActiveCampaignController::class, 'activeCampaignTags']);
+Route::post('aCampaign_headers', [ActiveCampaignHelper::class, 'activeCampaignHeaders']);
+Route::post('aCampaign_lists', [ActiveCampaignHelper::class, 'activeCampaignLists']);
+Route::post('aCampaign_accounts', [ActiveCampaignHelper::class, 'activeCampaignAccounts']);
+Route::post('aCampaign_tags', [ActiveCampaignHelper::class, 'activeCampaignTags']);

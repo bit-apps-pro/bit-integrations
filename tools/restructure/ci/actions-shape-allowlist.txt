@@ -1,8 +1,6 @@
 backend/Actions/ACPT/ACPTController.php
 backend/Actions/ACPT/RecordApiHelper.php
 backend/Actions/AcademyLms/AcademyLmsController.php
-backend/Actions/ActiveCampaign/ActiveCampaignController.php
-backend/Actions/ActiveCampaign/RecordApiHelper.php
 backend/Actions/Acumbamail/AcumbamailController.php
 backend/Actions/Acumbamail/RecordApiHelper.php
 backend/Actions/AdvancedFormIntegration/AdvancedFormIntegrationController.php
