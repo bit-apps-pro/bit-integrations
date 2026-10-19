@@ -27,8 +27,6 @@ backend/Actions/Salesmate/RecordApiHelper.php
 backend/Actions/Salesmate/SalesmateController.php
 backend/Actions/Trello/RecordApiHelper.php
 backend/Actions/Trello/TrelloController.php
-backend/Actions/UserRegistrationMembership/RecordApiHelper.php
-backend/Actions/UserRegistrationMembership/UserRegistrationMembershipController.php
 backend/Actions/WebbaBooking/RecordApiHelper.php
 backend/Actions/WebbaBooking/WebbaBookingController.php
 backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php

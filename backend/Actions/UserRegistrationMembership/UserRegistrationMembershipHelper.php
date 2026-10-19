@@ -3,9 +3,8 @@
 namespace BitApps\Integrations\Actions\UserRegistrationMembership;
 
 use BitApps\Integrations\Core\Util\Post;
-use WP_Error;
 
-class UserRegistrationMembershipController
+class UserRegistrationMembershipHelper
 {
     public static function refreshForms()
     {
@@ -44,20 +43,6 @@ class UserRegistrationMembershipController
         $fields = self::getFormFields($formId);
 
         wp_send_json_success(['fields' => array_values($fields)], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $fieldMap = $integrationDetails->field_map ?? [];
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integrationData->id);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap);
     }
 
     private static function getFormFields($formId)

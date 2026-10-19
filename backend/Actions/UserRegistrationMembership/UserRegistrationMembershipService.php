@@ -6,7 +6,7 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class UserRegistrationMembershipService
 {
     private $_integrationID;
 
