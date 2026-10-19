@@ -95,8 +95,6 @@ backend/Actions/GamiPress/GamiPressController.php
 backend/Actions/GamiPress/RecordApiHelper.php
 backend/Actions/GetResponse/GetResponseController.php
 backend/Actions/GetResponse/RecordApiHelper.php
-backend/Actions/Getgist/GetgistController.php
-backend/Actions/Getgist/RecordApiHelper.php
 backend/Actions/GoogleCalendar/GoogleCalendarController.php
 backend/Actions/GoogleCalendar/RecordApiHelper.php
 backend/Actions/GoogleContacts/GoogleContactsController.php

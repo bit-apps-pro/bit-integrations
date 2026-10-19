@@ -5,10 +5,8 @@ namespace BitApps\Integrations\Actions\Getgist;
 use BitApps\Integrations\Authorization\AuthorizationType;
 use WP_Error;
 
-class GetgistController
+class GetgistAction
 {
-    public const APIENDPOINT = 'https://api.getgist.com';
-
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
         'slug'     => 'getgist',
@@ -31,7 +29,7 @@ class GetgistController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'GetGist'));
         }
-        $recordApiHelper = new RecordApiHelper($api_key, $integId);
+        $recordApiHelper = new GetgistService($api_key, $integId);
         $getgistApiResponse = $recordApiHelper->execute(
             $integId,
             $fieldValues,
