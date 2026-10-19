@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "a14cab68043bbb2e",
                         "body_keys": [
@@ -54,8 +54,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390181>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -76,9 +76,9 @@
                         "response_obj": [
                             "Opportunity created  successfully"
                         ],
-                        "field_data_sha": "165510a4e94ebe41",
+                        "field_data_sha": "005399ef49fab76f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390181>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -122,7 +122,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "a14cab68043bbb2e",
                         "body_keys": [
@@ -144,8 +144,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390182>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -166,9 +166,9 @@
                         "response_obj": [
                             "Opportunity created  successfully"
                         ],
-                        "field_data_sha": "165510a4e94ebe41",
+                        "field_data_sha": "005399ef49fab76f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390182>>"
                     }
                 ],
                 "existing_logs_changed": false,

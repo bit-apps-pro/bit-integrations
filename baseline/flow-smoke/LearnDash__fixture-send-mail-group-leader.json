@@ -52,8 +52,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390380>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -69,9 +69,9 @@
                         "api_type": "Send Mail",
                         "response_type": "failed",
                         "response_obj": "LearnDash smoke failed sends mail to smoke@example.com, leader@example.com",
-                        "field_data_sha": "4bde761b320f73c0",
+                        "field_data_sha": "302d1bb77b7a575f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390380>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -135,8 +135,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390381>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -152,9 +152,9 @@
                         "api_type": "Send Mail",
                         "response_type": "failed",
                         "response_obj": "LearnDash smoke failed sends mail to smoke@example.com, leader@example.com",
-                        "field_data_sha": "4bde761b320f73c0",
+                        "field_data_sha": "302d1bb77b7a575f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390381>>"
                     }
                 ],
                 "existing_logs_changed": false,

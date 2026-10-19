@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "429583014ab2981a",
         "field_source": "log#2204",
-        "field_data_sha": "259d5c88e99aded3"
+        "field_data_sha": "60d93033604e989d"
     },
     "runs": {
         "pro-on": {
@@ -52,8 +52,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "<datetime-1984800>",
-                                "new": "<datetime>"
+                                "old": "2026-09-05 <clock>",
+                                "new": "<datetime@<ts@1792390504>>"
                             }
                         }
                     }
@@ -68,9 +68,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "This action requires MasterStudy LMS 3.0 or newer",
-                        "field_data_sha": "48cc93a33ad42d37",
+                        "field_data_sha": "166842d838a1e93b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390504>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -133,8 +133,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "<datetime-1984800>",
-                                "new": "<datetime>"
+                                "old": "2026-09-05 <clock>",
+                                "new": "<datetime@<ts@1792390505>>"
                             }
                         }
                     }
@@ -149,9 +149,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Bit Integrations Pro plugin is not installed or activate",
-                        "field_data_sha": "48cc93a33ad42d37",
+                        "field_data_sha": "166842d838a1e93b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390505>>"
                     }
                 ],
                 "existing_logs_changed": false,

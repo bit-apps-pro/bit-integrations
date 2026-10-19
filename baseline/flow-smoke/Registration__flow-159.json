@@ -38,8 +38,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-06 09:35:19",
-                                "new": "<datetime>"
+                                "old": "2026-05-06 <clock>",
+                                "new": "<datetime@<ts@1792390801>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -175,13 +175,13 @@
                                     "SURPLY4ZRM"
                                 ],
                                 "wc_last_active": [
-                                    "<ts-944400>"
+                                    "<ts-2752800@1789637857>"
                                 ]
                             }
                         },
-                        "field_data_sha": "c1f85cec85988a24",
+                        "field_data_sha": "c5cf6a4f32ef5fff",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390801>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -247,8 +247,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-06 09:35:19",
-                                "new": "<datetime>"
+                                "old": "2026-05-06 <clock>",
+                                "new": "<datetime@<ts@1792390802>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -270,9 +270,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "c1f85cec85988a24",
+                        "field_data_sha": "c5cf6a4f32ef5fff",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390802>>"
                     }
                 ],
                 "existing_logs_changed": false,

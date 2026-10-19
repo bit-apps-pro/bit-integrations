@@ -38,8 +38,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-06-17 08:04:46",
-                                "new": "<datetime>"
+                                "old": "2026-06-17 <clock>",
+                                "new": "<datetime@<ts@1792390502>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -58,9 +58,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Course completed successfully",
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390502>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -109,8 +109,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-06-17 08:04:46",
-                                "new": "<datetime>"
+                                "old": "2026-06-17 <clock>",
+                                "new": "<datetime@<ts@1792390503>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -129,9 +129,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Course completed successfully",
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390503>>"
                     }
                 ],
                 "existing_logs_changed": false,

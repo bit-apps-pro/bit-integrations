@@ -34,7 +34,7 @@
                                 "timestamp",
                                 "user-agent"
                             ],
-                            "sha": "4922a6273ca24d54"
+                            "sha": "0e6bd234dac1c8aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -52,7 +52,7 @@
                                 "timestamp",
                                 "user-agent"
                             ],
-                            "sha": "d48da66124800412"
+                            "sha": "596c1b732542309b"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -67,8 +67,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390343>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -87,9 +87,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Subscriber deleted",
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390343>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -136,7 +136,7 @@
                                 "timestamp",
                                 "user-agent"
                             ],
-                            "sha": "c9abe882e025562d"
+                            "sha": "0e6bd234dac1c8aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -154,7 +154,7 @@
                                 "timestamp",
                                 "user-agent"
                             ],
-                            "sha": "eb65bb2094a26312"
+                            "sha": "596c1b732542309b"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -169,8 +169,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390344>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -189,9 +189,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Subscriber deleted",
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390344>>"
                     }
                 ],
                 "existing_logs_changed": false,

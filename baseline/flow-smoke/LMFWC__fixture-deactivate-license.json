@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "6d39e23f7fbcab25",
         "field_source": "fixture",
-        "field_data_sha": "31c79596299cc72b"
+        "field_data_sha": "f874187be0f83490"
     },
     "runs": {
         "pro-on": {
@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "96ac256d894cf6f5"
+                            "sha": "2b152cec83bcd8bc"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -73,8 +73,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390364>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -93,9 +93,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "649f36e8043d90bc",
+                        "field_data_sha": "d7730edd3b87cbef",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390364>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -163,8 +163,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390365>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -183,9 +183,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Bit Integrations Pro plugin is not installed or activate",
-                        "field_data_sha": "649f36e8043d90bc",
+                        "field_data_sha": "d7730edd3b87cbef",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390365>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -26,13 +26,13 @@
                 "requests": [
                     {
                         "method": "POST",
-                        "url": "https://api.trello.com/1/cards/?idList=670cbd8eb486c26b05204bcb&key=4128a6f4aee991555658d8e148ddb037&token=<redacted:0d0d0e45b99d>",
+                        "url": "https://api.trello.com/1/cards/?idList=670cbd8eb486c26b05204bcb&key=4128a6f4aee991555658d8e148ddb037&token=<redacted:digest>",
                         "url_sha": "cdb0235abc0037b5",
                         "headers": {
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "1534a3d00daec0ac",
                         "body_keys": [
@@ -57,8 +57,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-16 10:14:10",
-                                "new": "<datetime>"
+                                "old": "2026-05-16 <clock>",
+                                "new": "<datetime@<ts@1792391046>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -77,9 +77,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "9e37d121525104a8",
+                        "field_data_sha": "c543306b6303dc8c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391046>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -116,13 +116,13 @@
                 "requests": [
                     {
                         "method": "POST",
-                        "url": "https://api.trello.com/1/cards/?idList=670cbd8eb486c26b05204bcb&key=4128a6f4aee991555658d8e148ddb037&token=<redacted:0d0d0e45b99d>",
+                        "url": "https://api.trello.com/1/cards/?idList=670cbd8eb486c26b05204bcb&key=4128a6f4aee991555658d8e148ddb037&token=<redacted:digest>",
                         "url_sha": "cdb0235abc0037b5",
                         "headers": {
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "1534a3d00daec0ac",
                         "body_keys": [
@@ -147,8 +147,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-16 10:14:10",
-                                "new": "<datetime>"
+                                "old": "2026-05-16 <clock>",
+                                "new": "<datetime@<ts@1792391047>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -167,9 +167,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "9e37d121525104a8",
+                        "field_data_sha": "c543306b6303dc8c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391047>>"
                     }
                 ],
                 "existing_logs_changed": false,

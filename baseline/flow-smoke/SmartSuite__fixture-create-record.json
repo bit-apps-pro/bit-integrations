@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "99273d9fdabc8d39"
+                            "sha": "b76294862255da47"
                         },
                         "body_sha": "61eb7e371a8ff513",
                         "body_keys": [
@@ -66,8 +66,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390975>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -86,9 +86,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "create record successfully",
-                        "field_data_sha": "3e262dc3f0c11381",
+                        "field_data_sha": "4d0a39a843081ceb",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390975>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -142,8 +142,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390977>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -162,9 +162,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "create record successfully",
-                        "field_data_sha": "3e262dc3f0c11381",
+                        "field_data_sha": "4d0a39a843081ceb",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390977>>"
                     }
                 ],
                 "existing_logs_changed": false,

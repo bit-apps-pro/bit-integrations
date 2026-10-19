@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "e7833f740326c149",
         "field_source": "log#2103",
-        "field_data_sha": "84eaa9cf2f779818"
+        "field_data_sha": "d51df8d2d7a83ba0"
     },
     "runs": {
         "pro-on": {
@@ -36,7 +36,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "fffce8c9f4a06ec5"
+                            "sha": "878cca6685e92807"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -54,7 +54,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "fffce8c9f4a06ec5"
+                            "sha": "878cca6685e92807"
                         },
                         "body_sha": "83163115c0ff7110",
                         "body_keys": [
@@ -74,7 +74,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "fffce8c9f4a06ec5"
+                            "sha": "878cca6685e92807"
                         },
                         "body_sha": "63f8d821a8d64a00",
                         "body_keys": [
@@ -102,8 +102,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "<datetime-3356400>",
-                                "new": "<datetime>"
+                                "old": "2026-08-20 <clock>",
+                                "new": "<datetime@<ts@1792390348>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -126,9 +126,9 @@
                             "message": "",
                             "code": 200
                         },
-                        "field_data_sha": "007b0ed82b0e1be8",
+                        "field_data_sha": "4318710fcc3477f2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390348>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -175,7 +175,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "fffce8c9f4a06ec5"
+                            "sha": "878cca6685e92807"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -193,7 +193,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "fffce8c9f4a06ec5"
+                            "sha": "878cca6685e92807"
                         },
                         "body_sha": "83163115c0ff7110",
                         "body_keys": [
@@ -213,7 +213,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "fffce8c9f4a06ec5"
+                            "sha": "878cca6685e92807"
                         },
                         "body_sha": "63f8d821a8d64a00",
                         "body_keys": [
@@ -241,8 +241,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "<datetime-3356400>",
-                                "new": "<datetime>"
+                                "old": "2026-08-20 <clock>",
+                                "new": "<datetime@<ts@1792390349>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -265,9 +265,9 @@
                             "message": "",
                             "code": 200
                         },
-                        "field_data_sha": "007b0ed82b0e1be8",
+                        "field_data_sha": "4318710fcc3477f2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390349>>"
                     }
                 ],
                 "existing_logs_changed": false,

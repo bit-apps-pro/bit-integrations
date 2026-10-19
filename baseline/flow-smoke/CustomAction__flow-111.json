@@ -46,8 +46,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-02-17 07:57:27",
-                                "new": "<datetime>"
+                                "old": "2026-02-17 <clock>",
+                                "new": "<datetime@<ts@1792390103>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -66,9 +66,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Custom action file not found",
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390103>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -125,8 +125,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-02-17 07:57:27",
-                                "new": "<datetime>"
+                                "old": "2026-02-17 <clock>",
+                                "new": "<datetime@<ts@1792390104>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -145,9 +145,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Custom action file not found",
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390104>>"
                     }
                 ],
                 "existing_logs_changed": false,

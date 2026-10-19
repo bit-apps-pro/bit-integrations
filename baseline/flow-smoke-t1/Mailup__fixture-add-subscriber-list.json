@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "0101eeb289056dcb",
                         "body_keys": [
@@ -51,8 +51,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391544>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -73,9 +73,9 @@
                         "response_obj": {
                             "message": "Subscriber added successfully"
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391544>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -120,7 +120,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -141,7 +141,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "93fb99285a12bab1"
+                            "sha": "611dacc8bec6723b"
                         },
                         "body_sha": "0101eeb289056dcb",
                         "body_keys": [
@@ -159,8 +159,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391545>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -181,9 +181,9 @@
                         "response_obj": {
                             "message": "Subscriber added successfully"
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391545>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -238,7 +238,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "0101eeb289056dcb",
                         "body_keys": [
@@ -256,8 +256,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391547>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -278,9 +278,9 @@
                         "response_obj": {
                             "message": "Subscriber added successfully"
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391547>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -325,7 +325,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -346,7 +346,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "93fb99285a12bab1"
+                            "sha": "611dacc8bec6723b"
                         },
                         "body_sha": "0101eeb289056dcb",
                         "body_keys": [
@@ -364,8 +364,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391548>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -386,9 +386,9 @@
                         "response_obj": {
                             "message": "Subscriber added successfully"
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391548>>"
                     }
                 ],
                 "existing_logs_changed": false,

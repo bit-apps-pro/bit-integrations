@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "47d4f88057e44721",
         "field_source": "log#2102",
-        "field_data_sha": "84eaa9cf2f779818"
+        "field_data_sha": "d51df8d2d7a83ba0"
     },
     "runs": {
         "pro-on": {
@@ -35,7 +35,7 @@
                                 "user-agent",
                                 "x-api-key"
                             ],
-                            "sha": "64ee37478ba71354"
+                            "sha": "8c2aaeaac3b5d6bc"
                         },
                         "body_sha": "cee82652d097d9ae",
                         "body_keys": [
@@ -66,8 +66,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "<datetime-3356100>",
-                                "new": "<datetime>"
+                                "old": "2026-08-20 <clock>",
+                                "new": "<datetime@<ts@1792390030>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -91,9 +91,9 @@
                             "code": 200,
                             "response": {}
                         },
-                        "field_data_sha": "007b0ed82b0e1be8",
+                        "field_data_sha": "4318710fcc3477f2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390030>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -156,8 +156,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "<datetime-3356100>",
-                                "new": "<datetime>"
+                                "old": "2026-08-20 <clock>",
+                                "new": "<datetime@<ts@1792390031>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -180,9 +180,9 @@
                             "message": "Bit Integrations Pro plugin is not installed or activate",
                             "code": 400
                         },
-                        "field_data_sha": "007b0ed82b0e1be8",
+                        "field_data_sha": "4318710fcc3477f2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390031>>"
                     }
                 ],
                 "existing_logs_changed": false,

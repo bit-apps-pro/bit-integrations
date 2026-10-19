@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "42013a96e2befd19",
         "field_source": "fixture",
-        "field_data_sha": "34f6b28e72358532"
+        "field_data_sha": "b81cfff9c346c920"
     },
     "runs": {
         "pro-on": {
@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390662>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Not Authorization By PCloud",
-                        "field_data_sha": "487bb42f8074bbc9",
+                        "field_data_sha": "3174fb9eeba3b809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390662>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,8 +124,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390663>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -144,9 +144,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Not Authorization By PCloud",
-                        "field_data_sha": "487bb42f8074bbc9",
+                        "field_data_sha": "3174fb9eeba3b809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390663>>"
                     }
                 ],
                 "existing_logs_changed": false,

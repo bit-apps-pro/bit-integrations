@@ -32,8 +32,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-02-20 05:35:13",
-                                "new": "<datetime>"
+                                "old": "2026-02-20 <clock>",
+                                "new": "<datetime@<ts@1792391303>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -51,10 +51,10 @@
                             "type_name": "create"
                         },
                         "response_type": "success",
-                        "response_obj": 3512,
-                        "field_data_sha": "adc0ecaa9f7a41d0",
+                        "response_obj": 11059,
+                        "field_data_sha": "077eefe4a3ed2007",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391303>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -104,8 +104,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-02-20 05:35:13",
-                                "new": "<datetime>"
+                                "old": "2026-02-20 <clock>",
+                                "new": "<datetime@<ts@1792391305>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -123,10 +123,10 @@
                             "type_name": "create"
                         },
                         "response_type": "success",
-                        "response_obj": 3512,
-                        "field_data_sha": "adc0ecaa9f7a41d0",
+                        "response_obj": 11059,
+                        "field_data_sha": "077eefe4a3ed2007",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391305>>"
                     }
                 ],
                 "existing_logs_changed": false,

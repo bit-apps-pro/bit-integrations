@@ -60,7 +60,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "a162293410bb6c21"
+                                "sha": "3bf7edb1b7c7cbb9"
                             },
                             "body_sha": "364b5ee0602eb680",
                             "body_keys": [
@@ -79,7 +79,7 @@
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "dabb54655b9f3fe7"
+                                "sha": "a299cbefcf9ce352"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -98,14 +98,14 @@
                                         "old": "<absent>",
                                         "new": {
                                             "access_token": "<redacted:a7dc7097c955>",
-                                            "generates_on": "<ts>",
+                                            "generates_on": "<ts@1792389377>",
                                             "refresh_token": "<redacted:dd4d681293bf>"
                                         }
                                     }
                                 },
                                 "updated_at": {
-                                    "old": "2026-01-28 10:36:07",
-                                    "new": "<datetime>"
+                                    "old": "2026-01-28 <clock>",
+                                    "new": "<datetime@<ts@1792389377>>"
                                 }
                             }
                         }
@@ -155,7 +155,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "a162293410bb6c21"
+                                "sha": "3bf7edb1b7c7cbb9"
                             },
                             "body_sha": "364b5ee0602eb680",
                             "body_keys": [
@@ -174,7 +174,7 @@
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "dabb54655b9f3fe7"
+                                "sha": "a299cbefcf9ce352"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -197,13 +197,13 @@
                                             "token_type": "<redacted:4b0d53deebbb>",
                                             "expires_in": "smoke_expires_in",
                                             "generated_at": "smoke_generated_at",
-                                            "generates_on": "<ts>"
+                                            "generates_on": "<ts@1792389378>"
                                         }
                                     }
                                 },
                                 "updated_at": {
-                                    "old": "2026-01-28 10:36:07",
-                                    "new": "<datetime>"
+                                    "old": "2026-01-28 <clock>",
+                                    "new": "<datetime@<ts@1792389378>>"
                                 }
                             }
                         }

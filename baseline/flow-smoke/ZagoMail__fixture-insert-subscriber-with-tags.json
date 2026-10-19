@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "29124c4fe3351b8f",
                         "body_keys": [
@@ -50,7 +50,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "571adb9044d065e7",
                         "body_keys": [
@@ -70,7 +70,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "dab06546d544d851",
                         "body_keys": [
@@ -87,7 +87,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "dab06546d544d851",
                         "body_keys": [
@@ -104,8 +104,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391348>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -132,9 +132,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391348>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -178,7 +178,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "29124c4fe3351b8f",
                         "body_keys": [
@@ -196,7 +196,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "571adb9044d065e7",
                         "body_keys": [
@@ -216,7 +216,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "dab06546d544d851",
                         "body_keys": [
@@ -233,7 +233,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "dab06546d544d851",
                         "body_keys": [
@@ -250,8 +250,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391349>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -278,9 +278,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391349>>"
                     }
                 ],
                 "existing_logs_changed": false,

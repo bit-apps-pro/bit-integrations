@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "862e82ee08204fa9"
+                            "sha": "905c277521650f3e"
                         },
                         "body_sha": "b0c42c4134af6d4f",
                         "body_keys": [
@@ -51,7 +51,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "862e82ee08204fa9"
+                            "sha": "905c277521650f3e"
                         },
                         "body_sha": "eb7182bfa14e4d59",
                         "body_keys": [
@@ -68,8 +68,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389977>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -90,9 +90,9 @@
                         "response_obj": [
                             "Task created successfully"
                         ],
-                        "field_data_sha": "d1c0db1152acc90b",
+                        "field_data_sha": "134bef42a150e87e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389977>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -137,7 +137,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "862e82ee08204fa9"
+                            "sha": "905c277521650f3e"
                         },
                         "body_sha": "b0c42c4134af6d4f",
                         "body_keys": [
@@ -155,7 +155,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "862e82ee08204fa9"
+                            "sha": "905c277521650f3e"
                         },
                         "body_sha": "eb7182bfa14e4d59",
                         "body_keys": [
@@ -172,8 +172,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389979>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -194,9 +194,9 @@
                         "response_obj": [
                             "Task created successfully"
                         ],
-                        "field_data_sha": "d1c0db1152acc90b",
+                        "field_data_sha": "134bef42a150e87e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389979>>"
                     }
                 ],
                 "existing_logs_changed": false,

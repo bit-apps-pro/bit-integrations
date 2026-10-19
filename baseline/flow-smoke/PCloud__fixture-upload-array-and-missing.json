@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "dcf4efcf39089da3",
         "field_source": "fixture",
-        "field_data_sha": "c90a57ebe91223ec"
+        "field_data_sha": "b6b52e0817253f27"
     },
     "runs": {
         "pro-on": {
@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "bf680015a2331a1a"
+                            "sha": "e705e7e47eaf07c4"
                         },
                         "body_sha": "c78b86abe7dbcb5e",
                         "body_keys": [],
@@ -62,8 +62,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390664>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -82,9 +82,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded[{\"result\":0,\"fileids\":[5001],\"metadata\":[{\"id\":\"f5001\",\"fileid\":5001,\"name\":\"woocommerce-placeholder-100x100.png\"}]}]",
-                        "field_data_sha": "25377a5a601bcb89",
+                        "field_data_sha": "66831d81e89a01a1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390664>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -95,9 +95,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload[false]",
-                        "field_data_sha": "25377a5a601bcb89",
+                        "field_data_sha": "66831d81e89a01a1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390664>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -142,7 +142,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "bf680015a2331a1a"
+                            "sha": "e705e7e47eaf07c4"
                         },
                         "body_sha": "c78b86abe7dbcb5e",
                         "body_keys": [],
@@ -171,8 +171,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390665>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -191,9 +191,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded[{\"result\":0,\"fileids\":[5001],\"metadata\":[{\"id\":\"f5001\",\"fileid\":5001,\"name\":\"woocommerce-placeholder-100x100.png\"}]}]",
-                        "field_data_sha": "25377a5a601bcb89",
+                        "field_data_sha": "66831d81e89a01a1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390665>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -204,9 +204,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload[false]",
-                        "field_data_sha": "25377a5a601bcb89",
+                        "field_data_sha": "66831d81e89a01a1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390665>>"
                     }
                 ],
                 "existing_logs_changed": false,

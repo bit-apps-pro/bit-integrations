@@ -32,7 +32,7 @@
                                 "bitform-api-key",
                                 "user-agent"
                             ],
-                            "sha": "2bd4c832e0221b56"
+                            "sha": "e5b59e28ba4eeb5d"
                         },
                         "body_sha": "eaf24e74b7462abf",
                         "body_keys": [
@@ -63,8 +63,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390016>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -88,9 +88,9 @@
                                 "b2-1": "Email is invalid"
                             }
                         },
-                        "field_data_sha": "174c6ebd769078e8",
+                        "field_data_sha": "9d6f2db9582df1ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390016>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -135,7 +135,7 @@
                                 "bitform-api-key",
                                 "user-agent"
                             ],
-                            "sha": "2bd4c832e0221b56"
+                            "sha": "e5b59e28ba4eeb5d"
                         },
                         "body_sha": "eaf24e74b7462abf",
                         "body_keys": [
@@ -166,8 +166,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390017>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -191,9 +191,9 @@
                                 "b2-1": "Email is invalid"
                             }
                         },
-                        "field_data_sha": "174c6ebd769078e8",
+                        "field_data_sha": "9d6f2db9582df1ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390017>>"
                     }
                 ],
                 "existing_logs_changed": false,

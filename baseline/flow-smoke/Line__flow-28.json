@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "5ef2fb10753e2e6d"
+                            "sha": "40ee183a42ecc704"
                         },
                         "body_sha": "15b770e77d7230c7",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-12 07:54:05",
-                                "new": "<datetime>"
+                                "old": "2026-05-12 <clock>",
+                                "new": "<datetime@<ts@1792390406>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -72,9 +72,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Push message sent successfully",
-                        "field_data_sha": "316feb0ed12db150",
+                        "field_data_sha": "268ac75a3ceea5ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390406>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -82,18 +82,18 @@
             },
             "info": {
                 "php_errors": [
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
                     "warning: Undefined property: stdClass::$fieldType",
                     "warning: Undefined property: stdClass::$fieldType",
                     "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
@@ -133,7 +133,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "5ef2fb10753e2e6d"
+                            "sha": "40ee183a42ecc704"
                         },
                         "body_sha": "15b770e77d7230c7",
                         "body_keys": [
@@ -151,8 +151,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-12 07:54:05",
-                                "new": "<datetime>"
+                                "old": "2026-05-12 <clock>",
+                                "new": "<datetime@<ts@1792390407>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -171,9 +171,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Push message sent successfully",
-                        "field_data_sha": "316feb0ed12db150",
+                        "field_data_sha": "268ac75a3ceea5ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390407>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -181,18 +181,18 @@
             },
             "info": {
                 "php_errors": [
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953218191.1292 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
-                    "deprecated: Implicit conversion from float 1753953223822.649 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953218191 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
+                    "deprecated: Implicit conversion from float 1753953223822 to int loses precision",
                     "warning: Undefined property: stdClass::$fieldType",
                     "warning: Undefined property: stdClass::$fieldType",
                     "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",

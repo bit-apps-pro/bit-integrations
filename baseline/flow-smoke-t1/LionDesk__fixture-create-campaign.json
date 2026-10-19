@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "579f5a84f9c767ad",
                         "body_keys": [
@@ -50,8 +50,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391529>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -72,9 +72,9 @@
                         "response_obj": [
                             "Campaign created successfully"
                         ],
-                        "field_data_sha": "4905931ae37832b8",
+                        "field_data_sha": "11121790b1366b30",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391529>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -117,7 +117,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "98d2dde7c8a09959",
                         "body_keys": [
@@ -139,7 +139,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1b0422c158c72d39"
+                            "sha": "7da157d62b1a4c70"
                         },
                         "body_sha": "579f5a84f9c767ad",
                         "body_keys": [
@@ -169,15 +169,15 @@
                                         "refresh_token": "<redacted:75fc9557b81e>",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts@1792391530>",
+                                        "generates_on": "<ts@1792391530>",
                                         "expires": ""
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391530>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -198,9 +198,9 @@
                         "response_obj": [
                             "Campaign created successfully"
                         ],
-                        "field_data_sha": "4905931ae37832b8",
+                        "field_data_sha": "11121790b1366b30",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391530>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -253,7 +253,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "579f5a84f9c767ad",
                         "body_keys": [
@@ -270,8 +270,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391532>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -292,9 +292,9 @@
                         "response_obj": [
                             "Campaign created successfully"
                         ],
-                        "field_data_sha": "4905931ae37832b8",
+                        "field_data_sha": "11121790b1366b30",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391532>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -337,7 +337,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "98d2dde7c8a09959",
                         "body_keys": [
@@ -359,7 +359,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1b0422c158c72d39"
+                            "sha": "7da157d62b1a4c70"
                         },
                         "body_sha": "579f5a84f9c767ad",
                         "body_keys": [
@@ -389,15 +389,15 @@
                                         "refresh_token": "<redacted:75fc9557b81e>",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>",
+                                        "generated_at": "<ts@1792391533>",
+                                        "generates_on": "<ts@1792391533>",
                                         "expires": ""
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391533>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -418,9 +418,9 @@
                         "response_obj": [
                             "Campaign created successfully"
                         ],
-                        "field_data_sha": "4905931ae37832b8",
+                        "field_data_sha": "11121790b1366b30",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391533>>"
                     }
                 ],
                 "existing_logs_changed": false,

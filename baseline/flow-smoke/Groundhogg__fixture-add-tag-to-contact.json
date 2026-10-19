@@ -33,7 +33,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": "5f4fa6e98e9b4036",
                         "body_keys": [
@@ -67,7 +67,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": "12c3cc3b529fc2a0",
                         "body_keys": [
@@ -86,7 +86,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": "348b34ffb21c8899",
                         "body_keys": [
@@ -104,8 +104,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390260>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -137,9 +137,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "a67b95e067974c7e",
+                        "field_data_sha": "8597f94298b32f54",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390260>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -184,7 +184,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -200,7 +200,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": "5f4fa6e98e9b4036",
                         "body_keys": [
@@ -218,7 +218,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": "12c3cc3b529fc2a0",
                         "body_keys": [
@@ -237,7 +237,7 @@
                                 "gh-token",
                                 "user-agent"
                             ],
-                            "sha": "13c03b87d813582f"
+                            "sha": "00149d2003887cb4"
                         },
                         "body_sha": "348b34ffb21c8899",
                         "body_keys": [
@@ -255,8 +255,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390262>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -288,9 +288,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "a67b95e067974c7e",
+                        "field_data_sha": "8597f94298b32f54",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390262>>"
                     }
                 ],
                 "existing_logs_changed": false,

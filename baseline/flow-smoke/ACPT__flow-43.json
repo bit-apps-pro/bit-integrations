@@ -40,8 +40,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-09-01 06:46:09",
-                                "new": "<datetime>"
+                                "old": "2025-09-01 <clock>",
+                                "new": "<datetime@<ts@1792389922>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -64,9 +64,9 @@
                             "message": "Required field Icon is empty",
                             "code": 422
                         },
-                        "field_data_sha": "c1f85cec85988a24",
+                        "field_data_sha": "c5cf6a4f32ef5fff",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389922>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -117,8 +117,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-09-01 06:46:09",
-                                "new": "<datetime>"
+                                "old": "2025-09-01 <clock>",
+                                "new": "<datetime@<ts@1792389923>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -141,9 +141,9 @@
                             "message": "Required field Icon is empty",
                             "code": 422
                         },
-                        "field_data_sha": "c1f85cec85988a24",
+                        "field_data_sha": "c5cf6a4f32ef5fff",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389923>>"
                     }
                 ],
                 "existing_logs_changed": false,

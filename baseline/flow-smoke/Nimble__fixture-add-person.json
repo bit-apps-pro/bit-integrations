@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "cda97dc2d2d4838b"
+                            "sha": "0a2deac98b811208"
                         },
                         "body_sha": "b84f33d551770eba",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390603>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -74,9 +74,9 @@
                         "response_obj": [
                             "People  successfully"
                         ],
-                        "field_data_sha": "29451646213aa41f",
+                        "field_data_sha": "ec5a3c5c303fc30a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390603>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -122,7 +122,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "cda97dc2d2d4838b"
+                            "sha": "0a2deac98b811208"
                         },
                         "body_sha": "b84f33d551770eba",
                         "body_keys": [
@@ -140,8 +140,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390604>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -162,9 +162,9 @@
                         "response_obj": [
                             "People  successfully"
                         ],
-                        "field_data_sha": "29451646213aa41f",
+                        "field_data_sha": "ec5a3c5c303fc30a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390604>>"
                     }
                 ],
                 "existing_logs_changed": false,

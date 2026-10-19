@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "cb974547bc564c1a",
                         "body_keys": [
@@ -56,8 +56,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390184>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -78,9 +78,9 @@
                         "response_obj": [
                             "Project created  successfully"
                         ],
-                        "field_data_sha": "2331d18a3c0aa332",
+                        "field_data_sha": "9519ce41d4a57940",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390184>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,7 +124,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "cb974547bc564c1a",
                         "body_keys": [
@@ -148,8 +148,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390185>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -170,9 +170,9 @@
                         "response_obj": [
                             "Project created  successfully"
                         ],
-                        "field_data_sha": "2331d18a3c0aa332",
+                        "field_data_sha": "9519ce41d4a57940",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390185>>"
                     }
                 ],
                 "existing_logs_changed": false,

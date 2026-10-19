@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "676f9052a742c818"
+                            "sha": "80e8a1441c1e9939"
                         },
                         "body_sha": "dab465f6e8db5186",
                         "body_keys": [
@@ -64,8 +64,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391317>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -90,9 +90,9 @@
                                 "msg": "Smoke forced error"
                             }
                         },
-                        "field_data_sha": "d08c78337329c13c",
+                        "field_data_sha": "35217cec40c23da9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391317>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -137,7 +137,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "676f9052a742c818"
+                            "sha": "80e8a1441c1e9939"
                         },
                         "body_sha": "dab465f6e8db5186",
                         "body_keys": [
@@ -168,8 +168,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391318>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -194,9 +194,9 @@
                                 "msg": "Smoke forced error"
                             }
                         },
-                        "field_data_sha": "d08c78337329c13c",
+                        "field_data_sha": "35217cec40c23da9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391318>>"
                     }
                 ],
                 "existing_logs_changed": false,

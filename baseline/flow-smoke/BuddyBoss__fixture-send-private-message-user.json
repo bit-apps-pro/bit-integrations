@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390041>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "BuddyBoss message module is not active.",
-                        "field_data_sha": "3c122b8b505958d0",
+                        "field_data_sha": "9ba5ebe600870845",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390041>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,8 +124,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390043>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -144,9 +144,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "BuddyBoss message module is not active.",
-                        "field_data_sha": "3c122b8b505958d0",
+                        "field_data_sha": "9ba5ebe600870845",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390043>>"
                     }
                 ],
                 "existing_logs_changed": false,

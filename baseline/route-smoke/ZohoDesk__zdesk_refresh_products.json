@@ -55,7 +55,7 @@
                             "data": {
                                 "tokenDetails": {
                                     "access_token": "<redacted:a7dc7097c955>",
-                                    "generates_on": "<ts>",
+                                    "generates_on": "<ts@1792389883>",
                                     "refresh_token": "<redacted:6141e5e760f2>"
                                 },
                                 "products": []
@@ -71,7 +71,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "1dca364f625cb944",
                             "body_keys": [
@@ -92,7 +92,7 @@
                                     "orgid",
                                     "user-agent"
                                 ],
-                                "sha": "737484bca24c1585"
+                                "sha": "d0dae47cab53e691"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -111,14 +111,14 @@
                                         "old": "<absent>",
                                         "new": {
                                             "access_token": "<redacted:a7dc7097c955>",
-                                            "generates_on": "<ts>",
+                                            "generates_on": "<ts@1792389883>",
                                             "refresh_token": "<redacted:6141e5e760f2>"
                                         }
                                     }
                                 },
                                 "updated_at": {
-                                    "old": "2026-01-28 10:36:07",
-                                    "new": "<datetime>"
+                                    "old": "2026-01-28 <clock>",
+                                    "new": "<datetime@<ts@1792389883>>"
                                 }
                             }
                         }
@@ -160,7 +160,7 @@
                                     "token_type": "<redacted:4b0d53deebbb>",
                                     "expires_in": "smoke_expires_in",
                                     "generated_at": "smoke_generated_at",
-                                    "generates_on": "<ts>",
+                                    "generates_on": "<ts@1792389884>",
                                     "api_domain": "smoke_api_domain"
                                 },
                                 "products": []
@@ -176,7 +176,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "1dca364f625cb944",
                             "body_keys": [
@@ -197,7 +197,7 @@
                                     "orgid",
                                     "user-agent"
                                 ],
-                                "sha": "737484bca24c1585"
+                                "sha": "d0dae47cab53e691"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -220,14 +220,14 @@
                                             "token_type": "<redacted:4b0d53deebbb>",
                                             "expires_in": "smoke_expires_in",
                                             "generated_at": "smoke_generated_at",
-                                            "generates_on": "<ts>",
+                                            "generates_on": "<ts@1792389884>",
                                             "api_domain": "smoke_api_domain"
                                         }
                                     }
                                 },
                                 "updated_at": {
-                                    "old": "2026-01-28 10:36:07",
-                                    "new": "<datetime>"
+                                    "old": "2026-01-28 <clock>",
+                                    "new": "<datetime@<ts@1792389884>>"
                                 }
                             }
                         }

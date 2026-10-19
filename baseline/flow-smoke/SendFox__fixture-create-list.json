@@ -33,7 +33,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "8dc73d72b70cf0b3"
+                            "sha": "1f111d30ab53c970"
                         },
                         "body_sha": "cc169aa38d6ebed8",
                         "body_keys": [
@@ -50,8 +50,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390894>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -73,9 +73,9 @@
                             "id": 101,
                             "name": "Smoke List"
                         },
-                        "field_data_sha": "0bfb89ed94f259ce",
+                        "field_data_sha": "b4fb4587f6821fa6",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390894>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -121,7 +121,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "8dc73d72b70cf0b3"
+                            "sha": "1f111d30ab53c970"
                         },
                         "body_sha": "cc169aa38d6ebed8",
                         "body_keys": [
@@ -138,8 +138,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390896>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -161,9 +161,9 @@
                             "id": 101,
                             "name": "Smoke List"
                         },
-                        "field_data_sha": "0bfb89ed94f259ce",
+                        "field_data_sha": "b4fb4587f6821fa6",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390896>>"
                     }
                 ],
                 "existing_logs_changed": false,

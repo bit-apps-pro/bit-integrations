@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "08e16777a464763a",
         "field_source": "fixture",
-        "field_data_sha": "eb20c5eb2a2da529"
+        "field_data_sha": "dffc0c82eeddabf4"
     },
     "runs": {
         "pro-on": {
@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "bf680015a2331a1a"
+                            "sha": "e705e7e47eaf07c4"
                         },
                         "body_sha": "c78b86abe7dbcb5e",
                         "body_keys": [],
@@ -48,8 +48,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390666>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -68,9 +68,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded[{\"result\":0,\"fileids\":[5001],\"metadata\":[{\"id\":\"f5001\",\"fileid\":5001,\"name\":\"woocommerce-placeholder-100x100.png\"}]}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390666>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -115,7 +115,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "bf680015a2331a1a"
+                            "sha": "e705e7e47eaf07c4"
                         },
                         "body_sha": "c78b86abe7dbcb5e",
                         "body_keys": [],
@@ -130,8 +130,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390668>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -150,9 +150,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded[{\"result\":0,\"fileids\":[5001],\"metadata\":[{\"id\":\"f5001\",\"fileid\":5001,\"name\":\"woocommerce-placeholder-100x100.png\"}]}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390668>>"
                     }
                 ],
                 "existing_logs_changed": false,

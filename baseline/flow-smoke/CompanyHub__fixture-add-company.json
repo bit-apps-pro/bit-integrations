@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "0b079d21aaf86145",
         "field_source": "fixture",
-        "field_data_sha": "88ca6a348d4e38d7"
+        "field_data_sha": "00b2336a956f7fd8"
     },
     "runs": {
         "pro-on": {
@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "600c320bf95a3f77"
+                            "sha": "4ff14e7775cf4295"
                         },
                         "body_sha": "d0babbbf5f7404f0",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390066>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -74,9 +74,9 @@
                         "response_obj": [
                             "Company created  successfully"
                         ],
-                        "field_data_sha": "cf9244545148530a",
+                        "field_data_sha": "fe1553ca4bcbef21",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390066>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -121,7 +121,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "600c320bf95a3f77"
+                            "sha": "4ff14e7775cf4295"
                         },
                         "body_sha": "d0babbbf5f7404f0",
                         "body_keys": [
@@ -140,8 +140,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390067>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -162,9 +162,9 @@
                         "response_obj": [
                             "Company created  successfully"
                         ],
-                        "field_data_sha": "cf9244545148530a",
+                        "field_data_sha": "fe1553ca4bcbef21",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390067>>"
                     }
                 ],
                 "existing_logs_changed": false,

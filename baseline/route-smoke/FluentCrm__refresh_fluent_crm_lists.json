@@ -53,7 +53,7 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController::fluentCrmLists",
+        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper::fluentCrmLists",
         "auth_owner": null,
         "notes": []
     }

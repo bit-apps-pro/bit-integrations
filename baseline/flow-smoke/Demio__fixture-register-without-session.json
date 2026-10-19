@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "56aaf58cfc5ef95d"
+                            "sha": "b2b3956a8d765722"
                         },
                         "body_sha": "03f05a47527c1f97",
                         "body_keys": [
@@ -54,8 +54,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390116>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -76,9 +76,9 @@
                         "response_obj": [
                             "Register People to Wabinar  successfully"
                         ],
-                        "field_data_sha": "7ceb9e213b1f0474",
+                        "field_data_sha": "b18da901a70baa6b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390116>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,7 +124,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "56aaf58cfc5ef95d"
+                            "sha": "b2b3956a8d765722"
                         },
                         "body_sha": "03f05a47527c1f97",
                         "body_keys": [
@@ -144,8 +144,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390118>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -166,9 +166,9 @@
                         "response_obj": [
                             "Register People to Wabinar  successfully"
                         ],
-                        "field_data_sha": "7ceb9e213b1f0474",
+                        "field_data_sha": "b18da901a70baa6b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390118>>"
                     }
                 ],
                 "existing_logs_changed": false,

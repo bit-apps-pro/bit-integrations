@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1916ec2d49dc1d01"
+                            "sha": "a68f3cac9ab71864"
                         },
                         "body_sha": "27f9ac1fb6b52e41",
                         "body_keys": [
@@ -61,8 +61,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390924>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -85,9 +85,9 @@
                             "message": "Subscriber updated successfully",
                             "data": {}
                         },
-                        "field_data_sha": "f07884e961023c81",
+                        "field_data_sha": "f17754c8c261af2b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390924>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -150,8 +150,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390925>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -173,9 +173,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activates"
                         },
-                        "field_data_sha": "f07884e961023c81",
+                        "field_data_sha": "f17754c8c261af2b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390925>>"
                     }
                 ],
                 "existing_logs_changed": false,

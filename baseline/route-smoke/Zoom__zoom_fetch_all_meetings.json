@@ -45,28 +45,26 @@
                         "message": "",
                         "response": null
                     },
-                    "status": 200,
+                    "status": 400,
                     "registered": true,
                     "output": {
                         "json": {
-                            "success": true,
-                            "data": {
-                                "allMeeting": null
-                            }
+                            "success": false,
+                            "data": "Unknown"
                         }
                     },
                     "requests": [
                         {
                             "method": "GET",
-                            "url": "https://api.zoom.us/v2/users/me/meetings",
-                            "url_sha": "2e092c102dc20d17",
+                            "url": "https://api.zoom.us/v2/users/me/meetings?page_size=300",
+                            "url_sha": "175938692e07532b",
                             "headers": {
                                 "names": [
                                     "authorization",
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "4789a852a05a5db7"
+                                "sha": "8f6bdcc09bde08bd"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -83,8 +81,7 @@
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
-                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
-                        "warning: Undefined property: stdClass::$meetings"
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
                     ],
                     "error_log": [
                         "CredentialInjector: skipped injection for Integrations\\Actions\\Zoom\\* — Connection auth details are missing"
@@ -100,28 +97,26 @@
                         "message": "",
                         "response": null
                     },
-                    "status": 200,
+                    "status": 400,
                     "registered": true,
                     "output": {
                         "json": {
-                            "success": true,
-                            "data": {
-                                "allMeeting": null
-                            }
+                            "success": false,
+                            "data": "Unknown"
                         }
                     },
                     "requests": [
                         {
                             "method": "GET",
-                            "url": "https://api.zoom.us/v2/users/me/meetings",
-                            "url_sha": "2e092c102dc20d17",
+                            "url": "https://api.zoom.us/v2/users/me/meetings?page_size=300",
+                            "url_sha": "175938692e07532b",
                             "headers": {
                                 "names": [
                                     "authorization",
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "4789a852a05a5db7"
+                                "sha": "8f6bdcc09bde08bd"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -138,8 +133,7 @@
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
-                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
-                        "warning: Undefined property: stdClass::$meetings"
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
                     ],
                     "error_log": [],
                     "tables_written": {
@@ -156,10 +150,10 @@
     "coverage": {
         "verdict": "reached-http",
         "handler_calls_http": true,
-        "php_errors": 12,
+        "php_errors": 10,
         "runs": {
-            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
-            "pro-on/no-connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)"
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)"
         }
     },
     "info": {

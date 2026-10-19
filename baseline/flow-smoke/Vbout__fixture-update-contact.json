@@ -31,7 +31,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -45,7 +45,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "6afba126e33c4b03",
                         "body_keys": [
@@ -66,8 +66,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391083>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -90,9 +90,9 @@
                             "message": "Your contact has been updated successfully",
                             "code": 200
                         },
-                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "field_data_sha": "4f8422ce2c9551e0",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391083>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -136,7 +136,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -150,7 +150,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "6afba126e33c4b03",
                         "body_keys": [
@@ -171,8 +171,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391084>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -195,9 +195,9 @@
                             "message": "Your contact has been updated successfully",
                             "code": 200
                         },
-                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "field_data_sha": "4f8422ce2c9551e0",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391084>>"
                     }
                 ],
                 "existing_logs_changed": false,

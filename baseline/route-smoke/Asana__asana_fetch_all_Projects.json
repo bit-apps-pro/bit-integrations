@@ -55,7 +55,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "f83859c820e1bc74"
+                                "sha": "524c6aa799551692"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -107,7 +107,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "f83859c820e1bc74"
+                                "sha": "524c6aa799551692"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -143,8 +143,8 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\Asana\\AsanaController::getAllProjects",
-        "auth_owner": "BitApps\\Integrations\\Actions\\Asana\\AsanaController",
+        "handler": "BitApps\\Integrations\\Actions\\Asana\\AsanaHelper::getAllProjects",
+        "auth_owner": "BitApps\\Integrations\\Actions\\Asana\\AsanaAction",
         "notes": []
     }
 }

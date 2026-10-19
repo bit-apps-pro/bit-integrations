@@ -53,7 +53,7 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController::refreshDesignations",
+        "handler": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper::refreshDesignations",
         "auth_owner": null,
         "notes": []
     }

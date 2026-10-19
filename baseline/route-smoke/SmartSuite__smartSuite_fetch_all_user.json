@@ -50,11 +50,11 @@
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "ed5b3e3e0dc4fc97"
+                                "sha": "06c8ca675caf317e"
                             },
                             "body_sha": null,
                             "body_keys": [],
-                            "answer": "synthetic"
+                            "answer": "fixture:create-record"
                         }
                     ],
                     "hooks": [],
@@ -95,11 +95,11 @@
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "ed5b3e3e0dc4fc97"
+                                "sha": "06c8ca675caf317e"
                             },
                             "body_sha": null,
                             "body_keys": [],
-                            "answer": "synthetic"
+                            "answer": "fixture:create-record"
                         }
                     ],
                     "hooks": [],

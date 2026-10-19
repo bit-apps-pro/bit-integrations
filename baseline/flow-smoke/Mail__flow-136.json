@@ -53,8 +53,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-04-06 09:36:04",
-                                "new": "<datetime>"
+                                "old": "2026-04-06 <clock>",
+                                "new": "<datetime@<ts@1792390419>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -70,9 +70,9 @@
                         "api_type": "Send Mail",
                         "response_type": "failed",
                         "response_obj": "Mail Integrations failed sends mail to <email:60ba3ff0>",
-                        "field_data_sha": "b827f7be97d38fe8",
+                        "field_data_sha": "2bb5d601ca0b98f0",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390419>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -136,8 +136,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-04-06 09:36:04",
-                                "new": "<datetime>"
+                                "old": "2026-04-06 <clock>",
+                                "new": "<datetime@<ts@1792390420>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -153,9 +153,9 @@
                         "api_type": "Send Mail",
                         "response_type": "failed",
                         "response_obj": "Mail Integrations failed sends mail to <email:60ba3ff0>",
-                        "field_data_sha": "b827f7be97d38fe8",
+                        "field_data_sha": "2bb5d601ca0b98f0",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390420>>"
                     }
                 ],
                 "existing_logs_changed": false,

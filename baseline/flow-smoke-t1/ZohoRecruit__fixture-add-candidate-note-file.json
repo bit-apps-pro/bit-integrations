@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "5323ec43c293dcf9",
         "field_source": "fixture",
-        "field_data_sha": "2094b0276b2b8c55"
+        "field_data_sha": "fed8b431f336722b"
     },
     "runs": {
         "pro-on": {
@@ -32,7 +32,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": "63ebd90847e9412c",
                         "body_keys": [
@@ -51,7 +51,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": "a639036d5e3a6f51",
                         "body_keys": [
@@ -70,8 +70,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391682>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -106,7 +106,7 @@
                                                     },
                                                     {
                                                         "val": "Created Time",
-                                                        "content": "<datetime+6000>"
+                                                        "content": "<datetime-1802100@<ts-1802100@1790589600>>"
                                                     }
                                                 ]
                                             }
@@ -115,9 +115,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "68d6603b0d47580f",
+                        "field_data_sha": "9e0af1d4504287f8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391682>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -128,9 +128,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "68d6603b0d47580f",
+                        "field_data_sha": "9e0af1d4504287f8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391682>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -143,9 +143,9 @@
                         "response_obj": [
                             false
                         ],
-                        "field_data_sha": "68d6603b0d47580f",
+                        "field_data_sha": "9e0af1d4504287f8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391683>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -193,7 +193,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -253,7 +253,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": "63ebd90847e9412c",
                         "body_keys": [
@@ -272,7 +272,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": "a639036d5e3a6f51",
                         "body_keys": [
@@ -291,8 +291,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391685>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -327,7 +327,7 @@
                                                     },
                                                     {
                                                         "val": "Created Time",
-                                                        "content": "<datetime+6000>"
+                                                        "content": "<datetime-1802100@<ts-1802100@1790589600>>"
                                                     }
                                                 ]
                                             }
@@ -336,9 +336,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "68d6603b0d47580f",
+                        "field_data_sha": "9e0af1d4504287f8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391685>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -349,9 +349,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "68d6603b0d47580f",
+                        "field_data_sha": "9e0af1d4504287f8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391685>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -364,9 +364,9 @@
                         "response_obj": [
                             false
                         ],
-                        "field_data_sha": "68d6603b0d47580f",
+                        "field_data_sha": "9e0af1d4504287f8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391685>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -414,7 +414,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [

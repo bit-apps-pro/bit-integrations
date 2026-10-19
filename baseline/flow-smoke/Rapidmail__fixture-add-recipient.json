@@ -35,7 +35,7 @@
                                 "user-agent",
                                 "verify"
                             ],
-                            "sha": "74a1872f02e0e1a7"
+                            "sha": "18113a82168ed46f"
                         },
                         "body_sha": "7e94e9459244afef",
                         "body_keys": [
@@ -55,8 +55,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390788>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -80,9 +80,9 @@
                             "recipientlist_id": 501,
                             "status": "new"
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390788>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -130,7 +130,7 @@
                                 "user-agent",
                                 "verify"
                             ],
-                            "sha": "74a1872f02e0e1a7"
+                            "sha": "18113a82168ed46f"
                         },
                         "body_sha": "7e94e9459244afef",
                         "body_keys": [
@@ -150,8 +150,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390789>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -175,9 +175,9 @@
                             "recipientlist_id": 501,
                             "status": "new"
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390789>>"
                     }
                 ],
                 "existing_logs_changed": false,

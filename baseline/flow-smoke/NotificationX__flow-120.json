@@ -52,8 +52,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-03-07 05:12:09",
-                                "new": "<datetime>"
+                                "old": "2026-03-07 <clock>",
+                                "new": "<datetime@<ts@1792390615>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -75,9 +75,9 @@
                             "success": false,
                             "message": "NotificationX required classes not found."
                         },
-                        "field_data_sha": "395af1c22c0272d7",
+                        "field_data_sha": "5503005ae6e50cee",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390615>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -140,8 +140,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-03-07 05:12:09",
-                                "new": "<datetime>"
+                                "old": "2026-03-07 <clock>",
+                                "new": "<datetime@<ts@1792390616>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -163,9 +163,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "395af1c22c0272d7",
+                        "field_data_sha": "5503005ae6e50cee",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390616>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "4e17a27bf24513d5",
                         "body_keys": [
@@ -67,8 +67,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-11-04 04:56:14",
-                                "new": "<datetime>"
+                                "old": "2025-11-04 <clock>",
+                                "new": "<datetime@<ts@1792391188>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -87,9 +87,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "4fac04f6bb75b052",
+                        "field_data_sha": "c37ffb6277f83a22",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391188>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -133,7 +133,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "4e17a27bf24513d5",
                         "body_keys": [
@@ -167,8 +167,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-11-04 04:56:14",
-                                "new": "<datetime>"
+                                "old": "2025-11-04 <clock>",
+                                "new": "<datetime@<ts@1792391189>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -187,9 +187,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "4fac04f6bb75b052",
+                        "field_data_sha": "c37ffb6277f83a22",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391189>>"
                     }
                 ],
                 "existing_logs_changed": false,

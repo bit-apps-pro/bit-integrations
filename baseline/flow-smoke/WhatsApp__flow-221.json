@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "4a9a600b8044b69e"
+                            "sha": "9a4df86e27baefc8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -50,7 +50,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "4a9a600b8044b69e"
+                            "sha": "9a4df86e27baefc8"
                         },
                         "body_sha": "717f03108dc7a735",
                         "body_keys": [
@@ -76,8 +76,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-19 11:29:25",
-                                "new": "<datetime>"
+                                "old": "2026-07-19 <clock>",
+                                "new": "<datetime@<ts@1792391277>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -96,9 +96,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391277>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -143,7 +143,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "4a9a600b8044b69e"
+                            "sha": "9a4df86e27baefc8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -159,7 +159,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "4a9a600b8044b69e"
+                            "sha": "9a4df86e27baefc8"
                         },
                         "body_sha": "937eb97fd9e15b61",
                         "body_keys": [
@@ -185,8 +185,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-19 11:29:25",
-                                "new": "<datetime>"
+                                "old": "2026-07-19 <clock>",
+                                "new": "<datetime@<ts@1792391279>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -205,9 +205,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391279>>"
                     }
                 ],
                 "existing_logs_changed": false,

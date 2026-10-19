@@ -34,7 +34,7 @@
                                 "user-agent",
                                 "x-encharge-token"
                             ],
-                            "sha": "9b26b2d5f6b7dfa7"
+                            "sha": "c68f50fe24000726"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -50,7 +50,7 @@
                                 "user-agent",
                                 "x-encharge-token"
                             ],
-                            "sha": "9b26b2d5f6b7dfa7"
+                            "sha": "c68f50fe24000726"
                         },
                         "body_sha": "8ab94df845363ad7",
                         "body_keys": [
@@ -83,8 +83,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-07-16 06:52:11",
-                                "new": "<datetime>"
+                                "old": "2025-07-16 <clock>",
+                                "new": "<datetime@<ts@1792390165>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -103,9 +103,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390165>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -150,7 +150,7 @@
                                 "user-agent",
                                 "x-encharge-token"
                             ],
-                            "sha": "9b26b2d5f6b7dfa7"
+                            "sha": "c68f50fe24000726"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -166,7 +166,7 @@
                                 "user-agent",
                                 "x-encharge-token"
                             ],
-                            "sha": "9b26b2d5f6b7dfa7"
+                            "sha": "c68f50fe24000726"
                         },
                         "body_sha": "8ab94df845363ad7",
                         "body_keys": [
@@ -199,8 +199,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-07-16 06:52:11",
-                                "new": "<datetime>"
+                                "old": "2025-07-16 <clock>",
+                                "new": "<datetime@<ts@1792390166>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -219,9 +219,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390166>>"
                     }
                 ],
                 "existing_logs_changed": false,

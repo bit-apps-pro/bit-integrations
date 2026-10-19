@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "c840378768f5c7f8",
         "field_source": "log#1978",
-        "field_data_sha": "b85af0a53ce6571c"
+        "field_data_sha": "8d7ef086858926ae"
     },
     "runs": {
         "pro-on": {
@@ -32,9 +32,9 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
-                        "body_sha": "63770fb50f5b9f5c",
+                        "body_sha": "76461c26d45bd2ed",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -53,7 +53,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "f06ecf2f33bcc290"
+                            "sha": "a4e3c7780569e2f2"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -76,8 +76,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-23 08:22:50",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391408>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -96,9 +96,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391408>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -142,9 +142,9 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
-                        "body_sha": "63770fb50f5b9f5c",
+                        "body_sha": "76461c26d45bd2ed",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -163,7 +163,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "f06ecf2f33bcc290"
+                            "sha": "a4e3c7780569e2f2"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -186,8 +186,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-23 08:22:50",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391409>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -206,9 +206,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391409>>"
                     }
                 ],
                 "existing_logs_changed": false,

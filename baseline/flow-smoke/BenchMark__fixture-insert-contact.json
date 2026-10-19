@@ -32,7 +32,7 @@
                                 "authtoken",
                                 "user-agent"
                             ],
-                            "sha": "a3dbdbf5568934ea"
+                            "sha": "65e76cfa91ab5924"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -48,7 +48,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "990dce9b759ae614"
+                            "sha": "c10e4a0443e4e845"
                         },
                         "body_sha": "1a083cfafd8440e0",
                         "body_keys": [
@@ -65,8 +65,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389993>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -92,9 +92,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "0998ab45907a946f",
+                        "field_data_sha": "adea35506831de5f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389993>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -138,7 +138,7 @@
                                 "authtoken",
                                 "user-agent"
                             ],
-                            "sha": "a3dbdbf5568934ea"
+                            "sha": "65e76cfa91ab5924"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -154,7 +154,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "990dce9b759ae614"
+                            "sha": "c10e4a0443e4e845"
                         },
                         "body_sha": "1a083cfafd8440e0",
                         "body_keys": [
@@ -171,8 +171,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389994>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -198,9 +198,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "0998ab45907a946f",
+                        "field_data_sha": "adea35506831de5f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389994>>"
                     }
                 ],
                 "existing_logs_changed": false,

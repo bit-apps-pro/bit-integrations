@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "3d605e7468dd95dc"
+                            "sha": "ad8f092070932c84"
                         },
                         "body_sha": "0297d0d1883f53cc",
                         "body_keys": [
@@ -55,8 +55,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390657>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -77,9 +77,9 @@
                         "response_obj": [
                             "Customer created  successfully"
                         ],
-                        "field_data_sha": "007e64204e1d1cab",
+                        "field_data_sha": "338cac8bae67d945",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390657>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,7 +124,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "3d605e7468dd95dc"
+                            "sha": "ad8f092070932c84"
                         },
                         "body_sha": "0297d0d1883f53cc",
                         "body_keys": [
@@ -146,8 +146,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390658>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -168,9 +168,9 @@
                         "response_obj": [
                             "Customer created  successfully"
                         ],
-                        "field_data_sha": "007e64204e1d1cab",
+                        "field_data_sha": "338cac8bae67d945",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390658>>"
                     }
                 ],
                 "existing_logs_changed": false,

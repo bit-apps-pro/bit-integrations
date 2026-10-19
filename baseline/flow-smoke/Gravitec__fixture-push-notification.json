@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a3b1ae52f9ee2426"
+                            "sha": "03fee139636a8e69"
                         },
                         "body_sha": "7591f19e223a9783",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390256>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -74,9 +74,9 @@
                         "response_obj": [
                             "Notification Pushed  successfully"
                         ],
-                        "field_data_sha": "5c9141fbf164f692",
+                        "field_data_sha": "cef012003a219e66",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390256>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -121,7 +121,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a3b1ae52f9ee2426"
+                            "sha": "03fee139636a8e69"
                         },
                         "body_sha": "7591f19e223a9783",
                         "body_keys": [
@@ -140,8 +140,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390257>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -162,9 +162,9 @@
                         "response_obj": [
                             "Notification Pushed  successfully"
                         ],
-                        "field_data_sha": "5c9141fbf164f692",
+                        "field_data_sha": "cef012003a219e66",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390257>>"
                     }
                 ],
                 "existing_logs_changed": false,

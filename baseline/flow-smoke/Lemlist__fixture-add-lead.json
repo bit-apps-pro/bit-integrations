@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "44f7d12057864cfa"
+                            "sha": "f18351b9c16b9e86"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "44f7d12057864cfa"
+                            "sha": "f18351b9c16b9e86"
                         },
                         "body_sha": "68821c5bc68c5549",
                         "body_keys": [
@@ -68,8 +68,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390387>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -90,9 +90,9 @@
                         "response_obj": {
                             "message": "Lead added successfully"
                         },
-                        "field_data_sha": "8b00b6f2f702ebaf",
+                        "field_data_sha": "a5630f35fb0e5577",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390387>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -138,7 +138,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "44f7d12057864cfa"
+                            "sha": "f18351b9c16b9e86"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -154,7 +154,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "44f7d12057864cfa"
+                            "sha": "f18351b9c16b9e86"
                         },
                         "body_sha": "68821c5bc68c5549",
                         "body_keys": [
@@ -173,8 +173,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390388>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -195,9 +195,9 @@
                         "response_obj": {
                             "message": "Lead added successfully"
                         },
-                        "field_data_sha": "8b00b6f2f702ebaf",
+                        "field_data_sha": "a5630f35fb0e5577",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390388>>"
                     }
                 ],
                 "existing_logs_changed": false,

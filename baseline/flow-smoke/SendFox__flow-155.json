@@ -34,7 +34,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "72dff114af5d1b2e"
+                            "sha": "36b9a6631d9e643a"
                         },
                         "body_sha": "e4ed97d3a500a307",
                         "body_keys": [
@@ -60,8 +60,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-02 06:59:55",
-                                "new": "<datetime>"
+                                "old": "2026-05-02 <clock>",
+                                "new": "<datetime@<ts@1792390887>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -83,9 +83,9 @@
                             "id": 5001,
                             "email": "smoke@example.com"
                         },
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390887>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -131,7 +131,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "72dff114af5d1b2e"
+                            "sha": "36b9a6631d9e643a"
                         },
                         "body_sha": "e4ed97d3a500a307",
                         "body_keys": [
@@ -157,8 +157,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-02 06:59:55",
-                                "new": "<datetime>"
+                                "old": "2026-05-02 <clock>",
+                                "new": "<datetime@<ts@1792390888>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -180,9 +180,9 @@
                             "id": 5001,
                             "email": "smoke@example.com"
                         },
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390888>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "9099d048c36e6d0d",
                         "body_keys": [
@@ -54,7 +54,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "9a9d4ec76375356d",
                         "body_keys": [
@@ -86,8 +86,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390716>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -112,9 +112,9 @@
                                 "name": "Smoke Person"
                             }
                         },
-                        "field_data_sha": "7300c8598bf2994b",
+                        "field_data_sha": "ff554ef17d4c87bc",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390716>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -131,9 +131,9 @@
                                 "title": "Smoke Deal"
                             }
                         },
-                        "field_data_sha": "7300c8598bf2994b",
+                        "field_data_sha": "ff554ef17d4c87bc",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390716>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -177,7 +177,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "9099d048c36e6d0d",
                         "body_keys": [
@@ -210,8 +210,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390717>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -236,9 +236,9 @@
                                 "name": "Smoke Person"
                             }
                         },
-                        "field_data_sha": "7300c8598bf2994b",
+                        "field_data_sha": "ff554ef17d4c87bc",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390717>>"
                     }
                 ],
                 "existing_logs_changed": false,

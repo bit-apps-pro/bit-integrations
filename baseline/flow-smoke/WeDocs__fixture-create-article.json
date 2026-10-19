@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391127>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -68,9 +68,9 @@
                             "success": false,
                             "message": "weDocs is not installed or activated"
                         },
-                        "field_data_sha": "aa6c74e51a657cd4",
+                        "field_data_sha": "2107bd923002d315",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391127>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -127,8 +127,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391129>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -150,9 +150,9 @@
                             "success": false,
                             "message": "weDocs is not installed or activated"
                         },
-                        "field_data_sha": "aa6c74e51a657cd4",
+                        "field_data_sha": "2107bd923002d315",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391129>>"
                     }
                 ],
                 "existing_logs_changed": false,

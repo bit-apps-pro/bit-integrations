@@ -57,8 +57,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-09-10 09:54:22",
-                                "new": "<datetime>"
+                                "old": "2025-09-10 <clock>",
+                                "new": "<datetime@<ts@1792389929>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -84,9 +84,9 @@
                             },
                             "error_data": []
                         },
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389929>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -154,8 +154,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-09-10 09:54:22",
-                                "new": "<datetime>"
+                                "old": "2025-09-10 <clock>",
+                                "new": "<datetime@<ts@1792389930>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -176,9 +176,9 @@
                         "response_obj": {
                             "error": "Bit Integration Pro plugin is not installed or activate"
                         },
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389930>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -34,9 +34,9 @@
                                 "user-agent",
                                 "x-api-key"
                             ],
-                            "sha": "33b89d396ea68901"
+                            "sha": "1191c161708a4d09"
                         },
-                        "body_sha": "3204d08fd02608ec",
+                        "body_sha": "e584854900b42d9f",
                         "body_keys": [
                             "title",
                             "pipelineId",
@@ -65,8 +65,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390270>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -89,9 +89,9 @@
                             "message": "Record created successfully",
                             "data": {}
                         },
-                        "field_data_sha": "88a53ac55ef66f02",
+                        "field_data_sha": "cad853b3bd36621f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390270>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -154,8 +154,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390271>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -177,9 +177,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "88a53ac55ef66f02",
+                        "field_data_sha": "cad853b3bd36621f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390271>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -35,7 +35,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -53,7 +53,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": "343db6a7e960fc96",
                         "body_keys": [
@@ -91,8 +91,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390355>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -115,9 +115,9 @@
                             "message": {},
                             "code": 200
                         },
-                        "field_data_sha": "5422c64013a3e19d",
+                        "field_data_sha": "50eb20e22278a0b1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390355>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -164,7 +164,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -214,8 +214,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390356>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -238,9 +238,9 @@
                             "message": "Bit Integrations Pro plugin is not installed or activate",
                             "code": 400
                         },
-                        "field_data_sha": "5422c64013a3e19d",
+                        "field_data_sha": "50eb20e22278a0b1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390356>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -34,7 +34,7 @@
                                 "user-agent",
                                 "x-api-key"
                             ],
-                            "sha": "33b89d396ea68901"
+                            "sha": "1191c161708a4d09"
                         },
                         "body_sha": "e229beb459cbafb7",
                         "body_keys": [
@@ -63,8 +63,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390267>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -87,9 +87,9 @@
                             "message": "Record created successfully",
                             "data": {}
                         },
-                        "field_data_sha": "43a98ca513cf0447",
+                        "field_data_sha": "63fa83455f5e3e4a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390267>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -152,8 +152,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390268>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -175,9 +175,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "43a98ca513cf0447",
+                        "field_data_sha": "63fa83455f5e3e4a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390268>>"
                     }
                 ],
                 "existing_logs_changed": false,

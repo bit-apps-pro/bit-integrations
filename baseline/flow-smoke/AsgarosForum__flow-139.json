@@ -46,8 +46,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-04-13 04:47:08",
-                                "new": "<datetime>"
+                                "old": "2026-04-13 <clock>",
+                                "new": "<datetime@<ts@1792389980>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -69,9 +69,9 @@
                             "success": false,
                             "message": "Asgaros Forum is not installed or activated"
                         },
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389980>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -128,8 +128,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-04-13 04:47:08",
-                                "new": "<datetime>"
+                                "old": "2026-04-13 <clock>",
+                                "new": "<datetime@<ts@1792389981>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -151,9 +151,9 @@
                             "success": false,
                             "message": "Asgaros Forum is not installed or activated"
                         },
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389981>>"
                     }
                 ],
                 "existing_logs_changed": false,

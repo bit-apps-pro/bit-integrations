@@ -34,7 +34,7 @@
                                 "x-public-id",
                                 "x-secret-key"
                             ],
-                            "sha": "80f9ab19650b465d"
+                            "sha": "716887ab3839bac5"
                         },
                         "body_sha": "0accbe9a514e06ca",
                         "body_keys": [
@@ -68,8 +68,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390987>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -91,9 +91,9 @@
                             "success": false,
                             "message": "Contact already exists"
                         },
-                        "field_data_sha": "5c8523bef109fe26",
+                        "field_data_sha": "2d14df47bd04d809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390987>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -139,7 +139,7 @@
                                 "x-public-id",
                                 "x-secret-key"
                             ],
-                            "sha": "80f9ab19650b465d"
+                            "sha": "716887ab3839bac5"
                         },
                         "body_sha": "0accbe9a514e06ca",
                         "body_keys": [
@@ -173,8 +173,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390988>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -196,9 +196,9 @@
                             "success": false,
                             "message": "Contact already exists"
                         },
-                        "field_data_sha": "5c8523bef109fe26",
+                        "field_data_sha": "2d14df47bd04d809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390988>>"
                     }
                 ],
                 "existing_logs_changed": false,

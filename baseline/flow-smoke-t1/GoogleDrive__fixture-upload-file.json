@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "ca0e095357b417d0",
         "field_source": "fixture",
-        "field_data_sha": "07fe6db0bc1a76c6"
+        "field_data_sha": "9cd93fd925e06d14"
     },
     "runs": {
         "pro-on": {
@@ -33,9 +33,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "59b52b47e88e873b"
+                            "sha": "e0101799a22355ce"
                         },
-                        "body_sha": "bc4c2a865e3978cb",
+                        "body_sha": "22652a0c4c9e371e",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     },
@@ -49,9 +49,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "59b52b47e88e873b"
+                            "sha": "e0101799a22355ce"
                         },
-                        "body_sha": "537ead468e1b4e06",
+                        "body_sha": "1208db08e23564f6",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     }
@@ -64,8 +64,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391496>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -84,9 +84,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
-                        "field_data_sha": "81aaab99c07108c1",
+                        "field_data_sha": "cea1dcdfaae34b72",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391496>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -129,7 +129,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -150,9 +150,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "2a3da65b5078764e"
+                            "sha": "1d010de394ee4476"
                         },
-                        "body_sha": "cb2f39fd7f709934",
+                        "body_sha": "22652a0c4c9e371e",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     },
@@ -166,9 +166,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "2a3da65b5078764e"
+                            "sha": "1d010de394ee4476"
                         },
-                        "body_sha": "a95a62eb17503259",
+                        "body_sha": "1208db08e23564f6",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     }
@@ -194,14 +194,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>"
+                                        "generated_at": "<ts@1792391498>",
+                                        "generates_on": "<ts@1792391498>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391498>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -220,9 +220,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
-                        "field_data_sha": "81aaab99c07108c1",
+                        "field_data_sha": "cea1dcdfaae34b72",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391498>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -275,9 +275,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "59b52b47e88e873b"
+                            "sha": "e0101799a22355ce"
                         },
-                        "body_sha": "763e31726b5b4084",
+                        "body_sha": "22652a0c4c9e371e",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     },
@@ -291,9 +291,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "59b52b47e88e873b"
+                            "sha": "e0101799a22355ce"
                         },
-                        "body_sha": "d6d047a5f7d64915",
+                        "body_sha": "1208db08e23564f6",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     }
@@ -306,8 +306,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391501>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -326,9 +326,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
-                        "field_data_sha": "81aaab99c07108c1",
+                        "field_data_sha": "cea1dcdfaae34b72",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391501>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -371,7 +371,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -392,9 +392,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "2a3da65b5078764e"
+                            "sha": "1d010de394ee4476"
                         },
-                        "body_sha": "7371a5b12aea298c",
+                        "body_sha": "22652a0c4c9e371e",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     },
@@ -408,9 +408,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "2a3da65b5078764e"
+                            "sha": "1d010de394ee4476"
                         },
-                        "body_sha": "264e41da8376bf00",
+                        "body_sha": "1208db08e23564f6",
                         "body_keys": [],
                         "answer": "fixture:drive-upload"
                     }
@@ -436,14 +436,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>"
+                                        "generated_at": "<ts@1792391503>",
+                                        "generates_on": "<ts@1792391503>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391503>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -462,9 +462,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"},{\"kind\":\"drive#file\",\"id\":\"smoke-drive-file-1\",\"name\":\"robots.txt\",\"mimeType\":\"text\\/plain\"}]",
-                        "field_data_sha": "81aaab99c07108c1",
+                        "field_data_sha": "cea1dcdfaae34b72",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391503>>"
                     }
                 ],
                 "existing_logs_changed": false,

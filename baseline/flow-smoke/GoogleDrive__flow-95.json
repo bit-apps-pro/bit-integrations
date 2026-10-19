@@ -32,7 +32,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "fbddebc70d6c680f",
                         "body_keys": [
@@ -80,14 +80,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "scope": "https://www.googleapis.com/auth/drive",
                                         "token_type": "<redacted:2c035ac06add>",
-                                        "generates_on": "<ts>",
-                                        "generated_at": "<ts>"
+                                        "generates_on": "<ts@1792390242>",
+                                        "generated_at": "<ts@1792390242>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-13 05:19:27",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792390242>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -106,9 +106,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "cd1d3bfe33537384",
+                        "field_data_sha": "43bd795c2bf0af6d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390242>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -151,7 +151,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "fbddebc70d6c680f",
                         "body_keys": [
@@ -199,14 +199,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "scope": "https://www.googleapis.com/auth/drive",
                                         "token_type": "<redacted:2c035ac06add>",
-                                        "generates_on": "<ts>",
-                                        "generated_at": "<ts>"
+                                        "generates_on": "<ts@1792390243>",
+                                        "generated_at": "<ts@1792390243>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-13 05:19:27",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792390243>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -225,9 +225,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "cd1d3bfe33537384",
+                        "field_data_sha": "43bd795c2bf0af6d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390243>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -72,7 +72,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "2a38b2a5ee264cb4"
+                                "sha": "02accdb047097f67"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -135,7 +135,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "2a38b2a5ee264cb4"
+                                "sha": "02accdb047097f67"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -176,8 +176,8 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController::refreshAudience",
-        "auth_owner": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+        "handler": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper::refreshAudience",
+        "auth_owner": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction",
         "notes": []
     }
 }

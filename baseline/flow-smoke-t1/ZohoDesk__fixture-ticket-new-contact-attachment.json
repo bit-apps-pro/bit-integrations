@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "1f2d2555e392cc18",
         "field_source": "fixture",
-        "field_data_sha": "35baa724772f30d3"
+        "field_data_sha": "33d9dfc83aadb656"
     },
     "runs": {
         "pro-on": {
@@ -34,7 +34,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "a0aa0dafdd11802e"
+                            "sha": "cceafb0c2df5afa9"
                         },
                         "body_sha": "e48a73939715a9f8",
                         "body_keys": [
@@ -53,7 +53,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "a0aa0dafdd11802e"
+                            "sha": "cceafb0c2df5afa9"
                         },
                         "body_sha": "e69f17a10d616a54",
                         "body_keys": [
@@ -74,8 +74,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391663>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -97,9 +97,9 @@
                             "id": "600002",
                             "lastName": "Smoke New"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391663>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -114,9 +114,9 @@
                             "ticketNumber": "101",
                             "subject": "Smoke ticket"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391663>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -129,9 +129,9 @@
                         "response_obj": [
                             false
                         ],
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391663>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -176,7 +176,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -198,7 +198,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "3acab283c59df22d"
+                            "sha": "0abbb919ab43ab66"
                         },
                         "body_sha": "e48a73939715a9f8",
                         "body_keys": [
@@ -217,7 +217,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "3acab283c59df22d"
+                            "sha": "0abbb919ab43ab66"
                         },
                         "body_sha": "e69f17a10d616a54",
                         "body_keys": [
@@ -253,13 +253,13 @@
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
                                         "api_domain": "https%3A%2F%2Fwww.zohoapis.com",
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391665>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391665>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -281,9 +281,9 @@
                             "id": "600002",
                             "lastName": "Smoke New"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391665>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -298,9 +298,9 @@
                             "ticketNumber": "101",
                             "subject": "Smoke ticket"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391665>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -313,9 +313,9 @@
                         "response_obj": [
                             false
                         ],
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391665>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -371,7 +371,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "a0aa0dafdd11802e"
+                            "sha": "cceafb0c2df5afa9"
                         },
                         "body_sha": "e48a73939715a9f8",
                         "body_keys": [
@@ -390,7 +390,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "a0aa0dafdd11802e"
+                            "sha": "cceafb0c2df5afa9"
                         },
                         "body_sha": "e69f17a10d616a54",
                         "body_keys": [
@@ -411,8 +411,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391666>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -434,9 +434,9 @@
                             "id": "600002",
                             "lastName": "Smoke New"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391666>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -451,9 +451,9 @@
                             "ticketNumber": "101",
                             "subject": "Smoke ticket"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391666>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -466,9 +466,9 @@
                         "response_obj": [
                             false
                         ],
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391666>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -513,7 +513,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -535,7 +535,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "3acab283c59df22d"
+                            "sha": "0abbb919ab43ab66"
                         },
                         "body_sha": "e48a73939715a9f8",
                         "body_keys": [
@@ -554,7 +554,7 @@
                                 "orgid",
                                 "user-agent"
                             ],
-                            "sha": "3acab283c59df22d"
+                            "sha": "0abbb919ab43ab66"
                         },
                         "body_sha": "e69f17a10d616a54",
                         "body_keys": [
@@ -590,13 +590,13 @@
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
                                         "api_domain": "https%3A%2F%2Fwww.zohoapis.com",
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391667>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391667>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -618,9 +618,9 @@
                             "id": "600002",
                             "lastName": "Smoke New"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391667>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -635,9 +635,9 @@
                             "ticketNumber": "101",
                             "subject": "Smoke ticket"
                         },
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391667>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -650,9 +650,9 @@
                         "response_obj": [
                             false
                         ],
-                        "field_data_sha": "68c68f68940f3d13",
+                        "field_data_sha": "b1435334687f0f57",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391667>>"
                     }
                 ],
                 "existing_logs_changed": false,

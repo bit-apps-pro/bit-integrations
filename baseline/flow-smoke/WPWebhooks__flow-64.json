@@ -46,8 +46,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-10-16 07:10:58",
-                                "new": "<datetime>"
+                                "old": "2025-10-16 <clock>",
+                                "new": "<datetime@<ts@1792391118>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -73,9 +73,9 @@
                             },
                             "error_data": []
                         },
-                        "field_data_sha": "46e2d2a4c8556de7",
+                        "field_data_sha": "a54daf18655f3468",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391118>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -132,8 +132,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-10-16 07:10:58",
-                                "new": "<datetime>"
+                                "old": "2025-10-16 <clock>",
+                                "new": "<datetime@<ts@1792391119>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -159,9 +159,9 @@
                             },
                             "error_data": []
                         },
-                        "field_data_sha": "46e2d2a4c8556de7",
+                        "field_data_sha": "a54daf18655f3468",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391119>>"
                     }
                 ],
                 "existing_logs_changed": false,

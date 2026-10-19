@@ -33,7 +33,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": "eafd57d17f0b13d7",
                         "body_keys": [
@@ -69,8 +69,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390452>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -91,9 +91,9 @@
                         "response_obj": {
                             "message": "Subscriber updated successfully"
                         },
-                        "field_data_sha": "2e07c14b69426c17",
+                        "field_data_sha": "a45f002b82738c1a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390452>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -141,7 +141,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -157,7 +157,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": "eafd57d17f0b13d7",
                         "body_keys": [
@@ -177,8 +177,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390453>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -199,9 +199,9 @@
                         "response_obj": {
                             "message": "Subscriber updated successfully"
                         },
-                        "field_data_sha": "2e07c14b69426c17",
+                        "field_data_sha": "a45f002b82738c1a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390453>>"
                     }
                 ],
                 "existing_logs_changed": false,

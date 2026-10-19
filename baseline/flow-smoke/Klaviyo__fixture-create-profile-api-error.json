@@ -35,7 +35,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -53,7 +53,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": "6f2aa0a7c1b351bb",
                         "body_keys": [
@@ -95,8 +95,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390352>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -119,9 +119,9 @@
                             "message": "Smoke duplicate profile",
                             "code": 400
                         },
-                        "field_data_sha": "8571e2f876c1ad2b",
+                        "field_data_sha": "39715d8cf957ccb2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390352>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -168,7 +168,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -186,7 +186,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "85572185eac3830d"
+                            "sha": "411da4d241270dd8"
                         },
                         "body_sha": "6f2aa0a7c1b351bb",
                         "body_keys": [
@@ -228,8 +228,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390353>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -252,9 +252,9 @@
                             "message": "Smoke duplicate profile",
                             "code": 400
                         },
-                        "field_data_sha": "8571e2f876c1ad2b",
+                        "field_data_sha": "39715d8cf957ccb2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390353>>"
                     }
                 ],
                 "existing_logs_changed": false,

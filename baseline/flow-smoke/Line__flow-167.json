@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "b9187d1f61b9c258"
+                            "sha": "c6f65cbdb2efcfeb"
                         },
                         "body_sha": "15b770e77d7230c7",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-12 07:54:07",
-                                "new": "<datetime>"
+                                "old": "2026-05-12 <clock>",
+                                "new": "<datetime@<ts@1792390408>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -72,9 +72,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Push message sent successfully",
-                        "field_data_sha": "316feb0ed12db150",
+                        "field_data_sha": "268ac75a3ceea5ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390408>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -119,7 +119,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "b9187d1f61b9c258"
+                            "sha": "c6f65cbdb2efcfeb"
                         },
                         "body_sha": "15b770e77d7230c7",
                         "body_keys": [
@@ -137,8 +137,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-12 07:54:07",
-                                "new": "<datetime>"
+                                "old": "2026-05-12 <clock>",
+                                "new": "<datetime@<ts@1792390409>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -157,9 +157,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Push message sent successfully",
-                        "field_data_sha": "316feb0ed12db150",
+                        "field_data_sha": "268ac75a3ceea5ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390409>>"
                     }
                 ],
                 "existing_logs_changed": false,

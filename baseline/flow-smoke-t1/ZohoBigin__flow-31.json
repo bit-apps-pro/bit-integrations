@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "d133a7acc6b9462b",
         "field_source": "log#1979",
-        "field_data_sha": "b85af0a53ce6571c"
+        "field_data_sha": "8d7ef086858926ae"
     },
     "runs": {
         "pro-on": {
@@ -32,9 +32,9 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
-                        "body_sha": "5abce01cb53e33d1",
+                        "body_sha": "cc0e1f88c9c61970",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -52,7 +52,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0ba131c27dc42189"
+                            "sha": "ee726ec223d73689"
                         },
                         "body_sha": "e4eaa1b3ce731d79",
                         "body_keys": [
@@ -76,8 +76,8 @@
                                 },
                                 "tokenDetails": {
                                     "old": {
-                                        "access_token": "<redacted:2be7edd7611d>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "access_token": "<redacted:digest>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -86,18 +86,18 @@
                                     },
                                     "new": {
                                         "access_token": "<redacted:a7dc7097c955>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391618>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-23 08:22:48",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391618>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -116,9 +116,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391618>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -162,9 +162,9 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
-                        "body_sha": "5abce01cb53e33d1",
+                        "body_sha": "cc0e1f88c9c61970",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -182,7 +182,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0ba131c27dc42189"
+                            "sha": "ee726ec223d73689"
                         },
                         "body_sha": "e4eaa1b3ce731d79",
                         "body_keys": [
@@ -206,8 +206,8 @@
                                 },
                                 "tokenDetails": {
                                     "old": {
-                                        "access_token": "<redacted:2be7edd7611d>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "access_token": "<redacted:digest>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -216,18 +216,18 @@
                                     },
                                     "new": {
                                         "access_token": "<redacted:a7dc7097c955>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391619>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-23 08:22:48",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391619>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -246,9 +246,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391619>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -300,9 +300,9 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
-                        "body_sha": "5abce01cb53e33d1",
+                        "body_sha": "cc0e1f88c9c61970",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -320,7 +320,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0ba131c27dc42189"
+                            "sha": "ee726ec223d73689"
                         },
                         "body_sha": "e4eaa1b3ce731d79",
                         "body_keys": [
@@ -344,8 +344,8 @@
                                 },
                                 "tokenDetails": {
                                     "old": {
-                                        "access_token": "<redacted:2be7edd7611d>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "access_token": "<redacted:digest>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -354,18 +354,18 @@
                                     },
                                     "new": {
                                         "access_token": "<redacted:a7dc7097c955>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391620>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-23 08:22:48",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391620>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -384,9 +384,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391620>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -430,9 +430,9 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
-                        "body_sha": "5abce01cb53e33d1",
+                        "body_sha": "cc0e1f88c9c61970",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -450,7 +450,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0ba131c27dc42189"
+                            "sha": "ee726ec223d73689"
                         },
                         "body_sha": "e4eaa1b3ce731d79",
                         "body_keys": [
@@ -474,8 +474,8 @@
                                 },
                                 "tokenDetails": {
                                     "old": {
-                                        "access_token": "<redacted:2be7edd7611d>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "access_token": "<redacted:digest>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -484,18 +484,18 @@
                                     },
                                     "new": {
                                         "access_token": "<redacted:a7dc7097c955>",
-                                        "refresh_token": "<redacted:09d968153149>",
+                                        "refresh_token": "<redacted:digest>",
                                         "scope": "ZohoBigin.settings.modules.READ ZohoBigin.settings.fields.READ ZohoBigin.settings.tags.READ ZohoBigin.users.READ ZohoBigin.modules.ALL ZohoBigin.settings.layouts.READ",
                                         "api_domain": "https://www.zohoapis.com",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391621>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-23 08:22:48",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391621>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -514,9 +514,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391622>>"
                     }
                 ],
                 "existing_logs_changed": false,

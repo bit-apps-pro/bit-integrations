@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "7133f65e3c529ffd",
         "field_source": "log#1989",
-        "field_data_sha": "dbef46241be1a279"
+        "field_data_sha": "3785b55abe793151"
     },
     "runs": {
         "pro-on": {
@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "8496e106f6c164ac",
                         "body_keys": [
@@ -59,8 +59,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-26 09:48:17",
-                                "new": "<datetime>"
+                                "old": "2026-07-26 <clock>",
+                                "new": "<datetime@<ts@1792391154>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -79,9 +79,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "3785b55abe793151",
+                        "field_data_sha": "5d26496d6f597222",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391154>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -125,7 +125,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "8496e106f6c164ac",
                         "body_keys": [
@@ -151,8 +151,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-26 09:48:17",
-                                "new": "<datetime>"
+                                "old": "2026-07-26 <clock>",
+                                "new": "<datetime@<ts@1792391155>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -171,9 +171,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "3785b55abe793151",
+                        "field_data_sha": "5d26496d6f597222",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391155>>"
                     }
                 ],
                 "existing_logs_changed": false,

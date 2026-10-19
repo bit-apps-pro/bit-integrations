@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "96ac256d894cf6f5"
+                            "sha": "2b152cec83bcd8bc"
                         },
                         "body_sha": "e874abd5f9e64ba4",
                         "body_keys": [
@@ -78,8 +78,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390368>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -98,9 +98,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "626a360469eac6a3",
+                        "field_data_sha": "02cab79b820d5d8a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390368>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -168,8 +168,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390369>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -188,9 +188,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Bit Integrations Pro plugin is not installed or activate",
-                        "field_data_sha": "626a360469eac6a3",
+                        "field_data_sha": "02cab79b820d5d8a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390369>>"
                     }
                 ],
                 "existing_logs_changed": false,

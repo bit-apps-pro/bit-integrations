@@ -32,7 +32,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": "6252d71c193f5ed6",
                         "body_keys": [
@@ -54,8 +54,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391678>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -90,7 +90,7 @@
                                                     },
                                                     {
                                                         "val": "Created Time",
-                                                        "content": "<datetime+6000>"
+                                                        "content": "<datetime-1802100@<ts-1802100@1790589600>>"
                                                     }
                                                 ]
                                             }
@@ -99,9 +99,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "00dd2680b0dcab8e",
+                        "field_data_sha": "8c1194c989f18684",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391678>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -149,7 +149,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -209,7 +209,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": "6252d71c193f5ed6",
                         "body_keys": [
@@ -231,8 +231,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391680>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -267,7 +267,7 @@
                                                     },
                                                     {
                                                         "val": "Created Time",
-                                                        "content": "<datetime+6000>"
+                                                        "content": "<datetime-1802100@<ts-1802100@1790589600>>"
                                                     }
                                                 ]
                                             }
@@ -276,9 +276,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "00dd2680b0dcab8e",
+                        "field_data_sha": "8c1194c989f18684",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391680>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -326,7 +326,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [

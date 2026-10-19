@@ -32,7 +32,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -47,8 +47,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391653>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -71,9 +71,9 @@
                             "code": "0",
                             "message": "A confirmation email is sent to the user."
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391653>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -117,7 +117,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -137,7 +137,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0816134ab5a4001c"
+                            "sha": "d9e74d22aad299b1"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -169,13 +169,13 @@
                                         "expires_in": 3600,
                                         "api_domain": "https://www.zohoapis.com",
                                         "generated_at": 1500000000,
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391654>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391654>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -198,9 +198,9 @@
                             "code": "0",
                             "message": "A confirmation email is sent to the user."
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391654>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -254,7 +254,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "77154a99ae541e6c"
+                            "sha": "5d3165291d6fead1"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -269,8 +269,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391655>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -293,9 +293,9 @@
                             "code": "0",
                             "message": "A confirmation email is sent to the user."
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391655>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -339,7 +339,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -359,7 +359,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0816134ab5a4001c"
+                            "sha": "d9e74d22aad299b1"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -391,13 +391,13 @@
                                         "expires_in": 3600,
                                         "api_domain": "https://www.zohoapis.com",
                                         "generated_at": 1500000000,
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391657>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391657>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -420,9 +420,9 @@
                             "code": "0",
                             "message": "A confirmation email is sent to the user."
                         },
-                        "field_data_sha": "f04a11ad034d29cf",
+                        "field_data_sha": "d05a787fb2e4725a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391657>>"
                     }
                 ],
                 "existing_logs_changed": false,

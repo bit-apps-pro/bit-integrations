@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "3764bcd1b2f32f0d",
                         "body_keys": [
@@ -67,8 +67,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390940>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -87,9 +87,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Failed to add subscriber",
-                        "field_data_sha": "e10abefa1fb65580",
+                        "field_data_sha": "ec15bb16c3f6de6e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390940>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -133,7 +133,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "3764bcd1b2f32f0d",
                         "body_keys": [
@@ -168,8 +168,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390941>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -188,9 +188,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Failed to add subscriber",
-                        "field_data_sha": "e10abefa1fb65580",
+                        "field_data_sha": "ec15bb16c3f6de6e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390941>>"
                     }
                 ],
                 "existing_logs_changed": false,

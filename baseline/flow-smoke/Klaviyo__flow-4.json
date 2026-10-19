@@ -36,7 +36,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "37426f86cb4d96c4"
+                            "sha": "17f128b92a659e6b"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -54,7 +54,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "37426f86cb4d96c4"
+                            "sha": "17f128b92a659e6b"
                         },
                         "body_sha": "83d447a9c8ae7a97",
                         "body_keys": [
@@ -74,7 +74,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "37426f86cb4d96c4"
+                            "sha": "17f128b92a659e6b"
                         },
                         "body_sha": "63f8d821a8d64a00",
                         "body_keys": [
@@ -102,8 +102,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-07-03 10:03:54",
-                                "new": "<datetime>"
+                                "old": "2025-07-03 <clock>",
+                                "new": "<datetime@<ts@1792390346>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -126,9 +126,9 @@
                             "message": "",
                             "code": 200
                         },
-                        "field_data_sha": "c2a33a485af034c9",
+                        "field_data_sha": "6842e2f324015ec8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390346>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -175,7 +175,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "37426f86cb4d96c4"
+                            "sha": "17f128b92a659e6b"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -193,7 +193,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "37426f86cb4d96c4"
+                            "sha": "17f128b92a659e6b"
                         },
                         "body_sha": "83d447a9c8ae7a97",
                         "body_keys": [
@@ -213,7 +213,7 @@
                                 "revision",
                                 "user-agent"
                             ],
-                            "sha": "37426f86cb4d96c4"
+                            "sha": "17f128b92a659e6b"
                         },
                         "body_sha": "63f8d821a8d64a00",
                         "body_keys": [
@@ -241,8 +241,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-07-03 10:03:54",
-                                "new": "<datetime>"
+                                "old": "2025-07-03 <clock>",
+                                "new": "<datetime@<ts@1792390347>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -265,9 +265,9 @@
                             "message": "",
                             "code": 200
                         },
-                        "field_data_sha": "c2a33a485af034c9",
+                        "field_data_sha": "6842e2f324015ec8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390347>>"
                     }
                 ],
                 "existing_logs_changed": false,

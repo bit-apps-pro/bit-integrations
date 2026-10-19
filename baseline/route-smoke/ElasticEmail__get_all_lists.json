@@ -50,7 +50,7 @@
                                     "user-agent",
                                     "x-elasticemail-apikey"
                                 ],
-                                "sha": "07ea3c6d0b618b52"
+                                "sha": "fe255b3d807b3134"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -96,7 +96,7 @@
                                     "user-agent",
                                     "x-elasticemail-apikey"
                                 ],
-                                "sha": "07ea3c6d0b618b52"
+                                "sha": "fe255b3d807b3134"
                             },
                             "body_sha": null,
                             "body_keys": [],

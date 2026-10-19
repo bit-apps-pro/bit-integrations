@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389987>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Autonami Pro Plugins not found",
-                        "field_data_sha": "306dacaf2863fead",
+                        "field_data_sha": "42c038f6b8047568",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389987>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,8 +124,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389988>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -144,9 +144,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Autonami Pro Plugins not found",
-                        "field_data_sha": "306dacaf2863fead",
+                        "field_data_sha": "42c038f6b8047568",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389988>>"
                     }
                 ],
                 "existing_logs_changed": false,

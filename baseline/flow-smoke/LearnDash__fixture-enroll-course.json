@@ -31,8 +31,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390378>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -51,9 +51,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "The function ld_update_course_access does not exist",
-                        "field_data_sha": "4bde761b320f73c0",
+                        "field_data_sha": "302d1bb77b7a575f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390378>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -96,8 +96,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390379>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -116,9 +116,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "The function ld_update_course_access does not exist",
-                        "field_data_sha": "4bde761b320f73c0",
+                        "field_data_sha": "302d1bb77b7a575f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390379>>"
                     }
                 ],
                 "existing_logs_changed": false,

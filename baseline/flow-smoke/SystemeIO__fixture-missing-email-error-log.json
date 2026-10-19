@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391015>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -69,9 +69,9 @@
                             "message": "Required field Email is empty",
                             "code": 400
                         },
-                        "field_data_sha": "5a5139321435810f",
+                        "field_data_sha": "babaa96ffe76e9c2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391015>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -128,8 +128,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391016>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -152,9 +152,9 @@
                             "message": "Required field Email is empty",
                             "code": 400
                         },
-                        "field_data_sha": "5a5139321435810f",
+                        "field_data_sha": "babaa96ffe76e9c2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391016>>"
                     }
                 ],
                 "existing_logs_changed": false,

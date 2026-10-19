@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "5ec714e487e48bf4",
                         "body_keys": [
@@ -54,7 +54,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "8e67b4badf4396a9",
                         "body_keys": [
@@ -72,8 +72,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390412>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -94,9 +94,9 @@
                         "response_obj": [
                             "Contact created successfully"
                         ],
-                        "field_data_sha": "dd33adbedfdd2c37",
+                        "field_data_sha": "0a89f4c06f4a83c5",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390412>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -141,7 +141,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "5ec714e487e48bf4",
                         "body_keys": [
@@ -162,7 +162,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "8e67b4badf4396a9",
                         "body_keys": [
@@ -180,8 +180,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390413>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -202,9 +202,9 @@
                         "response_obj": [
                             "Contact created successfully"
                         ],
-                        "field_data_sha": "dd33adbedfdd2c37",
+                        "field_data_sha": "0a89f4c06f4a83c5",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390413>>"
                     }
                 ],
                 "existing_logs_changed": false,

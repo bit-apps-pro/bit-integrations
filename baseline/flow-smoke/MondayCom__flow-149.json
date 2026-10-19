@@ -35,7 +35,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "10b521c1ffa4765a"
+                            "sha": "61233feb2b11cdb5"
                         },
                         "body_sha": "9d7944bad20839d7",
                         "body_keys": [
@@ -49,7 +49,7 @@
                     {
                         "name": "bit_integrations_mondayCom_delete_group",
                         "argc": 4,
-                        "args_sha": "b84338fb2455f869"
+                        "args_sha": "e2a54c8c5a154786"
                     }
                 ],
                 "mails": [
@@ -67,8 +67,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-04-28 07:31:20",
-                                "new": "<datetime>"
+                                "old": "2026-04-28 <clock>",
+                                "new": "<datetime@<ts@1792390536>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -87,9 +87,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390536>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -128,7 +128,7 @@
                     {
                         "name": "bit_integrations_mondayCom_delete_group",
                         "argc": 4,
-                        "args_sha": "b84338fb2455f869"
+                        "args_sha": "e2a54c8c5a154786"
                     }
                 ],
                 "mails": [
@@ -146,8 +146,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-04-28 07:31:20",
-                                "new": "<datetime>"
+                                "old": "2026-04-28 <clock>",
+                                "new": "<datetime@<ts@1792390537>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -168,9 +168,9 @@
                         "response_obj": {
                             "error": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "de67607ee8a80bf6",
+                        "field_data_sha": "b3b503ffb1f5d053",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390537>>"
                     }
                 ],
                 "existing_logs_changed": false,

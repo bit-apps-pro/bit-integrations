@@ -33,7 +33,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": "766a433167e98490",
                         "body_keys": [
@@ -67,8 +67,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390449>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -89,9 +89,9 @@
                         "response_obj": {
                             "message": "Subscriber created successfully"
                         },
-                        "field_data_sha": "d8d0b058252624b4",
+                        "field_data_sha": "08b4440624afb60c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390449>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -139,7 +139,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -155,7 +155,7 @@
                                 "user-agent",
                                 "x-auth-token"
                             ],
-                            "sha": "cab704fdc4f33f2f"
+                            "sha": "0458311c915de6d5"
                         },
                         "body_sha": "766a433167e98490",
                         "body_keys": [
@@ -173,8 +173,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390450>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -195,9 +195,9 @@
                         "response_obj": {
                             "message": "Subscriber created successfully"
                         },
-                        "field_data_sha": "d8d0b058252624b4",
+                        "field_data_sha": "08b4440624afb60c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390450>>"
                     }
                 ],
                 "existing_logs_changed": false,

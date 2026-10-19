@@ -56,7 +56,7 @@
                                 "tokenDetails": {
                                     "access_token": "<redacted:a7dc7097c955>",
                                     "api_domain": "https://www.zohoapis.com",
-                                    "generates_on": "<ts>",
+                                    "generates_on": "<ts@1792389867>",
                                     "refresh_token": "<redacted:6141e5e760f2>"
                                 },
                                 "layouts": [],
@@ -73,7 +73,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "1dca364f625cb944",
                             "body_keys": [
@@ -93,7 +93,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "0ba131c27dc42189"
+                                "sha": "ee726ec223d73689"
                             },
                             "body_sha": "683abac15a4d3190",
                             "body_keys": [
@@ -115,14 +115,14 @@
                                         "new": {
                                             "access_token": "<redacted:a7dc7097c955>",
                                             "api_domain": "https://www.zohoapis.com",
-                                            "generates_on": "<ts>",
+                                            "generates_on": "<ts@1792389867>",
                                             "refresh_token": "<redacted:6141e5e760f2>"
                                         }
                                     }
                                 },
                                 "updated_at": {
-                                    "old": "2026-01-28 10:36:07",
-                                    "new": "<datetime>"
+                                    "old": "2026-01-28 <clock>",
+                                    "new": "<datetime@<ts@1792389867>>"
                                 }
                             }
                         }
@@ -166,7 +166,7 @@
                                     "token_type": "<redacted:4b0d53deebbb>",
                                     "expires_in": "smoke_expires_in",
                                     "generated_at": "smoke_generated_at",
-                                    "generates_on": "<ts>",
+                                    "generates_on": "<ts@1792389868>",
                                     "api_domain": "https://www.zohoapis.com"
                                 },
                                 "layouts": [],
@@ -183,7 +183,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "1dca364f625cb944",
                             "body_keys": [
@@ -203,7 +203,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "0ba131c27dc42189"
+                                "sha": "ee726ec223d73689"
                             },
                             "body_sha": "683abac15a4d3190",
                             "body_keys": [
@@ -228,14 +228,14 @@
                                             "token_type": "<redacted:4b0d53deebbb>",
                                             "expires_in": "smoke_expires_in",
                                             "generated_at": "smoke_generated_at",
-                                            "generates_on": "<ts>",
+                                            "generates_on": "<ts@1792389868>",
                                             "api_domain": "https://www.zohoapis.com"
                                         }
                                     }
                                 },
                                 "updated_at": {
-                                    "old": "2026-01-28 10:36:07",
-                                    "new": "<datetime>"
+                                    "old": "2026-01-28 <clock>",
+                                    "new": "<datetime@<ts@1792389868>>"
                                 }
                             }
                         }

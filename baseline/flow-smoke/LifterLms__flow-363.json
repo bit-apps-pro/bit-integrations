@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "a731f49312f09f89",
         "field_source": "log#2202",
-        "field_data_sha": "259d5c88e99aded3"
+        "field_data_sha": "60d93033604e989d"
     },
     "runs": {
         "pro-on": {
@@ -46,8 +46,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "<datetime-1994400>",
-                                "new": "<datetime>"
+                                "old": "2026-09-05 <clock>",
+                                "new": "<datetime@<ts@1792390391>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -66,9 +66,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Failed to complete course.",
-                        "field_data_sha": "48cc93a33ad42d37",
+                        "field_data_sha": "166842d838a1e93b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390391>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -125,8 +125,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "<datetime-1994400>",
-                                "new": "<datetime>"
+                                "old": "2026-09-05 <clock>",
+                                "new": "<datetime@<ts@1792390393>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -145,9 +145,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Failed to complete course.",
-                        "field_data_sha": "48cc93a33ad42d37",
+                        "field_data_sha": "166842d838a1e93b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390393>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -126,8 +126,8 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController::refreshModules",
-        "auth_owner": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController",
+        "handler": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpHelper::refreshModules",
+        "auth_owner": "BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction",
         "notes": []
     }
 }

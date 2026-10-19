@@ -38,8 +38,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-08-16 05:39:26",
-                                "new": "<datetime>"
+                                "old": "2025-08-16 <clock>",
+                                "new": "<datetime@<ts@1792390796>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -54,10 +54,10 @@
                         "job_id": null,
                         "api_type": "New user registration",
                         "response_type": "success",
-                        "response_obj": "New user created successfully, user id : 341",
-                        "field_data_sha": "534d1bf02fb0e96c",
+                        "response_obj": "New user created successfully, user id : 780",
+                        "field_data_sha": "1a03e92a915eb413",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390796>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -115,8 +115,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-08-16 05:39:26",
-                                "new": "<datetime>"
+                                "old": "2025-08-16 <clock>",
+                                "new": "<datetime@<ts@1792390797>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -131,10 +131,10 @@
                         "job_id": null,
                         "api_type": "New user registration",
                         "response_type": "success",
-                        "response_obj": "New user created successfully, user id : 341",
-                        "field_data_sha": "534d1bf02fb0e96c",
+                        "response_obj": "New user created successfully, user id : 780",
+                        "field_data_sha": "1a03e92a915eb413",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390797>>"
                     }
                 ],
                 "existing_logs_changed": false,

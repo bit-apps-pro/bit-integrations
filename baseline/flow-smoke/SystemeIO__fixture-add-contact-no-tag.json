@@ -33,7 +33,7 @@
                                 "user-agent",
                                 "x-api-key"
                             ],
-                            "sha": "ea604b0a164cf4c6"
+                            "sha": "06e22facaa5f157c"
                         },
                         "body_sha": "8c2e532321177717",
                         "body_keys": [
@@ -51,8 +51,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391010>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -73,9 +73,9 @@
                         "response_obj": [
                             "Add People to Contacts  successfully"
                         ],
-                        "field_data_sha": "ae370f65db309f49",
+                        "field_data_sha": "8ab1090308f07e56",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391010>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -120,7 +120,7 @@
                                 "user-agent",
                                 "x-api-key"
                             ],
-                            "sha": "ea604b0a164cf4c6"
+                            "sha": "06e22facaa5f157c"
                         },
                         "body_sha": "8c2e532321177717",
                         "body_keys": [
@@ -138,8 +138,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391012>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -160,9 +160,9 @@
                         "response_obj": [
                             "Add People to Contacts  successfully"
                         ],
-                        "field_data_sha": "ae370f65db309f49",
+                        "field_data_sha": "8ab1090308f07e56",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391012>>"
                     }
                 ],
                 "existing_logs_changed": false,

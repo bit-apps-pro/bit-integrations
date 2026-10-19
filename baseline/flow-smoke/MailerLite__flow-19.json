@@ -33,7 +33,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "bc1b60ba95e59003"
+                            "sha": "3fa28d9b5f112add"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -48,7 +48,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "bc1b60ba95e59003"
+                            "sha": "3fa28d9b5f112add"
                         },
                         "body_sha": "acd70967afd2e08d",
                         "body_keys": [
@@ -70,8 +70,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-07-03 10:03:41",
-                                "new": "<datetime>"
+                                "old": "2025-07-03 <clock>",
+                                "new": "<datetime@<ts@1792390454>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -94,9 +94,9 @@
                             "message": "Subscriber created successfully",
                             "code": 200
                         },
-                        "field_data_sha": "c2a33a485af034c9",
+                        "field_data_sha": "6842e2f324015ec8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390454>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -140,7 +140,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "bc1b60ba95e59003"
+                            "sha": "3fa28d9b5f112add"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -155,7 +155,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "bc1b60ba95e59003"
+                            "sha": "3fa28d9b5f112add"
                         },
                         "body_sha": "acd70967afd2e08d",
                         "body_keys": [
@@ -177,8 +177,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2025-07-03 10:03:41",
-                                "new": "<datetime>"
+                                "old": "2025-07-03 <clock>",
+                                "new": "<datetime@<ts@1792390455>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -201,9 +201,9 @@
                             "message": "Subscriber created successfully",
                             "code": 200
                         },
-                        "field_data_sha": "c2a33a485af034c9",
+                        "field_data_sha": "6842e2f324015ec8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390455>>"
                     }
                 ],
                 "existing_logs_changed": false,

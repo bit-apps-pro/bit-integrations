@@ -33,7 +33,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "4807bc660f87bf5f"
+                            "sha": "45a2cf7b20a650e4"
                         },
                         "body_sha": "ca60d74b17411467",
                         "body_keys": [
@@ -52,7 +52,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "93fb99285a12bab1"
+                            "sha": "611dacc8bec6723b"
                         },
                         "body_sha": "6dfbe12e867752cc",
                         "body_keys": [
@@ -100,13 +100,13 @@
                                         "token_type": "<redacted:ddb2c93ebcf6>",
                                         "expires_in": 86399,
                                         "refresh_token": "<redacted:dd4d681293bf>",
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391524>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-13 08:35:04",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792391524>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -125,9 +125,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391524>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -173,7 +173,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "4807bc660f87bf5f"
+                            "sha": "45a2cf7b20a650e4"
                         },
                         "body_sha": "ca60d74b17411467",
                         "body_keys": [
@@ -192,7 +192,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "93fb99285a12bab1"
+                            "sha": "611dacc8bec6723b"
                         },
                         "body_sha": "6dfbe12e867752cc",
                         "body_keys": [
@@ -240,13 +240,13 @@
                                         "token_type": "<redacted:ddb2c93ebcf6>",
                                         "expires_in": 86399,
                                         "refresh_token": "<redacted:dd4d681293bf>",
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391525>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-13 08:35:04",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792391525>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -265,9 +265,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391525>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -321,7 +321,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "4807bc660f87bf5f"
+                            "sha": "45a2cf7b20a650e4"
                         },
                         "body_sha": "ca60d74b17411467",
                         "body_keys": [
@@ -340,7 +340,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "93fb99285a12bab1"
+                            "sha": "611dacc8bec6723b"
                         },
                         "body_sha": "6dfbe12e867752cc",
                         "body_keys": [
@@ -388,13 +388,13 @@
                                         "token_type": "<redacted:ddb2c93ebcf6>",
                                         "expires_in": 86399,
                                         "refresh_token": "<redacted:dd4d681293bf>",
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391527>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-13 08:35:04",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792391527>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -413,9 +413,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391527>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -461,7 +461,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "4807bc660f87bf5f"
+                            "sha": "45a2cf7b20a650e4"
                         },
                         "body_sha": "ca60d74b17411467",
                         "body_keys": [
@@ -480,7 +480,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "93fb99285a12bab1"
+                            "sha": "611dacc8bec6723b"
                         },
                         "body_sha": "6dfbe12e867752cc",
                         "body_keys": [
@@ -528,13 +528,13 @@
                                         "token_type": "<redacted:ddb2c93ebcf6>",
                                         "expires_in": 86399,
                                         "refresh_token": "<redacted:dd4d681293bf>",
-                                        "generates_on": "<ts>"
+                                        "generates_on": "<ts@1792391528>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-13 08:35:04",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792391528>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -553,9 +553,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391528>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "7c7413a5deb62a2d",
         "field_source": "fixture",
-        "field_data_sha": "88c02bb87c3fa3ba"
+        "field_data_sha": "3a126a8e5fce8913"
     },
     "runs": {
         "pro-on": {
@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391504>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "ac8b969ba16a7776",
+                        "field_data_sha": "e2bc2c935d34c408",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391504>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -110,7 +110,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -155,14 +155,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>"
+                                        "generated_at": "<ts@1792391505>",
+                                        "generates_on": "<ts@1792391505>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391505>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -181,9 +181,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "ac8b969ba16a7776",
+                        "field_data_sha": "e2bc2c935d34c408",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391505>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -248,8 +248,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391507>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -268,9 +268,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "ac8b969ba16a7776",
+                        "field_data_sha": "e2bc2c935d34c408",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391507>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -313,7 +313,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -358,14 +358,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "expires_in": 3600,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>"
+                                        "generated_at": "<ts@1792391508>",
+                                        "generates_on": "<ts@1792391508>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391508>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -384,9 +384,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "ac8b969ba16a7776",
+                        "field_data_sha": "e2bc2c935d34c408",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391508>>"
                     }
                 ],
                 "existing_logs_changed": false,

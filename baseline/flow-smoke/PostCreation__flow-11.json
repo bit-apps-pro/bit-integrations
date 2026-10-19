@@ -28,12 +28,12 @@
                     {
                         "name": "bit_integrations_add_post_tag",
                         "argc": 2,
-                        "args_sha": "db757bbcc20cb65f"
+                        "args_sha": "75d5cee588e2ef34"
                     },
                     {
                         "name": "btcbi_add_post_tag",
                         "argc": 2,
-                        "args_sha": "db757bbcc20cb65f"
+                        "args_sha": "75d5cee588e2ef34"
                     }
                 ],
                 "mails": [],
@@ -43,8 +43,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-03-28 10:11:14",
-                                "new": "<datetime>"
+                                "old": "2026-03-28 <clock>",
+                                "new": "<datetime@<ts@1792390743>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -59,10 +59,10 @@
                         "job_id": null,
                         "api_type": "WP Post Creation",
                         "response_type": "success",
-                        "response_obj": 3512,
-                        "field_data_sha": "188a1d9a0972b40d",
+                        "response_obj": 11059,
+                        "field_data_sha": "9af54f827c392a0a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390743>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -85,7 +85,7 @@
                         "INSERT": 1
                     },
                     "{prefix}options": {
-                        "UPDATE": 3
+                        "UPDATE": 6
                     },
                     "{prefix}postmeta": {
                         "INSERT": 2
@@ -118,12 +118,12 @@
                     {
                         "name": "bit_integrations_add_post_tag",
                         "argc": 2,
-                        "args_sha": "db757bbcc20cb65f"
+                        "args_sha": "75d5cee588e2ef34"
                     },
                     {
                         "name": "btcbi_add_post_tag",
                         "argc": 2,
-                        "args_sha": "db757bbcc20cb65f"
+                        "args_sha": "75d5cee588e2ef34"
                     }
                 ],
                 "mails": [],
@@ -133,8 +133,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-03-28 10:11:14",
-                                "new": "<datetime>"
+                                "old": "2026-03-28 <clock>",
+                                "new": "<datetime@<ts@1792390744>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -149,10 +149,10 @@
                         "job_id": null,
                         "api_type": "WP Post Creation",
                         "response_type": "success",
-                        "response_obj": 3512,
-                        "field_data_sha": "188a1d9a0972b40d",
+                        "response_obj": 11059,
+                        "field_data_sha": "9af54f827c392a0a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390744>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -175,7 +175,7 @@
                         "INSERT": 1
                     },
                     "{prefix}options": {
-                        "UPDATE": 3
+                        "UPDATE": 6
                     },
                     "{prefix}postmeta": {
                         "INSERT": 2

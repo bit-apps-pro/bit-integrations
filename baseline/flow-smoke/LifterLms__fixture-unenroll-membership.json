@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390403>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Failed to unenroll user from membership.",
-                        "field_data_sha": "174c6ebd769078e8",
+                        "field_data_sha": "9d6f2db9582df1ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390403>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,8 +124,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390404>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -144,9 +144,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Failed to unenroll user from membership.",
-                        "field_data_sha": "174c6ebd769078e8",
+                        "field_data_sha": "9d6f2db9582df1ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390404>>"
                     }
                 ],
                 "existing_logs_changed": false,

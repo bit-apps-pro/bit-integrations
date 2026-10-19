@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -64,8 +64,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391431>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -84,9 +84,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Attendee deleted successfully",
-                        "field_data_sha": "99f0496d32d31688",
+                        "field_data_sha": "75e31bcac8435f55",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391431>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -131,7 +131,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -147,7 +147,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -162,8 +162,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391433>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -182,9 +182,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Attendee deleted successfully",
-                        "field_data_sha": "99f0496d32d31688",
+                        "field_data_sha": "75e31bcac8435f55",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391433>>"
                     }
                 ],
                 "existing_logs_changed": false,

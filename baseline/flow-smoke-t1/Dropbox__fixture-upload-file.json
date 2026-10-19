@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "7e09e54f973fa334",
         "field_source": "fixture",
-        "field_data_sha": "eb20c5eb2a2da529"
+        "field_data_sha": "dffc0c82eeddabf4"
     },
     "runs": {
         "pro-on": {
@@ -34,7 +34,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "040c84d1a48bc773"
+                            "sha": "355e7f1c7b60e96d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -49,8 +49,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391463>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -69,9 +69,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391463>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -114,7 +114,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -136,7 +136,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "954c35c9e20bd579"
+                            "sha": "29f522ec31840082"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -164,14 +164,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "token_type": "<redacted:ddb2c93ebcf6>",
                                         "expires_in": 14400,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>"
+                                        "generated_at": "<ts@1792391464>",
+                                        "generates_on": "<ts@1792391464>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391464>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -190,9 +190,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391464>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -246,7 +246,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "040c84d1a48bc773"
+                            "sha": "355e7f1c7b60e96d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -261,8 +261,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391465>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -281,9 +281,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391465>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -326,7 +326,7 @@
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": "f0e76ce28cbbf34e",
                         "body_keys": [
@@ -348,7 +348,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "954c35c9e20bd579"
+                            "sha": "29f522ec31840082"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -376,14 +376,14 @@
                                         "refresh_token": "<redacted:dd4d681293bf>",
                                         "token_type": "<redacted:ddb2c93ebcf6>",
                                         "expires_in": 14400,
-                                        "generated_at": "<ts>",
-                                        "generates_on": "<ts>"
+                                        "generated_at": "<ts@1792391466>",
+                                        "generates_on": "<ts@1792391466>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391466>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -402,9 +402,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391466>>"
                     }
                 ],
                 "existing_logs_changed": false,

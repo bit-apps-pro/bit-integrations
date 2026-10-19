@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "3aaaeb5375d1c0da",
                         "body_keys": [
@@ -65,8 +65,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389952>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -87,9 +87,9 @@
                         "response_obj": {
                             "error": "Subscriber not found"
                         },
-                        "field_data_sha": "8cdc0990f4c847e2",
+                        "field_data_sha": "8f1bb2bc27ec90af",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389952>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -135,7 +135,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
                         "body_sha": "3aaaeb5375d1c0da",
                         "body_keys": [
@@ -168,8 +168,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389953>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -190,9 +190,9 @@
                         "response_obj": {
                             "error": "Subscriber not found"
                         },
-                        "field_data_sha": "8cdc0990f4c847e2",
+                        "field_data_sha": "8f1bb2bc27ec90af",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389953>>"
                     }
                 ],
                 "existing_logs_changed": false,

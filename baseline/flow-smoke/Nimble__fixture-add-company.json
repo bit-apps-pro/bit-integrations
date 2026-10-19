@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "cda97dc2d2d4838b"
+                            "sha": "0a2deac98b811208"
                         },
                         "body_sha": "c7cd8e4eb8d299e3",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390601>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -74,9 +74,9 @@
                         "response_obj": [
                             "Company Added  successfully"
                         ],
-                        "field_data_sha": "7dd9ac927909f437",
+                        "field_data_sha": "2c9578d2dedd0b1a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390601>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -122,7 +122,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "cda97dc2d2d4838b"
+                            "sha": "0a2deac98b811208"
                         },
                         "body_sha": "c7cd8e4eb8d299e3",
                         "body_keys": [
@@ -140,8 +140,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390602>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -162,9 +162,9 @@
                         "response_obj": [
                             "Company Added  successfully"
                         ],
-                        "field_data_sha": "7dd9ac927909f437",
+                        "field_data_sha": "2c9578d2dedd0b1a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390602>>"
                     }
                 ],
                 "existing_logs_changed": false,

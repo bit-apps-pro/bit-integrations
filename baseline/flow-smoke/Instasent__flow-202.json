@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "426275f8a50207a7",
         "field_source": "log#1931",
-        "field_data_sha": "3a94b435dad79ab8"
+        "field_data_sha": "fa6373b00eb02cee"
     },
     "runs": {
         "pro-on": {
@@ -35,7 +35,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "6a492ebf518fb949"
+                            "sha": "0f57d21677c6ac5f"
                         },
                         "body_sha": "962764e98c30fc25",
                         "body_keys": [
@@ -49,7 +49,7 @@
                     {
                         "name": "bit_integrations_instasent_create_datasource",
                         "argc": 4,
-                        "args_sha": "dac97607cbf0cbad"
+                        "args_sha": "f3999ee1e980de22"
                     }
                 ],
                 "mails": [],
@@ -65,8 +65,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-16 12:09:22",
-                                "new": "<datetime>"
+                                "old": "2026-07-16 <clock>",
+                                "new": "<datetime@<ts@1792390302>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -89,9 +89,9 @@
                             "message": {},
                             "code": 200
                         },
-                        "field_data_sha": "5743511991512e7d",
+                        "field_data_sha": "1549666191052486",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390302>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -130,7 +130,7 @@
                     {
                         "name": "bit_integrations_instasent_create_datasource",
                         "argc": 4,
-                        "args_sha": "dac97607cbf0cbad"
+                        "args_sha": "f3999ee1e980de22"
                     }
                 ],
                 "mails": [
@@ -148,8 +148,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-16 12:09:22",
-                                "new": "<datetime>"
+                                "old": "2026-07-16 <clock>",
+                                "new": "<datetime@<ts@1792390303>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -171,9 +171,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro is required."
                         },
-                        "field_data_sha": "5743511991512e7d",
+                        "field_data_sha": "1549666191052486",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390303>>"
                     }
                 ],
                 "existing_logs_changed": false,

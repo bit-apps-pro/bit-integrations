@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "9c0c510d9fae4afb",
         "field_source": "fixture",
-        "field_data_sha": "d94d1c686fd1e911"
+        "field_data_sha": "dadd697fe1b60b9d"
     },
     "runs": {
         "pro-on": {
@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "bf680015a2331a1a"
+                            "sha": "e705e7e47eaf07c4"
                         },
                         "body_sha": "4f9cb06955d5a67c",
                         "body_keys": [],
@@ -48,8 +48,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390959>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -74,9 +74,9 @@
                                 "name": "woocommerce-placeholder-768x768.png"
                             }
                         },
-                        "field_data_sha": "69e7848ddf5d30cb",
+                        "field_data_sha": "1225910f54109ce1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390959>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -121,7 +121,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "bf680015a2331a1a"
+                            "sha": "e705e7e47eaf07c4"
                         },
                         "body_sha": "4f9cb06955d5a67c",
                         "body_keys": [],
@@ -136,8 +136,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390960>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -162,9 +162,9 @@
                                 "name": "woocommerce-placeholder-768x768.png"
                             }
                         },
-                        "field_data_sha": "69e7848ddf5d30cb",
+                        "field_data_sha": "1225910f54109ce1",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390960>>"
                     }
                 ],
                 "existing_logs_changed": false,

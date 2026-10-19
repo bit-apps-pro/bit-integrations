@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "a14a07495984e1ef",
                         "body_keys": [
@@ -52,8 +52,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390229>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -78,9 +78,9 @@
                                 "user_id": "smoke-user-1"
                             }
                         },
-                        "field_data_sha": "92f99e24efde6bba",
+                        "field_data_sha": "71ad6296d36947f5",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390229>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -126,7 +126,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "a14a07495984e1ef",
                         "body_keys": [
@@ -145,8 +145,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390230>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -171,9 +171,9 @@
                                 "user_id": "smoke-user-1"
                             }
                         },
-                        "field_data_sha": "92f99e24efde6bba",
+                        "field_data_sha": "71ad6296d36947f5",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390230>>"
                     }
                 ],
                 "existing_logs_changed": false,

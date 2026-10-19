@@ -32,7 +32,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "b22905925f151cb6",
                         "body_keys": [
@@ -57,7 +57,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "8eadc83138600e94",
                         "body_keys": [
@@ -75,7 +75,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "e1c016be78405a76",
                         "body_keys": [
@@ -106,8 +106,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390711>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -132,9 +132,9 @@
                                 "title": "Smoke Deal"
                             }
                         },
-                        "field_data_sha": "db0532dc67f9cffb",
+                        "field_data_sha": "aa723ddcba9ead52",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390711>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -145,9 +145,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "db0532dc67f9cffb",
+                        "field_data_sha": "aa723ddcba9ead52",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390711>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -158,9 +158,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "db0532dc67f9cffb",
+                        "field_data_sha": "aa723ddcba9ead52",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390711>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -204,7 +204,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "25e837fb1a3ec313"
+                            "sha": "e6b58cfa8cbf7cf4"
                         },
                         "body_sha": "b22905925f151cb6",
                         "body_keys": [
@@ -240,8 +240,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390713>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -266,9 +266,9 @@
                                 "title": "Smoke Deal"
                             }
                         },
-                        "field_data_sha": "db0532dc67f9cffb",
+                        "field_data_sha": "aa723ddcba9ead52",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390713>>"
                     }
                 ],
                 "existing_logs_changed": false,

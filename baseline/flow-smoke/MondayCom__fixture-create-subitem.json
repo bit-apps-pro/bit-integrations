@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "ffde07382b1ab7d3"
+                            "sha": "dbb8865e6c04aa9f"
                         },
                         "body_sha": "941a738bbe99c90b",
                         "body_keys": [
@@ -58,8 +58,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390545>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -89,9 +89,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "74a672acbc6692b9",
+                        "field_data_sha": "ae523583317c94ab",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390545>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -154,8 +154,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390546>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -176,9 +176,9 @@
                         "response_obj": {
                             "error": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "74a672acbc6692b9",
+                        "field_data_sha": "ae523583317c94ab",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390546>>"
                     }
                 ],
                 "existing_logs_changed": false,

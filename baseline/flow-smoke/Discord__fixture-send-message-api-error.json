@@ -33,7 +33,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "f3a8bd63c4b8ed5e"
+                            "sha": "15db1b4570a1781c"
                         },
                         "body_sha": "f508cce02b77eb80",
                         "body_keys": [
@@ -65,8 +65,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390126>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -88,9 +88,9 @@
                             "message": "Missing Access",
                             "code": 50001
                         },
-                        "field_data_sha": "3b73d5e4dfad96bf",
+                        "field_data_sha": "54a0d41497fed954",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390126>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -135,7 +135,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "f3a8bd63c4b8ed5e"
+                            "sha": "15db1b4570a1781c"
                         },
                         "body_sha": "f508cce02b77eb80",
                         "body_keys": [
@@ -167,8 +167,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390127>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -190,9 +190,9 @@
                             "message": "Missing Access",
                             "code": 50001
                         },
-                        "field_data_sha": "3b73d5e4dfad96bf",
+                        "field_data_sha": "54a0d41497fed954",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390127>>"
                     }
                 ],
                 "existing_logs_changed": false,

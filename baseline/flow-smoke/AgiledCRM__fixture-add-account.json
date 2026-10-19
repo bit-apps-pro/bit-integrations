@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "ede6c96e24d414a0"
+                            "sha": "86c4eeb373871c75"
                         },
                         "body_sha": "f4035a483cc74302",
                         "body_keys": [
@@ -54,8 +54,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389964>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -76,9 +76,9 @@
                         "response_obj": [
                             "Account created successfully"
                         ],
-                        "field_data_sha": "a744ca140e4f8ac8",
+                        "field_data_sha": "22d64df3c57a0002",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389964>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -123,7 +123,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "ede6c96e24d414a0"
+                            "sha": "86c4eeb373871c75"
                         },
                         "body_sha": "f4035a483cc74302",
                         "body_keys": [
@@ -144,8 +144,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792389965>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -166,9 +166,9 @@
                         "response_obj": [
                             "Account created successfully"
                         ],
-                        "field_data_sha": "a744ca140e4f8ac8",
+                        "field_data_sha": "22d64df3c57a0002",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792389965>>"
                     }
                 ],
                 "existing_logs_changed": false,

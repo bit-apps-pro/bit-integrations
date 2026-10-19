@@ -46,8 +46,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-03-12 08:20:39",
-                                "new": "<datetime>"
+                                "old": "2026-03-12 <clock>",
+                                "new": "<datetime@<ts@1792391076>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -69,9 +69,9 @@
                             "success": false,
                             "message": "User Registration and Membership is not installed or activated"
                         },
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391076>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -128,8 +128,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-03-12 08:20:39",
-                                "new": "<datetime>"
+                                "old": "2026-03-12 <clock>",
+                                "new": "<datetime@<ts@1792391077>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -151,9 +151,9 @@
                             "success": false,
                             "message": "User Registration and Membership is not installed or activated"
                         },
-                        "field_data_sha": "d0af46ad91fa1a82",
+                        "field_data_sha": "03f6cce2c2cc228e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391077>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -32,12 +32,20 @@
                         "message": "",
                         "response": null
                     },
-                    "status": 400,
+                    "status": 200,
                     "registered": true,
                     "output": {
                         "json": {
-                            "success": false,
-                            "data": "There is an error ."
+                            "success": true,
+                            "data": {
+                                "status": "success",
+                                "tags": [
+                                    {
+                                        "tag_id": 3,
+                                        "tag_name": "Existing"
+                                    }
+                                ]
+                            }
                         }
                     },
                     "requests": [
@@ -51,11 +59,11 @@
                                     "gh-token",
                                     "user-agent"
                                 ],
-                                "sha": "bbb6ea56e751c781"
+                                "sha": "d4584156708e2bcc"
                             },
                             "body_sha": null,
                             "body_keys": [],
-                            "answer": "synthetic"
+                            "answer": "fixture:list-tags"
                         }
                     ],
                     "hooks": [],
@@ -63,9 +71,7 @@
                     "flow_writes": []
                 },
                 "info": {
-                    "php_errors": [
-                        "warning: Undefined property: stdClass::$status"
-                    ],
+                    "php_errors": [],
                     "error_log": [],
                     "tables_written": [],
                     "blocked": []
@@ -78,12 +84,20 @@
                         "message": "",
                         "response": null
                     },
-                    "status": 400,
+                    "status": 200,
                     "registered": true,
                     "output": {
                         "json": {
-                            "success": false,
-                            "data": "There is an error ."
+                            "success": true,
+                            "data": {
+                                "status": "success",
+                                "tags": [
+                                    {
+                                        "tag_id": 3,
+                                        "tag_name": "Existing"
+                                    }
+                                ]
+                            }
                         }
                     },
                     "requests": [
@@ -97,11 +111,11 @@
                                     "gh-token",
                                     "user-agent"
                                 ],
-                                "sha": "bbb6ea56e751c781"
+                                "sha": "d4584156708e2bcc"
                             },
                             "body_sha": null,
                             "body_keys": [],
-                            "answer": "synthetic"
+                            "answer": "fixture:list-tags"
                         }
                     ],
                     "hooks": [],
@@ -114,8 +128,7 @@
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
                         "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
-                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
-                        "warning: Undefined property: stdClass::$status"
+                        "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
                     ],
                     "error_log": [],
                     "tables_written": [],
@@ -127,10 +140,10 @@
     "coverage": {
         "verdict": "reached-http",
         "handler_calls_http": true,
-        "php_errors": 7,
+        "php_errors": 5,
         "runs": {
-            "pro-on/connection": "reached HTTP (1 request(s)), 6 PHP diagnostic(s)",
-            "pro-on/no-connection": "reached HTTP (1 request(s)), 1 PHP diagnostic(s)"
+            "pro-on/connection": "reached HTTP (1 request(s)), 5 PHP diagnostic(s)",
+            "pro-on/no-connection": "reached HTTP (1 request(s))"
         }
     },
     "info": {

@@ -35,7 +35,7 @@
                                 "timestamp",
                                 "user-agent"
                             ],
-                            "sha": "ecab47ab002c51e0"
+                            "sha": "ade75390624d4834"
                         },
                         "body_sha": "e79f1e170117927f",
                         "body_keys": [
@@ -55,8 +55,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390341>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -83,9 +83,9 @@
                                 "email": "smoke@example.com"
                             }
                         },
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390341>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -132,7 +132,7 @@
                                 "timestamp",
                                 "user-agent"
                             ],
-                            "sha": "21d747928caa209a"
+                            "sha": "ade75390624d4834"
                         },
                         "body_sha": "e79f1e170117927f",
                         "body_keys": [
@@ -152,8 +152,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390342>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -180,9 +180,9 @@
                                 "email": "smoke@example.com"
                             }
                         },
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390342>>"
                     }
                 ],
                 "existing_logs_changed": false,

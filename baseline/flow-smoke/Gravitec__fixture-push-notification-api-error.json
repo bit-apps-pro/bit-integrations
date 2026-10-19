@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a3b1ae52f9ee2426"
+                            "sha": "03fee139636a8e69"
                         },
                         "body_sha": "a0de5cd556778516",
                         "body_keys": [
@@ -64,8 +64,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390258>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -87,9 +87,9 @@
                             "error": "invalid_request",
                             "error_description": "Smoke rejection"
                         },
-                        "field_data_sha": "c0e9fbe11c00e468",
+                        "field_data_sha": "d333fe0fb96f672f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390258>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -134,7 +134,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a3b1ae52f9ee2426"
+                            "sha": "03fee139636a8e69"
                         },
                         "body_sha": "a0de5cd556778516",
                         "body_keys": [
@@ -165,8 +165,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390259>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -188,9 +188,9 @@
                             "error": "invalid_request",
                             "error_description": "Smoke rejection"
                         },
-                        "field_data_sha": "c0e9fbe11c00e468",
+                        "field_data_sha": "d333fe0fb96f672f",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390259>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e9faaa41536abf08"
+                            "sha": "cef75dda046155f8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e9faaa41536abf08"
+                            "sha": "cef75dda046155f8"
                         },
                         "body_sha": "9b4133887f204244",
                         "body_keys": [
@@ -68,7 +68,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e9faaa41536abf08"
+                            "sha": "cef75dda046155f8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -83,8 +83,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390490>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -105,9 +105,9 @@
                         "response_obj": {
                             "message": "Contact updated successfully"
                         },
-                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "field_data_sha": "4f8422ce2c9551e0",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390490>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -154,7 +154,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e9faaa41536abf08"
+                            "sha": "cef75dda046155f8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -170,7 +170,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e9faaa41536abf08"
+                            "sha": "cef75dda046155f8"
                         },
                         "body_sha": "9b4133887f204244",
                         "body_keys": [
@@ -189,7 +189,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e9faaa41536abf08"
+                            "sha": "cef75dda046155f8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -204,8 +204,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390492>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -226,9 +226,9 @@
                         "response_obj": {
                             "message": "Contact updated successfully"
                         },
-                        "field_data_sha": "1bf7c8e8e44feff0",
+                        "field_data_sha": "4f8422ce2c9551e0",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390492>>"
                     }
                 ],
                 "existing_logs_changed": false,

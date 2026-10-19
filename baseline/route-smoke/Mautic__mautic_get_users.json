@@ -53,9 +53,9 @@
                                 "tokenDetails": {
                                     "access_token": "<redacted:a7dc7097c955>",
                                     "expires_in": 3600,
-                                    "generated_at": "<ts>",
-                                    "generates_on": "<ts>",
-                                    "refresh_token": "<redacted:dd4d681293bf>"
+                                    "generated_at": "<ts@1792389487>",
+                                    "generates_on": "<ts@1792389487>",
+                                    "refresh_token": "<redacted:8113177c5dac>"
                                 }
                             }
                         }
@@ -69,7 +69,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "e5df604c8049186a",
                             "body_keys": [
@@ -78,7 +78,7 @@
                                 "client_secret",
                                 "refresh_token"
                             ],
-                            "answer": "fixture:oauth-refresh"
+                            "answer": "fixture:token-refresh"
                         },
                         {
                             "method": "GET",
@@ -89,7 +89,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "665618505e64c017"
+                                "sha": "fc13cbdc962ade63"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -122,11 +122,11 @@
                             "data": {
                                 "tokenDetails": {
                                     "access_token": "<redacted:a7dc7097c955>",
-                                    "refresh_token": "<redacted:dd4d681293bf>",
+                                    "refresh_token": "<redacted:8113177c5dac>",
                                     "token_type": "<redacted:4b0d53deebbb>",
                                     "expires_in": 3600,
-                                    "generated_at": "<ts>",
-                                    "generates_on": "<ts>"
+                                    "generated_at": "<ts@1792389489>",
+                                    "generates_on": "<ts@1792389489>"
                                 }
                             }
                         }
@@ -140,7 +140,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "e5df604c8049186a",
                             "body_keys": [
@@ -149,7 +149,7 @@
                                 "client_secret",
                                 "refresh_token"
                             ],
-                            "answer": "fixture:oauth-refresh"
+                            "answer": "fixture:token-refresh"
                         },
                         {
                             "method": "GET",
@@ -160,7 +160,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "665618505e64c017"
+                                "sha": "fc13cbdc962ade63"
                             },
                             "body_sha": null,
                             "body_keys": [],

@@ -41,15 +41,15 @@
                     "requests": [
                         {
                             "method": "GET",
-                            "url": "https://example.com/api/customers",
-                            "url_sha": "a1b4d46f62b96f0b",
+                            "url": "https://example.com/api/customers?page=1&per_page=100",
+                            "url_sha": "6a20a2fc149d69e0",
                             "headers": {
                                 "names": [
                                     "authtoken",
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "d9e87407b9c031af"
+                                "sha": "97e6b96271fe0544"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -85,15 +85,15 @@
                     "requests": [
                         {
                             "method": "GET",
-                            "url": "https://example.com/api/customers",
-                            "url_sha": "a1b4d46f62b96f0b",
+                            "url": "https://example.com/api/customers?page=1&per_page=100",
+                            "url_sha": "6a20a2fc149d69e0",
                             "headers": {
                                 "names": [
                                     "authtoken",
                                     "content-type",
                                     "user-agent"
                                 ],
-                                "sha": "d9e87407b9c031af"
+                                "sha": "97e6b96271fe0544"
                             },
                             "body_sha": null,
                             "body_keys": [],

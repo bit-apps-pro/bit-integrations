@@ -25,15 +25,16 @@
                 "requests": [
                     {
                         "method": "GET",
-                        "url": "https://api.zoom.us/v2/meetings/85012345678/registrants",
-                        "url_sha": "91372e7cce193608",
+                        "url": "https://api.zoom.us/v2/meetings/85012345678/registrants?status=approved&page_size=300",
+                        "url_sha": "12bfc36a752d4594",
                         "headers": {
                             "names": [
+                                "accept",
                                 "authorization",
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "b1f64dc08db3667c"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -45,11 +46,12 @@
                         "url_sha": "332dd7bdc0c8c7f7",
                         "headers": {
                             "names": [
+                                "accept",
                                 "authorization",
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "b1f64dc08db3667c"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -64,8 +66,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391420>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -83,10 +85,10 @@
                             "type_name": "add-contact"
                         },
                         "response_type": "success",
-                        "response_obj": "Attendee deleted successfully",
-                        "field_data_sha": "99f0496d32d31688",
+                        "response_obj": {},
+                        "field_data_sha": "75e31bcac8435f55",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391420>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -123,15 +125,16 @@
                 "requests": [
                     {
                         "method": "GET",
-                        "url": "https://api.zoom.us/v2/meetings/85012345678/registrants",
-                        "url_sha": "91372e7cce193608",
+                        "url": "https://api.zoom.us/v2/meetings/85012345678/registrants?status=approved&page_size=300",
+                        "url_sha": "12bfc36a752d4594",
                         "headers": {
                             "names": [
+                                "accept",
                                 "authorization",
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "b1f64dc08db3667c"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -143,11 +146,12 @@
                         "url_sha": "332dd7bdc0c8c7f7",
                         "headers": {
                             "names": [
+                                "accept",
                                 "authorization",
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "b1f64dc08db3667c"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -162,8 +166,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391421>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -181,10 +185,10 @@
                             "type_name": "add-contact"
                         },
                         "response_type": "success",
-                        "response_obj": "Attendee deleted successfully",
-                        "field_data_sha": "99f0496d32d31688",
+                        "response_obj": {},
+                        "field_data_sha": "75e31bcac8435f55",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391421>>"
                     }
                 ],
                 "existing_logs_changed": false,

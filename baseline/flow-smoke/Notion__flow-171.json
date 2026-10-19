@@ -34,9 +34,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "13572abc40d8c948"
+                            "sha": "9edd8ef17175261d"
                         },
-                        "body_sha": "2075bcd645c11b88",
+                        "body_sha": "da383189432d709a",
                         "body_keys": [
                             "grant_type",
                             "refresh_token"
@@ -54,7 +54,7 @@
                                 "notion-version",
                                 "user-agent"
                             ],
-                            "sha": "1dd38cbb36292a71"
+                            "sha": "92e6f5e7b9823be7"
                         },
                         "body_sha": "dfc745e45f00788a",
                         "body_keys": [
@@ -78,8 +78,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-13 05:18:09",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792390629>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -102,9 +102,9 @@
                             "message": {},
                             "code": 200
                         },
-                        "field_data_sha": "c1f85cec85988a24",
+                        "field_data_sha": "c5cf6a4f32ef5fff",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390629>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -157,9 +157,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "13572abc40d8c948"
+                            "sha": "9edd8ef17175261d"
                         },
-                        "body_sha": "2075bcd645c11b88",
+                        "body_sha": "da383189432d709a",
                         "body_keys": [
                             "grant_type",
                             "refresh_token"
@@ -177,7 +177,7 @@
                                 "notion-version",
                                 "user-agent"
                             ],
-                            "sha": "1dd38cbb36292a71"
+                            "sha": "92e6f5e7b9823be7"
                         },
                         "body_sha": "dfc745e45f00788a",
                         "body_keys": [
@@ -201,8 +201,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-13 05:18:09",
-                                "new": "<datetime>"
+                                "old": "2026-05-13 <clock>",
+                                "new": "<datetime@<ts@1792390630>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -225,9 +225,9 @@
                             "message": {},
                             "code": 200
                         },
-                        "field_data_sha": "c1f85cec85988a24",
+                        "field_data_sha": "c5cf6a4f32ef5fff",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390630>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -31,8 +31,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390721>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -47,10 +47,10 @@
                         "job_id": null,
                         "api_type": "WP Post Creation",
                         "response_type": "success",
-                        "response_obj": 3512,
-                        "field_data_sha": "58dfc1ecc27d2bb7",
+                        "response_obj": 11059,
+                        "field_data_sha": "ab0ee4fbb6e97688",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390721>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -73,7 +73,7 @@
                         "INSERT": 1
                     },
                     "{prefix}options": {
-                        "UPDATE": 1
+                        "UPDATE": 2
                     },
                     "{prefix}posts": {
                         "INSERT": 2,
@@ -106,8 +106,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390722>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -122,10 +122,10 @@
                         "job_id": null,
                         "api_type": "WP Post Creation",
                         "response_type": "success",
-                        "response_obj": 3512,
-                        "field_data_sha": "58dfc1ecc27d2bb7",
+                        "response_obj": 11059,
+                        "field_data_sha": "ab0ee4fbb6e97688",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390722>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -148,7 +148,7 @@
                         "INSERT": 1
                     },
                     "{prefix}options": {
-                        "UPDATE": 1
+                        "UPDATE": 2
                     },
                     "{prefix}posts": {
                         "INSERT": 2,

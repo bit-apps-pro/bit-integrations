@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -62,8 +62,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390075>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -82,9 +82,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Email already exists",
-                        "field_data_sha": "d8d0b058252624b4",
+                        "field_data_sha": "08b4440624afb60c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390075>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -129,7 +129,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -158,8 +158,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390077>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -178,9 +178,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Email already exists",
-                        "field_data_sha": "d8d0b058252624b4",
+                        "field_data_sha": "08b4440624afb60c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390077>>"
                     }
                 ],
                 "existing_logs_changed": false,

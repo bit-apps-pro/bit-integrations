@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "92ca279f31b5ca5d",
         "field_source": "fixture",
-        "field_data_sha": "e45b54cfba4fb728"
+        "field_data_sha": "b7e32af528d7ceff"
     },
     "runs": {
         "pro-on": {
@@ -36,7 +36,7 @@
                                 "user-agent",
                                 "x-http-method"
                             ],
-                            "sha": "77571f99d5d11203"
+                            "sha": "704ded102694a69d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -65,8 +65,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390652>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -85,9 +85,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"SMOKEDRIVE!900\",\"name\":\"woocommerce-placeholder-100x100.png\",\"size\":2300}]",
-                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "field_data_sha": "ded40b5ad7bac65c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390652>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -98,9 +98,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "field_data_sha": "ded40b5ad7bac65c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390652>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -151,7 +151,7 @@
                                 "user-agent",
                                 "x-http-method"
                             ],
-                            "sha": "77571f99d5d11203"
+                            "sha": "704ded102694a69d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -180,8 +180,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390653>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -200,9 +200,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"SMOKEDRIVE!900\",\"name\":\"woocommerce-placeholder-100x100.png\",\"size\":2300}]",
-                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "field_data_sha": "ded40b5ad7bac65c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390653>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -213,9 +213,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "field_data_sha": "ded40b5ad7bac65c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390653>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1916ec2d49dc1d01"
+                            "sha": "a68f3cac9ab71864"
                         },
                         "body_sha": "40b37be85964554a",
                         "body_keys": [
@@ -57,8 +57,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390921>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -81,9 +81,9 @@
                             "message": "Subscriber(s) deleted successfully",
                             "data": {}
                         },
-                        "field_data_sha": "174c6ebd769078e8",
+                        "field_data_sha": "9d6f2db9582df1ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390921>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -146,8 +146,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390922>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -169,9 +169,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activates"
                         },
-                        "field_data_sha": "174c6ebd769078e8",
+                        "field_data_sha": "9d6f2db9582df1ac",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390922>>"
                     }
                 ],
                 "existing_logs_changed": false,

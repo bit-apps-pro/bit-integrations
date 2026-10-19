@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "9ec9ee7b9e53f0c0",
         "field_source": "log#2016",
-        "field_data_sha": "a425e23f904e522c"
+        "field_data_sha": "fc78ee175de9f655"
     },
     "runs": {
         "pro-on": {

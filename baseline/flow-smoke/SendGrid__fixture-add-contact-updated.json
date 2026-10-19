@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "2e8ec3ad116df28a",
                         "body_keys": [
@@ -51,7 +51,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "28b54481cf36c0ab",
                         "body_keys": [
@@ -68,8 +68,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390906>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -90,9 +90,9 @@
                         "response_obj": {
                             "message": "Contact updated successfully"
                         },
-                        "field_data_sha": "bfeef4f4d58561aa",
+                        "field_data_sha": "7574d2e73951cc84",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390906>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -139,7 +139,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "2e8ec3ad116df28a",
                         "body_keys": [
@@ -157,7 +157,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "28b54481cf36c0ab",
                         "body_keys": [
@@ -174,8 +174,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390908>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -196,9 +196,9 @@
                         "response_obj": {
                             "message": "Contact updated successfully"
                         },
-                        "field_data_sha": "bfeef4f4d58561aa",
+                        "field_data_sha": "7574d2e73951cc84",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390908>>"
                     }
                 ],
                 "existing_logs_changed": false,

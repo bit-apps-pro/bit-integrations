@@ -48,7 +48,7 @@
                                     "user-agent",
                                     "x-mailerlite-apikey"
                                 ],
-                                "sha": "401dca40f51eba36"
+                                "sha": "cb110bbab096e0f0"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -91,7 +91,7 @@
                                     "user-agent",
                                     "x-mailerlite-apikey"
                                 ],
-                                "sha": "401dca40f51eba36"
+                                "sha": "cb110bbab096e0f0"
                             },
                             "body_sha": null,
                             "body_keys": [],

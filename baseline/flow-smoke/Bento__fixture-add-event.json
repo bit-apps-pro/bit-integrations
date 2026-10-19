@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "6dd83cc3e6c49526"
+                            "sha": "5f247ffaa6ee2659"
                         },
                         "body_sha": "7eb5a03cbc4f6816",
                         "body_keys": [
@@ -62,8 +62,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390000>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -85,9 +85,9 @@
                             "results": 1,
                             "failed": 0
                         },
-                        "field_data_sha": "b2f1988aa189f4e3",
+                        "field_data_sha": "62fc31ee775f0b7c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390000>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -155,8 +155,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390001>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -177,9 +177,9 @@
                         "response_obj": {
                             "error": "Bit Integrations Pro plugin is not installed or activate"
                         },
-                        "field_data_sha": "b2f1988aa189f4e3",
+                        "field_data_sha": "62fc31ee775f0b7c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390001>>"
                     }
                 ],
                 "existing_logs_changed": false,

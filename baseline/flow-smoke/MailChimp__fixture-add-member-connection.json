@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "b4aec6cd29bb618c"
+                            "sha": "d254dc07731291b8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -49,7 +49,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "b4aec6cd29bb618c"
+                            "sha": "d254dc07731291b8"
                         },
                         "body_sha": "c7d31dab6d83de37",
                         "body_keys": [
@@ -66,12 +66,12 @@
                     {
                         "name": "bit_integrations_mailchimp_map_language",
                         "argc": 2,
-                        "args_sha": "c8231ad0e1d8ed4e"
+                        "args_sha": "cf3f19ea61ce8540"
                     },
                     {
                         "name": "btcbi_mailchimp_map_language",
                         "argc": 2,
-                        "args_sha": "c8231ad0e1d8ed4e"
+                        "args_sha": "cf3f19ea61ce8540"
                     }
                 ],
                 "mails": [],
@@ -81,8 +81,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390426>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -105,9 +105,9 @@
                             "email_address": "smoke@example.com",
                             "status": "subscribed"
                         },
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390426>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -152,7 +152,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "b4aec6cd29bb618c"
+                            "sha": "d254dc07731291b8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -168,7 +168,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "b4aec6cd29bb618c"
+                            "sha": "d254dc07731291b8"
                         },
                         "body_sha": "c7d31dab6d83de37",
                         "body_keys": [
@@ -185,12 +185,12 @@
                     {
                         "name": "bit_integrations_mailchimp_map_language",
                         "argc": 2,
-                        "args_sha": "c8231ad0e1d8ed4e"
+                        "args_sha": "cf3f19ea61ce8540"
                     },
                     {
                         "name": "btcbi_mailchimp_map_language",
                         "argc": 2,
-                        "args_sha": "c8231ad0e1d8ed4e"
+                        "args_sha": "cf3f19ea61ce8540"
                     }
                 ],
                 "mails": [],
@@ -200,8 +200,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390427>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -224,9 +224,9 @@
                             "email_address": "smoke@example.com",
                             "status": "subscribed"
                         },
-                        "field_data_sha": "4eda8b5bec5b2ecf",
+                        "field_data_sha": "aeedffbfae1731ed",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390427>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "1e2b76407926b783",
         "field_source": "fixture",
-        "field_data_sha": "e45b54cfba4fb728"
+        "field_data_sha": "b7e32af528d7ceff"
     },
     "runs": {
         "pro-on": {
@@ -36,7 +36,7 @@
                                 "user-agent",
                                 "x-http-method"
                             ],
-                            "sha": "77571f99d5d11203"
+                            "sha": "704ded102694a69d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -51,8 +51,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390649>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -71,9 +71,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"SMOKEDRIVE!900\",\"name\":\"woocommerce-placeholder-100x100.png\",\"size\":2300}]",
-                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "field_data_sha": "ded40b5ad7bac65c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390649>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -122,7 +122,7 @@
                                 "user-agent",
                                 "x-http-method"
                             ],
-                            "sha": "77571f99d5d11203"
+                            "sha": "704ded102694a69d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -137,8 +137,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390651>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -157,9 +157,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"SMOKEDRIVE!900\",\"name\":\"woocommerce-placeholder-100x100.png\",\"size\":2300}]",
-                        "field_data_sha": "5022c50fd5e7f6d1",
+                        "field_data_sha": "ded40b5ad7bac65c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390651>>"
                     }
                 ],
                 "existing_logs_changed": false,

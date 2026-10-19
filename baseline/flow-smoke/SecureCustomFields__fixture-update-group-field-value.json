@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390866>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -68,9 +68,9 @@
                             "success": false,
                             "message": "Secure Custom Fields is not installed or activated"
                         },
-                        "field_data_sha": "f1412676b5f7c6f3",
+                        "field_data_sha": "69420a3f83030063",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390866>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -127,8 +127,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390868>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -150,9 +150,9 @@
                             "success": false,
                             "message": "Secure Custom Fields is not installed or activated"
                         },
-                        "field_data_sha": "f1412676b5f7c6f3",
+                        "field_data_sha": "69420a3f83030063",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390868>>"
                     }
                 ],
                 "existing_logs_changed": false,

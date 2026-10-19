@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "f18e5d53ad05ae92",
         "field_source": "fixture",
-        "field_data_sha": "34f6b28e72358532"
+        "field_data_sha": "b81cfff9c346c920"
     },
     "runs": {
         "pro-on": {
@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391457>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Not Authorization By Dropbox",
-                        "field_data_sha": "487bb42f8074bbc9",
+                        "field_data_sha": "3174fb9eeba3b809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391457>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,8 +124,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391459>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -144,9 +144,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Not Authorization By Dropbox",
-                        "field_data_sha": "487bb42f8074bbc9",
+                        "field_data_sha": "3174fb9eeba3b809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391459>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -208,8 +208,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391460>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -228,9 +228,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Not Authorization By Dropbox",
-                        "field_data_sha": "487bb42f8074bbc9",
+                        "field_data_sha": "3174fb9eeba3b809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391460>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -287,8 +287,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391461>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -307,9 +307,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Not Authorization By Dropbox",
-                        "field_data_sha": "487bb42f8074bbc9",
+                        "field_data_sha": "3174fb9eeba3b809",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391461>>"
                     }
                 ],
                 "existing_logs_changed": false,

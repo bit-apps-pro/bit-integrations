@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "7d2e0245ae9736a9"
+                            "sha": "bb7cf9475b4881b7"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -50,7 +50,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "7d2e0245ae9736a9"
+                            "sha": "bb7cf9475b4881b7"
                         },
                         "body_sha": "33d836e466740923",
                         "body_keys": [
@@ -83,8 +83,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-07-03 10:03:43",
-                                "new": "<datetime>"
+                                "old": "2025-07-03 <clock>",
+                                "new": "<datetime@<ts@1792390044>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -103,9 +103,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "c2a33a485af034c9",
+                        "field_data_sha": "6842e2f324015ec8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390044>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -151,7 +151,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "7d2e0245ae9736a9"
+                            "sha": "bb7cf9475b4881b7"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -167,7 +167,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "7d2e0245ae9736a9"
+                            "sha": "bb7cf9475b4881b7"
                         },
                         "body_sha": "33d836e466740923",
                         "body_keys": [
@@ -200,8 +200,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2025-07-03 10:03:43",
-                                "new": "<datetime>"
+                                "old": "2025-07-03 <clock>",
+                                "new": "<datetime@<ts@1792390045>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -220,9 +220,9 @@
                         },
                         "response_type": "error",
                         "response_obj": {},
-                        "field_data_sha": "c2a33a485af034c9",
+                        "field_data_sha": "6842e2f324015ec8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390045>>"
                     }
                 ],
                 "existing_logs_changed": false,

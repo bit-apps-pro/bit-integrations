@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "7bddbd2062dcd715",
         "field_source": "log#1967",
-        "field_data_sha": "059f62c61af8f0eb"
+        "field_data_sha": "10fd45935062983c"
     },
     "runs": {
         "pro-on": {
@@ -33,9 +33,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
-                        "body_sha": "ce06212ec26f6c11",
+                        "body_sha": "cc0e1f88c9c61970",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -53,7 +53,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0ba131c27dc42189"
+                            "sha": "ee726ec223d73689"
                         },
                         "body_sha": "6ff90e00a99a0a47",
                         "body_keys": [
@@ -77,8 +77,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-23 06:41:11",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391386>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -97,9 +97,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "3726316d8823cc1a",
+                        "field_data_sha": "2f18b58bbbf1e2e9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391386>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -151,9 +151,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
-                        "body_sha": "ce06212ec26f6c11",
+                        "body_sha": "cc0e1f88c9c61970",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -171,7 +171,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "0ba131c27dc42189"
+                            "sha": "ee726ec223d73689"
                         },
                         "body_sha": "6ff90e00a99a0a47",
                         "body_keys": [
@@ -195,8 +195,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-23 06:41:11",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792391387>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -215,9 +215,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "3726316d8823cc1a",
+                        "field_data_sha": "2f18b58bbbf1e2e9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391387>>"
                     }
                 ],
                 "existing_logs_changed": false,

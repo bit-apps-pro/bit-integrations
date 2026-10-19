@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "b37ebddda2433cf1",
         "field_source": "log#2099",
-        "field_data_sha": "c34f18a1b5759e21"
+        "field_data_sha": "67f84a45c6c49057"
     },
     "runs": {
         "pro-on": {
@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "596312931d89a71c"
+                            "sha": "d73cf560971e3515"
                         },
                         "body_sha": "63c6d746c60349a6",
                         "body_keys": [
@@ -54,8 +54,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "<datetime-3356400>",
-                                "new": "<datetime>"
+                                "old": "2026-08-20 <clock>",
+                                "new": "<datetime@<ts@1792390110>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -74,9 +74,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "93540316469fb20f",
+                        "field_data_sha": "6b14b95af669b52d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390110>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -121,7 +121,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "596312931d89a71c"
+                            "sha": "d73cf560971e3515"
                         },
                         "body_sha": "63c6d746c60349a6",
                         "body_keys": [
@@ -141,8 +141,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "<datetime-3356400>",
-                                "new": "<datetime>"
+                                "old": "2026-08-20 <clock>",
+                                "new": "<datetime@<ts@1792390111>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -161,9 +161,9 @@
                         },
                         "response_type": "success",
                         "response_obj": {},
-                        "field_data_sha": "93540316469fb20f",
+                        "field_data_sha": "6b14b95af669b52d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390111>>"
                     }
                 ],
                 "existing_logs_changed": false,

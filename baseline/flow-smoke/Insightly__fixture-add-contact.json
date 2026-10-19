@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "14a08f69a1c57f10"
+                            "sha": "e1224867da42e6fd"
                         },
                         "body_sha": "63de59fb11a0699e",
                         "body_keys": [
@@ -54,8 +54,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390291>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -76,9 +76,9 @@
                         "response_obj": [
                             "Contact created successfully"
                         ],
-                        "field_data_sha": "72336b26f77b7c26",
+                        "field_data_sha": "5b828f8a44e2bcf9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390291>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -123,7 +123,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "14a08f69a1c57f10"
+                            "sha": "e1224867da42e6fd"
                         },
                         "body_sha": "63de59fb11a0699e",
                         "body_keys": [
@@ -144,8 +144,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390292>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -166,9 +166,9 @@
                         "response_obj": [
                             "Contact created successfully"
                         ],
-                        "field_data_sha": "72336b26f77b7c26",
+                        "field_data_sha": "5b828f8a44e2bcf9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390292>>"
                     }
                 ],
                 "existing_logs_changed": false,

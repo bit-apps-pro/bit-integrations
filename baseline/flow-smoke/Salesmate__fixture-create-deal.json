@@ -34,7 +34,7 @@
                                 "user-agent",
                                 "x-linkname"
                             ],
-                            "sha": "a5cc51d050694b81"
+                            "sha": "6775ff8f6107e21c"
                         },
                         "body_sha": "6b10d1d446afe3ac",
                         "body_keys": [
@@ -61,8 +61,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390859>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -83,9 +83,9 @@
                         "response_obj": [
                             "Deal created  successfully"
                         ],
-                        "field_data_sha": "675554eaeaca9389",
+                        "field_data_sha": "a18c75502dca4891",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390859>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -131,7 +131,7 @@
                                 "user-agent",
                                 "x-linkname"
                             ],
-                            "sha": "a5cc51d050694b81"
+                            "sha": "6775ff8f6107e21c"
                         },
                         "body_sha": "6b10d1d446afe3ac",
                         "body_keys": [
@@ -158,8 +158,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390860>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -180,9 +180,9 @@
                         "response_obj": [
                             "Deal created  successfully"
                         ],
-                        "field_data_sha": "675554eaeaca9389",
+                        "field_data_sha": "a18c75502dca4891",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390860>>"
                     }
                 ],
                 "existing_logs_changed": false,

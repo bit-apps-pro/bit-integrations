@@ -53,7 +53,7 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController::fluentCrmTags",
+        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper::fluentCrmTags",
         "auth_owner": null,
         "notes": []
     }

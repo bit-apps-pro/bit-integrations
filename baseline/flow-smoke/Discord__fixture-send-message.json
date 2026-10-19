@@ -33,7 +33,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "f3a8bd63c4b8ed5e"
+                            "sha": "15db1b4570a1781c"
                         },
                         "body_sha": "47bb5d68448e4677",
                         "body_keys": [
@@ -51,8 +51,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390123>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -75,9 +75,9 @@
                             "channel_id": "2001",
                             "content": "smoke"
                         },
-                        "field_data_sha": "9cb3ebaa07f01f0f",
+                        "field_data_sha": "0adde6d13b9a2ad2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390123>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -122,7 +122,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "f3a8bd63c4b8ed5e"
+                            "sha": "15db1b4570a1781c"
                         },
                         "body_sha": "47bb5d68448e4677",
                         "body_keys": [
@@ -140,8 +140,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390124>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -164,9 +164,9 @@
                             "channel_id": "2001",
                             "content": "smoke"
                         },
-                        "field_data_sha": "9cb3ebaa07f01f0f",
+                        "field_data_sha": "0adde6d13b9a2ad2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390124>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "5f6372bf45294676",
         "field_source": "log#2279",
-        "field_data_sha": "ded62978c4fbb744"
+        "field_data_sha": "09d6619f3c6da9b1"
     },
     "runs": {
         "pro-on": {
@@ -33,9 +33,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
-                        "body_sha": "ade57c05421b7b0a",
+                        "body_sha": "5b451221bce27c26",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -43,26 +43,6 @@
                             "refresh_token"
                         ],
                         "answer": "fixture:oauth-refresh"
-                    },
-                    {
-                        "method": "POST",
-                        "url": "https://sheets.googleapis.com/v4/spreadsheets/<seg:9903c9e0>/values/Sheet2!A1:append?valueInputOption=USER_ENTERED",
-                        "url_sha": "64ff939b05460bd1",
-                        "headers": {
-                            "names": [
-                                "authorization",
-                                "content-type",
-                                "user-agent"
-                            ],
-                            "sha": "93fb99285a12bab1"
-                        },
-                        "body_sha": "32926a42165eb152",
-                        "body_keys": [
-                            "range",
-                            "majorDimension",
-                            "values"
-                        ],
-                        "answer": "synthetic"
                     }
                 ],
                 "hooks": [
@@ -72,21 +52,23 @@
                         "args_sha": "2f5d98b61e41385d"
                     }
                 ],
-                "mails": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #225",
+                        "message_sha": "e7e306ca0b57d7f6",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
                 "flow_writes": [
                     {
                         "id": 225,
                         "change": "updated",
                         "columns": {
-                            "flow_details": {
-                                "isAuthorized": {
-                                    "old": false,
-                                    "new": true
-                                }
-                            },
                             "updated_at": {
-                                "old": "<datetime-1298100>",
-                                "new": "<datetime>"
+                                "old": "<datetime-3106500@<ts-3106500@1789283867>>",
+                                "new": "<datetime@<ts@1792390254>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -101,13 +83,16 @@
                         "job_id": null,
                         "api_type": {
                             "type": "record",
-                            "type_name": "insert"
+                            "type_name": "clearSheet"
                         },
-                        "response_type": "success",
-                        "response_obj": {},
-                        "field_data_sha": "7b4602696818fad2",
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Bit Integrations Pro plugin is not installed or activate"
+                        },
+                        "field_data_sha": "087a95af442d3153",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390254>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -158,9 +143,9 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e2326be46328f4f6"
+                            "sha": "9ff1e7af58deadf7"
                         },
-                        "body_sha": "ade57c05421b7b0a",
+                        "body_sha": "5b451221bce27c26",
                         "body_keys": [
                             "grant_type",
                             "client_id",
@@ -168,26 +153,6 @@
                             "refresh_token"
                         ],
                         "answer": "fixture:oauth-refresh"
-                    },
-                    {
-                        "method": "POST",
-                        "url": "https://sheets.googleapis.com/v4/spreadsheets/<seg:9903c9e0>/values/Sheet2!A1:append?valueInputOption=USER_ENTERED",
-                        "url_sha": "64ff939b05460bd1",
-                        "headers": {
-                            "names": [
-                                "authorization",
-                                "content-type",
-                                "user-agent"
-                            ],
-                            "sha": "93fb99285a12bab1"
-                        },
-                        "body_sha": "32926a42165eb152",
-                        "body_keys": [
-                            "range",
-                            "majorDimension",
-                            "values"
-                        ],
-                        "answer": "synthetic"
                     }
                 ],
                 "hooks": [
@@ -197,21 +162,23 @@
                         "args_sha": "2f5d98b61e41385d"
                     }
                 ],
-                "mails": [],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #225",
+                        "message_sha": "e7e306ca0b57d7f6",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
                 "flow_writes": [
                     {
                         "id": 225,
                         "change": "updated",
                         "columns": {
-                            "flow_details": {
-                                "isAuthorized": {
-                                    "old": false,
-                                    "new": true
-                                }
-                            },
                             "updated_at": {
-                                "old": "<datetime-1298100>",
-                                "new": "<datetime>"
+                                "old": "<datetime-3106500@<ts-3106500@1789283867>>",
+                                "new": "<datetime@<ts@1792390255>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -226,13 +193,16 @@
                         "job_id": null,
                         "api_type": {
                             "type": "record",
-                            "type_name": "insert"
+                            "type_name": "clearSheet"
                         },
-                        "response_type": "success",
-                        "response_obj": {},
-                        "field_data_sha": "7b4602696818fad2",
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Bit Integrations Pro plugin is not installed or activate"
+                        },
+                        "field_data_sha": "087a95af442d3153",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390255>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -1,0 +1,203 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "SendinBlue",
+    "flow": {
+        "source": "db",
+        "id": 714,
+        "type": "Brevo(Sendinblue)",
+        "status": 0,
+        "connection_id": 75
+    },
+    "input": {
+        "flow_details_sha": "baf510d4496933c9",
+        "field_source": "field_map",
+        "field_data_sha": "5ee1d6d1174ae8ef"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendinblue.com/v3/contacts",
+                        "url_sha": "94110ee28951ae78",
+                        "headers": {
+                            "names": [
+                                "api-key",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "6a782a2170e014f3"
+                        },
+                        "body_sha": "e202439bca7b8e38",
+                        "body_keys": [
+                            "email",
+                            "attributes",
+                            "listIds"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 714,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": "<absent>",
+                                    "new": true
+                                }
+                            },
+                            "updated_at": {
+                                "old": "<datetime-332100@<ts-332100@1792058802>>",
+                                "new": "<datetime@<ts@1792390933>>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 714,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "77864a2d50d5dfd6",
+                        "parent_id": null,
+                        "created_at": "<datetime@<ts@1792390933>>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.sendinblue.com/v3/contacts",
+                        "url_sha": "94110ee28951ae78",
+                        "headers": {
+                            "names": [
+                                "api-key",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "6a782a2170e014f3"
+                        },
+                        "body_sha": "e202439bca7b8e38",
+                        "body_keys": [
+                            "email",
+                            "attributes",
+                            "listIds"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 714,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": "<absent>",
+                                    "new": true
+                                }
+                            },
+                            "updated_at": {
+                                "old": "<datetime-332100@<ts-332100@1792058802>>",
+                                "new": "<datetime@<ts@1792390934>>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 714,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "record",
+                            "type_name": "insert"
+                        },
+                        "response_type": "success",
+                        "response_obj": {},
+                        "field_data_sha": "77864a2d50d5dfd6",
+                        "parent_id": null,
+                        "created_at": "<datetime@<ts@1792390934>>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

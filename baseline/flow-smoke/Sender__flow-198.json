@@ -12,7 +12,7 @@
     "input": {
         "flow_details_sha": "28817980ff38f147",
         "field_source": "log#1977",
-        "field_data_sha": "b85af0a53ce6571c"
+        "field_data_sha": "8d7ef086858926ae"
     },
     "runs": {
         "pro-on": {
@@ -35,7 +35,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "e158e7136bac4793"
+                            "sha": "431dafe353906835"
                         },
                         "body_sha": "ac3601dacb0aa5d4",
                         "body_keys": [
@@ -53,7 +53,7 @@
                     {
                         "name": "bit_integrations_sender_create_or_update_subscriber",
                         "argc": 3,
-                        "args_sha": "cbbbbf10e70cf8d0"
+                        "args_sha": "954ba404e2c3188b"
                     }
                 ],
                 "mails": [],
@@ -63,8 +63,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-07-23 08:22:51",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792390912>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -87,9 +87,9 @@
                             "message": "Subscriber created or updated successfully",
                             "data": {}
                         },
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390912>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -128,7 +128,7 @@
                     {
                         "name": "bit_integrations_sender_create_or_update_subscriber",
                         "argc": 3,
-                        "args_sha": "cbbbbf10e70cf8d0"
+                        "args_sha": "954ba404e2c3188b"
                     }
                 ],
                 "mails": [
@@ -152,8 +152,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-07-23 08:22:51",
-                                "new": "<datetime>"
+                                "old": "2026-07-23 <clock>",
+                                "new": "<datetime@<ts@1792390913>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -175,9 +175,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activates"
                         },
-                        "field_data_sha": "c8ab4d8d3876eda6",
+                        "field_data_sha": "ae6cf8dfa91bd037",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390913>>"
                     }
                 ],
                 "existing_logs_changed": false,

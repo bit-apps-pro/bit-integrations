@@ -1,0 +1,203 @@
+{
+    "schema": 1,
+    "kind": "flow",
+    "integration": "Flodesk",
+    "flow": {
+        "source": "db",
+        "id": 254,
+        "type": "Flodesk",
+        "status": 0,
+        "connection_id": 54
+    },
+    "input": {
+        "flow_details_sha": "1de63225c5364f8f",
+        "field_source": "log#2134",
+        "field_data_sha": "5a623628a105beed"
+    },
+    "runs": {
+        "pro-on": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [
+                    {
+                        "method": "POST",
+                        "url": "https://api.flodesk.com/v1/workflows/6a8d7574acd3381a253c4543/subscribers",
+                        "url_sha": "e9b224ab8f9d088c",
+                        "headers": {
+                            "names": [
+                                "authorization",
+                                "content-type",
+                                "user-agent"
+                            ],
+                            "sha": "c463df1dfc243adf"
+                        },
+                        "body_sha": "dcd0e2a859b8f2d8",
+                        "body_keys": [
+                            "id"
+                        ],
+                        "answer": "synthetic"
+                    }
+                ],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_flodesk_add_subscriber_to_workflow",
+                        "argc": 4,
+                        "args_sha": "19094263cde53d5e"
+                    }
+                ],
+                "mails": [],
+                "flow_writes": [
+                    {
+                        "id": 254,
+                        "change": "updated",
+                        "columns": {
+                            "updated_at": {
+                                "old": "2026-08-31 <clock>",
+                                "new": "<datetime@<ts@1792390174>>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 254,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Flodesk",
+                            "type_name": "add_subscriber_to_workflow"
+                        },
+                        "response_type": "success",
+                        "response_obj": {
+                            "success": true,
+                            "message": "Subscriber added to workflow successfully",
+                            "code": 200,
+                            "data": {}
+                        },
+                        "field_data_sha": "1616b1ce20b2fd3f",
+                        "parent_id": null,
+                        "created_at": "<datetime@<ts@1792390174>>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        },
+        "pro-off": {
+            "compare": {
+                "exit": {
+                    "kind": "returned"
+                },
+                "output": {
+                    "text": ""
+                },
+                "requests": [],
+                "hooks": [
+                    {
+                        "name": "bit_integrations_flodesk_add_subscriber_to_workflow",
+                        "argc": 4,
+                        "args_sha": "19094263cde53d5e"
+                    }
+                ],
+                "mails": [
+                    {
+                        "to_sha": "96ad89020f32dc9b",
+                        "subject": "[Bit Integrations] Integration Failure Alert - Flow #254",
+                        "message_sha": "07931253a228adda",
+                        "headers_sha": "ac94d4e26e65d61c",
+                        "attachments": 0
+                    }
+                ],
+                "flow_writes": [
+                    {
+                        "id": 254,
+                        "change": "updated",
+                        "columns": {
+                            "flow_details": {
+                                "isAuthorized": {
+                                    "old": true,
+                                    "new": false
+                                }
+                            },
+                            "updated_at": {
+                                "old": "2026-08-31 <clock>",
+                                "new": "<datetime@<ts@1792390176>>"
+                            },
+                            "user_id": {
+                                "old": "1",
+                                "new": "0"
+                            }
+                        }
+                    }
+                ],
+                "log_rows": [
+                    {
+                        "flow_id": 254,
+                        "job_id": null,
+                        "api_type": {
+                            "type": "Flodesk",
+                            "type_name": "add_subscriber_to_workflow"
+                        },
+                        "response_type": "error",
+                        "response_obj": {
+                            "success": false,
+                            "message": "Bit Integrations Pro plugin is not installed or activate",
+                            "code": 400
+                        },
+                        "field_data_sha": "1616b1ce20b2fd3f",
+                        "parent_id": null,
+                        "created_at": "<datetime@<ts@1792390176>>"
+                    }
+                ],
+                "existing_logs_changed": false,
+                "t1": null
+            },
+            "info": {
+                "php_errors": [
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $data as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkUpdate(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::trash(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::delete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead",
+                    "deprecated: BitApps\\Integrations\\Core\\Database\\Model::bulkDelete(): Implicitly marking parameter $condition as nullable is deprecated, the explicit nullable type must be used instead"
+                ],
+                "error_log": [],
+                "tables_written": {
+                    "{prefix}btcbi_flow": {
+                        "UPDATE": 1
+                    },
+                    "{prefix}btcbi_log": {
+                        "INSERT": 1
+                    }
+                },
+                "blocked": []
+            }
+        }
+    }
+}

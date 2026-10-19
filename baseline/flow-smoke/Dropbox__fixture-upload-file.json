@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "7e09e54f973fa334",
         "field_source": "fixture",
-        "field_data_sha": "eb20c5eb2a2da529"
+        "field_data_sha": "dffc0c82eeddabf4"
     },
     "runs": {
         "pro-on": {
@@ -34,7 +34,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "040c84d1a48bc773"
+                            "sha": "355e7f1c7b60e96d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -49,8 +49,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390153>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -69,9 +69,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390153>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -117,7 +117,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "040c84d1a48bc773"
+                            "sha": "355e7f1c7b60e96d"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -132,8 +132,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390155>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -152,9 +152,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "7664b5330161795c",
+                        "field_data_sha": "e97200b40fc09218",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390155>>"
                     }
                 ],
                 "existing_logs_changed": false,

@@ -61,7 +61,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "1dca364f625cb944",
                             "body_keys": [
@@ -70,7 +70,7 @@
                                 "client_secret",
                                 "refresh_token"
                             ],
-                            "answer": "fixture:oauth-refresh"
+                            "answer": "fixture:token-refresh"
                         },
                         {
                             "method": "GET",
@@ -81,7 +81,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "0ba131c27dc42189"
+                                "sha": "d9e74d22aad299b1"
                             },
                             "body_sha": null,
                             "body_keys": [],
@@ -124,7 +124,7 @@
                                 "names": [
                                     "user-agent"
                                 ],
-                                "sha": "1977a0032af4d997"
+                                "sha": "6ef0edef3fcfa0e8"
                             },
                             "body_sha": "1dca364f625cb944",
                             "body_keys": [
@@ -133,7 +133,7 @@
                                 "client_secret",
                                 "refresh_token"
                             ],
-                            "answer": "fixture:oauth-refresh"
+                            "answer": "fixture:token-refresh"
                         },
                         {
                             "method": "GET",
@@ -144,7 +144,7 @@
                                     "authorization",
                                     "user-agent"
                                 ],
-                                "sha": "0ba131c27dc42189"
+                                "sha": "d9e74d22aad299b1"
                             },
                             "body_sha": null,
                             "body_keys": [],

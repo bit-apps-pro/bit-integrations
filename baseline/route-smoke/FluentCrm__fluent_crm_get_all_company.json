@@ -53,7 +53,7 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmController::getAllCompany",
+        "handler": "BitApps\\Integrations\\Actions\\FluentCrm\\FluentCrmHelper::getAllCompany",
         "auth_owner": null,
         "notes": []
     }

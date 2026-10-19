@@ -35,7 +35,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "10b521c1ffa4765a"
+                            "sha": "61233feb2b11cdb5"
                         },
                         "body_sha": "14627fbd6d181fc7",
                         "body_keys": [
@@ -49,7 +49,7 @@
                     {
                         "name": "bit_integrations_mondayCom_create_item",
                         "argc": 4,
-                        "args_sha": "8b575ab89e8fefa3"
+                        "args_sha": "fafee3059fb68a93"
                     }
                 ],
                 "mails": [],
@@ -65,8 +65,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-05-12 07:07:56",
-                                "new": "<datetime>"
+                                "old": "2026-05-12 <clock>",
+                                "new": "<datetime@<ts@1792390540>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -92,9 +92,9 @@
                                 }
                             }
                         },
-                        "field_data_sha": "9e37d121525104a8",
+                        "field_data_sha": "c543306b6303dc8c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390540>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -133,7 +133,7 @@
                     {
                         "name": "bit_integrations_mondayCom_create_item",
                         "argc": 4,
-                        "args_sha": "8b575ab89e8fefa3"
+                        "args_sha": "fafee3059fb68a93"
                     }
                 ],
                 "mails": [
@@ -151,8 +151,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-05-12 07:07:56",
-                                "new": "<datetime>"
+                                "old": "2026-05-12 <clock>",
+                                "new": "<datetime@<ts@1792390541>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -173,9 +173,9 @@
                         "response_obj": {
                             "error": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "9e37d121525104a8",
+                        "field_data_sha": "c543306b6303dc8c",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390541>>"
                     }
                 ],
                 "existing_logs_changed": false,

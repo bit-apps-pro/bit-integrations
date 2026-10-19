@@ -35,7 +35,7 @@
                                 "user-agent",
                                 "x-api-key"
                             ],
-                            "sha": "7a786eedd11e6419"
+                            "sha": "b9f7086457e06265"
                         },
                         "body_sha": "2d77a62b96a2eae6",
                         "body_keys": [
@@ -52,7 +52,7 @@
                     {
                         "name": "bit_integrations_heffl_crm_create_client",
                         "argc": 4,
-                        "args_sha": "65b249881de9fc56"
+                        "args_sha": "11fe01ae43467f42"
                     }
                 ],
                 "mails": [],
@@ -62,8 +62,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2026-06-01 10:43:39",
-                                "new": "<datetime>"
+                                "old": "2026-06-01 <clock>",
+                                "new": "<datetime@<ts@1792390265>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -86,9 +86,9 @@
                             "message": "Record created successfully",
                             "data": {}
                         },
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390265>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -127,7 +127,7 @@
                     {
                         "name": "bit_integrations_heffl_crm_create_client",
                         "argc": 4,
-                        "args_sha": "65b249881de9fc56"
+                        "args_sha": "11fe01ae43467f42"
                     }
                 ],
                 "mails": [
@@ -151,8 +151,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-06-01 10:43:39",
-                                "new": "<datetime>"
+                                "old": "2026-06-01 <clock>",
+                                "new": "<datetime@<ts@1792390266>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -174,9 +174,9 @@
                             "success": false,
                             "message": "Bit Integrations Pro plugin is not installed or activated"
                         },
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390266>>"
                     }
                 ],
                 "existing_logs_changed": false,

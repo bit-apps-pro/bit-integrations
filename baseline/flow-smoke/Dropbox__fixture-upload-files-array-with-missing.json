@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "2fcc85bb82208b4a",
         "field_source": "fixture",
-        "field_data_sha": "2f555b85cde63279"
+        "field_data_sha": "42127a0b70a871e0"
     },
     "runs": {
         "pro-on": {
@@ -34,7 +34,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "805b5348cf9df298"
+                            "sha": "778077e07851d019"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -63,8 +63,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390156>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -83,9 +83,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "field_data_sha": "f8b215486b1c0a4d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390156>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -96,9 +96,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "field_data_sha": "f8b215486b1c0a4d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390156>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -144,7 +144,7 @@
                                 "dropbox-api-arg",
                                 "user-agent"
                             ],
-                            "sha": "805b5348cf9df298"
+                            "sha": "778077e07851d019"
                         },
                         "body_sha": "0ba6941f6ada5d57",
                         "body_keys": [],
@@ -173,8 +173,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390157>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -193,9 +193,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "All Files Uploaded.[{\"id\":\"id:smoke-file-1\",\"name\":\"woocommerce-placeholder-100x100.png\",\"path_lower\":\"\\/smoke\\/woocommerce-placeholder-100x100.png\",\"size\":1}]",
-                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "field_data_sha": "f8b215486b1c0a4d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390157>>"
                     },
                     {
                         "flow_id": "<fixture>",
@@ -206,9 +206,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "Some Files Can't Upload.[{\"errors\":{\"423\":[\"Can't open file!\"]},\"error_data\":[]}]",
-                        "field_data_sha": "8a87c7dcf1f5c03e",
+                        "field_data_sha": "f8b215486b1c0a4d",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390157>>"
                     }
                 ],
                 "existing_logs_changed": false,

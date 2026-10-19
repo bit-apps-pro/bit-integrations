@@ -34,7 +34,7 @@
                                 "user-agent",
                                 "verify"
                             ],
-                            "sha": "95f4a17f024292b8"
+                            "sha": "feb32616c007d13f"
                         },
                         "body_sha": "49e8e9ce7ac33445",
                         "body_keys": [
@@ -53,8 +53,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390961>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -75,14 +75,14 @@
                         "response_obj": {
                             "ok": true,
                             "channel": "C0SMOKE01",
-                            "ts": "1700000000.000100",
+                            "ts": "1700000000",
                             "message": {
                                 "text": "smoke"
                             }
                         },
-                        "field_data_sha": "3ce57e1e99d86384",
+                        "field_data_sha": "f61f96eb3da2fba8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390961>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -128,7 +128,7 @@
                                 "user-agent",
                                 "verify"
                             ],
-                            "sha": "95f4a17f024292b8"
+                            "sha": "feb32616c007d13f"
                         },
                         "body_sha": "49e8e9ce7ac33445",
                         "body_keys": [
@@ -147,8 +147,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390962>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -169,14 +169,14 @@
                         "response_obj": {
                             "ok": true,
                             "channel": "C0SMOKE01",
-                            "ts": "1700000000.000100",
+                            "ts": "1700000000",
                             "message": {
                                 "text": "smoke"
                             }
                         },
-                        "field_data_sha": "3ce57e1e99d86384",
+                        "field_data_sha": "f61f96eb3da2fba8",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390962>>"
                     }
                 ],
                 "existing_logs_changed": false,

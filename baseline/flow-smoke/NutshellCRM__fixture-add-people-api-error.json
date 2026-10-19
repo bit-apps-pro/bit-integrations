@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "9058abfaa429f41a"
+                            "sha": "2e119b8752e97b9c"
                         },
                         "body_sha": "c7b89f2a67818bf8",
                         "body_keys": [
@@ -66,8 +66,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390639>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -93,9 +93,9 @@
                                 "message": "Smoke validation error"
                             }
                         },
-                        "field_data_sha": "9b5e75d1d7176c37",
+                        "field_data_sha": "116f6846068da74e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390639>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -140,7 +140,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "9058abfaa429f41a"
+                            "sha": "2e119b8752e97b9c"
                         },
                         "body_sha": "c7b89f2a67818bf8",
                         "body_keys": [
@@ -173,8 +173,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390640>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -200,9 +200,9 @@
                                 "message": "Smoke validation error"
                             }
                         },
-                        "field_data_sha": "9b5e75d1d7176c37",
+                        "field_data_sha": "116f6846068da74e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390640>>"
                     }
                 ],
                 "existing_logs_changed": false,

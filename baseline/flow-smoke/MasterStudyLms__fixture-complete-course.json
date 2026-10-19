@@ -31,8 +31,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390506>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -51,9 +51,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Course completed successfully",
-                        "field_data_sha": "c6789a785489b5f9",
+                        "field_data_sha": "ac2e9f11aefba4e9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390506>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -96,8 +96,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390508>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -116,9 +116,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Course completed successfully",
-                        "field_data_sha": "c6789a785489b5f9",
+                        "field_data_sha": "ac2e9f11aefba4e9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390508>>"
                     }
                 ],
                 "existing_logs_changed": false,

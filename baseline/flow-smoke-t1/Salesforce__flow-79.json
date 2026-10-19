@@ -26,13 +26,13 @@
                 "requests": [
                     {
                         "method": "POST",
-                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:9ede59c70978>&refresh_token=<redacted:20990a10789e>",
+                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:digest>&refresh_token=<redacted:digest>",
                         "url_sha": "a48ac93b19a232d7",
                         "headers": {
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -48,7 +48,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1056cde01d03856a"
+                            "sha": "2d039ea9337e8c9e"
                         },
                         "body_sha": "ca94a0053c5ab437",
                         "body_keys": [
@@ -91,10 +91,10 @@
                                 "tokenDetails": {
                                     "old": {
                                         "access_token": "<redacted:a196f086cc61>",
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -103,22 +103,22 @@
                                     },
                                     "new": {
                                         "access_token": null,
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "issued_at": "1764566112999",
-                                        "generates_on": "<ts>",
-                                        "generated_at": "<ts>"
+                                        "generates_on": "<ts@1792391589>",
+                                        "generated_at": "<ts@1792391589>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-02-28 04:48:41",
-                                "new": "<datetime>"
+                                "old": "2026-02-28 <clock>",
+                                "new": "<datetime@<ts@1792391589>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -137,9 +137,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Lead Updated Successfully",
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391589>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -177,13 +177,13 @@
                 "requests": [
                     {
                         "method": "POST",
-                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:9ede59c70978>&refresh_token=<redacted:20990a10789e>",
+                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:digest>&refresh_token=<redacted:digest>",
                         "url_sha": "a48ac93b19a232d7",
                         "headers": {
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -199,7 +199,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1056cde01d03856a"
+                            "sha": "2d039ea9337e8c9e"
                         },
                         "body_sha": "ca94a0053c5ab437",
                         "body_keys": [
@@ -242,10 +242,10 @@
                                 "tokenDetails": {
                                     "old": {
                                         "access_token": "<redacted:a196f086cc61>",
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -254,22 +254,22 @@
                                     },
                                     "new": {
                                         "access_token": null,
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "issued_at": 1500000000000,
-                                        "generates_on": "<ts>",
-                                        "generated_at": "<ts>"
+                                        "generates_on": "<ts@1792391590>",
+                                        "generated_at": "<ts@1792391590>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-02-28 04:48:41",
-                                "new": "<datetime>"
+                                "old": "2026-02-28 <clock>",
+                                "new": "<datetime@<ts@1792391590>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -288,9 +288,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Lead Updated Successfully",
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391590>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -337,13 +337,13 @@
                 "requests": [
                     {
                         "method": "POST",
-                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:9ede59c70978>&refresh_token=<redacted:20990a10789e>",
+                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:digest>&refresh_token=<redacted:digest>",
                         "url_sha": "a48ac93b19a232d7",
                         "headers": {
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -359,7 +359,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1056cde01d03856a"
+                            "sha": "2d039ea9337e8c9e"
                         },
                         "body_sha": "ca94a0053c5ab437",
                         "body_keys": [
@@ -402,10 +402,10 @@
                                 "tokenDetails": {
                                     "old": {
                                         "access_token": "<redacted:a196f086cc61>",
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -414,22 +414,22 @@
                                     },
                                     "new": {
                                         "access_token": null,
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "issued_at": "1764566112999",
-                                        "generates_on": "<ts>",
-                                        "generated_at": "<ts>"
+                                        "generates_on": "<ts@1792391592>",
+                                        "generated_at": "<ts@1792391592>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-02-28 04:48:41",
-                                "new": "<datetime>"
+                                "old": "2026-02-28 <clock>",
+                                "new": "<datetime@<ts@1792391592>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -448,9 +448,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Lead Updated Successfully",
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391592>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -488,13 +488,13 @@
                 "requests": [
                     {
                         "method": "POST",
-                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:9ede59c70978>&refresh_token=<redacted:20990a10789e>",
+                        "url": "https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=<redacted:d5d3ea19df02>&client_secret=<redacted:digest>&refresh_token=<redacted:digest>",
                         "url_sha": "a48ac93b19a232d7",
                         "headers": {
                             "names": [
                                 "user-agent"
                             ],
-                            "sha": "1977a0032af4d997"
+                            "sha": "6ef0edef3fcfa0e8"
                         },
                         "body_sha": null,
                         "body_keys": [],
@@ -510,7 +510,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "1056cde01d03856a"
+                            "sha": "2d039ea9337e8c9e"
                         },
                         "body_sha": "ca94a0053c5ab437",
                         "body_keys": [
@@ -553,10 +553,10 @@
                                 "tokenDetails": {
                                     "old": {
                                         "access_token": "<redacted:a196f086cc61>",
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
@@ -565,22 +565,22 @@
                                     },
                                     "new": {
                                         "access_token": null,
-                                        "refresh_token": "<redacted:20990a10789e>",
-                                        "signature": "<redacted:5b3ff9a6856b>",
+                                        "refresh_token": "<redacted:digest>",
+                                        "signature": "<redacted:digest>",
                                         "scope": "refresh_token full",
-                                        "id_token": "<redacted:0a2c6fd818c7>",
+                                        "id_token": "<redacted:digest>",
                                         "instance_url": "https://orgfarm-75faed2572-dev-ed.develop.my.salesforce.com",
                                         "id": "https://login.salesforce.com/id/00DgL00000EvYGDUA3/005gL00000AP8uHQAT",
                                         "token_type": "<redacted:2c035ac06add>",
                                         "issued_at": 1500000000000,
-                                        "generates_on": "<ts>",
-                                        "generated_at": "<ts>"
+                                        "generates_on": "<ts@1792391593>",
+                                        "generated_at": "<ts@1792391593>"
                                     }
                                 }
                             },
                             "updated_at": {
-                                "old": "2026-02-28 04:48:41",
-                                "new": "<datetime>"
+                                "old": "2026-02-28 <clock>",
+                                "new": "<datetime@<ts@1792391593>>"
                             },
                             "user_id": {
                                 "old": "1",
@@ -599,9 +599,9 @@
                         },
                         "response_type": "success",
                         "response_obj": "Lead Updated Successfully",
-                        "field_data_sha": "9e8474ab9f61f61e",
+                        "field_data_sha": "6aed7906cb30a1a9",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391593>>"
                     }
                 ],
                 "existing_logs_changed": false,

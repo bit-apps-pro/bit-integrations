@@ -53,7 +53,7 @@
         }
     },
     "info": {
-        "handler": "BitApps\\Integrations\\Actions\\WpErp\\WpErpController::refreshContactGroups",
+        "handler": "BitApps\\Integrations\\Actions\\WpErp\\WpErpHelper::refreshContactGroups",
         "auth_owner": null,
         "notes": []
     }

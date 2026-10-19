@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "6ac2e049637aa86f",
                         "body_keys": [
@@ -52,7 +52,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "6ed08eea8412e233",
                         "body_keys": [
@@ -80,8 +80,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390279>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -105,9 +105,9 @@
                                 "hs_object_id": "9001"
                             }
                         },
-                        "field_data_sha": "fd85a872bd25b288",
+                        "field_data_sha": "151f25887869535e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390279>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -152,7 +152,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "6ac2e049637aa86f",
                         "body_keys": [
@@ -195,8 +195,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390280>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -217,9 +217,9 @@
                         "response_obj": {
                             "errors": "Bit Integrations Pro is not active or not installed"
                         },
-                        "field_data_sha": "fd85a872bd25b288",
+                        "field_data_sha": "151f25887869535e",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390280>>"
                     }
                 ],
                 "existing_logs_changed": false,

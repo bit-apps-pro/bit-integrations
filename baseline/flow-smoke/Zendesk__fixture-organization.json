@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "559f48e4dcdb3f2d",
                         "body_keys": [
@@ -50,8 +50,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391366>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -72,9 +72,9 @@
                         "response_obj": [
                             "Organization created successfully"
                         ],
-                        "field_data_sha": "fb08486f9dffb711",
+                        "field_data_sha": "b24617af18ba832b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391366>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -119,7 +119,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "0615282d7b7296ef"
+                            "sha": "13b56c61d1b50346"
                         },
                         "body_sha": "559f48e4dcdb3f2d",
                         "body_keys": [
@@ -136,8 +136,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792391368>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -158,9 +158,9 @@
                         "response_obj": [
                             "Organization created successfully"
                         ],
-                        "field_data_sha": "fb08486f9dffb711",
+                        "field_data_sha": "b24617af18ba832b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792391368>>"
                     }
                 ],
                 "existing_logs_changed": false,

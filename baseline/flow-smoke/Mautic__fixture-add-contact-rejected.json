@@ -33,7 +33,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "87631ec9fb4487c3",
                         "body_keys": [
@@ -64,8 +64,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390520>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -96,9 +96,9 @@
                                 }
                             ]
                         },
-                        "field_data_sha": "db5998544c4eb46a",
+                        "field_data_sha": "c40a41109b2cc370",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390520>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -143,7 +143,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "a7a070a55d83082c"
+                            "sha": "5cf8f2cd9ecf34aa"
                         },
                         "body_sha": "87631ec9fb4487c3",
                         "body_keys": [
@@ -174,8 +174,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390521>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -206,9 +206,9 @@
                                 }
                             ]
                         },
-                        "field_data_sha": "db5998544c4eb46a",
+                        "field_data_sha": "c40a41109b2cc370",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390521>>"
                     }
                 ],
                 "existing_logs_changed": false,

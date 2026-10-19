@@ -11,7 +11,7 @@
     "input": {
         "flow_details_sha": "e8db90926e55603b",
         "field_source": "fixture",
-        "field_data_sha": "abf7b4ee93a64771"
+        "field_data_sha": "5cb505c7ea8754d1"
     },
     "runs": {
         "pro-on": {
@@ -45,8 +45,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390808>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -65,9 +65,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "No user found with the email: <email:e8641b21>",
-                        "field_data_sha": "60e04e4719586d79",
+                        "field_data_sha": "4b180c9b49d8309b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390808>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -124,8 +124,8 @@
                                 }
                             },
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390809>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -144,9 +144,9 @@
                         },
                         "response_type": "error",
                         "response_obj": "No user found with the email: <email:e8641b21>",
-                        "field_data_sha": "60e04e4719586d79",
+                        "field_data_sha": "4b180c9b49d8309b",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390809>>"
                     }
                 ],
                 "existing_logs_changed": false,

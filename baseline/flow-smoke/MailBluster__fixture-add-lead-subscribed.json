@@ -32,7 +32,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "3e3a2955784651fc"
+                            "sha": "962aee5f0b2e2da0"
                         },
                         "body_sha": "4a43e698b10949af",
                         "body_keys": [
@@ -56,8 +56,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390421>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -78,9 +78,9 @@
                         "response_obj": {
                             "message": "Lead created successfully"
                         },
-                        "field_data_sha": "5f0fc46e85822b23",
+                        "field_data_sha": "1fe7709f1221cdf2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390421>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -126,7 +126,7 @@
                                 "authorization",
                                 "user-agent"
                             ],
-                            "sha": "3e3a2955784651fc"
+                            "sha": "962aee5f0b2e2da0"
                         },
                         "body_sha": "4a43e698b10949af",
                         "body_keys": [
@@ -150,8 +150,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390423>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -172,9 +172,9 @@
                         "response_obj": {
                             "message": "Lead created successfully"
                         },
-                        "field_data_sha": "5f0fc46e85822b23",
+                        "field_data_sha": "1fe7709f1221cdf2",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390423>>"
                     }
                 ],
                 "existing_logs_changed": false,

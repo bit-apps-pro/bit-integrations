@@ -34,7 +34,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "fdc2e11d2bd0ec17"
+                            "sha": "4182d01cb9c13d81"
                         },
                         "body_sha": "b25fbd1017966bd6",
                         "body_keys": [
@@ -51,8 +51,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390415>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -73,9 +73,9 @@
                         "response_obj": [
                             "Add People to Event Session  successfully"
                         ],
-                        "field_data_sha": "76f336a0acd6b490",
+                        "field_data_sha": "9088e3570599611a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390415>>"
                     }
                 ],
                 "existing_logs_changed": false,
@@ -121,7 +121,7 @@
                                 "content-type",
                                 "user-agent"
                             ],
-                            "sha": "fdc2e11d2bd0ec17"
+                            "sha": "4182d01cb9c13d81"
                         },
                         "body_sha": "b25fbd1017966bd6",
                         "body_keys": [
@@ -138,8 +138,8 @@
                         "change": "updated",
                         "columns": {
                             "updated_at": {
-                                "old": "2024-01-01 00:00:00",
-                                "new": "<datetime>"
+                                "old": "2024-01-01 <clock>",
+                                "new": "<datetime@<ts@1792390416>>"
                             },
                             "user_ip": {
                                 "old": null,
@@ -160,9 +160,9 @@
                         "response_obj": [
                             "Add People to Event Session  successfully"
                         ],
-                        "field_data_sha": "76f336a0acd6b490",
+                        "field_data_sha": "9088e3570599611a",
                         "parent_id": null,
-                        "created_at": "<datetime>"
+                        "created_at": "<datetime@<ts@1792390416>>"
                     }
                 ],
                 "existing_logs_changed": false,
