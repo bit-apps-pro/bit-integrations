@@ -95,3 +95,93 @@ b7a90ddd6d1459dddc9714c544b05c3957f8c96d
 d6f4d3b96500ecaf0d8ef7dce48a45e02ab31206
 # refactor(actions): move Woodpecker to Action/Service/Helper layout
 49cae5db0194ef4e546f8d24aef1293d80a1cadb
+# refactor(actions): move AsgarosForum to Action/Service/Helper layout
+272d5e56858063f9121dcfe90ed64204ad6ed568
+# refactor(actions): move B2BKing to Action/Service/Helper layout
+9bc2fa37b37fb3331887ada7c2a43092d7cd50b6
+# refactor(actions): move BadgeOS to Action/Service/Helper layout
+d7df9fa4121aa6c179c6d47b6bba393983b6b764
+# refactor(actions): move BookingCalendar to Action/Service/Helper layout
+b3e23730e170f2ee5faeccd7c1f25e5019d6679f
+# refactor(actions): move BookingPress to Action/Service/Helper layout
+d7927bf3cb0ae24ff270e838dec3bf9ba1959caf
+# refactor(actions): move Bookly to Action/Service/Helper layout
+be5a8048d61e0b69deb65b359d2ce4090b9a6205
+# refactor(actions): move CartAbandonmentRecovery to Action/Service/Helper layout
+430aae8aa20711faaeccda106934f7495b054970
+# refactor(actions): move ClickWhale to Action/Service/Helper layout
+f663f0994bc268fe8696f9bf9dfdc518a4994840
+# refactor(actions): move ConvertForce to Action/Service/Helper layout
+09d0b001143e60d8000ee7d6ffde8b1de8204c3f
+# refactor(actions): move CreatorLms to Action/Service/Helper layout
+fbe8e19b4e0f5ad674a4856e46f360c11fd34482
+# refactor(actions): move EventsManager to Action/Service/Helper layout
+a109b1caf0dd59dac4584739fdf0fbe0aae14bf4
+# refactor(actions): move FluentSupport to Action/Service/Helper layout
+ea0098f507af910bb6867cd83fd1ba21df7c80ef
+# refactor(actions): move FormyChat to Action/Service/Helper layout
+53ddee3d5718353d4b0de2a595a6b134bd8654ab
+# refactor(actions): move IvyForms to Action/Service/Helper layout
+9c4b9febc33d7ae15a9ffdb92e993ba9ed954665
+# refactor(actions): move LatePoint to Action/Service/Helper layout
+141db708642e6034733dc6bc03c402d547be7b42
+# refactor(actions): move MailPoet to Action/Service/Helper layout
+9a33d9cf61836f638931919fbaf86c0861fdfdf2
+# refactor(actions): move MainWP to Action/Service/Helper layout
+943cb8a0fff1a07e234a655d918811e223513823
+# refactor(actions): move ModernCart to Action/Service/Helper layout
+9ad00f6c2bbcb7e2c5413d4d0a71d5a29e7cfe04
+# refactor(actions): move MoreConvertWishlist to Action/Service/Helper layout
+0f96898e3bc26318cad800a02541630c2f854ad8
+# refactor(actions): move NextCrm to Action/Service/Helper layout
+c4f3fce793c2fba577f71e709e73bdd689107054
+# refactor(actions): move NotificationX to Action/Service/Helper layout
+ad73b28ff8f0520bcc7cf9bcc00cc43c9bebbc9e
+# refactor(actions): move PeepSo to Action/Service/Helper layout
+ff67789783479431d76a83fe4e0b38d77e3b7784
+# refactor(actions): move Pointics to Action/Service/Helper layout
+540f4d50a964f3a6565ab3bfd6e65d5c1487b028
+# refactor(actions): move PopupMaker to Action/Service/Helper layout
+dc94b107bfc11daf44a9c3368a39f5d179a41a81
+# refactor(actions): move PowerCoupons to Action/Service/Helper layout
+7c9152949a28ad4180c5bfa9d1ba1e3f7b4e407f
+# refactor(actions): move ProfilePress to Action/Service/Helper layout
+a6587870723c15e27d6723290bfbddb9b9e8d7f9
+# refactor(actions): move SenseiLMS to Action/Service/Helper layout
+7d75468cd1d066f124c2f76ac268afb1fcadb623
+# refactor(actions): move SeoPress to Action/Service/Helper layout
+9f7bd0c19ec782dc2568ad427c6e25acd3db6ec1
+# refactor(actions): move SureDash to Action/Service/Helper layout
+86fd78d1f5a6eb5d9980ddc371ad3d94b8669e3c
+# refactor(actions): move TeamsForWooCommerceMemberships to Action/Service/Helper layout
+96c75e07a5e0cc1acd8e799a91122c8f25f28542
+# refactor(actions): move UltimateAffiliatePro to Action/Service/Helper layout
+b818d68b17d71d6781cf9b4fbdb5ba91855ff92d
+# refactor(actions): move WCAffiliate to Action/Service/Helper layout
+bd1b88de8a1085a1abd16a5db4b6edde516a2e07
+# refactor(actions): move WPCafe to Action/Service/Helper layout
+f1b4282a0e6b0c019aceb017fb5350e8882742b9
+# refactor(actions): move WeDocs to Action/Service/Helper layout
+8340835c60f0a1c7b210fd20152148a91dfda9be
+# refactor(actions): move WpDataTables to Action/Service/Helper layout
+7a514d50ce38ab4ac04435ba8ec9f745c21496ea
+# refactor(actions): move WpTableBuilder to Action/Service/Helper layout
+2c99192cf694d09a7a24369e184696181c83ce73
+# refactor(actions): move Wsms to Action/Service/Helper layout
+d4ba98be89c242a119f070f04b473eb350c7f9c5
+# refactor(actions): move BrilliantDirectories to Action/Service/Helper layout
+8ea1bf21ba895342ed6d0a9bb791c6f6833e2127
+# refactor(actions): move HefflCRM to Action/Service/Helper layout
+ba2c444cc8649a53972d717f3658125e7967da87
+# refactor(actions): move Instasent to Action/Service/Helper layout
+606128df7b7cd7049e77bd19bb3cce0d04c0e744
+# refactor(actions): move Klaviyo to Action/Service/Helper layout
+e3a77d1635189ecd835cdb9230525e06537504c7
+# refactor(actions): move MondayCom to Action/Service/Helper layout
+7889df2808cf91d254aaa367d86c826f2e11a064
+# refactor(actions): move Sender to Action/Service/Helper layout
+a148e5b1a1cc9fb700c763b2fe5717abe0670428
+# refactor(actions): move SmartSuite to Action/Service/Helper layout
+ebae7a4a946de8bc181e89bb6a28230cd39a0001
+# refactor(actions): move WhatsApp to Action/Service/Helper layout
+222cecb2c7b72183ffcc9dda50452634a4ba2f8f
