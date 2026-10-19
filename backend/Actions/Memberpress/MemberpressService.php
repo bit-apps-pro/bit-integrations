@@ -13,7 +13,7 @@ use MeprTransaction;
 use MeprUser;
 use MeprUtils;
 
-class RecordApiHelper
+class MemberpressService
 {
     private static $integrationID;
 

@@ -197,8 +197,6 @@ backend/Actions/MasterStudyLms/MasterStudyLmsController.php
 backend/Actions/MasterStudyLms/RecordApiHelper.php
 backend/Actions/Mautic/MauticController.php
 backend/Actions/Mautic/RecordApiHelper.php
-backend/Actions/Memberpress/MemberpressController.php
-backend/Actions/Memberpress/RecordApiHelper.php
 backend/Actions/ModernCart/ModernCartController.php
 backend/Actions/ModernCart/RecordApiHelper.php
 backend/Actions/MondayCom/MondayComController.php

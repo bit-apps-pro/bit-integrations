@@ -4,9 +4,8 @@ namespace BitApps\Integrations\Actions\Memberpress;
 
 use BitApps\Integrations\Core\Util\Post;
 use MeprOptions;
-use WP_Error;
 
-class MemberpressController
+class MemberpressHelper
 {
     // public function __construct($integrationID)
     // {
@@ -86,36 +85,5 @@ class MemberpressController
         }
         $finalGateways = array_merge($gateways, $initGateways);
         wp_send_json_success($finalGateways, 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $mainAction = $integrationDetails->mainAction;
-        $fieldMap = $integrationDetails->field_map;
-        $selectedMembership = $integrationDetails->selectedMembership;
-        if (
-            empty($integId)
-            || empty($mainAction) || empty($selectedMembership)
-        ) {
-            // translators: %s: Integration name
-
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'memberpress'));
-        }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $memberpressApiResponse = $recordApiHelper->execute(
-            $mainAction,
-            $fieldValues,
-            $fieldMap,
-            $integrationDetails
-        );
-
-        if (is_wp_error($memberpressApiResponse)) {
-            return $memberpressApiResponse;
-        }
-
-        return $memberpressApiResponse;
     }
 }
