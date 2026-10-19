@@ -8,21 +8,8 @@ namespace BitApps\Integrations\Actions\WPCafe;
 
 use WP_Error;
 
-class WPCafeController
+class WPCafeAction
 {
-    public static function isExists()
-    {
-        if (!class_exists('WpCafe\Init')) {
-            wp_send_json_error(
-                __(
-                    'WPCafe is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
@@ -33,7 +20,7 @@ class WPCafeController
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new WPCafeService($integrationDetails, $integId);
         $wpcafeResponse = $recordApiHelper->execute($fieldValues, $fieldMap);
 
         if (is_wp_error($wpcafeResponse)) {
