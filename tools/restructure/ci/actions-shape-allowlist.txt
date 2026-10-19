@@ -29,8 +29,6 @@ backend/Actions/CapsuleCRM/CapsuleCRMController.php
 backend/Actions/CapsuleCRM/RecordApiHelper.php
 backend/Actions/Charitable/CharitableController.php
 backend/Actions/Charitable/RecordApiHelper.php
-backend/Actions/ClickWhale/ClickWhaleController.php
-backend/Actions/ClickWhale/RecordApiHelper.php
 backend/Actions/ClinchPad/ClinchPadController.php
 backend/Actions/ClinchPad/RecordApiHelper.php
 backend/Actions/ConstantContact/ConstantContactController.php
