@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\ProfilePress\ProfilePressController;
+use BitApps\Integrations\Actions\ProfilePress\ProfilePressHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('refresh_profilepress_plans', [ProfilePressController::class, 'refreshPlans']);
+Route::post('refresh_profilepress_plans', [ProfilePressHelper::class, 'refreshPlans']);
