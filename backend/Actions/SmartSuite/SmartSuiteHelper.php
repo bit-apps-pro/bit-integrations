@@ -6,20 +6,10 @@
 
 namespace BitApps\Integrations\Actions\SmartSuite;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-class SmartSuiteController
+class SmartSuiteHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'smartsuite',
-        'fields'   => [
-            'apiToken'    => 'value',
-            'workspaceId' => 'workspaceId',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $apiEndpoint;
@@ -98,24 +88,6 @@ class SmartSuiteController
         } else {
             wp_send_json_error(__('User fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $workspaceId = $integrationDetails->workspaceId;
-        $apiToken = $integrationDetails->apiToken;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $workspaceId, $apiToken);
-        $smartSuiteApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($smartSuiteApiResponse)) {
-            return $smartSuiteApiResponse;
-        }
-
-        return $smartSuiteApiResponse;
     }
 
     private function checkValidation($fieldsRequestParams)

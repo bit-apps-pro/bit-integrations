@@ -163,8 +163,6 @@ backend/Actions/SendinBlue/SendinBlueController.php
 backend/Actions/Slack/FilesApiHelper.php
 backend/Actions/Slack/RecordApiHelper.php
 backend/Actions/Slack/SlackController.php
-backend/Actions/SmartSuite/RecordApiHelper.php
-backend/Actions/SmartSuite/SmartSuiteController.php
 backend/Actions/SperseIO/SperseIOController.php
 backend/Actions/SureContact/RecordApiHelper.php
 backend/Actions/SureContact/SureContactController.php
