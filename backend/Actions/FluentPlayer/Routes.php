@@ -4,11 +4,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\FluentPlayer\FluentPlayerController;
+use BitApps\Integrations\Actions\FluentPlayer\FluentPlayerHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('refresh_fluent_player_media', [FluentPlayerController::class, 'refreshMedia']);
-Route::post('refresh_fluent_player_tags', [FluentPlayerController::class, 'refreshTags']);
-Route::post('refresh_fluent_player_presets', [FluentPlayerController::class, 'refreshPresets']);
-Route::post('refresh_fluent_player_users', [FluentPlayerController::class, 'refreshUsers']);
-Route::post('refresh_fluent_player_attachments', [FluentPlayerController::class, 'refreshAttachments']);
+Route::post('refresh_fluent_player_media', [FluentPlayerHelper::class, 'refreshMedia']);
+Route::post('refresh_fluent_player_tags', [FluentPlayerHelper::class, 'refreshTags']);
+Route::post('refresh_fluent_player_presets', [FluentPlayerHelper::class, 'refreshPresets']);
+Route::post('refresh_fluent_player_users', [FluentPlayerHelper::class, 'refreshUsers']);
+Route::post('refresh_fluent_player_attachments', [FluentPlayerHelper::class, 'refreshAttachments']);

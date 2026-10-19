@@ -10,7 +10,7 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class FluentPlayerService
 {
     private $_integrationID;
 

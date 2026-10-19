@@ -33,8 +33,6 @@ backend/Actions/Fabman/RecordApiHelper.php
 backend/Actions/Flodesk/FlodeskController.php
 backend/Actions/Flodesk/RecordApiHelper.php
 backend/Actions/FlowMattic/FlowMatticController.php
-backend/Actions/FluentPlayer/FluentPlayerController.php
-backend/Actions/FluentPlayer/RecordApiHelper.php
 backend/Actions/Freshdesk/AllFilesApiHelper.php
 backend/Actions/Freshdesk/FilesApiHelper.php
 backend/Actions/Freshdesk/FreshdeskController.php
