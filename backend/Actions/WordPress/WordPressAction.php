@@ -2,7 +2,7 @@
 
 namespace BitApps\Integrations\Actions\WordPress;
 
-class WordPressController
+class WordPressAction
 {
     public function execute($integrationData, $fieldValues)
     {
@@ -10,7 +10,7 @@ class WordPressController
         $integId = $integrationData->id;
         $fieldMap = isset($integrationDetails->field_map) ? $integrationDetails->field_map : [];
 
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
+        $recordApiHelper = new WordPressService($integrationDetails, $integId);
 
         return $recordApiHelper->execute($fieldValues, $fieldMap, $integrationDetails);
     }
