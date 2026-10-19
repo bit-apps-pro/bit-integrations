@@ -1,7 +1,7 @@
 {
     "totals": {
         "errors": 0,
-        "file_errors": 871
+        "file_errors": 879
     },
     "files": {
         "backend/Actions/ACPT/RecordApiHelper.php": {
@@ -270,18 +270,18 @@
                 }
             ]
         },
-        "backend/Actions/Asana/AsanaController.php": {
+        "backend/Actions/Asana/AsanaHelper.php": {
             "errors": 1,
             "messages": [
                 {
                     "message": "Variable $tasks might not be defined.",
-                    "line": 92,
+                    "line": 82,
                     "ignorable": true,
                     "identifier": "variable.undefined"
                 }
             ]
         },
-        "backend/Actions/Asana/RecordApiHelper.php": {
+        "backend/Actions/Asana/AsanaService.php": {
             "errors": 1,
             "messages": [
                 {
@@ -545,7 +545,7 @@
             ]
         },
         "backend/Actions/BuddyBoss/RecordApiHelper.php": {
-            "errors": 31,
+            "errors": 30,
             "messages": [
                 {
                     "message": "Property BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::$_integrationDetails is never read, only written.",
@@ -604,134 +604,128 @@
                     "identifier": "variable.undefined"
                 },
                 {
-                    "message": "Variable $notification_content might not be defined.",
-                    "line": 494,
-                    "ignorable": true,
-                    "identifier": "variable.undefined"
-                },
-                {
                     "message": "Variable $following might not be defined.",
-                    "line": 523,
+                    "line": 525,
                     "ignorable": true,
                     "identifier": "variable.undefined"
                 },
                 {
                     "message": "Variable $forum_ids in empty() always exists and is not falsy.",
-                    "line": 541,
+                    "line": 543,
                     "ignorable": true,
                     "identifier": "empty.variable"
                 },
                 {
                     "message": "Undefined variable: $reply_author",
-                    "line": 740,
+                    "line": 742,
                     "ignorable": true,
                     "identifier": "variable.undefined"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::CREATE_GROUP_PRO through static::.",
-                    "line": 893,
+                    "line": 895,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::ADD_USER_GROUP through static::.",
-                    "line": 907,
+                    "line": 909,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::END_FRIENDSHIP_WITH_USER_PRO through static::.",
-                    "line": 913,
+                    "line": 915,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::FOLLOW_USER_PRO through static::.",
-                    "line": 919,
+                    "line": 921,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::POST_TOPIC_FORUM_PRO through static::.",
-                    "line": 925,
+                    "line": 927,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::REMOVE_USER_FROM_GROUP_PRO through static::.",
-                    "line": 933,
+                    "line": 935,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SEND_FRIENDSHIP_REQ_USER_PRO through static::.",
-                    "line": 944,
+                    "line": 946,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SEND_NOTIFICATION_MEMBER_GRP_PRO through static::.",
-                    "line": 955,
+                    "line": 957,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SEND_PRIVATE_MSG_MEMBER_GRP_PRO through static::.",
-                    "line": 966,
+                    "line": 968,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SEND_PRIVATE_MSG_USER_PRO through static::.",
-                    "line": 977,
+                    "line": 979,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SEND_NOTIFICATION_USER_PRO through static::.",
-                    "line": 990,
+                    "line": 992,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::STOP_FOLLOWING_USER_PRO through static::.",
-                    "line": 999,
+                    "line": 1001,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SUBSCRIBE_USER_FORUM_PRO through static::.",
-                    "line": 1005,
+                    "line": 1007,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::ADD_POST_GRP_ACTIVITY_STREAM_PRO through static::.",
-                    "line": 1016,
+                    "line": 1018,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::ADD_POST_SITE_WIDE_ACTIVITY_STREAM_PRO through static::.",
-                    "line": 1028,
+                    "line": 1030,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::ADD_POST_USER_ACTIVITY_STREAM_PRO through static::.",
-                    "line": 1039,
+                    "line": 1041,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::POST_REPLY_TOPIC_FORUM_PRO through static::.",
-                    "line": 1050,
+                    "line": 1052,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 },
                 {
                     "message": "Unsafe access to private constant BitApps\\Integrations\\Actions\\BuddyBoss\\RecordApiHelper::SET_USER_STATUS_PRO through static::.",
-                    "line": 1062,
+                    "line": 1064,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateConstant"
                 }
@@ -846,6 +840,17 @@
                     "line": 295,
                     "ignorable": true,
                     "identifier": "variable.undefined"
+                }
+            ]
+        },
+        "backend/Actions/Charitable/RecordApiHelper.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\Charitable\\RecordApiHelper::generateReqDataFromFieldMap() through static::.",
+                    "line": 31,
+                    "ignorable": true,
+                    "identifier": "staticClassAccess.privateMethod"
                 }
             ]
         },
@@ -1469,7 +1474,7 @@
                 }
             ]
         },
-        "backend/Actions/FluentCrm/RecordApiHelper.php": {
+        "backend/Actions/FluentCrm/FluentCrmService.php": {
             "errors": 4,
             "messages": [
                 {
@@ -1649,8 +1654,22 @@
             ]
         },
         "backend/Actions/GoogleSheet/GoogleSheetController.php": {
-            "errors": 5,
+            "errors": 9,
             "messages": [
+                {
+                    "message": "Constant BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::DRIVE_PAGE_SIZE is unused.",
+                    "line": 19,
+                    "ignorable": true,
+                    "tip": "See: https://phpstan.org/developing-extensions/always-used-class-constants",
+                    "identifier": "classConstant.unused"
+                },
+                {
+                    "message": "Constant BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::MAX_PAGES is unused.",
+                    "line": 21,
+                    "ignorable": true,
+                    "tip": "See: https://phpstan.org/developing-extensions/always-used-class-constants",
+                    "identifier": "classConstant.unused"
+                },
                 {
                     "message": "Method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::generateTokens() has invalid return type BitApps\\Integrations\\Actions\\GoogleSheet\\JSON.",
                     "line": 47,
@@ -1659,27 +1678,39 @@
                 },
                 {
                     "message": "Parameter $tokenDetails of method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::saveRefreshedToken() has invalid type BitApps\\Integrations\\Actions\\GoogleSheet\\Obeject.",
-                    "line": 395,
+                    "line": 319,
                     "ignorable": true,
                     "identifier": "class.notFound"
                 },
                 {
                     "message": "Method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::saveRefreshedToken() should return null but empty return statement found.",
-                    "line": 398,
+                    "line": 322,
                     "ignorable": true,
                     "identifier": "return.empty"
                 },
                 {
                     "message": "Method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::saveRefreshedToken() should return null but empty return statement found.",
-                    "line": 405,
+                    "line": 329,
                     "ignorable": true,
                     "identifier": "return.empty"
                 },
                 {
                     "message": "Method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::saveRefreshedToken() should return null but return statement is missing.",
-                    "line": 420,
+                    "line": 344,
                     "ignorable": true,
                     "identifier": "return.missing"
+                },
+                {
+                    "message": "Method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::googleErrorMessage() never returns null so it can be removed from the return type.",
+                    "line": 367,
+                    "ignorable": true,
+                    "identifier": "return.unusedType"
+                },
+                {
+                    "message": "Method BitApps\\Integrations\\Actions\\GoogleSheet\\GoogleSheetController::googleErrorMessage() should return string|null but empty return statement found.",
+                    "line": 374,
+                    "ignorable": true,
+                    "identifier": "return.empty"
                 }
             ]
         },
@@ -2347,34 +2378,39 @@
                 }
             ]
         },
-        "backend/Actions/MailChimp/MailChimpController.php": {
-            "errors": 3,
+        "backend/Actions/MailChimp/MailChimpAction.php": {
+            "errors": 2,
             "messages": [
                 {
-                    "message": "Unreachable statement - code above always terminates.",
-                    "line": 138,
-                    "ignorable": true,
-                    "identifier": "deadCode.unreachable"
-                },
-                {
-                    "message": "Method BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController::execute() should return null but returns WP_Error.",
-                    "line": 233,
+                    "message": "Method BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction::execute() should return null but returns WP_Error.",
+                    "line": 57,
                     "ignorable": true,
                     "identifier": "return.type"
                 },
                 {
-                    "message": "Method BitApps\\Integrations\\Actions\\MailChimp\\MailChimpController::execute() should return null but returns WP_Error.",
-                    "line": 248,
+                    "message": "Method BitApps\\Integrations\\Actions\\MailChimp\\MailChimpAction::execute() should return null but returns WP_Error.",
+                    "line": 72,
                     "ignorable": true,
                     "identifier": "return.type"
                 }
             ]
         },
-        "backend/Actions/MailChimp/RecordApiHelper.php": {
+        "backend/Actions/MailChimp/MailChimpHelper.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Unreachable statement - code above always terminates.",
+                    "line": 119,
+                    "ignorable": true,
+                    "identifier": "deadCode.unreachable"
+                }
+            ]
+        },
+        "backend/Actions/MailChimp/MailChimpService.php": {
             "errors": 6,
             "messages": [
                 {
-                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\MailChimp\\RecordApiHelper::generateFieldMap() through static::.",
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\MailChimp\\MailChimpService::generateFieldMap() through static::.",
                     "line": 80,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateMethod"
@@ -3476,6 +3512,29 @@
                 }
             ]
         },
+        "backend/Actions/QuizMaker/RecordApiHelper.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\QuizMaker\\RecordApiHelper::generateReqDataFromFieldMap() through static::.",
+                    "line": 31,
+                    "ignorable": true,
+                    "identifier": "staticClassAccess.privateMethod"
+                },
+                {
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\QuizMaker\\RecordApiHelper::generateAnswersFromMap() through static::.",
+                    "line": 71,
+                    "ignorable": true,
+                    "identifier": "staticClassAccess.privateMethod"
+                },
+                {
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\QuizMaker\\RecordApiHelper::generateAnswersFromMap() through static::.",
+                    "line": 79,
+                    "ignorable": true,
+                    "identifier": "staticClassAccess.privateMethod"
+                }
+            ]
+        },
         "backend/Actions/Rapidmail/RecordApiHelper.php": {
             "errors": 5,
             "messages": [
@@ -3562,6 +3621,17 @@
                     "line": 46,
                     "ignorable": true,
                     "identifier": "variable.undefined"
+                }
+            ]
+        },
+        "backend/Actions/RoxAppointmentBooking/RecordApiHelper.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\RoxAppointmentBooking\\RecordApiHelper::generateReqDataFromFieldMap() through static::.",
+                    "line": 31,
+                    "ignorable": true,
+                    "identifier": "staticClassAccess.privateMethod"
                 }
             ]
         },
@@ -4824,11 +4894,22 @@
                 }
             ]
         },
-        "backend/Actions/WpErp/RecordApiHelper.php": {
+        "backend/Actions/WpErp/WpErpService.php": {
             "errors": 1,
             "messages": [
                 {
-                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\WpErp\\RecordApiHelper::generateReqDataFromFieldMap() through static::.",
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\WpErp\\WpErpService::generateReqDataFromFieldMap() through static::.",
+                    "line": 35,
+                    "ignorable": true,
+                    "identifier": "staticClassAccess.privateMethod"
+                }
+            ]
+        },
+        "backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Unsafe call to private method BitApps\\Integrations\\Actions\\WpSimpleBookingCalendar\\RecordApiHelper::generateReqDataFromFieldMap() through static::.",
                     "line": 35,
                     "ignorable": true,
                     "identifier": "staticClassAccess.privateMethod"
@@ -6402,18 +6483,6 @@
                     "line": 124,
                     "ignorable": true,
                     "identifier": "variable.undefined"
-                }
-            ]
-        },
-        "backend/Actions/Zoom/RecordApiHelper.php": {
-            "errors": 1,
-            "messages": [
-                {
-                    "message": "Property BitApps\\Integrations\\Actions\\Zoom\\RecordApiHelper::$_integrationDetails is never read, only written.",
-                    "line": 17,
-                    "ignorable": true,
-                    "tip": "See: https://phpstan.org/developing-extensions/always-read-written-properties",
-                    "identifier": "property.onlyWritten"
                 }
             ]
         },
