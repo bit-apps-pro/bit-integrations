@@ -4,7 +4,7 @@ namespace BitApps\Integrations\Actions\BookingPress;
 
 use WP_Error;
 
-class BookingPressController
+class BookingPressAction
 {
     public function execute($integrationData, $fieldValues)
     {
@@ -16,6 +16,6 @@ class BookingPressController
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
-        return (new RecordApiHelper($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
+        return (new BookingPressService($integrationDetails, $integId))->execute($fieldValues, $fieldMap);
     }
 }
