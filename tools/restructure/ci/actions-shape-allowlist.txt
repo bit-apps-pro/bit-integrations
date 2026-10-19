@@ -208,8 +208,6 @@ backend/Actions/MoreConvertWishlist/RecordApiHelper.php
 backend/Actions/MoxieCRM/MoxieCRMController.php
 backend/Actions/MoxieCRM/RecordApiHelper.php
 backend/Actions/N8n/N8nController.php
-backend/Actions/Newsletter/NewsletterController.php
-backend/Actions/Newsletter/RecordApiHelper.php
 backend/Actions/NextCrm/NextCrmController.php
 backend/Actions/NextCrm/RecordApiHelper.php
 backend/Actions/Nimble/NimbleController.php

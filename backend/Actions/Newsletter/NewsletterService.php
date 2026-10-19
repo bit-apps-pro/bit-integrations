@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 use TNP;
 
-class RecordApiHelper
+class NewsletterService
 {
     private $_integrationID;
 

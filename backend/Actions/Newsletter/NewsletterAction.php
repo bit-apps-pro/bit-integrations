@@ -8,7 +8,7 @@ namespace BitApps\Integrations\Actions\Newsletter;
 
 use WP_Error;
 
-class NewsletterController
+class NewsletterAction
 {
     public static function checkedNewsletterExists()
     {
@@ -38,7 +38,7 @@ class NewsletterController
             return new WP_Error('REQ_FIELD_EMPTY', __('fields map are required for Newsletter', 'bit-integrations'));
         }
 
-        $recordApiHelper = new RecordApiHelper($integId);
+        $recordApiHelper = new NewsletterService($integId);
         $newsletterResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $selectedLists);
 
         if (is_wp_error($newsletterResponse)) {
