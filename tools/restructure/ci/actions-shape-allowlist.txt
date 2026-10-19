@@ -1,5 +1,3 @@
-backend/Actions/Flodesk/FlodeskController.php
-backend/Actions/Flodesk/RecordApiHelper.php
 backend/Actions/QuizAndSurveyMaster/QuizAndSurveyMasterController.php
 backend/Actions/QuizAndSurveyMaster/RecordApiHelper.php
 backend/Actions/QuizMaker/QuizMakerController.php
