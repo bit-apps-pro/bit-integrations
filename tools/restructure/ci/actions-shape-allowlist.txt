@@ -240,8 +240,6 @@ backend/Actions/SureDash/RecordApiHelper.php
 backend/Actions/SureDash/SureDashController.php
 backend/Actions/SureTriggers/SureTriggersController.php
 backend/Actions/SyncSpider/SyncSpiderController.php
-backend/Actions/SystemeIO/RecordApiHelper.php
-backend/Actions/SystemeIO/SystemeIOController.php
 backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php
 backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php
 backend/Actions/Telegram/FilesApiHelper.php
