@@ -6,21 +6,10 @@
 
 namespace BitApps\Integrations\Actions\SuiteDash;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class SuiteDashController
+class SuiteDashHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'suitedash',
-        'fields'   => [
-            'public_id'  => 'value',
-            'secret_key' => 'secret_key',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -96,30 +85,6 @@ class SuiteDashController
         } else {
             wp_send_json_error(__('Tags fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $publicId = $integrationDetails->public_id;
-        $secretKey = $integrationDetails->secret_key;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($publicId) || empty($actionName) || empty($secretKey)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'SuiteDash'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $publicId, $secretKey);
-        $suiteDashApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($suiteDashApiResponse)) {
-            return $suiteDashApiResponse;
-        }
-
-        return $suiteDashApiResponse;
     }
 
     private function checkValidation($fieldsRequestParams, $customParam = '**')

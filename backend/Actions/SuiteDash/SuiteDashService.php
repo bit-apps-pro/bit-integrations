@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\SuiteDash;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class SuiteDashService
 {
     private $integrationDetails;
 
