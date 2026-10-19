@@ -6,31 +6,12 @@
 
 namespace BitApps\Integrations\Actions\ZohoDesk;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
 
-class ZohoDeskController
+class ZohoDeskHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::OAUTH2,
-        'slug'     => 'zohodesk',
-        'fields'   => [
-            'dataCenter'   => 'dataCenter',
-            'clientId'     => 'client_id',
-            'clientSecret' => 'client_secret',
-            '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at', 'generates_on', 'api_domain']],
-        ],
-    ];
-
-    private $_integrationID;
-
-    public function __construct($integrationID)
-    {
-        $this->_integrationID = $integrationID;
-    }
-
     public static function refreshOrganizations($queryParams)
     {
         if (empty($queryParams->tokenDetails)
@@ -290,53 +271,80 @@ class ZohoDeskController
         wp_send_json_success($response, 200);
     }
 
-    public function execute($integrationData, $fieldValues)
+    /**
+     * Helps to refresh zoho crm access_token
+     *
+     * @param array $apiData Contains required data for refresh access token
+     *
+     * @return JSON $tokenDetails API token details
+     */
+    public static function refreshAccessToken($apiData)
     {
-        $integrationDetails = $integrationData->flow_details;
-
-        $tokenDetails = $integrationDetails->tokenDetails;
-        $orgId = $integrationDetails->orgId;
-        $department = $integrationDetails->department;
-        $dataCenter = $integrationDetails->dataCenter;
-        $fieldMap = $integrationDetails->field_map;
-        $actions = $integrationDetails->actions;
-        if (empty($tokenDetails)
-        || empty($orgId)
-        || empty($department)
-        || empty($fieldMap)
+        if (!\is_object($apiData)
+            || empty($apiData->dataCenter)
+            || empty($apiData->clientId)
+            || empty($apiData->clientSecret)
+            || empty($apiData->tokenDetails)
         ) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('list are required for zoho desk api', 'bit-integrations'));
+            return false;
+        }
+        $tokenDetails = $apiData->tokenDetails;
+
+        $dataCenter = $apiData->dataCenter;
+        $apiEndpoint = "https://accounts.zoho.{$dataCenter}/oauth/v2/token";
+        $requestParams = [
+            'grant_type'    => 'refresh_token',
+            'client_id'     => $apiData->clientId,
+            'client_secret' => $apiData->clientSecret,
+            'refresh_token' => $tokenDetails->refresh_token,
+        ];
+
+        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
+        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
+            return false;
+        }
+        $tokenDetails->generates_on = time();
+        $tokenDetails->access_token = $apiResponse->access_token;
+
+        return $tokenDetails;
+    }
+
+    /**
+     * Save updated access_token to avoid unnecessary token generation
+     *
+     * @param int        $integrationID ID of Zoho desk Integration
+     * @param object     $tokenDetails  refreshed token info
+     * @param null|mixed $others
+     *
+     * @return null
+     */
+    public static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
+    {
+        if (empty($integrationID) || empty($tokenDetails)) {
+            return;
+        }
+        $flow = new FlowController();
+        $zdeskDetails = $flow->get(['id' => $integrationID]);
+
+        if (is_wp_error($zdeskDetails) || empty($zdeskDetails[0]->flow_details)) {
+            return;
+        }
+        $newDetails = json_decode($zdeskDetails[0]->flow_details);
+
+        if (!\is_object($newDetails)) {
+            return;
         }
 
-        $required = $integrationDetails->default->fields->{$orgId}->required ?? [];
+        $newDetails->tokenDetails = $tokenDetails;
 
-        if ((\intval($tokenDetails->generates_on) + (55 * 60)) < time()) {
-            $requiredParams['clientId'] = $integrationDetails->clientId;
-            $requiredParams['clientSecret'] = $integrationDetails->clientSecret;
-            $requiredParams['dataCenter'] = $integrationDetails->dataCenter;
-            $requiredParams['tokenDetails'] = $tokenDetails;
-            $newTokenDetails = self::refreshAccessToken((object) $requiredParams);
-            if ($newTokenDetails) {
-                self::saveRefreshedToken($this->_integrationID, $newTokenDetails);
-                $tokenDetails = $newTokenDetails;
+        if (!empty($others['organizations'])) {
+            if (!isset($newDetails->default) || !\is_object($newDetails->default)) {
+                $newDetails->default = (object) [];
             }
-        }
-        $recordApiHelper = new RecordApiHelper($tokenDetails, $orgId, $this->_integrationID);
-
-        $zdeskApiResponse = $recordApiHelper->execute(
-            $department,
-            $dataCenter,
-            $fieldValues,
-            $fieldMap,
-            $required,
-            $actions
-        );
-
-        if (is_wp_error($zdeskApiResponse)) {
-            return $zdeskApiResponse;
+            $newDetails->default->organizations = $others['organizations'];
         }
 
-        return $zdeskApiResponse;
+        $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
     }
 
     /**
@@ -383,81 +391,5 @@ class ZohoDeskController
         }
 
         return $response->data;
-    }
-
-    /**
-     * Helps to refresh zoho crm access_token
-     *
-     * @param array $apiData Contains required data for refresh access token
-     *
-     * @return JSON $tokenDetails API token details
-     */
-    protected static function refreshAccessToken($apiData)
-    {
-        if (!\is_object($apiData)
-            || empty($apiData->dataCenter)
-            || empty($apiData->clientId)
-            || empty($apiData->clientSecret)
-            || empty($apiData->tokenDetails)
-        ) {
-            return false;
-        }
-        $tokenDetails = $apiData->tokenDetails;
-
-        $dataCenter = $apiData->dataCenter;
-        $apiEndpoint = "https://accounts.zoho.{$dataCenter}/oauth/v2/token";
-        $requestParams = [
-            'grant_type'    => 'refresh_token',
-            'client_id'     => $apiData->clientId,
-            'client_secret' => $apiData->clientSecret,
-            'refresh_token' => $tokenDetails->refresh_token,
-        ];
-
-        $apiResponse = HttpHelper::post($apiEndpoint, $requestParams);
-        if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
-            return false;
-        }
-        $tokenDetails->generates_on = time();
-        $tokenDetails->access_token = $apiResponse->access_token;
-
-        return $tokenDetails;
-    }
-
-    /**
-     * Save updated access_token to avoid unnecessary token generation
-     *
-     * @param int        $integrationID ID of Zoho desk Integration
-     * @param object     $tokenDetails  refreshed token info
-     * @param null|mixed $others
-     *
-     * @return null
-     */
-    protected static function saveRefreshedToken($integrationID, $tokenDetails, $others = null)
-    {
-        if (empty($integrationID) || empty($tokenDetails)) {
-            return;
-        }
-        $flow = new FlowController();
-        $zdeskDetails = $flow->get(['id' => $integrationID]);
-
-        if (is_wp_error($zdeskDetails) || empty($zdeskDetails[0]->flow_details)) {
-            return;
-        }
-        $newDetails = json_decode($zdeskDetails[0]->flow_details);
-
-        if (!\is_object($newDetails)) {
-            return;
-        }
-
-        $newDetails->tokenDetails = $tokenDetails;
-
-        if (!empty($others['organizations'])) {
-            if (!isset($newDetails->default) || !\is_object($newDetails->default)) {
-                $newDetails->default = (object) [];
-            }
-            $newDetails->default->organizations = $others['organizations'];
-        }
-
-        $flow->update($integrationID, ['flow_details' => wp_json_encode($newDetails)]);
     }
 }

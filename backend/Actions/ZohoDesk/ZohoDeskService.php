@@ -8,7 +8,7 @@ use BitApps\Integrations\Log\LogHandler;
 use DateTime;
 use WP_Error;
 
-class RecordApiHelper
+class ZohoDeskService
 {
     private $_defaultHeader;
 
@@ -134,7 +134,7 @@ class RecordApiHelper
         }
 
         if (!empty($actions->attachments)) {
-            $filesApiHelper = new FilesApiHelper($this->_tokenDetails, $this->_defaultHeader['orgId']);
+            $filesApiHelper = new ZohoDeskFilesService($this->_tokenDetails, $this->_defaultHeader['orgId']);
             $fileFound = 0;
             $responseType = 'success';
             $attachmentApiResponses = [];
