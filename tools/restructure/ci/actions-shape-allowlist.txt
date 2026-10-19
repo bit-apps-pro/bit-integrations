@@ -14,6 +14,5 @@ backend/Actions/QuizMaker/QuizMakerController.php
 backend/Actions/QuizMaker/RecordApiHelper.php
 backend/Actions/RoxAppointmentBooking/RecordApiHelper.php
 backend/Actions/RoxAppointmentBooking/RoxAppointmentBookingController.php
-backend/Actions/Salesforce/RecordApiHelper.php
 backend/Actions/WpSimpleBookingCalendar/RecordApiHelper.php
 backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php

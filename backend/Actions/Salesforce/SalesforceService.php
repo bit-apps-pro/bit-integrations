@@ -12,7 +12,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 
-class RecordApiHelper
+class SalesforceService
 {
     private $_defaultHeader;
 
