@@ -11,7 +11,7 @@ use BitApps\Integrations\Log\LogHandler;
 use DateTime;
 use DateTimeZone;
 
-class RecordApiHelper
+class GoogleCalendarService
 {
     protected $token;
 
