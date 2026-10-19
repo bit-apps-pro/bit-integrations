@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Smaily;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class SmailyService
 {
     private $_integrationID;
 
