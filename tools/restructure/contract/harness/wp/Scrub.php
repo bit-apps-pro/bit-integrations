@@ -157,7 +157,7 @@ final class Scrub
         $text = (string) preg_replace('~(?<![\d:.])\d{1,2}:\d{2}(?::\d{2})?(?:\s?[AaPp][Mm])?(?![\d:])~', '<clock>', $text);
 
         $text = preg_replace_callback(
-            '~(?<![\w.])(1\d{9})(\d{3})?(?:\.\d+)?(?![\w.])~',
+            '~(?<![\w.@])(1\d{9})(\d{3})?(?:\.\d+)?(?![\w.])~',
             fn (array $m) => $this->epochText($m[0]),
             $text
         );

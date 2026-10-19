@@ -12,6 +12,8 @@ final class Canon
 
     private const RELATIVE_TOLERANCE = 600;
 
+    private const NESTED = '~@<(?:ts-ms|ts|datetime|date)[+-]?\d*@([^<>]+)>~';
+
     public static function encode(mixed $value): string
     {
         return json_encode($value, self::FLAGS) . "\n";
@@ -84,6 +86,13 @@ final class Canon
      */
     private static function timeEquivalent(string $a, string $b): bool
     {
+        $a = (string) preg_replace(self::NESTED, '@$1', $a);
+        $b = (string) preg_replace(self::NESTED, '@$1', $b);
+
+        if ($a === $b) {
+            return true;
+        }
+
         if (preg_split(self::TIME, $a) !== preg_split(self::TIME, $b)) {
             return false;
         }
@@ -119,7 +128,7 @@ final class Canon
     private static function stripTimes(mixed $value): mixed
     {
         if (\is_string($value)) {
-            return preg_replace(self::TIME, '<$1>', $value);
+            return preg_replace(self::TIME, '<$1>', (string) preg_replace(self::NESTED, '@$1', $value));
         }
 
         if (\is_array($value)) {
