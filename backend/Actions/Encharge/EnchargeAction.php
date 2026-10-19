@@ -7,10 +7,9 @@
 namespace BitApps\Integrations\Actions\Encharge;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use WP_Error;
 
-class EnchargeController
+class EnchargeAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::API_KEY,
@@ -20,44 +19,11 @@ class EnchargeController
         ],
     ];
 
-    public const APIENDPOINT = 'https://api.encharge.io/v1/';
-
     private $_integrationID;
 
     public function __construct($integrationID)
     {
         $this->_integrationID = $integrationID;
-    }
-
-    public static function enchargeHeaders($queryParams)
-    {
-        if (empty($queryParams->api_key)) {
-            wp_send_json_error(
-                __(
-                    'Requested parameter is empty',
-                    'bit-integrations'
-                ),
-                400
-            );
-        }
-        $apiEndpoint = self::APIENDPOINT . 'fields';
-        $authorizationHeader['Accept'] = 'application/json';
-        $authorizationHeader['X-Encharge-Token'] = $queryParams->api_key;
-        $enChargeResponse = HttpHelper::get($apiEndpoint, null, $authorizationHeader);
-        $fields = [];
-        if (!is_wp_error($enChargeResponse)) {
-            $allFields = $enChargeResponse->items;
-            foreach ($allFields as $field) {
-                $required = $field->name === 'email' ? true : false;
-                $fields[$field->name] = (object) [
-                    'fieldId'   => $field->name,
-                    'fieldName' => ucfirst($field->name),
-                    'required'  => $required
-                ];
-            }
-            $response['enChargeFields'] = $fields;
-            wp_send_json_success($response);
-        }
     }
 
     public function execute($integrationData, $fieldValues)
@@ -74,7 +40,7 @@ class EnchargeController
             // translators: %s: Placeholder value
             return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Encharge Controller'));
         }
-        $recordApiHelper = new RecordApiHelper($api_key, $this->_integrationID);
+        $recordApiHelper = new EnchargeService($api_key, $this->_integrationID);
         $enchagreApiResponse = $recordApiHelper->execute(
             $fieldValues,
             $fieldMap,
