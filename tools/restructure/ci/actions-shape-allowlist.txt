@@ -165,8 +165,6 @@ backend/Actions/Moosend/MoosendController.php
 backend/Actions/Moosend/RecordApiHelper.php
 backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php
 backend/Actions/MoreConvertWishlist/RecordApiHelper.php
-backend/Actions/MoxieCRM/MoxieCRMController.php
-backend/Actions/MoxieCRM/RecordApiHelper.php
 backend/Actions/N8n/N8nController.php
 backend/Actions/NextCrm/NextCrmController.php
 backend/Actions/NextCrm/RecordApiHelper.php
