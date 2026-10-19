@@ -1,0 +1,237 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 52,
+        "modifiers": [],
+        "path": "backend/Actions/SeoPress/SeoPressController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/SeoPress/SeoPressController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SeoPress/SeoPressAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/SeoPress/SeoPressHelper.php"
+        },
+        {
+            "from": "backend/Actions/SeoPress/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/SeoPress/SeoPressService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\SeoPress\\SeoPressService"
+            ],
+            "hooks": "backend/Actions/SeoPress/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 19,
+            "helper": 18
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:isexists"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "SeoPress",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\SeoPress\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                30
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                32,
+                50
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\SeoPress",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\SeoPress\\RecordApiHelper",
+            "file": "backend/Actions/SeoPress/SeoPressController.php",
+            "kind": "new",
+            "line": 42,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\SeoPress\\RecordApiHelper": "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressService",
+        "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressController": [
+            "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressAction",
+            "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressHelper"
+        ]
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/SeoPress/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    74
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setfieldmap",
+                "kind": "method",
+                "lines": [
+                    76,
+                    99
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/SeoPress/RecordApiHelper.php": "a06b410121e26089a45cbfad12c6bce3c1d6e306",
+        "backend/Actions/SeoPress/SeoPressController.php": "3271019682499397cd4bf95eab7ba718609bbd15"
+    },
+    "sources": {
+        "backend/Actions/SeoPress/SeoPressAction.php": [
+            "backend/Actions/SeoPress/SeoPressController.php"
+        ],
+        "backend/Actions/SeoPress/SeoPressHelper.php": [
+            "backend/Actions/SeoPress/SeoPressController.php"
+        ],
+        "backend/Actions/SeoPress/SeoPressService.php": [
+            "backend/Actions/SeoPress/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/SeoPress/SeoPressAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressHelper",
+            "origin": "created",
+            "path": "backend/Actions/SeoPress/SeoPressHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/SeoPress/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\SeoPress\\RecordApiHelper",
+                "to": "backend/Actions/SeoPress/SeoPressService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\SeoPress\\SeoPressService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "SeoPress"
+    ]
+}

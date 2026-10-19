@@ -1,0 +1,433 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshforms",
+            "line": 23,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshforms",
+            "line": 25,
+            "to": "method:getservice",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 46,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 54,
+            "to": "method:getservice",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 65,
+            "to": "method:preparedata",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 73,
+            "to": "method:isskippablefield",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 142,
+        "modifiers": [],
+        "path": "backend/Actions/IvyForms/IvyFormsController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/IvyForms/IvyFormsController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/IvyForms/IvyFormsHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/IvyForms/IvyFormsAction.php"
+        },
+        {
+            "from": "backend/Actions/IvyForms/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/IvyForms/IvyFormsService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/IvyForms/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\IvyForms\\IvyFormsService"
+            ],
+            "hooks": "backend/Actions/IvyForms/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 13,
+            "helper": 111
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "IvyForms",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsAction"
+            ],
+            "method:getservice": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+            ],
+            "method:isskippablefield": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+            ],
+            "method:preparedata": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+            ],
+            "method:refreshfields": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+            ],
+            "method:refreshforms": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\IvyForms\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                11,
+                19
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshforms",
+            "kind": "method",
+            "lines": [
+                21,
+                42
+            ],
+            "names": [
+                "refreshForms"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshfields",
+            "kind": "method",
+            "lines": [
+                44,
+                85
+            ],
+            "names": [
+                "refreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                87,
+                99
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getservice",
+            "kind": "method",
+            "lines": [
+                101,
+                118
+            ],
+            "names": [
+                "getService"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:preparedata",
+            "kind": "method",
+            "lines": [
+                120,
+                135
+            ],
+            "names": [
+                "prepareData"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:isskippablefield",
+            "kind": "method",
+            "lines": [
+                137,
+                140
+            ],
+            "names": [
+                "isSkippableField"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\IvyForms",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\IvyForms\\RecordApiHelper",
+            "file": "backend/Actions/IvyForms/IvyFormsController.php",
+            "kind": "new",
+            "line": 98,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController",
+            "file": "backend/Actions/IvyForms/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper",
+            "text": "use BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController",
+            "file": "backend/Actions/IvyForms/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshforms",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper",
+            "text": "IvyFormsController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController",
+            "file": "backend/Actions/IvyForms/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper",
+            "text": "IvyFormsController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsController": [
+            "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsAction",
+            "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\IvyForms\\RecordApiHelper": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/IvyForms/Routes.php",
+            "line": 10,
+            "method": "refreshForms",
+            "route": "refresh_ivy_forms_forms",
+            "target": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/IvyForms/Routes.php",
+            "line": 11,
+            "method": "refreshFields",
+            "route": "refresh_ivy_forms_fields",
+            "target": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/IvyForms/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    22,
+                    65
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    67,
+                    84
+                ],
+                "static": true,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/IvyForms/IvyFormsController.php": "5b3f294513b0861fbb769ebf0c7c290a3548cef5",
+        "backend/Actions/IvyForms/RecordApiHelper.php": "b2f213b3820e6d4404692ec82b99886dbcf1a3c6",
+        "backend/Actions/IvyForms/Routes.php": "65d4262673c8a5f7762e481248b5e55d6426303e"
+    },
+    "sources": {
+        "backend/Actions/IvyForms/IvyFormsAction.php": [
+            "backend/Actions/IvyForms/IvyFormsController.php"
+        ],
+        "backend/Actions/IvyForms/IvyFormsHelper.php": [
+            "backend/Actions/IvyForms/IvyFormsController.php"
+        ],
+        "backend/Actions/IvyForms/IvyFormsService.php": [
+            "backend/Actions/IvyForms/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsAction",
+            "origin": "created",
+            "path": "backend/Actions/IvyForms/IvyFormsAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/IvyForms/IvyFormsHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/IvyForms/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\IvyForms\\RecordApiHelper",
+                "to": "backend/Actions/IvyForms/IvyFormsService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\IvyForms\\IvyFormsService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "IvyForms"
+    ]
+}

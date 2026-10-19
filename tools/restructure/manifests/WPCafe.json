@@ -1,0 +1,237 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 46,
+        "modifiers": [],
+        "path": "backend/Actions/WPCafe/WPCafeController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WPCafe/WPCafeController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WPCafe/WPCafeAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WPCafe/WPCafeHelper.php"
+        },
+        {
+            "from": "backend/Actions/WPCafe/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WPCafe/WPCafeService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\WPCafe\\WPCafeService"
+            ],
+            "hooks": "backend/Actions/WPCafe/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 19,
+            "helper": 12
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:isexists"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WPCafe",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WPCafe\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                26,
+                44
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WPCafe",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WPCafe\\RecordApiHelper",
+            "file": "backend/Actions/WPCafe/WPCafeController.php",
+            "kind": "new",
+            "line": 36,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WPCafe\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeService",
+        "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeController": [
+            "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeAction",
+            "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeHelper"
+        ]
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WPCafe/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    101
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    103,
+                    116
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WPCafe/RecordApiHelper.php": "ef79de5b213dbaaca2837de5bea601399cf3fc20",
+        "backend/Actions/WPCafe/WPCafeController.php": "af1a6d87e23ec39605a28ab72dfeff27d1a4d05d"
+    },
+    "sources": {
+        "backend/Actions/WPCafe/WPCafeAction.php": [
+            "backend/Actions/WPCafe/WPCafeController.php"
+        ],
+        "backend/Actions/WPCafe/WPCafeHelper.php": [
+            "backend/Actions/WPCafe/WPCafeController.php"
+        ],
+        "backend/Actions/WPCafe/WPCafeService.php": [
+            "backend/Actions/WPCafe/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WPCafe/WPCafeAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeHelper",
+            "origin": "created",
+            "path": "backend/Actions/WPCafe/WPCafeHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WPCafe/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WPCafe\\RecordApiHelper",
+                "to": "backend/Actions/WPCafe/WPCafeService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WPCafe\\WPCafeService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "WPCafe"
+    ]
+}

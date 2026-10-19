@@ -1,0 +1,202 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 28,
+        "modifiers": [],
+        "path": "backend/Actions/EventsManager/EventsManagerController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/EventsManager/EventsManagerController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/EventsManager/EventsManagerAction.php"
+        },
+        {
+            "from": "backend/Actions/EventsManager/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/EventsManager/EventsManagerService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\EventsManager\\EventsManagerService"
+            ],
+            "hooks": "backend/Actions/EventsManager/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "EventsManager",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\EventsManager\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                13,
+                26
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\EventsManager",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\EventsManager\\RecordApiHelper",
+            "file": "backend/Actions/EventsManager/EventsManagerController.php",
+            "kind": "new",
+            "line": 23,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerController": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerAction",
+        "BitApps\\Integrations\\Actions\\EventsManager\\RecordApiHelper": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/EventsManager/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    60
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    62,
+                    80
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/EventsManager/EventsManagerController.php": "ce06420a6b1e84cfe50ed1175c45b18db861b540",
+        "backend/Actions/EventsManager/RecordApiHelper.php": "6a9ed2ceec87664723df5ba4998f7a9ca275bc16"
+    },
+    "sources": {
+        "backend/Actions/EventsManager/EventsManagerAction.php": [
+            "backend/Actions/EventsManager/EventsManagerController.php"
+        ],
+        "backend/Actions/EventsManager/EventsManagerService.php": [
+            "backend/Actions/EventsManager/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/EventsManager/EventsManagerAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerHelper",
+            "origin": "none",
+            "path": "backend/Actions/EventsManager/EventsManagerHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/EventsManager/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\EventsManager\\RecordApiHelper",
+                "to": "backend/Actions/EventsManager/EventsManagerService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\EventsManager\\EventsManagerService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "EventsManager"
+    ]
+}

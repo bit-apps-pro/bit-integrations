@@ -1,0 +1,729 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getboards",
+            "line": 29,
+            "to": "method:validatetoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getboards",
+            "line": 39,
+            "to": "method:request",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getboards",
+            "line": 41,
+            "to": "method:haserrors",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getboards",
+            "line": 42,
+            "to": "method:errormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getgroups",
+            "line": 55,
+            "to": "method:validatetoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getgroups",
+            "line": 70,
+            "to": "method:request",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getgroups",
+            "line": 72,
+            "to": "method:haserrors",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getgroups",
+            "line": 73,
+            "to": "method:errormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcolumns",
+            "line": 86,
+            "to": "method:validatetoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcolumns",
+            "line": 102,
+            "to": "method:request",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcolumns",
+            "line": 104,
+            "to": "method:haserrors",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getcolumns",
+            "line": 105,
+            "to": "method:errormessage",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getitems",
+            "line": 125,
+            "to": "method:validatetoken",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getitems",
+            "line": 142,
+            "to": "method:request",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getitems",
+            "line": 151,
+            "to": "method:haserrors",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:getitems",
+            "line": 152,
+            "to": "method:errormessage",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:setheaders",
+            "line": 196,
+            "to": "const:API_VERSION",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:request",
+            "line": 208,
+            "to": "const:API_URL",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:request",
+            "line": 208,
+            "to": "method:setheaders",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 233,
+        "modifiers": [],
+        "path": "backend/Actions/MondayCom/MondayComController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MondayCom/MondayComController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MondayCom/MondayComHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MondayCom/MondayComAction.php"
+        },
+        {
+            "from": "backend/Actions/MondayCom/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MondayCom/MondayComService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MondayCom/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MondayCom\\MondayComService"
+            ],
+            "hooks": "backend/Actions/MondayCom/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 27,
+            "helper": 178
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MondayCom",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController": {
+            "const:API_URL": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "const:API_VERSION": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:errormessage": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComAction"
+            ],
+            "method:getboards": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:getcolumns": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:getgroups": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:getitems": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:haserrors": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:request": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:setheaders": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "method:validatetoken": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MondayCom\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MondayCom\\MondayComService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "const:API_URL",
+            "kind": "const",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "API_URL"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "const:API_VERSION",
+            "kind": "const",
+            "lines": [
+                25,
+                25
+            ],
+            "names": [
+                "API_VERSION"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:getboards",
+            "kind": "method",
+            "lines": [
+                27,
+                51
+            ],
+            "names": [
+                "getBoards"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getgroups",
+            "kind": "method",
+            "lines": [
+                53,
+                82
+            ],
+            "names": [
+                "getGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getcolumns",
+            "kind": "method",
+            "lines": [
+                84,
+                121
+            ],
+            "names": [
+                "getColumns"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getitems",
+            "kind": "method",
+            "lines": [
+                123,
+                161
+            ],
+            "names": [
+                "getItems"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                163,
+                182
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:validatetoken",
+            "kind": "method",
+            "lines": [
+                184,
+                189
+            ],
+            "names": [
+                "validateToken"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:setheaders",
+            "kind": "method",
+            "lines": [
+                191,
+                198
+            ],
+            "names": [
+                "setHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:request",
+            "kind": "method",
+            "lines": [
+                200,
+                209
+            ],
+            "names": [
+                "request"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:haserrors",
+            "kind": "method",
+            "lines": [
+                211,
+                214
+            ],
+            "names": [
+                "hasErrors"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:errormessage",
+            "kind": "method",
+            "lines": [
+                216,
+                231
+            ],
+            "names": [
+                "errorMessage"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MondayCom",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\RecordApiHelper",
+            "file": "backend/Actions/MondayCom/MondayComController.php",
+            "kind": "new",
+            "line": 174,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController",
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MondayCom\\MondayComController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController",
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getboards",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "text": "MondayComController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController",
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "text": "MondayComController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController",
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getcolumns",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "text": "MondayComController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController",
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:getitems",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "text": "MondayComController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MondayCom\\MondayComController": [
+            "BitApps\\Integrations\\Actions\\MondayCom\\MondayComAction",
+            "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MondayCom\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "line": 10,
+            "method": "getBoards",
+            "route": "mondayCom_fetch_boards",
+            "target": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "line": 11,
+            "method": "getGroups",
+            "route": "mondayCom_fetch_groups",
+            "target": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "line": 12,
+            "method": "getColumns",
+            "route": "mondayCom_fetch_columns",
+            "target": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MondayCom/Routes.php",
+            "line": 13,
+            "method": "getItems",
+            "route": "mondayCom_fetch_items",
+            "target": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MondayCom/RecordApiHelper.php": [
+            {
+                "key": "property:integrationDetails",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:integrationId",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:apiToken",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:type",
+                "kind": "property",
+                "lines": [
+                    22,
+                    22
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:typeName",
+                "kind": "property",
+                "lines": [
+                    24,
+                    24
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    26,
+                    31
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:handlefilterresponse",
+                "kind": "method",
+                "lines": [
+                    33,
+                    41
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    43,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    64,
+                    145
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:haserrors",
+                "kind": "method",
+                "lines": [
+                    147,
+                    150
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MondayCom/MondayComController.php": "e3ea173f5192e7fd7fa0442c2078461d6cb4bcca",
+        "backend/Actions/MondayCom/RecordApiHelper.php": "09515bd6e4165d226cd390af16f3bc374cda7b60",
+        "backend/Actions/MondayCom/Routes.php": "9241dda5ce2a658a21c029c81372232b0c07e4cc"
+    },
+    "sources": {
+        "backend/Actions/MondayCom/MondayComAction.php": [
+            "backend/Actions/MondayCom/MondayComController.php"
+        ],
+        "backend/Actions/MondayCom/MondayComHelper.php": [
+            "backend/Actions/MondayCom/MondayComController.php"
+        ],
+        "backend/Actions/MondayCom/MondayComService.php": [
+            "backend/Actions/MondayCom/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComAction",
+            "origin": "created",
+            "path": "backend/Actions/MondayCom/MondayComAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MondayCom/MondayComHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MondayCom/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MondayCom\\RecordApiHelper",
+                "to": "backend/Actions/MondayCom/MondayComService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MondayCom\\MondayComService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "MondayCom"
+    ]
+}

@@ -1,0 +1,382 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshneswletter",
+            "line": 34,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:mailpoetlistheaders",
+            "line": 52,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 98,
+        "modifiers": [],
+        "path": "backend/Actions/MailPoet/MailPoetController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MailPoet/MailPoetController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailPoet/MailPoetHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MailPoet/MailPoetAction.php"
+        },
+        {
+            "from": "backend/Actions/MailPoet/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MailPoet/MailPoetService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MailPoet/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MailPoet\\MailPoetService"
+            ],
+            "hooks": "backend/Actions/MailPoet/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 28,
+            "helper": 53
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MailPoet",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper"
+            ],
+            "method:mailpoetlistheaders": [
+                "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper"
+            ],
+            "method:refreshneswletter": [
+                "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MailPoet\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                30
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshneswletter",
+            "kind": "method",
+            "lines": [
+                32,
+                48
+            ],
+            "names": [
+                "refreshNeswLetter"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:mailpoetlistheaders",
+            "kind": "method",
+            "lines": [
+                50,
+                67
+            ],
+            "names": [
+                "mailPoetListHeaders"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                69,
+                96
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MailPoet",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailPoet\\RecordApiHelper",
+            "file": "backend/Actions/MailPoet/MailPoetController.php",
+            "kind": "new",
+            "line": 82,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController",
+            "file": "backend/Actions/MailPoet/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController",
+            "file": "backend/Actions/MailPoet/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshneswletter",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper",
+            "text": "MailPoetController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController",
+            "file": "backend/Actions/MailPoet/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:mailpoetlistheaders",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper",
+            "text": "MailPoetController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetController": [
+            "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetAction",
+            "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MailPoet\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MailPoet/Routes.php",
+            "line": 10,
+            "method": "refreshNeswLetter",
+            "route": "refresh_news_letter",
+            "target": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MailPoet/Routes.php",
+            "line": 11,
+            "method": "mailPoetListHeaders",
+            "route": "mail_poet_list_headers",
+            "target": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MailPoet/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    17,
+                    17
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:mailPoet_api",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    21,
+                    29
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:insertrecord",
+                "kind": "method",
+                "lines": [
+                    31,
+                    87
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    89,
+                    107
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:setfieldmap",
+                "kind": "method",
+                "lines": [
+                    109,
+                    124
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:addsubscriber",
+                "kind": "method",
+                "lines": [
+                    126,
+                    146
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:addsubscribetolists",
+                "kind": "method",
+                "lines": [
+                    148,
+                    164
+                ],
+                "static": true,
+                "visibility": "private"
+            },
+            {
+                "key": "method:getfilteredlist",
+                "kind": "method",
+                "lines": [
+                    166,
+                    176
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MailPoet/MailPoetController.php": "63050c5e959d55469cf35956b3be9c9f7c34a58c",
+        "backend/Actions/MailPoet/RecordApiHelper.php": "0c6d93f3c8997bb144a57b5ac0b6d0afb80539d7",
+        "backend/Actions/MailPoet/Routes.php": "dcd305a94595706a7d05c66629d471f30a1dea1d"
+    },
+    "sources": {
+        "backend/Actions/MailPoet/MailPoetAction.php": [
+            "backend/Actions/MailPoet/MailPoetController.php"
+        ],
+        "backend/Actions/MailPoet/MailPoetHelper.php": [
+            "backend/Actions/MailPoet/MailPoetController.php"
+        ],
+        "backend/Actions/MailPoet/MailPoetService.php": [
+            "backend/Actions/MailPoet/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetAction",
+            "origin": "created",
+            "path": "backend/Actions/MailPoet/MailPoetAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MailPoet/MailPoetHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MailPoet/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MailPoet\\RecordApiHelper",
+                "to": "backend/Actions/MailPoet/MailPoetService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MailPoet\\MailPoetService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "MailPoet"
+    ]
+}

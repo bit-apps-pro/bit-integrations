@@ -1,0 +1,297 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshgroups",
+            "line": 22,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 66,
+        "modifiers": [],
+        "path": "backend/Actions/B2BKing/B2BKingController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/B2BKing/B2BKingController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/B2BKing/B2BKingHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/B2BKing/B2BKingAction.php"
+        },
+        {
+            "from": "backend/Actions/B2BKing/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/B2BKing/B2BKingService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/B2BKing/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\B2BKing\\B2BKingService"
+            ],
+            "hooks": "backend/Actions/B2BKing/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 20,
+            "helper": 33
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "B2BKing",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper"
+            ],
+            "method:refreshgroups": [
+                "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\B2BKing\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                10,
+                18
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshgroups",
+            "kind": "method",
+            "lines": [
+                20,
+                43
+            ],
+            "names": [
+                "refreshGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                45,
+                64
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\B2BKing",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\B2BKing\\RecordApiHelper",
+            "file": "backend/Actions/B2BKing/B2BKingController.php",
+            "kind": "new",
+            "line": 56,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingController",
+            "file": "backend/Actions/B2BKing/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper",
+            "text": "use BitApps\\Integrations\\Actions\\B2BKing\\B2BKingController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingController",
+            "file": "backend/Actions/B2BKing/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper",
+            "text": "B2BKingController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingController": [
+            "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingAction",
+            "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\B2BKing\\RecordApiHelper": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/B2BKing/Routes.php",
+            "line": 10,
+            "method": "refreshGroups",
+            "route": "refresh_b2bking_groups",
+            "target": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/B2BKing/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    22,
+                    86
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    88,
+                    105
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/B2BKing/B2BKingController.php": "f8f2afb03557d8f489db57edf7ec5fe18df07985",
+        "backend/Actions/B2BKing/RecordApiHelper.php": "cd0ddb09a7e98d27a4ad3db6d2afb98519dbc364",
+        "backend/Actions/B2BKing/Routes.php": "f56f3558a546f3314f3d9ef1a02c140e1812b6ed"
+    },
+    "sources": {
+        "backend/Actions/B2BKing/B2BKingAction.php": [
+            "backend/Actions/B2BKing/B2BKingController.php"
+        ],
+        "backend/Actions/B2BKing/B2BKingHelper.php": [
+            "backend/Actions/B2BKing/B2BKingController.php"
+        ],
+        "backend/Actions/B2BKing/B2BKingService.php": [
+            "backend/Actions/B2BKing/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingAction",
+            "origin": "created",
+            "path": "backend/Actions/B2BKing/B2BKingAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/B2BKing/B2BKingHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/B2BKing/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\B2BKing\\RecordApiHelper",
+                "to": "backend/Actions/B2BKing/B2BKingService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\B2BKing\\B2BKingService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "B2BKing"
+    ]
+}

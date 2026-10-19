@@ -1,0 +1,202 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 28,
+        "modifiers": [],
+        "path": "backend/Actions/ConvertForce/ConvertForceController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/ConvertForce/ConvertForceController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ConvertForce/ConvertForceAction.php"
+        },
+        {
+            "from": "backend/Actions/ConvertForce/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/ConvertForce/ConvertForceService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\ConvertForce\\ConvertForceService"
+            ],
+            "hooks": "backend/Actions/ConvertForce/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "ConvertForce",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\ConvertForce\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                13,
+                26
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\ConvertForce",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\ConvertForce\\RecordApiHelper",
+            "file": "backend/Actions/ConvertForce/ConvertForceController.php",
+            "kind": "new",
+            "line": 23,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceController": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceAction",
+        "BitApps\\Integrations\\Actions\\ConvertForce\\RecordApiHelper": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/ConvertForce/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    98
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    100,
+                    115
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/ConvertForce/ConvertForceController.php": "66660ae3917212cfd014f6b22c50bac0d5071ee1",
+        "backend/Actions/ConvertForce/RecordApiHelper.php": "bbc65042ecac8610e1a059db9eff4941ba8a50de"
+    },
+    "sources": {
+        "backend/Actions/ConvertForce/ConvertForceAction.php": [
+            "backend/Actions/ConvertForce/ConvertForceController.php"
+        ],
+        "backend/Actions/ConvertForce/ConvertForceService.php": [
+            "backend/Actions/ConvertForce/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/ConvertForce/ConvertForceAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceHelper",
+            "origin": "none",
+            "path": "backend/Actions/ConvertForce/ConvertForceHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/ConvertForce/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\ConvertForce\\RecordApiHelper",
+                "to": "backend/Actions/ConvertForce/ConvertForceService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\ConvertForce\\ConvertForceService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "ConvertForce"
+    ]
+}

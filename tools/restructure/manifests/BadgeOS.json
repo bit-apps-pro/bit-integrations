@@ -1,0 +1,297 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshachievements",
+            "line": 29,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 80,
+        "modifiers": [],
+        "path": "backend/Actions/BadgeOS/BadgeOSController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/BadgeOS/BadgeOSController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BadgeOS/BadgeOSHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/BadgeOS/BadgeOSAction.php"
+        },
+        {
+            "from": "backend/Actions/BadgeOS/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/BadgeOS/BadgeOSService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/BadgeOS/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\BadgeOS\\BadgeOSService"
+            ],
+            "hooks": "backend/Actions/BadgeOS/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 48
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "BadgeOS",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper"
+            ],
+            "method:refreshachievements": [
+                "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\BadgeOS\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                14,
+                25
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshachievements",
+            "kind": "method",
+            "lines": [
+                27,
+                62
+            ],
+            "names": [
+                "refreshAchievements"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                64,
+                78
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\BadgeOS",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\BadgeOS\\RecordApiHelper",
+            "file": "backend/Actions/BadgeOS/BadgeOSController.php",
+            "kind": "new",
+            "line": 75,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSController",
+            "file": "backend/Actions/BadgeOS/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper",
+            "text": "use BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSController",
+            "file": "backend/Actions/BadgeOS/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshachievements",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper",
+            "text": "BadgeOSController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSController": [
+            "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSAction",
+            "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\BadgeOS\\RecordApiHelper": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/BadgeOS/Routes.php",
+            "line": 10,
+            "method": "refreshAchievements",
+            "route": "refresh_badgeos_achievements",
+            "target": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/BadgeOS/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    68
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    70,
+                    87
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/BadgeOS/BadgeOSController.php": "5f3035931ba428fa3a53faf32f489d9e0f86a5d1",
+        "backend/Actions/BadgeOS/RecordApiHelper.php": "1708cb61b6503729a7edca452f1ca3a2299dc813",
+        "backend/Actions/BadgeOS/Routes.php": "4bfd4f4e1cd5d0cdad1a2f6db670a982c67dbb1c"
+    },
+    "sources": {
+        "backend/Actions/BadgeOS/BadgeOSAction.php": [
+            "backend/Actions/BadgeOS/BadgeOSController.php"
+        ],
+        "backend/Actions/BadgeOS/BadgeOSHelper.php": [
+            "backend/Actions/BadgeOS/BadgeOSController.php"
+        ],
+        "backend/Actions/BadgeOS/BadgeOSService.php": [
+            "backend/Actions/BadgeOS/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSAction",
+            "origin": "created",
+            "path": "backend/Actions/BadgeOS/BadgeOSAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/BadgeOS/BadgeOSHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/BadgeOS/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\BadgeOS\\RecordApiHelper",
+                "to": "backend/Actions/BadgeOS/BadgeOSService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\BadgeOS\\BadgeOSService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "BadgeOS"
+    ]
+}

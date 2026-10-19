@@ -1,0 +1,325 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:refreshdatasources",
+            "line": 35,
+            "to": "property:_baseUrl",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Instasent\\InstasentController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 100,
+        "modifiers": [],
+        "path": "backend/Actions/Instasent/InstasentController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Instasent/InstasentController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Instasent/InstasentHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Instasent/InstasentAction.php"
+        },
+        {
+            "from": "backend/Actions/Instasent/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Instasent/InstasentService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Instasent/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\Instasent\\InstasentService"
+            ],
+            "hooks": "backend/Actions/Instasent/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 37,
+            "helper": 44
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Instasent",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Instasent\\InstasentController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Instasent\\InstasentAction"
+            ],
+            "method:refreshdatasources": [
+                "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper"
+            ],
+            "property:_baseUrl": [
+                "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Instasent\\InstasentAction"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Instasent\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Instasent\\InstasentService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:_baseUrl",
+            "kind": "property",
+            "lines": [
+                15,
+                15
+            ],
+            "names": [
+                "_baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                17,
+                23
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshdatasources",
+            "kind": "method",
+            "lines": [
+                25,
+                67
+            ],
+            "names": [
+                "refreshDatasources"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                69,
+                98
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Instasent",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Instasent\\RecordApiHelper",
+            "file": "backend/Actions/Instasent/InstasentController.php",
+            "kind": "new",
+            "line": 87,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Instasent\\InstasentService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Instasent\\InstasentController",
+            "file": "backend/Actions/Instasent/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Instasent\\InstasentController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Instasent\\InstasentController",
+            "file": "backend/Actions/Instasent/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshdatasources",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper",
+            "text": "InstasentController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Instasent\\InstasentController": [
+            "BitApps\\Integrations\\Actions\\Instasent\\InstasentAction",
+            "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\Instasent\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Instasent\\InstasentService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Instasent/Routes.php",
+            "line": 10,
+            "method": "refreshDatasources",
+            "route": "refresh_instasent_datasources",
+            "target": "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Instasent/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_authToken",
+                "kind": "property",
+                "lines": [
+                    20,
+                    20
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    22,
+                    27
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    29,
+                    49
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    51,
+                    138
+                ],
+                "static": false,
+                "visibility": "public"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Instasent/InstasentController.php": "8285bb595de64c7e068cbe0879548372e4cd8989",
+        "backend/Actions/Instasent/RecordApiHelper.php": "156797f2ad10aa4d327bd89ed39d4636032a735a",
+        "backend/Actions/Instasent/Routes.php": "08d181f6da11262c3a993a33b46ebbe7d32a9269"
+    },
+    "sources": {
+        "backend/Actions/Instasent/InstasentAction.php": [
+            "backend/Actions/Instasent/InstasentController.php"
+        ],
+        "backend/Actions/Instasent/InstasentHelper.php": [
+            "backend/Actions/Instasent/InstasentController.php"
+        ],
+        "backend/Actions/Instasent/InstasentService.php": [
+            "backend/Actions/Instasent/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Instasent\\InstasentAction",
+            "origin": "created",
+            "path": "backend/Actions/Instasent/InstasentAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Instasent\\InstasentHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Instasent/InstasentHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Instasent/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Instasent\\RecordApiHelper",
+                "to": "backend/Actions/Instasent/InstasentService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Instasent\\InstasentService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "Instasent"
+    ]
+}

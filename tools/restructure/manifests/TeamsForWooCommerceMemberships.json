@@ -1,0 +1,342 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshteams",
+            "line": 28,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshmemberroles",
+            "line": 57,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 97,
+        "modifiers": [],
+        "path": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsAction.php"
+        },
+        {
+            "from": "backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/TeamsForWooCommerceMemberships/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsService"
+            ],
+            "hooks": "backend/Actions/TeamsForWooCommerceMemberships/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 20,
+            "helper": 60
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "TeamsForWooCommerceMemberships",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper"
+            ],
+            "method:refreshmemberroles": [
+                "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper"
+            ],
+            "method:refreshteams": [
+                "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshteams",
+            "kind": "method",
+            "lines": [
+                26,
+                53
+            ],
+            "names": [
+                "refreshTeams"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshmemberroles",
+            "kind": "method",
+            "lines": [
+                55,
+                74
+            ],
+            "names": [
+                "refreshMemberRoles"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                76,
+                95
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController",
+            "file": "backend/Actions/TeamsForWooCommerceMemberships/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper",
+            "text": "use BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController",
+            "file": "backend/Actions/TeamsForWooCommerceMemberships/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshteams",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper",
+            "text": "TeamsForWooCommerceMembershipsController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController",
+            "file": "backend/Actions/TeamsForWooCommerceMemberships/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshmemberroles",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper",
+            "text": "TeamsForWooCommerceMembershipsController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\RecordApiHelper",
+            "file": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php",
+            "kind": "new",
+            "line": 87,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\RecordApiHelper": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsService",
+        "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsController": [
+            "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsAction",
+            "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/TeamsForWooCommerceMemberships/Routes.php",
+            "line": 10,
+            "method": "refreshTeams",
+            "route": "teams_for_wc_memberships_refresh_teams",
+            "target": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/TeamsForWooCommerceMemberships/Routes.php",
+            "line": 11,
+            "method": "refreshMemberRoles",
+            "route": "teams_for_wc_memberships_refresh_member_roles",
+            "target": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    119
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    121,
+                    132
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php": "73e373a8d45db7737c6f126f3d1e8280840a7827",
+        "backend/Actions/TeamsForWooCommerceMemberships/Routes.php": "04aeb94841d4ae99d4927b88bdcc5c9b55a1e02c",
+        "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php": "b0501dfcce8c7f3f93250dab4a000dc38bc523c4"
+    },
+    "sources": {
+        "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsAction.php": [
+            "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php"
+        ],
+        "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsHelper.php": [
+            "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsController.php"
+        ],
+        "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsService.php": [
+            "backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsAction",
+            "origin": "created",
+            "path": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/TeamsForWooCommerceMemberships/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\RecordApiHelper",
+                "to": "backend/Actions/TeamsForWooCommerceMemberships/TeamsForWooCommerceMembershipsService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\TeamsForWooCommerceMemberships\\TeamsForWooCommerceMembershipsService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "TeamsForWooCommerceMemberships"
+    ]
+}

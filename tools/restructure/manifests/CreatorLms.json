@@ -1,0 +1,237 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 42,
+        "modifiers": [],
+        "path": "backend/Actions/CreatorLms/CreatorLmsController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/CreatorLms/CreatorLmsController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/CreatorLms/CreatorLmsAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/CreatorLms/CreatorLmsHelper.php"
+        },
+        {
+            "from": "backend/Actions/CreatorLms/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/CreatorLms/CreatorLmsService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\CreatorLms\\CreatorLmsService"
+            ],
+            "hooks": "backend/Actions/CreatorLms/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 12
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:isexists"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "CreatorLms",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\CreatorLms\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                26,
+                40
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\CreatorLms",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\CreatorLms\\RecordApiHelper",
+            "file": "backend/Actions/CreatorLms/CreatorLmsController.php",
+            "kind": "new",
+            "line": 37,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsController": [
+            "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsAction",
+            "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\CreatorLms\\RecordApiHelper": "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/CreatorLms/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    87
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    89,
+                    102
+                ],
+                "static": false,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/CreatorLms/CreatorLmsController.php": "322e8682e9c2ec2e017600cdfbf13f4e82c03c54",
+        "backend/Actions/CreatorLms/RecordApiHelper.php": "6c79c345cc907c430b3571f7f7cde091e1da9f43"
+    },
+    "sources": {
+        "backend/Actions/CreatorLms/CreatorLmsAction.php": [
+            "backend/Actions/CreatorLms/CreatorLmsController.php"
+        ],
+        "backend/Actions/CreatorLms/CreatorLmsHelper.php": [
+            "backend/Actions/CreatorLms/CreatorLmsController.php"
+        ],
+        "backend/Actions/CreatorLms/CreatorLmsService.php": [
+            "backend/Actions/CreatorLms/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/CreatorLms/CreatorLmsAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsHelper",
+            "origin": "created",
+            "path": "backend/Actions/CreatorLms/CreatorLmsHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/CreatorLms/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\CreatorLms\\RecordApiHelper",
+                "to": "backend/Actions/CreatorLms/CreatorLmsService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\CreatorLms\\CreatorLmsService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "CreatorLms"
+    ]
+}

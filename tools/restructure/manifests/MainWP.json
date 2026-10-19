@@ -1,0 +1,297 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshsites",
+            "line": 23,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MainWP\\MainWPController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 55,
+        "modifiers": [],
+        "path": "backend/Actions/MainWP/MainWPController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MainWP/MainWPController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MainWP/MainWPHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MainWP/MainWPAction.php"
+        },
+        {
+            "from": "backend/Actions/MainWP/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MainWP/MainWPService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MainWP/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MainWP\\MainWPService"
+            ],
+            "hooks": "backend/Actions/MainWP/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 10,
+            "helper": 31
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MainWP",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MainWP\\MainWPController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MainWP\\MainWPAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper"
+            ],
+            "method:refreshsites": [
+                "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MainWP\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MainWP\\MainWPService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                11,
+                19
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshsites",
+            "kind": "method",
+            "lines": [
+                21,
+                42
+            ],
+            "names": [
+                "refreshSites"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                44,
+                53
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MainWP",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MainWP\\RecordApiHelper",
+            "file": "backend/Actions/MainWP/MainWPController.php",
+            "kind": "new",
+            "line": 50,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MainWP\\MainWPService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MainWP\\MainWPController",
+            "file": "backend/Actions/MainWP/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MainWP\\MainWPController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MainWP\\MainWPController",
+            "file": "backend/Actions/MainWP/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshsites",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper",
+            "text": "MainWPController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MainWP\\MainWPController": [
+            "BitApps\\Integrations\\Actions\\MainWP\\MainWPAction",
+            "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MainWP\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MainWP\\MainWPService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MainWP/Routes.php",
+            "line": 10,
+            "method": "refreshSites",
+            "route": "refresh_main_wp_sites",
+            "target": "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MainWP/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    132
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    134,
+                    151
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MainWP/MainWPController.php": "9ae1823a501f4f2b6a2ec98fa42cf806e1ac7ffa",
+        "backend/Actions/MainWP/RecordApiHelper.php": "97be8f56a952f201f945b81d2f0f785b20625d4c",
+        "backend/Actions/MainWP/Routes.php": "8a7e2d099039d8119f3d9ec6813394ad80f32f4e"
+    },
+    "sources": {
+        "backend/Actions/MainWP/MainWPAction.php": [
+            "backend/Actions/MainWP/MainWPController.php"
+        ],
+        "backend/Actions/MainWP/MainWPHelper.php": [
+            "backend/Actions/MainWP/MainWPController.php"
+        ],
+        "backend/Actions/MainWP/MainWPService.php": [
+            "backend/Actions/MainWP/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MainWP\\MainWPAction",
+            "origin": "created",
+            "path": "backend/Actions/MainWP/MainWPAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MainWP\\MainWPHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MainWP/MainWPHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MainWP/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MainWP\\RecordApiHelper",
+                "to": "backend/Actions/MainWP/MainWPService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MainWP\\MainWPService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "MainWP"
+    ]
+}

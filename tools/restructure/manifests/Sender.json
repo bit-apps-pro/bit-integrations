@@ -1,0 +1,430 @@
+{
+    "callGraph": [
+        {
+            "form": "property",
+            "from": "method:refreshgroups",
+            "line": 36,
+            "to": "property:baseUrl",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshgroups",
+            "line": 36,
+            "to": "method:authheader",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshgroups",
+            "line": 47,
+            "to": "method:datarows",
+            "via": "self"
+        },
+        {
+            "form": "property",
+            "from": "method:refreshfields",
+            "line": 68,
+            "to": "property:baseUrl",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 68,
+            "to": "method:authheader",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshfields",
+            "line": 80,
+            "to": "method:datarows",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\Sender\\SenderController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 142,
+        "modifiers": [],
+        "path": "backend/Actions/Sender/SenderController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/Sender/SenderController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Sender/SenderHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/Sender/SenderAction.php"
+        },
+        {
+            "from": "backend/Actions/Sender/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/Sender/SenderService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/Sender/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\Sender\\SenderService"
+            ],
+            "hooks": "backend/Actions/Sender/Hooks.php"
+        },
+        "T3": true,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 26,
+            "helper": 94
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "Sender",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\Sender\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\Sender\\SenderController": {
+            "method:authheader": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderHelper"
+            ],
+            "method:datarows": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderAction"
+            ],
+            "method:refreshfields": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderHelper"
+            ],
+            "method:refreshgroups": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderHelper"
+            ],
+            "property:authConfig": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderAction"
+            ],
+            "property:baseUrl": [
+                "BitApps\\Integrations\\Actions\\Sender\\SenderHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "property:authConfig",
+            "kind": "property",
+            "lines": [
+                15,
+                21
+            ],
+            "names": [
+                "authConfig"
+            ],
+            "placement": "action",
+            "reachedFrom": [],
+            "reason": "$authConfig stays with the Action",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "property:baseUrl",
+            "kind": "property",
+            "lines": [
+                23,
+                23
+            ],
+            "names": [
+                "baseUrl"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:refreshgroups",
+            "kind": "method",
+            "lines": [
+                25,
+                55
+            ],
+            "names": [
+                "refreshGroups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshfields",
+            "kind": "method",
+            "lines": [
+                57,
+                102
+            ],
+            "names": [
+                "refreshFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                104,
+                122
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:authheader",
+            "kind": "method",
+            "lines": [
+                124,
+                131
+            ],
+            "names": [
+                "authHeader"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:datarows",
+            "kind": "method",
+            "lines": [
+                133,
+                140
+            ],
+            "names": [
+                "dataRows"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\Sender",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\Sender\\SenderController",
+            "file": "backend/Actions/Sender/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Sender\\SenderHelper",
+            "text": "use BitApps\\Integrations\\Actions\\Sender\\SenderController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Sender\\SenderController",
+            "file": "backend/Actions/Sender/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshgroups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Sender\\SenderHelper",
+            "text": "SenderController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Sender\\SenderController",
+            "file": "backend/Actions/Sender/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Sender\\SenderHelper",
+            "text": "SenderController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\Sender\\RecordApiHelper",
+            "file": "backend/Actions/Sender/SenderController.php",
+            "kind": "new",
+            "line": 114,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\Sender\\SenderService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\Sender\\RecordApiHelper": "BitApps\\Integrations\\Actions\\Sender\\SenderService",
+        "BitApps\\Integrations\\Actions\\Sender\\SenderController": [
+            "BitApps\\Integrations\\Actions\\Sender\\SenderAction",
+            "BitApps\\Integrations\\Actions\\Sender\\SenderHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/Sender/Routes.php",
+            "line": 10,
+            "method": "refreshGroups",
+            "route": "refresh_sender_groups",
+            "target": "BitApps\\Integrations\\Actions\\Sender\\SenderHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/Sender/Routes.php",
+            "line": 11,
+            "method": "refreshFields",
+            "route": "refresh_sender_fields",
+            "target": "BitApps\\Integrations\\Actions\\Sender\\SenderHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/Sender/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    96
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    98,
+                    115
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/Sender/RecordApiHelper.php": "05540fb062b80f772536a491073babd8ee8ab749",
+        "backend/Actions/Sender/Routes.php": "583fcb3068ca5bbde5a6f2aa350266a404e89108",
+        "backend/Actions/Sender/SenderController.php": "2d1947896fff7211edef551f5da2b4e379349f11"
+    },
+    "sources": {
+        "backend/Actions/Sender/SenderAction.php": [
+            "backend/Actions/Sender/SenderController.php"
+        ],
+        "backend/Actions/Sender/SenderHelper.php": [
+            "backend/Actions/Sender/SenderController.php"
+        ],
+        "backend/Actions/Sender/SenderService.php": [
+            "backend/Actions/Sender/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\Sender\\SenderAction",
+            "origin": "created",
+            "path": "backend/Actions/Sender/SenderAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\Sender\\SenderHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/Sender/SenderHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/Sender/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\Sender\\RecordApiHelper",
+                "to": "backend/Actions/Sender/SenderService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\Sender\\SenderService"
+            }
+        ]
+    },
+    "tests": [
+        "T2",
+        "T3"
+    ],
+    "unit": [
+        "Sender"
+    ]
+}

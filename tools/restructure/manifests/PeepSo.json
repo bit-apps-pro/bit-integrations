@@ -1,0 +1,237 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 41,
+        "modifiers": [],
+        "path": "backend/Actions/PeepSo/PeepSoController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/PeepSo/PeepSoController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PeepSo/PeepSoAction.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/PeepSo/PeepSoHelper.php"
+        },
+        {
+            "from": "backend/Actions/PeepSo/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PeepSo/PeepSoService.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\PeepSo\\PeepSoService"
+            ],
+            "hooks": "backend/Actions/PeepSo/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 14,
+            "helper": 12
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [
+            "method:isexists"
+        ],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "PeepSo",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\PeepSo\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "unreachable",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                26,
+                39
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\PeepSo",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\PeepSo\\RecordApiHelper",
+            "file": "backend/Actions/PeepSo/PeepSoController.php",
+            "kind": "new",
+            "line": 36,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoController": [
+            "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoAction",
+            "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\PeepSo\\RecordApiHelper": "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoService"
+    },
+    "routes": [],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/PeepSo/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    82
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    84,
+                    101
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/PeepSo/PeepSoController.php": "6a69e927a5562df5b5fe9ddd7c40a27255dd023a",
+        "backend/Actions/PeepSo/RecordApiHelper.php": "5207b962b6fc8c91edceffa6b0fd6c2e84d5bbf3"
+    },
+    "sources": {
+        "backend/Actions/PeepSo/PeepSoAction.php": [
+            "backend/Actions/PeepSo/PeepSoController.php"
+        ],
+        "backend/Actions/PeepSo/PeepSoHelper.php": [
+            "backend/Actions/PeepSo/PeepSoController.php"
+        ],
+        "backend/Actions/PeepSo/PeepSoService.php": [
+            "backend/Actions/PeepSo/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoAction",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/PeepSo/PeepSoAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoHelper",
+            "origin": "created",
+            "path": "backend/Actions/PeepSo/PeepSoHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/PeepSo/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\PeepSo\\RecordApiHelper",
+                "to": "backend/Actions/PeepSo/PeepSoService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\PeepSo\\PeepSoService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "PeepSo"
+    ]
+}

@@ -1,0 +1,297 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:getnotificationsbysource",
+            "line": 28,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 83,
+        "modifiers": [],
+        "path": "backend/Actions/NotificationX/NotificationXController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/NotificationX/NotificationXController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/NotificationX/NotificationXHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/NotificationX/NotificationXAction.php"
+        },
+        {
+            "from": "backend/Actions/NotificationX/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/NotificationX/NotificationXService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/NotificationX/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\NotificationX\\NotificationXService"
+            ],
+            "hooks": "backend/Actions/NotificationX/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 52
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "NotificationX",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXAction"
+            ],
+            "method:getnotificationsbysource": [
+                "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\NotificationX\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getnotificationsbysource",
+            "kind": "method",
+            "lines": [
+                26,
+                65
+            ],
+            "names": [
+                "getNotificationsBySource"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                67,
+                81
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\NotificationX",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\NotificationX\\RecordApiHelper",
+            "file": "backend/Actions/NotificationX/NotificationXController.php",
+            "kind": "new",
+            "line": 78,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXController",
+            "file": "backend/Actions/NotificationX/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper",
+            "text": "use BitApps\\Integrations\\Actions\\NotificationX\\NotificationXController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXController",
+            "file": "backend/Actions/NotificationX/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getnotificationsbysource",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper",
+            "text": "NotificationXController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXController": [
+            "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXAction",
+            "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\NotificationX\\RecordApiHelper": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/NotificationX/Routes.php",
+            "line": 10,
+            "method": "getNotificationsBySource",
+            "route": "notificationx_get_notifications_by_source",
+            "target": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/NotificationX/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    111
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatedatafrommap",
+                "kind": "method",
+                "lines": [
+                    113,
+                    130
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/NotificationX/NotificationXController.php": "19104ff7cd4657ea542d9846e67c53dd6abb505a",
+        "backend/Actions/NotificationX/RecordApiHelper.php": "485bc10daa718593e396021842085bed17ec4b56",
+        "backend/Actions/NotificationX/Routes.php": "e81b75e7576cd9132e2c9481f4d8b47cd14f5829"
+    },
+    "sources": {
+        "backend/Actions/NotificationX/NotificationXAction.php": [
+            "backend/Actions/NotificationX/NotificationXController.php"
+        ],
+        "backend/Actions/NotificationX/NotificationXHelper.php": [
+            "backend/Actions/NotificationX/NotificationXController.php"
+        ],
+        "backend/Actions/NotificationX/NotificationXService.php": [
+            "backend/Actions/NotificationX/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXAction",
+            "origin": "created",
+            "path": "backend/Actions/NotificationX/NotificationXAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/NotificationX/NotificationXHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/NotificationX/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\NotificationX\\RecordApiHelper",
+                "to": "backend/Actions/NotificationX/NotificationXService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\NotificationX\\NotificationXService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "NotificationX"
+    ]
+}

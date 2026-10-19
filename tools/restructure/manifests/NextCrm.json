@@ -1,0 +1,585 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 28,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshtags",
+            "line": 30,
+            "to": "method:tooptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlists",
+            "line": 36,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshlists",
+            "line": 38,
+            "to": "method:tooptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcampaigns",
+            "line": 44,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcampaigns",
+            "line": 46,
+            "to": "method:tooptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontactfields",
+            "line": 52,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontactfields",
+            "line": 54,
+            "to": "method:tooptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontacttypes",
+            "line": 60,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontacttypes",
+            "line": 62,
+            "to": "method:tooptions",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontactstatuses",
+            "line": 68,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcontactstatuses",
+            "line": 70,
+            "to": "method:tooptions",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 111,
+        "modifiers": [],
+        "path": "backend/Actions/NextCrm/NextCrmController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/NextCrm/NextCrmController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/NextCrm/NextCrmHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/NextCrm/NextCrmAction.php"
+        },
+        {
+            "from": "backend/Actions/NextCrm/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/NextCrm/NextCrmService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/NextCrm/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\NextCrm\\NextCrmService"
+            ],
+            "hooks": "backend/Actions/NextCrm/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 74
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "NextCrm",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:refreshcampaigns": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:refreshcontactfields": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:refreshcontactstatuses": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:refreshcontacttypes": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:refreshlists": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:refreshtags": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ],
+            "method:tooptions": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\NextCrm\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtags",
+            "kind": "method",
+            "lines": [
+                26,
+                32
+            ],
+            "names": [
+                "refreshTags"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshlists",
+            "kind": "method",
+            "lines": [
+                34,
+                40
+            ],
+            "names": [
+                "refreshLists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcampaigns",
+            "kind": "method",
+            "lines": [
+                42,
+                48
+            ],
+            "names": [
+                "refreshCampaigns"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcontactfields",
+            "kind": "method",
+            "lines": [
+                50,
+                56
+            ],
+            "names": [
+                "refreshContactFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcontacttypes",
+            "kind": "method",
+            "lines": [
+                58,
+                64
+            ],
+            "names": [
+                "refreshContactTypes"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcontactstatuses",
+            "kind": "method",
+            "lines": [
+                66,
+                72
+            ],
+            "names": [
+                "refreshContactStatuses"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                74,
+                88
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:tooptions",
+            "kind": "method",
+            "lines": [
+                90,
+                109
+            ],
+            "names": [
+                "toOptions"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\NextCrm",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\RecordApiHelper",
+            "file": "backend/Actions/NextCrm/NextCrmController.php",
+            "kind": "new",
+            "line": 85,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "use BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshtags",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "NextCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshlists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "NextCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshcampaigns",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "NextCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshcontactfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "NextCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:refreshcontacttypes",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "NextCrmController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController",
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "kind": "callable",
+            "line": 15,
+            "member": "method:refreshcontactstatuses",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "text": "NextCrmController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmController": [
+            "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmAction",
+            "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\NextCrm\\RecordApiHelper": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "line": 10,
+            "method": "refreshTags",
+            "route": "refresh_next_crm_tags",
+            "target": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "line": 11,
+            "method": "refreshLists",
+            "route": "refresh_next_crm_lists",
+            "target": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "line": 12,
+            "method": "refreshCampaigns",
+            "route": "refresh_next_crm_campaigns",
+            "target": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "line": 13,
+            "method": "refreshContactFields",
+            "route": "refresh_next_crm_contact_fields",
+            "target": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "line": 14,
+            "method": "refreshContactTypes",
+            "route": "refresh_next_crm_contact_types",
+            "target": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/NextCrm/Routes.php",
+            "line": 15,
+            "method": "refreshContactStatuses",
+            "route": "refresh_next_crm_contact_statuses",
+            "target": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/NextCrm/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    138
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    140,
+                    158
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/NextCrm/NextCrmController.php": "8748d0e25fb9455fb07fb65ac294bb56ea85f00b",
+        "backend/Actions/NextCrm/RecordApiHelper.php": "a2627a98b95bcef3da162d99a117e16a58bf2dc9",
+        "backend/Actions/NextCrm/Routes.php": "73cf8892ef4d01abaa0bd644d595aca246178342"
+    },
+    "sources": {
+        "backend/Actions/NextCrm/NextCrmAction.php": [
+            "backend/Actions/NextCrm/NextCrmController.php"
+        ],
+        "backend/Actions/NextCrm/NextCrmHelper.php": [
+            "backend/Actions/NextCrm/NextCrmController.php"
+        ],
+        "backend/Actions/NextCrm/NextCrmService.php": [
+            "backend/Actions/NextCrm/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmAction",
+            "origin": "created",
+            "path": "backend/Actions/NextCrm/NextCrmAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/NextCrm/NextCrmHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/NextCrm/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\NextCrm\\RecordApiHelper",
+                "to": "backend/Actions/NextCrm/NextCrmService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\NextCrm\\NextCrmService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "NextCrm"
+    ]
+}

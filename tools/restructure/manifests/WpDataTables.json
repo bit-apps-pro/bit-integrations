@@ -1,0 +1,370 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:wpdatatablesgettables",
+            "line": 21,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:wpdatatablesgettablecolumns",
+            "line": 39,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:wpdatatablesgettablecolumns",
+            "line": 62,
+            "to": "method:getmanualtablecolumns",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 119,
+        "modifiers": [],
+        "path": "backend/Actions/WpDataTables/WpDataTablesController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WpDataTables/WpDataTablesController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpDataTables/WpDataTablesHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WpDataTables/WpDataTablesAction.php"
+        },
+        {
+            "from": "backend/Actions/WpDataTables/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpDataTables/WpDataTablesService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WpDataTables/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\WpDataTables\\WpDataTablesService"
+            ],
+            "hooks": "backend/Actions/WpDataTables/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 14,
+            "helper": 91
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WpDataTables",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WpDataTables\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesAction"
+            ],
+            "method:getmanualtablecolumns": [
+                "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper"
+            ],
+            "method:wpdatatablesgettablecolumns": [
+                "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper"
+            ],
+            "method:wpdatatablesgettables": [
+                "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                9,
+                17
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:wpdatatablesgettables",
+            "kind": "method",
+            "lines": [
+                19,
+                35
+            ],
+            "names": [
+                "wpDataTablesGetTables"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:wpdatatablesgettablecolumns",
+            "kind": "method",
+            "lines": [
+                37,
+                78
+            ],
+            "names": [
+                "wpDataTablesGetTableColumns"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getmanualtablecolumns",
+            "kind": "method",
+            "lines": [
+                80,
+                102
+            ],
+            "names": [
+                "getManualTableColumns"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                104,
+                117
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WpDataTables",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController",
+            "file": "backend/Actions/WpDataTables/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController",
+            "file": "backend/Actions/WpDataTables/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:wpdatatablesgettables",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper",
+            "text": "WpDataTablesController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController",
+            "file": "backend/Actions/WpDataTables/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:wpdatatablesgettablecolumns",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper",
+            "text": "WpDataTablesController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpDataTables\\RecordApiHelper",
+            "file": "backend/Actions/WpDataTables/WpDataTablesController.php",
+            "kind": "new",
+            "line": 114,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WpDataTables\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesService",
+        "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesController": [
+            "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesAction",
+            "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WpDataTables/Routes.php",
+            "line": 10,
+            "method": "wpDataTablesGetTables",
+            "route": "wp_data_tables_get_tables",
+            "target": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper",
+            "verb": "get"
+        },
+        {
+            "file": "backend/Actions/WpDataTables/Routes.php",
+            "line": 11,
+            "method": "wpDataTablesGetTableColumns",
+            "route": "wp_data_tables_get_table_columns",
+            "target": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WpDataTables/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    12,
+                    12
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    14,
+                    14
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    16,
+                    20
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    22,
+                    62
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    64,
+                    81
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WpDataTables/RecordApiHelper.php": "e3cb36f1cd53f6498bfbbb6c84117fdccb5c8014",
+        "backend/Actions/WpDataTables/Routes.php": "2fbe9fc3a41391890a2de16b8fe02dd93cdef958",
+        "backend/Actions/WpDataTables/WpDataTablesController.php": "c91375c7a1ac9f1deff08280212440fe51334a11"
+    },
+    "sources": {
+        "backend/Actions/WpDataTables/WpDataTablesAction.php": [
+            "backend/Actions/WpDataTables/WpDataTablesController.php"
+        ],
+        "backend/Actions/WpDataTables/WpDataTablesHelper.php": [
+            "backend/Actions/WpDataTables/WpDataTablesController.php"
+        ],
+        "backend/Actions/WpDataTables/WpDataTablesService.php": [
+            "backend/Actions/WpDataTables/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesAction",
+            "origin": "created",
+            "path": "backend/Actions/WpDataTables/WpDataTablesAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WpDataTables/WpDataTablesHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WpDataTables/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WpDataTables\\RecordApiHelper",
+                "to": "backend/Actions/WpDataTables/WpDataTablesService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WpDataTables\\WpDataTablesService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "WpDataTables"
+    ]
+}

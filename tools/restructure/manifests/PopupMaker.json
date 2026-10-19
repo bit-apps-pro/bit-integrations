@@ -1,0 +1,377 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshpopups",
+            "line": 29,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshpopups",
+            "line": 31,
+            "to": "method:postdropdown",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshthemes",
+            "line": 38,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshthemes",
+            "line": 40,
+            "to": "method:postdropdown",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 87,
+        "modifiers": [],
+        "path": "backend/Actions/PopupMaker/PopupMakerController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/PopupMaker/PopupMakerController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PopupMaker/PopupMakerHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/PopupMaker/PopupMakerAction.php"
+        },
+        {
+            "from": "backend/Actions/PopupMaker/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/PopupMaker/PopupMakerService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/PopupMaker/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\PopupMaker\\PopupMakerService"
+            ],
+            "hooks": "backend/Actions/PopupMaker/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 53
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "PopupMaker",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper"
+            ],
+            "method:postdropdown": [
+                "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper"
+            ],
+            "method:refreshpopups": [
+                "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper"
+            ],
+            "method:refreshthemes": [
+                "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\PopupMaker\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                14,
+                25
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshpopups",
+            "kind": "method",
+            "lines": [
+                27,
+                34
+            ],
+            "names": [
+                "refreshPopups"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshthemes",
+            "kind": "method",
+            "lines": [
+                36,
+                43
+            ],
+            "names": [
+                "refreshThemes"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                45,
+                59
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:postdropdown",
+            "kind": "method",
+            "lines": [
+                61,
+                85
+            ],
+            "names": [
+                "postDropdown"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\PopupMaker",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\PopupMaker\\RecordApiHelper",
+            "file": "backend/Actions/PopupMaker/PopupMakerController.php",
+            "kind": "new",
+            "line": 56,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController",
+            "file": "backend/Actions/PopupMaker/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper",
+            "text": "use BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController",
+            "file": "backend/Actions/PopupMaker/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshpopups",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper",
+            "text": "PopupMakerController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController",
+            "file": "backend/Actions/PopupMaker/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshthemes",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper",
+            "text": "PopupMakerController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerController": [
+            "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerAction",
+            "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\PopupMaker\\RecordApiHelper": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/PopupMaker/Routes.php",
+            "line": 10,
+            "method": "refreshPopups",
+            "route": "refresh_popup_maker_popups",
+            "target": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/PopupMaker/Routes.php",
+            "line": 11,
+            "method": "refreshThemes",
+            "route": "refresh_popup_maker_themes",
+            "target": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/PopupMaker/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    124
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    126,
+                    144
+                ],
+                "static": true,
+                "visibility": "protected"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/PopupMaker/PopupMakerController.php": "796116220a06de35f7584e7396440874cf25a1d5",
+        "backend/Actions/PopupMaker/RecordApiHelper.php": "c846c22a13638f8fb6fe9d32e623928d7ab73b80",
+        "backend/Actions/PopupMaker/Routes.php": "22d189c80ffab7f39ef4076bd032affd0632cdba"
+    },
+    "sources": {
+        "backend/Actions/PopupMaker/PopupMakerAction.php": [
+            "backend/Actions/PopupMaker/PopupMakerController.php"
+        ],
+        "backend/Actions/PopupMaker/PopupMakerHelper.php": [
+            "backend/Actions/PopupMaker/PopupMakerController.php"
+        ],
+        "backend/Actions/PopupMaker/PopupMakerService.php": [
+            "backend/Actions/PopupMaker/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerAction",
+            "origin": "created",
+            "path": "backend/Actions/PopupMaker/PopupMakerAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/PopupMaker/PopupMakerHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/PopupMaker/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\PopupMaker\\RecordApiHelper",
+                "to": "backend/Actions/PopupMaker/PopupMakerService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\PopupMaker\\PopupMakerService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "PopupMaker"
+    ]
+}

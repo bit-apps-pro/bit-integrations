@@ -1,0 +1,429 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshtables",
+            "line": 45,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:refreshtables",
+            "line": 49,
+            "to": "const:POST_TYPE",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcolumns",
+            "line": 81,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:refreshcolumns",
+            "line": 89,
+            "to": "const:POST_TYPE",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshcolumns",
+            "line": 93,
+            "to": "method:readcolumnlabels",
+            "via": "self"
+        },
+        {
+            "form": "const",
+            "from": "method:refreshcolumns",
+            "line": 93,
+            "to": "const:CONTENT_META_KEY",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 173,
+        "modifiers": [],
+        "path": "backend/Actions/WpTableBuilder/WpTableBuilderController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/WpTableBuilder/WpTableBuilderController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpTableBuilder/WpTableBuilderHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/WpTableBuilder/WpTableBuilderAction.php"
+        },
+        {
+            "from": "backend/Actions/WpTableBuilder/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/WpTableBuilder/WpTableBuilderService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/WpTableBuilder/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\WpTableBuilder\\WpTableBuilderService"
+            ],
+            "hooks": "backend/Actions/WpTableBuilder/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 15,
+            "helper": 135
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "WpTableBuilder",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\WpTableBuilder\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderService"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController": {
+            "const:CONTENT_META_KEY": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+            ],
+            "const:POST_TYPE": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+            ],
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+            ],
+            "method:readcolumnlabels": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+            ],
+            "method:refreshcolumns": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+            ],
+            "method:refreshtables": [
+                "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "const:POST_TYPE",
+            "kind": "const",
+            "lines": [
+                16,
+                20
+            ],
+            "names": [
+                "POST_TYPE"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "const:CONTENT_META_KEY",
+            "kind": "const",
+            "lines": [
+                22,
+                22
+            ],
+            "names": [
+                "CONTENT_META_KEY"
+            ],
+            "placement": "helper",
+            "reachedFrom": [],
+            "reason": "used only by Helper members",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                24,
+                35
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshtables",
+            "kind": "method",
+            "lines": [
+                37,
+                71
+            ],
+            "names": [
+                "refreshTables"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcolumns",
+            "kind": "method",
+            "lines": [
+                73,
+                103
+            ],
+            "names": [
+                "refreshColumns"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                105,
+                119
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:readcolumnlabels",
+            "kind": "method",
+            "lines": [
+                121,
+                171
+            ],
+            "names": [
+                "readColumnLabels"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "private"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\WpTableBuilder",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController",
+            "file": "backend/Actions/WpTableBuilder/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper",
+            "text": "use BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController",
+            "file": "backend/Actions/WpTableBuilder/Routes.php",
+            "kind": "callable",
+            "line": 13,
+            "member": "method:refreshtables",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper",
+            "text": "WpTableBuilderController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController",
+            "file": "backend/Actions/WpTableBuilder/Routes.php",
+            "kind": "callable",
+            "line": 14,
+            "member": "method:refreshcolumns",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper",
+            "text": "WpTableBuilderController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\RecordApiHelper",
+            "file": "backend/Actions/WpTableBuilder/WpTableBuilderController.php",
+            "kind": "new",
+            "line": 116,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderService",
+            "text": "RecordApiHelper"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\WpTableBuilder\\RecordApiHelper": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderService",
+        "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderController": [
+            "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderAction",
+            "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper"
+        ]
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/WpTableBuilder/Routes.php",
+            "line": 13,
+            "method": "refreshTables",
+            "route": "refresh_wptablebuilder_tables",
+            "target": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/WpTableBuilder/Routes.php",
+            "line": 14,
+            "method": "refreshColumns",
+            "route": "refresh_wptablebuilder_columns",
+            "target": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/WpTableBuilder/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    91
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    93,
+                    112
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/WpTableBuilder/RecordApiHelper.php": "a3304d54dcc04f570c0c80a81c29936463ae62dd",
+        "backend/Actions/WpTableBuilder/Routes.php": "8d443e5f6166a20c191f7c088e4fcc58d3c85610",
+        "backend/Actions/WpTableBuilder/WpTableBuilderController.php": "eb8195341bc52331556bf8b01936924bd21a6bfe"
+    },
+    "sources": {
+        "backend/Actions/WpTableBuilder/WpTableBuilderAction.php": [
+            "backend/Actions/WpTableBuilder/WpTableBuilderController.php"
+        ],
+        "backend/Actions/WpTableBuilder/WpTableBuilderHelper.php": [
+            "backend/Actions/WpTableBuilder/WpTableBuilderController.php"
+        ],
+        "backend/Actions/WpTableBuilder/WpTableBuilderService.php": [
+            "backend/Actions/WpTableBuilder/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderAction",
+            "origin": "created",
+            "path": "backend/Actions/WpTableBuilder/WpTableBuilderAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/WpTableBuilder/WpTableBuilderHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/WpTableBuilder/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\WpTableBuilder\\RecordApiHelper",
+                "to": "backend/Actions/WpTableBuilder/WpTableBuilderService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\WpTableBuilder\\WpTableBuilderService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "WpTableBuilder"
+    ]
+}

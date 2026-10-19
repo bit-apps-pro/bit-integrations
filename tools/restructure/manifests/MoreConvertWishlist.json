@@ -1,0 +1,387 @@
+{
+    "callGraph": [
+        {
+            "form": "call",
+            "from": "method:refreshcustomers",
+            "line": 28,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshusers",
+            "line": 65,
+            "to": "method:isexists",
+            "via": "self"
+        },
+        {
+            "form": "call",
+            "from": "method:refreshwishlists",
+            "line": 84,
+            "to": "method:isexists",
+            "via": "self"
+        }
+    ],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 144,
+        "modifiers": [],
+        "path": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistAction.php"
+        },
+        {
+            "from": "backend/Actions/MoreConvertWishlist/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/MoreConvertWishlist/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\MoreConvertWishlist\\MoreConvertWishlistService"
+            ],
+            "hooks": "backend/Actions/MoreConvertWishlist/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 20,
+            "helper": 106
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "MoreConvertWishlist",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistAction"
+            ],
+            "method:isexists": [
+                "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper"
+            ],
+            "method:refreshcustomers": [
+                "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper"
+            ],
+            "method:refreshusers": [
+                "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper"
+            ],
+            "method:refreshwishlists": [
+                "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:isexists",
+            "kind": "method",
+            "lines": [
+                13,
+                24
+            ],
+            "names": [
+                "isExists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "reached from routes/hooks/other classes",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshcustomers",
+            "kind": "method",
+            "lines": [
+                26,
+                61
+            ],
+            "names": [
+                "refreshCustomers"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshusers",
+            "kind": "method",
+            "lines": [
+                63,
+                80
+            ],
+            "names": [
+                "refreshUsers"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:refreshwishlists",
+            "kind": "method",
+            "lines": [
+                82,
+                121
+            ],
+            "names": [
+                "refreshWishlists"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": true,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                123,
+                142
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\MoreConvertWishlist",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\RecordApiHelper",
+            "file": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php",
+            "kind": "new",
+            "line": 134,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController",
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "text": "use BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController",
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:refreshcustomers",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "text": "MoreConvertWishlistController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController",
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:refreshusers",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "text": "MoreConvertWishlistController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController",
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:refreshwishlists",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "text": "MoreConvertWishlistController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistController": [
+            "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistAction",
+            "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\RecordApiHelper": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "line": 10,
+            "method": "refreshCustomers",
+            "route": "refresh_more_convert_wishlist_customers",
+            "target": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "line": 11,
+            "method": "refreshUsers",
+            "route": "refresh_more_convert_wishlist_users",
+            "target": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/MoreConvertWishlist/Routes.php",
+            "line": 12,
+            "method": "refreshWishlists",
+            "route": "refresh_more_convert_wishlist_wishlists",
+            "target": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/MoreConvertWishlist/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    16,
+                    16
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "property:_integrationDetails",
+                "kind": "property",
+                "lines": [
+                    18,
+                    18
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    20,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    26,
+                    118
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    120,
+                    131
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php": "583bda9efaafa9f105a0ecddaf991ef6118da901",
+        "backend/Actions/MoreConvertWishlist/RecordApiHelper.php": "bcb36d2e5127fef8b179916732b2841d1150715d",
+        "backend/Actions/MoreConvertWishlist/Routes.php": "f3e673f7a23f7e9b4055f6c2de1712a895d378b1"
+    },
+    "sources": {
+        "backend/Actions/MoreConvertWishlist/MoreConvertWishlistAction.php": [
+            "backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php"
+        ],
+        "backend/Actions/MoreConvertWishlist/MoreConvertWishlistHelper.php": [
+            "backend/Actions/MoreConvertWishlist/MoreConvertWishlistController.php"
+        ],
+        "backend/Actions/MoreConvertWishlist/MoreConvertWishlistService.php": [
+            "backend/Actions/MoreConvertWishlist/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistAction",
+            "origin": "created",
+            "path": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/MoreConvertWishlist/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\RecordApiHelper",
+                "to": "backend/Actions/MoreConvertWishlist/MoreConvertWishlistService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\MoreConvertWishlist\\MoreConvertWishlistService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "MoreConvertWishlist"
+    ]
+}

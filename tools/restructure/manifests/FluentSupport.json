@@ -1,0 +1,374 @@
+{
+    "callGraph": [],
+    "constructorCopy": null,
+    "controller": {
+        "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController",
+        "constructorRequiredParams": 0,
+        "executeStatic": false,
+        "extends": null,
+        "lines": 82,
+        "modifiers": [],
+        "path": "backend/Actions/FluentSupport/FluentSupportController.php"
+    },
+    "fileOps": [
+        {
+            "from": "backend/Actions/FluentSupport/FluentSupportController.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FluentSupport/FluentSupportHelper.php"
+        },
+        {
+            "op": "create",
+            "path": "backend/Actions/FluentSupport/FluentSupportAction.php"
+        },
+        {
+            "from": "backend/Actions/FluentSupport/RecordApiHelper.php",
+            "op": "git-mv",
+            "to": "backend/Actions/FluentSupport/FluentSupportService.php"
+        },
+        {
+            "op": "edit",
+            "path": "backend/Actions/FluentSupport/Routes.php"
+        }
+    ],
+    "flags": {
+        "T1": [],
+        "T2": {
+            "boundClasses": [
+                "BitApps\\IntegrationsPro\\Actions\\FluentSupport\\FluentSupportService"
+            ],
+            "hooks": "backend/Actions/FluentSupport/Hooks.php"
+        },
+        "T3": false,
+        "T4": [],
+        "T5": [],
+        "T6": [],
+        "bareClassReferences": [],
+        "bindingsToMissingMethods": [],
+        "classNameStrings": [],
+        "classNameValues": [],
+        "coupledWith": [],
+        "docblockMentions": [],
+        "getClassStrings": [],
+        "instanceofSelf": [],
+        "linesPerTarget": {
+            "action": 22,
+            "helper": 40
+        },
+        "newAcrossSplit": [],
+        "ownClassNameStrings": [],
+        "proReferences": [],
+        "referencesToNonPublicMembers": [],
+        "referencesToUndeclaredMembers": [],
+        "sharedMembers": [],
+        "thisEscapes": [],
+        "unreachable": [],
+        "unresolvedMemberReferences": [],
+        "visibilityWidenings": []
+    },
+    "hooks": [],
+    "integration": "FluentSupport",
+    "memberMap": {
+        "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController": {
+            "method:execute": [
+                "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportAction"
+            ],
+            "method:getallbusinessinboxes": [
+                "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper"
+            ],
+            "method:getallsupportstaff": [
+                "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper"
+            ],
+            "method:getcustomfields": [
+                "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper"
+            ]
+        },
+        "BitApps\\Integrations\\Actions\\FluentSupport\\RecordApiHelper": {
+            "*": [
+                "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportService"
+            ]
+        }
+    },
+    "members": [
+        {
+            "key": "method:getcustomfields",
+            "kind": "method",
+            "lines": [
+                16,
+                31
+            ],
+            "names": [
+                "getCustomFields"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallsupportstaff",
+            "kind": "method",
+            "lines": [
+                33,
+                44
+            ],
+            "names": [
+                "getAllSupportStaff"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:getallbusinessinboxes",
+            "kind": "method",
+            "lines": [
+                46,
+                57
+            ],
+            "names": [
+                "getAllBusinessInboxes"
+            ],
+            "placement": "helper",
+            "reachedFrom": [
+                "route"
+            ],
+            "reason": "route handler",
+            "static": false,
+            "visibility": "public"
+        },
+        {
+            "key": "method:execute",
+            "kind": "method",
+            "lines": [
+                59,
+                80
+            ],
+            "names": [
+                "execute"
+            ],
+            "placement": "action",
+            "reachedFrom": [
+                "execute"
+            ],
+            "reason": "execute",
+            "static": false,
+            "visibility": "public"
+        }
+    ],
+    "namespace": "BitApps\\Integrations\\Actions\\FluentSupport",
+    "references": [
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\RecordApiHelper",
+            "file": "backend/Actions/FluentSupport/FluentSupportController.php",
+            "kind": "new",
+            "line": 68,
+            "member": "method:__construct",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportService",
+            "text": "RecordApiHelper"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController",
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "kind": "import",
+            "line": 7,
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "text": "use BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController;"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController",
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "kind": "callable",
+            "line": 10,
+            "member": "method:getcustomfields",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "text": "FluentSupportController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController",
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "kind": "callable",
+            "line": 11,
+            "member": "method:getallsupportstaff",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "text": "FluentSupportController"
+        },
+        {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController",
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "kind": "callable",
+            "line": 12,
+            "member": "method:getallbusinessinboxes",
+            "rewriteTo": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "text": "FluentSupportController"
+        }
+    ],
+    "refusals": [],
+    "refused": false,
+    "renames": {
+        "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportController": [
+            "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportAction",
+            "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper"
+        ],
+        "BitApps\\Integrations\\Actions\\FluentSupport\\RecordApiHelper": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportService"
+    },
+    "routes": [
+        {
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "line": 10,
+            "method": "getCustomFields",
+            "route": "fluent_support_get_custom_fields",
+            "target": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "line": 11,
+            "method": "getAllSupportStaff",
+            "route": "fluent_support_get_all_support_staff",
+            "target": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "verb": "post"
+        },
+        {
+            "file": "backend/Actions/FluentSupport/Routes.php",
+            "line": 12,
+            "method": "getAllBusinessInboxes",
+            "route": "fluent_support_get_all_business_inboxes",
+            "target": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "verb": "post"
+        }
+    ],
+    "schema": 1,
+    "serviceMembers": {
+        "backend/Actions/FluentSupport/RecordApiHelper.php": [
+            {
+                "key": "property:_integrationID",
+                "kind": "property",
+                "lines": [
+                    19,
+                    19
+                ],
+                "static": false,
+                "visibility": "private"
+            },
+            {
+                "key": "method:__construct",
+                "kind": "method",
+                "lines": [
+                    21,
+                    24
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:generatereqdatafromfieldmap",
+                "kind": "method",
+                "lines": [
+                    26,
+                    45
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createcustomer",
+                "kind": "method",
+                "lines": [
+                    47,
+                    63
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:getcustomerexits",
+                "kind": "method",
+                "lines": [
+                    65,
+                    70
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:createticketbyexistcustomer",
+                "kind": "method",
+                "lines": [
+                    72,
+                    117
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:execute",
+                "kind": "method",
+                "lines": [
+                    119,
+                    151
+                ],
+                "static": false,
+                "visibility": "public"
+            },
+            {
+                "key": "method:uploadticketfiles",
+                "kind": "method",
+                "lines": [
+                    153,
+                    165
+                ],
+                "static": true,
+                "visibility": "private"
+            }
+        ]
+    },
+    "sourceHashes": {
+        "backend/Actions/FluentSupport/FluentSupportController.php": "c0423030b7149e97f26bc6818d46e09171aa48bc",
+        "backend/Actions/FluentSupport/RecordApiHelper.php": "56bdead8bcec455c6d8570a4403a0f593d5b8f63",
+        "backend/Actions/FluentSupport/Routes.php": "6d54f13fa4a8a9820e59f215b39c065f8c06fe8e"
+    },
+    "sources": {
+        "backend/Actions/FluentSupport/FluentSupportAction.php": [
+            "backend/Actions/FluentSupport/FluentSupportController.php"
+        ],
+        "backend/Actions/FluentSupport/FluentSupportHelper.php": [
+            "backend/Actions/FluentSupport/FluentSupportController.php"
+        ],
+        "backend/Actions/FluentSupport/FluentSupportService.php": [
+            "backend/Actions/FluentSupport/RecordApiHelper.php"
+        ]
+    },
+    "targets": {
+        "action": {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportAction",
+            "origin": "created",
+            "path": "backend/Actions/FluentSupport/FluentSupportAction.php"
+        },
+        "helper": {
+            "class": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportHelper",
+            "origin": "git mv of the Controller",
+            "path": "backend/Actions/FluentSupport/FluentSupportHelper.php"
+        },
+        "services": [
+            {
+                "from": "backend/Actions/FluentSupport/RecordApiHelper.php",
+                "fromClass": "BitApps\\Integrations\\Actions\\FluentSupport\\RecordApiHelper",
+                "to": "backend/Actions/FluentSupport/FluentSupportService.php",
+                "toClass": "BitApps\\Integrations\\Actions\\FluentSupport\\FluentSupportService"
+            }
+        ]
+    },
+    "tests": [
+        "T2"
+    ],
+    "unit": [
+        "FluentSupport"
+    ]
+}
