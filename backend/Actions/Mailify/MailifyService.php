@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\Mailify;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class MailifyService
 {
     private $_integrationID;
 
