@@ -17,8 +17,6 @@ backend/Actions/AntApps/AntAppsController.php
 backend/Actions/AsgarosForum/AsgarosForumController.php
 backend/Actions/AsgarosForum/RecordApiHelper.php
 backend/Actions/AutomatorWP/AutomatorWPController.php
-backend/Actions/Autonami/AutonamiController.php
-backend/Actions/Autonami/RecordApiHelper.php
 backend/Actions/B2BKing/B2BKingController.php
 backend/Actions/B2BKing/RecordApiHelper.php
 backend/Actions/BadgeOS/BadgeOSController.php

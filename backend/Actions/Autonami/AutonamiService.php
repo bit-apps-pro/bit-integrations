@@ -6,7 +6,7 @@ use BitApps\Integrations\Log\LogHandler;
 use BWF_Contacts;
 use BWFCRM_Contact;
 
-class RecordApiHelper
+class AutonamiService
 {
     private $_integrationID;
 
