@@ -3,9 +3,8 @@
 namespace BitApps\Integrations\Actions\B2BKing;
 
 use BitApps\Integrations\Core\Util\Post;
-use WP_Error;
 
-class B2BKingController
+class B2BKingHelper
 {
     public static function isExists()
     {
@@ -40,26 +39,5 @@ class B2BKingController
         );
 
         wp_send_json_success(['groups' => $groups]);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map;
-        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : (object) [];
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $b2bKingResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
-
-        if (is_wp_error($b2bKingResponse)) {
-            return $b2bKingResponse;
-        }
-
-        return $b2bKingResponse;
     }
 }
