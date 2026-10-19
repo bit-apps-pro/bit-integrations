@@ -6,21 +6,10 @@
 
 namespace BitApps\Integrations\Actions\Demio;
 
-use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Core\Util\HttpHelper;
-use WP_Error;
 
-class DemioController
+class DemioHelper
 {
-    public static array $authConfig = [
-        'authType' => AuthorizationType::API_KEY,
-        'slug'     => 'demio',
-        'fields'   => [
-            'api_key'    => 'value',
-            'api_secret' => 'api_secret',
-        ],
-    ];
-
     protected $_defaultHeader;
 
     protected $_apiEndpoint;
@@ -74,30 +63,6 @@ class DemioController
         } else {
             wp_send_json_error(__('Events fetching failed', 'bit-integrations'), 400);
         }
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $apiKey = $integrationDetails->api_key;
-        $apiSecret = $integrationDetails->api_secret;
-        $fieldMap = $integrationDetails->field_map;
-        $actionName = $integrationDetails->actionName;
-
-        if (empty($fieldMap) || empty($apiSecret) || empty($actionName) || empty($apiKey)) {
-            // translators: %s: Placeholder value
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Demio'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId, $apiSecret, $apiKey);
-        $demioApiResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $actionName);
-
-        if (is_wp_error($demioApiResponse)) {
-            return $demioApiResponse;
-        }
-
-        return $demioApiResponse;
     }
 
     private function checkValidation($fieldsRequestParams, $customParam = '**')

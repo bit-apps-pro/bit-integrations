@@ -9,7 +9,7 @@ namespace BitApps\Integrations\Actions\Demio;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class DemioService
 {
     private $integrationDetails;
 
