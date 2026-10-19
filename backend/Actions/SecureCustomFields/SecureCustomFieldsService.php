@@ -17,7 +17,7 @@ use BitApps\Integrations\Log\LogHandler;
  * Free only dispatches the action through a filter; the actual work is done in
  * Bit Integrations Pro (SecureCustomFieldsRecordHelper).
  */
-class RecordApiHelper
+class SecureCustomFieldsService
 {
     private $_integrationID;
 
@@ -33,7 +33,7 @@ class RecordApiHelper
     {
         $mainAction = $this->_integrationDetails->mainAction ?? '';
 
-        if (!SecureCustomFieldsController::isPluginActive()) {
+        if (!SecureCustomFieldsHelper::isPluginActive()) {
             $response = [
                 'success' => false,
                 'message' => __('Secure Custom Fields is not installed or activated', 'bit-integrations'),
