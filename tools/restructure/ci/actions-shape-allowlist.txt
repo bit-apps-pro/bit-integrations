@@ -72,8 +72,6 @@ backend/Actions/LMFWC/LMFWCController.php
 backend/Actions/LMFWC/RecordApiHelper.php
 backend/Actions/LearnDash/LearnDashController.php
 backend/Actions/LearnDash/RecordApiHelper.php
-backend/Actions/LifterLms/LifterLmsController.php
-backend/Actions/LifterLms/RecordApiHelper.php
 backend/Actions/Line/LineController.php
 backend/Actions/Line/RecordApiHelper.php
 backend/Actions/LionDesk/LionDeskController.php

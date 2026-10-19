@@ -8,7 +8,7 @@ use LLMS_Course;
 use LLMS_Section;
 use WP_Error;
 
-class RecordApiHelper
+class LifterLmsService
 {
     private $integrationID;
 

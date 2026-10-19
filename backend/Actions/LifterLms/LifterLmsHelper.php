@@ -4,9 +4,8 @@ namespace BitApps\Integrations\Actions\LifterLms;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Post;
-use WP_Error;
 
-class LifterLmsController
+class LifterLmsHelper
 {
     public static function pluginActive($option = null)
     {
@@ -108,32 +107,5 @@ class LifterLmsController
         wp_cache_set($cache_key, $allMembership, $cache_group, 10 * MINUTE_IN_SECONDS);
 
         return $allMembership;
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $mainAction = $integrationDetails->mainAction;
-        if (
-            empty($integId)
-            || empty($mainAction)
-        ) {
-            // translators: %s: Integration name
-            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('Some important info are missing those are required for %s', 'bit-integrations'), 'LifterLms'));
-        }
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $lifterLmsApiResponse = $recordApiHelper->execute(
-            $mainAction,
-            $fieldValues,
-            $integrationDetails,
-            $integrationData
-        );
-
-        if (is_wp_error($lifterLmsApiResponse)) {
-            return $lifterLmsApiResponse;
-        }
-
-        return $lifterLmsApiResponse;
     }
 }
