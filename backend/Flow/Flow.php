@@ -693,7 +693,7 @@ final class Flow
      * This MUST stay the single normalizer used by both the capability gate
      * (isCustomActionFlowDetails) and the dispatcher (execute). When the gate compared the
      * raw string while execute() normalized it, "Custom Action" and "customAction" both
-     * skipped the administrator check yet still resolved to CustomActionController — which
+     * skipped the administrator check yet still resolved to CustomActionAction — which
      * include()s a caller-supplied path.
      *
      * @param null|string $type

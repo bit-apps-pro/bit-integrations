@@ -329,14 +329,14 @@ wp_cache_set($cache_key, $data, $cache_group, 10 * MINUTE_IN_SECONDS);
 ```
 
 **Source Files:**
-- `backend/Actions/PaidMembershipPro/RecordApiHelper.php`
-- `backend/Actions/PaidMembershipPro/PaidMembershipProController.php`
-- `backend/Actions/MailMint/MailMintController.php`
-- `backend/Actions/LifterLms/LifterLmsController.php`
-- `backend/Actions/GamiPress/GamiPressController.php`
-- `backend/Actions/BuddyBoss/RecordApiHelper.php`
-- `backend/Actions/BuddyBoss/BuddyBossController.php`
-- `backend/Actions/Affiliate/AffiliateController.php`
+- `backend/Actions/PaidMembershipPro/PaidMembershipProService.php`
+- `backend/Actions/PaidMembershipPro/PaidMembershipProHelper.php`
+- `backend/Actions/MailMint/MailMintHelper.php`
+- `backend/Actions/LifterLms/LifterLmsHelper.php`
+- `backend/Actions/GamiPress/GamiPressHelper.php`
+- `backend/Actions/BuddyBoss/BuddyBossService.php`
+- `backend/Actions/BuddyBoss/BuddyBossHelper.php`
+- `backend/Actions/Affiliate/AffiliateHelper.php`
 - `backend/Triggers/FallbackTrigger/TriggerFallback.php`
 - `backend/Core/Util/Multisite.php`
 
