@@ -21,6 +21,10 @@ const USAGE = <<<'TXT'
     on the new file and on its source files at base, and fails when a fixer fires
     on the new file that fired on none of its sources.
 
+    A new fixer that stops firing once the new file is re-checked with its allowed
+    fixers disabled is a follow-on edit of those fixers and passes (global_namespace_import
+    adding the first use statement of a file trips blank_line_after_namespace, say).
+
     Sources of a file, first match wins:
       1. "sources" in a manifest: {"<new path>": ["<base path>", ...]}; a modified file
          (an existing Helper that received members, say) always counts itself at base too
@@ -92,6 +96,7 @@ function main(array $argv): int
 
         $baseApplied = runFixer($repo, $fixer, $head, $base, $sourcePaths, $scratch . '/base');
         $headApplied = runFixer($repo, $fixer, $head, $head, $headPaths, $scratch . '/head');
+        $followOn = findFollowOnFixers($repo, $fixer, $head, $plan, $baseApplied, $headApplied, $scratch);
     } catch (RuntimeException $exception) {
         fwrite(STDERR, $exception->getMessage() . "\n");
 
@@ -102,7 +107,7 @@ function main(array $argv): int
         }
     }
 
-    return report($plan, $baseApplied, $headApplied, $options['verbose']);
+    return report($plan, $baseApplied, $headApplied, $followOn, $options['verbose']);
 }
 
 function parseArguments(array $arguments): array
@@ -382,7 +387,7 @@ function makeScratchDirectory(): string
     return $directory;
 }
 
-function runFixer(string $repo, string $fixer, string $configRef, string $contentRef, array $paths, string $root): array
+function runFixer(string $repo, string $fixer, string $configRef, string $contentRef, array $paths, string $root, array $disabled = []): array
 {
     if ($paths === []) {
         return [];
@@ -392,8 +397,14 @@ function runFixer(string $repo, string $fixer, string $configRef, string $conten
         mkdir($root . '/' . $folder, 0700, true);
     }
 
-    file_put_contents($root . '/.php-cs-fixer.php', git($repo, ['show', $configRef . ':.php-cs-fixer.php']));
+    $config = $root . '/.php-cs-fixer.php';
+    file_put_contents($config, git($repo, ['show', $configRef . ':.php-cs-fixer.php']));
     file_put_contents($root . '/composer.json', git($repo, ['show', $configRef . ':composer.json']));
+
+    if ($disabled !== []) {
+        $config = $root . '/.php-cs-fixer.disabled.php';
+        file_put_contents($config, "<?php\n\n\$config = require __DIR__ . '/.php-cs-fixer.php';\n\nreturn \$config->setRules(array_merge(\$config->getRules(), " . var_export(array_fill_keys($disabled, false), true) . "));\n");
+    }
 
     foreach ($paths as $path) {
         $target = $root . '/' . $path;
@@ -409,7 +420,7 @@ function runFixer(string $repo, string $fixer, string $configRef, string $conten
 
     foreach (array_chunk($paths, 100) as $chunk) {
         $command = array_merge(
-            [PHP_BINARY, $fixer, 'fix', '--dry-run', '--format=json', '-v', '--using-cache=no', '--no-interaction', '--config=' . $root . '/.php-cs-fixer.php'],
+            [PHP_BINARY, $fixer, 'fix', '--dry-run', '--format=json', '-v', '--using-cache=no', '--no-interaction', '--config=' . $config],
             $chunk
         );
         [$code, $stdout, $stderr] = run($command, $root);
@@ -440,28 +451,61 @@ function runFixer(string $repo, string $fixer, string $configRef, string $conten
     return $applied;
 }
 
-function report(array $plan, array $baseApplied, array $headApplied, bool $verbose): int
+function allowedFixers(array $sources, array $baseApplied): array
+{
+    return array_values(array_unique(array_merge([], ...array_map(fn (string $source): array => $baseApplied[$source] ?? [], $sources))));
+}
+
+function findFollowOnFixers(string $repo, string $fixer, string $head, array $plan, array $baseApplied, array $headApplied, string $scratch): array
+{
+    $followOn = [];
+    $run = 0;
+
+    foreach ($plan as $path => $sources) {
+        $allowed = allowedFixers($sources, $baseApplied);
+        $fired = $headApplied[$path] ?? [];
+        $extra = array_values(array_diff($fired, $allowed));
+        $disabled = array_values(array_intersect($fired, $allowed));
+
+        if ($extra === [] || $disabled === []) {
+            continue;
+        }
+
+        $rerun = runFixer($repo, $fixer, $head, $head, [$path], $scratch . '/follow-on-' . $run++, $disabled)[$path];
+        $vanished = array_values(array_diff($extra, $rerun));
+
+        if ($vanished !== []) {
+            sort($vanished, SORT_STRING);
+            $followOn[$path] = $vanished;
+        }
+    }
+
+    return $followOn;
+}
+
+function report(array $plan, array $baseApplied, array $headApplied, array $followOn, bool $verbose): int
 {
     $violations = 0;
     $lines = [];
 
     foreach ($plan as $path => $sources) {
-        $allowed = array_unique(array_merge([], ...array_map(fn (string $source): array => $baseApplied[$source] ?? [], $sources)));
-        $extra = array_values(array_diff($headApplied[$path] ?? [], $allowed));
+        $allowed = allowedFixers($sources, $baseApplied);
+        $extra = array_values(array_diff($headApplied[$path] ?? [], $allowed, $followOn[$path] ?? []));
         sort($extra, SORT_STRING);
 
         if ($extra !== []) {
             $violations++;
-        } elseif (!$verbose) {
+        } elseif (!$verbose && !isset($followOn[$path])) {
             continue;
         }
 
         $lines[] = \sprintf(
-            "  %s %s\n    head: %s\n    sources: %s%s",
+            "  %s %s\n    head: %s\n    sources: %s%s%s",
             $extra === [] ? 'ok' : 'FAIL',
             $path,
             implode(', ', $headApplied[$path] ?? []) ?: '-',
             implode(', ', array_map(fn (string $source): string => $source . ' [' . (implode(', ', $baseApplied[$source] ?? []) ?: '-') . ']', $sources)),
+            isset($followOn[$path]) ? "\n    follow-on fixers: " . implode(', ', $followOn[$path]) : '',
             $extra === [] ? '' : "\n    new fixers: " . implode(', ', $extra)
         );
     }
