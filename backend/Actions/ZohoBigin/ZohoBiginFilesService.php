@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\FileSystem;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-final class FilesApiHelper
+final class ZohoBiginFilesService
 {
     private $_defaultHeader;
 

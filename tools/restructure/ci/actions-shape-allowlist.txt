@@ -100,9 +100,6 @@ backend/Actions/WpSimpleBookingCalendar/WpSimpleBookingCalendarController.php
 backend/Actions/Zapier/ZapierController.php
 backend/Actions/ZendeskSupport/RecordApiHelper.php
 backend/Actions/ZendeskSupport/ZendeskSupportController.php
-backend/Actions/ZohoBigin/FilesApiHelper.php
-backend/Actions/ZohoBigin/RecordApiHelper.php
-backend/Actions/ZohoBigin/ZohoBiginController.php
 backend/Actions/ZohoCRM/FilesApiHelper.php
 backend/Actions/ZohoCRM/MetaDataApiHelper.php
 backend/Actions/ZohoCRM/RecordApiHelper.php

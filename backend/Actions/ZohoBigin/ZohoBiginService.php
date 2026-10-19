@@ -14,7 +14,7 @@ use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-class RecordApiHelper
+class ZohoBiginService
 {
     private $_defaultHeader;
 
@@ -103,7 +103,7 @@ class RecordApiHelper
         }
 
         if (isset($actions->attachments)) {
-            $filesApiHelper = new FilesApiHelper($this->_tokenDetails);
+            $filesApiHelper = new ZohoBiginFilesService($this->_tokenDetails);
             $attachments = explode(',', $actions->attachments);
             $fileFound = 0;
             $responseType = 'success';
@@ -154,7 +154,7 @@ class RecordApiHelper
         }
 
         if (isset($actions->photo)) {
-            $filesApiHelper = new FilesApiHelper($this->_tokenDetails);
+            $filesApiHelper = new ZohoBiginFilesService($this->_tokenDetails);
             if (isset($fieldValues[$actions->photo])) {
                 $attachmentApiResponse = $filesApiHelper->uploadFiles($fieldValues[$actions->photo], $module, $recordID, true);
                 if (\is_object($attachmentApiResponse) && isset($attachmentApiResponse->status) && $attachmentApiResponse->status === 'error') {

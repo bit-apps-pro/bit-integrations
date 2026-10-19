@@ -4,12 +4,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\ZohoBigin\ZohoBiginController;
+use BitApps\Integrations\Actions\ZohoBigin\ZohoBiginHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('zbigin_refresh_modules', [ZohoBiginController::class, 'refreshModules']);
-Route::post('zbigin_refresh_playouts', [ZohoBiginController::class, 'refreshPLayouts']);
-Route::post('zbigin_refresh_related_lists', [ZohoBiginController::class, 'refreshRelatedModules']);
-Route::post('zbigin_refresh_fields', [ZohoBiginController::class, 'getFields']);
-Route::post('zbigin_refresh_tags', [ZohoBiginController::class, 'getTagList']);
-Route::post('zbigin_refresh_users', [ZohoBiginController::class, 'getUsers']);
+Route::post('zbigin_refresh_modules', [ZohoBiginHelper::class, 'refreshModules']);
+Route::post('zbigin_refresh_playouts', [ZohoBiginHelper::class, 'refreshPLayouts']);
+Route::post('zbigin_refresh_related_lists', [ZohoBiginHelper::class, 'refreshRelatedModules']);
+Route::post('zbigin_refresh_fields', [ZohoBiginHelper::class, 'getFields']);
+Route::post('zbigin_refresh_tags', [ZohoBiginHelper::class, 'getTagList']);
+Route::post('zbigin_refresh_users', [ZohoBiginHelper::class, 'getUsers']);
