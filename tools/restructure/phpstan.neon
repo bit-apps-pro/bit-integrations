@@ -34,3 +34,6 @@ parameters:
         - '#Call to an undefined (static )?method (?!BitApps\\Integrations\\).*::.*\(\)\.$#'
         - '#Access to an undefined (static )?property (?!BitApps\\Integrations\\).*::\$.*\.$#'
         - '#has invalid (return )?type (?!BitApps\\Integrations\\).*\.$#'
+        -
+            identifier: property.onlyWritten
+            path: ../../backend/Actions/*/*Action.php
