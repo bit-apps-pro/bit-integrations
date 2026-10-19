@@ -9,7 +9,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { handleInput } from './GoogleSheetCommonFunc'
+import { handleInput, isActionConfigured } from './GoogleSheetCommonFunc'
 import GoogleSheetIntegLayout from './GoogleSheetIntegLayout'
 import GoogleSheetAuthorization from './GoogleSheetAuthorization'
 
@@ -88,11 +88,7 @@ function EditGoogleSheet({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={
-          sheetConf.spreadsheetId === '' ||
-          sheetConf.worksheetName === '' ||
-          sheetConf.field_map.length < 1
-        }
+        disabled={!isActionConfigured(sheetConf)}
         isLoading={isLoading}
         dataConf={sheetConf}
         setDataConf={setSheetConf}

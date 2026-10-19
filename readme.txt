@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.6
+Stable tag: 2.10.8
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,53 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.8 =
+_Release Date - 12th October 2026_
+
+- **Bug Fixes**
+ - Zoom: Failed Create Attendee and Create User actions were logged as successful. Failures now show the error from Zoom.
+ - Zoom: Delete Attendee and Delete User always reported success and only checked the first 30 records. They now search every page and report an error when no registrant or user has that email.
+ - Zoom: A field map row with a form field but no Zoom field could be saved. Both columns are now required.
+ - PerfexCRM: The Customer and Assigned By dropdowns stayed empty. Customers, leads and staff now load from every page.
+ - PerfexCRM: Projects are now always linked to a customer. The "Project Related With" option is removed, because PerfexCRM cannot link a project to a lead.
+
+= 2.10.7 =
+_Release Date - 6th October 2026_
+
+- **New Triggers**
+ - Bookings And Appointments For WooCommerce: 19 new events added (Pro).
+ - Charitable: 18 new events added (Pro).
+ - ElementsKit: 13 new events added (Pro).
+ - WP Simple Booking Calendar: 12 new events added (Pro).
+ - Quiz And Survey Master (QSM): 10 new events added (Pro).
+ - Rox Appointment Booking: 10 new events added (Pro).
+ - Quiz Maker: 3 new events added (Pro).
+
+- **New Actions**
+ - Rox Appointment Booking: 25 new events added (Pro).
+ - Quiz Maker: 22 new events added (Pro).
+ - WP Simple Booking Calendar: 18 new events added (Pro).
+ - Bookings And Appointments For WooCommerce: 14 new events added (Pro).
+ - Charitable: 12 new events added (Pro).
+ - Google Sheets: 9 new events added (Pro).
+ - ElementsKit: 8 new events added (Pro).
+ - Flodesk: 8 new events added (Pro).
+ - Quiz And Survey Master (QSM): 8 new events added (Pro).
+
+- **New Features**
+ - Paid Memberships Pro: Triggers now include the full member data - membership dates, billing and order details, subscription status and PMPro user fields such as Member Directory Entry (Pro).
+ - License: New Reconnect button refreshes your license status after a renewal, without disconnecting the site (Pro).
+
+- **Security Fixes**
+ - Timeline: Re-executing a log now runs the flow as the user who made the original submission, not as the administrator who presses Re-execute.
+ - BuddyBoss: Notification content and links are now sanitized, so HTML from a form submission can no longer run scripts in a user's notifications.
+
+- **Bug Fixes**
+ - Zoom: The Zoom screen crashed after you selected a meeting.
+ - Google Sheets: When Google returned an error, the spreadsheet and worksheet lists stayed empty with no reason shown. The error message now appears.
+ - License: Licenses showed as expired one day early (Pro).
+ - License: A failed disconnect showed "Unknown error occurred" instead of the real error (Pro).
 
 = 2.10.6 =
 _Release Date - 27th September 2026_

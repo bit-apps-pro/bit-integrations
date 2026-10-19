@@ -657,7 +657,8 @@ const tutorialLinks = {
   },
   teamsForWooCommerceMemberships: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/teams-for-woocommerce-memberships-integration-as-an-action/'
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/teams-for-woocommerce-memberships-integration-as-an-action/'
   },
   wpcafe: {
     youTubeLink: '',
@@ -700,9 +701,19 @@ const tutorialLinks = {
     docLink:
       'https://bit-integrations.com/wp-docs/actions/webba-booking-calendar-integration-as-an-action/'
   },
+  bookingsAndAppointmentsForWoocommerce: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/bookings-and-appointments-for-woocommerce-integration-as-an-action/'
+  },
   mainWP: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mainwp-integration-as-an-action/'
+  },
+  wpSimpleBookingCalendar: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/wp-simple-booking-calendar-integration-as-an-action/'
   },
   wsms: {
     youTubeLink: '',
@@ -738,6 +749,15 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
   },
+  roxAppointmentBooking: {
+    youTubeLink: '',
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/rox-appointment-booking-integration-as-an-action/'
+  },
+  flodesk: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/flodesk-integration-as-an-action/'
+  },
   pointics: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/pointics-integration-as-an-action/'
@@ -768,7 +788,8 @@ const tutorialLinks = {
   },
   ultimateAffiliatePro: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
+    docLink:
+      'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
   },
   bookly: {
     youTubeLink: '',
@@ -785,6 +806,10 @@ const tutorialLinks = {
   wpErp: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wp-erp-integration-as-an-action/'
+  },
+  quizMaker: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/quiz-maker-integration-as-an-action/'
   }
 }
 export default tutorialLinks

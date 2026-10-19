@@ -14,7 +14,7 @@ export const handleInput = (
   error,
   setError
 ) => {
-  let newConf = { ...zoomConf }
+  const newConf = { ...zoomConf }
   if (isNew) {
     const rmError = { ...error }
     rmError[e.target.name] = ''
@@ -24,16 +24,6 @@ export const handleInput = (
 
   if (e.target.name === 'id') {
     refreshFields(newConf, setZoomConf, setIsLoading, setSnackbar)
-  }
-  switch (e.target.name) {
-    case 'spreadsheetId':
-      newConf = spreadSheetChange(newConf, formID, setZoomConf, setIsLoading, setSnackbar)
-      break
-    case 'worksheetName':
-      newConf = worksheetChange(newConf, formID, setZoomConf, setIsLoading, setSnackbar)
-      break
-    default:
-      break
   }
   setZoomConf({ ...newConf })
 }
@@ -113,10 +103,14 @@ export const refreshFields = (zoomConf, setZoomConf, setIsLoading, setSnackbar) 
           show: true,
           msg: __('Zoom fields refreshed', 'bit-integrations')
         })
+        return
       }
       setSnackbar({
         show: true,
-        msg: result?.data ? result?.data : __('Zoom fields refreshed failed!', 'bit-integrations')
+        msg:
+          typeof result?.data === 'string'
+            ? result.data
+            : __('Zoom fields refreshed failed!', 'bit-integrations')
       })
     })
     .catch(() => setIsLoading(false))
@@ -124,7 +118,7 @@ export const refreshFields = (zoomConf, setZoomConf, setIsLoading, setSnackbar) 
 
 export const checkMappedFields = zoomConf => {
   const mappedFleld = zoomConf.field_map
-    ? zoomConf.field_map.filter(mapped => !mapped.formField && !mapped.zoomConf)
+    ? zoomConf.field_map.filter(mapped => !mapped.formField || !mapped.zoomField)
     : []
   if (mappedFleld.length > 0) {
     return false

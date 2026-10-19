@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuddyBoss Integration
+ * BuddyBoss Integration.
  */
 
 namespace BitApps\Integrations\Actions\BuddyBoss;
@@ -26,7 +26,7 @@ class BuddyBossController
             $cache_group = Config::VAR_PREFIX;
             $groups = wp_cache_get($cache_key, $cache_group);
 
-            if (false === $groups) {
+            if ($groups === false) {
                 $groups_table = esc_sql($wpdb->prefix . 'bp_groups');
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- Reading BuddyBoss groups table directly; static table name.
                 $groups = $wpdb->get_results('SELECT id, name FROM ' . $groups_table);
@@ -48,7 +48,7 @@ class BuddyBossController
             $cache_group = Config::VAR_PREFIX;
             $users = wp_cache_get($cache_key, $cache_group);
 
-            if (false === $users) {
+            if ($users === false) {
                 $users_table = esc_sql($wpdb->users);
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- Reading users table directly for BuddyBoss user selection.
                 $users = $wpdb->get_results('SELECT ID, display_name FROM ' . $users_table);
@@ -113,7 +113,7 @@ class BuddyBossController
 
     public static function registerComponents($component_names, $active_components)
     {
-        $component_names = ! \is_array($component_names) ? [] : $component_names;
+        $component_names = !\is_array($component_names) ? [] : $component_names;
         $component_names[] = 'bit-integrations';
 
         return $component_names;
@@ -122,12 +122,13 @@ class BuddyBossController
     public static function notificationForUser($content, $item_id, $secondary_item_id, $action_item_count, $format, $component_action_name, $component_name, $id)
     {
         if (Config::withPrefix('send_notification') === $component_action_name) {
-            $notification_content = bp_notifications_get_meta($id, 'uo_notification_content');
-            $notification_link = bp_notifications_get_meta($id, 'uo_notification_link');
+            $notification_content = self::sanitizeNotificationContent(bp_notifications_get_meta($id, 'uo_notification_content'));
+            $notification_link = esc_url(bp_notifications_get_meta($id, 'uo_notification_link'));
 
-            if ('string' === $format) {
+            if ($format === 'string') {
                 return $notification_content;
-            } elseif ('object' === $format) {
+            }
+            if ($format === 'object') {
                 return [
                     'text' => $notification_content,
                     'link' => $notification_link,
@@ -136,6 +137,11 @@ class BuddyBossController
         }
 
         return $content;
+    }
+
+    public static function sanitizeNotificationContent($content)
+    {
+        return str_replace('\\', '&#92;', wp_kses_post((string) $content));
     }
 
     public function execute($integrationData, $fieldValues)

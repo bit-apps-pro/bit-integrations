@@ -336,8 +336,8 @@ class RecordApiHelper
         $data = [
             'group_id'             => $group_id,
             'friend_id'            => $friendId,
-            'notification_content' => do_shortcode($finalData['notification_content']),
-            'notification_link'    => do_shortcode($finalData['notification_link']),
+            'notification_content' => BuddyBossController::sanitizeNotificationContent(do_shortcode($finalData['notification_content'])),
+            'notification_link'    => esc_url_raw(do_shortcode($finalData['notification_link'] ?? '')),
         ];
 
         if (\function_exists('groups_get_group_members')) {
@@ -480,13 +480,15 @@ class RecordApiHelper
             );
 
             $data = [
-                'notification_content' => do_shortcode($finalData['notification_content']),
-                'notification_link'    => do_shortcode($finalData['notification_link']),
+                'notification_content' => BuddyBossController::sanitizeNotificationContent(do_shortcode($finalData['notification_content'])),
+                'notification_link'    => esc_url_raw(do_shortcode($finalData['notification_link'] ?? '')),
             ];
 
             if (is_wp_error($notification_id)) {
                 return false;
             }
+
+            $notification_content = $data['notification_content'];
             if (!empty($data['notification_link'])) {
                 $notification_content = '<a href="' . esc_attr(esc_url($data['notification_link'])) . '" title="' . esc_attr(wp_strip_all_tags($data['notification_content'])) . '">' . ($data['notification_content']) . '</a>';
             }

@@ -3,7 +3,6 @@ import { $appConfigState } from '../../../GlobalStates'
 import TrashIcn from '../../../Icons/TrashIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
-import MtInput from '../../Utilities/MtInput'
 import {
   addFieldMap,
   delFieldMap,
@@ -12,9 +11,20 @@ import {
 } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import TagifyInput from '../../Utilities/TagifyInput'
 
-export default function GoogleSheetFieldMap({ i, formFields, field, sheetConf, setSheetConf }) {
+export default function GoogleSheetFieldMap({
+  i,
+  formFields,
+  field,
+  targetFields,
+  sheetConf,
+  setSheetConf
+}) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
+  const requiredFields = targetFields.filter(target => target.required)
+  const nonRequiredFields = targetFields.filter(target => !target.required)
+  const requiredField = requiredFields[i]
+
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
       <div className="flx integ-fld-wrp">
@@ -60,36 +70,40 @@ export default function GoogleSheetFieldMap({ i, formFields, field, sheetConf, s
         <select
           className="btcd-paper-inp"
           name="googleSheetField"
-          value={field.googleSheetField || ''}
+          value={requiredField ? requiredField.value : field.googleSheetField || ''}
+          disabled={Boolean(requiredField)}
           onChange={ev => handleFieldMapping(ev, i, sheetConf, setSheetConf)}>
           <option value="">{__('Select Field', 'bit-integrations')}</option>
-          {sheetConf.default?.headers?.[sheetConf.spreadsheetId]?.[sheetConf.worksheetName]?.[
-            sheetConf.headerRow
-          ] &&
-            Object.values(
-              sheetConf.default.headers[sheetConf.spreadsheetId][sheetConf.worksheetName][
-                sheetConf.headerRow
-              ]
-            ).map((header, indx) => (
-              <option key={`gsheet-${indx * 2}`} value={header}>
-                {header.replace(`_${indx}`, '')}
+          {requiredField ? (
+            <option key={`gsheet-${requiredField.value}`} value={requiredField.value}>
+              {requiredField.label}
+            </option>
+          ) : (
+            nonRequiredFields.map(target => (
+              <option key={`gsheet-${target.value}`} value={target.value}>
+                {target.label}
               </option>
-            ))}
+            ))
+          )}
         </select>
       </div>
-      <button
-        onClick={() => addFieldMap(i, sheetConf, setSheetConf)}
-        className="icn-btn sh-sm ml-2 mr-1"
-        type="button">
-        +
-      </button>
-      <button
-        onClick={() => delFieldMap(i, sheetConf, setSheetConf)}
-        className="icn-btn sh-sm ml-1"
-        type="button"
-        aria-label="btn">
-        <TrashIcn />
-      </button>
+      {!requiredField && (
+        <>
+          <button
+            onClick={() => addFieldMap(i, sheetConf, setSheetConf)}
+            className="icn-btn sh-sm ml-2 mr-1"
+            type="button">
+            +
+          </button>
+          <button
+            onClick={() => delFieldMap(i, sheetConf, setSheetConf)}
+            className="icn-btn sh-sm ml-1"
+            type="button"
+            aria-label="btn">
+            <TrashIcn />
+          </button>
+        </>
+      )}
     </div>
   )
 }
