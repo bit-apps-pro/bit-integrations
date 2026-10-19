@@ -10,7 +10,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use CURLFile;
 
-final class AllFilesApiHelper
+final class FreshdeskAllFilesService
 {
     private $_defaultHeader;
 

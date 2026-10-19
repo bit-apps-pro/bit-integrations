@@ -11,7 +11,7 @@ use BitApps\Integrations\Log\LogHandler;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 
-class RecordApiHelper
+class FreshdeskService
 {
     private $_integrationID;
 
@@ -45,7 +45,7 @@ class RecordApiHelper
         if ($fileTicket) {
             $data = $data + ['attachments' => $fileTicket];
 
-            $sendPhotoApiHelper = new AllFilesApiHelper();
+            $sendPhotoApiHelper = new FreshdeskAllFilesService();
 
             return $sendPhotoApiHelper->allUploadFiles($apiEndpoint, $data, $api_key);
         }
@@ -153,7 +153,7 @@ class RecordApiHelper
 
         if ($avatar) {
             $data = $finalDataContact + ['avatar' => static::getAvatar($avatar)];
-            $sendPhotoApiHelper = new FilesApiHelper();
+            $sendPhotoApiHelper = new FreshdeskFilesService();
 
             return $sendPhotoApiHelper->uploadFiles($apiEndpoint, $data, $api_key);
         }

@@ -19,10 +19,6 @@ backend/Actions/ElementsKit/ElementsKitController.php
 backend/Actions/ElementsKit/RecordApiHelper.php
 backend/Actions/Flodesk/FlodeskController.php
 backend/Actions/Flodesk/RecordApiHelper.php
-backend/Actions/Freshdesk/AllFilesApiHelper.php
-backend/Actions/Freshdesk/FilesApiHelper.php
-backend/Actions/Freshdesk/FreshdeskController.php
-backend/Actions/Freshdesk/RecordApiHelper.php
 backend/Actions/Hubspot/HubspotController.php
 backend/Actions/Hubspot/HubspotRecordApiHelper.php
 backend/Actions/KirimEmail/KirimEmailController.php
