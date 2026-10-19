@@ -132,8 +132,6 @@ backend/Actions/SecureCustomFields/RecordApiHelper.php
 backend/Actions/SecureCustomFields/SecureCustomFieldsController.php
 backend/Actions/SendPulse/RecordApiHelper.php
 backend/Actions/SendPulse/SendPulseController.php
-backend/Actions/SendinBlue/RecordApiHelper.php
-backend/Actions/SendinBlue/SendinBlueController.php
 backend/Actions/Slack/FilesApiHelper.php
 backend/Actions/Slack/RecordApiHelper.php
 backend/Actions/Slack/SlackController.php
