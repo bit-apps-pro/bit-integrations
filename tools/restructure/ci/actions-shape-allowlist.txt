@@ -59,8 +59,6 @@ backend/Actions/LearnDash/RecordApiHelper.php
 backend/Actions/LionDesk/LionDeskController.php
 backend/Actions/LionDesk/RecordApiHelper.php
 backend/Actions/Mail/MailController.php
-backend/Actions/MailerPress/MailerPressController.php
-backend/Actions/MailerPress/RecordApiHelper.php
 backend/Actions/Mailup/MailupController.php
 backend/Actions/Mailup/RecordApiHelper.php
 backend/Actions/MasterStudyLms/MasterStudyLmsController.php
