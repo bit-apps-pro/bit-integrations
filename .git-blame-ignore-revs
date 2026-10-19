@@ -323,3 +323,53 @@ fd0aff74e8d147b3a37e7e921cc6a640d5b3313e
 ce885e32c7c0a7cc022f2219fa4aeca9029e9408
 # refactor(actions): move Fabman to Action/Service/Helper layout
 a907274109ef385008ae3875b7e5229770653549
+# refactor(actions): move ZohoCRM to Action/Service/Helper layout
+e2371ae4fe53260d13a55d6fe04b0613b547f3f2
+# refactor(actions): move ZohoRecruit to Action/Service/Helper layout
+c73b16a37463b6c61b3ee581750942402438c18f
+# refactor(actions): move Freshdesk to Action/Service/Helper layout
+234557a5eac9829541b955445c228039b2bf1dc3
+# refactor(actions): move Discord to Action/Service/Helper layout
+8528ca1c0a7917c19eb3a1550a1899b09e5bf7bd
+# refactor(actions): move Slack to Action/Service/Helper layout
+7496d94cc6d648f68c87f7c311e99fdbe363e340
+# refactor(actions): move Telegram to Action/Service/Helper layout
+30aef7072b19c5151c5f1980ccbd2f3f9d93bac0
+# refactor(actions): move PropovoiceCRM to Action/Service/Helper layout
+a2cb8c9cbc5ca904a05815088e7e7c443bc03eb4
+# refactor(actions): move Hubspot to Action/Service/Helper layout
+979605f41677a8d1200d5fc293beb787e040f62b
+# refactor(actions): move ACPT to Action/Service/Helper layout
+4a0442220946cd32655205111f6157bac6e446e0
+# refactor(actions): move Bento to Action/Service/Helper layout
+0ed32c52ffed4bf3a60a25d6f47f36ae1da5ef05
+# refactor(actions): move MasterStudyLms to Action/Service/Helper layout
+530b17095162e0fca22ea1af4d620a94c0f843f9
+# refactor(actions): move Voxel to Action/Service/Helper layout
+dbf1e4feac39e83ee9007afe5d802d9cc40926ea
+# refactor(actions): move WooCommerce to Action/Service/Helper layout
+4edd746afec5af3b776c08ec4655f9c84dca77e1
+# refactor(actions): move BuddyBoss to Action/Service/Helper layout
+eb46c75d623808c1006e2c8c76ee96488f73a1a5
+# refactor(actions): move KirimEmail to Action/Service/Helper layout
+f494c51e924ee9cc58c57dffbfef2d29bbea7be2
+# refactor(actions): move ZendeskSupport to Action/Service/Helper layout
+6c37ea0d5a627e9b5305bd410a8b6222d1769985
+# refactor(actions): move NinjaTables to Action/Service/Helper layout
+cadb002d9e3ae32af83e2a4aa1ee68584e77fb09
+# refactor(actions): move UserRegistrationMembership to Action/Service/Helper layout
+0af922994765758e4f0fc3eae1bb9ea3593f85cc
+# refactor(actions): move WebbaBooking to Action/Service/Helper layout
+5be2e6a6e3a53552a12cfaa40ddd5506978d5636
+# refactor(actions): move PipeDrive to Action/Service/Helper layout
+508ae72177690c70f2d902268ad7ebbe50b93691
+# refactor(actions): move Trello to Action/Service/Helper layout
+8aedc49f0b3e8602c38c17e5158ec377a3260a4b
+# refactor(actions): move ClinchPad to Action/Service/Helper layout
+965f30d530be9df6a9cb8bb45bb7c7c18c0afc68
+# refactor(actions): move Nimble to Action/Service/Helper layout
+0df4e358ad362bc2c5ff2412a338461030a112c4
+# refactor(actions): move Salesmate to Action/Service/Helper layout
+2677093bdd410887b93c3e1164afcd39e30f61f2
+# refactor(actions): move BitCrm to Action/Service/Helper layout
+2e0d7792d5bf5b5f0fcc985c330bd72c9d968fc7
