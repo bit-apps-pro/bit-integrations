@@ -116,7 +116,7 @@ class RecordApiHelper
             return $apiResponse;
         }
 
-        if (!empty($apiResponse) && !isset($apiResponse->errors)) {
+        if (HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300) {
             $res = [$this->typeName . '  successfully'];
             LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->typeName]), 'success', wp_json_encode($res));
         } else {
