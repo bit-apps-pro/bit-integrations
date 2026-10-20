@@ -44,15 +44,8 @@ class RecordApiHelper
         }
 
         $apiEndpoint = $this->apiUrl . '/contacts';
-        $response = HttpHelper::post($apiEndpoint, wp_json_encode($finalData), $this->defaultHeader);
 
-        if (empty($this->integrationDetails->selectedTag) || empty($response->id)) {
-            return $response;
-        }
-
-        $tagResponse = $this->addTag($response->id, $this->integrationDetails->selectedTag);
-
-        return empty($tagResponse) ? $response : $tagResponse;
+        return HttpHelper::post($apiEndpoint, wp_json_encode($finalData), $this->defaultHeader);
     }
 
     public function addTag($contactId, $tag)
@@ -116,13 +109,42 @@ class RecordApiHelper
             return $apiResponse;
         }
 
-        if (HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300) {
-            $res = [$this->typeName . '  successfully'];
-            LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->typeName]), 'success', wp_json_encode($res));
-        } else {
+        if (!static::isSuccessResponse()) {
             LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->type . ' creating']), 'error', wp_json_encode($apiResponse));
+
+            return $apiResponse;
+        }
+
+        $res = [$this->typeName . '  successfully'];
+        LogHandler::save($this->integrationId, wp_json_encode(['type' => $this->type, 'type_name' => $this->typeName]), 'success', wp_json_encode($res));
+
+        if (!empty($this->integrationDetails->selectedTag) && !empty($apiResponse->id)) {
+            $this->addTagWithLog($apiResponse->id, $this->integrationDetails->selectedTag);
         }
 
         return $apiResponse;
+    }
+
+    private function addTagWithLog($contactId, $tag)
+    {
+        $tagResponse = $this->addTag($contactId, $tag);
+        $logType = wp_json_encode(['type' => 'Add Tag to Contact', 'type_name' => 'Add Tag to Contact']);
+
+        if (\is_array($tagResponse) && isset($tagResponse['success']) && false === $tagResponse['success']) {
+            LogHandler::save($this->integrationId, $logType, 'error', wp_json_encode($tagResponse));
+
+            return;
+        }
+
+        if (static::isSuccessResponse()) {
+            LogHandler::save($this->integrationId, $logType, 'success', wp_json_encode([__('Tag added to contact successfully', 'bit-integrations')]));
+        } else {
+            LogHandler::save($this->integrationId, $logType, 'error', wp_json_encode($tagResponse));
+        }
+    }
+
+    private static function isSuccessResponse()
+    {
+        return HttpHelper::$responseCode >= 200 && HttpHelper::$responseCode < 300;
     }
 }
