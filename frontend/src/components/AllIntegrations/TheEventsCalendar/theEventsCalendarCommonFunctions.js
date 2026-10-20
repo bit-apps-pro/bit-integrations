@@ -100,6 +100,19 @@ const lists = {
 
 export const listConfKey = listName => lists[listName]?.confKey
 
+export const withoutFetchedLists = conf =>
+  create(conf, draftConf => {
+    Object.values(lists).forEach(({ confKey }) => {
+      delete draftConf[confKey]
+    })
+  })
+
+const startListLoading = setLoading =>
+  setLoading(prevLoading => ({ ...prevLoading, lists: (prevLoading.lists || 0) + 1 }))
+
+const stopListLoading = setLoading =>
+  setLoading(prevLoading => ({ ...prevLoading, lists: Math.max((prevLoading.lists || 0) - 1, 0) }))
+
 const fetchList = listName =>
   bitsFetch(null, lists[listName].route)
     .then(result => ({ listName, result }))
@@ -124,9 +137,9 @@ const storeList = (setTheEventsCalendarConf, listName, result) => {
 }
 
 export const refreshTheEventsCalendarList = (listName, setTheEventsCalendarConf, setLoading) => {
-  setLoading(prevLoading => ({ ...prevLoading, lists: true }))
+  startListLoading(setLoading)
   fetchList(listName).then(({ result }) => {
-    setLoading(prevLoading => ({ ...prevLoading, lists: false }))
+    stopListLoading(setLoading)
 
     if (storeList(setTheEventsCalendarConf, listName, result)) {
       toast.success(lists[listName].success)
@@ -139,12 +152,12 @@ export const refreshTheEventsCalendarLists = (listNames, setTheEventsCalendarCon
     return
   }
 
-  setLoading(prevLoading => ({ ...prevLoading, lists: true }))
+  startListLoading(setLoading)
   Promise.all(
     listNames.map(listName =>
       fetchList(listName).then(({ result }) => storeList(setTheEventsCalendarConf, listName, result))
     )
-  ).then(() => setLoading(prevLoading => ({ ...prevLoading, lists: false })))
+  ).then(() => stopListLoading(setLoading))
 }
 
 export const theEventsCalendarStaticFields = selectedTask => {

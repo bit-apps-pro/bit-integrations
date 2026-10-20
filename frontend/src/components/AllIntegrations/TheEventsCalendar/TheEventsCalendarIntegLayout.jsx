@@ -127,7 +127,7 @@ export default function TheEventsCalendarIntegLayout({
   const refreshList = listName =>
     refreshTheEventsCalendarList(listName, setTheEventsCalendarConf, setLoading)
 
-  const isLoading = loading.events || loading.lists
+  const isLoading = loading.events || loading.lists > 0
 
   return (
     <>

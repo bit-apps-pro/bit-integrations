@@ -136,7 +136,7 @@ class TheEventsCalendarController
         $utilities = $integrationDetails->utilities ?? [];
 
         if (empty($fieldMap) || empty($selectedTask)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('Fields map and task are required for The Events Calendar', 'bit-integrations'));
+            return new WP_Error('REQ_FIELD_EMPTY', __('Field map and task are required for The Events Calendar', 'bit-integrations'));
         }
 
         if ($selectedTask === 'newAttendee' && empty($integrationDetails->selectedEvent)) {

@@ -14,7 +14,8 @@ import toast from 'react-hot-toast'
 import {
   checkMappedFields,
   handleInput,
-  requiredSelectMissing
+  requiredSelectMissing,
+  withoutFetchedLists
 } from './theEventsCalendarCommonFunctions'
 import { TASK_LIST_VALUES } from './theEventsCalendarConstants'
 
@@ -26,7 +27,7 @@ function EditTheEventsCalendar({ allIntegURL }) {
   const [loading, setLoading] = useState({
     auth: false,
     events: false,
-    lists: false
+    lists: 0
   })
   const [snack, setSnackbar] = useState({ show: false })
   const formField = useRecoilValue($formFields)
@@ -59,7 +60,7 @@ function EditTheEventsCalendar({ allIntegURL }) {
     saveActionConf({
       flow,
       allIntegURL,
-      conf: theEventsCalendarConf,
+      conf: withoutFetchedLists(theEventsCalendarConf),
       navigate,
       edit: 1,
       setLoading,

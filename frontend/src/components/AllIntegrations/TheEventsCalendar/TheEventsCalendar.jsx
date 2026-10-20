@@ -9,7 +9,11 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { checkMappedFields, requiredSelectMissing } from './theEventsCalendarCommonFunctions'
+import {
+  checkMappedFields,
+  requiredSelectMissing,
+  withoutFetchedLists
+} from './theEventsCalendarCommonFunctions'
 import TheEventsCalendarIntegLayout from './TheEventsCalendarIntegLayout'
 import TheEventsCalendarAuthorization from './TheEventsCalendarAuthorization'
 import { TASK_LIST_VALUES } from './theEventsCalendarConstants'
@@ -20,7 +24,7 @@ function TheEventsCalendar({ formFields, setFlow, flow, allIntegURL }) {
   const [loading, setLoading] = useState({
     auth: false,
     events: false,
-    lists: false
+    lists: 0
   })
 
   const [step, setStep] = useState(1)
@@ -44,7 +48,7 @@ function TheEventsCalendar({ formFields, setFlow, flow, allIntegURL }) {
       flow,
       setFlow,
       allIntegURL,
-      theEventsCalendarConf,
+      withoutFetchedLists(theEventsCalendarConf),
       navigate,
       '',
       '',
