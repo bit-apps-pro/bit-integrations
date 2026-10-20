@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
 import { create } from 'mutative'
-import { TASK_LIST_VALUES } from './theEventsCalendarConstants'
+import { fieldSets, requiredSelects, TASK_LIST_VALUES } from './theEventsCalendarConstants'
 
 export const handleInput = (e, theEventsCalendarConf, setTheEventsCalendarConf) => {
   const newConf = create(theEventsCalendarConf, draftConf => {
@@ -34,6 +34,14 @@ export const checkMappedFields = theEventsCalendarConf => {
   return true
 }
 
+export const requiredSelectMissing = theEventsCalendarConf => {
+  const missingSelect = (requiredSelects[theEventsCalendarConf?.selectedTask] || []).find(
+    ({ confKey }) => !theEventsCalendarConf?.[confKey]
+  )
+
+  return missingSelect ? missingSelect.error : ''
+}
+
 export const getAllEvents = (confTmp, setConf, loading, setLoading) => {
   setLoading({ ...loading, events: true })
 
@@ -49,6 +57,94 @@ export const getAllEvents = (confTmp, setConf, loading, setLoading) => {
     setLoading({ ...loading, events: false })
     toast.error(result?.data ? result.data : __('Something went wrong!', 'bit-integrations'))
   })
+}
+
+const lists = {
+  events: {
+    route: 'refresh_the_events_calendar_events',
+    confKey: 'allEvents',
+    success: __('The events are fetched.', 'bit-integrations'),
+    error: __('The Events Calendar did not send the events. Try again.', 'bit-integrations')
+  },
+  venues: {
+    route: 'refresh_the_events_calendar_venues',
+    confKey: 'allVenues',
+    success: __('The venues are fetched.', 'bit-integrations'),
+    error: __('The Events Calendar did not send the venues. Try again.', 'bit-integrations')
+  },
+  organizers: {
+    route: 'refresh_the_events_calendar_organizers',
+    confKey: 'allOrganizers',
+    success: __('The organizers are fetched.', 'bit-integrations'),
+    error: __('The Events Calendar did not send the organizers. Try again.', 'bit-integrations')
+  },
+  categories: {
+    route: 'refresh_the_events_calendar_categories',
+    confKey: 'allCategories',
+    success: __('The event categories are fetched.', 'bit-integrations'),
+    error: __('The Events Calendar did not send the event categories. Try again.', 'bit-integrations')
+  },
+  series: {
+    route: 'refresh_the_events_calendar_series',
+    confKey: 'allSeries',
+    success: __('The series are fetched.', 'bit-integrations'),
+    error: __('The Events Calendar did not send the series. Try again.', 'bit-integrations')
+  },
+  timezones: {
+    route: 'refresh_the_events_calendar_timezones',
+    confKey: 'allTimezones',
+    success: __('The time zones are fetched.', 'bit-integrations'),
+    error: __('The time zones did not load. Try again.', 'bit-integrations')
+  }
+}
+
+export const listConfKey = listName => lists[listName]?.confKey
+
+const fetchList = listName =>
+  bitsFetch(null, lists[listName].route)
+    .then(result => ({ listName, result }))
+    .catch(() => ({ listName, result: null }))
+
+const storeList = (setTheEventsCalendarConf, listName, result) => {
+  const list = lists[listName]
+  const options = result?.success ? result.data?.[listName] : null
+
+  if (!options) {
+    toast.error(typeof result?.data === 'string' ? result.data : list.error)
+    return false
+  }
+
+  setTheEventsCalendarConf(prevConf =>
+    create(prevConf, draftConf => {
+      draftConf[list.confKey] = options
+    })
+  )
+
+  return true
+}
+
+export const refreshTheEventsCalendarList = (listName, setTheEventsCalendarConf, setLoading) => {
+  setLoading(prevLoading => ({ ...prevLoading, lists: true }))
+  fetchList(listName).then(({ result }) => {
+    setLoading(prevLoading => ({ ...prevLoading, lists: false }))
+
+    if (storeList(setTheEventsCalendarConf, listName, result)) {
+      toast.success(lists[listName].success)
+    }
+  })
+}
+
+export const refreshTheEventsCalendarLists = (listNames, setTheEventsCalendarConf, setLoading) => {
+  if (!listNames.length) {
+    return
+  }
+
+  setLoading(prevLoading => ({ ...prevLoading, lists: true }))
+  Promise.all(
+    listNames.map(listName =>
+      fetchList(listName).then(({ result }) => storeList(setTheEventsCalendarConf, listName, result))
+    )
+  ).then(() => setLoading(prevLoading => ({ ...prevLoading, lists: false })))
 }
 
 export const theEventsCalendarStaticFields = selectedTask => {
@@ -67,5 +163,13 @@ export const theEventsCalendarStaticFields = selectedTask => {
     }
   }
 
-  return { staticFields: [], fieldMap: [] }
+  const staticFields = fieldSets[selectedTask] || []
+  const requiredFields = staticFields.filter(({ required }) => required)
+
+  return {
+    staticFields,
+    fieldMap: requiredFields.length
+      ? requiredFields.map(({ key }) => ({ formField: '', theEventsCalendarField: key }))
+      : [{ formField: '', theEventsCalendarField: '' }]
+  }
 }

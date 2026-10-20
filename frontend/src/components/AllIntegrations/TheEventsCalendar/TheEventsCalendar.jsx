@@ -9,7 +9,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { checkMappedFields } from './theEventsCalendarCommonFunctions'
+import { checkMappedFields, requiredSelectMissing } from './theEventsCalendarCommonFunctions'
 import TheEventsCalendarIntegLayout from './TheEventsCalendarIntegLayout'
 import TheEventsCalendarAuthorization from './TheEventsCalendarAuthorization'
 import { TASK_LIST_VALUES } from './theEventsCalendarConstants'
@@ -19,7 +19,8 @@ function TheEventsCalendar({ formFields, setFlow, flow, allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [loading, setLoading] = useState({
     auth: false,
-    events: false
+    events: false,
+    lists: false
   })
 
   const [step, setStep] = useState(1)
@@ -33,7 +34,8 @@ function TheEventsCalendar({ formFields, setFlow, flow, allIntegURL }) {
     selectedTask: '',
     events: [],
     selectedEvent: '',
-    actions: {}
+    actions: {},
+    utilities: {}
   })
 
   const saveConfig = () => {
@@ -73,6 +75,12 @@ function TheEventsCalendar({ formFields, setFlow, flow, allIntegURL }) {
       !theEventsCalendarConf.selectedEvent
     ) {
       toast.error(__('Please select a event!', 'bit-integrations'))
+      return
+    }
+
+    const missingSelect = requiredSelectMissing(theEventsCalendarConf)
+    if (missingSelect) {
+      toast.error(missingSelect)
       return
     }
 
