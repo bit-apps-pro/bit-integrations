@@ -160,11 +160,19 @@ const inboundRouteFields = isCreate => [
 ]
 
 const domainIdField = field('domain_id', __('Domain ID', 'bit-integrations'), true)
-const sendingKeyIdField = field('sending_key_id', __('Sending Key ID', 'bit-integrations'), true)
-const routeIdField = field('route_id', __('Inbound Route ID', 'bit-integrations'), true)
+const sendingKeyIdField = field(
+  'sending_key_id',
+  __('Sending Key ID or Identifier', 'bit-integrations'),
+  true
+)
+const routeIdField = field('route_id', __('Inbound Route ID or Description', 'bit-integrations'), true)
 const templateIdField = field('template_id', __('Template ID', 'bit-integrations'), true)
-const applicationIdField = field('application_id', __('Application ID', 'bit-integrations'), true)
-const webhookIdField = field('webhook_id', __('Webhook ID', 'bit-integrations'), true)
+const applicationIdField = field(
+  'application_id',
+  __('Application ID or Name', 'bit-integrations'),
+  true
+)
+const webhookIdField = field('webhook_id', __('Webhook ID or Callback URL', 'bit-integrations'), true)
 
 export const fieldsByAction = {
   send_email: [
@@ -185,7 +193,9 @@ export const fieldsByAction = {
   delete_domain: [domainIdField],
   rename_sending_key: [sendingKeyIdField, field('name', __('New Name', 'bit-integrations'), true)],
   delete_sending_key: [sendingKeyIdField],
-  delete_smtp_account: [field('smtp_account_id', __('SMTP Account ID', 'bit-integrations'), true)],
+  delete_smtp_account: [
+    field('smtp_account_id', __('SMTP Account ID or Email', 'bit-integrations'), true)
+  ],
   create_inbound_route: inboundRouteFields(true),
   update_inbound_route: [routeIdField, ...inboundRouteFields(false)],
   delete_inbound_route: [routeIdField],
@@ -344,6 +354,33 @@ const scheduleNote = __(
   'bit-integrations'
 )
 
+const domainIdNote = __(
+  'Find the domain ID in the address of the domain page in the Maileroo dashboard, for example …/domains/12345.',
+  'bit-integrations'
+)
+
+const templateIdNote = __(
+  'The Templates page of the Maileroo dashboard shows the ID of each template.',
+  'bit-integrations'
+)
+
+const sendingKeyNote = __(
+  'Map the sending key ID, or the Identifier that the Sending Keys page of the domain shows.',
+  'bit-integrations'
+)
+
+const routeIdNote = __(
+  'Map the inbound route ID, or the description that the Inbound Routing page of the domain shows.',
+  'bit-integrations'
+)
+
+const applicationIdNote = __(
+  'Map the application ID, or the name of the application.',
+  'bit-integrations'
+)
+
+const webhookIdNote = __('Map the webhook ID, or the callback URL of the webhook.', 'bit-integrations')
+
 export const notesByAction = {
   send_email: `${recipientNote}<br/>${__(
     'Map an HTML Body, a Plain Text Body or both. To add a tag or an email header, select <b>Tag</b> or <b>Custom Header</b> and type its name.',
@@ -368,42 +405,56 @@ export const notesByAction = {
     'A free sub-domain has 12 characters or less. Use only lowercase letters and numbers.',
     'bit-integrations'
   ),
-  update_domain_settings: __(
-    'Map the ID of the domain to update. Custom Hostname Tracking needs a paid Maileroo plan.',
+  update_domain_settings: `${domainIdNote}<br/>${__(
+    'Custom Hostname Tracking needs a paid Maileroo plan.',
     'bit-integrations'
-  ),
-  delete_domain: __(
+  )}`,
+  scan_dns_records: `${domainIdNote}<br/>${__(
+    'Maileroo scans only custom domains. A free sub-domain from Maileroo needs no scan.',
+    'bit-integrations'
+  )}`,
+  delete_domain: `${domainIdNote}<br/>${__(
     '<b>Deletes the domain and its sending keys from Maileroo.</b> It cannot be undone.',
     'bit-integrations'
-  ),
-  delete_sending_key: __(
+  )}`,
+  rename_sending_key: sendingKeyNote,
+  delete_sending_key: `${sendingKeyNote}<br/>${__(
     '<b>Email actions use the first sending key of the domain.</b> If you delete the last key, email actions stop until you create a new key.',
+    'bit-integrations'
+  )}`,
+  delete_smtp_account: __(
+    'Map the SMTP account ID, or the email address that the SMTP Accounts page of the domain shows.',
     'bit-integrations'
   ),
   create_inbound_route: __(
     'Priority 1 runs first and 100 runs last. Forward To accepts email addresses and callback URLs.',
     'bit-integrations'
   ),
-  update_inbound_route: __(
+  update_inbound_route: `${routeIdNote}<br/>${__(
     'Map only the values to change. Maileroo keeps the current values of the fields that you do not map.',
     'bit-integrations'
-  ),
+  )}`,
+  delete_inbound_route: routeIdNote,
   create_template: __(
     'The HTML type needs a full document with &lt;html&gt; and &lt;body&gt; tags. Maileroo needs about 10 seconds to process a new template.',
     'bit-integrations'
   ),
-  update_application: __(
+  rename_template: templateIdNote,
+  delete_template: templateIdNote,
+  update_application: `${applicationIdNote}<br/>${__(
     'Map only the values to change. Maileroo keeps the current values of the fields that you do not map or select.',
     'bit-integrations'
-  ),
+  )}`,
+  delete_application: applicationIdNote,
   create_webhook: __(
     'Leave Domains empty to get events from all domains. Leave Event Types empty to get all events.',
     'bit-integrations'
   ),
-  update_webhook: __(
+  update_webhook: `${webhookIdNote}<br/>${__(
     'Select domains, event types or both. The selection replaces the current values.',
     'bit-integrations'
-  )
+  )}`,
+  delete_webhook: webhookIdNote
 }
 
 const checkboxUtility = (key, title, subTitle, value = 'true') => ({
