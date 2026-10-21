@@ -236,6 +236,7 @@ const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
+const Maileroo = lazy(() => import('./Maileroo/Maileroo'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -2199,6 +2200,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'QuizMaker':
       return (
         <QuizMaker
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Maileroo':
+      return (
+        <Maileroo
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
