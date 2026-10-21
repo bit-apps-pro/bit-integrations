@@ -11,7 +11,12 @@ import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import TheEventsCalendarIntegLayout from './TheEventsCalendarIntegLayout'
 import toast from 'react-hot-toast'
-import { checkMappedFields, handleInput } from './theEventsCalendarCommonFunctions'
+import {
+  checkMappedFields,
+  handleInput,
+  requiredSelectMissing,
+  withoutFetchedLists
+} from './theEventsCalendarCommonFunctions'
 import { TASK_LIST_VALUES } from './theEventsCalendarConstants'
 
 function EditTheEventsCalendar({ allIntegURL }) {
@@ -21,7 +26,8 @@ function EditTheEventsCalendar({ allIntegURL }) {
   const [isLoading, setIsLoading] = useState(false)
   const [loading, setLoading] = useState({
     auth: false,
-    events: false
+    events: false,
+    lists: 0
   })
   const [snack, setSnackbar] = useState({ show: false })
   const formField = useRecoilValue($formFields)
@@ -40,6 +46,12 @@ function EditTheEventsCalendar({ allIntegURL }) {
       return
     }
 
+    const missingSelect = requiredSelectMissing(theEventsCalendarConf)
+    if (missingSelect) {
+      toast.error(missingSelect)
+      return
+    }
+
     if (!checkMappedFields(theEventsCalendarConf)) {
       toast.error(__('Please map mandatory fields!', 'bit-integrations'))
       return
@@ -48,7 +60,7 @@ function EditTheEventsCalendar({ allIntegURL }) {
     saveActionConf({
       flow,
       allIntegURL,
-      conf: theEventsCalendarConf,
+      conf: withoutFetchedLists(theEventsCalendarConf),
       navigate,
       edit: 1,
       setLoading,
