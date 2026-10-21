@@ -19,7 +19,12 @@ export const EVENTS_CALENDAR_EVENT_FILTER_TASKS = [
 export const EVENTS_CALENDAR_SERIES_FILTER_TASKS = ['events_calendar-20']
 
 export const getEventsCalendarEvents = (data, setFlow) => {
-  const loadEvents = bitsFetch(null, 'eventscalendar/get/events', null, 'GET').then(result => {
+  const loadEvents = bitsFetch(
+    null,
+    'eventscalendar/get/events',
+    { id: data.triggered_entity_id },
+    'GET'
+  ).then(result => {
     if (result && result.data) {
       const tmpFlow = { ...data }
       tmpFlow.flow_details.events = result.data

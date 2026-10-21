@@ -18,6 +18,16 @@ class TheEventsCalendarController
 
     public static function checkedTheEventsCalendarExists()
     {
+        if (is_plugin_active('the-events-calendar/the-events-calendar.php') && is_plugin_active('event-tickets/event-tickets.php')) {
+            return true;
+        }
+
+        // translators: %s: Placeholder value
+        wp_send_json_error(wp_sprintf(__('%s are not active or installed!', 'bit-integrations'), 'The Events Calendar and/or Event Tickets'), 400);
+    }
+
+    public static function checkTheEventsCalendarActive()
+    {
         if (is_plugin_active('the-events-calendar/the-events-calendar.php')) {
             return true;
         }
@@ -37,7 +47,7 @@ class TheEventsCalendarController
                 'order'          => 'ASC',
                 'post_status'    => 'publish',
                 'posts_per_page' => -1,
-            ] + self::EVENT_QUERY_ARGS
+            ]
         );
 
         $eventList = [];
@@ -53,7 +63,7 @@ class TheEventsCalendarController
 
     public function refreshEvents()
     {
-        self::checkedTheEventsCalendarExists();
+        self::checkTheEventsCalendarActive();
 
         $events = array_map(
             function ($event) {
@@ -72,21 +82,21 @@ class TheEventsCalendarController
 
     public function refreshVenues()
     {
-        self::checkedTheEventsCalendarExists();
+        self::checkTheEventsCalendarActive();
 
         wp_send_json_success(['venues' => self::getPostOptions('tribe_venue')], 200);
     }
 
     public function refreshOrganizers()
     {
-        self::checkedTheEventsCalendarExists();
+        self::checkTheEventsCalendarActive();
 
         wp_send_json_success(['organizers' => self::getPostOptions('tribe_organizer')], 200);
     }
 
     public function refreshSeries()
     {
-        self::checkedTheEventsCalendarExists();
+        self::checkTheEventsCalendarActive();
 
         if (!class_exists('Tribe__Events__Pro__Main')) {
             wp_send_json_error(__('The Events Calendar Pro is not active. Activate Pro to use series.', 'bit-integrations'), 400);
@@ -97,7 +107,7 @@ class TheEventsCalendarController
 
     public function refreshCategories()
     {
-        self::checkedTheEventsCalendarExists();
+        self::checkTheEventsCalendarActive();
 
         $terms = get_terms(['taxonomy' => 'tribe_events_cat', 'hide_empty' => false]);
 
@@ -135,12 +145,14 @@ class TheEventsCalendarController
         $selectedTask = $integrationDetails->selectedTask ?? '';
         $utilities = $integrationDetails->utilities ?? [];
 
-        if (empty($fieldMap) || empty($selectedTask)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('Field map and task are required for The Events Calendar', 'bit-integrations'));
-        }
+        if (empty($selectedTask) || $selectedTask === 'newAttendee') {
+            self::checkedTheEventsCalendarExists();
 
-        if ($selectedTask === 'newAttendee' && empty($integrationDetails->selectedEvent)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('Fields map, task and event are required for The Events Calendar', 'bit-integrations'));
+            if (empty($fieldMap) || empty($selectedTask) || empty($integrationDetails->selectedEvent)) {
+                return new WP_Error('REQ_FIELD_EMPTY', __('Fields map, task and event are required for The Events Calendar', 'bit-integrations'));
+            }
+        } elseif (empty($fieldMap)) {
+            return new WP_Error('REQ_FIELD_EMPTY', __('Field map is required for The Events Calendar', 'bit-integrations'));
         }
 
         $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
