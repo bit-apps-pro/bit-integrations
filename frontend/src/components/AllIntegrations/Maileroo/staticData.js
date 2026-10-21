@@ -122,7 +122,7 @@ const deliveryFields = [
     __('Inline Images (URLs or uploads paths, comma separated)', 'bit-integrations')
   ),
   field('scheduled_at', __('Schedule At (date and time)', 'bit-integrations')),
-  field('reference_id', __('Reference ID', 'bit-integrations'))
+  field('reference_id', __('Reference ID (24 hex characters)', 'bit-integrations'))
 ]
 
 const inboundRouteFields = isCreate => [
