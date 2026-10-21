@@ -159,14 +159,14 @@ const inboundRouteFields = isCreate => [
   )
 ]
 
-const domainIdField = field('domain_id', __('Domain ID', 'bit-integrations'), true)
+const domainIdField = field('domain_id', __('Domain ID or Name', 'bit-integrations'), true)
 const sendingKeyIdField = field(
   'sending_key_id',
   __('Sending Key ID or Identifier', 'bit-integrations'),
   true
 )
 const routeIdField = field('route_id', __('Inbound Route ID or Description', 'bit-integrations'), true)
-const templateIdField = field('template_id', __('Template ID', 'bit-integrations'), true)
+const templateIdField = field('template_id', __('Template ID or Name', 'bit-integrations'), true)
 const applicationIdField = field(
   'application_id',
   __('Application ID or Name', 'bit-integrations'),
@@ -355,12 +355,17 @@ const scheduleNote = __(
 )
 
 const domainIdNote = __(
-  'Find the domain ID in the address of the domain page in the Maileroo dashboard, for example …/domains/12345.',
+  'Map the domain ID or the domain name, for example example.com.',
   'bit-integrations'
 )
 
 const templateIdNote = __(
-  'The Templates page of the Maileroo dashboard shows the ID of each template.',
+  'Map the template ID or the template name. The Templates page of the Maileroo dashboard shows both.',
+  'bit-integrations'
+)
+
+const controlNote = __(
+  '<b>Use values that you control here.</b> If you map a public form field, a visitor can change where Maileroo sends your data.',
   'bit-integrations'
 )
 
@@ -426,14 +431,14 @@ export const notesByAction = {
     'Map the SMTP account ID, or the email address that the SMTP Accounts page of the domain shows.',
     'bit-integrations'
   ),
-  create_inbound_route: __(
+  create_inbound_route: `${__(
     'Priority 1 runs first and 100 runs last. Forward To accepts email addresses and callback URLs.',
     'bit-integrations'
-  ),
+  )}<br/>${controlNote}`,
   update_inbound_route: `${routeIdNote}<br/>${__(
     'Map only the values to change. Maileroo keeps the current values of the fields that you do not map.',
     'bit-integrations'
-  )}`,
+  )}<br/>${controlNote}`,
   delete_inbound_route: routeIdNote,
   create_template: __(
     'The HTML type needs a full document with &lt;html&gt; and &lt;body&gt; tags. Maileroo needs about 10 seconds to process a new template.',
@@ -444,12 +449,12 @@ export const notesByAction = {
   update_application: `${applicationIdNote}<br/>${__(
     'Map only the values to change. Maileroo keeps the current values of the fields that you do not map or select.',
     'bit-integrations'
-  )}`,
+  )}<br/>${controlNote}`,
   delete_application: applicationIdNote,
-  create_webhook: __(
-    'Leave Domains empty to get events from all domains. Leave Event Types empty to get all events.',
+  create_webhook: `${__(
+    'Leave Domains empty to get events from all domains. Leave Event Types empty to get all events. The Webhooks page of the Maileroo dashboard shows the shared secret.',
     'bit-integrations'
-  ),
+  )}<br/>${controlNote}`,
   update_webhook: `${webhookIdNote}<br/>${__(
     'Select domains, event types or both. The selection replaces the current values.',
     'bit-integrations'

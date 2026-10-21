@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Actions\Maileroo;
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Core\Database\ConnectionModel;
 use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Http\ApiResponse;
 use BitApps\Integrations\Log\LogHandler;
@@ -79,6 +80,10 @@ class MailerooController
 
     private static function client($connectionId): ?ApiClient
     {
+        if (!self::isMailerooConnection($connectionId)) {
+            return null;
+        }
+
         $connection = AuthorizationFactory::getConnectionHandler($connectionId);
 
         if ($connection === null) {
@@ -90,6 +95,13 @@ class MailerooController
         $apiClient->setHeaders(['Accept' => 'application/json']);
 
         return $apiClient;
+    }
+
+    private static function isMailerooConnection($connectionId): bool
+    {
+        $result = (new ConnectionModel())->get(['app_slug'], ['id' => (int) $connectionId], 1);
+
+        return !is_wp_error($result) && !empty($result[0]) && strtolower((string) $result[0]->app_slug) === 'maileroo';
     }
 
     private static function requireClient($queryParams): ApiClient
