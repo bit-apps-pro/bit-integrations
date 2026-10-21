@@ -121,7 +121,7 @@ const deliveryFields = [
     'inline_images',
     __('Inline Images (URLs or uploads paths, comma separated)', 'bit-integrations')
   ),
-  field('scheduled_at', __('Schedule At (date and time)', 'bit-integrations')),
+  field('scheduled_at', __('Schedule At (up to 21 days ahead)', 'bit-integrations')),
   field('reference_id', __('Reference ID (24 hex characters)', 'bit-integrations'))
 ]
 
@@ -335,7 +335,12 @@ export const selectKeys = [
 ]
 
 const recipientNote = __(
-  'Use an address on the selected domain as the From Email. Separate many addresses with commas, and add a name as <b>Name &lt;email&gt;</b>.',
+  'Use an address on the selected domain as the From Email, and map the sender name to From Name. Separate many recipients with commas. To add a recipient name, map a form value such as <b>Jane &lt;jane@example.com&gt;</b>.',
+  'bit-integrations'
+)
+
+const scheduleNote = __(
+  'Leave Schedule At empty to send now. Enter an RFC 3339 time, such as 2026-11-01T09:00:00Z, or plain text, such as in 2 hours.',
   'bit-integrations'
 )
 
@@ -343,22 +348,36 @@ export const notesByAction = {
   send_email: `${recipientNote}<br/>${__(
     'Map an HTML Body, a Plain Text Body or both. To add a tag or an email header, select <b>Tag</b> or <b>Custom Header</b> and type its name.',
     'bit-integrations'
-  )}`,
+  )}<br/>${__(
+    'To show an inline image, add <b>&lt;img src=&quot;cid:logo.png&quot;&gt;</b> to the HTML Body. Use the file name of the image.',
+    'bit-integrations'
+  )}<br/>${scheduleNote}`,
   send_templated_email: `${recipientNote}<br/>${__(
     'To fill a template variable, select <b>Template Variable</b> and type its name, for example <b>name</b> or <b>order.id</b>.',
     'bit-integrations'
-  )}`,
+  )}<br/>${__(
+    'To show an inline image, add <b>&lt;img src=&quot;cid:logo.png&quot;&gt;</b> to the template. Use the file name of the image.',
+    'bit-integrations'
+  )}<br/>${scheduleNote}`,
   delete_scheduled_email: __(
     'Map the reference ID that Maileroo returned when it scheduled the email.',
     'bit-integrations'
   ),
   resend_email: __('Map the message ID from a Maileroo email log or webhook event.', 'bit-integrations'),
+  add_domain: __(
+    'A free sub-domain has 12 characters or less. Use only lowercase letters and numbers.',
+    'bit-integrations'
+  ),
   update_domain_settings: __(
     'Map the ID of the domain to update. Custom Hostname Tracking needs a paid Maileroo plan.',
     'bit-integrations'
   ),
   delete_domain: __(
     '<b>Deletes the domain and its sending keys from Maileroo.</b> It cannot be undone.',
+    'bit-integrations'
+  ),
+  delete_sending_key: __(
+    '<b>Email actions use the first sending key of the domain.</b> If you delete the last key, email actions stop until you create a new key.',
     'bit-integrations'
   ),
   create_inbound_route: __(
@@ -402,11 +421,14 @@ const selectUtility = (key, title, subTitle, options = yesNoOptions) => ({
   title
 })
 
-const trackingUtility = checkboxUtility(
+const trackingUtility = selectUtility(
   'tracking',
-  __('Disable Tracking', 'bit-integrations'),
-  __('Turn off open and click tracking for this email', 'bit-integrations'),
-  'false'
+  __('Open and Click Tracking', 'bit-integrations'),
+  __(
+    'Turn tracking on or off for this email. Leave it empty to use the domain setting',
+    'bit-integrations'
+  ),
+  enableDisableOptions
 )
 
 const routeChecks = [

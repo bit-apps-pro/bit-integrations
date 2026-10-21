@@ -113,7 +113,8 @@ export default function MailerooFieldMap({ i, formFields, field, mailerooConf, s
             <button
               onClick={() => addFieldMap(i, mailerooConf, setMailerooConf)}
               className="icn-btn sh-sm ml-2 mr-1"
-              type="button">
+              type="button"
+              aria-label={__('Add field', 'bit-integrations')}>
               +
             </button>
             <button
