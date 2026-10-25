@@ -292,7 +292,6 @@ const extraTypeUtility = {
   subTitle: __('Select how the plugin counts the extra.', 'bit-integrations')
 }
 
-// A checkbox is one-way, so update actions use a Yes/No select to switch a flag on or off.
 export const utilitiesByAction = {
   create_booking: [
     customerTitleUtility,
