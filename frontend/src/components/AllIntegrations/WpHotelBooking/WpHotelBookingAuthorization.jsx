@@ -1,7 +1,5 @@
-import { useCallback } from 'react'
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
 import { __ } from '../../../Utils/i18nwrap'
-import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
 export default function WpHotelBookingAuthorization({
@@ -11,19 +9,20 @@ export default function WpHotelBookingAuthorization({
   nextPage,
   isInfo
 }) {
-  const setStep = useCallback(value => nextPage(value), [nextPage])
   return (
     <Authorization
       config={wpHotelBookingConf}
       setConfig={setWpHotelBookingConf}
       step={step}
-      setStep={setStep}
+      setStep={nextPage}
       isInfo={isInfo}
-      tutorialTitle="WP Hotel Booking"
-      tutorialLinks={tutorialLinks?.wpHotelBooking || {}}
+      tutorialLinkKey="wpHotelBooking"
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
-        pluginCheck: { checks: [{ type: 'constant', value: 'WPHB_VERSION' }], logic: 'AND' }
+        pluginCheck: {
+          checks: [{ type: 'constant', value: 'WPHB_VERSION' }],
+          logic: 'AND'
+        }
       }}
       noteDetails={{
         note: __(
