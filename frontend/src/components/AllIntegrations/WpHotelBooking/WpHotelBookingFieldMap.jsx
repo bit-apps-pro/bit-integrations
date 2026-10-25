@@ -9,6 +9,7 @@ import {
   handleCustomValue,
   handleFieldMapping
 } from '../GlobalIntegrationHelper'
+import { fieldsByAction } from './staticData'
 
 export default function WpHotelBookingFieldMap({
   i,
@@ -20,10 +21,10 @@ export default function WpHotelBookingFieldMap({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
-  const requiredFlds =
-    wpHotelBookingConf?.wpHotelBookingFields?.filter(fld => fld.required === true) || []
-  const nonRequiredFlds =
-    wpHotelBookingConf?.wpHotelBookingFields?.filter(fld => fld.required === false) || []
+  const fields =
+    fieldsByAction[wpHotelBookingConf?.mainAction] || wpHotelBookingConf?.wpHotelBookingFields || []
+  const requiredFlds = fields.filter(fld => fld.required === true)
+  const nonRequiredFlds = fields.filter(fld => fld.required === false)
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">

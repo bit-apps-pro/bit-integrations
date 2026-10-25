@@ -70,12 +70,12 @@ const RoomIdField = { key: 'room_id', label: __('Room ID', 'bit-integrations'), 
 const StayFields = [
   {
     key: 'check_in_date',
-    label: __('Check-in Date (YYYY-MM-DD)', 'bit-integrations'),
+    label: __('Check-in Date', 'bit-integrations'),
     required: true
   },
   {
     key: 'check_out_date',
-    label: __('Check-out Date (YYYY-MM-DD)', 'bit-integrations'),
+    label: __('Check-out Date', 'bit-integrations'),
     required: true
   },
   { key: 'quantity', label: __('Room Quantity', 'bit-integrations'), required: false },
@@ -102,8 +102,8 @@ const CustomerFields = required => [
 const CouponFields = required => [
   { key: 'code', label: __('Coupon Code', 'bit-integrations'), required },
   { key: 'discount_value', label: __('Discount Value', 'bit-integrations'), required },
-  { key: 'date_from', label: __('Valid From (YYYY-MM-DD)', 'bit-integrations'), required },
-  { key: 'date_to', label: __('Valid Until (YYYY-MM-DD)', 'bit-integrations'), required },
+  { key: 'date_from', label: __('Valid From', 'bit-integrations'), required },
+  { key: 'date_to', label: __('Valid Until', 'bit-integrations'), required },
   { key: 'description', label: __('Description', 'bit-integrations'), required: false },
   { key: 'minimum_spend', label: __('Minimum Spend', 'bit-integrations'), required: false },
   { key: 'maximum_spend', label: __('Maximum Spend', 'bit-integrations'), required: false },
@@ -184,8 +184,8 @@ export const fieldsByAction = {
   set_room_regular_price: [RoomIdField, ...PriceFields],
   add_seasonal_pricing_plan: [
     RoomIdField,
-    { key: 'start_date', label: __('Start Date (YYYY-MM-DD)', 'bit-integrations'), required: true },
-    { key: 'end_date', label: __('End Date (YYYY-MM-DD)', 'bit-integrations'), required: true },
+    { key: 'start_date', label: __('Start Date', 'bit-integrations'), required: true },
+    { key: 'end_date', label: __('End Date', 'bit-integrations'), required: true },
     ...PriceFields
   ],
   create_room_type: [
@@ -416,3 +416,11 @@ export const needsDiscountType = ['create_coupon']
 export const needsCoupon = ['apply_coupon_to_booking']
 
 export const needsExtras = ['assign_extras_to_room']
+
+export const dateFieldActions = [
+  'create_booking',
+  'add_room_to_booking',
+  'create_coupon',
+  'update_coupon',
+  'add_seasonal_pricing_plan'
+]

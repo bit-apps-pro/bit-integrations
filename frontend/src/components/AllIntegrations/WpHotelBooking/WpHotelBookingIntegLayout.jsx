@@ -17,6 +17,7 @@ import {
 import WpHotelBookingFieldMap from './WpHotelBookingFieldMap'
 import {
   bookingStatusOptions,
+  dateFieldActions,
   discountTypeOptions,
   fieldsByAction,
   modules,
@@ -191,6 +192,11 @@ export default function WpHotelBookingIntegLayout({
         <div className="mt-4">
           <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
           <div className="btcd-hr mt-1" />
+          {dateFieldActions.includes(mainAction) && (
+            <p className="mt-2 mb-1">
+              {__('Enter dates in the YYYY-MM-DD format, for example 2026-12-31.', 'bit-integrations')}
+            </p>
+          )}
           <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
             <div className="txt-dp">
               <b>{__('Form Fields', 'bit-integrations')}</b>
