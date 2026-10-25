@@ -29,95 +29,13 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Bookings And Appointments For WooCommerce',
-        desc: '19 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Charitable',
-        desc: '18 new events added.',
-        isPro: true
-      },
-      {
-        label: 'ElementsKit',
-        desc: '13 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WP Simple Booking Calendar',
-        desc: '12 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Quiz And Survey Master (QSM)',
-        desc: '10 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Rox Appointment Booking',
-        desc: '10 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Quiz Maker',
-        desc: '03 new events added.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Rox Appointment Booking',
-        desc: '25 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Quiz Maker',
-        desc: '22 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WP Simple Booking Calendar',
-        desc: '18 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Bookings And Appointments For WooCommerce',
-        desc: '14 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Charitable',
-        desc: '12 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Google Sheets',
-        desc: '09 new events added.',
-        isPro: true
-      },
-      {
-        label: 'ElementsKit',
-        desc: '08 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Flodesk',
-        desc: '08 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Quiz And Survey Master (QSM)',
-        desc: '08 new events added.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -125,13 +43,8 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Paid Memberships Pro',
-        desc: 'Triggers now include the full member data - membership dates, billing and order details, subscription status and PMPro user fields such as Member Directory Entry.',
-        isPro: true
-      },
-      {
-        label: 'License',
-        desc: 'New Reconnect button refreshes your license status after a renewal, without disconnecting the site.',
+        label: 'Systeme.io',
+        desc: 'New Update Contact and Update Tags utilities. When a contact with the same email already exists, its fields are updated and the selected tag is added to it.',
         isPro: true
       }
     ]
@@ -148,24 +61,19 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Zoom',
-        desc: 'The Zoom screen crashed after you selected a meeting.',
-        isPro: true
-      },
-      {
-        label: 'Google Sheets',
-        desc: 'When Google returned an error, the spreadsheet and worksheet lists stayed empty with no reason shown. The error message now appears.',
+        label: 'Systeme.io',
+        desc: 'Some failed requests were still logged as successful. Success is now decided by the response status.',
         isPro: false
       },
       {
-        label: 'License',
-        desc: 'Licenses showed as expired one day early.',
-        isPro: true
+        label: 'Systeme.io',
+        desc: 'Adding a tag now gets its own log entry, so a failed tag no longer hides the result of the contact.',
+        isPro: false
       },
       {
-        label: 'License',
-        desc: 'A failed disconnect showed "Unknown error occurred" instead of the real error.',
-        isPro: true
+        label: 'Edit Flow',
+        desc: 'Form fields were missing from the field map when you opened a saved flow. They now load with the flow.',
+        isPro: false
       }
     ]
   },
@@ -173,18 +81,7 @@ const changeLog = [
     label: __('Security', 'bit-integrations'),
     headClass: 'fixes',
     itemClass: 'fixes-list',
-    items: [
-      {
-        label: 'Timeline',
-        desc: 'Re-executing a log now runs the flow as the user who made the original submission, not as the administrator who presses Re-execute.',
-        isPro: false
-      },
-      {
-        label: 'BuddyBoss',
-        desc: "Notification content and links are now sanitized, so HTML from a form submission can no longer run scripts in a user's notifications.",
-        isPro: false
-      }
-    ]
+    items: []
   },
   {
     label: __('Compatibility & Compliance', 'bit-integrations'),
