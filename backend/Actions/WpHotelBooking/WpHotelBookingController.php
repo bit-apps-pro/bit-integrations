@@ -93,7 +93,7 @@ class WpHotelBookingController
         $posts = get_posts(
             [
                 'post_type'   => $postType,
-                'post_status' => ['publish', 'draft', 'pending', 'private'],
+                'post_status' => 'publish',
                 'numberposts' => -1,
                 'orderby'     => 'title',
                 'order'       => 'ASC',
