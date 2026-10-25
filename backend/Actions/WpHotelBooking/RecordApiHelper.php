@@ -34,7 +34,7 @@ class RecordApiHelper
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {
@@ -210,9 +210,11 @@ class RecordApiHelper
             $triggerValue = $item->formField;
             $actionValue = $item->wpHotelBookingField;
 
-            $dataFinal[$actionValue] = $triggerValue === 'custom' && isset($item->customValue)
+            $value = $triggerValue === 'custom' && isset($item->customValue)
                 ? Common::replaceFieldWithValue($item->customValue, $fieldValues)
                 : ($fieldValues[$triggerValue] ?? '');
+
+            $dataFinal[$actionValue] = \is_array($value) ? implode(', ', array_filter($value, 'is_scalar')) : $value;
         }
 
         return $dataFinal;
