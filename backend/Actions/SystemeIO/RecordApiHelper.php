@@ -7,8 +7,8 @@
 namespace BitApps\Integrations\Actions\SystemeIO;
 
 use BitApps\Integrations\Config;
-use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Core\Util\Hooks;
+use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
 class RecordApiHelper
@@ -195,7 +195,6 @@ class RecordApiHelper
 
             return;
         }
-
         if (static::isSuccessResponse()) {
             LogHandler::save($this->integrationId, $logType, 'success', wp_json_encode([__('Tag added to contact successfully', 'bit-integrations')]));
         } else {
