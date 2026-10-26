@@ -40,7 +40,7 @@ export default function WpHotelBooking({ formFields, setFlow, flow, allIntegURL 
       if (!checkMappedFields(wpHotelBookingConf)) {
         setSnackbar({
           show: true,
-          msg: __('Required fields are not mapped. Map all required fields.', 'bit-integrations')
+          msg: __('Some field map rows are empty. Map each row or remove it.', 'bit-integrations')
         })
         return
       }

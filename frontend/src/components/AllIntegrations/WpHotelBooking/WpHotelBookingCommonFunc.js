@@ -31,9 +31,12 @@ const fetchList =
           return
         }
         setIsLoading(false)
+        toast.error(typeof result?.data === 'string' && result.data ? result.data : errorMsg())
+      })
+      .catch(() => {
+        setIsLoading(false)
         toast.error(errorMsg())
       })
-      .catch(() => setIsLoading(false))
   }
 
 export const refreshWpHotelBookingRooms = fetchList(
@@ -131,6 +134,10 @@ const requiredSelects = [
 ]
 
 export const getMissingSelectMessage = wpHotelBookingConf => {
+  if (!wpHotelBookingConf?.mainAction) {
+    return __('Action is not selected. Select an action.', 'bit-integrations')
+  }
+
   const missing = requiredSelects.find(
     ({ actions, confKey }) =>
       actions.includes(wpHotelBookingConf?.mainAction) && !wpHotelBookingConf?.[confKey]

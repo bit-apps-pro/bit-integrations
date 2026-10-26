@@ -118,7 +118,7 @@ const RoomFields = required => [
   { key: 'max_children', label: __('Max Children per Room', 'bit-integrations'), required: false },
   { key: 'beds', label: __('Beds', 'bit-integrations'), required: false },
   { key: 'area', label: __('Area', 'bit-integrations'), required: false },
-  { key: 'price', label: __('Regular Price per Night', 'bit-integrations'), required: false },
+  { key: 'price', label: __('Regular Price per Night, All Days', 'bit-integrations'), required: false },
   { key: 'external_link', label: __('External Link', 'bit-integrations'), required: false },
   {
     key: 'addition_information',
