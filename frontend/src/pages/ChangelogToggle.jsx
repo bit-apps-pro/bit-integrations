@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '12th October 2026'
+const releaseDate = '26th October 2026'
 
 // Example for items:
 // items: [
@@ -73,6 +73,11 @@ const changeLog = [
       {
         label: 'Edit Flow',
         desc: 'Form fields were missing from the field map when you opened a saved flow. They now load with the flow.',
+        isPro: false
+      },
+      {
+        label: 'WP Post Creation',
+        desc: 'The settings screen could fail with "map is not a function" when the author list did not load. Administrators can now always load the author list, and the screen opens even if the list fails to load.',
         isPro: false
       }
     ]

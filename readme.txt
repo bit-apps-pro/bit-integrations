@@ -470,7 +470,7 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 == Changelog ==
 
 = 2.10.9 =
-_Release Date - 25th October 2026_
+_Release Date - 26th October 2026_
 
 - **New Features**
  - Systeme.io: New Update Contact and Update Tags utilities. When a contact with the same email already exists, its fields are updated and the selected tag is added to it (Pro).
@@ -483,6 +483,7 @@ _Release Date - 25th October 2026_
  - Systeme.io: Some failed requests were still logged as successful. Success is now decided by the response status.
  - Systeme.io: Adding a tag now gets its own log entry, so a failed tag no longer hides the result of the contact.
  - Edit Flow: Form fields were missing from the field map when you opened a saved flow. They now load with the flow.
+ - WP Post Creation: The settings screen could fail with "map is not a function" when the author list did not load. Administrators can now always load the author list, and the screen opens even if the list fails to load.
 
 = 2.10.8 =
 _Release Date - 12th October 2026_
