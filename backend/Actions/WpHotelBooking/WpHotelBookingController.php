@@ -10,10 +10,7 @@ class WpHotelBookingController
     {
         if (!self::isPluginActive()) {
             wp_send_json_error(
-                __(
-                    'WP Hotel Booking is not activated or not installed',
-                    'bit-integrations'
-                ),
+                __('WP Hotel Booking is not active. Install and activate WP Hotel Booking.', 'bit-integrations'),
                 400
             );
         }

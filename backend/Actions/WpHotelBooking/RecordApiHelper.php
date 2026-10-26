@@ -21,20 +21,24 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap, $utilities)
     {
+        $mainAction = $this->_integrationDetails->mainAction ?? 'create_booking';
+
         if (!WpHotelBookingController::isPluginActive()) {
-            return [
+            $response = [
                 'success' => false,
-                'message' => __('WP Hotel Booking is not installed or activated', 'bit-integrations')
+                'message' => __('WP Hotel Booking is not active. Install and activate WP Hotel Booking.', 'bit-integrations')
             ];
+            LogHandler::save($this->_integrationID, ['type' => 'WpHotelBooking', 'type_name' => $mainAction], 'error', $response);
+
+            return $response;
         }
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-        $mainAction = $this->_integrationDetails->mainAction ?? 'create_booking';
 
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%1$s is not active. Install and activate %1$s.', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {
@@ -185,7 +189,7 @@ class RecordApiHelper
             default:
                 $response = [
                     'success' => false,
-                    'message' => __('Invalid action', 'bit-integrations')
+                    'message' => __('Action is not valid. Select an action from the list.', 'bit-integrations')
                 ];
                 $type = 'WpHotelBooking';
 
