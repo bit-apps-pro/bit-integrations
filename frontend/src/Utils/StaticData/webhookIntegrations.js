@@ -107,6 +107,7 @@ export const customFormIntegrations = [
   'Wsms',
   'WebbaBooking',
   'WpSimpleBookingCalendar',
+  'WpHotelBooking',
   'B2BKing',
   'FormyChat',
   'MainWP',
