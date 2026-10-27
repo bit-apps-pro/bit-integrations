@@ -40,7 +40,7 @@ class QuickBooksController
 
     public function getItems($queryParams)
     {
-        self::sendOptions($queryParams, 'Item', 'ORDERBY Name', [self::class, 'typedLabel']);
+        self::sendOptions($queryParams, 'Item', "WHERE Type IN ('Service', 'NonInventory', 'Inventory') ORDERBY Name", [self::class, 'typedLabel']);
     }
 
     public function getAccounts($queryParams)
