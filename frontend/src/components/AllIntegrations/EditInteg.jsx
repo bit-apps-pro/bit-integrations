@@ -239,6 +239,7 @@ const EditUserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/EditUserRegistrationMembership')
 )
 const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
+const EditQuickBooks = lazy(() => import('./QuickBooks/EditQuickBooks'))
 
 const loaderStyle = {
   display: 'flex',
@@ -775,6 +776,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSeoPress allIntegURL={allIntegURL} />
     case 'QuizMaker':
       return <EditQuizMaker allIntegURL={allIntegURL} />
+    case 'QuickBooks':
+      return <EditQuickBooks allIntegURL={allIntegURL} />
     default:
       return (
         <div className="txt-center" style={{ padding: '60px 20px' }}>
