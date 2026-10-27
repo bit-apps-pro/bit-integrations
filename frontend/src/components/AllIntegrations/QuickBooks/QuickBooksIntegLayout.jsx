@@ -170,16 +170,18 @@ export default function QuickBooksIntegLayout({
             />
           ))}
 
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() =>
-                addFieldMap(quickBooksConf.field_map.length, quickBooksConf, setQuickBooksConf)
-              }
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+          {fieldsByAction[action].some(actionField => !actionField.required) && (
+            <div className="txt-center btcbi-field-map-button mt-2">
+              <button
+                onClick={() =>
+                  addFieldMap(quickBooksConf.field_map.length, quickBooksConf, setQuickBooksConf)
+                }
+                className="icn-btn sh-sm"
+                type="button">
+                +
+              </button>
+            </div>
+          )}
         </div>
       )}
 

@@ -540,6 +540,7 @@ export const selectsByAction = {
   update_customer: [
     termSelect,
     paymentMethodSelect,
+    select('parent_id', __('Parent Customer', 'bit-integrations'), 'customers'),
     enumSelect('delivery_method', __('Delivery Method', 'bit-integrations'), deliveryMethodOptions)
   ],
   create_vendor: [termSelect],
@@ -554,6 +555,7 @@ export const selectsByAction = {
   update_item: [
     accountSelect('income_account_id', __('Income Account', 'bit-integrations')),
     accountSelect('expense_account_id', __('Expense Account', 'bit-integrations')),
+    accountSelect('asset_account_id', __('Inventory Asset Account', 'bit-integrations')),
     select('preferred_vendor_id', __('Preferred Vendor', 'bit-integrations'), 'vendors')
   ],
   create_account: [
@@ -606,7 +608,8 @@ export const selectsByAction = {
   create_bill_payment: [
     vendorSelect(true),
     enumSelect('pay_type', __('Payment Type', 'bit-integrations'), payTypeOptions, true),
-    accountSelect('payment_account_id', __('Payment Account', 'bit-integrations'), true)
+    accountSelect('payment_account_id', __('Payment Account', 'bit-integrations'), true),
+    departmentSelect
   ],
   create_expense: [
     enumSelect('payment_type', __('Payment Type', 'bit-integrations'), paymentTypeOptions, true),
@@ -735,23 +738,25 @@ const taxableUtility = checkboxUtility(
   __('Mark the record as taxable.', 'bit-integrations')
 )
 
+const vendor1099Utility = checkboxUtility(
+  'vendor_1099',
+  __('Track 1099 Payments', 'bit-integrations'),
+  __('Track payments to this vendor for 1099 forms.', 'bit-integrations')
+)
+
+const billableTimeUtility = checkboxUtility(
+  'billable_time',
+  __('Billable Time', 'bit-integrations'),
+  __('Mark the time of this employee as billable.', 'bit-integrations')
+)
+
 export const utilitiesByAction = {
   create_customer: [taxableUtility],
   update_customer: [taxableUtility],
-  create_vendor: [
-    checkboxUtility(
-      'vendor_1099',
-      __('Track 1099 Payments', 'bit-integrations'),
-      __('Track payments to this vendor for 1099 forms.', 'bit-integrations')
-    )
-  ],
-  create_employee: [
-    checkboxUtility(
-      'billable_time',
-      __('Billable Time', 'bit-integrations'),
-      __('Mark the time of this employee as billable.', 'bit-integrations')
-    )
-  ],
+  create_vendor: [vendor1099Utility],
+  update_vendor: [vendor1099Utility],
+  create_employee: [billableTimeUtility],
+  update_employee: [billableTimeUtility],
   create_item: [taxableUtility],
   update_item: [taxableUtility],
   create_journal_entry: [

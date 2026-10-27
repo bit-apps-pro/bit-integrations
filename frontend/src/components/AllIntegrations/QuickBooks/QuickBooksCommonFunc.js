@@ -16,15 +16,20 @@ const sources = {
   vendors: 'quick_books_get_vendors'
 }
 
+let pendingFetches = 0
+
 export const handleInput = (e, quickBooksConf, setQuickBooksConf) => {
-  const newConf = { ...quickBooksConf }
-  const { name } = e.target
-  if (e.target.value !== '') {
-    newConf[name] = e.target.value
-  } else {
-    delete newConf[name]
-  }
-  setQuickBooksConf({ ...newConf })
+  const { name, value } = e.target
+
+  setQuickBooksConf(
+    create(quickBooksConf, draftConf => {
+      if (value !== '') {
+        draftConf[name] = value
+      } else {
+        delete draftConf[name]
+      }
+    })
+  )
 }
 
 export const fetchSource = (source, conf, setConf, setIsLoading, silent = false) => {
@@ -32,6 +37,7 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
 
   if (!route || !conf?.connection_id) return
 
+  pendingFetches += 1
   setIsLoading(true)
 
   const request = bitsFetch({ connection_id: conf.connection_id }, route)
@@ -55,10 +61,13 @@ export const fetchSource = (source, conf, setConf, setIsLoading, silent = false)
           : __('Refresh failed. Try again.', 'bit-integrations')
       )
     })
-    .finally(() => setIsLoading(false))
+    .finally(() => {
+      pendingFetches -= 1
+      setIsLoading(pendingFetches > 0)
+    })
 
   if (silent) {
-    request.catch(error => toast.error(error.message))
+    request.catch(error => toast.error(error.message, { id: 'quick-books-fetch-error' }))
     return
   }
 

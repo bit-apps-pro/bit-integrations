@@ -7,7 +7,7 @@ const developerPortalUrl = 'https://developer.intuit.com/app/developer/dashboard
 const note = `
     <h4>${__('Steps to connect QuickBooks:', 'bit-integrations')}</h4>
     <ul>
-      <li>${__('Open the', 'bit-integrations')} <a href=${developerPortalUrl} target="_blank" rel="noreferrer">${__(
+      <li>${__('Open the', 'bit-integrations')} <a href="${developerPortalUrl}" target="_blank" rel="noreferrer">${__(
         'Intuit Developer portal',
         'bit-integrations'
       )}</a>.</li>
