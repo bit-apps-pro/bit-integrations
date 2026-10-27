@@ -24,7 +24,7 @@ class RecordApiHelper
         if (!WpActivityLogController::isPluginActive()) {
             return [
                 'success' => false,
-                'message' => __('WP Activity Log is not installed or activated', 'bit-integrations')
+                'message' => __('WP Activity Log is not active. Activate the plugin and try again.', 'bit-integrations')
             ];
         }
 
@@ -35,7 +35,7 @@ class RecordApiHelper
         $defaultResponse = [
             'success' => false,
             // translators: %s: Plugin name
-            'message' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
         switch ($mainAction) {

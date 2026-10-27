@@ -2,6 +2,7 @@ import { create } from 'mutative'
 import toast from 'react-hot-toast'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { __ } from '../../../Utils/i18nwrap'
+import { needsEvent, needsTimeUnit } from './staticData'
 
 export const handleInput = (e, wpActivityLogConf, setWpActivityLogConf) => {
   const { name, value } = e.target
@@ -39,32 +40,32 @@ export const refreshWpActivityLogEvents = fetchList(
   'refresh_wp_activity_log_events',
   'events',
   'allEvents',
-  () => __('All events fetched successfully', 'bit-integrations'),
-  () => __('WP Activity Log events fetch failed. Please try again', 'bit-integrations')
+  () => __('The events are loaded.', 'bit-integrations'),
+  () => __('The events did not load. Try again.', 'bit-integrations')
 )
 
 export const refreshWpActivityLogUsers = fetchList(
   'refresh_wp_activity_log_users',
   'users',
   'allUsers',
-  () => __('All users fetched successfully', 'bit-integrations'),
-  () => __('WP Activity Log users fetch failed. Please try again', 'bit-integrations')
+  () => __('The users are loaded.', 'bit-integrations'),
+  () => __('The users did not load. Try again.', 'bit-integrations')
 )
 
 export const refreshWpActivityLogObjects = fetchList(
   'refresh_wp_activity_log_objects',
   'objects',
   'allObjects',
-  () => __('All objects fetched successfully', 'bit-integrations'),
-  () => __('WP Activity Log objects fetch failed. Please try again', 'bit-integrations')
+  () => __('The objects are loaded.', 'bit-integrations'),
+  () => __('The objects did not load. Try again.', 'bit-integrations')
 )
 
 export const refreshWpActivityLogEventTypes = fetchList(
   'refresh_wp_activity_log_event_types',
   'eventTypes',
   'allEventTypes',
-  () => __('All event types fetched successfully', 'bit-integrations'),
-  () => __('WP Activity Log event types fetch failed. Please try again', 'bit-integrations')
+  () => __('The event types are loaded.', 'bit-integrations'),
+  () => __('The event types did not load. Try again.', 'bit-integrations')
 )
 
 export const generateMappedField = fields => {
@@ -87,16 +88,18 @@ export const refreshWpActivityLogEventFields = (eventId, setWpActivityLogConf, s
     .then(result => {
       if (result && result?.success && Array.isArray(result?.data?.fields)) {
         setWpActivityLogConf(prevConf =>
-          create(prevConf, draftConf => {
-            draftConf.wpActivityLogFields = result.data.fields
-            draftConf.field_map = generateMappedField(result.data.fields)
-          })
+          prevConf.selectedEvent !== eventId
+            ? prevConf
+            : create(prevConf, draftConf => {
+                draftConf.wpActivityLogFields = result.data.fields
+                draftConf.field_map = generateMappedField(result.data.fields)
+              })
         )
         setIsLoading(false)
         return
       }
       setIsLoading(false)
-      toast.error(__('Event data fields fetch failed. Please try again', 'bit-integrations'))
+      toast.error(__('The event fields did not load. Try again.', 'bit-integrations'))
     })
     .catch(() => setIsLoading(false))
 }
@@ -124,4 +127,45 @@ export const checkMappedFields = wpActivityLogConf => {
   return requiredKeys.every(key =>
     fieldMap.some(mappedField => mappedField.wpActivityLogField === key && mappedField.formField)
   )
+}
+
+const deleteFilterUtilities = [
+  'selected_user',
+  'selected_event',
+  'selected_severity',
+  'selected_object',
+  'selected_event_type'
+]
+
+export const getConfError = wpActivityLogConf => {
+  const { mainAction } = wpActivityLogConf || {}
+
+  if (!mainAction) {
+    return __('Select an action to continue.', 'bit-integrations')
+  }
+
+  if (needsEvent.includes(mainAction) && !wpActivityLogConf?.selectedEvent) {
+    return __('Select an event to continue.', 'bit-integrations')
+  }
+
+  if (needsTimeUnit.includes(mainAction) && !wpActivityLogConf?.selectedTimeUnit) {
+    return __('Select a time unit to continue.', 'bit-integrations')
+  }
+
+  if (!checkMappedFields(wpActivityLogConf)) {
+    return __('Map all required fields to continue.', 'bit-integrations')
+  }
+
+  if (mainAction === 'delete_events') {
+    const hasUtilityFilter = deleteFilterUtilities.some(key => wpActivityLogConf?.utilities?.[key])
+    const hasMappedFilter = (wpActivityLogConf?.field_map || []).some(
+      mappedField => mappedField.formField && mappedField.wpActivityLogField
+    )
+
+    if (!hasUtilityFilter && !hasMappedFilter) {
+      return __('Set at least one filter to continue.', 'bit-integrations')
+    }
+  }
+
+  return ''
 }

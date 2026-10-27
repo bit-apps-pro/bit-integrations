@@ -7,7 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents'
-import { checkMappedFields, handleInput } from './WpActivityLogCommonFunc'
+import { getConfError, handleInput } from './WpActivityLogCommonFunc'
 import WpActivityLogIntegLayout from './WpActivityLogIntegLayout'
 
 export default function EditWpActivityLog({ allIntegURL }) {
@@ -64,7 +64,7 @@ export default function EditWpActivityLog({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={!checkMappedFields(wpActivityLogConf)}
+        disabled={!!getConfError(wpActivityLogConf)}
         isLoading={isLoading}
         dataConf={wpActivityLogConf}
         setDataConf={setWpActivityLogConf}

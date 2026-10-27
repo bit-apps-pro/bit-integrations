@@ -19,7 +19,7 @@ class WpActivityLogController
         if (!static::isPluginActive()) {
             wp_send_json_error(
                 __(
-                    'WP Activity Log is not activated or not installed',
+                    'WP Activity Log is not active. Activate the plugin and try again.',
                     'bit-integrations'
                 ),
                 400

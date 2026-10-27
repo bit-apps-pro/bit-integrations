@@ -2,11 +2,11 @@ import { __ } from '../../../Utils/i18nwrap'
 
 export const modules = [
   { name: 'log_event', label: __('Log Event', 'bit-integrations'), is_pro: true },
-  { name: 'delete_event', label: __('Delete Event', 'bit-integrations'), is_pro: true },
-  { name: 'delete_events', label: __('Delete Events by Filter', 'bit-integrations'), is_pro: true },
+  { name: 'delete_event', label: __('Delete Log Entry', 'bit-integrations'), is_pro: true },
+  { name: 'delete_events', label: __('Delete Log Entries by Filter', 'bit-integrations'), is_pro: true },
   {
     name: 'delete_events_older_than',
-    label: __('Delete Events Older Than', 'bit-integrations'),
+    label: __('Delete Log Entries Older Than', 'bit-integrations'),
     is_pro: true
   },
   { name: 'enable_event', label: __('Enable Event', 'bit-integrations'), is_pro: true },
@@ -43,28 +43,28 @@ export const modules = [
   },
   {
     name: 'exclude_post_meta_field',
-    label: __('Exclude Post Meta Field', 'bit-integrations'),
+    label: __('Exclude Post Meta Key', 'bit-integrations'),
     is_pro: true
   },
   {
     name: 'remove_post_meta_field_exclusion',
-    label: __('Remove Post Meta Field Exclusion', 'bit-integrations'),
+    label: __('Remove Post Meta Key Exclusion', 'bit-integrations'),
     is_pro: true
   },
   {
     name: 'exclude_user_meta_field',
-    label: __('Exclude User Meta Field', 'bit-integrations'),
+    label: __('Exclude User Meta Key', 'bit-integrations'),
     is_pro: true
   },
   {
     name: 'remove_user_meta_field_exclusion',
-    label: __('Remove User Meta Field Exclusion', 'bit-integrations'),
+    label: __('Remove User Meta Key Exclusion', 'bit-integrations'),
     is_pro: true
   }
 ]
 
 export const EventLogIdField = [
-  { key: 'occurrence_id', label: __('Event Log ID', 'bit-integrations'), required: true }
+  { key: 'occurrence_id', label: __('Log Entry ID', 'bit-integrations'), required: true }
 ]
 
 export const EventFilterFields = [

@@ -120,7 +120,7 @@ export default function WpActivityLogActions({ wpActivityLogConf, setWpActivityL
             subTitle={
               mainAction === 'log_event'
                 ? __('Log the event for this user', 'bit-integrations')
-                : __('Delete only the events of this user', 'bit-integrations')
+                : __('Delete only the log entries of this user', 'bit-integrations')
             }
           />
           {renderActionModal(
@@ -141,7 +141,7 @@ export default function WpActivityLogActions({ wpActivityLogConf, setWpActivityL
             className="wdt-200 mt-4 mr-2"
             value="event"
             title={__('Event', 'bit-integrations')}
-            subTitle={__('Delete only this event', 'bit-integrations')}
+            subTitle={__('Delete only the log entries of this event', 'bit-integrations')}
           />
           <TableCheckBox
             checked={wpActivityLogConf?.utilities?.selected_severity || false}
@@ -149,7 +149,7 @@ export default function WpActivityLogActions({ wpActivityLogConf, setWpActivityL
             className="wdt-200 mt-4 mr-2"
             value="severity"
             title={__('Severity', 'bit-integrations')}
-            subTitle={__('Delete only events with this severity', 'bit-integrations')}
+            subTitle={__('Delete only the log entries with this severity', 'bit-integrations')}
           />
           <TableCheckBox
             checked={wpActivityLogConf?.utilities?.selected_object || false}
@@ -157,7 +157,7 @@ export default function WpActivityLogActions({ wpActivityLogConf, setWpActivityL
             className="wdt-200 mt-4 mr-2"
             value="object"
             title={__('Object', 'bit-integrations')}
-            subTitle={__('Delete only events about this object', 'bit-integrations')}
+            subTitle={__('Delete only the log entries about this object', 'bit-integrations')}
           />
           <TableCheckBox
             checked={wpActivityLogConf?.utilities?.selected_event_type || false}
@@ -165,7 +165,7 @@ export default function WpActivityLogActions({ wpActivityLogConf, setWpActivityL
             className="wdt-200 mt-4 mr-2"
             value="event_type"
             title={__('Event Type', 'bit-integrations')}
-            subTitle={__('Delete only events of this type', 'bit-integrations')}
+            subTitle={__('Delete only the log entries of this event type', 'bit-integrations')}
           />
           {renderActionModal(
             'event',

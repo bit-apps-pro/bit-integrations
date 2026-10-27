@@ -25,11 +25,11 @@ import {
 
 const deleteWarnings = {
   delete_events: __(
-    'You cannot restore deleted events. Set at least one filter. The action deletes all events that match every filter.',
+    'You cannot restore deleted log entries. Set at least one filter. The action deletes all log entries that match every filter. If a mapped filter has no value, the action stops.',
     'bit-integrations'
   ),
   delete_events_older_than: __(
-    'You cannot restore deleted events. Make sure the age is correct before you turn on the flow.',
+    'You cannot restore deleted log entries. Make sure that the age is correct before you turn on the flow.',
     'bit-integrations'
   )
 }
@@ -132,7 +132,7 @@ export default function WpActivityLogIntegLayout({
           <br />
           <Note
             note={__(
-              'The event must be enabled in WP Activity Log. Map values for the placeholders of the event message.',
+              'Enable the event in WP Activity Log before you log it. Map values for the placeholders of the event message.',
               'bit-integrations'
             )}
           />

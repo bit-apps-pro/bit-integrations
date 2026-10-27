@@ -7,9 +7,8 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import WpActivityLogAuthorization from './WpActivityLogAuthorization'
-import { checkMappedFields } from './WpActivityLogCommonFunc'
+import { getConfError } from './WpActivityLogCommonFunc'
 import WpActivityLogIntegLayout from './WpActivityLogIntegLayout'
-import { needsEvent, needsTimeUnit } from './staticData'
 
 export default function WpActivityLog({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
@@ -31,27 +30,10 @@ export default function WpActivityLog({ formFields, setFlow, flow, allIntegURL }
     }, 300)
 
     if (val === 3) {
-      if (needsEvent.includes(wpActivityLogConf.mainAction) && !wpActivityLogConf?.selectedEvent) {
-        setSnackbar({
-          show: true,
-          msg: __('Select an event to continue.', 'bit-integrations')
-        })
-        return
-      }
+      const confError = getConfError(wpActivityLogConf)
 
-      if (needsTimeUnit.includes(wpActivityLogConf.mainAction) && !wpActivityLogConf?.selectedTimeUnit) {
-        setSnackbar({
-          show: true,
-          msg: __('Select a time unit to continue.', 'bit-integrations')
-        })
-        return
-      }
-
-      if (!checkMappedFields(wpActivityLogConf)) {
-        setSnackbar({
-          show: true,
-          msg: __('Map all required fields to continue.', 'bit-integrations')
-        })
+      if (confError) {
+        setSnackbar({ show: true, msg: confError })
         return
       }
 
