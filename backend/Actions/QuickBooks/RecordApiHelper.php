@@ -28,6 +28,7 @@ class RecordApiHelper
         'from_account_id',
         'income_account_id',
         'item_id',
+        'item_type',
         'line_account_id',
         'line_item_id',
         'name_of',
@@ -36,12 +37,12 @@ class RecordApiHelper
         'payee_id',
         'payment_account_id',
         'payment_method_id',
+        'payment_method_type',
         'payment_type',
         'preferred_vendor_id',
         'status',
         'term_id',
         'to_account_id',
-        'type',
         'vendor_id',
     ];
 

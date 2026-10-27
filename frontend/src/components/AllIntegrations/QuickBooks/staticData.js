@@ -545,7 +545,7 @@ export const selectsByAction = {
   create_vendor: [termSelect],
   update_vendor: [termSelect],
   create_item: [
-    enumSelect('type', __('Item Type', 'bit-integrations'), itemTypeOptions, true),
+    enumSelect('item_type', __('Item Type', 'bit-integrations'), itemTypeOptions, true),
     accountSelect('income_account_id', __('Income Account', 'bit-integrations'), true),
     accountSelect('expense_account_id', __('Expense Account', 'bit-integrations')),
     accountSelect('asset_account_id', __('Inventory Asset Account', 'bit-integrations')),
@@ -644,7 +644,9 @@ export const selectsByAction = {
   ],
   create_class: [select('parent_id', __('Parent Class', 'bit-integrations'), 'classes')],
   create_department: [select('parent_id', __('Parent Department', 'bit-integrations'), 'departments')],
-  create_payment_method: [enumSelect('type', __('Type', 'bit-integrations'), paymentMethodTypeOptions)],
+  create_payment_method: [
+    enumSelect('payment_method_type', __('Type', 'bit-integrations'), paymentMethodTypeOptions)
+  ],
   upload_attachment: [
     enumSelect('entity_type', __('Record Type', 'bit-integrations'), recordTypeOptions, true)
   ],
