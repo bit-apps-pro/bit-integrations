@@ -2266,6 +2266,9 @@ export default function NewInteg({ allIntegURL }) {
     case 'BitCrm':
       integrationName = 'Bit CRM'
       break
+    case 'WpActivityLog':
+      integrationName = 'WP Activity Log'
+      break
 
     default:
       integrationName = integUrlName
