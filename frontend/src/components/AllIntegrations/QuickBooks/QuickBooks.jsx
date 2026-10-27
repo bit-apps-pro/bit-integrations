@@ -19,7 +19,7 @@ function QuickBooks({ formFields, setFlow, flow, allIntegURL }) {
 
   const [quickBooksConf, setQuickBooksConf] = useState({
     field_map: [],
-    name: 'QuickBooks Online',
+    name: 'QuickBooks',
     type: 'QuickBooks',
     utilities: {}
   })

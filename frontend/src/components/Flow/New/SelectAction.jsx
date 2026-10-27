@@ -252,7 +252,7 @@ export default function SelectAction() {
     { type: 'Sender', is_pro: true },
     { type: 'MainWP', is_pro: true },
     { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true },
-    { type: 'QuickBooks', name: 'QuickBooks Online', is_pro: true }
+    { type: 'QuickBooks', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)

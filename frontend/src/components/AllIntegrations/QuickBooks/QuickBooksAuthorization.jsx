@@ -5,7 +5,7 @@ import Authorization from '../../Connections/Authorization'
 
 const developerPortalUrl = 'https://developer.intuit.com/app/developer/dashboard'
 const note = `
-    <h4>${__('Steps to connect QuickBooks Online:', 'bit-integrations')}</h4>
+    <h4>${__('Steps to connect QuickBooks:', 'bit-integrations')}</h4>
     <ul>
       <li>${__('Open the', 'bit-integrations')} <a href=${developerPortalUrl} target="_blank" rel="noreferrer">${__(
         'Intuit Developer portal',
@@ -34,7 +34,7 @@ export default function QuickBooksAuthorization({
       step={step}
       setStep={setstep}
       isInfo={isInfo}
-      tutorialTitle="QuickBooks Online"
+      tutorialTitle="QuickBooks"
       tutorialLinks={tutorialLinks?.quickBooks || {}}
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
