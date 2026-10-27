@@ -193,6 +193,7 @@ const EditBookingsAndAppointmentsForWoocommerce = lazy(
 const EditQuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/EditQuizAndSurveyMaster'))
 const EditElementsKit = lazy(() => import('./ElementsKit/EditElementsKit'))
 const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
+const EditWpActivityLog = lazy(() => import('./WpActivityLog/EditWpActivityLog'))
 const EditPointics = lazy(() => import('./Pointics/EditPointics'))
 const EditSenseiLMS = lazy(() => import('./SenseiLMS/EditSenseiLMS'))
 const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
@@ -701,6 +702,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditElementsKit allIntegURL={allIntegURL} />
     case 'Charitable':
       return <EditCharitable allIntegURL={allIntegURL} />
+    case 'WpActivityLog':
+      return <EditWpActivityLog allIntegURL={allIntegURL} />
     case 'Pointics':
       return <EditPointics allIntegURL={allIntegURL} />
     case 'SenseiLMS':
