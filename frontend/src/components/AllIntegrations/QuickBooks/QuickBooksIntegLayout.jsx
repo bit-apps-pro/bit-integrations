@@ -134,13 +134,6 @@ export default function QuickBooksIntegLayout({
         )
       })}
 
-      {notesByAction[action] && (
-        <>
-          <br />
-          <Note note={notesByAction[action]} />
-        </>
-      )}
-
       {isLoading && (
         <Loader
           style={{
@@ -188,6 +181,13 @@ export default function QuickBooksIntegLayout({
             </button>
           </div>
         </div>
+      )}
+
+      {notesByAction[action] && (
+        <>
+          <br />
+          <Note note={notesByAction[action]} />
+        </>
       )}
 
       {utilitiesByAction[action]?.length > 0 && (
