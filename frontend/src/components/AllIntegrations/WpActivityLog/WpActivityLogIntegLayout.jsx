@@ -81,6 +81,7 @@ export default function WpActivityLogIntegLayout({
 
   const { mainAction } = wpActivityLogConf || {}
   const hasFields = (wpActivityLogConf?.wpActivityLogFields || []).length > 0
+  const hasOptionalFields = (wpActivityLogConf?.wpActivityLogFields || []).some(field => !field.required)
 
   return (
     <>
@@ -210,16 +211,22 @@ export default function WpActivityLogIntegLayout({
               setWpActivityLogConf={setWpActivityLogConf}
             />
           ))}
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() =>
-                addFieldMap(wpActivityLogConf.field_map.length, wpActivityLogConf, setWpActivityLogConf)
-              }
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+          {hasOptionalFields && (
+            <div className="txt-center btcbi-field-map-button mt-2">
+              <button
+                onClick={() =>
+                  addFieldMap(
+                    wpActivityLogConf.field_map.length,
+                    wpActivityLogConf,
+                    setWpActivityLogConf
+                  )
+                }
+                className="icn-btn sh-sm"
+                type="button">
+                +
+              </button>
+            </div>
+          )}
           <br />
         </div>
       )}
