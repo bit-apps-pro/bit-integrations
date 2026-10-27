@@ -85,8 +85,6 @@ class QuickBooksController
     }
 
     /**
-     * Returns an error message instead of a client when the connection is missing or has no Company ID.
-     *
      * @param mixed $connectionId
      *
      * @return ApiClient|string
