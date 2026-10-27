@@ -105,16 +105,28 @@ const contactFields = [
   field('website', __('Website', 'bit-integrations'))
 ]
 
-const addressFields = (prefix, title) => [
-  field(`${prefix}line1`, `${title} ${__('Street', 'bit-integrations')}`),
-  field(`${prefix}line2`, `${title} ${__('Street Line 2', 'bit-integrations')}`),
-  field(`${prefix}city`, `${title} ${__('City', 'bit-integrations')}`),
-  field(`${prefix}state`, `${title} ${__('State', 'bit-integrations')}`),
-  field(`${prefix}postal_code`, `${title} ${__('ZIP Code', 'bit-integrations')}`),
-  field(`${prefix}country`, `${title} ${__('Country', 'bit-integrations')}`)
-]
+const addressFields = (prefix, labels) =>
+  ['line1', 'line2', 'city', 'state', 'postal_code', 'country'].map((part, index) =>
+    field(`${prefix}${part}`, labels[index])
+  )
 
-const billingAddressFields = addressFields('bill_', __('Billing', 'bit-integrations'))
+const billingAddressFields = addressFields('bill_', [
+  __('Billing Street', 'bit-integrations'),
+  __('Billing Street Line 2', 'bit-integrations'),
+  __('Billing City', 'bit-integrations'),
+  __('Billing State', 'bit-integrations'),
+  __('Billing ZIP Code', 'bit-integrations'),
+  __('Billing Country', 'bit-integrations')
+])
+
+const shippingAddressFields = addressFields('ship_', [
+  __('Shipping Street', 'bit-integrations'),
+  __('Shipping Street Line 2', 'bit-integrations'),
+  __('Shipping City', 'bit-integrations'),
+  __('Shipping State', 'bit-integrations'),
+  __('Shipping ZIP Code', 'bit-integrations'),
+  __('Shipping Country', 'bit-integrations')
+])
 
 const displayNameField = required =>
   field('display_name', __('Display Name', 'bit-integrations'), required)
@@ -124,7 +136,7 @@ const customerFields = isCreate => [
   ...contactFields,
   field('notes', __('Notes', 'bit-integrations')),
   ...billingAddressFields,
-  ...addressFields('ship_', __('Shipping', 'bit-integrations')),
+  ...shippingAddressFields,
   field('resale_number', __('Resale Number', 'bit-integrations'))
 ]
 
@@ -146,7 +158,14 @@ const employeeFields = isCreate => [
   field('email', __('Email', 'bit-integrations')),
   field('phone', __('Phone', 'bit-integrations')),
   field('mobile', __('Mobile', 'bit-integrations')),
-  ...addressFields('address_', __('Address', 'bit-integrations')),
+  ...addressFields('address_', [
+    __('Street', 'bit-integrations'),
+    __('Street Line 2', 'bit-integrations'),
+    __('City', 'bit-integrations'),
+    __('State', 'bit-integrations'),
+    __('ZIP Code', 'bit-integrations'),
+    __('Country', 'bit-integrations')
+  ]),
   field('employee_number', __('Employee Number', 'bit-integrations')),
   field('hired_date', __('Hired Date (YYYY-MM-DD)', 'bit-integrations')),
   field('birth_date', __('Birth Date (YYYY-MM-DD)', 'bit-integrations')),
@@ -166,7 +185,7 @@ const itemFields = isCreate => [
 
 const accountFields = isCreate => [
   field('name', __('Name', 'bit-integrations'), isCreate),
-  field('account_sub_type', __('Detail Type (for example CashOnHand)', 'bit-integrations')),
+  field('account_sub_type', __('Detail Type', 'bit-integrations')),
   field('account_number', __('Account Number', 'bit-integrations')),
   field('description', __('Description', 'bit-integrations'))
 ]
@@ -343,7 +362,7 @@ export const fieldsByAction = {
     dueDateField,
     field('memo', __('Message to Vendor', 'bit-integrations')),
     field('po_email', __('Vendor Email', 'bit-integrations')),
-    ...addressFields('ship_', __('Shipping', 'bit-integrations')),
+    ...shippingAddressFields,
     ...lineFields
   ],
   delete_purchase_order: [purchaseOrderIdField],
@@ -462,7 +481,7 @@ const billableStatusOptions = options([
 
 const paymentMethodTypeOptions = options([
   ['CREDIT_CARD', __('Credit card', 'bit-integrations')],
-  ['NON_CREDIT_CARD', __('Other', 'bit-integrations')]
+  ['NON_CREDIT_CARD', __('Not a credit card', 'bit-integrations')]
 ])
 
 const deliveryMethodOptions = options([
@@ -640,7 +659,7 @@ export const selectsByAction = {
     select('employee_id', __('Employee', 'bit-integrations'), 'employees'),
     vendorSelect(false),
     customerSelect(false),
-    select('item_id', __('Service', 'bit-integrations'), 'items'),
+    select('item_id', __('Service Item', 'bit-integrations'), 'items'),
     enumSelect('billable_status', __('Billable Status', 'bit-integrations'), billableStatusOptions),
     classSelect,
     departmentSelect
@@ -648,7 +667,11 @@ export const selectsByAction = {
   create_class: [select('parent_id', __('Parent Class', 'bit-integrations'), 'classes')],
   create_department: [select('parent_id', __('Parent Department', 'bit-integrations'), 'departments')],
   create_payment_method: [
-    enumSelect('payment_method_type', __('Type', 'bit-integrations'), paymentMethodTypeOptions)
+    enumSelect(
+      'payment_method_type',
+      __('Payment Method Type', 'bit-integrations'),
+      paymentMethodTypeOptions
+    )
   ],
   upload_attachment: [
     enumSelect('entity_type', __('Record Type', 'bit-integrations'), recordTypeOptions, true)
@@ -664,8 +687,16 @@ const salesLineNote = __(
   'Select a <b>Line Item</b>. Then map the <b>Line Amount</b>, or the <b>Line Quantity</b> and the <b>Line Unit Price</b>. Inventory items need a quantity.',
   'bit-integrations'
 )
-const salesLineUpdateNote = __(
+const updateNote = __(
+  'Only the mapped fields change. QuickBooks keeps the current value of every other field.',
+  'bit-integrations'
+)
+const salesLineUpdateNote = `${updateNote} ${__(
   'Select a <b>Line Item</b> to replace all lines with one new line. Leave it empty to keep the current lines.',
+  'bit-integrations'
+)}`
+const accountNote = __(
+  'Map the <b>Detail Type</b> as its QuickBooks API name, for example CashOnHand or OfficeGeneralAdministrativeExpenses. Leave it empty to use the default for the account type.',
   'bit-integrations'
 )
 const expenseLineNote = __(
@@ -678,6 +709,12 @@ const sendNote = __(
 )
 
 export const notesByAction = {
+  update_customer: updateNote,
+  update_vendor: updateNote,
+  update_employee: updateNote,
+  update_item: updateNote,
+  create_account: accountNote,
+  update_account: `${updateNote} ${accountNote}`,
   create_item: __(
     'An Inventory item also needs the <b>Expense Account</b>, the <b>Inventory Asset Account</b>, the <b>Quantity on Hand</b> and the <b>Inventory Start Date</b>. Its income account must have the Sales of Product Income detail type.',
     'bit-integrations'
@@ -700,10 +737,10 @@ export const notesByAction = {
   create_refund_receipt: salesLineNote,
   send_refund_receipt: sendNote,
   create_bill: expenseLineNote,
-  update_bill: __(
+  update_bill: `${updateNote} ${__(
     'Select a <b>Line Category</b> or a <b>Line Item</b> to replace all lines with one new line. Leave both empty to keep the current lines.',
     'bit-integrations'
-  ),
+  )}`,
   create_bill_payment: __(
     'Select a bank account for Check, or a credit card account for Credit Card.',
     'bit-integrations'
@@ -717,7 +754,7 @@ export const notesByAction = {
     'bit-integrations'
   ),
   create_time_activity: __(
-    'Select an <b>Employee</b> for the Employee worker type, or a <b>Vendor</b> for the Vendor worker type.',
+    'Select an <b>Employee</b> for the Employee worker type, or a <b>Vendor</b> for the Vendor worker type. <b>Hours</b> accepts decimals, for example 1.5 for 1 hour 30 minutes.',
     'bit-integrations'
   ),
   upload_attachment: __(
