@@ -14,9 +14,9 @@ export default function KlaviyoActions({ klaviyoConf, setKlaviyoConf, loading, s
   const actionHandler = (e, type) => {
     const newConf = { ...klaviyoConf }
     if (e.target?.checked) {
-      newConf['update'] = true
+      newConf[type] = true
     } else {
-      delete newConf.update
+      delete newConf[type]
     }
 
     setKlaviyoConf({ ...newConf })
@@ -41,6 +41,17 @@ export default function KlaviyoActions({ klaviyoConf, setKlaviyoConf, loading, s
             proVersion="2.4.9"
           />
         }
+      />
+      <TableCheckBox
+        checked={klaviyoConf?.email_marketing_consent || false}
+        onChange={e => actionHandler(e, 'email_marketing_consent')}
+        className="wdt-200 mt-4 mr-2"
+        value="email_marketing_consent"
+        title={__('Email Marketing Consent', 'bit-integrations')}
+        subTitle={__(
+          'Subscribe the profile to email marketing so it can receive campaigns',
+          'bit-integrations'
+        )}
       />
     </div>
   )
