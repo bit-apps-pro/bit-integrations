@@ -24,7 +24,7 @@ class RecordApiHelper
         if (!WpActivityLogController::isPluginActive()) {
             return [
                 'success' => false,
-                'message' => __('WP Activity Log is not active. Activate the plugin and try again.', 'bit-integrations')
+                'message' => __('WP Activity Log is not installed or activated', 'bit-integrations')
             ];
         }
 
