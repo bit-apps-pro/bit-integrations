@@ -6311,6 +6311,78 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   text-align: center;
 }
 
+/* ---------- telemetry "what we collect" disclosure ---------- */
+
+.btcd-collect {
+  margin: 10px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: $pg-muted;
+}
+
+.btcd-collect--opt {
+  margin: 10px 0 0 48px;
+}
+
+.btcd-collect-sum {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $pg-accent;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 3px;
+  transition: color 140ms $pg-ease;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform 180ms $pg-ease;
+  }
+
+  &:hover {
+    color: $dp-purple;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $pg-accent;
+    outline-offset: 2px;
+  }
+}
+
+.btcd-collect[open] > .btcd-collect-sum::before {
+  transform: rotate(45deg);
+}
+
+.btcd-collect-list {
+  margin: 8px 0 0;
+  padding: 10px 14px 10px 30px;
+  max-width: 62ch;
+  list-style: disc;
+  border: 1px solid $pg-bdr;
+  border-radius: 10px;
+  background: $pg-canvas;
+  text-align: left;
+
+  li {
+    margin: 0 0 4px;
+    line-height: 1.5;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
 /* ---------- link row (doc & support channels) ---------- */
 
 .btcd-link-row {
@@ -6750,6 +6822,10 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
     justify-content: space-between;
   }
 
+  .btcd-collect--opt {
+    margin-left: 0;
+  }
+
   .btcd-doc-card {
     padding: 18px;
   }
@@ -6763,6 +6839,8 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
 
 @media (prefers-reduced-motion: reduce) {
   .btcd-opt-extra,
+  .btcd-collect-sum,
+  .btcd-collect-sum::before,
   .btcd-link-row,
   .btcd-link-row-icn,
   .btcd-link-row-arw,
@@ -7023,7 +7101,6 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
     flex: none;
   }
 }
-
 
 .btcbi-md-sep {
   flex: none;

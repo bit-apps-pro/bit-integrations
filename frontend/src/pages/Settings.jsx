@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAsyncDebounce } from 'react-table'
 import SingleToggle2 from '../components/Utilities/SingleToggle2'
+import TelemetryDataList from '../components/Utilities/TelemetryDataList'
 import { DangerIcn, LogRetentionIcn, MailIcn, PrivacyIcn } from '../Icons/UiIcns'
 import ExternalLinkIcn from '../resource/img/supportIcon/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
@@ -53,13 +54,12 @@ function SettingsSkeleton() {
 
 function Settings() {
   const [appConf, setAppConf] = useState({})
-  const [showAnalyticsOptin, setShowAnalyticsOptin] = useState(null)
+  const [telemetry, setTelemetry] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch analytics/check — route exists only when pro plugin active
-    const fetchAnalytics = bitsFetch({}, 'analytics/check', '', 'GET').then(res => {
-      if (res?.success) setShowAnalyticsOptin(res.data)
+    const fetchTelemetry = bitsFetch({}, 'telemetry/status', '', 'GET').then(res => {
+      if (res?.success) setTelemetry(res.data)
     })
 
     const fetchConfig = bitsFetch({}, 'get/config', null, 'GET').then(res => {
@@ -69,7 +69,7 @@ function Settings() {
     })
 
     // Execute both fetches in parallel
-    Promise.all([fetchAnalytics, fetchConfig])
+    Promise.all([fetchTelemetry, fetchConfig])
       .catch(() => {
         toast.error(__('Could not load settings', 'bit-integrations'))
       })
@@ -98,18 +98,21 @@ function Settings() {
     })
   }
 
-  const updateAnalytic = updatedOptin => {
-    bitsFetch({ isChecked: updatedOptin }, 'analytics/optIn')
-      .then(() => {
+  const updateTelemetry = allow => {
+    bitsFetch({ allow, source: 'settings' }, 'telemetry/consent')
+      .then(res => {
+        if (!res?.success) throw new Error()
+        setTelemetry(res.data)
         toast.success(__('Opt-in status updated', 'bit-integrations'))
       })
       .catch(() => {
+        setTelemetry(prev => ({ ...prev, allowed: !allow }))
         toast.error(__('Failed to save', 'bit-integrations'))
       })
   }
 
   const debouncedUpdatePluginConfig = useAsyncDebounce(updatePluginConfig, 500)
-  const debouncedUpdateAnalytic = useAsyncDebounce(updateAnalytic, 500)
+  const debouncedUpdateTelemetry = useAsyncDebounce(updateTelemetry, 500)
 
   const checkboxHandle = ({ target: { name, checked } }) => {
     const config = { ...appConf }
@@ -133,10 +136,10 @@ function Settings() {
     debouncedUpdatePluginConfig(name)
   }
 
-  const analyticsHandle = () => {
-    const updatedOptin = !showAnalyticsOptin
-    setShowAnalyticsOptin(updatedOptin)
-    debouncedUpdateAnalytic(updatedOptin)
+  const telemetryHandle = () => {
+    const allow = !telemetry.allowed
+    setTelemetry(prev => ({ ...prev, allowed: allow }))
+    debouncedUpdateTelemetry(allow)
   }
 
   const logDeleteOn = Boolean(appConf?.enable_log_del)
@@ -226,18 +229,18 @@ function Settings() {
             </div>
           </section>
 
-          {showAnalyticsOptin !== null && (
+          {telemetry?.canManage && (
             <section className="btcd-group">
               <h2 className="btcd-group-title">{__('Privacy', 'bit-integrations')}</h2>
               <div className="btcd-panel">
                 <SettingRow
                   icon={<PrivacyIcn />}
                   descId="opt-telemetry-desc"
-                  name={__('Share anonymous usage data', 'bit-integrations')}
+                  name={__('Share usage data', 'bit-integrations')}
                   desc={
                     <>
                       {__(
-                        'Helps us decide what to build next. Turn this off and Bit Integrations collects no telemetry at all.',
+                        'Once a week, sends your site details, admin email and how you use Bit Integrations to Bit Apps, so we can decide what to build next. Turn it off and nothing more is sent.',
                         'bit-integrations'
                       )}{' '}
                       <a
@@ -249,12 +252,15 @@ function Settings() {
                         <ExternalLinkIcn size="12" />
                       </a>
                     </>
+                  }
+                  extra={
+                    <TelemetryDataList items={telemetry.dataWeCollect} className="btcd-collect--opt" />
                   }>
                   <SingleToggle2
-                    action={analyticsHandle}
+                    action={telemetryHandle}
                     name="analytics_optin"
-                    checked={Boolean(showAnalyticsOptin)}
-                    ariaLabel={__('Share anonymous usage data', 'bit-integrations')}
+                    checked={Boolean(telemetry.allowed)}
+                    ariaLabel={__('Share usage data', 'bit-integrations')}
                     ariaDescribedby="opt-telemetry-desc"
                     className="flx"
                   />
