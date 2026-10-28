@@ -6322,7 +6322,7 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: $pg-accent;
+  color: $pg-muted;
   font-weight: 600;
   cursor: pointer;
   list-style: none;
@@ -6344,7 +6344,7 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   &:hover {
-    color: $dp-purple;
+    color: $pg-ink;
   }
 
   &:focus-visible {
