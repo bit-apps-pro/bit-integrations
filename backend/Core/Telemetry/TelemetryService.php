@@ -13,6 +13,13 @@ use BitApps\Integrations\Deps\BitApps\WPTelemetry\Telemetry\TelemetryConfig;
 
 final class TelemetryService
 {
+    // Pro releases before the telemetry moved back here bundle wp-telemetry 0.0.9 on this prefix. That copy
+    // reports opt-outs and calls a third-party IP service, so its hooks are detached and this client takes over.
+    private const LEGACY_PRO_CLASSES = [
+        'BitApps\IntegrationsPro\Deps\BitApps\WPTelemetry\\',
+        'BitApps\IntegrationsPro\controller\AnalyticsController',
+    ];
+
     public function register()
     {
         TelemetryConfig::setSlug(Config::SLUG);
@@ -37,6 +44,7 @@ final class TelemetryService
         Hooks::filter(Config::withPrefix('telemetry_data_we_collect'), [$this, 'describeFlowSummary']);
 
         Hooks::add('plugins_loaded', [$this, 'init']);
+        Hooks::add('plugins_loaded', [$this, 'detachLegacyProClient'], PHP_INT_MAX);
         Hooks::add(Config::withPrefix('activation'), [$this, 'activate']);
         Hooks::add(Config::withPrefix('deactivation'), [$this, 'deactivate']);
         Hooks::add(Config::withPrefix('uninstall'), [$this, 'uninstall']);
@@ -48,8 +56,43 @@ final class TelemetryService
         Telemetry::feedback()->init();
     }
 
+    public function detachLegacyProClient()
+    {
+        global $wp_filter;
+
+        $hookNames = [
+            'admin_notices',
+            'admin_init',
+            'cron_schedules',
+            'current_screen',
+            'wp_ajax_' . Config::withPrefix('deactivate_feedback'),
+            Config::withPrefix('send_tracking_event'),
+            Config::withPrefix('activate'),
+            Config::withPrefix('deactivate'),
+            Config::withPrefix('telemetry_additional_data'),
+            Config::withPrefix('telemetry_data'),
+        ];
+
+        foreach ($hookNames as $hookName) {
+            if (!isset($wp_filter[$hookName])) {
+                continue;
+            }
+
+            foreach ($wp_filter[$hookName]->callbacks as $priority => $callbacks) {
+                foreach ($callbacks as $callback) {
+                    if (self::isLegacyProCallback($callback['function'])) {
+                        remove_filter($hookName, $callback['function'], $priority);
+                    }
+                }
+            }
+        }
+    }
+
     public function activate()
     {
+        // Activation runs after plugins_loaded, so old Pro's license filter is still attached here.
+        $this->detachLegacyProClient();
+
         Telemetry::report()->activatePlugin();
     }
 
@@ -101,5 +144,22 @@ final class TelemetryService
         $collectList[] = __('Your integration flows: the trigger and action each one uses, whether it is enabled, and how many times it has run', 'bit-integrations');
 
         return $collectList;
+    }
+
+    private static function isLegacyProCallback($function)
+    {
+        if (!\is_array($function) || !\is_object($function[0])) {
+            return false;
+        }
+
+        $class = \get_class($function[0]);
+
+        foreach (self::LEGACY_PRO_CLASSES as $legacyClass) {
+            if (strpos($class, $legacyClass) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
