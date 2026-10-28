@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import Loader from '../components/Loaders/Loader'
 import Modal from '../components/Utilities/Modal'
+import TelemetryDataList from '../components/Utilities/TelemetryDataList'
 import { $appConfigState } from '../GlobalStates'
 import ChangelogIcn from '../Icons/ChangeLogIcn'
 import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
@@ -99,7 +100,7 @@ const changeLog = [
 export default function ChangelogToggle() {
   const [config, setConfig] = useRecoilState($appConfigState)
   const [show, setShow] = useState(config.changelogVersion !== config.version)
-  const [showAnalyticsOptin, setShowAnalyticsOptin] = useState(null)
+  const [telemetry, setTelemetry] = useState(null)
   const [loading, setLoading] = useState('')
   const [step, setStep] = useState(2)
 
@@ -117,8 +118,15 @@ export default function ChangelogToggle() {
     }
   }
 
+  const askConsent = Boolean(telemetry?.canManage && !telemetry.allowed && !telemetry.decided)
+
   const handleSubmit = () => {
-    bitsFetch({ isChecked: true }, 'analytics/optIn')
+    bitsFetch({ allow: true, source: 'changelog' }, 'telemetry/consent')
+    closeModal()
+  }
+
+  const handleSkip = () => {
+    bitsFetch({ allow: false }, 'telemetry/consent')
     closeModal()
   }
 
@@ -130,8 +138,8 @@ export default function ChangelogToggle() {
   useEffect(() => {
     if (show) {
       setLoading(true)
-      bitsFetch({}, 'analytics/check', '', 'GET').then(res => {
-        if (res?.success) setShowAnalyticsOptin(res.data)
+      bitsFetch({}, 'telemetry/status', '', 'GET').then(res => {
+        if (res?.success) setTelemetry(res.data)
         setLoading(false)
       })
     }
@@ -154,7 +162,7 @@ export default function ChangelogToggle() {
         sm={step !== 1}
         show={show}
         setModal={closeModal}
-        closeIcon={(showAnalyticsOptin || showAnalyticsOptin === null) && step === 2}
+        closeIcon={!askConsent && step === 2}
         style={{
           height: 'auto',
           width: '550px'
@@ -189,9 +197,7 @@ export default function ChangelogToggle() {
                   {__('Updated at:', 'bit-integrations')} <b>{releaseDate}</b>
                 </small>
               </div>
-              <div
-                className="changelog-content"
-                style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
+              <div className="changelog-content" style={!askConsent ? { maxHeight: '60vh' } : undefined}>
                 {changeLog.map((log, index) => (
                   <Fragment key={index}>
                     {log.items.length > 0 && (
@@ -241,7 +247,7 @@ export default function ChangelogToggle() {
                   />
                 </div>
               ) : (
-                showAnalyticsOptin === false && (
+                askConsent && (
                   <div>
                     <div className="btcd-hr mt-2"></div>
                     <div className="flx flx-col flx-center">
@@ -251,15 +257,25 @@ export default function ChangelogToggle() {
                     </div>
                     <div className="m-2 txt-sm">
                       {__(
-                        'Accept and continue to share usage data to help us improve the plugin, the plugin will still function if you skip.',
+                        'Accept and continue to send your site details, admin email and usage data to Bit Apps once a week, to help us improve the plugin. The plugin will still function if you skip.',
                         'bit-integrations'
                       )}
-                      <br />
+                      <TelemetryDataList items={telemetry.dataWeCollect} />
                       <a
                         className="app-link-active"
-                        target="blank"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         href="https://bitapps.pro/terms-of-service/">
                         {__('Terms and conditions', 'bit-integrations')}&nbsp;
+                        <ExternalLinkIcn size="14" />
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        className="app-link-active"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://bitapps.pro/privacy-policy/">
+                        {__('Privacy Policy', 'bit-integrations')}&nbsp;
                         <ExternalLinkIcn size="14" />
                       </a>
                     </div>
@@ -267,8 +283,8 @@ export default function ChangelogToggle() {
                       <button
                         type="button"
                         className="btn round btn-md gray gray-sh"
-                        onClick={() => closeModal()}>
-                        Skip
+                        onClick={() => handleSkip()}>
+                        {__('Skip', 'bit-integrations')}
                       </button>
                       <button
                         type="button"
