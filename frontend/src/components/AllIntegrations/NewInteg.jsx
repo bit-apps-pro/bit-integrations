@@ -191,6 +191,7 @@ const BookingsAndAppointmentsForWoocommerce = lazy(
 const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
 const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
+const WpActivityLog = lazy(() => import('./WpActivityLog/WpActivityLog'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
 const ConvertForce = lazy(() => import('./ConvertForce/ConvertForce'))
@@ -1870,6 +1871,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'WpActivityLog':
+      return (
+        <WpActivityLog
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'Pointics':
       return (
         <Pointics
@@ -2255,6 +2265,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'BitCrm':
       integrationName = 'Bit CRM'
+      break
+    case 'WpActivityLog':
+      integrationName = 'WP Activity Log'
       break
 
     default:
