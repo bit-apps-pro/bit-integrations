@@ -8,10 +8,6 @@ if (! defined('ABSPATH')) {
 
 use BitApps\Integrations\Config;
 
-/**
- * The telemetry library ships English text only, since a bundled library cannot use
- * this plugin's text domain as a literal. These filters translate it.
- */
 final class TelemetryStrings
 {
     public function strings($strings)

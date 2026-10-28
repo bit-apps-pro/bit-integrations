@@ -13,8 +13,6 @@ use BitApps\Integrations\Deps\BitApps\WPTelemetry\Telemetry\TelemetryConfig;
 
 final class TelemetryService
 {
-    // Pro releases before the telemetry moved back here bundle wp-telemetry 0.0.9 on this prefix. That copy
-    // reports opt-outs and calls a third-party IP service, so its hooks are detached and this client takes over.
     private const LEGACY_PRO_CLASSES = [
         'BitApps\IntegrationsPro\Deps\BitApps\WPTelemetry\\',
         'BitApps\IntegrationsPro\controller\AnalyticsController',
@@ -91,7 +89,6 @@ final class TelemetryService
 
     public function activate()
     {
-        // Activation runs after plugins_loaded, so old Pro's license filter is still attached here.
         $this->detachLegacyProClient();
 
         Telemetry::report()->activatePlugin();
@@ -147,7 +144,6 @@ final class TelemetryService
         return $collectList;
     }
 
-    // The full list lives on the Settings page; the notice links there instead of repeating it.
     public function hideListInNotice($collectList)
     {
         return doing_action('admin_notices') ? [] : $collectList;
