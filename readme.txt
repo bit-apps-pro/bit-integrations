@@ -405,7 +405,7 @@ This documentation covers 320+ services including Google (Sheets, Calendar, Driv
 
 = Bit Apps usage data (optional, off by default) =
 
-Bit Integrations can send usage data to Bit Apps, the plugin's developer, at `https://wp-api.bitapps.pro`. Nothing is sent until a site administrator agrees: by clicking "Allow & Continue" in the notice on the Dashboard or Plugins screen, by clicking "Accept and continue" in the plugin's What's New window, or by turning on "Share usage data" in Bit Integrations > Settings. You can turn it off there at any time; nothing more is sent after that.
+Bit Integrations can send usage data to Bit Apps, the plugin's developer, at `https://wp-api.bitapps.pro`. Bit Apps uses it to understand how the plugin is used and to decide what to improve and build next. Nothing is sent until a site administrator agrees: by clicking "Allow & Continue" in the notice on the Dashboard or Plugins screen, by clicking "Accept and continue" in the plugin's What's New window, or by turning on "Share usage data" in Bit Integrations > Settings. You can turn it off there at any time; nothing more is sent after that.
 
 After you agree, the plugin sends a report right away and then once a week. The report contains:
 
@@ -420,7 +420,7 @@ After you agree, the plugin sends a report right away and then once a week. The 
 * Which page you opted in from, and whether you skipped this before
 * Your integration flows: the trigger and action each one uses, whether it is enabled, and how many times it has run
 
-When you deactivate the plugin, you can answer a short optional survey. Only if you submit it, the plugin sends your site URL, site language and your answer to the same server. Skipping the survey sends nothing.
+When you deactivate the plugin, you can answer a short optional survey. Only if you submit it, the plugin sends your site URL, site language, the plugin version and your answer to the same server. Skipping the survey sends nothing.
 
 Service provider: Bit Apps. [Terms of service](https://bitapps.pro/terms-of-service/), [Privacy policy](https://bitapps.pro/privacy-policy/).
 

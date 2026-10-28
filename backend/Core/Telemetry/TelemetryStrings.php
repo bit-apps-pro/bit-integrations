@@ -28,7 +28,7 @@ final class TelemetryStrings
             ),
             'survey_disclosure' => \sprintf(
                 // translators: %s: plugin name
-                __('Submitting sends your site URL, site language and your answer to the %s team.', 'bit-integrations'),
+                __('Submitting sends your site URL, site language, the plugin version and your answer to the %s team.', 'bit-integrations'),
                 Config::TITLE
             ),
             'survey_submit' => __('Submit & Deactivate', 'bit-integrations'),
