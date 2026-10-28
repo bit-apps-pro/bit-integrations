@@ -6314,14 +6314,10 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
 /* ---------- telemetry "what we collect" disclosure ---------- */
 
 .btcd-collect {
-  margin: 10px 0;
+  margin: 10px 0 0 48px;
   font-size: 13px;
   line-height: 1.5;
   color: $pg-muted;
-}
-
-.btcd-collect--opt {
-  margin: 10px 0 0 48px;
 }
 
 .btcd-collect-sum {
@@ -6822,7 +6818,7 @@ $pg-ease: cubic-bezier(0.23, 1, 0.32, 1);
     justify-content: space-between;
   }
 
-  .btcd-collect--opt {
+  .btcd-collect {
     margin-left: 0;
   }
 

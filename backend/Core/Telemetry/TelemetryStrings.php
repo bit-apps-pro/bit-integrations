@@ -53,9 +53,11 @@ final class TelemetryStrings
     public function noticeDescription()
     {
         return \sprintf(
-            // translators: %s: plugin name
-            __('Share diagnostic data and usage info about your use of %s. You can turn this off anytime from its Settings page.', 'bit-integrations'),
-            esc_html(Config::TITLE)
+            // translators: 1: plugin name, 2: opening link tag to the plugin's Settings page, 3: closing link tag
+            __('Share diagnostic data and usage info about your use of %1$s. See what is shared, or turn it off anytime, on its %2$sSettings page%3$s.', 'bit-integrations'),
+            esc_html(Config::TITLE),
+            '<a href="' . esc_url(admin_url('admin.php?page=' . Config::SLUG . '#/app-settings')) . '">',
+            '</a>'
         );
     }
 

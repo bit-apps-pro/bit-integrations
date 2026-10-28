@@ -42,6 +42,7 @@ final class TelemetryService
 
         Hooks::filter(Config::withPrefix('telemetry_additional_data'), [$this, 'addFlowSummary']);
         Hooks::filter(Config::withPrefix('telemetry_data_we_collect'), [$this, 'describeFlowSummary']);
+        Hooks::filter(Config::withPrefix('telemetry_data_we_collect'), [$this, 'hideListInNotice'], PHP_INT_MAX);
 
         Hooks::add('plugins_loaded', [$this, 'init']);
         Hooks::add('plugins_loaded', [$this, 'detachLegacyProClient'], PHP_INT_MAX);
@@ -144,6 +145,12 @@ final class TelemetryService
         $collectList[] = __('Your integration flows: the trigger and action each one uses, whether it is enabled, and how many times it has run', 'bit-integrations');
 
         return $collectList;
+    }
+
+    // The full list lives on the Settings page; the notice links there instead of repeating it.
+    public function hideListInNotice($collectList)
+    {
+        return doing_action('admin_notices') ? [] : $collectList;
     }
 
     private static function isLegacyProCallback($function)

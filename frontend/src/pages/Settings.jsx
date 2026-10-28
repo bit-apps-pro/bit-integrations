@@ -253,9 +253,7 @@ function Settings() {
                       </a>
                     </>
                   }
-                  extra={
-                    <TelemetryDataList items={telemetry.dataWeCollect} className="btcd-collect--opt" />
-                  }>
+                  extra={<TelemetryDataList items={telemetry.dataWeCollect} />}>
                   <SingleToggle2
                     action={telemetryHandle}
                     name="analytics_optin"

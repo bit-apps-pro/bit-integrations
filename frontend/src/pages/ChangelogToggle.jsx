@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import Loader from '../components/Loaders/Loader'
 import Modal from '../components/Utilities/Modal'
-import TelemetryDataList from '../components/Utilities/TelemetryDataList'
 import { $appConfigState } from '../GlobalStates'
 import ChangelogIcn from '../Icons/ChangeLogIcn'
 import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
@@ -260,7 +259,7 @@ export default function ChangelogToggle() {
                         'Accept and continue to send your site details, admin email and usage data to Bit Apps once a week, to help us improve the plugin. The plugin will still function if you skip.',
                         'bit-integrations'
                       )}
-                      <TelemetryDataList items={telemetry.dataWeCollect} />
+                      <br />
                       <a
                         className="app-link-active"
                         target="_blank"
