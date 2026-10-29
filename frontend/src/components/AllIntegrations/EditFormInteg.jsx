@@ -87,7 +87,12 @@ import {
   getWCSubscriptionsAllSubscriptionProducts,
   getWCSubscriptionsAllSubscriptions
 } from '../Triggers/TriggerHelpers/WCSubscriptions/WCSubscriptionsCommonFunction.js'
-import { getEventsCalendarEvents } from '../Triggers/TriggerHelpers/EventsCalendar/EventsCalendarCommonFunction.js'
+import {
+  EVENTS_CALENDAR_EVENT_FILTER_TASKS,
+  EVENTS_CALENDAR_SERIES_FILTER_TASKS,
+  getEventsCalendarEvents,
+  getEventsCalendarSeries
+} from '../Triggers/TriggerHelpers/EventsCalendar/EventsCalendarCommonFunction.js'
 import { getVoxelPostTypes } from '../Triggers/TriggerHelpers/Voxel/voxelCommonFunction.js'
 
 function EditFormInteg({ setSnackbar, className = '' }) {
@@ -382,13 +387,12 @@ function EditFormInteg({ setSnackbar, className = '' }) {
     }
 
     if (trigger === 'EventsCalendar') {
-      if (
-        data.triggered_entity_id === 'events_calendar-1' ||
-        data.triggered_entity_id === 'events_calendar-2' ||
-        data.triggered_entity_id === 'events_calendar-3' ||
-        data.triggered_entity_id === 'events_calendar-4'
-      ) {
+      if (EVENTS_CALENDAR_EVENT_FILTER_TASKS.includes(data.triggered_entity_id)) {
         getEventsCalendarEvents(data, setFlow)
+      }
+
+      if (EVENTS_CALENDAR_SERIES_FILTER_TASKS.includes(data.triggered_entity_id)) {
+        getEventsCalendarSeries(data, setFlow)
       }
     }
 
