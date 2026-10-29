@@ -810,6 +810,10 @@ const tutorialLinks = {
   quizMaker: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/quiz-maker-integration-as-an-action/'
+  },
+  microsoftExcel: {
+    youTubeLink: '',
+    docLink: ''
   }
 }
 export default tutorialLinks

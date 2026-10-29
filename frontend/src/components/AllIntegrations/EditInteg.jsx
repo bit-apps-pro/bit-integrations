@@ -239,6 +239,7 @@ const EditUserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/EditUserRegistrationMembership')
 )
 const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
+const EditMicrosoftExcel = lazy(() => import('./MicrosoftExcel/EditMicrosoftExcel'))
 
 const loaderStyle = {
   display: 'flex',
@@ -775,6 +776,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditSeoPress allIntegURL={allIntegURL} />
     case 'QuizMaker':
       return <EditQuizMaker allIntegURL={allIntegURL} />
+    case 'MicrosoftExcel':
+      return <EditMicrosoftExcel allIntegURL={allIntegURL} />
     default:
       return (
         <div className="txt-center" style={{ padding: '60px 20px' }}>
