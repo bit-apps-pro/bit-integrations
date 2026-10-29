@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.8
+Stable tag: 2.10.9
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,22 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.10.9 =
+_Release Date - 26th October 2026_
+
+- **New Features**
+ - Systeme.io: New Update Contact and Update Tags utilities. When a contact with the same email already exists, its fields are updated and the selected tag is added to it (Pro).
+
+- **Security Fixes**
+ - Pro AJAX requests now require integration write access in addition to a valid nonce (Pro).
+ - HappyForms: Signature image uploads now accept PNG images only and sanitize the file name (Pro).
+
+- **Bug Fixes**
+ - Systeme.io: Some failed requests were still logged as successful. Success is now decided by the response status.
+ - Systeme.io: Adding a tag now gets its own log entry, so a failed tag no longer hides the result of the contact.
+ - Edit Flow: Form fields were missing from the field map when you opened a saved flow. They now load with the flow.
+ - WP Post Creation: The settings screen could fail with "map is not a function" when the author list did not load. Administrators can now always load the author list, and the screen opens even if the list fails to load.
 
 = 2.10.8 =
 _Release Date - 12th October 2026_

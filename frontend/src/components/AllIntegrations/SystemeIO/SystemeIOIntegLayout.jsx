@@ -4,6 +4,7 @@ import 'react-multiple-select-dropdown-lite/dist/index.css'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { getAllFields, getAllTags } from './SystemeIOCommonFunc'
+import SystemeIOActions from './SystemeIOActions'
 import SystemeIOFieldMap from './SystemeIOFieldMap'
 import { addFieldMap } from './IntegrationHelpers'
 
@@ -118,6 +119,11 @@ export default function SystemeIOIntegLayout({
           </div>
           <br />
           <br />
+          <div className="mt-4">
+            <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          </div>
+          <div className="btcd-hr mt-1" />
+          <SystemeIOActions systemeIOConf={systemeIOConf} setSystemeIOConf={setSystemeIOConf} />
         </div>
       )}
     </>

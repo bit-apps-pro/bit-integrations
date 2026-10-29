@@ -103,22 +103,27 @@ function EditFormInteg({ setSnackbar, className = '' }) {
     )
   }
 
+  const isPageBuilderTrigger = ['PiotnetAddon', 'CartFlow'].includes(flow.triggered_entity)
+
+  const fetchFormFields = (id, postId) =>
+    bitsFetch(
+      isPageBuilderTrigger ? { id, postId } : { id },
+      `${flow.triggered_entity.toLowerCase()}/get/form`
+    )
+
   const handle = e => {
     const tmpInteg = { ...flow }
     const { name, value } = e.target
     tmpInteg[name] = value
     setFlow(tmpInteg)
-    let queryData = { id: value }
-    if (flow.triggered_entity === 'PiotnetAddon' || flow.triggered_entity === 'CartFlow') {
-      queryData = { ...queryData, postId: formPost[value] ?? flow.flow_details.postId }
-    } else {
+    if (!isPageBuilderTrigger) {
       baseDataLoad(flow.triggered_entity, tmpInteg)
     }
 
     if (flow.triggered_entity !== 'FluentBooking') {
-      const loadFormFields = bitsFetch(
-        queryData,
-        `${flow.triggered_entity.toLowerCase()}/get/form`
+      const loadFormFields = fetchFormFields(
+        value,
+        formPost[value] ?? flow.flow_details.postId
       ).then(res => {
         if (res.success) {
           setFormFields(res.data.fields)
@@ -410,6 +415,22 @@ function EditFormInteg({ setSnackbar, className = '' }) {
           tmpFormPost[form.id] = form.post_id
         })
         setFormPost(tmpFormPost)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (
+      flow.fields?.length ||
+      !flow.triggered_entity_id ||
+      flow.triggered_entity === 'FluentBooking'
+    ) {
+      return
+    }
+
+    fetchFormFields(flow.triggered_entity_id, flow.flow_details?.postId).then(res => {
+      if (res?.success) {
+        setFormFields(res.data.fields)
       }
     })
   }, [])
