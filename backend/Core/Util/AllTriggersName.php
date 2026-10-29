@@ -36,6 +36,7 @@ final class AllTriggersName
             'BookingCalendarContactForm'            => ['name' => 'Booking Calendar Contact Form',  'isPro' => true, 'is_active' => false],
             'BookingCalendar'                       => ['name' => 'Booking Calendar',  'isPro' => true, 'is_active' => false],
             'BookingPress'                          => ['name' => 'BookingPress',  'isPro' => true, 'is_active' => false],
+            'Booknetic'                             => ['name' => 'Booknetic',  'isPro' => true, 'is_active' => false],
             'CalculatedFieldsForm'                  => ['name' => 'Calculated Fields Form Pro',  'isPro' => true, 'is_active' => false],
             'CartFlow'                              => ['name' => 'CartFlow',  'isPro' => true, 'is_active' => false],
             'CartAbandonmentRecovery'               => ['name' => 'Cart Abandonment Recovery',  'isPro' => true, 'is_active' => false],

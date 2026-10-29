@@ -795,6 +795,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/bookly-integration-as-an-action/'
   },
+  booknetic: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/booknetic-integration-as-an-action/'
+  },
   fluentCart: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/fluentcart-integration-as-an-action/'
