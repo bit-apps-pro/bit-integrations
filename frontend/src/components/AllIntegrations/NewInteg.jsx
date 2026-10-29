@@ -2266,6 +2266,9 @@ export default function NewInteg({ allIntegURL }) {
     case 'BitCrm':
       integrationName = 'Bit CRM'
       break
+    case 'FollowUpBoss':
+      integrationName = 'Follow Up Boss'
+      break
 
     default:
       integrationName = integUrlName

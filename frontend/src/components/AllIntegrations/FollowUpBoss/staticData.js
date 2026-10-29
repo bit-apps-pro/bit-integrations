@@ -317,7 +317,7 @@ export const fieldsByAction = {
   create_email_campaign: [
     field('origin', __('Source System', 'bit-integrations')),
     field('origin_id', __('Source System Campaign ID', 'bit-integrations')),
-    field('name', __('Campaign Name', 'bit-integrations')),
+    field('name', __('Campaign Name', 'bit-integrations'), true),
     field('subject', __('Subject', 'bit-integrations')),
     field('body_html', __('Body', 'bit-integrations'))
   ],
@@ -765,6 +765,14 @@ export const notesByAction = {
     '<ul><li>Fields that you leave empty keep their current value.</li><li>You can only update calls that this connection created.</li><li><b>Phone</b>: Enter the phone number of the person.</li><li><b>Duration</b>: Enter the length of the call in seconds.</li></ul>',
     'bit-integrations'
   ),
+  delete_user: __(
+    '<ul><li>Use the API key of the account owner or an admin. Follow Up Boss refuses this action for other users.</li></ul>',
+    'bit-integrations'
+  ),
+  update_action_plan_status: __(
+    '<ul><li><b>Applied Action Plan ID</b>: Map the ID that Apply Action Plan returns. It is not the ID of the action plan.</li></ul>',
+    'bit-integrations'
+  ),
   create_email_template: __(
     '<ul><li><b>Body</b>: Enter the HTML body. You can use merge fields, for example %contact_name%.</li></ul>',
     'bit-integrations'
@@ -801,12 +809,20 @@ export const notesByAction = {
     '<ul><li>Fields that you leave empty keep their current value.</li><li><b>Label</b>: Enter the name of the custom field, for example Anniversary.</li><li><b>Choices</b>: Separate the choices with commas. Use this field with the Dropdown type.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
     'bit-integrations'
   ),
+  delete_custom_field: __(
+    '<ul><li>Only the account owner can delete custom fields. Use the API key of the account owner.</li></ul>',
+    'bit-integrations'
+  ),
   create_stage: __(
     '<ul><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
     'bit-integrations'
   ),
   update_stage: __(
     '<ul><li>Fields that you leave empty keep their current value.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
+    'bit-integrations'
+  ),
+  delete_stage: __(
+    '<ul><li><b>Stage for Action Plans</b>: Select the stage that the action plans of the deleted stage use after the delete.</li><li>Use the API key of the account owner or an admin. Follow Up Boss refuses this action for other users.</li></ul>',
     'bit-integrations'
   ),
   create_task: __(
@@ -833,12 +849,20 @@ export const notesByAction = {
     '<ul><li>Fields that you leave empty keep their current value.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
     'bit-integrations'
   ),
+  delete_appointment_type: __(
+    '<ul><li>Use the API key of the account owner or an admin. Follow Up Boss refuses this action for other users.</li></ul>',
+    'bit-integrations'
+  ),
   create_appointment_outcome: __(
     '<ul><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
     'bit-integrations'
   ),
   update_appointment_outcome: __(
     '<ul><li>Fields that you leave empty keep their current value.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
+    'bit-integrations'
+  ),
+  delete_appointment_outcome: __(
+    '<ul><li>Use the API key of the account owner or an admin. Follow Up Boss refuses this action for other users.</li></ul>',
     'bit-integrations'
   ),
   create_pipeline: __(
@@ -858,11 +882,15 @@ export const notesByAction = {
     'bit-integrations'
   ),
   create_deal_custom_field: __(
-    '<ul><li><b>Label</b>: Enter the name of the custom field, for example Anniversary.</li><li><b>Choices</b>: Separate the choices with commas. Use this field with the Dropdown type.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
+    '<ul><li>Only the account owner can change deal custom fields. Use the API key of the account owner.</li><li><b>Label</b>: Enter the name of the custom field, for example Anniversary.</li><li><b>Choices</b>: Separate the choices with commas. Use this field with the Dropdown type.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
     'bit-integrations'
   ),
   update_deal_custom_field: __(
-    '<ul><li>Fields that you leave empty keep their current value.</li><li><b>Label</b>: Enter the name of the custom field, for example Anniversary.</li><li><b>Choices</b>: Separate the choices with commas. Use this field with the Dropdown type.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
+    '<ul><li>Fields that you leave empty keep their current value.</li><li>Only the account owner can change deal custom fields. Use the API key of the account owner.</li><li><b>Label</b>: Enter the name of the custom field, for example Anniversary.</li><li><b>Choices</b>: Separate the choices with commas. Use this field with the Dropdown type.</li><li><b>Sort Order</b>: Enter a number to set the position in the list. A lower number shows first.</li></ul>',
+    'bit-integrations'
+  ),
+  delete_deal_custom_field: __(
+    '<ul><li>Only the account owner can change deal custom fields. Use the API key of the account owner.</li></ul>',
     'bit-integrations'
   ),
   create_group: __(
@@ -871,6 +899,10 @@ export const notesByAction = {
   ),
   update_group: __(
     '<ul><li>Fields that you leave empty keep their current value.</li><li>Users that you select replace the current members.</li><li><b>Claim Window</b>: Enter the seconds that members have to claim a lead, from 60 to 1800. The default is 1800.</li></ul>',
+    'bit-integrations'
+  ),
+  delete_group: __(
+    '<ul><li>Use the API key of the account owner or an admin. Follow Up Boss refuses this action for other users.</li></ul>',
     'bit-integrations'
   ),
   update_team: __(
@@ -903,14 +935,17 @@ export const utilitiesByAction = {
     checkboxUtility(
       'deduplicate',
       __('Prevent Duplicates', 'bit-integrations'),
-      __('Return the current person when the email or phone already exists.', 'bit-integrations')
+      __(
+        'Do not create a person when the email or phone exists. Follow Up Boss returns that person.',
+        'bit-integrations'
+      )
     )
   ],
   update_person: [
     checkboxUtility(
       'contacted',
       __('Contacted', 'bit-integrations'),
-      __('Mark the person as contacted.', 'bit-integrations')
+      __('Mark the person as contacted. Leave it clear to keep the current value.', 'bit-integrations')
     ),
     checkboxUtility(
       'merge_tags',
@@ -936,7 +971,10 @@ export const utilitiesByAction = {
     checkboxUtility(
       'is_html',
       __('HTML Body', 'bit-integrations'),
-      __('Show the HTML tags in the note body as formatted text.', 'bit-integrations')
+      __(
+        'Show the HTML tags in the note body as formatted text. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     )
   ],
   create_email_template: [
@@ -950,7 +988,10 @@ export const utilitiesByAction = {
     checkboxUtility(
       'is_shared',
       __('Shared', 'bit-integrations'),
-      __('Share the template with the other users.', 'bit-integrations')
+      __(
+        'Share the template with the other users. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     )
   ],
   create_text_message_template: [
@@ -964,7 +1005,10 @@ export const utilitiesByAction = {
     checkboxUtility(
       'is_shared',
       __('Shared', 'bit-integrations'),
-      __('Share the template with the other users.', 'bit-integrations')
+      __(
+        'Share the template with the other users. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     )
   ],
   create_custom_field: [
@@ -983,12 +1027,18 @@ export const utilitiesByAction = {
     checkboxUtility(
       'is_recurring',
       __('Recurring Date', 'bit-integrations'),
-      __('Repeat a date field every year, for example a birthday.', 'bit-integrations')
+      __(
+        'Repeat a date field every year, for example a birthday. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     ),
     checkboxUtility(
       'hide_if_empty',
       __('Hide If Empty', 'bit-integrations'),
-      __('Hide the field on a person when it has no value.', 'bit-integrations')
+      __(
+        'Hide the field on a person when it has no value. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     )
   ],
   create_task: [
@@ -1002,7 +1052,7 @@ export const utilitiesByAction = {
     checkboxUtility(
       'is_completed',
       __('Completed', 'bit-integrations'),
-      __('Mark the task as completed.', 'bit-integrations')
+      __('Mark the task as completed. Leave it clear to keep the current value.', 'bit-integrations')
     )
   ],
   create_appointment: [
@@ -1021,12 +1071,18 @@ export const utilitiesByAction = {
     checkboxUtility(
       'all_day',
       __('All Day', 'bit-integrations'),
-      __('Make the appointment an all-day event.', 'bit-integrations')
+      __(
+        'Make the appointment an all-day event. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     ),
     checkboxUtility(
       'send_invitation',
       __('Send Invitation', 'bit-integrations'),
-      __('Send an invitation email to the invitees.', 'bit-integrations')
+      __(
+        'Send an invitation email to the invitees. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     )
   ],
   create_deal_custom_field: [
@@ -1038,7 +1094,7 @@ export const utilitiesByAction = {
     checkboxUtility(
       'hide_if_empty',
       __('Hide If Empty', 'bit-integrations'),
-      __('Hide the field on a person when it has no value.', 'bit-integrations')
+      __('Hide the field on a deal when it has no value.', 'bit-integrations')
     ),
     checkboxUtility(
       'read_only',
@@ -1050,17 +1106,26 @@ export const utilitiesByAction = {
     checkboxUtility(
       'is_recurring',
       __('Recurring Date', 'bit-integrations'),
-      __('Repeat a date field every year, for example a birthday.', 'bit-integrations')
+      __(
+        'Repeat a date field every year, for example a birthday. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     ),
     checkboxUtility(
       'hide_if_empty',
       __('Hide If Empty', 'bit-integrations'),
-      __('Hide the field on a person when it has no value.', 'bit-integrations')
+      __(
+        'Hide the field on a deal when it has no value. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     ),
     checkboxUtility(
       'read_only',
       __('Read Only', 'bit-integrations'),
-      __('Do not allow users to change the field value.', 'bit-integrations')
+      __(
+        'Do not allow users to change the field value. Leave it clear to keep the current value.',
+        'bit-integrations'
+      )
     )
   ]
 }

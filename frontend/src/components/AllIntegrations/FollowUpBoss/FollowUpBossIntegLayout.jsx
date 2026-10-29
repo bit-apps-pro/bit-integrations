@@ -12,6 +12,7 @@ import FollowUpBossActions from './FollowUpBossActions'
 import { fetchActionSources, fetchSource, generateMappedField } from './FollowUpBossCommonFunc'
 import FollowUpBossFieldMap from './FollowUpBossFieldMap'
 import {
+  customFieldActions,
   fieldsByAction,
   modules,
   notesByAction,
@@ -148,7 +149,22 @@ export default function FollowUpBossIntegLayout({
 
       {fieldsByAction[action]?.length > 0 && (
         <div className="mt-4">
-          <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
+          <div className="flx">
+            <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
+            {customFieldActions.includes(action) && (
+              <button
+                onClick={() =>
+                  fetchSource('customFields', followUpBossConf, setFollowUpBossConf, setIsLoading)
+                }
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                data-refresh="customFields"
+                style={{ '--tooltip-txt': `'${__('Refresh custom fields', 'bit-integrations')}'` }}
+                type="button"
+                disabled={isLoading}>
+                &#x21BB;
+              </button>
+            )}
+          </div>
           <div className="btcd-hr mt-1" />
           <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
             <div className="txt-dp">

@@ -35,7 +35,7 @@ class FollowUpBossController
             '/stages',
             'stages',
             static function (array $stage) {
-                return (string) $stage['name'];
+                return (string) ($stage['name'] ?? '');
             },
             'name'
         );
@@ -58,7 +58,7 @@ class FollowUpBossController
             '/timeframes',
             'timeframes',
             static function (array $timeframe) {
-                return (string) ($timeframe['timeframe'] ?? '#' . $timeframe['id']);
+                return (string) ($timeframe['timeframe'] ?? '#' . ($timeframe['id'] ?? ''));
             }
         );
     }
@@ -85,7 +85,7 @@ class FollowUpBossController
             '/emCampaigns',
             'emCampaigns',
             static function (array $campaign) {
-                return (string) ($campaign['name'] ?: ($campaign['subject'] ?? '#' . $campaign['id']));
+                return (string) (($campaign['name'] ?? '') ?: ($campaign['subject'] ?? '#' . ($campaign['id'] ?? '')));
             }
         );
     }
@@ -107,7 +107,7 @@ class FollowUpBossController
             '/customFields',
             'customfields',
             static function (array $field) {
-                return (string) $field['label'];
+                return (string) ($field['label'] ?? $field['name'] ?? '');
             },
             'name'
         );
@@ -125,7 +125,7 @@ class FollowUpBossController
 
         foreach (self::fetchAll($client, '/pipelines', 'pipelines') as $pipeline) {
             foreach ($pipeline['stages'] ?? [] as $stage) {
-                $options[] = (object) ['id' => (string) $stage['id'], 'name' => $pipeline['name'] . ': ' . $stage['name']];
+                $options[] = (object) ['id' => (string) ($stage['id'] ?? ''), 'name' => ($pipeline['name'] ?? '') . ': ' . ($stage['name'] ?? '')];
             }
         }
 
@@ -179,6 +179,10 @@ class FollowUpBossController
         $options = [];
 
         foreach (self::fetchAll($client, $path, $collection, $query) as $record) {
+            if (!isset($record[$valueKey])) {
+                continue;
+            }
+
             $options[] = (object) ['id' => (string) $record[$valueKey], 'name' => $label($record)];
         }
 
@@ -212,7 +216,7 @@ class FollowUpBossController
 
     private static function nameLabel(array $record): string
     {
-        return (string) ($record['name'] ?? '#' . $record['id']);
+        return (string) ($record['name'] ?? '#' . ($record['id'] ?? ''));
     }
 
     private static function personLabel(array $record): string
