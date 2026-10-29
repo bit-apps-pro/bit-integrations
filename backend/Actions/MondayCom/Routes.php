@@ -4,10 +4,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\MondayCom\MondayComController;
+use BitApps\Integrations\Actions\MondayCom\MondayComHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('mondayCom_fetch_boards', [MondayComController::class, 'getBoards']);
-Route::post('mondayCom_fetch_groups', [MondayComController::class, 'getGroups']);
-Route::post('mondayCom_fetch_columns', [MondayComController::class, 'getColumns']);
-Route::post('mondayCom_fetch_items', [MondayComController::class, 'getItems']);
+Route::post('mondayCom_fetch_boards', [MondayComHelper::class, 'getBoards']);
+Route::post('mondayCom_fetch_groups', [MondayComHelper::class, 'getGroups']);
+Route::post('mondayCom_fetch_columns', [MondayComHelper::class, 'getColumns']);
+Route::post('mondayCom_fetch_items', [MondayComHelper::class, 'getItems']);

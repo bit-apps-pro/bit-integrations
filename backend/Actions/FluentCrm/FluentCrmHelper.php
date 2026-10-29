@@ -1,0 +1,124 @@
+<?php
+
+namespace BitApps\Integrations\Actions\FluentCrm;
+
+use FluentCrm\App\Models\Company;
+
+use FluentCrm\App\Models\CustomContactField;
+use FluentCrm\App\Models\Lists;
+use FluentCrm\App\Models\Subscriber;
+use FluentCrm\App\Models\Tag;
+
+class FluentCrmHelper
+{
+    public static function checkedExistsFluentCRM()
+    {
+        if (!is_plugin_active('fluent-crm/fluent-crm.php')) {
+            // translators: %s: Plugin name
+            wp_send_json_error(wp_sprintf(__('%s is not active or not installed', 'bit-integrations'), 'Fluent CRM'), 400);
+        } else {
+            return true;
+        }
+    }
+
+    public static function fluentCrmLists()
+    {
+        self::checkedExistsFluentCRM();
+        $lists = Lists::get();
+        $fluentCrmList = [];
+        foreach ($lists as $list) {
+            $fluentCrmList[$list->title] = (object) [
+                'id'    => $list->id,
+                'title' => $list->title
+            ];
+        }
+        $tags = Tag::get();
+        $fluentCrmTags = [];
+        foreach ($tags as $tag) {
+            $fluentCrmTags[$tag->title] = (object) [
+                'id'    => $tag->id,
+                'title' => $tag->title
+            ];
+        }
+        $response['fluentCrmList'] = $fluentCrmList;
+        $response['fluentCrmTags'] = $fluentCrmTags;
+        wp_send_json_success($response, 200);
+    }
+
+    public static function fluentCrmTags()
+    {
+        self::checkedExistsFluentCRM();
+
+        $tags = Tag::get();
+        $fluentCrmTags = [];
+        foreach ($tags as $tag) {
+            $fluentCrmTags[$tag->title] = (object) [
+                'id'    => $tag->id,
+                'title' => $tag->title
+            ];
+        }
+        $response['fluentCrmTags'] = $fluentCrmTags;
+        wp_send_json_success($response, 200);
+    }
+
+    public static function getAllCompany()
+    {
+        self::checkedExistsFluentCRM();
+
+        $settings = get_option('_fluentcrm_experimental_settings', []);
+
+        if (empty($settings['company_module']) || $settings['company_module'] !== 'yes') {
+            wp_send_json_success([], 200);
+        }
+
+        $companies = Company::paginate(500)->toArray();
+
+        wp_send_json_success(array_map(function ($company) {
+            return [
+                'id'    => $company['id'],
+                'label' => $company['name'],
+            ];
+        }, $companies['data']), 200);
+    }
+
+    public static function fluentCrmFields()
+    {
+        self::checkedExistsFluentCRM();
+        $fieldOptions = [];
+        $primaryField = ['first_name', 'last_name', 'full_name', 'email'];
+
+        foreach (Subscriber::mappables() as $key => $column) {
+            if (\in_array($key, $primaryField)) {
+                if ($key === 'email') {
+                    $fieldOptions[$column] = (object) [
+                        'key'      => $key,
+                        'label'    => $column,
+                        'type'     => 'primary',
+                        'required' => true
+                    ];
+                } else {
+                    $fieldOptions[$column] = (object) [
+                        'key'   => $key,
+                        'label' => $column,
+                        'type'  => 'primary'
+                    ];
+                }
+            } else {
+                $fieldOptions[$column] = (object) [
+                    'key'   => $key,
+                    'label' => $column,
+                    'type'  => 'custom'
+                ];
+            }
+        }
+        foreach ((new CustomContactField())->getGlobalFields()['fields'] as $field) {
+            $fieldOptions[$field['label']] = (object) [
+                'key'   => $field['slug'],
+                'label' => $field['label'],
+                'type'  => 'custom'
+            ];
+        }
+        $response['fluentCrmFlelds'] = $fieldOptions;
+        wp_send_json_success($response, 200);
+    }
+}

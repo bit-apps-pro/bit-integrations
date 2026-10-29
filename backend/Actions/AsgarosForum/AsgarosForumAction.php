@@ -1,0 +1,16 @@
+<?php
+
+namespace BitApps\Integrations\Actions\AsgarosForum;
+
+class AsgarosForumAction
+{
+    public function execute($integrationData, $fieldValues)
+    {
+        $integrationDetails = $integrationData->flow_details;
+        $fieldMap = $integrationDetails->field_map ?? [];
+
+        $recordApiHelper = new AsgarosForumService($integrationDetails, $integrationData->id);
+
+        return $recordApiHelper->execute($fieldValues, $fieldMap);
+    }
+}

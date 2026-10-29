@@ -1,0 +1,46 @@
+<?php
+
+namespace BitApps\Integrations\Actions\ElasticEmail;
+
+use BitApps\Integrations\Authorization\AuthorizationType;
+use WP_Error;
+
+class ElasticEmailAction
+{
+    public static array $authConfig = [
+        'authType' => AuthorizationType::API_KEY,
+        'slug'     => 'elasticemail',
+        'fields'   => [
+            'api_key' => 'value',
+        ],
+    ];
+
+    public function execute($integrationData, $fieldValues)
+    {
+        $integrationDetails = $integrationData->flow_details;
+        $integId = $integrationData->id;
+
+        $api_key = $integrationDetails->api_key;
+        $fieldMap = $integrationDetails->field_map;
+        $actions = $integrationDetails->actions;
+        if (empty($api_key)
+            || empty($fieldMap)
+        ) {
+            // translators: %s: Placeholder value
+            return new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('module, fields are required for %s api', 'bit-integrations'), 'Elastic Email'));
+        }
+        $recordApiHelper = new ElasticEmailService($api_key, $integId);
+        $elasticEmailApiResponse = $recordApiHelper->execute(
+            $integId,
+            $fieldValues,
+            $fieldMap,
+            $integrationDetails
+        );
+
+        if (is_wp_error($elasticEmailApiResponse)) {
+            return $elasticEmailApiResponse;
+        }
+
+        return $elasticEmailApiResponse;
+    }
+}

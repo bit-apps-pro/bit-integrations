@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Notion\NotionController;
+use BitApps\Integrations\Actions\Notion\NotionHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('notion_database_lists', [NotionController::class, 'getAllDatabaseLists']);
-Route::post('notion_database_properties', [NotionController::class, 'getFieldsProperties']);
+Route::post('notion_database_lists', [NotionHelper::class, 'getAllDatabaseLists']);
+Route::post('notion_database_properties', [NotionHelper::class, 'getFieldsProperties']);

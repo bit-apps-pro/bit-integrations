@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\ElasticEmail\ElasticEmailController;
+use BitApps\Integrations\Actions\ElasticEmail\ElasticEmailHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::get('get_all_lists', [ElasticEmailController::class, 'getAllLists']);
+Route::get('get_all_lists', [ElasticEmailHelper::class, 'getAllLists']);

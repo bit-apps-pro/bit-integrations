@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\SenseiLMS\SenseiLMSController;
+use BitApps\Integrations\Actions\SenseiLMS\SenseiLMSHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('refresh_sensei_lms_courses', [SenseiLMSController::class, 'refreshCourses']);
-Route::post('refresh_sensei_lms_lessons', [SenseiLMSController::class, 'refreshLessons']);
-Route::post('refresh_sensei_lms_quizzes', [SenseiLMSController::class, 'refreshQuizzes']);
+Route::post('refresh_sensei_lms_courses', [SenseiLMSHelper::class, 'refreshCourses']);
+Route::post('refresh_sensei_lms_lessons', [SenseiLMSHelper::class, 'refreshLessons']);
+Route::post('refresh_sensei_lms_quizzes', [SenseiLMSHelper::class, 'refreshQuizzes']);

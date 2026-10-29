@@ -1,9 +1,5 @@
 <?php
 
-/**
- * WooCommerce Static Fields.
- */
-
 namespace BitApps\Integrations\Actions\WooCommerce;
 
 class WooCommerceStaticFields

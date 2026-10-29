@@ -1,0 +1,141 @@
+<?php
+
+namespace BitApps\Integrations\Actions\BuddyBoss;
+
+use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Post;
+
+class BuddyBossHelper
+{
+    public static function pluginActive($option = null)
+    {
+        return (bool) (class_exists('BuddyPress'));
+    }
+
+    public static function getAllGroups()
+    {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        if (self::pluginActive()) {
+            global $wpdb;
+            $cache_key = Config::withPrefix('buddyboss_groups');
+            $cache_group = Config::VAR_PREFIX;
+            $groups = wp_cache_get($cache_key, $cache_group);
+
+            if ($groups === false) {
+                $groups_table = esc_sql($wpdb->prefix . 'bp_groups');
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- Reading BuddyBoss groups table directly; static table name.
+                $groups = $wpdb->get_results('SELECT id, name FROM ' . $groups_table);
+                wp_cache_set($cache_key, $groups, $cache_group, 10 * MINUTE_IN_SECONDS);
+            }
+
+            wp_send_json_success($groups, 200);
+        }
+        // translators: %s: Plugin name
+        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'BuddyBoss'));
+    }
+
+    public static function getAllUser()
+    {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        if (self::pluginActive()) {
+            global $wpdb;
+            $cache_key = Config::withPrefix('wp_users_basic');
+            $cache_group = Config::VAR_PREFIX;
+            $users = wp_cache_get($cache_key, $cache_group);
+
+            if ($users === false) {
+                $users_table = esc_sql($wpdb->users);
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- Reading users table directly for BuddyBoss user selection.
+                $users = $wpdb->get_results('SELECT ID, display_name FROM ' . $users_table);
+                wp_cache_set($cache_key, $users, $cache_group, 10 * MINUTE_IN_SECONDS);
+            }
+
+            wp_send_json_success($users, 200);
+        }
+        // translators: %s: Plugin name
+        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'BuddyBoss'));
+    }
+
+    public static function getAllForums()
+    {
+        $forum_args = [
+            'post_type'      => bbp_get_forum_post_type(),
+            'posts_per_page' => 999,
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+            'post_status'    => ['publish', 'private'],
+        ];
+
+        $forumList = Post::all($forum_args);
+
+        foreach ($forumList as $key => $val) {
+            $forums[] = [
+                'forum_id'    => $val->ID,
+                'forum_title' => $val->post_title,
+            ];
+        }
+
+        return $forums;
+    }
+
+    public static function getAllTopics($requestParams)
+    {
+        $forum_id = $requestParams->forumID;
+
+        $topic_args = [
+            'post_type'      => bbp_get_topic_post_type(),
+            'posts_per_page' => -1,
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+            'post_parent'    => $forum_id,
+            'post_status'    => 'publish',
+        ];
+
+        $topic_list = Post::all($topic_args);
+        $topics = [];
+
+        foreach ($topic_list as $key => $val) {
+            $topics[] = [
+                'topic_id'    => $val->ID,
+                'topic_title' => $val->post_title,
+            ];
+        }
+
+        wp_send_json_success($topics);
+    }
+
+    // for action 11 - BuddyBoss update started
+
+    public static function registerComponents($component_names, $active_components)
+    {
+        $component_names = !\is_array($component_names) ? [] : $component_names;
+        $component_names[] = 'bit-integrations';
+
+        return $component_names;
+    }
+
+    public static function notificationForUser($content, $item_id, $secondary_item_id, $action_item_count, $format, $component_action_name, $component_name, $id)
+    {
+        if (Config::withPrefix('send_notification') === $component_action_name) {
+            $notification_content = self::sanitizeNotificationContent(bp_notifications_get_meta($id, 'uo_notification_content'));
+            $notification_link = esc_url(bp_notifications_get_meta($id, 'uo_notification_link'));
+
+            if ($format === 'string') {
+                return $notification_content;
+            }
+            if ($format === 'object') {
+                return [
+                    'text' => $notification_content,
+                    'link' => $notification_link,
+                ];
+            }
+        }
+
+        return $content;
+    }
+
+    public static function sanitizeNotificationContent($content)
+    {
+        return str_replace('\\', '&#92;', wp_kses_post((string) $content));
+    }
+}

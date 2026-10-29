@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Autonami\AutonamiController;
+use BitApps\Integrations\Actions\Autonami\AutonamiHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('autonami_lists_and_tags', [AutonamiController::class, 'autonamiListsAndTags']);
-Route::post('autonami_fields', [AutonamiController::class, 'autonamiFields']);
+Route::post('autonami_lists_and_tags', [AutonamiHelper::class, 'autonamiListsAndTags']);
+Route::post('autonami_fields', [AutonamiHelper::class, 'autonamiFields']);
