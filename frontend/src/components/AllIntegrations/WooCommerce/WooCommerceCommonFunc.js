@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 import c from 'react-multiple-select-dropdown-lite'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { deepCopy } from '../../../Utils/Helpers'
+import { moduleFields } from './staticData'
 
 export const handleInput = (e, wcConf, setWcConf, setIsLoading, setSnackbar, isPro = false) => {
   let newConf = deepCopy(wcConf)
@@ -22,7 +23,11 @@ const moduleChange = (wcConf, setWcConf, setIsLoading, setSnackbar, isPro = fals
   let newConf = deepCopy(wcConf)
   if (!newConf[wcConf.module]) newConf[wcConf.module] = {}
   newConf[wcConf.module].field_map = []
-  if (!newConf?.default?.fields?.[wcConf.module]) {
+  delete newConf.selects
+  delete newConf.utilities
+  if (moduleFields[wcConf.module]) {
+    newConf = generateModuleFieldMap(newConf)
+  } else if (!newConf?.default?.fields?.[wcConf.module]) {
     if (wcConf.module !== 'cancelSubscription') {
       refreshFields(newConf, setWcConf, setIsLoading, setSnackbar)
     } else {
@@ -132,6 +137,52 @@ const generateMappedFields = (wcConf, mod = '') => {
   })
   if (!newConf[mod].field_map.length) newConf[mod].field_map = [{ formField: '', wcField: '' }]
   return newConf
+}
+
+const generateModuleFieldMap = wcConf => {
+  const newConf = deepCopy(wcConf)
+  const { module } = newConf
+  const fields = moduleFields[module]
+  const requiredFields = fields.filter(field => field.required)
+
+  if (!newConf.default) newConf.default = {}
+  if (!newConf.default.fields) newConf.default.fields = {}
+  newConf.default.fields[module] = {
+    fields: Object.fromEntries(
+      fields.map(field => [
+        field.label,
+        { fieldKey: field.key, fieldName: field.label, required: field.required }
+      ])
+    ),
+    required: requiredFields.map(field => field.key)
+  }
+  newConf[module].field_map = requiredFields.map(field => ({
+    formField: '',
+    wcField: field.key,
+    required: true
+  }))
+  newConf[module].upload_field_map = []
+  return newConf
+}
+
+export const getIncompleteFieldMapMessage = wcConf => {
+  const { module } = wcConf
+  const incompleteRow = wcConf[module].field_map.find(
+    row => !row.wcField || !row.formField || (row.formField === 'custom' && !row.customValue)
+  )
+
+  if (!incompleteRow) {
+    return ''
+  }
+
+  if (!incompleteRow.wcField) {
+    return __('Choose a WooCommerce field in every row, or remove the empty row', 'bit-integrations')
+  }
+
+  const field = moduleFields[module].find(item => item.key === incompleteRow.wcField)
+
+  // translators: %s: Field label
+  return sprintf(__('Map a value for %s', 'bit-integrations'), field?.label ?? incompleteRow.wcField)
 }
 
 export const checkMappedFields = fieldMap => {

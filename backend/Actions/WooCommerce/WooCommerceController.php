@@ -241,6 +241,59 @@ class WooCommerceController
         wp_send_json_success($response, 200);
     }
 
+    public static function refreshOptions($queryParams)
+    {
+        if (!class_exists('WooCommerce')) {
+            wp_send_json_error(__('WooCommerce is not installed or activated', 'bit-integrations'), 400);
+        }
+
+        $type = $queryParams->type ?? '';
+
+        if ($type === 'products') {
+            $products = get_posts(
+                [
+                    'post_type'              => 'product',
+                    'post_status'            => ['publish', 'private', 'draft', 'pending'],
+                    'numberposts'            => -1,
+                    'orderby'                => 'title',
+                    'order'                  => 'ASC',
+                    'update_post_meta_cache' => false,
+                    'update_post_term_cache' => false,
+                ]
+            );
+
+            wp_send_json_success(
+                array_map(
+                    function ($product) {
+                        return ['value' => (string) $product->ID, 'label' => \sprintf('%1$s (#%2$d)', $product->post_title, $product->ID)];
+                    },
+                    $products
+                ),
+                200
+            );
+        }
+
+        if (!\in_array($type, ['product_cat', 'product_tag', 'product_brand', 'product_shipping_class'], true)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        $terms = get_terms(['taxonomy' => $type, 'hide_empty' => false, 'orderby' => 'name']);
+
+        if (is_wp_error($terms)) {
+            wp_send_json_success([], 200);
+        }
+
+        wp_send_json_success(
+            array_map(
+                function ($term) {
+                    return ['value' => (string) $term->term_id, 'label' => $term->name];
+                },
+                $terms
+            ),
+            200
+        );
+    }
+
     public function searchProjects($queryParams)
     {
         include_once \dirname(WC_PLUGIN_FILE) . '/includes/class-wc-product-functions.php';

@@ -7,11 +7,17 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
+import { getModuleOptions } from '../../Utilities/ProUtilHelpers'
 import WcLineItemsFieldMap from './WcLineItemsFieldMap'
-import { getAllSubscriptionsProducts, refreshFields } from './WooCommerceCommonFunc'
+import WooCommerceActions from './WooCommerceActions'
+import { refreshFields } from './WooCommerceCommonFunc'
 import WooCommerceFieldMap from './WooCommerceFieldMap'
+import WooCommerceModuleOptions from './WooCommerceModuleOptions'
+import { moduleFields, modules, moduleUtilities } from './staticData'
 import Note from '../../Utilities/Note'
 
 export default function WooCommerceIntegLayout({
@@ -39,6 +45,8 @@ export default function WooCommerceIntegLayout({
 
   const [active, setActive] = useState({ customer: false, order: true })
   const [module, setModule] = useState(wcConf.module)
+  const { isPro } = useRecoilValue($appConfigState)
+  const hasOptionalFields = !moduleFields[module] || moduleFields[module].some(field => !field.required)
 
   useEffect(() => {
     setModule(wcConf.module)
@@ -49,172 +57,29 @@ export default function WooCommerceIntegLayout({
     setActive({ [type]: true, [type === 'customer' ? 'order' : 'customer']: false })
   }
 
-  const handleFilter = e => {
-    const { value } = e.target
-    const newConf = { ...wcConf }
-    if (value === 'order-id') {
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'order_id', required: true },
-        { formField: '', wcField: 'order_status', required: true }
-      ]
-    } else if (value === 'email') {
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'email', required: true },
-        { formField: '', wcField: 'order_status', required: true }
-      ]
-
-      if (newConf?.orderchange) delete newConf.orderchange
-    } else if (value === 'n-days' || value === 'n-weeks' || value === 'n-months') {
-      const type = value[2] === 'd' ? 'n_days' : value[2] === 'w' ? 'n_weeks' : 'n_months'
-
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'order_status', required: true },
-        { formField: '', wcField: type, required: true }
-      ]
-    } else if (value === 'prev-months') {
-      newConf.changestatus.field_map = [{ formField: '', wcField: 'order_status', required: true }]
-    } else if (value === 'n-prev-months') {
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'order_status', required: true },
-        { formField: '', wcField: 'n_months', required: true }
-      ]
-    } else {
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'order_status', required: true },
-        { formField: '', wcField: 'from_date', required: true },
-        { formField: '', wcField: 'to_date', required: true }
-      ]
-    }
-    newConf.filterstatus = value
-    setWcConf(newConf)
-  }
-
-  const handleOrderChange = e => {
-    const { value } = e.target
-    const newConf = { ...wcConf }
-    if (value === 'date-order') {
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'email', required: true },
-        { formField: '', wcField: 'order_status', required: true },
-        { formField: '', wcField: 'from_date', required: true },
-        { formField: '', wcField: 'to_date', required: true }
-      ]
-    } else if (
-      value === 'n-days-order' ||
-      value === 'n-weeks-order' ||
-      value === 'n-months-order' ||
-      value === 'n-prev-months-order'
-    ) {
-      const type = value[2] === 'd' ? 'n_days' : value[2] === 'w' ? 'n_weeks' : 'n_months'
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'email', required: true },
-        { formField: '', wcField: 'order_status', required: true },
-        { formField: '', wcField: type, required: true }
-      ]
-    } else {
-      newConf.changestatus.field_map = [
-        { formField: '', wcField: 'email', required: true },
-        { formField: '', wcField: 'order_status', required: true }
-      ]
-    }
-    newConf.orderchange = value
-    setWcConf(newConf)
-  }
-
-  const moduleType = [
-    { name: 'customer', label: __('Create-Customer', 'bit-integrations') },
-    { name: 'product', label: __('Create-Product', 'bit-integrations') },
-    { name: 'order', label: __('Create-Order', 'bit-integrations') },
-    { name: 'changestatus', label: __('Change Order Status', 'bit-integrations') },
-    { name: 'cancelSubscription', label: __('Cancel Subscription', 'bit-integrations') }
-  ]
-
-  const filterStatus = [
-    { name: 'order-id', label: __('Specific Order ID', 'bit-integrations') },
-    { name: 'email', label: __('Specific Customer Email', 'bit-integrations') },
-    { name: 'date-range', label: __('Specific Date Range', 'bit-integrations') },
-    { name: 'n-days', label: __("Last N Day's Orders", 'bit-integrations') },
-    { name: 'n-weeks', label: __("Last N Week's Orders", 'bit-integrations') },
-    { name: 'n-months', label: __("Last N Month's Orders", 'bit-integrations') },
-    { name: 'prev-months', label: __("Previous Month's Orders", 'bit-integrations') },
-    { name: 'n-prev-months', label: __("Previous N Month's Orders", 'bit-integrations') }
-  ]
-
-  const orderChange = [
-    { name: 'latest-order', label: __('Latest Order', 'bit-integrations') },
-    { name: 'all-order', label: __('All Orders', 'bit-integrations') },
-    { name: 'date-order', label: __('Specific Date Range', 'bit-integrations') },
-    { name: 'n-days-order', label: __("Last N Day's Orders", 'bit-integrations') },
-    { name: 'n-weeks-order', label: __("Last N Week's Orders", 'bit-integrations') },
-    { name: 'n-months-order', label: __("Last N Month's Orders", 'bit-integrations') },
-    { name: 'prev-months-order', label: __("Previous Month's Orders", 'bit-integrations') },
-    { name: 'n-prev-months-order', label: __("Previous N Month's Orders", 'bit-integrations') }
-  ]
-
-  const changeHandler = (val, name) => {
-    const newConf = { ...wcConf }
-    if (name === 'productId') {
-      if (val !== '') {
-        newConf[name] = val
-      } else {
-        delete newConf[name]
-      }
-    }
-    setWcConf(newConf)
-  }
-
   return (
     <>
       <br />
-      <b className="wdt-200 d-in-b">{__('Module:', 'bit-integrations')}</b>
-      <select onChange={handleInput} name="module" value={wcConf.module} className="btcd-paper-inp w-5">
-        <option value="">{__('Select Module', 'bit-integrations')}</option>
-        {moduleType?.map(f => (
-          <option key={`ff-rm-${f.name}`} value={f.name}>
-            {f.label}
-          </option>
-        ))}
-      </select>
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{__('Module:', 'bit-integrations')}</b>
+        <MultiSelect
+          defaultValue={wcConf.module ?? null}
+          className="btcd-paper-drpdwn w-5"
+          options={getModuleOptions(modules, isPro)}
+          onChange={value => handleInput({ target: { name: 'module', value } })}
+          placeholder={__('Select Module', 'bit-integrations')}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
+      <WooCommerceModuleOptions
+        wcConf={wcConf}
+        setWcConf={setWcConf}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        setSnackbar={setSnackbar}
+      />
       <br />
-      {module === 'changestatus' && wcConf.default?.fields?.changestatus?.fields && (
-        <>
-          <br />
-          <b className="wdt-200 d-in-b">{__('Filter:', 'bit-integrations')}</b>
-          <select
-            onChange={handleFilter}
-            name="filterstatus"
-            value={wcConf.filterstatus}
-            className="btcd-paper-inp w-5">
-            <option value="">{__('Select Filter Type', 'bit-integrations')}</option>
-
-            {filterStatus?.map(f => (
-              <option key={`ff-rm-${f.name}`} value={f.name}>
-                {f.label}
-              </option>
-            ))}
-          </select>
-          <br />
-        </>
-      )}
-      {wcConf.filterstatus === 'email' && wcConf?.module === 'changestatus' && (
-        <>
-          <br />
-          <b className="wdt-200 d-in-b">{__('Order Change:', 'bit-integrations')}</b>
-          <select
-            onChange={handleOrderChange}
-            name="orderchange"
-            value={wcConf?.orderchange}
-            className="btcd-paper-inp w-5">
-            <option value="">{__('Select Order Change Type', 'bit-integrations')}</option>
-            {orderChange?.map(f => (
-              <option key={`ff-rm-${f.name}`} value={f.name}>
-                {f.label}
-              </option>
-            ))}
-          </select>
-          <br />
-        </>
-      )}
       <br />
 
       {wcConf?.taskNote && <Note note={wcConf?.taskNote} />}
@@ -245,38 +110,6 @@ export default function WooCommerceIntegLayout({
         </div>
       )}
 
-      {wcConf.module === 'cancelSubscription' && (
-        <>
-          <br />
-          <div className="flx mt-1">
-            <b className="wdt-200 d-in-b">{__('Select Product:', 'bit-integrations')}</b>
-            <MultiSelect
-              className="w-5"
-              defaultValue={wcConf?.productId}
-              options={
-                wcConf?.default?.allSubscriptionProducts &&
-                wcConf.default.allSubscriptionProducts.map(item => ({
-                  label: item.product_name,
-                  value: item.product_id
-                }))
-              }
-              onChange={val => changeHandler(val, 'productId')}
-              singleSelect
-            />
-            <button
-              onClick={() => getAllSubscriptionsProducts(wcConf, setWcConf, setIsLoading, setSnackbar)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{
-                '--tooltip-txt': `'${__('Fetch All Subscription product', 'bit-integrations')}'`
-              }}
-              type="button"
-              disabled={isLoading}>
-              &#x21BB;
-            </button>
-          </div>
-        </>
-      )}
-
       {((wcConf.default?.fields?.[module]?.fields && module !== 'changestatus') ||
         (wcConf.default?.fields?.[module]?.fields &&
           module === 'changestatus' &&
@@ -289,14 +122,16 @@ export default function WooCommerceIntegLayout({
         <>
           <div className="mt-4">
             <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
-            <button
-              onClick={() => refreshFields(wcConf, setWcConf, setIsLoading, setSnackbar)}
-              className="icn-btn sh-sm ml-2 mr-2 tooltip"
-              style={{ '--tooltip-txt': `'${__('Refresh fields', 'bit-integrations')}'` }}
-              type="button"
-              disabled={isLoading}>
-              &#x21BB;
-            </button>
+            {!moduleFields[module] && (
+              <button
+                onClick={() => refreshFields(wcConf, setWcConf, setIsLoading, setSnackbar)}
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': `'${__('Refresh fields', 'bit-integrations')}'` }}
+                type="button"
+                disabled={isLoading}>
+                &#x21BB;
+              </button>
+            )}
           </div>
           <div className="btcd-hr mt-1" />
           <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
@@ -318,15 +153,25 @@ export default function WooCommerceIntegLayout({
               module={module}
             />
           ))}
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() => addFieldMap(wcConf[module].field_map.length)}
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+          {hasOptionalFields && (
+            <div className="txt-center btcbi-field-map-button mt-2">
+              <button
+                onClick={() => addFieldMap(wcConf[module].field_map.length)}
+                className="icn-btn sh-sm"
+                type="button">
+                +
+              </button>
+            </div>
+          )}
         </>
+      )}
+
+      {moduleUtilities[wcConf.module] && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <WooCommerceActions wcConf={wcConf} setWcConf={setWcConf} />
+        </div>
       )}
 
       {wcConf.default?.fields?.[module]?.uploadFields && module === 'product' && (
