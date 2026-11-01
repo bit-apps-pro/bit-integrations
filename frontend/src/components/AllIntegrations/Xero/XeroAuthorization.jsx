@@ -1,5 +1,5 @@
 import { AUTH_TYPES } from '../../../Utils/connectionAuth'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import tutorialLinks from '../../../Utils/StaticData/tutorialLinks'
 import Authorization from '../../Connections/Authorization'
 
@@ -22,10 +22,11 @@ const scope = [
 const note = `
     <h4>${__('Steps to connect Xero:', 'bit-integrations')}</h4>
     <ul>
-      <li>${__('Open the', 'bit-integrations')} <a href="${developerPortalUrl}" target="_blank" rel="noreferrer">${__(
-        'Xero Developer portal',
-        'bit-integrations'
-      )}</a>.</li>
+      <li>${sprintf(
+        // translators: %s: link to the Xero Developer portal.
+        __('Open the %s.', 'bit-integrations'),
+        `<a href="${developerPortalUrl}" target="_blank" rel="noreferrer">${__('Xero Developer portal', 'bit-integrations')}</a>`
+      )}</li>
       <li>${__('Click <b>New app</b> and select <b>Web app</b>.', 'bit-integrations')}</li>
       <li>${__('Copy the <b>Callback / Redirect URL</b> from this form. Add it to the app as a redirect URI.', 'bit-integrations')}</li>
       <li>${__('Open <b>Configuration</b>. Copy the <b>Client ID</b> and generate a <b>Client Secret</b>. Paste both into this form.', 'bit-integrations')}</li>

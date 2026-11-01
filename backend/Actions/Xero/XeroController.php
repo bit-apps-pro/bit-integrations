@@ -133,7 +133,7 @@ class XeroController
     {
         $connection = AuthorizationFactory::getConnectionHandler($connectionId);
 
-        if ($connection === null) {
+        if ($connection === null || strcasecmp((string) ($connection->getConnection()->app_slug ?? ''), self::$authConfig['slug']) !== 0) {
             return __('A Xero connection is required. Select a connection.', 'bit-integrations');
         }
 
@@ -142,6 +142,10 @@ class XeroController
 
         if ($tenantId === '') {
             $tenantId = self::findOrganisation($connection, (string) ($authDetails['access_token'] ?? ''));
+
+            if ($tenantId instanceof WP_Error) {
+                return $tenantId->get_error_message();
+            }
 
             if ($tenantId === '') {
                 return __('Xero has no organisation for this connection. Connect again and select an organisation.', 'bit-integrations');
@@ -157,8 +161,14 @@ class XeroController
         return $apiClient;
     }
 
-    // The consent screen can add several organisations; the token's auth event names the ones picked for this connection.
-    private static function findOrganisation($connection, string $accessToken): string
+    /**
+     * The consent screen can add several organisations; the token's auth event names the ones picked for this connection.
+     *
+     * @param mixed $connection
+     *
+     * @return string|WP_Error the tenant ID, an empty string when Xero lists no organisation
+     */
+    private static function findOrganisation($connection, string $accessToken)
     {
         $parts = explode('.', $accessToken);
         $claims = \count($parts) === 3 ? json_decode((string) base64_decode(strtr($parts[1], '-_', '+/')), true) : null;
@@ -168,17 +178,48 @@ class XeroController
         $client->setBaseURL(self::CONNECTIONS_URL);
         $client->setHeaders(['Accept' => 'application/json']);
 
-        foreach ($authEventId === '' ? [''] : ['?authEventId=' . rawurlencode($authEventId), ''] as $query) {
-            $organisations = json_decode((string) wp_json_encode($client->get($query)->getBody()), true);
+        $organisations = self::listOrganisations($client, $authEventId === '' ? '' : '?authEventId=' . rawurlencode($authEventId));
 
-            foreach (\is_array($organisations) ? $organisations : [] as $organisation) {
-                if (($organisation['tenantType'] ?? '') === 'ORGANISATION' && !empty($organisation['tenantId'])) {
-                    return (string) $organisation['tenantId'];
-                }
+        // Without the auth event, the full list is safe to use only when it holds one organisation.
+        if (\is_array($organisations) && empty($organisations) && $authEventId !== '') {
+            $organisations = self::listOrganisations($client, '');
+            $organisations = \is_array($organisations) && \count($organisations) > 1 ? [] : $organisations;
+        }
+
+        if ($organisations instanceof WP_Error) {
+            return $organisations;
+        }
+
+        return (string) ($organisations[0] ?? '');
+    }
+
+    /**
+     * @return string[]|WP_Error
+     */
+    private static function listOrganisations(ApiClient $client, string $query)
+    {
+        $response = $client->get($query);
+        $body = json_decode((string) wp_json_encode($response->getBody()), true);
+
+        if (!$response->success() || !\is_array($body)) {
+            $message = \is_array($body) ? ($body['Detail'] ?? $body['Message'] ?? $body['Title'] ?? '') : '';
+
+            return new WP_Error(
+                'XERO_CONNECTIONS',
+                // translators: %s: error message from Xero.
+                \sprintf(__('Xero did not return the organisations (%s). Connect again and try again.', 'bit-integrations'), (string) ($message ?: $response->getError() ?: $response->getStatus()))
+            );
+        }
+
+        $tenantIds = [];
+
+        foreach ($body as $organisation) {
+            if (($organisation['tenantType'] ?? '') === 'ORGANISATION' && !empty($organisation['tenantId'])) {
+                $tenantIds[] = (string) $organisation['tenantId'];
             }
         }
 
-        return '';
+        return $tenantIds;
     }
 
     private static function sendOptions($queryParams, string $path, array $query, string $collection, callable $toOption)

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
@@ -51,16 +51,26 @@ export default function XeroIntegLayout({ formFields, xeroConf, setXeroConf, isL
     )
   }
 
-  const selectOptions = select => {
-    if (select.options) return select.options
+  const sourceOptions = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(xeroConf?.default || {}).map(([source, items]) => {
+          const nameCounts = new Map()
+          items.forEach(({ name }) => nameCounts.set(name, (nameCounts.get(name) || 0) + 1))
 
-    const items = xeroConf?.default?.[select.source] || []
+          return [
+            source,
+            items.map(({ id, name }) => ({
+              label: nameCounts.get(name) > 1 ? `${name} (#${id})` : name,
+              value: String(id)
+            }))
+          ]
+        })
+      ),
+    [xeroConf?.default]
+  )
 
-    return items.map(({ id, name }) => ({
-      label: items.filter(item => item.name === name).length > 1 ? `${name} (#${id})` : name,
-      value: String(id)
-    }))
-  }
+  const selectOptions = select => select.options || sourceOptions[select.source] || []
 
   return (
     <>
