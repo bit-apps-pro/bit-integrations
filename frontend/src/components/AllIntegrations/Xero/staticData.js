@@ -446,15 +446,10 @@ const repeatingInvoiceSelects = [
     'due_date_type',
     __('Due Date Type', 'bit-integrations'),
     [
-      { label: __('Days After the Invoice Date', 'bit-integrations'), value: 'DAYSAFTERINVOICEDATE' },
+      { label: __('Days After the Invoice Date', 'bit-integrations'), value: 'DAYSAFTERBILLDATE' },
       {
         label: __('Days After the End of the Invoice Month', 'bit-integrations'),
         value: 'DAYSAFTERINVOICEMONTH'
-      },
-      { label: __('Days After the Bill Date', 'bit-integrations'), value: 'DAYSAFTERBILLDATE' },
-      {
-        label: __('Days After the End of the Bill Month', 'bit-integrations'),
-        value: 'DAYSAFTERBILLMONTH'
       },
       { label: __('Day of the Current Month', 'bit-integrations'), value: 'OFCURRENTMONTH' },
       { label: __('Day of the Following Month', 'bit-integrations'), value: 'OFFOLLOWINGMONTH' }
@@ -1204,8 +1199,14 @@ export const notesByAction = {
   delete_overpayment_allocation: paymentRemoveAllocationNote,
   allocate_prepayment: paymentAllocationNote,
   delete_prepayment_allocation: paymentRemoveAllocationNote,
-  create_spend_money: lineNote,
-  create_receive_money: lineNote,
+  create_spend_money: `${lineNote} ${__(
+    'For an <b>Overpayment</b>, select the Accounts Payable account as the <b>Line Account</b>.',
+    'bit-integrations'
+  )}`,
+  create_receive_money: `${lineNote} ${__(
+    'For an <b>Overpayment</b>, select the Accounts Receivable account as the <b>Line Account</b>.',
+    'bit-integrations'
+  )}`,
   update_bank_transaction: `${updateNote} ${updateLinesNote}`,
   archive_contact: idNote,
   rename_contact_group: idNote,
