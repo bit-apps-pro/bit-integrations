@@ -193,7 +193,7 @@ class XeroController
         $body = json_decode((string) wp_json_encode($response->getBody()), true);
 
         if (!$response->success() || !isset($body[$collection])) {
-            wp_send_json_error($body['Detail'] ?? $body['Message'] ?? $response->getError() ?? __('Xero did not return the list. Try again.', 'bit-integrations'), 400);
+            wp_send_json_error($body['Detail'] ?? $body['Message'] ?? ($response->getError() ?: __('Xero did not return the list. Check the connection and try again.', 'bit-integrations')), 400);
         }
 
         wp_send_json_success(array_values(array_filter(array_map($toOption, $body[$collection]))), 200);

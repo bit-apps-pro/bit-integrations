@@ -487,12 +487,6 @@ class RecordApiHelper
             }
         }
 
-        foreach ((array) ($details->utilities ?? []) as $key => $value) {
-            if ($value !== '' && $value !== null && $value !== []) {
-                $settings[preg_replace('/^selected_/', '', (string) $key)] = $value;
-            }
-        }
-
         return $settings;
     }
 }

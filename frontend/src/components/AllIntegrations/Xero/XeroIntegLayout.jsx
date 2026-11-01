@@ -30,7 +30,6 @@ export default function XeroIntegLayout({ formFields, xeroConf, setXeroConf, isL
     const nextConf = create(xeroConf, draftConf => {
       draftConf.mainAction = value
       draftConf.field_map = generateMappedField(value)
-      draftConf.utilities = {}
       selectKeys.forEach(key => {
         delete draftConf[key]
       })

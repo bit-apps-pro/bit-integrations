@@ -20,8 +20,7 @@ function Xero({ formFields, setFlow, flow, allIntegURL }) {
   const [xeroConf, setXeroConf] = useState({
     field_map: [],
     name: 'Xero',
-    type: 'Xero',
-    utilities: {}
+    type: 'Xero'
   })
 
   const saveConfig = () => {

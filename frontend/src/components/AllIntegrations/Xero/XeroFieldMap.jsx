@@ -72,7 +72,7 @@ export default function XeroFieldMap({ i, formFields, field, xeroConf, setXeroCo
             <option value="">{__('Select Field', 'bit-integrations')}</option>
             {i < requiredFlds.length ? (
               <option key={requiredFlds[i].key} value={requiredFlds[i].key}>
-                {requiredFlds[i].label}
+                {`${requiredFlds[i].label} *`}
               </option>
             ) : (
               nonRequiredFlds.map(({ key, label }) => (

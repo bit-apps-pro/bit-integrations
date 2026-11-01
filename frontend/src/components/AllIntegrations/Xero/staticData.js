@@ -415,7 +415,7 @@ const purchaseOrderFields = [
 
 const repeatingInvoiceFields = [
   field('period', __('Repeat Every (Number)', 'bit-integrations'), true),
-  field('due_date', __('Due Date Number', 'bit-integrations'), true),
+  field('due_date', __('Due Day (Number)', 'bit-integrations'), true),
   field('start_date', __('Start Date (YYYY-MM-DD)', 'bit-integrations'), true),
   field('end_date', __('End Date (YYYY-MM-DD)', 'bit-integrations')),
   documentReferenceField,
@@ -887,7 +887,7 @@ const updateLinesNote = __(
 )
 
 const idNote = __(
-  'Map the ID from a previous step or a form field. Xero shows IDs in the record URL.',
+  'Map the ID from a previous Xero action or a form field. Xero shows most IDs in the record URL.',
   'bit-integrations'
 )
 
@@ -1018,7 +1018,7 @@ export const fieldsByAction = {
     field('component_rate', __('Component Rate (%)', 'bit-integrations'), true)
   ],
   update_tax_rate: [
-    idField('tax_type', __('Tax Type', 'bit-integrations')),
+    idField('tax_type', __('Tax Type Code', 'bit-integrations')),
     field('name', __('New Name', 'bit-integrations')),
     field('component_name', __('Component Name', 'bit-integrations')),
     field('component_rate', __('Component Rate (%)', 'bit-integrations'))
@@ -1167,7 +1167,7 @@ export const notesByAction = {
     'bit-integrations'
   ),
   delete_credit_note_allocation: __(
-    'Get the <b>AllocationID</b> from the <b>Allocations</b> list of the credit note.',
+    'Xero shows the <b>Allocation ID</b> in the Allocations list of the credit note.',
     'bit-integrations'
   ),
   create_quote: `${lineNote} ${__('Leave the quote date empty to use today.', 'bit-integrations')}`,
@@ -1175,9 +1175,10 @@ export const notesByAction = {
   create_purchase_order: lineNote,
   update_purchase_order: lineUpdateNote,
   create_repeating_invoice: `${lineNote} ${__(
-    'Xero sends the invoice only when the status is Approved, the type is Invoice and Approve for Sending is Yes.',
+    'Due Day is the number of days for a Days After type, or the day of the month for a Day of the Month type, for example 20. Xero sends the invoice only when the status is Approved, the type is Invoice and Approve for Sending is Yes.',
     'bit-integrations'
   )}`,
+  create_contact: __('The contact name must be unique in Xero.', 'bit-integrations'),
   update_contact: updateNote,
   create_or_update_contact: __(
     'Xero updates the contact that has this email. If no contact has it, Xero creates one. Map a name to create a contact.',
@@ -1196,7 +1197,7 @@ export const notesByAction = {
     'bit-integrations'
   ),
   create_batch_payment: __(
-    'The batch pays one invoice or bill. Leave the <b>Date</b> empty to use today.',
+    'The batch pays one invoice or bill. Leave the <b>Date</b> empty to use today. Particulars and Code apply only to New Zealand banks. Narrative applies only to UK banks.',
     'bit-integrations'
   ),
   allocate_overpayment: paymentAllocationNote,
@@ -1206,7 +1207,28 @@ export const notesByAction = {
   create_spend_money: lineNote,
   create_receive_money: lineNote,
   update_bank_transaction: `${updateNote} ${updateLinesNote}`,
+  archive_contact: idNote,
+  rename_contact_group: idNote,
+  delete_contact_group: idNote,
+  remove_contact_from_group: idNote,
+  remove_all_contacts_from_group: idNote,
+  approve_credit_note: idNote,
+  update_quote_status: idNote,
+  update_purchase_order_status: idNote,
+  delete_repeating_invoice: idNote,
+  delete_item: idNote,
+  delete_linked_transaction: idNote,
+  delete_payment: idNote,
+  delete_batch_payment: idNote,
+  archive_account: idNote,
+  create_tracking_option: idNote,
+  delete_tracking_category: idNote,
+  delete_tracking_option: idNote,
   delete_bank_transaction: idNote,
+  create_bank_transfer: __(
+    'Select two different bank accounts. Leave the transfer date empty to use today.',
+    'bit-integrations'
+  ),
   delete_bank_transfer: idNote,
   create_manual_journal: manualJournalNote,
   update_manual_journal: `${updateNote} ${__(
@@ -1214,6 +1236,10 @@ export const notesByAction = {
     'bit-integrations'
   )}`,
   update_manual_journal_status: idNote,
+  create_account: __(
+    'Map an account code for every account type except Bank. A Bank account needs a bank account number.',
+    'bit-integrations'
+  ),
   update_account: updateNote,
   delete_account: __(
     'Xero does not delete bank accounts or accounts with transactions. Use Archive Account for them.',
