@@ -15,9 +15,11 @@ export const handleInput = (e, restaurantReservationsConf, setRestaurantReservat
 }
 
 const fetchList =
-  (route, dataKey, confKey, successMsg, errorMsg) => (setRestaurantReservationsConf, setIsLoading) => {
-    setIsLoading(true)
-    bitsFetch(null, route)
+  (route, dataKey, confKey, successMsg, errorMsg) =>
+  (setRestaurantReservationsConf, setIsLoading, notify = true) => {
+    setIsLoading?.(true)
+
+    return bitsFetch(null, route)
       .then(result => {
         if (result && result?.success && Array.isArray(result?.data?.[dataKey])) {
           setRestaurantReservationsConf(prevConf =>
@@ -26,14 +28,15 @@ const fetchList =
             })
           )
 
-          setIsLoading(false)
-          toast.success(successMsg())
+          if (notify) {
+            toast.success(successMsg())
+          }
           return
         }
-        setIsLoading(false)
         toast.error(errorMsg())
       })
-      .catch(() => setIsLoading(false))
+      .catch(() => toast.error(errorMsg()))
+      .finally(() => setIsLoading?.(false))
   }
 
 export const refreshRestaurantReservationsStatuses = fetchList(
@@ -106,6 +109,14 @@ export const getConfError = restaurantReservationsConf => {
 
   if (needsStatus.includes(mainAction) && !restaurantReservationsConf?.selectedStatus) {
     return __('Select a status to continue.', 'bit-integrations')
+  }
+
+  if (
+    mainAction === 'create_booking' &&
+    (restaurantReservationsConf?.allLocations || []).length > 0 &&
+    !restaurantReservationsConf?.selectedLocation
+  ) {
+    return __('Select a location to continue.', 'bit-integrations')
   }
 
   if (needsTables.includes(mainAction) && !restaurantReservationsConf?.selectedTables) {

@@ -48,16 +48,25 @@ export default function RestaurantReservationsIntegLayout({
       })
     )
 
-    if (needsStatus.includes(value)) {
-      refreshRestaurantReservationsStatuses(setRestaurantReservationsConf, setIsLoading)
+    const loaders = []
+
+    if (needsStatus.includes(value) || hasBookingOptions.includes(value)) {
+      loaders.push(refreshRestaurantReservationsStatuses)
     }
 
     if (needsTables.includes(value) || hasBookingOptions.includes(value)) {
-      refreshRestaurantReservationsTables(setRestaurantReservationsConf, setIsLoading)
+      loaders.push(refreshRestaurantReservationsTables)
     }
 
     if (hasBookingOptions.includes(value)) {
-      refreshRestaurantReservationsLocations(setRestaurantReservationsConf, setIsLoading)
+      loaders.push(refreshRestaurantReservationsLocations)
+    }
+
+    if (loaders.length > 0) {
+      setIsLoading(true)
+      Promise.all(loaders.map(load => load(setRestaurantReservationsConf, null, false))).finally(() =>
+        setIsLoading(false)
+      )
     }
   }
 
@@ -77,9 +86,12 @@ export default function RestaurantReservationsIntegLayout({
   const hasOptionalFields = (restaurantReservationsConf?.restaurantReservationsFields || []).some(
     field => !field.required
   )
-  const showTables = needsTables.includes(mainAction) || hasBookingOptions.includes(mainAction)
-  const showLocations =
-    hasBookingOptions.includes(mainAction) && (restaurantReservationsConf?.allLocations || []).length > 0
+  const isBookingForm = hasBookingOptions.includes(mainAction)
+  const showStatus = needsStatus.includes(mainAction) || isBookingForm
+  const showTables = needsTables.includes(mainAction) || isBookingForm
+  const showLocations = isBookingForm && (restaurantReservationsConf?.allLocations || []).length > 0
+  const isLocationRequired = mainAction === 'create_booking'
+  const optionalLabel = label => `${label} ${__('(optional)', 'bit-integrations')}:`
 
   return (
     <>
@@ -101,11 +113,15 @@ export default function RestaurantReservationsIntegLayout({
         />
       </div>
 
-      {needsStatus.includes(mainAction) && (
+      {showStatus && (
         <>
           <br />
           <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Status:', 'bit-integrations')}</b>
+            <b className="wdt-200 d-in-b">
+              {isBookingForm
+                ? optionalLabel(__('Status', 'bit-integrations'))
+                : __('Status:', 'bit-integrations')}
+            </b>
             <MultiSelect
               title="selectedStatus"
               defaultValue={restaurantReservationsConf?.selectedStatus ?? null}
@@ -126,6 +142,21 @@ export default function RestaurantReservationsIntegLayout({
               &#x21BB;
             </button>
           </div>
+          {isBookingForm && (
+            <>
+              <br />
+              <Note
+                note={
+                  mainAction === 'create_booking'
+                    ? __(
+                        'Leave Status empty to let the plugin set the status from its booking rules.',
+                        'bit-integrations'
+                      )
+                    : __('Leave Status empty to keep the current status.', 'bit-integrations')
+                }
+              />
+            </>
+          )}
         </>
       )}
 
@@ -133,7 +164,11 @@ export default function RestaurantReservationsIntegLayout({
         <>
           <br />
           <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Location:', 'bit-integrations')}</b>
+            <b className="wdt-200 d-in-b">
+              {isLocationRequired
+                ? __('Location:', 'bit-integrations')
+                : optionalLabel(__('Location', 'bit-integrations'))}
+            </b>
             <MultiSelect
               title="selectedLocation"
               defaultValue={restaurantReservationsConf?.selectedLocation ?? null}
@@ -161,7 +196,11 @@ export default function RestaurantReservationsIntegLayout({
         <>
           <br />
           <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Tables:', 'bit-integrations')}</b>
+            <b className="wdt-200 d-in-b">
+              {isBookingForm
+                ? optionalLabel(__('Tables', 'bit-integrations'))
+                : __('Tables:', 'bit-integrations')}
+            </b>
             <MultiSelect
               title="selectedTables"
               defaultValue={restaurantReservationsConf?.selectedTables ?? null}
