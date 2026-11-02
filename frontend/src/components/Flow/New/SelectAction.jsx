@@ -282,7 +282,11 @@ export default function SelectAction() {
 
   const searchInteg = e => {
     const { value } = e.target
-    const filtered = integs.filter(integ => integ.type.toLowerCase().includes(value.toLowerCase()))
+    const search = value.toLowerCase()
+    const filtered = integs.filter(
+      integ =>
+        integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
+    )
     setAvailableIntegs(sortFeaturedProducts(filtered))
   }
 
