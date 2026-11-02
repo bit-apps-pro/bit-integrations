@@ -121,6 +121,7 @@ export default function BitConnectIntegLayout({
 
   const { mainAction } = bitConnectConf || {}
   const visibleSelects = OPTION_SELECTS.filter(select => select.actions.includes(mainAction))
+  const hasOptionalFields = (bitConnectConf?.bitConnectFields || []).some(field => !field.required)
 
   return (
     <>
@@ -235,16 +236,18 @@ export default function BitConnectIntegLayout({
               setBitConnectConf={setBitConnectConf}
             />
           ))}
-          <div className="txt-center btcbi-field-map-button mt-2">
-            <button
-              onClick={() =>
-                addFieldMap(bitConnectConf.field_map.length, bitConnectConf, setBitConnectConf)
-              }
-              className="icn-btn sh-sm"
-              type="button">
-              +
-            </button>
-          </div>
+          {hasOptionalFields && (
+            <div className="txt-center btcbi-field-map-button mt-2">
+              <button
+                onClick={() =>
+                  addFieldMap(bitConnectConf.field_map.length, bitConnectConf, setBitConnectConf)
+                }
+                className="icn-btn sh-sm"
+                type="button">
+                +
+              </button>
+            </div>
+          )}
           <br />
         </div>
       )}
