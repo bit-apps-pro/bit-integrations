@@ -139,6 +139,7 @@ final class AllTriggersName
             'Rafflepress'                           => ['name' => 'Rafflepress',  'isPro' => true, 'is_active' => false],
             'PeepSo'                                => ['name' => 'PeepSo',  'isPro' => true, 'is_active' => false],
             'Registration'                          => ['name' => 'WP User Registration',  'isPro' => true, 'is_active' => false],
+            'RestaurantReservations'                => ['name' => 'Five Star Restaurant Reservations',  'isPro' => true, 'is_active' => false],
             'RestrictContent'                       => ['name' => 'Restrict Content',  'isPro' => true, 'is_active' => false],
             'RoxAppointmentBooking'                 => ['name' => 'Rox Appointment Booking',  'isPro' => true, 'is_active' => false],
             'SeoPress'                              => ['name' => 'SEOPress',  'isPro' => true, 'is_active' => false],
