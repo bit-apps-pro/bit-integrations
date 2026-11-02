@@ -193,7 +193,7 @@ export default function BitConnectIntegLayout({
               defaultValue={bitConnectConf?.selectedRole ?? 'member'}
               className="btcd-paper-drpdwn w-5"
               options={groupRoleOptions}
-              onChange={val => setField('selectedRole', val)}
+              onChange={val => setField('selectedRole', val || 'member')}
               singleSelect
               closeOnSelect
             />
