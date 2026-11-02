@@ -232,9 +232,8 @@ const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
 )
-const RoxAppointmentBooking = lazy(() =>
-  import('./RoxAppointmentBooking/RoxAppointmentBooking')
-)
+const RestaurantReservations = lazy(() => import('./RestaurantReservations/RestaurantReservations'))
+const RoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/RoxAppointmentBooking'))
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
@@ -2187,6 +2186,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'RestaurantReservations':
+      return (
+        <RestaurantReservations
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'RoxAppointmentBooking':
       return (
         <RoxAppointmentBooking
@@ -2255,6 +2263,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'BitCrm':
       integrationName = 'Bit CRM'
+      break
+    case 'RestaurantReservations':
+      integrationName = 'Five Star Restaurant Reservations'
       break
 
     default:

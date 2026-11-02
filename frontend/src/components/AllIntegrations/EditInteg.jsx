@@ -17,6 +17,9 @@ const EditOneDrive = lazy(() => import('./OneDrive/EditOneDrive'))
 const EditZohoCampaigns = lazy(() => import('./ZohoCampaigns/EditZohoCampaigns'))
 const EditZohoCRM = lazy(() => import('./ZohoCRM/EditZohoCRM'))
 const EditRapidmail = lazy(() => import('./Rapidmail/EditRapidmail'))
+const EditRestaurantReservations = lazy(
+  () => import('./RestaurantReservations/EditRestaurantReservations')
+)
 const EditRoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/EditRoxAppointmentBooking'))
 const EditTwilio = lazy(() => import('./Twilio/EditTwilio'))
 const EditZohoMarketingHub = lazy(() => import('./ZohoMarketingHub/EditZohoMarketingHub'))
@@ -691,6 +694,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'RestaurantReservations':
+      return <EditRestaurantReservations allIntegURL={allIntegURL} />
     case 'RoxAppointmentBooking':
       return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
     case 'Bookings And Appointments For Woocommerce':
