@@ -45,7 +45,7 @@ class RestaurantReservationsController
 
         $locations = [];
 
-        if (!empty($rtb_controller->locations->post_type)) {
+        if (!empty($rtb_controller->locations->post_type) && taxonomy_exists($rtb_controller->locations->location_taxonomy)) {
             foreach ($rtb_controller->locations->get_location_options() as $termId => $name) {
                 $locations[] = (object) [
                     'value' => (int) $termId,
@@ -64,6 +64,10 @@ class RestaurantReservationsController
         global $rtb_controller;
 
         $tables = [];
+
+        if (empty($rtb_controller->settings)) {
+            wp_send_json_success(['tables' => $tables], 200);
+        }
 
         foreach ($rtb_controller->settings->get_form_table_options() as $tableNumber => $label) {
             if ($tableNumber === '' || $label === '') {

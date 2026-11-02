@@ -38,6 +38,8 @@ class RecordApiHelper
             'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro')
         ];
 
+        $type = 'booking';
+
         switch ($mainAction) {
             case 'create_booking':
                 $response = Hooks::apply(Config::withPrefix('restaurant_reservations_create_booking'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
@@ -80,16 +82,19 @@ class RecordApiHelper
                 break;
 
             case 'send_email_to_customer':
+                $type = 'email';
                 $response = Hooks::apply(Config::withPrefix('restaurant_reservations_send_email_to_customer'), $defaultResponse, $fieldData);
 
                 break;
 
             case 'ban_email':
+                $type = 'ban';
                 $response = Hooks::apply(Config::withPrefix('restaurant_reservations_ban_email'), $defaultResponse, $fieldData);
 
                 break;
 
             case 'ban_ip_address':
+                $type = 'ban';
                 $response = Hooks::apply(Config::withPrefix('restaurant_reservations_ban_ip_address'), $defaultResponse, $fieldData);
 
                 break;
@@ -104,7 +109,7 @@ class RecordApiHelper
         }
 
         $responseType = isset($response['success']) && $response['success'] ? 'success' : 'error';
-        LogHandler::save($this->_integrationID, ['type' => 'booking', 'type_name' => $mainAction], $responseType, $response);
+        LogHandler::save($this->_integrationID, ['type' => $type, 'type_name' => $mainAction], $responseType, $response);
 
         return $response;
     }
