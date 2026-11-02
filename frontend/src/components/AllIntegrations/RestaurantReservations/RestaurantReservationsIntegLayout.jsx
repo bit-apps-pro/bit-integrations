@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
@@ -35,6 +36,35 @@ export default function RestaurantReservationsIntegLayout({
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
 
+  const loadOptionLists = action => {
+    const loaders = []
+
+    if (needsStatus.includes(action) || hasBookingOptions.includes(action)) {
+      loaders.push(refreshRestaurantReservationsStatuses)
+    }
+
+    if (needsTables.includes(action) || hasBookingOptions.includes(action)) {
+      loaders.push(refreshRestaurantReservationsTables)
+    }
+
+    if (hasBookingOptions.includes(action)) {
+      loaders.push(refreshRestaurantReservationsLocations)
+    }
+
+    if (loaders.length > 0) {
+      setIsLoading(true)
+      Promise.all(loaders.map(load => load(setRestaurantReservationsConf, null, false))).finally(() =>
+        setIsLoading(false)
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (restaurantReservationsConf?.mainAction) {
+      loadOptionLists(restaurantReservationsConf.mainAction)
+    }
+  }, [])
+
   const handleMainAction = value => {
     setRestaurantReservationsConf(prevConf =>
       create(prevConf, draftConf => {
@@ -48,26 +78,7 @@ export default function RestaurantReservationsIntegLayout({
       })
     )
 
-    const loaders = []
-
-    if (needsStatus.includes(value) || hasBookingOptions.includes(value)) {
-      loaders.push(refreshRestaurantReservationsStatuses)
-    }
-
-    if (needsTables.includes(value) || hasBookingOptions.includes(value)) {
-      loaders.push(refreshRestaurantReservationsTables)
-    }
-
-    if (hasBookingOptions.includes(value)) {
-      loaders.push(refreshRestaurantReservationsLocations)
-    }
-
-    if (loaders.length > 0) {
-      setIsLoading(true)
-      Promise.all(loaders.map(load => load(setRestaurantReservationsConf, null, false))).finally(() =>
-        setIsLoading(false)
-      )
-    }
+    loadOptionLists(value)
   }
 
   const setConfValue = (key, value) => {
