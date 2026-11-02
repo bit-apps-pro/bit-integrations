@@ -19,16 +19,16 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap, $utilities)
     {
+        $mainAction = $this->_integrationDetails->mainAction ?? '';
+
         if (!BitConnectController::isPluginActive()) {
-            return [
-                'success' => false,
-                'message' => __('Bit Connect Pro is not installed or activated', 'bit-integrations')
-            ];
+            $response = ['success' => false, 'message' => BitConnectController::inactiveMessage()];
+            LogHandler::save($this->_integrationID, ['type' => 'BitConnect', 'type_name' => $mainAction], 'error', $response);
+
+            return $response;
         }
 
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
-
-        $mainAction = $this->_integrationDetails->mainAction ?? '';
 
         switch ($mainAction) {
             case 'create_post':

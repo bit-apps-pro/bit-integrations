@@ -13,13 +13,7 @@ class BitConnectController
     public static function isExists()
     {
         if (!static::isPluginActive()) {
-            wp_send_json_error(
-                __(
-                    'Bit Connect Pro is not activated or not installed',
-                    'bit-integrations'
-                ),
-                400
-            );
+            wp_send_json_error(static::inactiveMessage(), 400);
         }
     }
 
@@ -72,6 +66,19 @@ class BitConnectController
     public static function isPluginActive()
     {
         return class_exists(self::ACTIONS_CLASS) && \call_user_func([self::ACTIONS_CLASS, 'available']);
+    }
+
+    public static function inactiveMessage()
+    {
+        if (did_action('bit_connect_loaded') === 0) {
+            return __('Bit Connect is not activated or not installed', 'bit-integrations');
+        }
+
+        if (!class_exists(self::ACTIONS_CLASS)) {
+            return __('Bit Connect Pro is not activated or not installed', 'bit-integrations');
+        }
+
+        return __('Bit Connect Pro has no active licence. Activate the Bit Connect Pro licence and try again.', 'bit-integrations');
     }
 
     private static function toOptions(array $items)
