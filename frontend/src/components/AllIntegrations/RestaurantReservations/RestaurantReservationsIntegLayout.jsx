@@ -88,7 +88,9 @@ export default function RestaurantReservationsIntegLayout({
   )
   const isBookingForm = hasBookingOptions.includes(mainAction)
   const showStatus = needsStatus.includes(mainAction) || isBookingForm
-  const showTables = needsTables.includes(mainAction) || isBookingForm
+  const showTables =
+    needsTables.includes(mainAction) ||
+    (isBookingForm && (restaurantReservationsConf?.allTables || []).length > 0)
   const showLocations = isBookingForm && (restaurantReservationsConf?.allLocations || []).length > 0
   const isLocationRequired = mainAction === 'create_booking'
   const optionalLabel = label => `${label} ${__('(optional)', 'bit-integrations')}:`
