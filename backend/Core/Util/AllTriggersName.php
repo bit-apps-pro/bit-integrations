@@ -26,7 +26,6 @@ final class AllTriggersName
             'Beaver'                                => ['name' => 'Beaver',  'isPro' => true, 'is_active' => false],
             'BetterMessages'                        => ['name' => 'Better Messages',  'isPro' => true, 'is_active' => false],
             'BookingsAndAppointmentsForWoocommerce' => ['name' => 'Bookings and Appointments for WooCommerce',  'isPro' => true, 'is_active' => false],
-            'BitConnect'                            => ['name' => 'Bit Connect',  'isPro' => true, 'is_active' => false],
             'Breakdance'                            => ['name' => 'Breakdance',  'isPro' => true, 'is_active' => false],
             'Bricks'                                => ['name' => 'Bricks',  'isPro' => true, 'is_active' => false],
             'Bricksforge'                           => ['name' => 'Bricksforge',  'isPro' => true, 'is_active' => false],

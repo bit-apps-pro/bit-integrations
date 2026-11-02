@@ -1,20 +1,20 @@
 import { __ } from '../../../Utils/i18nwrap'
 
 export const modules = [
-  { name: 'create_post', label: __('Create Post', 'bit-integrations'), is_pro: true },
+  { name: 'create_post', label: __('Create Post', 'bit-integrations'), is_pro: false },
   {
     name: 'set_post_status',
     label: __('Set Post Status or Stage', 'bit-integrations'),
-    is_pro: true
+    is_pro: false
   },
-  { name: 'vote_for_post', label: __('Vote for Post', 'bit-integrations'), is_pro: true },
-  { name: 'add_comment', label: __('Add Comment', 'bit-integrations'), is_pro: true },
-  { name: 'award_badge', label: __('Award Badge', 'bit-integrations'), is_pro: true },
-  { name: 'add_member_to_group', label: __('Add Member to Group', 'bit-integrations'), is_pro: true },
+  { name: 'vote_for_post', label: __('Vote for Post', 'bit-integrations'), is_pro: false },
+  { name: 'add_comment', label: __('Add Comment', 'bit-integrations'), is_pro: false },
+  { name: 'award_badge', label: __('Award Badge', 'bit-integrations'), is_pro: false },
+  { name: 'add_member_to_group', label: __('Add Member to Group', 'bit-integrations'), is_pro: false },
   {
     name: 'remove_member_from_group',
     label: __('Remove Member from Group', 'bit-integrations'),
-    is_pro: true
+    is_pro: false
   }
 ]
 

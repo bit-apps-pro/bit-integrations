@@ -197,7 +197,7 @@ export default function SelectAction() {
     },
     { type: 'FluentCart', is_pro: true },
     { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
-    { type: 'BitConnect', name: 'Bit Connect', logo: 'bitConnect', is_pro: true },
+    { type: 'BitConnect', name: 'Bit Connect', logo: 'bitConnect', is_pro: false },
     {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
