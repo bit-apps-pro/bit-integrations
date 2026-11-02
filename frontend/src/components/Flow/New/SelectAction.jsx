@@ -198,6 +198,12 @@ export default function SelectAction() {
     { type: 'FluentCart', is_pro: true },
     { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
     {
+      type: 'RestaurantReservations',
+      name: 'Five Star Restaurant Reservations',
+      logo: 'restaurantReservations',
+      is_pro: true
+    },
+    {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
       logo: 'roxAppointmentBooking',
@@ -345,8 +351,9 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
+                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button

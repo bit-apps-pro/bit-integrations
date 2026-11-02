@@ -133,7 +133,8 @@ export const customFormIntegrations = [
   'Pointics',
   'QuizAndSurveyMaster',
   'QuizMaker',
-  'RoxAppointmentBooking'
+  'RoxAppointmentBooking',
+  'RestaurantReservations'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
