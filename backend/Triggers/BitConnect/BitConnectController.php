@@ -72,7 +72,7 @@ final class BitConnectController
             ['form_name' => __('Any Forum Event', 'bit-integrations'), 'triggered_entity_id' => self::ANY_EVENT_TASK, 'skipPrimaryKey' => true, 'note' => __('Runs for every forum event. Use conditional logic on the event field to select events.', 'bit-integrations')],
         ];
 
-        if (did_action('bit_connect_pro_loaded') === 0) {
+        if (!static::isProActive()) {
             $tasks = array_values(
                 array_filter(
                     $tasks,
@@ -129,6 +129,13 @@ final class BitConnectController
         }
 
         return ['type' => 'success'];
+    }
+
+    private static function isProActive()
+    {
+        $actionsClass = 'BitApps\\BitConnectPro\\Integrations\\Actions';
+
+        return class_exists($actionsClass) && \call_user_func([$actionsClass, 'available']);
     }
 
     private static function isPluginInstalled()
