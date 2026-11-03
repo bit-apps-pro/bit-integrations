@@ -13,7 +13,7 @@ final class UserController
 
     public function getWpUsers()
     {
-        if (!(Capabilities::Check(Config::withPrefix('manage_integrations')))) {
+        if (!(Capabilities::Check('manage_options') || Capabilities::Check(Config::withPrefix('manage_integrations')) || Capabilities::Check(Config::withPrefix('create_integrations')) || Capabilities::Check(Config::withPrefix('edit_integrations')))) {
             wp_send_json_error(__('User don\'t have permission to access this page', 'bit-integrations'));
         }
 
