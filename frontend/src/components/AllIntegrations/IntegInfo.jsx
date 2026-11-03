@@ -186,6 +186,7 @@ const UltimateAffiliateProAuthorization = lazy(
 )
 const BooklyAuthorization = lazy(() => import('./Bookly/BooklyAuthorization'))
 const SureContactAuthorization = lazy(() => import('./SureContact/SureContactAuthorization'))
+const EventbriteAuthorization = lazy(() => import('./Eventbrite/EventbriteAuthorization'))
 const BrilliantDirectoriesAuthorization = lazy(
   () => import('./BrilliantDirectories/BrilliantDirectoriesAuthorization')
 )
@@ -708,6 +709,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <BooklyAuthorization booklyConf={integrationConf} step={1} isInfo />
     case 'SureContact':
       return <SureContactAuthorization sureContactConf={integrationConf} step={1} isInfo />
+    case 'Eventbrite':
+      return <EventbriteAuthorization eventbriteConf={integrationConf} step={1} isInfo />
     case 'BrilliantDirectories':
       return (
         <BrilliantDirectoriesAuthorization brilliantDirectoriesConf={integrationConf} step={1} isInfo />
