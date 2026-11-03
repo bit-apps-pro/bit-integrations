@@ -18,6 +18,7 @@ class BitFormController
         'fields'   => [
             'api_key'    => 'value',
             'app_domain' => 'domainName',
+            'domainName' => 'domainName',
         ],
     ];
 
