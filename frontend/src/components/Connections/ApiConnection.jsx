@@ -1,7 +1,12 @@
 import { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { authorizeConnection, saveConnection } from '../../Utils/connectionApi'
-import { AUTH_TYPES, buildDefaultConnectionName, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import {
+  AUTH_TYPES,
+  buildDefaultConnectionName,
+  defaultEncryptKeys,
+  getConnectionAppSlug
+} from '../../Utils/connectionAuth'
 import {
   normalizeAdditionalHeaders,
   resolveConfigValue,
@@ -129,6 +134,7 @@ export default function ApiConnection({
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const { authType, apiEndpoint, method } = authDetails || {}
+  const appSlug = getConnectionAppSlug(config)
 
   const handleChange = useCallback(event => {
     const { name, value } = event.target
@@ -156,7 +162,7 @@ export default function ApiConnection({
       method,
       authData,
       authDetails,
-      appSlug: config?.app_slug || config?.type
+      appSlug
     })
 
     setIsLoading(true)
@@ -177,7 +183,7 @@ export default function ApiConnection({
       }
 
       const saveRes = await saveConnection({
-        app_slug: config?.app_slug || config?.type,
+        app_slug: appSlug,
         auth_type: authType,
         connection_name: authData.connectionName,
         account_name: authData.connectionName,
@@ -226,17 +232,7 @@ export default function ApiConnection({
     } finally {
       setIsLoading(false)
     }
-  }, [
-    apiEndpoint,
-    authData,
-    authDetails,
-    authType,
-    config?.app_slug,
-    config?.type,
-    method,
-    onConnectionSaved,
-    setConfig
-  ])
+  }, [apiEndpoint, appSlug, authData, authDetails, authType, method, onConnectionSaved, setConfig])
 
   return (
     <>
