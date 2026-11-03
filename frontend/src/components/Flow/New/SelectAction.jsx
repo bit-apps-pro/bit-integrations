@@ -187,8 +187,7 @@ export default function SelectAction() {
     { type: 'CreatorLms', is_pro: true },
     { type: 'Bookly', is_pro: true },
     { type: 'BookingCalendar', is_pro: true },
-    { type: 'SureContact', is_pro: false },
-    { type: 'Flodesk', is_pro: false },
+    { type: 'Flodesk', is_pro: true },
     { type: 'SureContact', is_pro: true },
     {
       type: 'BrilliantDirectories',

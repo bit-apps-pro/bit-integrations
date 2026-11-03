@@ -66,8 +66,7 @@ function Post({ formFields, setFlow, flow, allIntegURL }) {
 
   useEffect(() => {
     bitsFetch({}, 'user/list').then(res => {
-      const { data } = res
-      setUsers(data)
+      setUsers(res?.success && Array.isArray(res.data) ? res.data : [])
     })
 
     bitsFetch({}, 'post-types/list').then(res => {
