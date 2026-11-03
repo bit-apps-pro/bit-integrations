@@ -191,6 +191,7 @@ const BrilliantDirectoriesAuthorization = lazy(
 )
 const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const BookneticAuthorization = lazy(() => import('./Booknetic/BookneticAuthorization'))
 const BookingsAndAppointmentsForWoocommerceAuthorization = lazy(
   () =>
     import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAuthorization')
@@ -716,6 +717,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'Booknetic':
+      return <BookneticAuthorization bookneticConf={integrationConf} step={1} isInfo />
     case 'Bookings And Appointments For Woocommerce':
       return (
         <BookingsAndAppointmentsForWoocommerceAuthorization

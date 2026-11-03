@@ -185,6 +185,7 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const Booknetic = lazy(() => import('./Booknetic/Booknetic'))
 const BookingsAndAppointmentsForWoocommerce = lazy(
   () => import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerce')
 )
@@ -1828,6 +1829,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'FluentCart':
       return (
         <FluentCart
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'Booknetic':
+      return (
+        <Booknetic
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

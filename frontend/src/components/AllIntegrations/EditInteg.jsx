@@ -187,6 +187,7 @@ const EditSureContact = lazy(() => import('./SureContact/EditSureContact'))
 const EditBrilliantDirectories = lazy(() => import('./BrilliantDirectories/EditBrilliantDirectories'))
 const EditFlodesk = lazy(() => import('./Flodesk/EditFlodesk'))
 const EditFluentCart = lazy(() => import('./FluentCart/EditFluentCart'))
+const EditBooknetic = lazy(() => import('./Booknetic/EditBooknetic'))
 const EditBookingsAndAppointmentsForWoocommerce = lazy(
   () => import('./BookingsAndAppointmentsForWoocommerce/EditBookingsAndAppointmentsForWoocommerce')
 )
@@ -691,6 +692,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditFlodesk allIntegURL={allIntegURL} />
     case 'FluentCart':
       return <EditFluentCart allIntegURL={allIntegURL} />
+    case 'Booknetic':
+      return <EditBooknetic allIntegURL={allIntegURL} />
     case 'RoxAppointmentBooking':
       return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
     case 'Bookings And Appointments For Woocommerce':
