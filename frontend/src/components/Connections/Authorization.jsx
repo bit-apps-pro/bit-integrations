@@ -269,9 +269,7 @@ export default function Authorization({
             />
           )}
 
-          {isInfo && !config?.connection_id && (
-            <ConnectionNotice onOpenSettings={connectionSwitch?.onNext} />
-          )}
+          {isInfo && !config?.connection_id && <ConnectionNotice />}
         </>
       )}
 
