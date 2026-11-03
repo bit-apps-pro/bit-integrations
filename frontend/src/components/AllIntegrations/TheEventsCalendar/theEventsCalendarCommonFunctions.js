@@ -95,6 +95,12 @@ const lists = {
     confKey: 'allTimezones',
     success: __('The time zones are fetched.', 'bit-integrations'),
     error: __('The time zones did not load. Try again.', 'bit-integrations')
+  },
+  customFields: {
+    route: 'refresh_the_events_calendar_custom_fields',
+    confKey: 'allCustomFields',
+    success: __('The custom fields are fetched.', 'bit-integrations'),
+    error: __('The Events Calendar did not send the custom fields. Try again.', 'bit-integrations')
   }
 }
 

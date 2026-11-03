@@ -137,6 +137,23 @@ class TheEventsCalendarController
         wp_send_json_success(['timezones' => $timezones], 200);
     }
 
+    public function refreshCustomFields()
+    {
+        self::checkTheEventsCalendarActive();
+
+        $customFields = [];
+
+        if (class_exists('Tribe__Events__Pro__Custom_Meta')) {
+            foreach ((array) tribe_get_option('custom-fields', []) as $customField) {
+                if (!empty($customField['name'])) {
+                    $customFields[] = (object) ['value' => $customField['name'], 'label' => $customField['label'] ?? $customField['name']];
+                }
+            }
+        }
+
+        wp_send_json_success(['customFields' => $customFields], 200);
+    }
+
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

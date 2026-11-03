@@ -425,7 +425,7 @@ export const utilitiesByAction = {
   ]
 }
 
-const eventLists = ['venues', 'organizers', 'categories', 'timezones']
+const eventLists = ['venues', 'organizers', 'categories', 'timezones', 'customFields']
 
 export const listsByAction = {
   create_event: eventLists,

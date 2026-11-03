@@ -14,3 +14,4 @@ Route::post('refresh_the_events_calendar_organizers', [TheEventsCalendarControll
 Route::post('refresh_the_events_calendar_categories', [TheEventsCalendarController::class, 'refreshCategories']);
 Route::post('refresh_the_events_calendar_series', [TheEventsCalendarController::class, 'refreshSeries']);
 Route::post('refresh_the_events_calendar_timezones', [TheEventsCalendarController::class, 'refreshTimezones']);
+Route::post('refresh_the_events_calendar_custom_fields', [TheEventsCalendarController::class, 'refreshCustomFields']);
