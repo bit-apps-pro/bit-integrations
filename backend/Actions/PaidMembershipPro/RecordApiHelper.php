@@ -23,6 +23,8 @@ class RecordApiHelper
 
     private const MULTI_VALUE_FIELD_TYPES = ['checkbox_grouped', 'select2', 'multiselect'];
 
+    private const PRIVILEGED_CAPABILITIES = ['manage_options', 'promote_users', 'list_users', 'edit_posts'];
+
     private $integrationID;
 
     private $_integrationDetails;
@@ -45,10 +47,12 @@ class RecordApiHelper
                 continue;
             }
 
-            if ($triggerValue === 'custom') {
-                $dataFinal[$actionValue] = Common::replaceFieldWithValue($value->customValue ?? '', $data);
-            } elseif (isset($data[$triggerValue])) {
-                $dataFinal[$actionValue] = $data[$triggerValue];
+            $mappedValue = $triggerValue === 'custom'
+                ? Common::replaceFieldWithValue($value->customValue ?? '', $data)
+                : ($data[$triggerValue] ?? null);
+
+            if (!self::isEmptyValue($mappedValue)) {
+                $dataFinal[$actionValue] = $mappedValue;
             }
         }
 
@@ -186,7 +190,7 @@ class RecordApiHelper
         $data = $this->generateReqDataFromFieldMap($fieldValues, $this->_integrationDetails->field_map ?? []);
 
         if (empty($data)) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('No profile fields are mapped.', 'bit-integrations')));
+            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('No mapped profile field has a value.', 'bit-integrations')));
 
             return;
         }
@@ -198,6 +202,10 @@ class RecordApiHelper
         }
 
         $coreData = $this->sanitizeCoreProfileData(array_intersect_key($data, self::coreProfileFields()));
+
+        if (isset($coreData['user_email']) && strcasecmp(get_userdata($userId)->user_email, $coreData['user_email']) === 0) {
+            unset($coreData['user_email']);
+        }
 
         if (isset($coreData['user_email'])) {
             $emailError = $this->validateProfileEmail($coreData['user_email'], $userId);
@@ -281,6 +289,11 @@ class RecordApiHelper
         );
     }
 
+    private static function isEmptyValue($value)
+    {
+        return $value === null || $value === '' || $value === [];
+    }
+
     private static function coreProfileFields()
     {
         return [
@@ -318,7 +331,7 @@ class RecordApiHelper
         $sanitized = [];
 
         foreach ($data as $key => $value) {
-            $value = \is_array($value) ? implode(', ', $value) : (string) $value;
+            $value = \is_array($value) ? implode(', ', array_filter($value, 'is_scalar')) : (string) $value;
 
             if ($key === 'user_email') {
                 $sanitized[$key] = sanitize_email($value);
@@ -336,6 +349,10 @@ class RecordApiHelper
 
     private function validateProfileEmail($email, $userId)
     {
+        if (($this->_integrationDetails->userSource ?? '') === 'email') {
+            return __('The email address can\'t be changed when the user is matched by email.', 'bit-integrations');
+        }
+
         if (!is_email($email)) {
             return __('The email address isn\'t correct.', 'bit-integrations');
         }
@@ -346,10 +363,13 @@ class RecordApiHelper
             return __('This email is already registered to another user.', 'bit-integrations');
         }
 
-        if (user_can($userId, 'manage_options') && strcasecmp(get_userdata($userId)->user_email, $email) !== 0) {
-            return __('An administrator\'s email address can\'t be changed by this action.', 'bit-integrations');
+        foreach (self::PRIVILEGED_CAPABILITIES as $capability) {
+            if (user_can($userId, $capability)) {
+                return __('The email address of a user who can edit content or manage the site can\'t be changed by this action.', 'bit-integrations');
+            }
         }
 
+        return '';
     }
 
     private function saveCustomProfileFields($data, $userId)
@@ -387,6 +407,12 @@ class RecordApiHelper
 
     private function saveCustomProfileField($field, $value, $userId)
     {
+        if (self::hasCustomSaveFunction($field)) {
+            \call_user_func($field->save_function, $userId, $field->name, $value, $field);
+
+            return;
+        }
+
         $userTableFields = (array) apply_filters('pmpro_user_table_fields', ['user_url']);
 
         if (\in_array($field->name, $userTableFields, true)) {
@@ -404,6 +430,17 @@ class RecordApiHelper
         update_user_meta($userId, $field->meta_key, $value);
     }
 
+    private static function hasCustomSaveFunction($field)
+    {
+        if (!isset($field->save_function) || !\is_callable($field->save_function)) {
+            return false;
+        }
+
+        $saveFunction = $field->save_function;
+
+        return !(\is_array($saveFunction) && ($saveFunction[0] ?? null) === $field);
+    }
+
     private function saveTaxonomyField($field, $value, $userId)
     {
         $terms = [];
@@ -411,7 +448,12 @@ class RecordApiHelper
         foreach ((array) $value as $term) {
             if (is_numeric($term)) {
                 $termObject = get_term_by('ID', $term, $field->taxonomy);
-                $term = $termObject ? $termObject->name : $term;
+
+                if (!$termObject) {
+                    continue;
+                }
+
+                $term = $termObject->name;
             }
 
             $terms[] = $term;
