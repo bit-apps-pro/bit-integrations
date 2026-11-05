@@ -6,6 +6,7 @@
 
 namespace BitApps\Integrations\Actions\WooCommerce;
 
+use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 use WC_Data_Store;
 use WP_Error;
@@ -359,6 +360,12 @@ class WooCommerceController
             LogHandler::save($this->_integrationID, 'record', 'validation', $error);
 
             return $error;
+        }
+
+        $fieldValues += Flow::specialTagMappingValue($fieldMap ?? []);
+
+        if ($module === 'order') {
+            $fieldValues += Flow::specialTagMappingValue($integrationDetails->customer->field_map ?? []);
         }
 
         $recordApiHelper = new RecordApiHelper($this->_integrationID);

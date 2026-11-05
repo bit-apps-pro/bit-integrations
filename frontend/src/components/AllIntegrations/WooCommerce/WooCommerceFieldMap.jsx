@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-expressions */
+import { create } from 'mutative'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import TrashIcn from '../../../Icons/TrashIcn'
 import { deepCopy } from '../../../Utils/Helpers'
 import { __ } from '../../../Utils/i18nwrap'
-import MtInput from '../../Utilities/MtInput'
+import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
-import { create } from 'mutative'
 
 export default function WooCommerceFieldMap({
   i,
@@ -15,6 +17,7 @@ export default function WooCommerceFieldMap({
   uploadFields,
   module
 }) {
+  const { isPro } = useRecoilValue($appConfigState)
   const isRequired = field.required === true
 
   const addFieldMap = indx => {
@@ -76,24 +79,41 @@ export default function WooCommerceFieldMap({
           value={field.formField || ''}
           onChange={ev => handleFieldMapping(ev, i)}>
           <option value="">{__('Select Field', 'bit-integrations')}</option>
-          {uploadFields
-            ? formFields.map(
-                f =>
-                  f.type === 'file' && (
-                    <option key={`ff-zhcrm-${f.name}`} value={f.name}>
+          {uploadFields ? (
+            formFields.map(
+              f =>
+                f.type === 'file' && (
+                  <option key={`ff-zhcrm-${f.name}`} value={f.name}>
+                    {f.label}
+                  </option>
+                )
+            )
+          ) : (
+            <>
+              <optgroup label={__('Form Fields', 'bit-integrations')}>
+                {formFields.map(
+                  f =>
+                    f.type !== 'file' && (
+                      <option key={`ff-zhcrm-${f.name}`} value={f.name}>
+                        {f.label}
+                      </option>
+                    )
+                )}
+              </optgroup>
+              <option value="custom">{__('Custom...', 'bit-integrations')}</option>
+              <optgroup
+                label={`${__('General Smart Codes', 'bit-integrations')} ${
+                  isPro ? '' : `(${__('Pro', 'bit-integrations')})`
+                }`}>
+                {isPro &&
+                  SmartTagField?.map(f => (
+                    <option key={`ff-rm-${f.name}`} value={f.name}>
                       {f.label}
                     </option>
-                  )
-              )
-            : formFields.map(
-                f =>
-                  f.type !== 'file' && (
-                    <option key={`ff-zhcrm-${f.name}`} value={f.name}>
-                      {f.label}
-                    </option>
-                  )
-              )}
-          {!uploadFields && <option value="custom">{__('Custom...', 'bit-integrations')}</option>}
+                  ))}
+              </optgroup>
+            </>
+          )}
         </select>
 
         {field.formField === 'custom' && (
