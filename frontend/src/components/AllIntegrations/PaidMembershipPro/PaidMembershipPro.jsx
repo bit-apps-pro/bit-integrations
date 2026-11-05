@@ -7,8 +7,11 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
-import { handleInput } from './PaidMembershipProCommonFunc'
+import {
+  getPaidMembershipProActions,
+  handleInput,
+  isPaidMembershipProConfIncomplete
+} from './PaidMembershipProCommonFunc'
 import PaidMembershipProAuthorization from './PaidMembershipProAuthorization'
 import PaidMembershipProIntegLayout from './PaidMembershipProIntegLayout'
 
@@ -19,10 +22,7 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const allActions = [
-    { key: '1', label: __('Add the user to a membership', 'bit-integrations') },
-    { key: '2', label: __('Remove the user from a membership', 'bit-integrations') }
-  ]
+  const allActions = getPaidMembershipProActions()
 
   const [paidMembershipProConf, setPaidMembershipProConf] = useState({
     name: 'Paid Membership Pro',
@@ -36,7 +36,7 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
     setTimeout(() => {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
-    if (paidMembershipProConf.mainAction !== '') {
+    if (!isPaidMembershipProConfIncomplete(paidMembershipProConf)) {
       setStep(3)
     }
   }
@@ -86,12 +86,7 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
 
         <button
           onClick={() => nextPage(3)}
-          disabled={
-            !paidMembershipProConf.mainAction ||
-            isLoading ||
-            paidMembershipProConf.selectedMembership === undefined ||
-            isUserSourceIncomplete(paidMembershipProConf)
-          }
+          disabled={isLoading || isPaidMembershipProConfIncomplete(paidMembershipProConf)}
           className="btn f-left btcd-btn-lg purple sh-sm flx"
           type="button">
           {__('Next', 'bit-integrations')}
