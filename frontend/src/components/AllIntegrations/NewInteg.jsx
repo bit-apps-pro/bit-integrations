@@ -208,6 +208,7 @@ const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
 const WpSimpleBookingCalendar = lazy(() => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendar'))
+const WpHotelBooking = lazy(() => import('./WpHotelBooking/WpHotelBooking'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
@@ -2008,6 +2009,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WpSimpleBookingCalendar':
       return (
         <WpSimpleBookingCalendar
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpHotelBooking':
+      return (
+        <WpHotelBooking
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
