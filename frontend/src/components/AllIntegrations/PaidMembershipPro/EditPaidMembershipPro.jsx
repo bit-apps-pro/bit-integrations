@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'

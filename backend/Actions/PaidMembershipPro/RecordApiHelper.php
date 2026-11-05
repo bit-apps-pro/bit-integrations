@@ -346,7 +346,6 @@ class RecordApiHelper
             return __('This email is already registered to another user.', 'bit-integrations');
         }
 
-        // Matches PMPro's own profile form: an administrator's email is never changed from outside wp-admin.
         if (user_can($userId, 'manage_options') && strcasecmp(get_userdata($userId)->user_email, $email) !== 0) {
             return __('An administrator\'s email address can\'t be changed by this action.', 'bit-integrations');
         }
