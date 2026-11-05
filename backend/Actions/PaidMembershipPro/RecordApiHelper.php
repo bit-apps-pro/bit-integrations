@@ -8,14 +8,14 @@ use BitApps\Integrations\Log\LogHandler;
 
 class RecordApiHelper
 {
-    private static $integrationID;
+    private $integrationID;
 
     private $_integrationDetails;
 
     public function __construct($integrationDetails, $integId)
     {
         $this->_integrationDetails = $integrationDetails;
-        self::$integrationID = $integId;
+        $this->integrationID = $integId;
     }
 
     public function generateReqDataFromFieldMap($data, $fieldMap)
@@ -40,7 +40,7 @@ class RecordApiHelper
         $current_level = pmpro_getMembershipLevelForUser($user_id);
 
         if (!empty($current_level) && absint($current_level->ID) == absint($membership_level)) {
-            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('User is already a member of the specified level.', 'bit-integrations')));
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('User is already a member of the specified level.', 'bit-integrations')));
 
             return;
         }
@@ -57,7 +57,7 @@ class RecordApiHelper
         }
 
         if (null === $pmpro_membership_level) {
-            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('There is no membership level with the specified ID.', 'bit-integrations')));
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('There is no membership level with the specified ID.', 'bit-integrations')));
 
             return;
         }
@@ -83,11 +83,11 @@ class RecordApiHelper
         }
 
         if ($isAssigned === true) {
-            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'success', wp_json_encode(__('User membership level added successfully', 'bit-integrations')));
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'success', wp_json_encode(__('User membership level added successfully', 'bit-integrations')));
 
             return;
         }
-        LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('Failed to add membership level', 'bit-integrations')));
+        LogHandler::save($this->integrationID, wp_json_encode(['type' => 'add user', 'type_name' => 'Add the user to a membership level']), 'error', wp_json_encode(__('Failed to add membership level', 'bit-integrations')));
     }
 
     public function removeUserFromMembershipLevel($membership_level, $user_id)
@@ -96,25 +96,25 @@ class RecordApiHelper
 
         if ('any' === $membership_level) {
             if (empty($user_membership_levels)) {
-                LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to all membership level']), 'error', wp_json_encode(__('User does not belong to any membership levels', 'bit-integrations')));
+                LogHandler::save($this->integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to all membership level']), 'error', wp_json_encode(__('User does not belong to any membership levels', 'bit-integrations')));
 
                 return;
             }
 
             foreach ($user_membership_levels as $membership_level) {
                 $cancel_level = pmpro_cancelMembershipLevel(absint($membership_level), absint($user_id));
-                LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to a membership level']), 'success', wp_json_encode(__('User removed from all membership level successfully', 'bit-integrations')));
+                LogHandler::save($this->integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to a membership level']), 'success', wp_json_encode(__('User removed from all membership level successfully', 'bit-integrations')));
             }
         }
 
         if (!\in_array($membership_level, $user_membership_levels, true)) {
-            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to all membership level']), 'error', wp_json_encode(__('User was not a member of the specified level', 'bit-integrations')));
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to all membership level']), 'error', wp_json_encode(__('User was not a member of the specified level', 'bit-integrations')));
 
             return;
         }
 
         if (pmpro_cancelMembershipLevel(absint($membership_level), absint($user_id))) {
-            LogHandler::save(self::$integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to a membership level']), 'success', wp_json_encode(__('User removed from membership level successfully', 'bit-integrations')));
+            LogHandler::save($this->integrationID, wp_json_encode(['type' => 'remove user', 'type_name' => 'Remove the user to a membership level']), 'success', wp_json_encode(__('User removed from membership level successfully', 'bit-integrations')));
 
             return;
         }
