@@ -29,13 +29,9 @@ class RecordApiHelper
     {
         foreach ($fieldMapCustomer as $fieldPair) {
             if (!empty($fieldPair->wcField) && !empty($fieldPair->formField)) {
-                if ($fieldPair->formField === 'custom' && isset($fieldPair->customValue)) {
-                    $fieldDataCustomer[$fieldPair->wcField] = $fieldPair->customValue;
-                } else {
-                    $fieldDataCustomer[$fieldPair->wcField] = $fieldValues[$fieldPair->formField];
-                }
+                $fieldDataCustomer[$fieldPair->wcField] = $this->getMappedValue($fieldPair, $fieldValues);
 
-                if (\in_array($fieldPair->wcField, $required) && empty($fieldValues[$fieldPair->formField])) {
+                if (\in_array($fieldPair->wcField, $required) && empty($fieldDataCustomer[$fieldPair->wcField])) {
                     // translators: %s: Placeholder value
                     $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%1$s is required for woocommerce %2$s', 'bit-integrations'), $fieldPair->wcField, $module));
                     LogHandler::save($this->_integrationID, ['type' => $module, 'type_name' => 'create'], 'validation', $error);
@@ -83,13 +79,9 @@ class RecordApiHelper
     {
         foreach ($fieldMapCustomer as $fieldPair) {
             if (!empty($fieldPair->wcField) && !empty($fieldPair->formField)) {
-                if ($fieldPair->formField === 'custom' && isset($fieldPair->customValue)) {
-                    $fieldDataCustomer[$fieldPair->wcField] = $fieldPair->customValue;
-                } else {
-                    $fieldDataCustomer[$fieldPair->wcField] = $fieldValues[$fieldPair->formField];
-                }
+                $fieldDataCustomer[$fieldPair->wcField] = $this->getMappedValue($fieldPair, $fieldValues);
 
-                if (\in_array($fieldPair->wcField, $required) && empty($fieldValues[$fieldPair->formField])) {
+                if (\in_array($fieldPair->wcField, $required) && empty($fieldDataCustomer[$fieldPair->wcField])) {
                     // translators: %s: Placeholder value
                     $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%1$s is required for woocommerce %2$s', 'bit-integrations'), $fieldPair->wcField, $module));
                     LogHandler::save($this->_integrationID, ['type' => $module, 'type_name' => 'create'], 'validation', $error);
@@ -260,13 +252,9 @@ class RecordApiHelper
         $fieldData = [];
         foreach ($fieldMap as $fieldPair) {
             if (!empty($fieldPair->wcField) && !empty($fieldPair->formField)) {
-                if ($fieldPair->formField === 'custom' && isset($fieldPair->customValue)) {
-                    $fieldData[$fieldPair->wcField] = Common::replaceFieldWithValue($fieldPair->customValue, $fieldValues);
-                } else {
-                    $fieldData[$fieldPair->wcField] = $fieldValues[$fieldPair->formField];
-                }
+                $fieldData[$fieldPair->wcField] = $this->getMappedValue($fieldPair, $fieldValues);
 
-                if (\in_array($fieldPair->wcField, $required) && empty($fieldValues[$fieldPair->formField])) {
+                if (\in_array($fieldPair->wcField, $required) && empty($fieldData[$fieldPair->wcField])) {
                     // translators: %s: Placeholder value
                     $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%1$s is required for woocommerce %2$s', 'bit-integrations'), $fieldPair->wcField, $module));
                     LogHandler::save($this->_integrationID, ['type' => $module, 'type_name' => 'create'], 'validation', $error);
@@ -704,6 +692,15 @@ class RecordApiHelper
         $product->save();
     }
 
+    private function getMappedValue($fieldPair, $fieldValues)
+    {
+        if ($fieldPair->formField === 'custom') {
+            return Common::replaceFieldWithValue($fieldPair->customValue ?? '', $fieldValues);
+        }
+
+        return $fieldValues[$fieldPair->formField] ?? '';
+    }
+
     private function setFieldDataLine(&$fieldDataLineTemp, $fieldMapLine, $required, $fieldValues, $module, $FF = false, $key = null, $Formidable = false, $NF = false, $lineItemKey = false, $lineTmpLength = false)
     {
         foreach ($fieldMapLine as $fieldPair) {
@@ -725,7 +722,7 @@ class RecordApiHelper
                     $fieldDataLineTemp[$fieldPair->wcField] = $fieldValues[$fieldPair->formField];
                 }
 
-                if (\in_array($fieldPair->wcField, $required) && empty($fieldValues[$fieldPair->formField])) {
+                if (\in_array($fieldPair->wcField, $required) && empty($fieldDataLineTemp[$fieldPair->wcField])) {
                     // translators: %s: Placeholder value
                     $error = new WP_Error('REQ_FIELD_EMPTY', wp_sprintf(__('%1$s is required for woocommerce %2$s', 'bit-integrations'), $fieldPair->wcField, $module));
                     LogHandler::save($this->_integrationID, ['type' => $module, 'type_name' => 'create'], 'validation', $error);
