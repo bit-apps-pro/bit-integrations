@@ -28,6 +28,11 @@ class FollowUpBossController
         self::sendOptions($queryParams, '/users', 'users', [self::class, 'personLabel']);
     }
 
+    public function getLenders($queryParams)
+    {
+        self::sendOptions($queryParams, '/users', 'users', [self::class, 'personLabel'], 'id', ['role' => 'Lender']);
+    }
+
     public function getStageNames($queryParams)
     {
         self::sendOptions(

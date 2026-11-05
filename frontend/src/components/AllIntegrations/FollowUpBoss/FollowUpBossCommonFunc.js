@@ -12,6 +12,7 @@ const sources = {
   dealStages: 'follow_up_boss_get_deal_stages',
   emailCampaigns: 'follow_up_boss_get_email_campaigns',
   groups: 'follow_up_boss_get_groups',
+  lenders: 'follow_up_boss_get_lenders',
   ponds: 'follow_up_boss_get_ponds',
   stageNames: 'follow_up_boss_get_stage_names',
   stages: 'follow_up_boss_get_stages',

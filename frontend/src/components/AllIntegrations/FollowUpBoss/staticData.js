@@ -595,7 +595,7 @@ export const selectsByAction = {
   create_person: [
     select('stage', __('Stage', 'bit-integrations'), 'stageNames'),
     select('assigned_user_id', __('Assigned User', 'bit-integrations'), 'users'),
-    select('assigned_lender_id', __('Assigned Lender', 'bit-integrations'), 'users'),
+    select('assigned_lender_id', __('Assigned Lender', 'bit-integrations'), 'lenders'),
     select('assigned_pond_id', __('Assigned Pond', 'bit-integrations'), 'ponds'),
     select('collaborators', __('Collaborators', 'bit-integrations'), 'users', false, true),
     select('timeframe_id', __('Timeframe', 'bit-integrations'), 'timeframes')
@@ -603,7 +603,7 @@ export const selectsByAction = {
   update_person: [
     select('stage', __('Stage', 'bit-integrations'), 'stageNames'),
     select('assigned_user_id', __('Assigned User', 'bit-integrations'), 'users'),
-    select('assigned_lender_id', __('Assigned Lender', 'bit-integrations'), 'users'),
+    select('assigned_lender_id', __('Assigned Lender', 'bit-integrations'), 'lenders'),
     select('assigned_pond_id', __('Assigned Pond', 'bit-integrations'), 'ponds'),
     select('collaborators', __('Collaborators', 'bit-integrations'), 'users', false, true),
     select('timeframe_id', __('Timeframe', 'bit-integrations'), 'timeframes')
@@ -734,11 +734,11 @@ export const selectKeys = [
 
 export const notesByAction = {
   create_person: __(
-    '<ul><li><b>Email</b>: Separate more than one email with commas. The first email is the primary email.</li><li><b>Phone</b>: Separate more than one phone number with commas. The first number is the primary number.</li><li><b>Source</b>: Enter the name of the lead source. You can set it only when you create the person.</li><li><b>Price</b>: Enter the property price as a whole number.</li><li><b>Tags</b>: Separate more than one tag with commas.</li><li><b>Created At</b>: Enter a date and time to add a historical lead, for example 2026-01-15T10:00:00Z.</li></ul>',
+    '<ul><li><b>Email</b>: Separate more than one email with commas. The first email is the primary email.</li><li><b>Phone</b>: Separate more than one phone number with commas. The first number is the primary number.</li><li><b>Source</b>: Enter the name of the lead source. You can set it only when you create the person.</li><li><b>Price</b>: Enter the property price as a whole number.</li><li><b>Tags</b>: Separate more than one tag with commas.</li><li><b>Assigned User</b> and <b>Assigned Pond</b>: Select only one of them. A pond assigns the person to its own agent.</li><li><b>Assigned Lender</b>: Only users with the Lender role show here.</li><li><b>Created At</b>: Enter a date and time to add a historical lead, for example 2026-01-15T10:00:00Z.</li></ul>',
     'bit-integrations'
   ),
   update_person: __(
-    '<ul><li>Fields that you leave empty keep their current value.</li><li>Emails, phone numbers and addresses that you enter replace the current values.</li><li><b>Email</b>: Separate more than one email with commas. The first email is the primary email.</li><li><b>Phone</b>: Separate more than one phone number with commas. The first number is the primary number.</li><li><b>Price</b>: Enter the property price as a whole number.</li><li><b>Tags</b>: Separate more than one tag with commas.</li></ul>',
+    '<ul><li>Fields that you leave empty keep their current value.</li><li>Emails, phone numbers and addresses that you enter replace the current values.</li><li><b>Email</b>: Separate more than one email with commas. The first email is the primary email.</li><li><b>Phone</b>: Separate more than one phone number with commas. The first number is the primary number.</li><li><b>Price</b>: Enter the property price as a whole number.</li><li><b>Tags</b>: Separate more than one tag with commas.</li><li><b>Assigned User</b> and <b>Assigned Pond</b>: Select only one of them. A pond assigns the person to its own agent.</li><li><b>Assigned Lender</b>: Only users with the Lender role show here.</li></ul>',
     'bit-integrations'
   ),
   create_event: __(

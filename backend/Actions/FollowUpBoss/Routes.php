@@ -8,6 +8,7 @@ use BitApps\Integrations\Actions\FollowUpBoss\FollowUpBossController;
 use BitApps\Integrations\Core\Util\Route;
 
 Route::post('follow_up_boss_get_users', [FollowUpBossController::class, 'getUsers']);
+Route::post('follow_up_boss_get_lenders', [FollowUpBossController::class, 'getLenders']);
 Route::post('follow_up_boss_get_stage_names', [FollowUpBossController::class, 'getStageNames']);
 Route::post('follow_up_boss_get_stages', [FollowUpBossController::class, 'getStages']);
 Route::post('follow_up_boss_get_ponds', [FollowUpBossController::class, 'getPonds']);
