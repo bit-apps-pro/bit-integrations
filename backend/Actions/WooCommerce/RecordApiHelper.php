@@ -66,7 +66,12 @@ class RecordApiHelper
         }
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Using WooCommerce's own hook for compatibility
         do_action('woocommerce_update_customer', $user_id);
-        LogHandler::save($this->_integrationID, ['type' => 'customer', 'type_name' => 'create'], 'success', $user_id);
+        LogHandler::save(
+            $this->_integrationID,
+            ['type' => 'customer', 'type_name' => 'create'],
+            'success',
+            ['success' => true, 'message' => __('Customer created successfully.', 'bit-integrations'), 'data' => ['customer_id' => $user_id]]
+        );
 
         foreach ($meta_inputs as $metaKey => $metaValue) {
             update_user_meta($user_id, $metaKey, $metaValue);
@@ -345,7 +350,12 @@ class RecordApiHelper
                 wp_set_object_terms($product_id, $tags, 'product_tag');
             }
 
-            LogHandler::save($this->_integrationID, ['type' => 'product', 'type_name' => $entry_type], 'success', $product_id);
+            LogHandler::save(
+                $this->_integrationID,
+                ['type' => 'product', 'type_name' => $entry_type],
+                'success',
+                ['success' => true, 'message' => __('Product created successfully.', 'bit-integrations'), 'data' => ['product_id' => $product_id]]
+            );
         }
         if ($module === 'customer') {
             $user_fields = ['user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email', 'display_name', 'nickname', 'first_name', 'last_name', 'description', 'locale'];
@@ -368,7 +378,12 @@ class RecordApiHelper
             }
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Using WooCommerce's own hook for compatibility
             do_action('woocommerce_update_customer', $user_id);
-            LogHandler::save($this->_integrationID, ['type' => 'customer', 'type_name' => $entry_type], 'success', $user_id);
+            LogHandler::save(
+                $this->_integrationID,
+                ['type' => 'customer', 'type_name' => $entry_type],
+                'success',
+                ['success' => true, 'message' => __('Customer created successfully.', 'bit-integrations'), 'data' => ['customer_id' => $user_id]]
+            );
 
             foreach ($meta_inputs as $metaKey => $metaValue) {
                 update_user_meta($user_id, $metaKey, $metaValue);
