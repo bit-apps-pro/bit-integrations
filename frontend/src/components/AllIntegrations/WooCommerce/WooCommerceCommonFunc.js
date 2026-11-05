@@ -191,7 +191,7 @@ export const checkMappedFields = fieldMap => {
         mappedField =>
           !mappedField.formField ||
           !mappedField.wcField ||
-          (!mappedField.formField === 'custom' && !mappedField.customValue)
+          (mappedField.formField === 'custom' && !mappedField.customValue)
       )
     : []
 
