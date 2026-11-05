@@ -45,12 +45,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'delete_event':
-                $response = Hooks::apply(Config::withPrefix('wp_activity_log_delete_event'), $defaultResponse, $fieldData);
-                $type = 'event';
-
-                break;
-
             case 'delete_events':
                 $response = Hooks::apply(Config::withPrefix('wp_activity_log_delete_events'), $defaultResponse, $fieldData, $utilities);
                 $type = 'event';

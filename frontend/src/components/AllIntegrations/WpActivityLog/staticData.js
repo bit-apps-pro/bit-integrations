@@ -2,7 +2,6 @@ import { __ } from '../../../Utils/i18nwrap'
 
 export const modules = [
   { name: 'log_event', label: __('Log Event', 'bit-integrations'), is_pro: true },
-  { name: 'delete_event', label: __('Delete Log Entry', 'bit-integrations'), is_pro: true },
   { name: 'delete_events', label: __('Delete Log Entries by Filter', 'bit-integrations'), is_pro: true },
   {
     name: 'delete_events_older_than',
@@ -63,10 +62,6 @@ export const modules = [
   }
 ]
 
-export const EventLogIdField = [
-  { key: 'occurrence_id', label: __('Log Entry ID', 'bit-integrations'), required: true }
-]
-
 export const EventFilterFields = [
   { key: 'client_ip', label: __('IP Address', 'bit-integrations'), required: false },
   { key: 'post_id', label: __('Post ID', 'bit-integrations'), required: false },
@@ -114,7 +109,6 @@ export const MetaKeyField = [
 
 export const fieldsByAction = {
   log_event: [],
-  delete_event: EventLogIdField,
   delete_events: EventFilterFields,
   delete_events_older_than: OlderThanField,
   enable_event: EventIdField,
