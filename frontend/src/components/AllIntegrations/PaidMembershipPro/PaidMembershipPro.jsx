@@ -7,11 +7,7 @@ import SnackMsg from '../../Utilities/SnackMsg'
 import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import {
-  getPaidMembershipProActions,
-  handleInput,
-  isPaidMembershipProConfIncomplete
-} from './PaidMembershipProCommonFunc'
+import { handleInput, isPaidMembershipProConfIncomplete } from './PaidMembershipProCommonFunc'
 import PaidMembershipProAuthorization from './PaidMembershipProAuthorization'
 import PaidMembershipProIntegLayout from './PaidMembershipProIntegLayout'
 
@@ -22,14 +18,11 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const allActions = getPaidMembershipProActions()
-
   const [paidMembershipProConf, setPaidMembershipProConf] = useState({
     name: 'Paid Membership Pro',
     type: 'PaidMembershipPro',
     mainAction: '',
     field_map: [{ formField: '', paidmembershipproFormField: '' }],
-    allActions,
     actions: {}
   })
   const nextPage = () => {
@@ -61,7 +54,9 @@ function PaidMembershipPro({ formFields, setFlow, flow, allIntegURL, isInfo, edi
 
       <div
         className="btcd-stp-page"
-        style={{ ...(step === 2 && { width: 900, minHeight: '350px', overflow: 'visible' }) }}>
+        style={{
+          ...(step === 2 && { width: 900, height: 'auto', minHeight: '350px', overflow: 'visible' })
+        }}>
         <PaidMembershipProIntegLayout
           formFields={formFields}
           handleInput={e =>

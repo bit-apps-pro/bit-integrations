@@ -107,19 +107,14 @@ export default function PaidMembershipProIntegLayout({
               <option value="hide">{__('Hide the user from the directory', 'bit-integrations')}</option>
             </select>
           </div>
-          <Note
-            note={__(
-              'Requires the Paid Memberships Pro - Member Directory Add On. The directory lists only users with an active membership level.',
-              'bit-integrations'
-            )}
-          />
         </>
       )}
 
-      {paidMembershipProConf?.mainAction === PMPRO_ACTIONS.UPDATE_PROFILE && !isLoading && (
-        <div className="mt-4">
-          <div className="flx">
-            <b className="wdt-100">{__('Map Profile Fields', 'bit-integrations')}</b>
+      {paidMembershipProConf?.mainAction === PMPRO_ACTIONS.UPDATE_PROFILE && (
+        <>
+          <br />
+          <div className="mt-4">
+            <b className="wdt-100">{__('Map Fields', 'bit-integrations')}</b>
             <button
               onClick={() =>
                 getPaidMembershipProProfileFields(
@@ -169,16 +164,9 @@ export default function PaidMembershipProIntegLayout({
               +
             </button>
           </div>
-          <Note
-            note={__(
-              'Only mapped fields are changed. Custom user fields come from Memberships > Settings > User Fields; file fields are not supported.',
-              'bit-integrations'
-            )}
-          />
-        </div>
+        </>
       )}
 
-      <br />
       <br />
       {isLoading && (
         <Loader
@@ -191,7 +179,6 @@ export default function PaidMembershipProIntegLayout({
           }}
         />
       )}
-      <br />
       {paidMembershipProConf?.mainAction && (
         <>
           <br />
@@ -206,6 +193,22 @@ export default function PaidMembershipProIntegLayout({
           )}
           <br />
         </>
+      )}
+      {paidMembershipProConf?.mainAction === PMPRO_ACTIONS.UPDATE_PROFILE && (
+        <Note
+          note={__(
+            'Only mapped fields that have a value are changed. Custom user fields come from Memberships > Settings > User Fields; file fields are not supported.',
+            'bit-integrations'
+          )}
+        />
+      )}
+      {paidMembershipProConf?.mainAction === PMPRO_ACTIONS.DIRECTORY_VISIBILITY && (
+        <Note
+          note={__(
+            'Requires the Paid Memberships Pro - Member Directory Add On. The directory lists only users with an active membership level.',
+            'bit-integrations'
+          )}
+        />
       )}
       {paidMembershipProConf?.userSource === 'email' ? (
         <Note

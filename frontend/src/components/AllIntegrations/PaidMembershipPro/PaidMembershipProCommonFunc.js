@@ -34,57 +34,65 @@ export const handleInput = (
   formID
 ) => {
   const { name, value } = e.target
-  const newConf = { ...paidMembershipProConf, [name]: value }
+  setPaidMembershipProConf({ ...paidMembershipProConf, [name]: value })
 
   if (name !== 'mainAction') {
-    setPaidMembershipProConf(newConf)
     return
   }
 
   if (MEMBERSHIP_ACTIONS.includes(value)) {
-    getAllPaidMemberShipProLevel(newConf, setPaidMembershipProConf, setIsLoading, setSnackbar)
-    return
+    getAllPaidMemberShipProLevel(
+      { ...paidMembershipProConf, mainAction: value },
+      setPaidMembershipProConf,
+      setIsLoading,
+      setSnackbar
+    )
+  } else if (value === PMPRO_ACTIONS.UPDATE_PROFILE) {
+    getPaidMembershipProProfileFields(paidMembershipProConf, setPaidMembershipProConf, setIsLoading)
   }
+}
 
-  if (value === PMPRO_ACTIONS.UPDATE_PROFILE) {
-    getPaidMembershipProProfileFields(newConf, setPaidMembershipProConf, setIsLoading)
-    return
-  }
-
-  setPaidMembershipProConf(newConf)
+const fetchFailed = (setIsLoading, message) => {
+  setIsLoading(false)
+  toast.error(message)
 }
 
 export const getAllPaidMemberShipProLevel = (
   paidMembershipProConf,
   setPaidMembershipProConf,
-  setIsLoading,
-  setSnackbar
+  setIsLoading
 ) => {
+  const failedMessage = __(
+    'Paid Membership pro level fetch failed. please try again',
+    'bit-integrations'
+  )
+  const anyLevel = {
+    membershipId: 'any',
+    membershipTitle: __('Any membership level', 'bit-integrations')
+  }
+
   setIsLoading(true)
   bitsFetch(null, 'fetch_all_paid_membership_pro_level')
     .then(result => {
-      if (result && result.success) {
-        const newConf = { ...paidMembershipProConf }
-        if (!newConf.default) {
-          newConf.default = {}
-        }
-        if (result.data) {
-          if (newConf.mainAction === '2') {
-            const newLevel = { membershipId: 'any', membershipTitle: 'Any membership level' }
-            newConf.default.allMemberShipLevel = [newLevel, ...result.data]
-          } else {
-            newConf.default.allMemberShipLevel = result.data
-          }
-        }
-        setPaidMembershipProConf(newConf)
-        setIsLoading(false)
-        toast.success(__('All Paid Membership pro level fetched successfully', 'bit-integrations'))
+      if (!result?.success || !Array.isArray(result.data)) {
+        fetchFailed(setIsLoading, failedMessage)
         return
       }
+
+      setPaidMembershipProConf(prevConf => ({
+        ...prevConf,
+        default: {
+          ...prevConf.default,
+          allMemberShipLevel:
+            paidMembershipProConf.mainAction === PMPRO_ACTIONS.REMOVE_MEMBERSHIP
+              ? [anyLevel, ...result.data]
+              : result.data
+        }
+      }))
       setIsLoading(false)
-      toast.error(__('Paid Membership pro level fetch failed. please try again', 'bit-integrations'))
+      toast.success(__('All Paid Membership pro level fetched successfully', 'bit-integrations'))
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => fetchFailed(setIsLoading, failedMessage))
 }
 
 export const getPaidMembershipProProfileFields = (
@@ -92,26 +100,27 @@ export const getPaidMembershipProProfileFields = (
   setPaidMembershipProConf,
   setIsLoading
 ) => {
+  const failedMessage = __('Profile fields fetch failed. Please try again.', 'bit-integrations')
+
   setIsLoading(true)
   bitsFetch(null, 'paid_membership_pro_profile_fields')
     .then(result => {
-      setIsLoading(false)
-
       if (!result?.success || !Array.isArray(result.data)) {
-        toast.error(__('Profile fields fetch failed. Please try again.', 'bit-integrations'))
+        fetchFailed(setIsLoading, failedMessage)
         return
       }
 
-      setPaidMembershipProConf({
-        ...paidMembershipProConf,
+      setPaidMembershipProConf(prevConf => ({
+        ...prevConf,
         profileFields: result.data,
-        field_map: paidMembershipProConf.field_map?.length
-          ? paidMembershipProConf.field_map
+        field_map: prevConf.field_map?.length
+          ? prevConf.field_map
           : [{ formField: '', paidmembershipproFormField: '' }]
-      })
+      }))
+      setIsLoading(false)
       toast.success(__('Profile fields fetched successfully', 'bit-integrations'))
     })
-    .catch(() => setIsLoading(false))
+    .catch(() => fetchFailed(setIsLoading, failedMessage))
 }
 
 export const checkMappedFields = paidMembershipProConf => {
