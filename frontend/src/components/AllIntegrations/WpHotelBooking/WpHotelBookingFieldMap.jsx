@@ -3,12 +3,8 @@ import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
-import {
-  addFieldMap,
-  delFieldMap,
-  handleCustomValue,
-  handleFieldMapping
-} from '../GlobalIntegrationHelper'
+import { addFieldMap, delFieldMap, handleFieldMapping } from '../GlobalIntegrationHelper'
+import { handleCustomValue } from './WpHotelBookingCommonFunc'
 import { fieldsByAction } from './staticData'
 
 export default function WpHotelBookingFieldMap({
@@ -60,7 +56,7 @@ export default function WpHotelBookingFieldMap({
 
           {field.formField === 'custom' && (
             <TagifyInput
-              onChange={e => handleCustomValue(e, i, wpHotelBookingConf, setWpHotelBookingConf)}
+              onChange={value => handleCustomValue(value, i, setWpHotelBookingConf)}
               label={__('Custom Value', 'bit-integrations')}
               className="mr-2"
               type="text"

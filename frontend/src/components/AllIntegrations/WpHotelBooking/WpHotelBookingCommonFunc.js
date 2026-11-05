@@ -14,6 +14,14 @@ export const handleInput = (e, wpHotelBookingConf, setWpHotelBookingConf) => {
   )
 }
 
+export const handleCustomValue = (value, index, setWpHotelBookingConf) => {
+  setWpHotelBookingConf(prevConf =>
+    create(prevConf, draftConf => {
+      draftConf.field_map[index].customValue = value
+    })
+  )
+}
+
 const fetchList =
   (route, dataKey, confKey, successMsg, errorMsg) => (setWpHotelBookingConf, setIsLoading) => {
     setIsLoading(true)
