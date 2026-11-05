@@ -322,6 +322,13 @@ class RecordApiHelper
 
             $product_id = wp_insert_post($fieldData);
 
+            if (is_wp_error($product_id) || !$product_id) {
+                $response = is_wp_error($product_id) ? $product_id->get_error_message() : 'error';
+                LogHandler::save($this->_integrationID, ['type' => 'product', 'type_name' => $entry_type], 'error', $response);
+
+                return $response;
+            }
+
             if (isset($product_type)) {
                 wp_set_object_terms($product_id, $product_type, 'product_type');
             }
@@ -338,12 +345,6 @@ class RecordApiHelper
                 wp_set_object_terms($product_id, $tags, 'product_tag');
             }
 
-            if (is_wp_error($product_id) || !$product_id) {
-                $response = is_wp_error($product_id) ? $product_id->get_error_message() : 'error';
-                LogHandler::save($this->_integrationID, ['type' => 'product', 'type_name' => $entry_type], 'error', $response);
-
-                return $response;
-            }
             LogHandler::save($this->_integrationID, ['type' => 'product', 'type_name' => $entry_type], 'success', $product_id);
         }
         if ($module === 'customer') {
