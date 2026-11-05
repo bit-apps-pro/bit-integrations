@@ -261,6 +261,7 @@ const RoxAppointmentBookingAuthorization = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
 )
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
+const FollowUpBossAuthorization = lazy(() => import('./FollowUpBoss/FollowUpBossAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
   <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
@@ -848,6 +849,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'QuizMaker':
       return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
+    case 'FollowUpBoss':
+      return <FollowUpBossAuthorization followUpBossConf={integrationConf} step={1} isInfo />
     default:
       // Actions with no authorization UI of their own (site-local ones like Mail
       // or Post Creation, and anything this build has no component for) used to
