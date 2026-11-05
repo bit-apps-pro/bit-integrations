@@ -68,6 +68,40 @@ final class WCController
 
     public const ORDER_STATUS_SET_TO_CANCELLED = 33;
 
+    public const ORDER_PAID = 34;
+
+    public const ORDER_NOTE_ADDED = 35;
+
+    public const ORDER_REFUNDED = 36;
+
+    public const PRODUCT_VIEWED = 37;
+
+    public const PRODUCT_OUT_OF_STOCK = 38;
+
+    public const PRODUCT_LOW_STOCK = 39;
+
+    public const PRODUCT_BACK_IN_STOCK = 40;
+
+    public const VARIATION_OUT_OF_STOCK = 41;
+
+    public const VARIATION_BACK_IN_STOCK = 42;
+
+    public const REVIEW_APPROVED = 43;
+
+    public const REVIEW_STATUS_CHANGED = 44;
+
+    public const REVIEW_RATING_UPDATED = 45;
+
+    public const REVIEW_DELETED = 46;
+
+    public const COUPON_CREATED = 47;
+
+    public const COUPON_UPDATED = 48;
+
+    public const COUPON_DELETED = 49;
+
+    public const COUPON_RESTORED = 50;
+
     public const USER_SUBSCRIBE_PRODUCT = 12;
 
     public const USER_CANCELLED_SUBSCRIPTION_PRODUCT = 13;
@@ -132,11 +166,24 @@ final class WCController
             (object) ['id' => static::PRODUCT_UPDATED, 'title' => __('Product-Edit', 'bit-integrations')],
             (object) ['id' => static::PRODUCT_DELETED, 'title' => __('Product-Delete', 'bit-integrations')],
             (object) ['id' => static::RESTORE_PRODUCT, 'title' => __('Restore Product', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::PRODUCT_VIEWED, 'title' => __('Product Viewed', 'bit-integrations'), 'isPro' => true, 'note' => __('Runs once per product page view. Search engine bots are skipped.', 'bit-integrations')],
+            (object) ['id' => static::PRODUCT_OUT_OF_STOCK, 'title' => __('Product Out of Stock', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::PRODUCT_LOW_STOCK, 'title' => __('Product Low Stock', 'bit-integrations'), 'isPro' => true, 'note' => __('Runs when a product that manages stock drops to its low stock threshold.', 'bit-integrations')],
+            (object) ['id' => static::PRODUCT_BACK_IN_STOCK, 'title' => __('Product Back in Stock', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::VARIATION_OUT_OF_STOCK, 'title' => __('Variation Out of Stock', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::VARIATION_BACK_IN_STOCK, 'title' => __('Variation Back in Stock', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::ORDER_CREATED, 'title' => __('Order-Create', 'bit-integrations'), 'note' => __('Flexible Checkout Fields are a feature available in the Pro version', 'bit-integrations')],
             (object) ['id' => static::ORDER_UPDATED, 'title' => __('Order-Edit', 'bit-integrations'), 'note' => __('Flexible Checkout Fields are a feature available in the Pro version', 'bit-integrations')],
             (object) ['id' => static::ORDER_DELETED, 'title' => __('Order-Delete', 'bit-integrations'), 'note' => __('Flexible Checkout Fields are a feature available in the Pro version', 'bit-integrations')],
             (object) ['id' => static::RESTORE_ORDER, 'title' => __('Restore Order', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::ORDER_PAID, 'title' => __('Order Paid', 'bit-integrations'), 'isPro' => true, 'note' => __('Runs when WooCommerce marks the payment of an order as complete.', 'bit-integrations')],
+            (object) ['id' => static::ORDER_NOTE_ADDED, 'title' => __('Order Note Added', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::ORDER_REFUNDED, 'title' => __('Order Refunded (Full or Partial)', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::NEW_COUPON_CREATED, 'title' => __('Coupon Created or Updated', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::COUPON_CREATED, 'title' => __('Coupon Created', 'bit-integrations'), 'isPro' => true, 'note' => __('Runs when a coupon is saved within 10 seconds of its creation.', 'bit-integrations')],
+            (object) ['id' => static::COUPON_UPDATED, 'title' => __('Coupon Updated', 'bit-integrations'), 'isPro' => true, 'note' => __('Runs when an existing coupon is saved. Saves within 10 seconds of creation count as Coupon Created.', 'bit-integrations')],
+            (object) ['id' => static::COUPON_DELETED, 'title' => __('Coupon Moved to Trash', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::COUPON_RESTORED, 'title' => __('Coupon Restored from Trash', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::ORDER_STATUS_SET_TO_PENDING, 'title' => __('Order Status Set to Pending', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::ORDER_STATUS_SET_TO_FAILED, 'title' => __('Order Status Set to Failed', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::ORDER_STATUS_SET_TO_ON_HOLD, 'title' => __('Order Status Set to On-hold', 'bit-integrations'), 'isPro' => true],
@@ -151,6 +198,10 @@ final class WCController
             (object) ['id' => static::PRODUCT_ADD_TO_CART, 'title' => __('Product Added to Cart', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::PRODUCT_REMOVE_FROM_CART, 'title' => __('Product Removed from Cart', 'bit-integrations'), 'isPro' => true],
             (object) ['id' => static::USER_REVIEWS_A_PRODUCT, 'title' => __('User reviews a product', 'bit-integrations')],
+            (object) ['id' => static::REVIEW_APPROVED, 'title' => __('Review Approved', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::REVIEW_STATUS_CHANGED, 'title' => __('Review Status Changed', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::REVIEW_RATING_UPDATED, 'title' => __('Review Rating Updated', 'bit-integrations'), 'isPro' => true],
+            (object) ['id' => static::REVIEW_DELETED, 'title' => __('Review Deleted', 'bit-integrations'), 'isPro' => true, 'note' => __('Runs when a review is deleted permanently, not when it is moved to the trash.', 'bit-integrations')],
             (object) ['id' => static::USER_PURCHASES_A_VARIABLE_PRODUCT, 'title' => __('User purchases a variable product with selected variation', 'bit-integrations'), 'note' => __('Flexible Checkout Fields are a feature available in the Pro version', 'bit-integrations')],
         ];
 
@@ -243,6 +294,16 @@ final class WCController
             $entity = 'add_to_cart';
         } elseif ($id == static::PRODUCT_REMOVE_FROM_CART) {
             $entity = 'remove_from_cart';
+        } elseif (\in_array((int) $id, [static::ORDER_PAID, static::ORDER_NOTE_ADDED, static::ORDER_REFUNDED], true)) {
+            $entity = 'order';
+        } elseif (\in_array((int) $id, [static::PRODUCT_VIEWED, static::PRODUCT_OUT_OF_STOCK, static::PRODUCT_LOW_STOCK, static::PRODUCT_BACK_IN_STOCK], true)) {
+            $entity = 'product';
+        } elseif (\in_array((int) $id, [static::VARIATION_OUT_OF_STOCK, static::VARIATION_BACK_IN_STOCK], true)) {
+            $entity = 'variation';
+        } elseif (\in_array((int) $id, [static::REVIEW_APPROVED, static::REVIEW_STATUS_CHANGED, static::REVIEW_RATING_UPDATED, static::REVIEW_DELETED], true)) {
+            $entity = 'review';
+        } elseif (\in_array((int) $id, [static::COUPON_CREATED, static::COUPON_UPDATED, static::COUPON_DELETED, static::COUPON_RESTORED], true)) {
+            $entity = 'coupon';
         }
 
         if (empty($id)) {
@@ -286,6 +347,10 @@ final class WCController
                 $fields = WCStaticFields::getRemoveFromCartFields();
 
                 break;
+            case 'variation':
+                $fields = WCStaticFields::getVariationStockFields();
+
+                break;
 
             default:
                 $fields = [];
@@ -305,6 +370,8 @@ final class WCController
                 ],
             ]);
         }
+
+        $fields = array_merge($fields, WCStaticFields::getEventFields((int) $id));
 
         uksort($fields, 'strnatcasecmp');
 
