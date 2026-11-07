@@ -31,6 +31,15 @@ import {
   weekdayOptions
 } from './staticData'
 
+const ACTION_SELECT_KEYS = [
+  'selectedService',
+  'selectedStaff',
+  'selectedStatus',
+  'selectedPaymentStatus',
+  'selectedWeekdays',
+  'selectedCategory'
+]
+
 const fetchedSelects = [
   { actions: needsService, optionsKey: 'allServices', refresh: refreshBookitServices },
   { actions: needsStaff, optionsKey: 'allStaff', refresh: refreshBookitStaff },
@@ -67,6 +76,7 @@ export default function BookitIntegLayout({
         draftConf.bookitFields = fieldsByAction[value] || []
         draftConf.field_map = generateMappedField(draftConf.bookitFields)
         draftConf.utilities = {}
+        ACTION_SELECT_KEYS.forEach(key => delete draftConf[key])
       })
     )
 

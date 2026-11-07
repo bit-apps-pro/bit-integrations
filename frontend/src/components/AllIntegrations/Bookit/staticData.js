@@ -127,7 +127,8 @@ export const notesByAction = {
     __(
       'Leave the end time empty to use the service duration. Leave the price empty to use the staff price.',
       'bit-integrations'
-    )
+    ),
+    __('Use 8 to 14 digits for the customer phone. A + sign is optional.', 'bit-integrations')
   ],
   update_appointment: [
     formatNote,
