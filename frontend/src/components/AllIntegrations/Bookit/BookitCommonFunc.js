@@ -11,7 +11,7 @@ import {
   needsWeekdays
 } from './staticData'
 
-export const handleInput = (e, bookitConf, setBookitConf) => {
+export const handleInput = (e, setBookitConf) => {
   const { name, value } = e.target
 
   setBookitConf(prevConf =>
@@ -172,6 +172,8 @@ const requiredSelects = [
     message: () => __('Category is not selected. Select a category.', 'bit-integrations')
   }
 ]
+
+export const requiredSelectKeys = requiredSelects.map(({ confKey }) => confKey)
 
 export const getMissingSelectMessage = bookitConf => {
   if (!bookitConf?.mainAction) {

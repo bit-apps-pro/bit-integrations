@@ -11,6 +11,7 @@ import BookitActions from './BookitActions'
 import {
   generateMappedField,
   refreshBookitCategories,
+  requiredSelectKeys,
   refreshBookitServices,
   refreshBookitStaff
 } from './BookitCommonFunc'
@@ -30,15 +31,6 @@ import {
   utilitiesByAction,
   weekdayOptions
 } from './staticData'
-
-const ACTION_SELECT_KEYS = [
-  'selectedService',
-  'selectedStaff',
-  'selectedStatus',
-  'selectedPaymentStatus',
-  'selectedWeekdays',
-  'selectedCategory'
-]
 
 const fetchedSelects = [
   { actions: needsService, optionsKey: 'allServices', refresh: refreshBookitServices },
@@ -76,7 +68,7 @@ export default function BookitIntegLayout({
         draftConf.bookitFields = fieldsByAction[value] || []
         draftConf.field_map = generateMappedField(draftConf.bookitFields)
         draftConf.utilities = {}
-        ACTION_SELECT_KEYS.forEach(key => delete draftConf[key])
+        requiredSelectKeys.forEach(key => delete draftConf[key])
       })
     )
 

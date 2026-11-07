@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import BackIcn from '../../../Icons/BackIcn'
 import { __ } from '../../../Utils/i18nwrap'
 import SnackMsg from '../../Utilities/SnackMsg'
@@ -12,7 +12,6 @@ import BookitIntegLayout from './BookitIntegLayout'
 
 export default function Bookit({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
-  const { formID } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
@@ -20,7 +19,6 @@ export default function Bookit({ formFields, setFlow, flow, allIntegURL }) {
     name: 'Bookit',
     type: 'Bookit',
     field_map: [{ formField: '', bookitField: '' }],
-    actions: {},
     mainAction: ''
   })
 
@@ -59,14 +57,10 @@ export default function Bookit({ formFields, setFlow, flow, allIntegURL }) {
       <div className="txt-center mt-2" />
 
       <BookitAuthorization
-        formID={formID}
         bookitConf={bookitConf}
         setBookitConf={setBookitConf}
         step={step}
         nextPage={nextPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setSnackbar={setSnackbar}
       />
 
       <div
@@ -77,11 +71,9 @@ export default function Bookit({ formFields, setFlow, flow, allIntegURL }) {
           minHeight: step === 2 && '500px'
         }}>
         <BookitIntegLayout
-          formID={formID}
           formFields={formFields}
           bookitConf={bookitConf}
           setBookitConf={setBookitConf}
-          setSnackbar={setSnackbar}
           setIsLoading={setIsLoading}
           isLoading={isLoading}
         />

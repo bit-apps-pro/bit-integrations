@@ -12,7 +12,7 @@ import BookitIntegLayout from './BookitIntegLayout'
 
 export default function EditBookit({ allIntegURL }) {
   const navigate = useNavigate()
-  const { id, formID } = useParams()
+  const { id } = useParams()
 
   const [bookitConf, setBookitConf] = useRecoilState($actionConf)
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -28,7 +28,7 @@ export default function EditBookit({ allIntegURL }) {
         <b className="wdt-200 d-in-b">{__('Integration Name:', 'bit-integrations')}</b>
         <input
           className="btcd-paper-inp w-5"
-          onChange={e => handleInput(e, bookitConf, setBookitConf)}
+          onChange={e => handleInput(e, setBookitConf)}
           name="name"
           value={bookitConf.name}
           type="text"
@@ -40,11 +40,9 @@ export default function EditBookit({ allIntegURL }) {
       <SetEditIntegComponents entity={flow.triggered_entity} setSnackbar={setSnackbar} />
 
       <BookitIntegLayout
-        formID={formID}
         formFields={formFields}
         bookitConf={bookitConf}
         setBookitConf={setBookitConf}
-        setSnackbar={setSnackbar}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
       />
