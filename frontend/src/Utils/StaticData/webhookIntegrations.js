@@ -105,6 +105,7 @@ export const customFormIntegrations = [
   'B2BKing',
   'SureDash',
   'Wsms',
+  'VikRentCar',
   'WebbaBooking',
   'WpSimpleBookingCalendar',
   'B2BKing',

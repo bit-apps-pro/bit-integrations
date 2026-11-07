@@ -791,6 +791,10 @@ const tutorialLinks = {
     docLink:
       'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
   },
+  vikRentCar: {
+    youTubeLink: '',
+    docLink: ''
+  },
   bookly: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/bookly-integration-as-an-action/'
