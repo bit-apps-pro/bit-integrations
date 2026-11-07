@@ -33,6 +33,7 @@ final class AllTriggersName
             'BuddyBoss'                             => ['name' => 'BuddyBoss',  'isPro' => true, 'is_active' => false],
             'Buddypress'                            => ['name' => 'Buddypress',  'isPro' => true, 'is_active' => false],
             'BbPress'                               => ['name' => 'bbPress',  'isPro' => true, 'is_active' => false],
+            'Bookit'                                => ['name' => 'Bookit',  'isPro' => true, 'is_active' => false],
             'BookingCalendarContactForm'            => ['name' => 'Booking Calendar Contact Form',  'isPro' => true, 'is_active' => false],
             'BookingCalendar'                       => ['name' => 'Booking Calendar',  'isPro' => true, 'is_active' => false],
             'BookingPress'                          => ['name' => 'BookingPress',  'isPro' => true, 'is_active' => false],

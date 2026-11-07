@@ -222,6 +222,7 @@ const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBooking
 const WpSimpleBookingCalendarAuthorization = lazy(
   () => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendarAuthorization')
 )
+const BookitAuthorization = lazy(() => import('./Bookit/BookitAuthorization'))
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -774,6 +775,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
           isInfo
         />
       )
+    case 'Bookit':
+      return <BookitAuthorization bookitConf={integrationConf} step={1} isInfo />
     case 'MoreConvert Wishlist':
       return (
         <MoreConvertWishlistAuthorization moreConvertWishlistConf={integrationConf} step={1} isInfo />
