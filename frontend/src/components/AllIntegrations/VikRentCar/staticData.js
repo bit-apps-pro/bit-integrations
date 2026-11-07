@@ -78,7 +78,7 @@ export const fieldsByAction = {
 }
 
 const dateNote = __(
-  'Use the YYYY-MM-DD HH:MM format in the site time zone for dates, for example 2026-12-24 10:00.',
+  'Use the YYYY-MM-DD HH:MM format in the site time zone for dates, for example 2026-12-24 10:00. If the site uses a manual UTC offset, use UTC.',
   'bit-integrations'
 )
 const keepNote = __('Leave a field unmapped to keep its current value.', 'bit-integrations')
@@ -114,12 +114,20 @@ export const notesByAction = {
   ],
   confirm_booking: [ownEventsNote],
   cancel_booking: [ownEventsNote],
+  delete_booking: [
+    __(
+      'The action deletes the booking with any status. It does not cancel the booking first.',
+      'bit-integrations'
+    ),
+    ownEventsNote
+  ],
   update_rental_status: [
     __('Only a confirmed booking has a rental status.', 'bit-integrations'),
     ownEventsNote
   ],
   send_booking_email: [
-    __('VikRentCar sends the booking email to the customer email of the booking.', 'bit-integrations')
+    __('VikRentCar sends the booking email to the customer email of the booking.', 'bit-integrations'),
+    ownEventsNote
   ],
   update_car: [keepNote, __('Map a whole number of 1 or more for the units.', 'bit-integrations')],
   create_location: [timeNote],
@@ -206,7 +214,7 @@ export const utilitiesByAction = {
       value: 'true',
       title: __('Ignore Availability', 'bit-integrations'),
       subTitle: __(
-        'Confirm the booking also when the car is not available for the dates.',
+        'Confirm the booking even when the car is not available for the dates.',
         'bit-integrations'
       )
     },
