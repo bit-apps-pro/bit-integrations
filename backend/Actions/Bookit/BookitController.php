@@ -112,7 +112,6 @@ class BookitController
         wp_send_json_success(['wpUsers' => self::getUserOptions()], 200);
     }
 
-    // Bookit's set_role() would demote an administrator, so its own staff form hides them too.
     public function refreshStaffWpUsers()
     {
         self::isExists();
