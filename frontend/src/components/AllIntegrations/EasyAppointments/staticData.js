@@ -182,11 +182,11 @@ export const actionNotes = {
   update_location: __('Fields that you do not map keep their current value.', 'bit-integrations'),
   update_employee: __('Fields that you do not map keep their current value.', 'bit-integrations'),
   create_connection: __(
-    'A connection sets the working hours of an employee for a service at a location.',
+    'A connection sets the working hours of an employee for a service at a location. Select No in Is Working to block these hours, for example for a break. The default is Weekly and Yes.',
     'bit-integrations'
   ),
   update_connection: __(
-    'Fields that you do not map and options that you do not select keep their current value.',
+    'Fields that you do not map and options that you do not select keep their current value. Select No in Is Working to block these hours, for example for a break.',
     'bit-integrations'
   )
 }

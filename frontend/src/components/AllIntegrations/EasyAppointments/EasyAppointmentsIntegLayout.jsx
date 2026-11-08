@@ -266,13 +266,6 @@ export default function EasyAppointmentsIntegLayout({
             options: WORKING_OPTIONS,
             required: false
           })}
-          <br />
-          <Note
-            note={__(
-              'Select No in Is Working to block these hours, for example for a break. The default is Yes and Weekly.',
-              'bit-integrations'
-            )}
-          />
         </>
       )}
 
