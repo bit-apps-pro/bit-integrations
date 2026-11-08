@@ -714,6 +714,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  wpActivityLog: {
+    youTubeLink: '',
+    docLink: ''
+  },
   wpSimpleBookingCalendar: {
     youTubeLink: '',
     docLink:

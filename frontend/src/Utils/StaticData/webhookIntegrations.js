@@ -136,7 +136,8 @@ export const customFormIntegrations = [
   'QuizAndSurveyMaster',
   'QuizMaker',
   'RoxAppointmentBooking',
-  'NiroHelp'
+  'NiroHelp',
+  'WpActivityLog'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
