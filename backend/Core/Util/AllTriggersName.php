@@ -50,6 +50,7 @@ final class AllTriggersName
             'Divi'                                  => ['name' => 'Divi',  'isPro' => true, 'is_active' => false],
             'DiviFormBuilder'                       => ['name' => 'Divi Form by Divi Engine',  'isPro' => true, 'is_active' => false],
             'Dokan'                                 => ['name' => 'Dokan',  'isPro' => true, 'is_active' => false],
+            'EasyAppointments'                      => ['name' => 'Easy Appointments',  'isPro' => true, 'is_active' => false],
             'EasyCommerce'                          => ['name' => 'EasyCommerce',  'isPro' => true, 'is_active' => false],
             'EDD'                                   => ['name' => 'Easy Digital Downloads',  'isPro' => true, 'is_active' => false],
             'EssentialAddonsElementor'              => ['name' => 'Essential Addons For Elementor',  'isPro' => true, 'is_active' => false],
