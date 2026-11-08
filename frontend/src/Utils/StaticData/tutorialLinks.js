@@ -759,7 +759,12 @@ const tutorialLinks = {
   },
   bitConnect: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/bit-connect-integration-as-an-action/'
+    docLink: ''
+  },
+  restaurantReservations: {
+    youTubeLink: '',
+    docLink:
+      ''
   },
   roxAppointmentBooking: {
     youTubeLink: '',

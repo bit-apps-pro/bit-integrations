@@ -138,7 +138,8 @@ export const customFormIntegrations = [
   'RoxAppointmentBooking',
   'NiroHelp',
   'WpActivityLog',
-  'BitConnect'
+  'BitConnect',
+  'RestaurantReservations'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
