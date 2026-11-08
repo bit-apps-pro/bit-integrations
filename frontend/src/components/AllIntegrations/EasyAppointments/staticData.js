@@ -166,7 +166,15 @@ export const hasUtilities = [
 
 export const actionNotes = {
   create_appointment: __(
-    'The action checks the employee working hours and free slots, as the booking form does.',
+    'The action checks the employee working hours and free slots, as the booking form does. Easy Appointments actions do not start Easy Appointments triggers.',
+    'bit-integrations'
+  ),
+  change_appointment_status: __(
+    'Easy Appointments actions do not start Easy Appointments triggers.',
+    'bit-integrations'
+  ),
+  cancel_appointment: __(
+    'Easy Appointments actions do not start Easy Appointments triggers.',
     'bit-integrations'
   ),
   update_appointment: __(
