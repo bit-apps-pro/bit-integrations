@@ -710,6 +710,14 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/mainwp-integration-as-an-action/'
   },
+  wpHotelBooking: {
+    youTubeLink: '',
+    docLink: ''
+  },
+  wpActivityLog: {
+    youTubeLink: '',
+    docLink: ''
+  },
   wpSimpleBookingCalendar: {
     youTubeLink: '',
     docLink:
@@ -748,6 +756,15 @@ const tutorialLinks = {
   weDocs: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
+  },
+  bitConnect: {
+    youTubeLink: '',
+    docLink: ''
+  },
+  restaurantReservations: {
+    youTubeLink: '',
+    docLink:
+      ''
   },
   roxAppointmentBooking: {
     youTubeLink: '',
@@ -795,6 +812,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/bookly-integration-as-an-action/'
   },
+  booknetic: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/booknetic-integration-as-an-action/'
+  },
   fluentCart: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/fluentcart-integration-as-an-action/'
@@ -810,6 +831,18 @@ const tutorialLinks = {
   quizMaker: {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/quiz-maker-integration-as-an-action/'
+  },
+  microsoftExcel: {
+    youTubeLink: '',
+    docLink: ''
+  },
+  niroHelp: {
+    youTubeLink: '',
+    docLink: ''
+  },
+  followUpBoss: {
+    youTubeLink: '',
+    docLink: ''
   }
 }
 export default tutorialLinks

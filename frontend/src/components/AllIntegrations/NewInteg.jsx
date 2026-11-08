@@ -185,12 +185,14 @@ const SureContact = lazy(() => import('./SureContact/SureContact'))
 const BrilliantDirectories = lazy(() => import('./BrilliantDirectories/BrilliantDirectories'))
 const Flodesk = lazy(() => import('./Flodesk/Flodesk'))
 const FluentCart = lazy(() => import('./FluentCart/FluentCart'))
+const Booknetic = lazy(() => import('./Booknetic/Booknetic'))
 const BookingsAndAppointmentsForWoocommerce = lazy(
   () => import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerce')
 )
 const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
 const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
+const WpActivityLog = lazy(() => import('./WpActivityLog/WpActivityLog'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
 const ConvertForce = lazy(() => import('./ConvertForce/ConvertForce'))
@@ -208,6 +210,7 @@ const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
 const WpSimpleBookingCalendar = lazy(() => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendar'))
+const WpHotelBooking = lazy(() => import('./WpHotelBooking/WpHotelBooking'))
 const MoreConvertWishlist = lazy(() => import('./MoreConvertWishlist/MoreConvertWishlist'))
 const HefflCRM = lazy(() => import('./HefflCRM/HefflCRM'))
 const SecureCustomFields = lazy(() => import('./SecureCustomFields/SecureCustomFields'))
@@ -232,10 +235,16 @@ const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
 )
+const BitConnect = lazy(() => import('./BitConnect/BitConnect'))
 const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
+const RestaurantReservations = lazy(() => import('./RestaurantReservations/RestaurantReservations'))
+const RoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/RoxAppointmentBooking'))
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
+const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
+const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))
+const FollowUpBoss = lazy(() => import('./FollowUpBoss/FollowUpBoss'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -1834,6 +1843,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'Booknetic':
+      return (
+        <Booknetic
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'Bookings And Appointments For Woocommerce':
       return (
         <BookingsAndAppointmentsForWoocommerce
@@ -1864,6 +1882,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'Charitable':
       return (
         <Charitable
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpActivityLog':
+      return (
+        <WpActivityLog
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -2008,6 +2035,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'WpSimpleBookingCalendar':
       return (
         <WpSimpleBookingCalendar
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'WpHotelBooking':
+      return (
+        <WpHotelBooking
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -2187,6 +2223,24 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'BitConnect':
+      return (
+        <BitConnect
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'RestaurantReservations':
+      return (
+        <RestaurantReservations
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'RoxAppointmentBooking':
       return (
         <RoxAppointmentBooking
@@ -2199,6 +2253,33 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'QuizMaker':
       return (
         <QuizMaker
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'MicrosoftExcel':
+      return (
+        <MicrosoftExcel
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'NiroHelp':
+      return (
+        <NiroHelp
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'FollowUpBoss':
+      return (
+        <FollowUpBoss
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}
@@ -2255,6 +2336,17 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'BitCrm':
       integrationName = 'Bit CRM'
+      break
+    case 'MicrosoftExcel':
+      integrationName = 'Microsoft Excel'
+    case 'WpActivityLog':
+      integrationName = 'WP Activity Log'
+    case 'FollowUpBoss':
+      integrationName = 'Follow Up Boss'
+    case 'BitConnect':
+      integrationName = 'Bit Connect'
+    case 'RestaurantReservations':
+      integrationName = 'Five Star Restaurant Reservations'
       break
 
     default:
