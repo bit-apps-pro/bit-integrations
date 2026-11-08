@@ -763,8 +763,11 @@ const tutorialLinks = {
   },
   restaurantReservations: {
     youTubeLink: '',
-    docLink:
-      ''
+    docLink: ''
+  },
+  easyAppointments: {
+    youTubeLink: '',
+    docLink: ''
   },
   roxAppointmentBooking: {
     youTubeLink: '',
