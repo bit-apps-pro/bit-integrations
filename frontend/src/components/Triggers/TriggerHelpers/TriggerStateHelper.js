@@ -1,6 +1,11 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 
+import {
+  EVENTS_CALENDAR_EVENT_FILTER_TASKS,
+  EVENTS_CALENDAR_SERIES_FILTER_TASKS
+} from './EventsCalendar/EventsCalendarCommonFunction'
+
 // suffix IH = call from IntegrationHelpers
 // suffix FP = call from FormPlugin
 
@@ -210,16 +215,19 @@ const wpJobManagerStateFP = (val, tmpNewFlow, resp, setNewFlow) => {
 }
 
 const eventsCalendarStateFP = (val, tmpNewFlow, resp, setNewFlow) => {
-  if (
-    val === 'events_calendar-1' ||
-    val === 'events_calendar-2' ||
-    val === 'events_calendar-3' ||
-    val === 'events_calendar-4'
-  ) {
+  if (EVENTS_CALENDAR_EVENT_FILTER_TASKS.includes(val)) {
     tmpNewFlow.triggerData = {
       ...tmpNewFlow.triggerData,
       events: resp.data.events,
       selectedEvent: 'any'
+    }
+  }
+
+  if (EVENTS_CALENDAR_SERIES_FILTER_TASKS.includes(val)) {
+    tmpNewFlow.triggerData = {
+      ...tmpNewFlow.triggerData,
+      series: resp.data.series,
+      selectedSeries: 'any'
     }
   }
 
@@ -608,14 +616,14 @@ export const wpJobManagerStateIH = (tmpConf, flowData, triggered_entity_id) => {
 export const eventsCalendarIH = (tmpConf, flowData, triggered_entity_id) => {
   const formId = flowData.formID ? flowData.formID : triggered_entity_id
 
-  if (
-    formId === 'events_calendar-1' ||
-    formId === 'events_calendar-2' ||
-    formId === 'events_calendar-3' ||
-    formId === 'events_calendar-4'
-  ) {
+  if (EVENTS_CALENDAR_EVENT_FILTER_TASKS.includes(formId)) {
     tmpConf.selectedEvent = flowData.selectedEvent
     tmpConf.events = flowData.events
+  }
+
+  if (EVENTS_CALENDAR_SERIES_FILTER_TASKS.includes(formId)) {
+    tmpConf.selectedSeries = flowData.selectedSeries
+    tmpConf.series = flowData.series
   }
 
   return tmpConf

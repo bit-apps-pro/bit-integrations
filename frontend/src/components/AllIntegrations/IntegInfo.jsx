@@ -191,6 +191,7 @@ const BrilliantDirectoriesAuthorization = lazy(
 )
 const FlodeskAuthorization = lazy(() => import('./Flodesk/FlodeskAuthorization'))
 const FluentCartAuthorization = lazy(() => import('./FluentCart/FluentCartAuthorization'))
+const BookneticAuthorization = lazy(() => import('./Booknetic/BookneticAuthorization'))
 const BookingsAndAppointmentsForWoocommerceAuthorization = lazy(
   () =>
     import('./BookingsAndAppointmentsForWoocommerce/BookingsAndAppointmentsForWoocommerceAuthorization')
@@ -200,6 +201,7 @@ const QuizAndSurveyMasterAuthorization = lazy(
 )
 const ElementsKitAuthorization = lazy(() => import('./ElementsKit/ElementsKitAuthorization'))
 const CharitableAuthorization = lazy(() => import('./Charitable/CharitableAuthorization'))
+const WpActivityLogAuthorization = lazy(() => import('./WpActivityLog/WpActivityLogAuthorization'))
 const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
 const ConvertForceAuthorization = lazy(() => import('./ConvertForce/ConvertForceAuthorization'))
@@ -222,6 +224,7 @@ const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBooking
 const WpSimpleBookingCalendarAuthorization = lazy(
   () => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendarAuthorization')
 )
+const WpHotelBookingAuthorization = lazy(() => import('./WpHotelBooking/WpHotelBookingAuthorization'))
 const HefflCRMAuthorization = lazy(() => import('./HefflCRM/HefflCRMAuthorization'))
 const SecureCustomFieldsAuthorization = lazy(
   () => import('./SecureCustomFields/SecureCustomFieldsAuthorization')
@@ -257,10 +260,20 @@ const AffiliateAuthorization = lazy(() => import('./Affiliate/AffiliateAuthoriza
 const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthorization'))
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
+const BitConnectAuthorization = lazy(() => import('./BitConnect/BitConnectAuthorization'))
 const RoxAppointmentBookingAuthorization = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
 )
+const RestaurantReservationsAuthorization = lazy(
+  () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
+)
+const RoxAppointmentBookingAuthorization = lazy(
+  () => import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
+)
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
+const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
+const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
+const FollowUpBossAuthorization = lazy(() => import('./FollowUpBoss/FollowUpBossAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
   <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
@@ -716,6 +729,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <FlodeskAuthorization flodeskConf={integrationConf} step={1} isInfo />
     case 'FluentCart':
       return <FluentCartAuthorization fluentCartConf={integrationConf} step={1} isInfo />
+    case 'Booknetic':
+      return <BookneticAuthorization bookneticConf={integrationConf} step={1} isInfo />
     case 'Bookings And Appointments For Woocommerce':
       return (
         <BookingsAndAppointmentsForWoocommerceAuthorization
@@ -732,6 +747,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <ElementsKitAuthorization elementsKitConf={integrationConf} step={1} isInfo />
     case 'Charitable':
       return <CharitableAuthorization charitableConf={integrationConf} step={1} isInfo />
+    case 'WpActivityLog':
+      return <WpActivityLogAuthorization wpActivityLogConf={integrationConf} step={1} isInfo />
     case 'Pointics':
       return <PointicsAuthorization pointicsConf={integrationConf} step={1} isInfo />
     case 'SenseiLMS':
@@ -774,6 +791,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
           isInfo
         />
       )
+    case 'WpHotelBooking':
+      return <WpHotelBookingAuthorization wpHotelBookingConf={integrationConf} step={1} isInfo />
     case 'MoreConvert Wishlist':
       return (
         <MoreConvertWishlistAuthorization moreConvertWishlistConf={integrationConf} step={1} isInfo />
@@ -838,6 +857,16 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <SliceWpAuthorization sliceWpConf={integrationConf} step={1} isInfo />
     case 'CustomApi':
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
+    case 'BitConnect':
+      return <BitConnectAuthorization bitConnectConf={integrationConf} step={1} isInfo />
+    case 'RestaurantReservations':
+      return (
+        <RestaurantReservationsAuthorization
+          restaurantReservationsConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'RoxAppointmentBooking':
       return (
         <RoxAppointmentBookingAuthorization
@@ -848,6 +877,12 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       )
     case 'QuizMaker':
       return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
+    case 'MicrosoftExcel':
+      return <MicrosoftExcelAuthorization microsoftExcelConf={integrationConf} step={1} isInfo />
+    case 'NiroHelp':
+      return <NiroHelpAuthorization niroHelpConf={integrationConf} step={1} isInfo />
+    case 'FollowUpBoss':
+      return <FollowUpBossAuthorization followUpBossConf={integrationConf} step={1} isInfo />
     default:
       // Actions with no authorization UI of their own (site-local ones like Mail
       // or Post Creation, and anything this build has no component for) used to

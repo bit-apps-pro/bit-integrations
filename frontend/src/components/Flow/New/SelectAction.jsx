@@ -196,7 +196,15 @@ export default function SelectAction() {
       is_pro: true
     },
     { type: 'FluentCart', is_pro: true },
+    { type: 'Booknetic', is_pro: true },
     { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
+    { type: 'BitConnect', name: 'Bit Connect', logo: 'bitConnect', is_pro: false },
+    {
+      type: 'RestaurantReservations',
+      name: 'Five Star Restaurant Reservations',
+      logo: 'restaurantReservations',
+      is_pro: true
+    },
     {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
@@ -211,6 +219,7 @@ export default function SelectAction() {
     },
     { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
     { type: 'Charitable', is_pro: true },
+    { type: 'WpActivityLog', name: 'WP Activity Log', logo: 'wpActivityLog', is_pro: true },
     { type: 'Pointics', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },
     { type: 'ConvertForce', is_pro: true },
@@ -249,9 +258,13 @@ export default function SelectAction() {
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
     { type: 'WpSimpleBookingCalendar', is_pro: true },
+    { type: 'WpHotelBooking', name: 'WP Hotel Booking', is_pro: true },
     { type: 'Sender', is_pro: true },
     { type: 'MainWP', is_pro: true },
-    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true }
+    { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true },
+    { type: 'MicrosoftExcel', name: 'Microsoft Excel', is_pro: true },
+    { type: 'NiroHelp', name: 'NiroHelp', is_pro: true },
+    { type: 'FollowUpBoss', name: 'Follow Up Boss', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)
@@ -281,7 +294,11 @@ export default function SelectAction() {
 
   const searchInteg = e => {
     const { value } = e.target
-    const filtered = integs.filter(integ => integ.type.toLowerCase().includes(value.toLowerCase()))
+    const search = value.toLowerCase()
+    const filtered = integs.filter(
+      integ =>
+        integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
+    )
     setAvailableIntegs(sortFeaturedProducts(filtered))
   }
 
@@ -345,8 +362,9 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
+                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button
