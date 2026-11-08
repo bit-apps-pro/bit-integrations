@@ -235,6 +235,7 @@ const SeoPress = lazy(() => import('./SeoPress/SeoPress'))
 const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
 )
+const BitConnect = lazy(() => import('./BitConnect/BitConnect'))
 const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
@@ -2220,6 +2221,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'BitConnect':
+      return (
+        <BitConnect
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'RoxAppointmentBooking':
       return (
         <RoxAppointmentBooking
@@ -2322,6 +2332,8 @@ export default function NewInteg({ allIntegURL }) {
       integrationName = 'WP Activity Log'
     case 'FollowUpBoss':
       integrationName = 'Follow Up Boss'
+    case 'BitConnect':
+      integrationName = 'Bit Connect'
       break
 
     default:

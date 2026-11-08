@@ -198,6 +198,7 @@ export default function SelectAction() {
     { type: 'FluentCart', is_pro: true },
     { type: 'Booknetic', is_pro: true },
     { type: 'Bookings And Appointments For Woocommerce', is_pro: true },
+    { type: 'BitConnect', name: 'Bit Connect', logo: 'bitConnect', is_pro: false },
     {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
@@ -287,7 +288,11 @@ export default function SelectAction() {
 
   const searchInteg = e => {
     const { value } = e.target
-    const filtered = integs.filter(integ => integ.type.toLowerCase().includes(value.toLowerCase()))
+    const search = value.toLowerCase()
+    const filtered = integs.filter(
+      integ =>
+        integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
+    )
     setAvailableIntegs(sortFeaturedProducts(filtered))
   }
 

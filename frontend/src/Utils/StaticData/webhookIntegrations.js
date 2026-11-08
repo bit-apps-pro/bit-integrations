@@ -137,7 +137,8 @@ export const customFormIntegrations = [
   'QuizMaker',
   'RoxAppointmentBooking',
   'NiroHelp',
-  'WpActivityLog'
+  'WpActivityLog',
+  'BitConnect'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

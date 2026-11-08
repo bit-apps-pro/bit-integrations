@@ -757,6 +757,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: 'https://bit-integrations.com/wp-docs/actions/wedocs-integration-as-an-action/'
   },
+  bitConnect: {
+    youTubeLink: '',
+    docLink: 'https://bit-integrations.com/wp-docs/actions/bit-connect-integration-as-an-action/'
+  },
   roxAppointmentBooking: {
     youTubeLink: '',
     docLink:

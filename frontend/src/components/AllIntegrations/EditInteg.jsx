@@ -17,6 +17,7 @@ const EditOneDrive = lazy(() => import('./OneDrive/EditOneDrive'))
 const EditZohoCampaigns = lazy(() => import('./ZohoCampaigns/EditZohoCampaigns'))
 const EditZohoCRM = lazy(() => import('./ZohoCRM/EditZohoCRM'))
 const EditRapidmail = lazy(() => import('./Rapidmail/EditRapidmail'))
+const EditBitConnect = lazy(() => import('./BitConnect/EditBitConnect'))
 const EditRoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/EditRoxAppointmentBooking'))
 const EditTwilio = lazy(() => import('./Twilio/EditTwilio'))
 const EditZohoMarketingHub = lazy(() => import('./ZohoMarketingHub/EditZohoMarketingHub'))
@@ -701,6 +702,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBooknetic allIntegURL={allIntegURL} />
     case 'RoxAppointmentBooking':
       return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
+    case 'BitConnect':
+      return <EditBitConnect allIntegURL={allIntegURL} />
     case 'Bookings And Appointments For Woocommerce':
       return <EditBookingsAndAppointmentsForWoocommerce allIntegURL={allIntegURL} />
     case 'QuizAndSurveyMaster':
