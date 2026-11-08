@@ -830,6 +830,10 @@ const tutorialLinks = {
   niroHelp: {
     youTubeLink: '',
     docLink: ''
+  },
+  followUpBoss: {
+    youTubeLink: '',
+    docLink: ''
   }
 }
 export default tutorialLinks

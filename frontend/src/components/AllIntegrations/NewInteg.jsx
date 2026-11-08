@@ -241,6 +241,7 @@ const RoxAppointmentBooking = lazy(() =>
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
 const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))
+const FollowUpBoss = lazy(() => import('./FollowUpBoss/FollowUpBoss'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -2255,6 +2256,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'FollowUpBoss':
+      return (
+        <FollowUpBoss
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     default:
       return (
         <div className="txt-center" style={{ padding: '60px 20px' }}>
@@ -2310,6 +2320,8 @@ export default function NewInteg({ allIntegURL }) {
       integrationName = 'Microsoft Excel'
     case 'WpActivityLog':
       integrationName = 'WP Activity Log'
+    case 'FollowUpBoss':
+      integrationName = 'Follow Up Boss'
       break
 
     default:

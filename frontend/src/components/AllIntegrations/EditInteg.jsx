@@ -244,6 +244,7 @@ const EditUserRegistrationMembership = lazy(
 const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
 const EditMicrosoftExcel = lazy(() => import('./MicrosoftExcel/EditMicrosoftExcel'))
 const EditNiroHelp = lazy(() => import('./NiroHelp/EditNiroHelp'))
+const EditFollowUpBoss = lazy(() => import('./FollowUpBoss/EditFollowUpBoss'))
 
 const loaderStyle = {
   display: 'flex',
@@ -790,6 +791,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditMicrosoftExcel allIntegURL={allIntegURL} />
     case 'NiroHelp':
       return <EditNiroHelp allIntegURL={allIntegURL} />
+    case 'FollowUpBoss':
+      return <EditFollowUpBoss allIntegURL={allIntegURL} />
     default:
       return (
         <div className="txt-center" style={{ padding: '60px 20px' }}>
