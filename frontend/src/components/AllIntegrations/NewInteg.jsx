@@ -236,6 +236,7 @@ const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
+const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -2205,6 +2206,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'MicrosoftExcel':
+      return (
+        <MicrosoftExcel
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     default:
       return (
         <div className="txt-center" style={{ padding: '60px 20px' }}>
@@ -2255,6 +2265,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'BitCrm':
       integrationName = 'Bit CRM'
+      break
+    case 'MicrosoftExcel':
+      integrationName = 'Microsoft Excel'
       break
 
     default:
