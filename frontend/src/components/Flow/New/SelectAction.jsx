@@ -253,7 +253,8 @@ export default function SelectAction() {
     { type: 'Sender', is_pro: true },
     { type: 'MainWP', is_pro: true },
     { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true },
-    { type: 'MicrosoftExcel', name: 'Microsoft Excel', is_pro: true }
+    { type: 'MicrosoftExcel', name: 'Microsoft Excel', is_pro: true },
+    { type: 'NiroHelp', name: 'NiroHelp', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)

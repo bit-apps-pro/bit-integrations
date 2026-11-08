@@ -263,6 +263,7 @@ const RoxAppointmentBookingAuthorization = lazy(() =>
 )
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
+const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
   <div className="btcd-stp-page" style={{ width: 900, height: 'auto' }}>
@@ -854,6 +855,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <QuizMakerAuthorization quizMakerConf={integrationConf} step={1} isInfo />
     case 'MicrosoftExcel':
       return <MicrosoftExcelAuthorization microsoftExcelConf={integrationConf} step={1} isInfo />
+    case 'NiroHelp':
+      return <NiroHelpAuthorization niroHelpConf={integrationConf} step={1} isInfo />
     default:
       // Actions with no authorization UI of their own (site-local ones like Mail
       // or Post Creation, and anything this build has no component for) used to

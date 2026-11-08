@@ -238,6 +238,7 @@ const RoxAppointmentBooking = lazy(() =>
 )
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
+const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
   switch (integUrlName) {
@@ -2219,6 +2220,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'MicrosoftExcel':
       return (
         <MicrosoftExcel
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'NiroHelp':
+      return (
+        <NiroHelp
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

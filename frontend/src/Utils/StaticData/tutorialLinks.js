@@ -818,6 +818,10 @@ const tutorialLinks = {
   microsoftExcel: {
     youTubeLink: '',
     docLink: ''
+  },
+  niroHelp: {
+    youTubeLink: '',
+    docLink: ''
   }
 }
 export default tutorialLinks
