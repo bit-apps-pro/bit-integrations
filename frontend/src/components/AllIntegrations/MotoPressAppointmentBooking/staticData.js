@@ -169,7 +169,7 @@ export const hasUtilities = bookingStatusActions
 
 export const actionNotes = {
   create_booking: __(
-    'Leave Employee and Location empty to let MotoPress Appointment Booking select them.',
+    'Leave Employee and Location empty to let the plugin select them. Leave Status empty to use the plugin confirmation settings.',
     'bit-integrations'
   ),
   update_booking: __('Fields that you do not map keep their current value.', 'bit-integrations'),
@@ -183,6 +183,10 @@ export const actionNotes = {
   ),
   create_payment: __(
     'Leave the options empty to use the Pending status, the manual gateway and the site currency.',
+    'bit-integrations'
+  ),
+  create_coupon: __(
+    'Leave Discount Type empty to use a fixed discount. Leave Services empty to use the coupon for all services.',
     'bit-integrations'
   ),
   create_customer: __('Map an email or a phone. Each customer needs one of them.', 'bit-integrations'),

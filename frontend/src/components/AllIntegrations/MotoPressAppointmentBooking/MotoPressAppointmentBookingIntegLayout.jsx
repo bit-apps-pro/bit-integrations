@@ -132,7 +132,7 @@ export default function MotoPressAppointmentBookingIntegLayout({
   const optionalLabel = label => `${label} ${__('(optional)', 'bit-integrations')}:`
   const requiredLabel = label => `${label}:`
 
-  const selectRow = ({ confKey, label, options, required, refresh, refreshLabel, multi, note }) => (
+  const selectRow = ({ confKey, label, options, required, refresh, refreshLabel, multi }) => (
     <>
       <br />
       <div className="flx">
@@ -158,12 +158,6 @@ export default function MotoPressAppointmentBookingIntegLayout({
           </button>
         )}
       </div>
-      {note && (
-        <>
-          <br />
-          <Note note={note} />
-        </>
-      )}
     </>
   )
 
@@ -223,13 +217,7 @@ export default function MotoPressAppointmentBookingIntegLayout({
           confKey: 'selectedStatus',
           label: __('Status', 'bit-integrations'),
           options: BOOKING_STATUS_OPTIONS,
-          required: mainAction === 'change_booking_status',
-          note:
-            mainAction === 'create_booking' &&
-            __(
-              'Leave Status empty to use the status from the plugin confirmation settings.',
-              'bit-integrations'
-            )
+          required: mainAction === 'change_booking_status'
         })}
 
       {paymentStatusActions.includes(mainAction) &&
@@ -277,10 +265,7 @@ export default function MotoPressAppointmentBookingIntegLayout({
             confKey: 'selectedCouponType',
             label: __('Discount Type', 'bit-integrations'),
             options: COUPON_TYPE_OPTIONS,
-            required: false,
-            note:
-              mainAction === 'create_coupon' &&
-              __('Leave Discount Type empty to use a fixed discount.', 'bit-integrations')
+            required: false
           })}
           {selectRow({
             confKey: 'selectedServices',
@@ -289,10 +274,7 @@ export default function MotoPressAppointmentBookingIntegLayout({
             required: false,
             refresh: refreshMotoPressAppointmentBookingServices,
             refreshLabel: __('Refresh Services', 'bit-integrations'),
-            multi: true,
-            note:
-              mainAction === 'create_coupon' &&
-              __('Leave Services empty to use the coupon for all services.', 'bit-integrations')
+            multi: true
           })}
         </>
       )}
