@@ -205,6 +205,7 @@ export default function SelectAction() {
       logo: 'restaurantReservations',
       is_pro: true
     },
+    { type: 'EasyAppointments', name: 'Easy Appointments', logo: 'easyAppointments', is_pro: true },
     {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
@@ -296,8 +297,7 @@ export default function SelectAction() {
     const { value } = e.target
     const search = value.toLowerCase()
     const filtered = integs.filter(
-      integ =>
-        integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
+      integ => integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
     )
     setAvailableIntegs(sortFeaturedProducts(filtered))
   }

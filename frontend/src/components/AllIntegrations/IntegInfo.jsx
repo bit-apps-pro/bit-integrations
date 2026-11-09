@@ -261,14 +261,14 @@ const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthoriza
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
 const BitConnectAuthorization = lazy(() => import('./BitConnect/BitConnectAuthorization'))
-const RoxAppointmentBookingAuthorization = lazy(() =>
-  import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
+const RoxAppointmentBookingAuthorization = lazy(
+  () => import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
+)
+const EasyAppointmentsAuthorization = lazy(
+  () => import('./EasyAppointments/EasyAppointmentsAuthorization')
 )
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
-)
-const RoxAppointmentBookingAuthorization = lazy(
-  () => import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
 )
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
@@ -859,6 +859,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
     case 'BitConnect':
       return <BitConnectAuthorization bitConnectConf={integrationConf} step={1} isInfo />
+    case 'EasyAppointments':
+      return <EasyAppointmentsAuthorization easyAppointmentsConf={integrationConf} step={1} isInfo />
     case 'RestaurantReservations':
       return (
         <RestaurantReservationsAuthorization

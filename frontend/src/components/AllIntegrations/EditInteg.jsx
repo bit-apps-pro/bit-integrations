@@ -18,6 +18,7 @@ const EditZohoCampaigns = lazy(() => import('./ZohoCampaigns/EditZohoCampaigns')
 const EditZohoCRM = lazy(() => import('./ZohoCRM/EditZohoCRM'))
 const EditRapidmail = lazy(() => import('./Rapidmail/EditRapidmail'))
 const EditBitConnect = lazy(() => import('./BitConnect/EditBitConnect'))
+const EditEasyAppointments = lazy(() => import('./EasyAppointments/EditEasyAppointments'))
 const EditRestaurantReservations = lazy(
   () => import('./RestaurantReservations/EditRestaurantReservations')
 )
@@ -705,6 +706,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBooknetic allIntegURL={allIntegURL} />
     case 'RestaurantReservations':
       return <EditRestaurantReservations allIntegURL={allIntegURL} />
+    case 'EasyAppointments':
+      return <EditEasyAppointments allIntegURL={allIntegURL} />
     case 'RoxAppointmentBooking':
       return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
     case 'BitConnect':
