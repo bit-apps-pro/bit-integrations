@@ -187,15 +187,11 @@ export const hasUtilities = [...statusActions, 'create_customer', 'delete_custom
 
 export const actionNotes = {
   create_booking: __(
-    'When the salon uses assistants, select an assistant to use Check Availability. Salon Booking System actions do not start Salon Booking System triggers.',
+    'When the salon uses assistants, select an assistant to use Check Availability.',
     'bit-integrations'
   ),
   update_booking: __(
     'Fields that you do not map and options that you do not select keep their current value. Selected services replace the current services.',
-    'bit-integrations'
-  ),
-  change_booking_status: __(
-    'Salon Booking System actions do not start Salon Booking System triggers.',
     'bit-integrations'
   ),
   set_attendance_result: __(
