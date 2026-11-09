@@ -145,6 +145,26 @@ export const getConfError = motoPressAppointmentBookingConf => {
     return __('Select a status to continue.', 'bit-integrations')
   }
 
+  const mappedKeys = (motoPressAppointmentBookingConf?.field_map || [])
+    .filter(mappedField => mappedField.formField)
+    .map(mappedField => mappedField.motoPressAppointmentBookingField)
+
+  if (
+    mainAction === 'create_customer' &&
+    !mappedKeys.includes('email') &&
+    !mappedKeys.includes('phone')
+  ) {
+    return __('Map an email or a phone to continue.', 'bit-integrations')
+  }
+
+  if (
+    ['update_booking', 'update_customer'].includes(mainAction) &&
+    mappedKeys.length < 2 &&
+    !motoPressAppointmentBookingConf?.selectedUser
+  ) {
+    return __('Map at least one field to change to continue.', 'bit-integrations')
+  }
+
   if (!checkMappedFields(motoPressAppointmentBookingConf)) {
     return __('Map all required fields to continue.', 'bit-integrations')
   }
