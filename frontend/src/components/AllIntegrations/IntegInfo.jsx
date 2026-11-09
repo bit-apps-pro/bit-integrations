@@ -267,9 +267,6 @@ const RoxAppointmentBookingAuthorization = lazy(() =>
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
 )
-const RoxAppointmentBookingAuthorization = lazy(
-  () => import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
-)
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
 const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
@@ -981,23 +978,15 @@ export default function IntegInfo() {
   const editUrl = `/flow/action/edit/${id}`
   const goToEditIntegration = useCallback(() => navigate(editUrl), [navigate, editUrl])
 
-  // Only connection-based integrations carry a connection_id; the legacy ones
-  // keep credentials inline in flow_details and stay read-only here.
   const connectionSwitch = useMemo(
     () => ({
-      enabled: Boolean(integrationConf?.connection_id),
+      enabled: Boolean(integration?.id),
       isSwitching,
       switched: switchedConnection,
       onSwitch: switchConnection,
       onNext: goToEditIntegration
     }),
-    [
-      integrationConf?.connection_id,
-      isSwitching,
-      switchedConnection,
-      switchConnection,
-      goToEditIntegration
-    ]
+    [integration?.id, isSwitching, switchedConnection, switchConnection, goToEditIntegration]
   )
 
   const location = getRedirectUri()

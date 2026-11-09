@@ -128,7 +128,7 @@ class RecordApiHelper
             'Authorization' => base64_encode("{$api_key}"),
             'Content-Type'  => 'application/json'
         ];
-        $apiEndpoint = $app_base_domamin . '/api/v2/contacts?email=' . $email;
+        $apiEndpoint = $app_base_domamin . '/api/v2/contacts?email=' . rawurlencode($email);
 
         return HttpHelper::get($apiEndpoint, null, $header);
     }
@@ -225,7 +225,10 @@ class RecordApiHelper
             $avatar = $fieldValues[$avatarFieldName];
             $apiResponseFetchContact = $this->fetchContact($app_base_domamin, $finalDataContact['email'], $apiKey);
 
-            if (empty($apiResponseFetchContact)) {
+            if (!\is_array($apiResponseFetchContact)) {
+                $typeName = 'fetch-contact';
+                $apiResponseContact = $apiResponseFetchContact;
+            } elseif (empty($apiResponseFetchContact)) {
                 $typeName = 'create-contact';
                 $apiResponseContact = $this->insertContact($app_base_domamin, $finalDataContact, $apiKey, $avatar);
             } elseif ($integrationDetails->updateContact) {
@@ -233,9 +236,8 @@ class RecordApiHelper
                 $contactId = $apiResponseFetchContact[0]->id;
                 $apiResponseContact = $this->updateContact($app_base_domamin, $finalDataContact, $apiKey, $contactId);
             } else {
-                $finalData['requester_id'] = $apiResponseFetchContact[0]->id;
                 $typeName = 'fetch-contact';
-                $apiResponseContact = ['message' => 'Contact already exists'];
+                $apiResponseContact = $apiResponseFetchContact[0];
             }
 
             $responseType = 'error';
@@ -243,8 +245,6 @@ class RecordApiHelper
                 $finalData['requester_id'] = $apiResponseContact->id;
                 $responseType = 'success';
             }
-
-            $finalData['requester_id'] = isset($apiResponseContact->id) ? $apiResponseContact->id : '';
 
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => 'contact', 'type_name' => $typeName]), $responseType, wp_json_encode($apiResponseContact));
         }

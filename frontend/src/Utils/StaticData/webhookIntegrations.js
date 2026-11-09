@@ -139,7 +139,8 @@ export const customFormIntegrations = [
   'NiroHelp',
   'WpActivityLog',
   'BitConnect',
-  'RestaurantReservations'
+  'RestaurantReservations',
+  'BitSocial'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

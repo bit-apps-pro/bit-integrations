@@ -23,12 +23,34 @@ const buildConnectionOption = conn => {
   }
 }
 
-const getConnectionOptionById = (connections, connection_id) => {
+const getConnectionOptionById = (connections, connection_id, isSwitchMode) => {
   if (connection_id) return String(connection_id)
+  if (isSwitchMode) return ''
   if (connection_id === '') return NEW_VALUE
   if (Array.isArray(connections) && connections.length > 0) return ''
 
   return NEW_VALUE
+}
+
+const getSwitchHint = (switched, hasConnection) => {
+  if (switched) {
+    return __(
+      'Connection updated. Continue to review the integration config against the new account.',
+      'bit-integrations'
+    )
+  }
+
+  if (hasConnection) {
+    return __(
+      'Pick another connection or add a new one — this integration is updated instantly.',
+      'bit-integrations'
+    )
+  }
+
+  return __(
+    'Pick a connection or add a new one — this integration switches to it instantly.',
+    'bit-integrations'
+  )
 }
 
 export default function ConnectionAccountSelect({
@@ -47,7 +69,7 @@ export default function ConnectionAccountSelect({
   // stays swappable — the provider persists the pick straight to the flow.
   const canSwitch = Boolean(isInfo && connectionSwitch?.enabled)
   const isSwitching = Boolean(connectionSwitch?.isSwitching)
-  const dropdownValue = getConnectionOptionById(connections, config?.connection_id)
+  const dropdownValue = getConnectionOptionById(connections, config?.connection_id, canSwitch)
 
   const options = useMemo(
     () => [
@@ -144,15 +166,7 @@ export default function ConnectionAccountSelect({
       </div>
       {canSwitch && (
         <div className="mt-1 f-sm" style={HINT_TEXT_STYLE}>
-          {connectionSwitch.switched
-            ? __(
-                'Connection updated. Continue to review the integration config against the new account.',
-                'bit-integrations'
-              )
-            : __(
-                'Pick another connection or add a new one — this integration is updated instantly.',
-                'bit-integrations'
-              )}
+          {getSwitchHint(connectionSwitch.switched, Boolean(config?.connection_id))}
         </div>
       )}
     </div>

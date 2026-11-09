@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.9
+Stable tag: 2.11.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -395,13 +395,34 @@ is submitted, and you want to send data in your **CRM**, **Email Marketing Softw
 
 == External Services ==
 
-This plugin connects to various third-party external services to enable automation workflows between WordPress and 320+ platforms. **Data is only sent to external services when you actively configure and enable an integration**. No data is transmitted unless you explicitly create a workflow that connects to a specific service.
+This plugin connects to various third-party external services to enable automation workflows between WordPress and 320+ platforms. **Apart from the optional usage data described below, data is only sent to external services when you actively configure and enable an integration**. No integration data is transmitted unless you explicitly create a workflow that connects to a specific service.
 
 For a comprehensive list of all external services, including detailed information about what data is sent, when it's sent, and links to each service's terms and privacy policies, please see our complete external services documentation:
 
 **[Complete External Services Documentation](https://github.com/Bit-Apps-Pro/bit-integrations/blob/main/external-services.md)**
 
 This documentation covers 320+ services including Google (Sheets, Calendar, Drive), Zoho (CRM, Campaigns, Desk), Meta/Facebook (WhatsApp), Email Marketing platforms, CRM systems, Communication tools (Slack, Telegram), Automation platforms (Zapier, Make), Project Management tools, and many more.
+
+= Bit Apps usage data (optional, off by default) =
+
+Bit Integrations can send usage data to Bit Apps, the plugin's developer, at `https://wp-api.bitapps.pro`. Bit Apps uses it to understand how the plugin is used and to decide what to improve and build next. Nothing is sent until a site administrator agrees: by clicking "Allow & Continue" in the notice on the Dashboard or Plugins screen, by clicking "Accept and continue" in the plugin's What's New window, or by turning on "Share usage data" in Bit Integrations > Settings. You can turn it off there at any time; nothing more is sent after that.
+
+After you agree, the plugin sends a report right away and then once a week. The report contains:
+
+* Site name and URL
+* Site admin email address and the first administrator's name
+* Server environment (server software, PHP and MySQL versions, PHP settings, whether the site is local)
+* WordPress version, language and settings (memory limit, debug mode, multisite)
+* Active theme (name, version, author, website)
+* Number of users, in total and per role
+* Number of active and inactive plugins, and the names and versions of active plugins
+* Bit Integrations version and telemetry library version
+* Which page you opted in from, and whether you skipped this before
+* Your integration flows: the trigger and action each one uses, whether it is enabled, and how many times it has run
+
+When you deactivate the plugin, you can answer a short optional survey. Only if you submit it, the plugin sends your site URL, site language, the plugin version and your answer to the same server. Skipping the survey sends nothing.
+
+Service provider: Bit Apps. [Terms of service](https://bitapps.pro/terms-of-service/), [Privacy policy](https://bitapps.pro/privacy-policy/).
 
 == Frequently Asked Questions ==
 
@@ -468,6 +489,43 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.11.0 =
+_Release Date - 9th November 2026_
+
+- **New Triggers**
+ - WP Activity Log: 45 new events added (Pro).
+ - The Events Calendar: 17 new events added (Pro).
+ - Bit Connect: 15 new events added.
+ - NiroHelp: 13 new events added (Pro).
+ - WP Hotel Booking: 12 new events added (Pro).
+ - Booknetic: 10 new events added (Pro).
+ - Five Star Restaurant Reservations: 9 new events added (Pro).
+ - Paid Memberships Pro: 2 new events added (Pro).
+
+- **New Actions**
+ - Follow Up Boss: 62 new events added (Pro).
+ - Booknetic: 40 new events added (Pro).
+ - WP Hotel Booking: 24 new events added (Pro).
+ - NiroHelp: 19 new events added (Pro).
+ - WP Activity Log: 19 new events added (Pro).
+ - The Events Calendar: 15 new events added (Pro).
+ - Five Star Restaurant Reservations: 11 new events added (Pro).
+ - Microsoft Excel: 7 new events added (Pro).
+ - Bit Connect: 7 new events added.
+ - Paid Memberships Pro: 2 new events added (Pro).
+
+- **New Features**
+ - Klaviyo: New "Email Marketing Consent" option subscribes the profile to email marketing, so it can receive your campaigns.
+ - The Events Calendar: Custom fields can now be mapped when you create or update an event.
+ - Connections: Integrations created before version 2.10.0 can now switch to a saved connection from the connection dropdown.
+
+- **Bug Fixes**
+ - Bit Form: A flow could send its data to this site instead of the site saved in the selected connection.
+ - Connections: Some older integrations, such as SendinBlue, ConvertKit and Kirim Email, could not find their saved connections. Kirim Email failed with "Authorization class not found".
+ - Freshdesk: Emails with special characters, such as "+", could not find an existing contact, and the ticket was not linked to the contact.
+ - Bit Social: Editing a Bit Social flow opened the wrong edit screen.
+ - Removed broken documentation links from some triggers and actions.
 
 = 2.10.9 =
 _Release Date - 26th October 2026_

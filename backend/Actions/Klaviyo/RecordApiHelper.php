@@ -83,7 +83,7 @@ class RecordApiHelper
         $data = Hooks::apply('btcbi_klaviyo_custom_properties', $data, $this->_integrationDetails->custom_field_map ?? [], $fieldValues);
 
         if (empty($this->_integrationDetails->update) || empty($id)) {
-            return $this->createProfile($authKey, $listId, $data, $fieldValues);
+            return $this->createProfile($authKey, $listId, $data);
         }
 
         $typeName = 'update-members';
@@ -100,7 +100,13 @@ class RecordApiHelper
             return (object) ['errors' => [(object) ['detail' => wp_sprintf(__('%s plugin is not installed or activate', 'bit-integrations'), 'Bit Integrations Pro')]]];
         }
 
-        return $response;
+        if (isset($response->errors) || !$this->hasMarketingConsent()) {
+            return $response;
+        }
+
+        $subscribeResponse = $this->subscribeProfile($authKey, $listId, $data['data']['attributes']['email'] ?? '');
+
+        return isset($subscribeResponse->errors) ? $subscribeResponse : $response;
     }
 
     private function existProfile($email, $authKey)
@@ -115,13 +121,19 @@ class RecordApiHelper
         return $apiResponse->data[0]->id ?? false;
     }
 
-    private function createProfile($authKey, $listId, $data, $fieldValues)
+    private function createProfile($authKey, $listId, $data)
     {
         $apiEndpoints = "{$this->baseUrl}profiles";
         $apiResponse = HttpHelper::post($apiEndpoints, wp_json_encode($data), $this->setHeaders($authKey));
 
         if (!isset($apiResponse->data)) {
             return $apiResponse;
+        }
+
+        if ($this->hasMarketingConsent()) {
+            $subscribeResponse = $this->subscribeProfile($authKey, $listId, $data['data']['attributes']['email'] ?? '');
+
+            return isset($subscribeResponse->errors) ? $subscribeResponse : $apiResponse;
         }
 
         $data = [
@@ -134,6 +146,49 @@ class RecordApiHelper
         $apiEndpoints = "{$this->baseUrl}lists/{$listId}/relationships/profiles";
 
         return HttpHelper::post($apiEndpoints, wp_json_encode($data), $this->setHeaders($authKey));
+    }
+
+    private function hasMarketingConsent()
+    {
+        return !empty($this->_integrationDetails->email_marketing_consent);
+    }
+
+    private function subscribeProfile($authKey, $listId, $email)
+    {
+        if (empty($email)) {
+            return null;
+        }
+
+        $data = [
+            'data' => [
+                'type'       => 'profile-subscription-bulk-create-job',
+                'attributes' => [
+                    'custom_source' => 'Bit Integrations',
+                    'profiles'      => [
+                        'data' => [
+                            [
+                                'type'       => 'profile',
+                                'attributes' => [
+                                    'email'         => $email,
+                                    'subscriptions' => [
+                                        'email' => [
+                                            'marketing' => ['consent' => 'SUBSCRIBED']
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'relationships' => [
+                    'list' => [
+                        'data' => ['type' => 'list', 'id' => $listId]
+                    ]
+                ]
+            ]
+        ];
+
+        return HttpHelper::post("{$this->baseUrl}profile-subscription-bulk-create-jobs", wp_json_encode($data), $this->setHeaders($authKey));
     }
 
     private function setHeaders($authKey)

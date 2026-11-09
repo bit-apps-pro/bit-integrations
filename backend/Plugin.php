@@ -12,6 +12,7 @@ use BitApps\Integrations\Admin\Admin_Bar;
 use BitApps\Integrations\Core\Database\DB;
 use BitApps\Integrations\Core\Hooks\HookService;
 use BitApps\Integrations\Core\Http\OauthCallbackController;
+use BitApps\Integrations\Core\Telemetry\TelemetryService;
 use BitApps\Integrations\Core\Util\Activation;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Deactivation;
@@ -46,6 +47,7 @@ final class Plugin
         (new Activation())->activate();
         (new Deactivation())->register();
         (new UnInstallation())->register();
+        (new TelemetryService())->register();
     }
 
     public function init_plugin()

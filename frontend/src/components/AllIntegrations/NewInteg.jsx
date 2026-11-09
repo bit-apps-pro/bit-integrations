@@ -240,7 +240,6 @@ const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
 const RestaurantReservations = lazy(() => import('./RestaurantReservations/RestaurantReservations'))
-const RoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/RoxAppointmentBooking'))
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
 const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))

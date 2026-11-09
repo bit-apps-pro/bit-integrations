@@ -2,7 +2,7 @@
 
 Bit Integrations connects to various third-party external services to enable automation workflows between WordPress and 300+ platforms. This document provides comprehensive information about all external services used by this plugin, including what data is sent, when it's sent, and links to each service's terms of service and privacy policies.
 
-**Important**: Data is only sent to external services when you actively configure and enable an integration. No data is transmitted unless you explicitly create a workflow that connects to a specific service.
+**Important**: Data is only sent to external services when you actively configure and enable an integration. No integration data is transmitted unless you explicitly create a workflow that connects to a specific service. The only exception is the optional usage data sent to Bit Apps, the plugin's developer, after a site administrator agrees to it; see "Bit Apps usage data" in the plugin's readme.txt for what it contains and when it is sent.
 
 ---
 

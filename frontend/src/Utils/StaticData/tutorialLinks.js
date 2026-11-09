@@ -319,7 +319,7 @@ const tutorialLinks = {
   },
   restrictContent: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AJq1l8SeKisLk60ewQRreg1',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/restrict-content-integrations/'
+    docLink: 'https://bit-integrations.com/wp-docs/actions/restrict-content-integrations-as-an-action/'
   },
   salesflare: {
     youTubeLink: 'https://www.youtube.com/playlist?list=PL7c6CDwwm-AKwi-Ux8XGZEhvhQx8cFEb6',
@@ -564,7 +564,7 @@ const tutorialLinks = {
   },
   creatorLms: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/creator-lms-integration-as-an-action/'
+    docLink: ''
   },
   woodpecker: {
     youTubeLink:
@@ -657,8 +657,7 @@ const tutorialLinks = {
   },
   teamsForWooCommerceMemberships: {
     youTubeLink: '',
-    docLink:
-      'https://bit-integrations.com/wp-docs/actions/teams-for-woocommerce-memberships-integration-as-an-action/'
+    docLink: ''
   },
   wpcafe: {
     youTubeLink: '',
@@ -666,7 +665,7 @@ const tutorialLinks = {
   },
   seoPress: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/seopress-integration-as-an-action/'
+    docLink: ''
   },
   ninjaTables: {
     youTubeLink: '',
@@ -678,7 +677,7 @@ const tutorialLinks = {
   },
   bookingPress: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/bookingpress-integration-as-an-action/'
+    docLink: ''
   },
   bitCrm: {
     youTubeLink: '',
@@ -703,8 +702,7 @@ const tutorialLinks = {
   },
   bookingsAndAppointmentsForWoocommerce: {
     youTubeLink: '',
-    docLink:
-      'https://bit-integrations.com/wp-docs/actions/bookings-and-appointments-for-woocommerce-integration-as-an-action/'
+    docLink: ''
   },
   mainWP: {
     youTubeLink: '',
@@ -720,8 +718,7 @@ const tutorialLinks = {
   },
   wpSimpleBookingCalendar: {
     youTubeLink: '',
-    docLink:
-      'https://bit-integrations.com/wp-docs/actions/wp-simple-booking-calendar-integration-as-an-action/'
+    docLink: ''
   },
   wsms: {
     youTubeLink: '',
@@ -763,17 +760,15 @@ const tutorialLinks = {
   },
   restaurantReservations: {
     youTubeLink: '',
-    docLink:
-      ''
+    docLink: ''
   },
   roxAppointmentBooking: {
     youTubeLink: '',
-    docLink:
-      'https://bit-integrations.com/wp-docs/actions/rox-appointment-booking-integration-as-an-action/'
+    docLink: ''
   },
   flodesk: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/flodesk-integration-as-an-action/'
+    docLink: ''
   },
   pointics: {
     youTubeLink: '',
@@ -781,56 +776,55 @@ const tutorialLinks = {
   },
   mondayCom: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/monday-com-integration-as-an-action/'
+    docLink: ''
   },
   peepSo: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/peepso-integration-as-an-action/'
+    docLink: ''
   },
   b2bKing: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/b2bking-integration-as-an-action/'
+    docLink: ''
   },
   asgarosForum: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/asgaros-forum-integration-as-an-action/'
+    docLink: ''
   },
   wpDataTables: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/wpdatatables-integration-as-an-action/'
+    docLink: ''
   },
   formyChat: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/formychat-integration-as-an-action/'
+    docLink: ''
   },
   ultimateAffiliatePro: {
     youTubeLink: '',
-    docLink:
-      'https://bit-integrations.com/wp-docs/actions/ultimate-affiliate-pro-integration-as-an-action/'
+    docLink: ''
   },
   bookly: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/bookly-integration-as-an-action/'
+    docLink: ''
   },
   booknetic: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/booknetic-integration-as-an-action/'
+    docLink: ''
   },
   fluentCart: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/fluentcart-integration-as-an-action/'
+    docLink: ''
   },
   sureDash: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/suredash-integration-as-an-action/'
+    docLink: ''
   },
   wpErp: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/wp-erp-integration-as-an-action/'
+    docLink: ''
   },
   quizMaker: {
     youTubeLink: '',
-    docLink: 'https://bit-integrations.com/wp-docs/actions/quiz-maker-integration-as-an-action/'
+    docLink: ''
   },
   microsoftExcel: {
     youTubeLink: '',

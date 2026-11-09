@@ -27,7 +27,6 @@ final class BitConnectController
             'title'             => __('Community forum for feature requests, feedback and support', 'bit-integrations'),
             'type'              => 'custom_form_submission',
             'is_active'         => static::isPluginInstalled(),
-            'documentation_url' => 'https://bit-integrations.com/wp-docs/trigger/bit-connect-integrations/',
             'tutorial_url'      => '#',
             'tasks'             => [
                 'action' => 'bit_connect/get',
