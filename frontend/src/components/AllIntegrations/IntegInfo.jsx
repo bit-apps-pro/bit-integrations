@@ -267,9 +267,6 @@ const RoxAppointmentBookingAuthorization = lazy(() =>
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
 )
-const RoxAppointmentBookingAuthorization = lazy(
-  () => import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
-)
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
 const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
