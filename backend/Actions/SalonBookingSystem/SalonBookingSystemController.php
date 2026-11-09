@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\SalonBookingSystem;
 
+use SLN_Enum_BookingStatus;
 use WP_Error;
 
 class SalonBookingSystemController
@@ -39,7 +40,7 @@ class SalonBookingSystemController
 
         $statuses = [];
 
-        foreach (\SLN_Enum_BookingStatus::toBackendWrapper() as $status => $label) {
+        foreach (SLN_Enum_BookingStatus::toBackendWrapper() as $status => $label) {
             $statuses[] = (object) ['value' => $status, 'label' => $label];
         }
 
