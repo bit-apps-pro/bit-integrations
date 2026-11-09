@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '26th October 2026'
+const releaseDate = '9th November 2026'
 
 // Example for items:
 // items: [
@@ -29,13 +29,105 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'WP Activity Log',
+        desc: '45 new events added.',
+        isPro: true
+      },
+      {
+        label: 'The Events Calendar',
+        desc: '17 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Bit Connect',
+        desc: '15 new events added.',
+        isPro: false
+      },
+      {
+        label: 'NiroHelp',
+        desc: '13 new events added.',
+        isPro: true
+      },
+      {
+        label: 'WP Hotel Booking',
+        desc: '12 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Booknetic',
+        desc: '10 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Five Star Restaurant Reservations',
+        desc: '9 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Paid Memberships Pro',
+        desc: '2 new events added.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Follow Up Boss',
+        desc: '62 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Booknetic',
+        desc: '40 new events added.',
+        isPro: true
+      },
+      {
+        label: 'WP Hotel Booking',
+        desc: '24 new events added.',
+        isPro: true
+      },
+      {
+        label: 'NiroHelp',
+        desc: '19 new events added.',
+        isPro: true
+      },
+      {
+        label: 'WP Activity Log',
+        desc: '19 new events added.',
+        isPro: true
+      },
+      {
+        label: 'The Events Calendar',
+        desc: '15 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Five Star Restaurant Reservations',
+        desc: '11 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Microsoft Excel',
+        desc: '7 new events added.',
+        isPro: true
+      },
+      {
+        label: 'Bit Connect',
+        desc: '7 new events added.',
+        isPro: false
+      },
+      {
+        label: 'Paid Memberships Pro',
+        desc: '2 new events added.',
+        isPro: true
+      }
+    ]
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -43,9 +135,19 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Systeme.io',
-        desc: 'New Update Contact and Update Tags utilities. When a contact with the same email already exists, its fields are updated and the selected tag is added to it.',
-        isPro: true
+        label: 'Klaviyo',
+        desc: 'New "Email Marketing Consent" option subscribes the profile to email marketing, so it can receive your campaigns.',
+        isPro: false
+      },
+      {
+        label: 'The Events Calendar',
+        desc: 'Custom fields can now be mapped when you create or update an event.',
+        isPro: false
+      },
+      {
+        label: 'Connections',
+        desc: 'Integrations created before version 2.10.0 can now switch to a saved connection from the connection dropdown.',
+        isPro: false
       }
     ]
   },
@@ -61,23 +163,28 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Systeme.io',
-        desc: 'Some failed requests were still logged as successful. Success is now decided by the response status.',
+        label: 'Bit Form',
+        desc: 'A flow could send its data to this site instead of the site saved in the selected connection.',
         isPro: false
       },
       {
-        label: 'Systeme.io',
-        desc: 'Adding a tag now gets its own log entry, so a failed tag no longer hides the result of the contact.',
+        label: 'Connections',
+        desc: 'Some older integrations, such as SendinBlue, ConvertKit and Kirim Email, could not find their saved connections. Kirim Email failed with "Authorization class not found".',
         isPro: false
       },
       {
-        label: 'Edit Flow',
-        desc: 'Form fields were missing from the field map when you opened a saved flow. They now load with the flow.',
+        label: 'Freshdesk',
+        desc: 'Emails with special characters, such as "+", could not find an existing contact, and the ticket was not linked to the contact.',
         isPro: false
       },
       {
-        label: 'WP Post Creation',
-        desc: 'The settings screen could fail with "map is not a function" when the author list did not load. Administrators can now always load the author list, and the screen opens even if the list fails to load.',
+        label: 'Bit Social',
+        desc: 'Editing a Bit Social flow opened the wrong edit screen.',
+        isPro: false
+      },
+      {
+        label: 'Documentation',
+        desc: 'Removed broken documentation links from some triggers and actions.',
         isPro: false
       }
     ]

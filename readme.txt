@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.10.9
+Stable tag: 2.11.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -489,6 +489,43 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.11.0 =
+_Release Date - 9th November 2026_
+
+- **New Triggers**
+ - WP Activity Log: 45 new events added (Pro).
+ - The Events Calendar: 17 new events added (Pro).
+ - Bit Connect: 15 new events added.
+ - NiroHelp: 13 new events added (Pro).
+ - WP Hotel Booking: 12 new events added (Pro).
+ - Booknetic: 10 new events added (Pro).
+ - Five Star Restaurant Reservations: 9 new events added (Pro).
+ - Paid Memberships Pro: 2 new events added (Pro).
+
+- **New Actions**
+ - Follow Up Boss: 62 new events added (Pro).
+ - Booknetic: 40 new events added (Pro).
+ - WP Hotel Booking: 24 new events added (Pro).
+ - NiroHelp: 19 new events added (Pro).
+ - WP Activity Log: 19 new events added (Pro).
+ - The Events Calendar: 15 new events added (Pro).
+ - Five Star Restaurant Reservations: 11 new events added (Pro).
+ - Microsoft Excel: 7 new events added (Pro).
+ - Bit Connect: 7 new events added.
+ - Paid Memberships Pro: 2 new events added (Pro).
+
+- **New Features**
+ - Klaviyo: New "Email Marketing Consent" option subscribes the profile to email marketing, so it can receive your campaigns.
+ - The Events Calendar: Custom fields can now be mapped when you create or update an event.
+ - Connections: Integrations created before version 2.10.0 can now switch to a saved connection from the connection dropdown.
+
+- **Bug Fixes**
+ - Bit Form: A flow could send its data to this site instead of the site saved in the selected connection.
+ - Connections: Some older integrations, such as SendinBlue, ConvertKit and Kirim Email, could not find their saved connections. Kirim Email failed with "Authorization class not found".
+ - Freshdesk: Emails with special characters, such as "+", could not find an existing contact, and the ticket was not linked to the contact.
+ - Bit Social: Editing a Bit Social flow opened the wrong edit screen.
+ - Removed broken documentation links from some triggers and actions.
 
 = 2.10.9 =
 _Release Date - 26th October 2026_
