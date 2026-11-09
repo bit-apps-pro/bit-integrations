@@ -140,7 +140,8 @@ export const customFormIntegrations = [
   'WpActivityLog',
   'BitConnect',
   'RestaurantReservations',
-  'BitSocial'
+  'BitSocial',
+  'SalonBookingSystem'
 ]
 
 export const actionHookIntegrations = ['ActionHook']
