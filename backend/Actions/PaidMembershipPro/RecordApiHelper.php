@@ -4,8 +4,8 @@ namespace BitApps\Integrations\Actions\PaidMembershipPro;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
-use PMPro_Field_Group;
 
 class RecordApiHelper
 {
@@ -16,14 +16,6 @@ class RecordApiHelper
     public const UPDATE_PROFILE = '3';
 
     public const DIRECTORY_VISIBILITY = '4';
-
-    private const DIRECTORY_META_KEY = 'pmpromd_hide_directory';
-
-    private const UNSUPPORTED_FIELD_TYPES = ['file', 'html'];
-
-    private const MULTI_VALUE_FIELD_TYPES = ['checkbox_grouped', 'select2', 'multiselect'];
-
-    private const PRIVILEGED_CAPABILITIES = ['manage_options', 'promote_users', 'list_users', 'edit_posts'];
 
     private $integrationID;
 
@@ -164,114 +156,19 @@ class RecordApiHelper
         return $apiResponse;
     }
 
-    public static function profileFields()
-    {
-        $fields = [];
-        $coreFields = self::coreProfileFields();
-
-        foreach ($coreFields as $key => $label) {
-            $fields[] = ['key' => $key, 'label' => $label, 'required' => false];
-        }
-
-        foreach (self::customProfileFields() as $field) {
-            if (isset($coreFields[$field->name])) {
-                continue;
-            }
-
-            $fields[] = ['key' => $field->name, 'label' => $field->label ?: $field->name, 'required' => false];
-        }
-
-        return $fields;
-    }
-
     public function updateUserProfile($fieldValues, $userId)
     {
-        $logType = wp_json_encode(['type' => 'update profile', 'type_name' => 'Update the user profile']);
         $data = $this->generateReqDataFromFieldMap($fieldValues, $this->_integrationDetails->field_map ?? []);
+        $response = Hooks::apply(Config::withPrefix('paid_membership_pro_update_profile'), self::proInactiveResponse(), $data, $userId, $this->_integrationDetails);
 
-        if (empty($data)) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('No mapped profile field has a value.', 'bit-integrations')));
-
-            return;
-        }
-
-        if (!get_userdata($userId)) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('User not found.', 'bit-integrations')));
-
-            return;
-        }
-
-        $coreData = $this->sanitizeCoreProfileData(array_intersect_key($data, self::coreProfileFields()));
-
-        if (isset($coreData['user_email']) && strcasecmp(get_userdata($userId)->user_email, $coreData['user_email']) === 0) {
-            unset($coreData['user_email']);
-        }
-
-        if (isset($coreData['user_email'])) {
-            $emailError = $this->validateProfileEmail($coreData['user_email'], $userId);
-
-            if ($emailError) {
-                LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode($emailError));
-
-                return;
-            }
-        }
-
-        if (!empty($coreData)) {
-            $result = wp_update_user(['ID' => $userId] + $coreData);
-
-            if (is_wp_error($result)) {
-                LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode($result->get_error_message()));
-
-                return;
-            }
-        }
-
-        $skipped = $this->saveCustomProfileFields(array_diff_key($data, self::coreProfileFields()), $userId);
-        $updated = array_values(array_diff(array_keys($data), $skipped));
-
-        if (empty($updated)) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(['message' => __('None of the mapped fields can be saved.', 'bit-integrations'), 'skipped' => $skipped]));
-
-            return;
-        }
-
-        LogHandler::save($this->integrationID, $logType, 'success', wp_json_encode(['message' => __('User profile updated successfully', 'bit-integrations'), 'updated' => $updated, 'skipped' => $skipped]));
+        $this->saveProResponse(['type' => 'update profile', 'type_name' => 'Update the user profile'], $response);
     }
 
     public function updateDirectoryVisibility($visibility, $userId)
     {
-        $logType = wp_json_encode(['type' => 'directory visibility', 'type_name' => 'Show or hide the user in the member directory']);
+        $response = Hooks::apply(Config::withPrefix('paid_membership_pro_directory_visibility'), self::proInactiveResponse(), $visibility, $userId);
 
-        if (!\function_exists('pmpromd_save_extra_profile_fields')) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('Paid Memberships Pro - Member Directory Add On is not active.', 'bit-integrations')));
-
-            return;
-        }
-
-        if (!\in_array($visibility, ['show', 'hide'], true)) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('Directory visibility must be show or hide.', 'bit-integrations')));
-
-            return;
-        }
-
-        if (!get_userdata($userId)) {
-            LogHandler::save($this->integrationID, $logType, 'error', wp_json_encode(__('User not found.', 'bit-integrations')));
-
-            return;
-        }
-
-        update_user_meta($userId, self::DIRECTORY_META_KEY, $visibility === 'hide' ? '1' : '');
-
-        $message = $visibility === 'hide'
-            ? __('User hidden from the member directory', 'bit-integrations')
-            : __('User shown in the member directory', 'bit-integrations');
-
-        if ($visibility === 'show' && \function_exists('pmpro_hasMembershipLevel') && !pmpro_hasMembershipLevel(null, $userId)) {
-            $message = __('User is set to show in the member directory, but the directory lists only active members and this user has no membership level.', 'bit-integrations');
-        }
-
-        LogHandler::save($this->integrationID, $logType, 'success', wp_json_encode($message));
+        $this->saveProResponse(['type' => 'directory visibility', 'type_name' => 'Show or hide the user in the member directory'], $response);
     }
 
     protected function get_user_membership_levels($user_id = 0)
@@ -294,173 +191,19 @@ class RecordApiHelper
         return $value === null || $value === '' || $value === [];
     }
 
-    private static function coreProfileFields()
+    private static function proInactiveResponse()
     {
         return [
-            'user_email'   => __('Email', 'bit-integrations'),
-            'first_name'   => __('First Name', 'bit-integrations'),
-            'last_name'    => __('Last Name', 'bit-integrations'),
-            'display_name' => __('Display Name', 'bit-integrations'),
-            'nickname'     => __('Nickname', 'bit-integrations'),
-            'user_url'     => __('Website', 'bit-integrations'),
-            'description'  => __('Biographical Info', 'bit-integrations'),
+            'success' => false,
+            // translators: %s is the plugin name.
+            'message' => wp_sprintf(__('%s plugin is not installed or activated', 'bit-integrations'), 'Bit Integrations Pro'),
         ];
     }
 
-    private static function customProfileFields()
+    private function saveProResponse($logType, $response)
     {
-        if (!class_exists('PMPro_Field_Group')) {
-            return [];
-        }
+        $status = !empty($response['success']) ? 'success' : 'error';
 
-        $fields = [];
-
-        foreach (PMPro_Field_Group::get_all() as $group) {
-            foreach ($group->get_fields() as $field) {
-                if (!empty($field->name) && !\in_array($field->type, self::UNSUPPORTED_FIELD_TYPES, true)) {
-                    $fields[$field->name] = $field;
-                }
-            }
-        }
-
-        return $fields;
-    }
-
-    private function sanitizeCoreProfileData($data)
-    {
-        $sanitized = [];
-
-        foreach ($data as $key => $value) {
-            $value = \is_array($value) ? implode(', ', array_filter($value, 'is_scalar')) : (string) $value;
-
-            if ($key === 'user_email') {
-                $sanitized[$key] = sanitize_email($value);
-            } elseif ($key === 'user_url') {
-                $sanitized[$key] = esc_url_raw($value);
-            } elseif ($key === 'description') {
-                $sanitized[$key] = sanitize_textarea_field($value);
-            } else {
-                $sanitized[$key] = sanitize_text_field($value);
-            }
-        }
-
-        return $sanitized;
-    }
-
-    private function validateProfileEmail($email, $userId)
-    {
-        if (($this->_integrationDetails->userSource ?? '') === 'email') {
-            return __('The email address can\'t be changed when the user is matched by email.', 'bit-integrations');
-        }
-
-        if (!is_email($email)) {
-            return __('The email address isn\'t correct.', 'bit-integrations');
-        }
-
-        $ownerId = email_exists($email);
-
-        if ($ownerId && (int) $ownerId !== (int) $userId) {
-            return __('This email is already registered to another user.', 'bit-integrations');
-        }
-
-        foreach (self::PRIVILEGED_CAPABILITIES as $capability) {
-            if (user_can($userId, $capability)) {
-                return __('The email address of a user who can edit content or manage the site can\'t be changed by this action.', 'bit-integrations');
-            }
-        }
-
-        return '';
-    }
-
-    private function saveCustomProfileFields($data, $userId)
-    {
-        $fields = self::customProfileFields();
-        $skipped = [];
-
-        foreach ($data as $name => $value) {
-            if (!isset($fields[$name])) {
-                $skipped[] = $name;
-
-                continue;
-            }
-
-            $this->saveCustomProfileField($fields[$name], $this->sanitizeCustomFieldValue($fields[$name], $value), $userId);
-        }
-
-        return $skipped;
-    }
-
-    private function sanitizeCustomFieldValue($field, $value)
-    {
-        $isMultiValue = \in_array($field->type, self::MULTI_VALUE_FIELD_TYPES, true) || ($field->type === 'select' && !empty($field->multiple));
-
-        if ($isMultiValue && !\is_array($value)) {
-            $value = array_values(array_filter(array_map('trim', explode(',', (string) $value)), 'strlen'));
-        }
-
-        if (\is_array($value)) {
-            return array_map('sanitize_text_field', $value);
-        }
-
-        return $field->type === 'textarea' ? sanitize_textarea_field($value) : sanitize_text_field($value);
-    }
-
-    private function saveCustomProfileField($field, $value, $userId)
-    {
-        if (self::hasCustomSaveFunction($field)) {
-            \call_user_func($field->save_function, $userId, $field->name, $value, $field);
-
-            return;
-        }
-
-        $userTableFields = (array) apply_filters('pmpro_user_table_fields', ['user_url']);
-
-        if (\in_array($field->name, $userTableFields, true)) {
-            wp_update_user(['ID' => $userId, $field->name => $field->name === 'user_url' ? esc_url_raw($value) : $value]);
-
-            return;
-        }
-
-        if (isset($field->taxonomy) && !empty($field->taxonomy)) {
-            $this->saveTaxonomyField($field, $value, $userId);
-
-            return;
-        }
-
-        update_user_meta($userId, $field->meta_key, $value);
-    }
-
-    private static function hasCustomSaveFunction($field)
-    {
-        if (!isset($field->save_function) || !\is_callable($field->save_function)) {
-            return false;
-        }
-
-        $saveFunction = $field->save_function;
-
-        return !(\is_array($saveFunction) && ($saveFunction[0] ?? null) === $field);
-    }
-
-    private function saveTaxonomyField($field, $value, $userId)
-    {
-        $terms = [];
-
-        foreach ((array) $value as $term) {
-            if (is_numeric($term)) {
-                $termObject = get_term_by('ID', $term, $field->taxonomy);
-
-                if (!$termObject) {
-                    continue;
-                }
-
-                $term = $termObject->name;
-            }
-
-            $terms[] = $term;
-        }
-
-        wp_set_object_terms($userId, $terms, $field->taxonomy, false);
-        clean_object_term_cache($userId, $field->taxonomy);
-        update_user_meta($userId, str_replace('pmprorhprefix_', '', $field->name), $value);
+        LogHandler::save($this->integrationID, wp_json_encode($logType), $status, wp_json_encode($response));
     }
 }

@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Actions\PaidMembershipPro;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\ActionUser;
+use BitApps\Integrations\Core\Util\Hooks;
 use WP_Error;
 
 class PaidMembershipProController
@@ -57,7 +58,7 @@ class PaidMembershipProController
             wp_send_json_error(wp_sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Paid Memberships Pro'));
         }
 
-        wp_send_json_success(RecordApiHelper::profileFields());
+        wp_send_json_success(Hooks::apply(Config::withPrefix('paid_membership_pro_profile_fields'), []));
     }
 
     public function execute($integrationData, $fieldValues)
