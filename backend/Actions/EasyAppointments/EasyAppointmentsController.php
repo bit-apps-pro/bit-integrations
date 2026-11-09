@@ -38,7 +38,6 @@ class EasyAppointmentsController
         wp_send_json_success(['employees' => self::getNameOptions('ea_staff')], 200);
     }
 
-    // The plugin's hourly cron deletes reservation rows older than 15 minutes, so actions do not offer that status.
     public function refreshStatuses()
     {
         self::isExists();
