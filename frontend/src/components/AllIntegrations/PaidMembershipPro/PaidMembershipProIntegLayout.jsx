@@ -1,4 +1,6 @@
 import MultiSelect from 'react-multiple-select-dropdown-lite'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import {
@@ -9,6 +11,7 @@ import {
   PMPRO_ACTIONS
 } from './PaidMembershipProCommonFunc'
 import Note from '../../Utilities/Note'
+import { checkIsPro } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/FieldMapHelper'
 import UserEmailFieldMap from '../IntegrationHelpers/UserEmailFieldMap'
 import UserSourceSelect from '../IntegrationHelpers/UserSourceSelect'
@@ -26,6 +29,8 @@ export default function PaidMembershipProIntegLayout({
   isInfo,
   edit
 }) {
+  const { isPro } = useRecoilValue($appConfigState)
+
   const changeHandler = (val, name) => {
     const newConf = { ...paidMembershipProConf }
     if (name === 'selectedMembership') {
@@ -48,9 +53,10 @@ export default function PaidMembershipProIntegLayout({
         value={paidMembershipProConf?.mainAction}
         className="btcd-paper-inp w-5">
         <option value="">{__('Select Actions', 'bit-integrations')}</option>
-        {getPaidMembershipProActions().map(({ key, label }) => (
-          <option key={key} value={key}>
+        {getPaidMembershipProActions().map(({ key, label, is_pro }) => (
+          <option key={key} value={key} disabled={!checkIsPro(isPro, is_pro)}>
             {label}
+            {checkIsPro(isPro, is_pro) ? '' : ` (${__('Pro', 'bit-integrations')})`}
           </option>
         ))}
       </select>

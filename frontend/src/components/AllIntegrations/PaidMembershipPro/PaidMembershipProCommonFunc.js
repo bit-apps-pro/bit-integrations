@@ -18,10 +18,15 @@ export const getPaidMembershipProActions = () => [
     key: PMPRO_ACTIONS.REMOVE_MEMBERSHIP,
     label: __('Remove the user from a membership', 'bit-integrations')
   },
-  { key: PMPRO_ACTIONS.UPDATE_PROFILE, label: __('Update the user profile', 'bit-integrations') },
+  {
+    key: PMPRO_ACTIONS.UPDATE_PROFILE,
+    label: __('Update the user profile', 'bit-integrations'),
+    is_pro: true
+  },
   {
     key: PMPRO_ACTIONS.DIRECTORY_VISIBILITY,
-    label: __('Show or hide the user in the member directory', 'bit-integrations')
+    label: __('Show or hide the user in the member directory', 'bit-integrations'),
+    is_pro: true
   }
 ]
 
