@@ -144,6 +144,7 @@ final class AllTriggersName
             'RestaurantReservations'                => ['name' => 'Five Star Restaurant Reservations',  'isPro' => true, 'is_active' => false],
             'RestrictContent'                       => ['name' => 'Restrict Content',  'isPro' => true, 'is_active' => false],
             'RoxAppointmentBooking'                 => ['name' => 'Rox Appointment Booking',  'isPro' => true, 'is_active' => false],
+            'SalonBookingSystem'                    => ['name' => 'Salon Booking System',  'isPro' => true, 'is_active' => false],
             'SeoPress'                              => ['name' => 'SEOPress',  'isPro' => true, 'is_active' => false],
             'SenseiLMS'                             => ['name' => 'Sensei LMS',  'isPro' => true, 'is_active' => false],
             'SimplyScheduleAppointments'            => ['name' => 'Simply Schedule Appointments',  'isPro' => true, 'is_active' => false],
