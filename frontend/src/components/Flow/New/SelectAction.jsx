@@ -270,7 +270,7 @@ export default function SelectAction() {
   const [showProModal, setShowProModal] = useState(false)
   const [actionName, setActionName] = useState()
 
-  const featuredProducts = ['Bit Form', 'BitCrm']
+  const featuredProducts = ['BitConnect', 'BitCrm', 'Bit Form']
 
   const sortFeaturedProducts = (list = []) => {
     const featured = featuredProducts
@@ -362,9 +362,8 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
-                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button
