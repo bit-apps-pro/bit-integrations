@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Actions\PaidMembershipPro;
 
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\ActionUser;
+use BitApps\Integrations\Core\Util\Hooks;
 use WP_Error;
 
 class PaidMembershipProController
@@ -47,25 +48,38 @@ class PaidMembershipProController
             }
         }
 
-        // $allLevels = array_merge($allLevels, [[
-        //     'membershipId' => 'any',
-        //     'membershipTitle' => 'Any Membership Level',
-        // ]]);
         wp_send_json_success($allLevels);
+    }
+
+    public static function getProfileFields()
+    {
+        if (!self::pluginActive()) {
+            // translators: %s: Plugin name
+            wp_send_json_error(wp_sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Paid Memberships Pro'));
+        }
+
+        wp_send_json_success(Hooks::apply(Config::withPrefix('paid_membership_pro_profile_fields'), []));
     }
 
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
-        $mainAction = $integrationDetails->mainAction;
-        $selectedMembership = $integrationDetails->selectedMembership;
-        if (
-            empty($integId)
-            || empty($mainAction) || empty($selectedMembership)
-        ) {
+        $mainAction = $integrationDetails->mainAction ?? '';
+        $selectedMembership = $integrationDetails->selectedMembership ?? '';
+
+        if (empty($integId) || empty($mainAction)) {
             return new WP_Error('REQ_FIELD_EMPTY', __('module, There is an some error.', 'bit-integrations'));
         }
+
+        if (\in_array($mainAction, [RecordApiHelper::ADD_MEMBERSHIP, RecordApiHelper::REMOVE_MEMBERSHIP], true) && empty($selectedMembership)) {
+            return new WP_Error('REQ_FIELD_EMPTY', __('Membership level is required.', 'bit-integrations'));
+        }
+
+        if ($mainAction === RecordApiHelper::DIRECTORY_VISIBILITY && empty($integrationDetails->directoryVisibility)) {
+            return new WP_Error('REQ_FIELD_EMPTY', __('Directory visibility is required.', 'bit-integrations'));
+        }
+
         $userId = ActionUser::resolve($integrationDetails, $fieldValues);
 
         if (is_wp_error($userId)) {
@@ -73,16 +87,12 @@ class PaidMembershipProController
         }
 
         $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-        $paidMemberpressApiResponse = $recordApiHelper->execute(
+
+        return $recordApiHelper->execute(
             $mainAction,
             $selectedMembership,
-            $userId
+            $userId,
+            $fieldValues
         );
-
-        if (is_wp_error($paidMemberpressApiResponse)) {
-            return $paidMemberpressApiResponse;
-        }
-
-        return $paidMemberpressApiResponse;
     }
 }
