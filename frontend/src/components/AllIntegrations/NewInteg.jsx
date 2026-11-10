@@ -240,6 +240,7 @@ const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
 const RestaurantReservations = lazy(() => import('./RestaurantReservations/RestaurantReservations'))
+const MotoPressHotelBooking = lazy(() => import('./MotoPressHotelBooking/MotoPressHotelBooking'))
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
 const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))
@@ -2231,6 +2232,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'MotoPressHotelBooking':
+      return (
+        <MotoPressHotelBooking
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'RestaurantReservations':
       return (
         <RestaurantReservations
@@ -2346,6 +2356,9 @@ export default function NewInteg({ allIntegURL }) {
       integrationName = 'Bit Connect'
     case 'RestaurantReservations':
       integrationName = 'Five Star Restaurant Reservations'
+      break
+    case 'MotoPressHotelBooking':
+      integrationName = 'MotoPress Hotel Booking'
       break
 
     default:

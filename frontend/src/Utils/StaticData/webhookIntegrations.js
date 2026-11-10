@@ -140,6 +140,7 @@ export const customFormIntegrations = [
   'WpActivityLog',
   'BitConnect',
   'RestaurantReservations',
+  'MotoPressHotelBooking',
   'BitSocial'
 ]
 
