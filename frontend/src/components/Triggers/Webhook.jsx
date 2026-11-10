@@ -19,6 +19,7 @@ import EyeOffIcn from '../Utilities/EyeOffIcn'
 import Note from '../Utilities/Note'
 import { APP_CONFIG } from '../../config/app'
 import TutorialLink from '../Utilities/TutorialLink'
+import paymentFormWebhookFields from './TriggerHelpers/PaymentFormHelper'
 
 const Webhook = () => {
   const [newFlow, setNewFlow] = useRecoilState($newFlow)
@@ -136,6 +137,10 @@ const Webhook = () => {
             label: `${convertedData[fld]}-${fld}`,
             type: 'text'
           }))
+        }
+
+        if (tmpNewFlow.triggered_entity === 'PaymentForm') {
+          convertedData = paymentFormWebhookFields(data)
         }
 
         tmpNewFlow.triggerDetail.tmp = resp.data.webhook
@@ -285,7 +290,10 @@ const paymentFormNote = `<h4>${__('Quick Setup', 'bit-integrations')}</h4>
               'The <b>event</b> field shows which event started the flow. To run the flow for one event only, add a condition on this field.',
               'bit-integrations'
             )}</p>
-
+            <p>${__(
+              'Fetch shows the fields of the first event that arrives. To get the payment fields, send only <b>Payment Succeeded</b> while you fetch.',
+              'bit-integrations'
+            )}</p>
   `
 
 const setupNotes = {
