@@ -48,8 +48,20 @@ const labelledNode = (value, payload, name) =>
   !Array.isArray(value) &&
   typeof value.label === 'string' &&
   value.label !== '' &&
+  typeof value.type === 'string' &&
   'value' in value &&
   `${name}_value` in payload
+
+const duplicateLabels = (children, payload) => {
+  const counts = new Map()
+  children.forEach(child => {
+    const value = payload[child.name]
+    if (labelledNode(value, payload, child.name)) {
+      counts.set(value.label, (counts.get(value.label) || 0) + 1)
+    }
+  })
+  return new Set([...counts].filter(([, count]) => count > 1).map(([label]) => label))
+}
 
 const childPathOf = (child, value, ownPath, isLabelled) => {
   if (isLabelled && child.key === 'value') return ownPath
@@ -63,23 +75,30 @@ const childPathOf = (child, value, ownPath, isLabelled) => {
 const childTitleOf = (child, value, title) =>
   Array.isArray(value) ? `${title} #${Number(child.key) + 1}` : humanize(child.key)
 
-const buildNode = (name, path, title, payload) => {
+const buildNode = (name, path, title, payload, claimed, labelSuffix = '') => {
   const value = payload[name]
   const isLabelled = labelledNode(value, payload, name)
-  const ownPath = isLabelled ? [value.label] : path
-  const ownTitle = isLabelled ? value.label : title
+  const ownLabel = isLabelled ? `${value.label}${labelSuffix}` : null
+  const ownPath = isLabelled ? [ownLabel] : path
+  const ownTitle = isLabelled ? ownLabel : title
+  const children = childKeysOf(name, value, payload).filter(child => !claimed.has(child.name))
+  const duplicates = duplicateLabels(children, payload)
+
+  children.forEach(child => claimed.add(child.name))
 
   return {
     name,
     value,
     path: ownPath,
     title: ownTitle,
-    children: childKeysOf(name, value, payload).map(child =>
+    children: children.map(child =>
       buildNode(
         child.name,
         childPathOf(child, value, ownPath, isLabelled),
         childTitleOf(child, value, ownTitle),
-        payload
+        payload,
+        claimed,
+        duplicates.has(payload[child.name]?.label) ? ` (${humanize(child.key)})` : ''
       )
     )
   }
@@ -95,12 +114,14 @@ const buildTree = payload => {
   const body = []
   const headers = []
 
+  const claimed = new Set(roots)
+
   roots.forEach(name => {
     const value = payload[name]
-    const node = buildNode(name, [humanize(name)], humanize(name), payload)
+    const node = buildNode(name, [humanize(name)], humanize(name), payload, claimed)
     const isHeader = isScalarList(value) && value.length > 0 && node.children.length === 0
     if (isHeader) {
-      headers.push({ ...node, path: [__('Headers', 'bit-integrations'), humanize(name)] })
+      headers.push({ ...node, path: [__('Request', 'bit-integrations'), humanize(name)] })
     } else {
       body.push(node)
     }
@@ -160,7 +181,7 @@ export function webhookResponseRows(fields, payload) {
       rows.push({
         kind: 'group',
         key: HEADERS_GROUP,
-        label: __('Headers', 'bit-integrations'),
+        label: __('Request', 'bit-integrations'),
         depth: 0
       })
       headersShown = true

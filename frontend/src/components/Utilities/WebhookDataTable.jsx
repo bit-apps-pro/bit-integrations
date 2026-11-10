@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { __ } from '../../Utils/i18nwrap'
 import { webhookResponseRows } from '../../Utils/webhookResponseFields'
 
@@ -22,6 +23,7 @@ const types = [
 
 const INDENT_BASE = 16
 const INDENT_STEP = 20
+const MAX_INDENT_DEPTH = 6
 
 function TypeSelect({ value, label, onChange }) {
   return (
@@ -44,7 +46,10 @@ export default function WebhookDataTable({ data, flow, setFlow, payload }) {
   }
 
   const fields = Object.values(data)
-  const rows = payload ? webhookResponseRows(fields, payload) : null
+  const rows = useMemo(
+    () => (payload ? webhookResponseRows(Object.values(data), payload) : null),
+    [data, payload]
+  )
 
   return (
     <div className="bg-white max-h-96 rounded border my-3 table-webhook-div">
@@ -65,7 +70,9 @@ export default function WebhookDataTable({ data, flow, setFlow, payload }) {
                     className={`tbl-webhook-tdtxt ${row.kind === 'group' ? 'webhook-group-row' : 'webhook-field-row'}`}>
                     <td
                       className="break-words w-7 d-blk"
-                      style={{ paddingLeft: INDENT_BASE + row.depth * INDENT_STEP }}>
+                      style={{
+                        paddingLeft: INDENT_BASE + Math.min(row.depth, MAX_INDENT_DEPTH) * INDENT_STEP
+                      }}>
                       <span className="webhook-row-label">{row.label}</span>
                       {row.sample && <span className="webhook-row-sample">{row.sample}</span>}
                     </td>
