@@ -13,6 +13,7 @@ import { deepCopy } from '../../Utils/Helpers'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
+import { organizeWebhookFields } from '../../Utils/webhookResponseFields'
 
 function EditWebhookInteg({ setSnackbar }) {
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -80,6 +81,7 @@ function EditWebhookInteg({ setSnackbar }) {
                 type: 'text'
               }))
             }
+            data = organizeWebhookFields(data, resp.data.webhook)
             setFormFields(data)
             const newConf = deepCopy(flow)
             newConf.flow_details.fields = data

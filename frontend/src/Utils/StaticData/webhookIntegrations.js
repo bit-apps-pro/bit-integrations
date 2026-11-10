@@ -6,7 +6,8 @@ export const webhookIntegrations = [
   'WPFunnels',
   'Typebot',
   'JetForm',
-  'FluentSupport'
+  'FluentSupport',
+  'PaymentForm'
 ]
 
 export const customFormIntegrations = [
