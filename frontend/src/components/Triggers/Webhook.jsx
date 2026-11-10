@@ -273,7 +273,7 @@ const paymentFormNote = `<h4>${__('Quick Setup', 'bit-integrations')}</h4>
                   'bit-integrations'
                 )}</li>
                 <li>${__(
-                  'Select the events to send. Leave the events empty to send all events.',
+                  'In <b>Events to send</b>, select only the events this flow needs. An empty list sends all events, and each payment then runs the flow two times.',
                   'bit-integrations'
                 )}</li>
                 <li>${__('Click <b>Create Webhook</b>.', 'bit-integrations')}</li>
@@ -291,7 +291,7 @@ const paymentFormNote = `<h4>${__('Quick Setup', 'bit-integrations')}</h4>
               'bit-integrations'
             )}</p>
             <p>${__(
-              'Fetch shows the fields of the first event that arrives. To get the payment fields, send only <b>Payment Succeeded</b> while you fetch.',
+              'Fetch shows the fields of the event that PaymentForm.io sends. To get the payment fields, send <b>Payment Succeeded</b> while you fetch.',
               'bit-integrations'
             )}</p>
   `
