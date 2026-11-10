@@ -19,7 +19,7 @@ import EyeOffIcn from '../Utilities/EyeOffIcn'
 import Note from '../Utilities/Note'
 import { APP_CONFIG } from '../../config/app'
 import TutorialLink from '../Utilities/TutorialLink'
-import paymentFormWebhookFields from './TriggerHelpers/PaymentFormHelper'
+import { organizeWebhookFields } from '../../Utils/webhookResponseFields'
 
 const Webhook = () => {
   const [newFlow, setNewFlow] = useRecoilState($newFlow)
@@ -139,9 +139,7 @@ const Webhook = () => {
           }))
         }
 
-        if (tmpNewFlow.triggered_entity === 'PaymentForm') {
-          convertedData = paymentFormWebhookFields(data)
-        }
+        convertedData = organizeWebhookFields(convertedData, data)
 
         tmpNewFlow.triggerDetail.tmp = resp.data.webhook
         tmpNewFlow.triggerDetail.data = convertedData
@@ -204,7 +202,12 @@ const Webhook = () => {
         )}
       </div>
       {showResponse && (
-        <WebhookDataTable data={newFlow?.triggerDetail?.data} flow={newFlow} setFlow={setNewFlow} />
+        <WebhookDataTable
+          data={newFlow?.triggerDetail?.data}
+          payload={newFlow?.triggerDetail?.tmp}
+          flow={newFlow}
+          setFlow={setNewFlow}
+        />
       )}
       <button
         onClick={setTriggerData}

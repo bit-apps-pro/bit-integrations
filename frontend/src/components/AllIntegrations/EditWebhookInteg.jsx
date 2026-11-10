@@ -13,7 +13,7 @@ import { deepCopy } from '../../Utils/Helpers'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
 import CopyText from '../Utilities/CopyText'
-import paymentFormWebhookFields from '../Triggers/TriggerHelpers/PaymentFormHelper'
+import { organizeWebhookFields } from '../../Utils/webhookResponseFields'
 
 function EditWebhookInteg({ setSnackbar }) {
   const [flow, setFlow] = useRecoilState($newFlow)
@@ -81,9 +81,7 @@ function EditWebhookInteg({ setSnackbar }) {
                 type: 'text'
               }))
             }
-            if (flow.triggered_entity === 'PaymentForm') {
-              data = paymentFormWebhookFields(resp.data.webhook)
-            }
+            data = organizeWebhookFields(data, resp.data.webhook)
             setFormFields(data)
             const newConf = deepCopy(flow)
             newConf.flow_details.fields = data
