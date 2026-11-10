@@ -143,6 +143,8 @@ export default function MotoPressHotelBookingIntegLayout({
         if (key === 'selectedAccommodationType') {
           delete draftConf.selectedAccommodation
           delete draftConf.selectedRate
+          draftConf.allAccommodations = []
+          draftConf.allRates = []
         }
       })
     )

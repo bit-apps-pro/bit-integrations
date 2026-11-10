@@ -19,7 +19,7 @@ class MotoPressHotelBookingController
 
         $accommodationTypes = [];
 
-        foreach (MPHB()->getRoomTypeRepository()->getIdTitleList() as $id => $title) {
+        foreach (MPHB()->getRoomTypeRepository()->getIdTitleList(['post_status' => ['publish']]) as $id => $title) {
             $accommodationTypes[] = (object) ['value' => (int) $id, 'label' => $title . ' (#' . $id . ')'];
         }
 
@@ -87,8 +87,10 @@ class MotoPressHotelBookingController
 
         $authors = [];
 
-        foreach (get_users(['capability' => 'edit_mphb_bookings', 'fields' => ['ID', 'display_name', 'user_email']]) as $user) {
-            $authors[] = (object) ['value' => (int) $user->ID, 'label' => $user->display_name . ' (' . $user->user_email . ')'];
+        foreach (get_users(['fields' => ['ID', 'display_name', 'user_email']]) as $user) {
+            if (user_can($user->ID, 'edit_mphb_bookings')) {
+                $authors[] = (object) ['value' => (int) $user->ID, 'label' => $user->display_name . ' (' . $user->user_email . ')'];
+            }
         }
 
         wp_send_json_success(['authors' => $authors], 200);

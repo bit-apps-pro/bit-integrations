@@ -24,7 +24,13 @@ const fetchList =
         if (result && result?.success && Array.isArray(result?.data?.[dataKey])) {
           setMotoPressHotelBookingConf(prevConf =>
             create(prevConf, draftConf => {
-              draftConf[confKey] = result.data[dataKey]
+              const isOutdated =
+                payload?.accommodationTypeId !== undefined &&
+                String(payload.accommodationTypeId) !== String(draftConf.selectedAccommodationType ?? 0)
+
+              if (!isOutdated) {
+                draftConf[confKey] = result.data[dataKey]
+              }
             })
           )
 
