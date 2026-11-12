@@ -10,6 +10,7 @@ class ElementorHelper
     {
         return [
             'id'           => $record->get_form_settings('id'),
+            'form_id'      => $record->get_form_settings('form_id'),
             'form_post_id' => $record->get_form_settings('form_post_id'),
             'edit_post_id' => $record->get_form_settings('edit_post_id'),
             'fields'       => $record->get('fields'),
@@ -47,6 +48,8 @@ class ElementorHelper
         $allFields = [
             // translators: %s: Placeholder value
             ['name' => 'id', 'type' => 'text', 'label' => wp_sprintf(__('Form Id (%s)', 'bit-integrations'), $formData['id']), 'value' => $formData['id']],
+            // translators: %s: Placeholder value
+            ['name' => 'form_id', 'type' => 'text', 'label' => wp_sprintf(__('Additional Form Id (%s)', 'bit-integrations'), $formData['form_id']), 'value' => $formData['form_id']],
             // translators: %s: Placeholder value
             ['name' => 'form_post_id', 'type' => 'text', 'label' => wp_sprintf(__('Form Post Id (%s)', 'bit-integrations'), $formData['form_post_id']), 'value' => $formData['form_post_id']],
             // translators: %s: Placeholder value
