@@ -11,11 +11,17 @@ final class BitConnectController
     private const ANY_EVENT_TASK = 'bit_connect_event';
 
     private const PRO_EVENT_TASKS = [
+        'bit_connect_post_pinned',
+        'bit_connect_poll_created',
         'bit_connect_poll_voted',
         'bit_connect_comment_voted',
+        'bit_connect_comment_pinned',
         'bit_connect_badge_awarded',
+        'bit_connect_badge_removed',
         'bit_connect_group_joined',
         'bit_connect_group_left',
+        'bit_connect_group_join_requested',
+        'bit_connect_group_request_answered',
     ];
 
     private static $runningTasks = [];
@@ -54,17 +60,29 @@ final class BitConnectController
         $proNote = ' ' . __('Bit Connect Pro sends this event.', 'bit-integrations');
 
         $tasks = [
-            ['form_name' => __('Post Published', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_topic_created', 'skipPrimaryKey' => true, 'note' => __('Runs when a new post becomes public.', 'bit-integrations')],
-            ['form_name' => __('Post Status or Stage Changed', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_topic_status_changed', 'skipPrimaryKey' => true, 'note' => __('Runs when the status or the stage of a post changes.', 'bit-integrations')],
-            ['form_name' => __('Post Voted', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_topic_voted', 'skipPrimaryKey' => true, 'note' => __('Runs when a member votes for a post.', 'bit-integrations')],
+            ['form_name' => __('Post Published', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_post_created', 'skipPrimaryKey' => true, 'note' => __('Runs when a new post becomes public.', 'bit-integrations')],
+            ['form_name' => __('Post Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_post_updated', 'skipPrimaryKey' => true, 'note' => __('Runs when a member edits a public post.', 'bit-integrations')],
+            ['form_name' => __('Post Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_post_deleted', 'skipPrimaryKey' => true, 'note' => __('Runs when a public post is deleted.', 'bit-integrations')],
+            ['form_name' => __('Post Status or Stage Changed', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_post_status_changed', 'skipPrimaryKey' => true, 'note' => __('Runs when the status or the stage of a post changes.', 'bit-integrations')],
+            ['form_name' => __('Post Voted', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_post_voted', 'skipPrimaryKey' => true, 'note' => __('Runs when a member votes for a post.', 'bit-integrations')],
+            ['form_name' => __('Post Pinned', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_post_pinned', 'skipPrimaryKey' => true, 'note' => __('Runs when a moderator pins a post.', 'bit-integrations') . $proNote],
+            ['form_name' => __('Poll Created', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_poll_created', 'skipPrimaryKey' => true, 'note' => __('Runs when a member adds a poll to a post.', 'bit-integrations') . $proNote],
             ['form_name' => __('Poll Voted', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_poll_voted', 'skipPrimaryKey' => true, 'note' => __('Runs when a member votes in a poll.', 'bit-integrations') . $proNote],
             ['form_name' => __('Comment Added', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_comment_created', 'skipPrimaryKey' => true, 'note' => __('Runs when a member adds a comment to a post.', 'bit-integrations')],
+            ['form_name' => __('Comment Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_comment_updated', 'skipPrimaryKey' => true, 'note' => __('Runs when a member edits a comment.', 'bit-integrations')],
+            ['form_name' => __('Comment Deleted', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_comment_deleted', 'skipPrimaryKey' => true, 'note' => __('Runs when a comment is deleted.', 'bit-integrations')],
             ['form_name' => __('Comment Voted', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_comment_voted', 'skipPrimaryKey' => true, 'note' => __('Runs when a member votes for a comment.', 'bit-integrations') . $proNote],
+            ['form_name' => __('Comment Pinned', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_comment_pinned', 'skipPrimaryKey' => true, 'note' => __('Runs when the author of a post pins a comment.', 'bit-integrations') . $proNote],
             ['form_name' => __('Member Registered', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_member_registered', 'skipPrimaryKey' => true, 'note' => __('Runs when a person registers on the forum.', 'bit-integrations')],
             ['form_name' => __('Member Logged In', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_member_logged_in', 'skipPrimaryKey' => true, 'note' => __('Runs when a member logs in on the forum.', 'bit-integrations')],
+            ['form_name' => __('Profile Updated', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_profile_updated', 'skipPrimaryKey' => true, 'note' => __('Runs when a member changes their profile.', 'bit-integrations')],
+            ['form_name' => __('Item Followed', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_followed', 'skipPrimaryKey' => true, 'note' => __('Runs when a member follows a post, a tag or the forum.', 'bit-integrations')],
             ['form_name' => __('Badge Awarded', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_badge_awarded', 'skipPrimaryKey' => true, 'note' => __('Runs when a member gets a badge.', 'bit-integrations') . $proNote],
+            ['form_name' => __('Badge Removed', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_badge_removed', 'skipPrimaryKey' => true, 'note' => __('Runs when a badge is removed from a member.', 'bit-integrations') . $proNote],
             ['form_name' => __('Member Joined Group', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_group_joined', 'skipPrimaryKey' => true, 'note' => __('Runs when a member joins a group.', 'bit-integrations') . $proNote],
             ['form_name' => __('Member Left Group', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_group_left', 'skipPrimaryKey' => true, 'note' => __('Runs when a member leaves a group or is removed from it.', 'bit-integrations') . $proNote],
+            ['form_name' => __('Group Join Requested', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_group_join_requested', 'skipPrimaryKey' => true, 'note' => __('Runs when a member asks to join a private group.', 'bit-integrations') . $proNote],
+            ['form_name' => __('Group Join Request Answered', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_group_request_answered', 'skipPrimaryKey' => true, 'note' => __('Runs when a moderator approves or declines a request to join a group.', 'bit-integrations') . $proNote],
             ['form_name' => __('Report Filed', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_report_filed', 'skipPrimaryKey' => true, 'note' => __('Runs when a member reports a post or a comment.', 'bit-integrations')],
             ['form_name' => __('Reports Resolved', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_report_resolved', 'skipPrimaryKey' => true, 'note' => __('Runs when a moderator closes the reports on a post or a comment.', 'bit-integrations')],
             ['form_name' => __('Moderation Action Taken', 'bit-integrations'), 'triggered_entity_id' => 'bit_connect_moderation_action', 'skipPrimaryKey' => true, 'note' => __('Runs when a moderator or the forum acts on a post or a comment.', 'bit-integrations')],
