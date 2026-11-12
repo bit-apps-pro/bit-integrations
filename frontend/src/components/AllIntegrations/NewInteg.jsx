@@ -2338,12 +2338,16 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'MicrosoftExcel':
       integrationName = 'Microsoft Excel'
+      break
     case 'WpActivityLog':
       integrationName = 'WP Activity Log'
+      break
     case 'FollowUpBoss':
       integrationName = 'Follow Up Boss'
+      break
     case 'BitConnect':
       integrationName = 'Bit Connect'
+      break
     case 'RestaurantReservations':
       integrationName = 'Five Star Restaurant Reservations'
       break
