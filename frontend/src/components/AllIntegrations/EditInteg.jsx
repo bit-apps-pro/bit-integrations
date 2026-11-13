@@ -216,6 +216,7 @@ const EditNextCrm = lazy(() => import('./NextCrm/EditNextCrm'))
 const EditFluentPlayer = lazy(() => import('./FluentPlayer/EditFluentPlayer'))
 const EditBitCrm = lazy(() => import('./BitCrm/EditBitCrm'))
 const EditWsms = lazy(() => import('./Wsms/EditWsms'))
+const EditVikRentCar = lazy(() => import('./VikRentCar/EditVikRentCar'))
 const EditWebbaBooking = lazy(() => import('./WebbaBooking/EditWebbaBooking'))
 const EditWpSimpleBookingCalendar = lazy(
   () => import('./WpSimpleBookingCalendar/EditWpSimpleBookingCalendar')
@@ -747,6 +748,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditBitCrm allIntegURL={allIntegURL} />
     case 'Wsms':
       return <EditWsms allIntegURL={allIntegURL} />
+    case 'VikRentCar':
+      return <EditVikRentCar allIntegURL={allIntegURL} />
     case 'WebbaBooking':
       return <EditWebbaBooking allIntegURL={allIntegURL} />
     case 'WpSimpleBookingCalendar':

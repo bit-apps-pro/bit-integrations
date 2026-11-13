@@ -208,6 +208,7 @@ const NextCrm = lazy(() => import('./NextCrm/NextCrm'))
 const FluentPlayer = lazy(() => import('./FluentPlayer/FluentPlayer'))
 const BitCrm = lazy(() => import('./BitCrm/BitCrm'))
 const Wsms = lazy(() => import('./Wsms/Wsms'))
+const VikRentCar = lazy(() => import('./VikRentCar/VikRentCar'))
 const WebbaBooking = lazy(() => import('./WebbaBooking/WebbaBooking'))
 const WpSimpleBookingCalendar = lazy(() => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendar'))
 const WpHotelBooking = lazy(() => import('./WpHotelBooking/WpHotelBooking'))
@@ -2016,6 +2017,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'Wsms':
       return (
         <Wsms
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'VikRentCar':
+      return (
+        <VikRentCar
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

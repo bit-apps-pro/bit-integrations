@@ -256,6 +256,7 @@ export default function SelectAction() {
     { type: 'Wsms', name: 'WSMS (WP SMS)', is_pro: true },
     { type: 'B2BKing', is_pro: true },
     { type: 'User Registration & Membership', logo: 'userRegistrationMembership', is_pro: true },
+    { type: 'VikRentCar', is_pro: true },
     { type: 'WebbaBooking', is_pro: true },
     { type: 'WpSimpleBookingCalendar', is_pro: true },
     { type: 'WpHotelBooking', name: 'WP Hotel Booking', is_pro: true },
