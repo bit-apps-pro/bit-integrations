@@ -189,6 +189,7 @@ export default function SelectAction() {
     { type: 'BookingCalendar', is_pro: true },
     { type: 'Flodesk', is_pro: true },
     { type: 'SureContact', is_pro: true },
+    { type: 'Eventbrite', is_pro: true },
     {
       type: 'BrilliantDirectories',
       name: 'Brilliant Directories',
