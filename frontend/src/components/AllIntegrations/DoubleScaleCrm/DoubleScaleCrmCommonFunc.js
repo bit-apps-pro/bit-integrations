@@ -93,15 +93,12 @@ export const generateMappedField = fields => {
     : [{ formField: '', doubleScaleCrmField: fields[0]?.key || '' }]
 }
 
-const isBlankRow = mappedField => !mappedField.formField && !mappedField.doubleScaleCrmField
-
 export const checkMappedFields = doubleScaleCrmConf => {
   const fieldMap = doubleScaleCrmConf?.field_map || []
   const invalidRows = fieldMap.filter(
     mappedField =>
-      !isBlankRow(mappedField) &&
-      (!mappedField.formField ||
-        !mappedField.doubleScaleCrmField ||
+      mappedField.formField &&
+      (!mappedField.doubleScaleCrmField ||
         (mappedField.formField === 'custom' && !mappedField.customValue))
   )
 
