@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '9th November 2026'
+const releaseDate = '16th November 2026'
 
 // Example for items:
 // items: [
@@ -31,44 +31,14 @@ const changeLog = [
     itemClass: 'integration-list',
     items: [
       {
-        label: 'WP Activity Log',
-        desc: '45 new events added.',
-        isPro: true
-      },
-      {
-        label: 'The Events Calendar',
-        desc: '17 new events added.',
-        isPro: true
-      },
-      {
         label: 'Bit Connect',
-        desc: '15 new events added.',
+        desc: '12 new events added.',
         isPro: false
       },
       {
-        label: 'NiroHelp',
-        desc: '13 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WP Hotel Booking',
-        desc: '12 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Booknetic',
-        desc: '10 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Five Star Restaurant Reservations',
-        desc: '9 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Paid Memberships Pro',
-        desc: '2 new events added.',
-        isPro: true
+        label: 'PaymentForm.io',
+        desc: 'New webhook trigger added.',
+        isPro: false
       }
     ]
   },
@@ -76,58 +46,7 @@ const changeLog = [
     label: __('New Actions', 'bit-integrations'),
     headClass: 'new-integration',
     itemClass: 'integration-list',
-    items: [
-      {
-        label: 'Follow Up Boss',
-        desc: '62 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Booknetic',
-        desc: '40 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WP Hotel Booking',
-        desc: '24 new events added.',
-        isPro: true
-      },
-      {
-        label: 'NiroHelp',
-        desc: '19 new events added.',
-        isPro: true
-      },
-      {
-        label: 'WP Activity Log',
-        desc: '19 new events added.',
-        isPro: true
-      },
-      {
-        label: 'The Events Calendar',
-        desc: '15 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Five Star Restaurant Reservations',
-        desc: '11 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Microsoft Excel',
-        desc: '7 new events added.',
-        isPro: true
-      },
-      {
-        label: 'Bit Connect',
-        desc: '7 new events added.',
-        isPro: false
-      },
-      {
-        label: 'Paid Memberships Pro',
-        desc: '2 new events added.',
-        isPro: true
-      }
-    ]
+    items: []
   },
   {
     label: __('New Features', 'bit-integrations'),
@@ -135,18 +54,13 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Klaviyo',
-        desc: 'New "Email Marketing Consent" option subscribes the profile to email marketing, so it can receive your campaigns.',
+        label: 'Webhook',
+        desc: 'Fetched webhook data now shows in groups, with a sample value under every field. Field names show where the value comes from, such as "Submission › Orders #1 › Name".',
         isPro: false
       },
       {
-        label: 'The Events Calendar',
-        desc: 'Custom fields can now be mapped when you create or update an event.',
-        isPro: false
-      },
-      {
-        label: 'Connections',
-        desc: 'Integrations created before version 2.10.0 can now switch to a saved connection from the connection dropdown.',
+        label: 'Elementor',
+        desc: "The Form ID set in the form's Additional Options can now be mapped as a field.",
         isPro: false
       }
     ]
@@ -163,28 +77,13 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Bit Form',
-        desc: 'A flow could send its data to this site instead of the site saved in the selected connection.',
+        label: 'Bit Connect',
+        desc: 'Post Published, Post Status or Stage Changed and Post Voted stopped running after the Bit Connect 1.1.0 update. They work again.',
         isPro: false
       },
       {
-        label: 'Connections',
-        desc: 'Some older integrations, such as SendinBlue, ConvertKit and Kirim Email, could not find their saved connections. Kirim Email failed with "Authorization class not found".',
-        isPro: false
-      },
-      {
-        label: 'Freshdesk',
-        desc: 'Emails with special characters, such as "+", could not find an existing contact, and the ticket was not linked to the contact.',
-        isPro: false
-      },
-      {
-        label: 'Bit Social',
-        desc: 'Editing a Bit Social flow opened the wrong edit screen.',
-        isPro: false
-      },
-      {
-        label: 'Documentation',
-        desc: 'Removed broken documentation links from some triggers and actions.',
+        label: 'New integration',
+        desc: 'The setup screen for Microsoft Excel, WP Activity Log, Follow Up Boss and Bit Connect showed "Five Star Restaurant Reservations" as its title. Each one now shows its own name.',
         isPro: false
       }
     ]

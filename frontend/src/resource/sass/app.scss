@@ -4296,6 +4296,39 @@ _:-ms-fullscreen,
   align-items: center;
 }
 
+.webhook-table-scroll .webhook-group-row,
+.webhook-table-scroll .webhook-field-row {
+  border-top: 1px solid #f0f0f0;
+
+  td {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+}
+
+.webhook-table-scroll .webhook-group-row {
+  background-color: #fafafa;
+
+  .webhook-row-label {
+    font-weight: 600;
+    color: #1d2327;
+  }
+}
+
+.webhook-row-label {
+  display: block;
+  color: #2c3338;
+}
+
+.webhook-row-sample {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #646970;
+  overflow-wrap: anywhere;
+}
+
 .trigger-webhook-width {
   width: 700px;
 }
