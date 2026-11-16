@@ -193,6 +193,7 @@ const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurv
 const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
 const WpActivityLog = lazy(() => import('./WpActivityLog/WpActivityLog'))
+const DoubleScaleCrm = lazy(() => import('./DoubleScaleCrm/DoubleScaleCrm'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
 const ConvertForce = lazy(() => import('./ConvertForce/ConvertForce'))
@@ -1896,6 +1897,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'DoubleScaleCrm':
+      return (
+        <DoubleScaleCrm
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'Pointics':
       return (
         <Pointics
@@ -2341,6 +2351,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'WpActivityLog':
       integrationName = 'WP Activity Log'
+      break
+    case 'DoubleScaleCrm':
+      integrationName = 'DoubleScale CRM'
       break
     case 'FollowUpBoss':
       integrationName = 'Follow Up Boss'

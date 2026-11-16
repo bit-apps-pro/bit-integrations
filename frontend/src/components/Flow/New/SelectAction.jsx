@@ -220,6 +220,7 @@ export default function SelectAction() {
     { type: 'ElementsKit', logo: 'elementsKit', is_pro: true },
     { type: 'Charitable', is_pro: true },
     { type: 'WpActivityLog', name: 'WP Activity Log', logo: 'wpActivityLog', is_pro: true },
+    { type: 'DoubleScaleCrm', name: 'DoubleScale CRM', logo: 'doubleScaleCrm', is_pro: true },
     { type: 'Pointics', is_pro: true },
     { type: 'SenseiLMS', logo: 'senseiLMS', is_pro: true },
     { type: 'ConvertForce', is_pro: true },

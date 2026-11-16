@@ -139,6 +139,7 @@ export const customFormIntegrations = [
   'RoxAppointmentBooking',
   'NiroHelp',
   'WpActivityLog',
+  'DoubleScaleCrm',
   'BitConnect',
   'RestaurantReservations',
   'BitSocial'
