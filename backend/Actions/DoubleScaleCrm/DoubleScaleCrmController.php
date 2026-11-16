@@ -46,7 +46,7 @@ class DoubleScaleCrmController
             function ($user) {
                 return (object) [
                     'value' => (int) $user->ID,
-                    'label' => $user->user_email === '' ? $user->display_name : $user->display_name . ' (' . $user->user_email . ')',
+                    'label' => \in_array($user->user_email, ['', $user->display_name], true) ? $user->display_name : $user->display_name . ' (' . $user->user_email . ')',
                 ];
             },
             get_users(
@@ -66,7 +66,7 @@ class DoubleScaleCrmController
         self::isExists();
 
         if (!\function_exists('doublescale_is_module_active') || !doublescale_is_module_active('support')) {
-            wp_send_json_error(__('The DoubleScale Support module is off. Turn on Support in DoubleScale CRM.', 'bit-integrations'), 400);
+            wp_send_json_error(__('The DoubleScale Helpdesk module is off. Turn on Helpdesk in DoubleScale CRM.', 'bit-integrations'), 400);
         }
 
         $mailboxes = [];

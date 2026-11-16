@@ -90,7 +90,7 @@ export const generateMappedField = fields => {
         formField: '',
         doubleScaleCrmField: field.key
       }))
-    : [{ formField: '', doubleScaleCrmField: '' }]
+    : [{ formField: '', doubleScaleCrmField: fields[0]?.key || '' }]
 }
 
 const isBlankRow = mappedField => !mappedField.formField && !mappedField.doubleScaleCrmField
@@ -156,6 +156,22 @@ export const getConfError = doubleScaleCrmConf => {
     )
   ) {
     return __('Map an email or a phone number to continue.', 'bit-integrations')
+  }
+
+  if (
+    mainAction === 'update_ticket' &&
+    !(doubleScaleCrmConf?.field_map || []).some(
+      mappedField =>
+        ['title', 'product'].includes(mappedField.doubleScaleCrmField) && mappedField.formField
+    ) &&
+    !['status', 'priority', 'agent_user_id', 'mailbox_id'].some(key =>
+      hasValue(doubleScaleCrmConf?.utilities?.[`selected_${key}`])
+    )
+  ) {
+    return __(
+      'Map a title or product, or set a status, priority, agent or mailbox in Utilities.',
+      'bit-integrations'
+    )
   }
 
   return ''

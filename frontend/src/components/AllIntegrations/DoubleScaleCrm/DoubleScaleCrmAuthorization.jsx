@@ -30,7 +30,7 @@ export default function DoubleScaleCrmAuthorization({
       }}
       noteDetails={{
         note: __(
-          'To use the DoubleScale CRM integration, install and activate the DoubleScale CRM plugin on your site. Turn on the Contacts, Support, Invoices and Proposals modules that your actions use.',
+          'To use the DoubleScale CRM integration, install and activate the DoubleScale CRM plugin on your site. Ticket actions need the Helpdesk module. Invoice and proposal actions need the Proposals & Invoices module.',
           'bit-integrations'
         )
       }}
