@@ -10,7 +10,9 @@ use WP_REST_Request;
 
 class WebhookController
 {
-    protected $webhookIntegrationsList = ['BitAssist'];
+    public const WEBHOOK_INTEGRATIONS = ['BitAssist', 'PaymentForm'];
+
+    protected $webhookIntegrationsList = self::WEBHOOK_INTEGRATIONS;
 
     public function getNewHook()
     {
