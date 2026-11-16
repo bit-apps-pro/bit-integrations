@@ -199,6 +199,7 @@ const EditQuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/EditQui
 const EditElementsKit = lazy(() => import('./ElementsKit/EditElementsKit'))
 const EditCharitable = lazy(() => import('./Charitable/EditCharitable'))
 const EditWpActivityLog = lazy(() => import('./WpActivityLog/EditWpActivityLog'))
+const EditDoubleScaleCrm = lazy(() => import('./DoubleScaleCrm/EditDoubleScaleCrm'))
 const EditPointics = lazy(() => import('./Pointics/EditPointics'))
 const EditSenseiLMS = lazy(() => import('./SenseiLMS/EditSenseiLMS'))
 const EditConvertForce = lazy(() => import('./ConvertForce/EditConvertForce'))
@@ -719,6 +720,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditCharitable allIntegURL={allIntegURL} />
     case 'WpActivityLog':
       return <EditWpActivityLog allIntegURL={allIntegURL} />
+    case 'DoubleScaleCrm':
+      return <EditDoubleScaleCrm allIntegURL={allIntegURL} />
     case 'Pointics':
       return <EditPointics allIntegURL={allIntegURL} />
     case 'SenseiLMS':

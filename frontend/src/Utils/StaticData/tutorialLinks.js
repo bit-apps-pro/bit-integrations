@@ -716,6 +716,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  doubleScaleCrm: {
+    youTubeLink: '',
+    docLink: ''
+  },
   wpSimpleBookingCalendar: {
     youTubeLink: '',
     docLink: ''
