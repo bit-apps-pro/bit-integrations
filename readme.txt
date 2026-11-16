@@ -4,7 +4,7 @@ Tags: automation, automator, google sheets integration, form integration, WooCom
 Requires at least: 5.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.11.0
+Stable tag: 2.11.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -489,6 +489,21 @@ Bit Integrations follows WordPress coding standards and best practices to ensure
 6. All integration list
 
 == Changelog ==
+
+= 2.11.1 =
+_Release Date - 16th November 2026_
+
+- **New Triggers**
+ - Bit Connect: 12 new events added.
+ - PaymentForm.io: New webhook trigger added.
+
+- **New Features**
+ - Webhook: Fetched webhook data now shows in groups, with a sample value under every field. Field names show where the value comes from, such as "Submission › Orders #1 › Name".
+ - Elementor: The Form ID set in the form's Additional Options can now be mapped as a field.
+
+- **Bug Fixes**
+ - Bit Connect: Post Published, Post Status or Stage Changed and Post Voted stopped running after the Bit Connect 1.1.0 update. They work again.
+ - New integration: The setup screen for Microsoft Excel, WP Activity Log, Follow Up Boss and Bit Connect showed "Five Star Restaurant Reservations" as its title. Each one now shows its own name.
 
 = 2.11.0 =
 _Release Date - 9th November 2026_
