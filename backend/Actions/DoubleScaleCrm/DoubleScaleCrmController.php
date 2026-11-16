@@ -46,7 +46,7 @@ class DoubleScaleCrmController
             function ($user) {
                 return (object) [
                     'value' => (int) $user->ID,
-                    'label' => $user->display_name . ' (' . $user->user_email . ')',
+                    'label' => $user->user_email === '' ? $user->display_name : $user->display_name . ' (' . $user->user_email . ')',
                 ];
             },
             get_users(
