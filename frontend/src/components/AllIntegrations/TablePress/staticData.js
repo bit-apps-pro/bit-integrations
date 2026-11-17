@@ -181,7 +181,7 @@ export const tableIdNote = __(
 
 export const actionNotes = {
   create_table: __(
-    'TablePress creates an empty table. Set Rows to 1 to start with only a header row, then use Add Row to add data.',
+    'TablePress creates an empty table. Rows multiplied by Columns must be 100000 or less. Set Rows to 1 to start with only a header row, then use Add Row to add data.',
     'bit-integrations'
   ),
   update_table: __(
@@ -202,7 +202,7 @@ export const actionNotes = {
     'bit-integrations'
   ),
   import_table: __(
-    'A URL can point to a CSV, HTML, JSON or Excel file. Replace and Append need a Table ID.',
+    'A URL can point to a CSV, HTML, JSON or Excel file. Replace and Append need a Table ID. Append adds the rows after the last row, also after any footer rows. A new table gets the URL or "Imported from Manual Input" as its name.',
     'bit-integrations'
   ),
   add_row: __(

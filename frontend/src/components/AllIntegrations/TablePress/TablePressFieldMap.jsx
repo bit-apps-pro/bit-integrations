@@ -1,18 +1,24 @@
+import { create } from 'mutative'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import TagifyInput from '../../Utilities/TagifyInput'
-import {
-  addFieldMap,
-  delFieldMap,
-  handleCustomValue,
-  handleFieldMapping
-} from '../GlobalIntegrationHelper'
+import { addFieldMap, delFieldMap, handleFieldMapping } from '../GlobalIntegrationHelper'
 
 export default function TablePressFieldMap({ i, formFields, field, tablePressConf, setTablePressConf }) {
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
+
+  const handleCustomValue = event => {
+    const value = event?.target?.value ?? event
+
+    setTablePressConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.field_map[i].customValue = value
+      })
+    )
+  }
 
   const requiredFlds = tablePressConf?.tablePressFields?.filter(fld => fld.required === true) || []
   const nonRequiredFlds = tablePressConf?.tablePressFields?.filter(fld => fld.required === false) || []
@@ -51,7 +57,7 @@ export default function TablePressFieldMap({ i, formFields, field, tablePressCon
 
           {field.formField === 'custom' && (
             <TagifyInput
-              onChange={e => handleCustomValue(e, i, tablePressConf, setTablePressConf)}
+              onChange={handleCustomValue}
               label={__('Custom Value', 'bit-integrations')}
               className="mr-2"
               type="text"

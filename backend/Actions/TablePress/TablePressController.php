@@ -2,6 +2,7 @@
 
 namespace BitApps\Integrations\Actions\TablePress;
 
+use TablePress;
 use WP_Error;
 
 class TablePressController
@@ -23,6 +24,6 @@ class TablePressController
 
     public static function isPluginActive()
     {
-        return class_exists('TablePress') && \defined('TABLEPRESS_ABSPATH');
+        return class_exists('TablePress') && isset(TablePress::$model_table);
     }
 }
