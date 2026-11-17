@@ -240,6 +240,7 @@ const RoxAppointmentBooking = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBooking')
 )
 const RestaurantReservations = lazy(() => import('./RestaurantReservations/RestaurantReservations'))
+const CartRebound = lazy(() => import('./CartRebound/CartRebound'))
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
 const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))
@@ -2240,6 +2241,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
           setFlow={setFlow}
         />
       )
+    case 'CartRebound':
+      return (
+        <CartRebound
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
     case 'RoxAppointmentBooking':
       return (
         <RoxAppointmentBooking
@@ -2350,6 +2360,9 @@ export default function NewInteg({ allIntegURL }) {
       break
     case 'RestaurantReservations':
       integrationName = 'Five Star Restaurant Reservations'
+      break
+    case 'CartRebound':
+      integrationName = 'Cart Rebound'
       break
 
     default:

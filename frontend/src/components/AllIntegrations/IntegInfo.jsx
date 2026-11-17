@@ -267,6 +267,7 @@ const RoxAppointmentBookingAuthorization = lazy(() =>
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
 )
+const CartReboundAuthorization = lazy(() => import('./CartRebound/CartReboundAuthorization'))
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
 const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
@@ -864,6 +865,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
           isInfo
         />
       )
+    case 'CartRebound':
+      return <CartReboundAuthorization cartReboundConf={integrationConf} step={1} isInfo />
     case 'RoxAppointmentBooking':
       return (
         <RoxAppointmentBookingAuthorization

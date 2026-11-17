@@ -40,6 +40,7 @@ final class AllTriggersName
             'CalculatedFieldsForm'                  => ['name' => 'Calculated Fields Form Pro',  'isPro' => true, 'is_active' => false],
             'CartFlow'                              => ['name' => 'CartFlow',  'isPro' => true, 'is_active' => false],
             'CartAbandonmentRecovery'               => ['name' => 'Cart Abandonment Recovery',  'isPro' => true, 'is_active' => false],
+            'CartRebound'                           => ['name' => 'Cart Rebound',  'isPro' => true, 'is_active' => false],
             'Charitable'                            => ['name' => 'Charitable',  'isPro' => true, 'is_active' => false],
             'CustomTrigger'                         => ['name' => 'Custom Trigger',  'isPro' => true, 'is_active' => false],
             'ClickWhale'                            => ['name' => 'ClickWhale',  'isPro' => true, 'is_active' => false],
