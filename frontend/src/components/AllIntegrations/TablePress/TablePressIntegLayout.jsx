@@ -63,13 +63,11 @@ export default function TablePressIntegLayout({ formFields, tablePressConf, setT
   const hasFields = fields.length > 0
   const hasOptionalFields = fields.some(field => !field.required)
   const usesTableId = fields.some(field => field.key === 'table_id')
-  const optionalLabel = label => `${label} ${__('(optional)', 'bit-integrations')}:`
-
-  const renderSelect = (key, label, options, optional = false) => (
+  const renderSelect = (key, label, options) => (
     <div key={key}>
       <br />
       <div className="flx">
-        <b className="wdt-200 d-in-b">{optional ? optionalLabel(label) : `${label}:`}</b>
+        <b className="wdt-200 d-in-b">{`${label}:`}</b>
         <MultiSelect
           key={`${mainAction}-${key}`}
           title={key}
@@ -114,20 +112,22 @@ export default function TablePressIntegLayout({ formFields, tablePressConf, setT
         </>
       )}
 
-      {needsTableOptions.includes(mainAction) &&
-        tableOptionSelects.map(option => renderSelect(option.key, option.label, option.options, true))}
-
-      {actionNotes[mainAction] && (
-        <>
-          <br />
-          <Note note={actionNotes[mainAction]} />
-        </>
+      {needsTableOptions.includes(mainAction) && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Table Options (optional)', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          {tableOptionSelects.map(option => renderSelect(option.key, option.label, option.options))}
+        </div>
       )}
 
-      {mainAction && usesTableId && (
+      {mainAction && (actionNotes[mainAction] || usesTableId) && (
         <>
           <br />
-          <Note note={tableIdNote} />
+          <Note note={actionNotes[mainAction] || tableIdNote}>
+            {actionNotes[mainAction] && usesTableId && (
+              <div className="note-text mt-2">{tableIdNote}</div>
+            )}
+          </Note>
         </>
       )}
 
