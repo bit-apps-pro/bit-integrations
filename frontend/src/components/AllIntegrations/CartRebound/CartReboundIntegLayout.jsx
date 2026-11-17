@@ -12,7 +12,6 @@ import CartReboundActions from './CartReboundActions'
 import {
   generateMappedField,
   refreshCartReboundCoupons,
-  refreshCartReboundOrderStatuses,
   refreshCartReboundTemplates
 } from './CartReboundCommonFunc'
 import CartReboundFieldMap from './CartReboundFieldMap'
@@ -23,7 +22,6 @@ import {
   hasUtilities,
   modules,
   needsCoupon,
-  needsPaidStatuses,
   needsStatus,
   needsTemplate
 } from './staticData'
@@ -47,10 +45,6 @@ export default function CartReboundIntegLayout({
 
     if (needsCoupon.includes(action)) {
       loaders.push(refreshCartReboundCoupons)
-    }
-
-    if (needsPaidStatuses.includes(action)) {
-      loaders.push(refreshCartReboundOrderStatuses)
     }
 
     if (loaders.length > 0) {
@@ -77,7 +71,6 @@ export default function CartReboundIntegLayout({
         delete draftConf.selectedStatus
         delete draftConf.selectedTemplate
         delete draftConf.selectedCoupon
-        delete draftConf.selectedPaidOrderStatuses
       })
     )
 
@@ -198,36 +191,6 @@ export default function CartReboundIntegLayout({
           <Note
             note={__(
               'The email shows this code in place of the {coupon_code} merge tag.',
-              'bit-integrations'
-            )}
-          />
-        </>
-      )}
-
-      {needsPaidStatuses.includes(mainAction) && (
-        <>
-          <br />
-          <div className="flx">
-            <b className="wdt-200 d-in-b">
-              {optionalLabel(__('Paid Order Statuses', 'bit-integrations'))}
-            </b>
-            <MultiSelect
-              key={`statuses-${(cartReboundConf?.allOrderStatuses || []).length}`}
-              title="selectedPaidOrderStatuses"
-              defaultValue={cartReboundConf?.selectedPaidOrderStatuses ?? null}
-              className="btcd-paper-drpdwn w-5"
-              options={toOptions(cartReboundConf?.allOrderStatuses)}
-              onChange={val => setConfValue('selectedPaidOrderStatuses', val)}
-            />
-            {refreshButton(
-              () => refreshCartReboundOrderStatuses(setCartReboundConf, setIsLoading),
-              __('Refresh Order Statuses', 'bit-integrations')
-            )}
-          </div>
-          <br />
-          <Note
-            note={__(
-              'A cart counts as recovered when its order has one of these statuses.',
               'bit-integrations'
             )}
           />

@@ -47,24 +47,6 @@ class CartReboundController
         wp_send_json_success(['coupons' => $coupons], 200);
     }
 
-    public function refreshOrderStatuses()
-    {
-        self::isExists();
-
-        $statuses = [];
-
-        if (\function_exists('wc_get_order_statuses')) {
-            foreach (wc_get_order_statuses() as $status => $label) {
-                $statuses[] = (object) [
-                    'value' => strpos($status, 'wc-') === 0 ? substr($status, 3) : $status,
-                    'label' => $label,
-                ];
-            }
-        }
-
-        wp_send_json_success(['statuses' => $statuses], 200);
-    }
-
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;

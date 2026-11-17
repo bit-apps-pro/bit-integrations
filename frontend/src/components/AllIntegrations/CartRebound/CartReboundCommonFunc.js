@@ -55,14 +55,6 @@ export const refreshCartReboundCoupons = fetchList(
   () => __('The coupons did not load. Try again.', 'bit-integrations')
 )
 
-export const refreshCartReboundOrderStatuses = fetchList(
-  'refresh_cart_rebound_order_statuses',
-  'statuses',
-  'allOrderStatuses',
-  () => __('The order statuses are loaded.', 'bit-integrations'),
-  () => __('The order statuses did not load. Try again.', 'bit-integrations')
-)
-
 export const generateMappedField = fields => {
   const requiredFlds = fields.filter(fld => fld.required === true)
   return requiredFlds.length > 0
@@ -121,15 +113,6 @@ export const getConfError = cartReboundConf => {
         !exceptKeys.includes(mappedField.cartReboundField)
     )
   const hasUtility = Object.keys(cartReboundConf?.utilities || {}).length > 0
-
-  if (
-    mainAction === 'update_settings' &&
-    !hasMappedValue() &&
-    !cartReboundConf?.selectedPaidOrderStatuses &&
-    !hasUtility
-  ) {
-    return __('Map a field, select order statuses or select a utility to continue.', 'bit-integrations')
-  }
 
   if (
     mainAction === 'update_template' &&

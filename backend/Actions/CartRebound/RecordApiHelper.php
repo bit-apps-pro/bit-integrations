@@ -109,18 +109,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'update_settings':
-                $type = 'settings';
-                $response = Hooks::apply(Config::withPrefix('cart_rebound_update_settings'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);
-
-                break;
-
-            case 'clear_logs':
-                $type = 'log';
-                $response = Hooks::apply(Config::withPrefix('cart_rebound_clear_logs'), $defaultResponse);
-
-                break;
-
             default:
                 $response = [
                     'success' => false,

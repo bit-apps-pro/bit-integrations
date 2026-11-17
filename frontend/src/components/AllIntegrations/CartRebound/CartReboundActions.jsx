@@ -1,7 +1,6 @@
 import { create } from 'mutative'
 import { __ } from '../../../Utils/i18nwrap'
 import TableCheckBox from '../../Utilities/TableCheckBox'
-import { settingToggles } from './staticData'
 
 export default function CartReboundActions({ cartReboundConf, setCartReboundConf }) {
   const toggleUtility = (name, value = 'true') => {
@@ -35,28 +34,6 @@ export default function CartReboundActions({ cartReboundConf, setCartReboundConf
           subTitle={__('Use this template for new recovery emails', 'bit-integrations')}
         />
       )}
-
-      {mainAction === 'update_settings' &&
-        settingToggles.map(({ key, onTitle, offTitle, onSubTitle, offSubTitle }) => (
-          <div key={key} className="d-flx flx-wrp">
-            <TableCheckBox
-              checked={utilities?.[`selected_${key}`] === 'true'}
-              onChange={() => toggleUtility(`selected_${key}`, 'true')}
-              className="wdt-200 mt-4 mr-2"
-              value={`selected_${key}_on`}
-              title={onTitle}
-              subTitle={onSubTitle}
-            />
-            <TableCheckBox
-              checked={utilities?.[`selected_${key}`] === 'false'}
-              onChange={() => toggleUtility(`selected_${key}`, 'false')}
-              className="wdt-200 mt-4 mr-2"
-              value={`selected_${key}_off`}
-              title={offTitle}
-              subTitle={offSubTitle}
-            />
-          </div>
-        ))}
     </div>
   )
 }

@@ -12,9 +12,7 @@ export const modules = [
   { name: 'set_default_template', label: __('Set Default Template', 'bit-integrations'), is_pro: true },
   { name: 'send_test_email', label: __('Send Test Email', 'bit-integrations'), is_pro: true },
   { name: 'unsubscribe_email', label: __('Unsubscribe Email', 'bit-integrations'), is_pro: true },
-  { name: 'resubscribe_email', label: __('Resubscribe Email', 'bit-integrations'), is_pro: true },
-  { name: 'update_settings', label: __('Update Settings', 'bit-integrations'), is_pro: true },
-  { name: 'clear_logs', label: __('Clear Logs', 'bit-integrations'), is_pro: true }
+  { name: 'resubscribe_email', label: __('Resubscribe Email', 'bit-integrations'), is_pro: true }
 ]
 
 const CartIdField = [{ key: 'cart_id', label: __('Cart ID', 'bit-integrations'), required: true }]
@@ -53,41 +51,7 @@ export const fieldsByAction = {
     { key: 'email', label: __('Recipient Email', 'bit-integrations'), required: true }
   ],
   unsubscribe_email: EmailField,
-  resubscribe_email: EmailField,
-  update_settings: [
-    {
-      key: 'abandonment_threshold',
-      label: __('Abandonment Threshold (Minutes)', 'bit-integrations'),
-      required: false
-    },
-    { key: 'scan_interval', label: __('Scan Interval (Minutes)', 'bit-integrations'), required: false },
-    {
-      key: 'email_delay_minutes',
-      label: __('Send Delay (Minutes)', 'bit-integrations'),
-      required: false
-    },
-    {
-      key: 'cleanup_days',
-      label: __('Unrecovered Cleanup After (Days)', 'bit-integrations'),
-      required: false
-    },
-    {
-      key: 'converted_cleanup_days',
-      label: __('Converted Cleanup After (Days)', 'bit-integrations'),
-      required: false
-    },
-    {
-      key: 'log_retention_days',
-      label: __('Delete Log Entries After (Days)', 'bit-integrations'),
-      required: false
-    },
-    {
-      key: 'admin_notification_email',
-      label: __('Notification Email', 'bit-integrations'),
-      required: false
-    }
-  ],
-  clear_logs: []
+  resubscribe_email: EmailField
 }
 
 export const cartStatusOptions = [
@@ -105,40 +69,7 @@ export const needsTemplate = ['send_recovery_email']
 
 export const needsCoupon = ['create_template', 'update_template']
 
-export const needsPaidStatuses = ['update_settings']
-
-export const hasUtilities = ['create_template', 'update_template', 'update_settings']
-
-export const settingToggles = [
-  {
-    key: 'tracking_enabled',
-    onTitle: __('Turn On Cart Tracking', 'bit-integrations'),
-    onSubTitle: __('Track new carts', 'bit-integrations'),
-    offTitle: __('Turn Off Cart Tracking', 'bit-integrations'),
-    offSubTitle: __('Stop tracking new carts', 'bit-integrations')
-  },
-  {
-    key: 'guest_tracking',
-    onTitle: __('Turn On Guest Tracking', 'bit-integrations'),
-    onSubTitle: __('Track carts of logged-out shoppers', 'bit-integrations'),
-    offTitle: __('Turn Off Guest Tracking', 'bit-integrations'),
-    offSubTitle: __('Track only logged-in shoppers', 'bit-integrations')
-  },
-  {
-    key: 'recovery_email_enabled',
-    onTitle: __('Turn On Recovery Emails', 'bit-integrations'),
-    onSubTitle: __('Email shoppers about abandoned carts', 'bit-integrations'),
-    offTitle: __('Turn Off Recovery Emails', 'bit-integrations'),
-    offSubTitle: __('Stop automatic recovery emails', 'bit-integrations')
-  },
-  {
-    key: 'admin_recovery_email',
-    onTitle: __('Turn On Admin Recovery Emails', 'bit-integrations'),
-    onSubTitle: __('Email the admin when a cart is recovered', 'bit-integrations'),
-    offTitle: __('Turn Off Admin Recovery Emails', 'bit-integrations'),
-    offSubTitle: __('Stop recovery emails to the admin', 'bit-integrations')
-  }
-]
+export const hasUtilities = ['create_template', 'update_template']
 
 export const actionNotes = {
   update_cart_status: __(
@@ -159,13 +90,5 @@ export const actionNotes = {
     'bit-integrations'
   ),
   update_template: __('Fields that you do not map keep their current value.', 'bit-integrations'),
-  delete_template: __('You cannot delete the default template.', 'bit-integrations'),
-  update_settings: __(
-    'Fields and options that you do not set keep their current value. Set Delete Log Entries After to 0 to keep all log entries.',
-    'bit-integrations'
-  ),
-  clear_logs: __(
-    'This action deletes all Cart Rebound log entries. You cannot undo it.',
-    'bit-integrations'
-  )
+  delete_template: __('You cannot delete the default template.', 'bit-integrations')
 }
