@@ -37,7 +37,7 @@ export default function CartReboundActions({ cartReboundConf, setCartReboundConf
       )}
 
       {mainAction === 'update_settings' &&
-        settingToggles.map(({ key, onTitle, offTitle }) => (
+        settingToggles.map(({ key, onTitle, offTitle, onSubTitle, offSubTitle }) => (
           <div key={key} className="d-flx flx-wrp">
             <TableCheckBox
               checked={utilities?.[`selected_${key}`] === 'true'}
@@ -45,7 +45,7 @@ export default function CartReboundActions({ cartReboundConf, setCartReboundConf
               className="wdt-200 mt-4 mr-2"
               value={`selected_${key}_on`}
               title={onTitle}
-              subTitle={__('Set this setting to on', 'bit-integrations')}
+              subTitle={onSubTitle}
             />
             <TableCheckBox
               checked={utilities?.[`selected_${key}`] === 'false'}
@@ -53,7 +53,7 @@ export default function CartReboundActions({ cartReboundConf, setCartReboundConf
               className="wdt-200 mt-4 mr-2"
               value={`selected_${key}_off`}
               title={offTitle}
-              subTitle={__('Set this setting to off', 'bit-integrations')}
+              subTitle={offSubTitle}
             />
           </div>
         ))}
