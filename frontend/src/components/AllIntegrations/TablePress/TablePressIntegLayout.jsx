@@ -12,14 +12,12 @@ import {
   actionNotes,
   fieldsByAction,
   modules,
-  needsTableOptions,
   needsVisibility,
   tableIdNote,
-  tableOptionSelects,
   visibilityOptions
 } from './staticData'
 
-const selectKeys = ['selectedVisibility', ...tableOptionSelects.map(option => option.key)]
+const selectKeys = ['selectedVisibility']
 
 export default function TablePressIntegLayout({ formFields, tablePressConf, setTablePressConf }) {
   const btcbi = useRecoilValue($appConfigState)
@@ -96,14 +94,6 @@ export default function TablePressIntegLayout({ formFields, tablePressConf, setT
 
       {needsVisibility.includes(mainAction) &&
         renderSelect('selectedVisibility', __('Visibility', 'bit-integrations'), visibilityOptions)}
-
-      {needsTableOptions.includes(mainAction) && (
-        <div className="mt-4">
-          <b className="wdt-100">{__('Table Options (optional)', 'bit-integrations')}</b>
-          <div className="btcd-hr mt-1" />
-          {tableOptionSelects.map(option => renderSelect(option.key, option.label, option.options))}
-        </div>
-      )}
 
       {mainAction && (actionNotes[mainAction] || usesTableId) && (
         <>

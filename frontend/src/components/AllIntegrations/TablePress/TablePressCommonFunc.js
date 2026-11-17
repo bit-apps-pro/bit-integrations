@@ -1,12 +1,6 @@
 import { create } from 'mutative'
 import { __ } from '../../../Utils/i18nwrap'
-import {
-  cellActions,
-  fieldsByAction,
-  needsTableOptions,
-  needsVisibility,
-  tableOptionSelects
-} from './staticData'
+import { cellActions, fieldsByAction, needsVisibility } from './staticData'
 
 export const handleInput = (e, tablePressConf, setTablePressConf) => {
   const { name, value } = e.target
@@ -86,20 +80,6 @@ export const getConfError = tablePressConf => {
     !isMapped(tablePressConf, 'description')
   ) {
     return __('Map a name or a description to continue.', 'bit-integrations')
-  }
-
-  if (needsTableOptions.includes(mainAction)) {
-    const hasOptionField = [
-      'table_head',
-      'table_foot',
-      'datatables_paginate_entries',
-      'extra_css_classes'
-    ].some(key => isMapped(tablePressConf, key))
-    const hasOptionSelect = tableOptionSelects.some(option => tablePressConf?.[option.key])
-
-    if (!hasOptionField && !hasOptionSelect) {
-      return __('Set at least one table option to continue.', 'bit-integrations')
-    }
   }
 
   return ''

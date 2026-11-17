@@ -51,11 +51,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'update_table_options':
-                $response = Hooks::apply(Config::withPrefix('tablepress_update_table_options'), $defaultResponse, $fieldData, $this->_integrationDetails);
-
-                break;
-
             case 'add_row':
                 $type = 'row';
                 $response = Hooks::apply(Config::withPrefix('tablepress_add_row'), $defaultResponse, $fieldData);
