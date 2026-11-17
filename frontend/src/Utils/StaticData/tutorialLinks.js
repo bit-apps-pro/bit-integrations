@@ -762,6 +762,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  cartRebound: {
+    youTubeLink: '',
+    docLink: ''
+  },
   roxAppointmentBooking: {
     youTubeLink: '',
     docLink: ''

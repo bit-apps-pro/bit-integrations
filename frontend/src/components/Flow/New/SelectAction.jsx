@@ -205,6 +205,7 @@ export default function SelectAction() {
       logo: 'restaurantReservations',
       is_pro: true
     },
+    { type: 'CartRebound', name: 'Cart Rebound', logo: 'cartRebound', is_pro: true },
     {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
