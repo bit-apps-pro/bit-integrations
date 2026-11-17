@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Asana Integration
- */
-
 namespace BitApps\Integrations\Actions\Asana;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
@@ -101,23 +97,39 @@ class AsanaController
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        $apiKey = $fieldsRequestParams->api_key;
-        $records = $this->fetchAllPages($this->apiEndpoint . 'projects', $this->setHeaders($apiKey));
+        $headers = $this->setHeaders($fieldsRequestParams->api_key);
+        $workspaces = $this->fetchAllPages($this->apiEndpoint . 'workspaces', $headers);
 
-        if (empty($records)) {
+        if (empty($workspaces)) {
             wp_send_json_error(__('Projects fetching failed', 'bit-integrations'), 400);
         }
 
+        $showWorkspaceName = \count($workspaces) > 1;
         $projects = [];
-        foreach ($records as $project) {
-            if (empty($project->gid)) {
+
+        foreach ($workspaces as $workspace) {
+            if (empty($workspace->gid)) {
                 continue;
             }
 
-            $projects[] = [
-                'id'   => $project->gid,
-                'name' => $project->name ?? $project->gid
-            ];
+            $apiEndpoint = $this->apiEndpoint . 'projects?workspace=' . rawurlencode($workspace->gid);
+            $records = $this->fetchAllPages($apiEndpoint, $headers) ?: [];
+            $suffix = $showWorkspaceName && !empty($workspace->name) ? ' (' . $workspace->name . ')' : '';
+
+            foreach ($records as $project) {
+                if (empty($project->gid)) {
+                    continue;
+                }
+
+                $projects[] = [
+                    'id'   => $project->gid,
+                    'name' => ($project->name ?? $project->gid) . $suffix
+                ];
+            }
+        }
+
+        if (empty($projects)) {
+            wp_send_json_error(__('Projects fetching failed', 'bit-integrations'), 400);
         }
 
         wp_send_json_success($projects, 200);
@@ -163,18 +175,6 @@ class AsanaController
         return ['Authorization' => 'Bearer ' . $apiKey];
     }
 
-    /**
-     * Walk Asana's offset pagination and collect every page.
-     *
-     * Asana caps a page at a few dozen records and hands back next_page.offset, so a
-     * single unpaginated call only ever saw the first slice of a real account's
-     * projects, sections or custom fields.
-     *
-     * @param string $apiEndpoint
-     * @param array  $headers
-     *
-     * @return array|false collected records, or false when the first page failed
-     */
     private function fetchAllPages($apiEndpoint, $headers)
     {
         $records = [];
