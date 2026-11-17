@@ -38,11 +38,9 @@ class CartReboundController
 
         $coupons = [];
 
-        foreach (get_posts(['post_type' => 'shop_coupon', 'post_status' => 'publish', 'posts_per_page' => -1]) as $post) {
-            $code = \function_exists('wc_get_coupon_code_by_id') ? wc_get_coupon_code_by_id($post->ID) : $post->post_title;
-
-            if ($code !== '') {
-                $coupons[] = (object) ['value' => $code, 'label' => $code];
+        foreach (get_posts(['post_type' => 'shop_coupon', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC']) as $post) {
+            if ($post->post_title !== '') {
+                $coupons[] = (object) ['value' => $post->post_title, 'label' => $post->post_title];
             }
         }
 
@@ -74,7 +72,7 @@ class CartReboundController
         $fieldMap = $integrationDetails->field_map ?? [];
         $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
 
-        if (empty($fieldMap) && ($integrationDetails->mainAction ?? '') !== 'clear_logs') {
+        if (empty($fieldMap)) {
             return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
         }
 
