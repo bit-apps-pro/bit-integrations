@@ -113,5 +113,35 @@ export const getConfError = cartReboundConf => {
     return __('Map all required fields to continue.', 'bit-integrations')
   }
 
+  const hasMappedValue = (exceptKeys = []) =>
+    (cartReboundConf?.field_map || []).some(
+      mappedField =>
+        mappedField.formField &&
+        mappedField.cartReboundField &&
+        !exceptKeys.includes(mappedField.cartReboundField)
+    )
+  const hasUtility = Object.keys(cartReboundConf?.utilities || {}).length > 0
+
+  if (
+    mainAction === 'update_settings' &&
+    !hasMappedValue() &&
+    !cartReboundConf?.selectedPaidOrderStatuses &&
+    !hasUtility
+  ) {
+    return __('Map a field, select order statuses or select a utility to continue.', 'bit-integrations')
+  }
+
+  if (
+    mainAction === 'update_template' &&
+    !hasMappedValue(['template_id']) &&
+    !cartReboundConf?.selectedCoupon &&
+    !hasUtility
+  ) {
+    return __(
+      'Map a field to update, select a coupon or select Make Default to continue.',
+      'bit-integrations'
+    )
+  }
+
   return ''
 }
