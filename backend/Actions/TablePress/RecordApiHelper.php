@@ -56,26 +56,6 @@ class RecordApiHelper
 
                 break;
 
-            case 'copy_table':
-                $response = Hooks::apply(Config::withPrefix('tablepress_copy_table'), $defaultResponse, $fieldData);
-
-                break;
-
-            case 'delete_table':
-                $response = Hooks::apply(Config::withPrefix('tablepress_delete_table'), $defaultResponse, $fieldData);
-
-                break;
-
-            case 'change_table_id':
-                $response = Hooks::apply(Config::withPrefix('tablepress_change_table_id'), $defaultResponse, $fieldData);
-
-                break;
-
-            case 'import_table':
-                $response = Hooks::apply(Config::withPrefix('tablepress_import_table'), $defaultResponse, $fieldData, $this->_integrationDetails);
-
-                break;
-
             case 'add_row':
                 $type = 'row';
                 $response = Hooks::apply(Config::withPrefix('tablepress_add_row'), $defaultResponse, $fieldData);

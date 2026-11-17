@@ -4,10 +4,6 @@ export const modules = [
   { name: 'create_table', label: __('Create Table', 'bit-integrations'), is_pro: true },
   { name: 'update_table', label: __('Update Table', 'bit-integrations'), is_pro: true },
   { name: 'update_table_options', label: __('Update Table Options', 'bit-integrations'), is_pro: true },
-  { name: 'copy_table', label: __('Copy Table', 'bit-integrations'), is_pro: true },
-  { name: 'delete_table', label: __('Delete Table', 'bit-integrations'), is_pro: true },
-  { name: 'change_table_id', label: __('Change Table ID', 'bit-integrations'), is_pro: true },
-  { name: 'import_table', label: __('Import Table', 'bit-integrations'), is_pro: true },
   { name: 'add_row', label: __('Add Row', 'bit-integrations'), is_pro: true },
   { name: 'update_row', label: __('Update Row', 'bit-integrations'), is_pro: true },
   { name: 'delete_row', label: __('Delete Row', 'bit-integrations'), is_pro: true },
@@ -66,17 +62,6 @@ export const fieldsByAction = {
     },
     { key: 'extra_css_classes', label: __('Extra CSS Classes', 'bit-integrations'), required: false }
   ],
-  copy_table: [tableIdField],
-  delete_table: [tableIdField],
-  change_table_id: [
-    tableIdField,
-    { key: 'new_table_id', label: __('New Table ID', 'bit-integrations'), required: true }
-  ],
-  import_table: [
-    { key: 'url', label: __('File URL', 'bit-integrations'), required: false },
-    { key: 'data', label: __('Table Data', 'bit-integrations'), required: false },
-    { key: 'table_id', label: __('Table ID', 'bit-integrations'), required: false }
-  ],
   add_row: [tableIdField, rowNumberField(false), ...cellFields],
   update_row: [tableIdField, rowNumberField(true), ...cellFields],
   delete_row: [tableIdField, rowNumberField(true)],
@@ -95,17 +80,6 @@ export const fieldsByAction = {
     { key: 'value', label: __('Value', 'bit-integrations'), required: false }
   ]
 }
-
-export const importSourceOptions = [
-  { label: __('URL', 'bit-integrations'), value: 'url' },
-  { label: __('Data', 'bit-integrations'), value: 'data' }
-]
-
-export const importTypeOptions = [
-  { label: __('Add as a new table', 'bit-integrations'), value: 'add' },
-  { label: __('Replace a table', 'bit-integrations'), value: 'replace' },
-  { label: __('Append rows to a table', 'bit-integrations'), value: 'append' }
-]
 
 export const visibilityOptions = [
   { label: __('Visible', 'bit-integrations'), value: 'visible' },
@@ -168,8 +142,6 @@ export const tableOptionSelects = [
 
 export const needsVisibility = ['set_row_visibility', 'set_column_visibility']
 
-export const needsImportSettings = ['import_table']
-
 export const needsTableOptions = ['update_table_options']
 
 export const cellActions = ['add_row', 'update_row']
@@ -190,19 +162,6 @@ export const actionNotes = {
   ),
   update_table_options: __(
     'Leave an option empty to keep its current value. Header Rows and Footer Rows take a number from 0 to 9.',
-    'bit-integrations'
-  ),
-  copy_table: __('The copy gets the name "Copy of" and the name of the table.', 'bit-integrations'),
-  delete_table: __(
-    'TablePress deletes the table and all of its data. You cannot undo this.',
-    'bit-integrations'
-  ),
-  change_table_id: __(
-    'Use only letters, numbers, hyphens (-) and underscores (_). Update the table shortcodes on your pages to use the new ID.',
-    'bit-integrations'
-  ),
-  import_table: __(
-    'A URL can point to a CSV, HTML, JSON or Excel file. Replace and Append need a Table ID. Append adds the rows after the last row, also after any footer rows. A new table gets the URL or "Imported from Manual Input" as its name.',
     'bit-integrations'
   ),
   add_row: __(

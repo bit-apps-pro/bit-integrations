@@ -3,7 +3,6 @@ import { __ } from '../../../Utils/i18nwrap'
 import {
   cellActions,
   fieldsByAction,
-  needsImportSettings,
   needsTableOptions,
   needsVisibility,
   tableOptionSelects
@@ -68,32 +67,8 @@ export const getConfError = tablePressConf => {
     return __('Select Visible or Hidden to continue.', 'bit-integrations')
   }
 
-  if (needsImportSettings.includes(mainAction)) {
-    if (!tablePressConf?.selectedSource) {
-      return __('Select an import source to continue.', 'bit-integrations')
-    }
-
-    if (!tablePressConf?.selectedImportType) {
-      return __('Select an import mode to continue.', 'bit-integrations')
-    }
-  }
-
   if (!checkMappedFields(tablePressConf)) {
     return __('Map all required fields to continue.', 'bit-integrations')
-  }
-
-  if (needsImportSettings.includes(mainAction)) {
-    const sourceKey = tablePressConf.selectedSource === 'url' ? 'url' : 'data'
-
-    if (!isMapped(tablePressConf, sourceKey)) {
-      return tablePressConf.selectedSource === 'url'
-        ? __('Map the File URL to continue.', 'bit-integrations')
-        : __('Map the Table Data to continue.', 'bit-integrations')
-    }
-
-    if (tablePressConf.selectedImportType !== 'add' && !isMapped(tablePressConf, 'table_id')) {
-      return __('Replace and Append need a Table ID. Map the Table ID to continue.', 'bit-integrations')
-    }
   }
 
   if (

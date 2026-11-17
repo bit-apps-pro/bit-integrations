@@ -11,10 +11,7 @@ import TablePressFieldMap from './TablePressFieldMap'
 import {
   actionNotes,
   fieldsByAction,
-  importSourceOptions,
-  importTypeOptions,
   modules,
-  needsImportSettings,
   needsTableOptions,
   needsVisibility,
   tableIdNote,
@@ -22,12 +19,7 @@ import {
   visibilityOptions
 } from './staticData'
 
-const selectKeys = [
-  'selectedVisibility',
-  'selectedSource',
-  'selectedImportType',
-  ...tableOptionSelects.map(option => option.key)
-]
+const selectKeys = ['selectedVisibility', ...tableOptionSelects.map(option => option.key)]
 
 export default function TablePressIntegLayout({ formFields, tablePressConf, setTablePressConf }) {
   const btcbi = useRecoilValue($appConfigState)
@@ -104,13 +96,6 @@ export default function TablePressIntegLayout({ formFields, tablePressConf, setT
 
       {needsVisibility.includes(mainAction) &&
         renderSelect('selectedVisibility', __('Visibility', 'bit-integrations'), visibilityOptions)}
-
-      {needsImportSettings.includes(mainAction) && (
-        <>
-          {renderSelect('selectedSource', __('Import Source', 'bit-integrations'), importSourceOptions)}
-          {renderSelect('selectedImportType', __('Import Mode', 'bit-integrations'), importTypeOptions)}
-        </>
-      )}
 
       {needsTableOptions.includes(mainAction) && (
         <div className="mt-4">
