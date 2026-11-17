@@ -130,6 +130,7 @@ export const customFormIntegrations = [
   'BookingCalendar',
   'BookingsAndAppointmentsForWoocommerce',
   'Charitable',
+  'TablePress',
   'ConvertForce',
   'ElementsKit',
   'EventsManager',
