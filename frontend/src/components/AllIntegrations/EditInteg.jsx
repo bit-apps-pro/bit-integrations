@@ -248,6 +248,7 @@ const EditUserRegistrationMembership = lazy(
 const EditQuizMaker = lazy(() => import('./QuizMaker/EditQuizMaker'))
 const EditMicrosoftExcel = lazy(() => import('./MicrosoftExcel/EditMicrosoftExcel'))
 const EditNiroHelp = lazy(() => import('./NiroHelp/EditNiroHelp'))
+const EditAmeliaBooking = lazy(() => import('./AmeliaBooking/EditAmeliaBooking'))
 const EditFollowUpBoss = lazy(() => import('./FollowUpBoss/EditFollowUpBoss'))
 
 const loaderStyle = {
@@ -799,6 +800,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditMicrosoftExcel allIntegURL={allIntegURL} />
     case 'NiroHelp':
       return <EditNiroHelp allIntegURL={allIntegURL} />
+    case 'AmeliaBooking':
+      return <EditAmeliaBooking allIntegURL={allIntegURL} />
     case 'FollowUpBoss':
       return <EditFollowUpBoss allIntegURL={allIntegURL} />
     default:

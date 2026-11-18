@@ -264,7 +264,8 @@ export default function SelectAction() {
     { type: 'QuizMaker', name: 'Quiz Maker', is_pro: true },
     { type: 'MicrosoftExcel', name: 'Microsoft Excel', is_pro: true },
     { type: 'NiroHelp', name: 'NiroHelp', is_pro: true },
-    { type: 'FollowUpBoss', name: 'Follow Up Boss', is_pro: true }
+    { type: 'FollowUpBoss', name: 'Follow Up Boss', is_pro: true },
+    { type: 'AmeliaBooking', name: 'Amelia Booking', is_pro: true }
   ]
 
   const [showProModal, setShowProModal] = useState(false)
@@ -296,8 +297,7 @@ export default function SelectAction() {
     const { value } = e.target
     const search = value.toLowerCase()
     const filtered = integs.filter(
-      integ =>
-        integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
+      integ => integ.type.toLowerCase().includes(search) || integ.name?.toLowerCase().includes(search)
     )
     setAvailableIntegs(sortFeaturedProducts(filtered))
   }
@@ -362,8 +362,9 @@ export default function SelectAction() {
               onKeyUp={() => !inte.disable && (isPro || !inte.is_pro) && setAction(inte.type)}
               role="button"
               tabIndex="0"
-              className={`btcd-inte-card inte-sm mr-4 mt-3 ${inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
-                } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
+              className={`btcd-inte-card inte-sm mr-4 mt-3 ${
+                inte.disable && (isPro || !inte.is_pro) && 'btcd-inte-dis'
+              } ${inte.is_pro && !isPro && 'btcd-inte-pro'}`}>
               {inte.is_pro && !isPro && (
                 <div className="pro-filter">
                   <button

@@ -834,6 +834,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  ameliaBooking: {
+    youTubeLink: '',
+    docLink: ''
+  },
   followUpBoss: {
     youTubeLink: '',
     docLink: ''
