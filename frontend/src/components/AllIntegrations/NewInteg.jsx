@@ -243,6 +243,7 @@ const RestaurantReservations = lazy(() => import('./RestaurantReservations/Resta
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
 const NiroHelp = lazy(() => import('./NiroHelp/NiroHelp'))
+const AmeliaBooking = lazy(() => import('./AmeliaBooking/AmeliaBooking'))
 const FollowUpBoss = lazy(() => import('./FollowUpBoss/FollowUpBoss'))
 
 const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
@@ -2270,6 +2271,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'NiroHelp':
       return (
         <NiroHelp
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'AmeliaBooking':
+      return (
+        <AmeliaBooking
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

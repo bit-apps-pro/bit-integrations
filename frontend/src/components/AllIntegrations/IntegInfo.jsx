@@ -270,6 +270,7 @@ const RestaurantReservationsAuthorization = lazy(
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
 const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
+const AmeliaBookingAuthorization = lazy(() => import('./AmeliaBooking/AmeliaBookingAuthorization'))
 const FollowUpBossAuthorization = lazy(() => import('./FollowUpBoss/FollowUpBossAuthorization'))
 
 const IntegrationInfoFallback = ({ integrationConf, editUrl }) => (
@@ -878,6 +879,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <MicrosoftExcelAuthorization microsoftExcelConf={integrationConf} step={1} isInfo />
     case 'NiroHelp':
       return <NiroHelpAuthorization niroHelpConf={integrationConf} step={1} isInfo />
+    case 'AmeliaBooking':
+      return <AmeliaBookingAuthorization ameliaBookingConf={integrationConf} step={1} isInfo />
     case 'FollowUpBoss':
       return <FollowUpBossAuthorization followUpBossConf={integrationConf} step={1} isInfo />
     default:
