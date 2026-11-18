@@ -192,6 +192,7 @@ const BookingsAndAppointmentsForWoocommerce = lazy(
 const QuizAndSurveyMaster = lazy(() => import('./QuizAndSurveyMaster/QuizAndSurveyMaster'))
 const ElementsKit = lazy(() => import('./ElementsKit/ElementsKit'))
 const Charitable = lazy(() => import('./Charitable/Charitable'))
+const TablePress = lazy(() => import('./TablePress/TablePress'))
 const WpActivityLog = lazy(() => import('./WpActivityLog/WpActivityLog'))
 const Pointics = lazy(() => import('./Pointics/Pointics'))
 const SenseiLMS = lazy(() => import('./SenseiLMS/SenseiLMS'))
@@ -1881,6 +1882,15 @@ const NewIntegs = memo(({ integUrlName, allIntegURL, flow, setFlow }) => {
     case 'Charitable':
       return (
         <Charitable
+          allIntegURL={allIntegURL}
+          formFields={flow?.triggerData?.fields}
+          flow={flow}
+          setFlow={setFlow}
+        />
+      )
+    case 'TablePress':
+      return (
+        <TablePress
           allIntegURL={allIntegURL}
           formFields={flow?.triggerData?.fields}
           flow={flow}

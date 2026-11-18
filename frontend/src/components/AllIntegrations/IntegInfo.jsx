@@ -201,6 +201,7 @@ const QuizAndSurveyMasterAuthorization = lazy(
 )
 const ElementsKitAuthorization = lazy(() => import('./ElementsKit/ElementsKitAuthorization'))
 const CharitableAuthorization = lazy(() => import('./Charitable/CharitableAuthorization'))
+const TablePressAuthorization = lazy(() => import('./TablePress/TablePressAuthorization'))
 const WpActivityLogAuthorization = lazy(() => import('./WpActivityLog/WpActivityLogAuthorization'))
 const PointicsAuthorization = lazy(() => import('./Pointics/PointicsAuthorization'))
 const SenseiLMSAuthorization = lazy(() => import('./SenseiLMS/SenseiLMSAuthorization'))
@@ -744,6 +745,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <ElementsKitAuthorization elementsKitConf={integrationConf} step={1} isInfo />
     case 'Charitable':
       return <CharitableAuthorization charitableConf={integrationConf} step={1} isInfo />
+    case 'TablePress':
+      return <TablePressAuthorization tablePressConf={integrationConf} step={1} isInfo />
     case 'WpActivityLog':
       return <WpActivityLogAuthorization wpActivityLogConf={integrationConf} step={1} isInfo />
     case 'Pointics':

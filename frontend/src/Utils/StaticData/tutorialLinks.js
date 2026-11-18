@@ -837,6 +837,10 @@ const tutorialLinks = {
   followUpBoss: {
     youTubeLink: '',
     docLink: ''
+  },
+  tablePress: {
+    youTubeLink: '',
+    docLink: ''
   }
 }
 export default tutorialLinks
