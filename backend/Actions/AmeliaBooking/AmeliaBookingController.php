@@ -37,7 +37,7 @@ class AmeliaBookingController
         self::isExists();
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $wpdb->get_results("SELECT id, CONCAT(firstName, ' ', lastName, ' (', email, ')') AS name FROM {$wpdb->prefix}amelia_users WHERE type = 'provider' ORDER BY id DESC");
+        $rows = $wpdb->get_results("SELECT id, CONCAT_WS(' ', firstName, lastName, IF(email IS NULL OR email = '', NULL, CONCAT('(', email, ')'))) AS name FROM {$wpdb->prefix}amelia_users WHERE type = 'provider' ORDER BY id DESC");
 
         wp_send_json_success(['employees' => self::toOptions($rows)], 200);
     }
