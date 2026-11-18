@@ -21,13 +21,6 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap)
     {
-        if (!AmeliaBookingController::isPluginActive()) {
-            return [
-                'success' => false,
-                'message' => __('Amelia is not active. Install and activate Amelia.', 'bit-integrations')
-            ];
-        }
-
         $fieldData = static::generateReqDataFromFieldMap($fieldMap, $fieldValues);
         $utilities = $this->_integrationDetails->utilities ?? [];
         $mainAction = $this->_integrationDetails->mainAction ?? '';
@@ -40,7 +33,15 @@ class RecordApiHelper
 
         $type = 'amelia_booking';
 
-        switch ($mainAction) {
+        switch (AmeliaBookingController::isPluginActive() ? $mainAction : 'amelia_inactive') {
+            case 'amelia_inactive':
+                $response = [
+                    'success' => false,
+                    'message' => __('Amelia is not active. Install and activate Amelia.', 'bit-integrations')
+                ];
+
+                break;
+
             case 'create_appointment':
                 $type = 'appointment';
                 $response = Hooks::apply(Config::withPrefix('amelia_booking_create_appointment'), $defaultResponse, $fieldData, $utilities, $this->_integrationDetails);

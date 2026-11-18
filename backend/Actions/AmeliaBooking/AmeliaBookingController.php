@@ -24,6 +24,8 @@ class AmeliaBookingController
 
         self::isExists();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
         $rows = $wpdb->get_results("SELECT id, name FROM {$wpdb->prefix}amelia_services ORDER BY id DESC");
 
         wp_send_json_success(['services' => self::toOptions($rows)], 200);
@@ -34,6 +36,8 @@ class AmeliaBookingController
         global $wpdb;
 
         self::isExists();
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
         $rows = $wpdb->get_results("SELECT id, CONCAT(firstName, ' ', lastName, ' (', email, ')') AS name FROM {$wpdb->prefix}amelia_users WHERE type = 'provider' ORDER BY id DESC");
 
@@ -46,6 +50,8 @@ class AmeliaBookingController
 
         self::isExists();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
         $rows = $wpdb->get_results("SELECT id, name FROM {$wpdb->prefix}amelia_locations ORDER BY id DESC");
 
         wp_send_json_success(['locations' => self::toOptions($rows)], 200);
@@ -57,6 +63,8 @@ class AmeliaBookingController
 
         self::isExists();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
         $rows = $wpdb->get_results("SELECT id, name FROM {$wpdb->prefix}amelia_categories ORDER BY id DESC");
 
         wp_send_json_success(['categories' => self::toOptions($rows)], 200);
@@ -67,6 +75,8 @@ class AmeliaBookingController
         global $wpdb;
 
         self::isExists();
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
         $rows = $wpdb->get_results("SELECT id, name FROM {$wpdb->prefix}amelia_events ORDER BY id DESC");
 

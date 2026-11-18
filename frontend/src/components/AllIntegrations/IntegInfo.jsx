@@ -261,8 +261,8 @@ const BuddyBossAuthorization = lazy(() => import('./BuddyBoss/BuddyBossAuthoriza
 const SliceWpAuthorization = lazy(() => import('./SliceWp/SliceWpAuthorization'))
 const CustomApiAuthorization = lazy(() => import('./CustomApi/CustomApiAuthorization'))
 const BitConnectAuthorization = lazy(() => import('./BitConnect/BitConnectAuthorization'))
-const RoxAppointmentBookingAuthorization = lazy(
-  () => import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
+const RoxAppointmentBookingAuthorization = lazy(() =>
+  import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
 )
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')

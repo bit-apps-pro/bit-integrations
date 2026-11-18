@@ -236,7 +236,9 @@ const UserRegistrationMembership = lazy(
   () => import('./UserRegistrationMembership/UserRegistrationMembership')
 )
 const BitConnect = lazy(() => import('./BitConnect/BitConnect'))
-const RoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/RoxAppointmentBooking'))
+const RoxAppointmentBooking = lazy(() =>
+  import('./RoxAppointmentBooking/RoxAppointmentBooking')
+)
 const RestaurantReservations = lazy(() => import('./RestaurantReservations/RestaurantReservations'))
 const QuizMaker = lazy(() => import('./QuizMaker/QuizMaker'))
 const MicrosoftExcel = lazy(() => import('./MicrosoftExcel/MicrosoftExcel'))
