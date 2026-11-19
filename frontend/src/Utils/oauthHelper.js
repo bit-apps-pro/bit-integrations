@@ -2,6 +2,7 @@ import { APP_CONFIG } from '../config/app'
 import { oauthConnectionExchange } from './connectionApi'
 
 const OAUTH_CHANNEL = 'bit_integrations_oauth_share'
+const POPUP_CLOSED_GRACE_MS = 30000
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
 
 const base64UrlEncode = bytes => {
@@ -145,12 +146,16 @@ export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback
       }
     }
 
+    let closedSince = 0
     const closeTimer = setInterval(() => {
-      if (popup.closed && !resolved) {
-        resolved = true
-        cleanup()
-        resolve({ error: 'popup_closed' })
-      }
+      if (resolved || !popup.closed) return
+
+      closedSince ||= Date.now()
+      if (Date.now() - closedSince < POPUP_CLOSED_GRACE_MS) return
+
+      resolved = true
+      cleanup()
+      resolve({ error: 'popup_closed' })
     }, 800)
   })
 
