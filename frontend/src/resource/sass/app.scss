@@ -3800,6 +3800,69 @@ $menu-bleed: 40px;
     margin-bottom: 80px;
   }
 }
+.btcd-drive-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 440px;
+  margin: 10px 0 0 200px;
+
+  @media (max-width: 782px) {
+    margin-left: 0;
+  }
+}
+
+.btcd-drive-pick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid $gray;
+  border-radius: 8px;
+  background: #fff;
+  color: $dp-bg;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 100ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  img {
+    flex-shrink: 0;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: $purple;
+    background: #faf6ff;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $purple;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.btcd-drive-pick-hint {
+  margin: 0;
+  color: #5f6d8a;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .btcd-auth-mode-toggle {
   display: block;
   padding: 4px 0;

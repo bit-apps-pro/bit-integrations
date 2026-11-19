@@ -1,13 +1,17 @@
 import { create } from 'mutative'
+import { useEffect, useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
+import googleDriveLogo from '../../../resource/img/integ/googleDrive.webp'
+import { getConnection } from '../../../Utils/connectionApi'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import {
   generateMappedField,
+  pickSpreadsheetFromDrive,
   refreshSpreadsheets,
   refreshWorksheetHeaders,
   refreshWorksheets
@@ -35,6 +39,24 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
+  const [canPickFromDrive, setCanPickFromDrive] = useState(false)
+  const connectionId = sheetConf?.connection_id
+
+  useEffect(() => {
+    if (!connectionId) {
+      setCanPickFromDrive(false)
+      return
+    }
+
+    let isCurrent = true
+    getConnection(connectionId).then(res => {
+      if (isCurrent) setCanPickFromDrive(Boolean(res?.data?.data?.auth_details?.one_click_app))
+    })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [connectionId])
   const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
   const worksheetHeaders =
@@ -144,6 +166,23 @@ export default function GoogleSheetIntegLayout({
             disabled={isLoading}>
             &#x21BB;
           </button>
+          {canPickFromDrive && (
+            <div className="btcd-drive-pick">
+              <button
+                onClick={() =>
+                  pickSpreadsheetFromDrive(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
+                }
+                className="btcd-drive-pick-btn"
+                type="button"
+                disabled={isLoading}>
+                <img src={googleDriveLogo} alt="" width="18" height="18" />
+                {__('Choose from Google Drive', 'bit-integrations')}
+              </button>
+              <p className="btcd-drive-pick-hint">
+                {__('Only sheets you chose from Drive or created here are listed.', 'bit-integrations')}
+              </p>
+            </div>
+          )}
           <br />
           <br />
         </>

@@ -6,6 +6,9 @@ import Authorization from '../../Connections/Authorization'
 export default function GoogleSheetAuthorization({ sheetConf, setSheetConf, step, setstep, isInfo }) {
   const note = `
     <h4>${__('Google Sheets OAuth setup', 'bit-integrations')}</h4>
+    <p>${__('Click Authorize and sign in to Google. No API credentials are needed.', 'bit-integrations')}</p>
+    <p>${__('In the next step, choose the spreadsheets this integration can use from Google Drive.', 'bit-integrations')}</p>
+    <h4>${__('Using your own Google Cloud app', 'bit-integrations')}</h4>
     <ul>
       <li>${__('Visit', 'bit-integrations')} <a href="https://console.developers.google.com/apis/credentials" target="_blank" rel="noreferrer">${__('Google API Console', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create OAuth client in Google API Console.', 'bit-integrations')}</li>
@@ -25,6 +28,10 @@ export default function GoogleSheetAuthorization({ sheetConf, setSheetConf, step
       tutorialLinks={tutorialLinks?.googleSheet || {}}
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
+        oneClick: {
+          app: 'googleSheet',
+          scope: 'https://www.googleapis.com/auth/drive.file'
+        },
         grantType: 'authorization_code',
         clientAuthentication: 'body',
         authCodeEndpoint: {
