@@ -5,6 +5,7 @@ import {
   defaultEncryptKeys,
   getConnectionAppSlug
 } from '../../Utils/connectionAuth'
+import { getOneClickConfig, oneClickExchange } from '../../Utils/connectionApi'
 import { resolveTemplate } from '../../Utils/connectionTemplates'
 import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
 import {
@@ -43,7 +44,8 @@ const buildSavedAuthDetails = ({
   scope,
   sslVerify,
   extraTokenFields = [],
-  extraFormData = {}
+  extraFormData = {},
+  oneClickApp = ''
 }) => {
   const expiresIn = Number(tokenResponse?.expires_in) || 0
   const persistedGrantType =
@@ -68,6 +70,8 @@ const buildSavedAuthDetails = ({
     scope: scope || '',
     ssl_verify: sslVerify !== false
   }
+
+  if (oneClickApp) base.one_click_app = oneClickApp
 
   // Capture provider-specific extra fields from token response (e.g., instance_url for
   // Salesforce, api_domain for Zoho) — these come from the provider, not the form.
@@ -100,8 +104,13 @@ export default function Oauth2Connection({
     scope,
     sslVerify = true,
     extraTokenFields = [],
-    extraFields = []
+    extraFields = [],
+    oneClick
   } = authDetails || {}
+  const { app: oneClickApp = '', scope: oneClickScope } = oneClick || {}
+
+  const [useCustomApp, setUseCustomApp] = useState(!oneClickApp)
+  const isOneClick = Boolean(oneClickApp) && !useCustomApp
 
   const appSlug = getConnectionAppSlug(config)
   const redirectUri = useMemo(() => getRedirectUri(), [])
@@ -130,10 +139,10 @@ export default function Oauth2Connection({
     if (!formData.connectionName?.trim()) {
       next.connectionName = __('Connection name is required', 'bit-integrations')
     }
-    if (!formData.clientId?.trim()) {
+    if (!isOneClick && !formData.clientId?.trim()) {
       next.clientId = __('Client ID is required', 'bit-integrations')
     }
-    if (!formData.clientSecret?.trim()) {
+    if (!isOneClick && !formData.clientSecret?.trim()) {
       next.clientSecret = __('Client secret is required', 'bit-integrations')
     }
     extraFields.forEach(field => {
@@ -142,56 +151,105 @@ export default function Oauth2Connection({
       }
     })
     return next
-  }, [extraFields, formData])
+  }, [extraFields, formData, isOneClick])
+
+  const requestAuthCode = useCallback(
+    async ({ clientId, authRedirectUri, codeChallenge, scopeOverride }) => {
+      const declaredQueryParams = {
+        ...(resolvedAuthCodeEndpoint?.queryParams || {}),
+        ...(scopeOverride ? { scope: scopeOverride } : {})
+      }
+      const extraParams = { client_id: clientId }
+      if (!declaredQueryParams.response_type) extraParams.response_type = 'code'
+      if (scope && !declaredQueryParams.scope) extraParams.scope = scope
+
+      if (codeChallenge) {
+        extraParams.code_challenge = codeChallenge
+        extraParams.code_challenge_method = 'S256'
+      }
+
+      // Drop integration-declared client_id placeholder; URL.searchParams.append does not dedupe,
+      // so a placeholder + extraParams.client_id would emit two client_id entries.
+      const { client_id: _ignored, ...queryParams } = declaredQueryParams
+      const populatedAuthCodeEndpoint = { ...resolvedAuthCodeEndpoint, queryParams }
+
+      const oauthChannelKey = createOauthChannelKey()
+      const state = buildCallbackState(oauthChannelKey)
+      const authUrl = buildAuthUrl(populatedAuthCodeEndpoint, {
+        state,
+        redirectUri: authRedirectUri,
+        extraParams
+      })
+      const popupResponse = await openOauthPopup(authUrl, {
+        channelKey: oauthChannelKey,
+        includeLegacyFallback: true
+      })
+
+      if (popupResponse?.error) {
+        throw new Error(
+          popupResponse.error === 'popup_blocked'
+            ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
+            : popupResponse.error_description ||
+                __('Authorization window closed before completing.', 'bit-integrations')
+        )
+      }
+
+      if (!popupResponse?.code) {
+        throw new Error(
+          popupResponse?.error_description || __('Authorization code missing', 'bit-integrations')
+        )
+      }
+
+      return popupResponse.code
+    },
+    [resolvedAuthCodeEndpoint, scope]
+  )
+
+  const handleOneClickFlow = useCallback(async () => {
+    const configRes = await getOneClickConfig(oneClickApp)
+
+    if (!configRes?.success || !configRes?.data?.client_id) {
+      throw new Error(
+        (typeof configRes?.data === 'string' && configRes.data) ||
+          __('One-click authorization is unavailable right now', 'bit-integrations')
+      )
+    }
+
+    const { client_id: clientId, redirect_uri: authRedirectUri } = configRes.data
+    const code = await requestAuthCode({ clientId, authRedirectUri, scopeOverride: oneClickScope })
+    const tokenRes = await oneClickExchange({
+      app: oneClickApp,
+      code,
+      token_url: resolvedTokenEndpoint?.url
+    })
+
+    if (!tokenRes?.success) {
+      throw new Error(
+        tokenRes?.data?.message ||
+          (typeof tokenRes?.data === 'string' && tokenRes.data) ||
+          __('Token exchange failed', 'bit-integrations')
+      )
+    }
+
+    return tokenRes?.data?.data || {}
+  }, [oneClickApp, oneClickScope, requestAuthCode, resolvedTokenEndpoint?.url])
 
   const handleAuthorizationCodeFlow = useCallback(async () => {
     const isPkce = grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE
-    const declaredQueryParams = resolvedAuthCodeEndpoint?.queryParams || {}
-    let codeVerifier
-
-    const extraParams = { client_id: formData.clientId }
-    if (!declaredQueryParams.response_type) extraParams.response_type = 'code'
-    if (scope && !declaredQueryParams.scope) extraParams.scope = scope
-
-    if (isPkce) {
-      codeVerifier = generateCodeVerifier()
-      extraParams.code_challenge = await generateCodeChallengeS256(codeVerifier)
-      extraParams.code_challenge_method = 'S256'
-    }
-
-    // Drop integration-declared client_id placeholder; URL.searchParams.append does not dedupe,
-    // so a placeholder + extraParams.client_id would emit two client_id entries.
-    const { client_id: _ignored, ...queryParams } = declaredQueryParams
-    const populatedAuthCodeEndpoint = { ...resolvedAuthCodeEndpoint, queryParams }
-
-    const oauthChannelKey = createOauthChannelKey()
-    const state = buildCallbackState(oauthChannelKey)
-    const authUrl = buildAuthUrl(populatedAuthCodeEndpoint, { state, redirectUri, extraParams })
-    const popupResponse = await openOauthPopup(authUrl, {
-      channelKey: oauthChannelKey,
-      includeLegacyFallback: true
+    const codeVerifier = isPkce ? generateCodeVerifier() : undefined
+    const codeChallenge = isPkce ? await generateCodeChallengeS256(codeVerifier) : undefined
+    const code = await requestAuthCode({
+      clientId: formData.clientId,
+      authRedirectUri: redirectUri,
+      codeChallenge
     })
-
-    if (popupResponse?.error) {
-      throw new Error(
-        popupResponse.error === 'popup_blocked'
-          ? __('Popup blocked. Please allow popups and try again.', 'bit-integrations')
-          : __('Authorization window closed before completing.', 'bit-integrations')
-      )
-    }
-
-    if (!popupResponse?.code) {
-      throw new Error(
-        popupResponse?.error_description || __('Authorization code missing', 'bit-integrations')
-      )
-    }
 
     const tokenRes = await exchangeAuthCodeForToken({
       tokenEndpoint: resolvedTokenEndpoint,
       clientId: formData.clientId,
       clientSecret: formData.clientSecret,
       clientAuthentication,
-      code: popupResponse.code,
+      code,
       codeVerifier,
       redirectUri,
       sslVerify
@@ -213,9 +271,8 @@ export default function Oauth2Connection({
     formData,
     grantType,
     redirectUri,
-    resolvedAuthCodeEndpoint,
+    requestAuthCode,
     resolvedTokenEndpoint,
-    scope,
     sslVerify
   ])
 
@@ -250,12 +307,22 @@ export default function Oauth2Connection({
   ])
 
   const flowFn = useCallback(async () => {
+    if (isOneClick) {
+      return handleOneClickFlow()
+    }
+
     if (grantType === GRANT_TYPES.CLIENT_CREDENTIALS) {
       return handleClientCredentialsFlow()
     }
 
     return handleAuthorizationCodeFlow()
-  }, [grantType, handleAuthorizationCodeFlow, handleClientCredentialsFlow])
+  }, [
+    grantType,
+    handleAuthorizationCodeFlow,
+    handleClientCredentialsFlow,
+    handleOneClickFlow,
+    isOneClick
+  ])
 
   const buildSavePayload = useCallback(
     tokenResponse => {
@@ -266,16 +333,17 @@ export default function Oauth2Connection({
 
       const savedAuthDetails = buildSavedAuthDetails({
         tokenResponse,
-        clientId: formData.clientId,
-        clientSecret: formData.clientSecret,
-        clientAuthentication,
-        grantType,
+        clientId: isOneClick ? tokenResponse?.client_id || '' : formData.clientId,
+        clientSecret: isOneClick ? '' : formData.clientSecret,
+        clientAuthentication: isOneClick ? 'body' : clientAuthentication,
+        grantType: isOneClick ? GRANT_TYPES.AUTHORIZATION_CODE : grantType,
         refreshTokenUrl: resolvedRefreshTokenUrl,
         tokenUrl: resolvedTokenEndpoint?.url,
-        scope,
+        scope: isOneClick ? oneClickScope : scope,
         sslVerify,
         extraTokenFields,
-        extraFormData
+        extraFormData,
+        oneClickApp: isOneClick ? oneClickApp : ''
       })
 
       return {
@@ -297,6 +365,9 @@ export default function Oauth2Connection({
       extraTokenFields,
       formData,
       grantType,
+      isOneClick,
+      oneClickApp,
+      oneClickScope,
       resolvedRefreshTokenUrl,
       resolvedTokenEndpoint?.url,
       scope,
@@ -384,7 +455,7 @@ export default function Oauth2Connection({
 
       {customAuthFields}
 
-      {isAuthCodeFlow && (
+      {!isOneClick && isAuthCodeFlow && (
         <>
           <div className="mt-3">
             <b>{__('Homepage URL:', 'bit-integrations')}</b>
@@ -401,32 +472,38 @@ export default function Oauth2Connection({
         </>
       )}
 
-      <div className="mt-3">
-        <b>{__('Client ID:', 'bit-integrations')}</b>
-      </div>
-      <input
-        className="btcd-paper-inp w-6 mt-1"
-        onChange={handleChange}
-        name="clientId"
-        value={formData.clientId || ''}
-        type="text"
-        placeholder={__('Client ID...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={ERROR_TEXT_STYLE}>{errors.clientId || ''}</div>
+      {!isOneClick && (
+        <>
+          <div className="mt-3">
+            <b>{__('Client ID:', 'bit-integrations')}</b>
+          </div>
+          <input
+            className="btcd-paper-inp w-6 mt-1"
+            onChange={handleChange}
+            name="clientId"
+            value={formData.clientId || ''}
+            type="text"
+            autoComplete="off"
+            placeholder={__('Client ID...', 'bit-integrations')}
+            disabled={isInfo}
+          />
+          <div style={ERROR_TEXT_STYLE}>{errors.clientId || ''}</div>
 
-      <div className="mt-3">
-        <b>{__('Client Secret:', 'bit-integrations')}</b>
-      </div>
-      <SecretInput
-        className="w-6 mt-1"
-        onChange={handleChange}
-        name="clientSecret"
-        value={formData.clientSecret || ''}
-        placeholder={__('Client Secret...', 'bit-integrations')}
-        disabled={isInfo}
-      />
-      <div style={ERROR_TEXT_STYLE}>{errors.clientSecret || ''}</div>
+          <div className="mt-3">
+            <b>{__('Client Secret:', 'bit-integrations')}</b>
+          </div>
+          <SecretInput
+            className="w-6 mt-1"
+            onChange={handleChange}
+            name="clientSecret"
+            value={formData.clientSecret || ''}
+            autoComplete="new-password"
+            placeholder={__('Client Secret...', 'bit-integrations')}
+            disabled={isInfo}
+          />
+          <div style={ERROR_TEXT_STYLE}>{errors.clientSecret || ''}</div>
+        </>
+      )}
 
       <button
         onClick={handleAuthorize}
@@ -436,6 +513,18 @@ export default function Oauth2Connection({
         {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
         {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
       </button>
+
+      {oneClickApp && !isInfo && (
+        <button
+          type="button"
+          className="btcd-auth-mode-toggle mt-2"
+          onClick={() => setUseCustomApp(prev => !prev)}
+          disabled={isLoading}>
+          {useCustomApp
+            ? __('Use one-click authorization instead', 'bit-integrations')
+            : __('Use your own app credentials instead', 'bit-integrations')}
+        </button>
+      )}
     </>
   )
 }
