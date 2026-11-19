@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Authorization\OAuth2\OAuth2Authorization;
+use BitApps\Integrations\Authorization\OAuth2\OneClickApp;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Database\ConnectionModel;
@@ -519,6 +521,104 @@ final class ConnectionController
                 400
             );
         }
+
+        wp_send_json_success(['data' => $decoded]);
+    }
+
+    public function oneClickConfig($request)
+    {
+        $this->guard();
+
+        $clientId = OneClickApp::clientId($this->sanitizeScalar($request->app ?? ''));
+
+        if ($clientId === '') {
+            wp_send_json_error(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'), 400);
+        }
+
+        wp_send_json_success([
+            'client_id'    => $clientId,
+            'redirect_uri' => OneClickApp::redirectUri(),
+        ]);
+    }
+
+    public function oneClickPicker($request)
+    {
+        $this->guard();
+
+        $handler = AuthorizationFactory::getConnectionHandler($this->normalizeId($request));
+
+        if (!$handler instanceof OAuth2Authorization) {
+            wp_send_json_error(__('Connection not found', 'bit-integrations'), 400);
+        }
+
+        $authDetails = $handler->ensureFreshToken();
+        $apiKey = OneClickApp::filePickerApiKey((string) ($authDetails['one_click_app'] ?? ''));
+        $appId = OneClickApp::pickerAppId((string) ($authDetails['client_id'] ?? ''));
+
+        if (empty($authDetails['access_token']) || $apiKey === '' || $appId === '') {
+            wp_send_json_error(__('Google Drive picker is not available right now', 'bit-integrations'), 400);
+        }
+
+        wp_send_json_success([
+            'access_token' => $authDetails['access_token'],
+            'api_key'      => $apiKey,
+            'app_id'       => $appId,
+        ]);
+    }
+
+    public function oneClickExchange($request)
+    {
+        $this->guard();
+
+        $app = $this->sanitizeScalar($request->app ?? '');
+        $code = (string) ($request->code ?? '');
+        $tokenUrl = esc_url_raw((string) ($request->token_url ?? ''));
+
+        if ($app === '' || $code === '') {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        if (!$this->isPublicHttpsUrl($tokenUrl)) {
+            wp_send_json_error(__('Token URL must be a public https endpoint', 'bit-integrations'), 400);
+        }
+
+        $clientId = OneClickApp::clientId($app);
+        $clientSecret = OneClickApp::clientSecret($app, $clientId);
+
+        if ($clientSecret === '') {
+            wp_send_json_error(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'), 400);
+        }
+
+        $response = HttpHelper::post(
+            $tokenUrl,
+            [
+                'grant_type'    => 'authorization_code',
+                'client_id'     => $clientId,
+                'client_secret' => $clientSecret,
+                'redirect_uri'  => OneClickApp::redirectUri(),
+                'code'          => $code,
+            ],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
+
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
+
+        $responseCode = (int) HttpHelper::$responseCode;
+        $decoded = \is_object($response) ? Helper::jsonEncodeDecode($response) : (array) $response;
+
+        if ($responseCode < 200 || $responseCode >= 300 || isset($decoded['error']) || empty($decoded['access_token'])) {
+            wp_send_json_error(
+                [
+                    'message' => $decoded['error_description'] ?? (\is_string($decoded['error'] ?? null) ? $decoded['error'] : __('Token exchange failed', 'bit-integrations')),
+                    'status'  => $responseCode,
+                ],
+                400
+            );
+        }
+
+        $decoded['client_id'] = $clientId;
 
         wp_send_json_success(['data' => $decoded]);
     }

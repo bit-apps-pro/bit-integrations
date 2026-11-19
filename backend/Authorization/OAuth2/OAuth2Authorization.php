@@ -543,8 +543,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         // Body auth is the default. Header auth puts client credentials in Authorization
         // header instead — see buildRefreshHeaders.
         if ($this->resolveClientAuthMode($authDetails) !== 'header') {
-            $body['client_id'] = $authDetails['client_id'] ?? ($authDetails['clientId'] ?? '');
-            $body['client_secret'] = $authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? '');
+            [$body['client_id'], $body['client_secret']] = $this->resolveClientCredentials($authDetails);
         }
 
         if (!empty($authDetails['refresh_token'])) {
@@ -559,12 +558,24 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
 
         if ($this->resolveClientAuthMode($authDetails) === 'header') {
-            $clientId = $authDetails['client_id'] ?? ($authDetails['clientId'] ?? '');
-            $clientSecret = $authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? '');
+            [$clientId, $clientSecret] = $this->resolveClientCredentials($authDetails);
             $headers['Authorization'] = 'Basic ' . base64_encode($clientId . ':' . $clientSecret);
         }
 
         return $headers;
+    }
+
+    private function resolveClientCredentials(array $authDetails): array
+    {
+        $clientId = (string) ($authDetails['client_id'] ?? ($authDetails['clientId'] ?? ''));
+        $clientSecret = (string) ($authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? ''));
+        $oneClickApp = (string) ($authDetails['one_click_app'] ?? '');
+
+        if ($oneClickApp !== '' && $clientSecret === '') {
+            $clientSecret = OneClickApp::clientSecret($oneClickApp, $clientId);
+        }
+
+        return [$clientId, $clientSecret];
     }
 
     private function resolveClientAuthMode(array $authDetails): string
