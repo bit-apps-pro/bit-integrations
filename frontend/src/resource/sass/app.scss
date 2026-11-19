@@ -3856,6 +3856,11 @@ $menu-bleed: 40px;
   }
 }
 
+.picker-dialog-bg,
+.picker-dialog {
+  z-index: 100000 !important;
+}
+
 .btcd-drive-pick-hint {
   margin: 0;
   color: #5f6d8a;

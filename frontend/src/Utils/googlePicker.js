@@ -1,6 +1,12 @@
 const GAPI_SRC = 'https://apis.google.com/js/api.js'
 
+const PICKER_MAX = { width: 1051, height: 650 }
+const PICKER_MIN = { width: 566, height: 350 }
+const VIEWPORT_GUTTER = 48
+
 let pickerReady
+
+const fitToViewport = (max, min, viewport) => Math.max(min, Math.min(max, viewport - VIEWPORT_GUTTER))
 
 const loadGapi = () =>
   new Promise((resolve, reject) => {
@@ -53,6 +59,10 @@ export const pickGoogleSpreadsheet = async ({ accessToken, apiKey, appId, title 
       .setAppId(appId)
       .setOrigin(`${window.location.protocol}//${window.location.host}`)
       .setTitle(title)
+      .setSize(
+        fitToViewport(PICKER_MAX.width, PICKER_MIN.width, window.innerWidth),
+        fitToViewport(PICKER_MAX.height, PICKER_MIN.height, window.innerHeight)
+      )
       .setCallback(data => {
         if (data.action === picker.Action.PICKED) {
           const [doc] = data.docs || []
