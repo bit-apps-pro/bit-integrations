@@ -866,6 +866,12 @@ final class ConnectionController
             'updated_at'      => $row->updated_at ?? null,
         ];
 
+        $oneClickApp = (string) ($this->normalizeArray($row->auth_details ?? null)['one_click_app'] ?? '');
+
+        if ($oneClickApp !== '') {
+            $payload['one_click_app'] = $oneClickApp;
+        }
+
         if (\is_array($linkedIntegrations)) {
             $payload['linked_integrations'] = $linkedIntegrations;
             $payload['linked_count'] = \count($linkedIntegrations);

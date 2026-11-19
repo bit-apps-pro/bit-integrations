@@ -1,10 +1,8 @@
 import { create } from 'mutative'
-import { useEffect, useState } from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import googleDriveLogo from '../../../resource/img/integ/googleDrive.webp'
-import { getConnection } from '../../../Utils/connectionApi'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
@@ -39,24 +37,7 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
-  const [canPickFromDrive, setCanPickFromDrive] = useState(false)
-  const connectionId = sheetConf?.connection_id
-
-  useEffect(() => {
-    if (!connectionId) {
-      setCanPickFromDrive(false)
-      return
-    }
-
-    let isCurrent = true
-    getConnection(connectionId).then(res => {
-      if (isCurrent) setCanPickFromDrive(Boolean(res?.data?.data?.auth_details?.one_click_app))
-    })
-
-    return () => {
-      isCurrent = false
-    }
-  }, [connectionId])
+  const canPickFromDrive = Boolean(sheetConf?.one_click_app)
   const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
   const worksheetHeaders =

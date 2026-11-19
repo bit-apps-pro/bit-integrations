@@ -23,6 +23,11 @@ const buildConnectionOption = conn => {
   }
 }
 
+const getOneClickConf = (connections, connectionId) => ({
+  one_click_app:
+    connections?.find(conn => String(conn.id) === String(connectionId))?.one_click_app || undefined
+})
+
 const getConnectionOptionById = (connections, connection_id, isSwitchMode) => {
   if (connection_id) return String(connection_id)
   if (isSwitchMode) return ''
@@ -93,7 +98,7 @@ export default function ConnectionAccountSelect({
         setShowNewConnection(false)
         if (String(value) === String(config?.connection_id)) return
 
-        connectionSwitch.onSwitch(value)
+        connectionSwitch.onSwitch(value, getOneClickConf(connections, value))
         return
       }
 
@@ -105,13 +110,14 @@ export default function ConnectionAccountSelect({
         return
       }
 
-      setConfig(prev => ({ ...prev, connection_id: value }))
+      setConfig(prev => ({ ...prev, connection_id: value, ...getOneClickConf(connections, value) }))
       onConnectionSelected?.(value)
     },
     [
       canSwitch,
       connectionSwitch,
       config?.connection_id,
+      connections,
       setConfig,
       setShowNewConnection,
       onConnectionSelected

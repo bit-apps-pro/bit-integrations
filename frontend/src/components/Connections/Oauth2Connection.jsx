@@ -379,6 +379,7 @@ export default function Oauth2Connection({
     validate,
     flowFn,
     buildSavePayload,
+    buildConfigUpdate: () => ({ one_click_app: isOneClick ? oneClickApp : undefined }),
     onConnectionSaved,
     setConfig
   })
