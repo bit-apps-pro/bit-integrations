@@ -20,6 +20,12 @@ class RecordApiHelper
 
     private $_integrationID;
 
+    private $_objectName;
+
+    private $_fieldTypes;
+
+    private $_fieldTypesFromCache = false;
+
     public function __construct($tokenDetails, $_integrationID)
     {
         $this->_defaultHeader['Authorization'] = "Bearer {$tokenDetails->access_token}";
@@ -35,11 +41,13 @@ class RecordApiHelper
             $triggerValue = $value->formField;
             $actionValue = $value->selesforceField;
 
-            $dataFinal[$actionValue] = self::convertToSalesforceFormat(
-                $triggerValue === 'custom' && isset($value->customValue)
-                    ? Common::replaceFieldWithValue($value->customValue, $data)
-                    : ($data[$triggerValue] ?? null)
-            );
+            $fieldValue = $triggerValue === 'custom' && isset($value->customValue)
+                ? Common::replaceFieldWithValue($value->customValue, $data)
+                : ($data[$triggerValue] ?? null);
+
+            $dataFinal[$actionValue] = $this->isDateField($actionValue)
+                ? self::convertToSalesforceFormat($fieldValue)
+                : $fieldValue;
         }
 
         if ($actions && isset($actions->ownerId)) {
@@ -177,6 +185,7 @@ class RecordApiHelper
     {
         $actionName = $integrationDetails->actionName;
         $update = isset($actions->update) ? $actions->update : false;
+        $this->_objectName = SalesforceController::$actions[$actionName] ?? $actionName;
 
         if ($actionName === 'contact-create') {
             $finalData = $this->generateReqDataFromFieldMap($fieldValues, $fieldMap, $actions);
@@ -492,6 +501,76 @@ class RecordApiHelper
         } catch (Throwable $th) {
             return $input;
         }
+    }
+
+    private function isDateField($fieldName)
+    {
+        $fieldTypes = $this->getFieldTypes();
+
+        if ($fieldTypes === null) {
+            return true;
+        }
+
+        if (!isset($fieldTypes[$fieldName]) && $this->_fieldTypesFromCache) {
+            $fieldTypes = $this->getFieldTypes(true);
+
+            if ($fieldTypes === null) {
+                return true;
+            }
+        }
+
+        return \in_array($fieldTypes[$fieldName] ?? null, ['date', 'datetime'], true);
+    }
+
+    private function getFieldTypes($refresh = false)
+    {
+        if (empty($this->_objectName)) {
+            return;
+        }
+
+        if (!$refresh && \is_array($this->_fieldTypes) && \array_key_exists($this->_objectName, $this->_fieldTypes)) {
+            return $this->_fieldTypes[$this->_objectName];
+        }
+
+        $cacheKey = Config::withPrefix('salesforce_field_types_' . md5($this->_apiDomain . '|' . $this->_objectName));
+        $fieldTypes = $refresh ? false : get_transient($cacheKey);
+        $this->_fieldTypesFromCache = \is_array($fieldTypes);
+
+        if (!$this->_fieldTypesFromCache) {
+            $fieldTypes = $this->fetchFieldTypes();
+
+            if ($refresh && !\is_array($fieldTypes)) {
+                return $this->_fieldTypes[$this->_objectName];
+            }
+
+            if (\is_array($fieldTypes)) {
+                set_transient($cacheKey, $fieldTypes, 12 * HOUR_IN_SECONDS);
+            }
+        }
+
+        return $this->_fieldTypes[$this->_objectName] = $fieldTypes;
+    }
+
+    private function fetchFieldTypes()
+    {
+        $response = HttpHelper::get(
+            "{$this->_apiDomain}/services/data/v37.0/sobjects/{$this->_objectName}/describe",
+            null,
+            $this->_defaultHeader
+        );
+
+        if (!\is_object($response) || empty($response->fields) || !\is_array($response->fields)) {
+            return;
+        }
+
+        $fieldTypes = [];
+        foreach ($response->fields as $field) {
+            if (isset($field->name, $field->type)) {
+                $fieldTypes[$field->name] = $field->type;
+            }
+        }
+
+        return $fieldTypes;
     }
 
     private static function tryParseDateTimeImmutable($value)
