@@ -108,11 +108,20 @@ final class CF7Controller
 
         $postID = (int) $submission->get_meta('container_post_id');
 
-        if (isset($posted_data['_wpcf7'])) {
+        if (array_key_exists('_wpcf7', $posted_data)) {
             $form_id = $posted_data['_wpcf7'];
         } else {
             $current_form = WPCF7_ContactForm::get_current();
-            $form_id = $current_form->id();
+            $form_id = $current_form ? $current_form->id() : null;
+        }
+
+        if (!\is_int($form_id) && !\is_string($form_id)) {
+            return;
+        }
+
+        $form_id = filter_var($form_id, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        if ($form_id === false) {
+            return;
         }
 
         $posted_data = static::unsetPostedFileFieldValues($posted_data, $form_id);
@@ -135,7 +144,7 @@ final class CF7Controller
             }
         }
 
-        if (!empty($form_id) && $flows = Flow::exists('CF7', $form_id)) {
+        if ($flows = Flow::exists('CF7', $form_id)) {
             Flow::execute('CF7', $form_id, $data, $flows);
         }
     }
