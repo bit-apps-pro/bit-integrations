@@ -10,6 +10,10 @@ use WP_Error;
 
 class Model
 {
+    private const COMPARISON_OPERATORS = ['=', '!=', '<>', '<', '<=', '>', '>=', 'LIKE', 'NOT LIKE'];
+
+    private const LIST_OPERATORS = ['IN', 'NOT IN'];
+
     protected static $table;
 
     protected static $primary_key;
@@ -344,11 +348,11 @@ class Model
             $value_type = '';
             if (\is_array($value)) {
                 if (isset($value['operator'])) {
-                    $set_check_operator = $value['operator'];
+                    $set_check_operator = $this->allowedOperator($value['operator'], self::COMPARISON_OPERATORS, '=');
                     $value_type .= $this->getFieldFormat($value['value']);
                     $all_values[] = $value['value'];
                 } else {
-                    $set_check_operator = \is_null($check_operator) ? 'in' : $check_operator;
+                    $set_check_operator = $this->allowedOperator($check_operator, self::LIST_OPERATORS, 'IN');
                     $value_type .= ' ( ';
                     $value_index_checker = 0;
                     $value_count = \count($value) - 1;
@@ -363,7 +367,7 @@ class Model
                     $value_type .= ' )';
                 }
             } else {
-                $set_check_operator = \is_null($check_operator) ? '=' : $check_operator;
+                $set_check_operator = $this->allowedOperator($check_operator, self::COMPARISON_OPERATORS, '=');
                 $value_type .= $this->getFieldFormat($value);
                 $all_values[] = $value;
             }
@@ -378,6 +382,27 @@ class Model
             'conditions' => $condition_to_check,
             'values'     => $all_values
         ];
+    }
+
+    /**
+     * Falls back to the default rather than failing: callers treat a false condition as
+     * "no WHERE clause", which would widen a SELECT/UPDATE/DELETE to the whole table.
+     *
+     * @param mixed    $operator
+     * @param string[] $allowed
+     * @param string   $default
+     *
+     * @return string
+     */
+    private function allowedOperator($operator, array $allowed, $default)
+    {
+        if (!\is_string($operator)) {
+            return $default;
+        }
+
+        $normalized = strtoupper(preg_replace('/\s+/', ' ', trim($operator)));
+
+        return \in_array($normalized, $allowed, true) ? $normalized : $default;
     }
 
     protected function checkCondition(array $condition)

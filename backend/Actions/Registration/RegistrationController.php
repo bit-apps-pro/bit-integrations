@@ -77,8 +77,9 @@ final class RegistrationController
 
         $userData = $this->userFieldMapping($userFieldMap, $updatedvalues, $flowDetails);
 
-        if (isset($flowDetails->user_role)) {
-            $userData['role'] = $flowDetails->user_role;
+        $flowRole = isset($flowDetails->user_role) ? $this->resolveStaticRole($flowDetails->user_role) : '';
+        if ($flowRole !== '') {
+            $userData['role'] = $flowRole;
         }
 
         if ($actionType === 'updated_user') {
