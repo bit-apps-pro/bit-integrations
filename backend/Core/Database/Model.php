@@ -1,15 +1,15 @@
 <?php
 
-/**
- * Provides Base Model Class
- */
-
 namespace BitApps\Integrations\Core\Database;
 
 use WP_Error;
 
 class Model
 {
+    private const COMPARISON_OPERATORS = ['=', '!=', '<>', '<', '<=', '>', '>=', 'LIKE', 'NOT LIKE'];
+
+    private const LIST_OPERATORS = ['IN', 'NOT IN'];
+
     protected static $table;
 
     protected static $primary_key;
@@ -344,11 +344,11 @@ class Model
             $value_type = '';
             if (\is_array($value)) {
                 if (isset($value['operator'])) {
-                    $set_check_operator = $value['operator'];
+                    $set_check_operator = $this->allowedOperator($value['operator'], self::COMPARISON_OPERATORS, '=');
                     $value_type .= $this->getFieldFormat($value['value']);
                     $all_values[] = $value['value'];
                 } else {
-                    $set_check_operator = \is_null($check_operator) ? 'in' : $check_operator;
+                    $set_check_operator = $this->allowedOperator($check_operator, self::LIST_OPERATORS, 'IN');
                     $value_type .= ' ( ';
                     $value_index_checker = 0;
                     $value_count = \count($value) - 1;
@@ -363,7 +363,7 @@ class Model
                     $value_type .= ' )';
                 }
             } else {
-                $set_check_operator = \is_null($check_operator) ? '=' : $check_operator;
+                $set_check_operator = $this->allowedOperator($check_operator, self::COMPARISON_OPERATORS, '=');
                 $value_type .= $this->getFieldFormat($value);
                 $all_values[] = $value;
             }
@@ -378,6 +378,17 @@ class Model
             'conditions' => $condition_to_check,
             'values'     => $all_values
         ];
+    }
+
+    private function allowedOperator($operator, array $allowed, $default)
+    {
+        if (!\is_string($operator)) {
+            return $default;
+        }
+
+        $normalized = strtoupper(preg_replace('/\s+/', ' ', trim($operator)));
+
+        return \in_array($normalized, $allowed, true) ? $normalized : $default;
     }
 
     protected function checkCondition(array $condition)
@@ -399,7 +410,6 @@ class Model
         } else {
             $preparedQuery = $this->app_db->prepare($sql, $values);
         }
-        // echo " Q S " . $preparedQuery . " Q  EE";
         if (empty($preparedQuery)) {
             $this->db_response = new WP_Error('null_query', __('prepared query is empty', 'bit-integrations'));
         } else {
