@@ -380,17 +380,6 @@ class Model
         ];
     }
 
-    private function allowedOperator($operator, array $allowed, $default)
-    {
-        if (!\is_string($operator)) {
-            return $default;
-        }
-
-        $normalized = strtoupper(preg_replace('/\s+/', ' ', trim($operator)));
-
-        return \in_array($normalized, $allowed, true) ? $normalized : $default;
-    }
-
     protected function checkCondition(array $condition)
     {
         if (!\is_null($condition) && array_keys($condition) === range(0, \count($condition) - 1)) {
@@ -453,5 +442,16 @@ class Model
         $this->app_db->flush();
 
         return $response;
+    }
+
+    private function allowedOperator($operator, array $allowed, $default)
+    {
+        if (!\is_string($operator)) {
+            return $default;
+        }
+
+        $normalized = strtoupper(preg_replace('/\s+/', ' ', trim($operator)));
+
+        return \in_array($normalized, $allowed, true) ? $normalized : $default;
     }
 }
