@@ -181,10 +181,19 @@ final class RegistrationController
             return '';
         }
 
-        $role  = strtolower(trim($customValue));
         $roles = function_exists('wp_roles') ? wp_roles() : null;
+        if (!$roles) {
+            return '';
+        }
 
-        return ($roles && $roles->is_role($role)) ? $role : '';
+        $role = trim($customValue);
+        if ($roles->is_role($role)) {
+            return $role;
+        }
+
+        $role = strtolower($role);
+
+        return $roles->is_role($role) ? $role : '';
     }
 
     private function isProtectedMetaKey($metaKey)
