@@ -1,8 +1,9 @@
+import googleDriveLogo from '../../../resource/img/integ/googleDrive.webp'
 import { __ } from '../../../Utils/i18nwrap'
 import { addFieldMap } from './IntegrationHelpers'
 import GoogleDriveFieldMap from './GoogleDriveFieldMap'
 import GoogleDriveActions from './GoogleDriveActions'
-import { getAllGoogleDriveFolders } from './GoogleDriveCommonFunc'
+import { getAllGoogleDriveFolders, pickFolderFromDrive } from './GoogleDriveCommonFunc'
 
 export default function GoogleDriveIntegLayout({
   flowID,
@@ -25,6 +26,20 @@ export default function GoogleDriveIntegLayout({
         </button>
       </div>
       <div className="btcd-hr mt-1" />
+      {googleDriveConf?.one_click_app && (
+        <div className="btcd-drive-pick btcd-drive-pick--inline">
+          <button
+            onClick={() => pickFolderFromDrive(googleDriveConf, setGoogleDriveConf)}
+            className="btcd-drive-pick-btn"
+            type="button">
+            <img src={googleDriveLogo} alt="" width="18" height="18" />
+            {__('Choose folder from Google Drive', 'bit-integrations')}
+          </button>
+          <p className="btcd-drive-pick-hint">
+            {__('Only folders you chose from Drive are listed.', 'bit-integrations')}
+          </p>
+        </div>
+      )}
       <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
         <div className="txt-dp">
           <b>{__('File Input', 'bit-integrations')}</b>

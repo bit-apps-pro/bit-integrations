@@ -12,6 +12,9 @@ export default function GoogleDriveAuthorization({
 }) {
   const note = `
     <h4>${__('Google Drive OAuth setup', 'bit-integrations')}</h4>
+    <p>${__('Click Authorize and sign in to Google. No API credentials are needed.', 'bit-integrations')}</p>
+    <p>${__('In the next step, choose the folders this integration can upload to from Google Drive.', 'bit-integrations')}</p>
+    <h4>${__('Using your own Google Cloud app', 'bit-integrations')}</h4>
     <ul>
       <li>${__('Visit', 'bit-integrations')} <a href="https://console.developers.google.com/apis/credentials" target="_blank" rel="noreferrer">${__('Google API Console', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create OAuth client in Google API Console.', 'bit-integrations')}</li>
@@ -31,6 +34,10 @@ export default function GoogleDriveAuthorization({
       tutorialLinks={tutorialLinks?.googleDrive || {}}
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
+        oneClick: {
+          app: 'google',
+          scope: 'https://www.googleapis.com/auth/drive.file'
+        },
         grantType: 'authorization_code',
         clientAuthentication: 'body',
         authCodeEndpoint: {

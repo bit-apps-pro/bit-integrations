@@ -1,7 +1,8 @@
 /* eslint-disable no-else-return */
 import toast from 'react-hot-toast'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { pickFromGoogleDrive } from '../../../Utils/googlePicker'
 
 export const handleInput = (e, googleDriveConf, setGoogleDriveConf) => {
   const newConf = { ...googleDriveConf }
@@ -47,4 +48,30 @@ export const getAllGoogleDriveFolders = (flowID, googleDriveConf, setGoogleDrive
     error: __('Error Occurred', 'bit-integrations'),
     loading: __('Loading GoogleDrive Folders List...', 'bit-integrations')
   })
+}
+
+export const pickFolderFromDrive = async (googleDriveConf, setGoogleDriveConf) => {
+  try {
+    const folder = await pickFromGoogleDrive({
+      connectionId: googleDriveConf.connection_id,
+      kind: 'folder',
+      title: __('Choose a folder', 'bit-integrations')
+    })
+
+    if (!folder) return
+
+    setGoogleDriveConf(prevConf => ({
+      ...prevConf,
+      foldersList: [
+        ...(prevConf.foldersList || []).filter(({ id }) => id !== folder.id),
+        { id: folder.id, name: folder.name }
+      ]
+    }))
+    toast.success(sprintf(__('%s is ready to select', 'bit-integrations'), folder.name))
+  } catch (error) {
+    toast.error(
+      error?.message ||
+        __('Google Drive picker could not be opened. Please try again.', 'bit-integrations')
+    )
+  }
 }

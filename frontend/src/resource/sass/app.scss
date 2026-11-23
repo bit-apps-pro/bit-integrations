@@ -3811,6 +3811,10 @@ $menu-bleed: 40px;
   @media (max-width: 782px) {
     margin-left: 0;
   }
+
+  &--inline {
+    margin: 12px 0 4px;
+  }
 }
 
 .btcd-drive-pick-btn {
