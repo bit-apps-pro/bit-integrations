@@ -28,7 +28,12 @@ class RecordApiHelper
         'value', 'probability', 'tax', 'annual_revenue', 'employee_count',
     ];
 
-    private const NUMERIC_TYPES = ['double', 'monetary', 'int', 'user', 'org', 'people', 'stage', 'visible_to'];
+    private const SUB_FIELDS = [
+        'currency', 'until', 'timezone_id', 'lat', 'long', 'subpremise', 'street_number', 'route', 'sublocality', 'locality',
+        'admin_area_level_1', 'admin_area_level_2', 'country', 'postal_code', 'formatted_address',
+    ];
+
+    private const NUMERIC_TYPES =['double', 'monetary', 'int', 'user', 'org', 'people', 'stage', 'visible_to'];
 
     private const CACHE_TTL = 12 * HOUR_IN_SECONDS;
 
@@ -160,6 +165,15 @@ class RecordApiHelper
 
         $body = static::toV2Payload($module, $payload, $apiKey);
         $response = HttpHelper::post(static::v2Url($module, $apiKey), wp_json_encode((object) $body), $headers);
+        $rejectedParams = static::rejectedParams($response);
+
+        if (!empty($rejectedParams)) {
+            $response = HttpHelper::post(static::v2Url($module, $apiKey), wp_json_encode((object) static::withoutParams($body, $rejectedParams)), $headers);
+
+            if (\is_object($response)) {
+                $response->ignored_fields = $rejectedParams;
+            }
+        }
 
         if ($deleteAfterCreate && !empty($response->success) && isset($response->data->id)) {
             HttpHelper::delete(static::v2Url($module . '/' . (int) $response->data->id, $apiKey), null, $headers);
@@ -214,6 +228,7 @@ class RecordApiHelper
     private static function toV2Payload($module, $payload, $apiKey)
     {
         $payload = static::renameV1Keys($module, $payload);
+        $subFields = static::extractSubFields($payload);
         $body = [];
         $customFields = [];
 
@@ -229,8 +244,19 @@ class RecordApiHelper
             }
         }
 
+        foreach ($subFields as $parent => $parts) {
+            if (static::isCustomFieldKey($parent)) {
+                $customFields[$parent] = static::mergeSubFields($customFields[$parent] ?? null, $parts);
+            } else {
+                $body[$parent] = static::mergeSubFields($body[$parent] ?? null, $parts);
+            }
+        }
+
+        $body = array_filter($body, fn ($value) => $value !== null);
+        $customFields = array_filter($customFields, fn ($value) => $value !== null);
+
         if (!empty($customFields)) {
-            $body['custom_fields'] = (object) $customFields;
+            $body['custom_fields'] = $customFields;
         }
 
         switch ($module) {
@@ -274,6 +300,91 @@ class RecordApiHelper
         return $payload;
     }
 
+    private static function extractSubFields(&$payload)
+    {
+        $subFields = [];
+        $pattern = '/^([a-f0-9]{40}|address|location|postal_address)_(' . implode('|', self::SUB_FIELDS) . ')$/';
+
+        foreach ($payload as $key => $value) {
+            if (!preg_match($pattern, (string) $key, $match)) {
+                continue;
+            }
+
+            unset($payload[$key]);
+
+            if ($value !== null && $value !== '' && !\in_array($match[2], ['lat', 'long'], true)) {
+                $subFields[$match[1]][$match[2]] = (string) $value;
+            }
+        }
+
+        return $subFields;
+    }
+
+    private static function mergeSubFields($parentValue, $parts)
+    {
+        $formattedAddress = $parts['formatted_address'] ?? null;
+        unset($parts['formatted_address']);
+
+        if ($parentValue !== null && !\is_array($parentValue)) {
+            $parentValue = ['value' => (string) $parentValue];
+        }
+
+        if (!isset($parentValue['value'])) {
+            $addressParts = array_diff_key($parts, array_flip(['currency', 'until', 'timezone_id']));
+
+            if ($formattedAddress === null && empty($addressParts)) {
+                return $parentValue;
+            }
+
+            $parentValue['value'] = $formattedAddress ?? implode(', ', $addressParts);
+        }
+
+        return array_merge($parentValue, $parts);
+    }
+
+    private static function rejectedParams($response)
+    {
+        if (!\is_object($response) || ($response->code ?? '') !== 'ERR_SCHEMA_VALIDATION_FAILED') {
+            return [];
+        }
+
+        preg_match_all("/Parameter '([^']+)' is not allowed/", (string) ($response->error ?? ''), $matches);
+
+        return array_values(array_unique($matches[1]));
+    }
+
+    private static function withoutParams($body, $params)
+    {
+        foreach ($params as $param) {
+            $path = explode('.', $param);
+
+            if (\count($path) === 1 && !\array_key_exists($param, $body)) {
+                $path = ['custom_fields', $param];
+            }
+
+            $last = array_pop($path);
+            $node = &$body;
+
+            foreach ($path as $key) {
+                if (!isset($node[$key]) || !\is_array($node[$key])) {
+                    unset($node);
+
+                    continue 2;
+                }
+
+                $node = &$node[$key];
+            }
+
+            unset($node[$last], $node);
+        }
+
+        if (isset($body['custom_fields']) && empty($body['custom_fields'])) {
+            unset($body['custom_fields']);
+        }
+
+        return $body;
+    }
+
     private static function castStandardField($module, $apiKey, $key, $value)
     {
         if ($key === 'label_ids') {
@@ -302,6 +413,8 @@ class RecordApiHelper
                 return array_map(fn ($item) => static::optionId($item, $options), static::toList($value));
             case 'address':
                 return ['value' => (string) $value];
+            case 'date':
+                return static::toDate($value);
         }
 
         return \in_array($meta['type'] ?? '', self::NUMERIC_TYPES, true) ? static::toNumber($value) : $value;
@@ -324,8 +437,13 @@ class RecordApiHelper
             case 'set':
                 return array_map(fn ($item) => static::optionId($item, $options), static::toList($value));
             case 'address':
-            case 'daterange':
                 return ['value' => (string) $value];
+            case 'date':
+                return static::toDate($value);
+            case 'daterange':
+                $date = static::toDate($value);
+
+                return $date === null ? null : ['value' => $date];
             case 'time':
             case 'timerange':
                 return ['value' => static::toTime($value)];
@@ -498,7 +616,24 @@ class RecordApiHelper
 
         $label = strtolower(trim((string) $value));
 
-        return isset($options[$label]) ? (int) $options[$label] : $value;
+        if (!isset($options[$label])) {
+            return $value;
+        }
+
+        return is_numeric($options[$label]) ? (int) $options[$label] : $options[$label];
+    }
+
+    private static function toDate($value)
+    {
+        $value = trim((string) $value);
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+            return $value;
+        }
+
+        $timestamp = strtotime($value);
+
+        return $timestamp === false ? null : gmdate('Y-m-d', $timestamp);
     }
 
     private static function toTime($value)
