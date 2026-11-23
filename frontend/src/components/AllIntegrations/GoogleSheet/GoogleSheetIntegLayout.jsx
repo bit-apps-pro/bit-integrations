@@ -18,10 +18,12 @@ import GoogleSheetFieldMap from './GoogleSheetFieldMap'
 import {
   actionFields,
   DEFAULT_ACTION,
+  defaultInsertDataOption,
   modules,
   needsColumnToMatch,
   needsFieldMap,
   needsHeaders,
+  needsInsertDataOption,
   needsSpreadsheet,
   needsWorksheet
 } from './staticData'
@@ -229,6 +231,35 @@ export default function GoogleSheetIntegLayout({
               'bit-integrations'
             )}
           </small>
+          <br />
+          <b className="wdt-200 d-in-b">{__('Value Input:', 'bit-integrations')}</b>
+          <select
+            onChange={handleInput}
+            name="valueInputOption"
+            value={sheetConf.valueInputOption || 'USER_ENTERED'}
+            className="btcd-paper-inp w-5">
+            <option value="USER_ENTERED">
+              {__('As typed in Sheets (formulas, numbers and dates are parsed)', 'bit-integrations')}
+            </option>
+            <option value="RAW">{__('Raw (stored exactly as sent)', 'bit-integrations')}</option>
+          </select>
+          {needsInsertDataOption.includes(action) && (
+            <>
+              <br />
+              <br />
+              <b className="wdt-200 d-in-b">{__('Insert Data:', 'bit-integrations')}</b>
+              <select
+                onChange={handleInput}
+                name="insertDataOption"
+                value={sheetConf.insertDataOption || defaultInsertDataOption(action)}
+                className="btcd-paper-inp w-5">
+                <option value="INSERT_ROWS">{__('Insert new rows', 'bit-integrations')}</option>
+                <option value="OVERWRITE">
+                  {__('Write into the empty rows below the table', 'bit-integrations')}
+                </option>
+              </select>
+            </>
+          )}
         </>
       )}
 
