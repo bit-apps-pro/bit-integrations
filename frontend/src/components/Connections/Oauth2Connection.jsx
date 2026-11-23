@@ -107,7 +107,15 @@ export default function Oauth2Connection({
     extraFields = [],
     oneClick
   } = authDetails || {}
-  const { app: oneClickApp = '', scope: oneClickScope } = oneClick || {}
+  const {
+    app: oneClickApp = '',
+    scope: oneClickScope,
+    label: oneClickLabel = __('One-click', 'bit-integrations'),
+    hint: oneClickHint,
+    customLabel = __('Your own app credentials', 'bit-integrations'),
+    customHint
+  } = oneClick || {}
+  const connectionTypeHint = useCustomApp ? customHint : oneClickHint
 
   const [useCustomApp, setUseCustomApp] = useState(!oneClickApp)
   const isOneClick = Boolean(oneClickApp) && !useCustomApp
@@ -398,6 +406,31 @@ export default function Oauth2Connection({
 
   return (
     <>
+      {oneClickApp && !isInfo && (
+        <>
+          <div className="mt-3">
+            <label htmlFor="btcd-connection-type">
+              <b>{__('Connection Type:', 'bit-integrations')}</b>
+            </label>
+          </div>
+          <select
+            id="btcd-connection-type"
+            className="btcd-paper-inp w-6 mt-1"
+            value={useCustomApp ? 'custom' : 'oneClick'}
+            onChange={e => setUseCustomApp(e.target.value === 'custom')}
+            aria-describedby={connectionTypeHint ? 'btcd-connection-type-hint' : undefined}
+            disabled={isLoading}>
+            <option value="oneClick">{oneClickLabel}</option>
+            <option value="custom">{customLabel}</option>
+          </select>
+          {connectionTypeHint && (
+            <p id="btcd-connection-type-hint" className="btcd-connection-type-hint">
+              {connectionTypeHint}
+            </p>
+          )}
+        </>
+      )}
+
       <div className="mt-3">
         <b>{__('Connection Name:', 'bit-integrations')}</b>
       </div>
@@ -514,18 +547,6 @@ export default function Oauth2Connection({
         {isAuthorized ? __('Authorized ✔', 'bit-integrations') : __('Authorize', 'bit-integrations')}
         {isLoading && <LoaderSm size={20} clr="#022217" className="ml-2" />}
       </button>
-
-      {oneClickApp && !isInfo && (
-        <button
-          type="button"
-          className="btcd-auth-mode-toggle mt-2"
-          onClick={() => setUseCustomApp(prev => !prev)}
-          disabled={isLoading}>
-          {useCustomApp
-            ? __('Use one-click authorization instead', 'bit-integrations')
-            : __('Use your own app credentials instead', 'bit-integrations')}
-        </button>
-      )}
     </>
   )
 }

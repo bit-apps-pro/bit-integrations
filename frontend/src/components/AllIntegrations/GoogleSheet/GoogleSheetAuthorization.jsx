@@ -30,7 +30,17 @@ export default function GoogleSheetAuthorization({ sheetConf, setSheetConf, step
         authType: AUTH_TYPES.OAUTH2,
         oneClick: {
           app: 'google',
-          scope: 'https://www.googleapis.com/auth/drive.file'
+          scope: 'https://www.googleapis.com/auth/drive.file',
+          label: __('One-click: only spreadsheets you choose', 'bit-integrations'),
+          hint: __(
+            'Sign in with Google, no setup needed. Pick spreadsheets from Google Drive in the next step.',
+            'bit-integrations'
+          ),
+          customLabel: __('Your own Google app: full Drive access', 'bit-integrations'),
+          customHint: __(
+            'Lists every spreadsheet in your Drive. Needs an OAuth client from your Google Cloud project.',
+            'bit-integrations'
+          )
         },
         grantType: 'authorization_code',
         clientAuthentication: 'body',
