@@ -36,7 +36,7 @@ export default function PipeDriveAuthorization({
       tutorialLinks={tutorialLinks?.pipeDrive || {}}
       authDetails={{
         authType: AUTH_TYPES.API_KEY,
-        apiEndpoint: 'https://api.pipedrive.com/v1/persons',
+        apiEndpoint: 'https://api.pipedrive.com/api/v2/persons',
         method: 'GET',
         key: 'api_token',
         addTo: 'query'
