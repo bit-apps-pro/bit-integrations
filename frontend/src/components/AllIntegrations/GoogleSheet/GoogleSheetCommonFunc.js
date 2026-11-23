@@ -61,43 +61,35 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
   return newConf
 }
 
-export const pickSpreadsheetFromDrive = async (
-  formID,
-  sheetConf,
-  setSheetConf,
-  setIsLoading,
-  setSnackbar
-) => {
-  setIsLoading(true)
+export const browseSheetDrive = (sheetConf, parentId, location) =>
+  bitsFetch(
+    {
+      ...buildAuthRequestParams(sheetConf),
+      parentId,
+      location,
+      includeAccessible: Boolean(sheetConf?.one_click_app)
+    },
+    'gsheet_browse_drive'
+  )
 
-  try {
-    const file = await pickFromGoogleDrive({
-      connectionId: sheetConf.connection_id,
-      kind: 'spreadsheet',
-      title: __('Choose a spreadsheet', 'bit-integrations'),
-      onOpen: () => setIsLoading(false)
-    })
+export const findSpreadsheetInDrive = (sheetConf, onOpen) =>
+  pickFromGoogleDrive({
+    connectionId: sheetConf.connection_id,
+    kind: 'spreadsheet',
+    title: __('Choose a spreadsheet', 'bit-integrations'),
+    onOpen
+  })
 
-    if (!file) return
-
-    const pickedConf = deepCopy(sheetConf)
-    pickedConf.default = pickedConf.default || {}
-    pickedConf.default.spreadsheets = {
-      ...(pickedConf.default.spreadsheets || {}),
-      [file.name]: { spreadsheetId: file.id, spreadsheetName: file.name }
-    }
-    pickedConf.spreadsheetId = file.id
-
-    setSheetConf(spreadSheetChange(pickedConf, formID, setSheetConf, setIsLoading, setSnackbar))
-  } catch (error) {
-    setIsLoading(false)
-    setSnackbar({
-      show: true,
-      msg:
-        error?.message ||
-        __('Google Drive picker could not be opened. Please try again.', 'bit-integrations')
-    })
+export const selectSpreadsheet = (file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar) => {
+  const pickedConf = deepCopy(sheetConf)
+  pickedConf.default = pickedConf.default || {}
+  pickedConf.default.spreadsheets = {
+    ...(pickedConf.default.spreadsheets || {}),
+    [file.name]: { spreadsheetId: file.id, spreadsheetName: file.name }
   }
+  pickedConf.spreadsheetId = file.id
+
+  setSheetConf(spreadSheetChange(pickedConf, formID, setSheetConf, setIsLoading, setSnackbar))
 }
 
 const worksheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSnackbar) => {

@@ -2,17 +2,19 @@ import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
-import googleDriveLogo from '../../../resource/img/integ/googleDrive.webp'
 import { __ } from '../../../Utils/i18nwrap'
 import Loader from '../../Loaders/Loader'
+import GoogleDriveBrowser from '../../Utilities/GoogleDriveBrowser'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from '../IntegrationHelpers/GoogleIntegrationHelpers'
 import {
+  browseSheetDrive,
+  findSpreadsheetInDrive,
   generateMappedField,
-  pickSpreadsheetFromDrive,
   refreshSpreadsheets,
   refreshWorksheetHeaders,
-  refreshWorksheets
+  refreshWorksheets,
+  selectSpreadsheet
 } from './GoogleSheetCommonFunc'
 import GoogleSheetFieldMap from './GoogleSheetFieldMap'
 import {
@@ -39,7 +41,13 @@ export default function GoogleSheetIntegLayout({
   setSnackbar
 }) {
   const { isPro } = useRecoilValue($appConfigState)
-  const canPickFromDrive = Boolean(sheetConf?.one_click_app)
+  const savedSpreadsheets = Object.values(sheetConf?.default?.spreadsheets || {}).map(
+    ({ spreadsheetId, spreadsheetName }) => ({ id: spreadsheetId, name: spreadsheetName })
+  )
+  const spreadsheetName =
+    savedSpreadsheets.find(({ id }) => id === sheetConf?.spreadsheetId)?.name ||
+    sheetConf?.spreadsheetId ||
+    ''
   const action = sheetConf?.mainAction ?? DEFAULT_ACTION
 
   const worksheetHeaders =
@@ -123,49 +131,23 @@ export default function GoogleSheetIntegLayout({
 
       {needsSpreadsheet.includes(action) && (
         <>
-          <b className="wdt-200 d-in-b">{__('Spreadsheets:', 'bit-integrations')}</b>
-          <select
-            onChange={handleInput}
-            name="spreadsheetId"
-            value={sheetConf.spreadsheetId || ''}
-            className="btcd-paper-inp w-5">
-            <option value="">{__('Select Spreadsheet', 'bit-integrations')}</option>
-            {sheetConf?.default?.spreadsheets &&
-              Object.keys(sheetConf.default.spreadsheets).map(spreadSheetApiName => (
-                <option
-                  key={spreadSheetApiName}
-                  value={sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetId}>
-                  {sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetName}
-                </option>
-              ))}
-          </select>
-          <button
-            onClick={() =>
-              refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
-            }
-            className="icn-btn sh-sm ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': '"Refresh Spreadsheet"' }}
-            type="button"
-            disabled={isLoading}>
-            &#x21BB;
-          </button>
-          {canPickFromDrive && (
-            <div className="btcd-drive-pick">
-              <button
-                onClick={() =>
-                  pickSpreadsheetFromDrive(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
+          <div className="flx">
+            <b className="wdt-200 d-in-b">{__('Spreadsheet:', 'bit-integrations')}</b>
+            <div className="w-5">
+              <GoogleDriveBrowser
+                mode="spreadsheet"
+                label={spreadsheetName}
+                placeholder={__('Select Spreadsheet', 'bit-integrations')}
+                isOneClick={Boolean(sheetConf?.one_click_app)}
+                savedItems={savedSpreadsheets}
+                browse={(parentId, location) => browseSheetDrive(sheetConf, parentId, location)}
+                findInDrive={onOpen => findSpreadsheetInDrive(sheetConf, onOpen)}
+                onSelect={file =>
+                  selectSpreadsheet(file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
                 }
-                className="btcd-drive-pick-btn"
-                type="button"
-                disabled={isLoading}>
-                <img src={googleDriveLogo} alt="" width="18" height="18" />
-                {__('Choose from Google Drive', 'bit-integrations')}
-              </button>
-              <p className="btcd-drive-pick-hint">
-                {__('Only sheets you chose from Drive or created here are listed.', 'bit-integrations')}
-              </p>
+              />
             </div>
-          )}
+          </div>
           <br />
           <br />
         </>

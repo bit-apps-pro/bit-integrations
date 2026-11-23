@@ -90,7 +90,11 @@ class GoogleDriveController
                 null,
                 $headers
             );
-            $items = $response->files ?? [];
+            $items = (array) ($response->files ?? []);
+
+            if (!is_wp_error($response) && empty($response->error) && !empty($queryParams->includeAccessible) && $location === 'my-drive' && \in_array($parentId, ['', 'root'], true)) {
+                $items = self::withAccessibleFolders($items, $headers);
+            }
         }
 
         if (is_wp_error($response) || !empty($response->error)) {
@@ -277,6 +281,33 @@ class GoogleDriveController
         $token->generated_at = $token->generates_on;
 
         return $token;
+    }
+
+    private static function withAccessibleFolders(array $folders, array $headers)
+    {
+        $response = HttpHelper::get(
+            self::FILES_API . '?' . http_build_query([
+                'q'                         => "mimeType = '" . self::FOLDER_MIME_TYPE . "' and trashed = false",
+                'fields'                    => 'files(id,name)',
+                'orderBy'                   => 'name',
+                'pageSize'                  => 300,
+                'corpora'                   => 'allDrives',
+                'supportsAllDrives'         => 'true',
+                'includeItemsFromAllDrives' => 'true',
+            ]),
+            null,
+            $headers
+        );
+
+        $listedIds = array_column(array_map(fn ($folder) => (array) $folder, $folders), 'id');
+
+        foreach ((array) ($response->files ?? []) as $folder) {
+            if (!\in_array($folder->id, $listedIds, true)) {
+                $folders[] = $folder;
+            }
+        }
+
+        return $folders;
     }
 
     private static function resolveRequestToken($queryParams)

@@ -52,7 +52,12 @@ export const getAllGoogleDriveFolders = (flowID, googleDriveConf, setGoogleDrive
 
 export const browseDriveFolders = (googleDriveConf, parentId, location) =>
   bitsFetch(
-    { ...buildAuthRequestParams(googleDriveConf), parentId, location },
+    {
+      ...buildAuthRequestParams(googleDriveConf),
+      parentId,
+      location,
+      includeAccessible: Boolean(googleDriveConf?.one_click_app)
+    },
     'googleDrive_browse_folders'
   )
 
