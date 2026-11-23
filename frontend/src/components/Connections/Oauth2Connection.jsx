@@ -25,6 +25,9 @@ import CopyText from '../Utilities/CopyText'
 import SecretInput from '../Utilities/SecretInput'
 import { APP_CONFIG } from '../../config/app'
 
+// The broker redirect sends COOP: same-origin, so the opener sees popup.closed while consent is still open.
+const ONE_CLICK_POPUP_CLOSED_GRACE_MS = 30000
+
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
 
 const GRANT_TYPES = Object.freeze({
@@ -162,7 +165,7 @@ export default function Oauth2Connection({
   }, [extraFields, formData, isOneClick])
 
   const requestAuthCode = useCallback(
-    async ({ clientId, authRedirectUri, codeChallenge, scopeOverride }) => {
+    async ({ clientId, authRedirectUri, codeChallenge, scopeOverride, closedGraceMs }) => {
       const declaredQueryParams = {
         ...(resolvedAuthCodeEndpoint?.queryParams || {}),
         ...(scopeOverride ? { scope: scopeOverride } : {})
@@ -190,7 +193,8 @@ export default function Oauth2Connection({
       })
       const popupResponse = await openOauthPopup(authUrl, {
         channelKey: oauthChannelKey,
-        includeLegacyFallback: true
+        includeLegacyFallback: true,
+        closedGraceMs
       })
 
       if (popupResponse?.error) {
@@ -224,7 +228,12 @@ export default function Oauth2Connection({
     }
 
     const { client_id: clientId, redirect_uri: authRedirectUri } = configRes.data
-    const code = await requestAuthCode({ clientId, authRedirectUri, scopeOverride: oneClickScope })
+    const code = await requestAuthCode({
+      clientId,
+      authRedirectUri,
+      scopeOverride: oneClickScope,
+      closedGraceMs: ONE_CLICK_POPUP_CLOSED_GRACE_MS
+    })
     const tokenRes = await oneClickExchange({
       app: oneClickApp,
       code,

@@ -2,7 +2,6 @@ import { APP_CONFIG } from '../config/app'
 import { oauthConnectionExchange } from './connectionApi'
 
 const OAUTH_CHANNEL = 'bit_integrations_oauth_share'
-const POPUP_CLOSED_GRACE_MS = 30000
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
 
 const base64UrlEncode = bytes => {
@@ -102,7 +101,10 @@ const extractChannelFromState = stateValue => {
 // attempt, which is exactly the property the window name needs.
 const getPopupName = channelKey => `bit_oauth_${channelKey || randomToken(8)}`
 
-export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback = false } = {}) =>
+export const openOauthPopup = (
+  authUrl,
+  { channelKey = '', includeLegacyFallback = false, closedGraceMs = 0 } = {}
+) =>
   new Promise(resolve => {
     const popup = window.open(authUrl, getPopupName(channelKey), 'width=500,height=650,toolbar=off')
 
@@ -151,7 +153,7 @@ export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback
       if (resolved || !popup.closed) return
 
       closedSince ||= Date.now()
-      if (Date.now() - closedSince < POPUP_CLOSED_GRACE_MS) return
+      if (Date.now() - closedSince < closedGraceMs) return
 
       resolved = true
       cleanup()
