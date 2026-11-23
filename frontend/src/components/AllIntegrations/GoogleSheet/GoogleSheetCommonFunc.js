@@ -81,6 +81,8 @@ export const findSpreadsheetInDrive = (sheetConf, onOpen) =>
   })
 
 export const selectSpreadsheet = (file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar) => {
+  if (file.id === sheetConf.spreadsheetId) return
+
   const pickedConf = deepCopy(sheetConf)
   pickedConf.default = pickedConf.default || {}
   pickedConf.default.spreadsheets = {
