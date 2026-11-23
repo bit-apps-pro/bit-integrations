@@ -59,6 +59,7 @@ export default function GoogleDriveFieldMap({
             value={field.googleDriveFormField}
             onChange={ev => handleFieldMapping(ev, i)}>
             <option value="">{__('Select Folder', 'bit-integrations')}</option>
+            <option value="root">{__('My Drive', 'bit-integrations')}</option>
             {sortByField(googleDriveConf.foldersList, 'name', 'ASC').map(({ name, id }) => (
               <option key={id} value={id}>
                 {name}

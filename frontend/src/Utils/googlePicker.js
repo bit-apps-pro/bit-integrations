@@ -46,17 +46,18 @@ const loadPicker = () => {
 
 const FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder'
 
-const buildView = (picker, kind) =>
-  kind === 'folder'
-    ? new picker.DocsView(picker.ViewId.FOLDERS)
-        .setIncludeFolders(true)
-        .setSelectFolderEnabled(true)
-        .setMimeTypes(FOLDER_MIME_TYPE)
-        .setMode(picker.DocsViewMode.LIST)
-    : new picker.DocsView(picker.ViewId.SPREADSHEETS)
-        .setIncludeFolders(true)
-        .setSelectFolderEnabled(false)
-        .setMode(picker.DocsViewMode.LIST)
+const buildView = (picker, kind, { sharedDrives = false } = {}) => {
+  const view =
+    kind === 'folder'
+      ? new picker.DocsView(picker.ViewId.FOLDERS)
+          .setSelectFolderEnabled(true)
+          .setMimeTypes(FOLDER_MIME_TYPE)
+      : new picker.DocsView(picker.ViewId.SPREADSHEETS).setSelectFolderEnabled(false)
+
+  view.setIncludeFolders(true).setMode(picker.DocsViewMode.LIST)
+
+  return sharedDrives ? view.setEnableDrives(true) : view
+}
 
 export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen }) => {
   const pickerRes = await getOneClickPicker(connectionId)
@@ -77,6 +78,8 @@ export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen })
   return new Promise(resolve => {
     new picker.PickerBuilder()
       .addView(buildView(picker, kind))
+      .addView(buildView(picker, kind, { sharedDrives: true }))
+      .enableFeature(picker.Feature.SUPPORT_DRIVES)
       .setOAuthToken(accessToken)
       .setDeveloperKey(apiKey)
       .setAppId(appId)

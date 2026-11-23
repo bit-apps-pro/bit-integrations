@@ -86,7 +86,7 @@ class GoogleDriveController
             'Content-Type'  => 'application/json;',
             'Authorization' => 'Bearer ' . $token,
         ];
-        $apiEndpoint = "https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,parents)";
+        $apiEndpoint = "https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,parents)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true";
         $apiResponse = HttpHelper::get($apiEndpoint, [], $headers);
         if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
             return false;
@@ -138,7 +138,7 @@ class GoogleDriveController
             return $error;
         }
 
-        (new GoogleDriveRecordApiHelper($tokenDetails->access_token))->executeRecordApi($this->integrationID, $fieldValues, $fieldMap, $actions);
+        (new GoogleDriveRecordApiHelper($tokenDetails->access_token))->executeRecordApi($this->integrationID, $fieldValues, $fieldMap, $actions, $integrationDetails->folderPath ?? '');
 
         return true;
     }

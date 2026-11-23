@@ -1,9 +1,10 @@
+import { useState } from 'react'
 import googleDriveLogo from '../../../resource/img/integ/googleDrive.webp'
 import { __ } from '../../../Utils/i18nwrap'
 import { addFieldMap } from './IntegrationHelpers'
 import GoogleDriveFieldMap from './GoogleDriveFieldMap'
 import GoogleDriveActions from './GoogleDriveActions'
-import { getAllGoogleDriveFolders, pickFolderFromDrive } from './GoogleDriveCommonFunc'
+import { getAllGoogleDriveFolders, handleInput, pickFolderFromDrive } from './GoogleDriveCommonFunc'
 
 export default function GoogleDriveIntegLayout({
   flowID,
@@ -11,10 +12,18 @@ export default function GoogleDriveIntegLayout({
   googleDriveConf,
   setGoogleDriveConf
 }) {
+  const [isOpeningPicker, setIsOpeningPicker] = useState(false)
+
+  const handlePickFolder = async () => {
+    setIsOpeningPicker(true)
+    await pickFolderFromDrive(googleDriveConf, setGoogleDriveConf, () => setIsOpeningPicker(false))
+    setIsOpeningPicker(false)
+  }
+
   return (
     <>
-      <div className="mt-5">
-        <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
+      <div className="mt-5 btcd-section-head">
+        <b>{__('Field Map', 'bit-integrations')}</b>
         <button
           onClick={() => getAllGoogleDriveFolders(flowID, googleDriveConf, setGoogleDriveConf)}
           className="icn-btn sh-sm ml-2 mr-2 tooltip"
@@ -24,21 +33,23 @@ export default function GoogleDriveIntegLayout({
           type="button">
           &#x21BB;
         </button>
-      </div>
-      <div className="btcd-hr mt-1" />
-      {googleDriveConf?.one_click_app && (
-        <div className="btcd-drive-pick btcd-drive-pick--inline">
+        {googleDriveConf?.one_click_app && (
           <button
-            onClick={() => pickFolderFromDrive(googleDriveConf, setGoogleDriveConf)}
-            className="btcd-drive-pick-btn"
-            type="button">
+            onClick={handlePickFolder}
+            className="btcd-drive-pick-btn btcd-section-head-action"
+            type="button"
+            disabled={isOpeningPicker}
+            aria-busy={isOpeningPicker}>
             <img src={googleDriveLogo} alt="" width="18" height="18" />
             {__('Choose folder from Google Drive', 'bit-integrations')}
           </button>
-          <p className="btcd-drive-pick-hint">
-            {__('Only folders you chose from Drive are listed.', 'bit-integrations')}
-          </p>
-        </div>
+        )}
+      </div>
+      <div className="btcd-hr mt-1" />
+      {googleDriveConf?.one_click_app && (
+        <p className="btcd-drive-pick-hint btcd-section-head-hint">
+          {__('Only folders you chose from Drive are listed.', 'bit-integrations')}
+        </p>
       )}
       <div className="flx flx-around mt-2 mb-2 btcbi-field-map-label">
         <div className="txt-dp">
@@ -69,7 +80,23 @@ export default function GoogleDriveIntegLayout({
           +
         </button>
       </div>
-      <br />
+      <div className="mt-4">
+        <b className="wdt-200 d-in-b">{__('Subfolder Path:', 'bit-integrations')}</b>
+        <input
+          type="text"
+          name="folderPath"
+          className="btcd-paper-inp w-5"
+          placeholder={__('Forms/Invoices', 'bit-integrations')}
+          value={googleDriveConf?.folderPath || ''}
+          onChange={e => handleInput(e, googleDriveConf, setGoogleDriveConf)}
+        />
+        <small className="d-blk mt-1" style={{ marginLeft: 200 }}>
+          {__(
+            'Optional. Files go into this path inside each chosen folder. Missing folders are created.',
+            'bit-integrations'
+          )}
+        </small>
+      </div>
       <br />
       <div className="mt-4">
         <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>

@@ -50,12 +50,13 @@ export const getAllGoogleDriveFolders = (flowID, googleDriveConf, setGoogleDrive
   })
 }
 
-export const pickFolderFromDrive = async (googleDriveConf, setGoogleDriveConf) => {
+export const pickFolderFromDrive = async (googleDriveConf, setGoogleDriveConf, onOpen) => {
   try {
     const folder = await pickFromGoogleDrive({
       connectionId: googleDriveConf.connection_id,
       kind: 'folder',
-      title: __('Choose a folder', 'bit-integrations')
+      title: __('Choose a folder', 'bit-integrations'),
+      onOpen
     })
 
     if (!folder) return

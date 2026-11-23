@@ -3811,10 +3811,24 @@ $menu-bleed: 40px;
   @media (max-width: 782px) {
     margin-left: 0;
   }
+}
 
-  &--inline {
-    margin: 12px 0 4px;
-  }
+.btcd-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 0;
+  max-width: 97%;
+}
+
+.btcd-section-head-action {
+  margin-left: auto;
+}
+
+.btcd-drive-pick-hint.btcd-section-head-hint {
+  max-width: 97%;
+  margin-top: 6px;
+  text-align: right;
 }
 
 .btcd-drive-pick-btn {
