@@ -144,10 +144,13 @@ class RecordApiHelper
 
         $apiKey = !empty($this->_integrationDetails->api_key) ? $this->_integrationDetails->api_key : ($this->_integrationDetails->value ?? '');
 
-        return static::createRecord($module, $finalData, (string) $apiKey);
+        $deleteAfterCreate = ($module === 'deals' && !empty($actions->deal_status) && ($moduleData->deal_status ?? '') === 'deleted')
+            || ($module === 'products' && !empty($actions->active_flag));
+
+        return static::createRecord($module, $finalData, (string) $apiKey, $deleteAfterCreate);
     }
 
-    public static function createRecord($module, $payload, $apiKey)
+    public static function createRecord($module, $payload, $apiKey, $deleteAfterCreate = false)
     {
         $headers = ['content-type' => 'application/json'];
 
@@ -158,7 +161,7 @@ class RecordApiHelper
         $body = static::toV2Payload($module, $payload, $apiKey);
         $response = HttpHelper::post(static::v2Url($module, $apiKey), wp_json_encode((object) $body), $headers);
 
-        if (static::wantsDeletedRecord($module, $payload) && !empty($response->success) && isset($response->data->id)) {
+        if ($deleteAfterCreate && !empty($response->success) && isset($response->data->id)) {
             HttpHelper::delete(static::v2Url($module . '/' . (int) $response->data->id, $apiKey), null, $headers);
         }
 
@@ -246,19 +249,6 @@ class RecordApiHelper
         }
 
         return $body;
-    }
-
-    private static function wantsDeletedRecord($module, $payload)
-    {
-        if ($module === 'deals') {
-            return isset($payload['status']) && $payload['status'] === 'deleted';
-        }
-
-        if ($module === 'products') {
-            return \array_key_exists('active_flag', $payload) && empty($payload['active_flag']);
-        }
-
-        return false;
     }
 
     private static function renameV1Keys($module, $payload)
