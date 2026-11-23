@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PipeDrive Integration
- */
-
 namespace BitApps\Integrations\Actions\PipeDrive;
 
 use BitApps\Integrations\Authorization\AuthorizationType;
@@ -37,13 +33,14 @@ class PipeDriveController
             );
         }
 
-        $apiEndpoints = $this->baseUrl . $requestParams->type . '?api_token=' . $apiKey;
-
-        $response = HttpHelper::get($apiEndpoints, null);
+        $type = (string) $requestParams->type;
+        $response = \in_array($type, ['persons', 'organizations', 'stages'], true)
+            ? $this->getV2List($type, $apiKey)
+            : HttpHelper::get($this->baseUrl . $type . '?api_token=' . $apiKey, null);
         $formattedResponse = [];
 
-        foreach ($response->data as $value) {
-            if ($requestParams->type !== 'currencies') {
+        foreach ((array) ($response->data ?? []) as $value) {
+            if ($type !== 'currencies') {
                 $formattedResponse[]
                 = [
                     'value' => $value->id,
@@ -66,6 +63,34 @@ class PipeDriveController
                 400
             );
         }
+    }
+
+    private function getV2List($type, $apiKey)
+    {
+        $items = [];
+        $cursor = null;
+
+        for ($page = 0; $page < 10; $page++) {
+            $query = ['limit' => 500];
+            if ($cursor) {
+                $query['cursor'] = $cursor;
+            }
+
+            $response = HttpHelper::get(RecordApiHelper::v2Url($type, $apiKey, $query), null);
+
+            if (empty($response->success)) {
+                return $page === 0 ? $response : (object) ['success' => true, 'data' => $items];
+            }
+
+            $items = array_merge($items, (array) ($response->data ?? []));
+            $cursor = $response->additional_data->next_cursor ?? null;
+
+            if (!$cursor) {
+                break;
+            }
+        }
+
+        return (object) ['success' => true, 'data' => $items];
     }
 
     public function getFields($requestParams)

@@ -1,32 +1,51 @@
 <?php
 
-/**
- * PipeDrive    Record Api
- */
-
 namespace BitApps\Integrations\Actions\PipeDrive;
 
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 
 class RecordApiHelper
 {
+    public const V2_BASE_URL = 'https://api.pipedrive.com/api/v2/';
+
+    private const V2_MODULES = ['persons', 'organizations', 'deals', 'activities', 'products'];
+
+    private const V1_BASE_URL = 'https://api.pipedrive.com/v1/';
+
+    private const FIELDS_ENDPOINT = [
+        'persons'       => 'personFields',
+        'organizations' => 'organizationFields',
+        'deals'         => 'dealFields',
+        'activities'    => 'activityFields',
+        'products'      => 'productFields',
+    ];
+
+    private const NUMERIC_FIELDS = [
+        'owner_id', 'org_id', 'person_id', 'stage_id', 'pipeline_id', 'deal_id', 'visible_to', 'channel', 'industry', 'priority', 'outcome',
+        'value', 'probability', 'tax', 'annual_revenue', 'employee_count',
+    ];
+
+    private const NUMERIC_TYPES = ['double', 'monetary', 'int', 'user', 'org', 'people', 'stage', 'visible_to'];
+
+    private const CACHE_TTL = 12 * HOUR_IN_SECONDS;
+
+    private static $fieldMeta = [];
+
+    private static $fieldMetaRefreshed = [];
+
+    private static $defaultCurrency = [];
+
     private $_integrationDetails;
 
     private $_integrationID;
-
-    private $_defaultHeader;
-
-    private $baseUrl = 'https://api.pipedrive.com/v1/';
 
     public function __construct($integrationDetails, $integId)
     {
         $this->_integrationDetails = $integrationDetails;
         $this->_integrationID = $integId;
-        $this->_defaultHeader = [
-            'content-type' => 'application/json'
-        ];
     }
 
     public function insertRecord(
@@ -34,7 +53,6 @@ class RecordApiHelper
         $finalData
     ) {
         $moduleData = $this->_integrationDetails->moduleData;
-        $apiEndpoints = $this->baseUrl . $module . '?api_token=' . $this->_integrationDetails->api_key;
         $actions = $this->_integrationDetails->actions;
 
         if ($module !== 'products') {
@@ -63,11 +81,7 @@ class RecordApiHelper
             }
         }
         if (isset($moduleData->owner) && !empty($moduleData->owner)) {
-            if (\in_array($module, ['activites', 'notes', 'deals'])) {
-                $finalData['user_id'] = (int) $moduleData->owner;
-            } else {
-                $finalData['owner_id'] = (int) $moduleData->owner;
-            }
+            $finalData[$module === 'notes' ? 'user_id' : 'owner_id'] = (int) $moduleData->owner;
         }
         if (isset($moduleData->lead_label) && !empty($moduleData->lead_label)) {
             $finalData['label_ids'] = explode(',', $moduleData->lead_label);
@@ -128,7 +142,34 @@ class RecordApiHelper
             $finalData['participants'] = $allParticipants;
         }
 
-        return HttpHelper::post($apiEndpoints, wp_json_encode($finalData), $this->_defaultHeader);
+        $apiKey = !empty($this->_integrationDetails->api_key) ? $this->_integrationDetails->api_key : ($this->_integrationDetails->value ?? '');
+
+        return static::createRecord($module, $finalData, (string) $apiKey);
+    }
+
+    public static function createRecord($module, $payload, $apiKey)
+    {
+        $headers = ['content-type' => 'application/json'];
+
+        if (!\in_array($module, self::V2_MODULES, true)) {
+            return HttpHelper::post(self::V1_BASE_URL . $module . '?api_token=' . rawurlencode($apiKey), wp_json_encode($payload), $headers);
+        }
+
+        $body = static::toV2Payload($module, $payload, $apiKey);
+        $response = HttpHelper::post(static::v2Url($module, $apiKey), wp_json_encode((object) $body), $headers);
+
+        if (static::wantsDeletedRecord($module, $payload) && !empty($response->success) && isset($response->data->id)) {
+            HttpHelper::delete(static::v2Url($module . '/' . (int) $response->data->id, $apiKey), null, $headers);
+        }
+
+        return $response;
+    }
+
+    public static function v2Url($path, $apiKey, $query = [])
+    {
+        $query['api_token'] = $apiKey;
+
+        return self::V2_BASE_URL . $path . '?' . http_build_query($query);
     }
 
     public function generateReqDataFromFieldMap($data, $fieldMap)
@@ -158,12 +199,322 @@ class RecordApiHelper
             $finalData
         );
 
-        if (isset($apiResponse->error)) {
+        if (is_wp_error($apiResponse) || empty($apiResponse->success)) {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => $module, 'type_name' => 'add-' . $module]), 'error', wp_json_encode($apiResponse));
         } else {
             LogHandler::save($this->_integrationID, wp_json_encode(['type' => $module, 'type_name' => 'add-' . $module]), 'success', wp_json_encode($apiResponse));
         }
 
         return $apiResponse;
+    }
+
+    private static function toV2Payload($module, $payload, $apiKey)
+    {
+        $payload = static::renameV1Keys($module, $payload);
+        $body = [];
+        $customFields = [];
+
+        foreach ($payload as $key => $value) {
+            if ($value === null || $value === '' || $value === []) {
+                continue;
+            }
+
+            if (static::isCustomFieldKey($key)) {
+                $customFields[$key] = static::castCustomField($module, $apiKey, $key, $value, $payload);
+            } else {
+                $body[$key] = static::castStandardField($module, $apiKey, $key, $value);
+            }
+        }
+
+        if (!empty($customFields)) {
+            $body['custom_fields'] = (object) $customFields;
+        }
+
+        switch ($module) {
+            case 'persons':
+                return static::shapePerson($body);
+            case 'organizations':
+                if (isset($body['address']) && \is_scalar($body['address'])) {
+                    $body['address'] = ['value' => (string) $body['address']];
+                }
+
+                return $body;
+            case 'activities':
+                return static::shapeActivity($body);
+            case 'products':
+                return static::shapeProduct($body, $apiKey);
+        }
+
+        return $body;
+    }
+
+    private static function wantsDeletedRecord($module, $payload)
+    {
+        if ($module === 'deals') {
+            return isset($payload['status']) && $payload['status'] === 'deleted';
+        }
+
+        if ($module === 'products') {
+            return \array_key_exists('active_flag', $payload) && empty($payload['active_flag']);
+        }
+
+        return false;
+    }
+
+    private static function renameV1Keys($module, $payload)
+    {
+        if (isset($payload['user_id']) && !isset($payload['owner_id'])) {
+            $payload['owner_id'] = $payload['user_id'];
+        }
+
+        if (isset($payload['busy_flag']) && $module === 'activities') {
+            $payload['busy'] = (bool) $payload['busy_flag'];
+        }
+
+        if (isset($payload['label']) && !isset($payload['label_ids'])) {
+            $payload['label_ids'] = $payload['label'];
+        }
+
+        if ($module === 'deals' && isset($payload['status']) && $payload['status'] === 'deleted') {
+            unset($payload['status']);
+        }
+
+        unset($payload['user_id'], $payload['busy_flag'], $payload['label'], $payload['active_flag']);
+
+        return $payload;
+    }
+
+    private static function castStandardField($module, $apiKey, $key, $value)
+    {
+        if ($key === 'label_ids') {
+            return array_map([static::class, 'toNumber'], static::toList($value));
+        }
+
+        if (\in_array($key, self::NUMERIC_FIELDS, true)) {
+            return static::toNumber($value);
+        }
+
+        if (\in_array($key, ['busy', 'done'], true)) {
+            return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (!\is_scalar($value)) {
+            return $value;
+        }
+
+        $meta = static::fieldMeta($module, $apiKey, $key);
+        $options = $meta['options'] ?? [];
+
+        switch ($meta['type'] ?? '') {
+            case 'enum':
+                return static::optionId($value, $options);
+            case 'set':
+                return array_map(fn ($item) => static::optionId($item, $options), static::toList($value));
+            case 'address':
+                return ['value' => (string) $value];
+        }
+
+        return \in_array($meta['type'] ?? '', self::NUMERIC_TYPES, true) ? static::toNumber($value) : $value;
+    }
+
+    private static function castCustomField($module, $apiKey, $key, $value, $payload)
+    {
+        if (!\is_scalar($value)) {
+            return $value;
+        }
+
+        $meta = static::fieldMeta($module, $apiKey, $key);
+        $options = $meta['options'] ?? [];
+
+        switch ($meta['type'] ?? '') {
+            case 'monetary':
+                return ['value' => static::toNumber($value), 'currency' => $payload['currency'] ?? static::defaultCurrency($apiKey)];
+            case 'enum':
+                return static::optionId($value, $options);
+            case 'set':
+                return array_map(fn ($item) => static::optionId($item, $options), static::toList($value));
+            case 'address':
+            case 'daterange':
+                return ['value' => (string) $value];
+            case 'time':
+            case 'timerange':
+                return ['value' => static::toTime($value)];
+        }
+
+        return \in_array($meta['type'] ?? '', self::NUMERIC_TYPES, true) ? static::toNumber($value) : $value;
+    }
+
+    private static function shapePerson($body)
+    {
+        foreach (['email' => 'emails', 'phone' => 'phones'] as $v1Key => $v2Key) {
+            if (isset($body[$v1Key]) && !isset($body[$v2Key])) {
+                $body[$v2Key] = [['value' => (string) $body[$v1Key], 'primary' => true, 'label' => 'work']];
+            }
+            unset($body[$v1Key]);
+        }
+
+        return $body;
+    }
+
+    private static function shapeActivity($body)
+    {
+        if (isset($body['location']) && \is_scalar($body['location'])) {
+            $body['location'] = ['value' => (string) $body['location']];
+        }
+
+        $primaryPersonId = isset($body['person_id']) ? (int) $body['person_id'] : 0;
+        $participants = [];
+
+        foreach ((array) ($body['participants'] ?? []) as $participant) {
+            $personId = (int) (((array) $participant)['person_id'] ?? 0);
+            if ($personId && $personId !== $primaryPersonId) {
+                $participants[] = ['person_id' => $personId, 'primary' => false];
+            }
+        }
+
+        if ($primaryPersonId) {
+            array_unshift($participants, ['person_id' => $primaryPersonId, 'primary' => true]);
+        }
+
+        unset($body['person_id'], $body['participants'], $body['visible_to']);
+
+        if (!empty($participants)) {
+            $body['participants'] = $participants;
+        }
+
+        return $body;
+    }
+
+    private static function shapeProduct($body, $apiKey)
+    {
+        $currency = $body['currency'] ?? null;
+        $prices = isset($body['prices']) ? array_map(fn ($price) => (array) $price, (array) $body['prices']) : [];
+
+        if (empty($prices) && (isset($body['price']) || isset($body['cost']) || isset($body['overhead_cost']))) {
+            $prices[] = ['price' => $body['price'] ?? 0, 'cost' => $body['cost'] ?? 0, 'overhead_cost' => $body['overhead_cost'] ?? 0];
+        }
+
+        unset($body['prices'], $body['price'], $body['cost'], $body['overhead_cost'], $body['currency']);
+
+        foreach ($prices as $price) {
+            $body['prices'][] = [
+                'price'       => static::toNumber($price['price'] ?? 0),
+                'cost'        => static::toNumber($price['cost'] ?? 0),
+                'direct_cost' => static::toNumber($price['direct_cost'] ?? $price['overhead_cost'] ?? 0),
+                'currency'    => $price['currency'] ?? $currency ?? static::defaultCurrency($apiKey),
+            ];
+        }
+
+        return $body;
+    }
+
+    private static function fieldMeta($module, $apiKey, $key)
+    {
+        $cacheKey = $module . '_' . md5($apiKey);
+
+        if (!isset(self::$fieldMeta[$cacheKey])) {
+            self::$fieldMeta[$cacheKey] = static::loadFieldMeta($module, $apiKey, false);
+        }
+
+        if (!isset(self::$fieldMeta[$cacheKey][$key]) && static::isCustomFieldKey($key) && empty(self::$fieldMetaRefreshed[$cacheKey])) {
+            self::$fieldMetaRefreshed[$cacheKey] = true;
+            self::$fieldMeta[$cacheKey] = static::loadFieldMeta($module, $apiKey, true) ?: self::$fieldMeta[$cacheKey];
+        }
+
+        return self::$fieldMeta[$cacheKey][$key] ?? [];
+    }
+
+    private static function loadFieldMeta($module, $apiKey, $refresh)
+    {
+        $transientKey = Config::withPrefix('pipedrive_fields_' . md5($apiKey . $module));
+        $cached = $refresh ? false : get_transient($transientKey);
+
+        if (\is_array($cached)) {
+            return $cached;
+        }
+
+        $response = HttpHelper::get(self::V1_BASE_URL . self::FIELDS_ENDPOINT[$module] . '?limit=500&api_token=' . rawurlencode($apiKey), null);
+
+        if (empty($response->success)) {
+            return [];
+        }
+
+        $meta = [];
+        foreach ((array) $response->data as $field) {
+            $options = [];
+            foreach ((array) ($field->options ?? []) as $option) {
+                $options[strtolower(trim((string) $option->label))] = $option->id;
+            }
+
+            $meta[$field->key] = ['type' => $field->field_type ?? '', 'options' => $options];
+        }
+
+        set_transient($transientKey, $meta, self::CACHE_TTL);
+
+        return $meta;
+    }
+
+    private static function defaultCurrency($apiKey)
+    {
+        $cacheKey = md5($apiKey);
+
+        if (\array_key_exists($cacheKey, self::$defaultCurrency)) {
+            return self::$defaultCurrency[$cacheKey];
+        }
+
+        $transientKey = Config::withPrefix('pipedrive_currency_' . $cacheKey);
+        $currency = get_transient($transientKey);
+
+        if (!$currency) {
+            $response = HttpHelper::get(self::V1_BASE_URL . 'users/me?api_token=' . rawurlencode($apiKey), null);
+            $currency = $response->data->default_currency ?? '';
+
+            if ($currency) {
+                set_transient($transientKey, $currency, self::CACHE_TTL);
+            }
+        }
+
+        return self::$defaultCurrency[$cacheKey] = $currency ?: null;
+    }
+
+    private static function isCustomFieldKey($key)
+    {
+        return (bool) preg_match('/^[a-f0-9]{40}$/', (string) $key);
+    }
+
+    private static function toNumber($value)
+    {
+        if (\is_string($value)) {
+            $value = trim($value);
+        }
+
+        return is_numeric($value) ? $value + 0 : $value;
+    }
+
+    private static function toList($value)
+    {
+        if (\is_array($value)) {
+            return $value;
+        }
+
+        return array_values(array_filter(array_map('trim', explode(',', (string) $value)), 'strlen'));
+    }
+
+    private static function optionId($value, $options)
+    {
+        if (is_numeric($value)) {
+            return (int) $value;
+        }
+
+        $label = strtolower(trim((string) $value));
+
+        return isset($options[$label]) ? (int) $options[$label] : $value;
+    }
+
+    private static function toTime($value)
+    {
+        $value = trim((string) $value);
+
+        return preg_match('/^\d{1,2}:\d{2}$/', $value) ? $value . ':00' : $value;
     }
 }
