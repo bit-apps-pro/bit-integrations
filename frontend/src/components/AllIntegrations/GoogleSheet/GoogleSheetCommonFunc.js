@@ -1,7 +1,6 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
-import { getOneClickPicker } from '../../../Utils/connectionApi'
-import { pickGoogleSpreadsheet } from '../../../Utils/googlePicker'
+import { pickFromGoogleDrive } from '../../../Utils/googlePicker'
 import { deepCopy } from '../../../Utils/Helpers'
 import {
   actionFields,
@@ -72,27 +71,11 @@ export const pickSpreadsheetFromDrive = async (
   setIsLoading(true)
 
   try {
-    const pickerRes = await getOneClickPicker(sheetConf.connection_id)
-
-    if (!pickerRes?.success) {
-      setSnackbar({
-        show: true,
-        msg:
-          (typeof pickerRes?.data === 'string' && pickerRes.data) ||
-          __('Google Drive picker is not available right now', 'bit-integrations')
-      })
-      setIsLoading(false)
-      return
-    }
-
-    const { access_token: accessToken, api_key: apiKey, app_id: appId } = pickerRes.data
-    setIsLoading(false)
-
-    const file = await pickGoogleSpreadsheet({
-      accessToken,
-      apiKey,
-      appId,
-      title: __('Choose a spreadsheet', 'bit-integrations')
+    const file = await pickFromGoogleDrive({
+      connectionId: sheetConf.connection_id,
+      kind: 'spreadsheet',
+      title: __('Choose a spreadsheet', 'bit-integrations'),
+      onOpen: () => setIsLoading(false)
     })
 
     if (!file) return
@@ -106,11 +89,13 @@ export const pickSpreadsheetFromDrive = async (
     pickedConf.spreadsheetId = file.id
 
     setSheetConf(spreadSheetChange(pickedConf, formID, setSheetConf, setIsLoading, setSnackbar))
-  } catch {
+  } catch (error) {
     setIsLoading(false)
     setSnackbar({
       show: true,
-      msg: __('Google Drive picker could not be opened. Please try again.', 'bit-integrations')
+      msg:
+        error?.message ||
+        __('Google Drive picker could not be opened. Please try again.', 'bit-integrations')
     })
   }
 }

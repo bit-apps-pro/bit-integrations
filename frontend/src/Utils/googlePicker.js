@@ -1,3 +1,6 @@
+import { getOneClickPicker } from './connectionApi'
+import { __ } from './i18nwrap'
+
 const GAPI_SRC = 'https://apis.google.com/js/api.js'
 
 const PICKER_MAX = { width: 1051, height: 650 }
@@ -41,19 +44,39 @@ const loadPicker = () => {
   return pickerReady
 }
 
-export const pickGoogleSpreadsheet = async ({ accessToken, apiKey, appId, title }) => {
+const FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder'
+
+const buildView = (picker, kind) =>
+  kind === 'folder'
+    ? new picker.DocsView(picker.ViewId.FOLDERS)
+        .setIncludeFolders(true)
+        .setSelectFolderEnabled(true)
+        .setMimeTypes(FOLDER_MIME_TYPE)
+        .setMode(picker.DocsViewMode.LIST)
+    : new picker.DocsView(picker.ViewId.SPREADSHEETS)
+        .setIncludeFolders(true)
+        .setSelectFolderEnabled(false)
+        .setMode(picker.DocsViewMode.LIST)
+
+export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen }) => {
+  const pickerRes = await getOneClickPicker(connectionId)
+
+  if (!pickerRes?.success) {
+    throw new Error(
+      (typeof pickerRes?.data === 'string' && pickerRes.data) ||
+        __('Google Drive picker is not available right now', 'bit-integrations')
+    )
+  }
+
+  const { access_token: accessToken, api_key: apiKey, app_id: appId } = pickerRes.data
+
   await loadPicker()
 
   const { picker } = window.google
 
   return new Promise(resolve => {
-    const view = new picker.DocsView(picker.ViewId.SPREADSHEETS)
-      .setIncludeFolders(true)
-      .setSelectFolderEnabled(false)
-      .setMode(picker.DocsViewMode.LIST)
-
     new picker.PickerBuilder()
-      .addView(view)
+      .addView(buildView(picker, kind))
       .setOAuthToken(accessToken)
       .setDeveloperKey(apiKey)
       .setAppId(appId)
@@ -73,5 +96,7 @@ export const pickGoogleSpreadsheet = async ({ accessToken, apiKey, appId, title 
       })
       .build()
       .setVisible(true)
+
+    onOpen?.()
   })
 }

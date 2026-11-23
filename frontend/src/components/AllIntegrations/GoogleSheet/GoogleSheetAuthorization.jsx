@@ -29,7 +29,7 @@ export default function GoogleSheetAuthorization({ sheetConf, setSheetConf, step
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
         oneClick: {
-          app: 'googleSheet',
+          app: 'google',
           scope: 'https://www.googleapis.com/auth/drive.file'
         },
         grantType: 'authorization_code',
