@@ -115,10 +115,10 @@ export default function Oauth2Connection({
     customLabel = __('Your own app credentials', 'bit-integrations'),
     customHint
   } = oneClick || {}
-  const connectionTypeHint = useCustomApp ? customHint : oneClickHint
 
   const [useCustomApp, setUseCustomApp] = useState(!oneClickApp)
   const isOneClick = Boolean(oneClickApp) && !useCustomApp
+  const connectionTypeHint = useCustomApp ? customHint : oneClickHint
 
   const appSlug = getConnectionAppSlug(config)
   const redirectUri = useMemo(() => getRedirectUri(), [])
