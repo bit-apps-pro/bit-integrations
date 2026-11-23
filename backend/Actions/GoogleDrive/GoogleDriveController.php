@@ -21,6 +21,12 @@ class GoogleDriveController
         ],
     ];
 
+    private const FILES_API = 'https://www.googleapis.com/drive/v3/files';
+
+    private const DRIVES_API = 'https://www.googleapis.com/drive/v3/drives';
+
+    private const FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder';
+
     private $integrationID;
 
     public function __construct($integrationID)
@@ -30,34 +36,7 @@ class GoogleDriveController
 
     public static function getAllFolders($queryParams)
     {
-        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
-        $clientId = $queryParams->clientId ?? '';
-        $clientSecret = $queryParams->clientSecret ?? '';
-        $flowID = $queryParams->flowID ?? null;
-        $isConnectionAuth = !empty($queryParams->connection_id);
-
-        if (empty($tokenDetails->access_token) && !empty($queryParams->accessToken)) {
-            $tokenDetails->access_token = $queryParams->accessToken;
-            $tokenDetails->refresh_token = $queryParams->refreshToken ?? '';
-        }
-
-        if (empty($tokenDetails->access_token)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $oldToken = $tokenDetails->access_token;
-
-        if (!$isConnectionAuth) {
-            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
-
-            if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
-                wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
-            }
-
-            if (!empty($flowID) && $tokenDetails->access_token !== $oldToken) {
-                self::saveRefreshedToken($flowID, $tokenDetails);
-            }
-        }
+        $tokenDetails = self::resolveRequestToken($queryParams);
 
         $folders = self::getGoogleDriveFoldersList($tokenDetails->access_token);
 
@@ -77,6 +56,76 @@ class GoogleDriveController
         $response['googleDriveFoldersList'] = $data;
         $response['tokenDetails'] = $tokenDetails;
         wp_send_json_success($response, 200);
+    }
+
+    public static function browseFolders($queryParams)
+    {
+        $tokenDetails = self::resolveRequestToken($queryParams);
+        $headers = ['Authorization' => 'Bearer ' . $tokenDetails->access_token];
+        $parentId = (string) ($queryParams->parentId ?? '');
+        $location = (string) ($queryParams->location ?? 'my-drive');
+
+        if ($parentId === '' && $location === 'shared-drives') {
+            $response = HttpHelper::get(
+                self::DRIVES_API . '?' . http_build_query(['pageSize' => 100, 'fields' => 'drives(id,name)']),
+                null,
+                $headers
+            );
+            $items = $response->drives ?? [];
+        } else {
+            $query = $parentId === '' && $location === 'shared-with-me'
+                ? 'sharedWithMe = true'
+                : "'" . self::sanitizeFolderId($parentId ?: 'root') . "' in parents";
+
+            $response = HttpHelper::get(
+                self::FILES_API . '?' . http_build_query([
+                    'q'                         => $query . " and mimeType = '" . self::FOLDER_MIME_TYPE . "' and trashed = false",
+                    'fields'                    => 'files(id,name)',
+                    'orderBy'                   => 'name',
+                    'pageSize'                  => 200,
+                    'corpora'                   => 'allDrives',
+                    'supportsAllDrives'         => 'true',
+                    'includeItemsFromAllDrives' => 'true',
+                ]),
+                null,
+                $headers
+            );
+            $items = $response->files ?? [];
+        }
+
+        if (is_wp_error($response) || !empty($response->error)) {
+            wp_send_json_error(self::apiErrorMessage($response, __('Could not load folders', 'bit-integrations')), 400);
+        }
+
+        $folders = array_map(
+            fn ($folder) => ['id' => $folder->id, 'name' => $folder->name],
+            (array) $items
+        );
+
+        wp_send_json_success(['folders' => $folders, 'tokenDetails' => $tokenDetails]);
+    }
+
+    public static function createFolder($queryParams)
+    {
+        $tokenDetails = self::resolveRequestToken($queryParams);
+        $parentId = self::sanitizeFolderId($queryParams->parentId ?? 'root');
+        $name = sanitize_text_field((string) ($queryParams->name ?? ''));
+
+        if ($name === '' || mb_strlen($name) > 255) {
+            wp_send_json_error(__('Folder name is required', 'bit-integrations'), 400);
+        }
+
+        $response = HttpHelper::post(
+            self::FILES_API . '?supportsAllDrives=true&fields=id,name',
+            wp_json_encode(['name' => $name, 'mimeType' => self::FOLDER_MIME_TYPE, 'parents' => [$parentId]]),
+            ['Authorization' => 'Bearer ' . $tokenDetails->access_token, 'Content-Type' => 'application/json']
+        );
+
+        if (is_wp_error($response) || empty($response->id)) {
+            wp_send_json_error(self::apiErrorMessage($response, __('Could not create the folder', 'bit-integrations')), 400);
+        }
+
+        wp_send_json_success(['folder' => ['id' => $response->id, 'name' => $response->name ?? $name]]);
     }
 
     public static function getGoogleDriveFoldersList($token)
@@ -138,7 +187,7 @@ class GoogleDriveController
             return $error;
         }
 
-        (new GoogleDriveRecordApiHelper($tokenDetails->access_token))->executeRecordApi($this->integrationID, $fieldValues, $fieldMap, $actions, $integrationDetails->folderPath ?? '');
+        (new GoogleDriveRecordApiHelper($tokenDetails->access_token))->executeRecordApi($this->integrationID, $fieldValues, $fieldMap, $actions);
 
         return true;
     }
@@ -228,6 +277,54 @@ class GoogleDriveController
         $token->generated_at = $token->generates_on;
 
         return $token;
+    }
+
+    private static function resolveRequestToken($queryParams)
+    {
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $flowID = $queryParams->flowID ?? null;
+
+        if (empty($tokenDetails->access_token) && !empty($queryParams->accessToken)) {
+            $tokenDetails->access_token = $queryParams->accessToken;
+            $tokenDetails->refresh_token = $queryParams->refreshToken ?? '';
+        }
+
+        if (empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        if (!empty($queryParams->connection_id)) {
+            return $tokenDetails;
+        }
+
+        $oldToken = $tokenDetails->access_token;
+        $tokenDetails = self::tokenExpiryCheck($tokenDetails, $queryParams->clientId ?? '', $queryParams->clientSecret ?? '');
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
+        }
+
+        if (!empty($flowID) && $tokenDetails->access_token !== $oldToken) {
+            self::saveRefreshedToken($flowID, $tokenDetails);
+        }
+
+        return $tokenDetails;
+    }
+
+    private static function sanitizeFolderId($folderId)
+    {
+        $folderId = (string) $folderId;
+
+        return preg_match('/^[A-Za-z0-9_-]{1,200}$/', $folderId) ? $folderId : 'root';
+    }
+
+    private static function apiErrorMessage($response, $fallback)
+    {
+        if (is_wp_error($response)) {
+            return $response->get_error_message();
+        }
+
+        return (string) ($response->error->message ?? $fallback);
     }
 
     private static function normalizeConnectionToken($token)

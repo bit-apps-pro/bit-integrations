@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
-import { sortByField } from '../../../Utils/Helpers'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
+import GoogleDriveFolderSelect from './GoogleDriveFolderSelect'
 import { addFieldMap, delFieldMap } from './IntegrationHelpers'
 
 export default function GoogleDriveFieldMap({
@@ -19,6 +19,18 @@ export default function GoogleDriveFieldMap({
     newConf.field_map[index][event.target.name] = event.target.value
     setGoogleDriveConf({ ...newConf })
   }
+
+  const selectFolder = (folder, index) =>
+    setGoogleDriveConf(prevConf => ({
+      ...prevConf,
+      field_map: prevConf.field_map.map((row, rowIndex) =>
+        rowIndex === index ? { ...row, googleDriveFormField: folder.id } : row
+      ),
+      foldersList:
+        folder.id === 'root'
+          ? prevConf.foldersList
+          : [...(prevConf.foldersList || []).filter(({ id }) => id !== folder.id), folder]
+    }))
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -53,19 +65,11 @@ export default function GoogleDriveFieldMap({
             </optgroup>
           </select>
 
-          <select
-            className="btcd-paper-inp"
-            name="googleDriveFormField"
+          <GoogleDriveFolderSelect
             value={field.googleDriveFormField}
-            onChange={ev => handleFieldMapping(ev, i)}>
-            <option value="">{__('Select Folder', 'bit-integrations')}</option>
-            <option value="root">{__('My Drive', 'bit-integrations')}</option>
-            {sortByField(googleDriveConf.foldersList, 'name', 'ASC').map(({ name, id }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
-          </select>
+            onChange={folder => selectFolder(folder, i)}
+            googleDriveConf={googleDriveConf}
+          />
         </div>
         <button
           onClick={() => addFieldMap(i, googleDriveConf, setGoogleDriveConf)}

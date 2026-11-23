@@ -1,6 +1,6 @@
 /* eslint-disable no-else-return */
 import toast from 'react-hot-toast'
-import { __, sprintf } from '../../../Utils/i18nwrap'
+import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
 import { pickFromGoogleDrive } from '../../../Utils/googlePicker'
 
@@ -50,29 +50,19 @@ export const getAllGoogleDriveFolders = (flowID, googleDriveConf, setGoogleDrive
   })
 }
 
-export const pickFolderFromDrive = async (googleDriveConf, setGoogleDriveConf, onOpen) => {
-  try {
-    const folder = await pickFromGoogleDrive({
-      connectionId: googleDriveConf.connection_id,
-      kind: 'folder',
-      title: __('Choose a folder', 'bit-integrations'),
-      onOpen
-    })
+export const browseDriveFolders = (googleDriveConf, parentId, location) =>
+  bitsFetch(
+    { ...buildAuthRequestParams(googleDriveConf), parentId, location },
+    'googleDrive_browse_folders'
+  )
 
-    if (!folder) return
+export const createDriveFolder = (googleDriveConf, parentId, name) =>
+  bitsFetch({ ...buildAuthRequestParams(googleDriveConf), parentId, name }, 'googleDrive_create_folder')
 
-    setGoogleDriveConf(prevConf => ({
-      ...prevConf,
-      foldersList: [
-        ...(prevConf.foldersList || []).filter(({ id }) => id !== folder.id),
-        { id: folder.id, name: folder.name }
-      ]
-    }))
-    toast.success(sprintf(__('%s is ready to select', 'bit-integrations'), folder.name))
-  } catch (error) {
-    toast.error(
-      error?.message ||
-        __('Google Drive picker could not be opened. Please try again.', 'bit-integrations')
-    )
-  }
-}
+export const findFolderInDrive = (googleDriveConf, onOpen) =>
+  pickFromGoogleDrive({
+    connectionId: googleDriveConf.connection_id,
+    kind: 'folder',
+    title: __('Choose a folder', 'bit-integrations'),
+    onOpen
+  })
