@@ -267,6 +267,9 @@ const RoxAppointmentBookingAuthorization = lazy(() =>
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
 )
+const MotoPressHotelBookingAuthorization = lazy(
+  () => import('./MotoPressHotelBooking/MotoPressHotelBookingAuthorization')
+)
 const QuizMakerAuthorization = lazy(() => import('./QuizMaker/QuizMakerAuthorization'))
 const MicrosoftExcelAuthorization = lazy(() => import('./MicrosoftExcel/MicrosoftExcelAuthorization'))
 const NiroHelpAuthorization = lazy(() => import('./NiroHelp/NiroHelpAuthorization'))
@@ -856,6 +859,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <CustomApiAuthorization customApiConf={integrationConf} step={1} isInfo />
     case 'BitConnect':
       return <BitConnectAuthorization bitConnectConf={integrationConf} step={1} isInfo />
+    case 'MotoPressHotelBooking':
+      return (
+        <MotoPressHotelBookingAuthorization
+          motoPressHotelBookingConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
     case 'RestaurantReservations':
       return (
         <RestaurantReservationsAuthorization

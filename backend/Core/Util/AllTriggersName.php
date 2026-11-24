@@ -114,6 +114,7 @@ final class AllTriggersName
             'ModernCart'                            => ['name' => 'Modern Cart',  'isPro' => true, 'is_active' => false],
             'ModernEventsCalendar'                  => ['name' => 'Modern Events Calendar',  'isPro' => true, 'is_active' => false],
             'MoreConvertWishlist'                   => ['name' => 'MoreConvert Wishlist',  'isPro' => true, 'is_active' => false],
+            'MotoPressHotelBooking'                 => ['name' => 'MotoPress Hotel Booking',  'isPro' => true, 'is_active' => false],
             'Newsletter'                            => ['name' => 'Newsletter',  'isPro' => true, 'is_active' => false],
             'NewUserApprove'                        => ['name' => 'New User Approve',  'isPro' => true, 'is_active' => false],
             'NextCrm'                               => ['name' => 'NextCRM',  'isPro' => true, 'is_active' => false],

@@ -206,6 +206,12 @@ export default function SelectAction() {
       is_pro: true
     },
     {
+      type: 'MotoPressHotelBooking',
+      name: 'MotoPress Hotel Booking',
+      logo: 'motoPressHotelBooking',
+      is_pro: true
+    },
+    {
       type: 'RoxAppointmentBooking',
       name: 'Rox Appointment Booking',
       logo: 'roxAppointmentBooking',
