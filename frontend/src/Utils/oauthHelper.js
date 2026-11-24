@@ -2,6 +2,7 @@ import { APP_CONFIG } from '../config/app'
 import { oauthConnectionExchange } from './connectionApi'
 
 const OAUTH_CHANNEL = 'bit_integrations_oauth_share'
+const USER_CLOSED_CONFIRM_MS = 1500
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
 
 const base64UrlEncode = bytes => {
@@ -153,7 +154,10 @@ export const openOauthPopup = (
       if (resolved || !popup.closed) return
 
       closedSince ||= Date.now()
-      if (Date.now() - closedSince < closedGraceMs) return
+      const graceMs = document.hasFocus()
+        ? Math.min(closedGraceMs, USER_CLOSED_CONFIRM_MS)
+        : closedGraceMs
+      if (Date.now() - closedSince < graceMs) return
 
       resolved = true
       cleanup()
