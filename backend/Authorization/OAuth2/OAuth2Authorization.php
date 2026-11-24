@@ -448,6 +448,12 @@ class OAuth2Authorization extends AbstractBaseAuthorization
             return null;
         }
 
+        if (!empty($authDetails['one_click_app']) && $this->resolveClientCredentials($authDetails)[1] === '') {
+            $this->setLastError(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'));
+
+            return null;
+        }
+
         $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
         $headers = $this->buildRefreshHeaders($authDetails);
 
