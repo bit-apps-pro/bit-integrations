@@ -762,6 +762,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  motoPressAppointmentBooking: {
+    youTubeLink: '',
+    docLink: ''
+  },
   roxAppointmentBooking: {
     youTubeLink: '',
     docLink: ''
