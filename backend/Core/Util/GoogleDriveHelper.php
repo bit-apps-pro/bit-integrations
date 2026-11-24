@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
+use BitApps\Integrations\Authorization\OAuth2\OneClickApp;
+use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Http\ApiClient;
 use BitApps\Integrations\Core\Http\ApiResponse;
 
@@ -43,6 +45,19 @@ final class GoogleDriveHelper
         $client->setHeaders(['Accept' => 'application/json']);
 
         return $client;
+    }
+
+    public static function pickerConfig(array $authDetails): array
+    {
+        $clientId = (string) ($authDetails['client_id'] ?? '');
+        $oneClickApp = (string) ($authDetails['one_click_app'] ?? '');
+        $apiKey = $oneClickApp === '' ? '' : OneClickApp::setting($oneClickApp, 'filePickerApiKey');
+
+        return [
+            'access_token' => (string) ($authDetails['access_token'] ?? ''),
+            'api_key'      => (string) Hooks::apply(Config::withPrefix('google_file_picker_api_key'), $apiKey, $oneClickApp),
+            'app_id'       => preg_match('/^(\d+)-/', $clientId, $matches) ? $matches[1] : '',
+        ];
     }
 
     public static function listItems(ApiClient $client, string $parentId, string $location, array $mimeTypes, ?string $accessibleMimeType = null): array

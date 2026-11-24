@@ -1,4 +1,4 @@
-import { getOneClickPicker } from './connectionApi'
+import { getGooglePicker } from './connectionApi'
 import { __ } from './i18nwrap'
 
 const GAPI_SRC = 'https://apis.google.com/js/api.js'
@@ -60,7 +60,7 @@ const buildView = (picker, kind, { sharedDrives = false } = {}) => {
 }
 
 export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen }) => {
-  const pickerRes = await getOneClickPicker(connectionId)
+  const pickerRes = await getGooglePicker(connectionId)
 
   if (!pickerRes?.success) {
     throw new Error(
@@ -76,12 +76,14 @@ export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen })
   const { picker } = window.google
 
   return new Promise(resolve => {
-    new picker.PickerBuilder()
+    const builder = new picker.PickerBuilder()
+    if (apiKey) builder.setDeveloperKey(apiKey)
+
+    builder
       .addView(buildView(picker, kind))
       .addView(buildView(picker, kind, { sharedDrives: true }))
       .enableFeature(picker.Feature.SUPPORT_DRIVES)
       .setOAuthToken(accessToken)
-      .setDeveloperKey(apiKey)
       .setAppId(appId)
       .setOrigin(`${window.location.protocol}//${window.location.host}`)
       .setTitle(title)

@@ -67,7 +67,7 @@ Route::post('connections/authorize', [ConnectionController::class, 'authorize'])
 Route::post('connections/oauth2/exchange', [ConnectionController::class, 'oauth2Exchange']);
 Route::get('connections/oauth2/one-click/config', [ConnectionController::class, 'oneClickConfig']);
 Route::post('connections/oauth2/one-click/exchange', [ConnectionController::class, 'oneClickExchange']);
-Route::post('connections/oauth2/one-click/picker', [ConnectionController::class, 'oneClickPicker']);
+Route::post('connections/google/picker', [ConnectionController::class, 'googlePicker']);
 Route::post('connections/verify-plugin-activation', [ConnectionController::class, 'verifyPluginActivation']);
 Route::post('connections/save', [ConnectionController::class, 'save']);
 Route::post('connections/update', [ConnectionController::class, 'update']);

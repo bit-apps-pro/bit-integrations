@@ -17,6 +17,7 @@ use BitApps\Integrations\Core\Database\FlowModel;
 use BitApps\Integrations\Core\Http\ConnectionTestApi;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\GoogleDriveHelper;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -541,7 +542,7 @@ final class ConnectionController
         ]);
     }
 
-    public function oneClickPicker($request)
+    public function googlePicker($request)
     {
         $this->guard();
 
@@ -551,19 +552,13 @@ final class ConnectionController
             wp_send_json_error(__('Connection not found', 'bit-integrations'), 400);
         }
 
-        $authDetails = $handler->ensureFreshToken();
-        $apiKey = OneClickApp::filePickerApiKey((string) ($authDetails['one_click_app'] ?? ''));
-        $appId = OneClickApp::pickerAppId((string) ($authDetails['client_id'] ?? ''));
+        $picker = GoogleDriveHelper::pickerConfig($handler->ensureFreshToken() ?? []);
 
-        if (empty($authDetails['access_token']) || $apiKey === '' || $appId === '') {
+        if ($picker['access_token'] === '' || $picker['app_id'] === '') {
             wp_send_json_error(__('Google Drive picker is not available right now', 'bit-integrations'), 400);
         }
 
-        wp_send_json_success([
-            'access_token' => $authDetails['access_token'],
-            'api_key'      => $apiKey,
-            'app_id'       => $appId,
-        ]);
+        wp_send_json_success($picker);
     }
 
     public function oneClickExchange($request)

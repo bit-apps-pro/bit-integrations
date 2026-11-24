@@ -33,21 +33,14 @@ final class OneClickApp
         return self::brokerUrl() . 'redirect/v2';
     }
 
-    public static function filePickerApiKey(string $app): string
-    {
-        $apiKey = self::clientInfo($app)['file_picker_api_key'] ?? '';
-
-        return (string) Hooks::apply(Config::withPrefix('google_file_picker_api_key'), $apiKey, $app);
-    }
-
-    public static function pickerAppId(string $clientId): string
-    {
-        return preg_match('/^(\d+)-/', $clientId, $matches) ? $matches[1] : '';
-    }
-
     public static function clientId(string $app): string
     {
         return self::clientInfo($app)['id'] ?? '';
+    }
+
+    public static function setting(string $app, string $key): string
+    {
+        return self::clientInfo($app)['settings'][$key] ?? '';
     }
 
     public static function clientSecret(string $app, string $clientId): string
@@ -84,7 +77,7 @@ final class OneClickApp
             return [];
         }
 
-        $cacheKey = Config::withPrefix('one_click_client_info_' . md5(self::brokerUrl()));
+        $cacheKey = Config::withPrefix('one_click_apps_' . md5(self::brokerUrl()));
         $clientInfo = get_transient($cacheKey);
 
         if (!\is_array($clientInfo) || empty($clientInfo[$app]['id'])) {
@@ -113,12 +106,25 @@ final class OneClickApp
         foreach ((array) $response->clientInfo as $app => $info) {
             if (\is_object($info) && !empty($info->id) && !empty($info->status)) {
                 $clientInfo[$app] = [
-                    'id'                  => (string) $info->id,
-                    'file_picker_api_key' => (string) ($info->filePickerApiKey ?? ''),
+                    'id'       => (string) $info->id,
+                    'settings' => self::publicSettings($info),
                 ];
             }
         }
 
         return $clientInfo;
+    }
+
+    private static function publicSettings(object $info): array
+    {
+        $settings = [];
+
+        foreach (get_object_vars($info) as $key => $value) {
+            if (\is_scalar($value) && !\in_array($key, ['id', 'status', 'clientSecret', 'secret'], true)) {
+                $settings[$key] = (string) $value;
+            }
+        }
+
+        return $settings;
     }
 }
