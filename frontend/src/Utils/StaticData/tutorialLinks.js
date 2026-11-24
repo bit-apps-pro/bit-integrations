@@ -766,6 +766,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  salonBookingSystem: {
+    youTubeLink: '',
+    docLink: ''
+  },
   flodesk: {
     youTubeLink: '',
     docLink: ''

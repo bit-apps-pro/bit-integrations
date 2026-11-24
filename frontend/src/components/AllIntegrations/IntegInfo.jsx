@@ -264,6 +264,9 @@ const BitConnectAuthorization = lazy(() => import('./BitConnect/BitConnectAuthor
 const RoxAppointmentBookingAuthorization = lazy(() =>
   import('./RoxAppointmentBooking/RoxAppointmentBookingAuthorization')
 )
+const SalonBookingSystemAuthorization = lazy(
+  () => import('./SalonBookingSystem/SalonBookingSystemAuthorization')
+)
 const RestaurantReservationsAuthorization = lazy(
   () => import('./RestaurantReservations/RestaurantReservationsAuthorization')
 )
@@ -868,6 +871,14 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return (
         <RoxAppointmentBookingAuthorization
           roxAppointmentBookingConf={integrationConf}
+          step={1}
+          isInfo
+        />
+      )
+    case 'SalonBookingSystem':
+      return (
+        <SalonBookingSystemAuthorization
+          salonBookingSystemConf={integrationConf}
           step={1}
           isInfo
         />

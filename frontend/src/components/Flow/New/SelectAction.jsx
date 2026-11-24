@@ -212,6 +212,12 @@ export default function SelectAction() {
       is_pro: true
     },
     {
+      type: 'SalonBookingSystem',
+      name: 'Salon Booking System',
+      logo: 'salonBookingSystem',
+      is_pro: true
+    },
+    {
       type: 'QuizAndSurveyMaster',
       name: 'Quiz And Survey Master (QSM)',
       logo: 'quizAndSurveyMaster',

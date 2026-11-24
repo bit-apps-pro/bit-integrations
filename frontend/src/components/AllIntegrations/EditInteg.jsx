@@ -22,6 +22,7 @@ const EditRestaurantReservations = lazy(
   () => import('./RestaurantReservations/EditRestaurantReservations')
 )
 const EditRoxAppointmentBooking = lazy(() => import('./RoxAppointmentBooking/EditRoxAppointmentBooking'))
+const EditSalonBookingSystem = lazy(() => import('./SalonBookingSystem/EditSalonBookingSystem'))
 const EditTwilio = lazy(() => import('./Twilio/EditTwilio'))
 const EditZohoMarketingHub = lazy(() => import('./ZohoMarketingHub/EditZohoMarketingHub'))
 const EditZohoRecruit = lazy(() => import('./ZohoRecruit/EditZohoRecruit'))
@@ -707,6 +708,8 @@ const IntegType = memo(({ allIntegURL, flow }) => {
       return <EditRestaurantReservations allIntegURL={allIntegURL} />
     case 'RoxAppointmentBooking':
       return <EditRoxAppointmentBooking allIntegURL={allIntegURL} />
+    case 'SalonBookingSystem':
+      return <EditSalonBookingSystem allIntegURL={allIntegURL} />
     case 'BitConnect':
       return <EditBitConnect allIntegURL={allIntegURL} />
     case 'Bookings And Appointments For Woocommerce':
