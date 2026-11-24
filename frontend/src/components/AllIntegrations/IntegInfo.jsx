@@ -220,6 +220,7 @@ const WsmsAuthorization = lazy(() => import('./Wsms/WsmsAuthorization'))
 const MoreConvertWishlistAuthorization = lazy(
   () => import('./MoreConvertWishlist/MoreConvertWishlistAuthorization')
 )
+const VikRentCarAuthorization = lazy(() => import('./VikRentCar/VikRentCarAuthorization'))
 const WebbaBookingAuthorization = lazy(() => import('./WebbaBooking/WebbaBookingAuthorization'))
 const WpSimpleBookingCalendarAuthorization = lazy(
   () => import('./WpSimpleBookingCalendar/WpSimpleBookingCalendarAuthorization')
@@ -778,6 +779,8 @@ const IntegrationInfo = memo(({ integrationConf, location, editUrl }) => {
       return <PowerCouponsAuthorization powerCouponsConf={integrationConf} step={1} isInfo />
     case 'Wsms':
       return <WsmsAuthorization wsmsConf={integrationConf} step={1} isInfo />
+    case 'VikRentCar':
+      return <VikRentCarAuthorization vikRentCarConf={integrationConf} step={1} isInfo />
     case 'WebbaBooking':
       return <WebbaBookingAuthorization webbaBookingConf={integrationConf} step={1} isInfo />
     case 'WpSimpleBookingCalendar':

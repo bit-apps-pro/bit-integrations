@@ -802,6 +802,10 @@ const tutorialLinks = {
     youTubeLink: '',
     docLink: ''
   },
+  vikRentCar: {
+    youTubeLink: '',
+    docLink: ''
+  },
   bookly: {
     youTubeLink: '',
     docLink: ''

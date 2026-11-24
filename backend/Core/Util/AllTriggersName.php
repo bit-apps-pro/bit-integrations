@@ -170,6 +170,7 @@ final class AllTriggersName
             'UltimateMember'                        => ['name' => 'UltimateMember',  'isPro' => true, 'is_active' => false],
             'UserFeedback'                          => ['name' => 'UserFeedback',  'isPro' => true, 'is_active' => false],
             'Voxel'                                 => ['name' => 'Voxel',  'isPro' => true, 'is_active' => false],
+            'VikRentCar'                            => ['name' => 'VikRentCar',  'isPro' => true, 'is_active' => false],
             'WCBookings'                            => ['name' => 'WooCommerce Bookings',  'isPro' => true, 'is_active' => false],
             'WCMemberships'                         => ['name' => 'WooCommerce Memberships',  'isPro' => true, 'is_active' => false],
             'WCSubscriptions'                       => ['name' => 'WooCommerce Subscriptions',  'isPro' => true, 'is_active' => false],
