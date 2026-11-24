@@ -23,10 +23,6 @@ class RecordApiHelper
 
     private const ROW_VALUE_ACTIONS = ['appendOrUpdateRow', 'updateRow'];
 
-    private const VALUE_INPUT_OPTIONS = ['USER_ENTERED', 'RAW'];
-
-    private const INSERT_DATA_OPTIONS = ['OVERWRITE', 'INSERT_ROWS'];
-
     private $_defaultHeader;
 
     private $_integrationID;
@@ -44,26 +40,9 @@ class RecordApiHelper
     public function insertRecord($spreadsheetsId, $worksheetName, $header, $headerRow, $data)
     {
         $range = rawurlencode(self::a1Sheet($worksheetName) . '!' . $headerRow);
-        $insertRecordEndpoint = "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetsId}/values/{$range}:append?" . http_build_query([
-            'valueInputOption' => $this->valueInputOption(),
-            'insertDataOption' => $this->insertDataOption(),
-        ]);
+        $insertRecordEndpoint = "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetsId}/values/{$range}:append?valueInputOption=USER_ENTERED";
 
         return HttpHelper::post($insertRecordEndpoint, $data, $this->_defaultHeader);
-    }
-
-    private function valueInputOption()
-    {
-        $option = $this->_integrationDetails->valueInputOption ?? '';
-
-        return \in_array($option, self::VALUE_INPUT_OPTIONS, true) ? $option : 'USER_ENTERED';
-    }
-
-    private function insertDataOption()
-    {
-        $option = $this->_integrationDetails->insertDataOption ?? '';
-
-        return \in_array($option, self::INSERT_DATA_OPTIONS, true) ? $option : 'OVERWRITE';
     }
 
     public static function a1Sheet($worksheetName)
@@ -73,7 +52,7 @@ class RecordApiHelper
 
     public function updateRecord($spreadsheetId, $worksheetInfo, $data)
     {
-        $updateRecordEndpoing = "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetId}/values/{$worksheetInfo}?valueInputOption=" . $this->valueInputOption();
+        $updateRecordEndpoing = "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetId}/values/{$worksheetInfo}?valueInputOption=USER_ENTERED";
 
         return HttpHelper::request($updateRecordEndpoing, 'put', $data, $this->_defaultHeader);
     }

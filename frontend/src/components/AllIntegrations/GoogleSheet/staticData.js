@@ -38,10 +38,6 @@ export const needsHeaders = ['insertRow', 'appendOrUpdateRow', 'updateRow']
 
 export const needsColumnToMatch = ['appendOrUpdateRow']
 
-export const needsInsertDataOption = ['insertRow', 'appendOrUpdateRow']
-
-export const defaultInsertDataOption = action => (action === 'insertRow' ? 'OVERWRITE' : 'INSERT_ROWS')
-
 export const SpreadsheetFields = [
   { key: 'title', label: __('Spreadsheet Title', 'bit-integrations'), required: true },
   { key: 'sheetTitle', label: __('First Worksheet Title', 'bit-integrations'), required: false }
