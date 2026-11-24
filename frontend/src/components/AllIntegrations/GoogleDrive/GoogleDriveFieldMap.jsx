@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
+import { sortByField } from '../../../Utils/Helpers'
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import GoogleDriveFolderSelect from './GoogleDriveFolderSelect'
@@ -65,11 +66,26 @@ export default function GoogleDriveFieldMap({
             </optgroup>
           </select>
 
-          <GoogleDriveFolderSelect
-            value={field.googleDriveFormField}
-            onChange={folder => selectFolder(folder, i)}
-            googleDriveConf={googleDriveConf}
-          />
+          {googleDriveConf?.connection_id ? (
+            <GoogleDriveFolderSelect
+              value={field.googleDriveFormField}
+              onChange={folder => selectFolder(folder, i)}
+              googleDriveConf={googleDriveConf}
+            />
+          ) : (
+            <select
+              className="btcd-paper-inp"
+              name="googleDriveFormField"
+              value={field.googleDriveFormField}
+              onChange={ev => handleFieldMapping(ev, i)}>
+              <option value="">{__('Select Folder', 'bit-integrations')}</option>
+              {sortByField(googleDriveConf.foldersList, 'name', 'ASC').map(({ name, id }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
         <button
           onClick={() => addFieldMap(i, googleDriveConf, setGoogleDriveConf)}

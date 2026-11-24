@@ -129,23 +129,53 @@ export default function GoogleSheetIntegLayout({
 
       {needsSpreadsheet.includes(action) && (
         <>
-          <div className="flx">
-            <b className="wdt-200 d-in-b">{__('Spreadsheet:', 'bit-integrations')}</b>
-            <div className="w-5">
-              <GoogleDriveBrowser
-                mode="spreadsheet"
-                label={spreadsheetName}
-                placeholder={__('Select Spreadsheet', 'bit-integrations')}
-                isOneClick={Boolean(sheetConf?.one_click_app)}
-                savedItems={savedSpreadsheets}
-                browse={(parentId, location) => browseSheetDrive(sheetConf, parentId, location)}
-                findInDrive={onOpen => findSpreadsheetInDrive(sheetConf, onOpen)}
-                onSelect={file =>
-                  selectSpreadsheet(file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
-                }
-              />
+          {sheetConf?.connection_id ? (
+            <div className="flx">
+              <b className="wdt-200 d-in-b">{__('Spreadsheet:', 'bit-integrations')}</b>
+              <div className="w-5">
+                <GoogleDriveBrowser
+                  mode="spreadsheet"
+                  label={spreadsheetName}
+                  placeholder={__('Select Spreadsheet', 'bit-integrations')}
+                  isOneClick={Boolean(sheetConf?.one_click_app)}
+                  browse={(parentId, location) => browseSheetDrive(sheetConf, parentId, location)}
+                  findInDrive={onOpen => findSpreadsheetInDrive(sheetConf, onOpen)}
+                  onSelect={file =>
+                    selectSpreadsheet(file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
+                  }
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <>
+              <b className="wdt-200 d-in-b">{__('Spreadsheets:', 'bit-integrations')}</b>
+              <select
+                onChange={handleInput}
+                name="spreadsheetId"
+                value={sheetConf.spreadsheetId || ''}
+                className="btcd-paper-inp w-5">
+                <option value="">{__('Select Spreadsheet', 'bit-integrations')}</option>
+                {sheetConf?.default?.spreadsheets &&
+                  Object.keys(sheetConf.default.spreadsheets).map(spreadSheetApiName => (
+                    <option
+                      key={spreadSheetApiName}
+                      value={sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetId}>
+                      {sheetConf.default.spreadsheets[spreadSheetApiName].spreadsheetName}
+                    </option>
+                  ))}
+              </select>
+              <button
+                onClick={() =>
+                  refreshSpreadsheets(formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
+                }
+                className="icn-btn sh-sm ml-2 mr-2 tooltip"
+                style={{ '--tooltip-txt': '"Refresh Spreadsheet"' }}
+                type="button"
+                disabled={isLoading}>
+                &#x21BB;
+              </button>
+            </>
+          )}
           <br />
           <br />
         </>
