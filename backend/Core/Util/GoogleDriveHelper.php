@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
+use BitApps\Integrations\Authorization\OAuth2\OAuth2Authorization;
 use BitApps\Integrations\Authorization\OAuth2\OneClickApp;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Http\ApiClient;
@@ -32,6 +33,8 @@ final class GoogleDriveHelper
 
     private const MAX_PAGES = 20;
 
+    private const PICKER_APP_SLUGS = ['googledrive', 'googlesheet'];
+
     public static function client($connectionId, string $appSlug): ?ApiClient
     {
         $connection = AuthorizationFactory::getConnectionHandler($connectionId);
@@ -47,16 +50,30 @@ final class GoogleDriveHelper
         return $client;
     }
 
-    public static function pickerConfig(array $authDetails): array
+    public static function pickerConfig($connectionId): ?array
     {
-        $clientId = (string) ($authDetails['client_id'] ?? '');
+        $connection = AuthorizationFactory::getConnectionHandler($connectionId);
+
+        if (
+            !$connection instanceof OAuth2Authorization
+            || !\in_array(self::normalizeSlug(ApiResponse::getValue($connection->getConnection(), 'app_slug')), self::PICKER_APP_SLUGS, true)
+        ) {
+            return null;
+        }
+
+        $authDetails = $connection->ensureFreshToken() ?? [];
         $oneClickApp = (string) ($authDetails['one_click_app'] ?? '');
-        $apiKey = $oneClickApp === '' ? '' : OneClickApp::setting($oneClickApp, 'filePickerApiKey');
+        $accessToken = (string) ($authDetails['access_token'] ?? '');
+        $appId = preg_match('/^(\d+)-/', (string) ($authDetails['client_id'] ?? ''), $matches) ? $matches[1] : '';
+
+        if ($oneClickApp === '' || $accessToken === '' || $appId === '') {
+            return null;
+        }
 
         return [
-            'access_token' => (string) ($authDetails['access_token'] ?? ''),
-            'api_key'      => (string) Hooks::apply(Config::withPrefix('google_file_picker_api_key'), $apiKey, $oneClickApp),
-            'app_id'       => preg_match('/^(\d+)-/', $clientId, $matches) ? $matches[1] : '',
+            'access_token' => $accessToken,
+            'api_key'      => (string) Hooks::apply(Config::withPrefix('google_file_picker_api_key'), OneClickApp::setting($oneClickApp, 'filePickerApiKey'), $oneClickApp),
+            'app_id'       => $appId,
         ];
     }
 

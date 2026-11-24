@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\AuthorizationType;
-use BitApps\Integrations\Authorization\OAuth2\OAuth2Authorization;
 use BitApps\Integrations\Authorization\OAuth2\OneClickApp;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Config;
@@ -546,15 +545,9 @@ final class ConnectionController
     {
         $this->guard();
 
-        $handler = AuthorizationFactory::getConnectionHandler($this->normalizeId($request));
+        $picker = GoogleDriveHelper::pickerConfig($this->normalizeId($request));
 
-        if (!$handler instanceof OAuth2Authorization) {
-            wp_send_json_error(__('Connection not found', 'bit-integrations'), 400);
-        }
-
-        $picker = GoogleDriveHelper::pickerConfig($handler->ensureFreshToken() ?? []);
-
-        if ($picker['access_token'] === '' || $picker['app_id'] === '') {
+        if ($picker === null) {
             wp_send_json_error(__('Google Drive picker is not available right now', 'bit-integrations'), 400);
         }
 
