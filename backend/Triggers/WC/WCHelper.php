@@ -318,7 +318,7 @@ class WCHelper
             '_manage_stock'          => $product->get_manage_stock(),
             '_stock'                 => $product->get_stock_quantity(),
             '_backorders'            => $product->get_backorders(),
-            '_low_stock_amount'      => 1,
+            '_low_stock_amount'      => wc_get_low_stock_amount($product),
             '_stock_status'          => $product->get_stock_status(),
             '_sold_individually'     => $product->get_sold_individually(),
             '_weight'                => $product->get_weight(),
