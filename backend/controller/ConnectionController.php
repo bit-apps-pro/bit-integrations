@@ -584,24 +584,39 @@ final class ConnectionController
             wp_send_json_error(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'), 400);
         }
 
-        $response = HttpHelper::post(
-            $tokenUrl,
+        $body = array_merge(
+            $this->normalizeArray($request->body_params ?? []),
             [
-                'grant_type'    => 'authorization_code',
-                'client_id'     => $clientId,
-                'client_secret' => $clientSecret,
-                'redirect_uri'  => OneClickApp::redirectUri(),
-                'code'          => $code,
-            ],
-            ['Content-Type' => 'application/x-www-form-urlencoded']
+                'grant_type'   => 'authorization_code',
+                'code'         => $code,
+                'redirect_uri' => OneClickApp::redirectUri(),
+            ]
         );
+        $codeVerifier = $this->sanitizeScalar($request->code_verifier ?? '');
+
+        if ($codeVerifier !== '') {
+            $body['code_verifier'] = $codeVerifier;
+        }
+
+        $headers = array_change_key_case($this->normalizeHeaders($request->headers ?? []), CASE_LOWER);
+        $headers += ['content-type' => 'application/x-www-form-urlencoded', 'accept' => 'application/json'];
+
+        if ($this->sanitizeScalar($request->client_authentication ?? '') === 'header') {
+            $headers['authorization'] = 'Basic ' . base64_encode($clientId . ':' . $clientSecret);
+        } else {
+            $body['client_id'] = $clientId;
+            $body['client_secret'] = $clientSecret;
+        }
+
+        $isJson = strpos(strtolower($headers['content-type']), 'application/json') !== false;
+        $response = HttpHelper::post($tokenUrl, $isJson ? wp_json_encode($body) : $body, $headers);
 
         if (is_wp_error($response)) {
             wp_send_json_error($response->get_error_message(), 400);
         }
 
         $responseCode = (int) HttpHelper::$responseCode;
-        $decoded = \is_object($response) ? Helper::jsonEncodeDecode($response) : (array) $response;
+        $decoded = $this->decodeTokenResponse($response);
 
         if ($responseCode < 200 || $responseCode >= 300 || isset($decoded['error']) || empty($decoded['access_token'])) {
             wp_send_json_error(
@@ -616,6 +631,21 @@ final class ConnectionController
         $decoded['client_id'] = $clientId;
 
         wp_send_json_success(['data' => $decoded]);
+    }
+
+    private function decodeTokenResponse($response): array
+    {
+        if (\is_object($response)) {
+            return Helper::jsonEncodeDecode($response) ?: [];
+        }
+
+        if (\is_string($response)) {
+            parse_str($response, $parsed);
+
+            return $parsed;
+        }
+
+        return (array) $response;
     }
 
     private function buildPayload($request, bool $isUpdate)

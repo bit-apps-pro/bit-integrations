@@ -227,16 +227,22 @@ export default function Oauth2Connection({
     }
 
     const { client_id: clientId, redirect_uri: authRedirectUri } = configRes.data
+    const codeVerifier = grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE ? generateCodeVerifier() : ''
     const code = await requestAuthCode({
       clientId,
       authRedirectUri,
+      codeChallenge: codeVerifier ? await generateCodeChallengeS256(codeVerifier) : undefined,
       scopeOverride: oneClickScope,
       closedGraceMs: ONE_CLICK_POPUP_CLOSED_GRACE_MS
     })
     const tokenRes = await oneClickExchange({
       app: oneClickApp,
       code,
-      token_url: resolvedTokenEndpoint?.url
+      code_verifier: codeVerifier,
+      token_url: resolvedTokenEndpoint?.url,
+      body_params: resolvedTokenEndpoint?.bodyParams || {},
+      headers: resolvedTokenEndpoint?.headers || {},
+      client_authentication: clientAuthentication
     })
 
     if (!tokenRes?.success) {
@@ -248,7 +254,14 @@ export default function Oauth2Connection({
     }
 
     return tokenRes?.data?.data || {}
-  }, [oneClickApp, oneClickScope, requestAuthCode, resolvedTokenEndpoint?.url])
+  }, [
+    clientAuthentication,
+    grantType,
+    oneClickApp,
+    oneClickScope,
+    requestAuthCode,
+    resolvedTokenEndpoint
+  ])
 
   const handleAuthorizationCodeFlow = useCallback(async () => {
     const isPkce = grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE
@@ -351,8 +364,8 @@ export default function Oauth2Connection({
         tokenResponse,
         clientId: isOneClick ? tokenResponse?.client_id || '' : formData.clientId,
         clientSecret: isOneClick ? '' : formData.clientSecret,
-        clientAuthentication: isOneClick ? 'body' : clientAuthentication,
-        grantType: isOneClick ? GRANT_TYPES.AUTHORIZATION_CODE : grantType,
+        clientAuthentication,
+        grantType,
         refreshTokenUrl: resolvedRefreshTokenUrl,
         tokenUrl: resolvedTokenEndpoint?.url,
         scope: isOneClick ? oneClickScope : scope,
