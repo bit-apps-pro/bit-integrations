@@ -92,7 +92,7 @@ export default function GoogleDriveBrowser({
         return
       }
 
-      setItems(res.data?.items || res.data?.folders || [])
+      setItems(res.data?.items || [])
     },
     [location]
   )
@@ -261,7 +261,7 @@ export default function GoogleDriveBrowser({
             )}
             {!isLoading &&
               items.map(item =>
-                item.type === 'spreadsheet' ? (
+                item.type !== 'folder' ? (
                   <button
                     key={item.id}
                     type="button"

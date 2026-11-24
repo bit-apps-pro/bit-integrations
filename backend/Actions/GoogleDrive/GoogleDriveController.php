@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Actions\GoogleDrive;
 
 use BitApps\Integrations\Actions\GoogleDrive\RecordApiHelper as GoogleDriveRecordApiHelper;
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Core\Util\GoogleDriveHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
@@ -20,12 +21,6 @@ class GoogleDriveController
             '__object'     => ['tokenDetails', ['access_token', 'refresh_token', 'token_type', 'expires_in', 'generated_at']],
         ],
     ];
-
-    private const FILES_API = 'https://www.googleapis.com/drive/v3/files';
-
-    private const DRIVES_API = 'https://www.googleapis.com/drive/v3/drives';
-
-    private const FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder';
 
     private $integrationID;
 
@@ -60,76 +55,40 @@ class GoogleDriveController
 
     public static function browseFolders($queryParams)
     {
-        $tokenDetails = self::resolveRequestToken($queryParams);
-        $headers = ['Authorization' => 'Bearer ' . $tokenDetails->access_token];
-        $parentId = (string) ($queryParams->parentId ?? '');
-        $location = (string) ($queryParams->location ?? 'my-drive');
-
-        if ($parentId === '' && $location === 'shared-drives') {
-            $response = HttpHelper::get(
-                self::DRIVES_API . '?' . http_build_query(['pageSize' => 100, 'fields' => 'drives(id,name)']),
-                null,
-                $headers
-            );
-            $items = $response->drives ?? [];
-        } else {
-            $query = $parentId === '' && $location === 'shared-with-me'
-                ? 'sharedWithMe = true'
-                : "'" . self::sanitizeFolderId($parentId ?: 'root') . "' in parents";
-
-            $response = HttpHelper::get(
-                self::FILES_API . '?' . http_build_query([
-                    'q'                         => $query . " and mimeType = '" . self::FOLDER_MIME_TYPE . "' and trashed = false",
-                    'fields'                    => 'files(id,name)',
-                    'orderBy'                   => 'name',
-                    'pageSize'                  => 200,
-                    'corpora'                   => 'allDrives',
-                    'supportsAllDrives'         => 'true',
-                    'includeItemsFromAllDrives' => 'true',
-                ]),
-                null,
-                $headers
-            );
-            $items = (array) ($response->files ?? []);
-
-            if (!is_wp_error($response) && empty($response->error) && !empty($queryParams->includeAccessible) && $location === 'my-drive' && \in_array($parentId, ['', 'root'], true)) {
-                $items = self::withAccessibleFolders($items, $headers);
-            }
-        }
-
-        if (is_wp_error($response) || !empty($response->error)) {
-            wp_send_json_error(self::apiErrorMessage($response, __('Could not load folders', 'bit-integrations')), 400);
-        }
-
-        $folders = array_map(
-            fn ($folder) => ['id' => $folder->id, 'name' => $folder->name],
-            (array) $items
+        [$error, $folders] = GoogleDriveHelper::listItems(
+            self::requireClient($queryParams),
+            (string) ($queryParams->parentId ?? ''),
+            (string) ($queryParams->location ?? 'my-drive'),
+            [GoogleDriveHelper::FOLDER_MIME_TYPE],
+            empty($queryParams->includeAccessible) ? null : GoogleDriveHelper::FOLDER_MIME_TYPE
         );
 
-        wp_send_json_success(['folders' => $folders, 'tokenDetails' => $tokenDetails]);
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
+        }
+
+        wp_send_json_success(['items' => $folders]);
     }
 
     public static function createFolder($queryParams)
     {
-        $tokenDetails = self::resolveRequestToken($queryParams);
-        $parentId = self::sanitizeFolderId($queryParams->parentId ?? 'root');
         $name = sanitize_text_field((string) ($queryParams->name ?? ''));
 
         if ($name === '' || mb_strlen($name) > 255) {
             wp_send_json_error(__('Folder name is required', 'bit-integrations'), 400);
         }
 
-        $response = HttpHelper::post(
-            self::FILES_API . '?supportsAllDrives=true&fields=id,name',
-            wp_json_encode(['name' => $name, 'mimeType' => self::FOLDER_MIME_TYPE, 'parents' => [$parentId]]),
-            ['Authorization' => 'Bearer ' . $tokenDetails->access_token, 'Content-Type' => 'application/json']
+        [$error, $folder] = GoogleDriveHelper::createFolder(
+            self::requireClient($queryParams),
+            (string) ($queryParams->parentId ?? 'root'),
+            $name
         );
 
-        if (is_wp_error($response) || empty($response->id)) {
-            wp_send_json_error(self::apiErrorMessage($response, __('Could not create the folder', 'bit-integrations')), 400);
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
         }
 
-        wp_send_json_success(['folder' => ['id' => $response->id, 'name' => $response->name ?? $name]]);
+        wp_send_json_success(['folder' => $folder]);
     }
 
     public static function getGoogleDriveFoldersList($token)
@@ -283,31 +242,15 @@ class GoogleDriveController
         return $token;
     }
 
-    private static function withAccessibleFolders(array $folders, array $headers)
+    private static function requireClient($queryParams)
     {
-        $response = HttpHelper::get(
-            self::FILES_API . '?' . http_build_query([
-                'q'                         => "mimeType = '" . self::FOLDER_MIME_TYPE . "' and trashed = false",
-                'fields'                    => 'files(id,name)',
-                'orderBy'                   => 'name',
-                'pageSize'                  => 300,
-                'corpora'                   => 'allDrives',
-                'supportsAllDrives'         => 'true',
-                'includeItemsFromAllDrives' => 'true',
-            ]),
-            null,
-            $headers
-        );
+        $client = GoogleDriveHelper::client($queryParams->connection_id ?? 0, self::$authConfig['slug']);
 
-        $listedIds = array_column(array_map(fn ($folder) => (array) $folder, $folders), 'id');
-
-        foreach ((array) ($response->files ?? []) as $folder) {
-            if (!\in_array($folder->id, $listedIds, true)) {
-                $folders[] = $folder;
-            }
+        if ($client === null) {
+            wp_send_json_error(__('Select a Google Drive connection first', 'bit-integrations'), 400);
         }
 
-        return $folders;
+        return $client;
     }
 
     private static function resolveRequestToken($queryParams)
@@ -340,22 +283,6 @@ class GoogleDriveController
         }
 
         return $tokenDetails;
-    }
-
-    private static function sanitizeFolderId($folderId)
-    {
-        $folderId = (string) $folderId;
-
-        return preg_match('/^[A-Za-z0-9_-]{1,200}$/', $folderId) ? $folderId : 'root';
-    }
-
-    private static function apiErrorMessage($response, $fallback)
-    {
-        if (is_wp_error($response)) {
-            return $response->get_error_message();
-        }
-
-        return (string) ($response->error->message ?? $fallback);
     }
 
     private static function normalizeConnectionToken($token)

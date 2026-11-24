@@ -10,6 +10,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Core\Util\GoogleDriveHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
@@ -19,14 +20,6 @@ class GoogleSheetController
     private const DRIVE_PAGE_SIZE = 1000;
 
     private const MAX_PAGES = 20;
-
-    private const FILES_API = 'https://www.googleapis.com/drive/v3/files';
-
-    private const DRIVES_API = 'https://www.googleapis.com/drive/v3/drives';
-
-    private const FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder';
-
-    private const SPREADSHEET_MIME_TYPE = 'application/vnd.google-apps.spreadsheet';
 
     public static array $authConfig = [
         'authType' => AuthorizationType::OAUTH2,
@@ -140,99 +133,25 @@ class GoogleSheetController
 
     public static function browseDriveAjaxHelper($queryParams)
     {
-        $queryParams->tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $client = GoogleDriveHelper::client($queryParams->connection_id ?? 0, self::$authConfig['slug']);
 
-        if (empty($queryParams->tokenDetails->access_token)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        if ($client === null) {
+            wp_send_json_error(__('Select a Google Sheets connection first', 'bit-integrations'), 400);
         }
 
-        $accessToken = $queryParams->tokenDetails->access_token;
-
-        if (empty($queryParams->connection_id) && ((int) ($queryParams->tokenDetails->generates_on ?? 0) + (55 * 60)) < time()) {
-            $refreshed = self::refreshAccessToken($queryParams);
-            $accessToken = \is_object($refreshed) && !empty($refreshed->access_token) ? $refreshed->access_token : $accessToken;
-        }
-
-        $headers = ['Authorization' => 'Bearer ' . $accessToken];
-        $parentId = (string) ($queryParams->parentId ?? '');
-        $location = (string) ($queryParams->location ?? 'my-drive');
-
-        if ($parentId === '' && $location === 'shared-drives') {
-            $response = HttpHelper::get(
-                self::DRIVES_API . '?' . http_build_query(['pageSize' => 100, 'fields' => 'drives(id,name)']),
-                null,
-                $headers
-            );
-            $files = array_map(
-                fn ($drive) => (object) ['id' => $drive->id, 'name' => $drive->name, 'mimeType' => self::FOLDER_MIME_TYPE],
-                (array) ($response->drives ?? [])
-            );
-        } else {
-            $scope = $parentId === '' && $location === 'shared-with-me'
-                ? 'sharedWithMe = true'
-                : "'" . (preg_match('/^[A-Za-z0-9_-]{1,200}$/', $parentId) ? $parentId : 'root') . "' in parents";
-
-            $response = HttpHelper::get(
-                self::FILES_API . '?' . http_build_query([
-                    'q'                         => "{$scope} and (mimeType = '" . self::FOLDER_MIME_TYPE . "' or mimeType = '" . self::SPREADSHEET_MIME_TYPE . "') and trashed = false",
-                    'fields'                    => 'files(id,name,mimeType)',
-                    'orderBy'                   => 'folder,name',
-                    'pageSize'                  => 300,
-                    'corpora'                   => 'allDrives',
-                    'supportsAllDrives'         => 'true',
-                    'includeItemsFromAllDrives' => 'true',
-                ]),
-                null,
-                $headers
-            );
-            $files = (array) ($response->files ?? []);
-
-            if (!self::hasApiError($response) && !empty($queryParams->includeAccessible) && $location === 'my-drive' && \in_array($parentId, ['', 'root'], true)) {
-                $files = self::withAccessibleFiles($files, self::SPREADSHEET_MIME_TYPE, $headers);
-            }
-        }
-
-        if (self::hasApiError($response)) {
-            wp_send_json_error(self::apiErrorMessage($response), 400);
-        }
-
-        $items = array_map(
-            fn ($file) => [
-                'id'   => $file->id,
-                'name' => $file->name,
-                'type' => $file->mimeType === self::FOLDER_MIME_TYPE ? 'folder' : 'spreadsheet',
-            ],
-            $files
+        [$error, $items] = GoogleDriveHelper::listItems(
+            $client,
+            (string) ($queryParams->parentId ?? ''),
+            (string) ($queryParams->location ?? 'my-drive'),
+            [GoogleDriveHelper::FOLDER_MIME_TYPE, GoogleDriveHelper::SPREADSHEET_MIME_TYPE],
+            empty($queryParams->includeAccessible) ? null : GoogleDriveHelper::SPREADSHEET_MIME_TYPE
         );
+
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
+        }
 
         wp_send_json_success(['items' => $items]);
-    }
-
-    private static function withAccessibleFiles(array $files, $mimeType, array $headers)
-    {
-        $response = HttpHelper::get(
-            self::FILES_API . '?' . http_build_query([
-                'q'                         => "mimeType = '{$mimeType}' and trashed = false",
-                'fields'                    => 'files(id,name,mimeType)',
-                'orderBy'                   => 'name',
-                'pageSize'                  => 300,
-                'corpora'                   => 'allDrives',
-                'supportsAllDrives'         => 'true',
-                'includeItemsFromAllDrives' => 'true',
-            ]),
-            null,
-            $headers
-        );
-
-        $listedIds = array_column(array_map(fn ($file) => (array) $file, $files), 'id');
-
-        foreach ((array) ($response->files ?? []) as $file) {
-            if (!\in_array($file->id, $listedIds, true)) {
-                $files[] = $file;
-            }
-        }
-
-        return $files;
     }
 
     public static function refreshWorksheetsAjaxHelper($queryParams)
