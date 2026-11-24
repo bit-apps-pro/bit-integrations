@@ -15,7 +15,6 @@ export default function GoogleDriveFolderSelect({ value, onChange, googleDriveCo
       label={folderLabel(value, googleDriveConf?.foldersList)}
       placeholder={__('Select Folder', 'bit-integrations')}
       isOneClick={Boolean(googleDriveConf?.one_click_app)}
-      savedItems={(googleDriveConf?.foldersList || []).filter(({ id }) => id !== 'root')}
       browse={(parentId, location) => browseDriveFolders(googleDriveConf, parentId, location)}
       createFolder={(parentId, name) => createDriveFolder(googleDriveConf, parentId, name)}
       findInDrive={onOpen => findFolderInDrive(googleDriveConf, onOpen)}

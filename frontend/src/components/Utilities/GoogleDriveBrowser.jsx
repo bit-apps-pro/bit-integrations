@@ -52,7 +52,6 @@ export default function GoogleDriveBrowser({
   label,
   placeholder,
   isOneClick,
-  savedItems = [],
   browse,
   createFolder,
   findInDrive,
@@ -195,9 +194,6 @@ export default function GoogleDriveBrowser({
     return __('Nothing here yet. Use "Find in Google Drive" to pick one.', 'bit-integrations')
   }
 
-  const showSaved = isOneClick && location === 'my-drive' && trail.length === 1 && savedItems.length > 0
-  const ItemIcon = isFolderMode ? FolderIcon : SheetIcon
-
   return (
     <div className="btcd-folder-select" ref={wrapRef}>
       <button
@@ -282,22 +278,6 @@ export default function GoogleDriveBrowser({
                   </button>
                 )
               )}
-
-            {!isLoading && showSaved && (
-              <>
-                <p className="btcd-folder-group">{__('Chosen before', 'bit-integrations')}</p>
-                {savedItems.map(item => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className="btcd-folder-row"
-                    onClick={() => select(item)}>
-                    <ItemIcon />
-                    <span className="btcd-folder-row-name">{item.name}</span>
-                  </button>
-                ))}
-              </>
-            )}
           </div>
 
           {isFolderMode && newFolderName !== null && (
